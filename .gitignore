@@ -1,0 +1,97 @@
+# Node artifacts
+node_modules/
+.npm/
+
+# Private planning context — not for the public repo
+_planning/
+_evals/
+
+# Per-corpus tiers
+# corpus.commons/ is tracked (open / open-nc, shareable).
+# corpus.local/ is the operator's private corpus space; everything inside is
+# ignored. Move a corpus from corpus.local/ to corpus.commons/ to share it.
+corpus.local/
+
+# Operator outputs (briefs, reports, conversations, working drafts).
+# Same private-by-default discipline as corpus.local/.
+projects.local/
+
+# Ingest staging across every commons corpus: anything dropped here is the
+# operator's transient material until the ingesting-resources skill promotes
+# it to original/. The .gitkeep tracks the directory itself so the layout
+# survives a clone.
+corpus.commons/*/sources/ingest/*
+!corpus.commons/*/sources/ingest/.gitkeep
+
+# Packaged tarballs produced by `npm run package`. Regenerable from the
+# compiled app folder; the README.md inside distros/ travels with the
+# repo but the tarballs do not (large, version-stamped, ephemeral).
+corpus.commons/*/distros/*.tar.gz
+corpus.commons/*/distros/*.zip
+
+# Defensive: any binary source (PDF, EPUB) inside a commons corpus's
+# original/ folder is gitignored by default. Operators who have explicit
+# rights to redistribute a binary can `git add -f` it. The sidecar
+# {slug}.source.md stays tracked either way and is the canonical pointer.
+corpus.commons/*/sources/original/*.pdf
+corpus.commons/*/sources/original/*.epub
+corpus.commons/*/sources/original/*.mobi
+corpus.commons/*/sources/original/*.azw3
+
+# Extracted source images: too large for the repo, regenerable via
+# scripts/extract-images.py. IMAGE-INDEX.yaml IS tracked; the image
+# directories alongside each converted markdown are not.
+corpus.commons/*/sources/converted/*-images/
+
+# Extraction manifest is a per-run working artefact (regenerable)
+corpus.commons/*/sources/converted/extraction-manifest.json
+
+# Python artifacts (extract-images.py)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+.eggs/
+*.egg-info/
+.pytest_cache/
+
+# Claude Code: artefacts that ship with the repo are whitelisted explicitly;
+# everything else under .claude/ is per-machine local state and ignored.
+.claude/*
+!.claude/skills/
+!.claude/agents/
+!.claude/hooks/
+!.claude/settings.json
+
+# Chroma persisted collections: the v0.2 semantic-search backend. Chroma is
+# corpus-bound data — the DB lives at `{corpus_root}/chroma/` and is
+# regenerated on clone via `python3 scripts/setup-chroma.py --corpus
+# {corpus_root}`. Vectors are model + library-version bound; the recipe
+# travels, the index does not. ONNX model weights cache per-machine.
+chroma/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Environment / credentials
+*.env
+.env.*
+credentials.json
+
+# Temp / log
+*.tmp
+*.log
+*.bak
+~$*

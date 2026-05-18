@@ -1,0 +1,575 @@
+
+# OpenStax, Principles of Marketing (deep reference)
+
+**Source:** OpenStax (2023). *Principles of Marketing*. Houston, TX: Rice University. Senior contributing authors: Dr. Maria Gomez Albrecht (University of Texas at Dallas; lead); Dr. Mark Green (Simpson College); Linda Hoffman (Ivy Tech Community College); Jacqueline Babb (Northwestern University); Lauren M. Donovan (Delaware County Community College); Debra Ellerbrook (Concordia University Wisconsin); Lisa S. Goolsby (Southern New Hampshire University); Jaciel Keltgen (Minnesota State University); Sarah M. Shepler (Ivy Tech Community College); Deborah Toomey (Northwest Missouri State University). ISBN 978-1-711471-51-8 (color paperback); 978-1-711471-52-5 (B&W paperback); 978-1-951693-88-6 (digital). Original publication year 2023; ©2026 Rice University. Licence: **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**. URL: https://openstax.org/details/books/principles-marketing.
+**Scope:** open-nc
+**Structure:** Preface; 19 chapters across three units. Unit 1 (Setting the Stage): Ch 1 Marketing and Customer Value, Ch 2 Strategic Planning in Marketing. Unit 2 (Understanding the Marketplace): Ch 3 Consumer Markets and Purchasing Behavior, Ch 4 Business Markets and Purchasing Behavior, Ch 5 Market Segmentation, Targeting, and Positioning, Ch 6 Marketing Research and Market Intelligence, Ch 7 Marketing in a Global Environment, Ch 8 Marketing in a Diverse Marketplace. Unit 3 (Product, Promotion, Price, and Place): Ch 9 Products: Consumer Offerings, Ch 10 Maintaining a Competitive Edge with New Offerings, Ch 11 Services: The Intangible Product, Ch 12 Pricing Products and Services, Ch 13 Integrated Marketing Communications, Ch 14 The Promotion Mix: Advertising and Public Relations, Ch 15 The Promotion Mix: Personal Selling and Sales Promotion, Ch 16 Direct, Online, Social Media, and Mobile Marketing, Ch 17 Distribution: Delivering Customer Value, Ch 18 Retailing and Wholesaling, Ch 19 Sustainable Marketing: The New Paradigm. Plus Answer Key and Index.
+**Citation style:** `(Ch N, "Section name")`. The PDF was converted with pymupdf4llm 0.2.9, which does not preserve page anchors; numbered section names from the converted markdown are used in their place.
+**Coverage:** substantive content (chapter introductions, "In the Spotlight" openers, all numbered substantive sections with Learning Outcomes blocks). Excluded sections per chapter: Chapter Outline, Chapter Summary, Key Terms, Applied Marketing Knowledge: Discussion Questions, Critical Thinking Exercises, Building Your Personal Brand, What Do Marketers Do?, Marketing Plan Exercise, Closing Company Case, References. Excluded back-matter: Preface, Answer Key, Index.
+
+## Author's thesis (paraphrased from source)
+
+Marketing is an applied management discipline whose object is the creation, communication, delivery, and exchange of offerings that have value for customers, partners, and society at large. The text adopts the American Marketing Association definition early and pivots to a working definition: marketing is "every process involved in moving a product or service from the organization to the consumer" — discerning customer needs, developing offerings to meet them, identifying likely buyers, promoting, distributing [V] (Ch 1.1, "Marketing Defined"). The book's organising premise is the **marketing mix** — the 4Ps of *product, price, place, and promotion* — coupled with the explicit elevation of *value* as both the customer's evaluation criterion and the company's strategic outcome [AP] (Ch 1.2, "Marketing Mix Defined").
+
+A second load-bearing claim is that customer-driven (rather than product-driven) strategy is the contemporary norm: companies start with prospective consumers' needs and wants and then build offerings to satisfy them [AP] (Ch 1.1, "Step 2: Develop a Customer-Driven Marketing Strategy"). The text traces this as the historical endpoint of an evolution — production concept (post–Civil War to 1920s), product concept (1920s–1950s), sales concept (post-1950s), marketing concept, and societal marketing concept — with the societal concept extending the marketing concept to include long-term societal welfare [AP] (Ch 1.4, "The Evolution of Marketing").
+
+A third load-bearing claim is that **segmentation, targeting, and positioning (STP)** is the spine of customer-driven strategy: "you can't be all things to all people," so marketers segment broad markets into subgroups, select targets where their resources can produce profitable response, and position offerings in customers' minds against competitors [V] (Ch 5.1, "Market Segmentation Defined"; Ch 5.6, "Product Positioning Defined"). Positioning, drawing on Ries and Trout, is "not to create something new and different, but to manipulate what's already up there in the mind" [V] (Ch 5.6, "Product Positioning Defined").
+
+A fourth load-bearing claim is that **integrated marketing communications (IMC)** beats fragmented promotion: marketers should combine advertising, sales promotion, personal selling, public relations, direct marketing, and digital/Internet marketing into a unified, consistent message across channels because the consumer "is bombarded with marketing messages throughout the day" — an estimated 5,000 ads per day per digitally connected person — and a single channel rarely cuts through [V] (Ch 13.1, "What Is the Promotion Mix?"; Ch 13.3, "Integrated Marketing Communications").
+
+A fifth load-bearing claim, presented as the "new paradigm" in the closing supplemental chapter, is that **sustainable marketing** is now a business imperative rather than a CSR add-on: "an organization should meet the needs of its present consumers without compromising the ability of future generations to fulfill their own needs" [V] (Ch 19.1, "Environmental Sustainability", attributed to Philip Kotler). The text frames sustainability through three pillars — environmental, social, economic (governance) — paralleling the ESG (environmental, social, governance) reporting framework (Ch 19.1, "Environmental Sustainability"; Ch 19.2, "Differences between Traditional and Sustainable Marketing").
+
+The book is pedagogically organised: every chapter opens with an "In the Spotlight" company case, names learning outcomes per section, dedicates an explicit ethics section per chapter, and includes a "Marketing Plan Exercise" cumulative project across chapters.
+
+## Part I: Marketing fundamentals — value, the marketing mix, and the marketing environment (Ch 1)
+
+### What marketing is and the five-step marketing process
+
+The text presents marketing as both a set of activities (promotion, distribution, exchange) and a process. The **marketing process** is "the series of steps that assist businesses in planning, analyzing, implementing, and adjusting their marketing strategy" [V] (Ch 1.1, "The Marketing Process Defined"). The book uses a five-step version: (1) understand the marketplace and customers; (2) develop a customer-driven marketing strategy; (3) deliver high customer value; (4) grow profitable customer relations; (5) capture customer value in the form of profits [AP] (Ch 1.1, "Steps in the Marketing Process").
+
+**Customer value** is defined as "the ratio between the perceived benefits and costs incurred by the customer in acquiring your products or services" [V] (Ch 1.1, "Step 3: Deliver High Customer Value"). Value is decomposed into four types: functional, monetary, social, and psychological [AP] (Ch 1.1, "Step 3: Deliver High Customer Value"). **Customer equity** — the cumulative profit a company earns from current and potential customers — is presented as the bellwether of financial success and the consequence of customer loyalty [AP] (Ch 1.1, "Step 5: Capture Customer Value").
+
+### The 4Ps of marketing
+
+The **marketing mix** is "commonly referred to as the tactics a company can use to promote its products or services in the market in order to influence consumers to buy" [V] (Ch 1.2, "Marketing Mix Defined"). Its four elements:
+
+- **Product** — the good or service the company provides.
+- **Price** — what the consumer pays in exchange.
+- **Place** — where the product is purchased.
+- **Promotion** — advertising, sales, and other communications used to attract the customer (Ch 1.2, "The 4Ps of Marketing").
+
+The text also introduces an internal counterpart, the **5Ms of marketing** (sometimes called the 5M framework): minds (staffing), minutes (time), machinery (equipment), materials (production), money (finance) — internal organisational assets that must be addressed for any marketing strategy to succeed [AP] (Ch 1.3, "Components of the Internal Environment").
+
+### The marketing environment: micro, macro, and PESTLE
+
+The **marketing environment** comprises both internal and external factors that influence an organisation's marketing decisions [AP] (Ch 1.3, "The Marketing Environment Defined"). The internal environment is structured by the 5Ms and organisational culture. The external environment splits into the **microenvironment** — five factors the firm interacts with directly: suppliers, market intermediaries, customers, competitors, the general public — and the **macroenvironment**, captured by the PESTLE acronym: Political, Economic, Social, Technological, Legal, Environmental factors [AP] (Ch 1.3, "Components of the External Environment"; "Components of the Macroenvironment").
+
+### Customer needs, the value proposition, and the exchange process
+
+The text identifies five types of customer needs: stated, real, unstated, delight, and secret [AP] (Ch 1.5, "Identifying Consumer Needs and Wants"). A **value proposition** is "a promise of value that communicates the benefits of your company's products or services" [V] (Ch 1.1, "Step 2") — concretely, a brief statement compressing what the customer wants and how the offering meets it better than competitors. The **exchange process** is "the act of obtaining a desired product or service from an individual or business by providing in return something of value" [V] (Ch 1.5, "The Exchange Process"). The book carefully distinguishes **customer** (who purchases) from **consumer** (who uses) — the grandmother buying a toy is the customer; the grandson is the consumer (Ch 1.5, "The Exchange Process").
+
+### Customer relationship management and ethical marketing
+
+**Customer relationship management (CRM)** is "the means through which companies track, manage, and analyze customer interactions" [V] (Ch 1.6, "The Impact of CRM"). CRM systems are categorised as operational, analytical, or collaborative (Ch 1.6, "The Impact of CRM"). Loyalty programs are an industry-tested driver: "approximately 84 percent of customers indicate that loyalty programs are an incentive to remain with a brand, and 66 percent report that their spending behavior is actually altered by the ability to earn rewards" [V] (Ch 1.6, "Managing Customer Loyalty Programs").
+
+The text closes with **ethical marketing** as "a philosophy that tries to promote fairness, honesty, and a sense of responsibility" [AP] (Ch 1.7, "Ethical Marketing Defined"). Mintel research is cited: 56 per cent of US consumers stop buying from companies they believe are unethical [V] (Ch 1.7, "The Importance of Ethical Marketing").
+
+## Part II: Strategic planning, the marketing plan, and KPIs (Ch 2)
+
+### The strategic planning process and SMART goals
+
+**Strategy** is "the plans, actions, objectives, and goals that outline how the business is going to compete in its chosen markets given its portfolio of products or services" [V] (Ch 2.1, "Strategic Planning Defined"). The text distinguishes corporate-level strategy (entire business in multi-unit firms; **strategic business units (SBUs)**), business-level strategy (single operating unit), and functional strategy (HR, marketing, production) (Ch 2.1, "Strategic Planning Defined").
+
+The five-step strategic planning process: vision statement, mission statement, gap analysis, objectives and goals, monitor progress (Ch 2.1, "Steps in the Strategic Planning Process"). **Vision statements** are forward-looking, inspirational, and aspirational; **mission statements** state why the business exists, in one to three sentences, and are either customer-oriented or product-oriented (Ch 2.1, "Step One: The Vision Statement"; "Step Two: The Mission Statement"). A **gap analysis** answers three questions: where are we now, where would we like to be, what's stopping us from getting there [AP] (Ch 2.1, "Step Three: Perform a Gap Analysis").
+
+**Goals** are broad statements of desired outcomes (3–5 year horizon); **objectives** are specific action items (1 year or less). Both must be **SMART**: specific, measurable, attainable, realistic/relevant, time-bound [AP] (Ch 2.1, "Step Four: Establish Objectives and Goals"). A **marketing dashboard** summarises key metrics into easy-to-read indicators for ongoing monitoring (Ch 2.1, "Monitor Progress").
+
+### Portfolio analysis: BCG matrix and SWOT
+
+The **BCG matrix** plots SBUs by market share (high/low) and market growth rate (high/low) into four cells: stars (high share, high growth), cash cows (high share, low growth), question marks (low share, high growth, "problem children"), and dogs (low share, low growth) [AP] (Ch 2.2, "Boston Consulting Group (BCG) Matrix"). The Apple worked example places iPhone as star, iPad and MacBook as cash cows, iWatch as question mark, iPod as dog (Ch 2.2, sample matrix).
+
+A **SWOT analysis** maps strengths, weaknesses (internal, controllable), opportunities, threats (external, uncontrollable) onto a four-quadrant grid (Ch 2.2, "SWOT Analysis"). The book recommends ranking factors by competitive importance (strengths/weaknesses) and by likelihood and magnitude (opportunities/threats) (Ch 2.2, "SWOT Analysis").
+
+### Growth strategies
+
+Four generic growth strategies: market penetration (existing products, existing markets), product development (new/improved products, existing markets), market development (existing products, new markets), product diversification (new products, new markets) [AP] (Ch 2.2, "Strategy"). Diversification splits into concentric (similar products to existing line), horizontal (new but unrelated products to existing customers), and conglomerate (significantly unrelated new products) (Ch 2.2, "Product Diversification").
+
+### The 12-element marketing plan and KPIs
+
+The text adopts a 12-element marketing plan: executive summary, mission statement, SWOT analysis, objectives and issues, market segmentation and target market, buyer personas, positioning, current marketing situation, marketing strategy, action programs, budgeting, controls (Ch 2.3, "Structure of a Marketing Plan").
+
+**Marketing metrics** are quantifiable values; **key performance indicators (KPIs)** are metrics tied directly to business objectives with targets and time frames [AP] (Ch 2.4, "Marketing Metrics Explained"). The text catalogues KPIs in four categories: business objective (total sales/revenue, new vs incremental sales, profitability via gross margin); sales/revenue generation (Average Revenue per Customer, new customer acquisition with CAC, customer retention rates); market share (category share, relative market share); customer support (CSAT, customer resolution rate, customer resolution time, customer lifetime value) (Ch 2.4, "Examples of Business Objective KPIs" through "Examples of Customer Support KPIs"). The **CLV** worked example (Table 2.1) computes lifetime value across four customer segments — millennial parents ($119,250), millennial singles ($215,250), working moms ($174,800), Gen Z emerging professionals ($66,400) — showing that CLV depends on annual profit per customer, average years retained, and CAC [AP] (Ch 2.4, CLV exercise).
+
+### Ethics in strategic planning
+
+CSR is framed as an obligation to integrate social and environmental concerns into operations; it took hold in the United States only in the 1970s, fuelled in part by President George H. W. Bush's "thousand points of light" call [BT] (Ch 2.5, "Millennials and Generation Z"). Cited Nielsen survey: "66 percent of global consumers are willing to pay more for sustainable products" and "73 percent (nearly three out of four) of millennials indicated that they would be willing to pay extra for sustainable goods" [V] (Ch 2.5, "Millennials and Generation Z"). The Toyota unintended-acceleration case anchors the cost of cover-up: a $1.2 billion fine, "the largest criminal penalty imposed on a car company in US history" [V] (Ch 2.5, "Key Ethical Considerations"). The text introduces the **triple bottom line** — the three Ps of sustainability: people, planet, profits (Ch 2.5, "Brand Enhancement").
+
+## Part III: Consumer buying behaviour (Ch 3)
+
+### The buyer's black box and four buying behaviours
+
+**Consumer buying behavior** is "the decisions and actions people undertake to buy products or services for personal use" [V] (Ch 3.1, "Consumer Markets Defined"). The **buyer's black box** (stimulus-response model) takes marketing stimuli (4Ps) and environmental stimuli (economic, legal/political, technological, cultural) into the consumer's mind — beliefs, attitudes, motives, perceptions, values — plus the buying decision process, and outputs choices about what, where, when, how often, how much (Ch 3.1, "The Buyer's Black Box").
+
+Four buying behaviours, partitioned by involvement and brand differentiation:
+- **Complex buying behavior**: high involvement, significant brand differences (e.g., new car).
+- **Dissonance-reducing**: high involvement, little perceived difference; post-purchase dissonance ("buyer's remorse") common (e.g., flooring).
+- **Habitual**: low involvement, little brand differentiation (e.g., milk).
+- **Variety-seeking**: low involvement, significant brand differences; brand switching for variety's sake (e.g., tortilla chips) (Ch 3.1, "Types of Consumer Buying Behavior").
+
+### Five families of influences
+
+The text categorises influences on consumer buying behaviour into five families:
+
+1. **Cultural factors** — culture, subculture, social class, gender (Ch 3.2, "Cultural Factors").
+2. **Social factors** — family (orientation and procreation), reference groups with opinion leaders (now also social media influencers), roles and status (Ch 3.2, "Social Factors").
+3. **Personal factors** — age and life cycle stage (with generational cohorts), economic situation, occupation, lifestyle, personality and self-concept. Generational breakdown: baby boomers 1946–1964; Gen X 1965–1979/80; millennials 1981–1994/96; Gen Z 1997–2012 (Ch 3.2, "Personal Factors").
+4. **Psychological factors** — motivation (anchored by **Maslow's hierarchy of needs**: physiological, safety/security, belonging, esteem, self-actualisation), perception (and three perceptual processes: selective attention, selective distortion, selective retention), beliefs, attitudes (cognitive/affective/intentional components), learning (the Law of Effect: pleasant consequences increase repetition, unpleasant decrease) [BT] (Ch 3.2, "Psychological Factors").
+5. **Situational factors** — environmental (lighting, music, smell), spatial, social situation of shopping, goal of the trip, timing, mood (Ch 3.2, "Situational Factors").
+
+The text reports the LED-vs-fluorescent grocery study: shoppers bought 25 per cent more on the LED-lit side over a 21-week trial [V] (Ch 3.2, "Situational Factors"). It also reports the often-cited estimate that "the average person encounters between 6,000 and 10,000 ads every single day" [V] (Ch 3.2, "Psychological Factors").
+
+### Five-stage decision process and ethical consumerism
+
+The **consumer decision process** has five stages: need recognition, information search (heightened attention or active search; internal/external/experiential), evaluation of alternatives (evaluating the "bundle of product attributes"), purchase decision (often using **heuristics** — mental shortcuts like price = quality, brand loyalty, country of origin), post-purchase evaluation (**cognitive dissonance** when uncertainty arises; satisfaction = function of expectations vs perceived performance) (Ch 3.3, "Consumer Decision Process").
+
+Ethical consumerism statistics cited: 90 per cent of US respondents would boycott a brand engaged in irresponsible business practices; 56 per cent would no longer do business with companies they perceive unethical; 72 per cent purchase from companies whose beliefs align with theirs on environment and child labour [V] (Ch 3.4, "Are You an Ethical Consumer?").
+
+## Part IV: Business markets and B2B buying behaviour (Ch 4)
+
+### B2B vs B2C and types of B2B buyers
+
+**B2B markets** differ from B2C on six dimensions, captured in Table 4.1: nature of the buying decision (organisational vs household); fewer buyers, higher volume; **derived demand** (B2B demand follows from B2C demand) vs **direct demand**; longer, more complex buying cycles; greater reliance on personal selling; geographical concentration (Ch 4.1, "Characteristics of the B2B Market"). Four types of B2B buyers: **producers** (transform inputs into other products), **resellers** (retailers, wholesalers, brokers — sell without material change), **government markets** (the largest single business and organisational market in the United States; require System for Award Management registration plus engagement with the General Services Administration and individual agencies), **institutions** (nonprofits, charities, churches, hospitals, universities) (Ch 4.2, "Types of Buyers").
+
+### Buy classes and the buying centre
+
+Four **buy classes**, distinguished by newness, alternatives, uncertainty, and information requirements: **straight rebuys** (routine, standard, familiar supplier), **modified rebuys** (similar product but with one or more significant differences), **new-task buys** (first-time purchase; most complex), **systems selling/solution sale** (complete solution rather than separate components) [AP] (Ch 4.2, "Major Types of Buying Situations").
+
+The **buying centre** (decision-making unit) has up to seven roles: initiator, influencer (business and technical sub-types), gatekeeper, buyer (with authority to select suppliers and arrange terms), decider (final selection authority), user. Roles can overlap (Ch 4.2, "Participants in the B2B Purchase Process"). German research: 86 per cent of procurement decisions at large/medium companies involve groups of 2–20 people; companies under 100 employees average 3 people, those over 1,000 employees up to 34 people [V] (Ch 4.2, citing Gallup/Nink and Fleming).
+
+### Influences on B2B behaviour and the eight-stage process
+
+Five families of B2B influences: external (economic conditions, political/legal, competition, social environment); internal/organisational (business objectives and goals, technology, workforce skills); individual (age, education, job position, personality); interpersonal (expertise, organisational politics and culture); conditional (financial condition, product availability) (Ch 4.3, "Major Influences on B2B Buyer Behavior").
+
+Eight stages in the B2B buying process: problem recognition, need description (developing the **bill of materials** — the recipe of parts), product specification (a blueprint), supplier search, proposal solicitation, supplier selection, order-routine specification (negotiating quantity, delivery, returns, warranties), performance review (Ch 4.4, "The B2B Buying Process").
+
+### B2B ethics: bribes, FCPA, price fixing
+
+The Transparency International Corruption Perceptions Index ranks 180 countries 0 (highly corrupt) to 100 (very clean); Denmark, Finland, New Zealand tied for first in 2021; the United States ranked 25th [V] (Ch 4.5, "Bribes and Grease Payments"). The **Foreign Corrupt Practices Act (FCPA)** (1977) prohibits bribes to foreign officials to obtain or retain business; enforcement is shared by SEC and Department of Justice (Ch 4.5, "The Foreign Corrupt Practices Act"). The 2019 StarKist canned-tuna price-fixing case is cited: $100 million fine [V] (Ch 4.5, "Price Fixing").
+
+## Part V: Segmentation, targeting, and positioning (Ch 5)
+
+### Four bases for consumer segmentation
+
+The text uses four primary bases:
+- **Geographic** — location, cultural preferences, climate, language, population type/density (Ch 5.1, "Geographic Segmentation").
+- **Demographic** — gender, income, age (with three sub-types: age range, life cycle stage, generation), education, race/ethnicity/religion, occupation, family structure (Ch 5.1, "Demographic Segmentation").
+- **Behavioural** — benefit segmentation, occasion, usage rate (with the **Pareto principle**: 80 per cent of revenue from top 20 per cent of customers) (Ch 5.1, "Behavioral Segmentation").
+- **Psychographic** — lifestyle (using the AIO model: activities, interests, opinions); personality variables; values; the **VALS framework** (innovators, thinkers, believers, achievers, strivers, experiencers, makers, survivors) (Ch 5.1, "Psychographic Segmentation").
+
+**Multi-segment marketing** uses combinations (Ch 5.1, "Using Multiple Segmentation Bases").
+
+### B2B segmentation
+
+B2B segmentation is more complex than B2C because the buying centre is multi-personed and B2B buyers are more "rational" (deliberate, particularly on price), and B2B products are often integrated into larger systems and customised [AP] (Ch 5.2, "Challenges of Segmenting B2B Markets"). Five B2B segmentation methods: **firmographics** (industry, location, size, legal structure, performance — the B2B parallel to demographics); **technographics** (hardware/software stack); **needs-based** (Ted Levitt: "People don't want to buy a quarter-inch drill; they want a quarter-inch hole" [V]); **value-based/tiering** (potential transactional worth); **behavioural** (interaction with company's website, content, marketing emails) (Ch 5.2, "Methods of Segmenting B2B Markets").
+
+### International segmentation and Hofstede's dimensions
+
+Four primary methods for international segmentation: geographic, political/legal, economic (developed/developing/underdeveloped), cultural (Ch 5.3, "Methods of Segmenting International Markets"). Hofstede's cultural dimensions are presented as four (treated for marketing purposes; the source notes the original five and later additions): Power Distance Index (US PDI ≈ 40 vs world average ≈ 55 — moderately low); Individualism vs Collectivism (US individualism = 91; Latin American countries like Ecuador and Guatemala in single digits); Uncertainty Avoidance (US ≈ 46 moderate vs Italy 75, Poland 93); Masculinity/Femininity (Japan high masculinity; United States and Canada low) [V] (Ch 5.3, "Segmentation Based on Cultural Factors", citing Hofstede).
+
+### ADAMS, target market strategies, and positioning
+
+The five essential factors for effective segmentation form the acronym **ADAMS**: Accessible, Differentiable, Actionable, Measurable, Substantial (Ch 5.4, "Essential Factors").
+
+Four generic target marketing strategies: **undifferentiated/mass marketing** (one mix for whole market — Coca-Cola, M&M's); **differentiated/segmented** (multiple targeted brands — Nike's women, young athletes, runners); **concentrated/niche** (single segment — LUSH eco-friendly cosmetics); **micromarketing** (drills further into individual customisation — Stitch Fix uses 85 data points per customer) (Ch 5.5, "Target Market Strategies").
+
+A **buyer persona** is a semi-fictional representation of an ideal customer: name, age, interests, media usage, finances, brand affinities. Best Buy used Buzz, Barry, Ray, and Jill as named personas (Ch 5.5, "Target Markets Defined"). LinkedIn cited: 3–8 buyer personas adequate for most cases [V] (Ch 5.5).
+
+**Product positioning** is "the process of deciding and communicating how an organization wants its market to think and feel about a product or service" [V] (Ch 5.6, "Product Positioning Defined"). The **STP model** integrates segmentation, targeting, positioning. Two main approaches: **head-to-head positioning** (Avis vs Hertz: "When you're only No. 2, you try harder. Or else." [V] — turned $3.2 million annual loss into $1.2 million profit, first profitable year in over a decade) (Ch 5.6, "Head-to-Head Positioning"); **differentiation positioning** (Curves women's-only fitness rejected the typical health-club layout — created new demand instead of competing head-to-head) (Ch 5.6, "Differentiation Positioning"). A **positioning statement** answers "What experience do you want your customers to have with this product or service?" with template variants supplied (Ch 5.6, "Positioning Statements"). A **perceptual map** plots the brand and competitors on two **determinant attributes** to reveal positioning, identify gaps, and surface mismatch between intended and actual perception (Ch 5.6, "Perceptual Positioning Maps").
+
+### Ethics in target marketing
+
+Concerns: ethnic and racial profiling (Facebook ads sued by HUD for permitting ad targeting/exclusion by race, gender, religion); marketing to children (per APA, children under 7–8 cannot discern persuasive intent; CCFC findings on gender stereotyping; childhood obesity tripled since 1970s; Juul colourful packaging and flavours targeted adolescents); marketing to the elderly (prescription drug claims, "cure-all" COVID products); low-income targeting (high-APR cards, MLM schemes) (Ch 5.7, "Ethical Implications of Target Market Selection").
+
+## Part VI: Marketing research and big data (Ch 6)
+
+### Big data, the MIS, and information sources
+
+**Marketing research** "is the function that links the consumer, customer, and public to the marketer through information" [V] (Ch 6.1, "Marketing Research Defined", citing AMA). **Big data** is described by the three Vs — volume, velocity, variety — produced by point-of-sale systems, IoT devices, third-party research firms, social media, mobile location data, and surveys (Ch 6.1, "Big Data and the Marketing Information System (MIS)"). Cited NewVantage Partners 2021 survey: 96 per cent of Fortune-1000 executives reported success with big-data and AI programs, 99 per cent are pursuing new or existing big-data programs; estimated 2.5 quintillion bytes of data created daily worldwide [V] (Ch 6.1).
+
+A **marketing information system (MIS)** collects, analyses, and reports findings from internal and external data (Ch 6.1, "Big Data and the MIS"). Information sources split into **internal data** (sales, promotions, prices, R&D, logistics — historic view), **external data** (customer surveys, competitor sites, news, social media — costly only in time), and **competitive intelligence** (information about competitors from the marketplace — relevant to all 4Ps) (Ch 6.2, "Describe the Different Categories of Marketing Information").
+
+### Seven-step research plan
+
+Seven steps: define the problem (with research question/objectives and **target population**); develop the research plan (primary vs secondary; **syndicated data** as a sub-type of external secondary; qualitative vs quantitative; four research types — exploratory, descriptive, experimental/causal with A/B testing, ethnographic); select data collection method (**observational** — personal, **unobtrusive observation**, **mechanical**; one-on-one interview; focus group of 8–12; **survey/questionnaire** by mail, phone, in-person, electronic — with strengths/weaknesses table); design the sample (census vs sample; sample frame and sampling unit; sample size; **probability** — simple random, stratified random; **nonprobability** — convenience, judgement); collect the data; analyse and interpret (mean, median, mode, frequency, cross tabulation, **verbatims** for qualitative); prepare the research report (Ch 6.3, "Steps in a Successful Marketing Research Plan").
+
+### Methods of quantifying research
+
+Four classes: awareness (**unaided** vs **aided**); customer satisfaction score (CSAT, 0–100 per cent — 75–85 considered good, above 85 exceptional); customer acquisition cost (CAC); customer effort score (CES — ease of service experience) (Ch 6.3, "Methods of Quantifying Marketing Research"). The Telephone Consumer Protection Act (1991) prohibits phone calls before 8 a.m. or after 9 p.m. recipient time [V] (Ch 6.3).
+
+### Ethics: deception, privacy, confidentiality
+
+**Sugging** is selling disguised as research; the Insights Association Code of Marketing Research Standards prohibits it (Ch 6.4, "The Use of Deceptive Practices"). **Confidential data** (researcher knows identity, doesn't share) vs **anonymous data** (no identifying info collected). DuckDuckGo is presented as an exception in the search industry: no user data tracking or selling (Ch 6.4, "Breaches of Confidentiality").
+
+## Part VII: Global marketing (Ch 7)
+
+### Why and why not to enter global markets
+
+Advantages: increased revenues, decreased competition (in some markets), faster growth, diversification of risk, disposal of surplus goods (e.g., losing-team Super Bowl apparel donated rather than landfilled). Challenges: understanding the business landscape; understanding target country business politics; differences in regulations and marketing (United States and New Zealand the only two countries where direct-to-consumer prescription drug ads are allowed [V]); cultural differences (Nivea "White Is Purity"; Gucci balaclava sweater similar to blackface) (Ch 7.1).
+
+### Assessment: HBR's seven characteristics
+
+Harvard Business Review's seven characteristics of firms that win globally (Quackenbos): attitude (priority), aptitude (knowledge/skills), magnitude (scope-capability fit), latitude (ability to adapt), rectitude (legal/ethical flexibility), exactitude (alignment with flexibility/ambiguity), fortitude (long-term commitment) [BT] (Ch 7.2, Table 7.1). Three income types: **consumer income**, **disposable income** (after tax), **discretionary income** (after necessities) — luxury marketers care about discretionary; consumer-packaged-goods marketers care about disposable (Ch 7.2, "Consumer Income and Purchasing Power"). **Shrinkflation** is presented as a way for companies to avoid raising prices during inflation — Charmin ultra-soft toilet paper went from 264 to 244 sheets per roll without a price increase [V] (Ch 7.2).
+
+Trade regulation tools: **tariffs** (Japan ≈ 2.5 per cent on non-agricultural products, among the lowest); **quotas**; **embargoes** (US embargoes on Cuba, Iran, North Korea, Syria); **trade blocs** (USMCA, EU27 — 10 major blocs globally) (Ch 7.2, "Trade Regulations").
+
+Sociocultural variables: lifestyles, stereotypes (Mattel's Shanghai Barbie store closed after two years — Chinese culture stresses educational toys; Delta giraffe-Ghana social media gaffe), law and politics, education, technology (Uganda: 16 million cell phones, only 1 million homes with electric lights; Charge Ko Technologies portable charging solutions), values, customs and cultural symbols, language, idioms, nuances ("Gerber" translates to "puke" in French; UK "biscuit" = US "cookie") (Ch 7.2).
+
+### Six market entry modes and three firm types
+
+Six entry modes (least to most involved): exporting, franchising (McDonald's: ~$500K liquid assets, $45K franchise fee, $1.3–2.3 million total expected; Jazzercise: $1,250 one-time fee plus liability insurance), licensing, joint venture (Kellogg's + Wilmar International for China), strategic alliance (Uber + Spotify), foreign direct investment (Tesla Shanghai factory) (Ch 7.3, "Ways an Organization Can Enter").
+
+Three firm types: international firm (any global involvement); multinational firm (centralised — Amazon HQ Seattle); transnational firm (high local responsiveness — McDonald's franchise approach) (Ch 7.3, "Forms of Global Competition").
+
+### Global marketing mix
+
+Marketing strategy: **standardized global** (Coca-Cola — same brand, name, scriptural cursive, red/white worldwide) vs **adapted global** (Netflix — country-specific content libraries) (Ch 7.4, "Adapting Marketing Strategies"). Three product strategies: **straight product extension** (no change); **product adaptation** (Nike Air Zoom HIIT shoe Australia-only; McDonald's India: 160+ stores, no pork or beef, separate vegetarian/meat kitchens, Maharaja Mac with corn-and-cheese patty); **product invention** (entirely new — e.g., non-electric cooling for Uganda) (Ch 7.4, "Product"). Coca-Cola slogan localisations across countries (Table 7.2 — India "Always the Real Thing"; Spain "Siente El Sabor"; Hungary "Kóstold meg az érzést"). The **whole channel** concept extends distribution thinking to all members in international channels including transportation; pirates off Somalia (the Captain Phillips story) are cited (Ch 7.4, "Place: Distribution Channels").
+
+### Ethics: outsourcing, working conditions, child labour, bribery, dumping
+
+Topics covered: outsourcing trade-offs (WhatsApp Russian outsourcing reduced costs); work standards (Xinjiang cotton; Nike, Apple, Levi's scrutiny); workforce diversity and equal opportunity; child labour (UN treaties; per-country minimum age standards); bribery and corruption (FCPA reiterated); **dumping** (selling exported goods below cost to drive out competition then raising prices to monopoly levels — illegal in US and many other countries) (Ch 7.5, "Identifying Ethical Issues").
+
+## Part VIII: Marketing in a diverse marketplace (Ch 8)
+
+### Standardization vs adaptation; diversity marketing as adaptation
+
+**Standardization** applies identical guidelines for uniformity (Apple iPhones look and work the same worldwide except for power adapters); **adaptation** adjusts offerings to specific groups (Ford Motor Company D4 platform shared across Ford and Lincoln models for cost) (Ch 8.1, "Standardization Strategy Defined"; "Adaptation Strategy Defined"). **Diversity marketing** is an adaptation strategy applied to cultural or demographic differences within a market (Nike By You shoe customisation extending appeal across ethnic and social preferences) (Ch 8.1, "Diversity Marketing").
+
+### Five diversity dimensions; multicultural and sociodemographic populations
+
+The text uses five parameters: cultural/racial/ethnic; gender and sexual identity; generational; religion; disability (Ch 8.2, "Diversity Marketing Defined"). 2019 Adobe study: 61 per cent of consumers think diversity in campaigns is important; 38 per cent more inclined to trust brands with strong diversity in advertising [V] (Ch 8.2). Top Design Firms: 67 per cent of consumers would make repeat purchases from companies with diversity-marketing commitment [V] (Ch 8.2). Heat agency: high diversity scores → 83 per cent higher consumer preference [V].
+
+The text projects a US "plurality nation" by mid-2040s — no group with sizeable majority. Multicultural segments (2020 US Census): Hispanic 19 per cent (≈ 63 million; fastest-growing; median age 29; 59 per cent of US population growth between 2010 and 2021); Black 14.2 per cent (≈ 46.9 million; 88.7 per cent increase in "in combination" identification since 2010 census); Asian 7.2 per cent (≈ 24 million; fastest population growth 2000–2019); Native American/Alaska Native 1.1 per cent single-race (3.7 million) and ≈ 2.9 per cent in combination (9.7 million) [V] (Ch 8.2, "Multicultural Populations"; Ch 8.4, sub-segments).
+
+Sociodemographic segments: LGBTQIA+ (≈ 5.6 per cent of US adults, ≈ 14.4 million); generational (2020 Census counts: Silent 21.7M; boomers 70.6M; Gen X 65M; millennials 72.2M; Gen Z 67M; Gen Alpha 27.6M); socioeconomically disadvantaged (≈ 34 million below the poverty line in 2019); consumers with disabilities (≈ 61 million; one in four adults) [V] (Ch 8.2, "Sociodemographic Populations").
+
+### The cultural iceberg and Hofstede dimensions for marketing
+
+Anthropologist Edward T. Hall's iceberg analogy: tangible/external aspects (traditions, music, language, artifacts, clothing, literature) above the waterline; intangible/internal (thought processes, assumptions, beliefs, interpretations) below — 90 per cent of mass beneath [BT] (Ch 8.3, "Tangible versus Intangible Culture").
+
+The Hofstede dimensions are revisited from a multicultural-marketing angle: individualism vs collectivism (US Hispanic, Black, Asian populations lean collectivistic in varying degrees); high vs low power distance (smartphone ownership as social-status display; Hispanic and Black consumers higher smartphone use for online health and educational content); masculinity vs femininity (Black men higher masculinity orientation than non-Hispanic White and Hispanic counterparts); uncertainty avoidance (Hispanic, Black, Asian higher than non-Hispanic White); long-term vs short-term orientation (Asian populations rate extremely high long-term); indulgence vs restraint (Ch 8.3, "Values and Attitudes"). Hispanic, Black, Asian consumers more optimistic about reaching economic success than non-Hispanic White consumers; collectivistic-orientation drives family/community considerations in financial decisions (Ch 8.3, "How Culture Influences Diversity Marketing").
+
+### Hispanic, Black, Asian identities; acculturation
+
+**Cultural identity** is how a person identifies with a culture, ethnicity, or social group — a sense of belonging that influences thinking and actions (Ch 8.4, "Hispanic Identity"). Hispanic identity is strongly linked to heritage; 83 per cent of US Hispanic population belongs to five subethnicities (Mexican 62.2 per cent, Puerto Rican 9.5 per cent, Cuban 3.9 per cent, Salvadoran 3.9 per cent, Dominican 3.5 per cent) [V] (Ch 8.4, "Hispanic Identity").
+
+The text distinguishes Hispanic (language-based — Spanish-speaking origin), Latino/Latina (location-based — Latin American family origin), Latinx (gender-neutral, with note that many Hispanic people dislike or find offensive). Black identity: Pew Research 2019 — nearly 75 per cent of Black people say race is at the centre of their identity [V] (Ch 8.4, "Black Identity"). McKinsey: growing Black population represents over $300 billion per year in unmet demand [V]. Asian: 6 origin groups account for 85 per cent (Chinese 24, Indian 21, Filipino 19, Vietnamese 10, Korean 9, Japanese 7 per cent); ~50 per cent of Asian consumers in the US watch TV in both English and an Asian language [V] (Ch 8.4, "Asian Identity").
+
+**Acculturation** is "the process by which a person's family cultural patterns change because of direct and constant contact with a different culture" [V] (Ch 8.4, "The Acculturation Spectrum"). Bicultural consumers merge both cultures simultaneously. Unacculturated Hispanic consumers are more likely to support brands advertising in Spanish — a sign of respect (Ch 8.4).
+
+## Part IX: Products, services, and product life cycle (Ch 9, 11)
+
+### Product–service continuum and three levels of product
+
+Pure product (computer) → service-product blend (restaurant) → pure service (marketing class) (Ch 9.1, "Products and Services Defined"). **Customer experience (CX)** integrates technology, marketing, sales, and customer service across all touchpoints — the Apple Store as canonical (Ch 9.1, "Customer Experience").
+
+Four consumer-product classes: convenience, shopping, specialty, unsought (Table 9.1). Four business/industrial-product classes: raw materials, manufactured materials and parts, capital items, supplies and services (Ch 9.1, "Classifications of Business and Industrial Products").
+
+Three levels of product: **core product** (what the customer is actually buying — convenience, ego, ease, flexibility); **actual product** (features, brand, quality, packaging, design); **augmented product** (warranties, customer service, support — e.g., Butterball turkey hotline) (Ch 9.1, "The Three Levels of Product").
+
+### Product items, lines, mix; line filling and stretching
+
+A **product item** is a specific good (Domino's hand-tossed pizza). A **product line** groups similar/complementary items (Domino's crusts: hand-tossed, crunchy thin, handmade pan, Brooklyn style, gluten-free). The **product mix** is everything the company sells; **line depth** (count within a line); **mix width** (count of lines) (Ch 9.2). **Product line filling** keeps competitors out by adding within an existing line. **Product line stretching**: down (Tesla Model 3 after Model S), up (Godiva gold collection), or both (Dell access/creator/gaming laptops) (Ch 9.2, "Product Line Filling and Product Line Stretching").
+
+### Product life cycle and stage-specific strategies
+
+Four stages: **introduction** (consumer awareness building, sales starting to grow, high marketing investment, low profitability); **growth** (rising sales, copycat entrants, less marketing investment per unit, more profitable); **maturity** (typically the longest stage; sales growth slows); **decline** (significant decrease in sales and profitability) (Ch 9.3). Products do not always traverse all stages linearly (fads), and pricing/promotion strategies differ by stage:
+
+- Introduction: rapid skimming (high price, heavy promo); slow skimming (high price, low promo — Tesla initial launch); rapid penetration (low price, heavy promo — Old Navy $8 jeans 1994); slow penetration (low price, low promo).
+- Growth: product improvement (OXO universal design); distribution expansion (Home Run Inn restaurant → grocery); promotion shift from awareness to preference (TikTok 2021).
+- Maturity: market modification (Cheerios repositioned as heart-healthy for boomers); product modification (Chobani flip yogurt 2015).
+- Decline: divest (Coca-Cola's New Coke 2002, after 17 years); harvest (smartphones as new models hit market) (Ch 9.4).
+
+### Branding, brand equity, brand development
+
+A **brand** is "an intangible asset with tangible value" — a feeling combining promotion efforts and consumer meaning [V] (Ch 9.5, "Branding"). **Brand value** is the financial asset (subjective, may be transactional); **brand equity** is the additional value a brand has over a substitute. Tide commands a price premium over similar laundry detergents — Kevin Lane Keller's brand-equity pyramid: identity → meaning → response (feelings/thoughts) → resonance (Ch 9.5, "Benefits of Branding"). Three positioning bases: attribute (Taco Bell late-night cravings — easily replicable); benefit (Eggo convenience); value (Ford "Built Ford Tough" — most robust because linked to consumer beliefs) (Ch 9.5, "Building Strong Brands").
+
+Four ownership types: national, private-label, licensed (luxury brands license names to manufacturers like Luxottica), co-brand (Doritos Locos Tacos) (Ch 9.5).
+
+The **brand development matrix** plots existing/new brand × existing/new product category: line extension, brand extension, multibrand, new brand (Ch 9.6, Figure 9.8). Four loyalty levels: switchers, shifting loyals, split loyals, hard-core loyals (Ch 9.6, "Brand Loyalty Levels"). Three brand-effectiveness metrics: brand lift (perception over time pre/post campaign), brand engagement (emotional identification — social metrics, time on site, subscriptions, bounce rate), brand preference (consumer behaviour — most predictive of sales) (Ch 9.6, "Metrics to Measure Brand Effectiveness").
+
+### Packaging, environmental concerns, ethics
+
+Packaging is not one of the 4Ps but is closely tied to product, place (shopper marketing), and promotion (Ch 9.7). Functional benefits: storage, convenience, safety (Tide Pods child-locked lid), usability. Perceptual benefits: status (Tiffany's "little blue box" — its blue is trademarked) (Ch 9.7). McKinsey: more than half of US consumers highly concerned about packaging environmental impact (Ch 9.8). **Cradle-to-cradle packaging design** removes waste from the package's life cycle: regenerative, mimics nature; biological cycle (compostable) and technical cycle (regenerable resources) (Ch 9.8, Figure 19.15).
+
+### Services characteristics and quality models (Ch 11)
+
+Four service characteristics: **intangibility** (cannot be seen, tasted, felt, smelled, heard pre-purchase — virtual try-ons reduce uncertainty); **inseparability** (production and consumption simultaneous — frontline employees inseparable from delivery); **variability** (quality depends on who, when, where, how); **perishability** (cannot be stored — empty hotel rooms, unsold airline seats, lost concert tickets cannot be reclaimed) (Ch 11.1).
+
+Lovelock's four service categories: people processing, possession processing, mental stimulus processing, information processing (Ch 11.1, Figure 11.6).
+
+The **service-profit chain model** (Harvard 1990s): internal service quality → employee satisfaction → loyalty/productivity → external value proposition → customer satisfaction → customer loyalty → profit and growth (Ch 11.2, Figure 11.8). Yoshida's "Iceberg of Ignorance" cited: 4 per cent of frontline problems known by top management, 9 per cent middle, 74 per cent supervisors, 100 per cent employees [V] (Ch 11.2). SHRM estimate: 6–9 months of an employee's annual salary to replace [V]. Taco Bell case: high-retention restaurants had 2× sales and 55 per cent higher profits vs high-turnover stores [V].
+
+The **Service Marketing Triangle** (three legs): external marketing (company → customer; making promises), internal marketing (company → employees; enabling promises), interactive marketing (employees → customers in **service encounters**; keeping promises) (Ch 11.2, Figure 11.10).
+
+The **Gap Model of Service Quality** (1985, five gaps): knowledge gap (what customers expect vs what management thinks they expect); policy gap (management understanding vs service delivery policies and standards); delivery gap (specs vs actual delivery); communication gap (delivery vs what's communicated); customer gap (expectation vs perception of experience) (Ch 11.3, Figure 11.11).
+
+The **RATER framework of service quality** (Zeithaml, Parasuraman, Berry): Reliability (3× more important than equipment or uniforms per research), Assurance (Mayo Clinic case — 500 original artworks, 70 US artists), Tangibles, Empathy, Responsiveness (Ch 11.3, Figure 11.12).
+
+Ethics: Mintel — over half of US consumers stop buying from companies they perceive as unethical (Ch 11.4, "How Do Ethics Contribute to Customer Satisfaction").
+
+## Part X: New product development (Ch 10)
+
+### Five new-product categories and three innovation types
+
+Five categories of "new" product: new-to-the-world (true inventions creating new markets); new-to-the-firm (gap-filling — Nature Valley granola bars); additions to existing product lines (Coca-Cola flavour variants); improvements/revisions to existing products; repositioned products (Bayer aspirin → heart attack prevention) (Ch 10.1, Figure 10.2).
+
+Three innovation types by behavioural change: discontinuous (smartphones radically changing behaviour); continuous (Sony brighter TV — no behavioural change); dynamically continuous (PCs replacing typewriters — keyboard layout preserved) (Ch 10.1, "Customer Perceptions of Newness").
+
+### Nine-stage NPD process
+
+Nine stages: idea generation; idea screening and evaluation; concept development and testing (concept testing typically uses five-point Likert "definitely would purchase" through "definitely would not purchase"); market strategy development; business analysis (payback, break-even); product development (creating a **prototype**); test-marketing (sales-wave research; controlled test-marketing; full test-marketing — top US test cities are Nashville, Cincinnati, Indianapolis, Charleston SC, Jacksonville FL [V]; simulated test-markets; crowdsourcing); commercialisation; evaluation of results (Ch 10.2, Figure 10.3).
+
+Maxwell House case: research showed consumers wanted "bold, vigorous, deep tasting" coffee, but four months of formulation work showed it too expensive to produce; the cheaper formula didn't meet expectations and flopped (Ch 10.2, "Stage 6: Product Development").
+
+### Success and failure factors
+
+Success factors: delivering unique benefits to users (5× success rate vs me-too products [V]); planning before development (well-defined predevelopment activities raised success rate from ~31 per cent to 75 per cent [V]); technological synergy; marketing synergy (2.3× success rate when present [V]); market attractiveness (Ch 10.4, Figure 10.5).
+
+Failure factors: failure to understand consumer needs/wants (Google Glass discontinued 2015); targeting wrong market (Microsoft Zune chasing Apple iPod); lack of product point of difference (Google+ vs Facebook — shut down 2019); prolonged development/delayed market entry (Amazon Fire Phone 2014 — discontinued one year later); poor pricing/cost structure (Ch 10.4, Figure 10.7).
+
+Christensen-attributed estimate: ~30,000 new products launched per year, 95 per cent fail [BT]; PDMA found failure rates 35 per cent (health care) to 49 per cent (consumer goods) [V] (Ch 10.4).
+
+### Adoption process and Rogers's adopter categories
+
+Five stages of consumer adoption: product awareness, product interest, product evaluation, product trial, product adoption (Ch 10.5, Figure 10.8). The book treats this as a "hierarchy of effects" and presents it alongside **diffusion of innovation** (Everett Rogers, 1962). Five characteristics affecting rate of adoption: relative advantage, compatibility, complexity, divisibility, communicability (Ch 10.5).
+
+Diffusion is two-step: mass media → opinion leaders/**personal influence** → general adopters (Kylie Jenner — 250 million Instagram followers cited as scale exemplar) [BT] (Ch 10.5, "Personal Influence"). Rogers's five adopter categories: innovators, early adopters (the best target market for new innovations because they are "opinion leaders"), early majority, late majority (~34 per cent of population, will buy only after about half of population does), laggards (Ch 10.5, "New Product Adopter Categories").
+
+### IP and ethics
+
+**Patents** (20-year term in US); **copyrights** (original works of authorship — software, songs, TV shows, motion pictures); **trademarks** (word, phrase, symbol, design). Apple ordered to pay over $300 million to Personalized Media Communications LLC for patent infringement (March 2021) [V] (Ch 10.6).
+
+## Part XI: Pricing (Ch 12)
+
+### Price as value-indicator and the profit equation
+
+The price-value equation: value = perceived benefits − perceived costs. Pricing must benefit both buyer (perceived value) and seller (profit-maximisation) (Ch 12.1, "Price as an Indicator of Value"). Profit = total revenue − total costs; total costs split into **fixed costs** (do not change with units produced) and **variable costs** (change with units produced) (Ch 12.1, "The Profit Equation").
+
+### Psychology of pricing
+
+**Price anchoring** (Steve Jobs's iPad launch with $999 anchor before revealing $499 starting price); **artificial time constraints** (urgency-inducing); **price appearance** (longer, more syllabic prices feel more expensive — fancy restaurants use $29 not $29.00; study showed $1,555.83 perceived as complicated, $1555 simpler); **price gouging** (illegal in many jurisdictions — New York's 1978 law was the first state law of its kind; COVID-19 PPE list issued by US DOJ; Hurricane Katrina hotel manager sentenced to five years) (Ch 12.1, "The Psychology of Pricing").
+
+### Five Cs of pricing and seven pricing objectives
+
+Five Cs: cost, customers (Toyota vs Lexus segment positioning), channels of distribution (IKEA's manufacturer→dealer→wholesaler→retailer chain), competition, compatibility (with brand strategy — McDonald's $20 ribeye example as inappropriate) (Ch 12.2, Figure 12.3).
+
+Five-step process: determine pricing objective, estimate demand, estimate costs, analyse external environment, select strategies/tactics (Ch 12.3, Figure 12.4).
+
+Seven objectives (Table 12.1): customer value-based (GoToMeeting's "$49 all-you-can-meet"); cost-based; sales-oriented (volume-driven); market-share-oriented (cell phone industry parity pricing); target return; competition-based (Amazon's algorithmic just-below-competitor pricing); customer-driven (eBay auction model) (Ch 12.3).
+
+### Demand, elasticity, and the demand curve
+
+The demand curve typically slopes downward: as price rises, quantity demanded falls. **Prestige pricing** is a notable exception: high price increases perceived value (Adidas Yeezy Boost 750 cost ~$76 to produce, sells for over $1,000) (Ch 12.3, "The Demand Curve for Prestige Products").
+
+**Demand elasticity** = % change in quantity demanded ÷ % change in price. Homes are elastic (many alternatives — apartments, roommates, condos); gasoline is relatively inelastic (few substitutes for car travel) — even with 2022 prices averaging over $5/gallon, demand remained relatively stable [V] (Ch 12.3, "Demand Elasticity"). Four factors: substitutes, income (income effect), time (e.g., automobile price drops produce delayed demand response), cross-elasticity of demand (coffee price up → tea demand up).
+
+### New-product pricing strategies and existing-product tactics
+
+Three new-product strategies: **price skimming** (initial high price, lowered over time — Sony PlayStation 3 from $599 to $299); **penetration pricing** (Netflix subscription); **break-even pricing** (covers costs but no profit; the break-even formula divides fixed costs by (unit price − unit variable cost) — 40,000 cookies needed to cover $20,000 fixed costs at $2 price, $1.50 variable cost) (Ch 12.4).
+
+Existing-product tactics: product line pricing (Unilever brand tiers); captive product pricing (printer + ink); bundle pricing (fast-food meal); odd-even pricing (psychological — luxury uses even, budget uses odd); economy pricing (store brands vs name brands; Allegiant Air no-frills) (Ch 12.5).
+
+### Pricing ethics
+
+**Price fixing** (Audi/BMW/Buick/Chevrolet auto-parts class action); **deceptive price advertising** (FTC-regulated; "buy one get one free" with raised price beforehand); **predatory pricing** (Walmart accused by Wisconsin DATCP in 2000 of below-cost staples to drive out competition); **price discrimination** (legal if no specific economic harm); **monopoly gouging** (Texas 2020–2021 winter storm — $400/night Super 8 motel) (Ch 12.6).
+
+## Part XII: Integrated marketing communications (Ch 13–16)
+
+### The promotion mix and its six elements
+
+The **promotion mix** is the set of strategies marketers use to communicate with customers; six elements: advertising, sales promotion, personal selling, public relations, direct marketing, Internet/digital marketing (Ch 13.1, "Promotion Mix Defined"). Statista: $586 billion worldwide ad spending in 2020 [V] (Ch 13.1).
+
+### The communication process model
+
+Sender → encoding → message → medium → receiver → decoding → feedback loop, all subject to **noise** (Ch 13.2, Figure 13.6). Marketers control sender, encoding, message, and medium; the rest is largely outside their control. Rule of thumb cited: 7–10 exposures needed before action [AP] (Ch 13.2, "Noise").
+
+### IMC and the 5A framework
+
+**Integrated marketing communications** (IMC) uses multiple promotion-mix methods to send the same message — better results, increased efficiency, improved brand awareness, repeated success, customer satisfaction (Ch 13.3). The **5A framework** maps the customer journey: Aware, Appeal, Ask, Act, Advocacy (Ch 13.4, Figure 13.10).
+
+### IMC planning steps and message appeals
+
+Steps: identify target audience; determine objectives (SMART); design the message; create message content; determine budget (objective and task; top down; percent of sales; affordable; competitive parity); develop strategies and tactics; select promotional tools; design the promotion (message strategy, creative strategy, communication channel); schedule the promotion (continuous, flighting, pulsing); evaluate and measure (KPIs: ROI, cost per lead, cost per sale, conversion, engagement) (Ch 13.4).
+
+Three message-appeal types: **rational** (Toyota alternative-fuel benefits); **emotional** (Coca-Cola "Happiness" campaign); **moral** (drink-driving public health). **Fear appeals** are a sub-type (smoking, vaccination) (Ch 13.4, "Create the Message Content").
+
+### Federal regulators
+
+FTC (commercial speech, unfair methods, deceptive advertising); FCC (broadcast — radio, television, telephone); FDA (labelling, packaging, branding, ingredients lists, advertising — packaged foods, pharmaceuticals, cosmetics); CAN-SPAM Act (commercial email) (Ch 13.5, "Socially Responsible Marketing Communications").
+
+### Advertising types and budget approaches (Ch 14)
+
+**Advertising** is "paid communication messages that identify a brand or organization and is intended to reach a large number of recipients" [V] (Ch 14.1, "Advertising and its Importance"). 2021 Super Bowl: $6 million per 30-second spot, 96.4 million viewers — ~6 cents per viewer cost-per-exposure (Ch 14.1).
+
+Two ad classifications: **product advertisements** (specific product within mix; PepsiCo's Halloween Pepsi-with-Coke-cape vs Coca-Cola's "Everyone wants to be a hero"); **institutional advertisements** (whole organisation — Anheuser-Busch's COVID-19 hand-sanitiser pivot in 2020; 500K bottles delivered by April) (Ch 14.1).
+
+Four advertising objectives: informative, persuasive, comparative (Wendy's "fresh never frozen"), reminder (Ch 14.2, "Establishing Advertising Objectives"). Push vs pull strategy. Five budget approaches (Table 14.1): percent of sales, all-you-can-afford, ROI, competitive parity, objective and task.
+
+Reach (estimated number of people reached); frequency (exposures per person per period); impact (how quickly received); engagement (interactions). Pretests: portfolio tests, jury tests, theater tests. Post-tests: aided recall, unaided recall, attitude tests, inquiry test, sales test (Ch 14.2).
+
+### Advertising metrics and PR (Ch 14)
+
+Brand recognition (logo→brand identification); brand awareness (recall information about brand); impressions = ratings × ads run × target audience size; conversion rate = converts ÷ audience × 100 (industry rule of thumb: 2–5 per cent traditional, 10 per cent+ digital is effective); ROAS = revenue ÷ ad spend (Ch 14.3).
+
+**Public relations** is unpaid earned media, "creating and maintaining a favorable public image" (Ch 14.4). Tools: press relations, public affairs, lobbying ($200+ million spent 2020 by top four lobbying associations: National Association of Realtors, US Chamber of Commerce, PhRMA, American Hospital Association [V]), events, digital/social media. Advantages: increased brand credibility (most credible/persuasive of all promotional forms), increased sales/leads, positive brand image, cost-effectiveness (Ice Bucket Challenge raised over $115 million worldwide for ALS [V]). Disadvantages: no direct control, lack of guaranteed results, difficulty evaluating effectiveness (Ch 14.5).
+
+The Tylenol 1982 cyanide-tampering case is the canonical PR-crisis exemplar: 30 million products recalled; "Johnson & Johnson faced the issue head-on" and won the trust of a nation (Ch 13.1, "Public Relations").
+
+### Personal selling: the seven-step selling process (Ch 15)
+
+Seven steps: prospecting and qualifying (developing **sales leads**, building a database, qualifying contacts); pre-approach (research); approach (rapport-building, soft); presentation (formats: stimulus-response, formula selling using AIDA — attention/interest/desire/action, need/satisfaction, adaptive selling, consultative selling à la Miracle on 34th Street); handling objections; closing (often the hardest step; trial closes via financial-terms or delivery-timing questions); follow-up (lifetime customer value) (Ch 15.3).
+
+Salesperson roles: **order takers** (inside, outside); **order getters**; support personnel (missionary salespeople — pharmaceutical detailers; technical specialists); team selling. Sales force structure: territorial, product, customer (industry). Compensation methods: commission only; salary only; salary + commission; salary + individual bonus; salary + commission + bonus (Ch 15.2, Ch 15.4).
+
+### Sales promotion (Ch 15)
+
+Sales promotion: **consumer-oriented** (pull) — coupons, samples, premiums, contests (analytical/creative skills), sweepstakes (chance — Publishers Clearing House $1M cash prize; magazine purchase not necessary), loyalty programs, point-of-purchase displays, rebates; **trade-oriented** (push) — allowances and discounts, cooperative advertising (Publix advertises Boar's Head with Boar's Head co-op funding), cash bonuses, credit terms, dealer conferences, push incentives (Ch 15.6).
+
+The **Pareto principle** for marketing as introduced earlier: "80 percent of a company's revenue comes from the top 20 percent of repeat or loyal customers" [V] (Ch 5.1, "Behavioral Segmentation").
+
+### Direct, online, social media, and mobile marketing (Ch 16)
+
+Traditional direct marketing forms: direct-mail (Casper, Warby Parker have added direct mail; average mail life 17 days [V]); catalog (Lands' End, IKEA — response rates jumped 170 per cent over the last decade per HBR 2020 [V]); telemarketing (call centers; National Do Not Call Registry 2003); direct-response TV/DRTV (Dollar Shave Club's Michael Dubin video — 27 million views; Proactiv 2020 sales $1 billion [V]); seminars; trade shows (CES, MailCon) (Ch 16.1).
+
+Online direct marketing: website marketing (Apple, Amazon transactional; Bleacher Report community); email marketing (4 billion daily users; 99 per cent of people check email daily [V]); content marketing (Dotdash Meredith); online video; blogs (HubSpot's blog drives traffic to its CRM/marketing platform); online forums.
+
+Social media platforms covered: Facebook (2.9 billion monthly active users, $117.92 billion 2020 revenue; criticised over personal-data use; six in ten social media users have observed and temporarily believed false info on Facebook [V]); Instagram (1 billion monthly active; #yearwrapped Spotify Stories 60 million users engaged, 3 billion playlists streamed); LinkedIn (722 million members; 73 per cent agree LinkedIn protects privacy — most-trusted social media platform [V]); Pinterest (478 million monthly users; 97 per cent of searches are unbranded — favourable for advertisers); Twitter (238 million daily active; 67 per cent of B2B businesses use); podcasts (200 per cent year-on-year growth; Spotify acquired Megaphone 2020; 52 per cent of listeners trust advertising endorsed by host [V]) (Ch 16.2).
+
+Mobile strategy: responsive web design (Google prioritised mobile-friendly in 2015); mobile-friendly emails (68 per cent of emails opened on mobile [V]; subject lines 41–50 chars); app development; short/memorable URLs.
+
+Online metrics: website traffic; traffic by source (paid search, organic search, paid social, affiliates); conversions; bounce rate (target < 40 per cent); search trends; new vs returning visitors; average session duration; page views; most-visited pages; social engagement; **click-through rate** (CTR); **cost per click** (CPC); **cost per acquisition** (CPA = total marketing cost ÷ customers acquired) (Ch 16.3).
+
+Ethics: privacy (KPMG: 86 per cent growing concern, 78 per cent fear data collection [V]; 75 per cent want more transparency); Apple iOS app-tracking opt-in popups disrupting Facebook/Google ad models (Ch 16.4).
+
+## Part XIII: Distribution, retailing, wholesaling (Ch 17–18)
+
+### Marketing channels and intermediary functions
+
+A **marketing channel** is "a system of people, organizations, and activities that work together to make goods and services available to consumers to purchase" [V] (Ch 17.1, "Marketing Channels Defined"). Four intermediary types: agents/brokers (never take possession; commission/fee); distributors (Coca-Cola distributors only carry Coca-Cola products); wholesalers (bulk-purchase, bulk-break); retailers (smallest quantities to end consumers).
+
+Three intermediary functions: transactional (buying, selling, risk-bearing); logistical (handling, packing, inventory, transport, warehousing, security); facilitating (financing, sharing information). Intermediaries reduce transaction count: 9 → 5 in the 3-manufacturers × 3-customers example (Ch 17.1, Figure 17.3). Other value-adds: providing information; **bulk-breaking**; **accumulating** across producers; adjusting for **discrepancy of assortment**; providing customer credit.
+
+### Channel types and conflict
+
+Direct (manufacturer → consumer; pizza shop) vs indirect (with one or more intermediaries). Industrial channels parallel consumer with agents and distributors representing producers; Element Fleet Management (Toronto-based, manages corporate fleets across United States, Canada, Mexico) is cited.
+
+Marketing systems: **conventional** (each member maximises own profit); **vertical marketing system (VMS)** — corporate (Walmart's Equate brand), administered (P&G coordinating without ownership), contractual (franchise — Chipotle, McDonald's); horizontal (J.Crew + New Balance); multichannel (Nike: physical stores, Nike.com, Amazon, Kohl's, Foot Locker); omnichannel (Dick's Sporting Goods buy-online-pickup-in-store, kiosk-buy-deliver) (Ch 17.2, Figure 17.7).
+
+Channel conflict: vertical (between levels — **disintermediation** as a special case: iTunes destroyed traditional music outlets); horizontal (within level — Holiday Inn locations) (Ch 17.4, "Handling Channel Conflict").
+
+### Channel choice factors
+
+Target market coverage: intensive (Coca-Cola, Kraft); selective (Whirlpool, GE through Lowe's, Home Depot dealer network); exclusive (Rolex). Buyer requirements: information (in-store demos at Whole Foods; Ace Hardware "the helpful place"); convenience; variety (Petco, PetSmart); pre/post-sale service. Product factors: unit value; perishability; bulk and weight; standardization; technical nature; product life-cycle stage; profitability (Ch 17.3).
+
+### Channel performance metrics
+
+Inventory turnover rate; order accuracy rate (e-commerce critical); time to ship (Amazon-set expectations); total units in storage (with **SKUs** — stock-keeping units); total number of orders; percentage of on-time shipments (Chobani example for perishables); average delivery days (Ch 17.4, Figure 17.11).
+
+### Supply chain management and logistics
+
+**Supply chain management** = "managing all the members and activities from the procurement and transformation of raw materials into finished goods through their distribution to targeted consumers" (Ch 17.5). Five SCM functions: purchasing, operations (forecasting demand to align inventory and production), logistics, resource management, information workflow. Dave's Killer Bread is cited as starting its value-promise far back in the supply chain via certified-organic suppliers.
+
+Logistics functions: warehousing (receiving, storing, picking, packing, shipping; temperature control where needed); inventory management; transportation. Five transportation modes (Table 17.2): trucking (moderate speed, low cost, high accessibility); rail (slow, low cost, moderate accessibility); water (very slow, very low cost, moderate accessibility); air (fast, very high cost, low accessibility); digital (very fast, very low cost, very high accessibility) (Ch 17.6).
+
+### Retailing types and strategy (Ch 18)
+
+Retailing is "the process of selling goods and services to consumers" — the final stop in the channel (Ch 18.1). Functions: provide assortment, buy in bulk, store inventory, provide convenience (location and hours — Walmart 24-hour stores), provide services (banking, pharmacy, hair salon), collect/provide feedback.
+
+Eight store-retailer types (Table 18.1): specialty store (single line — AutoZone); department store (JCPenney, Kohl's); supermarket (Publix — ~32,000 sq ft, ~50 per cent grocery, ~50 per cent household/personal); convenience store (~150,000 in US in 2020 [V]; first 7-Eleven 1927 Texas); superstore (Target — 1,927 stores per cited count); category killer (Best Buy, Lowe's, Home Depot, Staples, Office Depot); discount store (Dollar General, Dollar Tree, Family Dollar); off-price retailer (T.J.Maxx, Ross — irregulars/closeouts/overstock); factory outlet (Sawgrass Mills with 350+ stores — largest in US); warehouse club (Costco, Sam's Club, BJ's — paid membership).
+
+Six non-store types: automatic vending (Carvana 27th car vending machine in Atlanta in 2020 — 12 stories, 43 vehicles [V]); direct mail/catalogs (Tiffany's Blue Book 1845 — first US mail-order catalog; Sears "big book" final edition 1993); television home shopping (QVC — generated $14.1 billion 2018 [V]; acquired HSN 2017); online retailing ($5.4 trillion US online retail spend 2021 [V]; expected to reach 22 per cent of global retail by 2023); telemarketing (FTC 1991 rules; 2003 Do Not Call Registry); direct selling (Kirby B2C, publishing/tech B2B).
+
+Retail strategy: **markup** (retail − purchase price ÷ purchase price × 100; **keystone pricing** doubles wholesale; grocery ~15 per cent, clothing 100–300 per cent [V]); maintained markup; markdowns; gross margin = net sales − COGS. Locations: central business district (Manhattan world's largest CBD, highest retail rent globally [V]); regional shopping center/mall (Mall of America — retailtainment); strip mall; freestanding location.
+
+Retail trends: social commerce (Macy's ambassador program — 5 per cent commission to outside influencers; social commerce grew 30 per cent 2019–2020 [V]); online stores in offline spaces (Walgreens drive-through pickup of online orders); same-day delivery (Kozmo.com 1998 pioneer; defunct 2001; revived by Amazon Prime); digital wallets (touchless payments) (Ch 18.4).
+
+### Wholesaling
+
+Three merchant-wholesaler tiers: **full-service** (most risk; general-merchandise/full-line; specialty wholesaler — Sysco for food service); **limited-service** (rack jobbers — gas-station phone-charger displays; cash-and-carry; drop shippers — never take possession; truck jobbers — perishables); **manufacturer's agents/representatives** (independent contractors selling for multiple manufacturers; never take possession) (Ch 18.5, Figure 18.15).
+
+Wholesaling trends and ethics: growing competition; global supply-chain pressures (COVID-19 shortages of workers, products, containers, long-haul drivers); regulatory complexity (Sale of Goods Act); consumer protection (caveat emptor displaced by consumer protection); product traceability (USDA 2022 ground-beef recall — 25,000+ pounds traced to specific location, date, lot) (Ch 18.6).
+
+## Part XIV: Sustainable marketing as the new paradigm (Ch 19)
+
+### The three pillars and ESG framing
+
+**Sustainable marketing** (Kotler): "an organization should meet the needs of its present consumers without compromising the ability of future generations to fulfill their own needs" [V] (Ch 19.1, "Environmental Sustainability"). Three pillars / "planet, people, profits": **environmental** (Stonyfield Organic 30 per cent emissions reduction by 2030 commitment; Subaru of Indiana Automotive recycles or composts 98 per cent of manufacturing waste, remaining 2 per cent waste-to-fuel [V]); **social** (Adobe diversity/equity/inclusion programs); **economic/governance** (profitability + business ethics; voting governance, legal compliance, accounting standards). The text aligns these with **ESG strategy** — environmental, social, governance — as the standard reporting and accountability frame (Ch 19.1, "Environmental Sustainability"; Ch 19.2, "Differences between Traditional and Sustainable Marketing").
+
+IBM consumer-behaviour study: 57 per cent of consumers would alter consumption habits to be more environmentally conscious; ~80 per cent indicated sustainability is essential [V] (Ch 19.1).
+
+### Traditional vs sustainable marketing
+
+Traditional marketing takes a customer approach (4Ps for a target audience). Sustainable marketing takes a **stakeholder approach** — customers, shareholders, employees, vendors, interest groups, media, general public. Costco: "Sustainability to us is remaining a profitable business while doing the right thing" [V] (Ch 19.2). **Corporate social responsibility (CSR)** holds that companies have an obligation to use their platforms to improve the world and not cause harm.
+
+### Benefits, principles, and purpose-driven marketing
+
+Benefits: enhanced brand recognition (Patagonia repairs goods, donates 1 per cent of annual sales, Action Works activism platform); reduced costs (Bain & Company: 5× revenue growth among brands scoring highest on sustainability [V]; Ben & Jerry's removed plastic straws/spoons); improved effectiveness (Mastercard saw avg annual profit growth of nearly 19 per cent in the 10 years it connected purpose to profits [V]); easier compliance with regulators (going beyond legal obligations); waste minimisation (McDonald's goal of 100 per cent guest packaging from renewable/recycled/certified sources by 2025); enhanced ROI (Ch 19.3).
+
+Five sustainability marketing principles: consumer-oriented marketing (Zappos extensive customer-service team); customer-value marketing (Tiffany & Co. luxury); innovative marketing (Shedd Aquarium 2020 virtual penguin field trip); **mission-driven marketing** (charity: water — Scott Harrison's storytelling); **societal marketing** (Athleta Power of She campaign — ~70 per cent of apparel from recycled/sustainable materials [V]) (Ch 19.4).
+
+Purpose-driven brands: Accenture global survey of 30,000 consumers — 62 per cent want companies to take a stand on sustainability/transparency/fair working conditions [V] (Ch 19.5). Bombas 5 million+ items donated through 3,500+ impact partners. Dove Campaign for Real Beauty as multi-decade purpose campaign. Walmart 2022 Juneteenth ice cream as cautionary example of inauthentic purpose-marketing backlash.
+
+## Key statistics (with provenance)
+
+| Metric | Value | Classification |
+|---|---|---|
+| Average ad exposures per digitally connected person per day | 5,000 (Yankelovich); 6,000–10,000 (Ch 3.2) | [V] (Ch 3.2, "Psychological Factors"; Ch 13.1, "Promotion Mix") |
+| US Hispanic population, 2020 Census | ~63 million; 19 per cent of population | [V] (Ch 8.4, "Hispanic Identity") |
+| US Black population, 2020 Census | ~46.9 million; 14.2 per cent | [V] (Ch 8.4, "Black Identity") |
+| US Asian population, 2020 Census | ~24 million single-race + multiracial; 7.2 per cent | [V] (Ch 8.4, "Asian Identity") |
+| US Native American/Alaska Native, 2020 | 3.7 million single-race; ~9.7 million in combination | [V] (Ch 8.2, "Multicultural Populations") |
+| US LGBTQIA+ adults, 2020 | ~5.6 per cent (~14.4 million) | [V] (Ch 8.2) |
+| US childhood obesity since 1970s | "More than tripled" | [V] (Ch 5.7, citing CDC) |
+| Hofstede individualism, US | 91 (high) | [V] (Ch 5.3) |
+| Hofstede power distance, US | 40 vs world average 55 | [V] (Ch 5.3) |
+| Worldwide ad spending, 2020 | $586 billion | [V] (Ch 13.1, citing Statista) |
+| 2021 Super Bowl 30-second spot | $6 million; 96.4 million viewers; ~$0.06 per viewer | [V] (Ch 14.1) |
+| US Mintel — consumers stop buying from unethical brands | 56 per cent | [V] (Ch 1.7, Ch 11.4) |
+| US consumers willing to pay more for sustainable products | 66 per cent (Nielsen) | [V] (Ch 2.5) |
+| Millennials willing to pay extra for sustainable goods | 73 per cent | [V] (Ch 2.5) |
+| New product failure rate, Christensen estimate | 95 per cent of ~30,000 launches/year | [BT] (Ch 10.4) |
+| New product failure rate, PDMA | 35 per cent (health care) to 49 per cent (consumer goods) | [V] (Ch 10.4) |
+| Loyalty programmes — incentive to remain | 84 per cent | [V] (Ch 1.6) |
+| Spotify #yearwrapped Instagram engagement | 60M users; 3B playlists streamed | [V] (Ch 16.2) |
+| Facebook monthly active users | 2.9 billion; $117.92B 2020 revenue | [V] (Ch 16.2) |
+| LinkedIn members | 722 million | [V] (Ch 16.2) |
+| Pinterest monthly users | 478 million; 97 per cent searches unbranded | [V] (Ch 16.2) |
+| Email daily users | 4 billion; 99 per cent check daily | [V] (Ch 16.1) |
+| Tylenol 1982 cyanide-tampering recall | 30 million products | [V] (Ch 13.1) |
+| FCPA enactment year | 1977 | [V] (Ch 4.5) |
+| US National Do Not Call Registry | 2003 | [V] (Ch 16.1) |
+| Telephone Consumer Protection Act | 1991; no calls before 8 a.m. or after 9 p.m. recipient time | [V] (Ch 6.3) |
+
+## Connections the text makes
+
+- **Hofstede** (cultural dimensions): cited approvingly as the dominant frame for cross-cultural marketing analysis [BT] (Ch 5.3, "Segmentation Based on Cultural Factors"; Ch 8.3, "Values and Attitudes").
+- **Maslow** (hierarchy of needs): used to anchor motivation analysis for consumer purchasing [BT] (Ch 3.2).
+- **Theodore Levitt** ("Marketing Myopia" — the railroads were in the railroad business not the transportation business; "people don't want a quarter-inch drill, they want a quarter-inch hole"): cited approvingly twice [BT] (Ch 1.4; Ch 5.2).
+- **Al Ries and Jack Trout** (*Positioning: The Battle for Your Mind*): cited verbatim on the mind-manipulation thesis [V] (Ch 5.6).
+- **Kevin Lane Keller** (brand-equity pyramid): cited approvingly [BT] (Ch 9.5).
+- **Rebecca Henderson** (Harvard Business School, on shared-value orientation): cited approvingly [BT] (Ch 19.3).
+- **Everett Rogers** (*Diffusion of Innovations*, 1962): cited as origin of five-adopter-category framework [BT] (Ch 10.5).
+- **Christopher Lovelock**: source for the four-category service taxonomy [BT] (Ch 11.1).
+- **Zeithaml, Parasuraman, Berry** (*Delivering Quality Service*): RATER framework [BT] (Ch 11.3).
+- **Tony Hsieh** (Zappos — *Delivering Happiness: A Path to Profits, Passion, and Purpose*): cited approvingly multiple times [BT] (Ch 1.3; Ch 11.2).
+- **Edward T. Hall** (cultural iceberg metaphor): cited approvingly [BT] (Ch 8.3).
+- **Geert Hofstede** (cultural dimensions): repeated reference [BT] (Ch 5.3, Ch 8.3).
+- **Philip Kotler** (sustainable-marketing definition): cited verbatim [V] (Ch 19.1).
+- **AMA** (American Marketing Association — definitions of marketing, marketing research): cited verbatim [V] (Ch 1.1, Ch 6.1, Ch 5.7).
+- **Transparency International** (Corruption Perceptions Index): cited approvingly with rankings [BT] (Ch 4.5, Ch 7.2).
+- **Yvon Chouinard** (Patagonia founder): cited as exemplar [BT] (Ch 19.3).
+- **Indra Nooyi** (former PepsiCo CEO): credited with PepsiCo's sustainability program [BT] (Ch 19.3).
+- **Goldratt, Drucker, Demming**: not cited.
+
+## Positions the text explicitly frames against
+
+- *Product-driven ("build it and they will come") strategies*: framed against in favour of customer-driven strategy (Ch 1.1).
+- *"One size fits all"* generic strategies: framed against, as a "shortsighted perspective that limits business growth" (Ch 8.2).
+- *Caveat emptor*: framed as an outdated motto displaced by consumer-protection regulation (Ch 18.6).
+- *Marketing-as-advertising-or-sales-only* (a layperson conflation): framed against early in the text (Ch 13.1).
+- *Production concept and product concept eras*: framed as historically superseded by the marketing concept and societal marketing concept (Ch 1.4).
+- *Marketing myopia* (railroad example): framed as a cautionary tale (Ch 1.4).
+- *Conventional channel systems* (each member self-maximising): framed against in favour of vertical marketing systems (Ch 17.2).
+- *Shareholder-only obligation*: framed as the traditional view, displaced by a stakeholder-CSR-ESG view (Ch 19.2).
+- *Customer-only focus in marketing* (rather than stakeholder approach): framed as traditional, displaced by sustainable marketing (Ch 19.2).
+- *Inauthentic purpose-marketing*: framed against — the Walmart 2022 Juneteenth ice cream example (Ch 19.5).
+
+## Citation and source-integrity notes
+
+- **Conversion path:** PDF → markdown via pymupdf4llm 0.2.9 (per repo convention); page anchors lost in conversion, hence section-name citation style.
+- **Coverage:** substantive content only (Option B per repo policy). Excluded scaffolding sections per chapter (Chapter Outline, Chapter Summary, Key Terms, Applied Marketing Knowledge: Discussion Questions, Critical Thinking Exercises, Building Your Personal Brand, What Do Marketers Do?, Marketing Plan Exercise, Closing Company Case, References) and the back-matter (Preface "About OpenStax" through "Coverage and Scope", Answer Key, Index).
+- **Source materials:** read in full from `corpus.commons/demo/sources/converted/openstax-principles-marketing.md` (41,595 lines; ~2 MB). All chapters' substantive sections were read. The text is highly pedagogical (each section ends with a Knowledge Check); the Knowledge Check question prompts are excluded from the deep ref but were used as confirmation cues for concept identification.
+- **Spelling preservation:** OpenStax verbatim quotes preserve American spelling; the deep ref's surrounding prose uses British spelling per repo convention.
+- **Hofstede dimensions count discrepancy:** the text presents *four* dimensions in Ch 5.3 (PDI, IDV, UAI, MAS) and *six* dimensions in Ch 8.3 (adding long-term/short-term orientation and indulgence/restraint). This reflects Hofstede's evolving framework; both presentations are recorded as the source presents them.
+- **Multiple definitions of "noise" and "feedback"**: the text uses these terms in both the communication-process model (Ch 13.2) and elsewhere; meanings are consistent within each context.
+- **No fabricated examples or training-data filling:** every named company example, statistic, and citation in this deep reference traces to a passage in the source markdown.

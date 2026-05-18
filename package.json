@@ -1,0 +1,38 @@
+{
+  "name": "grounded-forge",
+  "version": "0.2.1",
+  "description": "A reference × task matrix for source-grounded retrieval. Pre-projects sources to task domains at ingestion time so runtime is lookup, not reshape.",
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "build": "node build.js --all",
+    "build:decision": "node build.js decision",
+    "build:stakeholder": "node build.js stakeholder",
+    "build:software-business": "node build.js software-business",
+    "build:aar-mode": "node build.js aar-mode",
+    "build:retro-mode": "node build.js retro-mode",
+    "clean": "node build.js --clean",
+    "list": "node build.js --list",
+    "test:lens-visibility": "node tests/lens-visibility.test.js",
+    "package": "node scripts/package.js",
+    "package:all": "node scripts/package.js --all",
+    "create-corpus": "python3 scripts/create-corpus.py",
+    "remove-corpus": "python3 scripts/remove-corpus.py",
+    "remove-corpus:openstax": "python3 scripts/remove-corpus.py openstax",
+    "setup-chroma": "python3 scripts/setup-chroma.py",
+    "setup-chroma:check": "python3 scripts/setup-chroma.py --check",
+    "setup-chroma:rebuild": "python3 scripts/setup-chroma.py --rebuild",
+    "audit-deep-refs": "python3 scripts/audit-deep-ref.py --all",
+    "audit-deep-refs:local": "python3 scripts/audit-deep-ref.py --all-local",
+    "audit-deep-refs:all": "python3 scripts/audit-deep-ref.py --all-corpora",
+    "slug-table:demo": "python3 scripts/slug_table.py generate --corpus corpus.commons/demo",
+    "slug-table:demo:check": "python3 scripts/slug_table.py check --corpus corpus.commons/demo"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "tar": "^7.5.15"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

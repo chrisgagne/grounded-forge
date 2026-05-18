@@ -1,0 +1,701 @@
+# grounded-forge build configuration
+#
+# Each profile is a slice of the matrix:
+#   - All references (the reference axis)
+#   - One task-domain's distillation directory (which includes the
+#     per-task distillation index) — a column of the matrix, same
+#     references, one task projection.
+#   - The build-profile CLAUDE.md template
+#
+# Two profiles ship distinct content. That is the matrix architecture
+# made visible: same references, different projections.
+#
+# Usage:
+#   node build.js decision
+#   node build.js stakeholder
+#   node build.js --all
+#   node build.js --list
+
+defaults:
+  source_dir: corpus.commons/demo
+  output_base: ./corpus.commons/demo/apps
+
+builds:
+
+  # Architecture docs ship with both profiles and discuss both task
+  # axes. Each profile expects cross-profile distillation paths to
+  # dangle (decision does not ship stakeholder-engagement files,
+  # and vice versa). The cross-profile entries below are intentional.
+
+  decision:
+    description: "Source-grounded decision-making assistant. Ships all references projected to the decision-making task axis, plus the lens library."
+    output_dir: corpus.commons/demo/apps/decision
+
+    # Per docs/architecture/capability-binding.md, the profile recommends
+    # abstract capabilities; the user binds concretes in ~/.claude/capabilities.toml.
+    # Demo profiles declare a minimal capability to exercise the pattern.
+    recommends_capabilities:
+      - name: notes-archive
+        purpose: "Write the decision log + rationale to the user's notes system"
+        fallback: "Output as markdown for the user to copy into their notes manually"
+
+    # Distribution-scope ceiling. References whose Scope: exceeds this
+    # rank are excluded at build time. Levels (low → high risk):
+    # open, open-nc, copyrighted, confidential. `personal` is never
+    # admitted by any profile. The demo corpus is uniformly open-nc /
+    # open, so the mechanism is latent; downstream forks ingesting
+    # confidential or personal material rely on this.
+    max_scope: open-nc
+
+    # Lens-visibility ceiling. Parallel to max_scope: lenses whose
+    # visibility: exceeds this rank are excluded at build time. Same
+    # taxonomy (open, open-nc, copyrighted, confidential, personal).
+    # corpus.commons profiles ride at open-nc — the operator's redacted
+    # named-real-person lens (chris-gagne-consultant-coach, open-nc)
+    # ships intentionally; copyrighted, confidential, and personal lenses
+    # are excluded.
+    max_visibility: open-nc
+
+    # All references travel with both profiles. The reference axis is
+    # invariant; only the task projection differs per profile.
+    references:
+      include_patterns:
+        - "*.md"
+      exclude_patterns:
+        # Pass A/H/I audit scaffolding lives alongside references in the
+        # source repo as an integrity record. Not for shipping.
+        - "_ingest_pass_*"
+        - "_ingest_*"
+
+    # The per-task distillation index lives inside its task directory
+    # and is copied along with the distillations.
+    distillations:
+      include:
+        - decision-making
+
+    # The lens library ships with both profiles. Lenses are not a third
+    # axis but per-distillation modifiers; their specs are shared across
+    # task axes. Per-lens admission is driven by max_visibility above.
+    lenses:
+      include: true
+
+    skills:
+      include:
+        # Runtime skills ship to the compiled app.
+        # ingesting-resources, creating-tasks, creating-applications, and
+        # creating-distillations are operator/maintainer tools that live in the
+        # source repo; extending the corpus is not an app-time task.
+        - matching-references
+        - answer-from-library
+
+    claude_md:
+      template: decision
+
+    # Architecture docs ship with both profiles so a reader of the
+    # compiled distribution can audit the pattern they're using.
+    docs:
+      include:
+        - docs/architecture
+        - docs/assets/forge-hero.png
+        - docs/assets/the-matrix.png
+        - docs/assets/cost-curves.png
+        - docs/reference
+        - docs/README.md
+
+    validation:
+      ignore_dangling:
+        # _planning/ is private and gitignored; references in source
+        # docs to _planning/ are expected to dangle in apps/
+        - "_planning/*"
+        # docs/how-to/build-your-library.md ships only in the source
+        # repo, not in compiled distributions: the audience is repo
+        # forkers, not app consumers. Source-repo links to it
+        # dangle in apps/ by design.
+        - "docs/how-to/*"
+        - "docs/how-to/"
+        - "docs/tutorial/*"
+        - "docs/tutorial/"
+        # docs/sources/ is gitignored (raw PDF/EPUB inputs to
+        # ingestion); references to it from documentation dangle
+        # in apps/ by design.
+        - "docs/sources/*"
+        - "docs/sources/"
+        # docs/evals/ is maintainer-only; the README and llm-epistemology.md
+        # link to methodology.md and harness/ for transparency but the
+        # shipped apps do not carry the harness.
+        - "docs/evals/*"
+        - "docs/evals/"
+        # Cross-profile: architecture docs discuss all task axes.
+        - "distillations/stakeholder-engagement/*"
+        - "distillations/software-business/*"
+        # Operator skills live in the source repo, not in apps;
+        # source-repo references to them dangle in apps by design.
+        - ".claude/skills/ingesting-resources/*"
+        - ".claude/skills/creating-tasks/*"
+        - ".claude/skills/creating-applications/*"
+        - ".claude/skills/creating-distillations/*"
+        - ".claude/skills/creating-lenses/*"
+        - ".claude/skills/ingesting-images/*"
+        - ".claude/skills/finding-resources/*"
+        # Source-repo agent definitions that this profile doesn't ship
+        # dangle in apps by design (not every profile carries every agent).
+        - ".claude/agents/*"
+        # Hook and plugin manifest live in the source repo, not in apps.
+        - ".claude/hooks/*"
+        - ".claude/settings.json"
+        - ".claude-plugin/*"
+        # Known-limitations doc is operator-facing (covers what's
+        # partial in the demo corpus and how to complete or replace it);
+        # not relevant to an app-runtime LLM consumer.
+        - "docs/reference/known-limitations.md"
+        # Pass I audit summaries and the per-source audit logs ship in
+        # the source repo as the integrity record; not in apps.
+        - "docs/audit-results/"
+        - "docs/audit-results/*"
+        - "references/_audit/"
+        - "references/_audit/*"
+        # Comparative eval harness ships in the source repo; not in apps.
+        - "evals/"
+        - "evals/*"
+        # Pass I calibration + regression fixtures live in the source
+        # repo; the shipped app runs the compiled assistant, not the
+        # ingestion auditor. Source-repo references to them dangle by design.
+        - "tests/"
+        - "tests/*"
+        - "tests/audit-fixtures/"
+        - "tests/audit-fixtures/*"
+        # Repo-root files referenced from architecture docs (build.js,
+        # builds.yaml, LICENSE, LICENSE-CONTENT) live in the source repo
+        # only; the apps ship compiled output, not the build tooling.
+        # Paths to apps/ itself dangle inside apps/ by definition.
+        - "build.js"
+        - "builds.yaml"
+        - "LICENSE"
+        - "LICENSE-CONTENT"
+        - "package.json"
+        - "scripts/*"
+        - "build-profiles/*"
+        - "apps/"
+        - "apps/*"
+        - "corpus.commons/demo/"
+        - "corpus.commons/demo/apps/"
+        - "corpus.commons/demo/apps/*"
+        - "corpus.commons/demo/sources/"
+        - "corpus.commons/demo/sources/*"
+        - "corpus.commons/demo/sources/converted/*"
+        - "corpus.commons/demo/sources/original/*"
+        - "corpus.commons/demo/distros/"
+        - "corpus.commons/demo/distros/*"
+        # creating-corpus skill lives in the source repo; the compiled
+        # apps don't carry the maintainer skills.
+        - ".claude/skills/creating-corpus/*"
+        - ".claude/skills/creating-corpus/SKILL.md"
+        # CONTRIBUTING and corpus-control README sections are operator-facing,
+        # not for the app consumer.
+        - "CONTRIBUTING.md"
+
+  stakeholder:
+    description: "Source-grounded stakeholder-engagement assistant. Ships all references projected to the stakeholder-engagement task axis, plus the lens library."
+    output_dir: corpus.commons/demo/apps/stakeholder
+
+    # See decision's capability comment.
+    recommends_capabilities:
+      - name: notes-archive
+        purpose: "Write stakeholder maps + engagement plans to the user's notes system"
+        fallback: "Output as markdown for the user to copy into their notes manually"
+
+    # See decision max_scope comment for taxonomy.
+    max_scope: open-nc
+
+    # See decision max_visibility comment.
+    max_visibility: open-nc
+
+    references:
+      include_patterns:
+        - "*.md"
+      exclude_patterns:
+        # Pass A/H/I audit scaffolding lives alongside references in the
+        # source repo as an integrity record. Not for shipping.
+        - "_ingest_pass_*"
+        - "_ingest_*"
+
+    # The per-task distillation index lives inside its task directory
+    # and is copied along with the distillations.
+    distillations:
+      include:
+        - stakeholder-engagement
+
+    lenses:
+      include: true
+
+    skills:
+      include:
+        # Runtime skills ship to the compiled app.
+        # ingesting-resources, creating-tasks, creating-applications, and
+        # creating-distillations are operator/maintainer tools that live in the
+        # source repo; extending the corpus is not an app-time task.
+        - matching-references
+        - answer-from-library
+
+    claude_md:
+      template: stakeholder
+
+    docs:
+      include:
+        - docs/architecture
+        - docs/assets/forge-hero.png
+        - docs/assets/the-matrix.png
+        - docs/assets/cost-curves.png
+        - docs/reference
+        - docs/README.md
+
+    validation:
+      ignore_dangling:
+        - "_planning/*"
+        - "docs/how-to/*"
+        - "docs/how-to/"
+        - "docs/tutorial/*"
+        - "docs/tutorial/"
+        - "docs/sources/*"
+        - "docs/sources/"
+        # docs/evals/ is maintainer-only; the README and llm-epistemology.md
+        # link to methodology.md and harness/ for transparency but the
+        # shipped apps do not carry the harness.
+        - "docs/evals/*"
+        - "docs/evals/"
+        # Cross-profile: architecture docs discuss all task axes.
+        - "distillations/decision-making/*"
+        - "distillations/software-business/*"
+        # Operator skills live in the source repo, not in apps.
+        - ".claude/skills/ingesting-resources/*"
+        - ".claude/skills/creating-tasks/*"
+        - ".claude/skills/creating-applications/*"
+        - ".claude/skills/creating-distillations/*"
+        - ".claude/skills/creating-lenses/*"
+        - ".claude/skills/ingesting-images/*"
+        - ".claude/skills/finding-resources/*"
+        # Source-repo agent definitions that this profile doesn't ship
+        # dangle in apps by design (not every profile carries every agent).
+        - ".claude/agents/*"
+        # Hook and plugin manifest live in the source repo, not in apps.
+        - ".claude/hooks/*"
+        - ".claude/settings.json"
+        - ".claude-plugin/*"
+        # Known-limitations doc is operator-facing.
+        - "docs/reference/known-limitations.md"
+        # Pass I audit summaries and the per-source audit logs ship in
+        # the source repo as the integrity record; not in apps.
+        - "docs/audit-results/"
+        - "docs/audit-results/*"
+        - "references/_audit/"
+        - "references/_audit/*"
+        # Comparative eval harness ships in the source repo; not in apps.
+        - "evals/"
+        - "evals/*"
+        # Pass I calibration + regression fixtures live in the source
+        # repo; the shipped app runs the compiled assistant, not the
+        # ingestion auditor. Source-repo references to them dangle by design.
+        - "tests/"
+        - "tests/*"
+        - "tests/audit-fixtures/"
+        - "tests/audit-fixtures/*"
+        # Repo-root files referenced from architecture docs (build.js,
+        # builds.yaml, LICENSE, LICENSE-CONTENT) live in the source repo
+        # only; the apps ship compiled output, not the build tooling.
+        # Paths to apps/ itself dangle inside apps/ by definition.
+        - "build.js"
+        - "builds.yaml"
+        - "LICENSE"
+        - "LICENSE-CONTENT"
+        - "package.json"
+        - "scripts/*"
+        - "build-profiles/*"
+        - "apps/"
+        - "apps/*"
+        - "corpus.commons/demo/"
+        - "corpus.commons/demo/apps/"
+        - "corpus.commons/demo/apps/*"
+        - "corpus.commons/demo/sources/"
+        - "corpus.commons/demo/sources/*"
+        - "corpus.commons/demo/sources/converted/*"
+        - "corpus.commons/demo/sources/original/*"
+        - "corpus.commons/demo/distros/"
+        - "corpus.commons/demo/distros/*"
+        # creating-corpus skill lives in the source repo; the compiled
+        # apps don't carry the maintainer skills.
+        - ".claude/skills/creating-corpus/*"
+        - ".claude/skills/creating-corpus/SKILL.md"
+        # CONTRIBUTING and corpus-control README sections are operator-facing,
+        # not for the app consumer.
+        - "CONTRIBUTING.md"
+
+  software-business:
+    description: "Source-grounded assistant for software-business work — the intersection of running a software business and building the software itself. Ships all references projected to the software-business task axis, plus the lens library."
+    output_dir: corpus.commons/demo/apps/software-business
+
+    # See decision's capability comment.
+    recommends_capabilities:
+      - name: notes-archive
+        purpose: "Write analysis memos + framework applications to the user's notes system"
+        fallback: "Output as markdown for the user to copy into their notes manually"
+
+    # CC BY-SA 4.0 is admissible at open-nc ceiling (SA copyleft applies
+    # to derivatives but is not commercial-restricting). The Jones source
+    # carries scope: open in its .source.md sidecar; the SA propagation
+    # is noted in the sidecar body.
+    max_scope: open-nc
+
+    # See decision max_visibility comment.
+    max_visibility: open-nc
+
+    references:
+      include_patterns:
+        - "*.md"
+      exclude_patterns:
+        - "_ingest_pass_*"
+        - "_ingest_*"
+
+    distillations:
+      include:
+        - software-business
+
+    lenses:
+      include: true
+
+    skills:
+      include:
+        - matching-references
+        - answer-from-library
+
+    # Runtime agents ship to the compiled app as Claude Code custom
+    # agent definitions in .claude/agents/. Empty for the shipped demo
+    # profiles; downstream profiles for specific practitioner roles
+    # (e.g. an AAR facilitator app) would list role-specific agents here.
+    agents:
+      include: []
+
+    claude_md:
+      template: software-business
+
+    docs:
+      include:
+        - docs/architecture
+        - docs/assets/forge-hero.png
+        - docs/assets/the-matrix.png
+        - docs/assets/cost-curves.png
+        - docs/reference
+        - docs/README.md
+
+    validation:
+      ignore_dangling:
+        - "_planning/*"
+        - "docs/how-to/*"
+        - "docs/how-to/"
+        - "docs/tutorial/*"
+        - "docs/tutorial/"
+        - "docs/sources/*"
+        - "docs/sources/"
+        # docs/evals/ is maintainer-only; the README and llm-epistemology.md
+        # link to methodology.md and harness/ for transparency but the
+        # shipped apps do not carry the harness.
+        - "docs/evals/*"
+        - "docs/evals/"
+        # Cross-profile: architecture docs discuss task axes the
+        # software-business profile does not ship.
+        - "distillations/decision-making/*"
+        - "distillations/stakeholder-engagement/*"
+        - ".claude/skills/ingesting-resources/*"
+        - ".claude/skills/creating-tasks/*"
+        - ".claude/skills/creating-applications/*"
+        - ".claude/skills/creating-distillations/*"
+        - ".claude/skills/creating-lenses/*"
+        - ".claude/skills/ingesting-images/*"
+        - ".claude/skills/finding-resources/*"
+        - ".claude/skills/creating-corpus/*"
+        - ".claude/skills/creating-corpus/SKILL.md"
+        - ".claude/agents/*"
+        - ".claude/agents/"
+        - ".claude/hooks/*"
+        - ".claude/settings.json"
+        - ".claude-plugin/*"
+        - "docs/reference/known-limitations.md"
+        - "docs/audit-results/"
+        - "docs/audit-results/*"
+        - "references/_audit/"
+        - "references/_audit/*"
+        - "evals/"
+        - "evals/*"
+        - "tests/"
+        - "tests/*"
+        - "tests/audit-fixtures/"
+        - "tests/audit-fixtures/*"
+        - "build.js"
+        - "builds.yaml"
+        - "LICENSE"
+        - "LICENSE-CONTENT"
+        - "package.json"
+        - "scripts/*"
+        - "build-profiles/*"
+        - "apps/"
+        - "apps/*"
+        - "corpus.commons/demo/"
+        - "corpus.commons/demo/apps/"
+        - "corpus.commons/demo/apps/*"
+        - "corpus.commons/demo/sources/"
+        - "corpus.commons/demo/sources/*"
+        - "corpus.commons/demo/sources/converted/*"
+        - "corpus.commons/demo/sources/original/*"
+        - "corpus.commons/demo/distros/"
+        - "corpus.commons/demo/distros/*"
+        - "CONTRIBUTING.md"
+
+  # ============================================================================
+  # Open-corpus AAR and retro profiles. These ship against corpus.commons/demo
+  # (open / open-nc) and draw only on the 26 demo references. Canonical HOP /
+  # retro authors are not openly licensed and are absent — the discipline is
+  # carried borrowed-through LFUO 2024, NHS Just Culture, SSDL, Open Kanban,
+  # Field Guide, Open Practice Library, Liberating Structures.
+  # ============================================================================
+
+  aar-mode: &aar_mode_anchor
+    description: "Open-corpus After-Action Review assistant. Ships the AAR task axis projected from the 26 demo references, plus the lens library. Canonical HOP authors are not openly licensed and are carried borrowed-through LFUO 2024, NHS Just Culture, and SSDL rather than cited directly."
+    output_dir: corpus.commons/demo/apps/aar-mode
+
+    recommends_capabilities:
+      - name: notes-archive
+        purpose: "File the AAR document + action register + checklist to the user's notes system"
+        fallback: "Output the AAR markdown for the user to paste into their notes manually"
+
+    # Demo corpus is uniformly open / open-nc; mechanism latent but exercised.
+    max_scope: open-nc
+
+    # See decision max_visibility comment.
+    max_visibility: open-nc
+
+    references:
+      include_patterns:
+        - "*.md"
+      exclude_patterns:
+        - "_ingest_pass_*"
+        - "_ingest_*"
+
+    distillations:
+      include:
+        - aar
+
+    lenses:
+      include: true
+
+    skills:
+      include:
+        - matching-references
+        - answer-from-library
+
+    agents:
+      include:
+        - aar-facilitator
+
+    claude_md:
+      template: aar-mode
+
+    docs:
+      include:
+        - docs/architecture
+        - docs/assets/forge-hero.png
+        - docs/assets/the-matrix.png
+        - docs/assets/cost-curves.png
+        - docs/reference
+        - docs/README.md
+
+    validation:
+      ignore_dangling:
+        - "_planning/*"
+        - "docs/how-to/*"
+        - "docs/how-to/"
+        - "docs/tutorial/*"
+        - "docs/tutorial/"
+        - "docs/sources/*"
+        - "docs/sources/"
+        - "docs/evals/*"
+        - "docs/evals/"
+        - "docs/reference/known-limitations.md"
+        - "docs/audit-results/"
+        - "docs/audit-results/*"
+        - "references/_audit/"
+        - "references/_audit/*"
+        - "evals/"
+        - "evals/*"
+        - "tests/"
+        - "tests/*"
+        - "tests/audit-fixtures/"
+        - "tests/audit-fixtures/*"
+        - "build.js"
+        - "builds.yaml"
+        - "LICENSE"
+        - "LICENSE-CONTENT"
+        - "package.json"
+        - "scripts/*"
+        - "build-profiles/*"
+        - "apps/"
+        - "apps/*"
+        - "CONTRIBUTING.md"
+        # Cross-axis distillations not shipped by this profile.
+        - "distillations/retro/*"
+        - "distillations/decision-making/*"
+        - "distillations/stakeholder-engagement/*"
+        - "distillations/software-business/*"
+        # Operator/maintainer skills not shipped to the runtime app.
+        - ".claude/skills/ingesting-resources/*"
+        - ".claude/skills/creating-tasks/*"
+        - ".claude/skills/creating-applications/*"
+        - ".claude/skills/creating-distillations/*"
+        - ".claude/skills/creating-lenses/*"
+        - ".claude/skills/ingesting-images/*"
+        - ".claude/skills/finding-resources/*"
+        - ".claude/skills/creating-corpus/*"
+        - ".claude/skills/creating-corpus/SKILL.md"
+        # Agents not bundled by this profile.
+        - ".claude/agents/retro-facilitator.md"
+        - ".claude/hooks/*"
+        - ".claude/settings.json"
+        - ".claude-plugin/*"
+        # Repo-root corpus paths not relevant inside compiled apps.
+        - "corpus.commons/demo/"
+        - "corpus.commons/demo/apps/"
+        - "corpus.commons/demo/apps/*"
+        - "corpus.commons/demo/sources/"
+        - "corpus.commons/demo/sources/*"
+        - "corpus.commons/demo/sources/converted/*"
+        - "corpus.commons/demo/sources/original/*"
+        - "corpus.commons/demo/distros/"
+        - "corpus.commons/demo/distros/*"
+        # Operator-facing task specs not shipped to compiled apps.
+        - "tasks/*"
+        - "tasks/"
+
+  retro-mode:
+    description: "Open-corpus retrospective-facilitation assistant. Ships the retro task axis projected from the 26 demo references, plus the lens library. Canonical retrospective and team-effectiveness authors are not openly licensed and are carried borrowed-through the Approach Perfect Field Guide, Open Practice Library, Liberating Structures, SSDL, and Open Kanban rather than cited directly."
+    output_dir: corpus.commons/demo/apps/retro-mode
+
+    recommends_capabilities:
+      - name: chat-export
+        purpose: "Pull the retro chat transcript at the end of each timeboxed segment so synthesis is on the data, not on the lead's typing speed"
+        fallback: "Lead pastes the chat output into the window after each segment; the rest of the retro is unchanged"
+      - name: issue-tracker
+        purpose: "Draft Phase-4 experiments directly into the team's tracker at retro close"
+        fallback: "Output experiments as markdown for the lead to copy into their tracker"
+
+    # Demo corpus is uniformly open / open-nc; mechanism latent but exercised.
+    max_scope: open-nc
+
+    # See decision max_visibility comment.
+    max_visibility: open-nc
+
+    references:
+      include_patterns:
+        - "*.md"
+      exclude_patterns:
+        - "_ingest_pass_*"
+        - "_ingest_*"
+
+    distillations:
+      include:
+        - retro
+
+    lenses:
+      include: true
+
+    skills:
+      include:
+        - matching-references
+        - answer-from-library
+
+    agents:
+      include:
+        - retro-facilitator
+
+    claude_md:
+      template: retro-mode
+
+    docs:
+      include:
+        - docs/architecture
+        - docs/assets/forge-hero.png
+        - docs/assets/the-matrix.png
+        - docs/assets/cost-curves.png
+        - docs/reference
+        - docs/README.md
+
+    validation:
+      ignore_dangling:
+        - "_planning/*"
+        - "docs/how-to/*"
+        - "docs/how-to/"
+        - "docs/tutorial/*"
+        - "docs/tutorial/"
+        - "docs/sources/*"
+        - "docs/sources/"
+        - "docs/evals/*"
+        - "docs/evals/"
+        - "docs/reference/known-limitations.md"
+        - "docs/audit-results/"
+        - "docs/audit-results/*"
+        - "references/_audit/"
+        - "references/_audit/*"
+        - "evals/"
+        - "evals/*"
+        - "tests/"
+        - "tests/*"
+        - "tests/audit-fixtures/"
+        - "tests/audit-fixtures/*"
+        - "build.js"
+        - "builds.yaml"
+        - "LICENSE"
+        - "LICENSE-CONTENT"
+        - "package.json"
+        - "scripts/*"
+        - "build-profiles/*"
+        - "apps/"
+        - "apps/*"
+        - "CONTRIBUTING.md"
+        # Cross-axis distillations not shipped by this profile.
+        - "distillations/aar/*"
+        - "distillations/decision-making/*"
+        - "distillations/stakeholder-engagement/*"
+        - "distillations/software-business/*"
+        # Operator/maintainer skills not shipped to the runtime app.
+        - ".claude/skills/ingesting-resources/*"
+        - ".claude/skills/creating-tasks/*"
+        - ".claude/skills/creating-applications/*"
+        - ".claude/skills/creating-distillations/*"
+        - ".claude/skills/creating-lenses/*"
+        - ".claude/skills/ingesting-images/*"
+        - ".claude/skills/finding-resources/*"
+        - ".claude/skills/creating-corpus/*"
+        - ".claude/skills/creating-corpus/SKILL.md"
+        # Agents not bundled by this profile.
+        - ".claude/agents/aar-facilitator.md"
+        - ".claude/hooks/*"
+        - ".claude/settings.json"
+        - ".claude-plugin/*"
+        # Repo-root corpus paths not relevant inside compiled apps.
+        - "corpus.commons/demo/"
+        - "corpus.commons/demo/apps/"
+        - "corpus.commons/demo/apps/*"
+        - "corpus.commons/demo/sources/"
+        - "corpus.commons/demo/sources/*"
+        - "corpus.commons/demo/sources/converted/*"
+        - "corpus.commons/demo/sources/original/*"
+        - "corpus.commons/demo/distros/"
+        - "corpus.commons/demo/distros/*"
+        # Operator-facing task specs not shipped to compiled apps.
+        - "tasks/*"
+        - "tasks/"
+
+
+  # ============================================================================
+  # Private profiles, if any, live in per-corpus builds.yaml files that
+  # build.js discovers automatically by globbing corpus.commons/*/builds.yaml
+  # and corpus.local/*/builds.yaml at load time. Substrate builds.yaml carries
+  # only the public profile set above.
+  # ============================================================================

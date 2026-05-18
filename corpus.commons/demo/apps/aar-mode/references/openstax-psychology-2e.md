@@ -1,0 +1,108 @@
+
+# OpenStax, Psychology 2e (light reference)
+
+**Source:** OpenStax (2020). *Psychology 2e*. Rice University. Senior contributing authors Rose M. Spielman (Content Lead), William J. Jenkins, Marilyn D. Lovett; 10 contributing authors. Licence: CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e.
+**Structure:** 16 chapters spanning the introductory psychology survey: discipline and history; research methods; biopsychology; consciousness; sensation and perception; learning; thinking and intelligence; memory; lifespan development; motivation and emotion; personality; social psychology; industrial-organisational psychology; stress and health; psychological disorders; therapy and treatment. No appendices. Coverage: substantive content only — pedagogical scaffolding (Key Terms, Summary, Review Questions, Critical Thinking Questions, Personal Application Questions) excluded; back-matter References and Index excluded.
+
+## Author's Thesis (condensed)
+
+Psychology is the scientific study of mind and behaviour, situated as both a natural and a social science whose methods are empirical and replicable. Across 16 chapters the book argues that human behaviour and inner experience are jointly shaped by biological, cognitive, social, developmental, and cultural processes, and that no single perspective is sufficient. The historical narrative through six schools (structuralism, functionalism, psychoanalytic, Gestalt, behaviourism, humanism) culminates in a modern integrative posture. Six load-bearing claims recur: cognition is constructive (perception, memory, judgement are reconstructive and bias-prone); the situation matters more than dispositional accounts predict; learning is the basic mechanism of behaviour change; individual differences are real and consequential; and disorders typically arise from interactions between biological diatheses and environmental stressors.
+
+## The discipline of psychology
+
+Psychology is defined as the scientific study of the mind and behaviour, framed as empirical and replicable. Six historical schools — structuralism (Wundt, Titchener), functionalism (James, Dewey, Peirce), psychoanalytic theory (Freud), Gestalt (Wertheimer, Koffka, Köhler), behaviourism (Pavlov, Watson, Skinner), and humanism (Maslow, Rogers) — culminate in the cognitive revolution and the modern subdivisions: biopsychology, sensation and perception, cognitive, developmental, personality, social, industrial-organisational, health, sport, clinical, counselling, and forensic psychology. The book repeatedly highlights early contributions of women and people of colour despite institutional barriers (Washburn, Calkins, Sumner, Prosser, Kenneth and Mamie Phipps Clark).
+
+## Research methods and ethics
+
+Theory and hypothesis are distinguished; falsifiability marks the scientific boundary. Methods inventory: clinical/case studies, naturalistic observation, surveys, archival research, longitudinal vs cross-sectional designs, and experiments. Correlation does not imply causation; the ice-cream-and-crime confounding example anchors this. Experimental design includes operational definitions, random sampling and assignment, single- and double-blind designs, placebo and experimenter bias, statistical significance (p < .05), and replication. Reliability (consistency) and validity (accuracy) are distinguished. Modern ethics: IRBs, informed consent, debriefing, IACUCs; the Tuskegee Syphilis Study is the historical anchor.
+
+## Biopsychology
+
+Genetics: genotype, phenotype, dominant/recessive alleles, polygenic traits; range of reaction, gene-environment correlation, and epigenetics frame the gene-environment relationship. Neurons communicate via action potentials and neurotransmitter binding; major neurotransmitters (acetylcholine, dopamine, GABA, glutamate, norepinephrine, serotonin, beta-endorphin) drive specific behavioural functions. Drugs act as agonists, antagonists, or reuptake inhibitors. CNS and PNS divide into somatic and autonomic; the autonomic divides further into sympathetic (fight-or-flight) and parasympathetic (rest-and-recovery). The four cortical lobes (frontal, parietal, temporal, occipital) carry distinct functions; the cases of Phineas Gage and H.M. anchor frontal-lobe and hippocampal functions. Neuroplasticity operates throughout life. Endocrine glands (pituitary, thyroid, pineal, adrenal, pancreas, gonads) provide slower hormonal regulation.
+
+## Consciousness, sensation, and perception
+
+Consciousness, biological rhythms (circadian regulation by SCN and melatonin), three NREM sleep stages plus REM, dream theories, and recommended sleep durations. Substance use and addiction: depressants, stimulants, opioids, hallucinogens; the opioid epidemic. Sensation versus perception: bottom-up versus top-down processing; inattentional blindness (Simons and Chabris); cultural variation in the Müller-Lyer illusion. Gestalt principles: figure-ground, proximity, similarity, continuity, closure. Signal detection theory and depth perception (binocular and monocular cues).
+
+## Learning
+
+Three models: classical conditioning (Pavlov; Watson and Rayner's Little Albert), operant conditioning (Skinner via Thorndike's law of effect; the 2x2 reinforcement-punishment matrix), and observational learning (Bandura; Bobo doll). Reinforcement schedules: variable-ratio produces highest, most extinction-resistant response. Shaping uses successive approximations; latent learning (Tolman) demonstrates cognitive maps. The book takes a position favouring reinforcement over punishment.
+
+## Cognition, intelligence, and judgement
+
+Cognition is thinking broadly (perception, learning, problem-solving, judgement, memory). Concepts, prototypes, and schemata organise knowledge; role and event schemata structure inference. Problem-solving uses trial and error, algorithms, and heuristics; five conditions invoke heuristics. Five judgement biases: anchoring, confirmation, hindsight, representative, availability. Mental set and functional fixedness are additional pitfalls. Intelligence theories: Spearman g, Cattell fluid/crystallised, Sternberg triarchic, Gardner multiple intelligences, Cattell-Horn-Carroll hierarchy. IQ tests: bell curve mean 100, SD 15. Flynn effect documents generational rises. Divergent versus convergent thinking distinguishes creativity from problem solution.
+
+## Memory
+
+Atkinson-Shiffrin three-stage model (sensory, short-term, long-term); Baddeley's working memory adds central executive, phonological loop, visuospatial sketchpad, episodic buffer. Encoding modalities (visual, acoustic, semantic); semantic encoding produces strongest traces; self-reference effect strengthens. Long-term memory architecture: explicit (episodic, semantic) versus implicit (procedural, priming, emotional conditioning). Brain regions: amygdala (emotional value), hippocampus (consolidation), cerebellum (procedural), prefrontal cortex (semantic encoding/retrieval). Schacter's seven sins: transience, absentmindedness, blocking, misattribution, suggestibility, bias, persistence. Loftus's misinformation-effect paradigm; eyewitness misidentification (Ronald Cotton case). Proactive and retroactive interference. Ebbinghaus forgetting curve. Memory enhancement: elaborative rehearsal, distributed practice, mnemonic devices, exercise, and adequate sleep.
+
+## Lifespan development
+
+Three domains (physical, cognitive, psychosocial); three tensions (continuous/discontinuous, one-course/many, nature/nurture). Stage theories: Freud's psychosexual (largely unsupported by modern research); Erikson's eight psychosocial stages; Piaget's four cognitive stages (sensorimotor, preoperational, concrete operational, formal operational); Kohlberg's moral development (with Gilligan's gender critique); Vygotsky's sociocultural theory. Attachment: Harlow's contact-comfort experiments, Bowlby's secure base, Ainsworth's Strange Situation (secure, avoidant, resistant; Main and Solomon's disorganised). Parenting styles (Baumrind: authoritative, authoritarian, permissive, uninvolved); culture moderates outcomes. Emerging adulthood (Arnett); Carstensen's socioemotional selectivity. Death and dying: Kübler-Ross's five stages; advance directives.
+
+## Motivation and emotion
+
+Intrinsic versus extrinsic motivation; the overjustification effect. Theoretical traditions: instinct, drive, arousal (Yerkes-Dodson), self-efficacy (Bandura). Maslow's hierarchy is presented critically (criticised for inability to account for real-world variation). Hunger and satiety regulation by hypothalamus integrating glucose, gut hormones (cholecystokinin, ghrelin), and leptin. Obesity is multi-causal; AMA (2023) recommends de-emphasising BMI. Emotion theories: James-Lange, Cannon-Bard, Schachter-Singer two-factor, Lazarus cognitive-mediational, Barrett's constructed emotion, Zajonc/LeDoux thalamus-amygdala bypass. Ekman's universal facial expressions; Matsumoto on cultural display rules.
+
+## Personality
+
+Five major perspectives: psychodynamic (Freud, defence mechanisms, psychosexual stages), neo-Freudian (Adler, Erikson, Jung, Horney), learning (Skinner, Bandura's reciprocal determinism and self-efficacy, Rotter's locus of control, Mischel's person-situation debate), humanistic (Maslow, Rogers's congruence and unconditional positive regard), biological/trait (Eysenck, Big Five). The Big Five (OCEAN) is described as "the most popular theory in personality psychology today and the most accurate approximation of the basic personality dimensions"; conscientiousness predicts academic and career success. Cross-cultural personality: individualistic versus collectivistic axes; cultural-comparative, indigenous, and combined approaches. Personality assessment: self-report inventories (MMPI-2, 16PF, Big Five questionnaires) versus projective tests (Rorschach, TAT, Rotter); culturally-specific tests address bias.
+
+## Social psychology
+
+The "power of the situation" framing. The fundamental attribution error overweights dispositional and underweights situational explanations; less common in collectivistic cultures. Actor-observer bias; self-serving bias; just-world hypothesis. Social roles, norms, and scripts (Stanford Prison Experiment caveats). Attitudes have cognitive, affective, and behavioural components; cognitive dissonance (Festinger); justification of effort (Aronson and Mills). Persuasion: Yale attitude change approach; elaboration likelihood model (central versus peripheral routes); foot-in-the-door technique. Asch line studies (76% conformed at least once); Milgram obedience (65% to maximum voltage); normative versus informational social influence. Group dynamics: groupthink (Janis), group polarisation, social loafing, deindividuation. Prejudice, stereotype, discrimination distinguished; dual attitudes (explicit/implicit); self-fulfilling prophecy; superordinate goals reduce prejudice (Robbers Cave; jigsaw classroom). Aggression (hostile/instrumental); bullying and cyberbullying; bystander effect (Latané and Darley). Prosocial behaviour and altruism. Relationship formation via proximity and similarity; Sternberg's triangular theory; social exchange.
+
+## Industrial and organisational psychology
+
+I-O psychology studies how human behaviour and psychology affect work and how they are affected by work. Three divisions: industrial (selection, training, evaluation), organisational (satisfaction, motivation, leadership, culture, teams), and human factors (worker-machine interface, ergonomics). History: Cattell, Münsterberg, Lillian Gilbreth ("the mother of modern management"), Mayo's Hawthorne studies and the Hawthorne effect, Taylor's scientific management. Selection and evaluation: job analysis, KSAs, O*Net, structured versus unstructured interviews (structured more predictive), training and mentoring. Anti-discrimination law: Title VII, Pregnancy Discrimination Act, Equal Pay Act, ADEA, ADA, 2020 SCOTUS LGBT decision. Job satisfaction: work-content factors strongest; pay weak. Job stress, downsizing, mergers. Work-family balance research (Lapierre and Allen). Management styles: Theory X versus Theory Y. Leadership: Bass's transactional versus transformational; gender differences small and contextual; followership research. Organisational culture (Ostroff): observable artifacts, espoused values, basic assumptions. Sexual harassment (quid pro quo, hostile environment); workplace violence; procedural justice (Greenberg). Human factors: checklists; cognitive workload trade-offs (Bruno and Abrahão).
+
+## Stress, lifestyle, and health
+
+Stress as a transactional process (Lazarus and Folkman); primary and secondary appraisal. Eustress versus distress. Cannon's fight-or-flight; Selye's general adaptation syndrome (alarm, resistance, exhaustion); HPA axis and cortisol. Stressors: traumatic events, life changes (Holmes-Rahe SRRS), daily hassles, occupation-related (job strain, burnout). Stress and illness: psychophysiological disorders; Type A/B (anger and hostility most predictive); negative affectivity. Psychoneuroimmunology; chronic stress slows wound healing and weakens immune response (Cohen et al.); telomere shortening. Coping: problem-focused versus emotion-focused. Perceived control (Bandura) and social support (Holt-Lunstad meta-analysis: 50% greater survival likelihood). Stress reduction: aerobic exercise, relaxation response (Benson), biofeedback. Discrimination as chronic stressor. Positive psychology (Seligman, Csikszentmihalyi): pleasant, good, and meaningful life. Happiness predictors across nations; Kahneman-Deaton happiness-income plateau (~$75,000); affective forecasting errors; flow.
+
+## Key Statistics
+
+| Metric | Value |
+|---|---|
+| Working memory capacity (Miller; revised by Cowan) | 7±2; revised to 4±1 |
+| Forgetting curve (Ebbinghaus) | ~50% lost after 20 minutes; ~70% after 24 hours |
+| Asch conformity rate | 76% conformed at least once |
+| Milgram obedience rate | 65% to maximum voltage |
+| Mean IQ (and SD) | 100 (15); 68% within ±1 SD; 2.2% below 70 |
+| Social support and survival (Holt-Lunstad meta-analysis) | 50% greater survival likelihood |
+| Happiness-income plateau (Kahneman and Deaton) | ~US$75,000/year |
+| Schizophrenia lifetime prevalence | ~1% |
+| Job-strain heart disease risk increase (under-50, Chandola) | 68% |
+| Type A heart-disease relative risk vs Type B | 2x; 5x for second heart attack |
+
+## Key Connections
+
+- *Pavlov, Watson, Skinner, Bandura* — behaviourist-to-social-cognitive lineage anchoring learning and personality.
+- *Wundt, Titchener, James, Dewey, Peirce* — structuralism and functionalism as discipline-founding.
+- *Freud, Adler, Erikson, Jung, Horney* — psychodynamic and neo-Freudian tradition (presented critically; Erikson singled out for empirical traction).
+- *Maslow and Rogers* — humanistic "third force" against psychoanalysis and behaviourism.
+- *Piaget, Vygotsky, Kohlberg, Gilligan* — developmental traditions presented as complementary.
+- *Kahneman and Tversky* — heuristics-and-biases program informing problem-solving.
+- *Loftus* — eyewitness memory and misinformation effect.
+- *Asch, Milgram, Zimbardo, Festinger, Janis* — social-influence canon.
+- *Hovland, Petty and Cacioppo, Cialdini* — persuasion research.
+- *Allport, Tajfel and Turner, Pettigrew* — prejudice and intergroup relations.
+- *Selye, Lazarus and Folkman, Cannon* — stress research canon.
+- *Friedman and Rosenman* — Type A and cardiovascular stress.
+- *Mayo, Taylor, Lillian Gilbreth, McGregor, Bass* — I-O psychology canon.
+- *Holt-Lunstad et al.* — social-support meta-analysis.
+- *Seligman, Csikszentmihalyi* — positive psychology framing.
+
+## Signature Contrarian Positions
+
+1. **Punishment is a poor primary tool for behaviour change.** Reinforcement is favoured by today's psychologists and parenting experts.
+2. **The fundamental attribution error is a systematic mistake.** People overemphasise dispositional and underestimate situational explanations.
+3. **Strict Maslow-hierarchy prepotency is not well supported.** The theory is criticised for inability to account for real-world variation.
+4. **Most of Freud's psychosexual ideas have not found support in modern research.**
+5. **Theory X management is critiqued; Theory Y is more effective for modern organisations.**
+6. **There is no scientific evidence linking childhood vaccines to autism.** Wakefield's paper was retracted.
+7. **Conversion therapy is not effective and may be harmful.** Spitzer publicly retracted his earlier paper.
+8. **BMI is a flawed clinical measure.** AMA (2023) recommends de-emphasising it.
+9. **Polygraphs are not valid lie detectors.** No evidence that lying produces a particular physiological pattern.
+10. **Repressed-memory recovery via hypnosis or guided imagery produces high rates of false memory.** Childhood abuse is real, but the recovery method is unreliable.
+11. **Mental illness is not personal weakness or character failure.** Compassion is the right stance.

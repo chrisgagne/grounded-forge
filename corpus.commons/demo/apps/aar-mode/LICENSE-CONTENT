@@ -1,0 +1,111 @@
+# Content licensing
+
+This file covers the *content* tier of the repository: long-form prose, the demonstration corpus, and the third-party-derived material in it. The *substrate* tier — code, architecture documentation, build scaffolding, skill specifications, and index frames — is licensed under `LICENSE` (MIT). See that file for the substrate split.
+
+Copyright © 2026 Chris Gagné. Chris Gagné asserts copyright in all original prose covered by this file, under the Copyright Act 1994 (NZ) and the Berne Convention. Third-party-derived material is held under its upstream licence as listed in Section 2 below.
+
+Licensed grants are set out in this file (content) and in `LICENSE` (code and substrate). Use of the Materials is also subject to `DISCLAIMER.md` (no warranty, NZ Consumer Guarantees Act and Fair Trading Act contracting-out for in-trade supplies, limitation of liability).
+
+## 1. Original prose and the demonstration corpus
+
+CC BY 4.0 (Creative Commons Attribution 4.0 International).
+
+This covers content authored by Chris Gagné:
+
+- References: `corpus.commons/{corpus}/references/**.md` (light references and deep references authored by the maintainer; third-party-derived references inherit their source's licence per Section 2).
+- Distillations: `corpus.commons/{corpus}/distillations/{task}/{slug}-{task}.md` per-source distillation files (third-party-derived distillations inherit their source's licence per Section 2). The operator-view distillation `INDEX.md` files are substrate and ship under `LICENSE`.
+- Lenses: `corpus.commons/{corpus}/lenses/**`.
+- Source sidecars: `corpus.commons/{corpus}/sources/original/*.source.md` (third-party attribution metadata that travels with the corpus).
+- Long-form prose: `README.md`, `CONTRIBUTING.md`, `DISCLAIMER.md`, and this file (`LICENSE-CONTENT`).
+
+Full text of CC BY 4.0: https://creativecommons.org/licenses/by/4.0/legalcode
+
+## 2. Third-party-derived references and distillations
+
+Each `corpus.commons/demo/references/{slug}-deep.md`, `corpus.commons/demo/references/{slug}.md` (light), and `corpus.commons/demo/distillations/{task}/{slug}-{task}.md` file inherits the licence of its source. The licence is recorded explicitly in each source sidecar (`corpus.commons/demo/sources/original/{slug}.source.md`) and in each deep reference's **Source:** line.
+
+The shipped corpus:
+
+| Source | Licence | Scope |
+|---|---|---|
+| Approach Perfect Field Guide to Scrum Events | CC BY 4.0 | open |
+| Barbrook-Johnson & Penn, *Systems Mapping* | CC BY 4.0 | open |
+| FLO Facilitation Guide | CC BY 4.0 | open |
+| Jones, *Evidence-based Software Engineering* | CC BY-SA 4.0 | open |
+| Letaw, *Handbook of Software Engineering Methods* | CC BY-NC 4.0 | open-nc |
+| US Forest Service, *LFUO Learning Review Guide 2024* | Public domain (17 USC §105) | open |
+| Heft & Pattillo, *Engaging Everyone with Liberating Structures* | CC BY-NC-SA 3.0 Unported | open-nc |
+| NHS Improvement, *A Just Culture Guide* | Open Government Licence v3.0 (CC BY 4.0 compatible) | open |
+| Hurtado, *Open Kanban* | CC BY 3.0 Unported | open |
+| Red Hat, *Open Practice Library* | CC BY 4.0 | open |
+| OpenStax, *Introduction to Business* | CC BY 4.0 | open |
+| OpenStax, *Organizational Behavior* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Principles of Management* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Business Ethics* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Entrepreneurship* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Principles of Marketing* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Principles of Finance* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Principles of Accounting Vol 1* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Principles of Accounting Vol 2* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Business Law I Essentials* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Psychology 2e* | CC BY-NC-SA 4.0 | open-nc |
+| OpenStax, *Principles of Economics 3e* | CC BY-NC-SA 4.0 | open-nc |
+| Krivitsky, Larman & Flemm, *Strategic Org Design: The Primer* | CC BY-NC-SA 4.0 | open-nc |
+| Schwaber & Sutherland, *The Scrum Guide 2020* | CC BY-SA 4.0 | open |
+| SSDL, *Systems Thinking Foundations* | CC BY-SA 4.0 | open |
+| US Army, *TC 25-20 A Leader's Guide to After-Action Reviews* | Public domain (17 USC §105) | open |
+
+### What the licence families mean for derivative use
+
+The corpus carries seven distinct upstream licence shapes. Each propagates to its derivative references and distillations.
+
+- **CC BY 4.0 / OGL v3.0 / CC BY 3.0**: attribution required; commercial use and derivatives permitted. Derivatives can be redistributed under any compatible licence.
+- **CC BY-SA 4.0 / CC BY-SA-equivalent**: attribution + ShareAlike: derivatives must be redistributed under the same (or compatible) licence. Commercial use permitted.
+- **CC BY-NC 4.0**: attribution + NonCommercial. Derivatives cannot be used commercially.
+- **CC BY-NC-SA 4.0 / CC BY-NC-SA 3.0**: attribution + NonCommercial + ShareAlike. Derivatives cannot be used commercially and must propagate the same licence on redistribution.
+- **Public domain (17 USC §105)**: US federal government work product; no copyright in the United States. Attribution still requested as a matter of professional practice.
+
+Each source sidecar (`corpus.commons/demo/sources/original/{slug}.source.md`) is authoritative for that source. The **Source:** line in each deep reference repeats the licence for citation context.
+
+### Commercial use
+
+For commercial use, strip every source whose licence carries an NC clause:
+
+- All eleven OpenStax CC BY-NC-SA titles (everything except *Introduction to Business*)
+- *Handbook of Software Engineering Methods* (Letaw): CC BY-NC 4.0
+- *Engaging Everyone with Liberating Structures*: CC BY-NC-SA 3.0 Unported
+- *Strategic Org Design: The Primer* (Org Topologies): CC BY-NC-SA 4.0
+
+The mechanical filter for this is each profile's `max_scope` ceiling in [`builds.yaml`](builds.yaml); set `max_scope: open` to exclude every `open-nc` source from a build. Per-source removal is also available via `npm run remove-corpus -- {slug}`. The architecture, build system, skills, and original prose carry no source-licensing constraints (CC BY 4.0 / MIT only).
+
+Full text of the most-cited licences:
+
+- CC BY 4.0: https://creativecommons.org/licenses/by/4.0/legalcode
+- CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+- CC BY-NC 4.0: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+- CC BY-NC-SA 4.0: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+- CC BY-NC-SA 3.0: https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
+- CC BY 3.0: https://creativecommons.org/licenses/by/3.0/legalcode
+- Open Government Licence v3.0: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+
+## 3. The reference frames vs the reference content
+
+`corpus.commons/demo/references/REFERENCE-INDEX.md` and each per-task distillation index (`aar`, `decision-making`, `retro`, `software-business`, `stakeholder-engagement`) are mixed: the structural frames (section headings, format documentation, anti-pattern lists) are substrate and ship under `LICENSE` (MIT); the entries pointing at third-party-derived files are summaries of material under the upstream licences listed above.
+
+In practice, treat each whole index file as carrying the most restrictive licence present among its entries (currently CC BY-NC-SA 4.0, because both OpenStax NC-SA titles and the *Org Topologies Primer* are indexed across the task axes). After removing every NC-class source, the indexes effectively carry CC BY-SA 4.0 because of the ShareAlike entries (Jones, Scrum Guide, SSDL); after removing those too, the frames stand on their own under MIT.
+
+## Summary
+
+| Component | Licence |
+|---|---|
+| Code, architecture documentation, build profiles, skill specifications, index frames, vocabulary reference | MIT (see `LICENSE`) |
+| Original references, distillations, lenses, source sidecars authored by the maintainer | CC BY 4.0 |
+| Long-form prose (`README.md`, `CONTRIBUTING.md`, `DISCLAIMER.md`, this file) | CC BY 4.0 |
+| Third-party-derived references and distillations | per-source: see Section 2 |
+| Index entries (operator-view INDEX `.md`) pointing at third-party material | the frames are MIT substrate; the *entries* describe material under upstream licences listed in Section 2 |
+
+For Chris Gagné's part of the work, MIT covers the substrate (build system, architecture docs, skills, profile templates, index frames) and CC BY 4.0 covers the long-form prose and original corpus content (references, distillations, lenses, source sidecars authored by the maintainer). For the demonstration corpus, source licences govern. Forks ingesting their own corpora should record per-source licences in their source sidecars and deep-reference **Source:** lines and update this file accordingly.
+
+## Licence vs distribution scope
+
+This file records *licence* (upstream legal status, drives attribution and derivative-rights). Each deep reference also carries a *scope* (`open`, `open-nc`, `copyrighted`, `confidential`, `personal`), which drives the build's mechanical distribution filter via each profile's `max_scope` ceiling. The two usually correlate (CC BY → `open`, CC BY-NC-SA → `open-nc`, all-rights-reserved → `copyrighted`) but can diverge. For example, a CC BY paper used inside a confidential client engagement carries Licence `CC BY 4.0` and Scope `confidential`. The build excludes references whose scope exceeds a profile's `max_scope`; `personal` ships in no profile. Full taxonomy and behaviour: [README.md](README.md#distribution-scope) and [docs/architecture/copyright.md](docs/architecture/copyright.md).

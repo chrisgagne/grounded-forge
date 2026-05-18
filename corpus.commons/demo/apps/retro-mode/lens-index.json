@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "corpus": "demo",
+  "generated_from": "LENS-INDEX.md",
+  "kinds": [
+    "archetype",
+    "frame",
+    "real-person"
+  ],
+  "lenses": {
+    "builder": {
+      "kind": "archetype",
+      "spec_path": "lenses/builder.md",
+      "purpose": "Reads delivery-flow artefacts as someone structurally located between Resource and Delivery topology would read them, surfacing the gap between the artefact's framing and the operating reality.",
+      "reach_for_when": "The reader is preparing or analysing an artefact (story, refinement, incident report, process change, leadership broadcast, AI rollout) that lands on engineers under high utilisation, individual measurement, manager-not-coach norms, and unclear-AI-strategy pressure.",
+      "salience": {
+        "notices_first": "asks without named owners, framing words that paper over operating reality, promises made above the structural mandate, the capacity question the artefact doesn't ask",
+        "recedes": "authorial confidence, compliance language",
+        "native_vocabulary": [
+          "operating reality",
+          "framing gap",
+          "structural mismatch",
+          "mandate-versus-label",
+          "transaction cost",
+          "queue position",
+          "unaddressed dependency",
+          "individual accountability for systemic outcome",
+          "the cost the artefact doesn't carry",
+          "what gets de-prioritised",
+          "who carries this"
+        ]
+      }
+    },
+    "cto": {
+      "kind": "archetype",
+      "spec_path": "lenses/cto.md",
+      "purpose": "Dual-job lens: reads artefacts as an AI-native, opportunity-first, constraint-disciplined enterprise CTO mid-modernisation (100+ engineers) would read them at 90 seconds of attention, and shapes outputs in the register that reader-type will engage with (opportunity-first, constraint as operational mechanism, one decision needed, named owner, timeboxed first step).",
+      "reach_for_when": "Preparing or analysing an artefact (proposal, AAR, roadmap, hiring plan, vendor pitch, strategic memo) headed into an enterprise CTO's queue — where the artefact needs to pass the 90-second skim test and convert into a decision.",
+      "salience": {
+        "notices_first": "the constraint as operational mechanism or its absence, the first two sentences, mechanism-vs-conclusion ratio, hedge density, the decision implicit in the artefact",
+        "recedes": "methodology sections, scene-setting, author credentials",
+        "native_vocabulary": [
+          "constraint as mechanism",
+          "owner-and-gate",
+          "timeboxed first step",
+          "what unlocks",
+          "the lever",
+          "no mush",
+          "naive → native",
+          "capability not productivity",
+          "demand choking",
+          "signal quality",
+          "expert in your lane",
+          "the decision needed"
+        ]
+      }
+    },
+    "pm-bounded-by-ba-role": {
+      "kind": "archetype",
+      "spec_path": "lenses/pm-bounded-by-ba-role.md",
+      "purpose": "Reads artefacts as a Product Manager would read them, where the role is named PM but operationally bounded by BA-shaped coordination work — limited authority, structurally critical to delivery, doing requirements translation and story shaping and launch herding. Surfaces the coordination cost the artefact creates, the assumed-but-absent authority, the ambiguity absorbed silently, and the invisible work generated.",
+      "reach_for_when": "Preparing or analysing an artefact (story under refinement, requirement document, launch coordination plan, backlog proposal, AI tooling rollout, \"PM evolution\" rhetoric) that lands on a PM whose title implies more authority than the role's actual decision rights support.",
+      "salience": {
+        "notices_first": "authority verbs vs role-accurate verbs, coordination cost the artefact implies but doesn't budget, stakeholder ambiguity passed downstream, the calendar position",
+        "recedes": "strategic framing language, process-maturity compliance language, senior-PM aspirational pattern references",
+        "native_vocabulary": [
+          "coordination cost",
+          "authority gap",
+          "ambiguity absorption",
+          "label-vs-authority",
+          "invisible work",
+          "cross-cover",
+          "stakeholder soothing",
+          "refinement burden",
+          "structurally critical and structurally under-empowered",
+          "the absorption is invisible and exhausting",
+          "where this work will come from"
+        ]
+      }
+    },
+    "business-executive-stakeholder": {
+      "kind": "archetype",
+      "spec_path": "lenses/business-executive-stakeholder.md",
+      "purpose": "Dual-job lens: reads artefacts as a business-executive-stakeholder (peer C-suite, operational stake in engineering outputs, doesn't manage engineering) operating predominantly in Paradigm A with occasional Paradigm-B language would read them, and shapes outputs in A-register with parsimonious B-moves (typically one per artefact) offered as a choice.",
+      "reach_for_when": "Preparing or analysing an artefact (post-launch debrief, incident retro, quarterly review, roadmap proposal, budget request, capability investment case, leadership broadcast from engineering, vendor or consulting proposal) headed into a Paradigm-A-operating, occasionally-B-espousing business executive's queue.",
+      "salience": {
+        "notices_first": "Paradigm-A vs Paradigm-B register, the opening 2–3 sentences, named owner / KPI / timeboxed action / decision, warmth deployment (calibrated vs over-deployed), B-moves counted, variance-from-plan framing, the accountability surface",
+        "recedes": "moral framing, compliance-with-values language, appeals to outside authority, hedged language",
+        "native_vocabulary": [
+          "Paradigm-A operating register",
+          "occasional B-espousal",
+          "register-determines-reception",
+          "parsimonious B-moves",
+          "the one-B-move heuristic",
+          "sermon-vs-choice",
+          "warmth as opening surface only",
+          "named owner",
+          "KPI delta",
+          "timeboxed action",
+          "variance against plan",
+          "the accountability surface"
+        ]
+      }
+    },
+    "agentic-builder": {
+      "kind": "frame",
+      "spec_path": "lenses/agentic-builder.md",
+      "purpose": "Non-personifiable structural frame: reads artefacts through the frame of work-as-fleet-supervision-and-context-curation, anchored in BMAD-METHOD as canonical example. Surfaces the artefact's context-window assumption, verification surface (woven-not-appended), handoff completeness, agent-as-code presence, persistent-facts strategy, and fleet-vs-single-AI framing. Research-grounded (not gnosis-grounded); revisit when operator has direct fleet gemba.",
+      "reach_for_when": "Preparing or analysing an artefact (spec, PRD, architecture document, agent persona file, verification gate output, sprint-status YAML, vendor pitch for agent tooling, incident report on agent-produced code, AAR on multi-agent release, leadership broadcast on \"Builder not Coder\" or \"AI productivity\") that touches AI-agent orchestration in software engineering.",
+      "salience": {
+        "notices_first": "the context model the artefact assumes (ephemeral vs curated), verification placement (woven vs appended), handoff completeness, agent-as-code presence, fleet-vs-single-AI framing, supervision burden",
+        "recedes": "unbacked productivity-gain claims, autonomous-AI framing without agent-as-code, conventional engineering vocabulary without the agentic shape named",
+        "native_vocabulary": [
+          "fleet supervision",
+          "context curation",
+          "verification-woven-not-appended",
+          "agent-as-code",
+          "agent persona file",
+          "named workflow phases",
+          "artefact-as-handoff",
+          "PASS/CONCERNS/FAIL gate",
+          "the supervision-and-curation tax",
+          "judgement fatigue",
+          "the slot-machine effect",
+          "AI brain fry",
+          "context filling with garbage"
+        ]
+      }
+    },
+    "chris-gagne-consultant-coach": {
+      "kind": "real-person",
+      "spec_path": "lenses/chris-gagne-consultant-coach.md",
+      "purpose": "Named-real-person lens grounded in Chris Gagné's published essays (*Your Paradigms Were Survivable. AI Makes Them Lethal.* and *Come Prepared to Die*) and public material. Reads artefacts as if Chris were reading them, given what his published material reveals about his stance: the leader-paradigm layer the artefact operates at, Heifetz's adaptive-vs-technical misclassification, terminology-hijacking risk under LLMs, Weinberg's 10% ceiling, the welcome-back gap, the line between what survives AI and what does not. Carries Chris's voice rules and the *don't sell the method* discipline.",
+      "reach_for_when": "Preparing or analysing an artefact in the organisational-change or AI-transition range (leadership broadcast, AI tooling investment case, AAR write-up, transformation roadmap, vendor pitch, peer essay on agentic engineering, consulting recommendation) where the reader wants Chris's published framings applied to the specific artefact.",
+      "salience": {
+        "notices_first": "the paradigm layer (content vs affective, technical vs adaptive, Weinberg's 10%), the AI-tooling cost (terminology hijacking, mētis ceiling, what survives a harness), the rite-of-passage shape (separation / ordeal / welcome-back), the voice register, smart-technocrat or guru flavour",
+        "recedes": "unheld productivity claims, framework-adoption claims unheld against the immune system, confident-tone on adaptive challenges",
+        "native_vocabulary": [
+          "the leader-paradigm ceiling",
+          "the 10% boundary",
+          "content-level vs affective-level",
+          "adaptive vs technical",
+          "terminology hijacking",
+          "the AI-as-paradigm-amplifier reading",
+          "the welcome-back gap",
+          "what survives AI",
+          "the mētis ceiling",
+          "presence-based work",
+          "Paradigm A operating with Paradigm B espoused",
+          "the consultant as companion not guru"
+        ]
+      }
+    }
+  }
+}

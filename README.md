@@ -16,6 +16,12 @@ A ○ says the source's contribution is already carried elsewhere in the matrix.
 
 Each distillation is a markdown file at `corpus.commons/{corpus}/distillations/{task}/{slug}-{task}.md`, one source projected onto one task domain. The demo corpus ships 26 references projected onto five task axes: `decision-making` with 26 distillations, `stakeholder-engagement` with 26, `software-business` with 23 (three Pass G skips routed cross-axis), plus the two ceremony axes `aar` and `retro` (each with 18 cells; Pass G skips routed cross-axis to `decision-making` and `software-business`). 111 distillations total. Fork it and ingest your own corpus; the included content can be stripped in one command.
 
+![A hand-drawn notebook page titled "Gagné, after Larman: From Law 4 to LLM Authority". A cascade diagram walks from "original thought leader (slow, hard, rare)" through displaced manager → coach → consultant → LLM slop, producing prolific content (books, blogs, LinkedIn, talks) that becomes LLM training-data volume — orders of magnitude more than the primary source. Side annotation: "primary source / nuance / the point" fading to "outliers." Bottom statement: "DEFAULT LLM AUTHORITY = consultant-frequency mode. Web search gives access to more language, not to truth."](docs/assets/gagne-larman.png)
+
+*The diagnosis. An LLM inherits its default authority from training: the consensus voice of the consultant-derivative layer that wrote the most. The primary source, slow and rare, sits in the outlier tail. Web search and "research-grade" routing amplify the same distribution.*
+
+**Default LLM authority is consultant-frequency mode. Web search gives access to more language, not to truth.** The matrix refuses that default. Pick your sources. Project them onto your task. The assistant then reads through your windows, not the training distribution's. One rule follows: *lenses are windows, not selves* — the discipline lens specs are written under. An aside on the older vocabulary (Bruteau's *psychic grid*, 1979) and how it grounds the rule is at [The Gridmaker](docs/architecture/gridmaker.md). Read it after the engineering docs, or skip.
+
 ## Apps shipped
 
 - **`decision`**: decision-making assistant; all references projected to the decision-making task axis.

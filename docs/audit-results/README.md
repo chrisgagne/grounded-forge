@@ -47,6 +47,8 @@ Counts vary in granularity per source. Some audits used a tabular count (lines a
 
 Pass I verifies fidelity to source. It does not and cannot verify quality of source. A 9-pass source-only protocol against a derivative or fashionable source produces a faithful projection of derivative or fashionable content. **Source selection is the operator's job and the rule the protocol does not enforce.** See [`source-integrity.md`](../architecture/source-integrity.md) for the integrity rule and what it covers.
 
+**The 99.4% is not a runtime-answer-accuracy number.** Pass I checks backward: it reads claims that were already written into a deep reference, cold, against the converted source. The 99.4% says *when the writer model deliberately left a citation trail, the trail resolved on re-read*. It does not say *runtime answers grounded in these deep references will be 99.4% accurate*. A runtime answer inherits the deep references' citation-fidelity only as long as it stays inside Pass-I-audited material. The moment the answer synthesises, extrapolates, or fills a gap around the projected material, Pass I no longer covers it. The audit-fidelity claim is strong and defensible. The runtime-accuracy claim needs a different eval.
+
 For the empirical question of whether pre-projection actually improves end-user answer quality compared to (a) generic Claude, (b) Claude with research forced, or (c) Claude with raw source files, see the [comparative eval methodology](../evals/methodology.md) and harness shipped alongside.
 
 ## Reading the per-source logs

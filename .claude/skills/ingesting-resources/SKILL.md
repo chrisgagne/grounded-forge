@@ -36,6 +36,18 @@ Per-pass procedures, templates, and failure modes are in [`9-pass-protocol.md`](
 - Adding a new task axis without a new source. Run `creating-tasks` → `creating-applications` instead.
 - Searching the corpus for an existing source. Run `matching-references` instead.
 
+## Cost and time
+
+The protocol pays its full cost upfront so query-time is selection, not synthesis. Before you run it, know what you are spending. Numbers below are from the May 2026 OpenStax pilot (12 books, 165–995 source pages each, mean ~480 pages); detail at [`docs/architecture/ingestion-protocol.md`](../../../docs/architecture/ingestion-protocol.md#cost-of-ingestion-observed).
+
+- **Per source, single ingestion:** ~28 min wall-clock when run alongside other work; ~$1–5 in Opus 4.7 tokens at `xhigh` effort for a book-length source. A short source (a paper, a chapter) lands at the low end. A long source with many task axes lands at the high end.
+- **Per corpus, parallel ingestion (4–5 subagents):** ~5h 30min wall-clock and an Opus token bill in the low hundreds of dollars for a 12-source corpus. Roughly doubles with corpus size; scales with axis count at Pass G.
+- **Re-ingestion** (revised edition, model advance, prior Pass I failure) costs as much as the first run. Plan re-ingestions deliberately. Do not rerun for cosmetic reasons.
+
+The cost lives in *generation*, not in re-reading the source. Within one ingestion session, Pass C reads the source once. Passes D–I work from the deep reference. Collapsing the passes into one mega-prompt does not save tokens (the same tokens are generated either way) and it costs the audit surface: Pass I checks against one inspectable artefact per pass. The amortisation runs across *queries*, not across passes. A source ingested once is read by however many queries the corpus serves over its life.
+
+**If the budget is tight,** ingest fewer sources at higher quality. The matrix's value is in curation, not coverage. The architectural answer to *is this source worth ingesting?* sits upstream of this skill — see [`finding-resources`](../finding-resources/SKILL.md).
+
 ---
 
 ## Setup gates

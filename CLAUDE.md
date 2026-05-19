@@ -20,6 +20,8 @@ For the architectural argument, read in this order:
 8. [`docs/architecture/known-architectural-limits.md`](docs/architecture/known-architectural-limits.md): three limits intrinsic to the design.
 9. [`docs/architecture/capability-binding.md`](docs/architecture/capability-binding.md)
 
+Further reading: [`docs/architecture/gridmaker.md`](docs/architecture/gridmaker.md) is an aside on the older vocabulary the architecture's lens-design discipline draws on (Bruteau's *psychic grid*) and the rule that follows from it (*lenses are windows, not selves*) — the rule shapes how lens specs are authored in [`.claude/skills/creating-lenses/SKILL.md`](.claude/skills/creating-lenses/SKILL.md) and [`.claude/skills/gridmaker-interview/SKILL.md`](.claude/skills/gridmaker-interview/SKILL.md).
+
 ## Build system
 
 Each build profile is an application: a distributable bundle composed of references and the per-task distillations the application needs. Profiles are listed in [`builds.yaml`](builds.yaml).

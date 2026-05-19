@@ -11,6 +11,17 @@
             "timeout": 15
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/git-hooks/pre-push\"",
+            "if": "Bash(*git push*)",
+            "timeout": 30
+          }
+        ]
       }
     ]
   }

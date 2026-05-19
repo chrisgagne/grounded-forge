@@ -1,0 +1,282 @@
+#!/usr/bin/env bash
+# Pre-push audit for grounded-forge.
+#
+# Runs the seven public-posting checks before any push to a remote:
+#   1. Private-tier leakage (corpus.local/, projects.local/, _planning/, _evals/ must be gitignored and untracked)
+#   2. Gitignore correctness (the patterns themselves)
+#   3. Credentials and secrets (API keys, tokens, .env files, hardcoded /Users/cgagne paths)
+#   4. Internal markdown link integrity (no broken links in tracked .md files)
+#   5. Required supporting files (README, LICENSE, CONTRIBUTING, CLAUDE, gitignore)
+#   6. Licence-file shape (LICENSE starts with canonical text, no preamble — GitHub licensee compatibility)
+#   7. Conventional cruft (.DS_Store, *.swp, *.log, *.tmp not tracked)
+#
+# Exit codes:
+#   0  — all checks pass, push proceeds
+#   1  — at least one blocker; push is aborted
+#   2  — environment problem (missing required tool); push is aborted with a remediation hint
+#
+# Enable per-clone:
+#   git config core.hooksPath scripts/git-hooks
+#
+# Bypass for a specific push (use sparingly, document why):
+#   git push --no-verify
+
+set -uo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT" || exit 2
+
+# Colours (only if stderr is a TTY)
+if [ -t 2 ]; then
+  R=$'\033[31m'; G=$'\033[32m'; Y=$'\033[33m'; B=$'\033[34m'; X=$'\033[0m'
+else
+  R=""; G=""; Y=""; B=""; X=""
+fi
+
+PASS_COUNT=0
+FAIL_COUNT=0
+WARN_COUNT=0
+FAIL_DETAILS=()
+
+pass() { PASS_COUNT=$((PASS_COUNT + 1)); printf "${G}✓${X} %s\n" "$1" >&2; }
+fail() { FAIL_COUNT=$((FAIL_COUNT + 1)); FAIL_DETAILS+=("$1"); printf "${R}✗${X} %s\n" "$1" >&2; }
+warn() { WARN_COUNT=$((WARN_COUNT + 1)); printf "${Y}!${X} %s\n" "$1" >&2; }
+note() { printf "${B}·${X} %s\n" "$1" >&2; }
+
+printf "${B}Pre-push audit:${X} grounded-forge\n" >&2
+printf "  repo: %s\n" "$REPO_ROOT" >&2
+printf "  branch: %s\n\n" "$(git rev-parse --abbrev-ref HEAD)" >&2
+
+# ─── Check 1: private-tier leakage ─────────────────────────────────────────────
+note "Check 1/7: private-tier leakage"
+
+PRIVATE_DIRS=(corpus.local projects.local _planning _evals)
+for d in "${PRIVATE_DIRS[@]}"; do
+  tracked=$(git ls-files "$d/" 2>/dev/null | head -1)
+  if [ -n "$tracked" ]; then
+    fail "Private dir '$d/' has tracked content: $tracked (and possibly more)"
+  fi
+done
+if [ $FAIL_COUNT -eq 0 ]; then
+  pass "no tracked content under corpus.local/, projects.local/, _planning/, _evals/"
+fi
+
+# ─── Check 2: gitignore correctness ────────────────────────────────────────────
+note "Check 2/7: .gitignore patterns"
+
+if [ ! -f .gitignore ]; then
+  fail ".gitignore is missing"
+else
+  REQUIRED_PATTERNS=(corpus.local projects.local "*.env" credentials.json __pycache__ .DS_Store node_modules)
+  missing=()
+  for p in "${REQUIRED_PATTERNS[@]}"; do
+    if ! grep -qE "(^|/)$(printf '%s' "$p" | sed 's/[.[\*^$/]/\\&/g')(/|$|[[:space:]])" .gitignore 2>/dev/null; then
+      missing+=("$p")
+    fi
+  done
+  if [ ${#missing[@]} -eq 0 ]; then
+    pass ".gitignore covers required patterns"
+  else
+    fail ".gitignore missing patterns: ${missing[*]}"
+  fi
+fi
+
+# ─── Check 3: credentials and secrets ──────────────────────────────────────────
+note "Check 3/7: credentials and absolute paths"
+
+# Substrate scan: tracked text files OUTSIDE source-content directories.
+# Source content lives at corpus.commons/{corpus}/sources/converted/ and may legitimately
+# carry citation paths, URL slugs, and academic author references that match our patterns
+# but aren't operator leakage. The audit's job is to catch substrate / operator leakage,
+# not to relitigate the source text.
+SCAN_FILES=$(git ls-files '*.md' '*.yml' '*.yaml' '*.json' '*.js' '*.ts' '*.py' '*.sh' 2>/dev/null \
+  | grep -v -E "corpus\.commons/[^/]+/sources/" \
+  | grep -v -E "corpus\.commons/[^/]+/apps/")
+
+if [ -z "$SCAN_FILES" ]; then
+  warn "no tracked substrate files to scan"
+else
+  # Operator home-directory paths. Scoped to *current operator's* path patterns
+  # (lowercase /Users/{name}/), not source-text citation paths (which often carry
+  # Windows-style C:/Users/{name}/ academic-author paths).
+  HOMEPATH_HITS=$(echo "$SCAN_FILES" | tr '\n' '\0' | xargs -0 grep -nE "^[^#]*[^a-zA-Z]/Users/[a-z][a-z0-9]+/[^[:space:]]" 2>/dev/null \
+    | grep -v -E "\.gitignore|/Users/\{|/Users/<|/Users/your|/Users/operator|/Users/you" \
+    || true)
+  if [ -n "$HOMEPATH_HITS" ]; then
+    fail "operator home-directory paths leaked into tracked substrate files:"
+    echo "$HOMEPATH_HITS" | head -10 >&2
+  fi
+
+  # API key shapes (Anthropic, OpenAI, AWS, GitHub, Slack bearers).
+  # The pattern is anchored to known prefixes to avoid matching filename slugs.
+  KEY_HITS=$(echo "$SCAN_FILES" | tr '\n' '\0' | xargs -0 grep -nE "(sk-ant-[A-Za-z0-9_-]{30,}|sk-proj-[A-Za-z0-9_-]{30,}|sk-live-[A-Za-z0-9_-]{30,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|gho_[A-Za-z0-9]{30,}|xoxb-[0-9]+-[A-Za-z0-9-]{20,})" 2>/dev/null || true)
+  if [ -n "$KEY_HITS" ]; then
+    fail "possible API key / token leaked into tracked substrate files:"
+    echo "$KEY_HITS" | head -5 >&2
+  fi
+
+  # .env files in working tree (tracked or untracked)
+  ENV_TRACKED=$(git ls-files '*.env' '.env*' 2>/dev/null)
+  if [ -n "$ENV_TRACKED" ]; then
+    fail ".env files tracked: $ENV_TRACKED"
+  fi
+
+  if [ -z "$HOMEPATH_HITS" ] && [ -z "$KEY_HITS" ] && [ -z "$ENV_TRACKED" ]; then
+    pass "no credentials, tokens, .env files, or operator home paths in tracked substrate"
+  fi
+fi
+
+# ─── Check 4: internal markdown link integrity ────────────────────────────────
+note "Check 4/7: internal markdown links"
+
+if ! command -v python3 >/dev/null 2>&1; then
+  warn "python3 not available; skipping markdown link integrity check"
+else
+  BROKEN_LINKS=$(python3 - <<'PYEOF' 2>/dev/null
+import os, re, subprocess
+
+# Tracked substrate markdown only. Three categories are correctly outside this
+# check's lane:
+#   - corpus.commons/*/sources/  — source content (original + converted) carries
+#     citation paths and image paths that aren't repo-internal links.
+#   - corpus.commons/*/apps/  — built-app output uses bare-path resolution
+#     evaluated from each app's own root, not from the source tree.
+#   - corpus.commons/*/build-profiles/  — app-CLAUDE.md templates that the
+#     build copies into compiled apps; their links resolve at deploy time,
+#     not from the source tree.
+result = subprocess.run(['git', 'ls-files', '*.md'], capture_output=True, text=True)
+files = [
+    f for f in result.stdout.strip().split('\n')
+    if f
+    and '/sources/' not in f
+    and '/apps/' not in f
+    and '/build-profiles/' not in f
+]
+
+link_re = re.compile(r'(?<!!)\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)')
+img_re = re.compile(r'!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)')
+# Strip inline code spans (`...`) before link-checking. Documentation often
+# shows markdown syntax inside backticks (e.g. `[slug](slug.md)` as an
+# example), and those are not real links to verify.
+inline_code_re = re.compile(r'`[^`]*`')
+
+broken = []
+for f in files:
+    if not os.path.exists(f):
+        continue
+    try:
+        with open(f, encoding='utf-8') as fh:
+            in_fence = False
+            for n, line in enumerate(fh, 1):
+                stripped = line.lstrip()
+                if stripped.startswith('```') or stripped.startswith('~~~'):
+                    in_fence = not in_fence
+                    continue
+                if in_fence:
+                    continue
+                # Remove inline code spans before scanning for links
+                line_no_code = inline_code_re.sub('', line)
+                for m in list(link_re.finditer(line_no_code)) + list(img_re.finditer(line_no_code)):
+                    target = m.group(2).strip()
+                    if target.startswith(('http://', 'https://', 'mailto:', '#', 'tel:')):
+                        continue
+                    path_only = target.split('#')[0].split('?')[0]
+                    if not path_only:
+                        continue
+                    base = os.path.dirname(f) or '.'
+                    resolved = os.path.normpath(os.path.join(base, path_only))
+                    # Allow links into corpus.local/ — they may resolve locally even when
+                    # corpus.local/ is gitignored; report them as info, not broken.
+                    if resolved.startswith('corpus.local/') and not os.path.exists(resolved):
+                        continue
+                    if not os.path.exists(resolved):
+                        broken.append(f"{f}:{n}  →  {target}  (resolved to: {resolved})")
+    except Exception as e:
+        broken.append(f"{f}:??  (could not read: {e})")
+
+for b in broken:
+    print(b)
+PYEOF
+)
+  if [ -z "$BROKEN_LINKS" ]; then
+    pass "no broken internal markdown links in tracked .md files"
+  else
+    fail "broken internal markdown links:"
+    echo "$BROKEN_LINKS" | head -10 >&2
+    extra=$(echo "$BROKEN_LINKS" | wc -l | tr -d ' ')
+    if [ "$extra" -gt 10 ]; then
+      note "(${extra} broken links total; first 10 shown)"
+    fi
+  fi
+fi
+
+# ─── Check 5: required supporting files ───────────────────────────────────────
+note "Check 5/7: required supporting files"
+
+REQUIRED_FILES=(
+  README.md
+  LICENSE
+  CONTRIBUTING.md
+  CLAUDE.md
+  .gitignore
+)
+missing_files=()
+for f in "${REQUIRED_FILES[@]}"; do
+  if [ ! -f "$f" ]; then
+    missing_files+=("$f")
+  fi
+done
+if [ ${#missing_files[@]} -eq 0 ]; then
+  pass "required supporting files present"
+else
+  fail "required supporting files missing: ${missing_files[*]}"
+fi
+
+# ─── Check 6: licence-file shape (GitHub licensee compatibility) ──────────────
+note "Check 6/7: LICENSE shape"
+
+if [ -f LICENSE ]; then
+  first_line=$(head -n 1 LICENSE | tr -d '[:space:]')
+  # Canonical openings the licensee tool recognises
+  case "$first_line" in
+    "MITLicense"|"ApacheLicense"|"BSDLicense"|"BSD2-ClauseLicense"|"BSD3-ClauseLicense"|\
+    "GNUGENERALPUBLICLICENSE"|"GNULESSERGENERALPUBLICLICENSE"|"MozillaPublicLicenseVersion2.0"|\
+    "Copyright"|"TheMITLicense")
+      pass "LICENSE opens with canonical licence text (GitHub will detect it)"
+      ;;
+    *)
+      fail "LICENSE does not open with canonical licence text. First line: '$(head -n 1 LICENSE)'. Move any preamble to LICENSE-NOTICE.md."
+      ;;
+  esac
+else
+  fail "LICENSE file missing (already caught by check 5; flagged again here for shape)"
+fi
+
+# ─── Check 7: conventional cruft ──────────────────────────────────────────────
+note "Check 7/7: conventional cruft"
+
+CRUFT_HITS=$(git ls-files | grep -E "(\.DS_Store|Thumbs\.db|\.swp$|\.swo$|~$|\.log$|\.tmp$|\.bak$|/node_modules/|/__pycache__/)" || true)
+if [ -z "$CRUFT_HITS" ]; then
+  pass "no .DS_Store, editor backups, node_modules, or __pycache__ tracked"
+else
+  fail "conventional cruft tracked:"
+  echo "$CRUFT_HITS" | head -5 >&2
+fi
+
+# ─── Summary ──────────────────────────────────────────────────────────────────
+echo "" >&2
+printf "${B}Result:${X} %d passed, %d warned, %d failed\n" "$PASS_COUNT" "$WARN_COUNT" "$FAIL_COUNT" >&2
+
+if [ "$FAIL_COUNT" -gt 0 ]; then
+  echo "" >&2
+  printf "${R}Push aborted.${X} Failures:\n" >&2
+  for d in "${FAIL_DETAILS[@]}"; do
+    printf "  ✗ %s\n" "$d" >&2
+  done
+  echo "" >&2
+  printf "Fix the issues and try again, or bypass once with: ${Y}git push --no-verify${X} (document why)\n" >&2
+  exit 1
+fi
+
+printf "${G}All checks passed.${X} Push proceeding.\n" >&2
+exit 0

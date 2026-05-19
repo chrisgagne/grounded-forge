@@ -59,6 +59,39 @@ The slug under `corpus.commons/` should namespace under your handle or organisat
 3. Reviewers will spot-check Pass I audits, scope claims, and a handful of citations. The goal is corpus integrity, not exhaustive re-audit.
 4. On merge, the corpus is tracked in `corpus.commons/`. The build admits it once you point a profile at it via `builds.yaml`.
 
+## Pre-push audit
+
+The repo ships a pre-push audit at [`scripts/git-hooks/pre-push`](scripts/git-hooks/pre-push). It runs seven checks before any push to a remote: private-tier leakage, `.gitignore` correctness, credentials and absolute paths, internal markdown-link integrity, required supporting files, `LICENSE` shape (GitHub licensee compatibility), and conventional cruft. The rule is simple: audit before push, every time.
+
+### Enable on your clone
+
+```bash
+git config core.hooksPath scripts/git-hooks
+```
+
+One-time, per clone. After that, `git push` runs the audit and stops the push if any check fails.
+
+The hook honours `git push --no-verify` as the explicit override. Use it sparingly. Say why in the push commit message or the PR.
+
+### What the audit covers and what it does not
+
+- **Covers:** substrate files outside `corpus.commons/*/sources/`, `corpus.commons/*/apps/`, and `corpus.commons/*/build-profiles/`. Those three sit outside the audit's lane on purpose. Source content carries citation paths that are not repo-internal. Built-app output uses bare-path resolution from a different root. Build-profile templates resolve at deploy time.
+- **Does not cover:** the *quality* of what you push. The audit is repo hygiene, not content review. Content review lives in the 9-pass ingestion protocol and the `audit-attribution` skill.
+
+### Claude Code integration
+
+If you use Claude Code in this repo, the audit also fires through [`.claude/settings.json`](.claude/settings.json) when Claude Code runs a `git push` Bash command. That layer is operator-level: it fires inside *your* Claude Code sessions. The git-side hook fires on terminal pushes by you or by any forker who turned on `core.hooksPath`.
+
+### When the audit fails
+
+Read the failure message. It names the check and the specific files. Three patterns and how to handle each:
+
+- **Private-tier leakage:** a tracked file under `corpus.local/`, `projects.local/`, `_planning/`, or `_evals/`. Move the file out of the private tier, or add the path to `.gitignore` and `git rm --cached` the file. Do not `--no-verify` past this.
+- **Credentials, tokens, operator home paths:** quote the line, redact, recommit. Do not `--no-verify` past this either.
+- **Broken markdown links:** fix the link target or drop the reference. `--no-verify` is fine only when the broken link points at a known deferred file that lands in a later commit.
+
+The script is shell. It reads as documentation. If a check fires for the wrong reason in your work, the script is where to refine it.
+
 ## A note on tone
 
 The repo prefers direct, precise prose. Match it. Throat-clearing ("In this section we will discuss…") and puffery ("This revolutionary framework…") both go; say what something does and why, and if it doesn't do something important, say why. UK English spelling in docs (per the conventional house style); the codebase doesn't have many spelling-relevant identifiers.

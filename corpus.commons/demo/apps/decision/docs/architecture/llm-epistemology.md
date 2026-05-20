@@ -2,7 +2,7 @@
 
 This document names what the matrix architecture is *for*: the underlying problem the design is solving against. It is the architectural ground beneath [`projection-time.md`](projection-time.md) (the cost-curve argument) and [`source-integrity.md`](source-integrity.md) (the source-only audit). Read this first if you want to understand *why* the architecture projects sources to task domains at ingestion rather than re-deriving at query time; read those next for *how* the architecture achieves it and *what* discipline it imposes.
 
-The substantive argument originates in a corollary to Larman's Law 4 articulated by the operator in prior work, cited as **Chris × Larman** (drawing on Gendlin, Kohut, and Rasmussen as named teachers). This architecture doc is a *summary* of that corollary's load-bearing claim and the matrix architecture's response. Cite the corollary work as *Chris × Larman*, not Larman alone.
+The substantive argument is a corollary to Craig Larman's Law 4, articulated by Chris Gagné in prior work and drawing on Gendlin, Kohut, and Rasmussen as named teachers. **The corollary is Gagné's, building on Larman's published Law 4; Larman has not seen, endorsed, or responded to the extension.** Cite the corollary work as *Gagné, after Larman (Law 4)* or *Gagné's corollary to Larman's Law 4*.
 
 ## The pipeline: from displaced managers to LLM training data
 
@@ -10,32 +10,17 @@ Craig Larman's Law 4 (verbatim, from his wiki):
 
 > *"If after changing, some managers and single-specialists are still displaced, they become 'coaches/trainers' for the change, frequently reinforcing Laws 2 and 3, and creating the false impression 'the change has been done,' deluding senior management and future change attempts, **after which they become industry consultants.**"*
 
-Chris's corollary extends this through to the LLM training-data layer:
+The corollary extends this through to the LLM training-data layer, with one further turn the original 2009 statement of Larman's Law could not anticipate: consultants now use LLMs to scale their own writing, and that LLM-assisted output re-enters the next generation of training data. The loop is self-amplifying.
 
-```
-Original thought leader creates insight
-         ↓
-Displaced managers become "coaches" for the change
-(Reinforce Laws 2-3: water down, dismiss purists)
-         ↓
-Coaches become industry consultants
-         ↓
-Consultants write prolifically to market themselves
-(Books, blogs, LinkedIn posts, conference talks)
-         ↓
-Content volume: consultants >> thought leaders (orders of magnitude)
-         ↓
-LLMs trained on text inherit this ratio
-         ↓
-Web search retrieves text dominated by the consultant-derivative cluster
-         ↓
-Default LLM authority on most domains
-    = consultant-frequency mean
-```
+![A hand-drawn pencil sketch in a working notebook, titled "GAGNÉ, AFTER LARMAN: FROM LAW 4 TO LLM AUTHORITY" in block caps at the top. A vertical cascade of seven hand-drawn boxes flows top-to-bottom, each box getting visibly bigger as the cascade descends: (1) "original thought leader" — slow, hard, rare; (2) "displaced manager → 'coach'" — Laws 2-3, water down, dismiss purists; (3) "consultant" at a podium; (4) "writes prolifically" — books, blogs, LinkedIn, talks; (5) "content volume" — a sprawling box packed with overlapping article and post icons, orders of magnitude more; (6) "LLM training data" drawn as a funnel packed with cascading document icons that narrows into a small bottom opening labelled "weights"; (7) "DEFAULT LLM AUTHORITY = consultant-frequency mode" — underlined. To the left of the cascade, an "LLM ✨ slop" node with the margin note "prompt → paste → publish" feeds into the "writes prolifically" stage. A curved dashed feedback arrow loops from the "weights" funnel-bottom up the left side of the page back into the slop node, captioned "the model now writes its own training data." Off to the right, a ghosted dashed-outline tower labelled "primary source / nuance / 'the point'" sits visibly outside the cascade, with an arrow labelled "outliers" pointing to it and a handwritten note: "frequency ≠ truth. the mean is the mode. the original is the outlier." A boxed pull-quote near the bottom reads "web search gives access to more language. not to truth." The notebook sits on a wooden desk with a compass-rose mug, a wooden ruler, and a mechanical pencil at the edges of the frame; a small toy mouse rests on the desk to the right of the notebook — the trace of a cat who was here a moment ago.](../assets/gagne-larman.png)
+
+*Gagné's corollary to Larman's Law 4: the cascade from displaced-managers-become-consultants through to consultant-frequency mode as the LLM's default authority on most domains. The "LLM slop" feedback loop is the corollary's 2024+ extension: consultants now use LLMs to scale their writing, and that LLM-assisted output re-enters the next generation of training data. (Larman has not seen this extension; the corollary is Gagné's.)*
 
 The economics of content (verbatim from the reference): *"Thought leaders create new ideas (slow, difficult); consultants repackage existing ideas (fast, scalable); marketing requires volume; volume requires simplification; simplification loses nuance; nuance was often the point."*
 
 The result is structural, not malicious. The written record is dominated by derivative, watered-down, marketing-oriented content from people who became consultants via Larman's Law 4's pathway. LLMs trained on that record reproduce that record's frequency distribution. The mean is the consultant-derivative cluster; the original thought leaders are outliers.
+
+The slop loop tightens the asymmetry over time. Each generation of consultants ships more content per author than the previous one because the marginal cost of *another LinkedIn post* or *another 1500-word thought-piece* collapses with LLM assistance. That increased per-author volume re-enters the next training run as undifferentiated content-volume signal. The original thought leaders' output, by contrast, does not scale with LLM assistance: the bottleneck on a primary insight is not writing speed. The ratio gets worse, not better, with each model generation.
 
 Crawford's *Atlas of AI* (Yale University Press, 2021) names the larger context this corpus pattern sits inside: AI is an extractive industry, and the labour, attention, and curation costs of its training material are externalised onto a hidden upstream, including the original thought leaders whose work the consultant-derivative cluster paraphrases away. The architecture below does not solve the extraction question; it does name the corpus the operator chooses to ingest against, which is the local move available.
 
@@ -49,7 +34,7 @@ The reference's two load-bearing slogans, both verbatim:
 
 The model has no way to distinguish *"frequently stated"* from *"actually true,"* *"marketing-optimised"* from *"rigorous,"* or *"consultant derivative"* from *"original source."* Web search doesn't escape the problem: it retrieves more text from the same record, comparing text to text rather than text to reality. *"Web search gives access to more language. It does not give access to truth."*
 
-The form-vs-meaning critique has a lineage worth naming. Bender, Gebru, McMillan-Major & Shmitchell, in *On the Dangers of Stochastic Parrots* (FAccT 2021), put the case in linguist's terms: LLMs stitch linguistic forms by probabilistic association without grounded reference. Lenat & Marcus, in *Getting from Generative AI to Trustworthy AI: What LLMs Might Learn from Cyc* (arXiv:2308.04445, July 2023), reach the same conclusion from the symbolic tradition's side: generative is not trustworthy, and trustworthy reasoning needs explicit, auditable structure that LLMs alone do not provide. What Chris × Larman adds is the *training-corpus* mechanism: not just that LLMs lack grounding, but that their training distribution is systematically biased by Larman's Law 4 toward the consultant-derivative cluster. Bender names the type of system; Lenat and Marcus name what the system is missing; the corollary here names the corpus that fills the system.
+The form-vs-meaning critique has a lineage worth naming. Bender, Gebru, McMillan-Major & Shmitchell, in *On the Dangers of Stochastic Parrots* (FAccT 2021), put the case in linguist's terms: LLMs stitch linguistic forms by probabilistic association without grounded reference. Lenat & Marcus, in *Getting from Generative AI to Trustworthy AI: What LLMs Might Learn from Cyc* (arXiv:2308.04445, July 2023), reach the same conclusion from the symbolic tradition's side: generative is not trustworthy, and trustworthy reasoning needs explicit, auditable structure that LLMs alone do not provide. What Gagné's corollary adds is the *training-corpus* mechanism: not just that LLMs lack grounding, but that their training distribution is systematically biased by Larman's Law 4 toward the consultant-derivative cluster. Bender names the type of system; Lenat and Marcus name what the system is missing; the corollary here names the corpus that fills the system.
 
 ## What this architecture is *against*
 
@@ -87,7 +72,7 @@ Three honest limits, named directly:
 
 ## Citing this
 
-This doc summarises the LLM-epistemology argument for readers of the grounded-forge architecture. The full argument is from prior work by the operator and draws on Larman's Law 4 verbatim from Larman's wiki, with Gendlin, Kohut, and Rasmussen as named teachers in the corollary. Cite the corollary work as *Chris × Larman*, not Larman alone.
+This doc summarises the LLM-epistemology argument for readers of the grounded-forge architecture. The full argument is from prior work by Chris Gagné and draws on Larman's Law 4 verbatim from Larman's wiki, with Gendlin, Kohut, and Rasmussen as named teachers in the corollary. **Larman has not reviewed, endorsed, or responded to this extension; the corollary is Gagné's alone.** Cite as *Gagné, after Larman (Law 4)* or *Gagné's corollary to Larman's Law 4*.
 
 ## See also
 

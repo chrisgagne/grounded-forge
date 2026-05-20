@@ -1,6 +1,6 @@
 # Querying the library
 
-A 30-to-45-minute walk through the three skills you use to query an existing corpus without ingesting anything: `answer-from-library`, `matching-references`, and `audit-attribution`. Includes a *reading the trace* section that teaches you to audit any answer in five seconds. No build, no ingestion, no cost beyond Opus tokens for the queries themselves.
+A 30-to-45-minute walk through the three skills you use to query an existing corpus without ingesting anything: `answer-from-corpus`, `matching-references`, and `audit-attribution`. Includes a *reading the trace* section that teaches you to audit any answer in five seconds. No build, no ingestion, no cost beyond Opus tokens for the queries themselves.
 
 Recommended after [the demo app](the-demo-app.md). The demo gave you the *feel* of the matrix. This tutorial gives you the *protocols* the matrix runs on, so you can drive the retrieval deliberately instead of trusting the assistant's defaults.
 
@@ -8,7 +8,7 @@ Recommended after [the demo app](the-demo-app.md). The demo gave you the *feel* 
 
 By the end:
 
-1. Asked the same question two ways: once with the default assistant behaviour, once via the `answer-from-library` skill invoked explicitly. Watched the trace get more disciplined.
+1. Asked the same question two ways: once with the default assistant behaviour, once via the `answer-from-corpus` skill invoked explicitly. Watched the trace get more disciplined.
 2. Used `matching-references` to enumerate what's already in the corpus on a topic, before considering ingestion.
 3. Run `audit-attribution` against a short draft to see which references in the corpus overlap with its claims.
 
@@ -40,7 +40,7 @@ The assistant routes through the matrix and answers. You should see file paths c
 Now ask the same question, but invoke the skill explicitly:
 
 ```
-/answer-from-library Our finance team is recommending we sell the product line at a loss to clear inventory. What should I be thinking about before agreeing?
+/answer-from-corpus Our finance team is recommending we sell the product line at a loss to clear inventory. What should I be thinking about before agreeing?
 ```
 
 Watch what changes. The skill prints its work as it goes:
@@ -50,11 +50,11 @@ Watch what changes. The skill prints its work as it goes:
 - **Sub-claim decomposition.** Writes out the 3-6 sub-claims the answer needs to make, before reading any references.
 - **Routing.** Reads `distillations/decision-making/task-index.json`, identifies the relevant phase (likely *evaluating-trade-offs* or similar), pulls the distillations that route to it, then reads the deep references for the authors whose argument is doing real work.
 
-The default behaviour does this implicitly; the explicit invocation makes it inspectable. That's the value. When an answer feels thin or off, asking the same question via `/answer-from-library` forces the protocol and surfaces where retrieval went sideways.
+The default behaviour does this implicitly; the explicit invocation makes it inspectable. That's the value. When an answer feels thin or off, asking the same question via `/answer-from-corpus` forces the protocol and surfaces where retrieval went sideways.
 
 ## Step 2.5: Read the trace
 
-Every `/answer-from-library` invocation ends with a one-line trace footer that names how the answer was retrieved. The trace is mandatory; without it, you can't tell whether the protocol ran or the model fell back to priors. Once you know how to read it, you can audit any answer in five seconds.
+Every `/answer-from-corpus` invocation ends with a one-line trace footer that names how the answer was retrieved. The trace is mandatory; without it, you can't tell whether the protocol ran or the model fell back to priors. Once you know how to read it, you can audit any answer in five seconds.
 
 A typical trace for the question above looks like:
 
@@ -94,7 +94,7 @@ The trace is not decoration. It's the audit surface the architecture is shaped a
 
 If an answer comes back with no trace footer, the assistant skipped the protocol. Possible causes:
 
-- The skill wasn't invoked explicitly and the bundled CLAUDE.md isn't being honoured. Re-invoke with `/answer-from-library` to force.
+- The skill wasn't invoked explicitly and the bundled CLAUDE.md isn't being honoured. Re-invoke with `/answer-from-corpus` to force.
 - The deliverable is non-prose-shaped (a thread, a list of pull-quotes) and the trace is in the chat scaffolding *above* the deliverable, not below. Look up, not down.
 - The user requested `essay only` or `no trace`. Rare; assume protocol ran but trace was suppressed by request.
 
@@ -188,7 +188,7 @@ The skill is not a fact-check. It's a *build/contribute boundary check*: surfaci
 
 You used the three read-only skills in the substrate:
 
-- **`answer-from-library`**: the runtime query protocol. Shape-classification (named lookup / diagnostic / synthesis), lens-applicability, sub-claim decomposition, routed reads. The same protocol the bundled CLAUDE.md instructs the assistant to run; invoking it explicitly makes the trace inspectable.
+- **`answer-from-corpus`**: the runtime query protocol. Shape-classification (named lookup / diagnostic / synthesis), lens-applicability, sub-claim decomposition, routed reads. The same protocol the bundled CLAUDE.md instructs the assistant to run; invoking it explicitly makes the trace inspectable.
 - **`matching-references`**: the topic-to-resource router. Tells you what's already in the corpus on a topic, before you reach for ingestion. The setup gate for `ingesting-resources` calls this skill explicitly to catch duplicates.
 - **`audit-attribution`**: the under-attribution check for synthesis writing. Surfaces closest-neighbour references the draft may need to name.
 
@@ -198,4 +198,4 @@ These three are *consumption-side* skills. They don't change the corpus; they re
 
 - **[Ingesting one source](ingesting-one-source.md)**: the 9-pass ingestion protocol against one source you bring yourself. The first production tutorial. ~60 minutes.
 - **[`docs/architecture/two-layer-indexes.md`](../architecture/two-layer-indexes.md)**: why the corpus catalogue and the task-axis indexes do different jobs. Useful background once you've felt both via `matching-references`.
-- **[`docs/architecture/llm-epistemology.md`](../architecture/llm-epistemology.md)**: the *why* behind the protocol's discipline. The matrix exists because LLMs are weak at exactly the moves the explicit `/answer-from-library` invocation forces.
+- **[`docs/architecture/llm-epistemology.md`](../architecture/llm-epistemology.md)**: the *why* behind the protocol's discipline. The matrix exists because LLMs are weak at exactly the moves the explicit `/answer-from-corpus` invocation forces.

@@ -60,7 +60,7 @@ What you should see (it may take a moment):
 
 If the answer is grounded (claims trace to files, citations are inline, the assistant says "I don't have coverage on X" when the corpus doesn't reach), the chain is working.
 
-If the answer reads like generic LLM output with no file paths, the assistant has bypassed the protocol. Ask it to re-do the question using the `answer-from-library` skill: *"Please use the answer-from-library skill for this question."* That invokes the protocol explicitly.
+If the answer reads like generic LLM output with no file paths, the assistant has bypassed the protocol. Ask it to re-do the question using the `answer-from-corpus` skill: *"Please use the answer-from-corpus skill for this question."* That invokes the protocol explicitly.
 
 ## Step 4: Ask the same question of the stakeholder app
 
@@ -126,7 +126,7 @@ The architecture's claim is that this is *cheaper, more honest, and more scalabl
 
 ## What's next
 
-- **Strongly recommended: [Querying the library](querying-the-library.md)**: the three read-only skills (`answer-from-library`, `matching-references`, `audit-attribution`). Still no cost; still no build. Teaches you to drive the matrix deliberately rather than trusting defaults. ~30 minutes.
+- **Strongly recommended: [Querying the library](querying-the-library.md)**: the three read-only skills (`answer-from-corpus`, `matching-references`, `audit-attribution`). Still no cost; still no build. Teaches you to drive the matrix deliberately rather than trusting defaults. ~30 minutes.
 - **[Ingesting one source](ingesting-one-source.md)**: the 9-pass ingestion protocol against one source you bring. The matrix expands by one row. ~60 minutes.
 - **[Scoping a source](scoping-a-source.md)** / **[Adding a task axis](adding-a-task-axis.md)** / **[Adding a lens](adding-a-lens.md)**: the incremental skill walkthroughs. Each takes 20-90 minutes.
 - **[Scaffolding a corpus](scaffolding-a-corpus.md)**: the full forker arc, when you're ready to leave the demo.

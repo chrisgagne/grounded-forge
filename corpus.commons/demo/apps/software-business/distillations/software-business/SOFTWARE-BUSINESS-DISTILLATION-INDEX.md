@@ -2,7 +2,7 @@
 
 > **Purpose:** Situation-to-resource router for software-business work. "In phase X of a software-business question, which references should I reach for?"
 
-This is the *when-to-use* layer for the software-business task. It partitions the task into six phases and lists distillations appropriate to each phase. For the *what-is* layer (descriptions of each reference), see the corpus catalogue at [`../../references/REFERENCE-INDEX.md`](../../references/REFERENCE-INDEX.md).
+This is the *when-to-use* layer for the software-business task. It partitions the task into six phases and lists distillations appropriate to each phase. For the *what-is* layer (descriptions of each reference), read [`reference-index.json`](../../reference-index.json) at the corpus root.
 
 **Workflow:** Distillation index (when) → distillation (how) → deep reference (citations, if needed).
 

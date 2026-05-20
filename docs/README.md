@@ -14,7 +14,7 @@ Four kinds of documentation, sorted by what you're trying to do:
 The seven tutorials are sequential and incremental. Each introduces one or two substrate skills, in the order an operator naturally encounters them. The first two are no-cost; the rest each add one skill or sub-skill at a time. Read at least up to the one that matches your immediate work; the later tutorials wait when you need them.
 
 1. [The demo app](tutorial/the-demo-app.md): open a pre-built demo app, ask it questions, feel the matrix route end-to-end. No setup, no cost. ~25 minutes.
-2. [Querying the library](tutorial/querying-the-library.md): the three read-only skills — `answer-from-library`, `matching-references`, `audit-attribution` — plus a *reading the trace* section that teaches the five-second answer audit. ~30–45 minutes.
+2. [Querying the library](tutorial/querying-the-library.md): the three read-only skills — `answer-from-corpus`, `matching-references`, `audit-attribution` — plus a *reading the trace* section that teaches the five-second answer audit. ~30–45 minutes.
 3. [Ingesting one source](tutorial/ingesting-one-source.md): the 9-pass ingestion protocol via `ingesting-resources`, against one source you bring. The matrix expands by one row. ~60 minutes.
 4. [Scoping a source](tutorial/scoping-a-source.md): the *before* of ingestion (`finding-resources`) and the *after* of the image axis (`ingesting-images`). ~20 minutes.
 5. [Adding a task axis](tutorial/adding-a-task-axis.md): a new *column* in the matrix. `creating-tasks` scopes the axis, `creating-applications` orchestrates assembly, `creating-distillations` projects every applicable source. The matrix's defining two-dimensional move. ~60–90 minutes.

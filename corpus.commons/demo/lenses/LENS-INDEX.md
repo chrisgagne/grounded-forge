@@ -2,7 +2,7 @@
 
 Catalogue of lenses available in this repo, with one-line applicability heuristics.
 
-This index is the lens-axis analogue of [`corpus.commons/demo/references/REFERENCE-INDEX.md`](../references/REFERENCE-INDEX.md) (the corpus catalogue) and the per-task distillation indexes (situation routers). The job it does: for any given query, name which lens the runtime should reach for, and where this lens dominates versus where it cedes to another.
+This index is the lens-axis analogue of [`corpus.commons/demo/reference-index.json`](../reference-index.json) (the corpus catalogue) and the per-task distillation indexes (situation routers). The job it does: for any given query, name which lens the runtime should reach for, and where this lens dominates versus where it cedes to another.
 
 ## Status
 

@@ -11,7 +11,7 @@ The MIT licence covers the *substrate* tier:
 - The vocabulary reference at `docs/reference/vocabulary.md`.
 - Build profile templates under `corpus.commons/{corpus}/build-profiles/` and `corpus.local/{corpus}/build-profiles/`.
 - Skill specifications (every `SKILL.md` under `.claude/skills/` and under any corpus's `.claude/skills/`).
-- Index frames: `REFERENCE-INDEX.md`, per-task `INDEX.md` operator views, and the runtime JSON indexes (`slug-table.json`, `concept-index.json`, `reference-index.json`, `task-index.json`), each living inside the corpus root it describes.
+- Index frames: per-task `INDEX.md` operator views and the runtime JSON indexes (`slug-table.json`, `concept-index.json`, `reference-index.json`, `task-index.json`), each living inside the corpus root it describes.
 
 ## Content tier — see [`LICENSE-CONTENT`](LICENSE-CONTENT)
 

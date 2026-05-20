@@ -15,7 +15,7 @@ Runbook (when to invoke, setup gates, post-pass operations) is in [`SKILL.md`](S
 1. Capture the metadata gathered at input: author, title, edition, year, ISBN/DOI.
 2. Capture the source's licence as the exact string (e.g. `CC BY-NC-SA 4.0`, `CC BY 4.0`, `All rights reserved`). If unverified, record `unverified`.
 3. Capture the distribution scope, one of `open`, `open-nc`, `copyrighted`, `confidential`, `personal`. Scope is the operator's distribution intent, not the upstream licence; usually correlates with licence but can diverge (a CC BY paper used in a confidential engagement is Licence `CC BY 4.0`, Scope `confidential`). The build excludes references whose scope exceeds the profile's `max_scope`; `personal` ships in no profile.
-4. Map the source's high-level structure: preface, parts, chapter list, appendices.
+4. Map the source's high-level structure: preface, parts, chapter list, appendices. **Enumerate the full chapter list explicitly in the deep ref's source/structure block.** This list becomes the anchor set Pass I checks the deep ref's coverage against; skipping a chapter from this list without an operator-approval marker is a Pass I fail condition.
 5. Note any front-matter framing (preface arguments, dedications that signal an audience, footnotes that signal lineage).
 
 **Frontmatter contract (deep reference):**
@@ -66,13 +66,15 @@ The `**Scope:**` line is mechanical: the build reads it directly to decide wheth
 
 **Procedure:**
 
-1. Read the source in full. Not chunked. Not summarised in passing.
-2. For every non-trivial claim, attach a citation in the chosen style (`(Ch N, "Section name")` or `(Ch N, p. M)`).
-3. Direct quotation appears in standard quotation marks at this stage, not blockquoted (Pass D handles blockquotes).
-4. Preserve the author's framing language. If the author uses a specific term, the deep reference uses the same term, not a paraphrase.
+1. Read the source in full. Not chunked. Not summarised in passing. **Every chapter enumerated at Pass A must be read.** If you decide partway through that some chapter is "less essential" or "covered through cross-references in other chapters," that is a source-integrity violation — stop, escalate to the operator, and let them decide whether to (a) continue the read, (b) explicitly approve a `coverage: partial` with rationale, or (c) abandon. Never set `coverage: partial` on your own initiative.
+2. If context budget runs out before all chapters are read, stop and escalate. Do not write the deep ref against incomplete coverage. Resume in a new session, or have the operator approve deferral.
+3. For every non-trivial claim, attach a citation in the chosen style (`(Ch N, "Section name")` or `(Ch N, p. M)`).
+4. Direct quotation appears in standard quotation marks at this stage, not blockquoted (Pass D handles blockquotes).
+5. Preserve the author's framing language. If the author uses a specific term, the deep reference uses the same term, not a paraphrase.
 
 **Failure modes:**
 
+- *Reader-side coverage skip.* Deciding partway through Pass C that some chapter is less essential and labeling the deep ref `coverage: partial` after the fact. The canonical source-integrity violation: if you can read the chapter, you must read it. Pass I's TOC-vs-anchors check is the audit backstop.
 - *Training-data leakage.* Stating something about the author or topic that the source itself does not state. If you cannot quote the source line(s) supporting a claim, the claim does not belong here.
 - *Post-source vocabulary.* Importing a concept from the author's later work that the source under ingest did not use.
 - *Cross-corpus drift.* Connecting the source to another author the source does not cite.
@@ -280,6 +282,7 @@ The full twelve-fixture set and regression runner are in [`tests/audit-fixtures/
 
 **Fail conditions:**
 
+- **TOC-vs-anchors mismatch.** Compare the deep ref's body anchors (chapter / section names referenced in citations and headings) against the full TOC enumerated at Pass A. **If any chapter from the TOC is missing from the deep ref's anchor coverage and the frontmatter does not declare `coverage: partial — operator-approved ...`, fail the audit.** A reader-side decision to skip readable chapters is the canonical violation this gate catches. The fix is not a documentation update; the fix is reading the missing chapters and re-synthesizing.
 - A claim that fails the trace test. Strip or flag.
 - An evidence-class marker that does not match the source evidence ([V] without verbatim text, [AP] without author content, etc.).
 - A cross-reference to another author the source does not cite.
@@ -302,7 +305,8 @@ Failure modes the protocol catches. Most are caught at the pass that introduced 
 - **Task-application guidance smuggled into the deep.** Diagnostic questions, anti-patterns, and worked examples belong in distillations (Pass G), not in the deep reference.
 - **Verbatim accuracy slips.** Apparent corrections (smart quotes, capitalisation tidying) introduced into blockquotes in Pass D. Re-verify.
 - **Verbatim quotes in distillations.** Distillations paraphrase. Blockquotes belong in the deep reference where Pass D exactness verification has run. If the distillation needs the source's own words, link back to the deep ref instead of duplicating.
-- **Silent partial coverage.** Proceeding with the deep ingest when the available text is incomplete and not flagging the gap. The source-integrity pre-flight catches this before Pass A; Pass I catches downstream artefacts that inherited the gap.
+- **Silent partial coverage (source-side).** Proceeding with the deep ingest when the available text is incomplete and not flagging the gap. The source-integrity pre-flight catches this before Pass A by hard-stopping on incomplete sources; the operator decides whether to approve partial-coverage ingestion with an explicit `coverage: partial — operator-approved ...` rationale.
+- **Silent partial coverage (reader-side).** Skipping readable chapters during Pass C and labeling the deep ref `coverage: partial` after the fact. This is the canonical violation of the source-integrity rule: if you can read the chapter, you must read it. If context budget runs out mid-read, stop and escalate to the operator so they decide whether to continue, defer, or abandon. The `coverage:` frontmatter field is operator-consent only — the model never sets `coverage: partial` unilaterally. Pass I's TOC-vs-anchors check is the audit backstop.
 - **Image-scope mismatch.** Starting a run with image classification enabled and then truncating mid-classification because of context budget produces silent partial coverage of the image axis. Mitigation: declare image scope at pre-flight (full or text-only); if full classification doesn't fit one session, accept text-only scope explicitly and run the [`ingesting-images`](../ingesting-images/SKILL.md) skill later; never auto-cap inside a single ingestion.
 - **Image-classification heuristic drift.** Bulk-classifying images by filename, file extension (PNG vs JPEG), file size, or any other metadata-only signal. Empirically unreliable across publishers: the same format carries diagrams in one source and photographs in another. Visual inspection per image is non-negotiable.
 - **Parallel-agent index race.** Pre-migration ingestion subagents edited canonical `REFERENCE-INDEX.md` / per-task distillation indexes / `IMAGE-INDEX.yaml` simultaneously and corrupted merges via read-modify-write loss. The mechanical-index pipeline removes the race surface: per-source agents write only to their own staging paths (`_planning/extracted/{corpus}/{slug}.json`, `_planning/staging/{corpus}/refs/{slug}.json`); the canonical JSON indexes are derived once after every per-source step completes by the build scripts in `scripts/build_indexes/`. See [`SKILL.md`](SKILL.md) "Parallel-batch operations" and "Pass H: Cross-reference" above.

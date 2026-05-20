@@ -101,7 +101,11 @@ Before invoking, run `matching-references` for the source's central topic. If a 
 
 The first three checks below stop the run if they fail; the fourth is an operator decision recorded in the deep ref.
 
-**1. Confirm completeness.** Verify the source is whole without committing to a full read yet. Check: the table of contents matches actual section headers, chapter-boundary markers are present, no obvious gaps or truncation appear (a final chapter cut mid-paragraph is a clear signal). If anything is missing or partial, **stop**. Either get the full source or label the coverage limitation in the deep reference's frontmatter explicitly (`partial coverage: chapters 1-4 only`).
+**1. Confirm completeness — hard stop on incomplete sources.** Verify the source is whole without committing to a full read yet. Check: the table of contents matches actual section headers, chapter-boundary markers are present, no obvious gaps or truncation appear (a final chapter cut mid-paragraph is a clear signal). Enumerate the full chapter list from the TOC and record it in the deep ref's source/structure block — this anchor list becomes the audit target at Pass I.
+
+If anything is missing or partial, **stop the run and escalate to the operator.** Report the specific gap (which chapters are missing, why — scanner truncation, publisher's partial edition, conversion bug). The operator decides whether to (a) get a complete source and restart, (b) explicitly approve partial-coverage ingestion with a written rationale, or (c) abandon the ingestion.
+
+**The `coverage:` frontmatter field is operator-consent only.** Absence means complete. Presence requires `coverage: partial — operator-approved YYYY-MM-DD — reason` with the operator's reason recorded inline. **The model never sets `coverage: partial` unilaterally.** A reader-side decision to skip readable chapters is not a "partial coverage" outcome; it is a source-integrity violation. If you can read a chapter, you must read it; if you cannot finish the read in the available context budget, stop and escalate so the operator decides whether to continue, defer, or abandon.
 
 **2. Detect citation style.** Grep for page anchors (`{page` markers in pandoc output, or numeric page boundaries in the converted markdown):
 

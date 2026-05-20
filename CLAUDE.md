@@ -38,7 +38,7 @@ npm run list               # list profiles
 
 The build is in [`build.js`](build.js); profiles configured in [`builds.yaml`](builds.yaml); profile CLAUDE.md templates live at `{source_dir}/build-profiles/{profile}.md` (corpus-bound).
 
-v0.2.1 ships five public profiles (open-nc ceiling) under `corpus.commons/demo/`:
+v0.2.2 ships five public profiles (open-nc ceiling) under `corpus.commons/demo/`:
 
 - `decision`, `stakeholder`, `software-business`: three task-axis projections of the same reference corpus.
 - `aar-mode`: open-corpus After-Action Review assistant.

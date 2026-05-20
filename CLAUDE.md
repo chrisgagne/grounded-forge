@@ -62,7 +62,6 @@ corpus.commons/                                 # tracked — open or open-nc; s
       converted/{slug}.md                       # required — what Pass C reads
     references/                                 # Light + deep references
       slug-table.json                           # slug ↔ short-ID (Phase 2)
-      REFERENCE-INDEX.md                        # operator-inspection view
     reference-index.json                        # file catalogue (runtime)
     concept-index.json                          # concept axis with section pointers (runtime)
     distillations/{task}/                       # Task projections, the task axis
@@ -104,7 +103,7 @@ When working in this repo or in any compiled distribution, the retrieval order m
 4. **Light ref for orientation, deep ref for citation.** The light reference is for fast orientation. The deep reference carries verbatim citations and evidence-classification markers; cite from the deep.
 5. **`concept-index.json` for named concepts.** Look up the concept (or an alias) directly; each entry lists which sources cover it plus a section / md_line pointer where available. Grep across `corpus.commons/{corpus}/references/` only when a concept isn't in the index: a real gap, not a routing-effort default.
 
-The runtime JSON indexes are derived artefacts; never hand-edit them. The corresponding `.md` views (`references/REFERENCE-INDEX.md`, per-task `{TASK}-DISTILLATION-INDEX.md`, `lenses/LENS-INDEX.md`) are for operator inspection only: Pass G authors the operator view, the build scripts in `scripts/build_indexes/` regenerate the JSON from it plus the deep-ref frontmatter and the per-source extracted artefacts. See [`docs/architecture/two-layer-indexes.md`](docs/architecture/two-layer-indexes.md).
+The runtime JSON indexes are derived artefacts; never hand-edit them. The per-task `{TASK}-DISTILLATION-INDEX.md` and `lenses/LENS-INDEX.md` operator-view markdowns are the authoring loop for their respective build scripts in `scripts/build_indexes/`: Pass G authors the operator view, the build regenerates the JSON from it plus the deep-ref frontmatter and the per-source extracted artefacts. `reference-index.json` and `concept-index.json` have no markdown operator view; they are built from the staging artefacts and deep-ref frontmatter directly, and the runtime reads the JSON. See [`docs/architecture/two-layer-indexes.md`](docs/architecture/two-layer-indexes.md).
 
 ## Distillation indexes
 

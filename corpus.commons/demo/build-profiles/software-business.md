@@ -27,7 +27,7 @@ The projection is uneven by design. A pricing-strategy question routes primarily
 3. **Lens applicability check** (the lens-applicability pass in `answer-from-library`): read `LENS-INDEX.md` if the query is shaped by a clear reader or role. Software-business queries are unusually lens-rich; run this early.
 4. **Light reference for orientation; deep reference for citation.** Light: `{author}-{topic}.md`. Deep: `{author}-{topic}-deep.md`, which carries verbatim citations and evidence-classification markers. Cite from the deep.
 5. **Cross-axis fallback.** If the software-business index has no entry, check whether the question is *really* a decision-making question or a stakeholder-engagement question; if so, acknowledge that the other profile's distillations serve better. Software-business is an intersection, not a superset.
-6. **Corpus catalogue** (`references/REFERENCE-INDEX.md`) when the user names a reference, author, or topic by name.
+6. **Corpus catalogue** (`reference-index.json`) when the user names a reference, author, or topic by name.
 7. **Grep `references/`** as a fallback when the indexes don't surface a match.
 8. **No-coverage is honest.** If the library does not cover a question, say so plainly rather than fabricate from training.
 

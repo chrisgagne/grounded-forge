@@ -45,7 +45,7 @@ The runtime indexes are JSON; the operator-inspection views alongside them are m
 | Index | Runtime path (JSON) | Operator-inspection (Markdown) | Job |
 |---|---|---|---|
 | Slug table | `corpus.commons/demo/references/slug-table.json` | — | Per-corpus mapping from source slug to short 3-character base-36 ID. Append-only; deletions leave a tombstone. The build, ingestion, and runtime skills resolve every other index's source IDs through this table. |
-| Reference index | `corpus.commons/demo/reference-index.json` | `references/REFERENCE-INDEX.md` | Corpus catalogue. "Is there a reference on X?" Per source: author, year, title, primary topic, concept tags, scope, line counts. |
+| Reference index | `corpus.commons/demo/reference-index.json` | — | Corpus catalogue. "Is there a reference on X?" Per source: author, year, title, primary topic, concept tags, scope, line counts. |
 | Concept index | `corpus.commons/demo/concept-index.json` | (no .md) | Concept axis. Per canonical concept: aliases, sources, and section + md_line pointers into each source where one can be mechanically resolved. |
 | Per-task task index | `corpus.commons/demo/distillations/{task}/task-index.json` | `{TASK}-DISTILLATION-INDEX.md` | Situation router. "For phase Y of task Z, which distillation should I reach for?" Phase-by-phase routing rows as `[need, slug-id, when]` triples. |
 | Lens index | — | `corpus.commons/demo/lenses/LENS-INDEX.md` | Lens catalogue and applicability heuristics. Operator-authored prose; stays markdown. |

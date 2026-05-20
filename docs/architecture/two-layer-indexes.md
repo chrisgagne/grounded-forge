@@ -22,7 +22,7 @@ A single combined index collapses three different lookup tasks:
 - *Concept lookup:* "Where in the corpus is *Accumulations* discussed?" The user names a concept and wants every source-and-section that treats it.
 - *Routing:* "I am in the bounding phase of a decision; what helps?" The user has a situation; they want the right resource for *now*.
 
-If you build one index, the three lookups compete for the same entry shape. The entry either describes the source (good for identification, useless for routing), describes the situation (good for routing, mismatched for identification), or lists concept occurrences (good for concept lookup, doesn't tell you what the source *is about* overall). Most large knowledge bases default to identification entries and then bury the routing logic in prose: *"If you are doing X, this might be useful."* Readers cannot scan that. The pre-migration shape of `REFERENCE-INDEX.md` half-split it (catalogue table on top, concept-A-Z below) which improved scan-ability but blurred the line at edit time: operators authored concept entries by inference, which drifted under load.
+If you build one index, the three lookups compete for the same entry shape. The entry either describes the source (good for identification, useless for routing), describes the situation (good for routing, mismatched for identification), or lists concept occurrences (good for concept lookup, doesn't tell you what the source *is about* overall). Most large knowledge bases default to identification entries and then bury the routing logic in prose: *"If you are doing X, this might be useful."* Readers cannot scan that.
 
 Split, each index does its job mechanically:
 
@@ -37,7 +37,7 @@ The runtime indexes ship as JSON. Operator-inspection views ship alongside as ma
 | Index | Runtime path | Operator view | Job |
 |---|---|---|---|
 | Slug table | `references/slug-table.json` | — | Append-only mapping from source slug to 3-character base-36 ID. Resolves every other index's IDs to file paths. |
-| Reference index | `reference-index.json` | `references/REFERENCE-INDEX.md` | File catalogue. One record per source. |
+| Reference index | `reference-index.json` | — | File catalogue. One record per source. |
 | Concept index | `concept-index.json` | — | Concept axis. One record per canonical concept; aliases collapsed; per-source section + md_line pointers. |
 | Task index | `distillations/{task}/task-index.json` | `{TASK}-DISTILLATION-INDEX.md` | Situation router. Phase-by-phase rows mapping `(need, slug-id, when)`. One file per task axis. |
 | Lens index | `lens-index.json` | `lenses/LENS-INDEX.md` | Lens catalogue. One record per lens; `salience` block split from the operator-authored markdown. See *Lens-aware retrieval* below. |
@@ -148,7 +148,7 @@ Operator-edited markdown was the pre-migration shape. The migration replaced mar
 
 - **Token-cost asymmetry.** Markdown re-pays scaffolding overhead per row (`| col1 | col2 |`, `**bold**`, `---` dividers); JSON pays field names once per section. Slug-IDs (`00h`) replace 30-character filenames at every routing-row mention. Per-query index cost on the demo corpus dropped from ~131k tokens to 28-47k.
 - **Mechanical-extraction discipline.** The pre-migration Pass H asked the ingesting LLM to author concept-A-Z entries by inference, which drifted under load: live testing found ~4 canonical post-Agile references with zero concept-index entries despite being in the corpus. JSON's structure makes the data flow auditable: per-source extraction → corpus-wide aggregation → constrained Sonnet cross-link → assembly. Each step has a discrete artefact at a known path.
-- **Operator legibility didn't pay its keep.** The pre-migration `REFERENCE-INDEX.md` was 223kB of operator-authored prose. In practice operators inspected it ~once per quarter and the runtime read it on every query. The cost was paid by the runtime; the value was held by the operator. Switching to JSON-as-runtime with markdown-as-operator-view lets each surface optimise for its consumer.
+- **Operator legibility didn't pay its keep for the reference catalogue.** An early version of the catalogue was 223kB of operator-authored markdown. In practice operators inspected it ~once per quarter while the runtime read it on every query. The cost was paid by the runtime; the value was held by the operator. The reference catalogue now ships as JSON only — the `answer-from-library` skill is the human interface; the JSON is the runtime interface. Task and lens catalogues retain operator-view markdowns because their authoring loop genuinely sits in markdown.
 
 The operator-inspection markdown views still ship in the source repo and the compiled apps. They're not load-bearing at runtime; they're a backup readable surface for browsing the corpus. The build pipeline regenerates the JSON from the markdown plus the extracted artefacts whenever the operator updates the markdown.
 

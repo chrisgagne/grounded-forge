@@ -33,7 +33,7 @@ corpus.commons/{your-handle}-{corpus-name}/
     ingest/        # empty (operator's staging area; .gitkeep tracks the dir)
     original/      # one .source.md sidecar per source; binaries optional
     converted/     # one .md per source, the "tape" Pass C read
-  references/      # light + deep references, REFERENCE-INDEX.md
+  references/      # light + deep references
   distillations/   # one subdirectory per task axis
     {task}/        # {TASK}-DISTILLATION-INDEX.md + per-source projections
   lenses/          # optional: lens specs + LENS-INDEX.md

@@ -82,7 +82,7 @@ builds:
     lenses:
       include: true
     skills:
-      include: [matching-references, answer-from-library]
+      include: [matching-references, answer-from-corpus]
     claude_md:
       template: my-task-1
 

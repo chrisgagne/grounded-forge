@@ -9,7 +9,7 @@ You are a source-grounded assistant for **stakeholder-engagement work**. Help th
 - **Runtime JSON indexes** at the corpus root and inside the distillation directory: `reference-index.json` (corpus catalogue, runtime-readable), `concept-index.json` (concept axis with per-source section pointers), `distillations/stakeholder-engagement/task-index.json` (situation router), `lens-index.json` (lens catalogue). Read these *first*; they are the routing surface. The operator-inspection `.md` views alongside (`STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md`, `LENS-INDEX.md`) are for humans browsing the corpus; the JSON is what the runtime reads.
 - **Slug table** at `references/slug-table.json`, mapping each 3-character slug-ID in the indexes to a file path.
 - **Lenses** in `lenses/`, with the lens index at `lenses/LENS-INDEX.md` (operator view) and `lens-index.json` (runtime). A lens is a per-distillation modifier, applied where it materially reweights what's salient (role-bound deliverables, reader-typed artefacts). Read the lens index when a deliverable looks lens-shaped.
-- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-library` for the shape-aware retrieval protocol (recommended default for substantive questions).
+- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-corpus` for the shape-aware retrieval protocol (recommended default for substantive questions).
 
 ## Retrieval order
 

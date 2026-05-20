@@ -82,7 +82,7 @@ A corpus is self-contained: source-cards, converted markdown, references, distil
 
 Two locations, one rule: **substrate skills are corpus-agnostic; corpus-bound skills cite a specific corpus's references or task axes.**
 
-- `.claude/skills/` (repo root): substrate skills, ship with the forge: `creating-*`, `ingesting-*`, `finding-resources`, `matching-references`, `answer-from-library`, `audit-attribution`. Discovered automatically by Claude Code from any working directory in the repo.
+- `.claude/skills/` (repo root): substrate skills, ship with the forge: `creating-*`, `ingesting-*`, `finding-resources`, `matching-references`, `answer-from-corpus`, `audit-attribution`. Discovered automatically by Claude Code from any working directory in the repo.
 - `{corpus-root}/.claude/skills/`: corpus-bound skills, travel with the corpus. Discovered automatically by Claude Code when you work *inside* that corpus directory, or from anywhere when invoked with `--add-dir {corpus-root}/`.
 
 When authoring corpus-bound skills, either work from inside the corpus or launch Claude Code with `--add-dir {corpus-root}/` so the corpus skills load alongside substrate. The build resolver checks the corpus first, then substrate; collisions warn and prefer the corpus version. Compiled apps flatten everything into the app's `.claude/skills/`, so runtime sees one directory.
@@ -95,7 +95,7 @@ The demo corpus's `openstax-organizational-behavior` slug is the canonical worke
 
 ## Retrieval pattern
 
-When working in this repo or in any compiled distribution, the retrieval order matches the procedure documented in [`.claude/skills/answer-from-library/SKILL.md`](.claude/skills/answer-from-library/SKILL.md):
+When working in this repo or in any compiled distribution, the retrieval order matches the procedure documented in [`.claude/skills/answer-from-corpus/SKILL.md`](.claude/skills/answer-from-corpus/SKILL.md):
 
 1. **Classify the query shape.** Named lookup (one source, Protocol N), diagnostic (situation in a known task domain, Protocol D), or synthesis (breadth across the corpus, Protocol S). Shape determines which indexes to read and in what order.
 2. **Lens-applicability check.** For Protocols D and S, read `lens-index.json` unconditionally and detect whether a lens materially reweights what's salient. Skipped for Protocol N. The lens shapes how sub-claims decompose, so this runs *before* decomposition.

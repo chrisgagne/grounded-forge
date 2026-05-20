@@ -15,7 +15,7 @@ This assistant runs on an openly-licensed corpus. Where canonical retrospective 
   - `lens-index.json` (lens catalogue).
 - **Slug table** at `references/slug-table.json`.
 - **Lenses** in `lenses/`. Apply when the lead is producing a deliverable shaped by a specific reader.
-- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-library` for the shape-aware retrieval protocol.
+- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-corpus` for the shape-aware retrieval protocol.
 - **Runtime agent** in `.claude/agents/retro-facilitator.md`: the seven-phase coaching loop. Invoke with the `/retro-facilitate` command or call directly when the lead names retro work.
 
 ## Corpus coverage and scope

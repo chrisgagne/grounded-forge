@@ -2,7 +2,7 @@
 
 > **Purpose:** Situation-to-resource router for retrospective-facilitation work. "I'm at this point in a retro — which references should I reach for?"
 
-This is the *when-to-use* layer for the retrospective task. It partitions the task into seven phases (Phase 0 setup; Phase 0.5 experiment review; Phase 1 priming; Phase 2 data gathering; Phase 3 insight / cause analysis; Phase 4 experiment design; Phase 5 close) and lists distillations appropriate to each phase. For the *what-is* layer (descriptions of each reference), see the corpus catalogue at [`references/REFERENCE-INDEX.md`](../../references/REFERENCE-INDEX.md). For the task-axis scoping that produced this index, see [`corpus.commons/demo/tasks/retro.md`](../../tasks/retro.md).
+This is the *when-to-use* layer for the retrospective task. It partitions the task into seven phases (Phase 0 setup; Phase 0.5 experiment review; Phase 1 priming; Phase 2 data gathering; Phase 3 insight / cause analysis; Phase 4 experiment design; Phase 5 close) and lists distillations appropriate to each phase. For the *what-is* layer (descriptions of each reference), read [`reference-index.json`](../../reference-index.json) at the corpus root. For the task-axis scoping that produced this index, see [`corpus.commons/demo/tasks/retro.md`](../../tasks/retro.md).
 
 **Workflow:** Distillation index (when) → distillation (how) → deep reference (citations, if needed).
 

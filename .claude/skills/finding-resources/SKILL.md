@@ -25,7 +25,7 @@ Viability rules in [`docs/architecture/source-integrity.md`](../../../docs/archi
 
 - The source is already known and the operator wants to ingest it. Run `ingesting-resources` directly.
 - The question is "is X already in our corpus?" Run `matching-references`.
-- The question is "which existing reference applies to this situation?" Run `answer-from-library`.
+- The question is "which existing reference applies to this situation?" Run `answer-from-corpus`.
 
 ---
 
@@ -147,7 +147,7 @@ The operator overrides at ingestion if the *use intent* differs from the licence
 ## What this skill does NOT do
 
 - **Ingest.** That's `ingesting-resources`. The triage report is its input.
-- **Match against existing corpus for query-time retrieval.** That's `matching-references` (named lookup) or `answer-from-library` (situation routing).
+- **Match against existing corpus for query-time retrieval.** That's `matching-references` (named lookup) or `answer-from-corpus` (situation routing).
 - **Render redistribution judgements.** Per [`copyright.md`](../../../docs/architecture/copyright.md), the build is neutral infrastructure. The skill records licence and suggests scope; the operator decides what to ingest and where to ship it. The build's `max_scope` ceiling enforces distribution at profile time, not at discovery time.
 
 ---

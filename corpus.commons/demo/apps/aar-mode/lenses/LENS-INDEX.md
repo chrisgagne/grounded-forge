@@ -2,7 +2,7 @@
 
 Catalogue of lenses available in this repo, with one-line applicability heuristics.
 
-This index is the lens-axis analogue of [`corpus.commons/demo/references/REFERENCE-INDEX.md`](../references/REFERENCE-INDEX.md) (the corpus catalogue) and the per-task distillation indexes (situation routers). The job it does: for any given query, name which lens the runtime should reach for, and where this lens dominates versus where it cedes to another.
+This index is the lens-axis analogue of [`corpus.commons/demo/reference-index.json`](../reference-index.json) (the corpus catalogue) and the per-task distillation indexes (situation routers). The job it does: for any given query, name which lens the runtime should reach for, and where this lens dominates versus where it cedes to another.
 
 ## Status
 
@@ -10,7 +10,7 @@ As lenses are designed under the substrate `creating-lenses` skill, each spec la
 
 ## Lenses
 
-The *Native vocabulary & salience* column carries each lens's at-a-glance register: what the lens notices first, what recedes, and the register-defining words drawn from each spec's *Salience and vocabulary* section. The runtime lens-applicability check in `answer-from-library` reads this column to prime applicability *and* register from a single pass; the full spec is reached for when grounding-contract, fire-list, or trust-breaking-failure reasoning is material.
+The *Native vocabulary & salience* column carries each lens's at-a-glance register: what the lens notices first, what recedes, and the register-defining words drawn from each spec's *Salience and vocabulary* section. The runtime lens-applicability check in `answer-from-corpus` reads this column to prime applicability *and* register from a single pass; the full spec is reached for when grounding-contract, fire-list, or trust-breaking-failure reasoning is material.
 
 > **Note on `chris-gagne-consultant-coach`.** This lens is included as the worked example of the `real-person` kind, so forkers can see what a named-real-person lens looks like end to end. It is not a promotional artefact for the repo's author. Any operator using the seed corpus as a starting point is expected to replace it with their own named-real-person lens, remove it, or leave it in place strictly for reference. The `creating-lenses` skill produces lenses for whoever—or whatever—the operator chooses.
 
@@ -33,7 +33,7 @@ The kind distinction is documented in the substrate `docs/reference/vocabulary.m
 
 ## How a lens gets used at retrieval
 
-When the lens-applicability check in `answer-from-library` detects a lens-shape, it reads this index in full. The *Native vocabulary & salience* column primes both applicability *and* the lens's register at a glance. For most queries (~80%) this is sufficient: the matched row carries enough of the lens's salience pattern and native vocabulary to apply the lens at retrieval time without a separate read of the full spec.
+When the lens-applicability check in `answer-from-corpus` detects a lens-shape, it reads this index in full. The *Native vocabulary & salience* column primes both applicability *and* the lens's register at a glance. For most queries (~80%) this is sufficient: the matched row carries enough of the lens's salience pattern and native vocabulary to apply the lens at retrieval time without a separate read of the full spec.
 
 The full lens spec at `{slug}.md` is reached for when the query needs the grounding contract, the fire-list, or the trust-breaking-failure-mode reasoning, i.e. when *why* this lens reads what it does is material, not just *what* it reads. Citation-grade synthesis, real-person voice fidelity, and high-stakes artefact shaping are the typical cases.
 

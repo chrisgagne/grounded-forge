@@ -1,5 +1,5 @@
 ---
-name: answer-from-library
+name: answer-from-corpus
 description: Source-grounded answer to a question via shape-aware retrieval: classifies the query as a named lookup, a diagnostic, or a synthesis, then runs the right protocol (direct route, task-index → distillations → deeps, or three-pass index/Chroma → lights → deeps). Stops on sub-claim coverage, not on counts.
 argument-hint: "<question or topic>"
 ---
@@ -10,9 +10,9 @@ Source-grounded answer protocol for any substantive question the library may cov
 
 ## Procedure
 
-**Path convention.** Every path in this skill is written from the **source-repo perspective**: `corpus.commons/demo/{file}`. When `/answer-from-library` runs inside a **deployed application** (any subdir of `corpus.commons/demo/apps/`, e.g., `apps/decision/`, `apps/stakeholder/`, `apps/software-business/`), the `corpus.commons/demo/` prefix is stripped one-to-one: `reference-index.json` resolves as `./reference-index.json`, `distillations/{task}/task-index.json` as `./distillations/{task}/task-index.json`, `references/{slug}.md` as `./references/{slug}.md`, and so on. The rest of every path is unchanged. The deployed-app `CLAUDE.md` documents the bare-path layout from the app's own perspective; this skill's `corpus.commons/demo/` literals are the source-repo equivalents. Translate at read time; do not paginate or grep for files the literal path-string fails to find.
+**Path convention.** Every path in this skill is written from the **source-repo perspective**: `corpus.commons/demo/{file}`. When `/answer-from-corpus` runs inside a **deployed application** (any subdir of `corpus.commons/demo/apps/`, e.g., `apps/decision/`, `apps/stakeholder/`, `apps/software-business/`), the `corpus.commons/demo/` prefix is stripped one-to-one: `reference-index.json` resolves as `./reference-index.json`, `distillations/{task}/task-index.json` as `./distillations/{task}/task-index.json`, `references/{slug}.md` as `./references/{slug}.md`, and so on. The rest of every path is unchanged. The deployed-app `CLAUDE.md` documents the bare-path layout from the app's own perspective; this skill's `corpus.commons/demo/` literals are the source-repo equivalents. Translate at read time; do not paginate or grep for files the literal path-string fails to find.
 
-**`--corpus {slug}` flag.** When the operator passes `--corpus my-corpus` in the invocation (e.g., `/answer-from-library --corpus demo What is a definition of done?`), the skill targets `corpus.commons/{slug}/` or `corpus.local/{slug}/` instead of the default. Use the flag in two cases: (a) the source repo carries more than one commons or local corpus and the active one is ambiguous; (b) the operator wants to route a query against a specific named corpus regardless of CWD. Default resolution: if the CWD is inside a deployed app, use the bundled corpus (bare paths); if the CWD is inside the source repo and exactly one commons corpus exists, use it; if more than one corpus exists and no flag is passed, refuse with a one-line list of available corpora and ask. The trace footer names the corpus resolved-against: `corpus: demo` or `corpus: my-corpus`.
+**`--corpus {slug}` flag.** When the operator passes `--corpus my-corpus` in the invocation (e.g., `/answer-from-corpus --corpus demo What is a definition of done?`), the skill targets `corpus.commons/{slug}/` or `corpus.local/{slug}/` instead of the default. Use the flag in two cases: (a) the source repo carries more than one commons or local corpus and the active one is ambiguous; (b) the operator wants to route a query against a specific named corpus regardless of CWD. Default resolution: if the CWD is inside a deployed app, use the bundled corpus (bare paths); if the CWD is inside the source repo and exactly one commons corpus exists, use it; if more than one corpus exists and no flag is passed, refuse with a one-line list of available corpora and ask. The trace footer names the corpus resolved-against: `corpus: demo` or `corpus: my-corpus`.
 
 ### Step 0: Classify the query shape
 
@@ -131,7 +131,7 @@ Pick the regime by deliverable signal:
 
 **Pass 3 read scope under Citation-grade.** *Full deep* when the defensibility unit is the integrated argument across multiple sections (the author's chain of reasoning, the structure of a chapter's case). *Targeted re-validation* (grep returning the passage plus ~5 lines before and after as context) when the defensibility unit is a specific named passage with a clear in-source location (a verbatim quote, a single-row stat, a named-and-attributed mechanic). In both cases the trace footer names the read scope per author: `openstax-OB (full, 0-745)`, `liberating-structures (partial, grep on "buy-in" / "central tendency", ±5 lines context)`. The Source Integrity rule still applies: full coverage or labelled partial, never silent truncation. When deciding, ask: is what I'm citing *this exact sentence*, or *this author's argument*? The first authorises targeted; the second requires full.
 
-**`--no-deep` flag.** When the operator passes `--no-deep` in the invocation (e.g., `/answer-from-library --no-deep Write a 500-word essay on X`), Pass 3 is deferred regardless of regime. The trace footer annotates the operator's choice (`[no-deep]` when the flag was passed, `Pass 3 deferred (reason)` when Orientation regime is selected).
+**`--no-deep` flag.** When the operator passes `--no-deep` in the invocation (e.g., `/answer-from-corpus --no-deep Write a 500-word essay on X`), Pass 3 is deferred regardless of regime. The trace footer annotates the operator's choice (`[no-deep]` when the flag was passed, `Pass 3 deferred (reason)` when Orientation regime is selected).
 
 For each author selected, read their deep at `references/{slug}-deep.md`. Edge cases:
 
@@ -139,6 +139,21 @@ For each author selected, read their deep at `references/{slug}-deep.md`. Edge c
 - **Distillation already does Pass 3's job** (Protocol D context). For diagnostic queries where Pass G has produced a strong distillation with projected citations in-band, the distillation *is* the projected deep. Reading the deep on top is often redundant: common enough on the current demo corpus that deferring Pass 3 here is the *normal* path for Protocol D, not the exception.
 
   **Calibration: where the verbatim markers came from is load-bearing.** When Pass 3 is deferred, the `[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]` markers in the answer come from *distillation prose*, not from re-validated deep-ref passages. That's correct for how-to / artefact-shaped deliverables where the projection is the unit of value. It's wrong for the Citation-grade regime (regulated / scholarly / audit / disputed context, explicit "with citations", defensibility-critical) where the verbatim claim itself is what's being defended: in that regime, fire Pass 3 against the deep even when the distillation looks sufficient, and surface the deep-ref line range alongside the marker. The trace footer should name the choice: *Pass 3 deferred (distillation carries projected citations)* vs *Pass 3 fired (verbatim markers re-validated against deep)*.
+
+### Image-axis discovery (when `--with-images` is passed)
+
+Fires after Pass 3 in Protocols D and S, and after the deep read (step 3) in Protocol N. The image axis is the corpus's classified-image library: `corpus.commons/demo/sources/converted/IMAGE-INDEX.yaml` (one entry per kept image, with `file`, `source_ref`, `description`, `style`, `tags`, optional `suggested_use`). It is not loaded into a runtime JSON index; access is grep-by-source_ref.
+
+**Procedure:**
+
+1. **Build the set of cited slugs.** For Protocol N, one slug (the named source). For Protocol D, the slugs of each distillation read in step 5 and each deep read in step 7. For Protocol S, the slugs of each deep read in Pass 3.
+2. **Grep the YAML by source_ref for each slug.** The IMAGE-INDEX entry shape places `source_ref` one or two lines after `- file:`; `grep -B 2 -A 6 "source_ref: {slug}$"` returns the file path plus the surrounding description/page/tags/style fields per match. The `$` anchor avoids substring matches (e.g., `10xorg` shouldn't match `10xorg-export`). Use the source-repo path `corpus.commons/demo/sources/converted/IMAGE-INDEX.yaml`; when running in a deployed app, the bare-path equivalent is `sources/converted/IMAGE-INDEX.yaml`.
+3. **Aggregate candidates per slug.** Build a list: per cited source, `(file_path, style, description, suggested_use)`. Drop entries whose `style` is incompatible with the deliverable (e.g., photographs for a hand-drawn carousel; long-form chart series for a single-slide use).
+4. **Surface in the trace footer, not in the deliverable body.** Image candidates ride the trace, not the prose. The operator opens the candidate files manually and decides whether to use them; this skill discovers and lists, it does not decide. See the trace-footer extension below.
+
+**No-coverage is honest.** If `IMAGE-INDEX.yaml` does not exist for this corpus or has no entries for any cited slug, name that in the trace footer (`image-axis: no entries for cited slugs`). Do not fabricate candidates.
+
+**Cap-awareness.** `IMAGE-INDEX.yaml` files can be large (the aarbuddy library is 2 MB; the demo library is comparable). The grep-by-source_ref pattern keeps the surfaced context small. Do not full-read the YAML.
 
 ### Token budget posture
 
@@ -177,7 +192,7 @@ Surface evidence-classification markers (`[V]` verbatim, `[AP]` author paraphras
 
 After the answer, append a one-line footer naming the protocol used and (for Protocols D and S) the sub-claim → source mapping.
 
-**Bracket-tag schema.** The leading bracket carries (in order): protocol tag (Named / Diagnostic / Synthesis), regime tag if a non-default regime fired (Citation-grade / Depth-over-breadth / Orientation), lens tag (`lens: <slug>` or `lens: none`), `corpus: <slug>` (which corpus was resolved-against; `corpus: demo` by default, the `--corpus` flag's value otherwise), the deep-flag (`deep` / `no-deep` / `partial`), and any architectural-coverage qualifier (`partial-matrix-coverage` when the matrix axes carry no relevant material). Examples in increasing complexity:
+**Bracket-tag schema.** The leading bracket carries (in order): protocol tag (Named / Diagnostic / Synthesis), regime tag if a non-default regime fired (Citation-grade / Depth-over-breadth / Orientation), lens tag (`lens: <slug>` or `lens: none`), `corpus: <slug>` (which corpus was resolved-against; `corpus: demo` by default, the `--corpus` flag's value otherwise), the deep-flag (`deep` / `no-deep` / `partial`), the image-flag (`with-images` when `--with-images` was passed; omit otherwise), and any architectural-coverage qualifier (`partial-matrix-coverage` when the matrix axes carry no relevant material). Examples in increasing complexity:
 
 ```
 ---
@@ -209,6 +224,13 @@ After the answer, append a one-line footer naming the protocol used and (for Pro
 *Trace [Synthesis, lens: chris-gagne-consultant-coach, corpus: demo, no-deep, partial-matrix-coverage]: Step 0.5 lens-index → chris-gagne-consultant-coach (real-person, spec read in full via spec_path); matrix axes carry no relevant material for Heifetz / Weinberg / Larman framings → answer grounded in lens spec citations*
 ```
 
+When `--with-images` was passed, append an image-axis line per cited slug, listing candidate file paths with style + suggested_use:
+
+```
+---
+*Trace [Synthesis, Depth-over-breadth, lens: none, corpus: aarbuddy, deep, with-images]: Pass 1 (concept-index → reinertsen + goldratt + dekker) → Pass 2 (5 lights) → Pass 3 (3 deeps: donald-g-reinertsen-..., goldratt-the-choice, drift-into-failure-...) → image-axis (--with-images): donald-g-reinertsen-...-images/p0142-1.jpeg [diagram, "cost-of-delay curves for product development"] + donald-g-reinertsen-...-images/p0167-2.jpeg [chart, "queue size vs cycle time"] | goldratt-the-choice-images/p0089-1.png [diagram, "five focusing steps"] | drift-into-failure-...-images/p0211-1.jpeg [diagram, "Dekker's drift trajectory"]*
+```
+
 The trace is mandatory unless the user explicitly requests "no trace" or "essay only".
 
 **Non-prose deliverable shapes** (a list of N pull-quotes, a thread, a single-line position, *"give me the line and the path"*, *"three sentences each, no synthesis"*) treat the form-match rule as load-bearing on placement: compress the trace to a one-line bracket-tag annotation in the chat scaffolding *above* the deliverable, not below it; the deliverable itself stays clean of scaffolding. The trace is still mandatory, just relocated. Append the full sub-claim → source mapping as a follow-up message only if the operator asks for it. The Source Integrity discipline holds in either placement.
@@ -217,6 +239,10 @@ The trace is mandatory unless the user explicitly requests "no trace" or "essay 
 - `deep`: Pass 3 fired and the deep was read (full or with documented partial per author).
 - `no-deep`: Pass 3 deferred. Name the reason in the trace body (e.g., `Pass 3 deferred (Orientation regime, library-survey question)` or `Pass 3 deferred (distillation carries projected citations)` for Protocol D's distillation-as-projected-deep case).
 - `partial`: Pass 3 fired but coverage is bounded by source-availability (e.g., no Dekker primary in corpus for a Dekker-named query; lens-as-sole-source). Combine with `partial-matrix-coverage` when the matrix axes carry no relevant material.
+
+**Image-flag semantics:**
+- `with-images`: `--with-images` was passed; image-axis discovery fired against `sources/converted/IMAGE-INDEX.yaml` for every cited slug. The trace body lists candidates per slug as `{slug}-images/{file} [style, suggested_use]`.
+- Omit the flag (no `with-images` in the bracket-tag) when image discovery did not run. This is the default; do not insert a `no-images` placeholder.
 
 When `--no-deep` was passed, the bracket-tag uses `no-deep` and the trace body names the flag as the cause (e.g., `Pass 3 deferred (--no-deep flag passed)`). When Pass 3 fires by default, list the deeps read with their per-author read scope (full vs partial-grep, with line ranges) under the Citation-grade rule.
 
@@ -234,6 +260,7 @@ When `--no-deep` was passed, the bracket-tag uses `no-deep` and the trace body n
 - Optional flag: `--no-deep`. When present, Pass 3 is deferred regardless of regime.
 - Optional flag: `--dispatch`. When present, parallel sub-claim retrieval (Pass 2's light reads, Pass 3's deep reads) is dispatched to subagents. Default off: every read runs in the user's session so `/context` visibility and wall-clock latency stay predictable. Use `--dispatch` when composing inside a larger agent flow or when the operator accepts the `/context` blind-spot in exchange for fan-out.
 - Optional flag: `--lean`. Protocol-D-only. When present, skip the distillations read (Step 5) when the index surfaces ≤ 2 sources for the situation; route the curated index directly to the deep refs. Tests the cost-collapse hypothesis: on canonical material the distillations layer is content-routing overhead Claude's training prior would have done from filenames alone. Default off pending eval (re-run the eval suite with the flag and report).
+- Optional flag: `--with-images`. Triggers image-axis discovery after Pass 3 (or after the deep read in Protocol N): for each source whose deep was read, grep `IMAGE-INDEX.yaml` for entries matching that source's slug and surface candidate diagrams, charts, and illustrations in the trace footer. Default off; image discovery is a non-trivial token cost (per-source grep + candidate listing) and most prose deliverables don't need it. Pass when the deliverable is visual: carousel, deck, slides, blog with images, illustrated essay.
 
 ## Outputs
 

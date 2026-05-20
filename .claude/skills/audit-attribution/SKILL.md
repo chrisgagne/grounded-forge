@@ -28,7 +28,7 @@ A 30-citation essay can still under-attribute. Citation breadth is not citation 
 ## When not to use
 
 - Light editorial polish: this skill is heavyweight, designed for substantive synthesis work.
-- Fact-checking individual claims against the corpus: that's `answer-from-library` with an audit framing, not this skill.
+- Fact-checking individual claims against the corpus: that's `answer-from-corpus` with an audit framing, not this skill.
 - First-draft generation: this is a late-stage check, not a generation tool.
 
 ## Procedure
@@ -222,4 +222,4 @@ CITATIONS PRESENT BUT NOT AT RISK:
 - **Confusing breadth of citation with depth of attribution.** A heavily-cited essay can still under-attribute.
 - **Treating the author's reading path as load-bearing.** Citations are for the reader, not for autobiography.
 - **Silent demotion of distinctive claims.** If the author has buried their original synthesis among attributions, flag it for promotion, not just accuracy.
-- **Flagging factual disagreement.** This skill is not a fact-check. If the corpus contradicts the essay's claim, that's a separate audit (use `answer-from-library` with an audit framing). This skill checks *whose argument shape this is*, not *who's right*.
+- **Flagging factual disagreement.** This skill is not a fact-check. If the corpus contradicts the essay's claim, that's a separate audit (use `answer-from-corpus` with an audit framing). This skill checks *whose argument shape this is*, not *who's right*.

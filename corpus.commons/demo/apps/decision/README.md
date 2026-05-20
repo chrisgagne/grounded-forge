@@ -16,6 +16,12 @@ A ○ says the source's contribution is already carried elsewhere in the matrix.
 
 Each distillation is a markdown file at `corpus.commons/{corpus}/distillations/{task}/{slug}-{task}.md`, one source projected onto one task domain. The demo corpus ships 26 references projected onto five task axes: `decision-making` with 26 distillations, `stakeholder-engagement` with 26, `software-business` with 23 (three Pass G skips routed cross-axis), plus the two ceremony axes `aar` and `retro` (each with 18 cells; Pass G skips routed cross-axis to `decision-making` and `software-business`). 111 distillations total. Fork it and ingest your own corpus; the included content can be stripped in one command.
 
+![A hand-drawn notebook page titled "Gagné, after Larman: From Law 4 to LLM Authority". A cascade diagram walks from "original thought leader (slow, hard, rare)" through displaced manager → coach → consultant → LLM slop, producing prolific content (books, blogs, LinkedIn, talks) that becomes LLM training-data volume — orders of magnitude more than the primary source. Side annotation: "primary source / nuance / the point" fading to "outliers." Bottom statement: "DEFAULT LLM AUTHORITY = consultant-frequency mode. Web search gives access to more language, not to truth."](docs/assets/gagne-larman.png)
+
+*The diagnosis. An LLM inherits its default authority from training: the consensus voice of the consultant-derivative layer that wrote the most. The primary source, slow and rare, sits in the outlier tail. Web search and "research-grade" routing amplify the same distribution.*
+
+**Default LLM authority is consultant-frequency mode. Web search gives access to more language, not to truth.** The matrix refuses that default. Pick your sources. Project them onto your task. The assistant then reads through your windows, not the training distribution's. One rule follows: *lenses are windows, not selves* — the discipline lens specs are written under. An aside on the older vocabulary (Bruteau's *psychic grid*, 1979) and how it grounds the rule is at [The Gridmaker](docs/architecture/gridmaker.md). Read it after the engineering docs, or skip.
+
 ## Apps shipped
 
 - **`decision`**: decision-making assistant; all references projected to the decision-making task axis.
@@ -28,9 +34,13 @@ The two ceremony profiles cross-link: `aar-mode` is the event-triggered cross-fu
 
 ## What you can do from here
 
-1. **[The demo app](docs/tutorial/the-demo-app.md):** open a built app in Claude Code, ask it questions, see the matrix route. Zero setup. 20-30 minutes wall-clock (about 10 of those is reading).
-2. **[Your first app](docs/tutorial/your-first-app.md):** ingest one source you bring yourself, watch the matrix expand by one row. ~60 minutes.
-3. **[Your second app](docs/tutorial/your-second-app.md):** scaffold a fresh corpus, ingest a small set of sources, build, package. The full forker arc. ~2–3 hours.
+1. **[The demo app](docs/tutorial/the-demo-app.md):** open a built app in Claude Code, ask it questions, see the matrix route. Zero setup. ~25 minutes.
+2. **[Querying the library](docs/tutorial/querying-the-library.md):** the three read-only skills — `answer-from-corpus`, `matching-references`, `audit-attribution` — plus *reading the trace* (the five-second answer audit). ~30–45 minutes.
+3. **[Ingesting one source](docs/tutorial/ingesting-one-source.md):** the 9-pass ingestion protocol against one source you bring. The matrix expands by one row. ~60 minutes.
+4. **[Scoping a source](docs/tutorial/scoping-a-source.md):** `finding-resources` (pre-ingestion triage) + `ingesting-images` (the visual axis). ~20 minutes.
+5. **[Adding a task axis](docs/tutorial/adding-a-task-axis.md):** a new *column* in the matrix. `creating-tasks` + `creating-applications` + `creating-distillations`. ~60–90 minutes.
+6. **[Adding a lens](docs/tutorial/adding-a-lens.md):** the per-distillation modifier. `creating-lenses` + Pass G's per-distillation gate. ~45 minutes.
+7. **[Scaffolding a corpus](docs/tutorial/scaffolding-a-corpus.md):** the full forker arc with `creating-corpus`. ~2–3 hours.
 
 For how-to guides, lookup material, and the architectural argument, the docs index is at [`docs/README.md`](docs/README.md). See [`docs/architecture/overview.md`](docs/architecture/overview.md) for the one-page summary, and [`docs/architecture/projection-time.md`](docs/architecture/projection-time.md) for the cost-curve framing against standard RAG.
 
@@ -99,7 +109,7 @@ The repo ships a demo corpus at [`corpus.commons/demo/`](corpus.commons/demo/) a
 
 A corpus is self-contained: sources, references, distillations, lenses, compiled apps, and packaged tarballs all sit inside one folder. Tomorrow's contributor PR adds a folder under `corpus.commons/`; tomorrow's operator drops a folder into `corpus.local/`. The layout is identical either way.
 
-The full forker arc is **[Your second app](docs/tutorial/your-second-app.md)** (tutorial) and **[`docs/how-to/build-your-library.md`](docs/how-to/build-your-library.md)** (how-to reference for the same procedure).
+The full forker arc is **[Scaffolding a corpus](docs/tutorial/scaffolding-a-corpus.md)** (tutorial) and **[`docs/how-to/build-your-library.md`](docs/how-to/build-your-library.md)** (how-to reference for the same procedure).
 
 **Sharing a corpus.** When your `corpus.local/your-corpus/` is ready to ship publicly, move the folder to `corpus.commons/your-handle-your-corpus/` and open a PR. The layout doesn't change; the licence rule does. See [`CONTRIBUTING.md`](CONTRIBUTING.md). Everything in `corpus.commons/` must be redistributable under open or open-nc.
 
@@ -107,7 +117,7 @@ The full forker arc is **[Your second app](docs/tutorial/your-second-app.md)** (
 
 The corpus is portable. References, distillations, lenses, and indexes are plain markdown under `corpus.commons/{corpus}/` or `corpus.local/{corpus}/`. The build system is Node.js producing more markdown. The packaging script produces tarballs. The 9-pass ingestion protocol is described in prose; the source-only audit discipline is a methodology, not a vendor lock-in. A fork that reuses the corpus material with a different orchestration framework would inherit the artefacts without modification.
 
-The runtime is coupled to Claude Code. Opening an app folder with `claude .`, invoking skills via `/answer-from-library` and friends, the PreToolUse hook validating deep references at write time, the in-session retrieval flow: all assume Claude Code as the substrate. The skills under `.claude/skills/`, the hook under `.claude/hooks/`, and the `.claude-plugin/plugin.json` manifest are Claude Code's surfaces. A fork that wants the same experience under a different agent framework (LangGraph, CrewAI, plain SDK calls) would need to re-implement the runtime layer. The corpus would survive the move; the orchestration would not.
+The runtime is coupled to Claude Code. Opening an app folder with `claude .`, invoking skills via `/answer-from-corpus` and friends, the PreToolUse hook validating deep references at write time, the in-session retrieval flow: all assume Claude Code as the substrate. The skills under `.claude/skills/`, the hook under `.claude/hooks/`, and the `.claude-plugin/plugin.json` manifest are Claude Code's surfaces. A fork that wants the same experience under a different agent framework (LangGraph, CrewAI, plain SDK calls) would need to re-implement the runtime layer. The corpus would survive the move; the orchestration would not.
 
 Model coupling is lighter than it looks. The 9-pass ingestion protocol was developed and run primarily against Claude Opus 4.7, and the deep references carry `Generated by:` metadata naming the model used. In the few side-by-side comparisons made — without much regard for token cost — the Opus output read as more reliable than Sonnet. That preference is not a measurement, and other models (Claude Sonnet, GPT-4-class, open-weight models with sufficient context and citation discipline) could plausibly do the same work. Forkers running their own ingestion under a different model are invited to test and report findings; the protocol as documented does not bind to one model. Re-ingesting an existing source under a different model produces a separate artefact, distinguishable by the `Generated by:` metadata, so corpora can carry parallel ingestions for comparison.
 
@@ -122,7 +132,7 @@ The source-only audit is Pass I of the 9-pass protocol. Aggregate Pass I outcome
 The comparative method evaluation uses a blind LLM-judge protocol at [`docs/evals/harness/`](docs/evals/harness/), ranking four method-answers to the same prompt under a 5-criterion rubric. The four methods (each collected manually by the operator in its natural product surface; only the judge step is automated):
 
 - **A:** naive Claude with web search available; the model never chose to invoke it across the eval rounds. A forced-web-search variant of A would likely land between this A and B; not yet measured.
-- **B:** Claude with research forced. Available in the Claude.ai web app only. Claude Code can be told to web-search (the model has a `WebSearch` tool), but the result of that more closely resembles A than B; B's deep-research subagent flow is not reducible to a tool call. A user could run B manually in Claude.ai and paste the result into Claude Code as context, but that workaround does not transfer to automated tooling: anywhere the matrix is invoked programmatically (the demo app, `/answer-from-library`, a subagent in a pipeline) cannot consume B's output. B is a comparison the maintainer and architect-buyer can run; not a comparison a forker can wire into their dev loop.
+- **B:** Claude with research forced. Available in the Claude.ai web app only. Claude Code can be told to web-search (the model has a `WebSearch` tool), but the result of that more closely resembles A than B; B's deep-research subagent flow is not reducible to a tool call. A user could run B manually in Claude.ai and paste the result into Claude Code as context, but that workaround does not transfer to automated tooling: anywhere the matrix is invoked programmatically (the demo app, `/answer-from-corpus`, a subagent in a pipeline) cannot consume B's output. B is a comparison the maintainer and architect-buyer can run; not a comparison a forker can wire into their dev loop.
 - **C:** Claude with the corpus's converted markdown sources in context.
 - **D:** matrix via skill, `claude .` opened in the built app folder.
 
@@ -190,7 +200,7 @@ A short list of options considered and turned down. Full reasoning per item in [
 
 The repo splits on substrate vs content:
 
-- **Substrate** (code (build system, scripts), architecture documentation under `docs/architecture/`, the vocabulary reference, build profile templates under `corpus.commons/{corpus}/build-profiles/`, skill specifications (every `SKILL.md`), and index frames at `REFERENCE-INDEX.md`, per-task distillation INDEX `.md`, and the runtime JSON indexes): **MIT**. See [`LICENSE`](LICENSE).
+- **Substrate** (code (build system, scripts), architecture documentation under `docs/architecture/`, the vocabulary reference, build profile templates under `corpus.commons/{corpus}/build-profiles/`, skill specifications (every `SKILL.md`), and index frames at per-task distillation INDEX `.md`, `LENS-INDEX.md`, and the runtime JSON indexes): **MIT**. See [`LICENSE`](LICENSE).
 - **Content authored by the maintainer** (references, distillations, lenses, source sidecars, and long-form prose at `README.md`, `CONTRIBUTING.md`, `DISCLAIMER.md`, `LICENSE-CONTENT`): **CC BY 4.0**. See [`LICENSE-CONTENT`](LICENSE-CONTENT).
 - **Third-party-derived references and distillations** (e.g. `references/openstax-*`, `distillations/{task}/openstax-*`): inherit each source's licence. The 12-book OpenStax corpus mostly carries **CC BY-NC-SA 4.0** (NonCommercial + ShareAlike); *Introduction to Business* is the one exception at CC BY 4.0. Each deep reference's frontmatter records the actual licence. See [`LICENSE-CONTENT`](LICENSE-CONTENT) Section 2 for the full source-by-source table.
 - **Disclaimer and warranty.** Use of the Materials is also subject to [`DISCLAIMER.md`](DISCLAIMER.md) (no warranty, NZ Consumer Guarantees Act 1993 s 43 and Fair Trading Act 1986 s 5D contracting-out for in-trade supplies, AI-output disclaimer, limitation of liability, NZ governing law).
@@ -225,7 +235,7 @@ grounded-forge/
 ├── builds.yaml                 # Profile definitions
 ├── package.json
 ├── docs/
-│   ├── tutorial/               # Learn-by-doing walkthroughs (your-first-app, …)
+│   ├── tutorial/               # Learn-by-doing walkthroughs (querying-the-library, ingesting-one-source, …)
 │   ├── how-to/                 # Task-oriented guides (build-your-library, …)
 │   ├── reference/              # Lookup material (vocabulary, known-limitations, …)
 │   ├── architecture/           # Explanations of why the matrix works the way it does

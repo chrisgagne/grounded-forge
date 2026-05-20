@@ -8,7 +8,7 @@ The two learning-ceremony profiles in this repo, `aar-mode` and `retro-mode`, ri
 
 The current state is honest about the gap and not much else. The retro template makes the lead the universal adapter: *"Paste chat output back into the window so you can synthesise."* This works, but it's an unconditional paste step even when the chat is one MCP call away. The AAR template names concrete servers in prose: *"call your issue-tracker / chat / build-system MCP tools directly if they are available."* This is a list, not a contract. The skill that needs the data has no structured way to ask. The profile that benefits from the data has no structured way to declare. The user who owns the servers has no structured way to bind them.
 
-The substrate skill layer is the canary. Today the substrate skills (`matching-references`, `answer-from-library`, `audit-attribution`) are correctly MCP-blind: they read the curated indexes and the file system, nothing else. The day a substrate skill declares `requires_capabilities: [issue-tracker]` is the day every consumer of the forge has to reason about MCPs. The bright line is worth defending.
+The substrate skill layer is the canary. Today the substrate skills (`matching-references`, `answer-from-corpus`, `audit-attribution`) are correctly MCP-blind: they read the curated indexes and the file system, nothing else. The day a substrate skill declares `requires_capabilities: [issue-tracker]` is the day every consumer of the forge has to reason about MCPs. The bright line is worth defending.
 
 ## Prior art, briefly
 

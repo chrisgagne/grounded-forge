@@ -108,7 +108,7 @@ Ask a question that's *post-incident* shaped:
 
 > The on-call engineer made a config change Friday night that took us down for two hours. The team is split between "wow that was reckless" and "the runbook didn't cover that case." How should I run the retro on Monday?
 
-Without the lens active, the assistant routes through the AAR distillations and gives generally-good AAR guidance. With the lens active (the bundled CLAUDE.md instructs `/answer-from-library` to read `lens-index.json` and detect lens-shaped queries), the answer should:
+Without the lens active, the assistant routes through the AAR distillations and gives generally-good AAR guidance. With the lens active (the bundled CLAUDE.md instructs `/answer-from-corpus` to read `lens-index.json` and detect lens-shaped queries), the answer should:
 
 - **Lead with what the engineering-manager-post-incident lens notices first**: the timeline of decisions under partial information, the hand-off where context was lost, the runbook gap as a *latent condition*, not the engineer's individual judgement call.
 - **Use the lens's native vocabulary**: *contributing factors*, *latent conditions*, *blameless review* (with the *individual-accountability vs individual-attribution* distinction the trust-breaking-failure-mode section guards).
@@ -117,7 +117,7 @@ Without the lens active, the assistant routes through the AAR distillations and 
 To force the lens explicitly:
 
 ```
-/answer-from-library --lens engineering-manager-post-incident The on-call engineer made a config change Friday night that took us down for two hours…
+/answer-from-corpus --lens engineering-manager-post-incident The on-call engineer made a config change Friday night that took us down for two hours…
 ```
 
 The `--lens` flag bypasses the lens-applicability check and applies the lens regardless. Useful when you want to *see* what the lens does to an answer; the default routing applies the lens only when the query is genuinely lens-shaped.
@@ -128,7 +128,7 @@ You added a per-distillation modifier without adding a new axis to the matrix. T
 
 - **`creating-lenses`** scoped the lens under role-in-circumstance discipline, with grounding contract and trust-breaking-failure-mode guards.
 - **`creating-distillations`** ran Pass G's per-distillation applicability gate against the lens and produced full-reshape, partial-reshape, or no-change outputs.
-- **Runtime application** in the deployed app: `answer-from-library` reads `lens-index.json`, detects lens-shaped queries (or accepts an explicit `--lens` flag), and shapes salience through the lens at query time when no pre-projected (source, task, lens) distillation exists.
+- **Runtime application** in the deployed app: `answer-from-corpus` reads `lens-index.json`, detects lens-shaped queries (or accepts an explicit `--lens` flag), and shapes salience through the lens at query time when no pre-projected (source, task, lens) distillation exists.
 
 The corpus row count is unchanged. The corpus column count is unchanged. The lens index has one new entry; affected distillations carry a `## Through the {lens-name} lens` section or have a sibling per-lens variant; the runtime knows when to apply the lens.
 

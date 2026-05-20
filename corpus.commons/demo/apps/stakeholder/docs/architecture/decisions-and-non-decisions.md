@@ -112,7 +112,7 @@ A Sonnet-drafted todo proposed audio notifications on session-end. Rejected: cut
 
 ### Considered: shipping demo transcripts
 
-Capturing 3–5 `/answer-from-library` transcripts (one Named lookup, one Diagnostic, one Synthesis) as static markdown so a reviewer who can't clone-and-run still sees the system working. Deferred to a later push, not because the artefact is wrong, but because operator-led capture against the live corpus has more credibility than scripted output. The Chroma `--check` path provides a smaller version of the same demonstration: a reviewer who runs `python3 scripts/setup-chroma.py --check` sees natural-language queries route to pre-projected distillations, without involving Claude Code at all.
+Capturing 3–5 `/answer-from-corpus` transcripts (one Named lookup, one Diagnostic, one Synthesis) as static markdown so a reviewer who can't clone-and-run still sees the system working. Deferred to a later push, not because the artefact is wrong, but because operator-led capture against the live corpus has more credibility than scripted output. The Chroma `--check` path provides a smaller version of the same demonstration: a reviewer who runs `python3 scripts/setup-chroma.py --check` sees natural-language queries route to pre-projected distillations, without involving Claude Code at all.
 
 ---
 

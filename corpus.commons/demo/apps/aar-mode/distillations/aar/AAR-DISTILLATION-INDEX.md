@@ -2,7 +2,7 @@
 
 > **Purpose:** Situation-to-resource router for After-Action Review work. "I'm at this point in an AAR — which references should I reach for?"
 
-This is the *when-to-use* layer for the After-Action Review task. It partitions the task into phases and lists distillations appropriate to each phase. For the *what-is* layer (descriptions of each reference), see the corpus catalogue at [`references/REFERENCE-INDEX.md`](../../references/REFERENCE-INDEX.md). For the task-axis scoping that produced this index, see [`corpus.commons/demo/tasks/aar.md`](../../tasks/aar.md).
+This is the *when-to-use* layer for the After-Action Review task. It partitions the task into phases and lists distillations appropriate to each phase. For the *what-is* layer (descriptions of each reference), read [`reference-index.json`](../../reference-index.json) at the corpus root. For the task-axis scoping that produced this index, see [`corpus.commons/demo/tasks/aar.md`](../../tasks/aar.md).
 
 **Workflow:** Distillation index (when) → distillation (how) → deep reference (citations, if needed).
 

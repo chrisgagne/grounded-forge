@@ -52,7 +52,7 @@ The phase boundaries are not strict. The AAR adapts to what the event surfaces. 
 1. **Runtime JSON indexes first.** Read `task-index.json` for the current AAR phase. Identify which distillations apply.
 2. **Distillation for application.** Read `{slug}-aar.md` for the source's projection: diagnostic moves, questions per phase, anti-patterns.
 3. **Light reference for orientation; deep reference for citation.** When defending a claim or surfacing an evidence-classification marker, cite from the deep.
-4. **Operator-inspection `.md` views** (`AAR-DISTILLATION-INDEX.md`, `REFERENCE-INDEX.md`) when the practitioner is browsing.
+4. **Operator-inspection `.md` view** (`AAR-DISTILLATION-INDEX.md`) when the practitioner is browsing.
 5. **Grep `references/`** as fallback when the indexes don't surface a match.
 6. **No-coverage is honest.** If the demo corpus doesn't carry a framework that fits, name the gap. The framing is borrowed-through where possible, or absent.
 

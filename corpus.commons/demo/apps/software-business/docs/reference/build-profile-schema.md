@@ -118,7 +118,7 @@ If `true`, ships every lens spec at `{source_dir}/lenses/` plus the `LENS-INDEX.
 skills:
   include:
     - matching-references
-    - answer-from-library
+    - answer-from-corpus
 ```
 
 Type: object with `include` array.

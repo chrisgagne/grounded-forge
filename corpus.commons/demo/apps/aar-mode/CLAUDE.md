@@ -15,7 +15,7 @@ This assistant runs on an openly-licensed corpus. Where canonical HOP and safety
   - `lens-index.json` (lens catalogue).
 - **Slug table** at `references/slug-table.json`: maps 3-character slug-IDs to file paths.
 - **Lenses** in `lenses/`. Apply when the practitioner is producing a deliverable shaped by a specific reader (CTO-to-board memo, business-executive presentation) or when role-specific stance changes the move.
-- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-library` for the shape-aware retrieval protocol.
+- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-corpus` for the shape-aware retrieval protocol.
 - **Runtime agent** in `.claude/agents/aar-facilitator.md`: the AAR-phase-sequence facilitator. Invoke with the `/aar-facilitate` command or call directly when the practitioner names AAR work.
 
 ## Corpus coverage and scope
@@ -52,7 +52,7 @@ The phase boundaries are not strict. The AAR adapts to what the event surfaces. 
 1. **Runtime JSON indexes first.** Read `task-index.json` for the current AAR phase. Identify which distillations apply.
 2. **Distillation for application.** Read `{slug}-aar.md` for the source's projection: diagnostic moves, questions per phase, anti-patterns.
 3. **Light reference for orientation; deep reference for citation.** When defending a claim or surfacing an evidence-classification marker, cite from the deep.
-4. **Operator-inspection `.md` views** (`AAR-DISTILLATION-INDEX.md`, `REFERENCE-INDEX.md`) when the practitioner is browsing.
+4. **Operator-inspection `.md` view** (`AAR-DISTILLATION-INDEX.md`) when the practitioner is browsing.
 5. **Grep `references/`** as fallback when the indexes don't surface a match.
 6. **No-coverage is honest.** If the demo corpus doesn't carry a framework that fits, name the gap. The framing is borrowed-through where possible, or absent.
 

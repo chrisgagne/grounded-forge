@@ -6,7 +6,7 @@ Light and deep references. The reference axis of the matrix. One source per file
 
 - **Deep reference** (`{author}-{topic}-deep.md`): full ingestion output. Verbatim citations with section or page anchors. Inline evidence-classification markers (`[V]`, `[AP]`, `[AR]`, `[AE]`, `[BT]`). Author thesis, walkthrough by part or chapter, key statistics with provenance, connections the author makes, positions the author frames against, citation and integrity notes. The opening metadata block carries `**Source:**` (citation + licence string), `**Scope:**` (one of `open`, `open-nc`, `copyrighted`, `confidential`, `personal`; the build's `max_scope` filter reads this), `**Structure:**`, and `**Citation style:**`. ~500-2500 lines typical.
 - **Light reference** (`{author}-{topic}.md`): condensed orientation document derived from the verified deep. Flatter section structure (depth-2 headings only). Inherits citation discipline from the deep. ~100-300 lines typical.
-- **`REFERENCE-INDEX.md`**: the corpus catalogue. Two sections: the file-by-file tables (light + deep references with author, primary topic, line counts) and a concept-A-Z index with sub-aspect pointers into specific files. The *what-is* layer, contrasted with the per-task distillation indexes (the *when-to-use* layer).
+- **`slug-table.json`**: append-only mapping from each reference's slug to a 3-character base-36 ID. The join key beneath the runtime indexes at the corpus root (`reference-index.json`, `concept-index.json`).
 
 ## What does not go here
 

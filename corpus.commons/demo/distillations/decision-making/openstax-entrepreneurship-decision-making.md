@@ -12,51 +12,51 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 ## Key Concepts for Decision-Making
 
-1. **Build-measure-learn loop.** Continuous iteration of prototype, customer feedback, and revision until product-market fit is achieved. (Source: OpenStax, *Entrepreneurship*, Ch 10.1, "Lean Startup")
+1. <!-- concept: build-measure-learn --> **Build-measure-learn loop.** Lean startup is "a methodology entrepreneurs use to help them innovate by continuously testing their products and getting feedback from customers in real time" [V] (Ch 10.1, "Lean Startup"). Continuous iteration of prototype, customer feedback, and revision until product-market fit is achieved. (Source: OpenStax, *Entrepreneurship*, Ch 10.1, "Lean Startup")
 
-2. **Minimum viable product (MVP).** The bare-minimum prototype required to elicit useful customer feedback; can be a video, sketch, or basic landing page. (Source: Ch 10.1)
+2. <!-- concept: minimum-viable-product --> **Minimum viable product (MVP).** The bare-minimum prototype required to elicit useful customer feedback; can be a video, sketch, or basic landing page. (Source: Ch 10.1)
 
-3. **Innovation accounting.** Replaces traditional revenue/profit metrics with assumption-validation metrics during the early venture stages. (Source: Ch 10.1)
+3. <!-- concept: innovation-accounting --> **Innovation accounting.** Replaces traditional revenue/profit metrics with assumption-validation metrics during the early venture stages. (Source: Ch 10.1)
 
-4. **Ten pivot strategies.** Structured changes in response to feedback: zoom-in, zoom-out, customer segment, customer need, platform, business architecture, value capture, engine of growth, channel, technology. (Source: Ch 10.1, Table 10.2)
+4. <!-- concept: pivot-strategies --> **Ten pivot strategies.** A pivot is "a crucial and often difficult change done to test a hypothesis regarding the basic product, its growth potential, and business model" [V] (Ch 10.1, "Iterating, Pitching, and Pivoting"). Structured changes in response to feedback: zoom-in, zoom-out, customer segment, customer need, platform, business architecture, value capture, engine of growth, channel, technology. (Source: Ch 10.1, Table 10.2)
 
-5. **Three opportunity-recognition criteria.** An idea becomes a recognised opportunity only when significant market demand, significant market structure and size, and significant margins and resources all hold. (Source: Ch 5.2)
+5. <!-- concept: opportunity-recognition --> **Three opportunity-recognition criteria.** An entrepreneurial opportunity is "the point at which identifiable consumer demand meets the feasibility of satisfying the requested product or service" [V] (Ch 5.1, "Theories of Opportunity"). An idea becomes a recognised opportunity only when significant market demand, significant market structure and size, and significant margins and resources all hold. (Source: Ch 5.1, Ch 5.2)
 
-6. **Desirability-feasibility-viability.** Three high-level questions for any startup concept. (Source: Ch 11.2)
+6. <!-- concept: desirability-feasibility-viability --> **Desirability-feasibility-viability.** Three high-level questions for any startup concept. (Source: Ch 11.2)
 
-7. **Go-or-no-go decision.** Project-management synthesis of feasibility-analysis criteria. (Source: Ch 11.3)
+7. <!-- concept: go-no-go-decision --> **Go-or-no-go decision.** Project-management synthesis of feasibility-analysis criteria. (Source: Ch 11.3)
 
-8. **Six pitch elements.** Brand identity and tagline, problem-solution narrative, key features and value proposition, product-market fit, competitive analysis, financial projections. (Source: Ch 7.3)
+8. <!-- concept: pitching --> **Six pitch elements.** Brand identity and tagline, problem-solution narrative, key features and value proposition, product-market fit, competitive analysis, financial projections. (Source: Ch 7.3)
 
-9. **Six entrepreneurial problem-solving skills.** Critical thinking, communication, decisiveness, data analysis, business and industry understanding, resourcefulness. (Source: Ch 6.1)
+9. <!-- concept: entrepreneurial-problem-solving --> **Six entrepreneurial problem-solving skills.** Entrepreneurial problem solving is "the process of using innovation and creative solutions to close that gap by resolving societal, business, or technological problems" [V] (Ch 6.1). Critical thinking, communication, decisiveness, data analysis, business and industry understanding, resourcefulness. (Source: Ch 6.1)
 
-10. **Two problem-solving models.** Adaptive (tested-and-known solutions, Kirton-aligned) versus innovative (challenges problem definitions). (Source: Ch 6.1)
+10. <!-- concept: adaptive-vs-innovative-problem-solving --> **Two problem-solving models.** Adaptive (tested-and-known solutions, Kirton-aligned) versus innovative (challenges problem definitions). (Source: Ch 6.1)
 
-11. **Five-step creative problem-solving process.** Clarify, ideate, develop, implement, evaluate. (Source: Ch 6.2)
+11. <!-- concept: creative-problem-solving --> **Five-step creative problem-solving process.** Clarify, ideate, develop, implement, evaluate. (Source: Ch 6.2)
 
-12. **Eight-step lean problem-solving process.** Clarify, analyse (*genchi genbutsu*), set targets, identify root causes, develop countermeasures, implement, monitor, standardise. (Source: Ch 6.4, Table 6.1)
+12. <!-- concept: lean-problem-solving --> **Eight-step lean problem-solving process.** Clarify, analyse (*genchi genbutsu*), set targets, identify root causes, develop countermeasures, implement, monitor, standardise. (Source: Ch 6.4, Table 6.1)
 
-13. **Delphi method.** Iterative anonymous questionnaires sent to a diverse group, narrowed across rounds until convergence on a final option set. (Source: Ch 15.3)
+13. <!-- concept: delphi-method --> **Delphi method.** Iterative anonymous questionnaires sent to a diverse group, narrowed across rounds until convergence on a final option set. (Source: Ch 15.3)
 
-14. **Nominal Group technique.** In-person silent-write, share-and-discuss, vote rounds. (Source: Ch 15.3)
+14. <!-- concept: nominal-group-technique --> **Nominal Group technique.** In-person silent-write, share-and-discuss, vote rounds. (Source: Ch 15.3)
 
-15. **Cognitive biases that sabotage decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. (Source: Ch 15.2, citing Cossette)
+15. <!-- concept: cognitive-biases --> **Cognitive biases that sabotage decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. (Source: Ch 15.2, citing Cossette)
 
-16. **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider whether course-correction is feasible. (Source: Ch 15.2)
+16. <!-- concept: fail-safe-points --> **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider whether course-correction is feasible. The text frames the bias they protect against: escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "identified points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position" [V] (Ch 15.2). (Source: Ch 15.2)
 
-17. **Burn rate and runway.** Cash on hand divided by monthly burn rate equals months of runway; this defines the decision horizon. (Source: Ch 9.4; Ch 10.1)
+17. <!-- concept: burn-rate-runway --> **Burn rate and runway.** Cash on hand divided by monthly burn rate equals months of runway; this defines the decision horizon. (Source: Ch 9.4; Ch 10.1)
 
-18. **Break-even analysis.** Fixed costs divided by contribution margin equals minimum unit volume to cover costs. (Source: Ch 9.4)
+18. <!-- concept: break-even-analysis --> **Break-even analysis.** Fixed costs divided by contribution margin equals minimum unit volume to cover costs. (Source: Ch 9.4)
 
-19. **PEST framework.** Political, economic, sociocultural, technological factors that affect strategic decisions. (Source: Ch 14.2)
+19. <!-- concept: business-environment --> **PEST framework.** Political, economic, sociocultural, technological factors that affect strategic decisions. (Source: Ch 14.2)
 
-20. **Three competitive analysis tools.** Competitive analysis grid, SWOT, three-circles tool. (Source: Ch 5.3)
+20. <!-- concept: swot-analysis --> **Three competitive analysis tools.** Competitive analysis grid, SWOT, three-circles tool. (Source: Ch 5.3)
 
-21. **Resource dependence theory.** Mergers, vertical integration, joint ventures, and joint political activity as ways to manage external dependencies. (Source: Ch 14.3, citing Pfeffer and Salancik)
+21. <!-- concept: resource-dependence-theory --> **Resource dependence theory.** Mergers, vertical integration, joint ventures, and joint political activity as ways to manage external dependencies. (Source: Ch 14.3, citing Pfeffer and Salancik)
 
-22. **Entity selection.** The for-profit/nonprofit decision and the C/S/B/LLC/LLP/LLLP/sole-proprietorship decision shape risk, taxation, and capital-access. (Source: Ch 13)
+22. <!-- concept: legal-structures --> **Entity selection.** The for-profit/nonprofit decision and the C/S/B/LLC/LLP/LLLP/sole-proprietorship decision shape risk, taxation, and capital-access. (Source: Ch 13)
 
-23. **"Begin with the end in mind."** Treat the eventual harvest or exit as a design constraint from day one. (Source: Ch 15.1)
+23. <!-- concept: harvest-planning --> **"Begin with the end in mind."** Treat the eventual harvest or exit as a design constraint from day one. (Source: Ch 15.1)
 
 ## Questions to Ask During Decision-Making
 

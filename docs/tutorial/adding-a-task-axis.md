@@ -19,7 +19,7 @@ The references on the row axis are unchanged. The distillation column is new. Th
 
 - The repo cloned, Claude Code logged in. ([The demo app](the-demo-app.md) walks the setup.)
 - ~$2–8 in Opus 4.7 tokens. Most of the cost is in Step 3's per-distillation orchestration: Pass G's applicability gate runs against every reference in the demo corpus, and the ones that fire *yes* produce a full distillation file each.
-- ~60–90 minutes wall-clock, depending on how many of the demo's 26 references fire applicable for your task.
+- ~60–90 minutes wall-clock, depending on how many of the demo's 28 references fire applicable for your task.
 
 ## Step 0: Pick a task axis
 
@@ -129,7 +129,7 @@ Step 5 is the matrix's defining move. Each source named in the task spec gets on
 - **Clear no**: the source has nothing meaningful to say about this task. Skip log entry, no distillation produced.
 - **Operator-confirmed no**: the gate is uncertain in the *no* direction; the operator confirms the skip.
 
-For the demo corpus's 26 references and an axis like `risk-assessment`, expect roughly 8-15 *yes* outcomes. The remaining sources are genuinely off-axis: a marketing reference has little to say about risk-assessment in the operational sense, even though *risk* appears in its text.
+For the demo corpus's 28 references and an axis like `risk-assessment`, expect roughly 8-15 *yes* outcomes. The remaining sources are genuinely off-axis: a marketing reference has little to say about risk-assessment in the operational sense, even though *risk* appears in its text.
 
 Each *yes* distillation includes a **`## Runtime triggers this source addresses` section** that maps the source's content to specific triggers from the task spec's seed table (Phase 2a). This is what makes the new app coach-shaped rather than catalogue-shaped: at retrieval, the runtime can route from *"I just noticed the team is dismissing low-probability tail risks because they sound 'paranoid'"* (a trigger) to *the section of the distillation that addresses that exact dynamic*.
 
@@ -177,7 +177,7 @@ You added a column to the matrix. The chain was:
 
 The corpus didn't grow on the row axis: no new sources, no new references. The corpus grew on the column axis: one new task projection across the existing reference set. That's the matrix architecture's defining move; the demo's `decision`, `stakeholder`, and `software-business` apps are three pre-built columns; you've just added a fourth.
 
-Cost discipline: the per-distillation orchestration is the expensive step ($2–8 of Opus tokens for the demo's 26 references). The scoping and scaffolding steps are cheap ($0.10–0.50 each). The cost concentrates where the value concentrates: in the actual projections.
+Cost discipline: the per-distillation orchestration is the expensive step ($2–8 of Opus tokens for the demo's 28 references). The scoping and scaffolding steps are cheap ($0.10–0.50 each). The cost concentrates where the value concentrates: in the actual projections.
 
 ## What's next
 

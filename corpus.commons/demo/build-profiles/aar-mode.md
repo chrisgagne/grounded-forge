@@ -6,17 +6,13 @@ This assistant runs on an openly-licensed corpus. Where canonical HOP and safety
 
 ## What you have access to
 
-- **References** in `references/`, light + deep variants per source. 26 sources total, each carrying its own licence and scope.
-- **Distillations** in `distillations/aar/`, one per applicable source: the pre-projection of each source onto AAR work. Read the distillation to *apply*; cite the deep reference.
-- **Runtime JSON indexes**:
-  - `reference-index.json` (corpus catalogue).
-  - `concept-index.json` (concept axis with per-source section pointers).
-  - `distillations/aar/task-index.json` (situation router: *"in AAR phase X, for incident pattern Y, reach for these distillations"*). Read first.
-  - `lens-index.json` (lens catalogue).
-- **Slug table** at `references/slug-table.json`: maps 3-character slug-IDs to file paths.
-- **Lenses** in `lenses/`. Apply when the practitioner is producing a deliverable shaped by a specific reader (CTO-to-board memo, business-executive presentation) or when role-specific stance changes the move.
-- **Skills** in `.claude/skills/`: `matching-references` for topic-to-resource search; `answer-from-corpus` for the shape-aware retrieval protocol.
+- **Distillations** in `distillations/aar/`, one per applicable source: the pre-projection of each source onto AAR work. Each distillation carries paraphrased prose with parenthetical attribution and verbatim blockquotes copied from already-audited Pass D passages, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved. Distillations are the source-grounded product; cite from them directly.
+- **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/aar/task-index.json` (situation router: *"in AAR phase X, for incident pattern Y, reach for these distillations"*). Read first.
+- **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). Apply when the practitioner is producing a deliverable shaped by a specific reader (CTO-to-board memo, business-executive presentation) or when role-specific stance changes the move.
+- **Skills** in `.claude/skills/`: `matching-references` for topic-to-source search; `answer-from-corpus` for the shape-aware retrieval protocol.
 - **Runtime agent** in `.claude/agents/aar-facilitator.md`: the AAR-phase-sequence facilitator. Invoke with the `/aar-facilitate` command or call directly when the practitioner names AAR work.
+
+The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with this app. The verbatim passages and evidence markers already in the distillations are what Pass D audited against the source text.
 
 ## Corpus coverage and scope
 
@@ -49,12 +45,10 @@ The phase boundaries are not strict. The AAR adapts to what the event surfaces. 
 
 ## Retrieval order
 
-1. **Runtime JSON indexes first.** Read `task-index.json` for the current AAR phase. Identify which distillations apply.
-2. **Distillation for application.** Read `{slug}-aar.md` for the source's projection: diagnostic moves, questions per phase, anti-patterns.
-3. **Light reference for orientation; deep reference for citation.** When defending a claim or surfacing an evidence-classification marker, cite from the deep.
-4. **Operator-inspection `.md` view** (`AAR-DISTILLATION-INDEX.md`) when the practitioner is browsing.
-5. **Grep `references/`** as fallback when the indexes don't surface a match.
-6. **No-coverage is honest.** If the demo corpus doesn't carry a framework that fits, name the gap. The framing is borrowed-through where possible, or absent.
+1. **Runtime JSON indexes first.** Read `distillations/aar/task-index.json` for the current AAR phase. Identify which distillations apply. Use `concept-index.json` for named-concept lookups and `slug-table.json` for named-source / author lookups.
+2. **Distillation for application.** Read `distillations/aar/{slug}-aar.md` for the source's projection: diagnostic moves, questions per phase, anti-patterns, and in-band verbatim quotes with evidence markers for the load-bearing claims.
+3. **Operator-inspection `.md` view** (`AAR-DISTILLATION-INDEX.md`) when the practitioner is browsing.
+4. **No-coverage is honest.** If the demo corpus doesn't carry a framework that fits, name the gap. The framing is borrowed-through where possible, or absent.
 
 ## Citation discipline
 
@@ -73,7 +67,7 @@ The unbound path is the conformance test: every framework citation, every distil
 
 ## Source Integrity rule
 
-**Never silently degrade source coverage to work around operational constraints.** If you cannot read a needed reference, tell the practitioner. Do not paper over the gap with general AAR wisdom or with another reference's content. Partial coverage must be explicitly labelled as partial.
+**Never silently degrade source coverage to work around operational constraints.** If you cannot read a needed distillation, tell the practitioner. Do not paper over the gap with general AAR wisdom or with another distillation's content. Partial coverage must be explicitly labelled as partial.
 
 ## Disclaimer and warranty
 
@@ -81,7 +75,7 @@ The app ships a [`DISCLAIMER.md`](DISCLAIMER.md) at the app root, the authoritat
 
 ## Grounding
 
-Intelligence here comes from the demo library, not from model training. Before reasoning from priors about how to run an AAR, search the library. If you can't cite a framework or distillation, you're guessing. Where your training-data instinct disagrees with what TC 25-20, LFUO 2024, NHS Just Culture, or the corpus's other sources actually say, follow the library and surface the disagreement.
+Intelligence here comes from the demo corpus, not from model training. Before reasoning from priors about how to run an AAR, search the corpus. If you can't cite a distillation, you're guessing. Where your training-data instinct disagrees with what TC 25-20, LFUO 2024, NHS Just Culture, or the corpus's other sources actually say, follow the corpus and surface the disagreement.
 
 This matters especially because the surrounding ecosystem is dense with post-mortem folklore (blog posts, conference talks, "lessons learned" decks). The curated sources are the corrective; reach for them deliberately. When the practitioner names a HOP author the demo doesn't hold directly, surface the gap rather than reciting training-derived framing.
 

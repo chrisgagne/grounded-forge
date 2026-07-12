@@ -51,6 +51,10 @@ from .common import corpus_root, index_output_dir, load_slug_table, repo_root, s
 _TABLE_DIVIDER = re.compile(r"^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?\s*$")
 _HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 _BACKTICK_FILE = re.compile(r"`([^`]+\.md)`")
+# A distillation-filename token, backticked or bare. Anchored on a
+# word-boundary-ish left edge so it doesn't grab mid-word; the ``-{task}.md``
+# tail is checked in ``_slug_from_distillation_filename``.
+_FILENAME_TOKEN = re.compile(r"`?([A-Za-z0-9][A-Za-z0-9-]*\.md)`?")
 
 
 def _parse_pipe_row(line: str) -> list[str] | None:
@@ -76,6 +80,25 @@ def _slug_from_distillation_filename(filename: str, task: str) -> str | None:
 def _extract_distillation_filename(cell: str) -> str | None:
     m = _BACKTICK_FILE.search(cell)
     return m.group(1) if m else None
+
+
+def _ids_from_row(cells: list[str], task: str, slug_id: dict[str, str]) -> list[str]:
+    """Scan every cell of a row for ``{slug}-{task}.md`` distillation
+    filenames and return the resolved slug-IDs in order, de-duplicated.
+
+    Cell order varies across the corpus's DISTILLATION-INDEX.md views
+    (filenames land in different columns, and some are un-backticked), so
+    routing is cell-order-agnostic: any cell may carry the filenames. Both
+    backticked and bare filename tokens are matched.
+    """
+    ids: list[str] = []
+    for cell in cells:
+        for fp in _FILENAME_TOKEN.findall(cell):
+            slug = _slug_from_distillation_filename(fp, task)
+            rid = slug_id.get(slug) if slug else None
+            if rid is not None and rid not in ids:
+                ids.append(rid)
+    return ids
 
 
 def _section_title(line: str) -> tuple[int, str] | None:
@@ -112,15 +135,17 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
                     for c in first_cells
                 )
             )
-            # Skip 3-column "quick start" tables — they are a redundant
-            # view of the same routing surface the 4-column phase tables
-            # already cover. The phase-by-phase tables carry the full
-            # ``(need, slug-id, when)`` triple. Operator inspection of
-            # the .md gets both views; the JSON runtime only needs one.
-            is_quick_start = current_table_shape == 3 and (
-                section_path and "quick" in section_path[-1].lower()
+            # "Quick start / quick lookup" tables are sometimes a redundant
+            # view of a routing surface other tables already cover, and
+            # sometimes the *primary* routing surface (some corpora carry no
+            # 4-column phase tables at all). Tag them here and drop only the
+            # genuinely-redundant ones in a second pass below, once every
+            # section's ids are known. Never drop eagerly on the title alone.
+            is_quick = current_table_shape == 3 and (
+                section_path
+                and "quick" in section_path[-1].lower()
             )
-            if not (is_format_example or is_quick_start):
+            if not is_format_example:
                 columns = (
                     ["need", "id", "when"]
                     if current_table_shape == 4
@@ -133,6 +158,7 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
                         "section": section_path[-1] if section_path else None,
                         "columns": columns,
                         "rows": current_rows,
+                        "_quick": is_quick,
                     }
                 )
         current_rows = []
@@ -174,27 +200,20 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
             current_table_shape = len(cells)
 
         row_record: list | dict
+        # Filenames may sit in any column and may be backticked or bare, so
+        # scan the whole row rather than a fixed cell. The first cell is the
+        # human-facing need/situation label; the last is the when/phase note.
+        ids = _ids_from_row(cells, task, slug_id)
         if len(cells) == 4:
-            need, reference, distillation, when = cells
-            df = _extract_distillation_filename(distillation)
-            slug = _slug_from_distillation_filename(df, task) if df else None
-            rid = slug_id.get(slug) if slug else None
+            need, when = cells[0], cells[3]
             # Flat triple: [need, slug-id, when]. Field names live once in
             # the section header (``columns``) below, not per-row. The
             # spec's "drop redundant prose" lever — re-paying field names
             # 1,100 times for the same shape is exactly the kind of
             # markdown-scaffolding waste this migration removes.
-            row_record = [need, rid, when]
+            row_record = [need, ids[0] if ids else None, when]
         elif len(cells) == 3:
-            situation, references, distillations = cells
-            files = _BACKTICK_FILE.findall(distillations)
-            ids = []
-            for fp in files:
-                slug = _slug_from_distillation_filename(fp, task)
-                rid = slug_id.get(slug) if slug else None
-                if rid is not None:
-                    ids.append(rid)
-            row_record = [situation, ids]
+            row_record = [cells[0], ids]
         else:
             row_record = {"cells": cells}
 
@@ -202,10 +221,37 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
 
     flush_table()
 
+    # Second pass: drop a "quick" table only when it is genuinely redundant —
+    # every slug-ID it routes already appears in a non-quick section. A quick
+    # table that is the primary (or only) routing surface is kept.
+    def _section_ids(sec: dict) -> set[str]:
+        out: set[str] = set()
+        for row in sec["rows"]:
+            if not isinstance(row, list):
+                continue
+            if len(row) == 3 and row[1]:  # [need, id, when]
+                out.add(row[1])
+            elif len(row) == 2 and isinstance(row[1], list):  # [situation, ids]
+                out.update(row[1])
+        return out
+
+    non_quick_ids: set[str] = set()
+    for sec in sections:
+        if not sec.get("_quick"):
+            non_quick_ids |= _section_ids(sec)
+
+    kept: list[dict] = []
+    for sec in sections:
+        if sec.pop("_quick", False):
+            if _section_ids(sec) - non_quick_ids:
+                kept.append(sec)  # routes something no other table covers
+        else:
+            kept.append(sec)
+
     return {
         "task": task,
         "source_file": str(path.relative_to(repo_root())),
-        "sections": sections,
+        "sections": kept,
     }
 
 

@@ -88,7 +88,7 @@ The full catalogue with worked examples lives in [`projection-protocol.md`](proj
 - **Skipping the lens-applicability gate.** Pre-projecting against every named lens by default inflates the corpus with thin lens-shaped variations of the same content. The default for lenses is *do nothing*; pre-project only where the lens materially reweights the distillation.
 - **Re-reading the source.** Distillation projection is from the verified deep, not from the source. Re-reading reintroduces failure modes the deep ref has already audited out (training-prior leakage, drift, evidence-marker confusion).
 - **Smuggling new claims into distillations.** If a concept is not in the deep reference, it does not belong in the distillation. Re-ingest if the concept warrants inclusion.
-- **Verbatim blockquotes in distillations.** Distillations paraphrase. The deep reference is where verbatim material lives.
+- **Re-extracting verbatim from the source at Pass G.** Verbatim blockquotes in distillations are *copies* of already-audited Pass D blockquotes from the deep ref, with the evidence marker preserved. Re-extracting from the source reopens the failure modes Pass D closed.
 - **Mismatched task vocabulary.** The distillation's working vocabulary should be the task's own: *decisions* for decision-making, *stakeholders* for stakeholder-engagement, *incidents* for incident-review, etc. Source-author vocabulary is preserved in the deep reference; task-applied vocabulary lives in the distillations.
 
 ## Related skills

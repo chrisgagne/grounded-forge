@@ -10,24 +10,36 @@ The book is also strongly *engagement-centric* rather than transaction-centric. 
 
 The book is most useful for *commercial* stakeholder engagement — engagement instrumented in service of value creation and exchange. It is less directly useful for stakeholder engagement that is purely civic or governance-focused (board engagement, regulatory rulemaking participation, corporate citizenship beyond the marketing function). For internal-organisational stakeholder engagement (employee engagement *as workforce engagement*, not as service-delivery enabler), pair this reference with an organisational-behaviour text.
 
+## Verbatim anchors from the source
+
+The exchange process — the structural definition of a stakeholder transaction — is "the act of obtaining a desired product or service from an individual or business by providing in return something of value" [V] (OpenStax, *Principles of Marketing*, Ch 1.5, "The Exchange Process").
+
+Customer relationship management — the two-way engagement infrastructure — is "the means through which companies track, manage, and analyze customer interactions" [V] (Ch 1.6, "The Impact of CRM").
+
+The Kotler definition the book adopts for stakeholder-aware sustainability: "an organization should meet the needs of its present consumers without compromising the ability of future generations to fulfill their own needs" [V] (Ch 19.1, "Environmental Sustainability").
+
+Costco's stakeholder-balance formulation, cited approvingly: "Sustainability to us is remaining a profitable business while doing the right thing" [V] (Ch 19.2).
+
+A marketing channel — the multi-party engagement system through intermediaries — is "a system of people, organizations, and activities that work together to make goods and services available to consumers to purchase" [V] (Ch 17.1, "Marketing Channels Defined").
+
 ## Key Concepts for Stakeholder Engagement
 
-1. **Internal and external interested parties.** The text's foundational distinction: internal (employees, owners, managers, investors) and external (customers, creditors, suppliers, distributors, society) — both sets must be engaged. (Source: OpenStax, *Principles of Marketing*, Ch 1.1, "How Marketing Benefits the Organization, Its Interested Parties, and Society")
-2. **The microenvironment as engagement landscape.** Five external parties to engage with directly: suppliers, market intermediaries, customers, competitors, the general public. (Source: Ch 1.3, "Components of the Microenvironment")
-3. **Internal marketing.** Promoting the objectives, products, and services of a company to *its own employees* — recognising employees as the first stakeholder group. (Source: Ch 1.1; Ch 13.5)
-4. **The exchange process.** Engagement is a value-for-value exchange — buyer, seller, desired object, value — with both parties' interests honoured. (Source: Ch 1.5)
-5. **CRM as two-way communication.** "It's a two-way street that allows customers to define and consequently shape offerings in terms of their requirements." (Source: Ch 1.6, "The Role of CRM in Building Customer Equity")
-6. **The service-profit chain.** Internal service quality → employee satisfaction → loyalty/productivity → external value proposition → customer satisfaction → customer loyalty → profit. The chain is broken if any link fails. (Source: Ch 11.2)
-7. **Service Marketing Triangle.** Three engagement legs: external marketing (company → customer, making promises), internal marketing (company → employees, enabling promises), interactive marketing (employees ↔ customers in service encounters, keeping promises). (Source: Ch 11.2)
-8. **Five gaps in service-quality engagement.** Knowledge gap (between management's understanding and customer expectation), policy gap (between understanding and standards), delivery gap (between standards and execution), communication gap (between delivery and what's communicated), customer gap (between expectation and perceived experience). (Source: Ch 11.3)
-9. **Buying centre as a multi-stakeholder unit.** In B2B, engagement is with seven roles: initiator, influencer, gatekeeper, buyer, decider, user. (Source: Ch 4.2)
-10. **Reference groups and influencers.** Engagement isn't just with the customer — it's with the formal and informal groups that shape their preferences and purchases. (Source: Ch 3.2, "Social Factors")
-11. **Public relations.** Unpaid, earned-media engagement with the press, public officials, communities. PR is the most credible promotional form. (Source: Ch 14.4)
-12. **Multicultural and sociodemographic engagement.** Diversity marketing as a *culturally-responsive* engagement strategy — acknowledging differences and validating individuals' importance. (Source: Ch 8.2)
-13. **The 5A customer journey.** Aware, Appeal, Ask, Act, Advocacy — engagement deepens at each stage. (Source: Ch 13.4)
-14. **Stakeholder approach to sustainability.** "Sustainable marketing takes a 'stakeholder approach' and considers customers, shareholders, employees, vendors, interest groups, media, and the general public." (Source: Ch 19.2)
-15. **Three pillars / ESG.** Environmental, social, economic/governance — the three groups of stakeholders sustainability serves. (Source: Ch 19.1)
-16. **Authentic vs inauthentic engagement.** The Walmart Juneteenth ice cream backlash exemplifies inauthentic engagement; Bombas's give-with-purchase model exemplifies authentic. (Source: Ch 19.5)
+1.  **Internal and external interested parties.** The text's foundational distinction: internal (employees, owners, managers, investors) and external (customers, creditors, suppliers, distributors, society) — both sets must be engaged. (Source: OpenStax, *Principles of Marketing*, Ch 1.1, "How Marketing Benefits the Organization, Its Interested Parties, and Society")
+2.  **The microenvironment as engagement landscape.** Five external parties to engage with directly: suppliers, market intermediaries, customers, competitors, the general public. (Source: Ch 1.3, "Components of the Microenvironment")
+3.  **Internal marketing.** Promoting the objectives, products, and services of a company to *its own employees* — recognising employees as the first stakeholder group. (Source: Ch 1.1; Ch 13.5)
+4.  **The exchange process.** Engagement is a value-for-value exchange — buyer, seller, desired object, value — with both parties' interests honoured. (Source: Ch 1.5)
+5.  **CRM as two-way communication.** "It's a two-way street that allows customers to define and consequently shape offerings in terms of their requirements." (Source: Ch 1.6, "The Role of CRM in Building Customer Equity")
+6.  **The service-profit chain.** Internal service quality → employee satisfaction → loyalty/productivity → external value proposition → customer satisfaction → customer loyalty → profit. The chain is broken if any link fails. (Source: Ch 11.2)
+7.  **Service Marketing Triangle.** Three engagement legs: external marketing (company → customer, making promises), internal marketing (company → employees, enabling promises), interactive marketing (employees ↔ customers in service encounters, keeping promises). (Source: Ch 11.2)
+8.  **Five gaps in service-quality engagement.** Knowledge gap (between management's understanding and customer expectation), policy gap (between understanding and standards), delivery gap (between standards and execution), communication gap (between delivery and what's communicated), customer gap (between expectation and perceived experience). (Source: Ch 11.3)
+9.  **Buying centre as a multi-stakeholder unit.** In B2B, engagement is with seven roles: initiator, influencer, gatekeeper, buyer, decider, user. (Source: Ch 4.2)
+10.  **Reference groups and influencers.** Engagement isn't just with the customer — it's with the formal and informal groups that shape their preferences and purchases. (Source: Ch 3.2, "Social Factors")
+11.  **Public relations.** Unpaid, earned-media engagement with the press, public officials, communities. PR is the most credible promotional form. (Source: Ch 14.4)
+12.  **Multicultural and sociodemographic engagement.** Diversity marketing as a *culturally-responsive* engagement strategy — acknowledging differences and validating individuals' importance. (Source: Ch 8.2)
+13.  **The 5A customer journey.** Aware, Appeal, Ask, Act, Advocacy — engagement deepens at each stage. (Source: Ch 13.4)
+14.  **Stakeholder approach to sustainability.** "Sustainable marketing takes a 'stakeholder approach' and considers customers, shareholders, employees, vendors, interest groups, media, and the general public." (Source: Ch 19.2)
+15.  **Three pillars / ESG.** Environmental, social, economic/governance — the three groups of stakeholders sustainability serves. (Source: Ch 19.1)
+16.  **Authentic vs inauthentic engagement.** The Walmart Juneteenth ice cream backlash exemplifies inauthentic engagement; Bombas's give-with-purchase model exemplifies authentic. (Source: Ch 19.5)
 
 ## Questions to Ask During Stakeholder Engagement
 

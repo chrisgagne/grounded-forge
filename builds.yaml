@@ -154,6 +154,22 @@ builds:
         - "docs/audit-results/*"
         - "references/_audit/"
         - "references/_audit/*"
+        # The reference tier (light + deep) lives at corpus level as
+        # audit-of-record; apps ship distillations only. Architecture
+        # docs that ship with apps describe the full corpus architecture,
+        # including references/, so those path references dangle in apps
+        # by design.
+        - "references/"
+        - "references/*"
+        - "reference-index.json"
+        # Assets referenced from shipped docs but not bundled in the
+        # current app's docs.assets/ allowlist; pre-existing.
+        - "docs/assets/gagne-larman.png"
+        - "docs/assets/9-pass-protocol.png"
+        - "docs/assets/two-layer-indexes.png"
+        # gridmaker-interview skill is corpus-bound, ships with the
+        # corpus but not with these substrate-based public profiles.
+        - ".claude/skills/gridmaker-interview/SKILL.md"
         # Comparative eval harness ships in the source repo; not in apps.
         - "evals/"
         - "evals/*"
@@ -289,6 +305,22 @@ builds:
         - "docs/audit-results/*"
         - "references/_audit/"
         - "references/_audit/*"
+        # The reference tier (light + deep) lives at corpus level as
+        # audit-of-record; apps ship distillations only. Architecture
+        # docs that ship with apps describe the full corpus architecture,
+        # including references/, so those path references dangle in apps
+        # by design.
+        - "references/"
+        - "references/*"
+        - "reference-index.json"
+        # Assets referenced from shipped docs but not bundled in the
+        # current app's docs.assets/ allowlist; pre-existing.
+        - "docs/assets/gagne-larman.png"
+        - "docs/assets/9-pass-protocol.png"
+        - "docs/assets/two-layer-indexes.png"
+        # gridmaker-interview skill is corpus-bound, ships with the
+        # corpus but not with these substrate-based public profiles.
+        - ".claude/skills/gridmaker-interview/SKILL.md"
         # Comparative eval harness ships in the source repo; not in apps.
         - "evals/"
         - "evals/*"
@@ -423,6 +455,20 @@ builds:
         - "docs/audit-results/*"
         - "references/_audit/"
         - "references/_audit/*"
+        # Reference tier lives at corpus level; apps ship distillations
+        # only. Architecture docs that ship with apps describe the full
+        # corpus architecture so these path references dangle by design.
+        - "references/"
+        - "references/*"
+        - "reference-index.json"
+        # Assets referenced from shipped docs but not bundled in this
+        # profile's docs.assets/ allowlist; pre-existing.
+        - "docs/assets/gagne-larman.png"
+        - "docs/assets/9-pass-protocol.png"
+        - "docs/assets/two-layer-indexes.png"
+        # gridmaker-interview skill is corpus-bound, not shipped with
+        # substrate-based public profiles.
+        - ".claude/skills/gridmaker-interview/SKILL.md"
         - "evals/"
         - "evals/*"
         - "tests/"
@@ -523,6 +569,20 @@ builds:
         - "docs/audit-results/*"
         - "references/_audit/"
         - "references/_audit/*"
+        # Reference tier lives at corpus level; apps ship distillations
+        # only. Architecture docs that ship with apps describe the full
+        # corpus architecture so these path references dangle by design.
+        - "references/"
+        - "references/*"
+        - "reference-index.json"
+        # Assets referenced from shipped docs but not bundled in this
+        # profile's docs.assets/ allowlist; pre-existing.
+        - "docs/assets/gagne-larman.png"
+        - "docs/assets/9-pass-protocol.png"
+        - "docs/assets/two-layer-indexes.png"
+        # gridmaker-interview skill is corpus-bound, not shipped with
+        # substrate-based public profiles.
+        - ".claude/skills/gridmaker-interview/SKILL.md"
         - "evals/"
         - "evals/*"
         - "tests/"
@@ -642,6 +702,20 @@ builds:
         - "docs/audit-results/*"
         - "references/_audit/"
         - "references/_audit/*"
+        # Reference tier lives at corpus level; apps ship distillations
+        # only. Architecture docs that ship with apps describe the full
+        # corpus architecture so these path references dangle by design.
+        - "references/"
+        - "references/*"
+        - "reference-index.json"
+        # Assets referenced from shipped docs but not bundled in this
+        # profile's docs.assets/ allowlist; pre-existing.
+        - "docs/assets/gagne-larman.png"
+        - "docs/assets/9-pass-protocol.png"
+        - "docs/assets/two-layer-indexes.png"
+        # gridmaker-interview skill is corpus-bound, not shipped with
+        # substrate-based public profiles.
+        - ".claude/skills/gridmaker-interview/SKILL.md"
         - "evals/"
         - "evals/*"
         - "tests/"

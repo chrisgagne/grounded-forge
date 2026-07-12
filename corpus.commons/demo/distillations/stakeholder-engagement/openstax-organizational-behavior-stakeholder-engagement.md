@@ -10,31 +10,31 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 ## Key Concepts for Stakeholder Engagement
 
-1. **Stakeholders defined.** All individuals or groups affected by an organisation, including customers, employees, shareholders, suppliers, regulators, and communities. The list expands by context. (Source: OpenStax, *Organizational Behavior*, Ch 6.1)
+1. <!-- concept: stakeholders-defined --> **Stakeholders defined.** All individuals or groups affected by an organisation, including customers, employees, shareholders, suppliers, regulators, and communities. The list expands by context. (Source: OpenStax, *Organizational Behavior*, Ch 6.1)
 
-2. **Three types of group interdependence.** Pooled (groups largely independent but contributing to a larger whole), sequential (one group's outputs are another's inputs), and reciprocal (groups depend on each other for inputs). The type of interdependence determines how much interaction is needed; high reciprocal interdependence requires high integration. (Source: Ch 9.4, "Interdependence Requirements")
+2. <!-- concept: group-interdependence --> **Three types of group interdependence.** Pooled (groups largely independent but contributing to a larger whole), sequential (one group's outputs are another's inputs), and reciprocal (groups depend on each other for inputs). The type of interdependence determines how much interaction is needed; high reciprocal interdependence requires high integration. (Source: Ch 9.4, "Interdependence Requirements")
 
-3. **Five integration techniques.** Rules and procedures, member exchange, linking roles, task forces, and decoupling. Each fits a different intergroup configuration; decoupling separates groups whose conflict cannot be productively resolved. (Source: Ch 9.4, "Managing Intergroup Behavior and Performance")
+3. <!-- concept: integration-techniques --> **Five integration techniques.** Rules and procedures, member exchange, linking roles, task forces, and decoupling. Each fits a different intergroup configuration; decoupling separates groups whose conflict cannot be productively resolved. (Source: Ch 9.4, "Managing Intergroup Behavior and Performance")
 
-4. **French and Raven's five power bases.** Reward (control of desired outcomes), coercive (capacity to punish), referent (interpersonal attraction or charisma), expert (knowledge or expertise), legitimate (right to influence based on position). Stakeholders draw on different bases; recognising which base is in play shapes engagement strategy. (Source: Ch 12.3 and Ch 13.1)
+4. <!-- concept: power --> **French and Raven's five power bases.** Reward (control of desired outcomes), coercive (capacity to punish), referent (interpersonal attraction or charisma), expert (knowledge or expertise), legitimate (right to influence based on position). Stakeholders draw on different bases; recognising which base is in play shapes engagement strategy. (Source: Ch 12.3 and Ch 13.1)
 
-5. **Counterpower and power dependencies.** A target's response to influence depends on the target's values (whether the offered outcomes matter), the relationship nature, and counterpower (other power sources the target can draw on). Stakeholders are not merely on the receiving end of organisational influence; they have their own power bases. (Source: Ch 13.1, "Power Dependencies")
+5. <!-- concept: counterpower --> **Counterpower and power dependencies.** A target's response to influence depends on the target's values (whether the offered outcomes matter), the relationship nature, and counterpower (other power sources the target can draw on). Stakeholders are not merely on the receiving end of organisational influence; they have their own power bases. (Source: Ch 13.1, "Power Dependencies")
 
-6. **Salancik-Pfeffer resource dependence.** Subunits and stakeholders gain power through controlling critical resources others need. Stakeholder maps should track who controls what and how substitutable each contribution is. (Source: Ch 13.3)
+6. <!-- concept: resource-dependence --> **Salancik-Pfeffer resource dependence.** Subunits and stakeholders gain power through controlling critical resources others need. Stakeholder maps should track who controls what and how substitutable each contribution is. (Source: Ch 13.3)
 
-7. **Hickson strategic contingencies.** Three sources of subunit power: ability to cope with uncertainty, non-substitutability, and centrality (workflow pervasiveness and immediacy). Stakeholder importance fluctuates as organisational contingencies shift. (Source: Ch 13.3)
+7. <!-- concept: strategic-contingencies --> **Hickson strategic contingencies.** Three sources of subunit power: ability to cope with uncertainty, non-substitutability, and centrality (workflow pervasiveness and immediacy). Stakeholder importance fluctuates as organisational contingencies shift. (Source: Ch 13.3)
 
-8. **Five conflict-resolution modes (Thomas).** On assertiveness × cooperativeness axes: competing, collaborating, compromising, avoiding, accommodating. Each fits different stakeholder situations. Collaboration suits high-stakes integrative conflicts; compromise suits time-pressured situations of equal power; accommodation suits situations where the issue matters more to the other side. (Source: Ch 14.2)
+8. <!-- concept: conflict-and-negotiation --> **Five conflict-resolution modes (Thomas).** On assertiveness × cooperativeness axes: competing, collaborating, compromising, avoiding, accommodating. Each fits different stakeholder situations. Collaboration suits high-stakes integrative conflicts; compromise suits time-pressured situations of equal power; accommodation suits situations where the issue matters more to the other side. (Source: Ch 14.2)
 
-9. **Distributive versus integrative bargaining.** Distributive (win-lose, fixed pie, short-term) versus integrative (win-win, expanded pie, long-term). Most stakeholder relationships warrant integrative framing; specific transactions may require distributive framing. (Source: Ch 14.4)
+9. <!-- concept: distributive-vs-integrative --> **Distributive versus integrative bargaining.** Distributive (win-lose, fixed pie, short-term) versus integrative (win-win, expanded pie, long-term). Most stakeholder relationships warrant integrative framing; specific transactions may require distributive framing. (Source: Ch 14.4)
 
-10. **BATNA and principled negotiation.** The Best Alternative To a Negotiated Agreement is the measure of bargaining stance. Strong BATNA holders need not concede; weak BATNA holders should examine whether reaching an agreement is in their interest. (Source: Ch 14.4)
+10. <!-- concept: batna --> **BATNA and principled negotiation.** The Best Alternative To a Negotiated Agreement is the measure of bargaining stance. Strong BATNA holders need not concede; weak BATNA holders should examine whether reaching an agreement is in their interest. (Source: Ch 14.4)
 
-11. **Four cultural negotiation differences.** Direct versus indirect communication, attitudes toward hierarchy, decision-making norms, and accent and fluency. Multicultural stakeholder engagement requires attention to all four. (Source: Ch 10.6 and Ch 14.4)
+11. <!-- concept: cross-cultural-negotiation --> **Four cultural negotiation differences.** Direct versus indirect communication, attitudes toward hierarchy, decision-making norms, and accent and fluency. Multicultural stakeholder engagement requires attention to all four. (Source: Ch 10.6 and Ch 14.4)
 
-12. **Mintzberg's liaison role.** Managers spend the majority of their time with peers across organisational boundaries (47 per cent in Stewart's 1967 study); the liaison role establishes and maintains connections that produce the information and trust needed for stakeholder work. (Source: Ch 11.3)
+12. <!-- concept: liaison-role --> **Mintzberg's liaison role.** Managers spend the majority of their time with peers across organisational boundaries (47 per cent in Stewart's 1967 study); the liaison role establishes and maintains connections that produce the information and trust needed for stakeholder work. (Source: Ch 11.3)
 
-13. **Open systems and external alignment.** Organisations are open systems exchanging resources with their environment through feedback loops. Stakeholder engagement is the human side of those resource exchanges; closed-system thinking misses the resource flows that determine organisational viability. (Source: Ch 15.4)
+13. <!-- concept: open-systems --> **Open systems and external alignment.** Organisations are open systems exchanging resources with their environment through feedback loops. Stakeholder engagement is the human side of those resource exchanges; closed-system thinking misses the resource flows that determine organisational viability. (Source: Ch 15.4)
 
 ## Questions to Ask During Stakeholder Engagement
 

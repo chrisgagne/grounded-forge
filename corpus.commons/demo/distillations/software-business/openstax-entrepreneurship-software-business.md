@@ -12,61 +12,61 @@ The text fits a founder operating in the seed-to-early-stage window where almost
 
 ## Key Concepts for Software-Business
 
-1. **Business Model Canvas (BMC), nine building blocks.** Customer segments, value propositions, channels, customer relationships, revenue streams, key activities, key partners, key resources, and cost structure. Reads as a one-page software-business architecture spec. (Source: OpenStax, *Entrepreneurship*, Ch 11.2, citing Osterwalder and Pigneur)
+1. <!-- concept: business-model-canvas --> **Business Model Canvas (BMC), nine building blocks.** Customer segments, value propositions, channels, customer relationships, revenue streams, key activities, key partners, key resources, and cost structure. Reads as a one-page software-business architecture spec. (Source: OpenStax, *Entrepreneurship*, Ch 11.2, citing Osterwalder and Pigneur)
 
-2. **Lean Canvas.** Maurya's adaptation that replaces key activities/partners/resources with problem, solution, and key metrics — the variant most useful when the software product itself is the central unknown. (Source: Ch 11.2, citing Maurya, *Running Lean*)
+2. <!-- concept: lean-canvas --> **Lean Canvas.** Maurya's adaptation that replaces key activities/partners/resources with problem, solution, and key metrics — the variant most useful when the software product itself is the central unknown. (Source: Ch 11.2, citing Maurya, *Running Lean*)
 
-3. **Three business-model archetypes.** Direct (one-sided customer; SaaS, single-tenant), multisided (users and customers differ; ad-funded platforms), marketplace (two customer segments of buyers and sellers; two-sided software businesses). (Source: Ch 11.1, citing Maurya, *Scaling Lean*)
+3. <!-- concept: business-model-archetypes --> **Three business-model archetypes.** Direct (one-sided customer; SaaS, single-tenant), multisided (users and customers differ; ad-funded platforms), marketplace (two customer segments of buyers and sellers; two-sided software businesses). (Source: Ch 11.1, citing Maurya, *Scaling Lean*)
 
-4. **Ten pivot strategies.** Zoom-in, zoom-out, customer-segment, customer-need, platform, business-architecture, value-capture, engine-of-growth, channel, technology. Each maps a specific symptom in the build-measure-learn loop to a specific pivot type. (Source: Ch 10.1, Table 10.2, citing Ries, *The Lean Startup*)
+4. <!-- concept: pivot-strategies --> **Ten pivot strategies.** A pivot is "a crucial and often difficult change done to test a hypothesis regarding the basic product, its growth potential, and business model" [V] (Source: Ch 10.1, "Iterating, Pitching, and Pivoting"). Ten named strategies: Zoom-in, zoom-out, customer-segment, customer-need, platform, business-architecture, value-capture, engine-of-growth, channel, technology. Each maps a specific symptom in the build-measure-learn loop to a specific pivot type. (Ch 10.1, Table 10.2, citing Ries, *The Lean Startup*)
 
-5. **Build-measure-learn loop.** The discipline of running prototype → customer feedback → learn → revised prototype until product-market fit. Replaces the build-then-launch sequence with continuous iteration anchored on validated learning. (Source: Ch 10.1)
+5. <!-- concept: build-measure-learn --> **Build-measure-learn loop.** The source defines lean startup as "a methodology entrepreneurs use to help them innovate by continuously testing their products and getting feedback from customers in real time" [V] (Source: OpenStax, *Entrepreneurship*, Ch 10.1, "Lean Startup"). The discipline runs prototype → customer feedback → learn → revised prototype until product-market fit, replacing the build-then-launch sequence with continuous iteration anchored on validated learning.
 
-6. **Minimum viable product (MVP).** The bare-minimum prototype that elicits useful feedback — video, sketch, landing page, or partially-instrumented service can each qualify. The Dropbox explainer-video and Zappos manual-fulfilment landing page are the canonical examples. (Source: Ch 10.1)
+6. <!-- concept: minimum-viable-product --> **Minimum viable product (MVP).** The bare-minimum prototype that elicits useful feedback — video, sketch, landing page, or partially-instrumented service can each qualify. The Dropbox explainer-video and Zappos manual-fulfilment landing page are the canonical examples. (Source: Ch 10.1)
 
-7. **Innovation accounting.** Ries's substitute for revenue/profit metrics in the seed-and-early stages: assumption-validation metrics that test whether MVP changes are creating desired learning. (Source: Ch 10.1)
+7. <!-- concept: innovation-accounting --> **Innovation accounting.** Ries's substitute for revenue/profit metrics in the seed-and-early stages: assumption-validation metrics that test whether MVP changes are creating desired learning. (Source: Ch 10.1)
 
-8. **Funding ladder across the venture life cycle.** Seed (personal savings, F&F, bootstrapping), early stage (angels, then VCs), mature (later VC rounds, IPO). Each stage carries different governance, reporting, and runway commitments that constrain engineering investment decisions. (Source: Ch 9.1; Ch 14.1)
+8. <!-- concept: funding-ladder --> **Funding ladder across the venture life cycle.** Seed (personal savings, F&F, bootstrapping), early stage (angels, then VCs), mature (later VC rounds, IPO). Each stage carries different governance, reporting, and runway commitments that constrain engineering investment decisions. (Source: Ch 9.1; Ch 14.1)
 
-9. **Friends-and-family share of startup capital.** Between 50 and 70 per cent of US startup initial capital comes from F&F sources; the structural implication is that early engineering investments are funded by relationships, not by institutional capital. (Source: Ch 7.3, citing Entis and Wood)
+9. <!-- concept: friends-and-family-funding --> **Friends-and-family share of startup capital.** Between 50 and 70 per cent of US startup initial capital comes from F&F sources; the structural implication is that early engineering investments are funded by relationships, not by institutional capital. (Source: Ch 7.3, citing Entis and Wood)
 
-10. **Bootstrapping.** Self-funding using minimum resources and founder sweat equity; sets a hard runway-and-pace ceiling on early engineering work. (Source: Ch 9.2; Ch 14.1)
+10. <!-- concept: bootstrapping --> **Bootstrapping.** Self-funding using minimum resources and founder sweat equity; sets a hard runway-and-pace ceiling on early engineering work. (Source: Ch 9.2; Ch 14.1)
 
-11. **Burn rate and runway.** Monthly cash outflow versus cash on hand; cash divided by burn rate equals months of runway. Defines the time-box inside which the next engineering milestone must land. (Source: Ch 9.4; Ch 10.1)
+11. <!-- concept: burn-rate-and-runway --> **Burn rate and runway.** Monthly cash outflow versus cash on hand; cash divided by burn rate equals months of runway. Defines the time-box inside which the next engineering milestone must land. (Source: Ch 9.4; Ch 10.1)
 
-12. **Break-even analysis for the software venture.** Fixed costs divided by contribution margin equals the unit volume needed to cover engineering and operating cost. (Source: Ch 9.4)
+12. <!-- concept: break-even-analysis --> **Break-even analysis for the software venture.** Fixed costs divided by contribution margin equals the unit volume needed to cover engineering and operating cost. (Source: Ch 9.4)
 
-13. **Four IP-protection mechanisms.** Utility patents (20 years), design patents (14 years), trademarks (renewable indefinitely), trade secrets (indefinite as long as kept secret). For software the practical mix tilts away from patents and toward trademarks plus trade secrets because patent-disclosure-plus-prosecution-timeline is mismatched with iteration tempo. (Source: Ch 3.1; Ch 14.1)
+13. <!-- concept: intellectual-property --> **Four IP-protection mechanisms.** Utility patents (20 years), design patents (14 years), trademarks (renewable indefinitely), trade secrets (indefinite as long as kept secret). For software the practical mix tilts away from patents and toward trademarks plus trade secrets because patent-disclosure-plus-prosecution-timeline is mismatched with iteration tempo. (Source: Ch 3.1; Ch 14.1)
 
-14. **Build-first-patent-later for fast-moving fields.** The text explicitly recommends building first and patenting only as a strategic afterthought in software and rapidly-iterating product fields, against the common founder instinct to patent the idea before building. (Source: Ch 4.3; Ch 7.4)
+14. <!-- concept: build-first-patent-later --> **Build-first-patent-later for fast-moving fields.** The text explicitly recommends building first and patenting only as a strategic afterthought in software and rapidly-iterating product fields, against the common founder instinct to patent the idea before building. (Source: Ch 4.3; Ch 7.4)
 
-15. **Founders' agreement.** Pre-launch document covering individual contributions, compensation, vesting schedule, performance evaluation, dispute resolution, and a buyback clause for exits prior to financing rounds. Drafted before equity is divided and before outside capital arrives. (Source: Ch 15.1)
+15. <!-- concept: founders-agreement --> **Founders' agreement.** Pre-launch document covering individual contributions, compensation, vesting schedule, performance evaluation, dispute resolution, and a buyback clause for exits prior to financing rounds. Drafted before equity is divided and before outside capital arrives. (Source: Ch 15.1)
 
-16. **Vesting and the buyback clause.** Founder equity vests against contribution; the buyback clause governs what happens if a founder departs before vesting completes or before a financing round. Mechanism for protecting the cap table against early-team attrition. (Source: Ch 15.1)
+16. <!-- concept: vesting-and-buyback --> **Vesting and the buyback clause.** Founder equity vests against contribution; the buyback clause governs what happens if a founder departs before vesting completes or before a financing round. Mechanism for protecting the cap table against early-team attrition. (Source: Ch 15.1)
 
-17. **Three opportunity-recognition criteria.** Significant market demand, significant market structure and size, and significant margins to support the venture. An idea qualifies as an opportunity only when all three hold. (Source: Ch 5.2)
+17. <!-- concept: opportunity-recognition --> **Three opportunity-recognition criteria.** Significant market demand, significant market structure and size, and significant margins to support the venture. An idea qualifies as an opportunity only when all three hold. (Source: Ch 5.2)
 
-18. **Desirability-feasibility-viability.** Three high-level questions about any product concept: how desirable, how feasible, how viable over time. Maps cleanly onto the software-business intersection where each axis can carry the failure independently. (Source: Ch 11.2)
+18. <!-- concept: desirability-feasibility-viability --> **Desirability-feasibility-viability.** Three high-level questions about any product concept: how desirable, how feasible, how viable over time. Maps cleanly onto the software-business intersection where each axis can carry the failure independently. (Source: Ch 11.2)
 
-19. **PEST framework.** Political, economic, sociocultural, technological factors that affect resource access. The technological axis includes the changes — AI tooling, cloud-based business software, 3-D printing, CAD/CAM — that reshape what a software venture can build and how. (Source: Ch 14.2)
+19. <!-- concept: pest-framework --> **PEST framework.** Political, economic, sociocultural, technological factors that affect resource access. The technological axis includes the changes — AI tooling, cloud-based business software, 3-D printing, CAD/CAM — that reshape what a software venture can build and how. (Source: Ch 14.2)
 
-20. **Five-stage business life cycle.** Startup, growth, maturity, decline, rebirth/death. Resource needs and the engineering investments that support them change with stage. (Source: Ch 10.5)
+20. <!-- concept: business-life-cycle --> **Five-stage business life cycle.** Startup, growth, maturity, decline, rebirth/death. Resource needs and the engineering investments that support them change with stage. (Source: Ch 10.5)
 
-21. **Cognitive biases that sabotage venture decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. Cossette's review identifies overconfidence and optimism as the two most-cited contributors to entrepreneurs' failure to recognise the need to change or end a venture. (Source: Ch 15.2, citing Cossette)
+21. <!-- concept: cognitive-biases --> **Cognitive biases that sabotage venture decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. Cossette's review identifies overconfidence and optimism as the two most-cited contributors to entrepreneurs' failure to recognise the need to change or end a venture. (Source: Ch 15.2, citing Cossette)
 
-22. **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider course-correction when crossed. The structural protection against escalation of commitment. (Source: Ch 15.2)
+22. <!-- concept: fail-safe-points --> **Fail-safe points.** "Identified points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position" [V] (Source: Ch 15.2). The structural protection against **escalation of commitment** — when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2).
 
-23. **Six pitch elements.** Brand-identity image and tagline, problem-solution narrative, key features and value proposition, product-market fit evidence, competitive analysis, financial projections. Each tailored to the audience (F&F, angel, VC, trade group, board). (Source: Ch 7.3)
+23. <!-- concept: pitch-elements --> **Six pitch elements.** Brand-identity image and tagline, problem-solution narrative, key features and value proposition, product-market fit evidence, competitive analysis, financial projections. Each tailored to the audience (F&F, angel, VC, trade group, board). (Source: Ch 7.3)
 
-24. **Audience-tailored pitch matrix.** F&F, elevator-pitch competitions, investors, employees, trade groups, and grant agencies each need different pitch length, content, and ask. (Source: Ch 7.3, Table 7.3)
+24. <!-- concept: audience-tailored-pitch --> **Audience-tailored pitch matrix.** F&F, elevator-pitch competitions, investors, employees, trade groups, and grant agencies each need different pitch length, content, and ask. (Source: Ch 7.3, Table 7.3)
 
-25. **Entity selection.** For-profit/not-for-profit decision and the C/S/B-corp, LLC, LLP, LLLP, partnership, or sole-proprietorship decision. Shapes liability, taxation, capital-access, and the cap-table mechanics the venture will live inside. (Source: Ch 13)
+25. <!-- concept: legal-structures --> **Entity selection.** For-profit/not-for-profit decision and the C/S/B-corp, LLC, LLP, LLLP, partnership, or sole-proprietorship decision. Shapes liability, taxation, capital-access, and the cap-table mechanics the venture will live inside. (Source: Ch 13)
 
-26. **Begin-with-the-end-in-mind harvest framing.** Treat the eventual harvest (acquisition, IPO, lifestyle exit) as a design constraint from day one; the YouTube 21-month / $1.65 billion harvest is the chapter's anchor case. (Source: Ch 15.1)
+26. <!-- concept: harvest-framing --> **Begin-with-the-end-in-mind harvest framing.** Treat the eventual harvest (acquisition, IPO, lifestyle exit) as a design constraint from day one; the YouTube 21-month / $1.65 billion harvest is the chapter's anchor case. (Source: Ch 15.1)
 
-27. **Disruptive-innovation framing.** Christensen's framework: new entrants challenge incumbents by creating new markets, turning non-consumers into consumers, or targeting overlooked segments. Software-business decisions about whether to compete head-on or to look for the disruption foothold turn on this distinction. (Source: Ch 1.3; Ch 4.2; Ch 11.1, citing Christensen)
+27. <!-- concept: disruptive-innovation --> **Disruptive-innovation framing.** Christensen's framework: new entrants challenge incumbents by creating new markets, turning non-consumers into consumers, or targeting overlooked segments. Software-business decisions about whether to compete head-on or to look for the disruption foothold turn on this distinction. (Source: Ch 1.3; Ch 4.2; Ch 11.1, citing Christensen)
 
-28. **Jobs-to-be-done.** Christensen's complement to disruption: a job is what someone wants to accomplish in a specific circumstance, with social, emotional, and functional dimensions. Reads as a customer-discovery discipline for software products. (Source: Ch 11.1, citing Christensen, Hall, Dillon, and Duncan, *Competing Against Luck*)
+28. <!-- concept: jobs-to-be-done --> **Jobs-to-be-done.** Christensen's complement to disruption: a job is what someone wants to accomplish in a specific circumstance, with social, emotional, and functional dimensions. Reads as a customer-discovery discipline for software products. (Source: Ch 11.1, citing Christensen, Hall, Dillon, and Duncan, *Competing Against Luck*)
 
 ## Questions to Ask During Software-Business Work
 

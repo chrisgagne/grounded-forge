@@ -72,8 +72,7 @@ corpus.commons/                                 # tracked — open or open-nc; s
     .claude/skills/                             # Corpus-bound skills (see below)
     apps/{profile}/                             # Compiled outputs (tracked)
     distros/                                    # Packaged release artefacts
-corpus.local/                                   # gitignored — operator's private corpora
-projects.local/                                 # gitignored — operator's outputs
+corpus.local/                                   # gitignored — operator's private corpora and their outputs
 ```
 
 A corpus is self-contained: source-cards, converted markdown, references, distillations, lenses, corpus-bound skills, builds, and packaged releases all sit inside one folder. Move the folder between tiers to change privacy. The build is corpus-rooted (`source_dir` in `builds.yaml` points at one corpus).
@@ -95,15 +94,18 @@ The demo corpus's `openstax-organizational-behavior` slug is the canonical worke
 
 ## Retrieval pattern
 
-When working in this repo or in any compiled distribution, the retrieval order matches the procedure documented in [`.claude/skills/answer-from-corpus/SKILL.md`](.claude/skills/answer-from-corpus/SKILL.md):
+**Apps ship distillations only.** The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with the compiled application. Distillations carry paraphrased prose with parenthetical attribution and verbatim blockquotes copied from already-audited Pass D passages, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved in-band. The retrieval skill reads distillations; the deep ref is a build-time input, not a runtime artefact.
+
+The retrieval order in any compiled distribution matches the procedure documented in [`.claude/skills/answer-from-corpus/SKILL.md`](.claude/skills/answer-from-corpus/SKILL.md):
 
 1. **Classify the query shape.** Named lookup (one source, Protocol N), diagnostic (situation in a known task domain, Protocol D), or synthesis (breadth across the corpus, Protocol S). Shape determines which indexes to read and in what order.
 2. **Lens-applicability check.** For Protocols D and S, read `lens-index.json` unconditionally and detect whether a lens materially reweights what's salient. Skipped for Protocol N. The lens shapes how sub-claims decompose, so this runs *before* decomposition.
-3. **Index, then distillation, then reference.** Read the runtime JSON indexes: `reference-index.json` (file catalogue), `concept-index.json` (concept axis with per-source section pointers), and `distillations/{task}/task-index.json` for the user's task domain. The slug-IDs in those indexes resolve through `references/slug-table.json` to file paths. The distillation is the pre-projected matrix cell: read it first for diagnostic questions; applicability has already been considered at ingestion. The deeper tiers are for citation and verification.
-4. **Light ref for orientation, deep ref for citation.** The light reference is for fast orientation. The deep reference carries verbatim citations and evidence-classification markers; cite from the deep.
-5. **`concept-index.json` for named concepts.** Look up the concept (or an alias) directly; each entry lists which sources cover it plus a section / md_line pointer where available. Grep across `corpus.commons/{corpus}/references/` only when a concept isn't in the index: a real gap, not a routing-effort default.
+3. **Index, then distillation.** Read the runtime JSON indexes shipped in the app: `concept-index.json` (concept axis, dist-only variant with deep-ref pointers stripped at build time), `slug-table.json` (ID ↔ slug map), and `distillations/{task}/task-index.json` for the user's task domain. The slug-IDs resolve to distillation file paths: `distillations/{task}/{slug}-{task}.md`. The distillation is the pre-projected matrix cell: it carries verbatim quotes + evidence markers in-band for the load-bearing claims.
+4. **`concept-index.json` for named concepts.** Look up the concept (or an alias) directly; each entry lists which sources cover it plus a `context` string. Section pointers are stripped from the app's variant; the distillation full-read picks up the concept's in-source location.
 
-The runtime JSON indexes are derived artefacts; never hand-edit them. The per-task `{TASK}-DISTILLATION-INDEX.md` and `lenses/LENS-INDEX.md` operator-view markdowns are the authoring loop for their respective build scripts in `scripts/build_indexes/`: Pass G authors the operator view, the build regenerates the JSON from it plus the deep-ref frontmatter and the per-source extracted artefacts. `reference-index.json` and `concept-index.json` have no markdown operator view; they are built from the staging artefacts and deep-ref frontmatter directly, and the runtime reads the JSON. See [`docs/architecture/two-layer-indexes.md`](docs/architecture/two-layer-indexes.md).
+In the **corpus** (not an app), the operator has the full reference tier available and can grep across `references/`, read deep refs by slug, and reach `reference-index.json` (the catalogue with `lines_deep`, `lines_light`, full concept_tags). That tier is what supports ingestion, audit, and cross-link work — not runtime retrieval.
+
+The runtime JSON indexes are derived artefacts; never hand-edit them. The per-task `{TASK}-DISTILLATION-INDEX.md` and `lenses/LENS-INDEX.md` operator-view markdowns are the authoring loop for their respective build scripts in `scripts/build_indexes/`: Pass G authors the operator view, the build regenerates the JSON. `reference-index.json` and `concept-index.json` are built from staging artefacts and deep-ref frontmatter directly; the app build strips concept-index's deep-ref pointers and drops reference-index entirely. See [`docs/architecture/two-layer-indexes.md`](docs/architecture/two-layer-indexes.md).
 
 ## Distillation indexes
 

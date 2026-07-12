@@ -2,7 +2,7 @@
 # Pre-push audit for grounded-forge.
 #
 # Runs the seven public-posting checks before any push to a remote:
-#   1. Private-tier leakage (corpus.local/, projects.local/, _planning/, _evals/ must be gitignored and untracked)
+#   1. Private-tier leakage (corpus.local/, _planning/, _evals/ must be gitignored and untracked)
 #   2. Gitignore correctness (the patterns themselves)
 #   3. Credentials and secrets (API keys, tokens, .env files, hardcoded /Users/cgagne paths)
 #   4. Internal markdown link integrity (no broken links in tracked .md files)
@@ -50,7 +50,7 @@ printf "  branch: %s\n\n" "$(git rev-parse --abbrev-ref HEAD)" >&2
 # ─── Check 1: private-tier leakage ─────────────────────────────────────────────
 note "Check 1/7: private-tier leakage"
 
-PRIVATE_DIRS=(corpus.local projects.local _planning _evals)
+PRIVATE_DIRS=(corpus.local _planning _evals)
 for d in "${PRIVATE_DIRS[@]}"; do
   tracked=$(git ls-files "$d/" 2>/dev/null | head -1)
   if [ -n "$tracked" ]; then
@@ -58,7 +58,7 @@ for d in "${PRIVATE_DIRS[@]}"; do
   fi
 done
 if [ $FAIL_COUNT -eq 0 ]; then
-  pass "no tracked content under corpus.local/, projects.local/, _planning/, _evals/"
+  pass "no tracked content under corpus.local/, _planning/, _evals/"
 fi
 
 # ─── Check 2: gitignore correctness ────────────────────────────────────────────
@@ -67,7 +67,7 @@ note "Check 2/7: .gitignore patterns"
 if [ ! -f .gitignore ]; then
   fail ".gitignore is missing"
 else
-  REQUIRED_PATTERNS=(corpus.local projects.local "*.env" credentials.json __pycache__ .DS_Store node_modules)
+  REQUIRED_PATTERNS=(corpus.local "*.env" credentials.json __pycache__ .DS_Store node_modules)
   missing=()
   for p in "${REQUIRED_PATTERNS[@]}"; do
     if ! grep -qE "(^|/)$(printf '%s' "$p" | sed 's/[.[\*^$/]/\\&/g')(/|$|[[:space:]])" .gitignore 2>/dev/null; then

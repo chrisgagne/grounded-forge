@@ -4,6 +4,8 @@ Three ways to contribute, in increasing order of investment:
 
 1. **Issues.** File against any problem you can reproduce: a build failure, a broken cross-link, a distillation that disagrees with its source, an audit fixture the model handles wrong. Issues that name a specific file and line are the most useful kind.
 2. **Code or content fixes.** PRs welcome against the substrate (skills, build system, docs) and against the demo corpus in `corpus.commons/demo/`. The demo is a worked example for forks; improvements to it improve the worked example. Match the existing style in the file you're editing.
+
+   Working with a coding agent? Claude Code reads `CLAUDE.md`; Codex and other AGENTS.md-aware tools read [`AGENTS.md`](AGENTS.md) at the repo root, which points them at the same rules. Keep the two in step: a change to the operating contract in `CLAUDE.md` (source-integrity floor, tier separation, removal discipline) should be reflected in `AGENTS.md` too.
 3. **A corpus.** This is the largest contribution and the one with the most discipline attached. See below.
 
 ## Contributing a corpus
@@ -86,7 +88,7 @@ If you use Claude Code in this repo, the audit also fires through [`.claude/sett
 
 Read the failure message. It names the check and the specific files. Three patterns and how to handle each:
 
-- **Private-tier leakage:** a tracked file under `corpus.local/`, `projects.local/`, `_planning/`, or `_evals/`. Move the file out of the private tier, or add the path to `.gitignore` and `git rm --cached` the file. Do not `--no-verify` past this.
+- **Private-tier leakage:** a tracked file under `corpus.local/`, `_planning/`, or `_evals/`. Move the file out of the private tier, or add the path to `.gitignore` and `git rm --cached` the file. Do not `--no-verify` past this.
 - **Credentials, tokens, operator home paths:** quote the line, redact, recommit. Do not `--no-verify` past this either.
 - **Broken markdown links:** fix the link target or drop the reference. `--no-verify` is fine only when the broken link points at a known deferred file that lands in a later commit.
 

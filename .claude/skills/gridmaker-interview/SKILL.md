@@ -52,7 +52,7 @@ The personal corpus (`corpus.local/personal/`) is gitignored by default. The len
 
 ## Pre-flight
 
-0. **Corpus-tier gate (hard refusal).** Resolve `--corpus` to an absolute path. If the resolved path is *anywhere under* `corpus.commons/` — or anywhere outside both `corpus.local/` and `projects.local/` — **refuse to proceed**. Exit immediately with this message, no file written:
+0. **Corpus-tier gate (hard refusal).** Resolve `--corpus` to an absolute path. If the resolved path is *anywhere under* `corpus.commons/` — or anywhere outside `corpus.local/` — **refuse to proceed**. Exit immediately with this message, no file written:
 
    > **Refused.** `gridmaker-interview` produces a `visibility: personal` lens. Personal-visibility material cannot live under `corpus.commons/` (which is the public, tracked tier) or outside the gitignored tiers. The default target is `corpus.local/personal/`. If you intended a different private corpus, pass a path under `corpus.local/`. If you intended a non-personal lens, use `creating-lenses` directly.
 

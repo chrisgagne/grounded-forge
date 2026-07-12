@@ -10,11 +10,11 @@
 
 ![A hand-drawn notebook page titled "The matrix", showing a grid with three task-axis columns — decision-making, stakeholder-engagement, software-business — and eight reference rows (barbrook-johnson-systems-mapping, openstax-organizational-behavior, approach-perfect-field-guide-scrum-events, nhs-just-culture-guide, jones-evidence-based-sweng, openstax-psychology-2e, flo-facilitation-guide, tc-25-20-army-aar), with ellipses for further rows. Filled dots fill most cells; hollow dots mark Pass G skips on the software-business column for the last three rows. Below the grid: "X references × Y task axes = Z relevant distillations; each ● is a distillation: one source × one task; ○ = Pass G gate said no for that (source, task) distillation."](docs/assets/the-matrix.png)
 
-*The reference × task matrix. The diagram samples three task axes and eight references; the actual demo corpus ships 27 references across five task axes (decision-making, stakeholder-engagement, software-business, aar, retro).*
+*The reference × task matrix. The diagram samples three task axes and eight references; the actual demo corpus ships 28 references across five task axes (decision-making, stakeholder-engagement, software-business, aar, retro).*
 
 A ○ says the source's contribution is already carried elsewhere in the matrix. TC 25-20 covers the facilitation craft of AAR; its decision-making and stakeholder-engagement projections deliver that craft. The software-business-specific incident weight — system-vs-individual blame, regulator-facing learning loops, the PR-and-customer dimensions of a technical event — comes from NHS Just Culture, LFUO, and Business Ethics. Runtime routes through whichever projection carries the question.
 
-Each distillation is a markdown file at `corpus.commons/{corpus}/distillations/{task}/{slug}-{task}.md`, one source projected onto one task domain. The demo corpus ships 27 references projected onto five task axes: `decision-making` with 27 distillations, `stakeholder-engagement` with 27, `software-business` with 25 (two Pass G skips routed cross-axis), plus the two ceremony axes `aar` and `retro` (each with 19 cells; Pass G skips routed cross-axis to `decision-making` and `software-business`). 117 distillations total. Fork it and ingest your own corpus; the included content can be stripped in one command.
+Each distillation is a markdown file at `corpus.commons/{corpus}/distillations/{task}/{slug}-{task}.md`, one source projected onto one task domain. The demo corpus ships 28 references projected onto five task axes: `decision-making` with 28 distillations, `stakeholder-engagement` with 28, `software-business` with 25 (three Pass G skips routed cross-axis), plus the two ceremony axes `aar` and `retro` (each with 19 cells; the nine Pass G skips per ceremony axis are routed cross-axis to `decision-making` and `software-business`). 119 distillations total. Fork it and ingest your own corpus; the included content can be stripped in one command.
 
 ![A hand-drawn notebook page titled "Gagné, after Larman: From Law 4 to LLM Authority". A cascade diagram walks from "original thought leader (slow, hard, rare)" through displaced manager → coach → consultant → LLM slop, producing prolific content (books, blogs, LinkedIn, talks) that becomes LLM training-data volume — orders of magnitude more than the primary source. Side annotation: "primary source / nuance / the point" fading to "outliers." Bottom statement: "DEFAULT LLM AUTHORITY = consultant-frequency mode. Web search gives access to more language, not to truth."](docs/assets/gagne-larman.png)
 
@@ -102,6 +102,10 @@ python3 scripts/audit-deep-ref.py references/X.md  # one file
 ### Installing as a Claude Code plugin
 
 The repo doubles as a Claude Code plugin (`.claude-plugin/plugin.json`). The skills under `.claude/skills/`, the hook at `.claude/settings.json`, and the bundled CLAUDE.md auto-discover when installed. Clone-and-run produces the same configuration as a plugin install; the manifest is the published surface, not a separate build artefact.
+
+### Agent-ready for any tool
+
+Claude Code reads `CLAUDE.md`; other coding agents (Codex and the growing set of AGENTS.md-aware tools) read `AGENTS.md`. The repo ships one at its root — a thin adapter that points a tool with file access but no Skill runtime at the same guardrails: read `CLAUDE.md`, treat `.claude/skills/*/SKILL.md` as written procedures rather than callable tools, and honour the source-integrity floor and tier separation. Any agent that lands here inherits the discipline from the first file it reads.
 
 ## Forking for your own domain
 
@@ -221,7 +225,7 @@ Licence governs *attribution and derivative-rights*; **scope** governs *distribu
 
 The demo profiles default to `max_scope: open-nc`, matching the OpenStax + supplementary CC sources. The mechanism is *latent* in this configuration (nothing exceeds the ceiling), but it's there for forks that mix confidential client material with public CC sources. `personal` is excluded by construction: no `max_scope` value admits it.
 
-`npm run package` extends the same mechanism into shipped tarballs: each tarball's filename carries the most-restrictive scope across its bundled references (`decision-v0.2.1-open-nc.tar.gz`), and the tarball ships with a `LICENCE-MANIFEST.md` listing every reference's individual scope and licence. The full reference is at [`docs/reference/scope-taxonomy.md`](docs/reference/scope-taxonomy.md).
+`npm run package` extends the same mechanism into shipped tarballs: each tarball's filename carries the most-restrictive scope across its bundled references (`decision-v0.2.2-open-nc.tar.gz`), and the tarball ships with a `LICENCE-MANIFEST.md` listing every reference's individual scope and licence. The full reference is at [`docs/reference/scope-taxonomy.md`](docs/reference/scope-taxonomy.md).
 
 ## A note on copyright
 
@@ -257,4 +261,4 @@ grounded-forge/
 └── tests/audit-fixtures/       # Pass I calibration + regression fixtures
 ```
 
-This release ships a 27-source demo corpus, five fully-populated task axes (117 distillations + a small number of explicit Pass G skips routed cross-axis), the lens library, the semantic-search backend, and the packaging tool. The matrix stays 2D by default; lenses are operator-opt-in per distillation. The next eval-rubric rework targets the gap named in *Audit receipts and evals* above: the single-LLM-as-judge rubric is structurally blind to the matrix's distinctive value-add (per-claim auditability on operator-curated non-canonical material), and a different verification surface is needed to measure it.
+This release ships a 28-source demo corpus, five fully-populated task axes (119 distillations + a small number of explicit Pass G skips routed cross-axis), the lens library, the semantic-search backend, and the packaging tool. The matrix stays 2D by default; lenses are operator-opt-in per distillation. The next eval-rubric rework targets the gap named in *Audit receipts and evals* above: the single-LLM-as-judge rubric is structurally blind to the matrix's distinctive value-add (per-claim auditability on operator-curated non-canonical material), and a different verification surface is needed to measure it.

@@ -10,45 +10,45 @@ For stakeholder engagement practitioners, the text is especially useful on the d
 
 ## Key Concepts for Stakeholder Engagement
 
-1. **Shareholder vs. stakeholder distinction.** Shareholders are the owners; stakeholders are the broader population of those with a vested interest. (Source: OpenStax, *Entrepreneurship*, Ch 3.1, "Stakeholders")
+1.  **Shareholder vs. stakeholder distinction.** The text contrasts shareholders, "a small group who are the owners (or stockholders)", with stakeholders, "a large group that includes all those people and organizations with a vested interest in the business" [V] (Source: OpenStax, *Entrepreneurship*, Ch 3.1, "Stakeholders").
 
-2. **Business Roundtable stakeholder commitment.** The 2019 statement commits to delivering value to customers, investing in employees, dealing fairly with suppliers, supporting communities, and generating long-term shareholder value. (Source: Ch 3.1)
+2.  **Business Roundtable stakeholder commitment.** The 2019 statement commits to delivering value to customers, investing in employees, dealing fairly with suppliers, supporting communities, and generating long-term shareholder value. (Source: Ch 3.1)
 
-3. **Customer empathy map.** Portrays a target customer's pains, gains, and jobs-to-be-done as a design-ideation tool. (Source: Ch 11.2)
+3.  **Customer empathy map.** Portrays a target customer's pains, gains, and jobs-to-be-done as a design-ideation tool. (Source: Ch 11.2)
 
-4. **Value proposition canvas.** Pulls customer segment and value proposition out of the Business Model Canvas for in-depth fit analysis. (Source: Ch 11.2)
+4.  **Value proposition canvas.** Pulls customer segment and value proposition out of the Business Model Canvas for in-depth fit analysis. (Source: Ch 11.2)
 
-5. **Social entrepreneurship.** Ventures launched by entrepreneurs who are first and foremost advocates for a social cause but build economically viable organisations to advance it. (Source: Ch 3.2)
+5.  **Social entrepreneurship.** Social entrepreneurship "describes ventures launched by entrepreneurs who are first and foremost advocates or champions for a social cause" [V] (Source: Ch 3.2, "Social Entrepreneurship") — building economically viable organisations to advance the cause.
 
-6. **B-corporation certification.** A formal certification by B Lab that audits compliance with social-and-environmental performance, public-transparency, and accountability standards. (Source: Ch 3.2)
+6.  **B-corporation certification.** A formal certification by B Lab that audits compliance with social-and-environmental performance, public-transparency, and accountability standards. (Source: Ch 3.2)
 
-7. **Four Lenses Strategic Framework.** Used for social-enterprise development, assessing stakeholder engagement, resource mobilisation, knowledge development, and culture management. (Source: Ch 2.4)
+7.  **Four Lenses Strategic Framework.** Used for social-enterprise development, assessing stakeholder engagement, resource mobilisation, knowledge development, and culture management. (Source: Ch 2.4)
 
-8. **Audience-tailored pitch matrix.** Different audiences (friends and family, elevator-pitch competitions, investors, employees, trade groups, grant-making agencies) require different pitch lengths, content, and asks. (Source: Ch 7.3, Table 7.3)
+8.  **Audience-tailored pitch matrix.** Different audiences (friends and family, elevator-pitch competitions, investors, employees, trade groups, grant-making agencies) require different pitch lengths, content, and asks. (Source: Ch 7.3, Table 7.3)
 
-9. **Founders' agreement.** Pre-launch document covering compensation, vesting, contributions, performance evaluation, dispute resolution, and a buyback clause. (Source: Ch 15.1)
+9.  **Founders' agreement.** Pre-launch document covering compensation, vesting, contributions, performance evaluation, dispute resolution, and a buyback clause. (Source: Ch 15.1)
 
-10. **Code of conduct.** Formal statement aligning organisational behaviour with values; can be principle-based or rule-based. (Source: Ch 15.1)
+10.  **Code of conduct.** Formal statement aligning organisational behaviour with values; can be principle-based or rule-based. (Source: Ch 15.1)
 
-11. **Networking groups: open, closed, hybrid.** Differ on membership barriers and signal commitment level. (Source: Ch 12.1)
+11.  **Networking groups: open, closed, hybrid.** Differ on membership barriers and signal commitment level. (Source: Ch 12.1)
 
-12. **Five advisor types.** Accountant, attorney, banker, insurance agent, industry expert make up the entrepreneurial dream team. (Source: Ch 12.2)
+12.  **Five advisor types.** Accountant, attorney, banker, insurance agent, industry expert make up the entrepreneurial dream team. (Source: Ch 12.2)
 
-13. **Strong vs. weak ties.** Weak ties bridge across functional areas and create opportunities; strong ties carry deep support but offer fewer new opportunities. (Source: Ch 6.1, citing Granovetter)
+13.  **Strong vs. weak ties.** Weak ties bridge across functional areas and create opportunities; strong ties carry deep support but offer fewer new opportunities. (Source: Ch 6.1, citing Granovetter)
 
-14. **Resource dependence theory.** Mergers, vertical integration, joint ventures, and joint political activity manage external dependencies among same-industry stakeholders. (Source: Ch 14.3, citing Pfeffer and Salancik)
+14.  **Resource dependence theory.** Mergers, vertical integration, joint ventures, and joint political activity manage external dependencies among same-industry stakeholders. (Source: Ch 14.3, citing Pfeffer and Salancik)
 
-15. **Three post-harvest stakeholder roles.** Mentor (informal), consultant (formal), champion (network-builder). (Source: Ch 15.4)
+15.  **Three post-harvest stakeholder roles.** Mentor (informal), consultant (formal), champion (network-builder). (Source: Ch 15.4)
 
-16. **Social capital.** The goodwill created by giving back to individuals, organisations, and communities. (Source: Ch 15.4)
+16.  **Social capital.** Social capital is "the goodwill we create by giving back to individuals, organizations, and communities" [V] (Source: Ch 15.4).
 
-17. **Customer service and brand advocacy.** Loyal customers passing on the word; the chapter treats brand advocates as a stakeholder category to recruit and reward. (Source: Ch 8.4)
+17.  **Customer service and brand advocacy.** Loyal customers passing on the word; the chapter treats brand advocates as a stakeholder category to recruit and reward. (Source: Ch 8.4)
 
-18. **CSR and sustainability.** Practice by which a business considers itself a member of society with implicit social obligations and environmental considerations. (Source: Ch 3.2)
+18.  **CSR and sustainability.** CSR is "the practice by which a business views itself within a broader context: as a member of society with certain implicit social obligations and environmental considerations and issues" [V] (Source: Ch 3.2, "Corporate Social Responsibility (CSR)"). Sustainability is defined as "the ability to be maintained at a certain rate or level" [V] (Ch 3.2, "Sustainability"), extending beyond environmental concerns to natural resources, human resources, and supply chains.
 
-19. **Stakeholder mapping for a benefit corporation.** Benefit corporations direct decisions toward maximisation of benefits for all stakeholders, not solely shareholders. (Source: Ch 13.2)
+19.  **Stakeholder mapping for a benefit corporation.** Benefit corporations direct decisions toward maximisation of benefits for all stakeholders, not solely shareholders. (Source: Ch 13.2)
 
-20. **Personnel ethics survey findings.** 60 per cent of reported workplace misconduct involved someone with managerial authority; strong-ethics-culture firms see 60 per cent of misconduct as one-time. (Source: Ch 15.2, citing Ethics Resource Center)
+20.  **Personnel ethics survey findings.** 60 per cent of reported workplace misconduct involved someone with managerial authority; strong-ethics-culture firms see 60 per cent of misconduct as one-time. (Source: Ch 15.2, citing Ethics Resource Center)
 
 ## Questions to Ask During Stakeholder Engagement
 

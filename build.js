@@ -4,10 +4,13 @@
  * grounded-forge build system
  *
  * Compiles each profile in builds.yaml into apps/{profile-name}/.
- * Each profile is a slice of the matrix: all references plus ONE
- * task-domain's distillation directory (which includes the per-task
- * distillation index). Same sources, different projections, the
- * matrix architecture made visible.
+ *
+ * Apps ship distillations as the source-grounded product. The reference
+ * tier (light + deep) stays at corpus level as the audit-of-record but
+ * does not travel with the compiled application. Each profile is a slice
+ * of the matrix: ONE task-domain's distillation directory (per-task
+ * distillation index, lenses, skills, CLAUDE.md). Same sources behind
+ * the scenes; different task projections per profile.
  *
  * Usage:
  *   node build.js [profile]   Build one profile
@@ -23,11 +26,12 @@ const yaml = require("js-yaml");
 const CONFIG_FILE = "builds.yaml";
 
 // Distribution scope taxonomy. Lower rank = lower distribution risk.
-// A profile's max_scope sets the ceiling; references whose Scope: rank
-// exceeds the ceiling are excluded from that profile's app/. `personal`
-// has rank 4 and no max_scope value admits it: personal material is
-// mechanically unshippable. Light references inherit their paired deep
-// reference's scope (if a deep is excluded, the light is excluded too).
+// A profile's max_scope sets the ceiling; distillations whose source's
+// Scope: rank exceeds the ceiling are excluded from that profile's app/.
+// `personal` has rank 4 and no max_scope value admits it: personal
+// material is mechanically unshippable. Scope is read from the deep ref
+// frontmatter at build time (the deep ref is a build-time input, not a
+// runtime artefact — apps ship distillations only).
 const SCOPE_RANK = {
   open: 0,
   "open-nc": 1,
@@ -142,7 +146,7 @@ class MatrixBuilder {
     }
     fs.mkdirSync(outputDir, { recursive: true });
 
-    await this.buildReferences(profile, outputDir);
+    await this.buildCorpusIndexes(profile, outputDir);
     await this.buildDistillations(profile, outputDir);
     await this.buildLenses(profile, outputDir);
     await this.buildSkills(profile, outputDir);
@@ -157,114 +161,58 @@ class MatrixBuilder {
     return outputDir;
   }
 
-  async buildReferences(profile, outputDir) {
-    const refConfig = profile.references || {};
-    const srcDir = path.join(this.sourceDir, "references");
-    const destDir = path.join(outputDir, "references");
-
-    if (!fs.existsSync(srcDir)) {
-      console.log("  References: source dir missing");
-      return;
-    }
-
-    const includes = refConfig.include_patterns || ["*.md"];
-    const excludes = refConfig.exclude_patterns || [];
-
+  // Apps ship distillations as the source-grounded product. The reference
+  // tier (light + deep) stays at corpus level as the audit-of-record but
+  // does not travel with the compiled application. This method ships only
+  // the runtime JSON indexes that remain meaningful in a dist-only app:
+  //
+  //   - slug-table.json: id ↔ slug map, still needed for distillation
+  //     file-path resolution (slug → distillations/{task}/{slug}-{task}.md).
+  //   - concept-index.json: dist-only variant — pointers into distillation
+  //     files, not deep refs. Built by scripts/build_indexes/.
+  //
+  // reference-index.json is not shipped: per-source attribution is carried
+  // in the distillation prose (each distillation names author + title in
+  // its first paragraph). Light and deep .md references are not shipped.
+  //
+  // Scope filtering moves to buildDistillations: a distillation inherits
+  // the scope of its source's deep ref (read at build time from the
+  // corpus, which has all deep refs as build-time inputs).
+  async buildCorpusIndexes(profile, outputDir) {
+    // Validate scope ceiling up-front so the per-distillation filter in
+    // buildDistillations has a vetted maxRank to compare against.
     const maxScope = profile.max_scope ?? DEFAULT_MAX_SCOPE;
     if (!ADMITTABLE_SCOPES.includes(maxScope)) {
       throw new Error(
         `Invalid max_scope '${maxScope}' in profile. Must be one of: ${ADMITTABLE_SCOPES.join(", ")}`
       );
     }
-    const maxRank = SCOPE_RANK[maxScope];
 
-    const allFiles = fs
-      .readdirSync(srcDir)
-      .filter(
-        (f) =>
-          f.endsWith(".md") && fs.statSync(path.join(srcDir, f)).isFile()
-      );
-
-    const patternFiltered = allFiles
-      .filter((f) => includes.some((p) => this.matchGlob(f, p)))
-      .filter((f) => !excludes.some((p) => this.matchGlob(f, p)));
-
-    // Build set of excluded slugs from deep refs whose Scope: exceeds
-    // max_scope (or is missing/unknown). A slug = filename minus the
-    // -deep.md suffix, e.g. "openstax-business-law". The paired light
-    // reference (slug + .md) inherits exclusion: shipping a light without
-    // its deep would break the citation chain.
-    const excludedSlugs = new Set();
-    const skippedReasons = [];
-    for (const f of patternFiltered) {
-      if (!f.endsWith("-deep.md")) continue;
-      const slug = f.replace(/-deep\.md$/, "");
-      const body = fs.readFileSync(path.join(srcDir, f), "utf8");
-      const m = body.match(/^\*\*Scope:\*\*\s*(\S+)/m);
-      const scope = m ? m[1] : null;
-      if (scope === null) {
-        excludedSlugs.add(slug);
-        skippedReasons.push(`scope missing: ${f}`);
-        continue;
-      }
-      if (!(scope in SCOPE_RANK)) {
-        excludedSlugs.add(slug);
-        skippedReasons.push(`scope unknown '${scope}': ${f}`);
-        continue;
-      }
-      if (scope === "personal" || SCOPE_RANK[scope] > maxRank) {
-        excludedSlugs.add(slug);
-        skippedReasons.push(`scope ${scope} > ${maxScope}: ${f}`);
-      }
-    }
-
-    const final = patternFiltered.filter((f) => {
-      const slug = f.endsWith("-deep.md")
-        ? f.replace(/-deep\.md$/, "")
-        : f.replace(/\.md$/, "");
-      return !excludedSlugs.has(slug);
-    });
-
-    if (final.length > 0) {
-      fs.mkdirSync(destDir, { recursive: true });
-      for (const file of final) {
-        const srcPath = path.join(srcDir, file);
-        const destPath = path.join(destDir, file);
-        if (srcPath.endsWith(".md")) {
-          const raw = fs.readFileSync(srcPath, "utf8");
-          const stripped = this.stripVerificationArtifacts(raw);
-          const rewritten = this.rewriteCorpusPaths(stripped);
-          fs.writeFileSync(destPath, rewritten);
-        } else {
-          fs.copyFileSync(srcPath, destPath);
-        }
-      }
-    }
-
-    // Ship runtime JSON indexes alongside the .md references.
-    // slug-table.json lives in references/; reference-index.json and
-    // concept-index.json live one directory up at the corpus root.
-    fs.mkdirSync(destDir, { recursive: true });
-    const slugTableSrc = path.join(srcDir, "slug-table.json");
+    // slug-table.json lives under references/ in the source corpus; ship
+    // it at the app root since the references/ directory no longer exists
+    // in the app. Path consumers in skills need to be updated accordingly.
+    const slugTableSrc = path.join(this.sourceDir, "references", "slug-table.json");
     if (fs.existsSync(slugTableSrc)) {
-      fs.copyFileSync(slugTableSrc, path.join(destDir, "slug-table.json"));
+      fs.copyFileSync(slugTableSrc, path.join(outputDir, "slug-table.json"));
     }
-    for (const jsonFile of ["reference-index.json", "concept-index.json"]) {
-      const src = path.join(this.sourceDir, jsonFile);
-      if (fs.existsSync(src)) {
-        fs.copyFileSync(src, path.join(outputDir, jsonFile));
-      }
+    // concept-index.json lives at the corpus root; ship a stripped
+    // variant at app root. The corpus-level index carries (section,
+    // md_line) pointers into deep refs — useful for operators but dead
+    // pointers in dist-only apps. Strip those fields here; the runtime
+    // resolves the concept inside the distillation itself (distillations
+    // are small enough to full-read). A future build step can rebuild
+    // pointers into distillation files for in-source-section routing.
+    const conceptIndexSrc = path.join(this.sourceDir, "concept-index.json");
+    if (fs.existsSync(conceptIndexSrc)) {
+      const raw = JSON.parse(fs.readFileSync(conceptIndexSrc, "utf8"));
+      const stripped = this.stripConceptIndexPointers(raw);
+      fs.writeFileSync(
+        path.join(outputDir, "concept-index.json"),
+        JSON.stringify(stripped, null, 2)
+      );
     }
 
-    const skippedCount = patternFiltered.length - final.length;
-    if (skippedCount > 0) {
-      console.log(
-        `  References: ${final.length} files copied (${skippedCount} skipped by scope ceiling: ${maxScope})`
-      );
-      for (const r of skippedReasons) console.log(`    ${r}`);
-    } else {
-      console.log(`  References: ${final.length} files copied (max_scope: ${maxScope})`);
-    }
+    console.log(`  Corpus indexes: shipped (max_scope: ${maxScope}; references not shipped)`);
   }
 
   async buildDistillations(profile, outputDir) {
@@ -274,13 +222,37 @@ class MatrixBuilder {
       return;
     }
 
+    // Scope-ceiling check. Apps don't ship references, so the scope gate
+    // runs on distillations: a distillation inherits its source's scope,
+    // read from the deep ref's frontmatter at corpus level. The deep ref
+    // is a build-time input, not a runtime artefact. Distillations whose
+    // source exceeds max_scope are skipped.
+    const maxScope = profile.max_scope ?? DEFAULT_MAX_SCOPE;
+    const maxRank = SCOPE_RANK[maxScope];
+    const refDir = path.join(this.sourceDir, "references");
+
+    // Scopes whose deep refs are not openly redistributable. Distillations
+    // from sources at these scopes must NOT carry [V] verbatim quotes in
+    // the shipped app — paraphrased prose with [AP] attribution only.
+    // The deep ref still carries audited [V] passages at corpus level for
+    // Pass D audit; what changes here is what travels with the app.
+    const VERBATIM_RESTRICTED_SCOPES = new Set([
+      "copyrighted",
+      "confidential",
+      "personal",
+    ]);
+    // The [V] marker is the verbatim guarantee — its presence in a
+    // distillation means the surrounding quoted text is exact source text,
+    // copied from a Pass-D-audited deep-ref passage. The other markers
+    // ([AP] paraphrase, [AR] argument, [AE] example, [BT] borrowed-through)
+    // attribute claims without guaranteeing exact source text.
+    const VERBATIM_MARKER_RE = /\[V\]/;
+
     let total = 0;
+    const skippedReasons = [];
+    const verbatimViolations = [];
     for (const taskDir of distConfig.include) {
-      const srcDir = path.join(
-        this.sourceDir,
-        "distillations",
-        taskDir
-      );
+      const srcDir = path.join(this.sourceDir, "distillations", taskDir);
       const destDir = path.join(outputDir, "distillations", taskDir);
 
       if (!fs.existsSync(srcDir)) {
@@ -291,7 +263,7 @@ class MatrixBuilder {
       fs.mkdirSync(destDir, { recursive: true });
 
       const excludes = distConfig.exclude || [];
-      const files = fs
+      const candidates = fs
         .readdirSync(srcDir)
         .filter(
           (f) =>
@@ -300,13 +272,69 @@ class MatrixBuilder {
         )
         .filter((f) => !excludes.includes(f));
 
-      for (const file of files) {
+      for (const file of candidates) {
+        // Index files and READMEs are not source-projected distillations;
+        // ship them through without a scope check.
+        const isProjection = /^[a-z0-9].*-[a-z-]+\.md$/.test(file)
+          && file !== "README.md"
+          && !/-DISTILLATION-INDEX\.md$/i.test(file);
+
+        if (isProjection) {
+          // Strip the task suffix to get the source slug: e.g.
+          // openstax-business-ethics-decision-making.md → openstax-business-ethics
+          const taskSuffix = `-${taskDir}.md`;
+          if (!file.endsWith(taskSuffix)) {
+            // Lens-variant or other shape (e.g. {slug}-{task}-{lens}.md);
+            // skip the scope check for now. Lens-variant scope handling
+            // is a follow-up.
+          } else {
+            const slug = file.slice(0, -taskSuffix.length);
+            const deepRefPath = path.join(refDir, `${slug}-deep.md`);
+            if (fs.existsSync(deepRefPath)) {
+              const body = fs.readFileSync(deepRefPath, "utf8");
+              const m = body.match(/^\*\*Scope:\*\*\s*(\S+)/m);
+              const scope = m ? m[1] : null;
+              if (scope === null) {
+                skippedReasons.push(`scope missing on source ${slug}: ${taskDir}/${file}`);
+                continue;
+              }
+              if (!(scope in SCOPE_RANK)) {
+                skippedReasons.push(`scope unknown '${scope}' on source ${slug}: ${taskDir}/${file}`);
+                continue;
+              }
+              if (scope === "personal" || SCOPE_RANK[scope] > maxRank) {
+                skippedReasons.push(`scope ${scope} > ${maxScope} on source ${slug}: ${taskDir}/${file}`);
+                continue;
+              }
+              // Verbatim gate: when the source's scope is not openly
+              // redistributable, [V] markers in the distillation are a
+              // copyright / confidentiality leak. The deep ref keeps the
+              // audited verbatim at corpus level; the app cannot.
+              if (VERBATIM_RESTRICTED_SCOPES.has(scope)) {
+                const distBody = fs.readFileSync(path.join(srcDir, file), "utf8");
+                if (VERBATIM_MARKER_RE.test(distBody)) {
+                  verbatimViolations.push({
+                    slug,
+                    scope,
+                    file: `${taskDir}/${file}`,
+                  });
+                }
+              }
+            }
+            // If the deep ref doesn't exist at corpus level, the
+            // distillation is an orphan — ship it but flag it (a real
+            // ingestion would have produced the deep before the
+            // distillation; this branch covers borrowed-through-only
+            // distillations and pre-Pass-G drafts).
+          }
+        }
+
         const raw = fs.readFileSync(path.join(srcDir, file), "utf8");
         const stripped = this.stripVerificationArtifacts(raw);
         const rewritten = this.rewriteCorpusPaths(stripped);
         fs.writeFileSync(path.join(destDir, file), rewritten);
+        total++;
       }
-      total += files.length;
 
       // Ship the per-axis runtime task-index alongside the .md distillations.
       const taskIndexSrc = path.join(srcDir, "task-index.json");
@@ -315,7 +343,28 @@ class MatrixBuilder {
       }
     }
 
-    console.log(`  Distillations: ${total} files copied`);
+    if (skippedReasons.length > 0) {
+      console.log(`  Distillations: ${total} files copied (${skippedReasons.length} skipped by scope ceiling: ${maxScope})`);
+      for (const r of skippedReasons) console.log(`    ${r}`);
+    } else {
+      console.log(`  Distillations: ${total} files copied (max_scope: ${maxScope})`);
+    }
+
+    if (verbatimViolations.length > 0) {
+      const lines = [
+        `Verbatim-scope violation in ${verbatimViolations.length} distillation(s).`,
+        `Pass G must not write [V] markers when the source's Scope: is copyrighted,`,
+        `confidential, or personal. Paraphrase with [AP] attribution instead.`,
+        `See .claude/skills/creating-distillations/projection-protocol.md`,
+        `(§Citation discipline → Scope gates the verbatim register).`,
+        ``,
+        `Offending files:`,
+      ];
+      for (const v of verbatimViolations) {
+        lines.push(`  - ${v.file} (source ${v.slug}, Scope: ${v.scope})`);
+      }
+      throw new Error(lines.join("\n"));
+    }
   }
 
   async buildLenses(profile, outputDir) {
@@ -736,6 +785,31 @@ class MatrixBuilder {
     }
   }
 
+  // Strip deep-ref pointers (section, md_line) from concept-index source
+  // entries so the shipped index is dist-only-coherent. The runtime gets
+  // {id, context} per source and resolves the concept inside the
+  // distillation by full-reading the distillation file.
+  stripConceptIndexPointers(index) {
+    const out = {
+      schema_version: index.schema_version,
+      corpus: index.corpus,
+      generated_from: `${index.generated_from} (app: pointers stripped)`,
+      concepts: {},
+    };
+    for (const [slug, entry] of Object.entries(index.concepts || {})) {
+      out.concepts[slug] = {
+        name: entry.name,
+        aliases: entry.aliases || [],
+        sources: (entry.sources || []).map((s) => {
+          const r = { id: s.id };
+          if (s.context) r.context = s.context;
+          return r;
+        }),
+      };
+    }
+    return out;
+  }
+
   /**
    * Strip internal grounding-audit artefacts before shipping.
    * Distillations and references in the source repo can carry
@@ -906,7 +980,11 @@ class MatrixBuilder {
             f.endsWith(".md") &&
             !f.startsWith(".") &&
             !f.startsWith("_") &&
-            /^[a-z0-9]/.test(f)
+            /^[a-z0-9]/.test(f) &&
+            // -images-alt files are image-extraction byproducts (an
+            // alt-text sidecar of a source's figures), not source texts;
+            // they have no independent .source.md and must not be paired.
+            !f.endsWith("-images-alt.md")
         )
         .map((f) => f.replace(/\.md$/, ""))
     );
@@ -951,15 +1029,15 @@ class MatrixBuilder {
     else if (fs.statSync(readmePath).size === 0)
       fails.push("README.md is empty");
 
-    const contentDirs = [
-      "references",
-      "distillations",
-    ];
-    const present = contentDirs.filter((d) =>
-      fs.existsSync(path.join(outputDir, d))
-    );
-    if (present.length === 0)
-      fails.push("No content directories (references / distillations)");
+    // Apps ship distillations as the source-grounded product; references
+    // stay at corpus level as the audit-of-record. distillations/ must
+    // exist; references/ must NOT exist.
+    if (!fs.existsSync(path.join(outputDir, "distillations"))) {
+      fails.push("No distillations/ directory");
+    }
+    if (fs.existsSync(path.join(outputDir, "references"))) {
+      fails.push("references/ present — apps must ship distillations only");
+    }
 
     return {
       status:
@@ -989,13 +1067,14 @@ class MatrixBuilder {
   extractPathRefs(line, sourceRelPath) {
     const paths = [];
 
-    // Repo-rooted paths in inline code or markdown links: `references/foo.md`,
+    // Repo-rooted paths in inline code or markdown links: `distillations/foo.md`,
     // [text](docs/bar.md). These resolve against the output dir directly.
-    // The dist's content roots are references/, distillations/, lenses/, plus
-    // docs/ and .claude/.
+    // Apps' content roots are distillations/, lenses/, docs/, .claude/. The
+    // references/ directory does not ship in apps (per dist-only rule); any
+    // references/ path appearing in a shipped file is a stale link.
     const rootedPatterns = [
-      /`((?:references|distillations|lenses|docs|\.claude)\/[^\s`]+)`/g,
-      /\]\(((?:references|distillations|lenses|docs|\.claude)\/[^\s)]+)\)/g,
+      /`((?:distillations|lenses|docs|\.claude)\/[^\s`]+)`/g,
+      /\]\(((?:distillations|lenses|docs|\.claude)\/[^\s)]+)\)/g,
     ];
     for (const pattern of rootedPatterns) {
       let match;
@@ -1022,8 +1101,14 @@ class MatrixBuilder {
         let p = match[1];
         // Skip absolute URLs (http, mailto, etc.) and anchor-only links.
         if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(p)) continue;
-        // Skip repo-rooted paths (already handled above).
-        if (/^(?:references|distillations|lenses|docs|\.claude)\//.test(p)) continue;
+        // Skip repo-rooted paths (already handled above) and references/
+        // links: dist-only apps don't ship the reference tier, so a
+        // distillation's link back to its corpus-level deep ref (rewritten
+        // from corpus.local/{corpus}/references/... to references/...) points
+        // at the audit-of-record, not at a shipped file. Flagging it as
+        // dangling is a false positive — the same reason the rooted-pattern
+        // pass above omits references/.
+        if (/^(?:distillations|lenses|docs|references|\.claude)\//.test(p)) continue;
         // Skip glob/template patterns.
         if (p.includes("{") || p.includes("*") || p.includes("[")) continue;
         // Strip trailing punctuation and anchor.
@@ -1035,6 +1120,12 @@ class MatrixBuilder {
         const resolved = path.normalize(path.join(sourceDir, p));
         // Skip paths that escape the output dir (different bug class).
         if (resolved.startsWith("..")) continue;
+        // Skip references/ links: dist-only apps don't ship the reference
+        // tier, so a distillation's ../.. link back to its corpus-level deep
+        // ref resolves to references/... and is the audit-of-record, not a
+        // shipped file. Checked here on the resolved path because the raw
+        // link is still in ../../references/ form at the pre-normalise skip.
+        if (/^references[/\\]/.test(resolved)) continue;
         paths.push(resolved);
       }
     }
@@ -1059,20 +1150,29 @@ class MatrixBuilder {
   }
 
   // Rewrite corpus-source paths to flat app paths. Each app's content
-  // roots are flat — references/, distillations/, lenses/ — because each
-  // app ships one corpus. Source-repo docs and skills that name the
-  // corpus by its full source path would dangle inside the app; this
-  // rewrite fixes them at copy time. Matches both tiers (commons + local)
-  // so substrate skills referencing either tier are handled uniformly.
+  // roots are flat — distillations/, lenses/ — because each app ships one
+  // corpus. Source-repo docs and skills that name the corpus by its full
+  // source path would dangle inside the app; this rewrite fixes them at
+  // copy time. Matches both tiers (commons + local) so substrate skills
+  // referencing either tier are handled uniformly.
+  //
+  // The reference tier (references/, reference-index.json) does not ship
+  // in apps, but the architecture docs that ship with apps still describe
+  // it: rewriting the path keeps the prose locally-coherent (it reads as
+  // "references/" relative to the app root), and the validator's
+  // per-profile ignore_dangling pattern accepts that those paths refer to
+  // the corpus-level tier and dangle in apps by design.
   rewriteCorpusPaths(content) {
     let rewritten = content.replace(
-      /corpus\.(?:commons|local)\/[a-zA-Z0-9_-]+\/(references|distillations|lenses)\//g,
+      /corpus\.(?:commons|local)\/[a-zA-Z0-9_-]+\/(distillations|lenses|references)\//g,
       "$1/"
     );
-    // Top-level corpus JSON indexes live at the corpus root and ship
-    // unchanged to the app root.
+    // Top-level corpus JSON indexes. concept-index, lens-index, slug-table
+    // still ship in apps. reference-index does not, but the path is
+    // rewritten to keep the prose locally-coherent; the validator's
+    // ignore_dangling pattern catches it.
     rewritten = rewritten.replace(
-      /corpus\.(?:commons|local)\/[a-zA-Z0-9_-]+\/(reference-index|concept-index|lens-index)\.json/g,
+      /corpus\.(?:commons|local)\/[a-zA-Z0-9_-]+\/(concept-index|lens-index|slug-table|reference-index)\.json/g,
       "$1.json"
     );
     return rewritten;

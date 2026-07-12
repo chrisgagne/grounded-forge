@@ -40,7 +40,7 @@ This is paid once per source and read forever after.
 
 ## What ships
 
-The repo carries: the build system, the 9-pass ingestion protocol, the operator skills, a 26-source OpenStax-plus-supplementary demo corpus (mostly CC BY-NC-SA 4.0 and CC BY 4.0), five task-axis projections, the lens library, and a per-corpus Chroma collection for semantic-search routing.
+The repo carries: the build system, the 9-pass ingestion protocol, the operator skills, a 28-source OpenStax-plus-supplementary demo corpus (mostly CC BY-NC-SA 4.0 and CC BY 4.0), five task-axis projections, the lens library, and a per-corpus Chroma collection for semantic-search routing.
 
 The two-axis structure (reference × task) is the load-bearing part of the architecture. Lenses are per-distillation modifiers, not a third axis: a lens is a window with characteristic salience, weighting, and vocabulary (an audience perspective, a role, a methodology stance), applied where the operator declares it materially reweights what's salient for a given distillation. The matrix stays 2D by default; lenses are operator-opt-in per distillation. This preserves the projection-time argument (distillations are pre-projected where it's worth it) without committing to "every lens pre-projected against every distillation" (expensive maximalism) or "all lenses applied at retrieval" (which gives back the projection-time gain).
 

@@ -103,6 +103,10 @@ python3 scripts/audit-deep-ref.py corpus.commons/demo/references/X.md  # one fil
 
 The repo doubles as a Claude Code plugin (`.claude-plugin/plugin.json`). The skills under `.claude/skills/`, the hook at `.claude/settings.json`, and the bundled CLAUDE.md auto-discover when installed. Clone-and-run produces the same configuration as a plugin install; the manifest is the published surface, not a separate build artefact.
 
+### Agent-ready for any tool
+
+Claude Code reads `CLAUDE.md`; other coding agents (Codex and the growing set of AGENTS.md-aware tools) read `AGENTS.md`. The repo ships one at its root — a thin adapter that points a tool with file access but no Skill runtime at the same guardrails: read `CLAUDE.md`, treat `.claude/skills/*/SKILL.md` as written procedures rather than callable tools, and honour the source-integrity floor and tier separation. Any agent that lands here inherits the discipline from the first file it reads.
+
 ## Forking for your own domain
 
 The repo ships a demo corpus at [`corpus.commons/demo/`](corpus.commons/demo/) and a private workspace at `corpus.local/` (gitignored, created on demand). The split is structural: `corpus.commons/` is tracked, redistributable, open-licensed; `corpus.local/` is yours and never enters the repo.

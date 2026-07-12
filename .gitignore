@@ -6,15 +6,15 @@ node_modules/
 _planning/
 _evals/
 
+# Personal voice tooling — not part of the forge build; screens Chris's
+# private watch-list, so it stays local.
+scripts/overused-words.py
+
 # Per-corpus tiers
 # corpus.commons/ is tracked (open / open-nc, shareable).
 # corpus.local/ is the operator's private corpus space; everything inside is
 # ignored. Move a corpus from corpus.local/ to corpus.commons/ to share it.
 corpus.local/
-
-# Operator outputs (briefs, reports, conversations, working drafts).
-# Same private-by-default discipline as corpus.local/.
-projects.local/
 
 # Ingest staging across every commons corpus: anything dropped here is the
 # operator's transient material until the ingesting-resources skill promotes
@@ -84,6 +84,7 @@ Thumbs.db
 *~
 .idea/
 .vscode/
+.obsidian/
 
 # Environment / credentials
 *.env

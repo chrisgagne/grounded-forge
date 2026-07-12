@@ -14,7 +14,7 @@ An OpenStax source produces three files in this order (using *Organizational Beh
 2. The light reference at [`references/openstax-organizational-behavior.md`](../../references/openstax-organizational-behavior.md).
 3. One distillation per task axis: the [decision-making projection](../../distillations/decision-making/openstax-organizational-behavior-decision-making.md) and the [stakeholder-engagement projection](../../distillations/stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement.md).
 
-Each is the same shape across the 26-source demo corpus.
+Each is the same shape across the 28-source demo corpus.
 
 ## Why projection at ingestion, not at query
 

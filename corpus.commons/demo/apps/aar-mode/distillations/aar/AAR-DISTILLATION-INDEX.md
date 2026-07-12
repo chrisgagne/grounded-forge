@@ -194,6 +194,10 @@ The references below are listed by Pass G applicability fire. Strong-fire refere
 - `scrum-guide-2020-aar.md` — Sprint Retrospective as standing-cadence cousin; useful when AAR borders on retro.
 - `open-kanban-aar.md` — learning-as-precondition for continuous improvement; Holistic / Systemic value (Goldratt borrowed-through).
 
+**Moderate fire (doctrinal frame for high-tempo / high-uncertainty AARs):**
+
+- `mcdp1-warfighting-aar.md` — US Marine Corps MCDP-1 (1997, supersedes FMFM-1 1989). Public domain (US Government work product); scope=open. The doctrinal frame every Marine AAR is conducted within: TC 25-20 is the procedure, MCDP-1 is the philosophy. Three threads sit directly on AAR practice: (1) *doctrine is a way of thinking, not a checklist* — reframes "did we follow doctrine?" into "did we exercise the thinking that doctrine teaches?"; (2) commander's intent + mission tactics — *intent must be understood two levels up*; if the sharp end didn't know it, the gap is the leader's responsibility, not the practitioner's compliance failure; (3) OODA loop credited to Boyd (Ch 2 Notes 18), reframes the AAR question from *what did we do?* into *what was our OODA tempo relative to the threat?* Rejects the zero-defects mentality directly (*leniency on overbold errors, severity on errors of inaction*) — AARs that punish errors of commission while tolerating errors of omission produce the inaction the doctrine is most concerned with. Useful in high-tempo / high-uncertainty / decentralised-execution incident reviews (SRE, emergency response, crisis operations, startup-launch retros).
+
 **Light fire (specific contexts):**
 
 - `openstax-business-ethics-aar.md` — accountability frames, duty-of-care chapters, Mitchell-Agle-Wood stakeholder prioritisation when AAR surfaces ethical exposure.

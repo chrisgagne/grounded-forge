@@ -10,27 +10,39 @@ The book is also strong on the decision-environment side: the five-step strategi
 
 The text is most useful for *commercial* decisions involving customer acquisition, retention, and lifetime value optimisation. It is less useful — and explicitly silent — on internal organisational decisions like restructuring, headcount, or governance design (which are organisational-behaviour or strategy-of-the-firm domains).
 
+## Verbatim anchors from the source
+
+The marketing process — the decision sequence this reference structures — is defined verbatim as "the series of steps that assist businesses in planning, analyzing, implementing, and adjusting their marketing strategy" [V] (OpenStax, *Principles of Marketing*, Ch 1.1, "The Marketing Process Defined").
+
+Strategy is defined verbatim as "the plans, actions, objectives, and goals that outline how the business is going to compete in its chosen markets given its portfolio of products or services" [V] (Ch 2.1, "Strategic Planning Defined").
+
+The marketing mix — the lever set every commercial decision-maker is setting — is "commonly referred to as the tactics a company can use to promote its products or services in the market in order to influence consumers to buy" [V] (Ch 1.2, "Marketing Mix Defined").
+
+Positioning — drawing on Ries and Trout — is "not to create something new and different, but to manipulate what's already up there in the mind" [V] (Ch 5.6, "Product Positioning Defined").
+
+Ted Levitt's needs-based segmentation principle: "People don't want to buy a quarter-inch drill; they want a quarter-inch hole" [V] (Ch 5.2, "Methods of Segmenting B2B Markets").
+
 ## Key Concepts for Decision-Making
 
-1. **The five-step marketing process.** Decision frame for sequencing customer-facing work: understand marketplace → develop customer-driven strategy → deliver value → grow profitable relations → capture value as profit. (Source: OpenStax, *Principles of Marketing*, Ch 1.1, "Steps in the Marketing Process")
-2. **The 4Ps as decision levers.** Product, price, place, promotion — the four marketing-mix decisions that any commercial decision-maker is implicitly or explicitly setting. (Source: Ch 1.2, "The 4Ps of Marketing")
-3. **PESTLE and the micro/macro environment.** External-factor scan template for any strategic decision. (Source: Ch 1.3, "Components of the Macroenvironment"; Ch 12.3, "Analyze the External Environment")
-4. **SMART goals.** Specific, measurable, attainable, realistic/relevant, time-bound — a discipline for converting vague intentions into actionable decision criteria. (Source: Ch 2.1, "Step Four: Establish Objectives and Goals")
-5. **BCG matrix and SWOT.** Portfolio-allocation decision tools. (Source: Ch 2.2)
-6. **Four growth strategies.** Market penetration, product development, market development, diversification — the choice space for growth-investment decisions. (Source: Ch 2.2, "Strategy")
-7. **STP model.** Segmentation, targeting, positioning — the spine of customer-driven decision-making. (Source: Ch 5.6)
-8. **ADAMS.** Accessible, Differentiable, Actionable, Measurable, Substantial — the five tests a candidate segment must pass before resources commit. (Source: Ch 5.4)
-9. **The eight-stage B2B buying process.** Decision template when *selling to* a B2B buying centre. (Source: Ch 4.4)
-10. **Seven pricing objectives.** Customer-value, cost, sales, market-share, target return, competition, customer-driven — the choice space for pricing decisions. (Source: Ch 12.3)
-11. **Five-step pricing process.** Determine objective → estimate demand → estimate costs → analyse environment → select strategy. (Source: Ch 12.3)
-12. **Three new-product pricing strategies.** Skimming, penetration, break-even. (Source: Ch 12.4)
-13. **Nine-stage NPD process.** Idea generation through evaluation of results — investment-staging template for product launches. (Source: Ch 10.2)
-14. **Five new-product success factors.** Unique benefits, planning, technological synergy, marketing synergy, market attractiveness. (Source: Ch 10.4)
-15. **The 5A customer journey.** Aware, Appeal, Ask, Act, Advocacy — sequencing template for promotion decisions. (Source: Ch 13.4)
-16. **Push vs pull strategy.** Decision criterion for promotion direction. (Source: Ch 14.2)
-17. **Three target-market-coverage strategies.** Intensive, selective, exclusive — for distribution intensity decisions. (Source: Ch 17.3)
-18. **Five Cs of pricing.** Cost, customers, channels, competition, compatibility — pricing decision checklist. (Source: Ch 12.2)
-19. **Three sustainability pillars (ESG).** Environmental, social, economic/governance — decision-grid for purpose-aligned strategy. (Source: Ch 19.1)
+1.  **The five-step marketing process.** Decision frame for sequencing customer-facing work: understand marketplace → develop customer-driven strategy → deliver value → grow profitable relations → capture value as profit. (Source: OpenStax, *Principles of Marketing*, Ch 1.1, "Steps in the Marketing Process")
+2.  **The 4Ps as decision levers.** Product, price, place, promotion — the four marketing-mix decisions that any commercial decision-maker is implicitly or explicitly setting. (Source: Ch 1.2, "The 4Ps of Marketing")
+3.  **PESTLE and the micro/macro environment.** External-factor scan template for any strategic decision. (Source: Ch 1.3, "Components of the Macroenvironment"; Ch 12.3, "Analyze the External Environment")
+4.  **SMART goals.** Specific, measurable, attainable, realistic/relevant, time-bound — a discipline for converting vague intentions into actionable decision criteria. (Source: Ch 2.1, "Step Four: Establish Objectives and Goals")
+5.  **BCG matrix and SWOT.** Portfolio-allocation decision tools. (Source: Ch 2.2)
+6.  **Four growth strategies.** Market penetration, product development, market development, diversification — the choice space for growth-investment decisions. (Source: Ch 2.2, "Strategy")
+7.  **STP model.** Segmentation, targeting, positioning — the spine of customer-driven decision-making. (Source: Ch 5.6)
+8.  **ADAMS.** Accessible, Differentiable, Actionable, Measurable, Substantial — the five tests a candidate segment must pass before resources commit. (Source: Ch 5.4)
+9.  **The eight-stage B2B buying process.** Decision template when *selling to* a B2B buying centre. (Source: Ch 4.4)
+10.  **Seven pricing objectives.** Customer-value, cost, sales, market-share, target return, competition, customer-driven — the choice space for pricing decisions. (Source: Ch 12.3)
+11.  **Five-step pricing process.** Determine objective → estimate demand → estimate costs → analyse environment → select strategy. (Source: Ch 12.3)
+12.  **Three new-product pricing strategies.** Skimming, penetration, break-even. (Source: Ch 12.4)
+13.  **Nine-stage NPD process.** Idea generation through evaluation of results — investment-staging template for product launches. (Source: Ch 10.2)
+14.  **Five new-product success factors.** Unique benefits, planning, technological synergy, marketing synergy, market attractiveness. (Source: Ch 10.4)
+15.  **The 5A customer journey.** Aware, Appeal, Ask, Act, Advocacy — sequencing template for promotion decisions. (Source: Ch 13.4)
+16.  **Push vs pull strategy.** Decision criterion for promotion direction. (Source: Ch 14.2)
+17.  **Three target-market-coverage strategies.** Intensive, selective, exclusive — for distribution intensity decisions. (Source: Ch 17.3)
+18.  **Five Cs of pricing.** Cost, customers, channels, competition, compatibility — pricing decision checklist. (Source: Ch 12.2)
+19.  **Three sustainability pillars (ESG).** Environmental, social, economic/governance — decision-grid for purpose-aligned strategy. (Source: Ch 19.1)
 
 ## Questions to Ask During Decision-Making
 

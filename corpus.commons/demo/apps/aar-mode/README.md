@@ -92,7 +92,7 @@ python3 scripts/setup-chroma.py --check     # run 3 canned queries, print top hi
 
 ### Source-integrity at write time
 
-A PreToolUse hook at [`.claude/hooks/validate-deep-ref.py`](.claude/hooks/validate-deep-ref.py) fires before any Write or Edit against `references/*-deep.md` and blocks the call if structural contracts are violated (frontmatter present, blockquote citations within five lines, evidence markers well-formed, no `TODO` / `[citation pending]` artefacts). The Pass I source-only audit is the model-level guard; the hook is the deterministic guard. A heuristic on-demand audit at `scripts/audit-deep-ref.py` runs claim-line coverage analysis with intentional false positives; operator reads, operator decides.
+A PreToolUse hook at [`.claude/hooks/validate-deep-ref.py`](.claude/hooks/validate-deep-ref.py) fires before any Write or Edit against `references/*-deep.md` and blocks the call if structural contracts are violated (frontmatter present, blockquote citations within five lines, evidence markers well-formed, no `TODO` / `[citation pending]` artefacts). The hook is a thin adapter over the runtime-agnostic checks in [`scripts/validate/deep_ref_core.py`](scripts/validate/deep_ref_core.py), so every enforcement point — this hook, the build-time validation, and the git pre-push audit — gates on the identical contract from one source of truth. The Pass I source-only audit is the model-level guard; the hook is the deterministic guard. A heuristic on-demand audit at `scripts/audit-deep-ref.py` runs claim-line coverage analysis with intentional false positives; operator reads, operator decides.
 
 ```bash
 npm run audit-deep-refs                                    # audit every deep ref
@@ -105,7 +105,7 @@ The repo doubles as a Claude Code plugin (`.claude-plugin/plugin.json`). The ski
 
 ### Agent-ready for any tool
 
-Claude Code reads `CLAUDE.md`; other coding agents (Codex and the growing set of AGENTS.md-aware tools) read `AGENTS.md`. The repo ships one at its root — a thin adapter that points a tool with file access but no Skill runtime at the same guardrails: read `CLAUDE.md`, treat `.claude/skills/*/SKILL.md` as written procedures rather than callable tools, and honour the source-integrity floor and tier separation. Any agent that lands here inherits the discipline from the first file it reads.
+Claude Code reads `CLAUDE.md`; other coding agents (Codex and the growing set of AGENTS.md-aware tools) read `AGENTS.md`. The repo ships one at its root — a thin adapter that points any file-access agent at the same guardrails: read `CLAUDE.md`, invoke the skills under `.claude/skills/*/SKILL.md` natively where the runtime supports it, fall back to reading them as written procedures where it does not, and honour the source-integrity floor and tier separation. The durable enforcement lives where every agent hits it regardless of vendor: the git pre-push audit and build-time validation, not any one runtime's pre-write hook. Any agent that lands here inherits the discipline from the first file it reads.
 
 ## Forking for your own domain
 

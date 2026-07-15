@@ -36,7 +36,7 @@ The compiled assistant routes via the distillation index, reads the distillation
 
 The runtime indexes load once and stay in context. Subsequent queries in the same session route against the already-loaded indexes: no second read, no second tokenisation. The same is true of any distillation the user has already pulled into the conversation. The routing tax that finding 1 in the [README's *Audit receipts and evals*](../../README.md#audit-receipts-and-evals) charged against the matrix on canonical material is a *first-query* cost; the second and subsequent queries on related topics pay only the incremental read of any new distillation the index points to.
 
-Concrete numbers post-migration (May 2026, demo corpus, 26 sources):
+Concrete numbers post-migration (May 2026, demo corpus, 28 sources):
 
 | Indexes | Tokens (cl100k_base) | Loaded |
 |---|---|---|

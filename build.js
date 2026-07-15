@@ -152,6 +152,7 @@ class MatrixBuilder {
     await this.buildSkills(profile, outputDir);
     await this.buildAgents(profile, outputDir);
     await this.buildClaudeMd(profile, outputDir);
+    await this.buildAgentsMd(profile, outputDir);
     await this.buildDocs(profile, outputDir);
     await this.copyMisc(profile, outputDir, profileName);
 
@@ -620,7 +621,13 @@ class MatrixBuilder {
     const substrateDir = path.join(this.repoRoot, ".claude/skills");
     const corpusDir = path.join(this.sourceDir, ".claude/skills");
     const destDir = path.join(outputDir, ".claude/skills");
+    // Dual-runtime: emit the same skills under .agents/skills/ so an
+    // AGENTS.md-aware runtime (Codex and others) discovers them without a
+    // symlink. Plain copies survive every distribution path (Windows clone,
+    // ZIP download, tarball) that a symlink would break in a forked repo.
+    const agentsDestDir = path.join(outputDir, ".agents/skills");
     fs.mkdirSync(destDir, { recursive: true });
+    fs.mkdirSync(agentsDestDir, { recursive: true });
 
     let copied = 0;
     for (const skill of includes) {
@@ -637,13 +644,14 @@ class MatrixBuilder {
       }
       if (chosenSrc) {
         this.copyDirRecursive(chosenSrc, path.join(destDir, skill));
+        this.copyDirRecursive(chosenSrc, path.join(agentsDestDir, skill));
         copied++;
       } else {
         console.log(`    Warning: skill '${skill}' not found in corpus or substrate`);
       }
     }
 
-    console.log(`  Skills: ${copied} copied`);
+    console.log(`  Skills: ${copied} copied (.claude/skills + .agents/skills)`);
   }
 
   async buildAgents(profile, outputDir) {
@@ -663,7 +671,17 @@ class MatrixBuilder {
     const destDir = path.join(outputDir, ".claude/agents");
     fs.mkdirSync(destDir, { recursive: true });
 
+    // Dual-runtime: the Codex form of each agent is a .toml at the sibling
+    // .codex/agents/ path, resolved corpus-first exactly like the .md form.
+    // When present, it ships alongside the Claude .md so a compiled app is
+    // usable from either runtime. Agents without a Codex form still ship
+    // their Claude .md — the .toml is optional, not required.
+    const codexCorpusDir = path.join(this.sourceDir, ".codex/agents");
+    const codexSubstrateDir = path.join(this.repoRoot, ".codex/agents");
+    const codexDestDir = path.join(outputDir, ".codex/agents");
+
     let copied = 0;
+    let codexCopied = 0;
     for (const agent of includes) {
       const agentFile = agent.endsWith(".md") ? agent : `${agent}.md`;
       const corpusSrc = path.join(corpusDir, agentFile);
@@ -683,9 +701,26 @@ class MatrixBuilder {
       } else {
         console.log(`    Warning: agent '${agentFile}' not found in corpus or substrate`);
       }
+
+      // Codex .toml twin, resolved corpus-first, substrate back-stop.
+      const agentBase = agentFile.replace(/\.md$/, "");
+      const codexFile = `${agentBase}.toml`;
+      const codexCorpusSrc = path.join(codexCorpusDir, codexFile);
+      const codexSubstrateSrc = path.join(codexSubstrateDir, codexFile);
+      let codexSrc = null;
+      if (fs.existsSync(codexCorpusSrc)) codexSrc = codexCorpusSrc;
+      else if (fs.existsSync(codexSubstrateSrc)) codexSrc = codexSubstrateSrc;
+      if (codexSrc) {
+        fs.mkdirSync(codexDestDir, { recursive: true });
+        this.copyFileRewriting(codexSrc, path.join(codexDestDir, codexFile));
+        codexCopied++;
+      }
     }
 
-    console.log(`  Agents: ${copied} copied`);
+    console.log(
+      `  Agents: ${copied} copied` +
+        (codexCopied > 0 ? ` (+${codexCopied} Codex .toml)` : "")
+    );
   }
 
   async buildClaudeMd(profile, outputDir) {
@@ -724,6 +759,61 @@ class MatrixBuilder {
 
     this.copyFileRewriting(templatePath, path.join(outputDir, "CLAUDE.md"));
     console.log(`  CLAUDE.md: from template '${templateName}'`);
+  }
+
+  // Emit an app-scoped AGENTS.md so an AGENTS.md-aware runtime (Codex and
+  // others) lands on the same operating contract Claude Code reads from
+  // CLAUDE.md. This is the compiled-app parallel to the repo-root AGENTS.md:
+  // it points at the app's own CLAUDE.md, names where the skills live in both
+  // runtime layouts, and restates the two floors that hold regardless of
+  // vendor (source integrity, dist-only tier discipline). It is static across
+  // profiles by design — every app carries the same contract; the per-profile
+  // substance lives in the profile's CLAUDE.md, which this file points at.
+  async buildAgentsMd(profile, outputDir) {
+    const content = `# AGENTS.md — grounded-forge application
+
+This is a compiled application: a corpus subset projected onto a task axis.
+Claude Code reads \`CLAUDE.md\`; this file points any AGENTS.md-aware runtime
+(Codex and others) at the same operating contract.
+
+## Read first
+
+1. **\`CLAUDE.md\`** in this directory — the operating contract for this app:
+   what it is, what it ships, and how to retrieve. Read it in full before
+   answering from the corpus.
+2. **Skills** ship in two parallel layouts holding identical content:
+   \`.agents/skills/{skill}/SKILL.md\` and \`.claude/skills/{skill}/SKILL.md\`.
+   Invoke a skill natively where your runtime supports it; otherwise read its
+   \`SKILL.md\` and follow it as a written procedure. The retrieval procedure is
+   \`answer-from-corpus\`.
+
+## Non-negotiable: Source Integrity
+
+Ground every source-grounded claim in a passage carried by a distillation.
+Distillations carry paraphrased prose with parenthetical attribution and
+verbatim blockquotes with evidence markers (\`[V]\` / \`[AP]\` / \`[AR]\` / \`[AE]\`
+/ \`[BT]\`) preserved in-band. If the distillation does not support a claim, say
+so — do not supply it from training-data knowledge of the author. Cite the
+distillation before stating the claim.
+
+## What this app ships (dist-only)
+
+- \`distillations/{task}/\` — the source-grounded product. Cite from these.
+- Runtime JSON indexes at the app root (\`concept-index.json\`,
+  \`slug-table.json\`, \`lens-index.json\`) and \`distillations/{task}/task-index.json\`.
+  Read the indexes to route; never cite an index entry as if it were primary
+  evidence.
+- \`lenses/\` — per-distillation modifiers. Apply when a lens materially
+  reweights what is salient.
+
+The reference tier (light + deep) does not travel with this app; it lives at
+corpus level as the audit-of-record. The verbatim passages and evidence
+markers already in the distillations are what Pass D audited against the
+source text — they are your citable provenance.
+`;
+    const agentsMdPath = path.join(outputDir, "AGENTS.md");
+    fs.writeFileSync(agentsMdPath, content, "utf-8");
+    console.log("  AGENTS.md: emitted (dual-runtime app contract)");
   }
 
   async buildDocs(profile, outputDir) {
@@ -936,7 +1026,21 @@ class MatrixBuilder {
     const danglingFail = [];
     const danglingWarn = [];
     for (const d of allDangling) {
-      if (ignoreDangling.some((p) => this.matchGlob(d.target, p))) {
+      // Skills are dual-emitted as identical content into .claude/skills and
+      // .agents/skills. A skill-internal link (e.g. a runtime-output example
+      // path in a SKILL.md) dangles the same way in both layouts. Profiles
+      // enumerate the .claude/skills/* ignore globs by hand; normalise the
+      // .agents twin back to its .claude path so those same globs cover it,
+      // rather than forcing every profile to duplicate its ignore list.
+      const normalisedTarget = d.target.replace(
+        /^\.agents\/skills\//,
+        ".claude/skills/"
+      );
+      if (
+        ignoreDangling.some(
+          (p) => this.matchGlob(d.target, p) || this.matchGlob(normalisedTarget, p)
+        )
+      ) {
         danglingWarn.push(d);
       } else {
         danglingFail.push(d);
@@ -1029,6 +1133,43 @@ class MatrixBuilder {
     else if (fs.statSync(readmePath).size === 0)
       fails.push("README.md is empty");
 
+    // Dual-runtime contract: every app carries an AGENTS.md alongside
+    // CLAUDE.md so an AGENTS.md-aware runtime lands on the same rules.
+    const agentsMdPath = path.join(outputDir, "AGENTS.md");
+    if (!fs.existsSync(agentsMdPath)) fails.push("AGENTS.md missing");
+    else if (fs.statSync(agentsMdPath).size === 0)
+      fails.push("AGENTS.md is empty");
+
+    // Skill-surface parity: skills are dual-emitted into .claude/skills and
+    // .agents/skills. If one layout is present, the other must carry the
+    // identical skill set — a broken dual-emit must fail the build, not ship.
+    const claudeSkillsDir = path.join(outputDir, ".claude/skills");
+    const agentsSkillsDir = path.join(outputDir, ".agents/skills");
+    const listSkills = (dir) =>
+      fs.existsSync(dir)
+        ? fs
+            .readdirSync(dir, { withFileTypes: true })
+            .filter((e) => e.isDirectory())
+            .map((e) => e.name)
+            .sort()
+        : null;
+    const claudeSkills = listSkills(claudeSkillsDir);
+    const agentsSkills = listSkills(agentsSkillsDir);
+    if (claudeSkills !== null || agentsSkills !== null) {
+      if (claudeSkills === null) {
+        fails.push(".agents/skills present but .claude/skills missing");
+      } else if (agentsSkills === null) {
+        fails.push(".claude/skills present but .agents/skills missing");
+      } else if (
+        claudeSkills.join("\n") !== agentsSkills.join("\n")
+      ) {
+        fails.push(
+          `.claude/skills and .agents/skills carry different skill sets ` +
+            `(.claude: [${claudeSkills.join(", ")}] vs .agents: [${agentsSkills.join(", ")}])`
+        );
+      }
+    }
+
     // Apps ship distillations as the source-grounded product; references
     // stay at corpus level as the audit-of-record. distillations/ must
     // exist; references/ must NOT exist.
@@ -1069,12 +1210,13 @@ class MatrixBuilder {
 
     // Repo-rooted paths in inline code or markdown links: `distillations/foo.md`,
     // [text](docs/bar.md). These resolve against the output dir directly.
-    // Apps' content roots are distillations/, lenses/, docs/, .claude/. The
-    // references/ directory does not ship in apps (per dist-only rule); any
-    // references/ path appearing in a shipped file is a stale link.
+    // Apps' content roots are distillations/, lenses/, docs/, .claude/, .agents/
+    // (the last two are the dual-runtime skill layouts). The references/
+    // directory does not ship in apps (per dist-only rule); any references/
+    // path appearing in a shipped file is a stale link.
     const rootedPatterns = [
-      /`((?:distillations|lenses|docs|\.claude)\/[^\s`]+)`/g,
-      /\]\(((?:distillations|lenses|docs|\.claude)\/[^\s)]+)\)/g,
+      /`((?:distillations|lenses|docs|\.claude|\.agents)\/[^\s`]+)`/g,
+      /\]\(((?:distillations|lenses|docs|\.claude|\.agents)\/[^\s)]+)\)/g,
     ];
     for (const pattern of rootedPatterns) {
       let match;
@@ -1108,7 +1250,7 @@ class MatrixBuilder {
         // at the audit-of-record, not at a shipped file. Flagging it as
         // dangling is a false positive — the same reason the rooted-pattern
         // pass above omits references/.
-        if (/^(?:distillations|lenses|docs|references|\.claude)\//.test(p)) continue;
+        if (/^(?:distillations|lenses|docs|references|\.claude|\.agents)\//.test(p)) continue;
         // Skip glob/template patterns.
         if (p.includes("{") || p.includes("*") || p.includes("[")) continue;
         // Strip trailing punctuation and anchor.

@@ -66,7 +66,7 @@ The matrix moves the work to ingestion. Citation discipline is enforced, evidenc
 
 ## Cost of ingestion (observed)
 
-The protocol amortises cost over query-time use; that means it pays its full cost upfront. Concrete numbers from the May 2026 OpenStax pilot ingestion (the corpus has since grown to 26 sources with five task axes; the numbers below describe the original 12-book + two-axis baseline):
+The protocol amortises cost over query-time use; that means it pays its full cost upfront. Concrete numbers from the May 2026 OpenStax pilot ingestion (the corpus has since grown to 28 sources with five task axes; the numbers below describe the original 12-book + two-axis baseline):
 
 - **Sources:** 12 OpenStax books, 165–995 source pages each (mean ~480 pages), ~5,800 source pages total.
 - **Output:** 8,602 deep-reference lines across the 12 books (mean ~717 lines per deep ref); plus 12 light references, 24 distillations (12 books × 2 axes at the time of the pilot), 12 Pass A ledgers, 12 Pass H verifications, 12 Pass I audit logs.

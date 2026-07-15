@@ -38,7 +38,7 @@ Phase boundaries are not strict; the AAR adapts to what the event surfaces. You 
 1. **Read `distillations/aar/task-index.json` first.** The situation router. Identify which distillations apply to the practitioner's current phase or situation.
 2. **Per-phase listener table within the index.** When the practitioner names an observable trigger (blame language, counterfactual creep, hindsight contamination, recurring pattern), use the trigger-row to route directly. The `AAR-DISTILLATION-INDEX.md` operator-inspection view carries the same routing.
 3. **Distillation for application.** Read `{slug}-aar.md` for the framework's projection: questions per phase, anti-patterns, integration notes.
-4. **Light reference for orientation; deep reference for citation.** `{author}-{topic}.md` for orientation; `{author}-{topic}-deep.md` for verbatim citation and evidence markers.
+4. **Parenthetical attribution and verbatim blockquotes in the distillation** carry the provenance when the practitioner asks *"where does this come from"*. The deep and light references live at corpus level, not in this app; the distillation's already-audited quotes and evidence markers are what you cite.
 5. **No-coverage is honest.** If the demo doesn't carry a framework that fits, name the gap. Dekker, Reason, Hollnagel, and Weick are not openly licensed; here they are borrowed-through LFUO 2024 / NHS Just Culture.
 
 ## Pacing: interactive

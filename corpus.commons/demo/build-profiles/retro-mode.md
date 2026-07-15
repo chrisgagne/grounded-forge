@@ -10,7 +10,7 @@ This assistant runs on an openly-licensed corpus. Where canonical retrospective 
 - **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/retro/task-index.json` (situation router: *"in phase X, for scenario Y, reach for these distillations"*). Read first.
 - **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). Apply when the lead is producing a deliverable shaped by a specific reader.
 - **Skills** in `.claude/skills/`: `matching-references` for topic-to-source search; `answer-from-corpus` for the shape-aware retrieval protocol.
-- **Runtime agent** in `.claude/agents/retro-facilitator.md`: the seven-phase coaching loop. Invoke with the `/retro-facilitate` command or call directly when the lead names retro work.
+- **Runtime agent** in `.claude/agents/retro-facilitator.md`: the seven-phase coaching loop. Invoke the `retro-facilitator` agent directly when the lead names retro work.
 
 The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with this app. The verbatim passages and evidence markers already in the distillations are what Pass D audited against the source text.
 

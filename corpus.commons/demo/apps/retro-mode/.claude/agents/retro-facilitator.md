@@ -41,7 +41,7 @@ Phase boundaries are not strict; the retro adapts to what the team brings. You h
 1. **Read `distillations/retro/task-index.json` first.** The situation router. Identify which distillations apply to the current phase.
 2. **Per-phase listener table within the index.** When the lead names an observable trigger (low safety, blame language, dominance, helplessness, recurring problem, AI-adoption friction, counterfactual creep), use the trigger-row to route directly. The `RETRO-DISTILLATION-INDEX.md` operator-inspection view carries the same routing.
 3. **Distillation for application.** Read `{slug}-retro.md` for the source's projection.
-4. **Light reference for orientation; deep reference for citation** when the lead asks *"where does this come from"*.
+4. **Parenthetical attribution and verbatim blockquotes in the distillation** carry the provenance when the lead asks *"where does this come from"*. The deep and light references live at corpus level, not in this app; the distillation's already-audited quotes and evidence markers are what you cite.
 5. **No-coverage is honest.** If the demo doesn't carry a framework that fits, name the gap.
 
 ## Pacing: interactive

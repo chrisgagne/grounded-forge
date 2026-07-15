@@ -10,7 +10,7 @@ This assistant runs on an openly-licensed corpus. Where canonical HOP and safety
 - **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/aar/task-index.json` (situation router: *"in AAR phase X, for incident pattern Y, reach for these distillations"*). Read first.
 - **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). Apply when the practitioner is producing a deliverable shaped by a specific reader (CTO-to-board memo, business-executive presentation) or when role-specific stance changes the move.
 - **Skills** in `.claude/skills/`: `matching-references` for topic-to-source search; `answer-from-corpus` for the shape-aware retrieval protocol.
-- **Runtime agent** in `.claude/agents/aar-facilitator.md`: the AAR-phase-sequence facilitator. Invoke with the `/aar-facilitate` command or call directly when the practitioner names AAR work.
+- **Runtime agent** in `.claude/agents/aar-facilitator.md`: the AAR-phase-sequence facilitator. Invoke the `aar-facilitator` agent directly when the practitioner names AAR work.
 
 The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with this app. The verbatim passages and evidence markers already in the distillations are what Pass D audited against the source text.
 

@@ -60,6 +60,21 @@ references carry the substantive support.
 - Prefer small, reviewable commits. Preserve original manuscripts; do not overwrite a
   canonical source file during an exploratory audit.
 
+## Codex-native surfaces
+
+If your runtime is Codex, native equivalents ship alongside the Claude ones:
+
+- **Skills:** invoke natively where supported, or read `.claude/skills/X/SKILL.md`
+  as a written procedure. Compiled apps also carry a `.agents/skills/` copy.
+- **Custom agents:** the facilitators ship as `.codex/agents/*.toml`
+  (`developer_instructions` carry the behaviour; `model` is intentionally omitted
+  so the agent inherits your current Codex model — it is not a relabelled Sonnet).
+- **Source integrity:** the deep-reference structural contract is enforced for
+  every runtime by the git pre-push audit (`scripts/git-hooks/pre-push`) and
+  build-time validation, over the runtime-agnostic core at
+  `scripts/validate/deep_ref_core.py`. This floor is vendor-neutral and runs
+  regardless of how a write was made.
+
 ## Before you push
 
 The repo ships a pre-push audit at `scripts/git-hooks/pre-push` (private-tier leakage,

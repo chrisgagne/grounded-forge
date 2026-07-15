@@ -168,7 +168,7 @@ The retro task ships with a `retro-facilitator` agent that hosts:
 - The decisions-vs-actions split (Field Guide).
 - The counterfactual / blame-language / artificial-harmony refusal list.
 
-The agent is invoked by the operator command `/retro-facilitate`.
+The `retro-facilitator` agent is invoked directly.
 
 ## 5. Overlap
 

@@ -152,7 +152,7 @@ The aar task ships with an `aar-facilitator` agent that hosts:
 - The counterfactual / causal-statement refusal list.
 - The actions-to-learning-loop bridge (TC 25-20 *benefits live in follow-up*; LFUO recommendations gating).
 
-The agent is invoked by the operator command `/aar-facilitate` for a fresh AAR.
+The `aar-facilitator` agent is invoked directly for a fresh AAR.
 
 ## 5. Overlap
 

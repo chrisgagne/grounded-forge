@@ -51,7 +51,26 @@ function readVersion() {
 
 function loadBuildsConfig() {
   const text = fs.readFileSync(path.join(REPO_ROOT, CONFIG_FILE), "utf8");
-  return yaml.load(text);
+  const config = yaml.load(text) || {};
+  if (!config.builds) config.builds = {};
+  // Merge per-corpus builds.yaml (mirrors build.js's discovery) so packaging
+  // works for corpus.commons / corpus.local profiles, not only substrate ones.
+  // Collision policy: keep the substrate profile, skip the corpus version.
+  for (const tier of ["corpus.commons", "corpus.local"]) {
+    const tierDir = path.join(REPO_ROOT, tier);
+    if (!fs.existsSync(tierDir)) continue;
+    for (const entry of fs.readdirSync(tierDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const corpusConfig = path.join(tierDir, entry.name, "builds.yaml");
+      if (!fs.existsSync(corpusConfig)) continue;
+      const loaded = yaml.load(fs.readFileSync(corpusConfig, "utf8"));
+      if (!loaded || !loaded.builds) continue;
+      for (const [name, profile] of Object.entries(loaded.builds)) {
+        if (!config.builds[name]) config.builds[name] = profile;
+      }
+    }
+  }
+  return config;
 }
 
 function resolveAppDir(appName, config) {
@@ -152,6 +171,33 @@ function inspectReferences(appDir) {
   return { rows };
 }
 
+function readDistillationSources(appDir) {
+  // Dist-only apps ship no references/. build.js records each shipped
+  // distillation's source scope + licence in distillation-sources.json;
+  // that is the authority for the bundle's distribution scope. Prefer it;
+  // fall back to a legacy references/ walk; never silently default to open.
+  const manifestPath = path.join(appDir, "distillation-sources.json");
+  if (fs.existsSync(manifestPath)) {
+    const data = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    const rows = (data.sources || []).map((s) => ({
+      slug: s.slug,
+      scope: s.scope,
+      licence: s.licence || "unknown",
+    }));
+    return { rows, scope: mostRestrictiveScope(rows) };
+  }
+  const refsDir = path.join(appDir, "references");
+  if (fs.existsSync(refsDir)) {
+    const { rows } = inspectReferences(appDir);
+    return { rows, scope: mostRestrictiveScope(rows) };
+  }
+  throw new Error(
+    `Refusing to package: no distillation-sources.json manifest and no references/ in\n  ${appDir}\n` +
+      `Rebuild the app (npm run build) so build.js emits the scope manifest. ` +
+      `Packaging without it would mislabel the bundle's distribution scope as 'open'.`
+  );
+}
+
 function mostRestrictiveScope(rows) {
   if (rows.length === 0) return "open";
   let maxScope = "open";
@@ -224,9 +270,9 @@ async function packageApp(appName) {
   refuseOnSecrets(files);
   refuseOnOperatorArtefacts(files);
 
-  // Inspect references, compute most-restrictive scope.
-  const { rows } = inspectReferences(appDir);
-  const scope = mostRestrictiveScope(rows);
+  // Determine the bundle's most-restrictive scope from the shipped
+  // distillations' source provenance (dist-only apps carry no references/).
+  const { rows, scope } = readDistillationSources(appDir);
   console.log(`  References: ${rows.length}`);
   console.log(`  Most-restrictive scope: ${scope}`);
 

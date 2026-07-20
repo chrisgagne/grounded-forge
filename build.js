@@ -252,6 +252,10 @@ class MatrixBuilder {
     let total = 0;
     const skippedReasons = [];
     const verbatimViolations = [];
+    // Provenance of the shipped distillations' sources, keyed by slug.
+    // Dist-only apps carry no references/, so this is how the packager
+    // learns the bundle's distribution scope (see below, and package.js).
+    const shippedSources = new Map();
     for (const taskDir of distConfig.include) {
       const srcDir = path.join(this.sourceDir, "distillations", taskDir);
       const destDir = path.join(outputDir, "distillations", taskDir);
@@ -307,6 +311,25 @@ class MatrixBuilder {
                 skippedReasons.push(`scope ${scope} > ${maxScope} on source ${slug}: ${taskDir}/${file}`);
                 continue;
               }
+              // Record the source's scope + licence for the app's provenance
+              // manifest. The app ships no references/, so without this the
+              // packager cannot compute the bundle's scope and would mislabel
+              // a copyrighted bundle as 'open'.
+              // Licence value follows "Licence:"/"License:" (the label may be
+              // bold-wrapped, `**License:**`). Capture to end-of-line only, then
+              // strip markdown and trailing prose so a one-line value survives
+              // and a multi-line deep-ref body cannot leak in.
+              const licM = body.match(/licen[cs]e[d]?:\*{0,2}\s*([^\n]+)/i);
+              let licence = "unknown";
+              if (licM) {
+                const cleaned = licM[1]
+                  .replace(/\*+/g, "")
+                  .split(/\s{2,}|\.\s|;/)[0]
+                  .replace(/[.\s]+$/, "")
+                  .trim();
+                if (cleaned && cleaned.length <= 80) licence = cleaned;
+              }
+              shippedSources.set(slug, { slug, scope, licence });
               // Verbatim gate: when the source's scope is not openly
               // redistributable, [V] markers in the distillation are a
               // copyright / confidentiality leak. The deep ref keeps the
@@ -343,6 +366,30 @@ class MatrixBuilder {
         fs.copyFileSync(taskIndexSrc, path.join(destDir, "task-index.json"));
       }
     }
+
+    // Emit the provenance manifest the packager reads for scope labelling.
+    // The bundle's scope is the most-restrictive scope across the SHIPPED
+    // distillations' sources — recorded here, consumed by scripts/package.js.
+    const provenanceRows = [...shippedSources.values()].sort((a, b) =>
+      a.slug.localeCompare(b.slug)
+    );
+    let mrScope = "open";
+    let mrRank = -1;
+    for (const s of provenanceRows) {
+      const rank = SCOPE_RANK[s.scope];
+      if (rank > mrRank) {
+        mrRank = rank;
+        mrScope = s.scope;
+      }
+    }
+    fs.writeFileSync(
+      path.join(outputDir, "distillation-sources.json"),
+      JSON.stringify(
+        { most_restrictive_scope: mrScope, sources: provenanceRows },
+        null,
+        2
+      ) + "\n"
+    );
 
     if (skippedReasons.length > 0) {
       console.log(`  Distillations: ${total} files copied (${skippedReasons.length} skipped by scope ceiling: ${maxScope})`);

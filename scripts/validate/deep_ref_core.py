@@ -48,13 +48,26 @@ from pathlib import Path
 
 PERMITTED_SCOPES = {"open", "open-nc", "copyrighted", "confidential", "personal"}
 PERMITTED_MARKERS = {"[V]", "[AP]", "[AR]", "[AE]", "[BT]"}
-MARKER_PATTERN = re.compile(r"\[([A-Z]{1,3})\](?=[\s,.;:)\]]|$)")
+# Evidence-class markers are bracketed 1-3 letter codes. The negative
+# lookbehind keeps math / notation like E[R] or a[i] from being read as a
+# marker: a real marker is never glued to a preceding letter or digit.
+MARKER_PATTERN = re.compile(r"(?<![A-Za-z0-9])\[([A-Z]{1,3})\](?=[\s,.;:)\]]|$)")
+# A citation parenthetical: a chapter, page, author-year, quoted section name,
+# or section symbol appearing anywhere inside the parens — so section-name
+# citations like (The Sprint, "Goal") are matched — OR a bare Title-Case
+# section-name citation like (Scrum Values) that sources without chapter
+# numbers use. The second form is deliberately lenient: a false negative
+# (a genuinely uncited blockquote slipping through) is cheap because Pass I
+# audits at the model level; a false positive would wrongly block the build.
 CITATION_TAIL_PATTERN = re.compile(
-    r"\((?:Ch\s+\d+|p\.\s*\d+|pp\.\s*\d+|[A-Z][a-z]+\s+\d{4}|\"[^\"]+\"|§)",
+    r"\([^)\n]*(?:Ch\s+\d+|p\.\s*\d+|pp\.\s*\d+|[A-Z][a-z]+\s+\d{4}|\"[^\"]+\"|§)[^)\n]*\)"
+    r"|\([A-Z][A-Za-z0-9 &,'#/–-]*\)",
 )
 PENDING_PATTERNS = [
     re.compile(r"\bTODO\b"),
-    re.compile(r"\bXXX\b"),
+    # No bare \bXXX\b: it collides with Roman-numeral part headings
+    # ("Part XXX" = 30). TODO / FIXME / [citation pending] / (pending)
+    # remain as unambiguous placeholder signals.
     re.compile(r"\bFIXME\b"),
     re.compile(r"\[citation\s+pending\]", re.IGNORECASE),
     re.compile(r"\[citation\s+needed\]", re.IGNORECASE),

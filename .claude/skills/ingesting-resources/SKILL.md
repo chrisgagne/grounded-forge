@@ -91,7 +91,12 @@ Required metadata (either mode):
 - Source licence (exact string: `CC BY 4.0`, `CC BY-NC-SA 4.0`, `All rights reserved`, etc., or `unverified`).
 - Distribution scope: `open`, `open-nc`, `copyrighted`, `confidential`, or `personal`. Usually correlates with licence (CC BY → `open`, CC BY-NC-SA → `open-nc`, all-rights-reserved or unverified → `copyrighted`) but can diverge. The build excludes references whose scope exceeds a profile's `max_scope`; `personal` ships in no profile. Both fields land on the deep ref at Pass A: licence in `**Source:**`, scope on `**Scope:**`.
 
-**Source preparation.** Pre-extract to markdown for better citation-anchor preservation. Default converter: [markitdown](https://github.com/microsoft/markitdown) (`pip install 'markitdown[all]'`). PDF fallback when markitdown fails: [`pymupdf4llm`](https://pypi.org/project/pymupdf4llm/). Converted markdown lands in `{corpus-root}/sources/converted/`.
+**Source preparation.** Pre-extract to markdown for better citation-anchor preservation. Converted markdown lands in `{corpus-root}/sources/converted/`.
+
+- **PDF:** default converter [markitdown](https://github.com/microsoft/markitdown) (`pip install 'markitdown[all]'`); fallback when markitdown fails: [`pymupdf4llm`](https://pypi.org/project/pymupdf4llm/).
+- **EPUB: do NOT use markitdown.** On EPUB, markitdown silently extracts only the navigation/heading layer and drops the flowing body text — observed dropping ~93–95% of the body across several EPUBs (2026-07-14) while leaving the chapter headings intact, so the output *looks* complete. Use calibre instead: `ebook-convert input.epub output.txt --txt-output-formatting=markdown`, then rename `.txt` → `.md` (calibre keys output format off the file extension and rejects `.md` directly). Record `converted_via: calibre-ebook-convert`.
+
+**Mandatory post-conversion sanity check (before any pass reads the file).** Silent-truncation converters are the highest-severity source-integrity failure because the loss is invisible downstream. After converting, run `wc -w` on the output and compare against the source's expected length (a ~250-page book is ~65,000–90,000 words; a ~100-page book ~35,000–40,000; roughly 250–400 words/page). If the word count is a small fraction of the expected length (e.g. a full book converting to a few thousand words), the converter dropped body text — **stop, re-convert with a different tool, and re-check.** Never hand a suspiciously-short conversion to an ingestion pass or a subagent. This check is what turns the completeness pre-flight (below) from a heading-structure glance into a coverage guarantee.
 
 ### Pre-invocation: check for duplicate
 

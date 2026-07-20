@@ -132,6 +132,8 @@ The semantic-search backend (Chroma) sits *beneath* the curated indexes in the r
 3. `task-index.json` for the task at hand.
 4. Semantic search as a safety net for genuinely novel queries the curated indexes did not pre-think-of.
 
+**Status:** steps 1–3 are live; step 4 is designed but not yet wired into runtime. Chroma is built by [`scripts/setup-chroma.py`](../../scripts/setup-chroma.py), but the shipped retrieval skills (`answer-from-corpus`, `matching-references`) currently route through the curated indexes only. The relevance-floor discipline below is the intended behaviour of the fallback tier and the pointer-only contract it must honour once wired.
+
 The principle that makes this clean is the same one that makes the curated indexes work: **the index returns pointers; the file system holds the distillations.** Semantic-search responses carry filenames, authors, titles, and similarity scores, never document bodies. The assistant reads the matched files via the file system before answering.
 
 This contract has three concrete consequences:

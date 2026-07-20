@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Pre-push audit for grounded-forge.
 #
-# Runs the seven public-posting checks before any push to a remote:
+# Runs the eight public-posting checks before any push to a remote:
 #   1. Private-tier leakage (corpus.local/, _planning/, _evals/ must be gitignored and untracked)
 #   2. Gitignore correctness (the patterns themselves)
 #   3. Credentials and secrets (API keys, tokens, .env files, hardcoded /Users/cgagne paths)
@@ -9,6 +9,7 @@
 #   5. Required supporting files (README, LICENSE, CONTRIBUTING, CLAUDE, gitignore)
 #   6. Licence-file shape (LICENSE starts with canonical text, no preamble — GitHub licensee compatibility)
 #   7. Conventional cruft (.DS_Store, *.swp, *.log, *.tmp not tracked)
+#   8. Deep-ref structural conformance (tracked *-deep.md satisfy scripts/validate/deep_ref_core.py)
 #
 # Exit codes:
 #   0  — all checks pass, push proceeds
@@ -48,7 +49,7 @@ printf "  repo: %s\n" "$REPO_ROOT" >&2
 printf "  branch: %s\n\n" "$(git rev-parse --abbrev-ref HEAD)" >&2
 
 # ─── Check 1: private-tier leakage ─────────────────────────────────────────────
-note "Check 1/7: private-tier leakage"
+note "Check 1/8: private-tier leakage"
 
 PRIVATE_DIRS=(corpus.local _planning _evals)
 for d in "${PRIVATE_DIRS[@]}"; do
@@ -62,7 +63,7 @@ if [ $FAIL_COUNT -eq 0 ]; then
 fi
 
 # ─── Check 2: gitignore correctness ────────────────────────────────────────────
-note "Check 2/7: .gitignore patterns"
+note "Check 2/8: .gitignore patterns"
 
 if [ ! -f .gitignore ]; then
   fail ".gitignore is missing"
@@ -82,7 +83,7 @@ else
 fi
 
 # ─── Check 3: credentials and secrets ──────────────────────────────────────────
-note "Check 3/7: credentials and absolute paths"
+note "Check 3/8: credentials and absolute paths"
 
 # Substrate scan: tracked text files OUTSIDE source-content directories.
 # Source content lives at corpus.commons/{corpus}/sources/converted/ and may legitimately
@@ -127,7 +128,7 @@ else
 fi
 
 # ─── Check 4: internal markdown link integrity ────────────────────────────────
-note "Check 4/7: internal markdown links"
+note "Check 4/8: internal markdown links"
 
 if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping markdown link integrity check"
@@ -211,7 +212,7 @@ PYEOF
 fi
 
 # ─── Check 5: required supporting files ───────────────────────────────────────
-note "Check 5/7: required supporting files"
+note "Check 5/8: required supporting files"
 
 REQUIRED_FILES=(
   README.md
@@ -233,7 +234,7 @@ else
 fi
 
 # ─── Check 6: licence-file shape (GitHub licensee compatibility) ──────────────
-note "Check 6/7: LICENSE shape"
+note "Check 6/8: LICENSE shape"
 
 if [ -f LICENSE ]; then
   first_line=$(head -n 1 LICENSE | tr -d '[:space:]')
@@ -253,7 +254,7 @@ else
 fi
 
 # ─── Check 7: conventional cruft ──────────────────────────────────────────────
-note "Check 7/7: conventional cruft"
+note "Check 7/8: conventional cruft"
 
 CRUFT_HITS=$(git ls-files | grep -E "(\.DS_Store|Thumbs\.db|\.swp$|\.swo$|~$|\.log$|\.tmp$|\.bak$|/node_modules/|/__pycache__/)" || true)
 if [ -z "$CRUFT_HITS" ]; then
@@ -261,6 +262,40 @@ if [ -z "$CRUFT_HITS" ]; then
 else
   fail "conventional cruft tracked:"
   echo "$CRUFT_HITS" | head -5 >&2
+fi
+
+# ─── Check 8: deep-reference structural conformance ───────────────────────────
+note "Check 8/8: deep-ref structural conformance"
+
+if ! command -v python3 >/dev/null 2>&1; then
+  warn "python3 not available; skipping deep-ref structural check"
+else
+  # Every tracked *-deep.md must satisfy the deterministic, false-positive-free
+  # structural contract in scripts/validate/deep_ref_core.py (generation header,
+  # required frontmatter blocks, permitted scope, blockquote citations, marker
+  # well-formedness, no pending artefacts). corpus.local/ deep refs are gitignored
+  # and never pushed, so only public (corpus.commons) refs are gated here.
+  DEEP_REFS=$(git ls-files '*-deep.md' 2>/dev/null)
+  if [ -z "$DEEP_REFS" ]; then
+    pass "no tracked deep references to validate"
+  else
+    DEEP_FAILURES=""
+    n_deep=0
+    while IFS= read -r f; do
+      [ -z "$f" ] && continue
+      n_deep=$((n_deep + 1))
+      msgs=$(python3 scripts/validate/deep_ref_core.py --file "$f" 2>&1); rc=$?
+      if [ "$rc" -ne 0 ]; then
+        DEEP_FAILURES="${DEEP_FAILURES}${f}\n$(echo "$msgs" | grep -E '^[[:space:]]+- ' | head -4)\n"
+      fi
+    done <<< "$DEEP_REFS"
+    if [ -z "$DEEP_FAILURES" ]; then
+      pass "all ${n_deep} tracked deep references conform to deep_ref_core structure"
+    else
+      fail "deep references fail structural validation (fix or re-ingest before pushing):"
+      printf "%b" "$DEEP_FAILURES" | head -24 >&2
+    fi
+  fi
 fi
 
 # ─── Summary ──────────────────────────────────────────────────────────────────

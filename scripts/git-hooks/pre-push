@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Pre-push audit for grounded-forge.
 #
-# Runs the eight public-posting checks before any push to a remote:
+# Runs the nine public-posting checks before any push to a remote:
 #   1. Private-tier leakage (corpus.local/, _planning/, _evals/ must be gitignored and untracked)
 #   2. Gitignore correctness (the patterns themselves)
 #   3. Credentials and secrets (API keys, tokens, .env files, hardcoded /Users/cgagne paths)
@@ -10,6 +10,7 @@
 #   6. Licence-file shape (LICENSE starts with canonical text, no preamble — GitHub licensee compatibility)
 #   7. Conventional cruft (.DS_Store, *.swp, *.log, *.tmp not tracked)
 #   8. Deep-ref structural conformance (tracked *-deep.md satisfy scripts/validate/deep_ref_core.py)
+#   9. Derived-tier provenance (no derived artefact is STALE against its audited deep — the jocham failure mode)
 #
 # Exit codes:
 #   0  — all checks pass, push proceeds
@@ -49,7 +50,7 @@ printf "  repo: %s\n" "$REPO_ROOT" >&2
 printf "  branch: %s\n\n" "$(git rev-parse --abbrev-ref HEAD)" >&2
 
 # ─── Check 1: private-tier leakage ─────────────────────────────────────────────
-note "Check 1/8: private-tier leakage"
+note "Check 1/9: private-tier leakage"
 
 PRIVATE_DIRS=(corpus.local _planning _evals)
 for d in "${PRIVATE_DIRS[@]}"; do
@@ -63,7 +64,7 @@ if [ $FAIL_COUNT -eq 0 ]; then
 fi
 
 # ─── Check 2: gitignore correctness ────────────────────────────────────────────
-note "Check 2/8: .gitignore patterns"
+note "Check 2/9: .gitignore patterns"
 
 if [ ! -f .gitignore ]; then
   fail ".gitignore is missing"
@@ -83,7 +84,7 @@ else
 fi
 
 # ─── Check 3: credentials and secrets ──────────────────────────────────────────
-note "Check 3/8: credentials and absolute paths"
+note "Check 3/9: credentials and absolute paths"
 
 # Substrate scan: tracked text files OUTSIDE source-content directories.
 # Source content lives at corpus.commons/{corpus}/sources/converted/ and may legitimately
@@ -128,7 +129,7 @@ else
 fi
 
 # ─── Check 4: internal markdown link integrity ────────────────────────────────
-note "Check 4/8: internal markdown links"
+note "Check 4/9: internal markdown links"
 
 if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping markdown link integrity check"
@@ -212,7 +213,7 @@ PYEOF
 fi
 
 # ─── Check 5: required supporting files ───────────────────────────────────────
-note "Check 5/8: required supporting files"
+note "Check 5/9: required supporting files"
 
 REQUIRED_FILES=(
   README.md
@@ -234,7 +235,7 @@ else
 fi
 
 # ─── Check 6: licence-file shape (GitHub licensee compatibility) ──────────────
-note "Check 6/8: LICENSE shape"
+note "Check 6/9: LICENSE shape"
 
 if [ -f LICENSE ]; then
   first_line=$(head -n 1 LICENSE | tr -d '[:space:]')
@@ -254,7 +255,7 @@ else
 fi
 
 # ─── Check 7: conventional cruft ──────────────────────────────────────────────
-note "Check 7/8: conventional cruft"
+note "Check 7/9: conventional cruft"
 
 CRUFT_HITS=$(git ls-files | grep -E "(\.DS_Store|Thumbs\.db|\.swp$|\.swo$|~$|\.log$|\.tmp$|\.bak$|/node_modules/|/__pycache__/)" || true)
 if [ -z "$CRUFT_HITS" ]; then
@@ -265,7 +266,7 @@ else
 fi
 
 # ─── Check 8: deep-reference structural conformance ───────────────────────────
-note "Check 8/8: deep-ref structural conformance"
+note "Check 8/9: deep-ref structural conformance"
 
 if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping deep-ref structural check"
@@ -295,6 +296,39 @@ else
       fail "deep references fail structural validation (fix or re-ingest before pushing):"
       printf "%b" "$DEEP_FAILURES" | head -24 >&2
     fi
+  fi
+fi
+
+# ─── Check 9: derived-tier provenance (staleness) ─────────────────────────────
+note "Check 9/9: derived-tier provenance"
+
+if ! command -v python3 >/dev/null 2>&1; then
+  warn "python3 not available; skipping derived-tier provenance check"
+else
+  # Every corpus present on disk (both tiers) is checked. check_derived_provenance.py
+  # exits 1 ONLY when a derived artefact carries a STALE stamp — its deep moved after
+  # the artefact was derived and it was never re-derived/re-stamped (the jocham
+  # failure mode). UNSTAMPED artefacts only warn, so this gate never blocks on gradual
+  # adoption; it blocks solely on genuine staleness. corpus.local/ corpora are checked
+  # when present (they package into distros) but are never pushed.
+  PROV_FAILURES=""
+  n_corpus=0
+  for refs_dir in corpus.commons/*/references corpus.local/*/references; do
+    [ -d "$refs_dir" ] || continue
+    corpus_name=$(basename "$(dirname "$refs_dir")")
+    n_corpus=$((n_corpus + 1))
+    msgs=$(python3 scripts/check_derived_provenance.py --corpus "$corpus_name" 2>&1); rc=$?
+    if [ "$rc" -ne 0 ]; then
+      PROV_FAILURES="${PROV_FAILURES}corpus '${corpus_name}':\n$(echo "$msgs" | grep -E '^STALE' | head -6)\n"
+    fi
+  done
+  if [ "$n_corpus" -eq 0 ]; then
+    warn "no corpora on disk to check for derived-tier provenance"
+  elif [ -z "$PROV_FAILURES" ]; then
+    pass "no stale derived artefacts across ${n_corpus} corpus/corpora"
+  else
+    fail "stale derived artefacts (re-derive Pass F/G from the audited deep, then re-stamp with --stamp):"
+    printf "%b" "$PROV_FAILURES" | head -24 >&2
   fi
 fi
 

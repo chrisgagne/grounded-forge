@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:72550dcb4a79df378ed7b1441f68804581317c24bb6c65b51c20104d797fb0c4 -->
 # U.S. Marine Corps, MCDP-1 Warfighting — AAR Distillation
 
 **Source:** U.S. Marine Corps (1997). *MCDP 1: Warfighting*. Headquarters United States Marine Corps, Department of the Navy, 20 June 1997. PCN 142 000006 00. Supersedes FMFM 1 Warfighting (1989). **Licence:** Public domain (US Government work product). **Scope:** open.

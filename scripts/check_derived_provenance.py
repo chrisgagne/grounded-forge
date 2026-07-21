@@ -104,14 +104,26 @@ def write_stamp(path: Path, h: str) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--corpus", required=True, help="corpus name (e.g. demo, aarbuddy)")
+    ap.add_argument("--corpus", help="corpus name (e.g. demo, aarbuddy)")
+    ap.add_argument(
+        "--root",
+        help="explicit corpus root path, bypassing --corpus name resolution "
+        "(the regression test points this at a fixture corpus)",
+    )
     ap.add_argument("--stamp", action="store_true", help="write/refresh stamps")
     ap.add_argument(
         "--slug", action="append", default=[], help="restrict to source slug(s)"
     )
     args = ap.parse_args()
 
-    root = corpus_root(args.corpus)
+    if args.root:
+        root = Path(args.root).resolve()
+        if not root.is_dir():
+            raise SystemExit(f"--root path not found: {root}")
+    elif args.corpus:
+        root = corpus_root(args.corpus)
+    else:
+        ap.error("one of --corpus or --root is required")
     deep_files = sorted((root / "references").glob("*-deep.md"))
     slug_filter = set(args.slug)
 
@@ -126,7 +138,12 @@ def main() -> int:
             continue
         h = deep_hash(deep)
         for art in derived_artefacts(root, slug):
-            rel = art.relative_to(REPO_ROOT).as_posix()
+            try:
+                rel = art.relative_to(REPO_ROOT).as_posix()
+            except ValueError:
+                # --root may point outside the repo (e.g. a test fixture); artefacts
+                # are always under root, so fall back to a root-relative display path.
+                rel = art.relative_to(root).as_posix()
             if args.stamp:
                 write_stamp(art, h)
                 stamped.append(rel)

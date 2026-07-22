@@ -9,6 +9,11 @@
             "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate-deep-ref.py\"",
             "if": "Write(corpus.commons/*/references/*-deep.md)|Edit(corpus.commons/*/references/*-deep.md)|Write(corpus.local/*/references/*-deep.md)|Edit(corpus.local/*/references/*-deep.md)",
             "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-derived-index.py\"",
+            "timeout": 10
           }
         ]
       },

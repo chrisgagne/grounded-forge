@@ -34,7 +34,7 @@ The two ceremony profiles cross-link: `aar-mode` is the event-triggered cross-fu
 
 ## What you can do from here
 
-Before running anything, [`docs/examples/marines-vs-business-admin-conversation.md`](docs/examples/marines-vs-business-admin-conversation.md) shows what the output looks like: a captured `answer-from-corpus` session, verbatim — Marine warfighting doctrine × textbook business administration, with the full retrieval trace and evidence markers in-band. ~5 minutes to read. A [protocol-conformant re-run](docs/examples/marines-vs-business-admin-rerun.md) sits alongside it: the first session's routing shortcut was caught in review, and the corrected pass reads all three routing indexes, surfaces two sources the shortcut missed, and revises one of the essay's conclusions.
+Before running anything, [`docs/examples/marines-vs-business-admin-conversation.md`](docs/examples/marines-vs-business-admin-conversation.md) shows what the output looks like: a captured `answer-from-corpus` session, verbatim — Marine warfighting doctrine × textbook business administration, with the full routing pass, retrieval trace, and evidence markers in-band. ~5 minutes to read.
 
 1. **[The demo app](docs/tutorial/the-demo-app.md):** open a built app in Claude Code, ask it questions, see the matrix route. Zero setup. ~25 minutes.
 2. **[Querying the library](docs/tutorial/querying-the-library.md):** the three read-only skills — `answer-from-corpus`, `matching-references`, `audit-attribution` — plus *reading the trace* (the five-second answer audit). ~30–45 minutes.

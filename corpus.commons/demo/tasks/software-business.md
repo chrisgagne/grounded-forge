@@ -90,7 +90,7 @@ Software-business work is the set of decisions and practices at the intersection
 
 ## 3. Available sources
 
-All 28 sources in the demo corpus are candidates; per-source applicability decided by `creating-distillations` Pass G. Tiering for Pass G priority:
+All 27 sources in the demo corpus are candidates; per-source applicability decided by `creating-distillations` Pass G. Tiering for Pass G priority:
 
 - **Strong fire (named in the build-profile description):** `jones-evidence-based-sweng`, `letaw-handbook-sweng-methods`, plus all twelve OpenStax titles (organizational-behavior, principles-management, principles-marketing, principles-finance, accounting-vol1, accounting-vol2, business-ethics, business-law, entrepreneurship, introduction-business, psychology-2e, economics-3e).
 - **Moderate fire (methodology / facilitation / systems primitives that apply to software work):** `scrum-guide-2020`, `approach-perfect-field-guide-scrum-events`, `open-kanban`, `open-practice-library`, `liberating-structures-handbook`, `ssdl-systems-thinking-foundations`, `barbrook-johnson-systems-mapping`.

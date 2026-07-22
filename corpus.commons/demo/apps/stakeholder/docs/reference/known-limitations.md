@@ -6,7 +6,7 @@ The OpenStax demo corpus is a working illustration, not a polished product. A fe
 
 | Component | Status | Where |
 |---|---|---|
-| 9-pass ingestion under source-only audit | Complete for 12 OpenStax books + 16 supplementary sources (28 references total) | [`references/`](../../references/), [`distillations/`](../../distillations/) |
+| 9-pass ingestion under source-only audit | Complete for 12 OpenStax books + 15 supplementary sources (27 references total) | [`references/`](../../references/), [`distillations/`](../../distillations/) |
 | Pass I audit receipts (per source + cross-corpus summary) | Complete | [`docs/audit-results/`](../audit-results/), full logs in [`references/_audit/`](../../references/_audit/) |
 | Comparative eval harness (4-method, blind judge) | Runnable in this release; full results summarised qualitatively in the README (corpora used extend beyond the demo corpus) | [`docs/evals/`](../evals/), [`docs/evals/harness/`](../evals/harness/) |
 | Image classification | PARTIAL for 6 of 12 OpenStax books (see below) | [`corpus.commons/demo/sources/converted/`](../../corpus.commons/demo/sources/converted/) |

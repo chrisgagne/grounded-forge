@@ -10,7 +10,7 @@ Three ways to contribute, in increasing order of investment:
 
 ## Contributing a corpus
 
-The repo ships one corpus in [`corpus.commons/demo/`](corpus.commons/demo/): a 28-source set anchored on the OpenStax twelve-book catalogue with supplementary methodology sources, projected onto five task axes. The `corpus.commons/` tier is plural by design: it can grow to hold many corpora, each contributed by an operator who has produced one.
+The repo ships one corpus in [`corpus.commons/demo/`](corpus.commons/demo/): a 27-source set anchored on the OpenStax twelve-book catalogue with supplementary methodology sources, projected onto five task axes. The `corpus.commons/` tier is plural by design: it can grow to hold many corpora, each contributed by an operator who has produced one.
 
 A corpus contribution is a folder under `corpus.commons/{your-handle}-{corpus-name}/` containing the full self-contained corpus: sources (source-cards, converted markdown), references (light + deep), distillations (per task axis), lenses (optional), and a corpus-level README explaining what the corpus is for, who curated it, and what task domains it serves.
 

@@ -14,7 +14,7 @@ An OpenStax source produces three files in this order (using *Organizational Beh
 2. The light reference at [`corpus.commons/demo/references/openstax-organizational-behavior.md`](../../corpus.commons/demo/references/openstax-organizational-behavior.md).
 3. One distillation per task axis: the [decision-making projection](../../corpus.commons/demo/distillations/decision-making/openstax-organizational-behavior-decision-making.md) and the [stakeholder-engagement projection](../../corpus.commons/demo/distillations/stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement.md).
 
-Each is the same shape across the 28-source demo corpus.
+Each is the same shape across the 27-source demo corpus.
 
 ## Why projection at ingestion, not at query
 
@@ -66,7 +66,7 @@ The matrix moves the work to ingestion. Citation discipline is enforced, evidenc
 
 ## Cost of ingestion (observed)
 
-The protocol amortises cost over query-time use; that means it pays its full cost upfront. Concrete numbers from the May 2026 OpenStax pilot ingestion (the corpus has since grown to 28 sources with five task axes; the numbers below describe the original 12-book + two-axis baseline):
+The protocol amortises cost over query-time use; that means it pays its full cost upfront. Concrete numbers from the May 2026 OpenStax pilot ingestion (the corpus has since grown to 27 sources with five task axes; the numbers below describe the original 12-book + two-axis baseline):
 
 - **Sources:** 12 OpenStax books, 165–995 source pages each (mean ~480 pages), ~5,800 source pages total.
 - **Output:** 8,602 deep-reference lines across the 12 books (mean ~717 lines per deep ref); plus 12 light references, 24 distillations (12 books × 2 axes at the time of the pilot), 12 Pass A ledgers, 12 Pass H verifications, 12 Pass I audit logs.

@@ -227,7 +227,7 @@ Licence governs *attribution and derivative-rights*; **scope** governs *distribu
 
 The demo profiles default to `max_scope: open-nc`, matching the OpenStax + supplementary CC sources. The mechanism is *latent* in this configuration (nothing exceeds the ceiling), but it's there for forks that mix confidential client material with public CC sources. `personal` is excluded by construction: no `max_scope` value admits it.
 
-`npm run package` extends the same mechanism into shipped tarballs: each tarball's filename carries the most-restrictive scope across its bundled references (`decision-v0.2.2-open-nc.tar.gz`), and the tarball ships with a `LICENCE-MANIFEST.md` listing every reference's individual scope and licence. The full reference is at [`docs/reference/scope-taxonomy.md`](docs/reference/scope-taxonomy.md).
+`npm run package` extends the same mechanism into shipped tarballs: each tarball's filename carries the most-restrictive scope across its bundled references (`decision-v0.3.0-open-nc.tar.gz`), and the tarball ships with a `LICENCE-MANIFEST.md` listing every reference's individual scope and licence. The full reference is at [`docs/reference/scope-taxonomy.md`](docs/reference/scope-taxonomy.md).
 
 ## A note on copyright
 

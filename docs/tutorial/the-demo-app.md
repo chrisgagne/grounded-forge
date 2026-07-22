@@ -89,7 +89,7 @@ Same corpus, same question, different task projection. That difference is what t
 
 ## Step 5: Ask something the corpus handles well
 
-The demo corpus is a 28-source library covering organisational behaviour, management, motivation, decision frameworks, stakeholder conflict, ethics, marketing, finance, accounting, business law, psychology, economics, systems-thinking foundations, strategic org design (Org Topologies), military doctrine on command under uncertainty (MCDP 1 Warfighting), and a small software-business slice.
+The demo corpus is a 27-source library covering organisational behaviour, management, motivation, decision frameworks, stakeholder conflict, ethics, marketing, finance, accounting, business law, psychology, economics, systems-thinking foundations, strategic org design (Org Topologies), military doctrine on command under uncertainty (MCDP 1 Warfighting), and a small software-business slice.
 
 Try one of these in the decision app:
 

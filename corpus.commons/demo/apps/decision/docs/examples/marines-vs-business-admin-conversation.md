@@ -1,8 +1,8 @@
 # Parallels between US Marine Warfighting Doctrine and Textbook Business Administration
 
-*Example output — a captured `answer-from-corpus` session against the demo corpus, kept verbatim as a worked example of the retrieval pattern end-to-end: query-shape classification, lens-applicability check, index reads, distillation full-reads, and a source-grounded essay with evidence markers in-band.*
+*Example output — a captured `answer-from-corpus` session against the demo corpus, kept verbatim as a worked example of the retrieval pattern end-to-end: query-shape classification, lens-applicability check, routing-index reads, sub-claim decomposition, distillation full-reads, and a source-grounded essay with evidence markers in-band.*
 
-Source-grounded synthesis · Protocol S (Synthesis) · 2026-07-12 · Claude Opus 4.8 (1M context)
+Source-grounded synthesis · Protocol S (Synthesis) · 2026-07-23 · Claude Fable 5
 
 ---
 
@@ -16,94 +16,101 @@ I'll answer this by drawing on the corpus. First, let me classify the query shap
 
 **Shape:** This is a **Synthesis** question — it asks what the corpus says across two domains (Marine warfighting doctrine, textbook business administration) and wants parallels drawn between them. Breadth across sources is the point.
 
-Let me start by reading the runtime indexes.
-
 > **Tool calls**
-> - Read `slug-table.json` — 27 sources; found `00q` = mcdp1-warfighting and the OpenStax business-textbook family.
-> - List `apps/` — decision · stakeholder · software-business · aar-mode · retro-mode.
+> - Read `lens-index.json` (full) — six lenses now: builder, cto, pm-bounded-by-ba-role, business-executive-stakeholder, agentic-builder, chris-gagne-consultant-coach.
 
-The corpus has MCDP 1 Warfighting (`00q`) as the Marine doctrine source, and a family of OpenStax business textbooks as the "textbook business administration" side. Let me find where the Warfighting distillation lives and check the concept index.
-
-> **Tool calls**
-> - Locate distillations — found `mcdp1-warfighting-decision-making.md` plus intro-business, organizational-behavior, and principles-management projections.
-> - Read `lens-index.json` — available lenses: builder, cto, pm-bounded-by-ba-role.
-
-**Lens-applicability check:** This query is lens-neutral. It asks for an intellectual synthesis drawing parallels between two doctrines — not a role-bound artefact, not a reader-typed deliverable, not a named voice. No lens applies. (The available lenses — builder, cto, pm-bounded-by-ba-role — are all delivery/enterprise-role frames that would distort a doctrine-comparison essay.)
-
-Now let me decompose into sub-claims and read the relevant distillations. This is a Synthesis question; I'll route to the Warfighting distillation plus the management/OB/intro-business textbooks that carry the "textbook administration" side.
+**Lens-applicability check:** Lens-neutral. The query asks for an intellectual synthesis between two doctrines — not a role-bound artefact, not a reader-typed deliverable, and not an application of the named-person lens. No lens applies.
 
 **Sub-claims (the parallels to test):**
 
-1. Nature of the environment — friction, uncertainty, complexity
-2. Decentralised command vs. centralised control (mission command ↔ delegation/empowerment)
-3. Speed, tempo, and decision-making under time pressure
-4. Doctrine as shared mental model vs. rigid procedure
-5. Where the two diverge (the violence/adversary asymmetry the parallel can't paper over)
+1. Nature of the decision environment — friction and uncertainty vs bounded rationality and scarcity
+2. The decision cycle — OODA vs the textbook multi-step process
+3. Who decides — mission command vs centralisation/decentralisation
+4. Priority-setting — Schwerpunkt vs the textbook prioritisation apparatus
+5. Error asymmetry — inaction vs commission
+6. Doctrine as thinking vs framework as tool
+7. Limits of transfer — the adversarial Zweikampf frame
+
+> **Tool calls**
+> - Read `slug-table.json` (full) — 27 sources; `00q` = mcdp1-warfighting, plus the OpenStax family.
+> - Read `concept-index.json` (full; exceeded the single-read cap — two paginated reads, 4,210 lines).
+> - Read `distillations/decision-making/task-index.json` (full; two paginated reads, 1,809 lines).
+
+**Routing findings.** The concept index carries a dense MCDP-1 concept family (ooda-loop, mission-tactics-auftragstaktik, intent-two-levels-up, schwerpunkt-main-effort, leniency-overbold-severity-inaction, zweikampf-violent-struggle) and routes the business side beyond the management shelf: `theory-of-constraints` and `relevant-costs`/sunk-costs live in `00b` (*Principles of Accounting Vol 2*), and sunk-cost, opportunity-cost, and marginal-analysis concepts live in `00e` (*Principles of Economics 3e*). One gap to report honestly: **the task index carries no rows for `00q` at all** — the situation router does not yet cover the corpus's newest source. Routing for the Marine side therefore rests on the concept index and slug-table, which is sufficient here.
+
+**Candidate set and dedup.** `00q` (Warfighting), `00j` (Principles of Management), `00h` (Organizational Behavior), `00g` (Introduction to Business), `00b` (Accounting Vol 2), `00e` (Economics 3e). `00c` (Business Ethics) matched on stakeholder-theory for sub-claim 7, but `00h` (Follett) and `00j` (Freeman) already carry that sub-claim — skipped under the diversity-aware dedup rule.
 
 > **Tool calls**
 > - Read `mcdp1-warfighting-decision-making.md` (full).
 > - Read `openstax-principles-management-decision-making.md` (full).
 > - Read `openstax-organizational-behavior-decision-making.md` (full).
 > - Read `openstax-introduction-business-decision-making.md` (full).
+> - Read `openstax-accounting-vol2-decision-making.md` (full).
+> - Read `openstax-economics-3e-decision-making.md` (full).
 
-I have strong triangulated coverage across all five sub-claims. Every parallel now has the Warfighting side and at least one textbook-administration side, and the sources converge on some points and diverge sharply on others. Let me write the essay.
+Every sub-claim now has the Warfighting side and at least two textbook-side sources, with convergence and divergence both represented. The accounting and economics rows extend the comparison well beyond the management shelf. Let me write the essay.
 
 ---
 
 ## Two Doctrines of Deciding Under Uncertainty
 
-Read *MCDP 1: Warfighting* next to a stack of OpenStax management textbooks and something odd surfaces: the Marines and the business schools are answering the same question — *how do you decide well when you can't see the whole board?* — but they inherited that question from opposite ends of the twentieth century, and it shows. The parallels are real and useful. So are the places where the two traditions pull apart, and those are the more interesting part.
+Read *MCDP 1: Warfighting* against the OpenStax business shelf — not just the management row, but the accounting and economics rows beside it — and the same question keeps surfacing from both sides: *how do you decide well when you can't see the whole board?* The parallels are real and useful. So are the divergences. And one claim the narrower comparison invites turns out to be wrong once the whole shelf is on the table.
 
-### Where they agree: the environment is the problem, not the plan
+### Where they agree: the constraint is permanent
 
-MCDP 1's starting move is to name the environment before naming any method. War is *friction, uncertainty, fluidity, disorder, complexity, danger* — constitutive features, not exceptions to be engineered away. The doctrine is blunt that "no degree of technological development or scientific calculation will diminish the human dimension in war" [V]. The whole of Marine decision practice is built downstream of that claim: methods that assume the world is reducible, predictable, or fully analysable will fail, because the world isn't.
+MCDP 1 names the environment before naming any method: war is friction, uncertainty, fluidity, disorder — constitutive features, not exceptions. The doctrine is blunt that "no degree of technological development or scientific calculation will diminish the human dimension in war" [V]. Decision frameworks that assume the world is reducible will fail, because the world isn't.
 
-The management texts arrive at a strikingly similar place, but through a different door — cognitive science rather than combat. OpenStax's *Principles of Management* and *Organizational Behavior* both anchor decision-making in bounded rationality: "for complex issues we cannot be completely rational because we cannot fully grasp all the possible alternatives, nor can we understand all the implications of every possible alternative" [V]. Herbert Simon's insight, borrowed through the OB literature, is doing the same structural work as MCDP 1's Chapter 1: it says the constraint is permanent. You don't decide your way out of uncertainty; you decide *inside* it. Both traditions treat the limits on knowing as the founding condition, not a temporary shortfall to be fixed with more data.
+The management texts arrive at the same place through cognitive science. Bounded rationality anchors both OpenStax management volumes: "for complex issues we cannot be completely rational because we cannot fully grasp all the possible alternatives, nor can we understand all the implications of every possible alternative" [V]. And the economics text arrives through a third door, defining its whole subject as "the study of how humans make decisions in the face of scarcity" [V] — adding that "the ultimate scarce resource is time — everyone, rich or poor, has just 24 expendable hours in the day" [V]. Three disciplines, one founding condition: the limit on the decider is permanent, so you decide inside it. *Introduction to Business* concedes the same about control: "managers are primarily adapters to, rather than agents of, change" [V]. Neither tradition believes the decider owns the field.
 
-The convergence goes one layer deeper. *Introduction to Business* concedes that "managers are primarily adapters to, rather than agents of, change" [V] — a quieter, boardroom cousin of the Marine claim that the enemy and the environment get a vote. Neither tradition believes the decider is in control of the field.
+### The decision cycle: same skeleton, different clock
 
-### The decision cycle: OODA and the six-step process are the same skeleton
+MCDP 1 credits Boyd for Observe–Orient–Decide–Act and stakes its claim on *tempo*: the side that completes the cycle faster, or that the adversary cannot orient to, wins. The textbooks run the same loop at lower velocity — recognise, generate alternatives, analyse, select, implement, evaluate in the management volumes; a five-step variant closing with feedback in *Introduction to Business*, which warns that managers can get dangerously stuck at any stage. Analysis paralysis is a slow OODA loop by another name.
 
-MCDP 1 credits Boyd explicitly for Observe–Orient–Decide–Act, and stakes a claim about *tempo*: the side that completes the cycle faster, or operates in a way the adversary can't orient to, wins. A decision made slower than the situation changes is answering a question that no longer exists.
+The first-order emphasis gap is real: the management version optimises the *quality* of each step, the Marine version the *speed of the whole loop relative to the opponent's*. But the economics row complicates the neat contrast, because it prices delay explicitly: "the opportunity costs of waiting time can be just as important as costs that involve direct spending" [V]. The textbook shelf does carry a clock; it lives in the economics text rather than the management one, and it prices your waiting against your own alternatives rather than against an adversary's cycle.
 
-The textbooks run the same loop at lower velocity. OpenStax's six-step process — recognise, generate alternatives, analyse, select, implement, evaluate — is OODA with the serial numbers filed off and a monitoring stage bolted on. *Introduction to Business* runs a five-step variant that closes with "gather feedback," and even warns that "it can be easy (and dangerous) for managers to get stuck at any stage" [V] — analysis paralysis, which is just a slow OODA loop by another name. Boyd would recognise the pathology instantly: the manager stuck in the *Orient* node, re-analysing while the market moves.
+### Who decides: mission command in three vocabularies
 
-But notice the emphasis gap. The management version treats the *quality* of each step as the variable to optimise — better alternatives, better analysis, better evidence. MCDP 1 treats the *speed of the whole loop relative to the opponent's* as the variable. That difference isn't cosmetic; it's the tell of an adversarial versus a non-adversarial worldview, and I'll come back to it.
+MCDP 1's answer to *who should decide what* is **mission tactics**: the senior gives the what and the why — the commander's intent — never the how, and intent must be understood *two levels up*. Decentralisation works only when subordinates hold the intent; without it you get incoherence, not empowerment.
 
-### Who decides: mission command and decentralisation are the same argument
+*Introduction to Business* debates the same trade-off as **centralisation vs decentralisation** — warning both that centralisation can prevent quick local decisions in dynamic environments and that decentralisation without skills or training can produce costly mistakes — and renders it structurally as organic versus mechanistic design. The accounting volume adds a third vocabulary the narrower read missed: **responsibility centres**, which align decision authority with information access and accountability. That is the information-logic of mission command in accounting dress: push the decision to where the information lives, and hold the decider accountable for what they control. What the textbook shelf still lacks is MCDP 1's sharpest instrument — intent two levels up as the *specific content* the empowered subordinate must hold. The textbooks say decentralisation needs skills; the Marines say precisely which skill: the boss's boss's purpose.
 
-This is the cleanest parallel in the corpus. MCDP 1's answer to *who should decide what* is **mission tactics**: the senior gives the *what* and the *why* — the commander's intent — and never the *how*. Subordinates execute within intent, and intent must be understood *two levels up*. The doctrine is precise about the failure mode: decentralisation works only when subordinates hold the intent; strip out the shared intent and you don't get empowerment, you get incoherence.
+### Priorities: the textbooks have a Schwerpunkt after all
 
-The textbooks are debating the identical trade-off under the label **centralisation vs decentralisation**. *Introduction to Business* frames it as "a decision about who decides," and flags both failure modes the Marines worry about: "centralisation can prevent quick local decisions in dynamic environments," but "decentralisation without skills or training can produce costly mistakes." That second caution is exactly MCDP 1's point — pushing authority down without the shared understanding to hold it is not delegation, it's abdication. The same book's structural chapter adds that organic (decentralised) structures support "faster, more dispersed decision-making" while mechanistic ones support rule-based control — which is mission command and detailed command rendered as an org-chart choice.
+Here the whole shelf corrects the essay a narrower read produces. Compare MCDP 1's **Schwerpunkt** — name one main effort; everything else supports it; supporting yields when they conflict — with the management shelf alone, and the textbooks look like better-prioritisation people: Drucker's eight goal areas, SWOT, weighted analysis. Prioritising better preserves the multi-priority frame; naming a main effort breaks it.
 
-What the management tradition *lacks* here is MCDP 1's sharpest instrument: **intent two levels up** as the specific mechanism that makes decentralisation cohere. The textbooks tell you decentralisation needs "skills and training"; the Marines tell you *what* the trained subordinate must specifically hold — not competence in the abstract, but the boss's boss's purpose. That's a more actionable answer, and it's the one piece of the doctrine I'd hand a manager first.
+But managerial accounting carries the textbook tradition's own one-filter discipline: **constrained-resource allocation**. When a resource binds, rank every product by contribution margin per unit of *the constraining resource* — not by unit margin. The highest-margin product is often the wrong priority; what matters is yield against the single binding constraint. The volume carries this from Goldratt's Theory of Constraints [BT], and it does to product-mix decisions exactly what Schwerpunkt does to operations: one thing governs, everything else is ranked against it.
 
-### Where they diverge, and the divergence is the point
+The residual difference is sharper for being narrower. The Marine main effort is *chosen* — a bid, an act of will that can be shifted mid-fight as gaps appear. The accounting constraint is *discovered* — an empirical fact about capacity you find and exploit. One tradition names its focus; the other finds it. That is the true divergence, and it is smaller than the one the management shelf alone suggests.
 
-**Priority-setting.** Faced with too many simultaneous demands, the two traditions give opposite advice. MCDP 1 filters *every* decision through the **Schwerpunkt** — the main effort. Name one main effort; everything else is supporting; the supporting effort yields when they conflict. The discipline is structural, not analytical. The management texts reach instead for *better prioritisation* — Drucker's eight-area goal framework, SWOT, weighted analysis across market standing, innovation, profitability, and so on. But as the Warfighting distillation notes, prioritising better *preserves* the multi-priority frame; naming a single main effort *breaks* it. Porter's "stuck in the middle" — the warning that a firm chasing both cost leadership and differentiation excels at neither — is the closest the textbooks come to Schwerpunkt, and it's revealing that it lives in *strategy*, the most adversarial corner of the business curriculum.
+### The asymmetry on inaction: the mirror has a crack
 
-**The asymmetry on inaction.** MCDP 1 rejects zero-defects outright: *severity on errors of inaction, leniency on overbold errors*. The safest move must not be to wait. The management texts have no equivalent doctrine. They're deeply concerned with errors of *commission* — escalation of commitment, sunk-cost defence, snap judgements, groupthink — and their remedies (devil's advocate, precommitted monitoring, "distinguish bad luck from a bad decision") are almost all brakes on acting too fast or too surely. The one tradition is engineered against paralysis; the other is engineered against recklessness. That's not a contradiction so much as a mirror: each doctrine is calibrated against the characteristic failure of its own field. Militaries die of hesitation; corporations die of overconfidence.
+MCDP 1 rejects zero-defects outright: *severity on errors of inaction, leniency on overbold errors*. The management texts brake in the opposite direction, and for cause: their catalogued failures are failures of commission — escalation of commitment, "the tendency of decision makers to remain committed to poor decision, even when doing so leads to increasingly negative outcomes" [V], groupthink [V], and the remedies are devil's advocates and precommitted monitoring.
 
-**Doctrine as thinking vs framework as tool — and here they secretly agree.** MCDP 1's most general claim is that doctrine is *a way of thinking*, not a checklist; frameworks are useful insofar as they develop judgment and corrosive insofar as they substitute for it. The maintenance question is never "are we following the framework?" but "are we still exercising the thinking the framework was meant to develop?" You'd expect the textbooks — with their SWOT matrices and five-step processes — to be the villains of that sentence. They're not, quite. OpenStax explicitly warns against running frameworks mechanically, names the reactive-vs-reflective systems precisely so managers learn *which* to engage rather than defaulting, and insists a good process can yield a bad outcome under uncertainty. The better business-school reading and the Marine reading land in the same place: the framework is scaffolding for judgment, and judgment is the thing.
+Yet the economics row again refuses the clean mirror, because it carries anti-hesitation machinery of its own. It names why waiting feels safe: loss aversion — a loss pains roughly 2.25 times more than an equivalent gain helps [BT] — and it orders the release: "the lesson of sunk costs is to forget about the money and time that is irretrievably gone and instead to focus on the marginal costs and benefits of current and future options" [V]. The accounting volume drums the same refrain into every short-term decision category. So the honest contrast is institutional, not intellectual: the textbook shelf *hands the manager tools* against both failure directions and leaves the calibration to judgment; the Marines *legislate the asymmetry as policy*, because their characteristic death is hesitation. The tools exist on both sides. Only one side turned them into doctrine.
+
+### Doctrine as thinking: three-way agreement
+
+MCDP 1's most general claim — doctrine is a way of thinking, not a checklist — turns out to be the one the whole shelf endorses. The management texts warn against running frameworks mechanically and insist a good process can yield a bad outcome under uncertainty. The accounting volume makes the same move in its own material: costs are not intrinsically fixed or variable — the classification is decision-relative, and the practitioner's question is "fixed *for what decision*?" A label that must be re-derived per decision is judgment wearing a taxonomy. The framework is scaffolding; judgment is the thing. On this, no daylight.
 
 ### The one parallel that doesn't hold
 
-MCDP 1 frames war as *Zweikampf* — a violent struggle between two hostile, irreconcilable wills. That frame generates the doctrine's edge: the primacy of tempo, surfaces-and-gaps (avoid strength, exploit weakness, let the encountered gap pull the main effort), the whole logic of getting inside an opponent's decision cycle. The Warfighting distillation is explicit that this is the piece that *usually does not transfer*. Most business decisions run in environments with negotiable parties whose interests partly align — a market, a workforce, a regulator, a customer. The OpenStax texts encode exactly that: Follett's **integration** (both parties reach a creative agreement satisfying both) is offered as the *strongest* conflict outcome, and the management tradition treats stakeholders as people to align with, not enemies to out-cycle.
+MCDP 1 frames war as *Zweikampf* — a violent struggle between two hostile, irreconcilable wills — and its edge follows from that frame: tempo, surfaces-and-gaps, getting inside the opponent's cycle. The Warfighting distillation itself flags this as the piece that usually does not transfer. The textbook shelf encodes the opposite cosmology three times over. The management row offers Follett's integration — both parties reaching the creative agreement that satisfies both [BT] — as the strongest conflict outcome, and flatly rejects harming stakeholders for shareholder return: "increasing the wealth of shareholders is not an acceptable reason for causing harm to others" [V]. And the economics row is built on the founding scene of *mutually beneficial exchange*: comparative advantage says the counterparty is a trading partner whose different opportunity costs are the very reason to deal, not a will to break.
 
-So the honest synthesis is this: the *machinery* transfers cleanly — OODA, mission command, Schwerpunkt, the asymmetry against inaction, doctrine-as-judgment. The *cosmology* does not.
-
-Reach for the Marine playbook when your environment genuinely has an adversary and a clock: a competitor's product cycle, a crisis with no contingency plan, a negotiation that's genuinely zero-sum. Reach for the textbook when the room is full of stakeholders whose interests you can actually braid together — which, for most of management most of the time, is the room you're in. The mistake is using the *Zweikampf* frame on people who were never your enemy. That's not decisiveness; it's just picking a fight the situation didn't call for.
+So the synthesis holds, sharpened: the machinery transfers — OODA, mission command, constraint-governed priority, the case against hesitation, doctrine-as-judgment — and much of it has closer textbook cousins than a narrow read reveals. The cosmology does not transfer. Reach for the Marine playbook when there is genuinely an adversary and a clock; reach for the shelf when the room holds stakeholders and trading partners, which for most of management is most of the time. The mistake that survives every widening of the corpus is the same one: using the *Zweikampf* frame on people who were never your enemy.
 
 ---
 
 ```
-Trace [Synthesis, Depth-over-breadth, lens: none, corpus: demo]: Pass 1 (slug-table + decision-
-making distillation set) → sub-claims: nature of environment (mcdp1-warfighting + openstax-
-principles-management/bounded-rationality + openstax-introduction-business); decision cycle
-OODA↔six-step (mcdp1-warfighting + openstax-organizational-behavior + openstax-introduction-
-business); decentralisation↔mission-command (mcdp1-warfighting + openstax-introduction-business);
-priority/Schwerpunkt↔prioritisation (mcdp1-warfighting + openstax-principles-management/Porter);
-inaction-asymmetry + doctrine-as-thinking + Zweikampf-limit (mcdp1-warfighting + openstax-*
-convergence/divergence) → Pass 2 (4 distillations read in full) → verbatim [V] markers surfaced
-in-band from all four. Lens-neutral: no role-bound reader, no lens applied.
+Trace [Synthesis, Depth-over-breadth, lens: none, corpus: demo]: Pass 1 (lens-index + slug-table +
+concept-index (2 paginated reads, 4,210 lines) + decision-making/task-index (2 paginated reads,
+1,809 lines); gap noted: task-index carries no rows for 00q) → sub-claims: environment (00q +
+00j/00h bounded-rationality + 00g + 00e scarcity); cycle (00q + 00j/00h six-step + 00g five-step +
+00e waiting-cost); decentralisation↔mission-command (00q + 00g + 00b responsibility-centres);
+priority/Schwerpunkt↔constrained-resource (00q + 00j + 00b ToC-[BT]); inaction-asymmetry (00q +
+00j/00h escalation + 00e loss-aversion/sunk-cost + 00b sunk-cost); doctrine-as-thinking (00q + 00j
++ 00b decision-relative-costs); Zweikampf-limit (00q + 00j Follett/shareholder-rejection + 00e
+comparative-advantage) → dedup: 00c matched (stakeholder-theory) but skipped, 00h+00j already carry
+the sub-claim → Pass 2 (6 distillations read in full: 00q, 00j, 00h, 00g, 00b, 00e) → verbatim [V]
+markers surfaced in-band from the distillations. Lens-neutral: no role-bound reader, no lens
+applied (6 lenses checked).
 ```

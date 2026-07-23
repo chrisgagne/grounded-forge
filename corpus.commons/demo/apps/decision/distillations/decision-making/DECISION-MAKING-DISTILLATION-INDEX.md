@@ -240,6 +240,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Recognising recurring decision traps** | Five archetypes — fixes that fail, success to the successful, shifting the burden, drifting goals, limits to growth (SSDL 1.07, adapted from Kim 1993) | `ssdl-systems-thinking-foundations-decision-making.md` |
 | **Intervention design beyond the event surface** | Loop-structure change (add/remove/strengthen/weaken loops); second-order effects (SSDL 1.05) | `ssdl-systems-thinking-foundations-decision-making.md` |
 | **Audit: is the diagram being treated as proof?** | The illusion-of-accuracy failure mode; CLDs as hypotheses not answers (SSDL 1.05, 1.06) | `ssdl-systems-thinking-foundations-decision-making.md` |
+| **Too many simultaneous priorities; one main effort must be named** | Schwerpunkt / main effort; mission tactics (US Marine Corps, MCDP 1 Warfighting) | `mcdp1-warfighting-decision-making.md` |
+| **Fluid, adversarial, high-uncertainty decision environment** | Friction and uncertainty as constitutive; OODA tempo (US Marine Corps, MCDP 1 Warfighting) | `mcdp1-warfighting-decision-making.md` |
 
 ---
 
@@ -330,6 +332,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Diagnose complex-problem characteristics | SSDL, Systems Thinking Foundations (Brief 1.02) | `ssdl-systems-thinking-foundations-decision-making.md` | Test the situation against the five characteristics (dynamic, multi-stakeholder, time delays, unintended consequences, accumulations) — any one is a signal that linear decision rules will misfire. |
 | Apply the broken-ankle test | SSDL, Systems Thinking Foundations (Brief 1.02) | `ssdl-systems-thinking-foundations-decision-making.md` | If the path forward is obvious, or the decision has to be made immediately, *do not* produce diagrams. Systems-thinking apparatus has overhead; skip it when the situation doesn't warrant it. |
 | Surface the room's mental models before deciding | SSDL, Systems Thinking Foundations (Brief 1.03) | `ssdl-systems-thinking-foundations-decision-making.md` | Each participant holds a partial-but-valid model; partial models in isolation produce ineffective or counterproductive decisions. Ask each participant what they believe is producing the pattern *before* discussing options. |
+| Test whether the environment is stable or fluid | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | A decision method that assumes a reducible, predictable environment is being applied to a fluid one; MCDP-1 treats friction, uncertainty, fluidity, and disorder as constitutive features, not exceptions to be engineered away. |
+| Frame your tempo relative to the situation's | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Deciding how fast to decide; the operative question is *what is my OODA tempo relative to the situation's tempo?* — a decision made slower than the situation changes is answering a question that no longer exists. |
 
 ### Phase 2: Bounding
 
@@ -384,6 +388,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Vet a tool before adoption | FLO Facilitation Guide | `flo-facilitation-guide-decision-making.md` | When considering a tool not supported by institution — apply the six-question vetting (purpose, institutional rules, affordances, learner impact, alternatives, content-ownership). |
 | Identify the stock vs the flow | SSDL, Systems Thinking Foundations (Brief 1.06) | `ssdl-systems-thinking-foundations-decision-making.md` | The variable I'm acting on may be a flow rate (signups today, tests written this Sprint) when the relevant decision variable is the stock (waitlist size, technical-debt level, accumulated trust). Bound the decision around the stock, not the flow. |
 | Account for accumulated history | SSDL, Systems Thinking Foundations (Brief 1.06) | `ssdl-systems-thinking-foundations-decision-making.md` | The "blank slate" failure mode — treating a new stakeholder, team, or system state as if it has no history. The state I am bounding is an accumulation of inflows and outflows over time. |
+| Set decision rights by intent-sharing | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Deciding which decisions to centralise and which to decentralise; mission tactics enables decentralisation through intent-sharing, not through reduced authority — subordinates must hold the intent two levels up, or decentralisation produces incoherence. |
 
 ### Phase 3: Exploring
 
@@ -455,6 +460,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Map the feedback loops producing the pattern | SSDL, Systems Thinking Foundations (Brief 1.05) | `ssdl-systems-thinking-foundations-decision-making.md` | Replace the X-causes-Y frame with a structural read: what reinforcing and balancing loops produce the pattern you see? The CLD is a hypothesis to iterate, not an answer to defend. |
 | Test the situation against system archetypes | SSDL, Systems Thinking Foundations (Brief 1.07) | `ssdl-systems-thinking-foundations-decision-making.md` | Five named patterns — Fixes that Fail, Success to the Successful, Shifting the Burden, Drifting Goals, Limits to Growth. Use as starting hypotheses to test, not as labels to apply. |
 | Audit my own and the team's mental-model partiality | SSDL, Systems Thinking Foundations (Brief 1.03) | `ssdl-systems-thinking-foundations-decision-making.md` | None of us has the complete picture; the facilitator's view is partial too. Who is in the room? Whose voice is loudest? Mental models are *especially sticky* among those least exposed to the decision's downside. |
+| Search gaps, not surfaces | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Evaluating where to invest scarce attention, resources, or capital; avoid strength (surfaces), exploit weakness (gaps), and prefer reconnaissance pull — let the encountered weakness pull the main effort — over command push. |
 
 ### Phase 4: Deciding
 
@@ -522,6 +528,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Test strategic alignment of the chosen topology | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | Does the chosen org goal (flow, adaptiveness, utilisation) actually deliver the capabilities required by the business strategy? The ASSESS step is explicitly about testing the design for strategic alignment. |
 | Name the topology-specific failure mode you are accepting | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | Every topology has a named failure mode: Resource (narrow-specialist coordination cost), Delivery (feature bloat), Adaptive (high-variance outcomes). Name the one you are accepting before committing. |
 | Test for co-creator vs recipient framing of the org-change | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | "People, when not owning the change ideas, won't fully accept them." If the impacted population is being told rather than involved, the decision's execution will be degraded. |
+| Filter the choice through the main effort | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Too many simultaneous priorities; the doctrinal answer is not *prioritise better* but *name one main effort* — everything else is supporting, and the supporting effort yields when they conflict. |
+| Check the inaction asymmetry before defaulting to wait | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The safest available move is to defer or not-decide; MCDP-1 rejects zero defects and holds severity for errors of inaction, leniency for overbold errors — without the inversion, the structure produces caution-by-default. |
 
 ### Phase 5: Ratifying
 
@@ -567,6 +575,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Declare the target topology and archetype set in OT vocabulary | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | The commitment is being framed in framework language ("we're going SAFe") rather than topology language ("move R&D from CAPS-1 + TASKS-1 to CAPS-3"). Name the target precisely in OT vocabulary. |
 | Frame adopted frameworks as elevation tools, not the decision itself | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | If the decision involves adopting SAFe, LeSS, or Team Topologies, ratify them as Elevating Kata sources chosen because they help reach the target topology — not as the decision itself. |
 | Commit to incremental elevation and name the first experiments | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | Avoid big-bang reorganisation framing. "Elevation can be an incremental process." Ratify the first one or two Elevating Katas and the date of the next MAP cycle at the same moment as the topology decision. |
+| Ratify intent, not instructions | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Committing a decision that others will execute; the senior gives the what and the why (commander's intent), never the how — the how belongs to those executing within intent. |
 
 ### Phase 6: Monitoring
 
@@ -622,6 +631,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Re-MAP the organisation against the target archetypes | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | Has the org actually moved toward the target archetypes, or did the change stall at announcement? "Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop." |
 | Test for drift back toward Resource Topology under predictability pressure | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | Resource is the cultural default; utilisation-as-default pressure is constant. Drift back shows in re-MAP as movement toward CAPS-1 / TASKS-level archetypes after an elevation commitment. |
 | Surface new bottlenecks after elevation | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | AI-driven elevation dissolves expertise constraints and surfaces coordination ones. After a successful elevation cycle, re-apply the three AI-investment questions to the *next* binding bottleneck. |
+| Test whether the framework is still developing judgment | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | A decision framework has gone mechanical; doctrine is a way of thinking, not a checklist — the maintenance question is not *are we following the framework?* but *are we still exercising the thinking the framework was designed to develop?* |
 
 ---
 

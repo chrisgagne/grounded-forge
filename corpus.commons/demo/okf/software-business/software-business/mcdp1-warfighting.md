@@ -2,12 +2,14 @@
 type: distillation
 title: "U.S. Marine Corps, MCDP-1 Warfighting"
 description: "U.S. Marine Corps, MCDP-1 Warfighting, projected onto the software-business task axis; evidence markers and attribution travel in-band."
+resource: https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf
 tags: [distillation, software-business]
 task: software-business
 scope: open
 sources:
   - id: mcdp1-warfighting
     title: "U.S. Marine Corps (1997). MCDP 1: Warfighting. Headquarters United States Marine Corps, Department of the Navy, 20 June 1997. PCN 142 000006 00. Supersedes FMFM 1 Warfighting (1989). Licence: Public domain (US Government work product). Scope: open."
+    resource: https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf
 generated:
   by: grounded-forge/0.4.0
   at: 2026-07-21T11:45:47+12:00

@@ -15,6 +15,7 @@ builds:
     output_dir: ...
     max_scope: ...
     max_visibility: ...
+    okf: ...
     references: {...}
     distillations: {...}
     lenses: {...}
@@ -68,6 +69,13 @@ Type: one of `open` | `open-nc` | `copyrighted` | `confidential`.
 Required: no. Default: `open-nc`.
 
 The lens-visibility ceiling for this profile. Lenses whose `visibility:` frontmatter exceeds this rank are excluded at build time. Parallel to `max_scope` but filters lenses (which carry their own visibility frontmatter), not references (which carry `Scope:`). `personal` is never admissible. The full visibility taxonomy mirrors the scope taxonomy.
+
+### `okf`
+
+Type: `true` | `only`.
+Required: no. Default: unset (no bundle emitted).
+
+`true` serialises the profile's compiled app as an Open Knowledge Format (v0.2) interchange bundle at `{corpus}/okf/{profile}/`, after app validation passes. `only` emits the bundle and no app: the gated pipeline (scope ceiling, visibility ceiling, verbatim gate) runs into a throwaway staging directory, only the bundle lands at `output_dir`, and the app-furniture fields (`skills`, `agents`, `claude_md`, `docs`, `validation`) are unused. Because the bundle is serialised from the gated output, `max_scope` and `max_visibility` apply to it by construction. Emission is validated at build time (frontmatter, reserved-file rules, internal links) and fails the build on violation. See [`docs/how-to/emit-okf.md`](../how-to/emit-okf.md) and [`docs/architecture/okf-interop.md`](../architecture/okf-interop.md).
 
 ### `references`
 

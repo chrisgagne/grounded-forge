@@ -11,6 +11,7 @@ The grammar this repo uses. Read this once; the rest of the architecture docs as
 | Library, layer 2 | **distillation** | *distil* |
 | Modifier on distillation | **lens** | a lens *shapes* a distillation |
 | Final product | **application** | *assemble* / *build* |
+| Interchange | **bundle** | *emit* |
 
 A *source* enters as an original (PDF, EPUB, HTML) and is *converted* to markdown (markitdown or pymupdf4llm). The converted form is read by the 9-pass ingestion protocol, which *ingests* the source into a pair of **references**: the deep reference (full-coverage, verbatim quotes, evidence markers, citation-ready) and the light reference (fast-orientation summary derived from the deep). References are task-neutral and lens-neutral; they describe the source.
 
@@ -24,7 +25,11 @@ Lenses come in three kinds, distinguished by where the lens's intelligence comes
 
 Lens specs live at `corpus.commons/demo/lenses/{lens-slug}.md` and are designed under the `creating-lenses` skill at [`.claude/skills/creating-lenses/SKILL.md`](../../.claude/skills/creating-lenses/SKILL.md).
 
-An **application** is the distributable bundle an operator ships. The demo corpus ships five (`decision`, `stakeholder`, `software-business`, `aar-mode`, `retro-mode`), each at `corpus.commons/demo/apps/{profile}/`. An application is composed of: a corpus of references, distillations of those references for the application's task axes, optionally lenses that shape those distillations, and a runtime configuration (CLAUDE.md, build profile, distribution metadata). One application can include multiple task axes; the same reference can appear twice in one application, distilled through two different tasks.
+An **application** is the distributable assembly an operator ships. The demo corpus ships five (`decision`, `stakeholder`, `software-business`, `aar-mode`, `retro-mode`), each at `corpus.commons/demo/apps/{profile}/`. An application is composed of: a corpus of references, distillations of those references for the application's task axes, optionally lenses that shape those distillations, and a runtime configuration (CLAUDE.md, build profile, distribution metadata). One application can include multiple task axes; the same reference can appear twice in one application, distilled through two different tasks.
+
+An application's data layer can additionally be *emitted* as a **bundle**: a serialisation of its distillations, routers, lenses, and licence manifest into a published interchange format — currently the Open Knowledge Format (OKF v0.2), at `{corpus}/okf/{profile}/`. Emitting is not assembling. The application carries artefacts *plus runtime* (skills, CLAUDE.md, agents, retrieval discipline); the bundle carries the artefacts alone, shaped for any conformant consumer. Because a bundle is serialised from the built application, every distribution gate that applied to the application applies to it. See [`docs/architecture/okf-interop.md`](../architecture/okf-interop.md).
+
+The verb chain, end to end: *convert* → *ingest* → *distil* → *assemble* → *emit*.
 
 ## Matrix axes
 

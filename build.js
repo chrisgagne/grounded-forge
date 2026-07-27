@@ -12,16 +12,23 @@
  * distillation index, lenses, skills, CLAUDE.md). Same sources behind
  * the scenes; different task projections per profile.
  *
+ * Profiles with `okf: true` additionally serialise their gated output as
+ * an Open Knowledge Format (v0.2) interchange bundle at
+ * {corpus}/okf/{profile}/; `okf: only` emits the bundle and no app.
+ * See scripts/lib/emit-okf.js and docs/architecture/okf-interop.md.
+ *
  * Usage:
  *   node build.js [profile]   Build one profile
  *   node build.js --all       Build all profiles
  *   node build.js --list      List profiles
- *   node build.js --clean     Remove apps/
+ *   node build.js --clean     Remove apps/ and okf/
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const yaml = require("js-yaml");
+const { emitOkfBundle, validateOkfBundle } = require("./scripts/lib/emit-okf");
 
 const CONFIG_FILE = "builds.yaml";
 
@@ -146,6 +153,27 @@ class MatrixBuilder {
     }
     fs.mkdirSync(outputDir, { recursive: true });
 
+    // OKF-only profiles compile no app. The gated pipeline (scope ceiling,
+    // visibility ceiling, verbatim gate) runs into a throwaway staging dir,
+    // and only the emitted bundle lands at output_dir. Skills, agents,
+    // CLAUDE.md, and docs are app furniture — a bundle is data interchange,
+    // so those steps do not run.
+    if (profile.okf === "only") {
+      const staging = fs.mkdtempSync(
+        path.join(os.tmpdir(), `gf-okf-${profileName}-`)
+      );
+      try {
+        await this.buildCorpusIndexes(profile, staging);
+        await this.buildDistillations(profile, staging);
+        await this.buildLenses(profile, staging);
+        await this.buildOkf(profile, staging, outputDir, profileName);
+      } finally {
+        fs.rmSync(staging, { recursive: true, force: true });
+      }
+      console.log(`\nComplete: ${outputDir}`);
+      return outputDir;
+    }
+
     await this.buildCorpusIndexes(profile, outputDir);
     await this.buildDistillations(profile, outputDir);
     await this.buildLenses(profile, outputDir);
@@ -158,8 +186,52 @@ class MatrixBuilder {
 
     await this.validate(profile, outputDir, profileName);
 
+    // OKF emission runs after validation so a bundle is only ever
+    // serialised from an app that passed. The bundle lands beside apps/
+    // (never inside the app folder — an app runtime must not see its
+    // distillation content doubled).
+    if (profile.okf === true) {
+      const bundleDir = path.join(this.sourceDir, "okf", profileName);
+      await this.buildOkf(profile, outputDir, bundleDir, profileName);
+    }
+
     console.log(`\nComplete: ${outputDir}`);
     return outputDir;
+  }
+
+  // Serialise a built (gated) app directory into an OKF v0.2 bundle and
+  // run the build-time conformance check. The emitter is a pure function
+  // of the app output: every distribution gate has already been applied
+  // by the steps above.
+  async buildOkf(profile, appDir, bundleDir, profileName) {
+    const version = JSON.parse(
+      fs.readFileSync(path.join(this.repoRoot, "package.json"), "utf8")
+    ).version;
+    const result = emitOkfBundle({
+      appDir,
+      bundleDir,
+      corpusDir: this.sourceDir,
+      profileName,
+      version,
+      corpusName: path.basename(this.sourceDir),
+    });
+    const axisWord = result.taskAxes.length === 1 ? "task axis" : "task axes";
+    console.log(
+      `  OKF bundle: ${result.conceptCount} concept files, ${result.taskAxes.length} ${axisWord}, ${result.lensCount} lenses -> ${path.relative(this.repoRoot, bundleDir)}`
+    );
+    for (const w of result.warnings) console.log(`    Warning: ${w}`);
+
+    const check = validateOkfBundle(bundleDir);
+    if (check.errors.length > 0) {
+      console.log(
+        `    OKF conformance ........ FAIL (${check.errors.length} error(s))`
+      );
+      for (const e of check.errors.slice(0, 10)) console.log(`      ${e}`);
+      throw new Error(`OKF bundle failed conformance checks: ${bundleDir}`);
+    }
+    console.log(
+      `    OKF conformance ........ PASS (${check.conceptCount} concepts, ${check.linksChecked} bundle links checked)`
+    );
   }
 
   // Apps ship distillations as the source-grounded product. The reference
@@ -1404,12 +1476,16 @@ source text — they are your citable provenance.
       this.repoRoot,
       this.config.defaults?.output_base || "./apps"
     );
-    if (fs.existsSync(appsBase)) {
-      fs.rmSync(appsBase, { recursive: true });
-      console.log(`Cleaned: ${appsBase}`);
-    } else {
-      console.log("Nothing to clean.");
+    const okfBase = path.join(this.defaultSourceDir, "okf");
+    let cleaned = 0;
+    for (const dir of [appsBase, okfBase]) {
+      if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true });
+        console.log(`Cleaned: ${dir}`);
+        cleaned++;
+      }
     }
+    if (cleaned === 0) console.log("Nothing to clean.");
   }
 }
 
@@ -1424,11 +1500,14 @@ Usage:
   node build.js [profile]    Build one profile
   node build.js --all        Build all profiles
   node build.js --list       List profiles
-  node build.js --clean      Remove apps/
+  node build.js --clean      Remove apps/ and okf/
+
+Profiles with okf: true also emit an OKF v0.2 interchange bundle at
+{corpus}/okf/{profile}/; okf: only emits the bundle and no app.
 
 Examples:
   node build.js decision
-  node build.js stakeholder
+  node build.js matrix
   node build.js --all
 `);
     return;

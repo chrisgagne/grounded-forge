@@ -1,22 +1,30 @@
 #!/usr/bin/env node
 
 /**
- * Package a compiled app as a versioned, scope-labelled tarball.
+ * Package a compiled app — or an emitted OKF bundle — as a versioned,
+ * scope-labelled tarball.
  *
  * Usage:
  *   node scripts/package.js <app-name>
  *   node scripts/package.js decision
+ *   node scripts/package.js decision --okf     Package the app's OKF bundle
+ *   node scripts/package.js matrix             okf: only profiles package
+ *                                              their bundle automatically
  *   node scripts/package.js --all
  *
- * Reads the app at corpus.commons/{corpus}/apps/{app-name}/, computes the
- * most-restrictive scope across its references, writes a manifest of
- * every reference's licence + scope into the bundle, and produces
- *   corpus.commons/{corpus}/distros/{app-name}-v{version}-{scope}.tar.gz
+ * App mode reads the app at corpus.commons/{corpus}/apps/{app-name}/,
+ * computes the most-restrictive scope across its references, writes a
+ * manifest of every reference's licence + scope into the bundle, and
+ * produces corpus.commons/{corpus}/distros/{app-name}-v{version}-{scope}.tar.gz
+ *
+ * OKF mode tars the emitted bundle at corpus.commons/{corpus}/okf/{app-name}/
+ * (which already carries its LICENCE-MANIFEST.md; the scope label is read
+ * from it) into {app-name}-okf-v{version}-{scope}.tar.gz.
  *
  * Hard refusals (build/operator bug, never an intentional ship):
  *   - secrets present (.env, credentials.json, *.pem)
  *   - operator-only artefacts present (_audit/, _planning/, _ingest_*)
- *   - reference with no parseable Scope: line
+ *   - reference with no parseable Scope: line / bundle with no manifest
  *
  * Labels (constraint travels with artefact, recipient sees in filename):
  *   - bundle's most-restrictive scope → filename suffix
@@ -24,6 +32,7 @@
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const tar = require("tar");
 const yaml = require("js-yaml");
@@ -252,9 +261,94 @@ function writeManifest(appDir, appName, version, scope, rows) {
   return manifestPath;
 }
 
-async function packageApp(appName) {
+// Package an emitted OKF bundle. The bundle already carries its
+// LICENCE-MANIFEST.md (written by the emitter at build time); the scope
+// label is read from it rather than recomputed — refusing to package a
+// bundle without one keeps a stale or hand-made tree from shipping
+// unlabelled. The tarball's top-level directory is {name}-okf/ so an
+// extracted bundle never collides with the same profile's extracted app.
+async function packageOkfBundle(appName, profile) {
+  const version = readVersion();
+  const bundleDir =
+    profile.okf === "only"
+      ? path.resolve(REPO_ROOT, profile.output_dir)
+      : path.resolve(REPO_ROOT, profile.output_dir, "..", "..", "okf", appName);
+  if (!fs.existsSync(bundleDir)) {
+    throw new Error(
+      `OKF bundle not built: ${bundleDir}\nRun 'npm run build:${appName}' first.`
+    );
+  }
+
+  console.log(`\nPackaging OKF bundle: ${appName}`);
+  console.log(`  Bundle dir: ${path.relative(REPO_ROOT, bundleDir)}`);
+  console.log(`  Version: ${version}`);
+
+  const distrosDir = path.resolve(bundleDir, "..", "..", "distros");
+  fs.mkdirSync(distrosDir, { recursive: true });
+
+  const files = walk(bundleDir);
+  refuseOnSecrets(files);
+  refuseOnOperatorArtefacts(files);
+
+  const manifestPath = path.join(bundleDir, "LICENCE-MANIFEST.md");
+  if (!fs.existsSync(manifestPath)) {
+    throw new Error(
+      `Refusing to package: no LICENCE-MANIFEST.md in\n  ${bundleDir}\n` +
+        `Rebuild the bundle (npm run build:${appName}) so the emitter writes the manifest. ` +
+        `Packaging without it would ship the bundle unlabelled.`
+    );
+  }
+  const manifest = fs.readFileSync(manifestPath, "utf8");
+  const scopeMatch = manifest.match(/^\*\*Most-restrictive scope:\*\*\s*(\S+)/m);
+  if (!scopeMatch || !(scopeMatch[1] in SCOPE_RANK)) {
+    throw new Error(
+      `Refusing to package: LICENCE-MANIFEST.md in ${bundleDir} has no parseable most-restrictive scope.`
+    );
+  }
+  const scope = scopeMatch[1];
+  console.log(`  Most-restrictive scope: ${scope}`);
+
+  // Stage under the collision-safe top-level name, tar, clean up.
+  const stagingRoot = fs.mkdtempSync(path.join(os.tmpdir(), "gf-pkg-okf-"));
+  const topLevel = `${appName}-okf`;
+  fs.cpSync(bundleDir, path.join(stagingRoot, topLevel), { recursive: true });
+
+  const tarballName = `${topLevel}-v${version}-${scope}.tar.gz`;
+  const tarballPath = path.join(distrosDir, tarballName);
+  try {
+    await tar.create(
+      { file: tarballPath, gzip: true, cwd: stagingRoot },
+      [topLevel]
+    );
+  } finally {
+    fs.rmSync(stagingRoot, { recursive: true, force: true });
+  }
+
+  const sizeKb = Math.round(fs.statSync(tarballPath).size / 1024);
+  console.log(`\n  Wrote: ${path.relative(REPO_ROOT, tarballPath)} (${sizeKb} KB)`);
+  console.log(`\n  Recipient install:`);
+  console.log(`    tar -xzf ${tarballName}`);
+  console.log(`    okf validate ${topLevel}    # any OKF v0.2 consumer can read it`);
+
+  if (scope !== "open") {
+    console.log(`\n  ⚠  Scope is '${scope}'. Distribute only to recipients authorised at this level.`);
+  }
+}
+
+async function packageApp(appName, opts = {}) {
   const version = readVersion();
   const config = loadBuildsConfig();
+  const profile = config.builds?.[appName];
+  if (!profile) {
+    throw new Error(
+      `Unknown app: '${appName}'. Run 'npm run list' to see available profiles.`
+    );
+  }
+  // okf: only profiles have no app to package; --okf targets a profile's
+  // emitted bundle instead of its app.
+  if (opts.okf || profile.okf === "only") {
+    return packageOkfBundle(appName, profile);
+  }
   const { appDir } = resolveAppDir(appName, config);
 
   console.log(`\nPackaging: ${appName}`);
@@ -313,20 +407,25 @@ async function main() {
   if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
     console.log(`
 Usage:
-  node scripts/package.js <app-name>    Package one app
-  node scripts/package.js --all         Package every built app
+  node scripts/package.js <app-name>          Package one app
+  node scripts/package.js <app-name> --okf    Package the app's OKF bundle
+  node scripts/package.js --all               Package every built app
 
-Produces corpus.commons/{corpus}/distros/{app}-v{version}-{scope}.tar.gz.
+Produces corpus.commons/{corpus}/distros/{app}-v{version}-{scope}.tar.gz
+(or {app}-okf-v{version}-{scope}.tar.gz in OKF mode). Profiles declared
+okf: only always package their bundle.
 `);
     return;
   }
+  const flags = new Set(args.filter((a) => a.startsWith("--")));
+  const names = args.filter((a) => !a.startsWith("--"));
   const config = loadBuildsConfig();
-  const targets = args.includes("--all") ? Object.keys(config.builds || {}) : args;
+  const targets = flags.has("--all") ? Object.keys(config.builds || {}) : names;
 
-  console.log(`Packaging ${targets.length} app(s)...`);
+  console.log(`Packaging ${targets.length} target(s)...`);
   for (const t of targets) {
     try {
-      await packageApp(t);
+      await packageApp(t, { okf: flags.has("--okf") });
     } catch (e) {
       console.error(`\nFAILED: ${t}\n  ${e.message}`);
       process.exitCode = 1;

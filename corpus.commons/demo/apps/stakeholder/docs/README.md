@@ -25,6 +25,7 @@ The seven tutorials are sequential and incremental. Each introduces one or two s
 
 - [Build your library](how-to/build-your-library.md): fork the repo, pick task axes, ingest sources, configure builds, ship.
 - [Extend or clear the demo](how-to/extend-or-clear-the-demo.md): finish the image classification on the demo corpus, or strip it and start fresh.
+- [Emit an OKF bundle](how-to/emit-okf.md): serialise any profile's gated output as a portable Open Knowledge Format (v0.2) bundle.
 
 ## Reference: lookup material
 
@@ -46,6 +47,7 @@ The seven tutorials are sequential and incremental. Each introduces one or two s
 - [Capability binding](architecture/capability-binding.md): how profiles declare abstract capabilities and the runtime resolves them.
 - [Known architectural limits](architecture/known-architectural-limits.md): three limits intrinsic to the design.
 - [Copyright](architecture/copyright.md): the operator's stance and the system's neutrality.
+- [OKF interop](architecture/okf-interop.md): emitting corpora as Open Knowledge Format bundles; the container-vs-producer argument.
 - [Decisions and non-decisions](architecture/decisions-and-non-decisions.md): what was decided, what was considered and turned down, what's deferred.
 
 ## Top-level

@@ -24,7 +24,7 @@ Further reading: [`docs/architecture/gridmaker.md`](docs/architecture/gridmaker.
 
 ## Build system
 
-Each build profile is an application: a distributable bundle composed of references and the per-task distillations the application needs. Profiles are listed in [`builds.yaml`](builds.yaml).
+Each build profile is an application: a distributable assembly composed of references and the per-task distillations the application needs. Profiles are listed in [`builds.yaml`](builds.yaml).
 
 Profiles ship distinct content: distinct distillation directory (which carries its own distillation index), distinct CLAUDE.md template. Same references across profiles.
 
@@ -32,17 +32,18 @@ Profiles ship distinct content: distinct distillation directory (which carries i
 npm install
 npm run build              # all profiles
 npm run build:{profile}    # one profile
-npm run clean              # remove apps/
+npm run clean              # remove apps/ and okf/
 npm run list               # list profiles
 ```
 
-The build is in [`build.js`](build.js); profiles configured in [`builds.yaml`](builds.yaml); profile CLAUDE.md templates live at `{source_dir}/build-profiles/{profile}.md` (corpus-bound).
+The build is in [`build.js`](build.js); profiles configured in [`builds.yaml`](builds.yaml); profile CLAUDE.md templates live at `{source_dir}/build-profiles/{profile}.md` (corpus-bound). Profiles with `okf: true` additionally *emit* their gated output as an Open Knowledge Format (v0.2) interchange bundle at `{corpus}/okf/{profile}/` (the emitter is `scripts/lib/emit-okf.js`; `okf: only` emits the bundle and no app). See [`docs/architecture/okf-interop.md`](docs/architecture/okf-interop.md) and [`docs/how-to/emit-okf.md`](docs/how-to/emit-okf.md).
 
-v0.3.0 ships five public profiles (open-nc ceiling) under `corpus.commons/demo/`:
+v0.4.0 ships six public profiles (open-nc ceiling) under `corpus.commons/demo/`:
 
 - `decision`, `stakeholder`, `software-business`: three task-axis projections of the same reference corpus.
 - `aar-mode`: open-corpus After-Action Review assistant.
 - `retro-mode`: open-corpus retrospective-facilitation assistant.
+- `matrix`: the all-axes OKF interchange bundle (`okf: only`; no app).
 
 Private profiles, if any, live in per-corpus `builds.yaml` files under `corpus.local/{corpus}/` and are auto-discovered by `build.js` when present. The two corpus.commons ceremony profiles share the reference axis with the corpus.commons decision-making and stakeholder-engagement axes; together they make the matrix architecture operationally visible: one corpus, multiple task projections.
 
@@ -71,6 +72,7 @@ corpus.commons/                                 # tracked — open or open-nc; s
     lenses/                                     # Lens specs + LENS-INDEX.md
     .claude/skills/                             # Corpus-bound skills (see below)
     apps/{profile}/                             # Compiled outputs (tracked)
+    okf/{profile}/                              # Emitted OKF v0.2 bundles (tracked)
     distros/                                    # Packaged release artefacts
 corpus.local/                                   # gitignored — operator's private corpora and their outputs
 ```

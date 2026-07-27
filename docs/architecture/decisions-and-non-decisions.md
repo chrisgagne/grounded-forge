@@ -110,6 +110,14 @@ A sixth task axis would be a new column with a new build profile, not a new repo
 
 A Sonnet-drafted todo proposed audio notifications on session-end. Rejected: cute, irrelevant to the architectural pitch. A reviewer evaluating retrieval architecture is not moved by "my Mac dings when ingestion finishes." Reverse course if a use case appears.
 
+### Decision: emit OKF interchange bundles from gated app output
+
+Profiles that declare `okf: true` in `builds.yaml` serialise their compiled output as an Open Knowledge Format (v0.2) bundle at `{corpus}/okf/{profile}/`; the `matrix` profile (`okf: only`) emits the all-axes bundle and no app. The emitter (`scripts/lib/emit-okf.js`) is a pure function of the built app, so the `max_scope` ceiling, the `max_visibility` ceiling, and the [V]-verbatim gate apply to bundles by construction — no second gate implementation exists to drift. Bundles are byte-deterministic across rebuilds, carry the licence manifest in-tree, declare `generated:` but deliberately not `verified:` (Pass I is internal consistency, not independent confirmation), and pass the community `okf validate` CLI with zero errors. The full argument is in [`okf-interop.md`](okf-interop.md).
+
+### Considered: forking Google's OKF Reference Agent as the producer
+
+Google ships a reference OKF producer: an LLM enrichment agent that writes concept files from BigQuery metadata and web crawl. Forking it looked like the fast path to OKF support. Rejected on two grounds. Its input shape is warehouse metadata, not the books, papers, and doctrine this repo ingests — the adaptation would replace most of the code. And it is an un-audited probabilistic writer: nothing between the model and the emitted claim checks the claim against a source, which is precisely the failure class the 9-pass protocol's Pass I exists to neutralise. Adopting it would have meant importing the problem this architecture is built to solve, wrapped in a conformant container. Emitting from already-audited distillations gets the same format with the provenance intact.
+
 ### Considered: shipping demo transcripts
 
 Capturing 3–5 `/answer-from-corpus` transcripts (one Named lookup, one Diagnostic, one Synthesis) as static markdown so a reviewer who can't clone-and-run still sees the system working. Deferred to a later push, not because the artefact is wrong, but because operator-led capture against the live corpus has more credibility than scripted output. The Chroma `--check` path provides a smaller version of the same demonstration: a reviewer who runs `python3 scripts/setup-chroma.py --check` sees natural-language queries route to pre-projected distillations, without involving Claude Code at all.

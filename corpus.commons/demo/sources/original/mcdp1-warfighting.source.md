@@ -5,6 +5,7 @@ publisher: "Headquarters United States Marine Corps, Department of the Navy"
 publish_year: 1997
 publication_id: "PCN 142 000006 00"
 supersedes: "FMFM 1 Warfighting (1989)"
+url: "https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf"
 scope: open
 licence: "U.S. Government public-domain"
 ingested: 2026-05-21
@@ -21,7 +22,7 @@ US Government public-domain publication; freely distributable (PCN 142 000006 00
 
 Intellectual lineage (uncredited in the document; well-established historically): John Boyd (whose *Patterns of Conflict* lecture supplied the OODA loop, named explicitly at Ch 2 Notes 18); William S. Lind (whose 1985 *Maneuver Warfare Handbook* is cited at Ch 4 Notes 11); Mike Wyly (Marine Corps tactics teacher at the Amphibious Warfare School at Quantico); G.I. Wilson (Marine Corps officer acting as Boyd's liaison). Clausewitz's *On War* and Sun Tzu's *Art of War* are the explicit philosophical companions throughout.
 
-Source text acquired in operator-personal storage; the publication is US Government public-domain. Plain-text version; no binary conversion needed.
+Source text acquired in operator-personal storage; the publication is US Government public-domain. Plain-text version; no binary conversion needed. The canonical URL above serves the same edition (PCN 142 000006 00, foreword dated 20 June 1997 — both verified against the 2026-03-22 Wayback snapshot of that URL); the live marines.mil host 403s automated clients, so re-verification goes through the archive.
 
 Deep reference: [`corpus.local/aarbuddy/references/mcdp1-warfighting-deep.md`](../../references/mcdp1-warfighting-deep.md). Light reference: [`corpus.local/aarbuddy/references/mcdp1-warfighting.md`](../../references/mcdp1-warfighting.md). Pass I audit: [`corpus.local/aarbuddy/references/_audit/_ingest_pass_I_mcdp1-warfighting_source_audit.md`](../../references/_audit/_ingest_pass_I_mcdp1-warfighting_source_audit.md).
 

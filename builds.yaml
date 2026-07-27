@@ -56,6 +56,15 @@ builds:
     # are excluded.
     max_visibility: open-nc
 
+    # OKF emission. `okf: true` serialises this profile's gated output as
+    # an Open Knowledge Format (v0.2) interchange bundle at
+    # {corpus}/okf/{profile}/, after app validation passes. The bundle is
+    # a pure function of the app output, so max_scope, max_visibility, and
+    # the verbatim gate all apply to it by construction. `okf: only`
+    # (see the matrix profile) emits the bundle and no app. Opt-in per
+    # profile — corpora that don't want bundles omit the key.
+    okf: true
+
     # All references travel with both profiles. The reference axis is
     # invariant; only the task projection differs per profile.
     references:
@@ -227,6 +236,9 @@ builds:
     # See decision max_visibility comment.
     max_visibility: open-nc
 
+    # See decision okf comment.
+    okf: true
+
     references:
       include_patterns:
         - "*.md"
@@ -382,6 +394,9 @@ builds:
     # See decision max_visibility comment.
     max_visibility: open-nc
 
+    # See decision okf comment.
+    okf: true
+
     references:
       include_patterns:
         - "*.md"
@@ -521,6 +536,9 @@ builds:
     # See decision max_visibility comment.
     max_visibility: open-nc
 
+    # See decision okf comment.
+    okf: true
+
     references:
       include_patterns:
         - "*.md"
@@ -655,6 +673,9 @@ builds:
     # See decision max_visibility comment.
     max_visibility: open-nc
 
+    # See decision okf comment.
+    okf: true
+
     references:
       include_patterns:
         - "*.md"
@@ -771,6 +792,34 @@ builds:
         - "tasks/*"
         - "tasks/"
 
+
+  # ============================================================================
+  # Full-matrix OKF bundle. `okf: only` compiles no app: the gated pipeline
+  # (scope ceiling, visibility ceiling, verbatim gate) runs into a throwaway
+  # staging dir and only the emitted bundle lands at output_dir. This is the
+  # one artefact that shows the task axis — the dimension OKF's one-file-per-
+  # concept model lacks — inside OKF itself: same 27 sources, five projections,
+  # one directory tree. See docs/architecture/okf-interop.md.
+  # ============================================================================
+
+  matrix:
+    description: "Full-matrix OKF interchange bundle: all five task axes of the demo corpus as one Open Knowledge Format (v0.2) bundle, plus the lens library. Emits no app — the bundle is the artefact."
+    output_dir: corpus.commons/demo/okf/matrix
+    okf: only
+
+    max_scope: open-nc
+    max_visibility: open-nc
+
+    distillations:
+      include:
+        - aar
+        - decision-making
+        - retro
+        - software-business
+        - stakeholder-engagement
+
+    lenses:
+      include: true
 
   # ============================================================================
   # Private profiles, if any, live in per-corpus builds.yaml files that

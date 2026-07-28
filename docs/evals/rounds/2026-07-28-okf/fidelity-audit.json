@@ -1,0 +1,33 @@
+{
+  "round": "okf-sol-fidelity",
+  "date": "2026-07-28",
+  "method": "Open-book audit-trace fidelity. For each of the six captures, a fresh read-only gpt-5.6-sol session in the arm's clean room extracted every citation-bearing claim, sampled 12 evenly spaced, resolved each cited source to its file, and graded strictly (instructed to grade down on doubt): SUPPORTED-VERBATIM / SUPPORTED / PARTIAL / UNSUPPORTED / CONTRADICTED / FILE-NOT-FOUND.",
+  "grader": "codex/gpt-5.6-sol (same family as capture agent; leniency risk noted, applies equally across arms)",
+  "results": {
+    "p01-decision-cognitive-process": {
+      "D": {"n_citations": 29, "audited": 12, "supported_verbatim": 1, "supported": 8, "partial": 3, "unsupported": 0, "contradicted": 0},
+      "E": {"n_citations": 34, "audited": 12, "supported_verbatim": 0, "supported": 10, "partial": 2, "unsupported": 0, "contradicted": 0},
+      "F": {"n_citations": 31, "audited": 12, "supported_verbatim": 0, "supported": 11, "partial": 1, "unsupported": 0, "contradicted": 0}
+    },
+    "e01-stakeholder-conflict": {
+      "D": {"n_citations": 12, "audited": 12, "supported_verbatim": 0, "supported": 9, "partial": 3, "unsupported": 0, "contradicted": 0},
+      "E": {"n_citations": 13, "audited": 12, "supported_verbatim": 0, "supported": 8, "partial": 4, "unsupported": 0, "contradicted": 0},
+      "F": {"n_citations": 20, "audited": 12, "supported_verbatim": 1, "supported": 9, "partial": 2, "unsupported": 0, "contradicted": 0}
+    }
+  },
+  "aggregate": {
+    "audited_total": 72,
+    "unsupported_total": 0,
+    "contradicted_total": 0,
+    "file_not_found_total": 0,
+    "full_support_rate": {"D": "18/24", "E": "18/24", "F": "21/24"},
+    "partial_rate": {"D": "6/24", "E": "6/24", "F": "3/24"}
+  },
+  "findings": [
+    "Zero fabrication in any arm: no audited claim was unsupported, contradicted, or cited a missing file.",
+    "F graded marginally cleaner than D and E on strict attribution. Mechanism is legible: F cites raw source chunks and restates them at low altitude, so support is trivial; D and E cite distillations and make more synthesized claims, and their PARTIALs are light over-specification (a qualifier or location the file does not state), not error.",
+    "The deterministic naive path is grounding-safe by construction — it never rewrites the source, so there is nothing to fabricate. Its measured failure mode (round one) is coverage and synthesis: content it never finds and connections it never makes.",
+    "Scope caveat: this corpus is the naive path's best case — canonical, openly licensed, cleanly converted textbook markdown consumed by a strong model. Non-canonical or messily converted corpora are where naive chunking degrades (the harness's prior finding-1/finding-2 shape).",
+    "Implication for F+: fabrication risk enters when an un-audited LLM producer WRITES new prose (wiki-fication), not when a deterministic splitter copies it. F+ vs E is therefore the round where the Pass I audit itself is the isolated variable."
+  ]
+}

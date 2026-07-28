@@ -67,10 +67,10 @@ def parse_prompt_file(path: Path) -> tuple[str, str]:
     return title, body
 
 
-def load_paste_results(manual_dir: Path, prompt_stem: str) -> dict[str, str]:
-    """Read {manual-dir}/{prompt-stem}-{A|B|C|D}.md and return a dict of available methods."""
+def load_paste_results(manual_dir: Path, prompt_stem: str, methods: tuple[str, ...]) -> dict[str, str]:
+    """Read {manual-dir}/{prompt-stem}-{METHOD}.md and return a dict of available methods."""
     results = {}
-    for method in ("A", "B", "C", "D"):
+    for method in methods:
         path = manual_dir / f"{prompt_stem}-{method}.md"
         if path.exists():
             text = path.read_text(encoding="utf-8").strip()
@@ -143,6 +143,7 @@ def main() -> int:
     parser.add_argument("--rubric", default="essay", help=f"judge rubric name (file under {JUDGE_PROMPTS_DIR.relative_to(REPO_ROOT)}/, without .md). Default: essay.")
     parser.add_argument("--seed", type=int, default=1, help="shuffle seed for blind labelling (default: 1)")
     parser.add_argument("--model", default=JUDGE_MODEL_DEFAULT, help=f"model for the blind judge (default: {JUDGE_MODEL_DEFAULT})")
+    parser.add_argument("--methods", default="A,B,C,D", help="comma-separated method codes to load and judge (default: A,B,C,D; the OKF round uses D,E,F — see ../methodology.md)")
     args = parser.parse_args()
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -154,10 +155,11 @@ def main() -> int:
         print(f"Prompt file not found: {prompt_path}", file=sys.stderr)
         return 1
 
+    methods = tuple(m.strip().upper() for m in args.methods.split(",") if m.strip())
     manual_dir = Path(args.manual_dir)
-    paste_results = load_paste_results(manual_dir, args.prompt_stem)
+    paste_results = load_paste_results(manual_dir, args.prompt_stem, methods)
     if len(paste_results) < 2:
-        print(f"Need at least 2 paste-results in {manual_dir} for prompt {args.prompt_stem}. Found: {sorted(paste_results.keys())}", file=sys.stderr)
+        print(f"Need at least 2 paste-results in {manual_dir} for prompt {args.prompt_stem} (methods {','.join(methods)}). Found: {sorted(paste_results.keys())}", file=sys.stderr)
         return 1
 
     title, prompt_body = parse_prompt_file(prompt_path)

@@ -204,18 +204,18 @@ This worked example illustrates several key concepts: the five-step process, the
 
 ## Related concepts
 
-**Same source, other task axes:** [software-business](/software-business/openstax-introduction-business.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-introduction-business.md)
+**Same source, other task axes:** [software-business](../software-business/openstax-introduction-business.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-introduction-business.md)
 
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/decision-making/openstax-accounting-vol1.md) — shared: Accounting, Balance Sheet, Inventory Management
-- [OpenStax Business Ethics](/decision-making/openstax-business-ethics.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
-- [OpenStax Principles of Economics 3e](/decision-making/openstax-economics-3e.md) — shared: Collective Bargaining, Economics, Venture Capital
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Brainstorming, Organisational Structure, Power
-- [OpenStax Principles of Finance](/decision-making/openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Accounting, Budgeting
-- [OpenStax, Principles of Marketing](/decision-making/openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
-- [OpenStax Psychology 2e](/decision-making/openstax-psychology-2e.md) — shared: Hawthorne Effect, Theory X, Y and Z
-- [NHS Just Culture Guide](/decision-making/nhs-just-culture-guide.md) — shared: HR Policy
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/decision-making/org-topologies-primer-2025.md) — shared: Organisational Structure
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Accounting, Balance Sheet, Inventory Management
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Collective Bargaining, Economics, Venture Capital
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Brainstorming, Organisational Structure, Power
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Budgeting
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Hawthorne Effect, Theory X, Y and Z
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: HR Policy
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Organisational Structure

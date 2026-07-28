@@ -192,19 +192,19 @@ The scenario is operator-authored; all framework citations trace through the dee
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/openstax-organizational-behavior.md) · [decision-making](/decision-making/openstax-organizational-behavior.md) · [retro](/retro/openstax-organizational-behavior.md) · [software-business](/software-business/openstax-organizational-behavior.md)
+**Same source, other task axes:** [aar](../aar/openstax-organizational-behavior.md) · [decision-making](../decision-making/openstax-organizational-behavior.md) · [retro](../retro/openstax-organizational-behavior.md) · [software-business](../software-business/openstax-organizational-behavior.md)
 
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Psychology 2e](/stakeholder-engagement/openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Business Ethics](/stakeholder-engagement/openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Collaboration, Values
-- [Jones, Evidence-based Software Engineering](/stakeholder-engagement/jones-evidence-based-sweng.md) — shared: Human Cognition
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/stakeholder-engagement/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Decision Making
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Decision Making
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Team Building
-- [OpenStax, Principles of Marketing](/stakeholder-engagement/openstax-principles-marketing.md) — shared: Perception
-- [Schwaber & Sutherland, The Scrum Guide](/stakeholder-engagement/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Team Building
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Perception
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Adaptation

@@ -176,6 +176,6 @@ Phase 4 names two gate tasks with owners: (1) a written standard for what the qu
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/tc-25-20-army-aar.md) · [retro](/retro/tc-25-20-army-aar.md) · [stakeholder-engagement](/stakeholder-engagement/tc-25-20-army-aar.md)
+**Same source, other task axes:** [decision-making](../decision-making/tc-25-20-army-aar.md) · [retro](../retro/tc-25-20-army-aar.md) · [stakeholder-engagement](../stakeholder-engagement/tc-25-20-army-aar.md)
 
-- [US Forest Service LFUO 2024](/aar/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review

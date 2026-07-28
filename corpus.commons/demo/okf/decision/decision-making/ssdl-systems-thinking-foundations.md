@@ -248,8 +248,8 @@ The point of these examples is not that systems thinking always reverses the con
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/decision-making/barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [LFUO 2024](/decision-making/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/decision-making/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/decision-making/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

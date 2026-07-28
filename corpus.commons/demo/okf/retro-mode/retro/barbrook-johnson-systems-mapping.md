@@ -150,11 +150,11 @@ The appropriateness triangle, Rich Picture facilitation, horrendogram warning, b
 
 ## Related concepts
 
-- [SSDL Systems Thinking Foundations](/retro/ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [Liberating Structures Handbook](/retro/liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Jones, Evidence-Based Software Engineering](/retro/jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
-- [US Forest Service LFUO 2024](/retro/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/retro/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Open Kanban](/retro/open-kanban.md) — shared: Systems Thinking
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Facilitation
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/retro/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Open Practice Library](open-practice-library.md) — shared: Facilitation
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

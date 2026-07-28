@@ -244,10 +244,10 @@ A naive post-mortem treats this as a sev-1 incident requiring a sev-1 post-morte
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/lfuo-learning-review-guide-2024.md) · [decision-making](/decision-making/lfuo-learning-review-guide-2024.md) · [retro](/retro/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](/stakeholder-engagement/lfuo-learning-review-guide-2024.md)
+**Same source, other task axes:** [aar](../aar/lfuo-learning-review-guide-2024.md) · [decision-making](../decision-making/lfuo-learning-review-guide-2024.md) · [retro](../retro/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](../stakeholder-engagement/lfuo-learning-review-guide-2024.md)
 
-- [NHS Just Culture Guide](/software-business/nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/software-business/org-topologies-primer-2025.md) — shared: Systems Thinking
-- [SSDL, Systems Thinking Foundations](/software-business/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

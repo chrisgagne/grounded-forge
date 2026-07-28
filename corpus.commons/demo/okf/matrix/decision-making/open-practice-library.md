@@ -219,13 +219,13 @@ The integration-with-other-references section makes claims about how OPL practic
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/open-practice-library.md) · [retro](/retro/open-practice-library.md) · [software-business](/software-business/open-practice-library.md) · [stakeholder-engagement](/stakeholder-engagement/open-practice-library.md)
+**Same source, other task axes:** [aar](../aar/open-practice-library.md) · [retro](../retro/open-practice-library.md) · [software-business](../software-business/open-practice-library.md) · [stakeholder-engagement](../stakeholder-engagement/open-practice-library.md)
 
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/decision-making/liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/decision-making/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
-- [Letaw, Handbook of Software Engineering Methods](/decision-making/letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Agile, Open Source
-- [Barbrook-Johnson & Penn, Systems Mapping](/decision-making/barbrook-johnson-systems-mapping.md) — shared: Facilitation
-- [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](/decision-making/flo-facilitation-guide.md) — shared: Community Building
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Team Management
-- [Schwaber & Sutherland, The Scrum Guide](/decision-making/scrum-guide-2020.md) — shared: Retrospectives
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Open Source
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Facilitation
+- [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](flo-facilitation-guide.md) — shared: Community Building
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Team Management
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Retrospectives

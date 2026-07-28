@@ -205,4 +205,4 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Community Building
+- [Open Practice Library](open-practice-library.md) — shared: Community Building

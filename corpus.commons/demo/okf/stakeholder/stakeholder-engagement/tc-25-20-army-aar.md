@@ -222,5 +222,5 @@ The opening of the retrospective names the no-grade framing explicitly: this is 
 
 ## Related concepts
 
-- [LFUO 2024](/stakeholder-engagement/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Performance Measurement
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Performance Measurement

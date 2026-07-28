@@ -214,12 +214,12 @@ This example illustrates several key concepts in the source: stakeholder definit
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-principles-finance.md) · [software-business](/software-business/openstax-principles-finance.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-principles-finance.md) · [software-business](../software-business/openstax-principles-finance.md)
 
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/stakeholder-engagement/openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
-- [Letaw, Handbook of Software Engineering Methods](/stakeholder-engagement/letaw-handbook-sweng-methods.md) — shared: Risk Management
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Securities Regulation
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Benchmarking
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Risk Management
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Securities Regulation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking

@@ -217,9 +217,9 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 
 ## Related concepts
 
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/stakeholder-engagement/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Agile, Software Development
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Agile, Refactoring
-- [Jones, Evidence-based Software Engineering](/stakeholder-engagement/jones-evidence-based-sweng.md) — shared: Software Development
-- [OpenStax Principles of Finance](/stakeholder-engagement/openstax-principles-finance.md) — shared: Risk Management
-- [Schwaber & Sutherland, The Scrum Guide](/stakeholder-engagement/scrum-guide-2020.md) — shared: Iterative Development
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Refactoring
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Risk Management
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Iterative Development

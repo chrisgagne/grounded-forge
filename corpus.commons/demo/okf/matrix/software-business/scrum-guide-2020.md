@@ -359,11 +359,11 @@ The sole external influence the deep reference records is directional — Letaw'
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/scrum-guide-2020.md) · [decision-making](/decision-making/scrum-guide-2020.md) · [retro](/retro/scrum-guide-2020.md) · [stakeholder-engagement](/stakeholder-engagement/scrum-guide-2020.md)
+**Same source, other task axes:** [aar](../aar/scrum-guide-2020.md) · [decision-making](../decision-making/scrum-guide-2020.md) · [retro](../retro/scrum-guide-2020.md) · [stakeholder-engagement](../stakeholder-engagement/scrum-guide-2020.md)
 
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/software-business/approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/software-business/letaw-handbook-sweng-methods.md) — shared: Iterative Development
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Lean
-- [Open Practice Library](/software-business/open-practice-library.md) — shared: Retrospectives
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Adaptation
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Adaptation
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Iterative Development
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Lean
+- [Open Practice Library](open-practice-library.md) — shared: Retrospectives
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Adaptation

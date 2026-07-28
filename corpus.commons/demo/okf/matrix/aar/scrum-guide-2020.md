@@ -138,11 +138,11 @@ The expanded accounts reveal that the Definition of Done for this sprint include
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/scrum-guide-2020.md) · [retro](/retro/scrum-guide-2020.md) · [software-business](/software-business/scrum-guide-2020.md) · [stakeholder-engagement](/stakeholder-engagement/scrum-guide-2020.md)
+**Same source, other task axes:** [decision-making](../decision-making/scrum-guide-2020.md) · [retro](../retro/scrum-guide-2020.md) · [software-business](../software-business/scrum-guide-2020.md) · [stakeholder-engagement](../stakeholder-engagement/scrum-guide-2020.md)
 
-- [Approach Perfect Field Guide to Scrum Events](/aar/approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/aar/letaw-handbook-sweng-methods.md) — shared: Iterative Development
-- [Open Kanban](/aar/open-kanban.md) — shared: Lean
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Retrospectives
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Adaptation
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Adaptation
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Iterative Development
+- [Open Kanban](open-kanban.md) — shared: Lean
+- [Open Practice Library](open-practice-library.md) — shared: Retrospectives
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Adaptation

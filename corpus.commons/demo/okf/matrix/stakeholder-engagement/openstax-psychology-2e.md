@@ -214,10 +214,10 @@ This worked example illustrates several key concepts in the source: standing-not
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/openstax-psychology-2e.md) · [decision-making](/decision-making/openstax-psychology-2e.md) · [retro](/retro/openstax-psychology-2e.md)
+**Same source, other task axes:** [aar](../aar/openstax-psychology-2e.md) · [decision-making](../decision-making/openstax-psychology-2e.md) · [retro](../retro/openstax-psychology-2e.md)
 
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Hawthorne Effect, Theory X, Y and Z
-- [OpenStax, Principles of Marketing](/stakeholder-engagement/openstax-principles-marketing.md) — shared: Consumer Behavior, Perception
-- [Jones, Evidence-based Software Engineering](/stakeholder-engagement/jones-evidence-based-sweng.md) — shared: Empirical Methods
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Hawthorne Effect, Theory X, Y and Z
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Consumer Behavior, Perception
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

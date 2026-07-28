@@ -151,13 +151,13 @@ A team reviews an incident where an AI-assisted code review tool flagged a criti
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/open-practice-library.md) · [retro](/retro/open-practice-library.md) · [software-business](/software-business/open-practice-library.md) · [stakeholder-engagement](/stakeholder-engagement/open-practice-library.md)
+**Same source, other task axes:** [decision-making](../decision-making/open-practice-library.md) · [retro](../retro/open-practice-library.md) · [software-business](../software-business/open-practice-library.md) · [stakeholder-engagement](../stakeholder-engagement/open-practice-library.md)
 
-- [Liberating Structures Handbook](/aar/liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [Approach Perfect Field Guide to Scrum Events](/aar/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
-- [Letaw, Handbook of Software Engineering Methods](/aar/letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
-- [Open Kanban](/aar/open-kanban.md) — shared: Agile, Open Source
-- [Barbrook-Johnson & Penn, Systems Mapping](/aar/barbrook-johnson-systems-mapping.md) — shared: Facilitation
-- [FLO Facilitation Guide](/aar/flo-facilitation-guide.md) — shared: Community Building
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Team Management
-- [Scrum Guide 2020](/aar/scrum-guide-2020.md) — shared: Retrospectives
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
+- [Open Kanban](open-kanban.md) — shared: Agile, Open Source
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Facilitation
+- [FLO Facilitation Guide](flo-facilitation-guide.md) — shared: Community Building
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Team Management
+- [Scrum Guide 2020](scrum-guide-2020.md) — shared: Retrospectives

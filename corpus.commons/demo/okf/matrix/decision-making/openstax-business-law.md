@@ -200,14 +200,14 @@ This worked example illustrates several key concepts: the ADR-tier choice, the T
 
 ## Related concepts
 
-**Same source, other task axes:** [software-business](/software-business/openstax-business-law.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-business-law.md)
+**Same source, other task axes:** [software-business](../software-business/openstax-business-law.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-business-law.md)
 
-- [OpenStax Business Ethics](/decision-making/openstax-business-ethics.md) — shared: Collective Bargaining, Compliance, Corporate Social Responsibility, Deontology
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/decision-making/openstax-accounting-vol1.md) — shared: Compliance, Securities Regulation
-- [OpenStax Principles of Economics 3e](/decision-making/openstax-economics-3e.md) — shared: Antitrust Law, Collective Bargaining
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Corporate Social Responsibility, Legal Structures
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Employment Law, Sexual Harassment
-- [OpenStax Principles of Finance](/decision-making/openstax-principles-finance.md) — shared: Securities Regulation
-- [OpenStax, Principles of Marketing](/decision-making/openstax-principles-marketing.md) — shared: Antitrust Law
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Compliance, Corporate Social Responsibility, Deontology
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Compliance, Securities Regulation
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Antitrust Law, Collective Bargaining
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Corporate Social Responsibility, Legal Structures
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Employment Law, Sexual Harassment
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Securities Regulation
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Antitrust Law

@@ -251,14 +251,14 @@ This worked example illustrates several volume concepts: stakeholder mapping by 
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-accounting-vol2.md) · [software-business](/software-business/openstax-accounting-vol2.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-accounting-vol2.md) · [software-business](../software-business/openstax-accounting-vol2.md)
 
-- [OpenStax Principles of Finance](/stakeholder-engagement/openstax-principles-finance.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/stakeholder-engagement/openstax-accounting-vol1.md) — shared: Accounting, Managerial Accounting
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Accounting, Budgeting
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Decision Making, Stakeholder Theory
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Decision Making
-- [OpenStax Business Ethics](/stakeholder-engagement/openstax-business-ethics.md) — shared: Stakeholder Theory
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Decision Making
-- [OpenStax, Principles of Marketing](/stakeholder-engagement/openstax-principles-marketing.md) — shared: Sustainability Reporting
-- [US Army TC 25-20](/stakeholder-engagement/tc-25-20-army-aar.md) — shared: Performance Measurement
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Accounting, Managerial Accounting
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Accounting, Budgeting
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, Stakeholder Theory
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Stakeholder Theory
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Decision Making
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Sustainability Reporting
+- [US Army TC 25-20](tc-25-20-army-aar.md) — shared: Performance Measurement

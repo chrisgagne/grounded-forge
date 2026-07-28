@@ -146,10 +146,10 @@ The twelve code smells, RACI, INVEST, fist of five, Eisenhower matrix, and Tuckm
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/letaw-handbook-sweng-methods.md) · [decision-making](/decision-making/letaw-handbook-sweng-methods.md) · [software-business](/software-business/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](/stakeholder-engagement/letaw-handbook-sweng-methods.md)
+**Same source, other task axes:** [aar](../aar/letaw-handbook-sweng-methods.md) · [decision-making](../decision-making/letaw-handbook-sweng-methods.md) · [software-business](../software-business/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](../stakeholder-engagement/letaw-handbook-sweng-methods.md)
 
-- [Approach Perfect Field Guide to Scrum Events](/retro/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
-- [Open Kanban](/retro/open-kanban.md) — shared: Agile, Software Development
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Agile, Refactoring
-- [Jones, Evidence-Based Software Engineering](/retro/jones-evidence-based-sweng.md) — shared: Software Development
-- [Schwaber & Sutherland, The Scrum Guide 2020](/retro/scrum-guide-2020.md) — shared: Iterative Development
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
+- [Open Kanban](open-kanban.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Refactoring
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Iterative Development

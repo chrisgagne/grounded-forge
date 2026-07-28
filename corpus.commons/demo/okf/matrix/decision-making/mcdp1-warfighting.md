@@ -79,4 +79,4 @@ The doctrine is written for combat. Translation to civilian decision contexts (c
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/mcdp1-warfighting.md) · [retro](/retro/mcdp1-warfighting.md) · [software-business](/software-business/mcdp1-warfighting.md) · [stakeholder-engagement](/stakeholder-engagement/mcdp1-warfighting.md)
+**Same source, other task axes:** [aar](../aar/mcdp1-warfighting.md) · [retro](../retro/mcdp1-warfighting.md) · [software-business](../software-business/mcdp1-warfighting.md) · [stakeholder-engagement](../stakeholder-engagement/mcdp1-warfighting.md)

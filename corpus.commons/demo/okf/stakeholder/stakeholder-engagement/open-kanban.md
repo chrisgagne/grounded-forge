@@ -217,15 +217,15 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 
 ## Related concepts
 
-- [Letaw, Handbook of Software Engineering Methods](/stakeholder-engagement/letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Agile, Open Source
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Collaboration, Values
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Collaboration, Values
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/stakeholder-engagement/approach-perfect-field-guide-scrum-events.md) — shared: Agile
-- [Barbrook-Johnson & Penn, Systems Mapping](/stakeholder-engagement/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Jones, Evidence-based Software Engineering](/stakeholder-engagement/jones-evidence-based-sweng.md) — shared: Software Development
-- [LFUO 2024](/stakeholder-engagement/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Schwaber & Sutherland, The Scrum Guide](/stakeholder-engagement/scrum-guide-2020.md) — shared: Lean
-- [SSDL, Systems Thinking Foundations](/stakeholder-engagement/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Open Source
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Collaboration, Values
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Lean
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

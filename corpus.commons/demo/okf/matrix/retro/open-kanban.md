@@ -164,17 +164,17 @@ The batch-size discipline, one-constraint focus, Muri naming, learning-upstream 
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/open-kanban.md) · [decision-making](/decision-making/open-kanban.md) · [software-business](/software-business/open-kanban.md) · [stakeholder-engagement](/stakeholder-engagement/open-kanban.md)
+**Same source, other task axes:** [aar](../aar/open-kanban.md) · [decision-making](../decision-making/open-kanban.md) · [software-business](../software-business/open-kanban.md) · [stakeholder-engagement](../stakeholder-engagement/open-kanban.md)
 
-- [Letaw, Handbook of Software Engineering Methods](/retro/letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Agile, Open Source
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Collaboration, Values
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Collaboration, Values
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/retro/org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
-- [Approach Perfect Field Guide to Scrum Events](/retro/approach-perfect-field-guide-scrum-events.md) — shared: Agile
-- [Barbrook-Johnson & Penn, Systems Mapping](/retro/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Jones, Evidence-Based Software Engineering](/retro/jones-evidence-based-sweng.md) — shared: Software Development
-- [US Forest Service LFUO 2024](/retro/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/retro/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Schwaber & Sutherland, The Scrum Guide 2020](/retro/scrum-guide-2020.md) — shared: Lean
-- [SSDL Systems Thinking Foundations](/retro/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Open Source
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Collaboration, Values
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Lean
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

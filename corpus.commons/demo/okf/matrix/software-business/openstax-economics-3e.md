@@ -202,10 +202,10 @@ Information asymmetry is the next question. The vendor's roadmap and renewal-pri
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-economics-3e.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-economics-3e.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-economics-3e.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-economics-3e.md)
 
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Collective Bargaining, Economics, Venture Capital
-- [OpenStax Business Ethics](/software-business/openstax-business-ethics.md) — shared: Collective Bargaining, Intellectual Property
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Antitrust Law, Collective Bargaining
-- [OpenStax Entrepreneurship](/software-business/openstax-entrepreneurship.md) — shared: Intellectual Property, Venture Capital
-- [OpenStax, Principles of Marketing](/software-business/openstax-principles-marketing.md) — shared: Antitrust Law, Pricing
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Collective Bargaining, Economics, Venture Capital
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Intellectual Property
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Antitrust Law, Collective Bargaining
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Intellectual Property, Venture Capital
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Antitrust Law, Pricing

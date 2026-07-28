@@ -265,9 +265,9 @@ The scenario is operator-authored. The administrative-firewall commitment (Part 
 
 ## Related concepts
 
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [Barbrook-Johnson & Penn, Systems Mapping](/stakeholder-engagement/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Systems Thinking
-- [SSDL, Systems Thinking Foundations](/stakeholder-engagement/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
-- [US Army TC 25-20](/stakeholder-engagement/tc-25-20-army-aar.md) — shared: After-Action Review
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [US Army TC 25-20](tc-25-20-army-aar.md) — shared: After-Action Review

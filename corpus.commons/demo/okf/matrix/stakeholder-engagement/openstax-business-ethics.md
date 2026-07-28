@@ -226,13 +226,13 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/openstax-business-ethics.md) · [decision-making](/decision-making/openstax-business-ethics.md) · [retro](/retro/openstax-business-ethics.md) · [software-business](/software-business/openstax-business-ethics.md)
+**Same source, other task axes:** [aar](../aar/openstax-business-ethics.md) · [decision-making](../decision-making/openstax-business-ethics.md) · [retro](../retro/openstax-business-ethics.md) · [software-business](../software-business/openstax-business-ethics.md)
 
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Collective Bargaining, Compliance, Corporate Social Responsibility, Deontology
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Business Ethics, Corporate Social Responsibility, Ethics, Intellectual Property
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [OpenStax Principles of Economics 3e](/stakeholder-engagement/openstax-economics-3e.md) — shared: Collective Bargaining, Intellectual Property
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/stakeholder-engagement/openstax-accounting-vol1.md) — shared: Compliance
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Stakeholder Theory
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Collective Bargaining, Compliance, Corporate Social Responsibility, Deontology
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Business Ethics, Corporate Social Responsibility, Ethics, Intellectual Property
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Collective Bargaining, Intellectual Property
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Compliance
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Stakeholder Theory

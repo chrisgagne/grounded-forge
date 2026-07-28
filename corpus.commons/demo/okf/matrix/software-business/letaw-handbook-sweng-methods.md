@@ -270,11 +270,11 @@ The Letaw artefacts that did the work: the twelve code smells (vocabulary that c
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/letaw-handbook-sweng-methods.md) · [decision-making](/decision-making/letaw-handbook-sweng-methods.md) · [retro](/retro/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](/stakeholder-engagement/letaw-handbook-sweng-methods.md)
+**Same source, other task axes:** [aar](../aar/letaw-handbook-sweng-methods.md) · [decision-making](../decision-making/letaw-handbook-sweng-methods.md) · [retro](../retro/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](../stakeholder-engagement/letaw-handbook-sweng-methods.md)
 
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/software-business/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Agile, Software Development
-- [Open Practice Library](/software-business/open-practice-library.md) — shared: Agile, Refactoring
-- [Jones, Evidence-based Software Engineering](/software-business/jones-evidence-based-sweng.md) — shared: Software Development
-- [OpenStax Principles of Finance](/software-business/openstax-principles-finance.md) — shared: Risk Management
-- [Schwaber & Sutherland, The Scrum Guide](/software-business/scrum-guide-2020.md) — shared: Iterative Development
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Refactoring
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Risk Management
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Iterative Development

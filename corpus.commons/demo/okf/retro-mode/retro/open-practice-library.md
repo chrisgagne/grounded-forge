@@ -176,11 +176,11 @@ The 1-2-4-All anti-HiPPO structure, Design of Experiments scaffold, Blameless Po
 
 ## Related concepts
 
-- [Liberating Structures Handbook](/retro/liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [Approach Perfect Field Guide to Scrum Events](/retro/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
-- [Letaw, Handbook of Software Engineering Methods](/retro/letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
-- [Open Kanban](/retro/open-kanban.md) — shared: Agile, Open Source
-- [Barbrook-Johnson & Penn, Systems Mapping](/retro/barbrook-johnson-systems-mapping.md) — shared: Facilitation
-- [FLO Facilitation Guide](/retro/flo-facilitation-guide.md) — shared: Community Building
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Team Management
-- [Schwaber & Sutherland, The Scrum Guide 2020](/retro/scrum-guide-2020.md) — shared: Retrospectives
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
+- [Open Kanban](open-kanban.md) — shared: Agile, Open Source
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Facilitation
+- [FLO Facilitation Guide](flo-facilitation-guide.md) — shared: Community Building
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Team Management
+- [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Retrospectives

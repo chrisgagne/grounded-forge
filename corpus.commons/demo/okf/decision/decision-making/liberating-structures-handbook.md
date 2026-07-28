@@ -201,7 +201,7 @@ A What/So What/Now What debrief (Source: "After Action Debrief") three weeks lat
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/decision-making/barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Appreciative Inquiry
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Appreciative Inquiry
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Open Practice Library](open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Appreciative Inquiry
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Appreciative Inquiry

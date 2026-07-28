@@ -233,10 +233,10 @@ The scenarios are operator-authored. The multi-stakeholder-conflicting-goals fra
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/ssdl-systems-thinking-foundations.md) · [decision-making](/decision-making/ssdl-systems-thinking-foundations.md) · [retro](/retro/ssdl-systems-thinking-foundations.md) · [software-business](/software-business/ssdl-systems-thinking-foundations.md)
+**Same source, other task axes:** [aar](../aar/ssdl-systems-thinking-foundations.md) · [decision-making](../decision-making/ssdl-systems-thinking-foundations.md) · [retro](../retro/ssdl-systems-thinking-foundations.md) · [software-business](../software-business/ssdl-systems-thinking-foundations.md)
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/stakeholder-engagement/barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [LFUO 2024](/stakeholder-engagement/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

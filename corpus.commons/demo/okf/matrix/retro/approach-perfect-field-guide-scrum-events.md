@@ -175,9 +175,9 @@ The source's five-segment structure, √n heuristic, surprise-as-signal discipli
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/approach-perfect-field-guide-scrum-events.md) · [decision-making](/decision-making/approach-perfect-field-guide-scrum-events.md) · [software-business](/software-business/approach-perfect-field-guide-scrum-events.md) · [stakeholder-engagement](/stakeholder-engagement/approach-perfect-field-guide-scrum-events.md)
+**Same source, other task axes:** [aar](../aar/approach-perfect-field-guide-scrum-events.md) · [decision-making](../decision-making/approach-perfect-field-guide-scrum-events.md) · [software-business](../software-business/approach-perfect-field-guide-scrum-events.md) · [stakeholder-engagement](../stakeholder-engagement/approach-perfect-field-guide-scrum-events.md)
 
-- [Schwaber & Sutherland, The Scrum Guide 2020](/retro/scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/retro/letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Agile, Retrospectives
-- [Open Kanban](/retro/open-kanban.md) — shared: Agile
+- [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Retrospectives
+- [Open Kanban](open-kanban.md) — shared: Agile

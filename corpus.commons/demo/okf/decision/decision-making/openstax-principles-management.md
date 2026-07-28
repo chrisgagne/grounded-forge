@@ -221,18 +221,18 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
-- [OpenStax Business Ethics](/decision-making/openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
-- [OpenStax Psychology 2e](/decision-making/openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [NHS Just Culture Guide](/decision-making/nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Collaboration, Values
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Employment Law, Sexual Harassment
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/decision-making/org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/decision-making/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Team Management
-- [OpenStax Principles of Finance](/decision-making/openstax-principles-finance.md) — shared: Benchmarking
-- [OpenStax, Principles of Marketing](/decision-making/openstax-principles-marketing.md) — shared: Customer Value
-- [Schwaber & Sutherland, The Scrum Guide](/decision-making/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Employment Law, Sexual Harassment
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [Open Practice Library](open-practice-library.md) — shared: Team Management
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Benchmarking
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Customer Value
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Adaptation

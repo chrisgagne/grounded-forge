@@ -180,7 +180,7 @@ The 1-2-4-All anti-HiPPO structure, TRIZ inversion move, and Discovery & Action 
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/retro/barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Open Practice Library](/retro/open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Appreciative Inquiry
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Appreciative Inquiry
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Open Practice Library](open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Appreciative Inquiry
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Appreciative Inquiry

@@ -58,7 +58,7 @@ The shipped `matrix` bundle carries all five demo task axes — 116 concept file
 
 Conformance is checked twice:
 
-- **Build-time (Node, always on):** every emitted concept file carries frontmatter with `type:`; reserved files carry none (root `index.md` may declare only `okf_version`); every bundle-absolute link resolves inside the bundle. Violations fail the build.
+- **Build-time (Node, always on):** every emitted concept file carries frontmatter with `type:`; reserved files carry none (root `index.md` may declare only `okf_version`); every internal link resolves inside the bundle. Violations fail the build. Cross-links are emitted as relative paths — OKF-legal, and unlike the spec's recommended bundle-absolute form they also navigate on GitHub, in Obsidian, and on disk.
 - **External (Rust CLI, the receipt):** the community [`okf` toolkit](https://crates.io/crates/okf) (`cargo install okf`) tracks spec v0.2. As of the v0.4.0 release, all six shipped demo bundles pass `okf validate` with zero errors and zero warnings, and `okf info` reports the full internal link graph unbroken. (Single-axis bundles carry a few informational notes for cross-axis links whose targets travel in other bundles — the spec's tolerated-absence case, resolved in the `matrix` bundle where every axis is present.)
 
 The decision to emit rather than fork Google's producer is recorded in [`decisions-and-non-decisions.md`](decisions-and-non-decisions.md). The operator procedure is in [`docs/how-to/emit-okf.md`](../how-to/emit-okf.md).

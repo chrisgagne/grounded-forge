@@ -245,10 +245,10 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-- [OpenStax Principles of Economics 3e](/stakeholder-engagement/openstax-economics-3e.md) — shared: Antitrust Law, Pricing
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Marketing, Supply Chain Management
-- [OpenStax Psychology 2e](/stakeholder-engagement/openstax-psychology-2e.md) — shared: Consumer Behavior, Perception
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Sustainability Reporting
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Antitrust Law
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Perception
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Customer Value
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Antitrust Law, Pricing
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Marketing, Supply Chain Management
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Consumer Behavior, Perception
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Sustainability Reporting
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Antitrust Law
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Perception
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Customer Value

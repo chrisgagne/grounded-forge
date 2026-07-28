@@ -220,8 +220,8 @@ This worked example illustrates several key concepts in the source: heuristic-ve
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Hawthorne Effect, Theory X, Y and Z
-- [OpenStax, Principles of Marketing](/decision-making/openstax-principles-marketing.md) — shared: Consumer Behavior, Perception
-- [Jones, Evidence-based Software Engineering](/decision-making/jones-evidence-based-sweng.md) — shared: Empirical Methods
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Hawthorne Effect, Theory X, Y and Z
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Consumer Behavior, Perception
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

@@ -219,11 +219,11 @@ This worked example illustrates several key concepts in the source: the multi-st
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-accounting-vol1.md) · [software-business](/software-business/openstax-accounting-vol1.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-accounting-vol1.md) · [software-business](../software-business/openstax-accounting-vol1.md)
 
-- [OpenStax Principles of Finance](/stakeholder-engagement/openstax-principles-finance.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Accounting, Balance Sheet, Inventory Management
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Accounting, Managerial Accounting
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Compliance, Securities Regulation
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Cash Flows, Inventory Management
-- [OpenStax Business Ethics](/stakeholder-engagement/openstax-business-ethics.md) — shared: Compliance
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Accounting, Balance Sheet, Inventory Management
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Managerial Accounting
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Compliance, Securities Regulation
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Cash Flows, Inventory Management
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Compliance

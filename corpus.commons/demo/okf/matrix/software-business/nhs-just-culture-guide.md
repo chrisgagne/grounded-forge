@@ -199,10 +199,10 @@ Q3 foresight: 3a (agreed protocol exists — yes), 3b (workable and in routine u
 
 | Reference | Relationship |
 |---|---|
-| [decision-making/nhs-just-culture-guide-decision-making.md](/decision-making/nhs-just-culture-guide.md) | The lens-neutral decision-making projection of the same source. Read for the general tree-walk mechanics, the patient-safety-specific framing of each test, and the full set of operator anti-patterns. This software-business projection narrows to the engineer-after-incident decision; the decision-making projection is the general companion. |
-| [stakeholder-engagement/nhs-just-culture-guide-stakeholder-engagement.md](/stakeholder-engagement/nhs-just-culture-guide.md) | The stakeholder-engagement projection covers the conversation contexts (manager-to-manager, manager-to-staff, organisation-to-affected-parties, external-stakeholder). Read it for the communication frame around the just-culture decision; this software-business projection covers the decision itself. |
-| [decision-making/tc-25-20-army-aar-decision-making.md](/decision-making/tc-25-20-army-aar.md) (and stakeholder-engagement projection) | The Army AAR carries the *blameless review* facilitation discipline. Use TC 25-20 to facilitate the blameless post-mortem the just-culture frame names as the wider-investigation parallel; use this distillation to decide the individual-response question that runs alongside the post-mortem. |
-| [decision-making/lfuo-learning-review-guide-2024-decision-making.md](/decision-making/lfuo-learning-review-guide-2024.md) (and stakeholder-engagement projection) | LFUO carries the learning-review discipline specifically calibrated to safety-critical operations. Use LFUO for the technique of the post-incident learning review; use this distillation for the just-culture decision about whether to direct corrective action at the individual. |
+| [decision-making/nhs-just-culture-guide-decision-making.md](../decision-making/nhs-just-culture-guide.md) | The lens-neutral decision-making projection of the same source. Read for the general tree-walk mechanics, the patient-safety-specific framing of each test, and the full set of operator anti-patterns. This software-business projection narrows to the engineer-after-incident decision; the decision-making projection is the general companion. |
+| [stakeholder-engagement/nhs-just-culture-guide-stakeholder-engagement.md](../stakeholder-engagement/nhs-just-culture-guide.md) | The stakeholder-engagement projection covers the conversation contexts (manager-to-manager, manager-to-staff, organisation-to-affected-parties, external-stakeholder). Read it for the communication frame around the just-culture decision; this software-business projection covers the decision itself. |
+| [decision-making/tc-25-20-army-aar-decision-making.md](../decision-making/tc-25-20-army-aar.md) (and stakeholder-engagement projection) | The Army AAR carries the *blameless review* facilitation discipline. Use TC 25-20 to facilitate the blameless post-mortem the just-culture frame names as the wider-investigation parallel; use this distillation to decide the individual-response question that runs alongside the post-mortem. |
+| [decision-making/lfuo-learning-review-guide-2024-decision-making.md](../decision-making/lfuo-learning-review-guide-2024.md) (and stakeholder-engagement projection) | LFUO carries the learning-review discipline specifically calibrated to safety-critical operations. Use LFUO for the technique of the post-incident learning review; use this distillation for the just-culture decision about whether to direct corrective action at the individual. |
 | `decision-making/openstax-organizational-behavior-decision-making.md` | OpenStax carries general organisational-behaviour decision frames (programmed vs non-programmed decisions, escalation of commitment, Rest's ethical-decision model). The just-culture frame is the operational decision aid; OpenStax is the cognitive context within which the decision is made. |
 | `decision-making/openstax-business-ethics-decision-making.md` | OpenStax frames moral minimum, ethical minimum, and ethical maximum; the just-culture wider-investigation parallel is an ethical-maximum response — the individual response is the minimum, the system response is the maximum, and the source argues for both in parallel. |
 | `stakeholder-engagement/openstax-business-law-stakeholder-engagement.md` | The legal-employment frame within which the just-culture decision is taken. The source explicitly notes that the guide does not replace HR advice; the integration is that the just-culture response is taken within the legal frame OpenStax describes (Title VII, ADA, FMLA, at-will doctrine, workplace torts). |
@@ -256,14 +256,14 @@ These extensions are logged here so the operator can decide whether to fold them
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/nhs-just-culture-guide.md) · [decision-making](/decision-making/nhs-just-culture-guide.md) · [retro](/retro/nhs-just-culture-guide.md) · [stakeholder-engagement](/stakeholder-engagement/nhs-just-culture-guide.md)
+**Same source, other task axes:** [aar](../aar/nhs-just-culture-guide.md) · [decision-making](../decision-making/nhs-just-culture-guide.md) · [retro](../retro/nhs-just-culture-guide.md) · [stakeholder-engagement](../stakeholder-engagement/nhs-just-culture-guide.md)
 
-- [LFUO 2024](/software-business/lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Decision Making, HR Policy
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Systems Thinking
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Decision Making
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: HR Policy
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Decision Making
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/software-business/org-topologies-primer-2025.md) — shared: Systems Thinking
-- [SSDL, Systems Thinking Foundations](/software-business/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, HR Policy
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: HR Policy
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Decision Making
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

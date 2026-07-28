@@ -112,7 +112,7 @@ The normative-stakeholder, whistleblower-protection, tone-at-the-top, and ethica
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/openstax-business-ethics.md) · [decision-making](/decision-making/openstax-business-ethics.md) · [software-business](/software-business/openstax-business-ethics.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-business-ethics.md)
+**Same source, other task axes:** [aar](../aar/openstax-business-ethics.md) · [decision-making](../decision-making/openstax-business-ethics.md) · [software-business](../software-business/openstax-business-ethics.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-business-ethics.md)
 
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment

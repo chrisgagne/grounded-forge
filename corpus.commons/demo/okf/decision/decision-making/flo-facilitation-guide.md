@@ -210,4 +210,4 @@ The FLIF is used after each participant-facilitated week; facilitators complete 
 
 ## Related concepts
 
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Community Building
+- [Open Practice Library](open-practice-library.md) — shared: Community Building

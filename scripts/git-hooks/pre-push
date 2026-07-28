@@ -137,7 +137,7 @@ else
   BROKEN_LINKS=$(python3 - <<'PYEOF' 2>/dev/null
 import os, re, subprocess
 
-# Tracked substrate markdown only. Three categories are correctly outside this
+# Tracked substrate markdown only. Four categories are correctly outside this
 # check's lane:
 #   - corpus.commons/*/sources/  — source content (original + converted) carries
 #     citation paths and image paths that aren't repo-internal links.
@@ -146,6 +146,10 @@ import os, re, subprocess
 #   - corpus.commons/*/build-profiles/  — app-CLAUDE.md templates that the
 #     build copies into compiled apps; their links resolve at deploy time,
 #     not from the source tree.
+#   - corpus.commons/*/okf/  — emitted OKF bundles; links resolve from each
+#     bundle's own root and are checked with bundle semantics (including the
+#     spec's tolerated-absence case) by the build's bundle validator in
+#     scripts/lib/emit-okf.js, which fails the build on a real dangling link.
 result = subprocess.run(['git', 'ls-files', '*.md'], capture_output=True, text=True)
 files = [
     f for f in result.stdout.strip().split('\n')
@@ -153,6 +157,7 @@ files = [
     and '/sources/' not in f
     and '/apps/' not in f
     and '/build-profiles/' not in f
+    and '/okf/' not in f
 ]
 
 link_re = re.compile(r'(?<!!)\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)')

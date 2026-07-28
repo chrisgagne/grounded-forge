@@ -209,9 +209,9 @@ The scenario is operator-authored. The Sprint Review as working session (not a p
 
 ## Related concepts
 
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/stakeholder-engagement/approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/stakeholder-engagement/letaw-handbook-sweng-methods.md) — shared: Iterative Development
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Lean
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Retrospectives
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Adaptation
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Adaptation
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Iterative Development
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Lean
+- [Open Practice Library](open-practice-library.md) — shared: Retrospectives
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Adaptation

@@ -160,4 +160,4 @@ The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, t
 
 ## Related concepts
 
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Community Building
+- [Open Practice Library](open-practice-library.md) — shared: Community Building

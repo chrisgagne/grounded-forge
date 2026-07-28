@@ -274,10 +274,10 @@ The seed table in `software-business.md` §2a does not yet include the following
 
 ## Related concepts
 
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/software-business/openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
-- [OpenStax Entrepreneurship](/software-business/openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
-- [Letaw, Handbook of Software Engineering Methods](/software-business/letaw-handbook-sweng-methods.md) — shared: Risk Management
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Securities Regulation
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Benchmarking
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Risk Management
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Securities Regulation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking

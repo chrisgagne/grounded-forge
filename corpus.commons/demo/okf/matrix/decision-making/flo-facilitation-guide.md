@@ -210,6 +210,6 @@ The FLIF is used after each participant-facilitated week; facilitators complete 
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/flo-facilitation-guide.md) · [retro](/retro/flo-facilitation-guide.md) · [stakeholder-engagement](/stakeholder-engagement/flo-facilitation-guide.md)
+**Same source, other task axes:** [aar](../aar/flo-facilitation-guide.md) · [retro](../retro/flo-facilitation-guide.md) · [stakeholder-engagement](../stakeholder-engagement/flo-facilitation-guide.md)
 
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Community Building
+- [Open Practice Library](open-practice-library.md) — shared: Community Building

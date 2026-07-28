@@ -95,4 +95,4 @@ The doctrine's emphasis on *tempo as decisive* needs calibration in business con
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/mcdp1-warfighting.md) · [decision-making](/decision-making/mcdp1-warfighting.md) · [retro](/retro/mcdp1-warfighting.md) · [stakeholder-engagement](/stakeholder-engagement/mcdp1-warfighting.md)
+**Same source, other task axes:** [aar](../aar/mcdp1-warfighting.md) · [decision-making](../decision-making/mcdp1-warfighting.md) · [retro](../retro/mcdp1-warfighting.md) · [stakeholder-engagement](../stakeholder-engagement/mcdp1-warfighting.md)

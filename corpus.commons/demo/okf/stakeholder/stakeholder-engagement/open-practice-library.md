@@ -237,11 +237,11 @@ The scenario is operator-authored. The stakeholder-identification practice (Roun
 
 ## Related concepts
 
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/stakeholder-engagement/liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/stakeholder-engagement/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
-- [Letaw, Handbook of Software Engineering Methods](/stakeholder-engagement/letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Agile, Open Source
-- [Barbrook-Johnson & Penn, Systems Mapping](/stakeholder-engagement/barbrook-johnson-systems-mapping.md) — shared: Facilitation
-- [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](/stakeholder-engagement/flo-facilitation-guide.md) — shared: Community Building
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Team Management
-- [Schwaber & Sutherland, The Scrum Guide](/stakeholder-engagement/scrum-guide-2020.md) — shared: Retrospectives
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Open Source
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Facilitation
+- [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](flo-facilitation-guide.md) — shared: Community Building
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Team Management
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Retrospectives

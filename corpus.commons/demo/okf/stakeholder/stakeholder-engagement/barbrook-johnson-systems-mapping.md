@@ -253,11 +253,11 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-- [SSDL, Systems Thinking Foundations](/stakeholder-engagement/ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/stakeholder-engagement/liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Jones, Evidence-based Software Engineering](/stakeholder-engagement/jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
-- [LFUO 2024](/stakeholder-engagement/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Systems Thinking
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Facilitation
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Open Practice Library](open-practice-library.md) — shared: Facilitation
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

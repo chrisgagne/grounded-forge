@@ -156,9 +156,9 @@ A cross-functional team AAR is reviewing a product launch delay. The facilitator
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/liberating-structures-handbook.md) · [retro](/retro/liberating-structures-handbook.md) · [software-business](/software-business/liberating-structures-handbook.md) · [stakeholder-engagement](/stakeholder-engagement/liberating-structures-handbook.md)
+**Same source, other task axes:** [decision-making](../decision-making/liberating-structures-handbook.md) · [retro](../retro/liberating-structures-handbook.md) · [software-business](../software-business/liberating-structures-handbook.md) · [stakeholder-engagement](../stakeholder-engagement/liberating-structures-handbook.md)
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/aar/barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Open Practice Library](/aar/open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Appreciative Inquiry
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Appreciative Inquiry
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Open Practice Library](open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Appreciative Inquiry
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Appreciative Inquiry

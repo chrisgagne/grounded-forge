@@ -129,10 +129,10 @@ A team is reviewing an incident where a hotfix deployment failed because no one 
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/letaw-handbook-sweng-methods.md) · [retro](/retro/letaw-handbook-sweng-methods.md) · [software-business](/software-business/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](/stakeholder-engagement/letaw-handbook-sweng-methods.md)
+**Same source, other task axes:** [decision-making](../decision-making/letaw-handbook-sweng-methods.md) · [retro](../retro/letaw-handbook-sweng-methods.md) · [software-business](../software-business/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](../stakeholder-engagement/letaw-handbook-sweng-methods.md)
 
-- [Approach Perfect Field Guide to Scrum Events](/aar/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
-- [Open Kanban](/aar/open-kanban.md) — shared: Agile, Software Development
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Agile, Refactoring
-- [Jones, Evidence-Based Software Engineering](/aar/jones-evidence-based-sweng.md) — shared: Software Development
-- [Scrum Guide 2020](/aar/scrum-guide-2020.md) — shared: Iterative Development
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
+- [Open Kanban](open-kanban.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Refactoring
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [Scrum Guide 2020](scrum-guide-2020.md) — shared: Iterative Development

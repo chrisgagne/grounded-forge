@@ -186,8 +186,8 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/stakeholder-engagement/barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
-- [Letaw, Handbook of Software Engineering Methods](/stakeholder-engagement/letaw-handbook-sweng-methods.md) — shared: Software Development
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Software Development
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Human Cognition
-- [OpenStax Psychology 2e](/stakeholder-engagement/openstax-psychology-2e.md) — shared: Empirical Methods
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Software Development
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Software Development
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Human Cognition
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Empirical Methods

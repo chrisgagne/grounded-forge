@@ -218,11 +218,11 @@ The learning product is a narrative that makes the entrapment "vivid, engaging, 
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/lfuo-learning-review-guide-2024.md) · [retro](/retro/lfuo-learning-review-guide-2024.md) · [software-business](/software-business/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](/stakeholder-engagement/lfuo-learning-review-guide-2024.md)
+**Same source, other task axes:** [aar](../aar/lfuo-learning-review-guide-2024.md) · [retro](../retro/lfuo-learning-review-guide-2024.md) · [software-business](../software-business/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](../stakeholder-engagement/lfuo-learning-review-guide-2024.md)
 
-- [NHS Just Culture Guide](/decision-making/nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [Barbrook-Johnson & Penn, Systems Mapping](/decision-making/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/decision-making/org-topologies-primer-2025.md) — shared: Systems Thinking
-- [SSDL, Systems Thinking Foundations](/decision-making/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
-- [US Army TC 25-20](/decision-making/tc-25-20-army-aar.md) — shared: After-Action Review
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [US Army TC 25-20](tc-25-20-army-aar.md) — shared: After-Action Review

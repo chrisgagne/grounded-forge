@@ -276,10 +276,10 @@ This distillation pairs naturally with:
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/ssdl-systems-thinking-foundations.md) · [decision-making](/decision-making/ssdl-systems-thinking-foundations.md) · [retro](/retro/ssdl-systems-thinking-foundations.md) · [stakeholder-engagement](/stakeholder-engagement/ssdl-systems-thinking-foundations.md)
+**Same source, other task axes:** [aar](../aar/ssdl-systems-thinking-foundations.md) · [decision-making](../decision-making/ssdl-systems-thinking-foundations.md) · [retro](../retro/ssdl-systems-thinking-foundations.md) · [stakeholder-engagement](../stakeholder-engagement/ssdl-systems-thinking-foundations.md)
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [LFUO 2024](/software-business/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/software-business/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/software-business/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

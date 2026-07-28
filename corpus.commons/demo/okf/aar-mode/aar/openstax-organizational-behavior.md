@@ -142,12 +142,12 @@ A cross-functional team reviews a missed safety alert. The operations team says 
 
 ## Related concepts
 
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Psychology 2e](/aar/openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Business Ethics](/aar/openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/aar/org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Open Kanban](/aar/open-kanban.md) — shared: Collaboration, Values
-- [Jones, Evidence-Based Software Engineering](/aar/jones-evidence-based-sweng.md) — shared: Human Cognition
-- [Liberating Structures Handbook](/aar/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [NHS Improvement Just Culture Guide](/aar/nhs-just-culture-guide.md) — shared: Decision Making
-- [Scrum Guide 2020](/aar/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
+- [Scrum Guide 2020](scrum-guide-2020.md) — shared: Adaptation

@@ -199,8 +199,8 @@ The book cites approximately 2,035 bibliography entries; the above are those mos
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/decision-making/barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
-- [Letaw, Handbook of Software Engineering Methods](/decision-making/letaw-handbook-sweng-methods.md) — shared: Software Development
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Software Development
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Human Cognition
-- [OpenStax Psychology 2e](/decision-making/openstax-psychology-2e.md) — shared: Empirical Methods
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Software Development
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Software Development
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Human Cognition
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Empirical Methods

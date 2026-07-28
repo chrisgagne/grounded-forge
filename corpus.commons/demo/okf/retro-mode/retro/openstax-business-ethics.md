@@ -112,5 +112,5 @@ The normative-stakeholder, whistleblower-protection, tone-at-the-top, and ethica
 
 ## Related concepts
 
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment

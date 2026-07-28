@@ -163,14 +163,14 @@ The attribution-bias, conformity, process-vs-relationship-conflict, and expectan
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/openstax-organizational-behavior.md) · [decision-making](/decision-making/openstax-organizational-behavior.md) · [software-business](/software-business/openstax-organizational-behavior.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-organizational-behavior.md)
+**Same source, other task axes:** [aar](../aar/openstax-organizational-behavior.md) · [decision-making](../decision-making/openstax-organizational-behavior.md) · [software-business](../software-business/openstax-organizational-behavior.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-organizational-behavior.md)
 
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Psychology 2e](/retro/openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Business Ethics](/retro/openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/retro/org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Open Kanban](/retro/open-kanban.md) — shared: Collaboration, Values
-- [Jones, Evidence-Based Software Engineering](/retro/jones-evidence-based-sweng.md) — shared: Human Cognition
-- [Liberating Structures Handbook](/retro/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [NHS Improvement Just Culture Guide](/retro/nhs-just-culture-guide.md) — shared: Decision Making
-- [Schwaber & Sutherland, The Scrum Guide 2020](/retro/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
+- [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Adaptation

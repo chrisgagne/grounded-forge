@@ -72,4 +72,4 @@ For high-conflict stakeholder situations (regulatory enforcement, contract dispu
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/mcdp1-warfighting.md) · [decision-making](/decision-making/mcdp1-warfighting.md) · [retro](/retro/mcdp1-warfighting.md) · [software-business](/software-business/mcdp1-warfighting.md)
+**Same source, other task axes:** [aar](../aar/mcdp1-warfighting.md) · [decision-making](../decision-making/mcdp1-warfighting.md) · [retro](../retro/mcdp1-warfighting.md) · [software-business](../software-business/mcdp1-warfighting.md)

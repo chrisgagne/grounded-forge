@@ -159,9 +159,9 @@ Applying the Guide's disciplines: in the next session, two moves. First, address
 
 ## Related concepts
 
-- [Approach Perfect Field Guide to Scrum Events](/retro/approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/retro/letaw-handbook-sweng-methods.md) — shared: Iterative Development
-- [Open Kanban](/retro/open-kanban.md) — shared: Lean
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Retrospectives
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Adaptation
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Adaptation
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Iterative Development
+- [Open Kanban](open-kanban.md) — shared: Lean
+- [Open Practice Library](open-practice-library.md) — shared: Retrospectives
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Adaptation

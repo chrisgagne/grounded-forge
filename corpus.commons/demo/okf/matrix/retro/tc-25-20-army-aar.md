@@ -163,6 +163,6 @@ At Phase 5 close, the facilitator summarises the two commitments, names one thin
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/tc-25-20-army-aar.md) · [decision-making](/decision-making/tc-25-20-army-aar.md) · [stakeholder-engagement](/stakeholder-engagement/tc-25-20-army-aar.md)
+**Same source, other task axes:** [aar](../aar/tc-25-20-army-aar.md) · [decision-making](../decision-making/tc-25-20-army-aar.md) · [stakeholder-engagement](../stakeholder-engagement/tc-25-20-army-aar.md)
 
-- [US Forest Service LFUO 2024](/retro/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review

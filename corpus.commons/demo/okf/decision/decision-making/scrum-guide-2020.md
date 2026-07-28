@@ -198,9 +198,9 @@ By Sprint 3 of the restored practice, the Sprint Goal structure reduces mid-Spri
 
 ## Related concepts
 
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/decision-making/approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/decision-making/letaw-handbook-sweng-methods.md) — shared: Iterative Development
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Lean
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Retrospectives
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Adaptation
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Adaptation
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Iterative Development
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Lean
+- [Open Practice Library](open-practice-library.md) — shared: Retrospectives
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Adaptation

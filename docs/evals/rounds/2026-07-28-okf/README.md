@@ -29,11 +29,25 @@ Evidence-marker survival (mechanical count, no judge): p01 — D 27, E 47, F 0; 
 
 ## Findings (directional — two prompts, one capture per arm)
 
-1. **The producer effect is real and consistent: F ranked last in all four blind runs.** The margin is modest — a strong model over naive chunks writes fluent, file-grounded prose — but the judge's blind rationales name the gaps the naive bundle created: on e01 the consumer never found the organisational-behaviour conflict chapter inside the heading-chunks and answered entirely from practice cards (no conflict modes, no power analysis, no negotiation theory); on p01, thin vendor-contract and lock-in coverage and a "near-binary, insufficiently calibrated" decision rule. Nothing in F is audit-traceable.
+1. **The producer effect is real and consistent: F ranked last in all four blind runs.** The margin is modest — a strong model over naive chunks writes fluent, file-grounded prose — but the judge's blind rationales name the gaps the naive bundle created: on e01 the consumer never found the organisational-behaviour conflict chapter inside the heading-chunks and answered entirely from practice cards (no conflict modes, no power analysis, no negotiation theory); on p01, thin vendor-contract and lock-in coverage and a "near-binary, insufficiently calibrated" decision rule. F carries no in-band audit trail of its own — no evidence markers, no verbatim register; the addendum below reports what an external citation audit found.
 2. **The runtime layer is invisible to this rubric.** D and E carry byte-identical distillations and split 2–2 across permutations, never more than 2 points apart. What the runtime added shows up only in conduct the rubric doesn't score: the retrieval trace, and the source-boundary paragraph distinguishing borrowed-through findings from corpus-held evidence — which one judge run praised in exactly those terms.
 3. **The multi-axis bundle out-breadths a single-axis app.** E repeatedly earned credit for cross-axis pulls (software-engineering economics and business-law material on a decision prompt) that the single-axis app could not make. The fair next comparison is an all-axes D.
 4. **A new judge-limit shape:** one run penalised the in-band evidence markers as "unexplained citation codes" that "impede readability." The audit discipline costs rubric points with a judge that was not told what the markers mean — input for the planned rubric rework (an audit-trace fidelity score would measure what this rubric punishes).
 5. The dual-runtime port held: a non-Claude agent followed `answer-from-corpus` as a written procedure via AGENTS.md, unprompted, producing conformant traces.
+
+## Addendum, same day: audit-trace fidelity
+
+The ranking round measures preference; this addendum measures grounding. For each capture, a fresh read-only session in the arm's clean room extracted every citation-bearing claim, sampled 12 evenly spaced, resolved each cited source to its file, and graded strictly (instructed to grade down when in doubt). The grader is the same model family as the capture agent — a leniency risk, applied equally across arms. Decoded results: [`fidelity-audit.json`](fidelity-audit.json).
+
+| Arm | Full support | Partial | Unsupported / contradicted / file-not-found |
+|---|---|---|---|
+| D | 18/24 | 6 | 0 |
+| E | 18/24 | 6 | 0 |
+| F | **21/24** | 3 | 0 |
+
+Zero fabrication in any arm — and F graded marginally cleanest on strict attribution. The mechanism is legible: F cites raw source chunks and restates them at low altitude, so support is trivial to verify; D and E cite distillations while making more synthesised claims, and their PARTIALs are light over-specification (a qualifier or location the cited file does not state), not error. A deterministic splitter never rewrites the source, so it has nothing to fabricate.
+
+This bounds the round's headline, and the bound matters: on clean, canonical, openly licensed sources consumed by a strong model, the naive path's measured deficit is coverage and synthesis (finding 1), not truthfulness. Two limits keep the bound honest. This corpus is the naive path's best case — non-canonical or messily converted corpora are where naive chunking degrades, per the harness's earlier findings. And fabrication risk enters when a producer *writes* new prose rather than splitting it: the un-audited LLM wiki-fication path (F+) is the arm where the ingestion audit itself would be the isolated variable, and it has not yet been run.
 
 ## Caveats
 

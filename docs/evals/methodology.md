@@ -17,6 +17,21 @@ A note on Method B's reproducibility: B is the Claude.ai web app's Research feat
 
 A note on Method A's web search: across the eval rounds, Claude with web search *available* never chose to invoke it. The naive A method is therefore the lower bound under the operator's natural product surface. A forced-web-search variant (Claude Code with `WebSearch` invocation required) would likely land between this A and B. That variant has not yet been measured.
 
+## The OKF arms (E and F)
+
+Since v0.4.0 the build emits each profile's gated output as an OKF v0.2 interchange bundle (see [`../architecture/okf-interop.md`](../architecture/okf-interop.md)), which adds two arms and two cleaner contrasts than the original round design:
+
+| Method | What it is | Where it lives |
+|---|---|---|
+| **E** | Emitted bundle, generic consumer: Claude Code opened bare in `corpus.commons/demo/okf/matrix/` — no CLAUDE.md, no skills — with the versioned consumer prompt at [`harness/capture-prompts/okf-consumer.md`](harness/capture-prompts/okf-consumer.md). | Claude Code |
+| **F** | Naive flat-OKF baseline: the same converted sources heading-split into concept files by [`harness/build-naive-okf.js`](harness/build-naive-okf.js) (deterministic, regenerable, gitignored at `_evals/okf-naive/`), no ingestion protocol, no audit. Same consumer prompt. | Claude Code |
+
+**D vs E isolates the runtime layer.** The bundle's concept files are byte-for-byte the app's distillations, so the differential is what doesn't travel: the skills, the JSON routers, the conduct rules. **E vs F isolates the producer discipline.** Same container, same consumer prompt, same underlying sources; the only variable is whether the 9-pass protocol and its audit produced the concept files.
+
+Both bundles pass `okf validate` — the audited matrix bundle at 0 errors / 0 warnings, the naive baseline at 0 errors / 1,288 warnings with all 644 concepts unverified and no provenance fields. Conformance is a container property, not a grounding property; the judge round is what tells the two apart. The naive builder is a deliberate deterministic floor; if it reads as a strawman for a given comparison, the fair upgrade is F+ — one-shot LLM wiki-fication of the same sources, still un-audited — which costs tokens and is not deterministic, so it is built on demand rather than shipped.
+
+Capture is unchanged in kind: run each arm in its surface, paste to `_evals/manual/{prompt-stem}-{E|F}.md`, judge with `--methods D,E,F`. Two mechanical metrics need no judge and should be recorded per capture: per-query token cost (from the session), and evidence-marker survival in the answer (only E *can* preserve markers; `audit-attribution` can score whether it did).
+
 ## The judge
 
 A separate Claude API session, blind to which method produced which answer and blind to method labels. The judge receives:
@@ -96,6 +111,7 @@ The judge runs once per invocation. For multi-seed comparisons, run the script m
 ### Useful flags
 
 - `--seed N`: shuffle seed for the blind labelling (default 1). Change to test rank stability.
+- `--methods CODES`: comma-separated method codes to load and judge (default `A,B,C,D`; the OKF round uses `D,E,F`).
 - `--rubric NAME`: pick a rubric file under `harness/judge-prompts/` (default: `essay`). The `default` rubric is a simpler 5-criterion variant for non-essay prompts.
 - `--model MODEL`: override the judge model (default: `claude-opus-4-7`).
 - `--prompts-dir`, `--manual-dir`, `--out-dir`: point at different directories (e.g. a forker's own prompt set or paste-result location).

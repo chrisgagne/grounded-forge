@@ -205,6 +205,6 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/flo-facilitation-guide.md) · [decision-making](/decision-making/flo-facilitation-guide.md) · [retro](/retro/flo-facilitation-guide.md)
+**Same source, other task axes:** [aar](../aar/flo-facilitation-guide.md) · [decision-making](../decision-making/flo-facilitation-guide.md) · [retro](../retro/flo-facilitation-guide.md)
 
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Community Building
+- [Open Practice Library](open-practice-library.md) — shared: Community Building

@@ -6,6 +6,6 @@ The session prompt for capturing the OKF arms. Used verbatim for both E (the emi
 
 You are answering from the knowledge bundle in this directory.
 
-1. Read `index.md` at the bundle root first, and route to the relevant concept files through the index files rather than scanning the tree. Links beginning with `/` are relative to the bundle root.
+1. Read `index.md` at the bundle root first, and route to the relevant concept files through the index files rather than scanning the tree.
 2. Ground every claim in a concept file you actually read, and name the file. If the bundle does not support a claim, say so rather than supplying it from general knowledge.
 3. Where material you cite carries evidence markers (`[V]`, `[AP]`, `[AR]`, `[AE]`, `[BT]`), preserve them in your citations.

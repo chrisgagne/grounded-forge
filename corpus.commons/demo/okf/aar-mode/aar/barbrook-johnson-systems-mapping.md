@@ -138,11 +138,11 @@ A cross-functional team is reviewing a series of late deliveries. The timeline (
 
 ## Related concepts
 
-- [SSDL Systems Thinking Foundations](/aar/ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [Liberating Structures Handbook](/aar/liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Jones, Evidence-Based Software Engineering](/aar/jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
-- [US Forest Service LFUO 2024](/aar/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/aar/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Open Kanban](/aar/open-kanban.md) — shared: Systems Thinking
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Facilitation
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/aar/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Open Practice Library](open-practice-library.md) — shared: Facilitation
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

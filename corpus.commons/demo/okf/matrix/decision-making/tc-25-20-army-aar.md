@@ -200,7 +200,7 @@ The TC's contribution is not a new tool but a set of decision rules that prevent
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/tc-25-20-army-aar.md) · [retro](/retro/tc-25-20-army-aar.md) · [stakeholder-engagement](/stakeholder-engagement/tc-25-20-army-aar.md)
+**Same source, other task axes:** [aar](../aar/tc-25-20-army-aar.md) · [retro](../retro/tc-25-20-army-aar.md) · [stakeholder-engagement](../stakeholder-engagement/tc-25-20-army-aar.md)
 
-- [LFUO 2024](/decision-making/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Performance Measurement
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Performance Measurement

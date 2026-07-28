@@ -123,8 +123,8 @@ A software team's incident review reveals that delivery velocity was set as a Sp
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/aar/barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
-- [Letaw, Handbook of Software Engineering Methods](/aar/letaw-handbook-sweng-methods.md) — shared: Software Development
-- [Open Kanban](/aar/open-kanban.md) — shared: Software Development
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Human Cognition
-- [OpenStax Psychology 2e](/aar/openstax-psychology-2e.md) — shared: Empirical Methods
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Software Development
+- [Open Kanban](open-kanban.md) — shared: Software Development
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Human Cognition
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Empirical Methods

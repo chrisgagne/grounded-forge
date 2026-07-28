@@ -286,13 +286,13 @@ The structured walk surfaces that the founder's intended next action (Series A p
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-entrepreneurship.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-entrepreneurship.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-entrepreneurship.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-entrepreneurship.md)
 
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
-- [OpenStax Business Ethics](/software-business/openstax-business-ethics.md) — shared: Business Ethics, Corporate Social Responsibility, Ethics, Intellectual Property
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/software-business/openstax-accounting-vol1.md) — shared: Cash Flows, Inventory Management
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Corporate Social Responsibility, Legal Structures
-- [OpenStax Principles of Economics 3e](/software-business/openstax-economics-3e.md) — shared: Intellectual Property, Venture Capital
-- [OpenStax Principles of Finance](/software-business/openstax-principles-finance.md) — shared: Benchmarking, Cash Flows
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Team Building
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Social Responsibility, Ethics, Intellectual Property
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Cash Flows, Inventory Management
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Corporate Social Responsibility, Legal Structures
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Intellectual Property, Venture Capital
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Benchmarking, Cash Flows
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Team Building

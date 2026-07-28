@@ -238,7 +238,7 @@ The board slide reads: "Sprint Goal achieved across the last two Sprints. Capaci
 
 ## Related concepts
 
-- [Schwaber & Sutherland, The Scrum Guide](/software-business/scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/software-business/letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
-- [Open Practice Library](/software-business/open-practice-library.md) — shared: Agile, Retrospectives
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Agile
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Retrospectives
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile

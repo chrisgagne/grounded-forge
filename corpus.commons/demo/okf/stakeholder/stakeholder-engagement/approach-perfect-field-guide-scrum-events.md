@@ -240,7 +240,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Related concepts
 
-- [Schwaber & Sutherland, The Scrum Guide](/stakeholder-engagement/scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/stakeholder-engagement/letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Agile, Retrospectives
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Agile
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Retrospectives
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile

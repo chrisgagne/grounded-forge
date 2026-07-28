@@ -185,11 +185,11 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/letaw-handbook-sweng-methods.md) · [retro](/retro/letaw-handbook-sweng-methods.md) · [software-business](/software-business/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](/stakeholder-engagement/letaw-handbook-sweng-methods.md)
+**Same source, other task axes:** [aar](../aar/letaw-handbook-sweng-methods.md) · [retro](../retro/letaw-handbook-sweng-methods.md) · [software-business](../software-business/letaw-handbook-sweng-methods.md) · [stakeholder-engagement](../stakeholder-engagement/letaw-handbook-sweng-methods.md)
 
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/decision-making/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Agile, Software Development
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Agile, Refactoring
-- [Jones, Evidence-based Software Engineering](/decision-making/jones-evidence-based-sweng.md) — shared: Software Development
-- [OpenStax Principles of Finance](/decision-making/openstax-principles-finance.md) — shared: Risk Management
-- [Schwaber & Sutherland, The Scrum Guide](/decision-making/scrum-guide-2020.md) — shared: Iterative Development
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Refactoring
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Risk Management
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Iterative Development

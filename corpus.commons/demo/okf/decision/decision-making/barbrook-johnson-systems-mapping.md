@@ -233,11 +233,11 @@ The final deliverable is not the full 60-factor map but three targeted submaps p
 
 ## Related concepts
 
-- [SSDL, Systems Thinking Foundations](/decision-making/ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/decision-making/liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Jones, Evidence-based Software Engineering](/decision-making/jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
-- [LFUO 2024](/decision-making/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/decision-making/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Systems Thinking
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Facilitation
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/decision-making/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Open Practice Library](open-practice-library.md) — shared: Facilitation
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

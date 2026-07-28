@@ -144,14 +144,14 @@ A team completes an AAR on a product-launch delay. The facilitator applies Princ
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-principles-management.md) · [retro](/retro/openstax-principles-management.md) · [software-business](/software-business/openstax-principles-management.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-principles-management.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-principles-management.md) · [retro](../retro/openstax-principles-management.md) · [software-business](../software-business/openstax-principles-management.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-principles-management.md)
 
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Business Ethics](/aar/openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Psychology 2e](/aar/openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [NHS Improvement Just Culture Guide](/aar/nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
-- [Open Kanban](/aar/open-kanban.md) — shared: Collaboration, Values
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/aar/org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
-- [Liberating Structures Handbook](/aar/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Team Management
-- [Scrum Guide 2020](/aar/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
+- [Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [Open Practice Library](open-practice-library.md) — shared: Team Management
+- [Scrum Guide 2020](scrum-guide-2020.md) — shared: Adaptation

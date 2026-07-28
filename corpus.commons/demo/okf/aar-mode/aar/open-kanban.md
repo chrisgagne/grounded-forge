@@ -127,15 +127,15 @@ A software-delivery team reviews a series of missed releases. The timeline (Phas
 
 ## Related concepts
 
-- [Letaw, Handbook of Software Engineering Methods](/aar/letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Agile, Open Source
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Collaboration, Values
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Collaboration, Values
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/aar/org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
-- [Approach Perfect Field Guide to Scrum Events](/aar/approach-perfect-field-guide-scrum-events.md) — shared: Agile
-- [Barbrook-Johnson & Penn, Systems Mapping](/aar/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Jones, Evidence-Based Software Engineering](/aar/jones-evidence-based-sweng.md) — shared: Software Development
-- [US Forest Service LFUO 2024](/aar/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/aar/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Scrum Guide 2020](/aar/scrum-guide-2020.md) — shared: Lean
-- [SSDL Systems Thinking Foundations](/aar/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Open Source
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Collaboration, Values
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
+- [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Scrum Guide 2020](scrum-guide-2020.md) — shared: Lean
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

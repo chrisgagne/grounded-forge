@@ -310,16 +310,16 @@ These triggers lift verbatim from the task spec's §2a seed table; the rows belo
 
 ## Related concepts
 
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Business Ethics](/software-business/openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/software-business/org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Collaboration, Values
-- [Jones, Evidence-based Software Engineering](/software-business/jones-evidence-based-sweng.md) — shared: Human Cognition
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/software-business/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [NHS Just Culture Guide](/software-business/nhs-just-culture-guide.md) — shared: Decision Making
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Decision Making
-- [OpenStax Entrepreneurship](/software-business/openstax-entrepreneurship.md) — shared: Team Building
-- [OpenStax, Principles of Marketing](/software-business/openstax-principles-marketing.md) — shared: Perception
-- [Schwaber & Sutherland, The Scrum Guide](/software-business/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Team Building
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Perception
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Adaptation

@@ -121,7 +121,7 @@ A team reviews a product-defect incident where field reports of a safety problem
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-business-ethics.md) · [retro](/retro/openstax-business-ethics.md) · [software-business](/software-business/openstax-business-ethics.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-business-ethics.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-business-ethics.md) · [retro](../retro/openstax-business-ethics.md) · [software-business](../software-business/openstax-business-ethics.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-business-ethics.md)
 
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment

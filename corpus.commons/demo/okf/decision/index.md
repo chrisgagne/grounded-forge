@@ -8,11 +8,11 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 
 ## Task axes
 
-- [decision-making](/decision-making/index.md) — 27 concept files
+- [decision-making](decision-making/index.md) — 27 concept files
 
 ## Lenses
 
-- [lenses](/lenses/index.md) — 6 per-distillation modifiers
+- [lenses](lenses/index.md) — 6 per-distillation modifiers
 
 ## Evidence markers
 
@@ -30,4 +30,4 @@ Concept files declare `generated.by: grounded-forge/0.4.0`; `generated.at` is th
 
 ## Licence
 
-Most-restrictive scope across sources: **open-nc**. Per-source scope and licence: [LICENCE-MANIFEST.md](/LICENCE-MANIFEST.md).
+Most-restrictive scope across sources: **open-nc**. Per-source scope and licence: [LICENCE-MANIFEST.md](LICENCE-MANIFEST.md).

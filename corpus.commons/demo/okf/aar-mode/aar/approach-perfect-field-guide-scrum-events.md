@@ -141,7 +141,7 @@ A software team has completed an incident review for a deployment failure. The P
 
 ## Related concepts
 
-- [Scrum Guide 2020](/aar/scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/aar/letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Agile, Retrospectives
-- [Open Kanban](/aar/open-kanban.md) — shared: Agile
+- [Scrum Guide 2020](scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Retrospectives
+- [Open Kanban](open-kanban.md) — shared: Agile

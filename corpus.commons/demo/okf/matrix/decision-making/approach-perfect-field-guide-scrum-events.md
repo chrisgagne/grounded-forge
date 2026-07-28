@@ -230,9 +230,9 @@ The source's case study is operator-authored here; all framework citations trace
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/approach-perfect-field-guide-scrum-events.md) · [retro](/retro/approach-perfect-field-guide-scrum-events.md) · [software-business](/software-business/approach-perfect-field-guide-scrum-events.md) · [stakeholder-engagement](/stakeholder-engagement/approach-perfect-field-guide-scrum-events.md)
+**Same source, other task axes:** [aar](../aar/approach-perfect-field-guide-scrum-events.md) · [retro](../retro/approach-perfect-field-guide-scrum-events.md) · [software-business](../software-business/approach-perfect-field-guide-scrum-events.md) · [stakeholder-engagement](../stakeholder-engagement/approach-perfect-field-guide-scrum-events.md)
 
-- [Schwaber & Sutherland, The Scrum Guide](/decision-making/scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
-- [Letaw, Handbook of Software Engineering Methods](/decision-making/letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Agile, Retrospectives
-- [Hurtado, Open Kanban](/decision-making/open-kanban.md) — shared: Agile
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Development Team, Product Backlog, Retrospectives, Sprint
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Scrum
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Retrospectives
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile

@@ -282,12 +282,12 @@ The recede is also informative: most facilitation primitives (*Check-ins*, *Soci
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/open-practice-library.md) · [decision-making](/decision-making/open-practice-library.md) · [retro](/retro/open-practice-library.md) · [stakeholder-engagement](/stakeholder-engagement/open-practice-library.md)
+**Same source, other task axes:** [aar](../aar/open-practice-library.md) · [decision-making](../decision-making/open-practice-library.md) · [retro](../retro/open-practice-library.md) · [stakeholder-engagement](../stakeholder-engagement/open-practice-library.md)
 
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/software-business/liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/software-business/approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
-- [Letaw, Handbook of Software Engineering Methods](/software-business/letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Agile, Open Source
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Facilitation
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Team Management
-- [Schwaber & Sutherland, The Scrum Guide](/software-business/scrum-guide-2020.md) — shared: Retrospectives
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Retrospectives
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Refactoring
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Open Source
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Facilitation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Team Management
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Retrospectives

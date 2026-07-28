@@ -160,12 +160,12 @@ The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal cr
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Business Ethics](/retro/openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Psychology 2e](/retro/openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [NHS Improvement Just Culture Guide](/retro/nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
-- [Open Kanban](/retro/open-kanban.md) — shared: Collaboration, Values
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/retro/org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
-- [Liberating Structures Handbook](/retro/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [Open Practice Library](/retro/open-practice-library.md) — shared: Team Management
-- [Schwaber & Sutherland, The Scrum Guide 2020](/retro/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
+- [Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [Open Practice Library](open-practice-library.md) — shared: Team Management
+- [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Adaptation

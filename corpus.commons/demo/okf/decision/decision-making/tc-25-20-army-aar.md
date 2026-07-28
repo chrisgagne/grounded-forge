@@ -200,5 +200,5 @@ The TC's contribution is not a new tool but a set of decision rules that prevent
 
 ## Related concepts
 
-- [LFUO 2024](/decision-making/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Performance Measurement
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Performance Measurement

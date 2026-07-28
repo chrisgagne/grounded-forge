@@ -143,10 +143,10 @@ The Primer is *not* a substitute for the actual contributory-factor analysis (LF
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Open Kanban](/aar/open-kanban.md) — shared: Flow, Systems Thinking
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Change Management, Organisational Structure
-- [Barbrook-Johnson & Penn, Systems Mapping](/aar/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [US Forest Service LFUO 2024](/aar/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/aar/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [SSDL Systems Thinking Foundations](/aar/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

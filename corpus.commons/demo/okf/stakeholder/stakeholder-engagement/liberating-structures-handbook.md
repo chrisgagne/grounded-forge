@@ -253,7 +253,7 @@ The scenario is operator-authored. The "Unusual Suspects" framing, the buy-in/ow
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/stakeholder-engagement/barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Appreciative Inquiry
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Appreciative Inquiry
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Open Practice Library](open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Appreciative Inquiry
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Appreciative Inquiry

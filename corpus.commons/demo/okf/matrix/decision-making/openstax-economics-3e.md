@@ -205,10 +205,10 @@ This worked example illustrates several key concepts: opportunity cost, sunk cos
 
 ## Related concepts
 
-**Same source, other task axes:** [software-business](/software-business/openstax-economics-3e.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-economics-3e.md)
+**Same source, other task axes:** [software-business](../software-business/openstax-economics-3e.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-economics-3e.md)
 
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Collective Bargaining, Economics, Venture Capital
-- [OpenStax Business Ethics](/decision-making/openstax-business-ethics.md) — shared: Collective Bargaining, Intellectual Property
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Antitrust Law, Collective Bargaining
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Intellectual Property, Venture Capital
-- [OpenStax, Principles of Marketing](/decision-making/openstax-principles-marketing.md) — shared: Antitrust Law, Pricing
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Collective Bargaining, Economics, Venture Capital
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Intellectual Property
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Antitrust Law, Collective Bargaining
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Intellectual Property, Venture Capital
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Antitrust Law, Pricing

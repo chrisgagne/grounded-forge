@@ -176,4 +176,4 @@ Phase 4 names two gate tasks with owners: (1) a written standard for what the qu
 
 ## Related concepts
 
-- [US Forest Service LFUO 2024](/aar/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review

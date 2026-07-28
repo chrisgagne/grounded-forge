@@ -227,15 +227,15 @@ Four weeks later the team's average story completion time has dropped from three
 
 ## Related concepts
 
-- [Letaw, Handbook of Software Engineering Methods](/decision-making/letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
-- [Open Practice Library](/decision-making/open-practice-library.md) — shared: Agile, Open Source
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Collaboration, Values
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Collaboration, Values
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/decision-making/org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
-- [Gagné, The Approach Perfect Field Guide to Scrum Events](/decision-making/approach-perfect-field-guide-scrum-events.md) — shared: Agile
-- [Barbrook-Johnson & Penn, Systems Mapping](/decision-making/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Jones, Evidence-based Software Engineering](/decision-making/jones-evidence-based-sweng.md) — shared: Software Development
-- [LFUO 2024](/decision-making/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/decision-making/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Schwaber & Sutherland, The Scrum Guide](/decision-making/scrum-guide-2020.md) — shared: Lean
-- [SSDL, Systems Thinking Foundations](/decision-making/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
+- [Open Practice Library](open-practice-library.md) — shared: Agile, Open Source
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Collaboration, Values
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Flow, Systems Thinking
+- [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Lean
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

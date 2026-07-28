@@ -204,11 +204,11 @@ A medium-sized US technology company has been given the opportunity to enter a l
 
 ## Related concepts
 
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Collective Bargaining, Compliance, Corporate Social Responsibility, Deontology
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Business Ethics, Corporate Social Responsibility, Ethics, Intellectual Property
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [OpenStax Principles of Economics 3e](/decision-making/openstax-economics-3e.md) — shared: Collective Bargaining, Intellectual Property
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/decision-making/openstax-accounting-vol1.md) — shared: Compliance
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Stakeholder Theory
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Collective Bargaining, Compliance, Corporate Social Responsibility, Deontology
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Business Ethics, Corporate Social Responsibility, Ethics, Intellectual Property
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Collective Bargaining, Intellectual Property
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Compliance
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Stakeholder Theory

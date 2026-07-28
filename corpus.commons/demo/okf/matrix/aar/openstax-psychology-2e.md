@@ -152,8 +152,8 @@ The group rebuilds the timeline from the written accounts. The incident's contri
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-psychology-2e.md) · [retro](/retro/openstax-psychology-2e.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-psychology-2e.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-psychology-2e.md) · [retro](../retro/openstax-psychology-2e.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-psychology-2e.md)
 
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [Jones, Evidence-Based Software Engineering](/aar/jones-evidence-based-sweng.md) — shared: Empirical Methods
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

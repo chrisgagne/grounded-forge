@@ -203,17 +203,17 @@ A founder of a Series A medical-imaging SaaS company faces a decision: their lar
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-introduction-business.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-introduction-business.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-introduction-business.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-introduction-business.md)
 
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
-- [OpenStax Entrepreneurship](/software-business/openstax-entrepreneurship.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/software-business/openstax-accounting-vol1.md) — shared: Accounting, Balance Sheet, Inventory Management
-- [OpenStax Business Ethics](/software-business/openstax-business-ethics.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
-- [OpenStax Principles of Economics 3e](/software-business/openstax-economics-3e.md) — shared: Collective Bargaining, Economics, Venture Capital
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Brainstorming, Organisational Structure, Power
-- [OpenStax Principles of Finance](/software-business/openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Accounting, Budgeting
-- [OpenStax, Principles of Marketing](/software-business/openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
-- [NHS Just Culture Guide](/software-business/nhs-just-culture-guide.md) — shared: HR Policy
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/software-business/org-topologies-primer-2025.md) — shared: Organisational Structure
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Accounting, Balance Sheet, Inventory Management
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Collective Bargaining, Economics, Venture Capital
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Brainstorming, Organisational Structure, Power
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Budgeting
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: HR Policy
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Organisational Structure

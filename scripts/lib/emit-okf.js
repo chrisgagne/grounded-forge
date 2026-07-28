@@ -28,6 +28,12 @@
  * generated.at, taken from the source distillation's last git commit —
  * stable until the distillation itself changes; omitted when the corpus
  * is not a git checkout.
+ *
+ * Cross-links are emitted as RELATIVE paths, not the spec-recommended
+ * bundle-absolute form. Both are OKF-legal; the absolute form resolves
+ * only inside an OKF-aware consumer, while relative links also navigate
+ * on GitHub, in Obsidian, on disk, and under the repo's link audits.
+ * Concept ids are unchanged (still the path minus .md).
  */
 
 const fs = require("fs");
@@ -231,7 +237,9 @@ function conceptFileFor(cell, ctx) {
   // at corpus level (references/, docs/) are left as-written; OKF
   // consumers must tolerate links whose targets are not in the bundle.
   const repath = (whole, linkTask, linkSlug) =>
-    cells.has(`${linkTask}/${linkSlug}`) ? `](/${linkTask}/${linkSlug}.md)` : whole;
+    cells.has(`${linkTask}/${linkSlug}`)
+      ? `](${relLink(task, linkTask, `${linkSlug}.md`)})`
+      : whole;
   let body = cell.body
     .replace(/\]\(distillations\/([a-z0-9-]+)\/([a-z0-9-]+)-\1\.md\)/g, repath)
     .replace(/\]\(\.\.\/([a-z0-9-]+)\/([a-z0-9-]+)-\1\.md\)/g, repath)
@@ -245,7 +253,7 @@ function conceptFileFor(cell, ctx) {
   // Related concepts: deterministic links from the concept index.
   const sameSource = taskAxes
     .filter((t) => t !== task && cells.has(`${t}/${slug}`))
-    .map((t) => `[${t}](/${t}/${slug}.md)`);
+    .map((t) => `[${t}](${relLink(task, t, `${slug}.md`)})`);
 
   const rel = [];
   if (id && related.has(id)) {
@@ -272,7 +280,7 @@ function conceptFileFor(cell, ctx) {
     if (rel.length) {
       out += "\n";
       for (const r of rel) {
-        out += `- [${r.title}](/${task}/${r.slug}.md) — shared: ${r.shared
+        out += `- [${r.title}](${r.slug}.md) — shared: ${r.shared
           .slice(0, 4)
           .join(", ")}\n`;
       }
@@ -288,7 +296,7 @@ function taskIndexMd(task, taskIndex, cells, idToSlug) {
   const lines = [
     `# ${task} — situation router`,
     "",
-    `One concept file per source, projected onto the \`${task}\` task axis. Each row maps a situation to the concept files that apply. Bundle root: [index.md](/index.md).`,
+    `One concept file per source, projected onto the \`${task}\` task axis. Each row maps a situation to the concept files that apply. Bundle root: [index.md](../index.md).`,
     "",
   ];
   for (const section of (taskIndex && taskIndex.sections) || []) {
@@ -303,7 +311,7 @@ function taskIndexMd(task, taskIndex, cells, idToSlug) {
     .sort((a, b) => a.slug.localeCompare(b.slug));
   lines.push(`## All concept files (${all.length})`, "");
   for (const c of all) {
-    lines.push(`- [${c.title}](/${task}/${c.slug}.md)`);
+    lines.push(`- [${c.title}](${c.slug}.md)`);
   }
   lines.push("");
   return lines.join("\n");
@@ -328,7 +336,7 @@ function routerRows(section, cells, idToSlug, task) {
       .map((id) => {
         const slug = idToSlug[id];
         return slug && cells.has(`${task}/${slug}`)
-          ? `[${slug}](/${task}/${slug}.md)`
+          ? `[${slug}](${slug}.md)`
           : null;
       })
       .filter(Boolean);
@@ -400,9 +408,9 @@ function emitLenses(appDir, bundleDir, corpusDir, version, warnings) {
   const lines = [
     "# Lenses",
     "",
-    "Per-distillation modifiers: each lens reweights what is salient in a distillation without becoming a third axis. Applicability is decided per distillation at ingestion (Pass G). Bundle root: [index.md](/index.md).",
+    "Per-distillation modifiers: each lens reweights what is salient in a distillation without becoming a third axis. Applicability is decided per distillation at ingestion (Pass G). Bundle root: [index.md](../index.md).",
     "",
-    ...emitted.map((slug) => `- [${slug}](/lenses/${slug}.md)`),
+    ...emitted.map((slug) => `- [${slug}](${slug}.md)`),
     "",
   ];
   fs.writeFileSync(path.join(destDir, "index.md"), lines.join("\n"));
@@ -473,10 +481,10 @@ function rootIndexMd(opts) {
   ];
   for (const task of taskAxes) {
     const n = [...cells.values()].filter((c) => c.task === task).length;
-    lines.push(`- [${task}](/${task}/index.md) — ${n} concept files`);
+    lines.push(`- [${task}](${task}/index.md) — ${n} concept files`);
   }
   if (lensCount > 0) {
-    lines.push("", `## Lenses`, "", `- [lenses](/lenses/index.md) — ${lensCount} per-distillation modifiers`);
+    lines.push("", `## Lenses`, "", `- [lenses](lenses/index.md) — ${lensCount} per-distillation modifiers`);
   }
   lines.push(
     "",
@@ -496,7 +504,7 @@ function rootIndexMd(opts) {
     "",
     "## Licence",
     "",
-    `Most-restrictive scope across sources: **${mostRestrictiveScope}**. Per-source scope and licence: [LICENCE-MANIFEST.md](/LICENCE-MANIFEST.md).`,
+    `Most-restrictive scope across sources: **${mostRestrictiveScope}**. Per-source scope and licence: [LICENCE-MANIFEST.md](LICENCE-MANIFEST.md).`,
     ""
   );
   return lines.join("\n");
@@ -556,15 +564,37 @@ function validateOkfBundle(bundleDir) {
       }
     }
 
-    // Bundle-absolute links must resolve inside the bundle — the emitter
-    // wrote them, so a miss is an emitter bug, not tolerated breakage.
-    const linkRe = /\]\((\/[^)\s#]+\.md)\)/g;
+    // Internal links must resolve inside the bundle — the emitter wrote
+    // them, so a miss is an emitter bug, not tolerated breakage. The one
+    // tolerated case, matching the spec's, is a body link whose first
+    // path segment names a directory this bundle does not carry (a
+    // cross-axis link in a single-axis bundle, or a corpus-level path
+    // like references/): the target legitimately lives outside the
+    // bundle and consumers must tolerate it. When the segment IS a
+    // directory of this bundle, the file must exist.
+    const linkRe = /\]\(([^)\s#]+\.md)\)/g;
     let m;
     while ((m = linkRe.exec(content)) !== null) {
+      const link = m[1];
+      if (/^[a-z][a-z0-9+.-]*:/i.test(link)) continue;
+      const target = link.startsWith("/")
+        ? path.join(bundleDir, link)
+        : path.resolve(path.dirname(file), link);
+      const bundleRel = path.relative(path.resolve(bundleDir), target);
+      if (bundleRel.startsWith("..")) {
+        linksChecked++;
+        errors.push(`${rel}: link escapes the bundle: ${link}`);
+        continue;
+      }
+      const firstSeg = bundleRel.split(path.sep)[0];
+      const segIsBundleDir =
+        bundleRel.includes(path.sep) &&
+        fs.existsSync(path.join(bundleDir, firstSeg)) &&
+        fs.statSync(path.join(bundleDir, firstSeg)).isDirectory();
+      if (bundleRel.includes(path.sep) && !segIsBundleDir) continue;
       linksChecked++;
-      const target = path.join(bundleDir, m[1]);
       if (!fs.existsSync(target)) {
-        errors.push(`${rel}: dangling bundle link ${m[1]}`);
+        errors.push(`${rel}: dangling bundle link ${link}`);
       }
     }
   }
@@ -586,6 +616,14 @@ function readJson(p) {
 
 function yamlStr(s) {
   return `"${String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+}
+
+// Relative link between bundle locations one directory deep. Directory ""
+// is the bundle root.
+function relLink(fromDir, toDir, file) {
+  if (fromDir === toDir) return file;
+  const up = fromDir ? "../" : "";
+  return toDir ? `${up}${toDir}/${file}` : `${up}${file}`;
 }
 
 function stripMd(s) {

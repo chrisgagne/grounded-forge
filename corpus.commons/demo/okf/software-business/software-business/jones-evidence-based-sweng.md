@@ -325,7 +325,7 @@ The operator may want to fold these extensions back into the task spec §2a in a
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
-- [Letaw, Handbook of Software Engineering Methods](/software-business/letaw-handbook-sweng-methods.md) — shared: Software Development
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Software Development
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Human Cognition
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Software Development
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Software Development
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Human Cognition

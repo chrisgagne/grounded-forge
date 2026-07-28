@@ -245,16 +245,16 @@ This worked example illustrates several key concepts: the four-stakeholder mappi
 
 ## Related concepts
 
-- [OpenStax Principles of Management](/stakeholder-engagement/openstax-principles-management.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/stakeholder-engagement/openstax-accounting-vol1.md) — shared: Accounting, Balance Sheet, Inventory Management
-- [OpenStax Business Ethics](/stakeholder-engagement/openstax-business-ethics.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
-- [OpenStax Principles of Economics 3e](/stakeholder-engagement/openstax-economics-3e.md) — shared: Collective Bargaining, Economics, Venture Capital
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: Brainstorming, Organisational Structure, Power
-- [OpenStax Principles of Finance](/stakeholder-engagement/openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Accounting, Budgeting
-- [OpenStax, Principles of Marketing](/stakeholder-engagement/openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
-- [OpenStax Psychology 2e](/stakeholder-engagement/openstax-psychology-2e.md) — shared: Hawthorne Effect, Theory X, Y and Z
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: HR Policy
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Organisational Structure
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Business Environment, Corporate Social Responsibility, Entrepreneurship, Ethics
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Accounting, Balance Sheet, Inventory Management
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Administrative Law, Collective Bargaining, Corporate Social Responsibility
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Collective Bargaining, Economics, Venture Capital
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Brainstorming, Organisational Structure, Power
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Budgeting
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Hawthorne Effect, Theory X, Y and Z
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: HR Policy
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Organisational Structure

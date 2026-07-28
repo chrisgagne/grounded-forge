@@ -227,10 +227,10 @@ Decision: stretch-down product development to a new segment is the highest-expec
 
 ## Related concepts
 
-- [OpenStax Principles of Economics 3e](/decision-making/openstax-economics-3e.md) — shared: Antitrust Law, Pricing
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Marketing, Supply Chain Management
-- [OpenStax Psychology 2e](/decision-making/openstax-psychology-2e.md) — shared: Consumer Behavior, Perception
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Sustainability Reporting
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Antitrust Law
-- [OpenStax Organizational Behavior](/decision-making/openstax-organizational-behavior.md) — shared: Perception
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Customer Value
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Antitrust Law, Pricing
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Marketing, Supply Chain Management
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Consumer Behavior, Perception
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Sustainability Reporting
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Antitrust Law
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Perception
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Customer Value

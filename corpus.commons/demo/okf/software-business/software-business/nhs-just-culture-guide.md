@@ -256,12 +256,12 @@ These extensions are logged here so the operator can decide whether to fold them
 
 ## Related concepts
 
-- [LFUO 2024](/software-business/lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Decision Making, HR Policy
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Systems Thinking
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Decision Making
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: HR Policy
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Decision Making
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/software-business/org-topologies-primer-2025.md) — shared: Systems Thinking
-- [SSDL, Systems Thinking Foundations](/software-business/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, HR Policy
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: HR Policy
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Decision Making
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

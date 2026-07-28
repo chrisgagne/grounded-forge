@@ -232,9 +232,9 @@ The board paper now presents a cleaner story: Topic 606 revenue allocation corre
 
 ## Related concepts
 
-- [OpenStax Principles of Finance](/software-business/openstax-principles-finance.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Accounting, Balance Sheet, Inventory Management
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Accounting, Managerial Accounting
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Compliance, Securities Regulation
-- [OpenStax Entrepreneurship](/software-business/openstax-entrepreneurship.md) — shared: Cash Flows, Inventory Management
-- [OpenStax Business Ethics](/software-business/openstax-business-ethics.md) — shared: Compliance
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Accounting, Balance Sheet, Inventory Management
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Managerial Accounting
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Compliance, Securities Regulation
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Cash Flows, Inventory Management
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Compliance

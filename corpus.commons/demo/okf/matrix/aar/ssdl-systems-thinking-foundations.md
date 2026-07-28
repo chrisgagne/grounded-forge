@@ -143,10 +143,10 @@ The facilitator asks: what was accumulating in the equipment before each failure
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/ssdl-systems-thinking-foundations.md) · [retro](/retro/ssdl-systems-thinking-foundations.md) · [software-business](/software-business/ssdl-systems-thinking-foundations.md) · [stakeholder-engagement](/stakeholder-engagement/ssdl-systems-thinking-foundations.md)
+**Same source, other task axes:** [decision-making](../decision-making/ssdl-systems-thinking-foundations.md) · [retro](../retro/ssdl-systems-thinking-foundations.md) · [software-business](../software-business/ssdl-systems-thinking-foundations.md) · [stakeholder-engagement](../stakeholder-engagement/ssdl-systems-thinking-foundations.md)
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/aar/barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
-- [US Forest Service LFUO 2024](/aar/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/aar/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [Open Kanban](/aar/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/aar/org-topologies-primer-2025.md) — shared: Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

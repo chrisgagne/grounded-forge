@@ -227,18 +227,18 @@ This worked example illustrates several key concepts in the source: the eight-qu
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/stakeholder-engagement/openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
-- [OpenStax Business Ethics](/stakeholder-engagement/openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
-- [OpenStax Psychology 2e](/stakeholder-engagement/openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [NHS Just Culture Guide](/stakeholder-engagement/nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
-- [Hurtado, Open Kanban](/stakeholder-engagement/open-kanban.md) — shared: Collaboration, Values
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Employment Law, Sexual Harassment
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/stakeholder-engagement/org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
-- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](/stakeholder-engagement/liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [Open Practice Library](/stakeholder-engagement/open-practice-library.md) — shared: Team Management
-- [OpenStax Principles of Finance](/stakeholder-engagement/openstax-principles-finance.md) — shared: Benchmarking
-- [OpenStax, Principles of Marketing](/stakeholder-engagement/openstax-principles-marketing.md) — shared: Customer Value
-- [Schwaber & Sutherland, The Scrum Guide](/stakeholder-engagement/scrum-guide-2020.md) — shared: Adaptation
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Employment Law, Sexual Harassment
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [Open Practice Library](open-practice-library.md) — shared: Team Management
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Benchmarking
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Customer Value
+- [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Adaptation

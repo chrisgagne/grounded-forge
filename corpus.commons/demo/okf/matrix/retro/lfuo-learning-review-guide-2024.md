@@ -156,11 +156,11 @@ The cause-as-construction principle, counterfactual prohibition, Five Hows, loca
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/lfuo-learning-review-guide-2024.md) · [decision-making](/decision-making/lfuo-learning-review-guide-2024.md) · [software-business](/software-business/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](/stakeholder-engagement/lfuo-learning-review-guide-2024.md)
+**Same source, other task axes:** [aar](../aar/lfuo-learning-review-guide-2024.md) · [decision-making](../decision-making/lfuo-learning-review-guide-2024.md) · [software-business](../software-business/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](../stakeholder-engagement/lfuo-learning-review-guide-2024.md)
 
-- [NHS Improvement Just Culture Guide](/retro/nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [Barbrook-Johnson & Penn, Systems Mapping](/retro/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [Open Kanban](/retro/open-kanban.md) — shared: Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](/retro/org-topologies-primer-2025.md) — shared: Systems Thinking
-- [SSDL Systems Thinking Foundations](/retro/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
-- [US Army TC 25-20](/retro/tc-25-20-army-aar.md) — shared: After-Action Review
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [Open Kanban](open-kanban.md) — shared: Systems Thinking
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [US Army TC 25-20](tc-25-20-army-aar.md) — shared: After-Action Review

@@ -134,10 +134,10 @@ The Goodhart's Law application, Grant-Sackman correction, cone-of-uncertainty re
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/jones-evidence-based-sweng.md) · [decision-making](/decision-making/jones-evidence-based-sweng.md) · [software-business](/software-business/jones-evidence-based-sweng.md) · [stakeholder-engagement](/stakeholder-engagement/jones-evidence-based-sweng.md)
+**Same source, other task axes:** [aar](../aar/jones-evidence-based-sweng.md) · [decision-making](../decision-making/jones-evidence-based-sweng.md) · [software-business](../software-business/jones-evidence-based-sweng.md) · [stakeholder-engagement](../stakeholder-engagement/jones-evidence-based-sweng.md)
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/retro/barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
-- [Letaw, Handbook of Software Engineering Methods](/retro/letaw-handbook-sweng-methods.md) — shared: Software Development
-- [Open Kanban](/retro/open-kanban.md) — shared: Software Development
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Human Cognition
-- [OpenStax Psychology 2e](/retro/openstax-psychology-2e.md) — shared: Empirical Methods
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Regression Modeling, Statistics
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Software Development
+- [Open Kanban](open-kanban.md) — shared: Software Development
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Human Cognition
+- [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Empirical Methods

@@ -183,13 +183,13 @@ This distillation gathers these threads into a working pattern: how to use the t
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/org-topologies-primer-2025.md) · [decision-making](/decision-making/org-topologies-primer-2025.md) · [retro](/retro/org-topologies-primer-2025.md) · [stakeholder-engagement](/stakeholder-engagement/org-topologies-primer-2025.md)
+**Same source, other task axes:** [aar](../aar/org-topologies-primer-2025.md) · [decision-making](../decision-making/org-topologies-primer-2025.md) · [retro](../retro/org-topologies-primer-2025.md) · [stakeholder-engagement](../stakeholder-engagement/org-topologies-primer-2025.md)
 
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Hurtado, Open Kanban](/software-business/open-kanban.md) — shared: Flow, Systems Thinking
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Change Management, Organisational Structure
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [LFUO 2024](/software-business/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Just Culture Guide](/software-business/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Organisational Structure
-- [SSDL, Systems Thinking Foundations](/software-business/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Hurtado, Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Organisational Structure
+- [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

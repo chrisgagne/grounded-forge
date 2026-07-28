@@ -192,9 +192,9 @@ This worked example illustrates several key concepts in the source: the GAAP-per
 
 ## Related concepts
 
-- [OpenStax Principles of Finance](/decision-making/openstax-principles-finance.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Accounting, Balance Sheet, Inventory Management
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Accounting, Managerial Accounting
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Compliance, Securities Regulation
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Cash Flows, Inventory Management
-- [OpenStax Business Ethics](/decision-making/openstax-business-ethics.md) — shared: Compliance
+- [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Accounting, Balance Sheet, Inventory Management
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Managerial Accounting
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Compliance, Securities Regulation
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Cash Flows, Inventory Management
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Compliance

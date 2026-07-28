@@ -242,7 +242,7 @@ The CTO reads the memo, recognises three things, and routes the question through
 
 ## Related concepts
 
-- [Barbrook-Johnson & Penn, Systems Mapping](/software-business/barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
-- [Open Practice Library](/software-business/open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Appreciative Inquiry
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Appreciative Inquiry
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
+- [Open Practice Library](open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Appreciative Inquiry
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Appreciative Inquiry

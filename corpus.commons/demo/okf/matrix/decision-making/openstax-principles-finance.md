@@ -210,12 +210,12 @@ By NPV, A wins (highest absolute value). By IRR alone, C is roughly tied with A 
 
 ## Related concepts
 
-**Same source, other task axes:** [software-business](/software-business/openstax-principles-finance.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-principles-finance.md)
+**Same source, other task axes:** [software-business](../software-business/openstax-principles-finance.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-principles-finance.md)
 
-- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](/decision-making/openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Principles of Accounting Volume 2](/decision-making/openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
-- [OpenStax Introduction to Business](/decision-making/openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
-- [OpenStax Entrepreneurship](/decision-making/openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
-- [Letaw, Handbook of Software Engineering Methods](/decision-making/letaw-handbook-sweng-methods.md) — shared: Risk Management
-- [OpenStax Business Law I Essentials](/decision-making/openstax-business-law.md) — shared: Securities Regulation
-- [OpenStax Principles of Management](/decision-making/openstax-principles-management.md) — shared: Benchmarking
+- [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
+- [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Risk Management
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Securities Regulation
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking

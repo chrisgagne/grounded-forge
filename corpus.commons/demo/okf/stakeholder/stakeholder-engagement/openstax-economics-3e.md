@@ -207,8 +207,8 @@ This worked example illustrates several key concepts: externality framing, commo
 
 ## Related concepts
 
-- [OpenStax Introduction to Business](/stakeholder-engagement/openstax-introduction-business.md) — shared: Collective Bargaining, Economics, Venture Capital
-- [OpenStax Business Ethics](/stakeholder-engagement/openstax-business-ethics.md) — shared: Collective Bargaining, Intellectual Property
-- [OpenStax Business Law I Essentials](/stakeholder-engagement/openstax-business-law.md) — shared: Antitrust Law, Collective Bargaining
-- [OpenStax Entrepreneurship](/stakeholder-engagement/openstax-entrepreneurship.md) — shared: Intellectual Property, Venture Capital
-- [OpenStax, Principles of Marketing](/stakeholder-engagement/openstax-principles-marketing.md) — shared: Antitrust Law, Pricing
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Collective Bargaining, Economics, Venture Capital
+- [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Collective Bargaining, Intellectual Property
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Antitrust Law, Collective Bargaining
+- [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Intellectual Property, Venture Capital
+- [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Antitrust Law, Pricing

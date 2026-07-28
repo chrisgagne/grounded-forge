@@ -1,10 +1,10 @@
 # Lenses
 
-Per-distillation modifiers: each lens reweights what is salient in a distillation without becoming a third axis. Applicability is decided per distillation at ingestion (Pass G). Bundle root: [index.md](/index.md).
+Per-distillation modifiers: each lens reweights what is salient in a distillation without becoming a third axis. Applicability is decided per distillation at ingestion (Pass G). Bundle root: [index.md](../index.md).
 
-- [agentic-builder](/lenses/agentic-builder.md)
-- [builder](/lenses/builder.md)
-- [business-executive-stakeholder](/lenses/business-executive-stakeholder.md)
-- [chris-gagne-consultant-coach](/lenses/chris-gagne-consultant-coach.md)
-- [cto](/lenses/cto.md)
-- [pm-bounded-by-ba-role](/lenses/pm-bounded-by-ba-role.md)
+- [agentic-builder](agentic-builder.md)
+- [builder](builder.md)
+- [business-executive-stakeholder](business-executive-stakeholder.md)
+- [chris-gagne-consultant-coach](chris-gagne-consultant-coach.md)
+- [cto](cto.md)
+- [pm-bounded-by-ba-role](pm-bounded-by-ba-role.md)

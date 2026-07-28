@@ -222,7 +222,7 @@ The opening of the retrospective names the no-grade framing explicitly: this is 
 
 ## Related concepts
 
-**Same source, other task axes:** [aar](/aar/tc-25-20-army-aar.md) · [decision-making](/decision-making/tc-25-20-army-aar.md) · [retro](/retro/tc-25-20-army-aar.md)
+**Same source, other task axes:** [aar](../aar/tc-25-20-army-aar.md) · [decision-making](../decision-making/tc-25-20-army-aar.md) · [retro](../retro/tc-25-20-army-aar.md)
 
-- [LFUO 2024](/stakeholder-engagement/lfuo-learning-review-guide-2024.md) — shared: After-Action Review
-- [OpenStax Principles of Accounting Volume 2](/stakeholder-engagement/openstax-accounting-vol2.md) — shared: Performance Measurement
+- [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Performance Measurement

@@ -152,6 +152,6 @@ The group rebuilds the timeline from the written accounts. The incident's contri
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/aar/openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
-- [OpenStax Principles of Management](/aar/openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [Jones, Evidence-Based Software Engineering](/aar/jones-evidence-based-sweng.md) — shared: Empirical Methods
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

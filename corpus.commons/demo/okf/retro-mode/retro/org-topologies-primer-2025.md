@@ -180,10 +180,10 @@ Phase 5: the team schedules the re-MAP 60 days out. The local-optimisation test 
 
 ## Related concepts
 
-- [OpenStax Organizational Behavior](/retro/openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
-- [Open Kanban](/retro/open-kanban.md) — shared: Flow, Systems Thinking
-- [OpenStax Principles of Management](/retro/openstax-principles-management.md) — shared: Change Management, Organisational Structure
-- [Barbrook-Johnson & Penn, Systems Mapping](/retro/barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
-- [US Forest Service LFUO 2024](/retro/lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
-- [NHS Improvement Just Culture Guide](/retro/nhs-just-culture-guide.md) — shared: Systems Thinking
-- [SSDL Systems Thinking Foundations](/retro/ssdl-systems-thinking-foundations.md) — shared: Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure
+- [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
+- [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

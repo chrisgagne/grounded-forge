@@ -56,4 +56,4 @@ The pamphlet's rejection of single-cause explanation is implicit but consistent:
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/mcdp1-warfighting.md) · [retro](/retro/mcdp1-warfighting.md) · [software-business](/software-business/mcdp1-warfighting.md) · [stakeholder-engagement](/stakeholder-engagement/mcdp1-warfighting.md)
+**Same source, other task axes:** [decision-making](../decision-making/mcdp1-warfighting.md) · [retro](../retro/mcdp1-warfighting.md) · [software-business](../software-business/mcdp1-warfighting.md) · [stakeholder-engagement](../stakeholder-engagement/mcdp1-warfighting.md)

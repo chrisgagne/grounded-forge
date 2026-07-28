@@ -231,11 +231,11 @@ The lens surfaces (structural voice, no first-person, no sympathy-performance) t
 
 ## Related concepts
 
-**Same source, other task axes:** [decision-making](/decision-making/openstax-principles-marketing.md) · [stakeholder-engagement](/stakeholder-engagement/openstax-principles-marketing.md)
+**Same source, other task axes:** [decision-making](../decision-making/openstax-principles-marketing.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-principles-marketing.md)
 
-- [OpenStax Principles of Economics 3e](/software-business/openstax-economics-3e.md) — shared: Antitrust Law, Pricing
-- [OpenStax Introduction to Business](/software-business/openstax-introduction-business.md) — shared: Marketing, Supply Chain Management
-- [OpenStax Principles of Accounting Volume 2](/software-business/openstax-accounting-vol2.md) — shared: Sustainability Reporting
-- [OpenStax Business Law I Essentials](/software-business/openstax-business-law.md) — shared: Antitrust Law
-- [OpenStax Organizational Behavior](/software-business/openstax-organizational-behavior.md) — shared: Perception
-- [OpenStax Principles of Management](/software-business/openstax-principles-management.md) — shared: Customer Value
+- [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Antitrust Law, Pricing
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Marketing, Supply Chain Management
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Sustainability Reporting
+- [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Antitrust Law
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Perception
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Customer Value

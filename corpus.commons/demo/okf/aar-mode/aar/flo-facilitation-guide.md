@@ -145,4 +145,4 @@ A hybrid AAR (three participants in-room, four remote) is reviewing a customer-e
 
 ## Related concepts
 
-- [Open Practice Library](/aar/open-practice-library.md) — shared: Community Building
+- [Open Practice Library](open-practice-library.md) — shared: Community Building

@@ -1,0 +1,17 @@
+{
+  "round": "okf-sol",
+  "prompt_stem": "e01-stakeholder-conflict",
+  "rubric": "essay",
+  "judge": "codex/gpt-5.6-sol (blind, rubric as base-instructions, empty read-only cwd)",
+  "capture_agent": "codex/gpt-5.6-sol (fresh read-only session per arm)",
+  "permutation": 1,
+  "label_to_method": {"answer_1": "F", "answer_2": "D", "answer_3": "E"},
+  "ranking": ["D", "E", "F"],
+  "scores": {
+    "F": {"evidence_grounding": 9, "internal_coherence": 9, "specificity": 9, "defensibility": 9, "adherence_to_prompt": 9, "named_scholars": 0, "total": 45},
+    "D": {"evidence_grounding": 9, "internal_coherence": 10, "specificity": 10, "defensibility": 9, "adherence_to_prompt": 10, "named_scholars": 1, "total": 48},
+    "E": {"evidence_grounding": 9, "internal_coherence": 9, "specificity": 10, "defensibility": 9, "adherence_to_prompt": 10, "named_scholars": 2, "total": 47}
+  },
+  "rationale_decoded": "D is the most cohesive and readable essay, integrating systems thinking, power analysis, conflict modes, facilitation, and follow-through into a clear process. E is comparably specific and closest to the requested length, but its unexplained citation codes and file-oriented references impede readability. F remains well grounded and practical, though it gives less attention to power asymmetry and alternative conflict modes and is somewhat more procedurally repetitive.",
+  "note": "The judge penalised E's in-band evidence markers as 'unexplained citation codes' — the marker system reads as noise to a judge that was not told what it is. Known judge-limit shape; see round notes."
+}

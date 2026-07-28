@@ -84,6 +84,8 @@ Candidates for the next eval-rubric rework: a calibrated heuristic critic that r
 
 The qualitative findings from the internal eval rounds are summarised in the *Audit receipts and evals* section of the [root README](../../README.md#audit-receipts-and-evals), including the canonical-material vs non-canonical-material split, the filename-as-key-into-training-prior effect, and the post-migration token-cost numbers. The full per-round outputs are gitignored at `_evals/results/` because the corpora used extend beyond the demo corpus; the qualitative summary in the README is the public-facing record.
 
+The exception is the OKF round, which ran entirely on public artifacts and is published whole — captures, decoded judge runs, and record — at [`rounds/2026-07-28-okf/`](rounds/2026-07-28-okf/). Headline: the naive bundle ranked last in all four blind runs while validating as conformant OKF; the audited-content arms (app vs emitted bundle) were indistinguishable on rubric scores, with the runtime layer's contribution visible only in trace conduct and marker survival.
+
 ## Running the harness
 
 The harness is a thin blind-judge runner: ~200 lines of Python that load four pre-collected method answers, shuffle them under a blind labelling, send a system prompt with the rubric, and write a JSON result with the decoded ranking and scores. The rubric is a markdown file at [`harness/judge-prompts/`](harness/judge-prompts/) you can read and edit directly without touching Python; the script reads whichever rubric you name.

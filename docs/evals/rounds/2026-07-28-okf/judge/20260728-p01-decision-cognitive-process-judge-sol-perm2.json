@@ -1,0 +1,16 @@
+{
+  "round": "okf-sol",
+  "prompt_stem": "p01-decision-cognitive-process",
+  "rubric": "default",
+  "judge": "codex/gpt-5.6-sol (blind, rubric as base-instructions, empty read-only cwd)",
+  "capture_agent": "codex/gpt-5.6-sol (fresh read-only session per arm)",
+  "permutation": 2,
+  "label_to_method": {"answer_1": "F", "answer_2": "D", "answer_3": "E"},
+  "ranking": ["E", "D", "F"],
+  "scores": {
+    "F": {"source_grounding": 8, "diagnostic_depth": 9, "actionability": 9, "calibration": 10, "concision": 9, "total": 45},
+    "D": {"source_grounding": 9, "diagnostic_depth": 9, "actionability": 10, "calibration": 10, "concision": 8, "total": 46},
+    "E": {"source_grounding": 9, "diagnostic_depth": 10, "actionability": 10, "calibration": 10, "concision": 8, "total": 47}
+  },
+  "rationale_decoded": "E is strongest because it combines decision-bias research with vendor-specific diagnostics on incentives, information asymmetry, transition assets, contractual rights, and decision authority, while consistently identifying source and evidence type. D is close and offers the most immediately usable meeting agenda, but E probes the commercial and structural causes more deeply; F remains excellent and more concise, though its citation shorthand is less readily traceable and its vendor-contract analysis is thinner."
+}

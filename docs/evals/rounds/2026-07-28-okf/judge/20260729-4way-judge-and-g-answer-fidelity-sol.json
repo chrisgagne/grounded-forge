@@ -1,0 +1,36 @@
+{
+  "round": "okf-sol-armG-completion",
+  "date": "2026-07-29",
+  "four_way_judging": {
+    "judge": "codex/gpt-5.6-sol, blind, rubric as complete instruction set, file-based rooms, answers de-identified as answer_1..4",
+    "runs": [
+      {"prompt": "p01", "rubric": "default", "permutation": 1, "label_to_method": {"answer_1": "G", "answer_2": "D", "answer_3": "F", "answer_4": "E"}, "ranking": ["E", "D", "F", "G"], "totals": {"E": 49, "D": 48, "F": 45, "G": 44}},
+      {"prompt": "p01", "rubric": "default", "permutation": 2, "label_to_method": {"answer_1": "E", "answer_2": "F", "answer_3": "D", "answer_4": "G"}, "ranking": ["E", "D", "F", "G"], "totals": {"E": 48, "D": 48, "F": 46, "G": 45}},
+      {"prompt": "e01", "rubric": "essay", "permutation": 1, "label_to_method": {"answer_1": "F", "answer_2": "G", "answer_3": "E", "answer_4": "D"}, "ranking": ["G", "F", "D", "E"], "totals": {"G": 47, "F": 46, "D": 46, "E": 45}},
+      {"prompt": "e01", "rubric": "essay", "permutation": 2, "label_to_method": {"answer_1": "D", "answer_2": "E", "answer_3": "G", "answer_4": "F"}, "ranking": ["E", "F", "D", "G"], "totals": {"E": 47, "F": 46, "D": 44, "G": 43}}
+    ],
+    "findings": [
+      "Diagnostic prompt (p01): E > D > F > G in BOTH permutations — G last twice despite fluency; its glossary-shaped bundle gives it the least situation-specific material.",
+      "Essay prompt (e01): rank-unstable across permutations (G first then last; E last then first) — margins of 1-4 points are noise at this n.",
+      "The judges scored G's calibration 9-10 while its underlying bundle carries contradicted formulas: preference rubrics cannot detect fabrication. Finding 4 at arm level.",
+      "House-conduct artifacts penalised again: E's markers called 'opaque citation shorthand' (e01 perm1), D's trace called 'extraneous' (e01 perm2)."
+    ]
+  },
+  "g_answer_citation_fidelity": {
+    "p01-G": {"n_citations": 29, "audited": 12, "supported_verbatim": 2, "supported": 5, "partial": 2, "unsupported": 0, "contradicted": 0, "file_not_found": 3},
+    "e01-G": {"n_citations": 8, "audited": 8, "supported_verbatim": 0, "supported": 6, "partial": 1, "unsupported": 0, "contradicted": 0, "file_not_found": 1},
+    "notes": "All four FILE-NOT-FOUND are shorthand re-citations (bare filenames without paths, no source-key list) — a citation-legibility defect unique to G among the arms; D/E/F had zero unresolvable citations."
+  },
+  "laundering_chain": "CONFIRMED by content inspection: the balanced-scorecard note invented a requirement ('define a data source, reporting period, and responsible owner') graded UNSUPPORTED-CONTENT against the source; the p01-G answer repeats that invented requirement citing the note; the bundle-level citation audit grades the answer's use of the note as supported. Fabricated content in the intermediate layer propagates into answers and becomes invisible to bundle-level auditing one hop downstream. Only source-level tracing catches it — which is what a corpus-level audit-of-record (Pass I) exists to be.",
+  "programme_summary": {
+    "arms": {
+      "D": "app (audited pipeline + runtime)",
+      "E": "audited content in OKF container, generic consumer",
+      "F": "deterministic naive bundle",
+      "G": "un-audited LLM-minted bundle under Google's verbatim instruction + 1 labelled gate adaptation"
+    },
+    "bundle_layer_fidelity": {"D/E distillations": "0 unsupported in 48 audited answer-claims", "F chunks": "copies of source — nothing to fabricate", "G notes": "6/64 (9.4%) unsupported or contradicted vs sources"},
+    "conformance": "all four arms' bundles/apps validate; conformance never distinguished any of them",
+    "preference": "E and D lead; F and G trail narrowly; rubric blind to the fabrication layer throughout"
+  }
+}

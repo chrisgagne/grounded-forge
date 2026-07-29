@@ -49,6 +49,35 @@ Zero fabrication in any arm — and F graded marginally cleanest on strict attri
 
 This bounds the round's headline, and the bound matters: on clean, canonical, openly licensed sources consumed by a strong model, the naive path's measured deficit is coverage and synthesis (finding 1), not truthfulness. Two limits keep the bound honest. This corpus is the naive path's best case — non-canonical or messily converted corpora are where naive chunking degrades, per the harness's earlier findings. And fabrication risk enters when a producer *writes* new prose rather than splitting it: the un-audited LLM wiki-fication path (F+) is the arm where the ingestion audit itself would be the isolated variable, and it has not yet been run.
 
+## Arm G, next day: the un-audited LLM producer
+
+The fairness upgrade named in the caveats below has now run — as **arm G**: Google's own document-ingestion instruction ([`web_ingestion_instruction.md`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/src/reference_agent/prompts/web_ingestion_instruction.md), the only pathway in the reference implementation that touches prose) executed verbatim by `gpt-5.6-sol` over each converted source, with mechanical substitutions and **one disclosed semantic adaptation**. An example of the exact per-source instruction file, adapter note included, is at [`g-exhibits/EXAMPLE-INSTRUCTIONS.md`](g-exhibits/EXAMPLE-INSTRUCTIONS.md).
+
+**Run verbatim with no adaptation, the instruction minted zero references — twice** (piloted on two dissimilar sources). Every productive pathway presupposes a warehouse concept spine documents don't have: *enrich* needs existing concepts, the *reuse gate* needs existing concepts, the mandatory extractions want SQL metrics and join clauses, and "when in doubt, skip" closes the rest. The adaptation — treating the reuse gate as satisfiable by prospective cross-source reuse — is what made the arm answerable; everything else ran as written. One garnish: *Introduction to Business* still minted nothing, because its **title** trips the instruction's meta-page skip-list.
+
+The adapted fleet: 27 sources, **221 minted `type: Reference` notes**, and the assembled bundle passes `okf validate` at **0 errors, 0 warnings** — the third demonstration that conformance is a container property.
+
+### Bundle-vs-source fidelity: fabrication appears exactly where writing begins
+
+Six sampled sources, 64 notes traced claim-by-claim against their sources (same strict open-book protocol and same-family-grader caveat as the addendum above; decoded record at [`judge/20260729-g-bundle-fidelity-sol.json`](judge/20260729-g-bundle-fidelity-sol.json)):
+
+| Grade | Notes |
+|---|---|
+| FAITHFUL | 44 |
+| MINOR-DRIFT | 15 |
+| **UNSUPPORTED-CONTENT** | **3** |
+| **CONTRADICTED** | **3** |
+
+**9.4% of audited notes carry unsupported or contradicted content — against zero unsupported claims in every deterministic and audited arm.** The errors are checkable exhibits, copied verbatim into [`g-exhibits/`](g-exhibits/): a [WACC formula](g-exhibits/openstax-accounting-vol2/investment_center_performance_measures.md) that applies after-tax treatment to every capital source where the textbook applies it to debt only; [invented `PMT` notation and an annuity formula](g-exhibits/openstax-accounting-vol2/time_value_of_money_conventions.md) the source never gives; a [wealth definition](g-exhibits/openstax-economics-3e/income_distribution_measures.md) that drops the debt subtraction the source requires; and — the sharpest — [pre-2020 M1/M2 definitions presented as current](g-exhibits/openstax-economics-3e/money_supply_and_multiplier.md) although the source explicitly states the May 2020 redefinition: the model's training prior overriding the document it was summarising. Errors concentrate in quantitative sources; procedural handbooks barely drift.
+
+### Judging and the laundering chain
+
+Four-way blind judging (D/E/F/G, two permutations per prompt; decoded at [`judge/20260729-4way-judge-and-g-answer-fidelity-sol.json`](judge/20260729-4way-judge-and-g-answer-fidelity-sol.json)): on the diagnostic prompt the order is **E > D > F > G in both permutations**; the essay prompt is rank-unstable within 4 points. The judges scored G's *calibration* 9–10 while its bundle carries contradicted formulas — a preference rubric cannot detect fabrication.
+
+G's answer-level citations audited clean of fabrication (0 unsupported) but produced the round's only unresolvable citations (4 of 20, bare-filename re-citations). And one chain is confirmed end-to-end: the [balanced-scorecard note](g-exhibits/openstax-accounting-vol2/balanced_scorecard_perspectives.md) invents a requirement absent from the source; the G capture repeats it, citing the note; the answer-level audit grades that use *supported*, because the note is the cited authority. **Fabricated content in an intermediate layer becomes invisible one hop downstream — a consumer auditing answers against the bundle finds everything in order.** Only source-level tracing catches it, which is what a corpus-level audit-of-record exists to be.
+
+G's caveats: one generation per source, one grader model (same family as the producer), six of 27 sources sampled for the bundle audit, and one generosity that favours G — the executor could read entire books, where the reference implementation's page-fetch pathway could not.
+
 ## Caveats
 
-Two prompts, one capture per arm, one judge model, automated capture. F is a deterministic floor; the fairness upgrade (F+: one-shot LLM wiki-fication of the same sources, still un-audited) has not been run. Treat the ranking as directional and the blind rationales — which name *specific, checkable* coverage gaps — as the more informative artifact.
+Two prompts, one capture per arm, one judge model, automated capture. F is a deterministic floor; its fairness upgrade is arm G above. Treat the rankings as directional and the traced fidelity results — which name *specific, checkable* errors and gaps — as the more informative artifact.

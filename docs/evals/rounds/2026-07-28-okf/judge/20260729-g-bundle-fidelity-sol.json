@@ -1,0 +1,21 @@
+{
+  "round": "okf-sol-armG",
+  "date": "2026-07-29",
+  "arm": "G — Google's web_ingestion_instruction.md executed verbatim by gpt-5.6-sol over local converted sources, with mechanical substitutions and ONE disclosed semantic adaptation (the reuse gate, which presupposes a primary-concept spine documents lack). Un-audited by design.",
+  "faithful_pilots": {"scrum-guide-2020": 0, "nhs-just-culture-guide": 0, "finding": "Verbatim instruction with no adaptation minted ZERO references on both pilots — every productive pathway presupposes a warehouse concept spine."},
+  "fleet": {"sources_run": 27, "sources_minting_zero": ["openstax-introduction-business (title contains 'Introduction' — gate 2 skip-word treats the whole textbook as a meta page)", "org-topologies-primer-2025"], "notes_minted_total": 221, "okf_validate": "conformant with OKF v0.2, 0 errors, 0 warnings — all 221 concepts type: Reference, all unverified"},
+  "bundle_vs_source_fidelity": {
+    "method": "Six sampled sources (two highest-minting, two mid-band, largest book, one small); per source a fresh read-only gpt-5.6-sol session audited up to 12 evenly spaced minted notes against the full source, grading every substantive claim, strict (grade down on doubt). Same-family grader caveat applies as in prior rounds.",
+    "per_source": {
+      "liberating-structures-handbook": {"audited": 12, "FAITHFUL": 8, "MINOR-DRIFT": 4, "UNSUPPORTED": 0, "CONTRADICTED": 0},
+      "openstax-business-law": {"audited": 12, "FAITHFUL": 10, "MINOR-DRIFT": 1, "UNSUPPORTED": 1, "CONTRADICTED": 0},
+      "openstax-accounting-vol2": {"audited": 12, "FAITHFUL": 5, "MINOR-DRIFT": 5, "UNSUPPORTED": 2, "CONTRADICTED": 1, "fabricated_specifics": ["PMT notation + annuity-due formula not in source"], "contradiction": "WACC formula labels every capital-source cost as after-tax; source applies after-tax to debt only"},
+      "mcdp1-warfighting": {"audited": 12, "FAITHFUL": 10, "MINOR-DRIFT": 2, "UNSUPPORTED": 0, "CONTRADICTED": 0},
+      "openstax-economics-3e": {"audited": 10, "FAITHFUL": 6, "MINOR-DRIFT": 2, "UNSUPPORTED": 0, "CONTRADICTED": 2, "contradictions": ["wealth defined as assets alone; source requires subtracting debts", "pre-May-2020 M1/M2 definitions presented as current although the source explicitly states the 2020 redefinition — training prior overriding the source"]},
+      "scrum-guide-2020": {"audited": 6, "FAITHFUL": 5, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0}
+    },
+    "aggregate": {"audited": 64, "FAITHFUL": 44, "MINOR-DRIFT": 15, "UNSUPPORTED": 3, "CONTRADICTED": 3, "unsupported_or_contradicted_rate": "6/64 (9.4%)"}
+  },
+  "headline": "The fabrication/error rate materialised exactly when the producer started WRITING. Deterministic splitting (F): 0 unsupported claims in 24 audited. Audited pipeline (D/E): 0 in 48. Un-audited LLM minting (G): 6 of 64 notes (9.4%) carry unsupported or contradicted content, including a wrong WACC formula, invented PMT notation, a wealth definition that drops debt subtraction, and outdated M1/M2 definitions written against the source's explicit statement of the 2020 change — the training-prior-overrides-source failure mode in miniature. Error density concentrates in technical/quantitative sources (accounting, economics); procedural handbooks drift least.",
+  "status_pending": "4-way blind judging (D/E/F/G) and G answer-citation fidelity queued; captures archived at _evals/manual-okf-sol/{p01,e01}-G.md"
+}

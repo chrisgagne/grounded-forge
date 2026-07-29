@@ -1,83 +1,66 @@
-# OKF round, 2026-07-28: audited bundle vs naive bundle vs app
+# OKF round: four producers, one corpus, traced to source
 
-The first published round of the comparative eval, and the first to run entirely on public artifacts — every arm reproduces from this repo. It tests the claim in [`okf-interop.md`](../../../architecture/okf-interop.md): OKF standardises the *container*; the *producer* discipline is what separates two conformant bundles.
+*Run 28–29 July 2026, entirely on public artifacts — every arm reproduces from this repo.*
+
+**TL;DR.** Four producers of the same 27-source corpus were tested behind identical consumers and judges: the audited grounded-forge app (**D**), its content exported to an OKF bundle (**E**), a deterministic heading-split bundle (**F**), and an un-audited LLM-minted bundle built under Google's own document-ingestion instruction (**G**). Every bundle validates as conformant OKF — the validator never distinguished any of them. Blind preference rankings put the audited arms first, but only by points. The separating instrument was tracing claims to sources: D and E audited clean; F cannot fabricate (it only copies) but misses whole chapters; **G fabricated or contradicted source content in 9.4% of audited notes** — a wrong WACC formula, invented notation, definitions the model's training data overrode against the source's own words — and one invented claim propagated into a cited answer, where the citation audit graded it *supported*. Conformance is a container property; preference is fluency; grounding only shows up when you trace. That tracing is what an ingestion audit is.
+
+## The question
+
+[`okf-interop.md`](../../../architecture/okf-interop.md) claims OKF standardises the *container* while the *producer* discipline — how concept files get made and whether anything checked them against a source — remains the open problem. This round measures that claim: hold the corpus, the consumer, and the judge constant; vary only the producer.
 
 ## Arms
 
-| Arm | What it is | Reproduce |
+| Arm | Producer | Reproduce |
 |---|---|---|
-| **D** | Compiled app (`apps/decision` for p01, `apps/stakeholder` for e01), consumed via its AGENTS.md operating contract | `npm run build`, open the app folder |
-| **E** | The emitted all-axes OKF bundle, generic consumer prompt | `corpus.commons/demo/okf/matrix/` + [`capture-prompts/okf-consumer.md`](../../harness/capture-prompts/okf-consumer.md) |
-| **F** | Naive flat-OKF baseline: the same converted sources heading-split into concept files, no ingestion protocol, no audit | `node docs/evals/harness/build-naive-okf.js` |
+| **D** | Compiled app (audited 9-pass pipeline + runtime), consumed via its AGENTS.md contract | `npm run build`, open the app folder |
+| **E** | The same audited content emitted as the all-axes OKF bundle, generic consumer prompt | `corpus.commons/demo/okf/matrix/` + [`capture-prompts/okf-consumer.md`](../../harness/capture-prompts/okf-consumer.md) |
+| **F** | Deterministic naive bundle: the converted sources heading-split into concept files, no ingestion, no audit | `node docs/evals/harness/build-naive-okf.js` |
+| **G** | Un-audited LLM-minted bundle: Google's [`web_ingestion_instruction.md`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/src/reference_agent/prompts/web_ingestion_instruction.md) — the reference implementation's only document pathway — executed verbatim per source by `gpt-5.6-sol` | [`g-exhibits/EXAMPLE-INSTRUCTIONS.md`](g-exhibits/EXAMPLE-INSTRUCTIONS.md) shows the exact per-source instruction |
 
-Both E's and F's bundles pass `okf validate` (spec v0.2). The audited bundle validates at 0 errors / 0 warnings; the naive one at 0 errors / 1,288 warnings with all 644 concepts unverified. **Conformance is a container property.** The question this round asks is whether a blind judge can tell them apart by their answers.
+Two disclosures on G. Run with **no** adaptation, the instruction minted zero references on both pilot sources — every productive pathway presupposes a warehouse concept spine documents don't have (enrich needs existing concepts, the reuse gate needs existing concepts, the mandatory extractions want SQL metrics and join clauses, and "when in doubt, skip" closes the rest). One labelled semantic adaptation — treating the reuse gate as satisfiable by prospective cross-source reuse — made the arm answerable; everything else ran as written, and *Introduction to Business* still minted nothing because its title trips the instruction's meta-page skip-list. Second, a generosity that favours G: the executor could read entire books, where the reference implementation's page-fetch pathway could not.
 
-## Method, and deliberate deviations from the standing protocol
+## Method
 
-Cross-model round: **all captures and all judging by OpenAI's `gpt-5.6-sol`** (via Codex), not by a Claude model — so any capture-model self-preference is constant across arms, and the consumer resembles the GPT-based tooling an OKF adopter is likely to point at a bundle. Each capture was a fresh, read-only session in a clean-room copy of its arm, placed outside the repo so a naive session could not reach the audited corpus. Captures were automated rather than operator-manual (a deviation from [`methodology.md`](../../methodology.md), labelled here). The judge received the rubric ([`default`](../../harness/judge-prompts/default.md) for p01, [`essay`](../../harness/judge-prompts/essay.md) for e01) as its entire system instructions, with answers shuffled and de-identified; two permutations per prompt as a rank-stability check. Decoded judge output is in [`judge/`](judge/), verbatim captures in [`captures/`](captures/).
+Cross-model throughout: **all captures, minting, judging, and audit-tracing by `gpt-5.6-sol`** (via Codex), not a Claude model — capture-model self-preference is constant across arms, and the consumer resembles the GPT-based tooling an OKF adopter is likely to use. Each capture ran in a fresh read-only session in a clean-room copy of its arm, placed outside the repo. Captures were automated rather than operator-manual — a labelled deviation from [`methodology.md`](../../methodology.md). Judges received the rubric ([`default`](../../harness/judge-prompts/default.md) for the diagnostic prompt, [`essay`](../../harness/judge-prompts/essay.md) for the essay) as their entire instruction set, answers shuffled and de-identified, two label permutations per prompt. Fidelity audits were open-book and strict (instructed to grade down on doubt); the grader shares a model family with the producers, a leniency risk applied equally to every arm. Verbatim captures: [`captures/`](captures/). Decoded judge and audit records: [`judge/`](judge/), [`fidelity-audit.json`](fidelity-audit.json).
 
-## Results
+## Result 1 — conformance distinguishes nothing
 
-| Run | Rubric | Ranking | Totals D / E / F (of 50) |
-|---|---|---|---|
-| p01 perm 1 | default | **D > E > F** | 48 / 44 / 42 |
-| p01 perm 2 | default | **E > D > F** | 46 / 47 / 45 |
-| e01 perm 1 | essay | **D > E > F** | 48 / 47 / 45 |
-| e01 perm 2 | essay | **E > D > F** | 47 / 47 / 45 |
+All bundles pass `okf validate` (spec v0.2). The audited bundle: 0 errors, 0 warnings. The naive bundle: 0 errors, 1,288 warnings, all 644 concepts unverified. The LLM-minted bundle: **0 errors, 0 warnings** across its 221 `type: Reference` notes. A conformant bundle full of un-audited claims validates exactly as cleanly as an audited one — conformance is a container property.
 
-Evidence-marker survival (mechanical count, no judge): p01 — D 27, E 47, F 0; e01 — D 0 (its trace declares prose attribution for the essay register), E 11, F 0. F's zero is structural: the naive bundle carries no markers to preserve.
+## Result 2 — traced fidelity separates the producers
 
-## Findings (directional — two prompts, one capture per arm)
+Claims traced to their cited files, and minted notes traced to their sources, under the same strict protocol:
 
-1. **The producer effect is real and consistent: F ranked last in all four blind runs.** The margin is modest — a strong model over naive chunks writes fluent, file-grounded prose — but the judge's blind rationales name the gaps the naive bundle created: on e01 the consumer never found the organisational-behaviour conflict chapter inside the heading-chunks and answered entirely from practice cards (no conflict modes, no power analysis, no negotiation theory); on p01, thin vendor-contract and lock-in coverage and a "near-binary, insufficiently calibrated" decision rule. F carries no in-band audit trail of its own — no evidence markers, no verbatim register; the addendum below reports what an external citation audit found.
-2. **The runtime layer is invisible to this rubric.** D and E carry byte-identical distillations and split 2–2 across permutations — within 4 points in the widest run (p01 perm 1) and within 1 point in the other three, including one run where their totals tied at 47 and the judge's stated ranking is its qualitative call, recorded as returned. What the runtime added shows up only in conduct the rubric doesn't score: the retrieval trace, and the source-boundary paragraph distinguishing borrowed-through findings from corpus-held evidence — which one judge run praised in exactly those terms.
-3. **The multi-axis bundle out-breadths a single-axis app.** E repeatedly earned credit for cross-axis pulls (software-engineering economics and business-law material on a decision prompt) that the single-axis app could not make. The fair next comparison is an all-axes D.
-4. **A new judge-limit shape:** one run penalised the in-band evidence markers as "unexplained citation codes" that "impede readability." The audit discipline costs rubric points with a judge that was not told what the markers mean — input for the planned rubric rework (an audit-trace fidelity score would measure what this rubric punishes).
-5. The dual-runtime port held: a non-Claude agent followed `answer-from-corpus` as a written procedure via AGENTS.md, unprompted, producing conformant traces.
+| Arm | Layer traced | Unsupported / contradicted |
+|---|---|---|
+| D | 24 answer-claims vs cited distillations | **0** (18 full support, 6 light over-specification) |
+| E | 24 answer-claims vs cited distillations | **0** (18 full, 6 partial) |
+| F | 24 answer-claims vs cited chunks | **0** (21 full, 3 partial) — a splitter never rewrites, so it has nothing to fabricate |
+| G | **64 minted notes vs their sources** | **6 (9.4%)** — 3 unsupported, 3 contradicted, plus 15 minor drift |
 
-## Addendum, same day: audit-trace fidelity
+G's errors are checkable exhibits, copied verbatim into [`g-exhibits/`](g-exhibits/): a [WACC formula](g-exhibits/openstax-accounting-vol2/investment_center_performance_measures.md) that applies after-tax treatment to every capital source where the textbook applies it to debt only; [invented `PMT` notation and an annuity formula](g-exhibits/openstax-accounting-vol2/time_value_of_money_conventions.md) the source never gives; a [wealth definition](g-exhibits/openstax-economics-3e/income_distribution_measures.md) that drops the required debt subtraction; and [pre-2020 M1/M2 definitions presented as current](g-exhibits/openstax-economics-3e/money_supply_and_multiplier.md) although the source explicitly states the May 2020 redefinition — the model's training prior overriding the document it was summarising. Errors concentrate in quantitative sources; procedural handbooks barely drift.
 
-The ranking round measures preference; this addendum measures grounding. For each capture, a fresh read-only session in the arm's clean room extracted every citation-bearing claim, sampled 12 evenly spaced, resolved each cited source to its file, and graded strictly (instructed to grade down when in doubt). The grader is the same model family as the capture agent — a leniency risk, applied equally across arms. Decoded results: [`fidelity-audit.json`](fidelity-audit.json).
+**The laundering chain, confirmed end-to-end:** the [balanced-scorecard note](g-exhibits/openstax-accounting-vol2/balanced_scorecard_perspectives.md) invents a requirement absent from its source; the G capture repeats it, citing the note; the answer-level citation audit grades that use *supported*, because the note is the cited authority. Fabricated content in an intermediate layer becomes invisible one hop downstream — a consumer auditing answers against the bundle finds everything in order. Only source-level tracing catches it, which is what a corpus-level audit-of-record exists to be.
 
-| Arm | Full support | Partial | Unsupported / contradicted / file-not-found |
-|---|---|---|---|
-| D | 18/24 | 6 | 0 |
-| E | 18/24 | 6 | 0 |
-| F | **21/24** | 3 | 0 |
+## Result 3 — blind preference rankings, and what they cannot see
 
-Zero fabrication in any arm — and F graded marginally cleanest on strict attribution. The mechanism is legible: F cites raw source chunks and restates them at low altitude, so support is trivial to verify; D and E cite distillations while making more synthesised claims, and their PARTIALs are light over-specification (a qualifier or location the cited file does not state), not error. A deterministic splitter never rewrites the source, so it has nothing to fabricate.
+Eight blind runs (three-way before G existed, four-way after; all decoded in [`judge/`](judge/)):
 
-This bounds the round's headline, and the bound matters: on clean, canonical, openly licensed sources consumed by a strong model, the naive path's measured deficit is coverage and synthesis (finding 1), not truthfulness. Two limits keep the bound honest. This corpus is the naive path's best case — non-canonical or messily converted corpora are where naive chunking degrades, per the harness's earlier findings. And fabrication risk enters when a producer *writes* new prose rather than splitting it: the un-audited LLM wiki-fication path (F+) is the arm where the ingestion audit itself would be the isolated variable, and it has not yet been run.
+| Prompt | Runs | Stable outcome |
+|---|---|---|
+| p01 (diagnostic) | 2 × three-way, 2 × four-way | Audited arms first every time; **G last in both four-way permutations**; F last in both three-way runs; margins 1–6 points of 50 |
+| e01 (essay) | 2 × three-way, 2 × four-way | Rank-unstable within 4 points — noise at this n |
 
-## Arm G, next day: the un-audited LLM producer
+Three rubric-blindness results, consistent across runs: the judges scored **G's calibration 9–10** while its bundle carries contradicted formulas; D and E — byte-identical content — were indistinguishable on scores, so the runtime layer's value never reached the rubric (it shows only in trace conduct and evidence-marker survival: D 27 / E 47 / F 0 / G 0 markers on p01); and the audit machinery itself was *penalised* — E's in-band markers read as "unexplained citation codes," D's retrieval trace as "extraneous." A preference rubric measures fluency; it cannot measure grounding.
 
-The fairness upgrade named in the caveats below has now run — as **arm G**: Google's own document-ingestion instruction ([`web_ingestion_instruction.md`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/src/reference_agent/prompts/web_ingestion_instruction.md), the only pathway in the reference implementation that touches prose) executed verbatim by `gpt-5.6-sol` over each converted source, with mechanical substitutions and **one disclosed semantic adaptation**. An example of the exact per-source instruction file, adapter note included, is at [`g-exhibits/EXAMPLE-INSTRUCTIONS.md`](g-exhibits/EXAMPLE-INSTRUCTIONS.md).
+## Findings
 
-**Run verbatim with no adaptation, the instruction minted zero references — twice** (piloted on two dissimilar sources). Every productive pathway presupposes a warehouse concept spine documents don't have: *enrich* needs existing concepts, the *reuse gate* needs existing concepts, the mandatory extractions want SQL metrics and join clauses, and "when in doubt, skip" closes the rest. The adaptation — treating the reuse gate as satisfiable by prospective cross-source reuse — is what made the arm answerable; everything else ran as written. One garnish: *Introduction to Business* still minted nothing, because its **title** trips the instruction's meta-page skip-list.
-
-The adapted fleet: 27 sources, **221 minted `type: Reference` notes**, and the assembled bundle passes `okf validate` at **0 errors, 0 warnings** — the third demonstration that conformance is a container property.
-
-### Bundle-vs-source fidelity: fabrication appears exactly where writing begins
-
-Six sampled sources, 64 notes traced claim-by-claim against their sources (same strict open-book protocol and same-family-grader caveat as the addendum above; decoded record at [`judge/20260729-g-bundle-fidelity-sol.json`](judge/20260729-g-bundle-fidelity-sol.json)):
-
-| Grade | Notes |
-|---|---|
-| FAITHFUL | 44 |
-| MINOR-DRIFT | 15 |
-| **UNSUPPORTED-CONTENT** | **3** |
-| **CONTRADICTED** | **3** |
-
-**9.4% of audited notes carry unsupported or contradicted content — against zero unsupported claims in every deterministic and audited arm.** The errors are checkable exhibits, copied verbatim into [`g-exhibits/`](g-exhibits/): a [WACC formula](g-exhibits/openstax-accounting-vol2/investment_center_performance_measures.md) that applies after-tax treatment to every capital source where the textbook applies it to debt only; [invented `PMT` notation and an annuity formula](g-exhibits/openstax-accounting-vol2/time_value_of_money_conventions.md) the source never gives; a [wealth definition](g-exhibits/openstax-economics-3e/income_distribution_measures.md) that drops the debt subtraction the source requires; and — the sharpest — [pre-2020 M1/M2 definitions presented as current](g-exhibits/openstax-economics-3e/money_supply_and_multiplier.md) although the source explicitly states the May 2020 redefinition: the model's training prior overriding the document it was summarising. Errors concentrate in quantitative sources; procedural handbooks barely drift.
-
-### Judging and the laundering chain
-
-Four-way blind judging (D/E/F/G, two permutations per prompt; decoded at [`judge/20260729-4way-judge-and-g-answer-fidelity-sol.json`](judge/20260729-4way-judge-and-g-answer-fidelity-sol.json)): on the diagnostic prompt the order is **E > D > F > G in both permutations**; the essay prompt is rank-unstable within 4 points. The judges scored G's *calibration* 9–10 while its bundle carries contradicted formulas — a preference rubric cannot detect fabrication.
-
-G's answer-level citations audited clean of fabrication (0 unsupported) but produced the round's only unresolvable citations (4 of 20, bare-filename re-citations). And one chain is confirmed end-to-end: the [balanced-scorecard note](g-exhibits/openstax-accounting-vol2/balanced_scorecard_perspectives.md) invents a requirement absent from the source; the G capture repeats it, citing the note; the answer-level audit grades that use *supported*, because the note is the cited authority. **Fabricated content in an intermediate layer becomes invisible one hop downstream — a consumer auditing answers against the bundle finds everything in order.** Only source-level tracing catches it, which is what a corpus-level audit-of-record exists to be.
-
-G's caveats: one generation per source, one grader model (same family as the producer), six of 27 sources sampled for the bundle audit, and one generosity that favours G — the executor could read entire books, where the reference implementation's page-fetch pathway could not.
+1. **The producer effect is real, and it lives where writing begins.** Copy-only production (F) is grounding-safe but misses whole chapters and connections — the blind rationales name them. LLM production without an audit (G) is fluent, conformant, and wrong at roughly one note in ten. The audited pipeline is clean at every traced layer.
+2. **Fabrication launders.** An invented claim in an intermediate artefact acquires a valid citation downstream and passes bundle-level auditing. Grounding must be checked at the source layer, once, at production time — exactly the pre-emptive position an ingestion audit occupies.
+3. **Neither the validator nor a preference judge can substitute for tracing.** Conformance passed everything; the rubric ranked a fabricating arm's calibration 9–10.
+4. **The container carries audited value faithfully.** E matched D throughout — the distillations survive export into the standard format, so the interchange story holds; the multi-axis bundle even out-breadths a single-axis app (the fair next comparison is an all-axes D).
+5. **The reference implementation cannot see a document corpus.** Verbatim, its instruction minted nothing, twice; its own skip-list rejects a textbook by its title. The document-producer side of the OKF ecosystem is unbuilt.
 
 ## Caveats
 
-Two prompts, one capture per arm, one judge model, automated capture. F is a deterministic floor; its fairness upgrade is arm G above. Treat the rankings as directional and the traced fidelity results — which name *specific, checkable* errors and gaps — as the more informative artifact.
+Two prompts; one capture per arm; one judge/grader model, same family as every producer; automated capture; six of 27 sources sampled for G's bundle audit; G's one labelled gate adaptation and one labelled generosity. This corpus — clean, canonical, openly licensed — is the *best* case for naive producers; non-canonical or messily converted corpora are where prior rounds show naive routing degrades further. Treat the rankings as directional and the traced fidelity results — which name specific, checkable errors and gaps — as the more informative artifact.

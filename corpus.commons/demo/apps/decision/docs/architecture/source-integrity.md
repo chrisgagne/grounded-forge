@@ -24,9 +24,17 @@ The 9-pass ingestion protocol ([`ingestion-protocol.md`](ingestion-protocol.md))
 - **Pass A: context.** The first pass establishes what is being read and confirms the full source is available.
 - **Pass C: deep read with citations.** Verbatim citations, with page or section anchors detected during a pre-flight check.
 - **Pass D: blockquote extraction.** Specific passages extracted with attribution.
-- **Pass I: source-only audit.** A final pass that cross-checks every claim in the deep reference against the source. Any unverifiable claim fails the audit and blocks the deep ref from shipping.
+- **Pass I: source-only audit.** A final pass — run in a fresh, independent context (see *Pass I must be independent* below) — that cross-checks every claim in the deep reference against the source. Any unverifiable claim fails the audit and blocks the deep ref from shipping.
 
 The audit pass exists specifically to catch the failure mode this rule prohibits: a passage assembled from training priors rather than the source, surviving until someone notices it does not actually appear in the text.
+
+## Pass I must be independent
+
+The audit only works if it does not share the producing session's context. An in-context source-only self-audit is blind to the training-priors the producer just wrote in: it reads them as source-grounded and certifies them — literally stamping "verified at source" on an attribution to a person the source never names, or on an enumerated count the source contradicts — because a model cannot flag a fabrication it is confident is true.
+
+So Pass I is dispatched as a **fresh subagent, and preferably a different model (cross-family), from the one that produced the deep reference.** Fresh context is the minimum; a different model is belt-and-suspenders and makes "same session" structurally impossible. The build's validation is the right place to enforce this: record the producer and auditor identities on each artefact and fail the gate if they match. A single independent pass reduces but does not eliminate injected error — the residual falls with repeated independent checks (at ingestion or at run time) and with more capable producing models.
+
+The demo corpus predates this requirement: its deep references were audited in-context, so that audit is not independent verification and the corpus is pending a fresh, independent re-audit.
 
 ## What this rule covers and what it does not
 

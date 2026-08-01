@@ -152,13 +152,13 @@ Run in order. Full procedure, templates, contracts, and pass-specific failure mo
 - **Pass F, Light-reference derivation.** Three sub-passes from the verified deep; source not re-read.
 - **Pass G, Distillation projection.** Applicability gate (G.0); project per applicable axis (G.1–G.3).
 - **Pass H, Cross-reference.** Drive the mechanical-index pipeline: allocate slug-ID, run preprocessor, dispatch Sonnet refs + cross-link passes, regenerate JSON indexes. Cross-check sibling distillations.
-- **Pass I, Source-only audit.** Read the deep cold; trace every claim. Deep ships only when Pass I passes.
+- **Pass I, Source-only audit.** Read the deep cold in a **fresh subagent** — never the session that produced it — and trace every claim. A same-context read certifies its own leakage: a session cannot see the training-priors it just wrote in as source-grounded, so it passes them off as verified. Only independent eyes catch them. Deep ships only when Pass I passes.
 
 ---
 
 ## Parallel-batch operations
 
-When ingesting many sources in one work-session, dispatch multiple subagents in parallel: one source per subagent.
+When ingesting many sources in one work-session, dispatch multiple subagents in parallel: one source per subagent for Passes A–H. **Pass I always runs in a separate fresh subagent** (per Pass I above), launched once the producing subagent has written the deep reference — a cold read is only cold from a context that did not write the reference.
 
 **Per-source staging files.** Each source agent writes its per-source artefacts to namespaced staging paths the build scripts read at corpus level. The canonical JSON indexes are derived; nobody edits them by hand. Staging layout (paths relative to repo root):
 

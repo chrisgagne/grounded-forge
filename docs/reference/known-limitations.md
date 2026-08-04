@@ -1,13 +1,13 @@
 # Known limitations
 
-The OpenStax demo corpus is a working illustration, not a polished product. A few of the books ship with image classification labelled PARTIAL: the deep references, light references, distillations, and Pass A/H/I audit artefacts are complete, but visual classification of every extracted image (per the 9-pass protocol's image post-pass) was not finished for some sources. Most users won't care, the matrix architecture's value is in the text-axis projections, but if you want full coverage you can finish the work yourself.
+The OpenStax demo corpus is a working illustration, not a polished product. A few of the books ship with image classification labelled PARTIAL: the deep references, light references, distillations, and Pass A/H/I audit artefacts are all present, but visual classification of every extracted image (per the 9-pass protocol's image post-pass) was not finished for some sources. Most users won't care, the matrix architecture's value is in the text-axis projections, but if you want full coverage you can finish the work yourself.
 
 ## What ships and what doesn't
 
 | Component | Status | Where |
 |---|---|---|
-| 9-pass ingestion under source-only audit | Complete for 12 OpenStax books + 15 supplementary sources (27 references total) | [`corpus.commons/demo/references/`](../../corpus.commons/demo/references/), [`corpus.commons/demo/distillations/`](../../corpus.commons/demo/distillations/) |
-| Pass I audit receipts (per source + cross-corpus summary) | Complete | [`docs/audit-results/`](../audit-results/), full logs in [`corpus.commons/demo/references/_audit/`](../../corpus.commons/demo/references/_audit/) |
+| 9-pass ingestion under source-only audit | All 9 passes ran across 12 OpenStax books + 15 supplementary sources (27 references total), but Pass I ran in-context — see the row below | [`corpus.commons/demo/references/`](../../corpus.commons/demo/references/), [`corpus.commons/demo/distillations/`](../../corpus.commons/demo/distillations/) |
+| Pass I audit receipts (per source + cross-corpus summary) | Present for every source, but produced in the same context that wrote the deep reference, so they are not independent verification. Treat the deep references as producer-drafted pending a fresh, independent re-audit. | [`docs/audit-results/`](../audit-results/), full logs in [`corpus.commons/demo/references/_audit/`](../../corpus.commons/demo/references/_audit/) |
 | Comparative eval harness (4-method, blind judge) | Runnable in this release; full results summarised qualitatively in the README (corpora used extend beyond the demo corpus) | [`docs/evals/`](../evals/), [`docs/evals/harness/`](../evals/harness/) |
 | Image classification | PARTIAL for 6 of 12 OpenStax books (see below) | [`corpus.commons/demo/sources/converted/`](../../corpus.commons/demo/sources/converted/) |
 | Semantic-search retrieval | Persisted Chroma collection ships with the repo | [`scripts/setup-chroma.py`](../../scripts/setup-chroma.py), [`docs/architecture/two-layer-indexes.md`](../architecture/two-layer-indexes.md) |

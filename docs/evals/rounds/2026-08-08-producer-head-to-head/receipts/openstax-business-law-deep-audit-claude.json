@@ -1,0 +1,31 @@
+{
+  "source": "openstax-business-law",
+  "tier": "deep-ref",
+  "producer": "sol-9pass",
+  "judge": "claude",
+  "grain": "claim",
+  "scope": "subject-matter only",
+  "claims_audited": 386,
+  "tally": {
+    "faithful": 384,
+    "minor_drift": 2,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "claim": "United States v. Lopez: the Gun-Free School Zone Act fell outside the commerce power because the regulated activity had \"nothing to do with commerce, or any sort of enterprise\"",
+      "marker": "[V][AE][BT]",
+      "grade": "minor_drift",
+      "searches": "grep 'Lopez'; grep 'nothing to do with commerce'; grep 'any sort of economic enterprise'",
+      "source_check": "Source (line 2369, table cell) reads: \"nothing to do with 'commerce' or any sort of economic enterprise.\" The reference, presenting this as a [V] verbatim quote, DROPS the qualifier \"economic\" (source: \"economic enterprise\" -> ref: \"enterprise\") and inserts a comma after \"commerce.\" The substance (Lopez as a commerce-power limit) is fully supported; the defect is a dropped word in a quote marked verbatim. MINOR-DRIFT."
+    },
+    {
+      "claim": "Negotiation definition borrowed from the journal *Organizational Behavior and Human Decision Processes*",
+      "marker": "[V][BT]",
+      "grade": "minor_drift",
+      "searches": "grep 'nonidentical preferences'; grep 'Organization Behavior'; read lines 903-906",
+      "source_check": "The quoted definition itself (\"process by which parties with nonidentical preferences allocate resources through interpersonal activity and joint decision making\") matches the source (lines 904-905) character-for-character. However, the source names the journal \"Organization Behavior and Human Decision Processes\" (line 903-904); the reference renders it \"Organizational Behavior and Human Decision Processes,\" adding \"-al.\" The reference silently corrected the source's wording of a [BT] attribution. Quote FAITHFUL; attribution wording MINOR-DRIFT."
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "source": "openstax-economics-3e",
+  "tier": "deep-ref",
+  "producer": "opus-9pass",
+  "judge": "claude",
+  "grain": "claim",
+  "scope": "subject-matter within-source only",
+  "claims_audited": 168,
+  "tally": {
+    "faithful": 150,
+    "minor_drift": 11,
+    "unsupported": 6,
+    "contradicted": 1
+  },
+  "errors": [
+    {
+      "claim": "Three main exchange-rate regimes: Floating; Fixed/pegged; Currency boards or dollarization (Ch 29.4)",
+      "marker": "list-count",
+      "grade": "CONTRADICTED",
+      "searches": "'floating exchange rate|soft peg|hard peg|merged currency|dollarization', 'exchange rate policies count'",
+      "source_check": "Line 41455 learning objective explicitly enumerates FOUR distinct policies: 'Differentiate among a floating exchange rate, a soft peg, a hard peg, and a merged currency.' The reference collapses soft-peg+hard-peg into 'Fixed/pegged' and asserts a count of THREE. This is the canonical 3-vs-4 exchange-rate-regime miscount; the source clearly lists four."
+    },
+    {
+      "claim": "Women earn ~82% of men's earnings on average (Ch 14.5)",
+      "marker": "number",
+      "grade": "UNSUPPORTED",
+      "searches": "'women earn|earnings of women|female to male|8[0-5]% ... women|for every dollar', read lines 19984-20075, 20276-20300",
+      "source_check": "Source gives only the CONTROLLED gender gap: 'the gender wage gap is only 5%' after adjusting for education/experience/occupation (2007 DOL study). The raw female/male ratio appears only in Figure 14.15, described qualitatively ('changed little through the 1970s'). No explicit ~82% (or 18% raw gap) figure is stated in text. The '~82% on average' is external knowledge, not source-stated. (The paired Black-men ~75% claim IS supported: line 20129 gives 75.3% in 2013; the gender ~82% is not.)"
+    },
+    {
+      "claim": "Akerlof's 'lemons' problem in used-car markets (Ch 16.1); George Akerlof — lemons problem [Connections]",
+      "marker": "attribution",
+      "grade": "UNSUPPORTED",
+      "searches": "'Akerlof' (zero hits in source), 'lemon' (lines 22626, 23541 etc.)",
+      "source_check": "'Akerlof' returns ZERO matches across all 57,917 lines. The source develops the lemons/used-car/adverse-selection concept (lines 22626, 23541) but never names George Akerlof. The reference's own Connections entry hedges '(Ch 16.1, implicit)', but the body states 'Akerlof's lemons problem' as a source attribution. The named-economist attribution is not made by the source."
+    },
+    {
+      "claim": "Rational expectations (Lucas, Sargent) argue systematic policy effects are anticipated (Ch 26.2)",
+      "marker": "attribution",
+      "grade": "UNSUPPORTED",
+      "searches": "'rational expectations' (lines 36885-36923), 'Lucas', 'Sargent'",
+      "source_check": "The rational-expectations section (lines 36885-36923) discusses the theory but names neither economist. 'Sargent' returns ZERO hits in the entire source. 'Lucas' appears only once, at line 27895 (Ch 20 growth quote), unconnected to rational expectations. Attributing rational expectations to 'Lucas, Sargent' is not source-supported."
+    },
+    {
+      "claim": "Milton Friedman, Edmund Phelps — natural rate hypothesis, expectations-augmented Phillips curve (Ch 25) [Connections]",
+      "marker": "attribution",
+      "grade": "UNSUPPORTED",
+      "searches": "'Phelps' (zero hits), 'Friedman' (line 37126 natural rate, Ch 25)",
+      "source_check": "'Phelps' returns ZERO matches in the source. Friedman IS named and tied to the natural-rate/vertical-Phillips idea (line 37126), so the Friedman half is fine; the Edmund Phelps attribution is unsupported — the source never names him. The reference marks it '(Ch 25, implicit)' but still asserts the attribution."
+    },
+    {
+      "claim": "Automatic stabilizers offset about 10% of any initial output movement (Ch 30.5)",
+      "marker": "number",
+      "grade": "UNSUPPORTED",
+      "searches": "'automatic stabilizers ... 10%|one-tenth|offset|reduce the size|dampen', read lines 42844-42945",
+      "source_check": "Ch 30.5 (lines 42844-42945) describes automatic stabilizers and the standardized-employment budget qualitatively; no '~10%' quantification of how much they offset output movements appears anywhere. The specific offset figure is not in the source."
+    },
+    {
+      "claim": "U.S. voter turnout in midterms is often less than 50% (Ch 18.1)",
+      "marker": "number",
+      "grade": "UNSUPPORTED",
+      "searches": "'midterm|off-year|congressional elections turnout|less than 50%', line 25458",
+      "source_check": "Source states presidential turnout only: line 25458 'about 55% to 65% of voting-age citizens actually voted' (this presidential figure is FAITHFUL). No statement about midterm/off-year turnout being under 50% is present; that clause is an unsupported addition."
+    },
+    {
+      "claim": "Five factors shift supply: input prices, natural conditions, technology, taxes/regulations, and subsidies (Ch 3.2)",
+      "marker": "list-count",
+      "grade": "MINOR-DRIFT",
+      "searches": "'factors that can shift the supply curve', 'Figure 3.15', lines 4165-4180, 5163",
+      "source_check": "Source prose (line 4171) presents the non-price supply shifters as input prices plus 'changes in weather or other natural conditions, new technologies for production, and some government policies' — i.e. ~4 categories, with government policy as ONE. The reference imposes a count of 'five' by splitting government policy into taxes/regulations + subsidies. Source never states 'five'. (By contrast the demand side's 'six factors' IS stated verbatim, line 4068 — FAITHFUL.)"
+    },
+    {
+      "claim": "The Microsoft case (1998-2002) involved alleged tying of Internet Explorer to Windows (Ch 11.2)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'Microsoft', 'Internet Explorer', lines 12727-12735",
+      "source_check": "Source (line 12727): 'From the mid-1990s until 2004, the U.S. Department of Justice prosecuted the Microsoft Corporation for including Internet Explorer as the default web browser.' The case identity/tying claim is correct, but the reference's date range '(1998-2002)' does not match the source's stated 'mid-1990s until 2004'."
+    },
+    {
+      "claim": "Education has private rates of return of about 10-15% per year of schooling (Ch 13.1)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'rate of return to ... education|per year of schooling|10-15%', line 18099",
+      "source_check": "Source (line 18099): 'the rate of return to a college education is approximately 10-15%.' The number is right, but the reference recasts it as '~10-15% PER YEAR OF SCHOOLING' — the source figure is the return to a college education overall, not a per-year-of-schooling rate. Altered qualifier."
+    },
+    {
+      "claim": "Federal R&D about 22.7% of total U.S. R&D in 2018 [V] (Ch 13.2, Table 13.3)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'22.7%|21.4%|70.3%', lines 18358, 18365-18367",
+      "source_check": "22.7% is real but comes from the PROSE (line 18358: '22.7% comes from the federal government'); the cited Table 13.3 actually lists federal at 21.4% (line 18365). The reference body attributes 22.7% to 'Table 13.3', which contains 21.4%. Both numbers are the source's own (an internal source inconsistency), but the [V]/Table-13.3 citation is misapplied. (The Key-stats table entries 21.4% and 70.3% ARE cited to Table 13.3 correctly and are FAITHFUL.)"
+    },
+    {
+      "claim": "Phyllis Ann Wallace — first chief of technical studies at EEOC (Ch 14.5)",
+      "marker": "attribution",
+      "grade": "MINOR-DRIFT",
+      "searches": "'Wallace', lines 20271-20274",
+      "source_check": "Source (line 20271-20272): 'was appointed as the commission's chief of technical studies.' It does not say 'first'. The reference adds the qualifier 'first chief of technical studies', which the source does not support."
+    },
+    {
+      "claim": "The S&P 500 fell 38% in 2008 and rebounded (Ch 17.2)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'38%|37%|S&P 500 ... 2008', lines 24531, 53493",
+      "source_check": "Source line 24531 attributes the 38% to 'average U.S. stock funds' ('In 2008 average U.S. stock funds declined 38%'), while line 53493 gives the S&P 500 specifically as declining 37% in 2008. The reference labels the 38% as 'the S&P 500', mislabeling which figure the -38% belongs to."
+    },
+    {
+      "claim": "QE (QE1, QE2, QE3) used during the 2008-09 Great Recession (Ch 28.3)",
+      "marker": "stated relationship",
+      "grade": "MINOR-DRIFT",
+      "searches": "'QE1|QE2|QE3|QE4', lines 39533-39553",
+      "source_check": "Source dates: QE1 began November 2008 (line 39533), QE2 November 2010 (line 39536), QE3 September 2012 (line 39537). Grouping all three as 'during the 2008-09 Great Recession' is a timing drift — QE2 and QE3 ran in 2010 and 2012, after the recession (ended mid-2009). (The 2020 'QE4' claim is FAITHFUL, line 39553.)"
+    },
+    {
+      "claim": "Intra-industry trade accounts for ~60% of world trade (Ch 33.3)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'intra-industry|60% of ... trade|half of ... trade', lines 46806, 46833",
+      "source_check": "Source line 46833: 'About 60% of U.S. trade and 60% of European trade is intra-industry trade' (and line 46806: 'Roughly half of all U.S. trade'). The 60% figure describes U.S. and European trade, not 'world trade'. The reference over-generalizes the scope to 'world trade'. (The separate Ch 34.2 reference claim 'Half of U.S. trade is intra-industry' IS faithful to line 46806.)"
+    },
+    {
+      "claim": "Protectionism is 'an indirect subsidy from consumers to producers' [V] (Ch 34.1)",
+      "marker": "V-quote",
+      "grade": "MINOR-DRIFT",
+      "searches": "'indirect subsidy from consumers to producers', 'subsidy ... consumers ... producers', lines 47776-47779, 48445",
+      "source_check": "The exact bracketed phrase does not appear verbatim. Source line 47776-47779: 'Protectionism is simply a method of requiring consumers to subsidize producers. The subsidy is indirect...' and line 48445: 'the indirect subsidy of protectionism to producers.' The reference's substantive claim is faithful, but presenting 'an indirect subsidy from consumers to producers' as a [V] verbatim quote overstates a paraphrase; marker should be [AP]/[AR]. (Quote is used 3x in the reference.)"
+    },
+    {
+      "claim": "The debt-to-GDP ratio rose from ~30% in the 1970s to ~120% by 2020 (Ch 30)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'debt/GDP ... 30%|100%|120%|128%', lines 42505-42540",
+      "source_check": "Ch 30.3 (lines 42525-42540) describes the debt/GDP trajectory qualitatively (WWII peak, decline 1950s-70s, jump in 2008-09) but the specific endpoint values '~30% (1970s)' and '~120% (2020)' are not stated in the readable text — they appear only in Figure 30.6, which the conversion did not render as values. Trend supported; exact endpoints unconfirmed against source text."
+    },
+    {
+      "claim": "Payroll taxes (Social Security and Medicare) are close to ~half of federal revenue (Ch 30.2)",
+      "marker": "number",
+      "grade": "MINOR-DRIFT",
+      "searches": "'payroll tax|half of federal|85% of federal tax revenues', lines 42382-42399",
+      "source_check": "Source line 42395-42398: payroll tax is the 'second largest source'; personal income tax + payroll together are 'over 85% of federal tax revenues in 2020', with income tax accounting for 'more total revenue than the payroll tax.' That puts payroll well under half (~30-38%). 'Close to ~half of federal revenue' overstates the payroll share."
+    }
+  ]
+}

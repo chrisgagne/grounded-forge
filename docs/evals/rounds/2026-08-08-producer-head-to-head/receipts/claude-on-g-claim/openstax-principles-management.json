@@ -1,0 +1,23 @@
+{
+  "source": "openstax-principles-management",
+  "arm": "G-naive-notes",
+  "judge": "claude",
+  "grain": "claim",
+  "notes_found": 8,
+  "claims_audited": 95,
+  "tally": {
+    "faithful": 94,
+    "minor_drift": 1,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "note": "managerial_roles.md",
+      "grade": "minor_drift",
+      "claim": "Leader role: 'takes responsibility for the work and development of people in the unit.'",
+      "searches": "rg 'responsibility for the work', 'development of.*people', 'work and.*development', 'role as a leader'",
+      "source_check": "Source (line 784) states the manager is 'responsible for the work of the people in their unit' and that this relates to 'their role as a leader.' The source frames the leader role around responsibility for the work, formal authority, and realized power (784-787); it does not say 'development' of people. 'Development' is a plausible element of Mintzberg's canonical leader role but is absent from this source text; grep for 'development of...people' found no supporting passage. Added element -> minor drift."
+    }
+  ]
+}

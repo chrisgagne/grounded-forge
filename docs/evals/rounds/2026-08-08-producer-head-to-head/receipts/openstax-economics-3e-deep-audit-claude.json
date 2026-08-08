@@ -1,0 +1,38 @@
+{
+  "source": "openstax-economics-3e",
+  "tier": "deep-ref",
+  "producer": "sol-9pass",
+  "judge": "claude",
+  "grain": "claim",
+  "scope": "subject-matter only",
+  "claims_audited": 71,
+  "tally": {
+    "faithful": 68,
+    "minor_drift": 1,
+    "unsupported": 2,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "claim": "The source notes Simon Kuznets's role in developing national-income accounting and also reports his warning against equating national income mechanically with national welfare (Ch. 19, §19.1).",
+      "marker": "[AR][BT]",
+      "grade": "unsupported",
+      "searches": "rg -ni 'Kuznets' source.md (only 2 hits, lines 26321 & 27498); rg -ni 'welfare of a nation|scarcely be inferred|Kuznets warned|be careful'",
+      "source_check": "The source names Kuznets exactly twice: line 26321 ('An economist named Simon Kuznets, who later won the Nobel Prize for his work, came up with a way to track what the entire economy is producing') and line 27498 ('we owe a debt to Simon Kuznets, the creator of the measurement'). The role-in-accounting sub-claim is faithful. But the source attributes NO welfare warning to Kuznets. The nearby 'No single number can capture all the elements of a term as broad as standard of living' (line 27491) is the textbook's own statement, not Kuznets's, and carries no attribution. The famous Kuznets welfare caveat is a real-world fact imported into the reference; the source does not report it."
+    },
+    {
+      "claim": "Paul Krugman is linked to trade based on increasing returns, product variety, and intra-industry exchange, extending the comparative-advantage account without displacing it (Ch. 33, §33.3).",
+      "marker": "[AR][BT]",
+      "grade": "unsupported",
+      "searches": "rg -ni 'Krugman' source.md (hits at 46133, 47230, refs 56622/56625); rg -ni 'increasing returns' source.md (zero hits); rg -ni 'intra-industry' source.md",
+      "source_check": "The phrase 'increasing returns' appears nowhere in the source. The source cites Krugman only for a 1995 quote about the FIRST wave of nineteenth-century globalization (line 46133: 'As the Nobel Prize-winning economist Paul Krugman ... wrote in 1995' followed by the Suez Canal / submarine-telegraph passage), and the review question at line 47230 ('What factors does Paul Krugman identify that supported expanding international trade in the 1800s?'). The intra-industry-trade section (§33.3, lines 46782+) explains such trade via economies of scale and variety but attributes it to no named economist. The source does not link Krugman to increasing-returns / intra-industry trade theory; that link is imported (it is Krugman's real-world Nobel work) but absent from the text."
+    },
+    {
+      "claim": "The source reports Mariana Mazzucato and Carlota Perez's account of public investment in foundational technologies and links it to cases such as computing, the internet, biotechnology, and GPS (Ch. 13, §§13.1–13.2).",
+      "marker": "[AR][BT]",
+      "grade": "minor_drift",
+      "searches": "rg -ni 'Mazzucato|Carlota Perez' source.md; read 17905-17930 (Mazzucato), 18195-18212 (Perez); rg -ni 'biotech' source.md",
+      "source_check": "Core attribution is faithful: Mazzucato (The Entrepreneurial State, line 17905) and Perez (line 18199) are both named in the Ch.13 innovation discussion. But the specific example list drifts. The Mazzucato passage lists 'the internet, cell tower networks, GPS, and voice activation' (line 17908) — so internet and GPS match, but 'cell tower networks' and 'voice activation' are dropped and 'computing'/'biotechnology' are added. 'Biotechnology' does appear in Ch.13 only in a patents context (line 18306), not as a Mazzucato/Perez public-investment case. Also, the source frames Perez around 'lessons of past innovations' and technological turning points / employment shifts (line 18199), not specifically 'public investment', so bundling Perez under 'public investment in foundational technologies' is a slight over-merge. Illustrative-list drift, not a load-bearing error."
+    }
+  ]
+}

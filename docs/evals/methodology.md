@@ -67,6 +67,8 @@ This rubric measures *answer-quality-as-perceived-by-an-LLM-judge*. It does not 
 
 For a single-source-grounded benchmark of a specific deep reference's fidelity to its source, see Pass I in the [9-pass ingestion protocol](../architecture/ingestion-protocol.md) and the calibration fixture at [`tests/audit-fixtures/`](../../tests/audit-fixtures/).
 
+One round is published whole, receipts included: the producer head-to-head at [`rounds/2026-08-08-producer-head-to-head/`](rounds/2026-08-08-producer-head-to-head/), which audited the 9-pass tier against Google's OKF reference producer over the same sources, cross-model, with matched judges and matched audit priming. Its bounded findings: ~1.7–3× claim coverage at a tied hard-error rate on the fully matched arm; the hard-error rate dominated by the producer model rather than the protocol; and the fresh-context-vs-in-context Pass I result that retired the 99.4% self-audit figure. The superseded 2026-07-28 OKF round's notice is at [`rounds/2026-07-28-okf/`](rounds/2026-07-28-okf/).
+
 ## Known limitations of this rubric
 
 The eval rounds surfaced a structural limit the next rubric rework is designed to address. The limit is honestly named because it is load-bearing for what the eval can and cannot demonstrate.

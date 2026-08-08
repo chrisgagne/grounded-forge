@@ -1,0 +1,24 @@
+{
+  "source": "openstax-business-law",
+  "arm": "G-naive-notes",
+  "judge": "claude",
+  "grain": "claim",
+  "primed": true,
+  "notes_found": 17,
+  "claims_audited": 170,
+  "tally": {
+    "faithful": 169,
+    "minor_drift": 1,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "note": "antitrust_law.md",
+      "grade": "minor_drift",
+      "claim": "Ancillary restraint: 'A restriction limited in time and geography and attached to a broader legitimate arrangement.'",
+      "searches": "rg -ni 'ancillary restraint', read src lines 5791-5812 (11.1 Rule of Reason)",
+      "source_check": "Source line 5808-5809 defines ancillary restraint only as 'the restriction is limited in time and geography ... short-term and limited in scope.' The clause 'attached to a broader legitimate arrangement' is not in the source; it is a correct-in-doctrine but source-unsupported gloss added by the producer. Core definition (time/geography) is faithful; trailing qualifier is an unsupported elaboration."
+    }
+  ]
+}

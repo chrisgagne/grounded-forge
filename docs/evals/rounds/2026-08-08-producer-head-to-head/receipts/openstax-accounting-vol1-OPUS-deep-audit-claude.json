@@ -1,0 +1,80 @@
+{
+  "source": "openstax-accounting-vol1",
+  "tier": "deep-ref",
+  "producer": "opus-9pass",
+  "judge": "claude",
+  "grain": "claim",
+  "scope": "subject-matter within-source only",
+  "claims_audited": 150,
+  "tally": {
+    "faithful": 141,
+    "minor_drift": 5,
+    "unsupported": 0,
+    "contradicted": 4
+  },
+  "errors": [
+    {
+      "claim": "\"Six stakeholder categories are named\" in Ch 1.4 (line 37), then bullets Stockholders, Creditors and Lenders, Governmental and Regulatory Agencies, Customers, Managers and Other Employees, plus a sixth '(Implicit) communities, suppliers, vendors'.",
+      "marker": "[AP]",
+      "grade": "contradicted",
+      "searches": "rg 'relies on financial information to make decisions'; rg '^###### \\*\\*(Stockholders|Creditors and Lenders|Governmental and Regulatory Agencies|Customers|Managers and Other Employees)\\*\\*'; read intro line 1772-1775",
+      "source_check": "Source Ch 1.4 names FIVE stakeholder categories as subsections (Stockholders 1776, Creditors and Lenders 1837, Governmental and Regulatory Agencies 1958, Customers 2035, Managers and Other Employees 2053). Intro (1772-1775): 'Stakeholders may be stockholders, creditors, governmental and regulatory agencies, customers, management and other employees, and various other parties and entities.' Five named + a catch-all; not six. The reference's own sixth bullet is flagged '(Implicit)'. 'Six... are named' miscounts by one (five vs six)."
+    },
+    {
+      "claim": "Header 'Eight GAAP principles, assumptions, and concepts' (line 82); reference then lists nine bullets (revenue recognition, expense recognition/matching, cost, full disclosure, separate entity, conservatism, monetary measurement, going concern, time period).",
+      "marker": "[AP]",
+      "grade": "contradicted",
+      "searches": "rg 'principles, assumptions, and concepts'; read Ch 3.1 lines 6161-6305; rg 'monetary measurement'",
+      "source_check": "Source Ch 3.1 (6161: 'Here are a few of the principles, assumptions, and concepts...') presents NINE bolded items: Revenue Recognition Principle (6167), Expense Recognition Principle (6188), Cost Principle (6204), Full Disclosure Principle (6232), Separate Entity Concept (6241), Conservatism (6255), Monetary Measurement (6264), Going Concern Assumption (6273), Time Period Assumption (6288). The reference itself lists all nine but titles the section 'Eight'. Count 'eight' contradicts source's nine (the eight-vs-nine trap)."
+    },
+    {
+      "claim": "Statistics table row: 'Bristol-Myers Squibb improperly recognised revenue, 1992-2001 | $1.5 billion + $1.7 billion total inflated profits | [V] (Ch 4.1)' (line 694).",
+      "marker": "[V]",
+      "grade": "contradicted",
+      "searches": "rg '150 million'; rg 'stuffing its distribution channels'; rg '1.5 billion'; rg '1.7 billion'; read Bristol-Myers 10270-10300; read Waste Management 5160-5175 and 29308-29320",
+      "source_check": "Case-detail splice. Source Bristol-Myers case (10274-10291): 'From 2000 through the end of 2001', $150M SEC fines, improperly recognized $1.5 billion in revenue to its two biggest wholesalers. No $1.7 billion and no 1992 date appear for Bristol-Myers. The $1.7 billion figure belongs to Waste Management ('inflating profits by $1.7 billion... in the period 1992-1997', line 5169; 'overstate net income by $1.7 billion', line 29316). The row splices Waste Management's $1.7B and 1992 start onto Bristol-Myers and stamps [V]. (The prose at line 129 is correct: 2000-2001, $150M, $1.5B.)"
+    },
+    {
+      "claim": "Header 'Eleven core ratios' for Appendix A (line 651); reference then lists twelve ratios (working capital, current ratio, quick ratio, debt-to-equity, times interest earned, AR turnover, total asset turnover, inventory turnover, days' sales in inventory, profit margin, return on total assets, return on equity).",
+      "marker": "[AP]",
+      "grade": "contradicted",
+      "searches": "rg 'four main categories of ratios'; read Appendix A 42611-42910; rg 'profit margin|return on total assets|return on equity'",
+      "source_check": "Source Appendix A presents FOUR categories (42611: 'liquidity, solvency, efficiency, and profitability') totalling TWELVE ratios: liquidity = working capital, current ratio, quick ratio (42623); solvency = debt-to-equity, times interest earned (42688); efficiency = AR turnover, total asset turnover, inventory turnover, days' sales in inventory; profitability = profit margin, return on total assets, return on equity (42844). The reference lists all twelve but titles the section 'Eleven'. Count 'eleven' contradicts twelve (the eleven-vs-twelve trap)."
+    },
+    {
+      "claim": "Three legal structures (Ch 2.1, Table 2.1): partnership characterised with 'ease of formation' (line 58).",
+      "marker": "[AP]",
+      "grade": "minor_drift",
+      "searches": "read Table 2.1 lines 3640-3660; rg 'double taxation|Unlimited liability'",
+      "source_check": "Table 2.1 (3644-3648) ranks Ease of Formation as Sole Proprietorship 'Easier to form', Partnership 'Harder to form', Corporation 'Difcult to form'. The reference lists 'ease of formation' under partnership, but the source table ranks partnership 'Harder to form'. Owners/liability (Unlimited/Unlimited/Limited)/taxation (Single/Single/Double) all match. Also the 'limited/perpetual life' characteristics the reference attributes to Table 2.1 are supported elsewhere (Chs 14, 15) but are not a row of Table 2.1. Minor drift on one gradient characteristic."
+    },
+    {
+      "claim": "Gross purchases are '“the original amount of the purchase without considering reductions”' [V] (Ch 6.1, line 160).",
+      "marker": "[V]",
+      "grade": "minor_drift",
+      "searches": "rg 'without considering reductions'; rg 'original amount of the purchase'; found line 17213",
+      "source_check": "Source glossary (17213): 'gross purchases original amount of the purchase without factoring in reductions for purchase discounts, purchase returns and allowances.' Reference's [V] quote reads 'without considering reductions'; source says 'without factoring in reductions'. Substance identical but the verbatim [V] marker is inexact (paraphrase, not character-for-character)."
+    },
+    {
+      "claim": "Intangible assets '“have value but often lack a physical existence”' [V] (Ch 11.1, line 364).",
+      "marker": "[V]",
+      "grade": "minor_drift",
+      "searches": "rg 'physical existence' (no hits); rg 'physical substance'; read intangible-asset section 28765-28772",
+      "source_check": "The exact phrase 'have value but often lack a physical existence' does not occur in the source. Source (28768) describes intangibles as long-term assets 'that do not have physical substance' and the glossary defines tangible assets as those with 'physical substance' (5458/30081). Examples list (patents, copyrights, franchises, licenses, goodwill, sometimes software, trademarks) matches (28770). Substance correct; the [V] verbatim marker is not honoured (reconstruction, not quote)."
+    },
+    {
+      "claim": "COSO Internal Control-Integrated Framework has five components: 'control environment, risk assessment, control activities, information and communication, and monitoring' [BT] (Ch 8.2, Figure 8.3).",
+      "marker": "[BT]",
+      "grade": "minor_drift",
+      "searches": "read COSO section 21504-21525; rg 'risk assessment'; rg 'information and communication' (no component hits); rg 'control environment'",
+      "source_check": "Source (21508) confirms COSO 'five components... necessary in an effective internal control system' shown in Figure 8.3. In the CONVERTED text the five names are not all present: only 'control environment' and 'control activities' appear as text (21503: 'control environment, the accounting system, and... control activities'). The names risk assessment, information and communication, and monitoring live in Figure 8.3, which the pymupdf4llm conversion did not capture. Count (five) and framework correct; three of the five named components are unverifiable in the converted source text (figure content dropped)."
+    },
+    {
+      "claim": "Amazon's 2018 net loss of $124 billion accompanied 'a $254 billion financing inflow, including $50 billion paid for fixed-asset and acquisition spending' (line 639).",
+      "marker": "[V]/[AP]",
+      "grade": "minor_drift",
+      "searches": "read Ch 16.2 Amazon example 40869-40885",
+      "source_check": "Source (40869-40878): '...Amazon showed a loss of $124 billion and a net cash outflow of $262 billion from investing activities. Yet... Amazon was able to raise a net $254 billion through financing... Amazon paid almost $50 billion to purchase fixed assets and to acquire other businesses.' The $124B loss, $254B financing inflow, and $50B are all faithful, but the $50B fixed-asset/acquisition spend is an INVESTING outflow (part of the $262B investing outflow), not part of the financing inflow. The reference's 'a $254 billion financing inflow, including $50 billion... fixed-asset' nests the investing spend inside the financing figure, garbling the section attribution."
+    }
+  ]
+}

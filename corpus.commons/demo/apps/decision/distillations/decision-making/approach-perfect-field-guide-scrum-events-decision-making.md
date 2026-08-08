@@ -96,7 +96,7 @@ This distillation gathers these threads into a working pattern: which decision b
 | Pre-circulate Backlog items before Refinement | Is the Product Owner pre-sending the list so the Scrum Team can read ahead? This is what allows the event to end early when items are already Ready. |
 | Estimate with conversation, not averaging | If estimators are split (one says 1, another says 5), are they exploring the spread (faster technique? hidden edge case?) rather than averaging it away or deferring to seniority? |
 | Generate retrospective candidates with positives/deltas/insights | If the decision is a process change, has the team gathered positives, deltas, and insights as candidates and grouped them, before voting on the top 3 to deep-dive? |
-| Use 5-Whys until you're surprised | "If you're rarely surprised by your root causes, you may not be digging deep enough." Decision-quality signal: surprise indicates progress toward root cause. |
+| Use 5-Whys and check for surprise | "If you're rarely surprised by your root causes, you may not be digging deep enough." Decision-quality check: rarely being surprised may indicate the investigation is stopping short. |
 
 ### Phase 4: Deciding (Analysing and selecting)
 
@@ -144,7 +144,7 @@ This distillation gathers these threads into a working pattern: which decision b
 | Estimation discussions always defer to the most senior developer without exploring divergence | The estimation-as-conversation principle is being bypassed (Source: Backlog Refinement, "Tips") | When a spread appears (1 vs 5), stop and explore it; the spread is the signal, not the numbers |
 | Carry-over WIP equals or exceeds forecast velocity and new items are still being taken in | The carry-over rule is being ignored; the team is running on optimism rather than empirical process control (Source: Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") | Apply the rule: zero new work; possibly remove items; communicate the honest position to the Product Owner |
 | The retrospective produces five or more improvement items every Sprint | The one-or-two-improvements rule is being ignored; experiment scope exceeds the team's change capacity (Source: Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") | Force a vote to the top one or two items; encode them as Backlog Items; defer the rest to future Sprints |
-| 5-Whys analysis rarely surprises anyone | Root-cause investigation is stopping too early (Source: Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") | Keep asking until the answer is unexpected; surprise is the signal that you have reached structural root cause |
+| 5-Whys analysis rarely surprises anyone | Root-cause investigation is stopping too early (Source: Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") | Ask why again; rarely being surprised may mean the structural root cause has not yet been reached |
 
 ## When to Use This Reference
 

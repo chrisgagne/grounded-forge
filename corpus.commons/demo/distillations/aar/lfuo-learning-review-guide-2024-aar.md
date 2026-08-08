@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:9fb5f9107ee7e0d89389490e30e366ce665a3f9c2fbc80ea20d8c3056bfdd254 -->
 # US Forest Service LFUO 2024, After-Action Review Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Scope:** open.
@@ -8,7 +9,7 @@ The LFUO 2024 guide is the most complete HOP-tradition learning-review framework
 
 ## Key Concepts for After-Action Review
 
-1. <!-- concept: four-tool-ladder --> **Four-tool ladder: AAR / RLS / FLA / Learning Review.** Each tool serves a distinct scope. The AAR produces immediate local learning, confidential to the work unit. The RLS produces a simple shareable lesson. The FLA produces a scalable no-punitive-action learning product without recommendations. The Learning Review adds vetted recommendations via focus groups, academic SMEs, and a Learning Review Board. Scale by learning opportunity, not outcome severity. (Source: US Forest Service, *LFUO Guide*, Part 2, "The tools")
+1. <!-- concept: four-tool-ladder --> **Four-tool ladder: AAR / RLS / FLA / Learning Review.** Each tool serves a distinct scope. The AAR produces immediate local learning, confidential to the work unit. The RLS produces a simple shareable lesson. The FLA produces a scalable no-punitive-action learning product without recommendations. The Learning Review adds vetted recommendations via focus groups, optional academic SMEs, and a Learning Review Board. Scale by learning opportunity, not outcome severity. (Source: US Forest Service, *LFUO Guide*, Part 2, "The tools")
 
 2. <!-- concept: learning-opportunity-over-severity --> **Learning opportunity over outcome severity.** "The natural tendency is to base the size and complexity of the review team upon the severity of the outcome. Often, the more 'serious the accident,' the more resources are put toward the review team. This tendency may pretermit stellar learning opportunities" (Source: Part 3, "Starting the process") The tree-cutting near-miss is the guide's worked example: a two-inch difference in tree fall would have been a fatality; the learning opportunity does not depend on that chance.
 
@@ -32,7 +33,7 @@ The LFUO 2024 guide is the most complete HOP-tradition learning-review framework
 
 12. <!-- concept: work-as-done --> **Work-as-imagined vs work-as-done as the diagnostic frame.** "How were we actually completing the work vs how managers were expecting the work to be completed?" (Source: Part 1, "Systems Thinking") Illuminating the gap between the two "will illuminate substantial and critical organizational vulnerabilities" (Source: Part 9, "Display Misalignments").
 
-13. <!-- concept: reckless-and-willful-threshold --> **Reckless-and-willful threshold as the FLA termination criterion.** "A reckless and willful disregard for human safety is conduct that is intentional, unjustifiable, and occurred with the foreknowledge that the conduct was likely to result in serious harm, death, or injury to a human" (Source: Appendix C) If this threshold is met, the FLA terminates; interview notes are sealed. Below the threshold, FLA continues.
+13. <!-- concept: reckless-and-willful-threshold --> **Reckless-and-willful threshold as the FLA termination criterion.** "A reckless and willful disregard for human safety is conduct that is intentional, unjustifiable, and occurred with the foreknowledge that the conduct was likely to result in serious harm, death, or injury to a human" (Source: Appendix C) If this threshold is met, the FLA terminates; interview notes go to the lead facilitator for confidential and secure storage. Below the threshold, FLA continues.
 
 14. <!-- concept: recommendations-via-learning-review --> **Recommendations only through Learning Review.** "In many circumstances, recommendations actually interfere with learning. Often recommendations, when implemented, add complexity to the workplace, which has the paradoxical effect of increasing risk" (Source: Part 5, "Recommendations vs Lessons Learned") Recommendations require Learning Review with the Learning Review Board and Safety Action Plan.
 
@@ -78,7 +79,7 @@ The LFUO 2024 guide is the most complete HOP-tradition learning-review framework
 
 | Need | Question |
 |---|---|
-| Are recommendations being produced from an FLA? | Recommendations require a Learning Review with focus groups, academic SMEs, Learning Review Board, and Safety Action Plan. |
+| Are recommendations being produced from an FLA? | Recommendations require a Learning Review with focus groups, a Learning Review Board, and a Safety Action Plan (academic SMEs as an option). |
 | Is the proposed action adding complexity to a complex system? | "Recommendations, when implemented, add complexity to the workplace, which has the paradoxical effect of increasing risk." Is the action a genuine barrier against a simple failure, or will it add variance? |
 | Has the Safety Action Plan named responsibility and timing? | SAP entries must designate who is responsible for completing the recommendation(s) and be consulted before committing resources. |
 
@@ -139,7 +140,7 @@ A maintenance team reviews a near-miss: a gas line was struck during a dig becau
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** Sidney Dekker is cited repeatedly throughout the guide (Dekker's *Just Culture*, *The Field Guide to Understanding Human Error*, and the Dekker & Breakey paper on restorative justice are all cited in Recommended Reading and at key points in the body); the demo corpus does not hold Dekker directly. Erik Hollnagel (ETTO principle, Resilience Engineering) is cited borrowed-through. Karl Weick and Kathleen Sutcliffe (*Managing the Unexpected*, HRO principles) are cited borrowed-through. Gary Klein (Recognition Primed Decision Making) is cited borrowed-through. James Reason (*Managing the Risks of Organizational Accidents*) is cited borrowed-through. Todd Conklin (*Pre-Accident Investigations*) is cited in Recommended Reading. The Roese & Vohs 2012 paper on hindsight bias is cited borrowed-through. None of these authors are held as primary references in the demo corpus; their works are not openly licensed and cannot be cited directly here.
+**Borrowed-through gaps.** Sidney Dekker is cited repeatedly throughout the guide (Dekker's *Just Culture*, *The Field Guide to Understanding Human Error*, and the Dekker & Breakey paper on restorative justice are all cited in Recommended Reading and at key points in the body); the demo corpus does not hold Dekker directly. Erik Hollnagel (ETTO principle, Resilience Engineering) is cited borrowed-through. Weick and Sutcliffe (*Managing the Unexpected*, HRO principles) are cited borrowed-through. Gary Klein (Recognition Primed Decision Making) is cited borrowed-through. J. T. Reason (*Managing the Risks of Organizational Accidents*) is cited borrowed-through. Todd Conklin (*Pre-Accident Investigations*) is cited in Recommended Reading. The Roese & Vohs 2012 paper on hindsight bias is cited borrowed-through. None of these authors are held as primary references in the demo corpus; their works are not openly licensed and cannot be cited directly here.
 
 **Named limits of the source.** The LFUO guide is designed for the US Forest Service context and uses wildland-fire and forest-management worked examples throughout. Applicability to non-field, non-safety-critical, or non-US-federal contexts is by adaptation. The guide explicitly limits FLAs: they cannot produce recommendations (recommendations require a full Learning Review). The reckless-and-willful threshold definition (Appendix C) is the guide's own working definition, not a legal standard; facilitators operating in environments with specific legal accountability frameworks should check local applicability.
 

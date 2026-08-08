@@ -18,7 +18,7 @@ The Scrum Guide is not an AAR framework. Its projection onto the AAR axis is nar
 
 5.  **Empiricism over forecasting tools.** "Various practices exist to forecast progress, like burn-downs, burn-ups, or cumulative flows. While proven useful, these do not replace the importance of empiricism. In complex environments, what will happen is unknown. Only what has already happened may be used for forward-looking decision making." (Source: *The Scrum Guide*, Scrum Events, "The Sprint") In AAR context: metrics from the event under review are inputs, not verdicts. The AAR's job is to understand what happened, not to score it.
 
-6.  **Adaptation requires authority.** "Adaptation becomes more difficult when the people involved are not empowered or self-managing." (Source: *The Scrum Guide*, Scrum Theory, "Adaptation") If the AAR's output includes actions that require authority the team does not have, the AAR must route those to the level with authority — or the adaptation will not happen.
+6.  **Adaptation is harder without empowerment.** "Adaptation becomes more difficult when the people involved are not empowered or self-managing." (Source: *The Scrum Guide*, Scrum Theory, "Adaptation") If the AAR's output includes actions that require authority the team does not have, the AAR must route those to the level with authority — or the adaptation will not happen.
 
 7.  **Framework immutability as a lesson for AAR protocol discipline.** "The Scrum framework, as outlined herein, is immutable. While implementing only parts of Scrum is possible, the result is not Scrum." (Source: *The Scrum Guide*, End Note) By analogy: an AAR that skips the timeline phase, or the just-culture sorting, or the action-owner naming is not a full AAR. Partial process produces partial learning.
 
@@ -72,7 +72,7 @@ The Scrum Guide is not an AAR framework. Its projection onto the AAR axis is nar
 | The post-event review uses metrics to rate team performance rather than to understand what happened | Scoring instead of inspecting — empiricism requires using only what has already happened to inform forward-looking decisions, not to grade the past | Reframe: "What does this metric tell us about what happened? What does it not tell us?" |
 | A pre-committed quality standard did not exist at the time of the event, and the AAR is debating what good looked like | No DoD-equivalent — the review is not comparing performance to a standard; it is constructing the standard retrospectively | Separate the two questions: "What happened?" from "What should the standard be going forward?" Address the first in the AAR; address the second as a follow-on action |
 | The AAR is presented by one function to the others | Working-session discipline violated — a presentation produces one account without building a shared account | Restructure: ask each function to contribute its account before the synthesis begins |
-| The actions surfaced require authority the team does not have, and no escalation path is named | Adaptation requires authority — the Scrum Guide is explicit that empowerment is a precondition for adaptation | Before closing: name who holds the authority, and commit to how and when the escalation will happen |
+| The actions surfaced require authority the team does not have, and no escalation path is named | The Scrum Guide says adaptation "becomes more difficult" when the people involved are not empowered or self-managing | Before closing: name who holds the authority, and commit to how and when the escalation will happen |
 
 ## When to Use This Reference
 

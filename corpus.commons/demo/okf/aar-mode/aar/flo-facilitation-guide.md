@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # FLO Facilitation Guide, AAR Distillation
 
@@ -30,7 +30,7 @@ The FLO Facilitation Guide is an online facilitation craft text — and most AAR
 
 3.  **Anxious Annie — name the worry, trust the process.** Leonne Beebe's reflective post names the pattern: facilitator anxiety shows up when participants are slow to post, slow to engage, not on the timeline expected. The Guide's discipline: "remember facilitation is not about me; it's about helping the participants as they need and ask for help. There is a saying that RRU folks often refer to called 'Trust the process.'" [V] [AE] (Source: Ch 4, "Example of reflective post") For AARs: the facilitator who is anxious about silence or slow timelines can mistake participant processing for disengagement and rush in.
 
-4.  **Vegas rules as a trust foundation.** "You may wish to establish 'Vegas rules,' i.e. what happens in the course, stays in the course" [V] (Source: Ch 4, "Privacy and Confidentiality") Privacy rules are not legal compliance; they are the foundation of honest exchange. For AARs this aligns with the LFUO administrative-firewall framing: explicit confidentiality commitment before the session opens.
+4.  **Vegas rules as a trust foundation.** "You may wish to establish 'Vegas rules,' i.e. what happens in the course, stays in the course" [V] (Source: Ch 4, "Privacy and Confidentiality") Privacy rules are the foundation of honest exchange, set alongside institutional privacy and confidentiality policies. For AARs this aligns with the LFUO administrative-firewall framing: explicit confidentiality commitment before the session opens.
 
 5.  **Scaffolding-and-fading arc — calibrate presence to phase.** In early phases, facilitator presence is high: welcoming, clarifying, troubleshooting. As participants own the conversation, the facilitator "steps back and encourages learning… they participate in discussions but don't lead" [V] (Source: Ch 3, "Roles and functions of FLO facilitators") For an AAR: Phase 0 (scoping) and Phase 1 (timeline construction) demand active facilitative presence; Phase 2–3 (contributory factors, just-culture) should be participant-led with the facilitator weaving and summarising.
 
@@ -137,7 +137,7 @@ A hybrid AAR (three participants in-room, four remote) is reviewing a customer-e
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Community of Inquiry model (Garrison, Anderson, Archer; Vaughan et al. 2013) is cited borrowed-through as the framing model for online facilitation; the demo corpus does not hold the Community of Inquiry literature directly. Liberating Structures (1-2-4-All, User Experience Fishbowl) is cited borrowed-through as a worked example of synchronous facilitation activities; this corpus holds the Liberating Structures Handbook directly but the FLO Guide's citation is to the LS tradition rather than to the handbook's own text. The Institute of Cultural Affairs – UK definition of the facilitator is cited borrowed-through. The International Association of Facilitators (IAF) Core Competencies is cited borrowed-through as inspiration for the FLO facilitation skills list.
+**Borrowed-through gaps.** The Community of Inquiry model (Garrison, Anderson; Vaughan et al. 2013) is cited borrowed-through as the framing model for online facilitation; the demo corpus does not hold the Community of Inquiry literature directly. Liberating Structures (1-2-4-All, User Experience Fishbowl) is cited borrowed-through as a worked example of synchronous facilitation activities; this corpus holds the Liberating Structures Handbook directly but the FLO Guide's citation is to the LS tradition rather than to the handbook's own text. The Institute of Cultural Affairs – UK definition of the facilitator is cited borrowed-through. The International Association of Facilitators (IAF) Core Competencies is cited borrowed-through as inspiration for the FLO facilitation skills list.
 
 **Named limits of the source.** The FLO Facilitation Guide is designed for online learning facilitation in educational settings — primarily multi-week asynchronous courses with synchronous sessions. Its direct applicability to AARs is by adaptation, not by design: it does not address incident review, contributory-factor analysis, just-culture sorting, or action design. The guide's participant set is ongoing cohorts in a learning relationship; the AAR's participant set is typically a one-off cross-functional group convened around a specific event. Adaptations to the AAR context are operator-applied throughout this distillation.
 

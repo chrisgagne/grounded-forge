@@ -8,7 +8,7 @@ Barbrook-Johnson & Penn's method catalogue projects onto the retro axis at phase
 
 ## Key Concepts for Retro
 
-1.  **Appropriateness triangle for tool selection (Ch 11, "Comparing Systems Mapping Methods")** — "where a method fits with both the project and the system, we can say it is an 'appropriate' method." The retro facilitator applies this to Phase 3: does the recurring problem's complexity warrant a CLD, or does a simpler tool suffice? Defaulting to CLDs for every recurring problem is Maslow's hammer.
+1.  **Appropriateness triangle for tool selection (Ch 11, "Comparing Systems Mapping Methods")** — "where a method fits with both the project and the system, we can say it is an 'appropriate' method." The retro facilitator applies this to Phase 3: does the recurring problem's complexity warrant a CLD, or does a simpler tool suffice? Defaulting to CLDs for every recurring problem is the hammer-and-nail failure mode.
 
 2.  **Rich Pictures as low-barrier data-gathering tool (Ch 2, "What Are Rich Pictures?")** — "Rich Pictures are a drawing, a picture, of a system or 'situation.' Very few, if any, prompts are given by facilitators beyond asking them to 'draw the system.'" Rich Pictures externalise each person's view of the sprint in a way that written stickies often suppress: relationships, tensions, emotional load, communication gaps. Useful in Phase 2 when the team holds strongly different views of what the sprint was like that haven't been surfaced yet.
 

@@ -12,7 +12,7 @@ sources:
     resource: https://approachperfect.com/wp-content/uploads/2020/04/The-Approach-Perfect-Field-Guide-to-Scrum-Events-2020-04-03.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Approach Perfect Field Guide to Scrum Events, Retro Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## Retro Relevance
 
-This is the demo corpus's closest-to-canonical retrospective source. The Field Guide carries the Sprint Retrospective in its fullest practitioner form: a concrete 1½-hour five-segment Derby-Larsen agenda (borrowed-through from *Agile Retrospectives*), Norm Kerth's Retrospective Prime Directive verbatim (borrowed-through from *Project Retrospectives*), an explicit Vegas Rule / Chatham House Rule confidentiality choice, √n voting, 5-Whys with *surprise as the signal*, the one-or-two-improvements discipline, the decisions-vs-actions split, capacity-adjusted velocity for honest commitment, and the retro-close pattern that reads back owners and dates. The guide is deliberately repetitive by design — each section is self-contained enough to be printed and used alone — which makes it well-suited to the retro task axis where the facilitator needs the protocol in the moment, not as background reading.
+This is the demo corpus's closest-to-canonical retrospective source. The Field Guide carries the Sprint Retrospective in its fullest practitioner form: a concrete 1½-hour six-segment Derby-Larsen agenda (borrowed-through from *Agile Retrospectives*), Norm Kerth's Retrospective Prime Directive verbatim (borrowed-through from *Project Retrospectives*), an explicit Vegas Rule / Chatham House Rule confidentiality choice, √n voting, 5-Whys with *the surprise check*, the one-or-two-improvements discipline, the decisions-vs-actions split, capacity-adjusted velocity for honest commitment, and the retro-close pattern that reads back owners and dates. The guide is deliberately repetitive by design — each section is self-contained enough to be printed and used alone — which makes it well-suited to the retro task axis where the facilitator needs the protocol in the moment, not as background reading.
 
 ## Key Concepts for Retro
 
@@ -28,11 +28,11 @@ This is the demo corpus's closest-to-canonical retrospective source. The Field G
 
 2.  **Vegas Rule and Chatham House Rule — explicit confidentiality choice.** "The Scrum Team should explicitly use either the 'Vegas Rule' ('Whatever happens in Vegas, stays in Vegas', meaning nothing is discussed about the retro without unanimous explicit consent) or 'Chatham House Rule' ('participants are free to use the information received, but neither the identity nor the affiliation of the speaker(s)... may be revealed.')." (Sprint Retrospective, "Tips") Pick one explicitly at Phase 0 setup. Both create a safe container; neither is a default.
 
-3.  **Five-segment Derby-Larsen agenda for 1½ hours.** The sample agenda: Set the stage (5 min: feeling check-in, Prime Directive, appreciations) → Gather data (5 min: positives/deltas/insights on stickies) → Read and deduplicate (3 min) → Vote on topics (2 min: √n votes) → For each of top 3 topics, spend 15-20 min generating insights and designing actions (70 min total) → Wrap up (5 min). (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") The agenda is borrowed-through from Esther Derby and Diana Larsen's *Agile Retrospectives* [BT].
+3.  **Six-segment Derby-Larsen agenda for 1½ hours.** The sample agenda: Set the stage (5 min: feeling check-in, Prime Directive, appreciations) → Gather data (5 min: positives/deltas/insights on stickies) → Read and deduplicate (3 min) → Vote on topics (2 min: √n votes) → For each of top 3 topics, spend 15-20 min generating insights and designing actions (70 min total) → Wrap up (5 min). (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") The agenda is borrowed-through from Esther Derby and Diana Larsen's *Agile Retrospectives* [BT].
 
 4.  **√n voting heuristic.** "Give people the approximate square root of the topic count in votes (~9 topics = 3 votes, ~16 topics = 4 votes, ~25 topics = 5 votes, etc)." (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") The heuristic balances signal (enough votes to express preference) with noise reduction (not so many that everything gets a vote). Apply in Phase 1 priming / Phase 2 data gathering when the team needs to select which topics to deep-dive.
 
-5.  **5-Whys with surprise as the signal.** "If you're rarely surprised by your root causes, you may not be digging deep enough." (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") Surprise is a diagnostic indicator: if the root cause was already obvious before the first Why, the analysis hasn't reached a new layer. Apply in Phase 3 insight when the team lands quickly on a familiar answer.
+5.  **5-Whys with the surprise check.** "If you're rarely surprised by your root causes, you may not be digging deep enough." (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") The check: if the root cause was already obvious before the first Why, the analysis may not have reached a new layer. Apply in Phase 3 insight when the team lands quickly on a familiar answer.
 
 6.  **One or two improvements, not a list.** "It's better to have one or two improvement items for the next Sprint than to have too much to change at once." (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") This is the retro's constraint discipline. Five experiments mean zero follow-through. One constraint addressed is worth seven items acknowledged.
 
@@ -120,7 +120,7 @@ This is the demo corpus's closest-to-canonical retrospective source. The Field G
 ## When to Use This Reference
 
 Reach for this distillation when:
-- The team is new to retrospectives and needs a concrete, runnable agenda (the five-segment Derby-Larsen structure is the default).
+- The team is new to retrospectives and needs a concrete, runnable agenda (the six-segment Derby-Larsen structure is the default).
 - Blame language is expected or has surfaced — the Prime Directive is the structural pre-commitment this source carries.
 - Confidentiality has not been set explicitly — Vegas Rule or Chatham House Rule must be chosen before anything else.
 - The experiment-design phase is producing too many items — the one-or-two-improvements discipline is this source's load-bearing constraint.
@@ -139,7 +139,7 @@ In Phase 4, the team proposes three experiments. The lead applies the one-constr
 
 Phase 5: the lead reads back the commitment — named owner, DoD change wording, date by which the DoD update is confirmed. The meta-retro question: "How did this retro go?" One person notes the 5-Whys ran better once the lead asked the surprise-check question. The lead logs this for next retro's format.
 
-The source's five-segment structure, √n heuristic, surprise-as-signal discipline, one-or-two-improvements rule, and read-back close are all from the Field Guide (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). The DoD as a mechanism for the decision traces to the decisions-vs-actions split (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda").
+The source's six-segment structure, √n heuristic, surprise-check discipline, one-or-two-improvements rule, and read-back close are all from the Field Guide (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). The DoD as a mechanism for the decision traces to the decisions-vs-actions split (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda").
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -167,7 +167,7 @@ The source's five-segment structure, √n heuristic, surprise-as-signal discipli
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Retrospective Prime Directive traces to Norm Kerth's *Project Retrospectives: A Handbook for Team Reviews* [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"; Sprint Retrospective, "Tips"). The five-segment Derby-Larsen agenda traces to Esther Derby and Diana Larsen's *Agile Retrospectives: Making Good Teams Great* [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). Jeff Sutherland's *Shock Therapy* is cited for the 1-week sprint recommendation [BT] (The Sprint, "Tips"). The Vegas Rule and Chatham House Rule are named devices borrowed-through without a primary source citation [BT] (Sprint Retrospective, "Tips"). Theory of Constraints is cited for "work in process is a liability, not an asset" [BT] (Sprint Review, "Tips"). None of Kerth, Derby, Larsen, Sutherland, or Theory of Constraints are held directly in this corpus; those works are not openly licensed and citations requiring depth are not available in this open distribution.
+**Borrowed-through gaps.** The Retrospective Prime Directive traces to Norm Kerth's *Project Retrospectives: A Handbook for Team Reviews* [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"; Sprint Retrospective, "Tips"). The six-segment Derby-Larsen agenda traces to Esther Derby and Diana Larsen's *Agile Retrospectives: Making Good Teams Great* [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). Jeff Sutherland's *Shock Therapy* is cited for the 1-week sprint recommendation [BT] (The Sprint, "Tips"). The Vegas Rule and Chatham House Rule are named devices borrowed-through without a primary source citation [BT] (Sprint Retrospective, "Tips"). "Work in process is a liability, not an asset" appears with the displayed shortlink ap.tips/toc; the source does not name a referent [BT] (Sprint Review, "Tips"). None of Kerth, Derby, Larsen, or Sutherland are held directly in this corpus; those works are not openly licensed and citations requiring depth are not available in this open distribution.
 
 **Named limits of the source.** The Field Guide is explicitly the "bare minimum instruction required to successfully bootstrap" the Scrum events — it names itself as a floor, not a ceiling [V] (Introduction). The guide covers only Scrum events and Backlog Refinement; it does not address team coaching, facilitation craft beyond the agenda structure, or psychological safety conditions. The retro agenda is a sample, not a prescription: the guide acknowledges that deviation from textbook Scrum should be a "well-formed experiment" after diligent practice [V] (Introduction). The guide does not address distributed or asynchronous retros, non-Scrum contexts, or team dynamics beyond the manager-participation note.
 

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:631f9928f2896f8d2cace0a4a7a590974b38a7bddcc71bef36fb2d72daefb808 -->
 # OpenStax Psychology 2e, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.
@@ -38,7 +39,7 @@ The book's central engagement-relevant insights: people interpret others' behavi
 
 13. <!-- concept: bystander-effect --> **Bystander effect and diffusion of responsibility.** Helping declines as the number of witnesses increases. The implication for stakeholder engagement: when many stakeholders share responsibility for a problem, no single stakeholder may move; explicit accountability and small-group structures counter this. (Source: Ch 12.6)
 
-14. <!-- concept: relationship-formation --> **Relationship formation: proximity, similarity, reciprocity.** Proximity and similarity are the strongest predictors of relationship formation. Homophily (preference for similar others) limits diversity exposure. Reciprocity and self-disclosure maintain relationships. Engagement strategies that ignore proximity and similarity are working against the underlying social mechanics. (Source: Ch 12.7)
+14. <!-- concept: relationship-formation --> **Relationship formation: proximity, similarity, reciprocity.** Proximity is the single most influential factor in relationship formation, and similarity is another important factor. Homophily (preference for similar others) limits diversity exposure. Reciprocity and self-disclosure maintain relationships. Engagement strategies that ignore proximity and similarity are working against the underlying social mechanics. (Source: Ch 12.7)
 
 15. <!-- concept: observational-learning --> **Observational learning and modelling.** Bandura's social learning theory: behaviour is acquired through attention, retention, reproduction, and motivation, and is shaped by vicarious reinforcement. Stakeholders learn what is acceptable partly by watching what happens to others; what the convener models is part of the engagement. (Source: Ch 6.4)
 

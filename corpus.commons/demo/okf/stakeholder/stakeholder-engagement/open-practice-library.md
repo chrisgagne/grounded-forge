@@ -12,7 +12,7 @@ sources:
     resource: https://openpracticelibrary.com/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Open Practice Library, Stakeholder-Engagement Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## Stakeholder-Engagement Relevance
 
-The Open Practice Library is built around facilitated, multi-participant work. A high proportion of the 266 practices are *stakeholder-engagement* practices in the strict sense — they presume someone with skin in the game who is not on the immediate team, and they specify how to bring that person's perspective into the work. The library's Discovery phase (86 practices) is the densest stakeholder-engagement cluster: opportunity framing, problem-space exploration, customer/user research, stakeholder identification, alignment work. Foundation (111 practices) carries the facilitation primitives that *enable* multi-stakeholder sessions to run productively (1-2-4-All, Affinity Mapping, Confidence Voting, Lean Coffee, Check-ins, Social Contract). Delivery and Options carry the engagement practices that surround a build cycle (Showcase / Sprint Review, Retrospectives, Stakeholder RACI, Dot Voting).
+The Open Practice Library is built around facilitated, multi-participant work. A high proportion of the 266 practices are *stakeholder-engagement* practices in the strict sense — they presume someone with skin in the game who is not on the immediate team, and they specify how to bring that person's perspective into the work. The library's Discovery phase (86 practices) is the densest stakeholder-engagement cluster: opportunity framing, problem-space exploration, customer/user research, stakeholder identification, alignment work. Foundation (111 practices) carries the facilitation primitives that *enable* multi-stakeholder sessions to run productively (1-2-4-All, Affinity Mapping, Confidence Voting, Lean Coffee, Check-ins, Social Contract). Delivery and Options carry the engagement practices that surround a build cycle (Showcase / Sprint Review, Retrospectives, Dot Voting).
 
 The stakeholder frame the library carries is explicit on three points. First, **stakeholders are plural and structured**, not undifferentiated — the library distinguishes primary stakeholders (the end user), secondary stakeholders (those the end user interacts with), and other stakeholders (those the secondary interact with) in *Stakeholder Mapping (Mobius Outcome Delivery)*; it also distinguishes Responsible / Accountable / Consulted / Informed roles in *Stakeholder RACI Map*. Second, **stakeholder engagement is craft, not transaction** — the library treats engagement as an ongoing relationship requiring named practices for opening sessions safely (Check-ins, Social Contract), surfacing unspoken issues (Elephant in the Room), and closing with action commitments (Action Steps). Third, **the practice is the bridge between stakeholders and the team's vocabulary** — the library's facilitation primitives are designed to translate stakeholder voice into team-shareable artefacts (empathy maps, journey maps, stakeholder maps, impact maps, RACI tables) that survive the session and inform downstream work.
 

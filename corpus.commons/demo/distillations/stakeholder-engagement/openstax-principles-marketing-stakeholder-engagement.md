@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:a8f2adb8f4461da8287f1222f0911c1f4cd76489cc7ac395fbcaefe4de447629 -->
 # OpenStax, Principles of Marketing, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -32,7 +33,7 @@ A marketing channel — the multi-party engagement system through intermediaries
 6. <!-- concept: service-profit-chain --> **The service-profit chain.** Internal service quality → employee satisfaction → loyalty/productivity → external value proposition → customer satisfaction → customer loyalty → profit. The chain is broken if any link fails. (Source: Ch 11.2)
 7. <!-- concept: service-marketing-triangle --> **Service Marketing Triangle.** Three engagement legs: external marketing (company → customer, making promises), internal marketing (company → employees, enabling promises), interactive marketing (employees ↔ customers in service encounters, keeping promises). (Source: Ch 11.2)
 8. <!-- concept: service-quality-gaps --> **Five gaps in service-quality engagement.** Knowledge gap (between management's understanding and customer expectation), policy gap (between understanding and standards), delivery gap (between standards and execution), communication gap (between delivery and what's communicated), customer gap (between expectation and perceived experience). (Source: Ch 11.3)
-9. <!-- concept: buying-centre --> **Buying centre as a multi-stakeholder unit.** In B2B, engagement is with seven roles: initiator, influencer, gatekeeper, buyer, decider, user. (Source: Ch 4.2)
+9. <!-- concept: buying-centre --> **Buying centre as a multi-stakeholder unit.** In B2B, engagement is with six roles: initiator, influencer, gatekeeper, buyer, decider, user. (Source: Ch 4.2)
 10. <!-- concept: reference-groups --> **Reference groups and influencers.** Engagement isn't just with the customer — it's with the formal and informal groups that shape their preferences and purchases. (Source: Ch 3.2, "Social Factors")
 11. <!-- concept: public-relations --> **Public relations.** Unpaid, earned-media engagement with the press, public officials, communities. PR is the most credible promotional form. (Source: Ch 14.4)
 12. <!-- concept: diversity-marketing --> **Multicultural and sociodemographic engagement.** Diversity marketing as a *culturally-responsive* engagement strategy — acknowledging differences and validating individuals' importance. (Source: Ch 8.2)

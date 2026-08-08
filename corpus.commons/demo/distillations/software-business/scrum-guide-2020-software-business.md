@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:631b2053301aa1f37fa3e943790997be2418cc0af92ab6c6b5b6c3d6a49853b1 -->
 # Schwaber & Sutherland, The Scrum Guide — Software-Business Distillation
 
 **Source:** Schwaber, K. & Sutherland, J. (2020). *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. November 2020 edition. scrumguides.org. Licence: CC BY-SA 4.0. https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf.

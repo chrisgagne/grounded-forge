@@ -12,7 +12,7 @@ sources:
     resource: https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Schwaber & Sutherland, The Scrum Guide 2020 — Retro Distillation
 
@@ -40,7 +40,7 @@ This is primarily a Phase 0 (setup), Phase 4 (experiment design), and Phase 5 (c
 
 6.  **Transparency → Inspection → Adaptation as a causal chain.** "Transparency enables inspection. Inspection without transparency is misleading and wasteful." If psychological safety is low, the Transparency step breaks and the whole chain fails. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Transparency"; "Inspection")
 
-7.  **Adaptation requires authority.** "Adaptation becomes more difficult when the people involved are not empowered or self-managing. A Scrum Team is expected to adapt the moment it learns anything new through inspection." A team that cannot act on its retro insights has a structural problem the retro cannot solve. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Adaptation")
+7.  **Adaptation is harder without empowerment.** "Adaptation becomes more difficult when the people involved are not empowered or self-managing. A Scrum Team is expected to adapt the moment it learns anything new through inspection." A team that cannot act on its retro insights has a structural problem the retro cannot solve. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Adaptation")
 
 8.  **Flat epistemic authority inside the Scrum Team.** "Within a Scrum Team, there are no sub-teams or hierarchies." In the retro, each account is equally valid input regardless of title. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Team)
 

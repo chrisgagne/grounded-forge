@@ -10,7 +10,7 @@ Three threads from MCDP-1 sit directly on AAR practice.
 
 ### 1. Doctrine as a way of thinking, not a checklist (Ch 3)
 
-The pamphlet is explicit: *"Doctrine is a way of thinking, not a checklist."* For an AAR, this reframes the standard question *"did we follow doctrine?"* into *"did we exercise the thinking that doctrine teaches?"* The two are not the same. A unit can follow the letter of a runbook and miss the intent; another can violate the letter and fulfil the intent perfectly. AARs that assess only the letter measure the wrong thing.
+The pamphlet is explicit: doctrine *"establishes a particular way of thinking about war"* and, *"while authoritative, doctrine is not prescriptive"* [V] (Ch 3, "Doctrine"). For an AAR, this reframes the standard question *"did we follow doctrine?"* into *"did we exercise the thinking that doctrine teaches?"* The two are not the same. A unit can follow the letter of a runbook and miss the intent; another can violate the letter and fulfil the intent perfectly. AARs that assess only the letter measure the wrong thing.
 
 Operationally, this means the AAR's job is to reconstruct what the sharp-end practitioners were *trying to do* — what intent they were operating from, what main effort they thought was decisive, what tempo they were trying to maintain — before judging whether they executed correctly. The four standard AAR questions (*What was planned? What actually happened? Why did it happen that way? What can we do better?*) are framed differently when the practitioner's thinking is the unit of analysis rather than their procedural compliance.
 

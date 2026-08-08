@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:a8f2adb8f4461da8287f1222f0911c1f4cd76489cc7ac395fbcaefe4de447629 -->
 # OpenStax, Principles of Marketing, Software-Business Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.

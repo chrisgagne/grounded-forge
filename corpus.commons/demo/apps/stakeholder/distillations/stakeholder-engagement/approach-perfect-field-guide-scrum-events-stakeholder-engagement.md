@@ -207,7 +207,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - Schwaber and Sutherland — *The Scrum Guide* 2020; the canonical Scrum rules the Field Guide illustrates [BT]
 - Norm Kerth — Retrospective Prime Directive ("everyone did the best job they could…") [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda")
 - Chatham House Rule — named confidentiality option for the Sprint Retrospective [BT]
-- Agile Manifesto principles — cited inline throughout as "Agile principle #N" [BT]
+- Agile principles — cited inline throughout as "Agile principle #N" [BT]
 - Vegas Rule — named confidentiality option for the Sprint Retrospective; origin is convention-circuit etiquette, applied here to team safety [BT]
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:

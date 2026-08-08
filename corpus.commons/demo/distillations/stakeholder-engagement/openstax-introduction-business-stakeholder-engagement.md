@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:62d5d8709e50fcca73d524ad68200944da6b1552e1d1660de916b420954bac1d -->
 # OpenStax Introduction to Business, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.
@@ -12,7 +13,7 @@ This distillation consolidates these threads: how to identify stakeholders by fu
 
 1. <!-- concept: four-stakeholder-groups --> **Four stakeholder groups.** Stakeholders are "the individuals or groups to whom a business has a responsibility": employees, customers, the general public, and investors [V] (Source: OpenStax, *Introduction to Business*, Ch 2.4, "Responsibilities to Stakeholders"). The book systematically iterates obligations to each group across Ch 2.4. Each group has its own engagement modalities, expectations, and indicators of trust.
 
-2. <!-- concept: carrolls-pyramid --> **Carroll's pyramid of CSR.** CSR is "the concern of businesses for the welfare of society as a whole" beyond what is required by law or contract [V] (Source: Ch 2.3, "Managing a Socially Responsible Business"). Four stacked components (economic, legal, ethical, philanthropic responsibility) frame what's owed to society as a whole — and what's owed to specific stakeholder groups within society. Without economic responsibility (profit), the others cannot be sustained; with profit alone, the upper levels are not addressed.
+2. <!-- concept: carrolls-pyramid --> **Carroll's pyramid of CSR.** CSR is "the concern of businesses for the welfare of society as a whole" beyond what is required by law or union contract [V] (Source: Ch 2.3, "Managing a Socially Responsible Business"). Four stacked components (economic, legal, ethical, philanthropic responsibility) frame what's owed to society as a whole — and what's owed to specific stakeholder groups within society. Without economic responsibility (profit), the others cannot be sustained; with profit alone, the upper levels are not addressed.
 
 3. <!-- concept: business-environment --> **Seven environmental sub-environments shape engagement.** Stakeholder engagement does not occur in a vacuum — economic conditions, political-legal climate, demographic shifts, social attitudes, competitive forces, global market dynamics, and technological change all shape how stakeholder interests evolve and how engagement should adapt. (Source: Ch 1.2)
 
@@ -32,7 +33,7 @@ This distillation consolidates these threads: how to identify stakeholders by fu
 
 11. <!-- concept: marketing-mix --> **5Ps marketing mix as engagement framework.** Product, price, place, promotion, people. Each is a lever for customer engagement; integration matters more than perfection in any single dimension. (Source: Ch 11.2)
 
-12. <!-- concept: promotion --> **Six promotion goals for stakeholder communication.** Create awareness, get consumers to try, provide information, retain loyal customers, increase use frequency, identify target customers, teach the customer (especially in services co-creation contexts). (Source: Ch 12.5)
+12. <!-- concept: promotion --> **Seven promotion goals for stakeholder communication.** Create awareness, get consumers to try, provide information, retain loyal customers, increase use frequency, identify target customers, teach the customer (especially in services co-creation contexts). (Source: Ch 12.5)
 
 13. <!-- concept: integrated-marketing-communications --> **Integrated marketing communications (IMC).** Coordinates all promotional activities for consistent unified messaging regardless of channel — traditional advertising, personal selling, sales promotion, public relations, social media, e-commerce. Stakeholder confusion comes from inconsistent messaging. (Source: Ch 12.5)
 

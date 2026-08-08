@@ -12,7 +12,7 @@ sources:
     resource: http://www.knosof.co.uk/ESEUR/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Jones, Evidence-based Software Engineering, Software-Business Distillation
 
@@ -70,7 +70,7 @@ What this projection deliberately surfaces over the decision-making and stakehol
 
 19.  **The waterfall myth.** Royce 1970, which "gave birth to this [waterfall] demon meme," contained a diagram and accompanying text *warning against* the approach; subsequent pages showed the recommended iterative alternative. The "how not to do it" diagram was nonetheless taken up and "included in the first version of an influential standard, DoD-Std-2167, as the recommended project management technique" (Ch 5.4.1). Methodology choice is path-dependent on misreading of historical sources — useful context for any "we've always done it this way" defence of a development process. (Source: Ch 5.4.1, "Development methodologies")
 
-20.  **Cost-of-fixing-faults grows-by-orders-of-magnitude is NASA/DOD-specific.** The widely cited 1:10:100 figures for cost-of-fix at requirements vs design vs post-release come from NASA and DOD data where hardware costs were extreme; "in commercial development cost ratios are much smaller" (Ch 6.6). Investment cases for shifting quality work earlier in the lifecycle should not lean on these figures uncritically — the commercial-software context is different from the avionics context that generated them. (Source: Ch 6.6, "Checking for intended behavior")
+20.  **Earliest fault detection is not automatically most cost-effective.** The further along a mistake is found, the more costly it is likely to be to correct — but that additional cost does not necessarily make it most cost-effective to detect problems as early as possible. The NASA and DOD relative-cost figures are large because of the very high cost of the hardware running those particular software systems. Investment cases for shifting quality work earlier in the lifecycle should not lean on widely cited cost-of-fix ratios uncritically — the cost characteristics of the system containing the software determine correction costs. (Source: Ch 6.6, "Checking for intended behavior")
 
 ## Questions to Ask During Software-Business Work
 
@@ -144,7 +144,7 @@ This lens reweights Phase 6 (and to a lesser extent Phase 4 governance-and-measu
 
 The Jones-specific reweighting:
 
-- **Folklore corrections land as register signal, not as content.** When a board paper cites 28:1, 5:1 maintenance-to-development, or 1:10:100 cost-of-fix, the executive's read is "this writer is repeating the industry consensus." The Jones-grounded correction (6:1, 0.8, NASA/DOD-specific) lands not as a content update but as a register-shift: it tells the executive that the writer has done the empirical work and is not deferring to consensus. Lead with the corrected number stated in Paradigm-A form (committed, with a named source: *"Updated industry-comparable benchmark: 0.8, not 5:1 — survival-adjusted across the Dunn dataset"*).
+- **Folklore corrections land as register signal, not as content.** When a board paper cites 28:1, 5:1 maintenance-to-development, or 1:10:100 cost-of-fix, the executive's read is "this writer is repeating the industry consensus." The Jones-grounded correction (6:1; 0.8; early detection not automatically cheapest) lands not as a content update but as a register-shift: it tells the executive that the writer has done the empirical work and is not deferring to consensus. Lead with the corrected number stated in Paradigm-A form (committed, with a named source: *"Updated industry-comparable benchmark: 0.8, not 5:1 — survival-adjusted across the Dunn dataset"*).
 - **Technical-debt-as-call-option is a Paradigm-B reframe; deploy parsimoniously.** The financial reframe (no debt, call option) is the kind of structural acknowledgment that wins respect when offered once and undermines the artefact when deployed throughout. Make it once, name it explicitly as a reframe (*"The right financial analogue is a call option, not debt; here's the strike price and the expiry"*), and return to Paradigm-A operational vocabulary for the rest of the memo.
 - **The empirical posture supplies KPI legitimacy.** When the executive asks for a KPI to track engineering quality, Jones supplies the empirical argument against the easy KPIs (LOC velocity, story points, defect counts that collapse under Goodhart). The artefact should name the easy KPIs, name the collapse mechanism, and offer one Paradigm-A-compatible alternative (committed quarterly survey, named outcome metric tied to a customer journey, etc.).
 - **Anchor on the corrected number, not on the folklore.** When the executive is anchored on industry-standard productivity claims, Jones-grounded corrections work best when they land *first* and *as commitment* — not as caveats to a prior estimate. Open with the corrected number, then explain the basis. The order matters: anchoring effects shift the executive's subsequent reasoning.
@@ -162,7 +162,7 @@ The lens's reshape of Phase 6 questions (selected): *"How am I going to land the
 **Pattern: A board paper or investment memo invokes industry-norm productivity, maintenance-cost, or cost-of-fix claims.**
 - **Signal.** The memo cites 28:1 developer productivity, 5:1 (or 9:1) maintenance-to-development ratio, 1:10:100 cost-of-fixing-faults, "technical debt" as a financial concept, or "the cone of uncertainty narrows as we approach delivery."
 - **Diagnosis.** The memo is repeating folklore unsupported by empirical work. The audience is likely to accept these as established facts unless the writer corrects.
-- **Follow-up.** Bring the Jones-grounded corrections (Grant-Sackman → ~6:1; survival-adjusted maintenance ratio → ~0.8; NASA/DOD context for 1:10:100; technical-debt-as-option not debt; cone-of-uncertainty as mathematical artefact). Cite the deep reference for the underlying data.
+- **Follow-up.** Bring the Jones-grounded corrections (Grant-Sackman → ~6:1; survival-adjusted maintenance ratio → ~0.8; early detection not automatically cheapest, since the NASA/DOD relative-cost figures reflect their hardware costs; technical-debt-as-option not debt; cone-of-uncertainty as mathematical artefact). Cite the deep reference for the underlying data.
 
 **Pattern: A "developer productivity" measurement is being introduced to evaluate or rank engineers.**
 - **Signal.** A new metric (velocity, story-points-per-engineer, defect-rate-per-developer, deployment-frequency-per-team) is being proposed for use in evaluation, ranking, or compensation decisions.

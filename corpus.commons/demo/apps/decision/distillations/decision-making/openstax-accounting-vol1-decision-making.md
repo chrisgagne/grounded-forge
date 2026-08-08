@@ -14,7 +14,7 @@ The book repeatedly takes the position that financial-accounting choices have *r
 
 1.  **Accounting as decision-information.** Financial accounting produces information that external stakeholders use to make capital-allocation, credit, regulatory, employment, and purchase decisions. Internal managerial accounting supports operational and strategic choices. The two are linked: managerial decisions affect what financial accounting must report. (Source: OpenStax, *Accounting Vol 1*, Ch 1.1, Ch 1.4)
 
-2.  **The eight GAAP principles, assumptions, and concepts.** Revenue recognition, expense recognition (matching), cost, full disclosure, separate entity, conservatism, monetary measurement, going concern, and time period. These are the constraints inside which all accounting decisions are made. The conservatism principle in particular biases choices: estimated losses and uncertain expenses are recognised; estimated gains and uncertain revenues are not. (Source: Ch 3.1)
+2.  **The nine GAAP principles, assumptions, and concepts.** Revenue recognition, expense recognition (matching), cost, full disclosure, separate entity, conservatism, monetary measurement, going concern, and time period. These are the constraints inside which all accounting decisions are made. The conservatism principle in particular biases choices: estimated losses and uncertain expenses are recognised; estimated gains and uncertain revenues are not. (Source: Ch 3.1)
 
 3.  **Accrual versus cash basis.** Accrual accounting records transactions when they occur, regardless of cash timing. The book takes the position that "the accrual method is theoretically preferable to the cash basis of accounting" because it distinguishes the timing of activity from the timing of cash. Most decisions about adjusting entries (deferrals, accruals) are accrual-method decisions. (Source: Ch 2.1, Ch 4.2)
 
@@ -54,7 +54,7 @@ The book repeatedly takes the position that financial-accounting choices have *r
 
 | Need | Question |
 |---|---|
-| Apply the relevant GAAP principle | Which of the eight principles bears most directly — revenue recognition, expense recognition (matching), cost, full disclosure, separate entity, conservatism, going concern, time period? |
+| Apply the relevant GAAP principle | Which of the nine principles bears most directly — revenue recognition, expense recognition (matching), cost, full disclosure, separate entity, conservatism, monetary measurement, going concern, time period? |
 | Apply the conservatism bias | If the estimate is uncertain, is the choice biased toward recognising losses and not recognising uncertain gains? Where conservatism applies, the answer is not "the most accurate guess" but "the most conservative supportable amount". |
 | Identify legitimate flexibility | Within GAAP, what are the permissible treatments? Earnings management within GAAP is legal; earnings manipulation outside GAAP is fraud. Where does this choice sit? |
 | Account for IFRS divergence | If the company reports under both standards (or may in future), what does IFRS require? LIFO, component depreciation, and contingent-liability thresholds differ materially. |

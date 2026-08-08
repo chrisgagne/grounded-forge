@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-law-i-essentials
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Business Law I Essentials, Stakeholder-Engagement Distillation
 
@@ -54,7 +54,7 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 14.  **Consumer-stakeholder protection.** The FTC Act "prohibits 'unfair or deceptive acts or practices in or affecting commerce'" [V] (Source: Ch 12.1), and **deceptive practices** are those where "the seller misrepresents or misleads the consumer, and the misleading practice is substantial" [V] (Ch 12.1). The mandate covers six categories: product guarantees and false endorsements, unfair advertising (bait and switch), taking advantage of customers (vulnerable populations), misrepresenting a product, giving misleading price information, failing to disclose pertinent information. Plaintiffs "do not have to prove intent. Showing that the practice itself was unfair or deceptive is sufficient" [V] (Ch 12.1).
 
-15.  **Investor-stakeholder protection.** Securities regulation requires disclosure (Form 10-K, 10-Q, 8-K, proxy statements), prohibits insider trading on material nonpublic information, and requires Schedule 13D filing for 5%+ beneficial owners and statements of ownership for 10%+ corporate insiders. (Source: Ch 14.1)
+15.  **Investor-stakeholder protection.** Securities regulation requires disclosure (Form 10-K, 10-Q, 8-K, proxy statements), prohibits insider trading on material nonpublic information, and requires Schedule 13D filing for beneficial owners of more than 5% and statements of ownership for corporate insiders owning more than 10%. (Source: Ch 14.1)
 
 16.  **International stakeholder structures.** UN Security Council; EU regional integration; CISG governing international sales; common-law versus civil-law jurisdictions; doctrine of sovereign immunity (qualified post-1976). Three enforcement methods: collective action, reciprocity, shaming. (Source: Ch 13)
 
@@ -67,7 +67,7 @@ This distillation consolidates these threads into a working pattern: how to map 
 | Identify legal-relationship stakeholders | Who is in legal relationship with the firm — employees, customers, suppliers, contracting counterparties, investors, regulators, competitors, communities? Which laws govern each? |
 | Identify protected classes | For employment decisions, which protected classes (race, sex, national origin, colour, religion, age 40+, disability, pregnancy) are relevant? |
 | Identify vulnerable populations | For consumer-facing decisions, are vulnerable populations (seniors, non-English speakers, those with limited information) potentially affected? |
-| Identify standing under SEC reporting | For securities decisions, who is a beneficial owner (5%+), corporate insider (10%+), or institutional investor? Reporting obligations vary. |
+| Identify standing under SEC reporting | For securities decisions, who is a beneficial owner (more than 5%), corporate insider (more than 10%), or institutional investor? Reporting obligations vary. |
 | Surface latent stakeholders | Whose interests are affected but not yet engaged? Future generations (CSR / triple bottom line)? Communities? Employees not yet in the conversation? |
 
 ### Phase 2: Framing the Engagement (Before convening)
@@ -160,7 +160,7 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 A regional grocery chain is acquiring a smaller competitor. The acquisition will produce significant cost savings through consolidated distribution, but it will also produce overlap of about 200 employees across both firms. The HR director, with the CEO and general counsel, must engage four stakeholder groups: affected employees, the union representing employees at one of the two firms, regulators (FTC for antitrust review and the relevant state agencies), and customers in the markets where store closures are likely.
 
-**Mapping.** The HR director maps the stakeholders. *Employees* — covered by Title VII, ADA, FMLA, FLSA, COBRA, and ERISA; also potentially WARN Act notice (60 days for layoffs of 100+). *Union* — covered by NLRA; collective bargaining required; the contract has a no-strike clause but a grievance procedure. *Regulators* — FTC pre-merger notification under the 1976 Clayton Act amendment; state-level review possible. *Customers* — covered by FTC unfair-trade-practice rules; expectation of continuity of service.
+**Mapping.** The HR director maps the stakeholders. *Employees* — covered by Title VII, ADA, FMLA, FLSA, COBRA, and ERISA; also potentially WARN Act notice (60 days' notice from employers with more than 100 employees). *Union* — covered by NLRA; collective bargaining required; the contract has a no-strike clause but a grievance procedure. *Regulators* — FTC pre-merger notification under the 1976 Clayton Act amendment; state-level review possible. *Customers* — covered by FTC unfair-trade-practice rules; expectation of continuity of service.
 
 **Framing.** For employees: continuing relationship (those retained) and one-time interaction (those laid off). Both warrant integrative framing — the company's reputation with retained employees depends on how laid-off employees are treated. For the union: continuing collective relationship; collaborating mode warranted. For regulators: formal compliance posture; documented and transparent. For customers: continuity message backed by operational reality.
 

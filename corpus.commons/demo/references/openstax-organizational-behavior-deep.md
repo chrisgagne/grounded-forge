@@ -24,9 +24,9 @@ A fourth load-bearing claim is that motivation, performance, and reward must be 
 
 The book opens with a definition of work as "an activity that produces something of value for other people," broadening the wage-effort exchange to a social context [V] (Ch 1.1, "The Nature of Work"). Work serves four functions for individuals: economic (income), social (workplace relationships and friendships), status (occupation as a clue to community standing), and identity / self-esteem / self-actualisation; the absence of these produces *alienation*, characterised by powerlessness, meaninglessness, and normlessness [V] (Ch 1.1, "Functions of Work"). The text quotes Freud approvingly: "Work has a greater effect than any other technique of living in binding the individual more closely to reality" (Ch 1.1, "Functions of Work").
 
-### Five contemporary challenges for managers
+### Six contemporary challenges for managers
 
-The text frames the workplace as in continuous change, identifying five challenges: international competition, new technologies, increased quality (TQM), employee motivation and commitment, managing a diverse workforce, and ethical behaviour [AP] (Ch 1.2, "The Changing Workplace"). The competitive-strength argument is grounded in a Global Competitive Index ranking the United States second (5.9) behind Switzerland (Ch 1.2, Table 1.1).
+The text frames the workplace as in continuous change, identifying six challenges: international competition, new technologies, increased quality (TQM), employee motivation and commitment, managing a diverse workforce, and ethical behaviour [AP] (Ch 1.2, "The Changing Workplace"). The competitive-strength argument is grounded in a Global Competitive Index ranking the United States second (5.9) behind Switzerland (Ch 1.2, Table 1.1).
 
 ### Managerial responsibilities, levels, and required skill mixes
 
@@ -265,7 +265,7 @@ Reward systems influence five outcomes: job effort and performance, attendance a
 
 Lawler's four conditions for pay to be a strong motivator: trust between managers and subordinates, accurate measurement of individual performance, substantial pay differentials between high and low performers, and few negative consequences for good performance [V, paraphrased list] (Ch 8.4, "Money and Motivation: A Closer Look").
 
-The text takes a position on pay secrecy: "pay secrecy may have several negative side effects" because people overestimate others' pay, lose the motivational potential of differential rewards, and lose feedback on performance (Ch 8.4, "Pay Secrecy"). The Lawler study found that under pay secrecy, "almost regardless of how well the individual manager was performing, they felt they were getting less than the average raise" [V] (Ch 8.4).
+The text reports that "pay secrecy may have several negative side effects" — people overestimate others' pay, lose the motivational potential of differential rewards, and lose feedback on performance — but concludes "There is no correct position concerning whether pay rates should be secret or open" [V] (Ch 8.4, "Pay Secrecy"). The Lawler study found that under pay secrecy, "almost regardless of how well the individual manager was performing, they felt they were getting less than the average raise" [V] (Ch 8.4).
 
 ### Creative pay practices
 
@@ -301,7 +301,7 @@ Group cohesiveness has seven determinants — homogeneity, maturity, size, frequ
 
 Group effectiveness is determined by group effort, group knowledge and skill, and task performance strategies — the *intermediate criteria* — themselves shaped by environmental context, design factors, and interpersonal processes [BT, Hackman's model] (Ch 9.3, "What Is Work Group Effectiveness?").
 
-Intergroup performance depends on three interaction requirements: *interdependence* (pooled, sequential, reciprocal — Thompson's typology in all but name), *information flow* (driven by task uncertainty), and *integration* (collaboration despite different goals and time orientations) [AP] (Ch 9.4, "Determinants of Intergroup Performance"). Five techniques manage intergroup coordination: rules and procedures, member exchange, linking roles, task forces, and decoupling (Ch 9.4, "Managing Intergroup Behavior and Performance").
+Intergroup performance depends on three interaction requirements: *interdependence* (pooled, sequential, reciprocal), *information flow* (driven by task uncertainty), and *integration* (collaboration despite different goals and time orientations) [AP] (Ch 9.4, "Determinants of Intergroup Performance"). Five techniques manage intergroup coordination: rules and procedures, member exchange, linking roles, task forces, and decoupling (Ch 9.4, "Managing Intergroup Behavior and Performance").
 
 ## Part X: Teams (Ch 10)
 
@@ -321,7 +321,7 @@ Linda Hill's framing — managing a team means managing paradox [BT] (Ch 10.3, "
 
 ### Conflict, diversity, and multicultural teams
 
-Lencioni's *Five Dysfunctions* model is presented as the framework for thinking about team trust and conflict: absence of trust prevents conflict, which prevents commitment, which prevents accountability, which prevents results [BT] (Ch 10.4, "Opportunities and Challenges to Team Building"). *Mining* and *real-time permission* are techniques to surface conflict productively.
+Lencioni's *Five Dysfunctions* model is presented as the framework for thinking about team trust and conflict: absence of trust sets the tone for fear of conflict, and a team that does not air its opinions through debate cannot commit to decisions — the text presents the first three dysfunctions [BT] (Ch 10.4, "Opportunities and Challenges to Team Building"). *Mining* and *real-time permission* are techniques to surface conflict productively.
 
 Diverse teams outperform homogeneous teams on decision-making, problem-solving, and innovation according to multiple cited studies (McKinsey 2015 — top quartile for ethnic diversity 35 per cent more likely to have above-mean returns; BCG-TUM study — diversity in management correlates with innovation revenue when women exceed 20 per cent of management positions) [BT] (Ch 10.5, "Team Diversity"). The mechanism is that diverse team membership "alters the behaviour of a group's social majority in ways that lead to improved and more accurate group thinking" [V] (Ch 10.5).
 
@@ -563,7 +563,7 @@ WorldatWork's six total-rewards elements: compensation, benefits, work-life effe
 
 ### Talent acquisition and succession planning
 
-The Fernandez-Araoz / Groysberg / Nohria seven-step recruiting framework — anticipate, specify the job, develop the pool, assess candidates, close the deal, integrate the newcomer, review the process [BT] (Ch 17.5).
+The Fernandez-Araoz / Groysberg / Nohria six-step recruiting framework — anticipate, specify the job, develop the pool, assess candidates, close the deal, integrate the newcomer [BT] (Ch 17.5).
 
 The 9-box talent review template (performance × potential) anchors talent reviews, with potential defined as "an employee's ability to demonstrate the behaviors necessary to be successful at the next highest level within the company" [V] (Ch 17.6, "Talent Development and Succession Planning"). Succession planning identifies short-term (<1 year), mid-term (1-3 years), and long-term (3+ years) successor candidates per role. Follow-up development tools: training, stretch assignments, individual assessments (including 360-degree feedback), individual development plans.
 
@@ -673,13 +673,12 @@ Five criteria for evaluating a theory (Kaplan): internal consistency, external c
 | US Type B managers in same study | 12% | [V] (Ch 18.2) |
 | Type A heart disease prone vs Type B | 2× | [V] (Ch 18.2, citing Rosenman-Friedman 8.5-year study) |
 | Type A second heart attack prone vs Type B | 5× | [V] (Ch 18.2) |
-| Stogdill conformity Asch trials | "over one-third" | [V] (Ch 9.2) |
+| Asch conformity trials | "over one-third" | [V] (Ch 9.2) |
 | US average annual hours worked | 1,789 | [V] (Ch 2.6, OECD 2018) |
 | South Korean average annual hours worked | 2,070 | [V] (Ch 2.6, OECD 2018) |
 | Japanese karoshi-related legal claims, 2016 | 1,456 (record) | [V] (Ch 18.2, citing government figures) |
 | Skilled vs average negotiators options considered per issue | 5.1 vs 2.6 | [V] (Ch 14.4, Table 14.4, Adler & Gunderson) |
 | Skilled vs average negotiators time on agreement areas | 39% vs 11% | [V] (Ch 14.4) |
-| Companies using Cox-Blake business case for diversity (Ely-Thomas-recommended IL perspective) | not quantified by source | [AP] (Ch 5.6) |
 | Deloitte execs dissatisfied with performance management | 58% | [V] (Ch 17.3) |
 | Companies using performance reviews post-WWII | 60% (rising to 90% by 1960s) | [V] (Ch 17.3) |
 | TEA range across 60+ countries | <5% to ~20% | [V] (Ch 19.1) |
@@ -720,13 +719,11 @@ Five criteria for evaluating a theory (Kaplan): internal consistency, external c
 - *Punishment as primary reinforcer*: the text argues against, recommending positive reinforcement combined with extinction [AR] (Ch 4.2).
 - *Strict Maslow hierarchical sequencing*: research does not support the strict prepotency claim [AR] (Ch 7.2, "Maslow's Hierarchy of Needs").
 - *Treating employees identically (equality) regardless of performance*: equity theory grounds the argument that *equity* (proportionality) is what employees expect, not equality [AR] (Ch 7.4).
-- *Pay secrecy*: the text takes a clear position that secrecy reduces the motivational impact of differential rewards and produces miscalibrated perceptions [AR] (Ch 8.4).
 - *Conflict as inherently destructive*: the text argues that moderate conflict can be productive and that process conflict (about how to do something) can improve performance, in contrast to relationship conflict [AR] (Ch 6.4, Ch 14.1).
 - *Stereotyping as factual baseline*: stereotypes and similarity bias are framed as cognitive shortcuts that systematically misrepresent (and discriminate against) individuals [AR] (Ch 5.5, Ch 8.1).
 - *Forced ranking as a long-term performance management tool*: the text notes GE backed away from it after Welch retired and many companies followed because it "fostered internal competition and undermined collaboration and teamwork" [V] (Ch 17.3).
 - *Top-down change as universally appropriate*: the text contrasts conventional top-down change with bottom-up appreciative and complex-adaptive approaches, arguing that "the more complex the potential change, the greater the need to involve employees" [AP] (Ch 16.3).
 - *Treating culture as soft / non-strategic*: Drucker's "culture eats strategy for breakfast" is cited approvingly to frame culture as the more influential force [V] (Ch 15.5).
-- *The single-system view of decision-making*: the dual-system (reflective vs reactive) model is presented as more accurate than uniform models of cognition [AR] (Ch 6.2).
 
 ## Citation and source-integrity notes
 

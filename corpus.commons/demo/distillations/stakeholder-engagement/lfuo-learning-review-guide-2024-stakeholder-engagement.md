@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:9fb5f9107ee7e0d89389490e30e366ce665a3f9c2fbc80ea20d8c3056bfdd254 -->
 # LFUO 2024, Stakeholder-Engagement Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.
@@ -122,7 +123,7 @@ Where the guide is silent (e.g., on broader community engagement outside the age
 | Need | Question |
 |---|---|
 | Does the story respect multiple perspectives? | Different accounts of the event should be preserved in the learning product, with non-judgmental language. Diversity of narrative is resilience. |
-| Has the story been read aloud to those directly involved first? | The readback is in two phases — those directly involved first, then other participants, supervisors, and administrators. Hard copies are collected afterward. |
+| Has the story been read aloud to those directly involved first? | The readback should occur in two phases — those directly involved first, then other participants, supervisors, and administrators. If hard copies are shown, all copies should be collected afterward. |
 | Have the participants had a chance to correct or clarify? | "Remember this is their story, not yours." Even controversial comments belong in the learning product if captured appropriately in context. |
 | Have potentially identifying details been removed? | The story tells us who these people are without using actual identifying information; sensory and contextual detail substitutes for personal data. |
 
@@ -229,11 +230,11 @@ The scenario is operator-authored. The administrative-firewall commitment (Part 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Sidney Dekker — *The Field Guide to Understanding Human Error* (2014); *Just Culture: Balancing Safety and Accountability* (2007); cited throughout for the Just Culture and local-rationality framing [BT]
 - Dekker & Breakey (2016), *Safety Science* — restorative justice framing (Glossary, "Restorative justice", footnote 14) [BT]
-- James Reason — *Managing the Risks of Organizational Accidents* (1997); *The Human Contribution* (2008); cited for error typology [BT]
-- Karl Weick — *Managing the Unexpected* (2007); cited for situational awareness and sensemaking framing [BT]
+- J. T. Reason — *Managing the Risks of Organizational Accidents* (1997); *The Human Contribution* (2008); cited for error typology [BT]
+- Weick and Sutcliffe — *Managing the Unexpected* (2007); cited for situational awareness and sensemaking framing [BT]
 - Daniel Kahneman — *Thinking Fast and Slow* (2011); cited for System 1 / System 2 intuitive-action framing underlying the Ten Principles [BT]
 - Dekker, Cilliers, Hofmeyr (2011) — diversity-of-narrative-as-resilience framing (Part 8, "Different Perspectives") [BT]
-- Lisa Cron — *Wired for Story* (2012); Jonathan Gottschall — *The Storytelling Animal* (2012); both cited for storytelling-craft elements in Part 8 [BT]
+- Lisa Cron — *Wired for Story* (2012), cited in Handout E for its three "empathy pathway" storytelling critical elements; Jonathan Gottschall — *The Storytelling Animal* (2012), listed in Recommended Reading [BT]
 - Hollnagel, ETTO Principle — efficiency-thoroughness trade-off (Part 3, footnote 2) [BT]
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:

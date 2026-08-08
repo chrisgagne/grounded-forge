@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-financial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Software-Business Distillation
 
@@ -38,7 +38,7 @@ This distillation consolidates these four threads into a working pattern for sof
 
 2.  **Accrual basis as the operating premise.** Accrual accounting records transactions when they occur regardless of cash timing; cash basis records when cash exchanges. The text takes the position that accrual is "theoretically preferable" because it separates the timing of activity from the timing of cash. For software businesses with subscription revenue collected up front but earned over time, the distinction is the entire deferred-revenue conversation. (Source: Ch 2.1, Ch 4.2)
 
-3.  **The eight GAAP principles, assumptions, and concepts.** Revenue recognition, expense recognition (matching), cost, full disclosure, separate entity, conservatism, monetary measurement, going concern, time period. The conservatism principle in particular biases software-business decisions involving estimation under uncertainty: estimated losses and uncertain expenses are recognised; estimated gains and uncertain revenues are not. (Source: Ch 3.1)
+3.  **The nine GAAP principles, assumptions, and concepts.** Revenue recognition, expense recognition (matching), cost, full disclosure, separate entity, conservatism, monetary measurement, going concern, time period. The conservatism principle in particular biases software-business decisions involving estimation under uncertainty: estimated losses and uncertain expenses are recognised; estimated gains and uncertain revenues are not. (Source: Ch 3.1)
 
 4.  **Capitalisation versus expensing for software development.** To capitalise is to record a long-term asset on the balance sheet and allocate cost over its economic life through depreciation or amortisation; to expense is to record the cost in the period incurred. The capitalised cost includes all costs necessary to place the asset into service. Routine maintenance is expensed; improvements extending useful life or capacity are capitalised. For software businesses, internal-use-software capitalisation (engineering payroll as a long-term asset rather than operating expense) is a routine accounting choice with material income-statement consequences. The WorldCom fraud was substantially this line crossed in the wrong direction. (Source: Ch 11.2, Ch 11.3)
 
@@ -122,7 +122,7 @@ This distillation consolidates these four threads into a working pattern for sof
 
 | Need | Question |
 |---|---|
-| Map the six stakeholder categories | Who relies on this report or this disclosure — stockholders, creditors and lenders, regulators, customers, employees, broader community? Each reads the financial statements differently; tailor the framing. |
+| Map the five stakeholder categories | Who relies on this report or this disclosure — stockholders, creditors and lenders, regulators, customers, employees, and the broader community surfaced in later chapters? Each reads the financial statements differently; tailor the framing. |
 | Apply the full-disclosure principle | What information could a reasonable stakeholder need to evaluate the financial statements that is not on the face of the statements? Note disclosure exists for this; method changes, contingent liabilities, related-party arrangements, accounting estimates all qualify. |
 | Frame revenue-recognition judgement for the board | For a board reading the income statement of a software business, what is the deferred-revenue picture and what are the Topic 606 judgements driving recognition timing? Surface the assumptions, not only the numbers. |
 | Test the "cash is king" framing for investor messaging | Is the cash-flow story coherent with the income-statement story? Negative cash flow with growth-stage investing inflows is one shape; positive cash flow with negative earnings due to deferred-revenue mechanics is another. The interpretation requires looking at all three sections of the statement of cash flows together. |

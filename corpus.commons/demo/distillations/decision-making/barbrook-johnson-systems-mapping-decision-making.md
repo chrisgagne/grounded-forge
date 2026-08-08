@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:8b83d2ff88f475d1a8c0855666b9edb94456404540123477ed9b5512a5caff2d -->
 # Barbrook-Johnson & Penn, Systems Mapping — Decision-Making Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.
@@ -12,7 +13,7 @@
 
 3. **A framework for choosing what data and evidence to admit.** Chapter 9's four-mode classification (participatory / qualitative / existing evidence / quantitative) and the "plea for creativity" in combining them is a decision-support tool for matching data to question.
 
-4. **A discipline against three recurring decision-making failure modes in systems work.** The *horrendogram* failure mode (complexity displays that paralyse rather than guide); the *product-over-process* failure mode (treating the map as the deliverable rather than the discussion that produced it); the *Maslow's hammer* failure mode (applying one familiar method to every problem). All three are framed as decision-making anti-patterns.
+4. **A discipline against three recurring decision-making failure modes in systems work.** The *horrendogram* failure mode (complexity displays that paralyse rather than guide); the *product-over-process* failure mode (treating the map as the deliverable rather than the discussion that produced it); the *hammer-and-nail* failure mode (applying one familiar method to every problem). All three are framed as decision-making anti-patterns.
 
 The distillation projects all four contributions onto a working pattern. Where the guide is silent (e.g., on formal decision-theoretic frameworks like expected utility or multi-attribute utility), the silence is acknowledged.
 
@@ -131,7 +132,7 @@ The distillation projects all four contributions onto a working pattern. Where t
 
 | Signal | Diagnosis | Follow-up |
 |---|---|---|
-| Team reaches for the same method on every project regardless of project purpose or system type | Maslow's hammer failure mode — rung 1 of the ladder of using methods (Source: Ch 12, "Our Final Take-Home Messages") | Apply the appropriateness triangle: triangulate project purpose/constraints, system characteristics, and method nature before committing |
+| Team reaches for the same method on every project regardless of project purpose or system type | Hammer-and-nail failure mode — rung 1 of the ladder of using methods (Source: Ch 12, "Our Final Take-Home Messages") | Apply the appropriateness triangle: triangulate project purpose/constraints, system characteristics, and method nature before committing |
 | Stakeholder engagement designed around producing a polished final map rather than working discussions | Product-over-process failure mode — the real value often lives in the discussions, not the deliverable (Source: Ch 12, "Our Final Take-Home Messages") | Redesign the engagement for process value: multi-session workshops, open iteration, explicit surfacing of what participants learned |
 | Systems map that shows every factor and every connection at once, intended as the output | Horrendogram failure mode — complexity displays that paralyse rather than guide (Source: Ch 1, "How Can Systems Mapping Be Useful?"; Ch 4, "Causal Loop Diagrams") | Layer or filter the map for the audience; use submap extraction or staged display; allocate half of design resources to communication |
 | Data availability presented as the main reason for method choice | Over-narrow selection on data grounds — most methods can be used in most data modes if constraints on interpretation are stated (Source: Ch 11, "Choosing Systems Mapping Methods") | Ask: "Is this constraint real, or is it the typical mode?" State the constraint explicitly and adjust interpretation claims rather than ruling out methods |
@@ -170,7 +171,7 @@ The final deliverable is not the full 60-factor map but three targeted submaps p
 - **Producing a horrendogram** — unfiltered complexity displays that paralyse rather than guide.
 - **Treating the map as the deliverable when the process delivers most of the value** — stakeholders often experience the process value as the surprise.
 - **Trying to be both fully participatory and fully conceptually rigorous** — the trade is real; pick one as primary and design accordingly.
-- **The Maslow's hammer failure mode** — applying one method to every problem because it's the one we know.
+- **The hammer-and-nail failure mode** — applying one method to every problem because it's the one we know.
 - **Treating System Dynamics as a whole-system method** — it is best at dynamical sub-problems.
 - **Over-interpreting FCM dynamic analysis as forecast or simulation** — the analysis is a "form of quantitative storytelling", not prediction.
 - **Letting FCM threshold-function choice silently dominate causal-mode results** — sensitivity analysis is required.

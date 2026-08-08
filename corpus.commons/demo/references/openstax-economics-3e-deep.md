@@ -148,7 +148,7 @@ Long-run equilibrium under perfect competition achieves both **productive effici
 
 ## Part IX: Monopoly (Ch 9)
 
-A **monopoly** is a firm that "produces all of the output in a market" [V] (Ch 9). Five barriers to entry sustain monopoly: (1) **natural monopoly** from economies of scale relative to market demand; (2) control of a physical resource (e.g. ALCOA's bauxite, DeBeers's diamonds); (3) **legal monopoly** (regulation, exclusive licences); (4) intellectual property (patents, trademarks, copyrights, trade secrets) granting time-limited exclusive rights; (5) intimidating potential competitors through **predatory pricing** or large advertising budgets (Ch 9.1).
+A **monopoly** is a firm that "produces all of the output in a market" [V] (Ch 9). Five barriers to entry sustain monopoly: (1) **natural monopoly** from economies of scale relative to market demand; (2) control of a physical resource (e.g. ALCOA's bauxite, DeBeers's diamonds); (3) **legal monopoly** (regulation, exclusive licences); (4) intellectual property protection (patents, trademarks, copyrights, trade secret law); (5) intimidating potential competitors through **predatory pricing** or large advertising budgets (Ch 9.1).
 
 A monopoly faces the market demand curve, which is downward-sloping. Marginal revenue lies below the demand curve because lowering price to sell one more unit also lowers price on all previous units. The profit-maximising rule is **MR = MC** (Ch 9.2). The monopoly then sets price by reading the demand curve at that quantity. The price exceeds marginal cost: P > MC at the profit-maximising output.
 
@@ -208,7 +208,7 @@ A **monopsony** is a labour market with one employer. The monopsonist faces an u
 
 A **bilateral monopoly** combines union (supply-side) and monopsony (demand-side) power. Employment is unambiguously lower than competitive; the wage is indeterminate, depending on relative bargaining power (Ch 14.4).
 
-**Discrimination** "involves acting on the belief that members of a certain group are inferior or deserve less solely because of a factor such as race, gender, or religion" [V] (Ch 14.5). The text documents persistent earnings gaps by gender (women earn ~82% of men's earnings on average; the gap narrows substantially after controlling for occupation, experience, and family responsibilities) and by race (Black men earn ~75% of White men's earnings [BT]). Earnings gaps persist after controlling for measurable factors, suggesting either discrimination or unmeasured factors (Ch 14.5). Becker's economics-of-discrimination argument: competitive markets penalise discriminating firms, but discrimination persists when bigoted customers, fellow workers, or imperfect information sustain it. William Darity Jr. argues that competitive markets have not been sufficient to eliminate employment and wage discrimination [BT] (Ch 14.5).
+**Discrimination** "involves acting on the belief that members of a certain group are inferior or deserve less solely because of a factor such as race, gender, or religion" [V] (Ch 14.5). The text documents persistent earnings gaps by gender (the gap narrows substantially after controlling for occupation, experience, and family responsibilities) and by race (Black men earn ~75% of White men's earnings [BT]). Earnings gaps persist after controlling for measurable factors, suggesting either discrimination or unmeasured factors (Ch 14.5). Becker's economics-of-discrimination argument: competitive markets penalise discriminating firms, but discrimination persists when bigoted customers, fellow workers, or imperfect information sustain it. William Darity Jr. argues that competitive markets have not been sufficient to eliminate employment and wage discrimination [BT] (Ch 14.5).
 
 Lisa D. Cook estimates that GDP could be 4.4% higher if women and minority populations were fully able to participate in science and technology innovation [BT] (Ch 14.5) — an indication of the macroeconomic cost of discrimination.
 
@@ -232,7 +232,7 @@ Government policies to reduce inequality: redistribution through progressive tax
 
 ## Part XVI: Information, risk, and insurance (Ch 16)
 
-Many transactions involve **imperfect information** and **asymmetric information** — situations where one party has better information than the other (Ch 16.1). Akerlof's "lemons" problem: in used-car markets, buyers cannot tell good cars from bad, so sellers of good cars are driven out by adverse selection [BT] (Ch 16.1).
+Many transactions involve **imperfect information** and **asymmetric information** — situations where one party has better information than the other (Ch 16.1). The "lemons" problem: in used-car markets, buyers cannot tell good cars from bad, so sellers of good cars are driven out by adverse selection (Ch 16.1).
 
 Mechanisms to reduce information asymmetry: money-back guarantees, warranties, service contracts, reputation, brand names, occupational licences, cosigners, collateral (Ch 16.1).
 
@@ -310,7 +310,7 @@ Unemployment varies by demographic group: higher for younger workers, racial/eth
 
 **Cyclical unemployment** rises during recessions (Ch 21.3). The text explains why wages don't simply fall to clear the labour market: implicit contracts, efficiency wages (paying more elicits more productivity), adverse selection (cutting wages would drive away the best workers), insider-outsider dynamics, and relative wage coordination problems all produce **sticky downward wages**. With sticky wages, falling labour demand produces unemployment rather than wage cuts.
 
-The **natural rate of unemployment** is the level that persists at full employment (Ch 21.4). It comprises **frictional unemployment** (workers between jobs in a dynamic economy) and **structural unemployment** (workers whose skills don't match available jobs). Natural rate estimates for the U.S. have been around 4.5-5.5% in the 2000s, lower than mid-century estimates of 6%.
+The **natural rate of unemployment** is the level that persists at full employment (Ch 21.4). It comprises **frictional unemployment** (workers between jobs in a dynamic economy) and **structural unemployment** (workers whose skills don't match available jobs). Natural rate estimates for the U.S. have been around 4.5-5.5% in the early 2000s, a lower estimate than earlier.
 
 ## Part XXII: Inflation (Ch 22)
 
@@ -320,7 +320,7 @@ The **Consumer Price Index (CPI)** is the most-cited U.S. inflation measure (Ch 
 
 The **Producer Price Index** measures input prices; the **GDP deflator** measures all prices in GDP; the **International Price Index** measures import/export prices.
 
-U.S. inflation has been generally low (1-4% per year) since the mid-1980s, after reaching double-digit levels in the 1970s. Russia experienced **hyperinflation** in the early 1990s (~2,500% per year). Zimbabwe in 2008 reached 79.6 billion percent annually. The closest the U.S. has come to hyperinflation was the Confederate states in 1860-65 (Ch 22.3).
+U.S. inflation has been generally low (1-4% per year) since the mid-1980s, after reaching double-digit levels in the 1970s. Russia experienced **hyperinflation** in the early 1990s (~2,500% per year). Zimbabwe's inflation rate reached 79.6 billion percent in November 2008. The closest the U.S. has come to hyperinflation was the Confederate states in 1860-65 (Ch 22.3).
 
 Inflation has effects through three channels: **unintended redistribution of purchasing power** (creditors lose when inflation is unexpected, debtors gain); **blurred price signals** (when prices change because of inflation, it's harder to tell whether they signal real shifts in supply or demand); and **problems for long-term planning** (Ch 22.4). Modest inflation may have benefits: it may help nominal-wage adjustments in a downward direction (Ch 22.4).
 
@@ -373,7 +373,7 @@ Keynesian policy prescription: **expansionary fiscal policy** (tax cuts, governm
 
 Neoclassical analysis focuses on long-run aggregate supply (Ch 26.1). It assumes wages and prices are flexible (eventually); the economy returns to potential GDP in the long run; and government attempts to stimulate AD beyond potential GDP cause inflation rather than sustained output gains.
 
-Key implications: monetary and fiscal policy that aims to push output above potential is futile; better policy focuses on the supply side (productivity-enhancing investments, removing distortions) (Ch 26.2). **Rational expectations** (Lucas, Sargent) further argue that systematic policy effects are anticipated and thus undermined by private behaviour.
+Key implications: monetary and fiscal policy that aims to push output above potential is futile; better policy focuses on the supply side (productivity-enhancing investments, removing distortions) (Ch 26.2). **Rational expectations** theory further argues that systematic policy effects are anticipated and thus undermined by private behaviour.
 
 The **balance** between Keynesian and Neoclassical views: most modern macroeconomic policy combines both. Short-run policy responses (fiscal stimulus during recession; monetary expansion during contraction) follow Keynesian logic. Long-run frameworks (potential GDP, sustainable growth, low inflation as a long-run goal) follow neoclassical logic (Ch 26.3).
 
@@ -406,7 +406,7 @@ Three traditional monetary policy tools (in a limited-reserves regime):
 
 Since 2008, the Fed has primarily operated in an **ample reserves** regime, using the **interest rate on reserve balances (IORB)** to signal monetary policy stance. Lowering IORB encourages banks to lend rather than hold reserves; raising IORB does the reverse (Ch 28.3, "Monetary Policy and Ample Reserves").
 
-**Quantitative easing (QE)**: large-scale purchases of long-term Treasury bonds and mortgage-backed securities, used during the 2008-09 Great Recession (QE1, QE2, QE3) and during the 2020 COVID-19 pandemic ("QE4") (Ch 28.3). QE works around the **zero lower bound** when short-term rates can't go lower.
+**Quantitative easing (QE)**: large-scale purchases of long-term Treasury bonds and mortgage-backed securities, used in three episodes (QE1 from November 2008, QE2 from November 2010, QE3 from September 2012 to October 2014) and again during the 2020 COVID-19 pandemic ("QE4") (Ch 28.3). QE works around the **zero lower bound** when short-term rates can't go lower.
 
 **Expansionary monetary policy** (loose) lowers interest rates, increases lending, increases AD; **contractionary** (tight) is the reverse (Ch 28.4). The Fed faces **time lags** (recognition lag, decision lag, implementation lag) and uncertainty in calibrating policy.
 
@@ -414,12 +414,13 @@ Since 2008, the Fed has primarily operated in an **ample reserves** regime, usin
 
 **Exchange rates** are the prices of one currency in terms of another (Ch 29.1). Markets for currencies have demand (from importers, foreign investors, tourists) and supply (from exporters, foreign investors selling assets, tourists). Equilibrium rates clear the market.
 
-Three main exchange-rate regimes (Ch 29.4):
-- **Floating** (e.g. U.S., U.K., EU, Japan): rates determined by markets
-- **Fixed/pegged** (e.g. China managed against dollar): government commits to a rate and intervenes to maintain it
-- **Currency boards or dollarization**: country uses another country's currency or commits rigidly to a peg
+Four main exchange-rate policies (Ch 29.4):
+- **Floating**: the foreign exchange market determines the rate
+- **Soft peg**: the market usually sets the rate, but the central bank sometimes intervenes to prevent fluctuations that seem too large
+- **Hard peg**: the central bank sets a fixed and unchanging value for the exchange rate
+- **Merged currency**: the country shares or adopts another currency, eliminating foreign-exchange risk within the group
 
-A country with a fixed exchange rate cannot independently set monetary policy if capital is mobile (the **trilemma**: choose any two of fixed exchange rate, free capital flow, independent monetary policy).
+Pegged exchange-rate policies imply that monetary policy is no longer focused solely on controlling inflation or shortening recessions; with a hard peg, domestic monetary policy is effectively determined only by what is needed to keep the exchange rate at the peg (Ch 29.4).
 
 **Purchasing power parity (PPP)** is a long-run equilibrium concept: the same basket of goods should cost the same across countries when expressed in a common currency. Deviations occur over time because of trade barriers, transport costs, and non-traded goods (Ch 29.3).
 
@@ -431,7 +432,7 @@ Federal spending categories: about 60% goes to four areas (national defence, Soc
 
 Federal taxes: individual income tax (largest source); payroll taxes (Social Security and Medicare; close to ~half of federal revenue); corporate income tax (declining as a share of GDP); excise taxes; estate taxes. The income tax is **progressive** (higher income, higher marginal rate). The Medicare payroll tax is **proportional**. The Social Security payroll tax is proportional up to a wage limit, then **regressive** above it (Ch 30.2).
 
-The **national debt** is the cumulative sum of past deficits and surpluses. The debt-to-GDP ratio rose from ~30% in the 1970s to ~120% by 2020.
+The **national debt** is the cumulative sum of past deficits and surpluses. The debt/GDP ratio drifted down from the 1950s to the 1970s, rose sharply in the 1980s and early 1990s, declined during the 1998-2001 surpluses, then rose again from 2002 — with big jumps in the 2008-09 recession and in 2020.
 
 **Discretionary fiscal policy** is explicit changes in tax or spending rules. **Automatic stabilizers** are existing programs (unemployment insurance, food stamps, progressive taxation) that automatically expand during downturns and contract during expansions (Ch 30.5). Automatic stabilizers offset about 10% of any initial output movement.
 
@@ -454,9 +455,9 @@ The text frames a long-run vs. short-run tension: fiscal stimulus can be helpful
 
 ## Part XXXII: Macroeconomic policy around the world (Ch 32)
 
-The text frames countries by their economic challenges and constraints (Ch 32). High-income countries focus primarily on smoothing business cycles and managing demographic aging. Middle-income countries face challenges of catching up while avoiding the "middle-income trap." Low-income countries face deeper problems of building institutions, infrastructure, and productive capacity.
+The text frames countries by their economic challenges and constraints (Ch 32). High-income countries focus primarily on smoothing business cycles and managing demographic aging. Middle-income countries face challenges of catching up to high-income countries. Low-income countries face deeper problems of building institutions, infrastructure, and productive capacity.
 
-Key institutional foundations matter most for growth: rule of law, property rights, openness to trade, education, sound macroeconomic policy (low inflation, sustainable fiscal position), and limited corruption (Ch 32). Different macroeconomic regimes face different policy levers; small open economies have less independence than large ones.
+Key institutional foundations matter most for growth: rule of law, property rights, openness to trade, education, sound macroeconomic policy (low inflation, sustainable fiscal position), and limited corruption (Ch 32).
 
 ## Part XXXIII: International trade — comparative advantage (Ch 33)
 
@@ -464,7 +465,7 @@ The cornerstone result: **comparative advantage** (Ricardo 1817) means countries
 
 The text uses Saudi Arabia (oil) and the U.S. (corn) — and U.S. (refrigerators) and Mexico (shoes) — as canonical examples. Trade allows each country to consume beyond its production possibilities frontier (Ch 33.1, 33.2).
 
-**Intra-industry trade** — trade in similar goods among similar countries — accounts for ~60% of world trade. The standard comparative-advantage story (different opportunity costs from geography or factor endowments) doesn't explain this. The drivers are: specialised learning along the **value chain** (production split across countries); **economies of scale** that allow large producers to compete globally; product differentiation enabling variety with competitive intensity (Ch 33.3).
+**Intra-industry trade** — trade in similar goods among similar countries — accounts for about 60% of U.S. trade and 60% of European trade. The standard comparative-advantage story (different opportunity costs from geography or factor endowments) doesn't explain this. The drivers are: specialised learning along the **value chain** (production split across countries); **economies of scale** that allow large producers to compete globally; product differentiation enabling variety with competitive intensity (Ch 33.3).
 
 The text's bottom line: gains from international trade are real, especially for smaller countries, and are typically large enough to outweigh distributional concerns. The WTO Doha Round was estimated to add $121-202 billion annually to the world economy (Ch 33.4).
 
@@ -539,9 +540,8 @@ The text's overall position: gains from trade are real and significant; protecti
 - **Carlota Perez** — innovation cycles and the "installment phase" of new technologies (Ch 13.1) [BT].
 - **Elinor Ostrom** (Nobel laureate) — non-tragedy of the commons; local self-governance can manage common resources (Ch 13.3) [BT].
 - **Garret Hardin** (Science 1968) — "tragedy of the commons" framing (Ch 13.3) [BT].
-- **George Akerlof** — lemons problem in used-car markets (Ch 16.1, implicit) [BT].
 - **A.W. Phillips** (London School of Economics, 1950s) — Phillips curve (Ch 25.3) [BT].
-- **Milton Friedman, Edmund Phelps** — natural rate hypothesis, expectations-augmented Phillips curve (Ch 25, implicit).
+- **Milton Friedman** — quoted (1967 speech) summing up the neoclassical view of the long-run Phillips curve: a temporary but no permanent inflation-unemployment tradeoff (Ch 25) [V].
 - **Ronald Coase** (Nobel 1991) — externalities, property rights, transaction costs (Ch 12.3) [BT].
 - **Simon Kuznets** (Nobel laureate) — invented GDP measurement during the 1930s Great Depression (Ch 19 intro) [V].
 - **Robert E. Lucas Jr.** (Nobel 1995) — quoted on the importance of growth (Ch 20 intro) [V].
@@ -557,7 +557,7 @@ The text's overall position: gains from trade are real and significant; protecti
 - **George Psacharopoulos** — research on social returns to schooling (Ch 13.1) [BT].
 - **Amartya Sen** (Nobel laureate) — research on poverty, inequality, and food security (Ch 20 closing case) [BT].
 - **John Bates Clark** — cited on labour-market bargaining disadvantage (Ch 14.2) [V].
-- **Joan Robinson** — coined "monopsony"; quoted on economics being a method, not doctrine (Ch 14.2, Ch 18 closing) [BT].
+- **Joan Robinson** — introduced and widely discussed the term "monopsony" (crediting Bertrand Hallward with inventing the word); quoted on economics being a method, not doctrine (Ch 14.2, Ch 18 closing) [BT].
 - **Edward Chamberlin** — co-developed monopolistic competition theory (Ch 10.1) [V].
 - **Lionel Robbins** — Essay on the Nature and Significance of Economic Science 1932; framed economics as the study of choice under scarcity (Ch 2 intro) [V].
 - **Ben Bernanke, Janet Yellen, Jerome Powell** — Federal Reserve chairs; Bernanke pioneered QE (Chs 28.1, 28.3) [BT].
@@ -565,10 +565,9 @@ The text's overall position: gains from trade are real and significant; protecti
 ## Positions the authors explicitly frame against
 
 - **Mercantilism / protectionism**: the text takes a clear pro-trade stance, arguing that comparative advantage gains accrue even when one country has absolute advantage (Ch 33). Protectionism is "an indirect subsidy from consumers to producers" (Ch 34.1) [V].
-- **Sticky wage adjustments are bad**: the text argues that some downward stickiness is rational and supports macroeconomic stability — workers shouldn't be expected to take rapid wage cuts during recessions (Ch 21.3, Ch 25.2).
 - **Strict balanced-budget requirements**: the text argues against rigid annual balanced budgets, which would prevent automatic stabilisers from working and worsen recessions (Ch 30.7).
 - **Government as the only solution to market failures**: the text takes a balanced view — markets and governments are both imperfect; sensible policy compares real-world institutions, not idealised versions (Chs 11, 18).
-- **Markets as always self-correcting**: the text identifies multiple cases where markets fail (monopoly, externalities, public goods, information asymmetries, unemployment, financial crises). It does not subscribe to a strong-form-efficient-markets view.
+- **Markets as always self-correcting**: the text identifies multiple cases where markets fail (monopoly, externalities, public goods, information asymmetries, unemployment, financial crises).
 - **Cost-of-living measures should be unindexed**: the text argues for indexing tax brackets, Social Security, and other government programs to reduce arbitrary inflation effects (Ch 22.5).
 - **Discretionary fiscal policy as easy fine-tuning**: the text identifies multiple practical problems (lags, calibration, political incentives) that limit the precision of discretionary fiscal policy (Ch 30.6).
 - **Strict deficit-equals-bad framing**: the text argues that deficits during recessions are appropriate (counter-cyclical), but persistent peacetime deficits during good times can harm long-run growth (Chs 30, 31).

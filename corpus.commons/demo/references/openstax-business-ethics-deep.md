@@ -60,7 +60,7 @@ The text notes that universal principles within a single code typically include 
 
 ### Aristotelian virtue ethics
 
-Aristotle's central ethical concept is *eudaimonia* — happiness in the sense of human flourishing, attained through the exercise of reason. Aristotle wrote: "But what is happiness? If we consider what the function of man is, we find that happiness is a virtuous activity of the soul." [V] (Ch 2.1, "Aristotelian Virtue Ethics"). And: "Happiness is a kind of activity; and an activity clearly is developed and is not a piece of property already in one's possession." [V] (Ch 2.1, citing *Nicomachean Ethics*).
+Aristotle's central ethical concept is *eudaimonia* — happiness in the sense of human flourishing, attained through the exercise of reason. "But what is happiness?" Aristotle asked. "If we consider what the function of man is, we find that happiness is a virtuous activity of the soul." [V] (Ch 2.1, "Aristotelian Virtue Ethics"). And: "Happiness is a kind of activity; and an activity clearly is developed and is not a piece of property already in one's possession." [V] (Ch 2.1, citing *Nicomachean Ethics*).
 
 Aristotle distinguished two virtue families: *intellectual* virtues (knowledge, wisdom, prudence) acquired through learning; and *moral* virtues (courage, self-control, liberality, magnificence, honor, patience, amiability) acquired through habituation [AP] (Ch 2.1). *Phronesis* (prudence, practical wisdom) is the central intellectual virtue, helping individuals "avoid excess and deficiency and arrive at the **golden mean** between the two" [V] (Ch 2.1). The *magnanimous individual* is the paragon — self-knowing, not rash or submissive, controlled, prudent. Aristotle: "magnanimity seems to be a sort of crown of the virtues, because it enhances them and is never found apart from them. This makes it hard to be truly magnanimous, because it is impossible without all-round excellence." [V] (Ch 2.1).
 
@@ -125,7 +125,7 @@ The same authors distinguish four *publics* by awareness and capacity: nonpublic
 
 *Stakeholder prioritisation* is "the process of deciding which stakeholders to focus on and in what sequence" [V] (Ch 3.3, "Key Terms"; Ch 3.3, "Stakeholder Prioritization"). The text introduces a power × interest matrix [AE] (Ch 3.3, Figure 3.5): high-power-high-interest = key stakeholder; if a problem arises, priority rises. *Exigency* (urgency of a stakeholder claim) combines with inherent priority to drive resource allocation.
 
-The book references the MITRE five-step stakeholder-management system: identify stakeholders (and reidentify periodically), gather data on concerns, analyse, present results to decision makers, inform stakeholders that their concerns were considered [BT] (Ch 3.3, "Managing Stakeholder Expectations"). Lindahl is cited on nonprofits: philanthropies have an ethical "stewardship" obligation to safeguard donations (Ch 3.3).
+The book references the MITRE five-step stakeholder-management system: establish trust, identify stakeholders, gather and analyse appropriate data, present information to management, let stakeholders know they matter [BT] (Ch 3.3, "Managing Stakeholder Expectations"). Lindahl is cited on nonprofits: philanthropies have an ethical "stewardship" obligation to safeguard donations (Ch 3.3).
 
 ### Corporate social responsibility and the triple bottom line
 
@@ -141,7 +141,7 @@ The book reintroduces *CSR* as a stakeholder-oriented philosophy in which a comp
 
 The book traces a century-long judicial debate over *shareholder primacy* (Ch 4.1, "Balancing the Many Responsibilities of a Corporation"): *Dodge v. Ford Motor Company* (1919, Michigan Supreme Court) ruled that Ford "must operate the Ford Motor Company primarily in the profit-maximizing interests of its shareholders" [V] [BT] (Ch 4.1). The same case upheld the *business judgment rule* — officers and directors are not liable for losses incurred when decisions were "reasonable and made in good faith" [V] (Ch 4.1). *Shlensky v. Wrigley* (1968) gave the Wrigley Company board significant discretion to consider community interests over short-term shareholder returns [BT] (Ch 4.1). *Burwell v. Hobby Lobby* (2014) extended this latitude (5–4 decision): "corporate law does not require for-profit corporations to pursue profit at the expense of everything else" [V] (Ch 4.1, citing the majority opinion). Justice Alito wrote: "A corporation is simply a form of organization used by human beings to achieve desired ends." [V] (Ch 4.1).
 
-The text contrasts Stephen Bainbridge ("If directors were allowed to deviate from shareholder wealth maximization, they would inevitably turn to indeterminate balancing standards, which provide no accountability" [V] [BT]) with Lynn Stout ("Modern corporate law does not require for-profit corporations to pursue profit at the expense of everything else, and many do not" [V] [BT]) (Ch 4.1, "The Two Sides of the Corporate Responsibility Debate").
+The text contrasts Steven Bainbridge ("If directors were allowed to deviate from shareholder wealth maximization, they would inevitably turn to indeterminate balancing standards, which provide no accountability" [V] [BT]) with Lynn Stout ("Modern corporate law does not require for-profit corporations to pursue profit at the expense of everything else, and many do not" [V] [BT]) (Ch 4.1, "The Two Sides of the Corporate Responsibility Debate").
 
 The *moral minimum* is introduced: "the minimal actions or practices a business must undertake to satisfy the base threshold for acting ethically" [V] (Ch 4, "Key Terms"). Honouring obligations to all stakeholders, "including those who own no stock shares — is the moral minimum a firm must undertake to satisfy the base threshold for acting ethically" [V] (Ch 4.1).
 
@@ -163,7 +163,7 @@ The text addresses public-private partnerships (P3s) and the "revolving door" be
 
 Three positions on government regulation are sketched: a *states' rights* position (Tenth Amendment, narrow Commerce Clause), a libertarian "less is better" position, and a federalist position attributed to Hamilton in the *Federalist Papers* (Ch 4.3, "Government Regulation and the Constitution"). The text takes no consensus position but warns against weak regulation that lets businesses "cut corners".
 
-The *BP Deepwater Horizon* disaster is examined: 11 workers killed, 17 injured, 5 million barrels of oil spilled (Ch 4.3, "BP Deepwater Horizon Oil Spill and Government Regulation"). Transocean did not install an "acoustically triggered shutoff valve" because Congress had not mandated it, "largely as a result of oil industry lobbying" (Ch 4.3). Norway and Brazil require these devices; "Two-thirds of Statoil, its largest oil company, is owned by the government, and, as a result, the company does not lobby the government for weakened regulation" [V] (Ch 4.3).
+The *BP Deepwater Horizon* disaster is examined: 11 workers killed, 17 injured, at least 5 million barrels of oil spilled (Ch 4.3, "BP Deepwater Horizon Oil Spill and Government Regulation"). Transocean did not install an "acoustically triggered shutoff valve" because Congress had not mandated it, "largely as a result of oil industry lobbying" (Ch 4.3). Norway and Brazil require these devices; "Two-thirds of Statoil, its largest oil company, is owned by the government, and, as a result, the company does not lobby the government for weakened regulation" [V] (Ch 4.3).
 
 *Citizens United v. FEC* (2010, 5–4) ruled that "laws preventing corporations from using general treasury funds for political advertising violated the First Amendment's guarantee of freedom of speech" [AP] (Ch 4.3). *Sarbanes-Oxley* (SOX, 2002), passed in response to Enron and WorldCom, mandates reporting transparency, makes CEO/CFO personally responsible for audit errors, prohibits company loans to executives, and protects whistleblowers (Ch 4.3).
 
@@ -225,7 +225,7 @@ Generational differences in valued benefits: workers 18-35 rank career advanceme
 
 The Center for Financial Services Innovation reports "85% of Americans are anxious about their personal financial situation" with stress affecting work performance [V] [BT] (Ch 6.2, "Economic Data as an Indicator of Fair Wages"). Pew Research Center: between 1980 and 2014, inflation-adjusted hourly wages of middle-income workers rose just 6% (less than 0.2% per year); high-income workers' wages rose 41% over the same years. The federal minimum wage is $7.25 per hour; 29 states had higher minima as of late 2017 (Ch 6.2). Since 1960, the inflation-adjusted minimum wage declined 23% [V] (Ch 6.2).
 
-The *gender pay gap*: women in top positions (CEO, VP, general counsel) often earn about 80% of what men with the same titles earn; EEOC 2011-2015 data shows women in senior-level roles earned an average of about $600,000 vs men's $800,000 — a 35% wage gap [V] [BT] (Ch 6.2, "Unfair Wages: The Gender Pay Gap"). In energy industry land-professional roles with similar experience and education, men earned $7000 more per year than women (Ch 6.2). Women earned about 60% of men's wages in 1960, rising to 80% by 2016; pay equity is projected for 2059-2119 [V] (Ch 6.2).
+The *gender pay gap*: women in top positions (CEO, VP, general counsel) often earn about 80% of what men with the same titles earn; EEOC 2011-2015 data shows women in senior-level roles earned an average of about $600,000 vs men's more than $800,000 — a 35% wage gap [V] [BT] (Ch 6.2, "Unfair Wages: The Gender Pay Gap"). In energy industry land-professional roles with similar experience and education, men earned $7000 more per year than women (Ch 6.2). Women earned about 60% of men's wages in 1960, rising to 80% by 2016; pay equity is projected for 2059-2119 [V] (Ch 6.2).
 
 The Equal Pay Act (1963) requires equal pay for the *same* job, but not for *equivalent* jobs. The proposed Paycheck Fairness Act and Fair Pay Act would extend protection to "equivalent" work; *comparable worth* — paying based on worth to the organisation — is central. A starting-salary difference of $5000 with 5% annual raises compounds to $600,000+ over a 40-year career; women must work three years longer to earn the same lifetime amount (Ch 6.2).
 
@@ -245,7 +245,7 @@ Union pros: bargaining power, dispute resolution, lobbying, industry-wide norms.
 
 *Right-to-work laws* exist in 28 states and give workers the option not to join the union even at firms where the majority voted union (Ch 6.3). *Closed shop* is a union shop where new hires must join the union and dues are deducted from pay automatically.
 
-*Codetermination* — "a workplace concept that goes beyond unionization to embrace shared governance, in which management and workers cooperate in decision-making and workers have the right to participate on the board of directors" [V] (Ch 6.3) — applies to companies over a certain size in EU countries (Germany: 500+ employees). The book takes a positive position on codetermination: in Germany it has produced "more engaged" workers, "fewer strikes, better pay, and safer working conditions" — "a classic win-win for both sides" [V] (Ch 6.3).
+*Codetermination* — "a workplace concept that goes beyond unionization to embrace shared governance, in which management and workers cooperate in decision-making and workers have the right to participate on the board of directors" [V] (Ch 6.3) — applies to companies over a certain size in EU countries (Germany: more than 500 employees). The book takes a positive position on codetermination: in Germany it has produced "more engaged" workers, "fewer strikes, better pay, and safer working conditions" — "a classic win-win for both sides" [V] (Ch 6.3).
 
 International unionisation rates (Ch 6.3, Table 6.2): Sweden 82, Italy 35, Canada 30, UK 29, Germany 26, Australia 25, Japan 22, US 12, France 9.
 
@@ -257,7 +257,7 @@ The *pay ratio* — CEO pay as a multiple of average employee pay — is approxi
 
 The Electronic Communications Privacy Act of 1986 (ECPA) regulates monitoring. The *business purpose exception* allows employers to monitor "on the basis of legitimate business purposes"; the *consent exception* allows monitoring with employee consent (Ch 6.4, "Legal and Ethical Aspects of Electronic Monitoring"). Employers may monitor stored emails on their own systems but face limits on stored emails generally. State laws vary; California and Pennsylvania require both-party consent for recorded conversations.
 
-A 2010 American Management Association survey: 48% of employers used video monitoring; 67% monitored Internet use; 30% had terminated an employee based on electronic monitoring (Ch 6.4). *Ontario v. Quon* (2010, US Supreme Court, unanimous) held that constitutional limits on unreasonable searches by public employers were "minimal given a work-related purpose" (Ch 6.4).
+An American Management Association survey: 48% of employers used video monitoring; 67% monitored Internet use; 30% had terminated an employee based on electronic monitoring (Ch 6.4). *Ontario v. Quon* (2010, US Supreme Court, unanimous) held that constitutional limits on unreasonable searches by public employers were "minimal given a work-related purpose" (Ch 6.4).
 
 *Employment at will* — "either the employee or the employer may dissolve the employment arrangement at will (i.e., without cause and at any time unless an employment contract is in effect that stipulates differently)" [V] (Ch 6, "Key Terms") — covers approximately 85% of US private-sector employees (Ch 6.4, "Drug Testing in the Workplace"). Drug testing is legal in most states; employees may refuse but typically lose the job. Mark Rothstein's research catalogues legal challenges based on intrusive procedures: a court found unlawful retaliation when employees were dismissed for inability to urinate while observed; another awarded $125,000 for invasion of privacy and emotional distress to a worker forced to provide an observed urine sample (Ch 6.4).
 
@@ -447,7 +447,7 @@ Less affected by automation: human-interaction jobs — nurses, most physicians,
 
 A former McDonald's CEO is quoted: "It's cheaper to buy a $35,000 robotic arm than it is to hire an employee who's inefficiently making $15 an hour bagging French fries" [V] [BT] (Ch 10.4).
 
-*Artificial intelligence (AI)* is "the branch of science that uses computer algorithms to replicate human intelligent behavior by machines with minimal human intervention" [V] (Ch 10, "Key Terms"). Accenture frames AI as "the next great advance in the workplace ... fundamentally reinventing how businesses run" [V] [BT] (Ch 10.4, "Artificial Intelligence"); estimates AI could "double rates of economic growth by 2035, increase labor productivity by as much as 40 percent". KPMG estimates ~50% of workplace activities could be automated with existing technology.
+*Artificial intelligence (AI)* is "the branch of science that uses computer algorithms to replicate human intelligent behavior by machines with minimal human intervention" [V] (Ch 10, "Key Terms"). Accenture contends AI will be the next great advance in the workplace: "It is set to transform business in ways we have not seen since the Industrial Revolution; fundamentally reinventing how businesses run, compete and thrive" [V] [BT] (Ch 10.4, "Artificial Intelligence"); estimates AI could "double rates of economic growth by 2035, increase labor productivity by as much as 40 percent". KPMG estimates ~50% of workplace activities could be automated with existing technology.
 
 The text raises governance questions: should companies be required to inform customers when they are interacting with AI rather than humans? Reuters reports EU lawmakers "have agreed on the need for [European Union]-wide legislation that would regulate robots and their use, including an ethical framework for their development and deployment, as well as the establishment of liability for the actions of robots, including self-driving cars" [V] [BT] (Ch 10.4).
 
@@ -455,7 +455,7 @@ The text raises governance questions: should companies be required to inform cus
 
 ### Core thesis: ethics as ongoing formation
 
-The book's epilogue is paraphrased from the lead author's perspective. It defines becoming an ethical professional as a developmental process: "the formation of conscience, and the emergence of an individual in whom being and doing are comfortably aligned, take place over time. There are no shortcuts" [V] (Ch 11, "Introduction"). The Rajat Gupta case — McKinsey managing director, Goldman Sachs board director, convicted in 2009-2012 of insider trading and conspiracy (two years in jail, $5 million in fines) — exemplifies the failure mode (Ch 11.1).
+The book's epilogue is paraphrased from the lead author's perspective. It defines becoming an ethical professional as a developmental process: "the formation of conscience, and the emergence of an individual in whom being and doing are comfortably aligned, take place over time. There are no shortcuts" [V] (Ch 11, "Introduction"). The Rajat Gupta case — McKinsey managing director, Goldman Sachs board director, who supplied inside information in 2009 and was later convicted of securities fraud and conspiracy (two years in jail, $5 million in fines) — exemplifies the failure mode (Ch 11.1).
 
 The General Motors ignition-switch case: "The faulty switches caused 124 deaths and 273 injuries, and GM was finally brought to federal court. In 2014, the company reached a settlement for $900 million and recalled 2.6 million cars" [V] [BT] (Ch 11.1, "General Motors' Failure to Consider Stakeholders").
 
@@ -489,7 +489,7 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 
 **Pay disparity hurts teamwork.** "While successful executives are compensated more than their subordinates, it should not to be many multiples more. The less disparity that exists between the highest- and least-paid members of a company, the greater the level of teamwork and commitment that will prevail among all." [V] (App C).
 
-**Stewardship, philanthropy, partnership.** Ethical entrepreneurs are "good stewards of the social and physical environments where they do business"; they "engage in both private and corporate philanthropy"; they treat themselves as "a partner or colleague or coworker, and so, a concerned boss" rather than as "a 'sir' or 'ma'am' to subordinates" [V] (App C).
+**Stewardship, philanthropy, partnership.** Ethical entrepreneurs are "good stewards of the social and physical environments where they do business"; they engage in both private and corporate philanthropy; they treat themselves as "a partner or colleague or coworker, and so, a concerned boss" rather than as "a 'sir' or 'ma'am' to subordinates" [V] (App C).
 
 **Restoring loyalty.** "One way to dispel [the management/labor divide] is for business leaders to take the first steps in restoring the broken sense of obligation that owners and employees owe each other. This may be the most important task of business leadership now and going forward." [V] (App C).
 
@@ -540,7 +540,7 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 | Metric | Value | Classification |
 |---|---|---|
 | US ethics-training annual spend | over $70 billion (US); >$140 billion worldwide | [BT] (Ch 5.4, "Business Ethics and Compliance") |
-| Annual global cost of corruption (WEF estimate) | ~$2 trillion | [V] (Ch 5.4) |
+| Annual global cost of corruption (WEF estimate) | at least $2 trillion | [V] (Ch 5.4) |
 | US workforce inflation-adjusted minimum-wage decline since 1960 | 23 per cent | [V] (Ch 6.2) |
 | Federal minimum wage | $7.25/hour | [AP] (Ch 6.2; Ch 8.4) |
 | US states with higher minimum wage than federal as of 2017 | 29 | [AP] (Ch 6.2; Ch 8.4) |
@@ -555,13 +555,13 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 | UK CEO-to-worker pay ratio | 22× | [V] (Ch 6.3) |
 | Germany CEO-to-worker pay ratio | 12× | [V] (Ch 6.3) |
 | 1965 US CEO-to-worker pay ratio | 20× | [V] (Ch 6.3) |
-| US CEO pay change 1978-2014 (inflation-adjusted) | +1,000 per cent | [V] [BT] (Ch 6.3, citing EPI) |
+| US CEO pay change 1978-2014 (inflation-adjusted) | up almost 1,000 per cent | [V] [BT] (Ch 6.3, citing EPI) |
 | US worker pay change 1978-2014 | +11 per cent | [V] [BT] (Ch 6.3) |
 | US productivity growth 1973-2016 | 74 per cent | [V] (Ch 6.3) |
 | US wage growth 1973-2016 | 12 per cent | [V] (Ch 6.3) |
 | Women's wages as fraction of men's, 1960 | ~60 per cent | [V] (Ch 6.2) |
 | Women's wages as fraction of men's, 2016 | ~80 per cent | [V] (Ch 6.2) |
-| EEOC women's senior-level pay vs men's, 2011-2015 | $600,000 vs $800,000 (~35% gap) | [V] [BT] (Ch 6.2) |
+| EEOC women's senior-level pay vs men's, 2011-2015 | about $600,000 vs more than $800,000 (~35% gap) | [V] [BT] (Ch 6.2) |
 | Top 1% share of US income (rise over 35 years) | 8 per cent → 22 per cent | [V] (Ch 8.4) |
 | Top 10% income earners' multiple over bottom 90% | 10× | [V] (Ch 8.4) |
 | Top 1% income earners' multiple over bottom 90% | >40× | [V] (Ch 8.4) |
@@ -577,7 +577,7 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 | Foreign Corrupt Practices Act jurisdiction | nationality principle (broad) | [AP] (Ch 7.4) |
 | Project Shakti participants (Unilever, India) | >100,000 (~75,000 women) | [V] [BT] (Ch 4.1) |
 | Hurricane Harvey rainfall (Houston, 2017) | 52 inches | [V] [BT] (Ch 9.3) |
-| Hurricane Harvey insured share of property losses | 40 per cent | [V] [BT] (Ch 9.3) |
+| Hurricane Harvey insured share of property losses | may be only 40 per cent | [V] [BT] (Ch 9.3) |
 | Deepwater Horizon oil spilled (2010) | ≥5 million barrels | [V] [BT] (Ch 4.3) |
 | Deepwater Horizon worker fatalities | 11 | [V] [BT] (Ch 4.3) |
 | OSHA fines on BP (2005-2009) | >$102 million | [V] [BT] (Ch 6.1) |
@@ -586,11 +586,11 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 | Bradley Birkenfeld (UBS) IRS whistleblower award (2012) | $104 million | [V] [BT] (Ch 7.5) |
 | Pfizer whistleblowers' combined award (2009) | $102 million | [V] [BT] (Ch 7.5) |
 | HCA Medicare-fraud whistleblowers' combined award | $100 million | [V] [BT] (Ch 7.5) |
-| McKinsey 2018 estimate of jobs lost to robotics by 2030 | 800 million / 20% of global workforce | [V] [BT] (Ch 10.4) |
+| McKinsey estimate (reported 2017) of jobs lost to robotics by 2030 | more than 800 million / 20% of global workforce | [V] [BT] (Ch 10.4) |
 | US jobs at risk of automation by 2030 | 39-73 million | [V] [BT] (Ch 10.4) |
 | Independent contractors share of US workforce (Freelancers Union) | 35 per cent (~55+ million) | [V] [BT] (Ch 10.3) |
-| Total OSHA workplace harassment complaints/year | >30,000 | [V] [BT] (Ch 6.1) |
-| Carbon tax proposed by CLC | $45/metric ton; ~$200B/yr ($2T/decade) | [V] [BT] (Ch 4.2) |
+| Annual harassment complaints (sexual, gender, racial, or creedal; EEOC) | >30,000 | [V] [BT] (Ch 6.1) |
+| Carbon tax proposed by CLC | $45/metric ton; >$200B/yr ($2T/decade) | [V] [BT] (Ch 4.2) |
 | Federal employee gift threshold (annual occasion to superior) | <$10 | [V] (Ch 7.4) |
 | Federal employee one-source annual gift reporting | >$390 | [V] (Ch 7.4) |
 | Number of Tylenol bottles recalled by Johnson & Johnson | ~30 million | [V] [BT] (Ch 3.2) |
@@ -604,17 +604,16 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 - **John Rawls** (justice as fairness, veil of ignorance, original position, difference principle): primary modern political-ethics source; Robert Nozick registered as critic (Ch 2.6, App A) [BT].
 - **Milton Friedman** ("only social responsibility of business is to increase profits"): contrarian foil; explicitly framed against (Ch 1.2, Ch 4.1) [BT].
 - **Henry Ford** and **Dodge v. Ford Motor Company (1919)**: shareholder-primacy precedent, treated as historical ground rather than current law (Ch 4.1, Ch 5.2) [BT].
-- **Lynn Stout** (Cornell Law) and **Stephen Bainbridge** (UCLA Law): pro vs anti shareholder-primacy, NYT debate (Ch 3.1, Ch 4.1) [BT].
+- **Lynn Stout** (Cornell Law) and **Steven Bainbridge** (UCLA Law): pro vs anti shareholder-primacy, NYT debate (Ch 3.1, Ch 4.1) [BT].
 - **Donaldson and Preston**: stakeholder-theory taxonomy (descriptive, instrumental, normative); endorsed (Ch 3.2) [BT].
 - **James Grunig and Todd Hunt**: organisational linkage model (enabling, normative, functional, diffused stakeholders); endorsed (Ch 3.2) [BT].
 - **John Elkington**: triple bottom line (people, planet, profit); endorsed (Ch 3.4) [BT].
 - **Garrett Hardin / William Forster Lloyd**: tragedy of the commons; approving (Ch 4.2) [BT].
 - **Cormac Cullinan, Thomas Berry**: earth jurisprudence; sympathetic but factual (Ch 4.2) [BT].
 - **A.C. Pigou**: Pigovian tax; neutral attribution (Ch 4.2) [BT].
-- **Hofstede**: cross-cultural dimensions; not a primary section but referenced for cultural-difference framing (Ch 5).
 - **Ida Tarbell** on John D. Rockefeller: critical, "scruples in an electric dynamo" quoted (Ch 5.2) [BT].
 - **Charles Dickens, Upton Sinclair, Rachel Carson, Betty Friedan, Kate Chopin, Chinua Achebe**: socially-critical literary witnesses to industrial harms; approvingly cited (Ch 3.4, Ch 5.2) [BT].
-- **Peter Drucker** ("workers need to know the organization's mission and to believe in it"); "Culture eats strategy for breakfast" alluded to in Ch 11; approving (Ch 4.1, Ch 11) [BT].
+- **Peter Drucker** ("workers need to know the organization's mission and to believe in it"); approving (Ch 4.1) [BT].
 - **Max Weber** on bureaucracy as advanced-capitalism feature: approvingly cited; quoted directly (Ch 9.1) [BT].
 - **John Kenneth Galbraith** (*The Affluent Society*, dependence effect): critical of advertising-driven demand; cited approvingly (Ch 9.2) [BT].
 - **Vance Packard** (*The Hidden Persuaders*) and **James Vicary**: subliminal-advertising claim treated as inconclusive (Ch 9.2) [BT].
@@ -622,7 +621,7 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 - **Samuel Lloyd / Lloyd's of London**: insurance origin; neutral attribution (Ch 9.3) [BT].
 - **Robert Reich** (former US Labor Secretary): cited for income-inequality observations and gig-economy critique; approving (Ch 8.4, Ch 10.3) [BT].
 - **Lloyd Blankfein** (Goldman Sachs CEO): cited approvingly on income inequality (Ch 8.4) [BT].
-- **Bill Gross** (PIMCO): cited approvingly on minimum-wage increase (Ch 8.4) [BT].
+- **Bill Gross** (chair of the world's largest bond-trading firm): cited approvingly on minimum-wage increase (Ch 8.4) [BT].
 - **David Neumark and William L. Wascher**: counter-position on minimum-wage poverty effects; registered without endorsement (Ch 8.4) [BT].
 - **Christopher D. Stone** ("Should Trees Have Standing?", 1972): legal-standing-for-environment proposal; approvingly cited (Ch 3.2) [BT].
 - **Stephen Latham** (Yale Hastings Program): animal-testing regulatory continuum; approvingly cited (Ch 8.5) [BT].

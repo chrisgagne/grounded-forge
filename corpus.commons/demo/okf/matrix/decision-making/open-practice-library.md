@@ -12,7 +12,7 @@ sources:
     resource: https://openpracticelibrary.com/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Open Practice Library, Decision-Making Distillation
 
@@ -30,7 +30,7 @@ This distillation projects OPL practices onto the decision-making task by surfac
 
 1.  **Decision framing before option generation.** Before listing options, decide whether the problem statement is correctly framed. The library offers *Abstraction Laddering* for broadening or narrowing a problem statement, *Is – Is not – Does – Does not* (from Paulo Caroli's Lean Inception) for surfacing what the subject is and is not, and *Five Whys* (Taiichi Ohno) for chasing symptoms to root cause. *Five Whys* carries an explicit warning: "we should ask why the process failed instead of just asking why" (Source: Practice "Five Whys (5 Whys)", "Why do it?"), aimed at the failure mode of stopping at controllable resources rather than systemic processes.
 
-2.  **The Cynefin domain-of-the-decision check.** Snowden's framework, as carried in the OPL practice, asks the decision-maker to classify the decision first: Clear (best practices apply), Complicated (expert analysis surfaces multiple right answers), Complex (cause-and-effect visible only retrospectively; experiment to learn), Chaotic (act first to stabilise), Confused/Aporetic (gather more information). Each domain has a named response pattern: Sense-Categorize-Respond / Sense-Analyze-Respond / Probe-Sense-Respond / Act-Sense-Respond. The classification *gates* what kind of decision-making practice applies: Complex domains call for experimentation-first practices; Clear domains call for checklist-style execution. (Source: Practice "Cynefin Framework", "How to do it?")
+2.  **The Cynefin domain-of-the-decision check.** The OPL's Cynefin Framework practice asks the decision-maker to classify the decision first: Clear (best practices apply), Complicated (expert analysis surfaces multiple right answers), Complex (cause-and-effect visible only retrospectively; experiment to learn), Chaotic (act first to stabilise), Confused/Aporetic (gather more information). Each domain has a named response pattern: Sense-Categorize-Respond / Sense-Analyze-Respond / Probe-Sense-Respond / Act-Sense-Respond, and for Confused/Aporetic: probe to understand the situation better and then categorize it. The classification *gates* what kind of decision-making practice applies: Complex domains call for experimentation-first practices; Clear domains call for checklist-style execution. (Source: Practice "Cynefin Framework", "How to do it?")
 
 3.  **Hypothesis-before-decision discipline.** *Design of Experiments* reframes a "decision" as "a set of well-defined experiments that can be carried out in order to validate ideas, hypothesis and assumptions" (Source: Practice "Design of Experiments", "What is it?"). The minimum experiment fields are Hypothesis / Current Condition / Target Condition / Obstacles / Pass criteria / Measures / Learning. The practice's contrarian: "Successful experiments are not experiments that have proven our assumption as correct. Successful experiments are those that provide valid and reliable data which shows a statistically significant conclusion" (Source: Practice "Design of Experiments", "How to do it?").
 
@@ -42,7 +42,7 @@ This distillation projects OPL practices onto the decision-making task by surfac
    - **MoSCoW Method**: Must-have / Should-have / Could-have / Won't-have. Best for scoping decisions where some items will be cut.
    - **Impact-Effort Matrix**: 2×2 (high/low impact × high/low effort). Best for visible quadrant-based sorting.
    - **How-Now-Wow Matrix**: 2×2 with explicit creativity framing (Now = obvious / How = aspirational / Wow = creative and feasible). Best when ideation has produced many options and some need creative-risk assessment.
-   - **The RICE Scoring Model**: Reach × Impact × Confidence ÷ Effort. Best when option-comparison needs explicit quantification.
+   - **The RICE Scoring Model**: score Reach, Impact, Confidence and Effort, then multiply the four scores together. Best when option-comparison needs explicit quantification.
    - **Eisenhower Box**: urgent × important with four actions (Do / Schedule / Delegate / Delete). Best for personal or small-team task-list decisions (Source: Practice "Eisenhower Box or Urgent-Important Matrix", "What is it?").
    - **Weighted Shortest Job First (WSJF)**: cost-of-delay-divided-by-job-size formula.
    - **Priority Sliders**: forced-allocation across multiple dimensions.
@@ -102,7 +102,7 @@ This distillation projects OPL practices onto the decision-making task by surfac
 | Cut some options explicitly | Which options are Must / Should / Could / Won't? | *MoSCoW Method* |
 | Trade impact against effort | Where does each option land on a 2×2 of impact × effort? | *Impact-Effort Prioritisation Matrix* |
 | Trade creativity against feasibility | Where does each option land on a 2×2 of feasibility × creativity? | *How-Now-Wow Prioritisation Matrix* |
-| Quantify the comparison | What is the Reach × Impact × Confidence ÷ Effort score? | *The RICE Scoring Model* |
+| Quantify the comparison | What are the Reach, Impact, Confidence and Effort scores, multiplied together? | *The RICE Scoring Model* |
 | Personal / small-team decisions | Is it urgent? Is it important? | *Eisenhower Box or Urgent-Important Matrix* |
 | Cost-of-delay-aware sequencing | What is the WSJF score? | *Weighted Shortest Job First* |
 | Force-allocate across dimensions | Where does each option sit on each priority slider? | *Priority Sliders* |
@@ -163,7 +163,7 @@ This distillation projects OPL practices onto the decision-making task by surfac
 - **Treating an experiment outcome as success because it confirmed the hypothesis.** *Design of Experiments*: "Successful experiments are not experiments that have proven our assumption as correct. Successful experiments are those that provide valid and reliable data which shows a statistically significant conclusion" (Source: Practice "Design of Experiments", "How to do it?").
 - **Skipping confidence voting before commitment.** A decision recorded but not confidence-checked leaves dissent latent; latent dissent surfaces during execution as foot-dragging.
 - **Skipping the retrospective.** Decisions without retrospectives accumulate unresolved learning; the next decision uses the same false priors.
-- **Picking practices without principles.** The library's most self-aware anti-pattern. *Establish Shared Principles*: "Blindly following practices are not encouraged" and "Copying just the practices of successful organizations will not get us the same result if we do not also adopt the values and principles that originated these practices" (Source: Practice "Establish Shared Principles", "Why do it?"). Decision-making practices imported without the principle they encode (e.g., "all voices are heard" behind 1-2-4-All) reproduce the shape but not the value.
+- **Picking practices without principles.** *Establish Shared Principles*: "Blindly following practices are not encouraged" and "Copying just the practices of successful organizations will not get us the same result if we do not also adopt the values and principles that originated these practices" (Source: Practice "Establish Shared Principles", "Why do it?"). Decision-making practices imported without the principle they encode (e.g., "all voices are heard" behind 1-2-4-All) reproduce the shape but not the value.
 - **Treating AI output as authoritative for high-stakes decisions.** *Human in the loop*: the library carries the IBM-1979 line — "A computer can never be held accountable, therefore a computer must never make a management decision" (Source: Practice "Human in the loop", "Why do it?"). Decision practices that delegate the *commit* step to an AI without a human review gate are an emerging anti-pattern named in the library.
 
 ## Worked Example
@@ -206,7 +206,6 @@ All framework citations trace through the deep reference.
 - *David J. Anderson / Kanban* — cited as the origin of the *Theory of Constraints* connection in several workflow-management practices [BT].
 - *L. David Marquet, Leadership is Language* — cited as the origin of *Dissent Cards* (Practice "Dissent Cards") [BT].
 - *Jean Tabaka, Collaboration Explained* — cited as the originator of Confidence Voting's 0–5 finger scale (Practice "Confidence Voting", "How to do it?") [BT].
-- *Dave Snowden / Cynefin Framework* — cited approvingly throughout; not held as a primary reference separate from OPL's representation [BT].
 - *Gary Klein* — cited in the *Backcasting / Pre-mortem* practice for the pre-mortem technique [BT].
 - *Simon Sinek* — cited in *Start With Why* (Practice "Start With Why", "What is it?") [BT].
 - *Gojko Adzic* — cited in *Impact Mapping* for the term and concept (Practice "Impact Mapping", "What is it?") [BT].

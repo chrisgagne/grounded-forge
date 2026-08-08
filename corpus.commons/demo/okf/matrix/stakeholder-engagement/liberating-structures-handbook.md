@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Stakeholder-Engagement Distillation
 
@@ -22,13 +22,13 @@ generated:
 
 The handbook is, at its core, a stakeholder-engagement source. The full title is *Engaging Everyone with Liberating Structures* — the word *everyone* is load-bearing, not rhetorical. The handbook's introduction frames LS as "frameworks that make it possible for people and organizations to create, to do new things, to be innovative." The half-life problem the handbook is responding to is squarely about engagement durability: "The half-life of the energy and commitment to new ways of being after these events can be short when participants return to their organizations and fall back into default ways of meeting. Frequently, the changes are not sustained. So, how can we extend that half-life? How can we make the enlivening experience that characterizes these energetic events available every day? How can we put the power to host and facilitate high engagement in the hands of everyone in the organization?"
 
-The handbook's most direct stakeholder-engagement framing is captured in two paired principles. *Nothing About Me Without Me* is the standing principle: "When searching in your organization or community for behavior and solutions that are unusually powerful and effective (positively deviant), it helps to broaden your conversations to include the people most involved. This is especially powerful when you can bring together people that don't normally talk with one another." *Engage the Unusual Suspects* is the inviting principle: "Who's not here that could contribute to our conversation?" The handbook calls this "one of the most important questions you can ask."
+The handbook's most direct stakeholder-engagement framing is captured in two paired principles. *Nothing About Me Without Me* is the standing principle: "When searching in your organization or community for behavior and solutions that are unusually powerful and effective (positively deviant), it helps to broaden your conversations to include the people most involved. This is especially powerful when you can bring together people that don't normally talk with one another." *Engage the Unusual Suspects* is the inviting principle: "Who's not here that could contribute to our conversation?" The handbook says, "This may be one of the most important questions you can ask."
 
-The ownership-versus-buy-in distinction is also an engagement distinction. Buy-in is the failure mode of a *consultative* style — appearing participatory while in fact asking people to implement someone else's decision. The handbook's claim is that aiming for buy-in produces "lukewarm, pallid implementation and mediocre results"; that for "intractable socio-technical behavioral problems in systems the notion of buy-in is just not useful — people in the system need to own the new behaviors." Every named LS interaction design is positioned as an instrument for ownership rather than buy-in.
+The ownership-versus-buy-in distinction is also an engagement distinction. Buy-in is the failure mode of engagement that arrives after the thinking is done — asking people to implement someone else's decision without involvement in the initial conversations. The handbook's claim is that aiming for buy-in produces "lukewarm, pallid implementation and mediocre results"; that for "intractable socio-technical behavioral problems in systems the notion of buy-in is just not useful — people in the system need to own the new behaviors." Every named LS interaction design is positioned as an instrument for ownership rather than buy-in.
 
 A second engagement-discipline thread is *space and aesthetics as engagement infrastructure*. The handbook's first three named sections after the introduction (Choosing Space, Aesthetics Are Important, Working with the Space You're Given) treat tables, chairs, lighting, walls, and elbow-room as structural variables, not logistics. A standard conference-room round table is too large for "juicy conversation"; fluorescent light makes people "wilt"; rows of fixed chairs can be bent by inviting people to stand and turn.
 
-A third thread is the handbook's contrarianism about *engagement forums*. Multiple structures replace conventional default formats: Celebrity Interviews replace panels; Gallery Walks replace report-outs (which are flagged "BORING!!!" because they "drain the life out of whatever conversation that took place in the small group"); Taking Questions in batches of 3–4 replaces serial Q-A-Q-A, which "reinforces the 'central tendency' versus the distributed intelligence of the group"; Take 20 Seconds replaces the facilitator's 6-second-average wait.
+A third thread is the handbook's contrarianism about *engagement forums*. Multiple structures replace conventional default formats: Celebrity Interviews replace panels; Gallery Walks replace report-outs (which are flagged "BORING!!!" because a report-out typically "drains the life out of whatever conversation that took place in the small group"); Taking Questions in batches of 3–4 replaces serial Q-A-Q-A, which "reinforces the 'central tendency' versus the distributed intelligence of the group"; Take 20 Seconds replaces the facilitator's 6-second-average wait.
 
 A fourth thread is the *pattern-language* framing of engagement: any LS structure is composed from four primitives — "rhythm/timing of each round of interaction, the boundaries of group size and inclusion, physical containers like space and room set-up, and conceptual containers created by the way a question is phrased." Designing engagement is choosing within these primitives, and the catalogue is a vocabulary of named combinations rather than a recipe book.
 
@@ -66,7 +66,7 @@ A fourth thread is the *pattern-language* framing of engagement: any LS structur
 
 16.  **World Café: large-group engagement in small-table rounds.** Four chairs per table; three or more 20-minute rounds; "each member of the group moves to a different new table. They may or may not choose to leave one person as the 'table host' for the next round, who welcomes the next group and briefly fills them in." Lineage: theworldcafe.com [BT]. ("World Café")
 
-17.  **Conversation Café: six agreements as engagement scaffolding.** Open-mindedness, Acceptance, Curiosity, Discovery, Sincerity, Brevity. Three structured rounds plus open dialogue plus final round, mediated by a talking object. Lineage: conversationcafe.org [BT]. ("Conversation Café Dialogue")
+17.  **Conversation Café: six agreements as engagement scaffolding.** Open-mindedness, Acceptance, Curiosity, Discovery, Sincerity, Brevity. Two structured rounds plus open dialogue plus a final round, mediated by a talking object. Lineage: conversationcafe.org [BT]. ("Conversation Café Dialogue")
 
 18.  **Fishbowl: making lived experience audible to the larger group.** Inner circle of 5–6 with direct experience talk to each other ("NOT the audience"); outer circle asks questions; then dialogue between the circles. Centers the experience that conventional forum design tends to translate, dilute, or speak for. ("Fishbowl")
 
@@ -169,7 +169,7 @@ A fourth thread is the *pattern-language* framing of engagement: any LS structur
 ## When to Use This Reference
 
 - An *engagement is being designed* — workshop, retreat, town hall, change-management session, retrospective — and the convener is reaching for a default panel-and-breakout structure.
-- A *consultative style* is producing weak implementation and the team cannot figure out why — diagnose the buy-in trap.
+- An engagement style aimed at buy-in is producing weak implementation and the team cannot figure out why — diagnose the buy-in trap.
 - An *audience* contains people who have been historically tokenised and the invitation needs to be re-built for authentic participation.
 - A *strategic scenario or plan* is being built by experts and is at risk of being ignored by the community it is meant to serve.
 - A *single person has a complex challenge* and would benefit from being structurally separated from the option-generating conversation (Wise Crowds).

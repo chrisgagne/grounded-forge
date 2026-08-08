@@ -110,7 +110,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Make-or-buy / outsource / partner decision** | Comparative vs absolute advantage (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
 | **Pricing, wage-setting, tax, or fee decision** | Elasticity and tax incidence (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
 | **Decision under uncertainty with quantifiable probabilities** | Expected value; risk; insurance (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
-| **Asymmetric-information transaction (used goods, hiring, lending)** | Akerlof lemons; signalling devices (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
+| **Asymmetric-information transaction (used goods, hiring, lending)** | Lemons problem; signalling devices (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
 | **Multi-period investment / debt / retirement decision** | Present-discounted value; intertemporal choice (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
 | **Public good / collective contribution problem** | Free-rider problem; public-good provision (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
 | **Behavioural-bias risk in own or others' decisions** | Loss aversion, mental accounting, fungibility (OpenStax Economics) | `openstax-economics-3e-decision-making.md` |
@@ -221,7 +221,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Testing intervention assumptions probabilistically** | BBN as transparent intervention-test tool; non-zero conditional probabilities capture "everything else going on" (Barbrook-Johnson & Penn, Ch 7) | `barbrook-johnson-systems-mapping-decision-making.md` |
 | **Simulating intervention dynamics under stated assumptions** | System Dynamics "what if?" scenarios; stocks, flows, feedback loops; pluralist stance on prediction (Barbrook-Johnson & Penn, Ch 8) | `barbrook-johnson-systems-mapping-decision-making.md` |
 | **Deciding between participation and conceptual rigour in a modelling engagement** | The Ch 12 fourth take-home: both at once is rarely possible; pick one as primary (Barbrook-Johnson & Penn) | `barbrook-johnson-systems-mapping-decision-making.md` |
-| **Recognising the Maslow's-hammer failure mode in method choice** | The "ladder of using methods" — climb beyond rung 1 (Barbrook-Johnson & Penn, Ch 12) | `barbrook-johnson-systems-mapping-decision-making.md` |
+| **Recognising the hammer-and-nail failure mode in method choice** | The "ladder of using methods" — climb beyond rung 1 (Barbrook-Johnson & Penn, Ch 12) | `barbrook-johnson-systems-mapping-decision-making.md` |
 | **Combining mapping methods for richer analysis** | Sequential combinations (Fig 11.2) and hybrid forms (Table 11.3); "combining methods in some form will normally be useful or valuable" (Barbrook-Johnson & Penn, Ch 11) | `barbrook-johnson-systems-mapping-decision-making.md` |
 | **Need to pick a named, time-boxed facilitation practice for a group decision** | 266 practices across Foundation / Discovery / Options / Delivery (Open Practice Library) | `open-practice-library-decision-making.md` |
 | **Prioritisation among many options** | $100 Prioritisation, MoSCoW, RICE, Impact-Effort Matrix, Dot Voting, WSJF (OPL) | `open-practice-library-decision-making.md` |

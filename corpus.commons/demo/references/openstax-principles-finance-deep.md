@@ -10,7 +10,7 @@
 
 ## Author's thesis (paraphrased from source)
 
-*Principles of Finance* presents finance as the study of the management, movement, and raising of money, organised around three primary domestic areas: business finance (how managers apply financial principles to maximise firm value in a risky environment), investments (products and processes used to create and grow wealth), and financial markets and institutions (the firms and regulatory agencies that oversee the financial system) [V] (Ch 1.1, "Definition of Finance"; Ch 1.1, "Basic Areas in Finance"). The book opens with a load-bearing claim: "business finance is about developing and understanding the tools that help people make consistently good and repeatable decisions" [V] (Ch 1, "Why It Matters"). Finance is positioned as a decision-making toolkit, not a body of doctrine.
+*Principles of Finance* presents finance as the study of the management, movement, and raising of money, organised around three primary domestic areas: business finance (how managers apply financial principles to maximise firm value in a risky environment), investments (products and processes used to create and grow wealth), and financial markets and institutions (the firms and regulatory agencies that oversee the financial system) [V] (Ch 1.1, "Definition of Finance"; Ch 1.1, "Basic Areas in Finance"). The book opens with a load-bearing claim: "business finance is about developing and understanding the tools that help people make consistently good and repeatable decisions" [V] (Ch 1, "Why It Matters"). Finance is positioned as a decision-making toolkit.
 
 A second load-bearing claim is that the **risk-return tradeoff** is finance's organising principle: "an increase in risk results in an increase in expected return" [AP] (Ch 1.1, "Risk and Return in Finance"). Investors are risk-averse, so they must be compensated through higher expected returns to bear greater uncertainty. The text returns to this principle repeatedly across bond pricing, stock valuation, the CAPM, capital structure, and risk management.
 
@@ -67,7 +67,7 @@ Each form trades simplicity against liability and capital-raising capacity:
 - **Sole proprietorships**: simple, inexpensive, light regulation, no separate taxation; but unlimited personal liability, life limited to the owner's life, difficulty raising large capital, and dependence on the owner's expertise (Ch 2.1, "Sole Proprietorships").
 - **Partnerships**: similarly easy to form; multiple partners may bring complementary expertise and capital; income flows through to partners' personal taxes (no corporate-level tax); but unlimited liability for all partners, where one partner's actions can ruin the others (Ch 2.1, "Partnerships").
 - **Corporations**: separate legal entity, limiting stockholders' losses to the amount originally invested; unlimited corporate life; transferable ownership; ease of raising capital — but subject to double taxation (corporate earnings are taxed, then dividends are taxed again as personal income). The S corporation form (no more than 100 stockholders) is taxed as a partnership and exempt from corporate income tax; the C corporation form is more flexible for raising capital and prevalent among larger firms (Ch 2.1, "Corporations").
-- **Hybrids (LLC, LLP)**: liability protection with partnership-like taxation; LLPs typical of professional services firms (accounting, architecture, law); investors' votes proportional to ownership share; limited partners may have unlimited liability for designated general partners only (Ch 2.1, "Hybrids: Limited Liability Corporations and Partnerships").
+- **Hybrids (LLC, LLP)**: liability protection with partnership-like taxation; LLPs typical of professional services firms (accounting, architecture, law); investors' votes proportional to ownership share; only designated partners have unlimited liability for company debts, while other partners can be designated limited partners, liable only up to their initial contribution (Ch 2.1, "Hybrids: Limited Liability Corporations and Partnerships").
 
 The corporate form's value advantage rests on three drivers: limited ownership liability reduces investor risk, growth opportunities allow corporations to pursue investments more easily than other forms, and stock liquidity makes corporate ownership transferable (Ch 2.1).
 
@@ -158,7 +158,7 @@ The **spot exchange rate** is the rate at which currencies trade right now [V] (
 
 ### Sources of economic data and indexes
 
-**FRED (Federal Reserve Economic Data)**, maintained by the Federal Reserve Bank of St. Louis, contains more than 765,000 economic time series and is a primary source for empirical work in finance (Ch 3.6, "FRED: Federal Reserve Economic Data"). Indexes (such as the CPI) are constructed by selecting a base year (set to index 100) and tracking changes from there; this allows comparisons of magnitudes across countries and time even when absolute levels differ (Ch 3.6, "Indexes"). Data can be presented in levels or as percentage changes; the latter highlights growth rates and turning points (Ch 3.6, "Levels versus Percentage Changes").
+**FRED (Federal Reserve Economic Data)**, maintained by the Federal Reserve Bank of St. Louis, contains more than 765,000 economic time series and is one of the largest sources of economic data (Ch 3.6, "FRED: Federal Reserve Economic Data"). Indexes (such as the CPI) are constructed by selecting a base year (set to index 100) and tracking changes from there; this allows comparisons of magnitudes across countries and time even when absolute levels differ (Ch 3.6, "Indexes"). Data can be presented in levels or as percentage changes; the latter highlights growth rates and turning points (Ch 3.6, "Levels versus Percentage Changes").
 
 ## Part IV: Accrual accounting (Ch 4)
 
@@ -372,7 +372,7 @@ If the coupon rate exceeds the YTM, the bond sells at a **premium** (above par);
 
 ### The yield curve and term structure
 
-The **yield curve** plots yield against maturity for bonds of equal credit quality; the curve for government bonds is the **risk-free yield curve** [AP] (Ch 10.3, "Term Structure of Interest Rates"). A **normal yield curve** slopes upward (longer-term yields exceed shorter); economic expansion typically produces normal curves and signals investor expectation of higher future inflation. An **inverted yield curve** slopes downward and has historically preceded recessions; the August 2018-2020 inversion preceded the COVID recession (Ch 10.3, "Different Shapes of the Yield Curve"). A **flat yield curve** indicates transition between normal and inverted, or low absolute rates.
+The **yield curve** plots yield against maturity for bonds of equal credit quality; the curve for government bonds is the **risk-free yield curve** [AP] (Ch 10.3, "Term Structure of Interest Rates"). A **normal yield curve** slopes upward (longer-term yields exceed shorter); economic expansion typically produces normal curves and signals investor expectation of higher future inflation. An **inverted yield curve** slopes downward and has historically preceded recessions; the curve was normal in August 2018, inverted in March 2019, and remained inverted into 2020, preceding the COVID recession (Ch 10.3, "Different Shapes of the Yield Curve"). A **flat yield curve** indicates transition between normal and inverted, or low absolute rates.
 
 ### Bond risks and ratings
 
@@ -443,7 +443,7 @@ Ch 12.1 catalogues money market instruments by maturity, minimum amount, and iss
 
 ### Equity-market structure and the IPO process
 
-US firms had a combined market capitalisation of $50.8 trillion at the end of 2020, about 66 per cent of the world total estimated at $90 trillion (Ch 12.1, "Equity Markets"). Stock exchanges have centralised trading locations, broker-mediated trades, and exchange-guaranteed liquidity; OTC markets are electronic with direct buyer-seller transactions and less liquidity guarantee.
+US firms had a combined market capitalisation of $50.8 trillion at the end of 2020, over half of the world total estimated at $90 trillion (Ch 12.1, "Equity Markets"). Stock exchanges have centralised trading locations, broker-mediated trades, and exchange-guaranteed liquidity; OTC markets are electronic with direct buyer-seller transactions and less liquidity guarantee.
 
 An **initial public offering (IPO)** is a firm's first public stock sale, undertaken with an investment banker who advises on price, share count, and underwriter syndication. IPOs cost 5-8 per cent of the offering value; smaller investors rarely participate at issue. Burton Malkiel's view that IPOs underperform the market by 4 per cent per year on average is given as a contrarian counter [BT] (Ch 12.1, "Process of Offering Equities"). A **seasoned equity offering (SEO)** is an additional issue by an already-public firm.
 
@@ -469,7 +469,7 @@ A $100 invested in 1928 in large-company stocks grew to over 50 times the value 
 
 ### Profiles cited
 
-Three profile sidebars are presented in the chapter: Janet Yellen (career path through Federal Reserve, first woman Fed chair, first woman Treasury Secretary), Bill Gross (founder of Pimco, "the bond king," focus on total returns rather than yield), and Warren Buffett (career, investment philosophy, philanthropy). All three are framed as illustrating long-term investing discipline (Ch 12.2, 12.3, 12.4).
+Three profile sidebars are presented in the chapter: Janet Yellen (career path through Federal Reserve, first woman Fed chair, first woman Treasury Secretary), Bill Gross (cofounder of Pimco, "the bond king," focus on total returns rather than yield), and Warren Buffett (career, investment philosophy, philanthropy) (Ch 12.2, 12.3, 12.4).
 
 ## Part XIII: Statistical analysis in finance (Ch 13)
 
@@ -778,7 +778,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 
 | Metric | Value | Classification |
 |---|---|---|
-| US average annual real GDP growth at start of millennium | $10 trillion (2000) → over $21 trillion (2020) | [V] (Ch 3.2, "Historical Trends in GDP") |
+| US nominal GDP (current dollars) | approximately $10 trillion (2000) → over $21 trillion (2020) | [V] (Ch 3.2, "Historical Trends in GDP") |
 | Longest US expansion (June 2009 - February 2020) | 128 months | [V] (Ch 3.3, "Historical Trends") |
 | Average length of US contractions | ~17 months | [V] (Ch 3.3) |
 | Average length of US expansions | ~41 months | [V] (Ch 3.3) |
@@ -794,8 +794,8 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 | Average 3-month T-bill return, 1928-2020 | 3.36% (sd 3.0%) | [V] (Ch 15.3) |
 | Implied market risk premium, 1928-2020 | 8.28% | [AP] (Ch 15.3, calculated from the difference) |
 | Number of years out of 1928-2020 with negative S&P 500 return | 25 | [V] (Ch 15.3) |
-| Default recommendation: stocks needed for diversified portfolio | ~12 (Statman, broadly) | [BT] (Ch 15.2; Statman 1987) |
-| 30-year fixed mortgage on $140,000 at 3.6% — total interest | over $56,000 | [V] (Ch 8.3, mortgage example) |
+| Stocks for a reasonably diversified portfolio (no exact number agreed) | ~a dozen (Statman) | [BT] (Ch 15.2; Statman 1987) |
+| 20-year fixed mortgage on $140,000 at 3.6% — total interest | over $56,000 | [V] (Ch 8.3, mortgage example) |
 | 36-month auto loan on $32,000 at 6% — total interest | $3,046.08 | [V] (Ch 8.3, auto loan example) |
 | Annualised cost of forgoing 2/10 net 30 discount | 36.73% | [V] (Ch 19.2) |
 | Annualised cost of typical $14 fee on $200 weekly PAL | 364% | [V] (Ch 8.4) |
@@ -805,7 +805,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 
 ## Connections the author makes in the text
 
-- **Adam Smith and Karl Marx** are referenced as classical political economists who identified capital alongside labour and entrepreneurship as factors of production [BT] (Ch 19.1).
+- **Adam Smith and Karl Marx** are referenced as early political economists who identified capital alongside labour and entrepreneurship as factors of production [BT] (Ch 19.1).
 - **Burton Malkiel** is cited approvingly for the empirical view that IPOs underperform the market by 4 per cent per year on average [BT] (Ch 12.1).
 - **Warren Buffett** is cited approvingly on dividend policy and the "almost a last resort" view of dividend payments [BT] (Ch 11.2). Buffett is profiled as a value-investing exemplar following Benjamin Graham (Ch 12.4).
 - **Benjamin Graham** is cited as the source of value investing methodology that Buffett expanded [BT] (Ch 12.4).
@@ -818,7 +818,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 - **Eisenhower, Dwight D.**: quoted: "plans are worthless, but planning is everything" [V] (Ch 1.2).
 - **Meir Statman**: research on diversification, ~12-stock portfolio threshold [BT] (Ch 15.2).
 - **Bill Gross**: profiled as Pimco co-founder and "bond king," advocate of total returns for fixed-income investing (Ch 12.3).
-- **Janet Yellen**: profiled as first woman Fed chair and Treasury Secretary, with the related claim that her tenure saw 12 months of consecutive employment increases — a Fed historical first (Ch 12.2).
+- **Janet Yellen**: profiled as first woman Fed chair and Treasury Secretary, with the related claim that employment increased in every month of her four-year term — the first and only such occurrence in Fed history (Ch 12.2).
 - **Carlos Slim Helu**: quoted on the value of historical perspective for understanding the present and future [V] (Ch 12).
 - **Sam Ewing**: quoted defining inflation in folksy terms [V] (Ch 12.2).
 - **Ted Williams**: quoted on baseball's 30 per cent success rate as a benchmark, contrasted with the higher accuracy required for major capital decisions [V] (Ch 9).
@@ -832,7 +832,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 - **Use of payback period as a primary capital-budgeting criterion**. The text catalogues four disadvantages (ignores TVM, no theoretically grounded acceptance threshold, ignores cash flows after breakeven, no risk adjustment) and recommends NPV as the theoretically correct method (Ch 16.1).
 - **IRR-only ranking of mutually exclusive projects**. The text takes the position that the highest-NPV project should be chosen, not the highest-IRR project, because IRR ignores scale and assumes intermediate cash flows reinvested at the IRR rate (Ch 16.5).
 - **Treating SPACs as superior alternatives to IPOs from the public investor's perspective**. The Renaissance Capital study cited shows SPAC mergers averaging -18.8 per cent return vs +37.2 per cent for traditional IPOs (Ch 12.1).
-- **Speculating on payday advance loans, refund anticipation loans, and similar short-term credit products**. The text explicitly highlights effective annual rates that can exceed 300 per cent on what appear to be modest fees (Ch 8.4).
+- **Payday advance loans, refund anticipation loans, and similar short-term credit products**. The text explicitly highlights effective annual rates that can exceed 300 per cent on what appear to be modest fees (Ch 8.4).
 - **Investing in non-investment-grade junk bonds without understanding their cyclical default behaviour**. The text notes 11 per cent of US junk bonds defaulted in 2001 and that the market had a brief resurgence in the late 1990s (Ch 10.4).
 - **Trade credit as truly free**. Although trade credit is interest-free, the opportunity cost of forgoing cash discounts can be 36+ per cent annualised — the text frames not taking discounts as a substantial hidden expense (Ch 19.2).
 - **Treating Excel's NPV function as computing the conventional NPV**. The text emphasises Excel's NPV starts with year-1 cash flows; the time-zero cash flow must be subtracted separately to get the conventional NPV (Ch 16.6).

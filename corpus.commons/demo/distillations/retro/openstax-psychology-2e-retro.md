@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:631f9928f2896f8d2cace0a4a7a590974b38a7bddcc71bef36fb2d72daefb808 -->
 # OpenStax Psychology 2e, Retro Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Senior contributing author Rose M. Spielman. ISBN 978-1-951693-23-7 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:98fa9141c04e3203d9226859790dadcd36e4a25e4346e9c794efdae82e88d9cc -->
 # FLO Facilitation Guide, Retro Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. Ebook ISBN 978-1-77420-036-0. Licence: **CC BY 4.0**. Scope: open.

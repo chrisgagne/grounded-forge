@@ -37,7 +37,7 @@ The Sprint's inputs are "enough prioritized *Backlog Items* that are '*Ready*' (
 
 ### Sprint tips
 
-A facilitation tip on Sprint length for new teams: "Teams newly starting with Scrum should consider 1-week sprints to 'facilitate more rapid inspect/adapt cycles.' (See Jeff Sutherland et al. 'Shock Therapy', ap.tips/shocktherapy)" [V] (The Sprint, "Tips"). The borrowed-through citation to Sutherland's *Shock Therapy* is the only external research citation in the Sprint section [BT] (The Sprint, "Tips").
+A facilitation tip on Sprint length for new teams: "Teams newly starting with Scrum should consider 1-week sprints to 'facilitate more rapid inspect/adapt cycles.' (See Jeff Sutherland et al. 'Shock Therapy', ap.tips/shocktherapy)" [V] (The Sprint, "Tips"). The citation to Sutherland's *Shock Therapy* is borrowed-through [BT] (The Sprint, "Tips").
 
 A myth-busting tip on overhead: "It is a common misconception that a one-week sprint has twice the planning overhead. Although a team conducting one-week sprints would have two *Sprint Planning* (ap.tips/planning), *Sprint Review* (ap.tips/review), and *Sprint Retrospectives* (ap.tips/retro), the *Planning* and *Review events* take about 40% less time for one-week sprints because there are fewer *Backlog Items* to plan and review with stakeholders and end users" [V] (The Sprint, "Tips").
 
@@ -69,13 +69,13 @@ Required participants are "the entire *Scrum Team*" [V] (Sprint Planning, "Parti
 
 ### Sprint Planning inputs
 
-Five named inputs [AP] (Sprint Planning, "Inputs"):
+Four named inputs [AP] (Sprint Planning, "Inputs"):
 
 1. "A healthy *Product Backlog* (ap.tips/healthybacklog) with 1½–2 sprints worth of prioritized *Backlog Items* that are mostly '*Ready*' (ap.tips/dor) to work on" [V].
-2. The note that "*Backlog Items* include User Stories (ap.tips/userstory), defects, spikes, chores, etc. Anything the *Development Team* wants to work on should be characterized as a *Backlog Item* on the *Scrum Team's* single *Product Backlog*" [V].
-3. "The latest product *Increment* that will be built upon" [V].
-4. "The *Development Team's* likely *Capacity* during the *Sprint*, accounting for expected leave" [V].
-5. "The *Development Team's* historical performance. Many teams call this Velocity and measure it in Story Points, but note that this is not officially part of the Scrum framework" [V].
+   - A qualifier under this input: "*Backlog Items* include User Stories (ap.tips/userstory), defects, spikes, chores, etc. Anything the *Development Team* wants to work on should be characterized as a *Backlog Item* on the *Scrum Team's* single *Product Backlog*" [V].
+2. "The latest product *Increment* that will be built upon" [V].
+3. "The *Development Team's* likely *Capacity* during the *Sprint*, accounting for expected leave" [V].
+4. "The *Development Team's* historical performance. Many teams call this Velocity and measure it in Story Points, but note that this is not officially part of the Scrum framework" [V].
 
 ### Sprint Planning outputs
 
@@ -87,7 +87,7 @@ Three named outputs [AP] (Sprint Planning, "Outputs"):
 
 ### Sample 3-hour Sprint Planning agenda for a two-week Sprint
 
-The author offers a minute-by-minute sample agenda totalling 3 hours (180 minutes including the break), structured as eleven named segments [AP] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda (Two-Week Sprint)"):
+The author offers a minute-by-minute sample agenda labelled 3-hour in its heading, structured as eight listed timed segments (5, 5, 2, 3, 5, 70, 15, and 90 minutes) whose timings total 195 minutes including the break [AP] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda (Two-Week Sprint)"):
 
 - **5 minutes:** "Check in with everyone socially, especially if you are a distributed team" [V].
 - **5 minutes:** "If your team hasn't done so already, review incomplete *Backlog Items* from the last Sprint and decide what to do with them. Do not reestimate the remaining work. No partial points should be credited to the prior sprint for incomplete work" [V].
@@ -95,7 +95,7 @@ The author offers a minute-by-minute sample agenda totalling 3 hours (180 minute
 - **3 minutes:** "Calculate your estimated Velocity based on the Development Team's historical performance. All other things equal, we use the average of the last 3–4 sprint's *Capacity*-adjusted Velocity adjusted for current and forecasted *Capacity*" [V]. The guide states the formula explicitly (rendered in the source as a multi-line equation) and gives a worked example: "if you completed 25, 24, and 31 Story Points over the last three sprint with 45, 43, and 50 days of *Capacity* respectively and you have a forecasted *Capacity* of 47 this sprint" [V], the formula resolves to approximately 30 Story Points (the author's stated result of ≈30) [AP] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda"). The author flags a tooling gap: "A few Scrum-oriented tools on the market will calculate a forecasted Velocity for you, but we are not aware of any that address all edge cases well, particularly accounting for changes in *Capacity* and the number of *Development Team* members" [V].
   - A pull-back rule for over-committed sprints: "If the work in process in your carried-over *Sprint Backlog* meets or exceeds your forecast velocity and it is all still valuable to work on, we strongly recommend against taking in *any* new work this *Sprint*. You may even need to *remove* some items. This can be painful, but it's honest empirical process control (ap.tips/empirical): the data available to us tells us that this is all that our *Development Team* is capable of, even if we wished we could do more" [V].
 - **5 minutes:** "The *Product Owner* and team should agree on a *Sprint Goal* and prepare to select *Backlog Items* that will achieve the *Sprint Goal*" [V].
-- **70 minutes:** "Determine what can be done this *Sprint*. Review the *Backlog Items* at the top of your *Product Backlog*. Discuss each *Backlog Item* briefly as a team before adding it to your proforma *Sprint Backlog*. If a new *Backlog Item* has appeared since you've last gotten together as a team for *Backlog Refinement*, discuss the item until the team is relatively satisfied that they understand what it is they are being asked to build, as well as the value it brings to the end user. Stop adding items to your *Sprint Backlog* when the *Development Team*—not the *Product Owner* or *Scrum Master—*has concluded that they have the right amount of work for the *Sprint* timebox. The *Product Owner* and *Development Team* should renegotiate *Backlog Items* as necessary" [V]. Two sub-tips inside this segment:
+- **70 minutes:** "Determine what can be done this *Sprint*. Review the *Backlog Items* at the top of your *Product Backlog*. Discuss each *Backlog Item* briefly as a team before adding it to your proforma *Sprint Backlog*. If a new *Backlog Item* has appeared since you've last gotten together as a team for *Backlog Refinement*, discuss the item until the team is relatively satisfied that they understand what it is they are being asked to build, as well as the value it brings to the end user. Stop adding items to your *Sprint Backlog* when the *Development Team*—not the *Product Owner* or *Scrum Master—*has concluded that they have the right amount of work for the *Sprint* timebox. The *Product Owner* and *Development Team* should renegotiate *Backlog Items* as necessary" [V]. Four sub-tips inside this segment:
   - Outcome-orientation: "To the extent possible, capture the outcome from the customer's perspective, not the behavior of the system. For instance, a good *Backlog Item* title might be 'As a coffee drinker, I can have coffee that's just the right temperature so that I can delight in its ideal taste,' not 'Integrate the Acme steam-heating element into the brew assembly.' A good *Backlog Item* description is 'the served coffee is between 60–70°C (140–155°F),' not 'The brew-port Type-K thermocouple shall read between 2.436 and 2.644mV at dispensing.' Give room for your *Development Team* to leverage their expertise and figure out the how. (Agile principles #1 and 11)" [V]. The coffee example contrasting outcome ("just-right temperature") with implementation ("Acme steam-heating element") is a signature worked example [AE] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda").
   - Item-count heuristic: "Try to have at least six *Backlog Items* per sprint. Otherwise they may be too large" [V].
   - Definition of Ready: "Although not officially part of Scrum, many teams use a Definition of '*Ready*' to reduce the risk that they will pull an item into their sprint that is not '*Ready*' to work on yet" [V].
@@ -141,7 +141,7 @@ The agenda is two named segments plus an optional after-segment [AP] (Daily Scru
 
 ### Daily Scrum tips
 
-Seven named tips [AP] (Daily Scrum, "Tips"):
+Nine named tips [AP] (Daily Scrum, "Tips"):
 
 1. The Parking Lot mechanism: "Anyone, including those outside the team, may raise 'Parking Lot' topics. Further, if any *Scrum Team* member feels that a discussion during the *Daily Scrum* is taking too long and threatens the timebox, they can suggest further discussion be held for the 'Parking Lot.' Anyone who wishes to do so can stick around after the *Daily Scrum* and discuss these topics. Participation is fully voluntary at this point" [V]. The author lists four illustrative Parking Lot scenarios: a developer wanting deeper face-to-face discussion with a few members, a developer with an unexpected edge case to strategize on, the team realising the Sprint Goal is at risk, or a stakeholder with questions [V].
 2. Same place and time: "Conduct the *Daily Scrum* at the same place and time every day. Some teams will cancel the *Daily Scrum* on the last day of the sprint, but we recommend against that as the team could use this to coordinate their final effort against the *Sprint Goal*" [V].
@@ -151,7 +151,7 @@ Seven named tips [AP] (Daily Scrum, "Tips"):
 6. Start on time: "Start the Daily Scrum on time, even if much of the team is missing… within a few days, attendance should improve as being late to a meeting in progress is more uncomfortable than being late to a meeting that hasn't started yet" [V].
 7. Watch for attention and on-Sprint-Backlog work: "As the member of the *Development Team* is speaking, watch out for the following: Is everyone else looking directly at the person speaking and paying full attention? It can be a fun game for the speaker to look for anyone who isn't paying full attention and nominate them as the next speaker. Are they speaking directly to work from the *Sprint Backlog*, or are they working on something else? Any effort towards work not in the *Sprint Backlog* potentially impacts the *Product Owner's* ability to support the team and saps the team of velocity made good against the *Sprint Goal*" [V].
 
-Two structural notes follow: "It's not the *Scrum Master's* job to always facilitate the *Daily Scrum*, only to ensure that it happens smoothly and within the 15-minute time-box" [V] (Daily Scrum, "Tips"); and the etymological/ergonomic justification for standing: "Asking able-bodied participants to remain standing throughout the entire event—hence the alternative name 'Standup'—helps keep the meeting short because it becomes physically uncomfortable for most participants for it to run longer than 15 minutes" [V] (Daily Scrum, "Tips").
+The final two tips are structural: "It's not the *Scrum Master's* job to always facilitate the *Daily Scrum*, only to ensure that it happens smoothly and within the 15-minute time-box" [V] (Daily Scrum, "Tips"); and the etymological/ergonomic justification for standing: "Asking able-bodied participants to remain standing throughout the entire event—hence the alternative name 'Standup'—helps keep the meeting short because it becomes physically uncomfortable for most participants for it to run longer than 15 minutes" [V] (Daily Scrum, "Tips").
 
 ## Part IV: Sprint Review
 
@@ -186,7 +186,7 @@ Seven named segments totalling 60 minutes [AP] (Sprint Review, "Sample 1-Hour Sp
 Two named tips [AP] (Sprint Review, "Tips"):
 
 1. Not a status meeting: "This is *not* a status meeting. Rather, it is an opportunity for stakeholders to collaborate with the team and improve the *Product Backlog* with shared context and learnings" [V]. Signature contrarian position.
-2. Don't demo undone work: "Don't demonstrate work that isn't '*Done*.' It can significantly erode trust between the *Scrum Team*, stakeholders, and end users if the demonstrated work doesn't get shipped as expected. It also allows the *Scrum Team* to persist the illusion that incomplete work is still valuable. Remember: work in process is a liability, not an asset. (ap.tips/toc)" [V]. The "work in process is a liability, not an asset" claim is borrowed-through from the Theory of Constraints (the linked `ap.tips/toc`) [BT].
+2. Don't demo undone work: "Don't demonstrate work that isn't '*Done*.' It can significantly erode trust between the *Scrum Team*, stakeholders, and end users if the demonstrated work doesn't get shipped as expected. It also allows the *Scrum Team* to persist the illusion that incomplete work is still valuable. Remember: work in process is a liability, not an asset. (ap.tips/toc)" [V]. The "work in process is a liability, not an asset" claim is borrowed-through via the displayed shortlink `ap.tips/toc`; the source does not name the referent [BT].
 
 ## Part V: Sprint Retrospective
 
@@ -213,7 +213,7 @@ Outputs are three named items [AP] (Sprint Retrospective, "Output"):
 
 ### Sample 1½-hour Sprint Retrospective agenda
 
-Five named segments totalling 90 minutes [AP] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"):
+Six named segments totalling 90 minutes [AP] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"):
 
 - **5 minutes — "Set the stage":** Three sub-elements: a one-word feeling check-in; reading Norm Kerth's *Retrospective Prime Directive*; and team-member appreciations [V]. The Prime Directive is quoted verbatim:
 
@@ -226,7 +226,7 @@ Five named segments totalling 90 minutes [AP] (Sprint Retrospective, "Sample 1½
 - **3 minutes:** "Read and deduplicate your topics" [V].
 - **2 minutes — Vote on topics:** "The highest-voted topics will be discussed. You can give everyone 2 or 3 votes that they can distribute any way they like. If you'd like to get fancy, give people the approximate square root of the topic count in votes (~9 topics = 3 votes, ~16 topics = 4 votes, ~25 topics = 5 votes, etc)" [V]. The √n-vote heuristic is a named device.
 - **70 minutes — For each of the top 3 voted topics, spend 15-20 minutes:** Two named activities per topic:
-  - **"Generating insights":** "If a positive reads 'The team is doing a good job of collaborating with one another' and a delta reads 'Our staging server keeps going down,' try to understand the root cause of these conditions. Some teams find it helpful to ask 'why' five times (give or take) until you get to your root cause. The book 'Agile Retrospectives' (see Tips) suggests other exercises as well. If you're rarely surprised by your root causes, you may not be digging deep enough" [V]. The "ask why five times" device is named (5-Whys); the author flags it with a meta-tip — surprise is the signal you've reached root cause [AP] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). The reference to *Agile Retrospectives* by Esther Derby and Diana Larsen is borrowed-through [BT].
+  - **"Generating insights":** "If a positive reads 'The team is doing a good job of collaborating with one another' and a delta reads 'Our staging server keeps going down,' try to understand the root cause of these conditions. Some teams find it helpful to ask 'why' five times (give or take) until you get to your root cause. The book 'Agile Retrospectives' (see Tips) suggests other exercises as well. If you're rarely surprised by your root causes, you may not be digging deep enough" [V]. The "ask why five times (give or take)" device is named; the author flags it with a meta-tip — a team that is rarely surprised by its root causes may not be digging deep enough [AP] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). The reference to *Agile Retrospectives* by Esther Derby and Diana Larsen is borrowed-through [BT].
   - **"Actions" — decisions and actions:** "I like to expand this into Decisions and Actions. For each item, discuss as a team suggestions about how you can persist and deepen the positive, resolve or mitigate the delta, and capitalize on the insight. You'll find that your suggestions fall naturally into two buckets: decisions, which are changes to the *Definition of 'Done'*, Definition of '*Ready*', Working Agreement, and actions, which are simply new *Backlog Items*" [V]. Two illustrative examples: a Working Agreement penalty for late event arrival, and a staging-server reliability Backlog Item phrased as a user story ("As a developer, I have a more reliable staging server so that I can develop software more effectively") [V] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"). The decisions/actions distinction is the author's named device.
   - Stay-focused tip: "It's better to have one or two improvement items for the next *Sprint* than to have too much to change at once" [V].
 - **5 minutes — "Wrap up":** "If you haven't done a round of appreciations yet, this is a nice time. Spend a few minutes retrospecting on the retrospective. How did it go for the team? What would they like to try next time?" [V]. Meta-retrospective on the retrospective is named.
@@ -267,13 +267,13 @@ Output: "An healthy, freshly prioritized, and often estimated *Product Backlog* 
 
 ### Sample 1½-hour Backlog Refinement agenda
 
-One main 90-minute segment subdivided into four per-item activities [AP] (Backlog Refinement, "Sample 1½-hour Backlog Refinement Agenda"):
+One main 90-minute segment subdivided into five per-item activities [AP] (Backlog Refinement, "Sample 1½-hour Backlog Refinement Agenda"):
 
 - **90 minutes:** "Refine the *Product Backlog* together to make more stories '*Ready*.' Start at the top of the *Product Backlog*. For each *Backlog Item*: hold a brief conversation about the description, order, and value; Make big Backlog Items into smaller ones using Vertical Slicing (ap.tips/slicing); capture the conversation in the *Backlog Item*'s description (ideally as a bulleted-list of specific, testable conditions we call 'Acceptance Criteria'); have the *Development Team* estimate the Backlog Item in story points (ap.tips/storypoints) using Planning Poker (ap.tips/planningpoker) or Affinity Estimating (ap.tips/affinityestimating); allow the *Scrum Team* to propose changes to the order based on a thoughtful consideration of its value, estimate, and dependencies (the *Product Owner* makes the final decision" [V]. The named techniques are: Vertical Slicing, Acceptance Criteria as bulleted testable conditions, Planning Poker, Affinity Estimating. The decision-rights note — the Product Owner makes the final order decision — is explicit.
 
 ### Backlog Refinement tips
 
-Eight named tips [AP] (Backlog Refinement, "Tips"):
+Nine named tips [AP] (Backlog Refinement, "Tips"):
 
 1. User Stories as default item type: "Most of your Backlog Items should be characterized as User Stories (ap.tips/userstory)" [V].
 2. Pre-circulate items: "The *Product Owner* should send out a list of the *Backlog Items* to be discussed before the *Backlog Refinement* event. This allows the *Scrum Team* to read ahead and familiarize themselves with their description, order, and value. It also helps communicate the full scope of the *Backlog Refinement* event to encourage brevity. If the *Scrum Team* gets these stories to '*Ready*' early it can end the event early" [V].
@@ -282,7 +282,7 @@ Eight named tips [AP] (Backlog Refinement, "Tips"):
 5. New-backlog effort: "Teams with new backlogs should strongly consider 3-4 hours of *Backlog Refinement* per week to create a high-level sense of the team's longer-term vision" [V].
 6. Don't over-plan: "Don't do detailed planning too far in the future. Scrum is an empirical, iterative approach to product development. This means that you must continuously update and improve your Product Backlog based on what you learn from stakeholders and end users with each *Sprint Review* and product *Increment* release. If you plan too far in the future, you run the risk of wasting time trying to plan without enough real-world feedback and becoming too attached to a poorly-informed strategy" [V]. Signature contrarian position against over-planning.
 7. Technique selection by scale: "Use Planning Poker when estimating a few *Backlog Items* during *Backlog Refinement* or *Sprint Planning*. Use Affinity Estimating when you have many *Backlog Items* to estimate" [V].
-8. Estimation as conversation: "Take your time when estimating *Backlog Items*. Estimation serves a dual purpose. Yes, it gives the team a reasonably inexpensive quantitative measure of their historical performance and a reasonable evidence-based forecast. However, we can also learn a great deal from the ensuing conversation. Suppose one developer rates a *Backlog Item* as a '1,' while another rates it as a '5' (five times as much complexity, uncertainty, and/or effort). If the *Scrum Team* accepts an average or the most senior developer's opinion, they may miss out on an opportunity for shared knowledge. Perhaps the developer who estimated the Backlog Item a '1' is aware of a faster technique. Perhaps the other is aware of a challenging edge case. Take the time to talk to one another. A few minutes here could save hours later" [V]. The author's signature position on estimation: the conversation is more valuable than the number.
+8. Estimation as conversation: "Take your time when estimating *Backlog Items*. Estimation serves a dual purpose. Yes, it gives the team a reasonably inexpensive quantitative measure of their historical performance and a reasonable evidence-based forecast. However, we can also learn a great deal from the ensuing conversation. Suppose one developer rates a *Backlog Item* as a '1,' while another rates it as a '5' (five times as much complexity, uncertainty, and/or effort). If the *Scrum Team* accepts an average or the most senior developer's opinion, they may miss out on an opportunity for shared knowledge. Perhaps the developer who estimated the Backlog Item a '1' is aware of a faster technique. Perhaps the other is aware of a challenging edge case. Take the time to talk to one another. A few minutes here could save hours later" [V]. The author's signature position on estimation: the conversation is valuable alongside the quantitative measure.
 9. Estimate all items including defects: "Estimate all *Backlog Items*, even defects. Some *Development Teams* don't like to estimate defects because the root cause can sometimes be difficult to predict. The advantage of making the attempt is that your team will be better able to maintain a smooth, steady flow of work when the expected cost of resolving defects is also accounted for" [V].
 
 ## Key counts and timeboxes (from the source)
@@ -293,10 +293,10 @@ Eight named tips [AP] (Backlog Refinement, "Tips"):
 | Sprint length — range | "1–4 weeks or monthly" | [V] (Scrum Events at a Glance; The Sprint, "Timing") |
 | Sprint length — maximum | "One month" | [V] (Scrum Events at a Glance) |
 | Sprint Planning timing — typical | "1-2 hours per week of *Sprint* duration" | [V] (Scrum Events at a Glance; Sprint Planning, "Timing") |
-| Sprint Planning timing — sample for 2-week Sprint | 3 hours (180 minutes including 15-minute break) | [V] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") |
+| Sprint Planning timing — sample for 2-week Sprint | Labelled 3-hour; listed segment timings total 195 minutes including the 15-minute break | [AP] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") |
 | Sprint Planning timebox — 1-month Sprint | "8 hours" | [V] (Scrum Events at a Glance; Sprint Planning, "Timing") |
 | Daily Scrum length | "15 minutes or less every day" | [V] (Scrum Events at a Glance; Daily Scrum, "Timing") |
-| Daily Scrum sample agenda | 13 min answer questions + 2 min update backlog/burn-down | [V] (Daily Scrum, "Sample 15-Minute Daily Scrum Agenda") |
+| Daily Scrum sample agenda | 13 min answer questions + 2 min update backlog/burn-down | [AP] (Daily Scrum, "Sample 15-Minute Daily Scrum Agenda") |
 | Sprint Review timing — typical | "15-60 minutes per week of *Sprint* duration" | [V] (Scrum Events at a Glance; Sprint Review, "Timing") |
 | Sprint Review timing — ideal for 2-week Sprint | "1 hour" | [V] (Sprint Review, "Timing") |
 | Sprint Review timebox — 1-month Sprint | "4 hours" | [V] (Scrum Events at a Glance; Sprint Review, "Timing") |
@@ -310,25 +310,25 @@ Eight named tips [AP] (Backlog Refinement, "Tips"):
 | Backlog Items per Sprint — minimum heuristic | "Try to have at least six *Backlog Items* per sprint. Otherwise they may be too large" | [V] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") |
 | Mature-team delivery accuracy | "85-115% of the planned work or Velocity every sprint" | [V] (Sprint Planning, "Tips") |
 | Velocity-formula history window | "average of the last 3–4 sprint's *Capacity*-adjusted Velocity" | [V] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") |
-| Velocity worked example | 25, 24, 31 SP / 45, 43, 50 days; forecast capacity 47 → ≈30 SP | [V] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") |
+| Velocity worked example | 25, 24, 31 SP / 45, 43, 50 days; forecast capacity 47 → ≈30 SP | [AP] (Sprint Planning, "Sample 3-Hour Sprint Planning Agenda") |
 | New-backlog preparation effort | "close to 10% of their time building out their backlog *before* each *Sprint Planning* session" | [V] (Sprint Planning, "Tips") |
 | Sprint Planning break cadence | "10-15 minute break every 60-90 minutes" | [V] (The Sprint, "Sample Sprint Agenda (Two-Week Sprint)") |
-| Retrospective voting heuristic | √(topic count) votes per person (e.g. 9 topics → 3 votes) | [V] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") |
+| Retrospective voting heuristic | √(topic count) votes per person (e.g. 9 topics → 3 votes) | [AP] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") |
 | Retrospective deep-dive per topic | "15-20 minutes" for each of top 3 voted topics | [V] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") |
-| Sprint cancellation authority | Product Owner (usually in consultation with Scrum Master and Development Team) | [V] (The Sprint, "Tips") |
+| Sprint cancellation authority | Product Owner (usually in consultation with Scrum Master and Development Team) | [AP] (The Sprint, "Tips") |
 
 ## Connections the author makes in the text
 
 The Field Guide is deliberately practitioner-pointed and makes most of its connections by reference rather than by extended discussion. The named external references appearing in the source text are:
 
 - *The Scrum Guide* (scrumguides.org) — cited as the source for "textbook" Scrum that the Field Guide illustrates, and quoted as the source of the Daily Scrum's three-questions device [BT] (Introduction; Daily Scrum, "Sample 15-Minute Daily Scrum Agenda").
-- *Agile Manifesto principles* — cited five times by number: principle #1, #3, #4, #7, #8, #9, #11 across The Sprint, Sprint Planning, and the coffee-temperature worked example [BT] (The Sprint, "Timing", "Participants", "Tips"; Sprint Planning, "Sample 3-Hour Sprint Planning Agenda"). The author treats Agile principles as load-bearing constraints — the no-extending-sprint, no-unsustainable-pace, no-neglecting-quality, and outcome-not-implementation framing are all anchored to specific numbered principles.
+- *Agile principles* — cited six times by number, naming seven distinct principles: #1, #3, #4, #7, #8, #9, #11 across The Sprint, Sprint Planning, and the coffee-temperature worked example [BT] (The Sprint, "Timing", "Participants", "Tips"; Sprint Planning, "Sample 3-Hour Sprint Planning Agenda"). The author treats Agile principles as load-bearing constraints — the no-extending-sprint, no-unsustainable-pace, no-neglecting-quality, and outcome-not-implementation framing are all anchored to specific numbered principles.
 - *Jeff Sutherland et al., "Shock Therapy"* (ap.tips/shocktherapy) — cited as the source for the "1-week sprints to facilitate more rapid inspect/adapt cycles" recommendation for new teams [BT] (The Sprint, "Tips").
 - *Norm Kerth, Project Retrospectives: A Handbook for Team Reviews* (amzn.to/346p7YI) — cited as the source of the *Retrospective Prime Directive* [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"; Sprint Retrospective, "Tips").
 - *Esther Derby and Diana Larsen, Agile Retrospectives: Making Good Teams Great* (amzn.to/2V12lx9) — cited as the basis for the sample Sprint Retrospective agenda and as a source for additional retrospective exercises [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda"; Sprint Retrospective, "Tips").
 - *Jeff Patton, User Story Mapping: Discover the Whole Story, Build the Right Product* (amzn.to/2JF29yi) — book recommendation for Backlog Refinement [BT] (Backlog Refinement, "Tips").
 - *Mike Cohn, User Stories Applied: For Agile Software Development* (amzn.to/3dVL692) — book recommendation for Backlog Refinement [BT] (Backlog Refinement, "Tips").
-- *Theory of Constraints* (ap.tips/toc) — cited as the source for "work in process is a liability, not an asset" [BT] (Sprint Review, "Tips").
+- *"work in process is a liability, not an asset"* (ap.tips/toc) — the statement appears with the displayed shortlink only; the source does not name a referent [BT] (Sprint Review, "Tips").
 - *Chatham House Rule* and *"Vegas Rule"* — borrowed-through devices for retrospective confidentiality [BT] (Sprint Retrospective, "Tips").
 
 The guide makes extensive internal cross-references via `ap.tips/...` shortlinks — to companion videos and supplementary articles on the Approach Perfect site — covering: Definition of Done (ap.tips/dod), Definition of Ready (ap.tips/dor), Product Owner role (ap.tips/po), Scrum Master role (ap.tips/sm), Development Team (ap.tips/devteam), Sprint Planning (ap.tips/planning), Daily Scrum (ap.tips/scrum or ap.tips/dailyscrum), Sprint Review (ap.tips/review), Sprint Retrospective (ap.tips/retro), Backlog Refinement (ap.tips/refinement), healthy backlog (ap.tips/healthybacklog), User Story (ap.tips/userstory), Story Points (ap.tips/storypoints), Velocity tool (ap.tips/velocitytool), Burn-Down chart (ap.tips/burndown), Fists of Five (ap.tips/fistsoffive), Tradeoffs (ap.tips/tradeoffs), Empirical process control (ap.tips/empirical), Planning Poker (ap.tips/planningpoker), Affinity Estimating (ap.tips/affinityestimating), Vertical Slicing (ap.tips/slicing), Working Agreement (ap.tips/workingagreement), Prime Directive (ap.tips/primedirective), Bottlenecks (ap.tips/bottlenecks), and the 16-minute Scrum overview video (ap.tips/scrumin16) [AP] (throughout — shortlinks appear verbatim from the source).

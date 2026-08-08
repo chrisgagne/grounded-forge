@@ -98,7 +98,7 @@ Ethical decision-making is grounded in James Rest's four-component model [BT] (C
 
 The selection step warns against decision paralysis: "Effective managers recognize that they will not always make optimal (best possible) decisions because they don't have complete information and/or don't have the time or resources to gather and process all the possible information" [V] (Ch 2.5, "Recognize that perfection is unattainable").
 
-*Satisficing* — "Choosing the first acceptable solution to minimize time spent on a decision" [V] (Ch 2 Key Terms, restated in Ch 2.5) — is the Simon-derived heuristic for programmed decisions.
+*Satisficing* — "Choosing the first acceptable solution to minimize time spent on a decision" [V] (Ch 2 Key Terms, restated in Ch 2.5) — is a technique for making programmed decisions quickly.
 
 ### Group decision-making, groupthink, and devil's advocate
 
@@ -538,7 +538,7 @@ The Nohria-Groysberg-Lee four-drives model maps drives to organisational levers 
 
 ### Talent acquisition and succession planning
 
-The Fernandez-Araoz/Groysberg/Nohria seven-step recruiting framework [BT] (Ch 11.5, "Building an Organization for the Future"): anticipate future leadership needs; specify the job (job-based, team-based, firm-based competencies); develop the pool; assess candidates (behavioural event interview); close the deal; integrate the newcomer.
+The Fernandez-Araoz/Groysberg/Nohria six-step recruiting framework [BT] (Ch 11.5, "Building an Organization for the Future"): anticipate future leadership needs; specify the job (job-based, team-based, firm-based competencies); develop the pool; assess candidates (behavioural event interview); close the deal; integrate the newcomer.
 
 The 9-box talent review template plots *performance* (current performance management rating, low/medium/high) against *potential* — defined as "an employee's ability to demonstrate the behaviors necessary to be successful at the next highest level within the company" [V] (Ch 11.6, "Talent Development and Succession Planning"). Higher-potential employees display: business acumen, strategic thinking, leadership skills, people skills, learning agility, technology skills.
 
@@ -562,13 +562,13 @@ The *model minority myth* portrays Asian men/women as obedient and successful, c
 
 ### Cox-Blake business case for diversity
 
-Six potential competitive advantages [BT] (Ch 12.3, "Diversity and Its Impact on Companies"): cost advantages (reduced lawsuits, lower turnover among women and minorities); resource acquisition (larger labour pool); marketing (broader perspectives on consumer preferences); system flexibility (cognitive flexibility transfers to organisational adaptability); creativity and problem-solving (multiple perspectives reduce groupthink).
+Six potential competitive advantages [BT] (Ch 12.3, "Diversity and Its Impact on Companies"): cost advantages (reduced lawsuits, lower turnover among women and minorities); resource acquisition (larger labour pool); marketing (broader perspectives on consumer preferences); system flexibility (cognitive flexibility transfers to organisational adaptability); enhanced creativity; and better problem solving (multiple perspectives reduce groupthink). (The source's list reads as five items with creativity and problem solving counted separately to make six.)
 
-The *resource-based view* grounds the diversity argument: diverse workforces are valuable, rare, hard to imitate, non-substitutable — all four VRIO criteria — and thus a sustained competitive advantage [BT] (Ch 12.3). The *strategic human resource management (SHRM)* framework integrates HR vertically with business strategy and horizontally across functional areas to engage employees as a competitive resource.
+The *resource-based view* grounds the diversity argument: diverse workforces are valuable, rare, hard to imitate, non-substitutable — and thus a sustained competitive advantage [BT] (Ch 12.3). The *strategic human resource management (SHRM)* framework integrates HR vertically with business strategy and horizontally across functional areas to engage employees as a competitive resource.
 
-### Five key diversity theories
+### Six key diversity theories
 
-Five competing theoretical accounts (Ch 12.5, "Key Diversity Theories"):
+Six competing theoretical accounts (Ch 12.5, "Key Diversity Theories"):
 
 - *Cognitive diversity hypothesis*: "multiple perspectives stemming from the cultural differences between group or organizational members result in creative problem solving and innovation" [V]. Watson study: homogeneous groups outperformed heterogeneous groups initially, but heterogeneous groups outperformed on range of perspectives and number of alternatives over 17 weeks (Ch 12.5).
 - *Similarity-attraction paradigm*: "individuals are attracted to others with whom they share attitude similarity" [V] — predicts negative diversity outcomes.
@@ -944,7 +944,7 @@ Three managing-now-for-future questions [V] (Ch 18.7, "Managing Now for Future T
 
 ## Connections the authors make in the text
 
-- *Bounded rationality* (Simon): foundational for understanding decision limits [BT] (Ch 2.4).
+- *Bounded rationality*: foundational for understanding decision limits [BT] (Ch 2.4).
 - *Maslow's hierarchy of needs* and *McGregor's Theory X/Y*: foundational, with the text noting research does not strictly support Maslow's hierarchical sequencing [BT] (Ch 14.2; Ch 13.3).
 - *Hofstede's cultural programming*: anchored cross-cultural management for decades [BT] (Ch 6.2).
 - *GLOBE project*: extension of Hofstede with two added dimensions (performance, humane orientation) [BT] (Ch 6.3).
@@ -953,7 +953,6 @@ Three managing-now-for-future questions [V] (Ch 18.7, "Managing Now for Future T
 - *Vroom expectancy theory* and *Adams equity theory*: foundational for motivation [BT] (Ch 14.3).
 - *Locke goal theory*: cited as one of the strongest theories in OB [BT] (Ch 14.3; Ch 17.6).
 - *Bandura's self-efficacy*: integrated into expectancy theory as E1 driver [BT] (Ch 14.3).
-- *Pavlov, Skinner, Thorndike*: implicit in operant conditioning treatment [BT] (Ch 14.3).
 - *Fiedler's contingency theory* and *House-Evans path-goal theory*: cited as the major situational leadership theories [BT] (Ch 13.6).
 - *Lewin's change model*, *Kotter's eight-step model*, *Cooperrider's Appreciative Inquiry*, *Olson-Eoyang Complex Adaptive Systems*: change management classics with different assumptions [BT] (Ch 10.3).
 - *Cox and Blake's business case for diversity* and *Ely-Thomas three perspectives*: anchor Ch 12 [BT].
@@ -971,14 +970,14 @@ Three managing-now-for-future questions [V] (Ch 18.7, "Managing Now for Future T
 - *Tuckman's stages*: cited for team development [BT] (Ch 15.2).
 - *Ulrich, Younger, Brockbank, Younger four waves of HR*: anchors Ch 11.1 [BT].
 - *Nohria-Groysberg-Lee four-drives model*: maps drives to organisational levers [BT] (Ch 11.4).
-- *Fernandez-Araoz/Groysberg/Nohria seven-step recruiting framework*: anchors Ch 11.5 [BT].
+- *Fernandez-Araoz/Groysberg/Nohria six-step recruiting framework*: anchors Ch 11.5 [BT].
 - *Effron and Ort talent review calibration*: anchors Ch 11.6 [BT].
 - *WorldatWork total rewards six elements*: anchors Ch 11.4 [BT].
 - *Taylor, Fayol, Weber, Mayo, Barnard, Follett, Woodward*: anchor Ch 3 [BT].
 - *Adam Smith on specialisation and division of labor*: foundational for Industrial Revolution and Ch 3 [BT].
 - *Goodpaster-Nash three levels of ethics*: anchors Ch 5.2 [BT].
 - *Greenleaf servant leadership*: anchors Ch 5.4 [BT].
-- *FCPA, UN Global Compact, OECD*: anchor Ch 5.7 international ethics [BT].
+- *FCPA, UN Global Compact*: anchor Ch 5.7 international ethics [BT].
 - *Brown and Trevino moral entrepreneur*: anchors Ch 5.8 [BT].
 - *McKinsey 7-S model*: anchors Ch 4.4 [BT].
 - *Duncan-Daft environmental uncertainty 2x2*: anchors Ch 4.2 [BT].
@@ -989,7 +988,7 @@ Three managing-now-for-future questions [V] (Ch 18.7, "Managing Now for Future T
 - *Maximising shareholder wealth as primary decision criterion*: the text takes a clear position against this. "Maximizing shareholder wealth is often a short-sighted decision … [I]ncreasing the wealth of shareholders is not an acceptable reason for causing harm to others" [V] (Ch 2.1).
 - *Treating decisions as rational and deliberate*: the dual-system (reflective vs reactive) model is presented as more accurate than uniform-rational models of decision-making [AR] (Ch 2.2).
 - *Ignoring conflict to keep peace*: process conflict is productive; relationship conflict is harmful; the blanket "conflict is bad" framing misses the distinction [AR] (Ch 2.4).
-- *Punishment as primary reinforcer*: "punishment effectively tells a person what not to do and stops the undesired behavior, [but] it does not tell them what they should do" [V] (Ch 14.3); positive reinforcement and reward should dominate.
+- *Punishment as primary reinforcer*: "punishment effectively tells a person what not to do and stops the undesired behavior, [but] it does not tell them what they should do" [V] (Ch 14.3); punishment has undesirable side effects and works best when reinforcement is also used.
 - *Strict Maslow hierarchical sequencing*: research does not support the strict prepotency claim [AR] (Ch 14.2, "Maslow's Hierarchy of Needs").
 - *Treating employees identically (equality) regardless of performance*: equity theory grounds the argument that proportionality (equity) is what employees expect, not equality. "Equality-focused organizations" produce weak E2s and demotivate top performers [AR] (Ch 14.3).
 - *Forced ranking as a long-term performance management tool*: "GE backed away from the practice as well. Companies, GE included, saw that it negatively fostered internal competition and undermined collaboration and teamwork" [V] (Ch 11.3).
@@ -997,7 +996,7 @@ Three managing-now-for-future questions [V] (Ch 18.7, "Managing Now for Future T
 - *Top-down change as universally appropriate*: "the more complex the potential change, the greater the need to involve employees in the process of planning and implementing change" [V] (Ch 10.3).
 - *Treating culture as soft / non-strategic*: Drucker's "culture eats strategy for breakfast" is cited approvingly to frame culture as more influential than strategy [V] (Ch 4.5).
 - *Cultural stereotyping*: "broad generalizations may not necessarily be helpful" — 80 per cent of cultural variation is within countries [V/AP] (Ch 6.4).
-- *Single-system view of decision-making*: dual-system reflective/reactive is presented as more accurate (Ch 2.2).
+- *Assuming the logical route always makes the better decision*: "We tend to assume that the logical, analytical route leads to superior decisions, but whether this is accurate depends on the situation" [V] (Ch 2.2, "Reactive Decision-Making").
 - *Generic competitive strategies as combinable*: "Trying to combine [cost leadership and differentiation], Porter suggests, can lead to a firm being stuck in the middle" [V] (Ch 8.6) — the text reproduces Porter's position favourably.
 - *Pure rationality without emotion in management*: "Effective decision-making, then, relies on both logic and emotions" [V] (Ch 2.2).
 - *Short-term-only profit focus*: "A focus on immediate, short-term outcomes — with little consideration for the future — can cause problems" [V] (Ch 2.5).

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:bfce5e80381f0d5cc079c07472d6035849553f832c6714e3b42219f5d347051d -->
 # Gagné, The Approach Perfect Field Guide to Scrum Events — Stakeholder-Engagement Distillation
 
 **Source:** Gagné, C. (2020). *The Approach Perfect Field Guide to Scrum Events*. April 3, 2020 edition. Approach Perfect, Limited. Public licence: CC BY-ND 4.0; relicensed CC BY 4.0 by the author for this corpus. https://approachperfect.com/wp-content/uploads/2020/04/The-Approach-Perfect-Field-Guide-to-Scrum-Events-2020-04-03.pdf.
@@ -207,7 +208,7 @@ The scenario is operator-authored; all framework citations trace through `corpus
 - Schwaber and Sutherland — *The Scrum Guide* 2020; the canonical Scrum rules the Field Guide illustrates [BT]
 - Norm Kerth — Retrospective Prime Directive ("everyone did the best job they could…") [BT] (Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda")
 - Chatham House Rule — named confidentiality option for the Sprint Retrospective [BT]
-- Agile Manifesto principles — cited inline throughout as "Agile principle #N" [BT]
+- Agile principles — cited inline throughout as "Agile principle #N" [BT]
 - Vegas Rule — named confidentiality option for the Sprint Retrospective; origin is convention-circuit etiquette, applied here to team safety [BT]
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:

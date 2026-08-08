@@ -12,7 +12,7 @@ sources:
     resource: https://openscholarship.wustl.edu/ssdl/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # SSDL, Systems Thinking Foundations — Software-Business Distillation
 
@@ -264,10 +264,10 @@ This distillation pairs naturally with:
 
 - *Donella Meadows, Thinking in Systems: A Primer* (Chelsea Green, 2008) — the bathtub stock-and-flow model (Brief 1.06) and the "bring mental models into the light of day" framing (Brief 1.03) are both sourced [BT] from Meadows. Meadows is not held as a primary reference; SSDL Briefs are the corpus's only treatment.
 - *John Sterman, Business Dynamics* (McGraw-Hill, 2000) — the feedback-thinking / intervention-design framework (Brief 1.05) cites Sterman's *Business Dynamics* [BT]. Sterman's *Learning from Evidence in a Complex World* (2006, *American Journal of Public Health*) is also cited [BT] as the influence on Brief 1.02's five characteristics of complex problems.
-- *Daniel H. Kim, Systems Archetypes I: Diagnosing Systemic Issues and Designing High-Leverage Interventions* (Pegasus Communications, 1993) — the five archetypes adapted in Brief 1.07 (fixes that fail, success to the successful, shifting the burden, drifting goals, limits to growth) are all sourced [BT] from Kim. The broader canonical archetype list (eight to twelve archetypes, Peter Senge's *The Fifth Discipline* lineage) is acknowledged [BT] in Brief 1.07's acknowledgements.
+- *Daniel H. Kim, Systems Archetypes I: Diagnosing Systemic Issues and Designing High-Leverage Interventions* (Pegasus Communications, 1993) — the five archetypes adapted in Brief 1.07 (fixes that fail, success to the successful, shifting the burden, drifting goals, limits to growth) are all sourced [BT] from Kim. The broader canonical archetype list (eight to twelve archetypes) is noted [BT] in Brief 1.07; Senge's *The Fifth Discipline* is named among the recommended resources in its acknowledgements.
 - *Cronin, Gonzalez, and Sterman* (2009, *Organizational Behavior and Human Decision Processes*, 108(1), 116-130) — the empirical finding that even students with strong mathematical training make persistent mistakes with accumulations is cited [BT] (Brief 1.06, Considerations). The primary study is not in this corpus.
-- *Philip Johnson-Laird* (1983, *Mental Models*, Harvard University Press) and *John Doyle and David Ford* (1998) — cited [BT] as foundational sources for mental-models theory (Brief 1.03, Sources). The visual lineage for the elephant metaphor is attributed [BT] through Johnson-Laird → Peter Hovmand → Ellis Ballard.
-- *Peter Hovmand, Community Based System Dynamics* (2014) — cited [BT] as the methodological source for group model building (Brief 1.03).
+- *Philip Johnson-Laird* (1983, *Mental Models*, Harvard University Press) and *John Doyle and David Ford* (1998) — listed [BT] in Brief 1.03's Sources on mental models. The visual lineage for the elephant metaphor is attributed [BT] through Johnson-Laird → Peter Hovmand → Ellis Ballard.
+- *Peter Hovmand, Community Based System Dynamics* (2014) — listed [BT] in Brief 1.03's Sources.
 - Adam Raney (Changing Systems Fellow) — cited [BT] for the broken-ankle quotation (Brief 1.02). A named practitioner reference, not an academic source.
 
 **Named limits of the source.** The SSDL briefs are a curriculum resource produced for K-12 and social-sector contexts; the software-business application in this distillation is a projection, not source-explicit content. The briefs explicitly name the limit: "Because system dynamics is especially suited for gaining insight into complex problems, it is not the right method for every situation" (Brief 1.02). Five archetypes are covered (Kim 1993 selection); the broader canonical set of eight to twelve archetypes includes *Tragedy of the Commons* and others not in the briefs. The source does not address quantitative system-dynamics modelling (differential equations, Vensim, simulation); Brief 1.05's CLD treatment is qualitative. The CC BY-SA 4.0 licence propagates to this distillation; derivative works carry the same ShareAlike condition.

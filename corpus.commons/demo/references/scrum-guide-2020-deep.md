@@ -28,7 +28,7 @@ The framework's design ethos is explicit: "Rather than provide people with detai
 
 ### Empiricism and lean thinking as foundation
 
-Scrum is "founded on empiricism and lean thinking" [V] (Scrum Theory). Empiricism is glossed as the position that "knowledge comes from experience and making decisions based on what is observed"; lean thinking "reduces waste and focuses on the essentials" [V] (Scrum Theory). The combination produces the iterative-incremental approach Scrum prescribes, designed "to optimize predictability and to control risk" [V] (Scrum Theory). Scrum "engages groups of people who collectively have all the skills and expertise to do the work and share or acquire such skills as needed" [V] (Scrum Theory).
+Scrum is "founded on empiricism and lean thinking" [V] (Scrum Theory). Empiricism is glossed as the position that "knowledge comes from experience and making decisions based on what is observed"; lean thinking "reduces waste and focuses on the essentials" [V] (Scrum Theory). Scrum also "employs an iterative, incremental approach", designed "to optimize predictability and to control risk" [V] (Scrum Theory). Scrum "engages groups of people who collectively have all the skills and expertise to do the work and share or acquire such skills as needed" [V] (Scrum Theory).
 
 ### The three pillars: Transparency, Inspection, Adaptation
 
@@ -38,7 +38,7 @@ The three pillars are the empirical mechanism Scrum's events implement: "Scrum c
 
 **Inspection.** "The Scrum artifacts and the progress toward agreed goals must be inspected frequently and diligently to detect potentially undesirable variances or problems. To help with inspection, Scrum provides cadence in the form of its five events" [V] (Scrum Theory, "Inspection"). Inspection in turn enables adaptation: "Inspection enables adaptation. Inspection without adaptation is considered pointless. Scrum events are designed to provoke change" [V] (Scrum Theory, "Inspection").
 
-**Adaptation.** "If any aspects of a process deviate outside acceptable limits or if the resulting product is unacceptable, the process being applied or the materials being produced must be adjusted. The adjustment must be made as soon as possible to minimize further deviation" [V] (Scrum Theory, "Adaptation"). Adaptation requires authority: "Adaptation becomes more difficult when the people involved are not empowered or self-managing. A Scrum Team is expected to adapt the moment it learns anything new through inspection" [V] (Scrum Theory, "Adaptation").
+**Adaptation.** "If any aspects of a process deviate outside acceptable limits or if the resulting product is unacceptable, the process being applied or the materials being produced must be adjusted. The adjustment must be made as soon as possible to minimize further deviation" [V] (Scrum Theory, "Adaptation"). Adaptation becomes harder without empowerment: "Adaptation becomes more difficult when the people involved are not empowered or self-managing. A Scrum Team is expected to adapt the moment it learns anything new through inspection" [V] (Scrum Theory, "Adaptation").
 
 ### The five values
 
@@ -59,7 +59,7 @@ The values are not decorative: "These values give direction to the Scrum Team wi
 
 Two properties are emphasised: "Scrum Teams are cross-functional, meaning the members have all the skills necessary to create value each Sprint. They are also self-managing, meaning they internally decide who does what, when, and how" [V] (Scrum Team).
 
-A size guideline is offered with rationale: "The Scrum Team is small enough to remain nimble and large enough to complete significant work within a Sprint, typically 10 or fewer people. In general, we have found that smaller teams communicate better and are more productive" [V] (Scrum Team). When the team grows too large, the prescription is to split: "If Scrum Teams become too large, they should consider reorganizing into multiple cohesive Scrum Teams, each focused on the same product. Therefore, they should share the same Product Goal, Product Backlog, and Product Owner" [V] (Scrum Team).
+A size guideline is offered with rationale: "The Scrum Team is small enough to remain nimble and large enough to complete significant work within a Sprint, typically 10 or fewer people. In general, we have found that smaller teams communicate better and are more productive" [V] (Scrum Team). When the team grows too large, the guidance is deliberative: "If Scrum Teams become too large, they should consider reorganizing into multiple cohesive Scrum Teams, each focused on the same product. Therefore, they should share the same Product Goal, Product Backlog, and Product Owner" [V] (Scrum Team).
 
 The team carries end-to-end product responsibility: "The Scrum Team is responsible for all product-related activities from stakeholder collaboration, verification, maintenance, operation, experimentation, research and development, and anything else that might be required. They are structured and empowered by the organization to manage their own work. Working in Sprints at a sustainable pace improves the Scrum Team's focus and consistency" [V] (Scrum Team).
 
@@ -85,7 +85,7 @@ A structural constraint: "The Product Owner is one person, not a committee. The 
 
 The Scrum Master is also "accountable for the Scrum Team's effectiveness. They do this by enabling the Scrum Team to improve its practices, within the Scrum framework" [V] (Scrum Team, "Scrum Master").
 
-The role is framed as servant leadership: "Scrum Masters are true leaders who serve the Scrum Team and the larger organization" [V] (Scrum Team, "Scrum Master").
+The role is framed as that of true leaders who serve: "Scrum Masters are true leaders who serve the Scrum Team and the larger organization" [V] (Scrum Team, "Scrum Master").
 
 The Scrum Master serves three principals — the Scrum Team, the Product Owner, and the organisation — each with specified service modes:
 
@@ -104,7 +104,7 @@ The Scrum Master serves three principals — the Scrum Team, the Product Owner, 
 > "Sprints are the heartbeat of Scrum, where ideas are turned into value."
 > (Scrum Events, "The Sprint")
 
-Sprints "are fixed length events of one month or less to create consistency. A new Sprint starts immediately after the conclusion of the previous Sprint" [V] (Scrum Events, "The Sprint"). All other Scrum work happens inside the Sprint container: "All the work necessary to achieve the Product Goal, including Sprint Planning, Daily Scrums, Sprint Review, and Sprint Retrospective, happen within Sprints" [V] (Scrum Events, "The Sprint").
+Sprints "are fixed length events of one month or less to create consistency. A new Sprint starts immediately after the conclusion of the previous Sprint" [V] (Scrum Events, "The Sprint"). All work necessary to achieve the Product Goal happens inside the Sprint container: "All the work necessary to achieve the Product Goal, including Sprint Planning, Daily Scrums, Sprint Review, and Sprint Retrospective, happen within Sprints" [V] (Scrum Events, "The Sprint").
 
 Four during-Sprint conditions are stated: "During the Sprint: No changes are made that would endanger the Sprint Goal; Quality does not decrease; The Product Backlog is refined as needed; and, Scope may be clarified and renegotiated with the Product Owner as more is learned" [V] (Scrum Events, "The Sprint").
 

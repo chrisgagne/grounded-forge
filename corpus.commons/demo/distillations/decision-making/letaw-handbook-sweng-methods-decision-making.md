@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:5e90460abbba87e26d8dd84ff0987a8bafb459b4329e062ad00bf9ae3936387c -->
 # Letaw, Handbook of Software Engineering Methods — Decision-Making Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.

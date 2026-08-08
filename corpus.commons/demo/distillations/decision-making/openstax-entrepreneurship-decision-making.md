@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:ee84bd5774b19b671a61c0ffe3982de969b6195b9443b5ea8a9e5c47d834301b -->
 # OpenStax Entrepreneurship, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.
@@ -42,7 +43,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 15. <!-- concept: cognitive-biases --> **Cognitive biases that sabotage decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. (Source: Ch 15.2, citing Cossette)
 
-16. <!-- concept: fail-safe-points --> **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider whether course-correction is feasible. The text frames the bias they protect against: escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "identified points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position" [V] (Ch 15.2). (Source: Ch 15.2)
+16. <!-- concept: fail-safe-points --> **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider whether course-correction is feasible. The text frames the bias they protect against: escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "the points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position and whether this action is reasonable and feasible" [V] (Ch 15.2). (Source: Ch 15.2)
 
 17. <!-- concept: burn-rate-runway --> **Burn rate and runway.** Cash on hand divided by monthly burn rate equals months of runway; this defines the decision horizon. (Source: Ch 9.4; Ch 10.1)
 

@@ -34,7 +34,7 @@ Organisations sort into for-profit (manufacturing, retail/merchandising, service
 
 ### Stakeholders explicitly named
 
-Ch 1.4 ("Explain Why Accounting Is Important to Business Stakeholders") is the spine of the book's stakeholder framing. A **stakeholder** "refers to a person or group who relies on financial information to make decisions, since they often have an interest in the economic viability of an organization or business" [V] (Ch 1.4). Six stakeholder categories are named [AP]:
+Ch 1.4 ("Explain Why Accounting Is Important to Business Stakeholders") is the spine of the book's stakeholder framing. A **stakeholder** "refers to a person or group who relies on financial information to make decisions, since they often have an interest in the economic viability of an organization or business" [V] (Ch 1.4). Five stakeholder categories are named [AP]:
 
 - **Stockholders.** Owners of stock; in publicly traded companies they "predominantly focus on profitability, expected increase in stock value, and corporate stability" (Ch 1.4, "Stockholders"). Stock as ownership claim is presented in detail in Ch 14.
 - **Creditors and Lenders.** Creditors grant extended payment terms (typically 30-45 days); lenders are banks and institutions that lend with longer time frames and interest. Both "use financial information to make decisions. The ultimate decision that both creditors and lenders have to make is whether or not the funds will be repaid by the borrower. The reason this is important is because lending money involves risk" [V] (Ch 1.4, "Creditors and Lenders").
@@ -63,7 +63,7 @@ Ch 2.1 contains an Ethical Considerations box that grounds the multi-stakeholder
 
 ### The four statements and their interrelationships
 
-Four statements prepared in order: (1) **Income Statement** (revenues – expenses ± gains – losses = net income or net loss; for a period of time); (2) **Statement of Owner's Equity** (or Retained Earnings for a corporation; shows changes for a period); (3) **Balance Sheet** (assets = liabilities + equity; on a specific date); (4) **Statement of Cash Flows** (cash inflows and outflows for a period) [AP] (Ch 2.1, "The Four Financial Statements"). The statements are interrelated: net income carries from the income statement to the statement of retained earnings; ending retained earnings carries to the balance sheet.
+Four statements prepared in order: (1) **Income Statement** (revenues + gains – expenses – losses = net income or net loss; for a period of time); (2) **Statement of Owner's Equity** (or Retained Earnings for a corporation; shows changes for a period); (3) **Balance Sheet** (assets = liabilities + equity; on a specific date); (4) **Statement of Cash Flows** (cash inflows and outflows for a period) [AP] (Ch 2.1, "The Four Financial Statements"). The statements are interrelated: net income carries from the income statement to the statement of retained earnings; ending retained earnings carries to the balance sheet.
 
 ### The ten elements
 
@@ -79,7 +79,7 @@ Cash basis accounting records transactions when cash is exchanged. Accrual basis
 
 ## Part III: Analyzing and recording transactions (Ch 3)
 
-### Eight GAAP principles, assumptions, and concepts
+### Nine GAAP principles, assumptions, and concepts
 
 Ch 3.1 catalogues the conceptual framework that guides US GAAP [AP]:
 
@@ -105,7 +105,7 @@ The fundamental accounting equation: **Assets = Liabilities + Owners' Equity** (
 
 The full cycle: identify and analyse transactions, record to journal, post to general ledger, prepare unadjusted trial balance (Ch 3); record adjusting entries, prepare adjusted trial balance, prepare financial statements (Ch 4); close, prepare post-closing trial balance (Ch 5). Reversing entries, sometimes presented as a tenth step, are not covered in this textbook [AP] (Ch 3.3, Figure 3.5).
 
-The text grounds the cycle in journal entries, T-accounts, and trial balances using a worked example (Printing Plus, Lynn Sanders' fictional printing business). The trial balance verifies that debits equal credits but does not catch all errors (omissions, transpositions in some forms, and compensating errors are not caught).
+The text grounds the cycle in journal entries, T-accounts, and trial balances using a worked example (Printing Plus, Lynn Sanders' fictional printing business). The trial balance verifies that debits equal credits but does not catch all errors: a trial balance can be mathematically in balance and still contain errors.
 
 ## Part IV: The adjustment process (Ch 4)
 
@@ -163,7 +163,7 @@ Credit terms like "2/10, n/30" mean: 2% discount if paid in 10 days, otherwise n
 
 ### Perpetual versus periodic inventory systems
 
-A **perpetual inventory system** "automatically updates and records the inventory account every time a sale, or purchase of inventory, occurs" [V] (Ch 6.2, "Characteristics of the Perpetual and Periodic Inventory Systems"). A **periodic inventory system** "updates and records the inventory account at certain, scheduled times at the end of an operating cycle." Most modern systems use perpetual; periodic remains in use where computerised systems are absent.
+A **perpetual inventory system** "automatically updates and records the inventory account every time a sale, or purchase of inventory, occurs" [V] (Ch 6.2, "Characteristics of the Perpetual and Periodic Inventory Systems"). A **periodic inventory system** "updates and records the inventory account at certain, scheduled times at the end of an operating cycle."
 
 ### FOB shipping point versus FOB destination
 
@@ -187,7 +187,7 @@ The chapter contrasts manual and computerised systems. Examples include QuickBoo
 
 ### Source documents and the audit trail
 
-A **source document** is "the original document that provides evidence that a transaction occurred" [V] (Ch 7.1, "Inputting/Entering Data"). The **audit trail** is "a trail of evidence documenting the history of a specific transaction starting from its inception/source document and showing all the steps it went through until its final disposition" [V]. The audit trail enables internal investigation of errors, vendor disputes, and customer complaints — and is the structural device that allows external auditors to test transactions.
+A **source document** is "the original document that provides evidence that a transaction occurred" [V] (Ch 7.1, "Inputting/Entering Data"). The **audit trail** is "a trail of evidence documenting the history of a specific transaction starting from its inception/source document and showing all the steps it went through until its final disposition" [V]. The audit trail makes it easier to investigate errors or questions raised by customers, vendors, and employees.
 
 ### Special journals and subsidiary ledgers
 
@@ -249,7 +249,7 @@ Enron's failure: "When this practice was uncovered, the owners of Enron stock lo
 
 A **petty cash fund** is "a predetermined amount of cash held on hand to be used to make payments for small day-to-day purchases" [V] (Ch 8.4); it is an **imprest account** with a fixed balance replaced as it is spent.
 
-A **bank reconciliation** is "the internal financial report that explains and documents any differences that may exist between the balance of a checking account as reflected by the bank's records (bank balance) for a company and the company's accounting records (company balance)" [V] (Ch 8.6, "Define the Purpose of a Bank Reconciliation"). Common reconciling items: outstanding checks, deposits in transit, bank service fees, NSF (nonsufficient funds) checks, errors, and interest or fee additions.
+A **bank reconciliation** is "the internal financial report that explains and documents any differences that may exist between the balance of a checking account as reflected by the bank's records (bank balance) for a company and the company's accounting records (company balance)" [V] (Ch 8.6, "Define the Purpose of a Bank Reconciliation"). Common reconciling items: outstanding checks, deposits in transit, deductions for bank service fees and NSF (nonsufficient funds) checks, errors, and additions such as interest or funds collected by the bank for the client.
 
 ### Financial statement fraud: cooking the books
 
@@ -563,7 +563,7 @@ The text takes a position on stock buybacks: "S&P 500 companies will spend about
 
 ## Part XV: Partnership accounting (Ch 15)
 
-### Seven characteristics of a partnership
+### Eight characteristics of a partnership
 
 [AP] (Ch 15.1, "Characteristics of a Partnership"):
 
@@ -574,6 +574,7 @@ The text takes a position on stock buybacks: "S&P 500 companies will spend about
 - Non-taxable income at the partnership level (income flows through to partners' Tax Form K-1).
 - Co-ownership of property.
 - Limited capital investment (compared to corporations, partnerships have a smaller capital-raising market).
+- Participation in both income and loss: net income or loss is distributed as specified in the partnership agreement; if the arrangement is not specified, all partners participate equally.
 
 ### Three types of partnership
 
@@ -648,7 +649,7 @@ The text takes a measured position on negative cash flow: "Investors do not alwa
 - **Vertical analysis (common-size analysis):** within a statement, expresses each item as a percentage of a base (net sales for income statement, total assets or total liabilities + equity for balance sheet).
 - **Ratio analysis:** four categories — liquidity, solvency, efficiency, profitability.
 
-### Eleven core ratios
+### Twelve core ratios
 
 [AP] (Appendix A):
 
@@ -691,7 +692,7 @@ The text takes a measured position on negative cash flow: "Investors do not alwa
 | Approximate share of US companies using LIFO | 35-40% | [V] (Ch 10.1, citing AICPA) |
 | Estimated US tax revenue gain from eliminating LIFO, 2017-2026 | $102 billion | [V] (Ch 10.1) |
 | Bristol-Myers Squibb SEC fine for "cookie jar accounting" | $150 million | [V] (Ch 4.1) |
-| Bristol-Myers Squibb improperly recognised revenue, 1992-2001 | $1.5 billion + $1.7 billion total inflated profits | [V] (Ch 4.1) |
+| Bristol-Myers Squibb improperly recognised revenue, 2000-2001 | $1.5 billion | [V] (Ch 4.1) |
 | Enron stock price drop | $91 → less than $1 per share | [V] (Ch 8.2) |
 | Enron stockholder losses | $40 billion | [V] (Ch 8.2) |
 | Waste Management overstatement of net income | $1.7 billion | [V] (Ch 11.3, Ch 2.3) |
@@ -745,7 +746,6 @@ The text takes a measured position on negative cash flow: "Investors do not alwa
 - **Statement on Auditing Standards (SAS) No. 99 / AU Section 316:** auditor's duty to consider fraud (Ch 10.1).
 - **IFRS / IASB convergence:** US GAAP vs IFRS differences across many chapters (Chs 1.4, 4.5, 7.1, 10.1, 11.3, 12.3, 13.3, 15.1).
 - **Federal Acquisition Regulation (FAR) 3.10:** government-contractor code of business ethics requirements (Ch 8.3).
-- **Friedman doctrine implicit critique:** the utilitarian-stakeholder framing in Ch 2.1 implicitly contrasts with the shareholder-primacy view; the Dodge v. Ford treatment in Ch 14.1 is similarly nuanced.
 - **Stanford Encyclopedia of Philosophy (Moriarty on business ethics):** professional codes of conduct and integrity (Ch 1.5).
 
 ## Positions the authors explicitly frame against
@@ -756,7 +756,7 @@ The text takes a measured position on negative cash flow: "Investors do not alwa
 - **Capitalising costs that should be expensed:** the WorldCom case grounds the position [AR] (Ch 11.2).
 - **Treating stakeholders as separate from shareholders:** the Dodge-Ford-derived business-judgment-rule treatment positions stakeholders and shareholders together; corporations are encouraged to manage stakeholder concerns proactively [AR] (Ch 14.1).
 - **Pure-rationality defence of stock buybacks for EPS engineering:** the text leaves the question open and notes that buybacks were illegal for most of the 20th century [AR] (Ch 14.5).
-- **Hidden override of internal controls (e.g., HealthSouth, Enron):** management override is presented as the most dangerous internal-control failure mode [AR] (Ch 8.7).
+- **Hidden override of internal controls (e.g., HealthSouth, Enron):** the HealthSouth fraud was possible because internal controls were ignored and management override was allowed [AR] (Ch 8.7).
 - **LIFO under IFRS:** "the IASB chose to eliminate LIFO, arguing that FIFO more closely matches the flow of goods" [V] (Ch 10.1) — the text presents both sides, and notes US companies' resistance to losing LIFO due to the tax-revenue implications.
 - **Pure mark-to-market accounting for long-lived assets:** "It is difficult to determine an accurate fair value for long-lived assets. This is one reason US GAAP has not permitted the fair valuing of long-lived assets" [V] (Ch 11.3, IFRS Connection) — the text accepts the IFRS option but does not endorse it.
 - **Treating the US dollar as inflation-adjusted in financial statements:** the monetary measurement concept "ignores any change in the purchasing power of the dollar due to inflation" [V] (Ch 3.1) — the text accepts this convention while noting its limitation.

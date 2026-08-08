@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:f87aa805a67d3e95e80fbad103f14e3e8e22461db1c60dc3e247777430a6d25d -->
 # Open Kanban, Retro Distillation
 
 **Source:** Joseph Hurtado (with contributor Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban*, Release 1.00 Rev A. CC BY 3.0 Unported. Scope: open. Note: Open Kanban is the corpus's redistributable Kanban-methodology slot, not a canonical-Kanban-authority source. The Goldratt and Deming lineage cited below is borrowed-through: both are cited by name in the source but are not in this corpus.

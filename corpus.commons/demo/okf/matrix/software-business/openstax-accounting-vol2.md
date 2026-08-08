@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-managerial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Principles of Accounting Volume 2, Software-Business Distillation
 
@@ -274,7 +274,7 @@ This is a read-only lens; no produce-for surface. The PM bounded by a BA role re
 **Borrowed-through gaps.** OpenStax Accounting Vol 2 situates managerial accounting within frameworks developed by external researchers, practitioners, and standard-setting bodies this corpus does not hold as primary references.
 
 - *Eliyahu Goldratt — Theory of Constraints* — cited as the foundational framework for the five-step TOC focusing cycle and the constraint-management argument running through Ch 1.5 and Ch 10.6. Goldratt is not held as a primary corpus reference. Flagged [BT] in the deep ref.
-- *Toyota Production System / Taiichi Ohno* — cited as the origin of just-in-time manufacturing and lean practices (Ch 1.5). Flagged [BT].
+- *Toyota Motor Corporation* — cited as the origin of just-in-time manufacturing and lean practices (Ch 1.5). Flagged [BT].
 - *Motorola — Six Sigma* — cited as the origin of Six Sigma in 1986 (Ch 1.5). Flagged [BT].
 - *Robert Kaplan and David Norton (Harvard) and Art Schneiderman (Analog Devices)* — cited for the balanced scorecard; Schneiderman's 1987 three-category precursor and Kaplan-Norton's four-perspective development are both credited (Ch 12.4). Flagged [BT].
 - *Chris Argyris — double-loop learning* — cited in Ch 9.1 for the concept that comprehensive evaluation asks whether current goals should be adjusted. Flagged [BT].
@@ -284,7 +284,7 @@ This is a read-only lens; no produce-for surface. The PM bounded by a BA role re
 
 **Named limits of the source.** Volume 2 covers internal (managerial) accounting: cost classification, CVP analysis, budgeting, standard costing, variance analysis, responsibility accounting, relevant-cost short-term decisions, capital budgeting, and balanced scorecard. It does not cover external financial reporting or revenue recognition (Vol 1 scope). The volume is a management-accounting textbook — it teaches how to apply cost-and-decision frameworks, not how to evaluate software-business strategy. The sustainability chapter (Ch 13) covers ESG reporting frameworks at a high level but does not provide implementation-level guidance. The deep ref explicitly excludes pedagogical apparatus (Key Terms, Summary, exercises, answer keys) — only the substantive exposition of each chapter was read.
 
-**Evidence-marker continuity.** The deep reference carries the volume's load-bearing claims with [V] markers (the five-step TOC focusing cycle; the contribution-margin-per-bottleneck-unit formulation; the variable-versus-absorption costing distinction; the balanced scorecard four-perspective description; the Ford Pinto cost-benefit framing; the J&J Tylenol and Bhopal case contrast). Framework attributions — Goldratt, Ohno, Kaplan-Norton, Elkington — are [BT] in the deep ref and represented as borrowed-through in this distillation. This distillation paraphrases [V]-marked content throughout; no verbatim blockquotes appear here. The eight-step ethics framework is [AP] (the volume's own normative position), not [V] verified finding, consistent with the deep ref's evidence classification.
+**Evidence-marker continuity.** The deep reference carries the volume's load-bearing claims with [V] markers (the five-step TOC focusing cycle; the contribution-margin-per-bottleneck-unit formulation; the variable-versus-absorption costing distinction; the balanced scorecard four-perspective description; the Ford Pinto cost-benefit framing; the J&J Tylenol and Bhopal case contrast). Framework attributions — Goldratt, Kaplan-Norton, Elkington — are [BT] in the deep ref and represented as borrowed-through in this distillation. This distillation paraphrases [V]-marked content throughout; no verbatim blockquotes appear here. The eight-step ethics framework is [AP] (the volume's own normative position), not [V] verified finding, consistent with the deep ref's evidence classification.
 
 ## Related concepts
 

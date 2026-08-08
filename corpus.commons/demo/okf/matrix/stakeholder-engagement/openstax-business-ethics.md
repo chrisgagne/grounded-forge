@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-ethics
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Business Ethics, Stakeholder-Engagement Distillation
 
@@ -36,7 +36,7 @@ This distillation extracts the stakeholder-engagement vocabulary, taxonomies, an
 
 5.  **Stakeholder prioritisation: power, interest, exigency.** Power × interest matrix — high-power-high-interest = key stakeholder; low-power-low-interest = monitor only; high-power-low-interest = keep satisfied; low-power-high-interest = communicate / inform but their priority is low unless exigency rises. *Exigency* (urgency of a stakeholder claim) combines with inherent priority. (Source: Ch 3.3, "Stakeholder Prioritization")
 
-6.  **MITRE five-step stakeholder management.** Identify stakeholders (and reidentify periodically); gather data on concerns through surveys, focus groups, social-media monitoring, product-usage data; analyse and present to decision-makers (or decide directly); inform stakeholders that their concerns were considered. The text frames this as standard practice and recommends explicit communication that closes the loop. (Source: Ch 3.3, "Managing Stakeholder Expectations")
+6.  **MITRE five-step stakeholder management.** Establish and sustain trust through communication; identify stakeholders (and reidentify periodically); gather and analyse data on concerns through surveys, focus groups, social-media monitoring, product-usage data; present to decision-makers (or decide directly); inform stakeholders that their concerns were considered. The text frames this as standard practice and recommends explicit communication that closes the loop. (Source: Ch 3.3, "Managing Stakeholder Expectations")
 
 7.  **Triple bottom line (Elkington, John).** People, planet, profit. Reframes the bottom line as three measures: economic, social, environmental. Forces stakeholder-engagement work to consider externalities and indirect stakeholders (the environment, future generations, communities). (Source: Ch 3.4, "People, Planet, Profit: The Triple Bottom Line")
 
@@ -56,7 +56,7 @@ This distillation extracts the stakeholder-engagement vocabulary, taxonomies, an
 
 15.  **Whistleblowing as stakeholder voice.** Whistleblowers are stakeholders surfacing harm to other stakeholders (taxpayers, investors, customers, the public). The False Claims Act qui tam framework rewards relators 15-30% of recovery. The text frames whistleblowing as "a steward of the public interest" when motives are appropriate. (Source: Ch 7.5, "Whistleblowing: Risks and Rewards")
 
-16.  **The 1-1-1 model and integrated philanthropy (Salesforce / Benioff).** Donating 1% of equity, 1% of employee time, and 1% of products to nonprofit organisations. The lead author's Appendix C credo: ethical entrepreneurs "engage in both private and corporate philanthropy" and are "good stewards of the social and physical environments where they do business". (Source: App B, "Marc Benioff"; App C)
+16.  **The 1-1-1 model and integrated philanthropy (Salesforce / Benioff).** Donating 1% of equity, 1% of employee time, and 1% of products to nonprofit organisations. The lead author's Appendix C credo: ethical entrepreneurs engage in both private and corporate philanthropy and are "good stewards of the social and physical environments where they do business". (Source: App B, "Marc Benioff"; App C)
 
 17.  **The moral minimum and the social contract.** Honouring obligations to all stakeholders, "including those who own no stock shares — is the moral minimum a firm must undertake to satisfy the base threshold for acting ethically" [V] (Ch 4.1, "The Two Sides of the Corporate Responsibility Debate"). Engagement work that meets only the legal minimum is below the moral minimum if it neglects non-shareholder stakeholders. (Source: Ch 4.1, "The Two Sides of the Corporate Responsibility Debate")
 

@@ -179,11 +179,11 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 
 **Borrowed-through gaps.** The following authors and traditions are cited in the source but are not held as primary references in this corpus:
 - Kent Beck — cited by name for the *Courage* value (the source hyperlinks Beck's name to *Extreme Programming Explained*) [BT]
-- W. Edwards Deming, System of Profound Knowledge — cited as theoretical grounding for the Holistic or Systemic Approach to Change value [BT]
-- Eliyahu M. Goldratt, Theory of Constraints — cited as theoretical grounding for the same value, paired with Deming [BT]
+- Deming, System of Profound Knowledge — cited as theoretical grounding for the Holistic or Systemic Approach to Change value [BT]
+- Goldratt, Theory of Constraints — cited as theoretical grounding for the same value, paired with Deming [BT]
 - Alistair Cockburn, "information radiator" — cited as the conceptual source for visualisation extending beyond the Kanban board [BT]
 - Donald G. Reinertsen, *The Principles of Product Development Flow* — cited as "one of the best explanations" of batch-size reduction's effect on flow [BT]
-- Toyota Production System — cited for the Kanban origin (カンバン / Kamban), Muri, and Muda [BT]
+- Toyota Production System — linked from the word *Japan*; the source says Lean originated in Japan and calls this type of Kanban カンバン (Kamban); Muri and Muda [BT]
 - Agile Manifesto (Beck et al.) — cited as one of the two movements Open Kanban aligns with [BT]
 - Alan Shalloway, Corey Ladas, Karl Scotland — named as fellow-traveller methodologists in the Movement [BT]
 - VersionOne 2013 State of Agile Survey — cited as evidence for Kanban adoption [BT]

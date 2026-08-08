@@ -10,15 +10,15 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 
 1.  **Default-to-system prior.** "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" (Preamble, "Purpose and use"). This is the guide's most portable claim in retro work. When blame language surfaces, this prior frames the redirect: the pattern has deeper causes; the task is to find them.
 
-2.  **Circumstances, not outcomes, determine the appropriate response.** "The appropriate response to a member of staff involved in an incident can and should differ according to the circumstances in which an error was made" (Preamble, "Purpose and use"). In retro terms: the team's response to a mistake should be calibrated to the circumstances that produced it, not to the outcome alone.
+2.  **The circumstances in which an error was made determine the appropriate response.** "The appropriate response to a member of staff involved in an incident can and should differ according to the circumstances in which an error was made" (Preamble, "Purpose and use"). In retro terms: the team's response to a mistake should be calibrated to the circumstances that produced it.
 
 3.  **The guide as communication tool, not just decision aid.** "An important part of a just culture is being able to explain the approach that will be taken if an incident occurs" (Preamble, "Purpose and use"). In retro, this means the team can share the default-to-system framing *before* any incident occurs — the Prime Directive and the NHS prior are complementary pre-commitments.
 
 4.  **Five sequential tests as background discipline.** Q1 deliberate harm → Q2 health → Q3 foresight → Q4 substitution → Q5 mitigating circumstances. In a retro, the full tree is rarely necessary — the guide fires at the level of its prior and its Q3/Q4 framing rather than at the level of a formal decision walk. But when blame language persists past a redirect, the Q3 foresight test ("was there a workable agreed protocol the individual knowingly departed from?") and Q4 substitution test ("would peers in the same circumstances have behaved similarly?") give structured questions to surface whether the issue is individual or systemic.
 
-5.  **Q3 foresight test as system-contract probe.** Three sub-questions: Was there an agreed protocol? Was it workable and in routine use? Did the individual knowingly depart? "No" to any routes to system-locus corrective work (Q3, "Recommendation D"). In retro: does the team have an agreed process that is workable and in routine use? If not, the problem is upstream of the individual.
+5.  **Q3 foresight test as system-contract probe.** Three sub-questions: Was there an agreed protocol? Was it workable and in routine use? Did the individual knowingly depart? "No" to any routes to Recommendation D: singling out the individual is unlikely to be appropriate, and the wider actions may include, but not be limited to, the individual (Q3, "Recommendation D"). In retro: does the team have an agreed process that is workable and in routine use? If not, the corrective work is wider than the individual.
 
-6.  **Q4 substitution test as peer-and-context probe.** "Are there indications that other individuals from the same peer group, with comparable experience and qualifications, would behave in the same way in similar circumstances?" (Q4, "Substitution test"). In retro: would other team members have done the same thing in the same context? If yes, the locus is systemic; the individual is not the relevant lever.
+6.  **Q4 substitution test as peer-and-context probe.** "Are there indications that other individuals from the same peer group, with comparable experience and qualifications, would behave in the same way in similar circumstances?" (Q4, "Substitution test"). In retro: would other team members have done the same thing in the same context? If yes, the locus is systemic; the individual alone is not the relevant lever.
 
 7.  **Protecting staff from unfair targeting AND protecting the system from individual-focus.** The guide's dual purpose is "protecting staff from unfair targeting" and protecting patients "by removing the tendency to treat wider patient safety issues as individual issues" (Preamble, "Purpose and use"). In retro: individual-focus at the cost of system-focus is not just unfair to the individual; it also fails to fix the system.
 
@@ -31,7 +31,7 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 | Need | Question |
 |---|---|
 | Is the default-to-system prior set before data gathering begins? | Has the team established — either through the Prime Directive, the NHS prior, or both — that individual blame is the exception, not the default, before any data is on the board? |
-| Is the guide being used as a communication tool for the team's working agreement? | Has the team made explicit that circumstances, not outcomes, determine appropriate responses? This is a working-agreement statement, not just a facilitation move. |
+| Is the guide being used as a communication tool for the team's working agreement? | Has the team made explicit that the response to a mistake can and should differ according to the circumstances in which it was made? This is a working-agreement statement, not just a facilitation move. |
 
 ### Phase 2: Data Gathering
 
@@ -44,7 +44,7 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 | Need | Question |
 |---|---|
 | Has blame language survived the data-gathering redirect? | If blame language is persisting in the insight phase, apply the foresight-test questions: Was there a workable agreed process the individual knowingly departed from? Would peers have behaved differently in the same context? |
-| Is the substitution test available as a redirect? | "Would other team members in the same circumstances — with the same experience and the same information — have done the same thing?" If yes, the focus belongs on the conditions, not the individual. |
+| Is the substitution test available as a redirect? | "Would other team members in the same circumstances — with the same experience and the same information — have done the same thing?" If yes, the focus belongs on the conditions, not the individual alone. |
 | Is the team treating a system problem as an individual problem? | The guide's structural argument: most patient safety issues have deeper causes. In retro: most team-performance issues also have deeper causes. Name this explicitly when the team keeps returning to a person. |
 | Is the Prime Directive available for re-read? | When blame language re-surfaces mid-retro, re-read Norm Kerth's Prime Directive aloud. The NHS prior ("singling out an individual is rarely appropriate") is complementary: both are principled pre-commitments to the same epistemic move. |
 
@@ -53,7 +53,7 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 | Need | Question |
 |---|---|
 | Is the proposed experiment targeting an individual behaviour or a system condition? | An experiment that says "X should do Y differently" is an individual-focus experiment. Is the underlying system condition — missing protocol, untrained process, absent feedback loop — what actually needs addressing? |
-| Does the experiment address the right locus? | If the substitution test suggests peers would have done the same thing, the experiment must address the conditions that produced the pattern, not the individual who exhibited it. |
+| Does the experiment address the right locus? | If the substitution test suggests peers would have done the same thing, the experiment must address the conditions that produced the pattern, not only the individual who exhibited it. |
 
 ## What to Look For
 
@@ -61,9 +61,9 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 |---|---|---|
 | Sticky notes or verbal input name a specific individual as the cause | Blame language has anchored the data before the system analysis begins | Redirect immediately: "action singling out an individual is rarely appropriate"; ask for the conditions, not the person |
 | Team returns to an individual in Phase 3 despite redirects | The substitution test hasn't been applied | Ask: "Would other team members in the same context, with the same information, have done the same thing?" |
-| An experiment targets one person's behaviour | Individual-focus while systemic conditions are unchanged | Apply the foresight test: was there a workable agreed process the individual knowingly departed from? If not, the locus is the process |
+| An experiment targets one person's behaviour | Individual-focus while systemic conditions are unchanged | Apply the foresight test: was there a workable agreed process the individual knowingly departed from? If not, the primary locus is the process |
 | The retro has a working agreement that says "no blame" but blame language persists | The agreement is performative, not principled | Share the NHS prior as a principled pre-commitment: most patient safety issues have deeper causes; the same applies here |
-| Outcome severity is driving the response | Circumstances, not outcomes, determine the appropriate response | Redirect from severity to circumstances: what was happening in the system at the time? |
+| Outcome severity is driving the response | The appropriate response can and should differ according to the circumstances in which the error was made | Redirect from severity to circumstances: what was happening in the system at the time? |
 
 ## When to Use This Reference
 
@@ -81,7 +81,7 @@ A team's Phase 2 data-gathering produces: "The deployment broke because [name] p
 
 The facilitator asks: was there a workable agreed process for deployment checks that the individual knowingly departed from? The team realises: the deployment checklist exists, but it's in Confluence and hasn't been updated in two Sprints. The recent DoD change added a new check that wasn't reflected. The individual followed the checklist they had.
 
-The foresight test (Q3) routes to Recommendation D: system-locus corrective work. The substitution test follows: "Would other team members in the same context — using the same checklist — have done the same thing?" Three people say yes. The Phase 3 insight is now about the DoD-to-checklist synchronisation process, not about the individual.
+The foresight test (Q3) routes to Recommendation D: singling out the individual is unlikely to be appropriate; the wider actions may include, but not be limited to, the individual. The substitution test follows: "Would other team members in the same context — using the same checklist — have done the same thing?" Three people say yes. The Phase 3 insight is now about the DoD-to-checklist synchronisation process, not about the individual.
 
 Phase 4 experiment: assign a named owner to keep the deployment checklist in sync with DoD changes. Pre-commitment before close: the team states the default-to-system prior as a working-agreement entry so the next retro opens with the principle already set.
 

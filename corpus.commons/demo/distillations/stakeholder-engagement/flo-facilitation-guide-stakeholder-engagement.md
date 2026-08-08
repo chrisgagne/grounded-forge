@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:98fa9141c04e3203d9226859790dadcd36e4a25e4346e9c794efdae82e88d9cc -->
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Stakeholder-Engagement Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. **Licence:** CC BY 4.0. Open scope; attribution required on derivative works.
@@ -80,7 +81,7 @@ The Guide's load-bearing stakeholder-engagement contributions are: (a) the scaff
 |---|---|
 | Are we calibrating our presence to the phase? | Heavy in the opening weeks (community building, scaffolding); lighter in middle weeks (coach, mentor). Where are we on the arc, and where should we be? |
 | Are we modelling what we are asking participants to do? | If we are asking them to share reflective practice, are we sharing our own? |
-| Are we using open-ended invitational questions? | "How do you think things are going?" Is the question-form discipline holding, or drifting into closed questions? |
+| Are we using open-ended invitational questions? | Asking "how they think things are going" — is the question-form discipline holding, or drifting into closed questions? |
 | Are we resisting thoroughness in our feedback? | Comment on one or two aspects of the artefact; invite participants to elaborate. |
 | Are we surfacing predictable participant experiences structurally? | First-week overwhelm, Week-3 anxiety, end-of-course let-down. Naming these structurally rather than personally is part of the work. |
 | Are we noticing the Anxious-Annie pattern in ourselves? | When we feel the urge to chase, over-respond, intervene early — is this responding to a participant problem, or to our own facilitator anxiety? |

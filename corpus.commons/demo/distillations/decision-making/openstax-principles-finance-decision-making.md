@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:29e3c88a3c446c180f71e48a62b4e477d663f062e7465a41820a5c071ecbfc8a -->
 # OpenStax Principles of Finance, Decision-Making Distillation
 
 **Source:** OpenStax (2022). *Principles of Finance*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-finance. Senior contributing authors Julie Dahlquist and Rainford Knight, with six contributing authors.
@@ -186,7 +187,7 @@ By NPV, A wins (highest absolute value). By IRR alone, C is roughly tied with A 
 - *Burton Malkiel* — cited for the empirical finding that IPOs underperform the market by ~4 per cent per year on average (Ch 12.1) [BT].
 - *Gordon growth model* — constant-growth dividend discount model: P = D₁ / (r - g) (Ch 11.2) [BT].
 - *Karl Pearson* — developer of the correlation coefficient (Ch 14.1) [BT].
-- *Adam Smith and Karl Marx* — referenced as classical economists identifying capital as a factor of production (Ch 19.1) [BT].
+- *Adam Smith and Karl Marx* — referenced as early political economists identifying capital as a factor of production (Ch 19.1) [BT].
 
 **Named limits of the source.** The book is an introductory finance text; it develops the core quantitative toolkit (TVM, NPV/IRR, CAPM, WACC) with solid rigour but does not cover advanced topics: real options theory for capital budgeting, credit derivatives, securitisation mechanics, or private-equity valuation. Qualitative and behavioural dimensions of financial decision-making (cognitive biases in capital allocation, overconfidence in forecasts) are acknowledged but not developed; those gaps are better served by the Organizational Behavior distillation.
 

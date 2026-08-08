@@ -12,7 +12,7 @@
 
 Entrepreneurship is presented as both a mindset and a process: an awareness orientation by which someone identifies an opportunity through solving a problem and then exercises the willingness to act on that opportunity [AP] (Ch 1.3, "The Entrepreneurial Mindset"). The book's organising premise is that "an entrepreneur is someone who identifies and acts on an idea or problem that no one else has identified or acted on" [V] (Ch 1.1, "Entrepreneurship Today"), and that this combination of recognition and action distinguishes the entrepreneur from a small business owner, who "owns or starts a business that already has an existing model" (Ch 1.1).
 
-A second load-bearing claim is that the entrepreneurial journey is iterative rather than linear, structured around a venture life cycle of seed, early stage, maturity, and harvest, with rebirth as an option for serial entrepreneurs [AR] (Ch 2.2, "The Process of Becoming an Entrepreneur"; Ch 9.1, "Overview of Entrepreneurial Finance and Accounting Strategies"). Successful ventures move through a problem-solution-fit phase, then a product-market-fit phase, then a scale phase, and the resources required, the legal structures appropriate, and the marketing tactics that work all change as the venture moves through these stages.
+A second load-bearing claim is that the entrepreneurial journey is iterative rather than linear, structured around a nine-stage venture life cycle — startup, development, resourcing, market entry, growth, maturity, harvest, exit, and rebirth [AP] (Ch 2.2, "The Process of Becoming an Entrepreneur") — with a separate three-stage funding cycle (seed stage, early stage, and maturity) through which funding generally grows (Ch 9.1, "Overview of Entrepreneurial Finance and Accounting Strategies"). The source presents Steve Blank's problem/solution fit and Marc Andreessen's product-market fit as complementary early-validation frames (Ch 11.1), and the resources required, the legal structures appropriate, and the marketing tactics that work all change as the venture moves through the life-cycle stages.
 
 A third load-bearing claim is that customer-centric design and continuous validation through the build-measure-learn loop, drawn from Eric Ries's Lean Startup methodology, replaces the older "build it and they will come" approach to venture creation [AR] (Ch 10.1, "Launching the Imperfect Business: Lean Startup"; Ch 11.1, "Avoiding the 'Field of Dreams' Approach"). Minimum viable products, iterative pivots, and customer-discovery interviews are framed as the disciplined alternative to over-elaborate up-front planning.
 
@@ -60,7 +60,7 @@ The text frames the journey through a hiking metaphor with seven steps: inspirat
 
 ### Historical evolution of US entrepreneurship
 
-Four eras structure the historical narrative: Colonial and Early America (1607-1776), the First Industrial Revolution (1776-1865), the Second Industrial Revolution (1865-1920), Interwar and Postwar America (1920-1975), and the Knowledge Economy (1975-present) [AP] (Ch 2.2, "Historical Perspective"). Jean-Baptiste Say (1767-1832) coined the modern usage: "The entrepreneur shifts economic resources out of an area of lower and into an area of higher productivity and greater yield" [V] (Ch 2.2). Richard Cantillon (~1730) defined entrepreneurship as the "willingness to bear the personal financial risk of a business venture" [V] (Ch 2.2).
+Five eras structure the historical narrative: Colonial and Early America (1607-1776), the First Industrial Revolution (1776-1865), the Second Industrial Revolution (1865-1920), Interwar and Postwar America (1920-1975), and the Knowledge Economy (1975-present) [AP] (Ch 2.2, "Historical Perspective"). Jean-Baptiste Say (1767-1832) coined the modern usage: "The entrepreneur shifts economic resources out of an area of lower and into an area of higher productivity and greater yield" [V] (Ch 2.2). Richard Cantillon (~1730) defined entrepreneurship as the "willingness to bear the personal financial risk of a business venture" [V] (Ch 2.2).
 
 Adam Smith's *An Inquiry into the Nature and Causes of the Wealth of Nations* (1776) is treated as foundational, introducing the "invisible hand" theory and the self-interest concept whereby individuals "inadvertently help others as they pursue their own goals" [BT] (Ch 2.2, "Colonial and Early America: 1607–1776"). Joseph Schumpeter (1883-1950) is presented as the modern source of two key terms: entrepreneurial spirit and creative destruction, the latter "the process of industrial mutation that incessantly revolutionizes the economic structure from within, incessantly destroying the old one, incessantly creating a new one" [V] (Ch 2.2, "Interwar and Postwar America: 1920–1975", citing Schumpeter via the *New World Encyclopedia*). The William Whyte counterpoint (*The Organization Man*, 1956) is cited as arguing that "American business life had abandoned the old virtues of self-reliance and entrepreneurship in favor of a bureaucratic 'social ethic' of loyalty, security and 'belongingness'" [V] (Ch 2.2). The post-1975 era produces the intrapreneur — "an employee who acts as an entrepreneur within an organization, rather than going solo" [V] (Ch 2.2, "The Knowledge Economy: 1975 to Today").
 
@@ -92,7 +92,7 @@ The chapter surveys vicarious liability, conflict of interest (illustrated by Mi
 
 ### CSR, social entrepreneurship, and B-corporations
 
-Corporate social responsibility (CSR) is "the practice by which a business views itself within a broader context: as a member of society with certain implicit social obligations and environmental considerations and issues" [V] (Ch 3.2, "Corporate Social Responsibility (CSR)"). The text catalogues fourteen multi-billion-dollar corporate responsibility failures (e.g., Volkswagen diesel emissions, Takata airbags, Wells Fargo, BP Gulf, Enron, Bhopal/Union Carbide, Madoff) as evidence that compliance alone is insufficient (Ch 3.2, Table 3.3).
+Corporate social responsibility (CSR) is "the practice by which a business views itself within a broader context: as a member of society with certain implicit social obligations and environmental considerations and issues" [V] (Ch 3.2, "Corporate Social Responsibility (CSR)"). The text catalogues fifteen multi-billion-dollar corporate responsibility failures (e.g., Volkswagen diesel emissions, Takata airbags, Wells Fargo, BP Gulf, Enron, Bhopal/Union Carbide, Madoff) as evidence that compliance alone is insufficient (Ch 3.2, Table 3.3).
 
 Social entrepreneurship "describes ventures launched by entrepreneurs who are first and foremost advocates or champions for a social cause" [V] (Ch 3.2, "Social Entrepreneurship"). Blake Mycoskie's first-person TOMS Shoes origin story is reproduced verbatim from his 2011 *Entrepreneur* article (Ch 3.2). B-corporations are a CSR-type of certification for which "as of 2019, there are approximately 3,000 certified B-corps in 65 countries, covering 150 different industries" [V] (Ch 3.2). Sustainability is defined as "the ability to be maintained at a certain rate or level" [V] (Ch 3.2, "Sustainability"), which extends beyond environmental concerns to natural resources, human resources, and supply chains.
 
@@ -108,7 +108,7 @@ The Johnson & Johnson 1982 Tylenol response is the canonical example of taking t
 
 Creativity is "the ability to develop something original, particularly an idea or a representation of an idea" [V] (Ch 4.2, "Creativity, Innovation, and Invention: How They Differ"); innovation is "any new idea, process, or product, or a change to an existing product or process that adds value to that existing product or service" [V] (Ch 4.2); invention is "a truly novel product, service, or process" representing "a leap" [V] (Ch 4.2). All inventions contain innovations but not all innovations rise to inventions.
 
-Stanford d.school's five-stage human-centric design process — empathy, problem definition, ideation, prototyping, testing — anchors the design-thinking treatment (Ch 4.1, "Creative Problem-Solving Methods"). Empathy is "the human ability to feel what other humans are feeling, which in the context of creativity, innovation, and invention is essential to beginning a process of human-centric design" [V] (Ch 4.1). Edward de Bono's Six Thinking Hats (white/red/black/yellow/green/blue) is presented as a structured ideation game whose limits paradoxically free thinking (Ch 4.1).
+Stanford d.school's five-stage human-centric design process — empathy, problem definition, ideation, prototyping, testing — anchors the design-thinking treatment (Ch 4.1, "Creative Problem-Solving Methods"). Empathy is "the human ability to feel what other humans are feeling, which in the context of creativity, innovation, and invention is essential to beginning a process of human-centric design" [V] (Ch 4.1). The Six Thinking Hats method (white/red/black/yellow/green/blue), cited to the de Bono Group, is presented as a structured ideation game whose limits paradoxically free thinking (Ch 4.1).
 
 Open innovation is defined as "the use of purposive inflows and outflows of knowledge to accelerate internal innovation, and expand the markets for external use of innovation, respectively" [V] (Ch 4.1, "Matching Innovation Methods to Circumstances", citing Henry Chesbrough).
 
@@ -168,7 +168,7 @@ Three problem-solver types are presented: self-regulating (autonomous), theorist
 
 The creative problem-solving process is: clarify, ideate, develop, implement, evaluate (Ch 6.2, "The Steps of the Creative Problem-Solving Process"). To clarify is "the critical step of recognizing the existence of a gap between the current state and a desired state" [V]. The fishbone diagram is recommended for cause analysis. Ideation is "the purposeful process of opening up one's mind to new trains of thought that branch out in many directions from a stated purpose or problem" [V]. Brainstorming is "the generation of ideas in an environment free of judgment or dissension with the goal of creating solutions" [V] (Ch 6.2, glossary).
 
-Crowdsourcing is treated as a key collaborative methodology, citing Daren Brabham's definition as "an online, distributed problem-solving and production model" [V] (Ch 6.2, citing Brabham). PepsiCo's 2012 "Do Us a Flavor" Lay's potato chip campaign generated 14 million submissions and increased Lay's sales by 8 per cent in the three months after the Cheesy Garlic Bread launch (Ch 6.2). Other tools introduced are storyboarding and team creativity.
+Crowdsourcing is treated as a key collaborative methodology, citing Daren Brabham's definition as "an online, distributed problem-solving and production model" [V] (Ch 6.2, citing Brabham). PepsiCo's 2012 "Do Us a Flavor" Lay's potato chip campaign generated over 14 million submissions and increased Lay's sales by 8 per cent in the three months after the Cheesy Garlic Bread launch (Ch 6.2). Other tools introduced are storyboarding and team creativity.
 
 ### Design thinking and lean processes
 
@@ -210,7 +210,7 @@ Marketing is "an umbrella term given to those activities that companies use to i
 
 The marketing mix has 7 Ps: product, promotion, price, place, people, physical environment, and process (Ch 8.1, "Marketing Mix"). The first four pertain primarily to goods, the last three to services. The Drybar (Alli Webb) example illustrates targeted niche-creation in a mature service category (Ch 8.1).
 
-Five promotion subtypes are catalogued: advertising, social media, public relations, direct mail, sales promotions, and personal selling (Ch 8.1, "Promotion", Table 8.2).
+Six promotion subtypes are catalogued: advertising, social media, public relations, direct mail, sales promotions, and personal selling (Ch 8.1, "Promotion", Table 8.2).
 
 ### Market research, target market, TAM/SAM, and STP
 
@@ -220,7 +220,7 @@ Total available market (TAM) is "the total perceived demand for a product or ser
 
 ### Marketing techniques and entrepreneurial branding
 
-Six entrepreneurial marketing techniques are catalogued: guerrilla marketing (coined by Jay Conrad Levinson, 1984), relationship marketing (the MooseJaw care-package example), expeditionary marketing, real-time marketing, viral marketing (the Dove Real Beauty Sketches and Dollar Shave Club examples), and digital marketing (Ch 8.3). Foursquare's South by Southwest chalk-and-rubber-balls campaign at $0 cost is the guerrilla-marketing case (Ch 8.3, citing Crowley).
+Seven entrepreneurial marketing techniques are catalogued: guerrilla marketing (coined by Jay Conrad Levinson, 1984), relationship marketing (the MooseJaw care-package example), expeditionary marketing, real-time marketing, viral marketing (the Dove Real Beauty Sketches and Dollar Shave Club examples), digital marketing, and word-of-mouth marketing (Ch 8.3). Foursquare's South by Southwest campaign, achieved for the cost of a box of chalk and two rubber balls, is the guerrilla-marketing case (Ch 8.3, citing Crowley).
 
 A brand is "the image a company promotes and the connotations it fosters of itself and its products" [V] (Ch 8.4). Brand strategy includes taglines, jingles, websites, social media, customer service, and packaging. The Method cleaning-products case illustrates a customer-focused brand built around plant-based, environmentally responsible packaging that secured Target distribution (Ch 8.4).
 
@@ -240,7 +240,7 @@ Mature-stage companies may execute an initial public offering (IPO) — "the fir
 
 ### Debt vs. equity, SBA loans, and special funding strategies
 
-Debt financing is "the process of borrowing funds from another party" repaid with interest; equity financing is "financing provided in exchange for part ownership in the business" (Ch 9.1, Table 9.1). The Small Business Administration (SBA) was founded in 1963 and partners with private lenders to guarantee up to 85 per cent of small-business loans (Ch 9.1). The 7(a) Small Loan program supports working capital and fixed-asset loans, with collateral required above $25,000 (Ch 9.1).
+Debt financing is "the process of borrowing funds from another party" repaid with interest; equity financing is "financing provided in exchange for part ownership in the business" (Ch 9.1, Table 9.1). The Small Business Administration (SBA) partners with private lenders to guarantee up to 85 per cent of small-business loans (Ch 9.1). The source gives conflicting founding dates for the agency: founded as part of the Small Business Act of 1963 (Ch 9.1) but established in 1953 (Ch 12.1). The 7(a) Small Loan program supports working capital and fixed-asset loans, with collateral required above $25,000 (Ch 9.1).
 
 Charitable organisations rely on three funding streams: program services, donations, and grants (Ch 9.2, "Charitable Missions and Example Organizations"). The Met's 2018 program-service income made up only 2.3 per cent of total revenue (Ch 9.2). The NIH awards almost 50,000 grants annually, with only a 20 per cent acceptance rate (Ch 9.2, citing NIH).
 
@@ -308,7 +308,7 @@ A value proposition is "a summary describing the benefits (value) customers can 
 
 ### Three canvas designs
 
-Three canvases are introduced: the Business Model Canvas (Osterwalder and Pigneur, nine blocks: customer segments, value propositions, channels, customer relationships, revenue streams, key activities, key partners, key resources, cost structure); the Lean Canvas (Maurya's adaptation, replacing key activities/partners/resources with problem, solution, and key metrics); and the Social Business Model Canvas (Tandemic, adding social-impact, surplus, and beneficiary segments) (Ch 11.2). The customer empathy map is treated as the design-ideation companion to the BMC.
+Three focal canvases are introduced: the Business Model Canvas (Osterwalder and Pigneur, nine blocks: customer segments, value propositions, channels, customer relationships, revenue streams, key activities, key partners, key resources, cost structure); the Lean Canvas (Maurya's adaptation, removing the customer relationships, key activities, key partners, and key resources blocks and adding problem, solution, unfair advantage, and key metrics); and the Social Business Model Canvas (Tandemic, adding social-impact, surplus, and beneficiary segments) (Ch 11.2). The section also introduces further variants: the value proposition canvas (a plug-in complementing the BMC), Osterwalder's mission model canvas for mission-driven organisations, and a social lean canvas adding purpose and impact sections (Ch 11.2). The customer empathy map is treated as the design-ideation companion to the BMC.
 
 The desirability-feasibility-viability framework forces three high-level questions about a startup concept: how desirable is the product? how feasible is the idea? will this idea remain viable? (Ch 11.2). Maurya's value-proposition formula and "early adopter target customer" approach complement the canvases (Ch 11.2, citing Maurya, *Running Lean*).
 
@@ -336,27 +336,27 @@ Five advisor types form the entrepreneurial dream team: accountant, attorney, ba
 
 Successful new ventures use cross-disciplinary teams whose members have complementary skills and personalities, not duplicate ones (Ch 12.2, "Building a Cross-Disciplinary Team"). The flat organisation pattern (family/friend founders) is identified as a common but limiting starting structure.
 
-The startup operational plan covers eight elements typically: business operations, vendor selection, supply chain, technology infrastructure, payment systems, inventory management, customer service systems, and quality control (Ch 12.3). Operational planning is positioned as an iterative document that grows with the business.
+Operations management rests on five major areas: money, methods, machines, people, and leadership (Ch 12.3, "Designing a Startup Operational Plan"). A twenty-item checklist of operational needs — from determining the legal organisation and company name through filings, tax registrations, and hiring — accompanies the operational plan (Ch 12.3, "Operational Needs"). Operational planning is positioned as an iterative document that grows with the business.
 
 ## Part XIII: Legal, tax, and risk structures (Ch 13)
 
 ### For-profit vs. nonprofit, and the corporation tripartite
 
-The first structural decision is the business purpose: for-profit or not-for-profit (Ch 13.1, "For-Profit versus Not-for-Profit Businesses"). Section 501(c) of the Internal Revenue Code defines tax-exempt nonprofits.
+The first structural decision is the business purpose — who should benefit from the creation of the entity; the second is whether the business will be for-profit or not-for-profit (Ch 13.1, "For-Profit versus Not-for-Profit Businesses"). Section 501(c) of the Internal Revenue Code defines tax-exempt nonprofits.
 
-Corporations operate under a tripartite structure: shareholders elect directors, directors appoint officers (Ch 13.2, "Overview of Corporations", Figure 13.5). Closed (closely held) corporations are owned by five or fewer individuals controlling more than 50 per cent of outstanding stock during the last half of the tax year (Ch 13.2, citing IRS Publication 542). The Woodruff Construction LLC v. Clark (Iowa, 2018) case illustrates piercing the corporate veil for commingling of personal and corporate funds (Ch 13.2, "Work It Out: Piercing the Corporate Veil of Limited Liability").
+Corporations operate under a tripartite structure: shareholders elect directors, directors appoint officers (Ch 13.2, "Overview of Corporations", Figure 13.5). Closed (closely held) corporations are, as a general rule, corporations with more than 50 per cent of the value of outstanding stock owned, directly or indirectly, by five or fewer individuals at any time during the last half of the tax year (Ch 13.2, citing IRS Publication 542). The Woodruff Construction LLC v. Clark (Iowa, 2018) case illustrates piercing the corporate veil for commingling of personal and corporate funds (Ch 13.2, "Work It Out: Piercing the Corporate Veil of Limited Liability").
 
 ### C, S, and B corporations; partnerships; LLCs; sole proprietorships
 
-C corporations face double taxation (corporate income tax plus shareholder dividend tax); the Tax Cuts and Jobs Act dropped the federal corporate rate from 35 per cent to 21 per cent in 2018 (Ch 13.2, "Taxation of C Corporations"). S corporations are pass-through entities limited to 100 shareholders, all individuals or specific tax-exempt entities, all US citizens or legal permanent residents, with only one class of stock (Ch 13.2, "Taxation of S Corporations"). B corporations are certified by B Lab against social-and-environmental performance, public-transparency, and accountability standards; benefit corporations are state-recognised entities pursuing stakeholder benefit alongside shareholder return (Ch 13.2, "The Unique Nature of B Corporations and/or Benefit Corporations").
+C corporations face double taxation (corporate income tax plus shareholder dividend tax); the Tax Cuts and Jobs Act dropped the federal corporate rate from 35 per cent to 21 per cent in 2018 (Ch 13.2, "Taxation of C Corporations"). S corporations are pass-through entities limited to 100 or fewer shareholders, who may be individuals, estates, or certain tax-exempt entities; individual shareholders must be US citizens or legal permanent residents; only one class of stock is permitted (Ch 13.2, "Taxation of S Corporations"). B corporations are certified by B Lab against social-and-environmental performance, public-transparency, and accountability standards; benefit corporations are state-recognised entities pursuing stakeholder benefit alongside shareholder return (Ch 13.2, "The Unique Nature of B Corporations and/or Benefit Corporations").
 
-A partnership is "a business entity formed by two or more individuals, or partners, each of whom contributes something such as capital, equipment, or skills" [V] (Ch 13.3, "Overview of Partnerships"). Five partnership variants are introduced: general partnerships (GPs, joint-and-several liability); limited partnerships (LPs, with at least one general partner and one or more limited partners); limited liability partnerships (LLPs, common in law and accounting firms); and limited liability limited partnerships (LLLPs); plus joint ventures (JVs, temporary partnerships).
+A partnership is "a business entity formed by two or more individuals, or partners, each of whom contributes something such as capital, equipment, or skills" [V] (Ch 13.3, "Overview of Partnerships"). Four partnership types are introduced: general partnerships (GPs, joint-and-several liability); limited partnerships (LPs, with at least one general partner and one or more limited partners); limited liability partnerships (LLPs, common in law and accounting firms); and limited liability limited partnerships (LLLPs). The joint venture (JV) is presented as a related but distinct entity, similar to a legal partnership but different in purpose and duration, usually formed for a single purpose and a limited period.
 
-Limited Liability Companies (LLCs) combine corporate-style limited liability with partnership-style pass-through taxation, formed under state law via Articles of Organization and an Operating Agreement (Ch 13.4, "Limited Liability Companies"). Sole proprietorships are unincorporated businesses owned by one individual with unlimited personal liability (Ch 13.5).
+Limited Liability Companies (LLCs) combine corporate-style limited liability with partnership-style pass-through taxation, formed under state law by filing articles of formation with the state and creating an operating agreement (Ch 13.4, "Limited Liability Companies"). Sole proprietorships are unincorporated businesses owned by one individual with unlimited personal liability (Ch 13.5).
 
 ### Capital acquisition, business domicile, and risk mitigation
 
-Three additional considerations are catalogued: capital acquisition, business domicile, and technology (Ch 13.6). Risk mitigation strategies include avoidance, reduction, transfer (insurance), and acceptance, with the venture's business structure being the foundational risk-allocation decision (Ch 13.7, "Mitigating and Managing Risks").
+Three additional considerations are catalogued: capital acquisition, business domicile, and technology (Ch 13.6). Enterprise risk management is a multistage process of risk identification, risk assessment, and risk abatement; incorporation and other limited-liability structures, financial planning, and insurance are the protections discussed (Ch 13.7, "Mitigating and Managing Risks").
 
 ## Part XIV: Resource planning (Ch 14)
 
@@ -366,7 +366,7 @@ Tangible resources are "assets that have a physical form" — buildings, machine
 
 Four patent types are introduced: utility patents (twenty years; e.g., Tesla's AC motor patents); business process patents (e.g., Amazon's 1-Click); design patents (fourteen years; e.g., Apple iPhone design patents); and plant patents (Ch 14.1, "Patents"). Design patents protect ornamental design; the iPhone's "every design element… requires a new patent" (Ch 14.1).
 
-Trademarks protect names, symbols, jingles, and characters; service marks protect service-related identifiers (Ch 14.1, "Trademarks"). Trade secrets are "weaker than patents but unlimited in duration as long as the secret is not revealed", and a "trade secret may therefore continue indefinitely" but "may be patented by someone else who developed the relevant information by legitimate means" [V] (Ch 14.1).
+Trademarks protect names, symbols, jingles, and characters; service marks protect service-related identifiers (Ch 14.1, "Trademarks"). Trade-secret protection is generally considered weaker than patent protection but is not limited in duration [AP] (Ch 14.1); a "trade secret may therefore continue indefinitely as long as the secret is not revealed to the public" but "may be patented by someone else who developed the relevant information by legitimate means" [V] (Ch 14.1).
 
 ### Funding resources
 
@@ -378,7 +378,7 @@ The PEST framework — political, economic, sociocultural, technological — is 
 
 Resource needs change across the venture life cycle (Ch 14.3, Table 14.6). The resource dependence theory (RDT) model — developed by Pfeffer and Salancik (1978) — argues that forming networks (mergers, vertical integration, joint ventures, joint political activity) mitigates dependencies among same-industry actors (Ch 14.3, citing Pfeffer and Salancik, *The External Control of Organizations*).
 
-Human resources hiring is structured as a five-step process: determine resourcing needs; create job descriptions; source candidates; interview and select; onboard and train (Ch 14.3, "Human Resources").
+Human resources hiring is structured as a five-step process: determine resourcing needs; hire a team; create an employee handbook; secure independent contractors, if necessary; and establish benefits (Ch 14.3, "Human Resources").
 
 ## Part XV: Next steps (Ch 15)
 
@@ -392,7 +392,7 @@ The Gantt chart is recommended for orchestrating operational launch tasks (Ch 15
 
 Pierre Cossette's review of twenty-five empirical papers identifies overconfidence and optimism as the two most significant biases contributing to entrepreneurs' failure to recognise the need to change or end a venture (Ch 15.2, "Cognitive Biases and Problem Indicators", citing Cossette). Other biases catalogued: the law of small numbers, the illusion of control, the planning fallacy, escalation of commitment, the status quo bias, and the hindsight bias (Ch 15.2, Figure 15.5).
 
-Escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "identified points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position" [V] (Ch 15.2). Hubris is "an overinflated belief in oneself" (Ch 15.2, glossary).
+Escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "the points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position and whether this action is reasonable and feasible" [V] (Ch 15.2). Hubris is "an overinflated belief in oneself" (Ch 15.2, glossary).
 
 The Stacy Madison / Stacy's Pita Chips story (sandwich cart pivot to bagel-chip business, sold to Frito-Lay for $65 million) is the open-mindedness exemplar (Ch 15.2). The 2014 National Business Ethics Survey is cited: 60 per cent of reported misconduct involved someone with managerial authority, and "60% of misconduct committed in companies with a strong ethics culture was a one-time occurrence" [V] (Ch 15.2, "Personnel Change Challenges", citing Ethics Resource Center).
 
@@ -455,17 +455,17 @@ Reflection is "the first step in developing… mindfulness" (Ch 15.5, "The Power
 - **Joseph Schumpeter.** Cited approvingly for "creative destruction" and "entrepreneurial spirit" (Ch 2.2; Ch 5.1). Schumpeter's argument that corporations are better positioned than individuals to support R&D-driven innovation is contrasted with William Whyte's *The Organization Man* (1956) critique of bureaucratic loyalty culture [BT] (Ch 2.2).
 - **Adam Smith.** *An Inquiry into the Nature and Causes of the Wealth of Nations* (1776) is treated as the foundational text on capitalism, the invisible hand, and self-interest [BT] (Ch 2.2).
 - **Jean-Baptiste Say and Richard Cantillon.** Credited with the modern definitions of entrepreneurship as resource reallocation and risk-bearing respectively [BT] (Ch 2.2).
-- **Peter Drucker.** Cited approvingly for the seven sources of innovation, the importance of mission, and the maxim that "entrepreneurs innovate" [BT] (Ch 4.2; Ch 5.2; Ch 11.1, citing *Innovation and Entrepreneurship*, 1986; *Practice and Principles*, 1985).
+- **Peter Drucker.** Cited approvingly for the seven sources of innovation, the importance of mission, and the maxim that "entrepreneurs innovate" [BT] (Ch 4.2; Ch 5.2; Ch 11.1, citing *Innovation and Entrepreneurship: Practices and Principles*; the source's citations are internally inconsistent, dating the work 1986 in Ch 4 but 1985 — with the singular subtitle *Practice and Principles* — in Ch 11).
 - **Clayton Christensen.** *The Innovator's Dilemma* (1997) and *Competing Against Luck* (2016) cited approvingly for disruptive innovation and the jobs-to-be-done framework [BT] (Ch 1.3; Ch 4.2; Ch 11.1).
 - **Eric Ries.** *The Lean Startup* (2011) is the dominant cited source on lean startup, MVP, build-measure-learn, pivots, and innovation accounting [BT] (Ch 4.2; Ch 10.1).
 - **Steve Blank.** Credited with the problem-solution-fit framework and customer-development methodology [BT] (Ch 11.1).
 - **Marc Andreessen.** Cited for product-market fit and the "great markets pull product out of the startup" thesis [BT] (Ch 7.3, citing *The PMARCA Guide to Startups*).
 - **Alexander Osterwalder and Yves Pigneur.** *Business Model Generation* and *Value Proposition Design* are the source for the Business Model Canvas and the value proposition canvas [BT] (Ch 11.2).
 - **Ash Maurya.** *Scaling Lean* and *Running Lean* are cited for the Lean Canvas and the value-proposition formula [BT] (Ch 11.1; Ch 11.2).
-- **David Kelley and Tim Brown (IDEO).** Credited as the originators of design thinking in the business-management context [BT] (Ch 6.3).
+- **David Kelley and Tim Brown (IDEO).** Kelley is credited with making design thinking prevalent in business and entrepreneurship; Brown supplies the cited definition of design thinking [BT] (Ch 6.3).
 - **Henry Chesbrough.** Cited for the open-innovation definition [BT] (Ch 4.1).
 - **Guy Kawasaki.** Cited for the DICEE attributes of innovative products [BT] (Ch 4.3).
-- **Edward de Bono.** The Six Thinking Hats method is attributed to him via the de Bono Group [BT] (Ch 4.1).
+- **The de Bono Group.** The Six Thinking Hats method is cited to the de Bono Group [BT] (Ch 4.1).
 - **Larry Myler.** Cited for the four-tier innovation pyramid [BT] (Ch 4.3, citing *Forbes*).
 - **Everett Rogers.** *Diffusion of Innovations* (5th ed., 2010) is cited for the adoption-curve categories and the diffusion chasm [BT] (Ch 4.2).
 - **Mark Granovetter.** Cited for the strength-of-weak-ties research [BT] (Ch 6.1).
@@ -473,17 +473,16 @@ Reflection is "the first step in developing… mindfulness" (Ch 15.5, "The Power
 - **Daren C. Brabham.** Cited for the crowdsourcing definition [BT] (Ch 6.2).
 - **Constantinos Markides.** Cited for the business-model-innovation definition [BT] (Ch 11.1).
 - **Pfeffer and Salancik.** *The External Control of Organizations* (1978) is cited for the resource-dependence-theory model [BT] (Ch 14.3).
-- **Mary Parker Follett.** "The art of getting things done through people" cited as a precursor to modern management vocabulary [BT] (Ch 1.2 by reference; precursor framing only).
 - **Graham Wallas.** *The Art of Thought* is cited for the five-stage creativity model [BT] (Ch 4.3, via Sadler-Smith).
 - **Pierre Cossette.** Cited for the cognitive-bias review of entrepreneurs [BT] (Ch 15.2).
-- **Sherryl Sandberg.** *Lean In* cited for the maxim "what would you do if you weren't afraid?" [BT] (Ch 10.3).
+- **Sheryl Sandberg.** *Lean In* cited for the maxim "what would you do if you weren't afraid?" [BT] (Ch 10.3).
 - **Gary Klein.** *The Power of Intuition* cited for the gut-feel framing in decision-making [BT] (Ch 15.3).
 
 ## Positions the author explicitly frames against
 
-- **The "Field of Dreams" approach.** The text explicitly critiques the "if you build it, they will come" myth as the root of most failed startups (Ch 11.1).
+- **The "Field of Dreams" approach.** The text explicitly critiques the "if you build it, they will come" myth as an approach to avoid, citing CB Insights' finding that 42 per cent of 101 failed startups failed for "no market need" (Ch 11.1).
 - **Shareholder primacy.** The Dodge v. Ford-derived doctrine is presented as a narrow and outdated frame; the Business Roundtable's stakeholder framing is presented as the corrective (Ch 3.1).
-- **Build-then-launch (waterfall) product development.** The lean-startup discipline is presented as the alternative to large up-front product builds with no market validation (Ch 10.1).
+- **Build-then-launch product development.** The lean-startup discipline is presented as the alternative to large up-front product builds with no market validation (Ch 10.1).
 - **Solo-founder romanticism.** The text repeatedly emphasises that almost no successful venture is the work of a single inventor; teams, advisors, and networks are required (Ch 12.2; Ch 4.3).
 - **Profit as the sole purpose of business.** The chapter on social entrepreneurship and CSR explicitly frames profit-only operating as ethically and operationally insufficient (Ch 3.2).
 - **Patents as the primary IP strategy for fast-moving fields.** For software and rapidly iterating product fields, the text recommends building first and patenting later, rather than the reverse (Ch 4.3; Ch 7.4).

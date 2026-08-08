@@ -12,7 +12,7 @@ sources:
     resource: https://openscholarship.wustl.edu/ssdl/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # SSDL, Systems Thinking Foundations — Decision-Making Distillation
 
@@ -237,10 +237,10 @@ The point of these examples is not that systems thinking always reverses the con
 - *Cronin, Gonzalez, and Sterman (2009), Organizational Behavior and Human Decision Processes* — empirical evidence that "even students with strong mathematical training make persistent mistakes understanding even simple dynamic systems that include accumulations" [BT]. Key Concept 12 traces here.
 - *Donella Meadows, Thinking in Systems (2008)* — the bathtub stock-and-flow example in Brief 1.06 is Meadows's canonical illustration; mental-model surfacing "into the light of day" phrasing in Brief 1.03 is attributed to Meadows [BT]. Key Concepts 10 and 4 trace here.
 - *Daniel H. Kim, Systems Archetypes I (1993, Pegasus Communications)* — the five archetypes in Brief 1.07 are explicitly adapted from Kim's resource [BT]. Key Concept 14 traces here.
-- *Peter Senge, The Fifth Discipline and Schools that Learn* — cited in Brief 1.07 acknowledgements as inspiration for the archetype tradition; Senge is the tradition Kim is part of [BT].
-- *Philip Johnson-Laird, Mental Models (1983)* and *Doyle & Ford (1998)* — foundational lineage for the mental-models concepts in Brief 1.03 [BT]. Key Concept 4 traces here.
-- *Peter Hovmand, Community Based System Dynamics (2014)* — cited as the source for Group Model Building method (Brief 1.03) and acknowledged in Brief 1.06 for the accumulation example story [BT]. Key Concept 5 traces here.
-- *Eric Wolstenholme (2003)* — cited for the minority position that four archetypes can explain all the others (Brief 1.07) [BT]. Key Concept 17 traces here.
+- *Peter Senge, The Fifth Discipline and Schools that Learn* — named among recommended resources in Brief 1.07's acknowledgements [BT].
+- *Philip Johnson-Laird, Mental Models (1983)* and *Doyle & Ford (1998)* — listed in Brief 1.03's Sources for the mental-models concepts [BT]. Key Concept 4 traces here.
+- *Peter Hovmand, Community Based System Dynamics (2014)* — listed in Brief 1.03's Sources and acknowledged in Brief 1.06 for the accumulation example story [BT]. Key Concept 5 traces here.
+- *Eric Wolstenholme (2003)* — one of references 1-3 cited collectively after the minority position that four archetypes can explain all the others (Brief 1.07) [BT]. Key Concept 17 traces here.
 
 **Named limits of the source.** The briefs are a five-brief curriculum series for graduate social-work students, not a decision-making text. They develop concepts — mental models, feedback, accumulations, archetypes — at introductory depth; they do not develop quantitative systems-dynamics methods (simulation, sensitivity analysis) or group-facilitation craft. The examples are drawn primarily from education and social-services contexts; the software-engineering and organisational contexts in this distillation's worked example are operator-authored extrapolations grounded in the brief's frameworks.
 

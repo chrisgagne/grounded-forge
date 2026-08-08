@@ -180,7 +180,7 @@ These five decisions illustrate the volume's central decision-making patterns: r
 | Reference | Connection |
 |---|---|
 | Theory of Constraints (Goldratt) | The volume's constraint analysis (Ch 10.6) and lean-practices framing (Ch 1.5) draw directly on Goldratt's bottleneck identification and five focusing steps. Practitioners working on throughput problems should pair the volume's contribution-margin-per-constraint approach with Goldratt's broader systems-thinking framework. |
-| Lean operations / Toyota Production System | Just-in-time, kaizen, and Lean Six Sigma are introduced in Ch 1.5 as cost-reduction frameworks; their integration with managerial accounting comes through standard-costing variances (Ch 8) and continuous-improvement budgeting (Ch 7). |
+| Lean operations (Toyota Motor Corporation) | Just-in-time, kaizen, and Lean Six Sigma are introduced in Ch 1.5 as cost-reduction frameworks; their integration with managerial accounting comes through standard-costing variances (Ch 8) and continuous-improvement budgeting (Ch 7). |
 | Net present value and capital budgeting (corporate finance) | The volume develops NPV and IRR (Ch 11) consistent with corporate-finance treatment but at an introductory level. Practitioners should pair this with weighted-average-cost-of-capital analysis (Ch 12.3) and risk-adjusted required-rates-of-return frameworks. |
 | Balanced scorecard (Kaplan and Norton) | The volume's Ch 12.4 develops the four-perspective BSC. Practitioners should pair it with Kaplan and Norton's strategy-map work to align strategic objectives with measurement. |
 | Stakeholder theory (Freeman; volume references) | Ch 13 frames sustainability reporting as stakeholder-theory accountability. The volume's treatment of stakeholder users in Ch 13.2 connects to wider stakeholder-engagement frameworks. |
@@ -198,7 +198,7 @@ These five decisions illustrate the volume's central decision-making patterns: r
 - *Art Schneidermann / Analog Devices* — cited as the earlier BSC origin (Ch 12.4) [BT].
 - *Chris Argyris* — cited for double-loop learning (Ch 9.1) [BT].
 - *John Elkington* — cited for the triple bottom line, "first proposed in 1997" (Ch 13.1) [BT].
-- *Toyota Production System / Taiichi Ohno* — cited as origin of just-in-time and lean practices (Ch 1.5) [BT].
+- *Toyota Motor Corporation* — cited as origin of just-in-time and lean practices (Ch 1.5) [BT].
 - *Ford Pinto case* — cited as the central ethical caution in Ch 10.6; not held as a primary reference.
 
 **Named limits of the source.** The book covers managerial (internal) accounting. It does not cover: financial accounting for external reporting (that is Vol 1's scope); IFRS (not addressed); real-options theory for capital budgeting (mentioned in passing but not developed); transfer pricing beyond introductory framing; or detailed tax accounting. The ethics framework (Ch 1.4) is the IMA's eight-step model; it is not a substitute for a full ethics treatment such as OpenStax *Business Ethics*.

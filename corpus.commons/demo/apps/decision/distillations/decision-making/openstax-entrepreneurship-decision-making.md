@@ -42,7 +42,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 15.  **Cognitive biases that sabotage decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. (Source: Ch 15.2, citing Cossette)
 
-16.  **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider whether course-correction is feasible. The text frames the bias they protect against: escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "identified points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position" [V] (Ch 15.2). (Source: Ch 15.2)
+16.  **Fail-safe points.** Pre-committed decision triggers built into the business plan that force the entrepreneur to consider whether course-correction is feasible. The text frames the bias they protect against: escalation of commitment is when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2). Fail-safe points are "the points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position and whether this action is reasonable and feasible" [V] (Ch 15.2). (Source: Ch 15.2)
 
 17.  **Burn rate and runway.** Cash on hand divided by monthly burn rate equals months of runway; this defines the decision horizon. (Source: Ch 9.4; Ch 10.1)
 

@@ -193,16 +193,16 @@ Four weeks later the team's average story completion time has dropped from three
 **Borrowed-through gaps.** The following sources appear in the deep reference as [BT] citations — the source text cites them by name but this corpus does not hold them as primary references. Treat claims tracing to these sources as resting on a second-hand representation:
 
 - *Kent Beck, Extreme Programming Explained* — cited by name as the source of the Courage value framing ("Like Kent Beck noticed...").
-- *W. Edwards Deming, System of Profound Knowledge* — cited (with link to deming.org) as grounding for the Holistic / Systemic Approach value.
-- *Eliyahu M. Goldratt, Theory of Constraints* — cited alongside Deming for the same value.
+- *Deming, System of Profound Knowledge* — cited (with link to deming.org) as grounding for the Holistic / Systemic Approach value.
+- *Goldratt, Theory of Constraints* — cited alongside Deming for the same value.
 - *Alistair Cockburn, "Information radiator"* — cited as the conceptual source for visualisation extending beyond the Kanban board.
 - *Donald G. Reinertsen, The Principles of Product Development Flow* — cited as "one of the best explanations" of batch-size reduction's effect on flow.
-- *Toyota Production System* (Wikipedia citation) — cited as the Japanese origin of Kanban and the Lean / TPS lineage.
+- *Toyota Production System* (Wikipedia citation, linked from the word *Japan*) — the source says the Lean movement originated in Japan and calls this type of Kanban カンバン (Kamban); Lean / TPS lineage.
 - *Agile Manifesto* (agilemanifesto.org) — cited as one of the two movements Open Kanban aligns with.
 - *Lean software development* (Wikipedia citation) — cited as the second movement Open Kanban aligns with.
 - *VersionOne 2013 State of Agile Survey* — cited as evidence of Kanban's doubling adoption among Agile methodologies.
 - *Alan Shalloway, Kanban for Teams; Corey Ladas, Scrumban; Karl Scotland, Kanban Thinking* — named as fellow-traveller methods.
-- *Free Software Foundation, four freedoms* — cited as the model for Open Kanban's four freedoms.
+- *The open-source movement's four essential freedoms of free software* — cited as the model for Open Kanban's four freedoms.
 - *Kaizen Groups* (Wikipedia citation) — one form the Learn and improve continuously practice can take.
 
 **Named limits of this source.** Open Kanban is the heart of a Kanban method, not a complete methodology. It explicitly declines to prescribe WIP limits, service classes, quantitative flow metrics (cumulative flow diagrams, Little's Law, lead-time histograms), cadence or replenishment rituals, or cost-of-delay analysis. Claims about those topics require sources outside this corpus.

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:29e3c88a3c446c180f71e48a62b4e477d663f062e7465a41820a5c071ecbfc8a -->
 # OpenStax Principles of Finance, Software-Business Distillation
 
 **Source:** OpenStax (2022). *Principles of Finance*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-finance. Senior contributing authors Julie Dahlquist and Rainford Knight, with six contributing authors.

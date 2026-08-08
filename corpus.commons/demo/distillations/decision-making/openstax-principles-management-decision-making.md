@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:2b3f965b1532d706dbf97c047ac40324fd2f5b4ecc1c163c4dd5c054646ae46a -->
 # OpenStax Principles of Management, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -167,7 +168,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 | Reference | Connection |
 |---|---|
 | OpenStax, Organizational Behavior (Ch 6) | The two books treat decision-making with very similar dual-system, six-step, six-barrier framings. Pair them: OpenStax OB anchors the cognitive process; Principles of Management adds the strategic, planning, and change-model lenses. Where both apply, use both rather than choose. |
-| Bounded rationality (Simon) | The text treats bounded rationality as foundational. Practitioners working in decision-making contexts should treat Simon's framing as the explanation for why the six-step process and evidence-based methods exist. |
+| Bounded rationality | The text treats bounded rationality as foundational. Practitioners working in decision-making contexts should treat this framing as the explanation for why the six-step process and evidence-based methods exist. |
 | Goal-setting theory (Locke) | Goal theory and decision-making are paired: difficult, specific, accepted goals shape what decisions get made and which alternatives feel salient. The text endorses goal theory as one of the strongest in OB. |
 | Expectancy theory (Vroom) | Decision-making about effort exertion follows expectancy logic. Practitioners working on motivation should pair the text's decision-making framework with expectancy analysis. |
 | Conflict-resolution (Follett, Thomas) | Follett's three paths (dominance, compromise, integration) and Thomas's five modes (competing, collaborating, compromising, avoiding, accommodating) provide the choice apparatus for handling disagreement within decisions. |
@@ -181,7 +182,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *James Rest, four-component ethical decision-making* — moral sensitivity, moral judgment, moral motivation, moral character/action (Ch 2.5) [BT]. Key Concept 6 traces here.
-- *Herbert Simon, bounded rationality* — cited as foundational for decision limits (Ch 2.4) [BT]. Key Concept 3 and Integration table trace here.
+- *Bounded rationality* — foundational for decision limits (Ch 2.4) [BT]; the source explains the concept without naming an originator. Key Concept 3 and Integration table trace here.
 - *Mary Parker Follett, three conflict-resolution paths* — dominance, compromise, integration (Ch 3.6) [BT]. Key Concept 9 traces here.
 - *Michael Porter, Five Forces and generic strategies* — industry analysis and stuck-in-the-middle position (Ch 8.4, Ch 8.6) [BT]. Key Concepts 10 and 15 trace here.
 - *Jay Barney, VRIO framework* — value, rarity, imitability, organisation (Ch 8.5) [BT]. Key Concept 10 traces here.
@@ -201,4 +202,4 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 **Named limits of the source.** The book is an introductory management survey; it develops a wide range of decision-making frameworks but rarely at depth. Strategic-analysis tools (SWOT, PESTEL, Five Forces, VRIO) are introduced without the strategic-planning context needed to apply them well in practice — that requires supplementing with strategy-specialist sources. The ethical decision-making section covers Rest's model and seven ethical principles but does not develop case-level ethical analysis; practitioners facing hard ethical choices need more than a survey treatment.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-principles-management-deep.md`). Key Concepts are `[AP]` (the source's stated positions) or `[AE]` (examples drawn from the source). The foundational frameworks cited here — bounded rationality (Simon), Follett's conflict paths, Porter's generic strategies, Rest's ethical model, Drucker's goal framework, Lewin/Kotter/AI change models — are all `[BT]`; the source endorses and explains them but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-principles-management-deep.md`). Key Concepts are `[AP]` (the source's stated positions) or `[AE]` (examples drawn from the source). The foundational frameworks cited here — bounded rationality, Follett's conflict paths, Porter's generic strategies, Rest's ethical model, Drucker's goal framework, Lewin/Kotter/AI change models — are all `[BT]`; the source endorses and explains them but did not originate them.

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:a475cbbbc3e04144f521484f9ce53296bd53de3a84b6c429b343f66afa2e8bd9 -->
 # OpenStax Organizational Behavior, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/organizational-behavior. Lead author J. Stewart Black; 11 contributing authors.
@@ -163,7 +164,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 - *Thomas-Kilmann conflict modes* — the two-axis (assertiveness × cooperativeness) five-mode model (Ch 14.2) [BT]. Integration table reference to Thomas traces here.
 - *Roger Fisher and William Ury, Getting to Yes / BATNA* — principled negotiation anchors the conflict-resolution chapter (Ch 14.4) [BT].
 - *David Cooperrider, Appreciative Inquiry* — bottom-up emergent change alternative to deficit-based change (Ch 16.3) [BT]. Integration table reference traces here.
-- *Patrick Lencioni, Five Dysfunctions* — trust-conflict-commitment-accountability-results model for team decisions (Ch 10.4) [BT].
+- *Patrick Lencioni, Five Dysfunctions* — trust-conflict-commitment chain (the first three dysfunctions) for team decisions (Ch 10.4) [BT].
 - *Kurt Lewin, change model* and *John Kotter, eight-step model* — change management frameworks presented in Ch 16.3 [BT].
 - *Taylor Cox and Stacy Blake* — six competitive advantages from valuing diversity (Ch 5.3) [BT].
 - *Henry Mintzberg, managerial roles* — interpersonal, informational, decisional roles including the Entrepreneur and Disturbance Handler roles relevant to decision-making (Ch 11.3) [BT].

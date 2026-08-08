@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:898a9d7dac2f5c6699f587b47284bb0a413c6dabd48872dfa82c7c4ae169b6f2 -->
 # US Army TC 25-20, Retrospective Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. Licence: Public domain (17 USC §105 — US Government work product). Scope: open.

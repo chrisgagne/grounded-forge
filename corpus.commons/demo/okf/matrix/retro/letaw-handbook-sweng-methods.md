@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Letaw, Handbook of Software Engineering Methods, Retro Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## Retro Relevance
 
-The Handbook projects onto the retrospective as a *structured-method toolkit*: every method Letaw presents is framed as a risk-reduction move [V] (Ch 2, opening), and the retro is precisely the moment when the team decides which risks to act on. Three methods carry the most weight: fist of five for surfacing latent dissent before an experiment is committed, the RACI matrix for resolving ambiguous ownership when an experiment has no clear accountable individual, and the INVEST criteria for assessing whether a proposed experiment is well-formed. A second cluster — the twelve code smells, the Inclusivity Heuristics, planning poker — applies when the retro's content surfaces code quality, UI-related friction, or estimation discipline. The projection is strong fire at Phase 4 (experiment design, where fist of five, RACI, and INVEST all apply) and moderate fire at Phase 2 (data gathering, where planning poker and code smells surface) and Phase 3 (insight, where RACI maps contributory-factor ownership).
+The Handbook projects onto the retrospective as a *structured-method toolkit*: Letaw frames each of his project-management methods as a risk-reduction move [AP] (Ch 2, opening), and the retro is precisely the moment when the team decides which risks to act on. Three methods carry the most weight: fist of five for surfacing latent dissent before an experiment is committed, the RACI matrix for resolving ambiguous ownership when an experiment has no clear accountable individual, and the INVEST criteria for assessing whether a proposed experiment is well-formed. A second cluster — the twelve code smells, the Inclusivity Heuristics, planning poker — applies when the retro's content surfaces code quality, UI-related friction, or estimation discipline. The projection is strong fire at Phase 4 (experiment design, where fist of five, RACI, and INVEST all apply) and moderate fire at Phase 2 (data gathering, where planning poker and code smells surface) and Phase 3 (insight, where RACI maps contributory-factor ownership).
 
 ## Key Concepts for Retro
 

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:e68e8da5efcbc6b8073063365e5e5af966f7761360bbb07bfbe3d9f66ba9e989 -->
 # Jones, Evidence-Based Software Engineering, AAR Distillation
 
 **Source:** Jones, D. M. (2020). *Evidence-Based Software Engineering: based on the publicly available data*. Version 1.0. Knowledge Software, Ltd. ISBN: 978-1-8382913-0-3. Licence: CC BY-SA 4.0 (copyleft propagates to derivatives). Scope: open.

@@ -40,7 +40,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 14.  **Open systems and external alignment.** Organisations are open systems exchanging resources with their environment through feedback loops (Katz and Kahn). Stakeholder engagement is the human side of those resource exchanges; closed-system thinking misses the resource flows that determine viability. (Source: Ch 4.4)
 
-15.  **FCPA, UN Global Compact, OECD frameworks.** The Foreign Corrupt Practices Act prohibits American firms from accepting/offering bribes to foreign officials. The UN Global Compact's ten principles guide international firms in less-developed countries. These frameworks ground cross-border stakeholder engagement under the single ethical standard. (Source: Ch 5.7)
+15.  **FCPA and UN Global Compact frameworks.** The Foreign Corrupt Practices Act prohibits American firms from accepting/offering bribes to foreign officials. The UN Global Compact's ten principles guide international firms in less-developed countries. These frameworks ground cross-border stakeholder engagement under the single ethical standard. (Source: Ch 5.7)
 
 16.  **Brown-Trevino moral entrepreneur.** Someone who creates a new ethical norm or enforces a new norm through "the demonstration of normatively appropriate conduct through personal actions and interpersonal relationships, and the promotion of such conduct to followers through two-way communication, reinforcement, and decision-making". Stakeholder engagement at scale requires moral entrepreneurs in leadership positions. (Source: Ch 5.8)
 
@@ -182,7 +182,7 @@ This worked example illustrates several key concepts in the source: the eight-qu
 | Conflict resolution (Follett, Thomas) | Follett's three paths (dominance, compromise, integration) and Thomas's five modes provide the choice apparatus for stakeholder conflict. Integration is preferred for high-stakes ongoing relationships. |
 | Appreciative Inquiry (Cooperrider) | For stakeholder engagement at scale, especially for organisation-wide change, AI offers a bottom-up alternative producing stronger commitment than top-down ratification. |
 | Mintzberg's managerial roles | The liaison role is central to sustained engagement; the informational roles structure the data flows that engagement requires. |
-| FCPA, UN Global Compact, OECD frameworks | Cross-border stakeholder engagement under the single ethical standard. Pair with the seven ethical principles and the rejection of ethical relativism. |
+| FCPA and UN Global Compact frameworks | Cross-border stakeholder engagement under the single ethical standard. Pair with the seven ethical principles and the rejection of ethical relativism. |
 | Open systems (Katz and Kahn) | Stakeholder engagement is the human side of the resource exchanges that constitute the organisation as an open system. Closed-system thinking misses this. |
 | Brown-Trevino moral entrepreneur | Sustained ethical-stakeholder engagement at scale requires moral entrepreneurs in leadership positions who model the standards in their own behaviour. |
 
@@ -197,7 +197,7 @@ This worked example illustrates several key concepts in the source: the eight-qu
 - Brown and Trevino — moral entrepreneur (Ch 5.8) [BT]
 - Cooperrider — Appreciative Inquiry (Ch 10) [BT]
 - McKinsey 7-S model (Ch 4.4) [BT]
-- FCPA, UN Global Compact, OECD — cross-border ethics frameworks (Ch 5.7) [BT]
+- FCPA, UN Global Compact — cross-border ethics frameworks (Ch 5.7) [BT]
 - Katz and Kahn — open systems (Ch 1) [BT]
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:631f9928f2896f8d2cace0a4a7a590974b38a7bddcc71bef36fb2d72daefb808 -->
 # OpenStax Psychology 2e, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.

@@ -44,7 +44,7 @@ The world's major economic systems fall into broad categories: capitalism (priva
 
 Three main macroeconomic goals: economic growth, full employment, and price stability (Ch 1.4, "Macroeconomics: The Big Picture"). *Gross domestic product (GDP)* — "the total market value of all final goods and services produced within a nation's borders each year" [V] (Ch 1.4) — is the most basic measure of growth. The U.S. has been growing at 3-4% annually; China at 6-7% (Ch 1.4). *Business cycles* are upward and downward changes in economic activity; a *recession* is "a decline in GDP that lasts for two consecutive quarters" [V] (Ch 1.4). The 2007-2009 recession ended June 2009 (Ch 1.4).
 
-*Full employment* is defined operationally as 94-96% of those available to work having jobs (Ch 1.4, "Keeping People on the Job"). Four types of unemployment are catalogued: frictional (short-term, between-jobs, not cycle-related), structural (mismatch between jobs and skills), cyclical (downturn-driven), and seasonal (Ch 1.4, "Types of Unemployment"). *Inflation* is rising prices; *purchasing power* is "the value of what money can buy" [V] (Ch 1.4, "Keeping Prices Steady"). Two types of inflation: *demand-pull* (too much money chasing too few goods) and *cost-push* (input costs push prices up); the consumer price index (CPI) and producer price index (PPI) measure each (Ch 1.4).
+*Full employment* is defined operationally as 94-96% of those available to work having jobs (Ch 1.4, "Keeping People on the Job"). Four types of unemployment are catalogued: frictional (short-term, between-jobs, not cycle-related), structural (mismatch between jobs and skills), cyclical (downturn-driven), and seasonal (Ch 1.4, "Types of Unemployment"). *Inflation* is rising prices; *purchasing power* is "the value of what money can buy" [V] (Ch 1.4, "Keeping Prices Steady"). Two causes of inflation: *demand-pull* (too much money chasing too few goods) and *cost-push* (input costs push prices up); inflation is measured by the consumer price index (CPI, retail prices) and the producer price index (PPI, producer and wholesale prices) (Ch 1.4).
 
 The government uses *monetary policy* and *fiscal policy* to achieve macroeconomic goals (Ch 1.5, "Achieving Macroeconomic Goals"). Monetary policy is "a government's programs for controlling the amount of money circulating in the economy and interest rates" [V] (Ch 1.5); the Federal Reserve System (the Fed) controls the money supply and signals through the federal funds rate. *Contractionary policy* tightens money supply (raises rates); *expansionary policy* loosens it (Ch 1.5). Fiscal policy is "its program of taxation and spending" [V] (Ch 1.5). When government spending exceeds tax revenues, the result is a *federal budget deficit*; the accumulated total is the *national debt* (Ch 1.5).
 
@@ -88,7 +88,7 @@ Two decision tests are added: the *feelings test* (after deciding, do I sleep we
 
 ### The pyramid of corporate social responsibility
 
-*Corporate social responsibility (CSR)* is "the concern of businesses for the welfare of society as a whole" beyond what is required by law or contract [V] (Ch 2.3, "Managing a Socially Responsible Business"). The pyramid has four components stacked from foundation upward (Ch 2.3, Exhibit 2.4): economic responsibility (the foundation — without profit, the others don't matter), legal responsibility (obey the law), ethical responsibility (do what is right, just, and fair), and philanthropic responsibility (be a good corporate citizen). Business activity sorts into three categories: illegal-and-irresponsible; irresponsible-but-legal; and legal-and-responsible (the vast majority) [AP] (Ch 2.3).
+*Corporate social responsibility (CSR)* is "the concern of businesses for the welfare of society as a whole" beyond what is required by law or union contract [V] (Ch 2.3, "Managing a Socially Responsible Business"). The pyramid has four components stacked from foundation upward (Ch 2.3, Exhibit 2.4): economic responsibility (the foundation — without profit, the others don't matter), legal responsibility (obey the law), ethical responsibility (do what is right, just, and fair), and philanthropic responsibility (be a good corporate citizen). Business activity sorts into three categories: illegal-and-irresponsible; irresponsible-but-legal; and legal-and-responsible (the vast majority) [AP] (Ch 2.3).
 
 ### Stakeholders defined
 
@@ -178,9 +178,9 @@ Entrepreneurs share a personality profile (Ch 5.2, "The Entrepreneurial Personal
 
 ### Small business in the U.S. economy
 
-*Small businesses* employ about half the U.S. private-sector workforce and represent about half of U.S. economic output (Ch 5.3, "Small Business: Driving America's Growth"). 80% of the ~29.7 million U.S. businesses have no employees; 89% of those with employees have <20 employees; only ~19,000 have >500 employees (Ch 5, Table 5.1).
+*Small businesses* employ about half the U.S. private-sector workforce and represent about half of U.S. economic output (Ch 5.3, "Small Business: Driving America's Growth"). Based on 2014 firm-size data: 80% of the ~29.7 million U.S. businesses have no employees; 89% of those with employees have <20 employees; only ~19,000 have >500 employees (Ch 5, Table 5.1, "Firm Size Data: 2014").
 
-### Six steps to starting a business
+### Seven steps to starting a business
 
 The Small Business Administration (SBA) checklist (Ch 5.4, "Ready, Set, Start Your Own Business"):
 
@@ -378,7 +378,7 @@ Major federal laws affect hiring, training, and pay: Fair Labor Standards Act (f
 
 ## Part IX: Motivating employees (Ch 9)
 
-### Eight motivation theories in chronological development
+### Ten entries in the chronological account of motivation thinking
 
 The chapter develops a chronological account of motivation thinking:
 
@@ -570,15 +570,15 @@ Two main categories: *in-store retailing* (Walmart, Target, Macy's, Neiman Marcu
 
 The goal is "to create a satisfied customer by coordinating all of the activities of the supply-chain members into a seamless process" [V] (Ch 12.4, "Using Supply Chain Management to Increase Efficiency and Customer Satisfaction"). The shift is from mass-production push (manufacturers produce standardised products pushed through to consumers) to demand pull (products driven by customers expecting unique configurations). Supply-chain managers play dual role: communicator of customer demand and physical-flow process manager.
 
-### Six promotion goals
+### Seven promotion goals
 
-Promotion is "an attempt by marketers to inform, persuade, or remind consumers and B2B users to influence their opinion or elicit a response" [V] (Ch 12.5, "Promotion Strategy"). Six goals: creating awareness; getting consumers to try products; providing information; keeping loyal customers; increasing amount and frequency of use; identifying target customers; teaching the customer (especially for service products in co-creation contexts) (Ch 12.5).
+Promotion is "an attempt by marketers to inform, persuade, or remind consumers and B2B users to influence their opinion or elicit a response" [V] (Ch 12.5, "Promotion Strategy"). Seven goals: creating awareness; getting consumers to try products; providing information; keeping loyal customers; increasing amount and frequency of use; identifying target customers; teaching the customer (especially for service products in co-creation contexts) (Ch 12.5).
 
 ### The promotional mix
 
 Six elements (Ch 12.5, "The Promotional Mix"):
 
-- *Traditional advertising*: paid nonpersonal promotion by an identified sponsor through traditional media channels. Total U.S. ad spend ~$206 billion annually [V] (Ch 12.6).
+- *Traditional advertising*: paid nonpersonal promotion by an identified sponsor through traditional media channels. Total U.S. advertising expenses were estimated at more than $206 billion in 2017 [V] (Ch 12.6).
 - *Personal selling*: face-to-face presentation. ~6.5 million people in U.S.; about 45% women (Ch 12.7).
 - *Sales promotion*: marketing events stimulating buying — coupons, samples, displays, contests, premiums (Ch 12.8). U.S. consumers receive >$321 billion in coupons each year and redeem ~$3 billion [V] (Ch 12.8).
 - *Public relations*: communication or activity designed to win goodwill or prestige (Ch 12.9). *Publicity* is information appearing in news media not directly paid for.
@@ -602,9 +602,9 @@ The text emphasises that "in today's business world, in which relationships are 
 
 ## Part XIII: Information technology (Ch 13)
 
-### Five trends in IT
+### Six IT focal areas and three named trends
 
-The IT chapter develops five focal areas: how technology transforms business through information; computer networks (LAN, WAN, internet, intranets, extranets); management information systems; technology management and planning; protecting computers and information; and trends in IT (Ch 13). The book's IT chapter is more dated than other chapters (covers decisions companies face in technology adoption — buy vs build, make vs buy software, IT governance) and is therefore lighter coverage in this deep ref. Computer networks support employee collaboration; *cloud computing* lets businesses store and access data without running applications on local servers; mobile technology enables anywhere communication; robots automate repetitive tasks; *blockchain technology* may automate multi-party transactions in the future (Ch 13.6 and Ch 10.4).
+The IT chapter develops six focal areas: how technology transforms business through information; computer networks (LAN, WAN, internet, intranets, extranets); management information systems; technology management and planning; protecting computers and information; and trends in IT (Ch 13). The trends section names three trends reshaping the IT landscape: digital forensics, the shift to a distributed workforce, and the increasing use of grid computing (Ch 13.6). The book's IT chapter is more dated than other chapters (covers decisions companies face in technology adoption — buy vs build, make vs buy software, IT governance) and is therefore lighter coverage in this deep ref. Computer networks support employee collaboration; *cloud computing* lets businesses store and access data without running applications on local servers; mobile technology enables anywhere communication; robots automate repetitive tasks; *blockchain technology* may automate multi-party transactions in the future (Ch 13.6 and Ch 10.4).
 
 ## Part XIV: Accounting (Ch 14)
 
@@ -612,7 +612,7 @@ The IT chapter develops five focal areas: how technology transforms business thr
 
 *Accounting* is "the process of collecting, recording, classifying, summarizing, reporting, and analyzing financial activities" [V] (Ch 14.1, "Accounting Basics"). Two report types: *managerial accounting* (internal; for managers' evaluation and decisions about current and future operations) and *financial accounting* (external; for lenders, suppliers, investors, government, and others) (Ch 14.1, "Who Uses Financial Reports?").
 
-The *generally accepted accounting principles (GAAP)* govern U.S. financial reporting; the *Financial Accounting Standards Board (FASB)* establishes financial accounting standards. The *International Accounting Standards Board (IASB)* publishes International Financial Reporting Standards (IFRS); FASB and IASB have not agreed on a global set of standards (Ch 14.1, inset).
+The *generally accepted accounting principles (GAAP)* govern U.S. financial reporting; the *Financial Accounting Standards Board (FASB)* establishes financial accounting standards. The *International Accounting Standards Board (IASB)* publishes International Financial Reporting Standards (IFRS); as of the source's writing, FASB and IASB have not agreed on a global set of standards — "for now" the two organizations agree to disagree on when and if they can converge GAAP and IFRS (Ch 14.1, inset).
 
 ### Public vs private accountants and the post-Enron environment
 
@@ -647,7 +647,7 @@ Industry-specific norms matter: a grocery store may have very low net profit mar
 
 ### Accounting trends
 
-Three trends (Ch 14.8, "Trends in Accounting"): cloud-based services (cloud-based accounting firms add five times more clients than traditional firms; >90% of small/medium businesses use cloud-based accounting software); automation (especially in auditing); staffing challenges (different employee profile needed as accounting becomes advisory).
+Three trends (Ch 14.8, "Trends in Accounting"): cloud-based services (cloud-based accounting firms add five times more clients than traditional firms; it is estimated that >90% of small/medium businesses use cloud-based accounting software); automation (especially in auditing); staffing challenges (different employee profile needed as accounting becomes advisory).
 
 ## Part XV: Money and financial institutions (Ch 15)
 
@@ -812,7 +812,7 @@ The text reproduces a long list of major consumer protection laws (App A, Table 
 
 ### Taxes
 
-Four main tax types (App A, "Other Types of Taxes"): *income taxes* (progressive; rates increase with income); *property taxes* (real and personal property; assessed value); *payroll taxes* (employer's share of Social Security plus federal/state unemployment taxes); *sales taxes* (percentage of sales price; vary by state); *excise taxes* (on specific items like gasoline, alcohol, cigarettes, airline tickets, cars, guns).
+*Income taxes* (progressive; rates increase with income) (App A, "Income Taxes"), plus four other main tax types (App A, "Other Types of Taxes"): *property taxes* (real and personal property; assessed value); *payroll taxes* (employer's share of Social Security plus federal/state unemployment taxes); *sales taxes* (percentage of sales price; vary by state); *excise taxes* (on specific items like gasoline, alcohol, cigarettes, airline tickets, cars, guns).
 
 ## Key statistics (with provenance)
 
@@ -830,14 +830,14 @@ Four main tax types (App A, "Other Types of Taxes"): *income taxes* (progressive
 | U.S. corporate philanthropy annual | >$19 billion | [V] (Ch 2.4) |
 | Socially responsible strategies invested assets | >$7 trillion | [V] (Ch 2.4) |
 | U.S. trade deficit 2016 | $500 billion | [V] (Ch 3.1) |
-| U.S. global trade, value | >$16 trillion/year | [V] (Ch 3.1) |
+| Global international trade, value | >$16 trillion/year | [V] (Ch 3.1) |
 | Sole proprietorships share of U.S. businesses / revenue / profit | 72% / 4% / 15% | [V] (Ch 4 Table 4.1) |
 | Partnerships share of U.S. businesses / revenue / profit | 10% / 15% / 27% | [V] (Ch 4 Table 4.1) |
 | Corporations share of U.S. businesses / revenue / profit | 18% / 81% / 58% | [V] (Ch 4 Table 4.1) |
 | Franchised businesses U.S. economic output | $890 billion | [V] (Ch 4.5) |
 | Franchised businesses U.S. direct jobs | ~8.9 million | [V] (Ch 4.5) |
-| U.S. small businesses with no employees | 80% of ~29.7 million | [V] (Ch 5 Table 5.1) |
-| U.S. small businesses with <20 employees | 89% of those with employees | [V] (Ch 5 Table 5.1) |
+| U.S. small businesses with no employees (2014 firm-size data) | 80% of ~29.7 million | [V] (Ch 5 Table 5.1) |
+| U.S. small businesses with <20 employees (2014 firm-size data) | 89% of those with employees | [V] (Ch 5 Table 5.1) |
 | Five-year U.S. business survival rate | 48.7% | [V] (Ch 5 Table 5.4) |
 | Small business closure rate (5 years) | ~50% | [V] (Ch 5.4) |
 | U.S. union membership 1983 / 2017 | 20.1% (17.7M) / 10.7% (14.8M) | [V] (Ch 8.7) |
@@ -849,12 +849,12 @@ Four main tax types (App A, "Other Types of Taxes"): *income taxes* (progressive
 | Global mutual fund assets | >$40 trillion | [V] (Ch 16.6) |
 | U.S. mutual fund assets | >$19 trillion | [V] (Ch 16.6) |
 | Global ETF assets, 2016 | >$3.5 trillion (U.S. 73%) | [V] (Ch 16.6) |
-| U.S. global bond market, all currencies | ~$88 trillion | [V] (Ch 16.6) |
+| Global bond market (SIFMA estimate) | nearly $88 trillion | [V] (Ch 16.6) |
 | U.S. corporate bond issuance, 2016 | ~$1.5 trillion | [V] (Ch 16.6) |
 | U.S. Treasury issuance, 2016 | ~$1.7 trillion | [V] (Ch 16.6) |
 | U.S. municipal bond issuance, 2016 | ~$445.8 billion | [V] (Ch 16.6) |
 | U.S. annual coupon distribution / redemption | $321 billion / $3 billion | [V] (Ch 12.8) |
-| U.S. annual advertising spending | ~$206 billion | [V] (Ch 12.6) |
+| U.S. advertising spending, 2017 | estimated at more than $206 billion | [V] (Ch 12.6) |
 | Global advertising spending | ~$546 billion | [V] (Ch 12.6) |
 | Unscheduled absences in 2017 not actually due to illness (CareerBuilder) | 40% | [V] (Ch 9.8) |
 | Asbestos-lawsuit total cost | >$70 billion | [V] (App A) |
@@ -892,7 +892,7 @@ Four main tax types (App A, "Other Types of Taxes"): *income taxes* (progressive
 - **Canned sales presentations are ineffective in modern relationship-driven selling.** "Canned or structured presentations are not well received, nor do they support the idea of building a great bond with the customer. A completely unstructured presentation that has no set format is a much more successful approach" [V] (Ch 12.7) [AR].
 - **Cost-only competitive advantage erodes.** "Cost competitive advantages are subject to continual erosion" — competitors adopt the same lower-cost technology or suppliers (Ch 11.2, "Cost Competitive Advantage") [AR].
 - **Matrix structures can hinder accountability.** "Matrix structures make it easier to blame others when things don't go as planned" — Unilever moved from matrix to product departmentalization for this reason (Ch 7.2 and 7.4) [AR].
-- **Bankruptcy law tightens accountability.** The 2005 Bankruptcy Abuse Prevention and Consumer Protection Act takes the position that "Americans with heavy debt will find it difficult to avoid meeting their financial obligations" (App A) — the framing is supportive of tighter consumer accountability through the means-based test [AR].
+- **Bankruptcy law tightens accountability.** Under the 2005 Bankruptcy Abuse Prevention and Consumer Protection Act, "Americans with heavy debt will find it difficult to avoid meeting their financial obligations" (App A) — the text reports that the law imposes an objective, needs-based bankruptcy test and stricter repayment requirements, and attributes the justificatory arguments to the law's supporters [AR].
 - **Knowledge work requires different management.** Knowledge workers are "associates," not "subordinates"; "within their area of knowledge, they are supposed to do the telling" [V] (Ch 9.8) — argues against authority-based management of specialised expertise [AR].
 
 ## Citation and source-integrity notes

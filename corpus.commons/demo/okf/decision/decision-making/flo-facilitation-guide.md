@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Decision-Making Distillation
 
@@ -22,7 +22,7 @@ generated:
 
 The FLO Facilitation Guide is primarily a facilitation-craft handbook, not a decision-making framework — but it carries a dense set of *facilitation design decisions* that recur across any synchronous-or-asynchronous learning engagement. The Guide's load-bearing decision-making contributions are (a) the *facilitate-vs-transmit* framing as a fundamental method-choice rule for any learning conversation, (b) the *scaffolding-and-fading* presence allocation rule that decides where facilitator attention goes across the arc of a course, (c) the *synchronous-vs-asynchronous* design-mode decision with named criteria, (d) the *two-track choice architecture* (FLO Synchronous's Reviewing Participant vs Practicing Facilitator) as a worked example of designed-in difficulty selection, (e) the *facilitator-stance calibration* decisions (heavy-handed → balanced presence → light hand, calibrated to course type and phase), (f) the *recording-and-tool consent* decisions, (g) the *counsel-out decision* about whether a struggling participant should continue, (h) the *develop-vs-grade* default and its escape hatch, and (i) the *modelling-as-deliberate-design* rule that constrains facilitator behaviour in the same way it constrains design choices.
 
-The frame to bring with you when reading the Guide for decision-making content: most of the load-bearing decisions are made *before* the course begins. Each course chapter opens with task lists structured around several-weeks-before, one-to-two-weeks-before, and a-few-days-before phases. The in-course decisions are mostly small ones at the point of facilitator move (which post to make, whom to reach out to, when to step back); the large decisions (course shape, technology, accessibility, recording, privacy, assessment mode, mentoring pairings) are largely pre-committed and the in-course work depends on the pre-course design.
+The frame to bring with you when reading the Guide for decision-making content: most of the load-bearing decisions are made *before* the course begins. Each course chapter carries a Facilitator Task List organising work into pre-course, during-course, and post-course phases, with timing detail varying by course. The in-course decisions are mostly small ones at the point of facilitator move (which post to make, whom to reach out to, when to step back); the large decisions (course shape, technology, accessibility, recording, privacy, assessment mode, mentoring pairings) are largely pre-committed and the in-course work depends on the pre-course design.
 
 ## Key Concepts for Decision-Making
 
@@ -75,7 +75,7 @@ The frame to bring with you when reading the Guide for decision-making content: 
 | What is the class-size sweet spot for this engagement type? | Fundamentals 14–20; Synchronous 10–20; MicroCourses 10+ active. If we are about to run with materially fewer or more participants, what design adjustments are required? |
 | What is the realistic facilitator and participant time budget? | Fundamentals 15–25 / 6–12 hours weekly; Design ~15 / 6–8 hours; MicroCourse ≥5 / ~5 hours. Are we budgeting realistically for what the design requires, or are we pretending the engagement will fit in half the time? |
 | How many co-facilitators does this design need, and on what complementarity criteria? | Two facilitators for Synchronous classes in the 20s; co-facilitation recommended across all four courses. What is the complementarity criterion — skills, working hours, life rhythm? Have we picked on those dimensions rather than on seniority or convenience? |
-| What is the lead time on the engagement? | Each course chapter opens with several-weeks-before tasks. If we are convening last-minute, what tasks in the several-weeks-before phase are being skipped, and what does the design look like with those tasks absent? |
+| What is the lead time on the engagement? | Each course chapter's task list leads with pre-course tasks (several weeks before, in most courses). If we are convening last-minute, what tasks in the several-weeks-before phase are being skipped, and what does the design look like with those tasks absent? |
 | What is the technology stack and the privacy posture? | LMS + persistent forums + resource storage + synchronous web conferencing is the baseline. For additional tools, the six-question vetting (purpose, institutional rules, affordances, learner impact, alternatives, content-ownership) applies. |
 | What is our recording posture? | Recording is per-session consent, not default. Are we set up to ask consent at the start of each synchronous session, or are we set up to assume? |
 
@@ -107,7 +107,7 @@ The frame to bring with you when reading the Guide for decision-making content: 
 | Need | Question |
 |---|---|
 | Welcome post sets the tone and the decision-frame. | "This is your first impression"; establish instructor presence; clear message neither too long nor too short; ends with invitation. Does our convening communication carry the decisions we want participants to know we have made? |
-| Lock in pre-course design decisions in the convening agreement. | Each course chapter's several-weeks-before / one-to-two-weeks-before task list is the worked example. What is our equivalent pre-course commitment? Attendance, schedule, technology, privacy posture, recording posture, assessment mode. |
+| Lock in pre-course design decisions in the convening agreement. | Each course chapter's pre-course task list is the worked example. What is our equivalent pre-course commitment? Attendance, schedule, technology, privacy posture, recording posture, assessment mode. |
 | Modelling decisions are part of the design, not the in-session improvisation. | Lesson plans (not just slide decks); interactive sessions; feedback-eliciting activities; visible reflection. Have we pre-decided what we will model, or are we hoping it will happen? |
 | The closing decision lives in the design. | "Closing the course: An important facilitator role is to draw the course to a close and celebrate learning, connections and accomplishments." The closing structure (synchronous celebration, asynchronous bulletin board, mind map, video) is a pre-decided move, not an improvised end. |
 | Communicate the privacy and Vegas-rules decisions explicitly at the start. | "Our learning relies on the exchange of honest, constructive feedback, and we need to agree on rules that support this foundation of trust." The decisions are stated, not assumed. |
@@ -191,7 +191,7 @@ The FLIF is used after each participant-facilitated week; facilitators complete 
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the Guide cites named third parties not held as separate primary references in this corpus:
 
-- *Community of Inquiry model (Garrison, Anderson, Archer; Vaughan et al. 2013; Anderson 2017; Richardson et al. 2015)* — not held. Named as the framing model for online facilitation; cited for the 18-years-of-research claim and the three-presence framework. The distillation's framing of facilitation as distinct from content transmission draws on the Guide's use of this model.
+- *Community of Inquiry model (Garrison, Anderson; Vaughan et al. 2013; Anderson 2017; Richardson et al. 2015)* — not held. Named as the framing model for online facilitation; cited for the 18-years-of-research claim and the three-presence framework. The distillation's framing of facilitation as distinct from content transmission draws on the Guide's use of this model.
 - *Institute of Cultural Affairs – UK* — not held. Source of the working definition of the facilitator's role quoted in the deep reference's author's thesis.
 - *Universal Design for Learning (UDL; CAST 2018)* — not held. The accessibility framework cited for multiple means of Engagement, Representation, and Action and Expression.
 - *International Association of Facilitators (IAF) Core Competencies* — not held. Named as inspiration for the four Core FLO Facilitation Skills categories.

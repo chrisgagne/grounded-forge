@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-law-i-essentials
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Business Law I Essentials, Decision-Making Distillation
 
@@ -40,7 +40,7 @@ This distillation consolidates these threads into a working pattern for managers
 
 7.  **Five contract remedies.** Money damages; restitution (status quo ante); rescission (terminating both parties' duties); reformation (court equitably changes substance); specific performance (compelled action — but never personal service, which would be forced labour). (Source: Ch 7.3, "Remedies")
 
-8.  **Three classes presumed to lack contractual capacity.** Minors (with necessities exception); the mentally incompetent (cognitive standard: did the party understand meaning and effect); voluntarily intoxicated parties (voidable only when severity impaired understanding and the other side knew). The text takes the position that voluntary intoxication generally does not excuse contractual obligation, to prevent side-stepping. (Source: Ch 7.2)
+8.  **Three classes presumed to lack contractual capacity.** Minors (with necessities exception); the mentally incompetent (in most states, a cognitive standard: did the party understand meaning and effect); voluntarily intoxicated parties (voidable only when severity impaired understanding and the other side knew). The text takes the position that voluntary intoxication generally does not excuse contractual obligation, to prevent side-stepping. (Source: Ch 7.2)
 
 9.  **Disparate-treatment three-step burden shifting.** Plaintiff demonstrates *prima facie* discrimination; defendant must show legitimate non-discriminatory business reasons; plaintiff must demonstrate the reason is mere pretext. This sequence frames the litigation decision tree for both employer and employee. (Source: Ch 9.3)
 
@@ -120,7 +120,7 @@ This distillation consolidates these threads into a working pattern for managers
 - **Pattern: A contract breach claim is being defended as "minor" without analysis.** Signal: assertion that "they still got what they paid for, mostly." Diagnosis: materiality factors not yet examined. Follow-up: walk the Ch 7.3 factors — benefit received, compensation adequacy, extent of performance, breaching-party hardship, intent, possibility of completion.
 - **Pattern: A specific performance demand is being made for personal services.** Signal: an employee or contractor is being told they must perform a specific duty even if unwilling. Diagnosis: this would be unconstitutional forced labour. Follow-up: structure relief as money damages or alternative service rather than compelled performance.
 - **Pattern: A BFOQ argument is being constructed on stereotype rather than qualification.** Signal: the justification names what people of class X "can do" or "are like" rather than what the job requires. Diagnosis: stereotype-based BFOQ — the source explicitly excludes such reasoning, and there are no race or colour BFOQs at all. Follow-up: rebuild on actual job qualifications or abandon the BFOQ defence.
-- **Pattern: An insider is contemplating a securities trade in advance of an event.** Signal: a director or 10%+ holder considering a trade with material nonpublic information awareness. Diagnosis: potential Rule 10b-5 violation. Follow-up: pre-arrange via Rule 10b5-1 plan well in advance, with predetermined dates and amounts, to access safe harbour.
+- **Pattern: An insider is contemplating a securities trade in advance of an event.** Signal: a director or more-than-10% holder considering a trade with material nonpublic information awareness. Diagnosis: potential Rule 10b-5 violation. Follow-up: pre-arrange via Rule 10b5-1 plan well in advance, with predetermined dates and amounts, to access safe harbour.
 - **Pattern: A sales contract is being drafted with all material terms left open.** Signal: only price agreed; quantity, delivery, payment all "to be determined." Diagnosis: under the UCC, most terms can be left open with reasonableness defaults — but quantity must be specified except in requirements or output contracts. Follow-up: name the quantity term explicitly or invoke the requirements/output exception.
 - **Pattern: A small dispute is heading toward forced arbitration with class-action waiver.** Signal: a consumer-side dispute where the company invokes a forced-arbitration clause to block a class action. Diagnosis: the source flags this as an ethical issue ("should not be used as a way to keep wrongdoings 'quiet' or to limit consumers' abilities to obtain rightful retribution"). Follow-up: evaluate whether the company's interests truly require the clause's enforcement here, or whether voluntary mediation produces better outcomes for both reputation and outcomes.
 

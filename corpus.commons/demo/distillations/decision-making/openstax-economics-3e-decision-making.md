@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:c63fb81941585c8feaeafe12faaf14ba6a17d7e3d1d1748e9362337759330f10 -->
 # OpenStax Principles of Economics 3e, Decision-Making Distillation
 
 **Source:** OpenStax (2022). *Principles of Economics 3e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-economics-3e. Lead author Steven A. Greenlaw; nine contributing authors.
@@ -34,7 +35,7 @@ This distillation projects the book's decision-making vocabulary onto the six-ph
 
 11. <!-- concept: profit-maximisation --> **Profit-maximisation rules across market structures.** P = MC for perfect competition; MR = MC for monopoly, monopolistic competition, and oligopoly. Break-even at P = ATC; shutdown at P = AVC. These are the canonical decision rules for production-and-pricing decisions. (Source: Ch 8.2, Ch 9.2, Ch 10.1)
 
-12. <!-- concept: asymmetric-information --> **Expected value, risk, and asymmetric information.** When outcomes are uncertain, expected value (probability-weighted outcome) is the calculation; risk-adjustment depends on risk preferences. Where information is asymmetric (Akerlof's lemons), the better-informed party has structural advantage; signalling devices (warranties, brands, licences) reduce asymmetry. Insurance pools risk but introduces moral hazard and adverse selection that the design must address. (Source: Ch 16.1, Ch 16.2)
+12. <!-- concept: asymmetric-information --> **Expected value, risk, and asymmetric information.** When outcomes are uncertain, expected value (probability-weighted outcome) is the calculation; risk-adjustment depends on risk preferences. Where information is asymmetric (the "lemons" problem), the better-informed party has structural advantage; signalling devices (warranties, brands, licences) reduce asymmetry. Insurance pools risk but introduces moral hazard and adverse selection that the design must address. (Source: Ch 16.1, Ch 16.2)
 
 13. <!-- concept: public-goods --> **Public goods, common resources, and the free-rider problem.** Decisions about goods that are nonexcludable produce systematic free-riding; rational individual choice undermines collective provision. Government provision via taxation, social pressure, advertising-supported provision, or local self-governance (Ostrom) are the institutional responses. The implication: when designing a collective decision, identify whether the good has these properties and whether the institutional response is in place. (Source: Ch 13.3)
 
@@ -179,7 +180,6 @@ This worked example illustrates several key concepts: opportunity cost, sunk cos
 - *Elinor Ostrom* — cited for community self-governance of common resources without external regulation (Ch 13.3) [BT].
 - *Gary Becker* — cited for the economics of discrimination (Ch 14.5) [BT].
 - *Mollie Orshansky* — cited for the origin of the US poverty line formula (1963) (Ch 15.1) [BT].
-- *George Akerlof, "The Market for Lemons"* — cited for asymmetric information and adverse selection (Ch 16.1) [BT]. Key Concept 12 traces to this.
 - *Anthony Downs* — cited for rational ignorance (Ch 18.1) [BT].
 - *David Ricardo* — cited for comparative advantage and trade theory (Ch 2.2, Ch 33) [BT]. Key Concept 7.
 

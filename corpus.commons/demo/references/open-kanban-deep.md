@@ -12,7 +12,7 @@
 
 Open Kanban is presented not as a competing definition of Kanban but as a *movement to free the Kanban core*: "Open Kanban is a movement to make the core values and principles of Kanban available to all" [V] ("Our Movement for a Free Open Kanban"). The framing is borrowed directly from the open-source software movement: Open Kanban gives the Kanban community "those four freedoms, but now in the context of shared knowledge" [V] ("Our Movement for a Free Open Kanban") — to use Open Kanban for any purpose; to study, question, and change it; to fork and redistribute customised versions; and to contribute back to the main repository. The fourth freedom is given a methodological gloss: "This freedom shows our commitment to communication, collaboration and continuous improvement" [V] ("Our Movement for a Free Open Kanban").
 
-The author's diagnostic claim against the broader Kanban field is explicit: "with growth also came a push to align Kanban (the Agile and Lean method with over four decades of history) with some proprietary ideas and interpretations of what Kanban is" [V] ("Open Kanban Introduction"). Open Kanban is positioned as the recovery of the public-domain method underneath the proprietary overlays: "Open Kanban actually corresponds to what most people familiar with the Agile movement think of when they refer to Kanban itself" [V] ("Open Kanban Introduction").
+The author's diagnostic claim against the broader Kanban field is explicit: "However with growth also came a push to align Kanban (the Agile and Lean method with over four decades of history) with some proprietary ideas and interpretations of what Kanban is" [V] ("Open Kanban Introduction"). Open Kanban is positioned as a free, open-source, collaborative-friendly response to proprietary ideas and interpretations of Kanban: "Open Kanban actually corresponds to what most people familiar with the Agile movement think of when they refer to Kanban itself" [V] ("Open Kanban Introduction").
 
 Three claims define what Open Kanban is. First, it is deliberately partial: "Open Kanban is an Agile and Lean ultra light method to improve any area of your organization" [V] ("Open Kanban Definition"); "Open Kanban is not a full or complete Agile or Lean method, instead it is the heart of that method that is the reason it can be ultra light. The best comparison in the software world would be the kernel of an open source operating system" [V] ("Open Kanban Definition"). Second, it has three components: "A set of values that align it with the Agile and Lean Movements for IT and Software Development; A set of practices that translate those values into action; An open source license that allow anyone to build upon it or modify it" [V] ("Open Kanban Definition"). Third, it is the substrate from which derivative methods grow: "Extensions on top of Open Kanban constitute Agile and Lean Methods based on Open Kanban, or Open Kanban Methods. Open Kanban is the heart of all those Kanban methods. Our license allows them to be free or commercial" [V] ("The Open Kanban Movement").
 
@@ -20,7 +20,7 @@ A fourth load-bearing claim is the licence framing as a methodological choice, n
 
 ## Part I: The five Open Kanban Values
 
-The values are introduced as integral, not decorative: "Open Kanban practices are rooted in values that are Lean and Agile; those values are an integral part of Open Kanban" [V] ("Open Kanban Values"). Each value is given a gloss that ties it to its Lean/Agile lineage and to the pull/empowerment mechanics Kanban requires.
+The values are introduced as integral, not decorative: "Open Kanban practices are rooted in values that are Lean and Agile; those values are an integral part of Open Kanban" [V] ("Open Kanban Values"). Each value is given a gloss that ties it to its Lean/Agile lineage; the pull and empowerment mechanics Kanban requires are developed specifically under Respect and Courage.
 
 ### 1. Respect for people
 
@@ -41,7 +41,7 @@ The author then names the Lean obverse:
 > "Value is at the center of Lean and TPS, but frequently it is mentioned as the reverse side of the coin: eliminate waste or 'Muda' in Japanese Muda 無駄 represents anything that does not add value to your process or flow. By eliminating waste, we optimize the creation of value."
 > ("Open Kanban Values")
 
-Value and waste-elimination are named as two sides of the same coin [V] ("Open Kanban Values").
+Value and waste-elimination are named as two sides of the same coin [AP] ("Open Kanban Values").
 
 ### 4. Communication and Collaboration
 
@@ -76,13 +76,13 @@ The author makes a notable framing decision about WIP limits — the relationshi
 > "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around. However doing either will result in improvements in efficiency and productivity. Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts.'"
 > ("Open Kanban Practices")
 
-This is one of the document's signature contrarian positions [AR] ("Open Kanban Practices"). Open Kanban *deliberately* declines to require WIP limits, even though most contemporary Kanban frameworks do; instead it requests batch-size reduction, of which limiting WIP is a downstream effect.
+This is one of the document's signature contrarian positions [AR] ("Open Kanban Practices"). Open Kanban *deliberately* declines to require WIP limits; instead it requests batch-size reduction, of which limiting WIP is a downstream effect.
 
 The how-to is given: "How do you reduce the batch size of your efforts? Reduce the complexity and the quantity of things you do at any stage of the value chain. In software development this would mean: reduce the number of large stories (epics) you create, and do your best to keep stories simple; also reduce the volume of stories you work on any stage of the Software Development Life Cycle; this way your team will focus, and deliver more value" [V] ("Open Kanban Practices").
 
 ### 4. Learn and improve continuously
 
-The author frames the fourth practice as the step beyond the first three: "The four previous practices ensure you are doing things better than before, and that you deliver more value. However to make sure you make a significant jump in innovation, morale, and value we must also stop, learn and apply our knowledge to improve!" [V] ("Open Kanban Practices"). Multiple under-prescribed implementations are listed: "It is worth mentioning that this practice aligns with the Agile value of embracing change, and there are many ways a Kanban team can implement this practice, you could have Retrospectives, Strategy Meetings or even Kaizen Groups" [V] ("Open Kanban Practices"); *Kaizen Groups* is cited via Wikipedia link [BT] ("Open Kanban Practices").
+The fourth listed practice follows three prior items, although the source itself calls them "the four previous practices": "The four previous practices ensure you are doing things better than before, and that you deliver more value. However to make sure you make a significant jump in innovation, morale, and value we must also stop, learn and apply our knowledge to improve!" [V] ("Open Kanban Practices"). Multiple under-prescribed implementations are listed: "It is worth mentioning that this practice aligns with the Agile value of embracing change, and there are many ways a Kanban team can implement this practice, you could have Retrospectives, Strategy Meetings or even Kaizen Groups" [V] ("Open Kanban Practices"); *Kaizen Groups* is cited via Wikipedia link [BT] ("Open Kanban Practices").
 
 The author surfaces a precedence claim: learning is upstream of improvement: "Learning is the key concept before continuous improvement can ever happen! Once learning is part of the culture, part of the workflow, then improving continuously becomes easy" [V] ("Open Kanban Practices"). The methodology itself models the practice: "Open Kanban further supports learning by listening to the community and updating itself to be a better Agile and Lean method" [V] ("Open Kanban Practices").
 
@@ -127,27 +127,27 @@ The reciprocal asks are minimal: "We only ask you that you: Give us credit; Cont
 The document is unusually citation-dense for a 3,200-word specification. The author's intellectual lineage statements (each cited by external link in the source) are:
 
 - *Kent Beck*, cited by name for the *Courage* value (the source hyperlinks Beck's name to a book on *Extreme Programming Explained*) [BT] ("Open Kanban Values").
-- *W. Edwards Deming, System of Profound Knowledge*, cited (with link to deming.org) as theoretical grounding for the *Holistic or Systemic Approach to Change* value [BT] ("Open Kanban Values").
-- *Eliyahu M. Goldratt, Theory of Constraints*, cited (with Wikipedia link) as theoretical grounding for the *Holistic or Systemic Approach to Change* value, paired with Deming [BT] ("Open Kanban Values").
+- *Deming, System of Profound Knowledge*, cited (with link to deming.org) as theoretical grounding for the *Holistic or Systemic Approach to Change* value [BT] ("Open Kanban Values").
+- *Goldratt, Theory of Constraints*, cited (with Wikipedia link) as theoretical grounding for the *Holistic or Systemic Approach to Change* value, paired with Deming [BT] ("Open Kanban Values").
 - *Alistair Cockburn, "Information radiator"*, cited as the conceptual source for visualisation extending beyond the Kanban board [BT] ("Open Kanban Practices").
 - *Donald G. Reinertsen, The Principles of Product Development Flow*, cited (with Amazon link) as "one of the best explanations" of batch-size reduction's effect on flow [BT] ("Open Kanban Practices").
 - *Kaizen Groups* (cited via Wikipedia), as one form the fourth practice (Learn and improve continuously) can take [BT] ("Open Kanban Practices").
-- *Toyota Production System* (cited via Wikipedia), as the Japanese origin of Kanban (where it is カンバン / Kamban) and the Lean and TPS lineage [BT] ("Open Kanban Introduction"; "Open Kanban Values" — Muri and Muda glosses).
+- *Toyota Production System* (linked from the word *Japan*, via Wikipedia): the source says the Lean movement originated in Japan and calls this type of Kanban カンバン (Kamban); the Lean and TPS lineage recurs in the Muri and Muda glosses [BT] ("Open Kanban Introduction"; "Open Kanban Values" — Muri and Muda glosses).
 - *Agile Manifesto* (cited via agilemanifesto.org link), as one of the two movements Open Kanban aligns with [BT] ("Open Kanban Definition").
 - *Lean software development* (cited via Wikipedia), as the second movement Open Kanban aligns with [BT] ("Open Kanban Introduction"; "Open Kanban Definition").
 - *VersionOne 2013 State of Agile Survey*, cited as evidence that "Kanban has doubled in adoption among the Agile methodologies, and is frequently used as an alternative to Scrum" [BT] ("Open Kanban Introduction").
 - *Alan Shalloway, Kanban for Teams* (Net Objectives), named as a fellow-traveller method [BT] ("The Open Kanban Movement").
 - *Corey Ladas, Scrumban* (book), named as a fellow-traveller method [BT] ("The Open Kanban Movement").
 - *Karl Scotland, Kanban Thinking*, named as a fellow-traveller method [BT] ("The Open Kanban Movement").
-- *Free Software Foundation, four freedoms of free software* (cited via gnu.org), as the model for Open Kanban's four freedoms in a knowledge-work context [BT] ("Our Movement for a Free Open Kanban").
+- *The open-source movement's four essential freedoms of free software* (cited via gnu.org), as the model for Open Kanban's four freedoms in a knowledge-work context [BT] ("Our Movement for a Free Open Kanban").
 - *Linux kernel*, as the analogy for what Open Kanban is — "the kernel" of a Kanban method, not a complete method itself [BT] ("Open Kanban Definition").
 
-The document does *not* cite David J. Anderson (the most widely-known contemporary Kanban author and the author of *Kanban: Successful Evolutionary Change for Your Technology Business*, 2010) by name, despite the document's explicit critique of "proprietary ideas and interpretations of what Kanban is" — which most contemporary readers would understand as the Lean Kanban University / Anderson-tradition framing. The omission is structural: Open Kanban defines itself against the closed-IP Kanban field without naming individual proprietors.
+The document's explicit critique of "proprietary ideas and interpretations of what Kanban is" names no individual author or organisation: Open Kanban defines itself against proprietary Kanban without naming individual proprietors.
 
 ## Positions the author explicitly frames against
 
-- *Proprietary or closed-IP Kanban.* "With growth also came a push to align Kanban (the Agile and Lean method with over four decades of history) with some proprietary ideas and interpretations of what Kanban is" [V] ("Open Kanban Introduction"). The whole framing of Open Kanban as a *movement* is against this position.
-- *WIP-limiting as Kanban's primary requirement.* "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts'" [V] ("Open Kanban Practices"). This is a deliberate departure from the dominant Kanban framing.
+- *Proprietary or closed-IP Kanban.* "However with growth also came a push to align Kanban (the Agile and Lean method with over four decades of history) with some proprietary ideas and interpretations of what Kanban is" [V] ("Open Kanban Introduction"). The whole framing of Open Kanban as a *movement* is against this position.
+- *WIP-limiting as Kanban's primary requirement.* "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts'" [V] ("Open Kanban Practices"). The contrast the source draws is explicit: limiting WIP is a consequence of batch-size reduction, not the other way around.
 - *Method completeness as a virtue.* "Open Kanban is not a full or complete Agile or Lean method, instead it is the heart of that method that is the reason it can be ultra light. The best comparison in the software world would be the kernel of an open source operating system" [V] ("Open Kanban Definition"). Completeness is reframed as a non-goal; the kernel/extension architecture is preferred.
 - *Restructuring as a precondition.* "Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value" [V] ("Open Kanban Practices"). The framework asks for team-based leadership without requiring role redefinition.
 - *Multitasking as effective work.* "Research in the way the mind works, and countless experiences from Lean, the Theory of Constraints and Kanban confirm that to deliver value faster, with better flow and good team morale we need to focus and limit the number of things we do. Multitasking does not work" [V] ("Open Kanban Practices").
@@ -155,7 +155,7 @@ The document does *not* cite David J. Anderson (the most widely-known contempora
 - *Software-only Kanban scope.* "Although it's main focus is in IT and Software Development, Open Kanban can be used in any business or non-profit to achieve agility and continuous improvement" [V] ("Open Kanban Definition"). The methodology declines to confine itself to software.
 - *Improving local parts of a system in isolation.* "Deming's System of Profound Knowledge and Goldratt's Theory of Constraints reminds us that no single part of a system can ever bring overall improvement. We need to take a holistic view of the system and understand it" [V] ("Open Kanban Values").
 - *Source-code-style licensing for knowledge work.* "Although the first two licenses [LGPL v3, MIT] are appropriate, both are designed for sharing of computer source code. Creative Commons on the other hand is appropriate for knowledge work that deals with writing, and media creation" [V] ("Open Kanban's License").
-- *Continuous improvement without explicit learning practice.* "Learning is the key concept before continuous improvement can ever happen! Once learning is part of the culture, part of the workflow, then improving continuously becomes easy" [V] ("Open Kanban Practices"). The author refuses to treat continuous improvement as a slogan; it requires a learning structure (retrospectives, strategy meetings, Kaizen Groups) to be real.
+- *Continuous improvement without explicit learning practice.* "Learning is the key concept before continuous improvement can ever happen! Once learning is part of the culture, part of the workflow, then improving continuously becomes easy" [V] ("Open Kanban Practices"). The author refuses to treat continuous improvement as a slogan; learning must become part of the culture and workflow first, and retrospectives, strategy meetings, and Kaizen Groups are optional examples among many ways to implement the practice.
 
 ## Corpus-role caveat (operator-supplied, not from source)
 

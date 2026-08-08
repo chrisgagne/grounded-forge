@@ -12,7 +12,7 @@ sources:
     resource: https://github.com/agilelion/Open-Kanban
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Hurtado, Open Kanban — Software-Business Distillation
 
@@ -217,8 +217,8 @@ A CTO at a mid-sized SaaS company has committed to the board that the team will 
 **Borrowed-through gaps.** Open Kanban's framework claims rest on several sources this corpus does not hold as primary references.
 
 - *Donald G. Reinertsen, Principles of Product Development Flow* — cited as "one of the best explanations" of why batch-size reduction improves flow (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size). The deep ref flags this as [BT]. The quantitative apparatus (cost-of-delay, weighted-shortest-job-first, queue-drain formulas) is not reproduced in Open Kanban and is not available in this corpus.
-- *W. Edwards Deming, System of Profound Knowledge* — cited by name as one of two grounding theories for the Holistic/Systemic value (Source: Hurtado, "Open Kanban Values" — Holistic or Systemic Approach to Change). Flagged [BT] in the deep ref. PDCA is the corpus's closest Deming treatment (via OpenStax *Principles of Management*); the full Profound Knowledge framework is outside the corpus.
-- *Eliyahu Goldratt, Theory of Constraints* — cited alongside Deming for the Holistic/Systemic value. Flagged [BT]; the formal five-step ToC treatment is in OpenStax *Accounting Vol 2*, not in Open Kanban.
+- *Deming, System of Profound Knowledge* — cited by name as one of two grounding theories for the Holistic/Systemic value (Source: Hurtado, "Open Kanban Values" — Holistic or Systemic Approach to Change). Flagged [BT] in the deep ref. PDCA is the corpus's closest Deming treatment (via OpenStax *Principles of Management*); the full Profound Knowledge framework is outside the corpus.
+- *Goldratt, Theory of Constraints* — cited alongside Deming for the Holistic/Systemic value. Flagged [BT]; the formal five-step ToC treatment is in OpenStax *Accounting Vol 2*, not in Open Kanban.
 - *Alistair Cockburn, information radiators* — cited by name for the Visualize-the-workflow practice. Flagged [BT]; Cockburn is not a primary reference in this corpus.
 - *VersionOne 2013 State of Agile* — cited as empirical support for Kanban adoption rates. Flagged [BT]; the primary data is not in this corpus.
 - *Lean / Muri / Toyota Production System* — cited throughout for the sustainable-pace and overburden framing. Flagged [BT]; no Toyota Production System primary reference is in this corpus.

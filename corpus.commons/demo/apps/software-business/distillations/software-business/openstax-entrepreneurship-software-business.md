@@ -14,7 +14,7 @@ The text fits a founder operating in the seed-to-early-stage window where almost
 
 1.  **Business Model Canvas (BMC), nine building blocks.** Customer segments, value propositions, channels, customer relationships, revenue streams, key activities, key partners, key resources, and cost structure. Reads as a one-page software-business architecture spec. (Source: OpenStax, *Entrepreneurship*, Ch 11.2, citing Osterwalder and Pigneur)
 
-2.  **Lean Canvas.** Maurya's adaptation that replaces key activities/partners/resources with problem, solution, and key metrics — the variant most useful when the software product itself is the central unknown. (Source: Ch 11.2, citing Maurya, *Running Lean*)
+2.  **Lean Canvas.** Maurya's adaptation that removes the customer relationships, key activities, key partners, and key resources blocks and adds problem, solution, unfair advantage, and key metrics — the variant most useful when the software product itself is the central unknown. (Source: Ch 11.2, citing Maurya, *Running Lean*)
 
 3.  **Three business-model archetypes.** Direct (one-sided customer; SaaS, single-tenant), multisided (users and customers differ; ad-funded platforms), marketplace (two customer segments of buyers and sellers; two-sided software businesses). (Source: Ch 11.1, citing Maurya, *Scaling Lean*)
 
@@ -54,7 +54,7 @@ The text fits a founder operating in the seed-to-early-stage window where almost
 
 21.  **Cognitive biases that sabotage venture decisions.** Overconfidence, optimism, law of small numbers, illusion of control, planning fallacy, escalation of commitment, status quo bias, hindsight bias. Cossette's review identifies overconfidence and optimism as the two most-cited contributors to entrepreneurs' failure to recognise the need to change or end a venture. (Source: Ch 15.2, citing Cossette)
 
-22.  **Fail-safe points.** "Identified points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position" [V] (Source: Ch 15.2). The structural protection against **escalation of commitment** — when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2).
+22.  **Fail-safe points.** "The points that trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position and whether this action is reasonable and feasible" [V] (Source: Ch 15.2). The structural protection against **escalation of commitment** — when "an entrepreneur feels so committed to the plan of action that they end up losing their perspective on the reality of what is happening to the venture" [V] (Ch 15.2).
 
 23.  **Six pitch elements.** Brand-identity image and tagline, problem-solution narrative, key features and value proposition, product-market fit evidence, competitive analysis, financial projections. Each tailored to the audience (F&F, angel, VC, trade group, board). (Source: Ch 7.3)
 

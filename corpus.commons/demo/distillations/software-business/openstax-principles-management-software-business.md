@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:2b3f965b1532d706dbf97c047ac40324fd2f5b4ecc1c163c4dd5c054646ae46a -->
 # OpenStax Principles of Management, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.

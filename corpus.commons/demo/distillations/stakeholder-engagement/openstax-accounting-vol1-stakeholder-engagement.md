@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:5dab9024934e3b0be98e4aeaa38c5635239103cdd415230a260e6214278f386a -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -12,9 +13,9 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 ## Key Concepts for Stakeholder Engagement
 
-1. <!-- concept: stakeholders-defined --> **Stakeholders defined.** Persons or groups who rely on financial information to make decisions, with an interest in the economic viability of the organisation. The text names six categories and several implicit ones (suppliers, vendors, communities). The list expands by context. (Source: OpenStax, *Accounting Vol 1*, Ch 1.4)
+1. <!-- concept: stakeholders-defined --> **Stakeholders defined.** Persons or groups who rely on financial information to make decisions, with an interest in the economic viability of the organisation. The text names five categories and several implicit ones (suppliers, vendors, communities). The list expands by context. (Source: OpenStax, *Accounting Vol 1*, Ch 1.4)
 
-2. <!-- concept: stakeholder-categories --> **Six stakeholder categories with distinct information needs.** Stockholders (profitability, stock value, stability); creditors and lenders (repayment risk, covenant compliance); governmental and regulatory agencies (SEC enforcement, IRS, GASB for governments); customers (financial soundness, supply continuity); managers and other employees (employment security, compensation, day-to-day decisions); and the broader community of suppliers and vendors. Each category reads the financial statements differently. (Source: Ch 1.4)
+2. <!-- concept: stakeholder-categories --> **Five stakeholder categories with distinct information needs.** Stockholders (profitability, stock value, stability); creditors and lenders (repayment risk, covenant compliance); governmental and regulatory agencies (SEC enforcement, IRS, GASB for governments); customers (financial soundness, supply continuity); and managers and other employees (employment security, compensation, day-to-day decisions). The broader community of suppliers and vendors surfaces in later chapters. Each category reads the financial statements differently. (Source: Ch 1.4)
 
 3. <!-- concept: capital-structure --> **Three sources of capital and their stakeholder implications.** Profitable operations (internal funding); equity financing (sells ownership and dilutes control); debt financing (borrows and creates repayment obligation). Each carries different stakeholder implications: equity holders gain voting rights and last-residual claim; debt holders gain priority claim and covenants; retained earnings keep ownership undiluted but constrain growth. (Source: Ch 1.4, Ch 14.1)
 
@@ -84,7 +85,7 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 | Note | Question |
 |---|---|
-| Communicate to all six stakeholder categories | Has the report been framed for the most-affected stakeholders, or only for the analyst community? Different audiences need different summaries. |
+| Communicate to all five stakeholder categories | Has the report been framed for the most-affected stakeholders, or only for the analyst community? Different audiences need different summaries. |
 | Honour the consistency requirement | Have method changes been disclosed? Stakeholders rely on inter-period comparability; un-disclosed method changes undermine that. |
 | Explain the judgement | For estimate-driven items (bad debt, depreciation, contingent liabilities), is the basis for the judgement explained, or only the resulting number? |
 | Address material uncertainties | Are going-concern issues, material contingencies, and significant subsequent events disclosed in management discussion or in footnotes? |
@@ -150,7 +151,7 @@ Reporting: the 10-Q discloses the impairment on the income statement, the goodwi
 
 Sustaining: in the following quarter, the CFO maintains a structured update to the audit committee on integration progress, monitors lender covenants quarterly, and engages with the largest stockholders proactively. The disclosure pattern (early, full, transparent) is now an established practice that long-term stakeholders have noted.
 
-This worked example illustrates several key concepts in the source: the multi-stakeholder audience of financial reporting; the full-disclosure principle in operation; the audit committee's structural role; the conservatism bias in estimates; and the front-page test for disclosure framing. The scenario is operator-authored; framework citations trace through `corpus.commons/demo/references/openstax-accounting-vol1-deep.md`. The six stakeholder categories (Ch 1.4), full-disclosure principle (Ch 3.1), conservatism (Ch 3.1), and audit committee role (Ch 8.2, Ch 8.5) are `[AP]`-marked passages in the deep ref; Enron/Andersen is `[AE]` (author example). No verbatim source blockquotes appear in this distillation.
+This worked example illustrates several key concepts in the source: the multi-stakeholder audience of financial reporting; the full-disclosure principle in operation; the audit committee's structural role; the conservatism bias in estimates; and the front-page test for disclosure framing. The scenario is operator-authored; framework citations trace through `corpus.commons/demo/references/openstax-accounting-vol1-deep.md`. The five stakeholder categories (Ch 1.4), full-disclosure principle (Ch 3.1), conservatism (Ch 3.1), and audit committee role (Ch 8.2, Ch 8.5) are `[AP]`-marked passages in the deep ref; Enron/Andersen is `[AE]` (author example). No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:898a9d7dac2f5c6699f587b47284bb0a413c6dabd48872dfa82c7c4ae169b6f2 -->
 # US Army TC 25-20, Decision-Making Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). Open scope; no copyleft propagation.
@@ -32,7 +33,7 @@ The frame to bring with you when reading TC 25-20 for decision-making content: t
 
 11. <!-- concept: open-ended-questions --> **Open-ended questions, not yes/no.** The TC's worked contrast — *"What happened when your Bradley crested the hill?"* versus *"Why didn't you engage the enemy tanks to your front?"* (Ch 4, "Summary of Recent Events") — is a question-design rule for surfacing evidence. The first invites narrative; the second invites self-defence. Decision-makers gathering post-event evidence should design their questions to invite narrative.
 
-12. <!-- concept: retraining --> **The benefit lives in the follow-up.** "The real benefits of AARs come from taking the results and applying them to future training" [V] (Ch 5, "Benefits"). The decision cycle closes only when retraining occurs; an AAR whose output never reaches a retraining decision has not produced its benefit. Decision-makers convening reviews should pre-commit to the next-action stage.
+12. <!-- concept: retraining --> **The benefit lives in the follow-up.** "The real benefits of AARs come from taking the results and applying them to future training" [V] (Ch 5, "Benefits"). The decision cycle closes when AAR results are applied to future training (retraining where needed, revised SOPs); an AAR whose output never reaches a follow-up decision has not produced its benefit. Decision-makers convening reviews should pre-commit to the next-action stage.
 
 13. <!-- concept: tooling-discipline --> **Pencil-and-paper beats gadgetry.** "He should not get carried away with gadgets when a pencil and paper would do" (Ch 3, "Observe the Training and Take Notes"). "Training aids need not be complicated or fancy to be effective" (App A, "Training Aids"). A tooling-discipline rule: the question is fit-for-purpose, not sophistication.
 
@@ -174,7 +175,7 @@ The TC's contribution is not a new tool but a set of decision rules that prevent
 
 - *FM 25-100, Training the Force (November 1988)* — cited as the parent doctrine for training planning, including the requirement to schedule retraining (Ch 5) [BT].
 - *FM 25-101, Battle Focused Training (September 1990)* — the TC explicitly supplements and expands FM 25-101 (Preface); Appendix G of FM 25-101 is referenced for additional AAR detail [BT].
-- *ARTEP mission training plans (AMTPs) and soldier's manuals* — cited as the source of training-and-evaluation outlines (TEOs) providing tasks, conditions, and standards (Ch 2, Ch 3) [BT].
+- *ARTEP mission training plans (AMTPs) and soldier's manuals* — TEOs are extracted from AMTPs or developed by the trainer when none exist; the steps in AMTPs and soldier's manuals provide the standard method for each task (Ch 2, Ch 3) [BT].
 - *Combined Arms Training Strategy (CATS)* — cited as the source from which critical gate tasks are derived (Ch 5) [BT]. Key Concept 5 traces here.
 - *Combat training centers (CTCs)* — cited as the source of professional AAR practice the TC distils (App A) [BT].
 

@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:8b83d2ff88f475d1a8c0855666b9edb94456404540123477ed9b5512a5caff2d -->
 # Barbrook-Johnson & Penn, Systems Mapping, Retro Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature, Cham. ISBN 978-3-031-01833-6. DOI: https://doi.org/10.1007/978-3-031-01919-7. Licence: **CC BY 4.0**. Scope: open. Seven methods covered: Rich Pictures, Theory of Change, Causal Loop Diagrams, Participatory Systems Mapping, Fuzzy Cognitive Mapping, Bayesian Belief Networks, System Dynamics.
@@ -8,7 +9,7 @@ Barbrook-Johnson & Penn's method catalogue projects onto the retro axis at phase
 
 ## Key Concepts for Retro
 
-1. <!-- concept: appropriateness-triangle --> **Appropriateness triangle for tool selection (Ch 11, "Comparing Systems Mapping Methods")** — "where a method fits with both the project and the system, we can say it is an 'appropriate' method." The retro facilitator applies this to Phase 3: does the recurring problem's complexity warrant a CLD, or does a simpler tool suffice? Defaulting to CLDs for every recurring problem is Maslow's hammer.
+1. <!-- concept: appropriateness-triangle --> **Appropriateness triangle for tool selection (Ch 11, "Comparing Systems Mapping Methods")** — "where a method fits with both the project and the system, we can say it is an 'appropriate' method." The retro facilitator applies this to Phase 3: does the recurring problem's complexity warrant a CLD, or does a simpler tool suffice? Defaulting to CLDs for every recurring problem is the hammer-and-nail failure mode.
 
 2. <!-- concept: rich-pictures --> **Rich Pictures as low-barrier data-gathering tool (Ch 2, "What Are Rich Pictures?")** — "Rich Pictures are a drawing, a picture, of a system or 'situation.' Very few, if any, prompts are given by facilitators beyond asking them to 'draw the system.'" Rich Pictures externalise each person's view of the sprint in a way that written stickies often suppress: relationships, tensions, emotional load, communication gaps. Useful in Phase 2 when the team holds strongly different views of what the sprint was like that haven't been surfaced yet.
 

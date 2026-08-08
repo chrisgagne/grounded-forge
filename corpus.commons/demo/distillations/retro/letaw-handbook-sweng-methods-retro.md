@@ -1,10 +1,11 @@
+<!-- derived-from-deep: sha256:5e90460abbba87e26d8dd84ff0987a8bafb459b4329e062ad00bf9ae3936387c -->
 # Letaw, Handbook of Software Engineering Methods, Retro Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.
 
 ## Retro Relevance
 
-The Handbook projects onto the retrospective as a *structured-method toolkit*: every method Letaw presents is framed as a risk-reduction move [V] (Ch 2, opening), and the retro is precisely the moment when the team decides which risks to act on. Three methods carry the most weight: fist of five for surfacing latent dissent before an experiment is committed, the RACI matrix for resolving ambiguous ownership when an experiment has no clear accountable individual, and the INVEST criteria for assessing whether a proposed experiment is well-formed. A second cluster — the twelve code smells, the Inclusivity Heuristics, planning poker — applies when the retro's content surfaces code quality, UI-related friction, or estimation discipline. The projection is strong fire at Phase 4 (experiment design, where fist of five, RACI, and INVEST all apply) and moderate fire at Phase 2 (data gathering, where planning poker and code smells surface) and Phase 3 (insight, where RACI maps contributory-factor ownership).
+The Handbook projects onto the retrospective as a *structured-method toolkit*: Letaw frames each of his project-management methods as a risk-reduction move [AP] (Ch 2, opening), and the retro is precisely the moment when the team decides which risks to act on. Three methods carry the most weight: fist of five for surfacing latent dissent before an experiment is committed, the RACI matrix for resolving ambiguous ownership when an experiment has no clear accountable individual, and the INVEST criteria for assessing whether a proposed experiment is well-formed. A second cluster — the twelve code smells, the Inclusivity Heuristics, planning poker — applies when the retro's content surfaces code quality, UI-related friction, or estimation discipline. The projection is strong fire at Phase 4 (experiment design, where fist of five, RACI, and INVEST all apply) and moderate fire at Phase 2 (data gathering, where planning poker and code smells surface) and Phase 3 (insight, where RACI maps contributory-factor ownership).
 
 ## Key Concepts for Retro
 

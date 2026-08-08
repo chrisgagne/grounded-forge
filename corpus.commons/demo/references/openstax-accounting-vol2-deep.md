@@ -18,7 +18,7 @@ A third load-bearing claim is that *short-term and long-term decisions warrant d
 
 A fourth load-bearing claim is that *financial measures alone are insufficient for evaluating performance*, and that responsibility-accounting frameworks must align manager incentives with corporate strategy. The volume develops three quantitative tools (return on investment, residual income, economic value added) and one integrating framework (the balanced scorecard) to address this alignment problem (Ch 9, Ch 12). The balanced scorecard's claim is explicit: financial measures emphasise past results and can be gamed; non-financial measures across customer, internal-process, and learning-and-growth perspectives provide forward-looking information that triangulates manager performance against corporate strategy (Ch 12.4, "Describe the Balanced Scorecard and Explain How It Is Used").
 
-A fifth load-bearing claim, developed in Ch 13, is that *sustainability reporting is a now-mainstream extension of corporate accountability* that responds to a wider stakeholder set than financial accounting addresses. The text states that "in 2017, a KPMG report noted that 93% of the world's 250 largest companies by revenue produced corporate responsibility reports" [V] (Ch 13.3, "Discuss Examples of Major Sustainability Initiatives"), and frames the triple bottom line — people, planet, profit — as a useful organising vocabulary for the field (Ch 13.1, "Initial Sustainability Reports").
+A fifth load-bearing claim, developed in Ch 13, is that *sustainability reporting is a widely adopted — though still relatively new and not yet mandatory — extension of corporate accountability* that responds to a wider stakeholder set than financial accounting addresses. The text states that "in 2017, a KPMG report noted that 93% of the world's 250 largest companies by revenue produced corporate responsibility reports" [V] (Ch 13.3, "Discuss Examples of Major Sustainability Initiatives"), and frames the triple bottom line — people, planet, profit — as a useful organising vocabulary for the field (Ch 13.1, "Initial Sustainability Reports").
 
 ## Part I: Managerial accounting and the manager's three responsibilities (Ch 1)
 
@@ -65,7 +65,7 @@ Five trends are catalogued in Ch 1.5 as forces shaping contemporary managerial a
 
 ### Three organisational types
 
-Most businesses fall into one or more of three categories: manufacturing, merchandising, or service. *Manufacturing organisations* use parts, components, or raw materials to produce finished goods; their cost categories include direct materials, direct labour, and manufacturing overhead. *Merchandising firms* purchase finished products and resell them; their core cost is cost of goods sold derived from the purchase cost plus mark-up. *Service organisations* "earn revenue by providing intangible products" with "no physical substance" [V] (Ch 2.1, "Service Organizations") and have larger personnel and administrative cost categories. The service industry provides "65% of the U.S. private-sector gross domestic product and more than 79% of U.S. private-sector jobs" [V] (Ch 2.1, "Service Organizations", citing Ward 2010, ITA Newsletter).
+Most businesses fall into one or more of three categories: manufacturing, merchandising, or service. *Manufacturing organisations* use parts, components, or raw materials to produce finished goods; their cost categories include direct materials, direct labour, and manufacturing overhead. *Merchandising firms* purchase finished products and resell them; their core cost is cost of goods sold — what it cost them to acquire the goods — while purchase cost plus mark-up determines the selling price. *Service organisations* earn revenue by providing intangible products with "no physical substance" [V] (Ch 2.1, "Service Organizations") and have larger personnel and administrative cost categories. The service industry provides "65% of the U.S. private-sector gross domestic product and more than 79% of U.S. private-sector jobs" [V] (Ch 2.1, "Service Organizations", citing Ward 2010, ITA Newsletter).
 
 ### Cost classification — the load-bearing decision-relative claim
 
@@ -97,7 +97,7 @@ Three estimation methods are presented for separating mixed costs into fixed and
 
 *Contribution margin* is "the amount by which a product's selling price exceeds its total variable cost per unit" [V] (Ch 3.1, "Explain Contribution Margin"). The unit contribution margin is calculated as selling price per unit minus variable cost per unit; the contribution margin ratio expresses the same relationship as a percentage of the selling price; total contribution margin multiplies unit contribution margin by sales volume. Contribution margin is the per-unit contribution toward covering fixed costs: "this $5 contribution margin is assumed to first cover fixed costs first and then realized as profit" [V] (Ch 3.1, "Unit Contribution Margin").
 
-The contribution margin income statement is "a specialized income statement [...] used to determine how changes in sales volume impact the bottom line" (Ch 3.1, "Total Contribution Margin"). Notably, "the contribution margin income statement is used for internal purposes and is not shared with external stakeholders" [AP] (Ch 3.2). The text observes that as labour-intensive operations are converted to technology-intensive operations, fixed costs rise and variable costs fall, changing the cost structure and therefore the CVP analysis (Ch 3.1, "The Evolution of Cost-Volume-Profit Relationships").
+The contribution margin income statement is a specialized income statement created "to determine how changes in sales volume impact the bottom line" (Ch 3.1, "Total Contribution Margin"). Notably, "the contribution margin income statement is used for internal purposes and is not shared with external stakeholders" [AP] (Ch 3.2). The text observes that as labour-intensive operations are converted to technology-intensive operations, fixed costs rise and variable costs fall, changing the cost structure and therefore the CVP analysis (Ch 3.1, "The Evolution of Cost-Volume-Profit Relationships").
 
 ### The break-even point and target profit
 
@@ -137,7 +137,7 @@ The central concept is *equivalent units*: "the number of units that would have 
 
 The four-step process-costing procedure: determine the units to which costs will be assigned; compute equivalent units of production for direct materials and for conversion costs; determine cost per equivalent unit for materials and for conversion; allocate costs to units transferred out and to ending WIP (Ch 5.3, "Step One" through "Step Four"). Two valuation methods are mentioned: weighted-average (combines current-period and prior-period costs) and FIFO (first-in, first-out, which separates the two). The text notes that "the weighted-average method [...] is often favored, because in the process cost production method there often is little product left at the end of the period and most has been transferred out" [AP] (Ch 5.1, "Major Characteristics of Process Costing").
 
-A *production cost report* is "the report that shows the costs used in the preparation of a product, including the cost per unit for materials and conversion costs, and the amount of work in process and finished goods inventory" [V] (Ch 5.3, "Step Four"). Costs flow from one department's WIP to the next as units progress; the cost transferred in becomes the cost basis for the next stage's processing (Ch 5.4).
+A *production cost report* "shows the costs used in the preparation of a product, including the cost per unit for materials and conversion costs and the amount of work in process and finished goods inventory" [V] (Ch 5.3, "Step Four"). Costs flow from one department's WIP to the next as units progress; the cost transferred in becomes the cost basis for the next stage's processing (Ch 5.4).
 
 ## Part VI: Activity-based, variable, and absorption costing (Ch 6)
 
@@ -157,7 +157,7 @@ ABC's advantages: multiple overhead cost pools each with its own activity measur
 
 The text takes a positional stance that variable costing produces better information for internal decision-making, while acknowledging absorption costing's reporting requirement. Variable costing's advantages include direct usefulness for CVP analysis, income that does not vary with production-versus-sales differences, easier understandability, more visible fixed costs, less margin distortion, easier control through flexible budgets, and simpler incremental analysis (Ch 6.5, "Advantages and Disadvantages of the Variable Costing Method"). Absorption costing's advantages are GAAP and tax compliance, with the disadvantage that it can be used to manipulate income via overproduction: "Increasing production at year-end results in a higher net income than if the additional goods had not been produced, since increasing the number of units decreases the fixed cost per unit. Under absorption costing, these fixed costs follow the units produced and do not become a part of cost of goods sold until they are sold" [AP] (Ch 6.5, "Comparing the Operating Income Statements for Both Methods").
 
-The Big Three U.S. auto companies are cited as a cautionary example: decisions made on absorption costing led to "the manufacturing of more vehicles than the market demanded" because allocating fixed overhead to inventory lowered apparent unit cost (Ch 6.5, "Concepts in Practice: Absorbing Costs through Overproduction").
+The Big Three U.S. auto companies are cited as a cautionary example: decisions made on absorption costing led to "the manufacturing of more vehicles than the market demanded" because allocating fixed overhead to inventory lowered apparent unit cost — though the text notes this "was not the only reason for manufacturing too many cars" (Ch 6.5, "Concepts in Practice: Absorbing Costs through Overproduction").
 
 ## Part VII: Budgeting (Ch 7)
 
@@ -230,7 +230,7 @@ The text distinguishes companies that explain only unfavourable variances from t
 
 *Decentralisation* is "a business structure in which the decision-making is made at various levels of the organization" [V] (Ch 9.1, "Decentralized Organizations"). Advantages: quick decisions, expansion capacity, specialised management, employee morale, link between compensation and responsibility, and broader use of lower and middle management. Disadvantages: coordination problems, duplication of efforts, operational incongruity, departmental fiefdoms, and reliance on divisional managers (Ch 9.1).
 
-The text notes that organisations are rarely purely centralised or decentralised; most fall somewhere on the spectrum. Decision authority for *daily decisions* (operational, immediate) and *strategic decisions* (infrequent, long-term) may be allocated differently (Ch 9.1, "Daily and Strategic Decision-Making"). Most companies move from centralised toward decentralised structures as they grow.
+The text notes that organisations are rarely purely centralised or decentralised; most fall somewhere on the spectrum. Decision authority for *daily decisions* (operational, immediate) and *strategic decisions* (infrequent, long-term) may be allocated differently (Ch 9.1, "Daily and Strategic Decision-Making"). Companies often move from centralised toward decentralised structures as they grow.
 
 ### Responsibility accounting and the five responsibility centres
 
@@ -242,7 +242,7 @@ The text notes that organisations are rarely purely centralised or decentralised
 - **Profit centre**: "an organizational segment in which a manager is responsible for both revenues and costs" (e.g., a Starbucks store).
 - **Investment centre**: "an organizational segment [...] in which a manager is accountable for profits (revenues minus expenses) and the invested capital used by the segment" (e.g., a Best Buy regional unit).
 
-For each centre type, the text develops a worked example using Apparel World (a department store): a custodial cost centre and a children's clothing profit centre, with reports comparing actual to budgeted figures and highlighting both dollar and percentage differences (Ch 9.3, Figures 9.4-9.11). The text emphasises a methodological point: dollar comparisons can mislead across differently-sized segments, while percentage comparisons standardise the analysis (Ch 9.3, "Profit Centers").
+The text develops worked examples using Apparel World (a department store) for the cost-centre and profit-centre types — a custodial cost centre and a children's clothing profit centre — with reports comparing actual to budgeted figures and highlighting both dollar and percentage differences (Ch 9.3, Figures 9.4-9.11). The text emphasises a methodological point: dollar comparisons can mislead across differently-sized segments, while percentage comparisons standardise the analysis (Ch 9.3, "Profit Centers").
 
 ### ROI, residual income, and EVA — initial development
 
@@ -250,7 +250,7 @@ For investment centres, the text introduces three evaluation methods that are de
 
 - **Profit margin percentage** = net profit / net sales (Ch 9.3, "Investment Centers").
 - **Return on investment (ROI)** = profit (or loss) / investment base; a measure of how much profit a segment realises per dollar invested. The text cautions that "investment base" is variously defined and that the choice affects the calculation (Ch 9.3, "Investment Centers").
-- **Residual income (RI)** = segment income - (investment value × cost of capital percentage). Establishes a minimum investment threshold across all segments and reduces the goal-incongruence problem of pure ROI evaluation (Ch 9.3, "Investment Centers"). The volume's argument: under ROI, a manager whose segment currently earns 25.9 per cent ROI may reject a project earning 18 per cent because it would lower the segment's average, even when the project benefits the company; under RI, the same manager would accept any project with a positive RI (Ch 9.3).
+- **Residual income (RI)** = segment income - (investment value × cost of capital percentage). Establishes a minimum investment threshold across all segments and reduces the goal-incongruence problem of pure ROI evaluation (Ch 9.3, "Investment Centers"). The volume's argument: under ROI, a manager whose segment currently earns 25.9 per cent ROI may reject a $50,000 project whose expected income of $5,001 returns just over 10 per cent because it would lower the segment's average, even when the project clears the company's 10 per cent cost of capital; under RI, the same manager would accept any project with a positive RI (Ch 9.3).
 
 ### Controllable, uncontrollable, allocated costs and transfer pricing
 
@@ -284,7 +284,7 @@ Outsourcing trade-offs: advantages include external expertise, freed capacity an
 
 ### Keep-or-discontinue decisions
 
-Two analytical approaches: contribution-margin comparison (with and without the segment) and net-income comparison. The text's central illustration: SnowBucks's snow-boot product line appears unprofitable when allocated common costs are charged equally to three product lines, but contributes positively to fixed costs when the contribution margin and avoidable fixed costs are isolated. The volume's argument: "the reason the snow boot product line was showing an operating loss was due to the allocation of common costs" (Ch 10.4, "Final Analysis of the Decision"). The contribution-margin approach avoids the misleading allocation effects and the volume recommends it as the primary tool for keep-or-discontinue decisions.
+Two analytical approaches: contribution-margin comparison (with and without the segment) and net-income comparison. The text's central illustration: SnowBucks's snow-boot product line appears unprofitable when allocated common costs are charged equally to three product lines, but contributes positively to fixed costs when the contribution margin and avoidable fixed costs are isolated. The volume's argument: "the reason the snow boot product line was showing an operating loss was due to the allocation of common costs" (Ch 10.4, "Final Analysis of the Decision"). The contribution-margin approach avoids the misleading allocation effects.
 
 ### Sell-or-process-further decisions
 
@@ -412,7 +412,7 @@ Three sustainability reporting frameworks are catalogued:
 
 ### Future issues
 
-Sustainability reporting "is still relatively new and its use is not yet mandatory" but is converging on materiality-based disclosure. The text projects future issues in cybersecurity, globalisation under shifting political winds, and artificial intelligence's impact on white-collar work — citing Bill Gates's call for a robot tax to finance a Universal Basic Income, and Yanis Varoufakis's concept of a Universal Basic Dividend funded by a portion of corporate IPOs (Ch 13.4, "Future Issues in Sustainability"). The chapter closes with the framing that sustainability reporting "moves us a long way from merely reporting the financial results of businesses [...] and helps bind us all in a way that says we are all truly part of a single, global environment that is determined by the actions of both businesses and citizens" [V] (Ch 13.4).
+Sustainability reporting "is still relatively new and its use is not yet mandatory" but is converging on materiality-based disclosure. The text projects future issues in cybersecurity, globalisation under shifting political winds, and artificial intelligence's impact on white-collar work — citing Bill Gates's call for a robot tax to finance a Universal Basic Income, and Yanis Varoufakis's concept of a Universal Basic Dividend funded by a portion of corporate IPOs (Ch 13.4, "Future Issues in Sustainability"). The chapter closes with the framing that "[s]ocial responsibility reporting has moved us a long way from merely reporting the financial results of businesses"; it provides a foundation linking all businesses to all citizens, and "it helps bind us all in a way that says we are all truly part of a single, global environment that is determined by the actions of both businesses and citizens" [V] (Ch 13.4).
 
 > "In short, sustainability reporting has evolved to describe both how the company's practices contribute to the social good and how they add value to the company, which ultimately provides better returns to its investors."
 > [V] (Ch 13.1, "Sustainability Reporting")
@@ -483,7 +483,7 @@ The text cautions that "past performance does not always dictate future performa
 | Walmart energy from renewables (current) | 25 per cent | [V] (Ch 13.1) |
 | Walmart waste diverted from landfill (2015) | 75 per cent | [V] (Ch 13.1) |
 | Coal India mines closing by March 2018 | 96 of 394 | [V] (Ch 13.2, "Shareholders", citing IANS, The Economic Times) |
-| Patagonia annual giving commitment | 1 per cent of sales or 10 per cent of pre-tax profits | [V] (Ch 13.1, "Patagonia") |
+| Patagonia annual giving commitment | 1 per cent of sales or 10 per cent of pre-tax profits, whichever is greater | [V] (Ch 13.1, "Patagonia") |
 | Average automobile parts | Approximately 14,000 | [V] (Ch 8.1, "Fundamentals of Standard Costs") |
 | Boeing annual revenue | Around $90 billion | [V] (Ch 2.2, "Concepts in Practice: Boeing") |
 | Boeing direct employees | Around 200,000 | [V] (Ch 2.2) |
@@ -492,28 +492,27 @@ The text cautions that "past performance does not always dictate future performa
 | Ford Mustang 1964 list price | $2,368 | [V] (Ch 11.3) |
 | Ford Mustang 2019 starting price | $25,680 | [V] (Ch 11.3) |
 | Ford Mustang annual price-inflation rate (1964 to 2019) | Approximately 4.5 per cent | [AP] (Ch 11.3, derived from text) |
-| Number of mechanics at Fiat Chrysler Belvidere Assembly Plant | Approximately 5,000 | [V] (Ch 8.1, "Fundamentals of Standard Costs") |
+| Employees assembling automobiles at Fiat Chrysler Belvidere Assembly Plant | Approximately 5,000 | [V] (Ch 8.1, "Fundamentals of Standard Costs") |
 | ADP customer companies served | More than 650,000 | [V] (Ch 10.3, "Evaluate and Determine Whether to Make or Buy a Component") |
 | Self-driving cars expected on roads by 2020 | 10 million | [V] (Ch 13.4, "Future Issues in Sustainability", citing Business Insider) |
 
 ## Connections the author makes in the text
 
 - **Eliyahu Goldratt's Theory of Constraints** — cited approvingly as a "valuable instrument for improving the flaws in processes" with five focusing steps for continuous improvement [BT] (Ch 1.5, "Lean Practices").
-- **Toyota Production System / Taiichi Ohno (implicit)** — origin of just-in-time manufacturing and lean practices; "implemented by the Japanese automaker, Toyota Motor Corporation, soon after the end of World War II" [BT] (Ch 1.5).
+- **Toyota Motor Corporation** — origin of just-in-time manufacturing and lean practices; "implemented by the Japanese automaker, Toyota Motor Corporation, soon after the end of World War II" [BT] (Ch 1.5).
 - **Motorola** — origin of Six Sigma in 1986 and continued LSS training centre [BT] (Ch 1.5).
 - **John Elkington** — triple bottom line; "first proposed in 1997 by John Elkington to expand the traditional financial reporting framework" [BT] (Ch 13.1).
 - **Brundtland Commission Report (1987)** — sustainable development definition; "the resulting Brundtland Commission Report laid the groundwork for the concept of sustainable development" [BT] (Ch 13.1).
 - **Robert Kaplan and David Norton** — current four-perspective balanced scorecard development at Harvard [BT] (Ch 12.4).
 - **Art Schneiderman / Analog Devices** — earlier balanced scorecard origin in 1987 with three categories [BT] (Ch 12.4).
 - **Chris Argyris** — double-loop learning concept introduced in 1977 HBR article, framed as a comprehensive evaluation that asks whether current goals should be adjusted [BT] (Ch 9.1).
-- **Yvon Chouinard / Patagonia / Tin Shed Ventures** — B-corp pioneer; "for more than 30 years, [...] Patagonia has donated 1% of its annual sales or 10% of its pre-tax profits" [BT] (Ch 13.1).
+- **Yvon Chouinard / Patagonia / Tin Shed Ventures** — B-corp pioneer; "for more than 30 years, [...] Patagonia has donated 1% of its annual sales or 10% of its pre-tax profits, whichever is greater" [BT] (Ch 13.1).
 - **U.S. Supreme Court (TSC Indus. v. Northway, 1976)** — materiality definition adopted by SASB [BT] (Ch 13.3).
 - **WHO International Code of Marketing of Breast-Milk Substitutes** — Nestlé's stricter internal policy basis [BT] (Ch 13.1).
 - **GRI / SASB / IIRC** — three sustainability reporting frameworks each with distinct materiality definitions [BT] (Ch 13.3).
 - **Klaus Schwab (World Economic Forum)** — technological revolution framing [BT] (Ch 13.4).
 - **Bill Gates** — robot tax proposal to fund UBI [BT] (Ch 13.4).
 - **Yanis Varoufakis** — Universal Basic Dividend concept [BT] (Ch 13.4).
-- **Cox-Blake business case** — referenced in Ch 1.5 implicit on diversity benefits to companies (not deeply developed in this volume).
 - **Walker and Fleischman (2013)** — ethics in budgeting research; "the existence of formal ethical codes, ethics training, good management role models, and social pressure to be disclosing within an organization can be a deterrent to budget manipulation" [BT] (Ch 7.5, citing Walker et al., Management Accounting Quarterly).
 - **Cohen and Pant (2018)** — long-term variance analysis perspective [BT] (Ch 8.5).
 - **Hitt and Collins (2007)** — pro-stakeholder culture and ethical decision-making [BT] (Ch 9.4, citing Business Horizons).
@@ -521,7 +520,7 @@ The text cautions that "past performance does not always dictate future performa
 ## Positions the author explicitly frames against
 
 - *Pure absorption costing for managerial decisions.* The text frames absorption costing as required by GAAP but inferior for internal decision-making because it can mask the impact of fixed costs and create incentives to overproduce: "the Big Three auto companies made decisions based on absorption costing, and the result was the manufacturing of more vehicles than the market demanded" (Ch 6.5, "Absorbing Costs through Overproduction").
-- *Equal allocation of common costs in segment evaluation.* The SnowBucks worked example is the volume's central illustration that equal common-cost allocation can produce false signals about segment unprofitability; the contribution-margin approach is recommended (Ch 10.4).
+- *Equal allocation of common costs in segment evaluation.* The SnowBucks worked example is the volume's central illustration that equal common-cost allocation can produce false signals about segment unprofitability; relevant-cost and contribution-margin analysis reveal the misleading allocation (Ch 10.4).
 - *Sole reliance on ROI as a segment evaluation measure.* The text argues that ROI alone produces goal-incongruence problems: a high-ROI segment manager will reject a project that benefits the company because it lowers the segment's average ROI. Residual income and EVA are positioned as remedies (Ch 9.3, Ch 12.3).
 - *Pure financial-measure performance evaluation.* The balanced scorecard's case rests on the claim that financial measures alone are gameable, lagging, and short-term-biased; non-financial measures across four perspectives produce more durable evaluation (Ch 12.1, "Potential Limitations of Traditional Performance Measurement"; Ch 12.4).
 - *Stockholder-only accountability.* Sustainability reporting is framed as a corrective to financial-only reporting that ignores wider stakeholder interests; the public benefit corporation model is presented as a legal expression of the same correction (Ch 13.1, Ch 13.2).

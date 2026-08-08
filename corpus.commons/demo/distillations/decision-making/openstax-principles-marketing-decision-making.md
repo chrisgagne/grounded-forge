@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:a8f2adb8f4461da8287f1222f0911c1f4cd76489cc7ac395fbcaefe4de447629 -->
 # OpenStax, Principles of Marketing, Decision-Making Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -142,7 +143,7 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 - *Segmentation and targeting refresh* — typically every 18–36 months, more frequent in fast-moving categories.
 - *Channel-redesign decisions* — when shifting from indirect to direct, adding e-commerce, or rationalising intermediaries.
 - *Promotion-mix audit* — when ROAS, CPA, or brand-engagement metrics decline.
-- *Sustainability-strategy formulation* — moving from CSR add-on to ESG-integrated operations.
+- *Sustainability-strategy formulation* — integrating ESG into operations.
 - *Customer-loyalty programme design* and *retention-strategy* discussions.
 
 ## Worked Example
@@ -195,7 +196,7 @@ Decision: stretch-down product development to a new segment is the highest-expec
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Abraham Maslow, hierarchy of needs* — anchors the motivation analysis in consumer psychological factors (Ch 3.2) [BT]. The Integration table notes this relationship.
-- *Geert Hofstede, cultural dimensions* — cited as the dominant frame for cross-cultural segmentation and international marketing analysis (Ch 5.3; Ch 8.3) [BT]. Integration table notes this relationship.
+- *Geert Hofstede, cultural dimensions* — cited as "particularly useful" for cross-cultural segmentation and international marketing analysis (Ch 5.3; Ch 8.3) [BT]. Integration table notes this relationship.
 - *Everett Rogers, Diffusion of Innovations (1962)* — five-adopter-category framework (innovators, early adopters, early/late majority, laggards) imported directly as Key Concept and NPD guidance (Ch 10.5) [BT].
 - *Theodore Levitt, "Marketing Myopia"* — cited approvingly twice as foundation for the customer-driven thesis (Ch 1.4; Ch 5.2) [BT]. Integration table notes this relationship.
 - *Al Ries and Jack Trout, Positioning* — conceptual backbone of positioning and STP treatment (Ch 5.6) [BT]. Integration table notes this relationship.

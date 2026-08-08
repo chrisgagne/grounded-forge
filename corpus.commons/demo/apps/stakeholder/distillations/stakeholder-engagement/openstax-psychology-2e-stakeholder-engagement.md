@@ -38,7 +38,7 @@ The book's central engagement-relevant insights: people interpret others' behavi
 
 13.  **Bystander effect and diffusion of responsibility.** Helping declines as the number of witnesses increases. The implication for stakeholder engagement: when many stakeholders share responsibility for a problem, no single stakeholder may move; explicit accountability and small-group structures counter this. (Source: Ch 12.6)
 
-14.  **Relationship formation: proximity, similarity, reciprocity.** Proximity and similarity are the strongest predictors of relationship formation. Homophily (preference for similar others) limits diversity exposure. Reciprocity and self-disclosure maintain relationships. Engagement strategies that ignore proximity and similarity are working against the underlying social mechanics. (Source: Ch 12.7)
+14.  **Relationship formation: proximity, similarity, reciprocity.** Proximity is the single most influential factor in relationship formation, and similarity is another important factor. Homophily (preference for similar others) limits diversity exposure. Reciprocity and self-disclosure maintain relationships. Engagement strategies that ignore proximity and similarity are working against the underlying social mechanics. (Source: Ch 12.7)
 
 15.  **Observational learning and modelling.** Bandura's social learning theory: behaviour is acquired through attention, retention, reproduction, and motivation, and is shaped by vicarious reinforcement. Stakeholders learn what is acceptable partly by watching what happens to others; what the convener models is part of the engagement. (Source: Ch 6.4)
 

@@ -1,0 +1,59 @@
+{
+  "source": "mcdp1-warfighting",
+  "tier": "deep-ref",
+  "producer": "opus-9pass",
+  "judge": "claude",
+  "grain": "claim",
+  "scope": "subject-matter within-source only",
+  "claims_audited": 176,
+  "tally": {
+    "faithful": 170,
+    "minor_drift": 4,
+    "unsupported": 0,
+    "contradicted": 2
+  },
+  "errors": [
+    {
+      "claim": "Clausewitz's On War is 'cited 14 times across the Notes' (deep-ref lines 15 and 157).",
+      "marker": "AR/count",
+      "grade": "minor_drift",
+      "searches": "Enumerated every note in the Notes section (source 4032-4478) and counted distinct notes that cite Clausewitz, including 'Ibid.' back-references.",
+      "source_check": "Distinct notes citing Clausewitz: Ch1 notes 1,4,5,6,8 (5); Ch2 notes 1,4,5,13,14,17,19,20,21 (9); Ch3 note 6 (1) = 15 total, not 14. Off by one. The deep-ref's own enumerated list at line 197, corrected for its Note-11 error, also implies 15."
+    },
+    {
+      "claim": "Maneuver-warfare historical examples list ('Allenby in Palestine 1918; German Blitzkrieg 1939-1941, especially France 1940; Anzio 1944 (failed but attempted); Patton's Normandy breakout late 1944; MacArthur's Inchon 1950; III MAF Combined Action Program in Vietnam') is tagged [V] (deep-ref line 87).",
+      "marker": "V",
+      "grade": "minor_drift",
+      "searches": "Read source 1687-1715 (Styles of warfare, maneuver examples).",
+      "source_check": "The examples are all present and accurate, but the rendered list is an abbreviated paraphrase, not character-for-character verbatim (source: 'Allenby's decisive campaign against the Turks in Palestine in 1918; German Blitzkrieg operations of 1939-1941, most notably the invasion of France in 1940...'). Content faithful; the [V] marker overstates verbatimness. The parallel attrition list (line 85) correctly quotes only the fragment 'most U.S. operations in the Vietnam War.'"
+    },
+    {
+      "claim": "Combat power definition '\"the total destructive force we can bring to bear on our enemy at a given time.\"' is labelled as the '(Notes 16, Joint Pub 1-02 definition)' (deep-ref line 89).",
+      "marker": "V",
+      "grade": "minor_drift",
+      "searches": "grep 'total destructive force'; read body line 1728-1729 and Note 16 of Ch 2 (source 4282-4284).",
+      "source_check": "The quoted words are verbatim from MCDP's BODY (line 1728), which is footnoted to Note 16. But the actual Joint Pub 1-02 definition at Note 16 reads differently: 'The total means of destructive and/or disruptive force which a military unit/formation can apply against the opponent at a given time.' So attributing the quoted body words to 'Joint Pub 1-02 definition' is imprecise; the note number and source are right, the verbatim wording is MCDP's not JP1-02's."
+    },
+    {
+      "claim": "Gelernter's Mirror Worlds is 'the only non-military / non-historical citation in the entire document' (deep-ref line 212).",
+      "marker": "AR",
+      "grade": "minor_drift",
+      "searches": "grep 'american heritage'; read all Notes (source 4032-4478).",
+      "source_check": "The American Heritage Dictionary (New York: Dell, 1983) is cited at Note 10 of Ch 1 as the source for the definition of 'moral' -- a non-military, non-historical citation. So Gelernter is not strictly the 'only' one. Overstatement; the counterexample is a lexical reference so this is drift rather than a flat contradiction, but 'only' is false as written."
+    },
+    {
+      "claim": "Clausewitz is 'Cited at Notes 1, 4, 5, 6, 8, 11 of Ch 1; Notes 1, 4, 5, 13, 14, 17, 19, 20, 21 of Ch 2; Notes 6 of Ch 3' (deep-ref line 197).",
+      "marker": "V/citation",
+      "grade": "contradicted",
+      "searches": "Read Note 11 of Ch 1 (source 4104-4107) and all other listed notes.",
+      "source_check": "Note 11 of Ch 1 does NOT cite Clausewitz: it cites Napoleon's maxim 'In war, the moral is to the material as three to one' via Peter G. Tsouras, Warrior's Words (Cassell, 1992). Including Note 11 of Ch 1 in the Clausewitz citation list is a false attribution -- and the deep-ref itself elsewhere (lines 69, 197 prose) correctly attributes that ratio to Napoleon/Tsouras. All other listed notes (Ch2 and Ch3) are correct Clausewitz citations."
+    },
+    {
+      "claim": "'Boyd is the only living-contemporary author cited as a primary source' (deep-ref line 199).",
+      "marker": "AR",
+      "grade": "contradicted",
+      "searches": "Read all Notes; identified authors alive in 1997 whose own works are cited (Note 11 Ch4 Lind; Note 9 Ch4 Gelernter; Note 15 Ch2 Luttwak; Note 4 Ch1 Beyerchen).",
+      "source_check": "William S. Lind (b. 1947; Maneuver Warfare Handbook, cited Note 11 Ch 4 as the primary source of reconnaissance-pull/command-push) and David Gelernter (b. 1955; Mirror Worlds, cited Note 9 Ch 4 as the primary source for topsight) were both living contemporaries in 1997 cited as primary sources of their own works. The deep-ref itself calls Lind 'the civilian theorist who brought maneuver warfare into Marine Corps doctrinal language.' Boyd is therefore not the 'only' such author; the uniqueness claim is false."
+    }
+  ]
+}

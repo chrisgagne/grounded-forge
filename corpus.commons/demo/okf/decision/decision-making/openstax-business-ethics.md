@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-ethics
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Business Ethics, Decision-Making Distillation
 
@@ -107,7 +107,7 @@ This distillation consolidates these threads into a working pattern: how to reco
 | Communicate transparently | Have I explained the reasoning, not just the outcome, to those affected? Stakeholders accept difficult decisions more readily when the reasoning is shared. |
 | Model the decision visibly | Will leadership embody the decision through their own behaviour, or is this a one-off announcement? Tone at the top matters more than the announcement itself. |
 | Anticipate retaliation costs | If this decision identifies wrongdoing or whistleblowing, what protections are in place? The career-cost data on whistleblowers is sobering even when their action was unambiguously ethical. |
-| Build feedback channels | Will affected stakeholders have a way to report consequences I have not anticipated? The MITRE five-step pattern (identify, gather concerns, present results, decide, inform stakeholders) is a model. |
+| Build feedback channels | Will affected stakeholders have a way to report consequences I have not anticipated? The MITRE five-step pattern (establish trust, identify stakeholders, gather and analyse data, present to decision-makers, let stakeholders know they matter) is a model. |
 
 ### Phase 6: Reviewing and re-deciding
 

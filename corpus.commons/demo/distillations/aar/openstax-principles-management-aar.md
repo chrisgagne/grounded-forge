@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:2b3f965b1532d706dbf97c047ac40324fd2f5b4ecc1c163c4dd5c054646ae46a -->
 # OpenStax Principles of Management, AAR Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Lead author David S. Bright et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.

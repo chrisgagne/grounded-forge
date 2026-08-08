@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping, AAR Distillation
 
@@ -24,7 +24,7 @@ Barbrook-Johnson & Penn's seven-method catalogue projects onto the AAR axis at t
 
 ## Key Concepts for AAR
 
-1.  **Appropriateness triangle for method selection.** Method selection is a three-way triangulation between the purpose and constraints of the project, the characteristics of the system, and the nature of the methods. "Where a method fits with both the project and the system, we can say it is an 'appropriate' method." (Source: Barbrook-Johnson & Penn, *Systems Mapping*, Ch 11, "Comparing Systems Mapping Methods") The AAR facilitator who defaults to CLDs for every incident is applying Maslow's hammer, not appropriateness reasoning.
+1.  **Appropriateness triangle for method selection.** Method selection is a three-way triangulation between the purpose and constraints of the project, the characteristics of the system, and the nature of the methods. "Where a method fits with both the project and the system, we can say it is an 'appropriate' method." (Source: Barbrook-Johnson & Penn, *Systems Mapping*, Ch 11, "Comparing Systems Mapping Methods") The AAR facilitator who defaults to CLDs for every incident is applying the hammer-and-nail failure mode, not appropriateness reasoning.
 
 2.  **Rich Pictures as low-barrier collective externalisation.** "Rich Pictures are a drawing, a picture, of a system or 'situation'. Very few, if any, prompts are given by facilitators beyond asking them to 'draw the system.'" (Source: Ch 2, "What Are Rich Pictures?") Useful in Phase 1 when the group is not yet ready to negotiate causal links.
 
@@ -55,7 +55,7 @@ Barbrook-Johnson & Penn's seven-method catalogue projects onto the AAR axis at t
 | Need | Question |
 |---|---|
 | The group has competing pictures of what happened and can't yet agree on a timeline | Ask each subgroup to draw their picture of the situation — no formal structure required. What does each picture emphasise that others leave out? (Rich Pictures, Ch 2, "What Are Rich Pictures?") |
-| The facilitator needs a fast, low-overhead method for surfacing multiple perspectives | Rich Pictures: "draw the system" with minimal prompts. Small groups of three to six; thirty minutes minimum. (Ch 2, "How Do You Do Rich Pictures?") |
+| The facilitator needs a fast, low-overhead method for surfacing multiple perspectives | Rich Pictures: "draw the system" with minimal prompts. Small groups of three to six; as little as thirty minutes if needed, more commonly around two hours. (Ch 2, "How Do You Do Rich Pictures?") |
 | The group is ready to negotiate a shared causal picture | Introduce a CLD. Start with the core system engine — the two or three feedback loops at the centre of the event — before expanding outward. Keep the first draft to twenty nodes. (Ch 4, "How Do You Create Causal Loop Diagrams?") |
 
 ### Phase 2: Contributory-factor analysis
@@ -132,7 +132,7 @@ A cross-functional team is reviewing a series of late deliveries. The timeline (
 
 **Borrowed-through gaps.** The system archetypes (Kim 2000, *Systems Archetypes I*) are cited borrowed-through in the source; the deep ref records Kim 2000 as `[BT]` (Ch 4, "How Do You Create Causal Loop Diagrams?"). Kim is not held directly in this corpus. The boundary-objects framing (Star & Griesemer 1989) is cited borrowed-through in the source's Ch 9; Star & Griesemer is not held directly. Meadows 2008 (*Thinking in Systems*) is cited borrowed-through for the system definition; Meadows is not held directly in the demo corpus. The Rogers 2014 "results chain" framing for ToC categories is borrowed-through. The Barbrook-Johnson & Penn text itself is a secondary-source catalogue; its own borrowed-through chain is extensive and is recorded in the deep ref.
 
-**Named limits of the source.** The authors explicitly exclude from scope: non-causal approaches (mind mapping, stakeholder mapping, giga-mapping, social network analysis, path analysis, viable systems model), and broader schools of practice (participatory action research, design thinking, permaculture). The criterion for inclusion is "methods which represent causality and influence in a system, and methods which can be used in a participatory way." The book does not address incident review methodology, just-culture sorting, or after-action protocol design; those functions are carried by LFUO, NHS, and TC 25-20 in this corpus.
+**Named limits of the source.** The authors explicitly exclude from scope: other systems-mapping methods outside the book's selected causal and participatory scope, and broader schools of practice (participatory action research, design thinking, permaculture). The criterion for inclusion is "methods which represent causality and influence in a system, and methods which can be used in a participatory way." The book does not address incident review methodology, just-culture sorting, or after-action protocol design; those functions are carried by LFUO, NHS, and TC 25-20 in this corpus.
 
 **Evidence-marker continuity.** The appropriateness-triangle quotation is `[V]` in the deep ref; the distillation paraphrases it in Concept 1. The horrendogram quotation is `[V]` in the deep ref; the distillation quotes it directly in Concept 8. System archetypes are `[V]` in the deep ref with `[BT]` to Kim 2000; the distillation preserves the borrowed-through flag in this section and in Concept 7.
 

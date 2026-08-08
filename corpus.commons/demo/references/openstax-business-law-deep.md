@@ -14,7 +14,7 @@ The book presents American business law as a body of rules and standards "develo
 
 A second organising claim is that American law derives from multiple sources that interact through a hierarchical structure: the U.S. Constitution as supreme law, federal and state statutes (legislative law), case law (judicial law / common law), and administrative law from agencies, with federal law preempting conflicting state law within the limited powers granted by the Constitution [AP] (Ch 1.2, "Sources and Types of Law"; Ch 4.1, "Commerce Clause"). The Commerce Clause is treated as the central authorising mechanism by which federal regulation reaches across state lines, with the 1937 *NLRB v. Jones & Laughlin Steel Corp.* decision marking the inflection from a literal interpretation to a "close and substantial relationship to interstate commerce" test [V] (Ch 4.1, "The Commerce Clause and The Affordable Care Act").
 
-A third organising claim is that disputes can — and increasingly should — be resolved through mechanisms that avoid full litigation. Negotiation, mediation, and arbitration are presented as a tiered system of alternative dispute resolution (ADR), each adding more structure than the last, with negotiation framed as "process by which parties with nonidentical preferences allocate resources through interpersonal activity and joint decision making" [V] (Ch 2.1, "Negotiation"). The Thomas-Kilmann Conflict Mode Instrument (TKI) is the text's framing apparatus for negotiation styles: forcing, collaborating, compromising, avoiding, yielding (Ch 2.1, "Negotiation Style").
+A third organising claim is that disputes can be resolved through mechanisms that avoid full litigation. Negotiation, mediation, and arbitration are presented as a tiered system of alternative dispute resolution (ADR), each adding more structure than the last, with negotiation framed as "process by which parties with nonidentical preferences allocate resources through interpersonal activity and joint decision making" [V] (Ch 2.1, "Negotiation"). The Thomas-Kilmann Conflict Mode Instrument (TKI) is the text's framing apparatus for negotiation styles: forcing, collaborating, compromising, avoiding, yielding (Ch 2.1, "Negotiation Style").
 
 A fourth organising claim is that legal rules in business operate against an ethical and stakeholder backdrop. Ch 3 frames business ethics as "the blueprint for building a successful organization" whose absence produces "poor company reputation," "negative employee relations," "recruitment and retention problems," and "company credibility lost" [V] (Ch 3.1, "Why Is Corporate Ethics So Important in Business?"). Corporate social responsibility (CSR) is presented as "the idea that a business is given the opportunity and privilege to make the world a better place" [V] (Ch 3.2, "What Is Corporate Responsibility?"), measured against a triple-bottom-line frame of "profits, people, and the planet" [V] (Ch 3.2, "The Financial Impact of the Triple Bottom Line").
 
@@ -28,7 +28,7 @@ The text notes a structural exception: "All U.S. states, except Louisiana, have 
 
 ### Four sources of American law
 
-American law is described as drawing from four sources: constitutional law, common law (judicial law from courts), legislative law (state and federal statutes), and administrative law from governmental agencies [AP] (Ch 1.2, "Sources and Types of Law"). The Constitution is "the foremost law of the land," with "the first ten amendments referred to as the Bill of Rights, which offers specific protections of individual liberty and justice" [V] (Ch 1.2, "The Constitution"). It empowers federal lawmaking by giving Congress the power "to enact statutes for certain limited purposes, like regulating interstate commerce"; the United States Code (USC) "officially compiles and codifies the federal statutes" [V] (Ch 1.2).
+American law is described as drawing from four sources: constitutional law, common law (judicial law from courts), legislative law (state and federal statutes), and administrative law from governmental agencies [AP] (Ch 1.2, "Sources and Types of Law"). The Constitution is "the foremost law of the land"; "The Constitution's first ten amendments are referred to as the Bill of Rights, which offers specific protections of individual liberty and justice" [V] (Ch 1.2, "The Constitution"). It empowers federal lawmaking by giving Congress the power "to enact statutes for certain limited purposes, like regulating interstate commerce"; the United States Code (USC) "officially compiles and codifies the federal statutes" [V] (Ch 1.2).
 
 Federal preemption is bounded: "federal law preempts conflicting state and local laws. However, federal preemption is not without limits, insofar as states each have their own constitution and are considered sovereign. Therefore, federal law may only preempt state law if it is enacted within the limited powers that are enumerated and granted to Congress in the Constitution" [V] (Ch 1.2, "Federal Law"). The text gives the example of *State v. Wayfair Inc.* (2017 SD 56) as case-law illustration, which the South Dakota Supreme Court used to hold a state law on internet retailer sales tax unconstitutional [AE] (Ch 1.1, "Promoting Consistency").
 
@@ -225,7 +225,7 @@ The Bill of Rights summary table covers the first ten amendments (Ch 4.2, Table 
 
 The **free exercise clause** prohibits laws that prohibit the free exercise of religion; workplace religious-practice cases are noted as recurrent (Ch 4.2).
 
-**Fourth Amendment.** Search-warrant requirements and probable-cause apply to "individual organizations and places of business, as well as residences." The **pervasive-regulation exception** allows warrantless searches of businesses in industries with "a long history of pervasive regulation" — public-health agencies and stone quarries under the Federal Mine Safety and Health Act of 1977 (Ch 4.2, "The Fourth Amendment").
+**Fourth Amendment.** Search-warrant requirements and probable-cause apply to "individual organizations and places of business, as well as residences." The **pervasive-regulation exception** allows warrantless searches of businesses in industries with "a long history of pervasive regulation" — for example, public-health agencies may conduct warrantless searches of stone quarries, as authorized by the Federal Mine Safety and Health Act of 1977 (Ch 4.2, "The Fourth Amendment").
 
 **Fifth Amendment.** Two types of due process and the takings clause are introduced (Ch 4.2, "The Fifth Amendment"):
 
@@ -275,7 +275,7 @@ Each crime statute should describe the required mental state plus a description 
 
 (Ch 5.2, "Criminal Procedures"):
 
-1. The **information** is the first pleading filed by the prosecutor (the criminal counterpart to a civil "complaint").
+1. Generally, the first pleading filed by the prosecutor is the **information** (the criminal counterpart to a civil "complaint").
 2. **Arraignment** — defendant identifies, hears charges, enters plea.
 3. Discovery and trial — conviction requires "beyond a reasonable doubt" and unanimous verdict.
 
@@ -313,7 +313,7 @@ The judge decides issues of law: "The duty of the defendant to the plaintiff, if
 
 (Ch 6.1, "Intentional Torts"):
 
-- **Assault** — "an intentional act that is designed to cause harm to himself or herself, or to another person."
+- **Assault** — occurs when an individual has a reasonable apprehension of "an intentional act that is designed to cause harm to himself or herself, or to another person."
 - **Malicious prosecution** — "files groundless complaints to initiate a criminal matter against another."
 - **Defamation** — "intentionally creates and promotes malicious falsehoods about another," with two forms: **slander** (spoken) and **libel** (written or recorded).
 - **Invasion of privacy** — "unwanted production of negative public information."
@@ -400,7 +400,7 @@ If satisfied, the court awards "reliance damages to restore the aggrieved party 
 (Ch 7.2, "Capacity and Legality"):
 
 - **Minors.** "In most states, minors under the age of 18 lack the capacity to make a contract and may therefore either honor an agreement or void the contract." Exception: contracts for **necessities** (food, clothing) cannot be voided. The Mary endorsement case is named (cannot void at age 20).
-- **Mental incapacity.** Measured by the **cognitive standard**: whether the party "understood its meaning and effect." The Mr. Williams patent-sale case is named: California Court of Appeals refused to terminate the contract because his manic state "may have impaired his judgment but not his understanding."
+- **Mental incapacity.** In most states, measured by the **cognitive standard**: whether the party "understood its meaning and effect." The Mr. Williams patent-sale case is named: California Court of Appeals refused to terminate the contract because his manic state "may have impaired his judgment but not his understanding."
 - **Voluntary intoxication.** "Courts generally do not find lack of capacity to contract for people who are voluntarily intoxicated" — to prevent side-stepping obligations. But severe inebriation impairing understanding can void; the late-1900s stock-binge case is named (sold at 1.5% of value while bank-aware-third-party engaged).
 
 ### Material vs minor breach
@@ -527,7 +527,7 @@ By the act of selling, "the vendor implies a warranty that the title is good and
 
 ### Health and safety: OSHA
 
-The **Occupational Safety and Health Act** (1970) established **OSHA** to "assure safe and healthy working conditions for working men and women by setting and enforcing standards and by providing training, outreach, education and assistance" [V, BT] (Ch 9.1, "Health and Safety"). OSHA covers private employers and federal agencies (most states' self-employed and state/local government workers excluded). Two standard types (Table 9.1): **specific duty standards** (specific work, procedures, equipment) and **general duty standards** (apply to all employers; protection from known hazards).
+The **Occupational Safety and Health Act** (1970) established **OSHA** to "assure safe and healthy working conditions for working men and women by setting and enforcing standards and by providing training, outreach, education and assistance" [V, BT] (Ch 9.1, "Health and Safety"). OSHA covers private employers and federal agencies; the self-employed are excluded, as are state/local government workers in most states. Two standard types (Table 9.1): **specific duty standards** (specific work, procedures, equipment) and **general duty standards** (apply to all employers; protection from known hazards).
 
 ### Workers' compensation
 
@@ -575,7 +575,7 @@ A trade union "is an organized group of workers who come together to lobby emplo
 - **1935** — Wagner Act (**National Labor Relations Act**), the major statute of US labour law: rights to form, assist, join unions; engage in collective bargaining; engage in concerted activity.
 - **1947** — Taft-Hartley Act (Labor-Management Relations Act) imposed restrictions on union power; six unfair-practice amendments (Table 9.3): protection from union discrimination; no refusal to hire on union grounds (with 30-day union-security agreements permitted); good-faith bargaining required of unions; secondary boycotts prohibited; ban on excessive dues and pay-for-no-work; employer free speech protected.
 - **1959** — Landrum-Griffin Act regulates internal union affairs and officials' relationships with employers.
-- **1988** — WARN Act requires 60-day notice for layoffs/plant closings (employers with 100+).
+- **1988** — WARN Act requires 60-day notice for layoffs/plant closings (employers with more than 100 employees).
 
 ### NLRB and elections
 
@@ -623,7 +623,7 @@ Title VII "bans employers from discriminating against employees in their hiring,
 Two recognised types (Ch 9.3):
 
 - **Quid pro quo** — manager makes a sexual demand perceived as a condition of employment.
-- **Hostile work environment** — pervasive harassing conduct.
+- **Hostile work environment** — actions creating a hostile work environment; the text does not further specify the conduct.
 
 *Oncale v. Sundowner Offshore Services Inc.* (1997) established same-sex sexual harassment as actionable. The **Pregnancy Discrimination Act** (1987) expanded sex discrimination to include pregnancy, childbirth, and related medical conditions (Ch 9.3).
 
@@ -752,7 +752,7 @@ The FTC also creates **trade rules** for "widespread industry practices" (Ch 12.
 
 (Ch 13.1, "U.S. Constitutional Clauses"):
 
-- **Foreign Commerce Clause** — empowers Congress to "regulate commerce with foreign nations." States cannot "unduly burden foreign commerce." General Motors example: cannot suggest a 50% tax on foreign vehicles only, but Michigan can tax all vehicles 10% to offset trade costs.
+- **Foreign Commerce Clause** — empowers Congress to "regulate commerce with foreign nations." Businesses cannot "unduly burden foreign commerce." General Motors example: GM cannot suggest that Michigan impose a 50% tax on foreign-made vehicles only, but Michigan can tax all vehicles 10% to offset trade costs.
 - **Treaty Clause** — president has the power "by and with the advice and consent of the senate" to create treaties. States cannot enter treaties. "Any treaties established with other countries become U.S. law, and any conflicting law is null and void."
 
 ### Three primary sources of international law
@@ -858,9 +858,9 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 
 | Metric | Value | Classification |
 |---|---|---|
-| Federal preemption-related statutes referencing foreign or interstate commerce | 700+ | [V] (Ch 4.1, "Challenges to and Reinterpretations of the Commerce Clause") |
+| Legislative provisions explicitly referring to foreign or interstate commerce | 700+ | [V] (Ch 4.1, "Challenges to and Reinterpretations of the Commerce Clause") |
 | Chevron mediation case-resolution cost | $25,000 | [V] (Ch 2.2, "Court or Agency-Connected Mediation") |
-| Chevron estimated litigation cost avoided (outside legal services) | $700,000 | [V] (Ch 2.2) |
+| Chevron estimated outside-legal-services cost avoided | $700,000 | [V] (Ch 2.2) |
 | Chevron estimated litigation cost avoided (going to court) | $2.5 million | [V] (Ch 2.2) |
 | Uniform Arbitration Act adoption | ~35 states | [V] (Ch 2.1, "Negotiation Laws") |
 | Enron 2006 class-action award | $7.2 billion | [V] (Ch 2.3, "Ethics of Commercial Arbitration Clauses") |
@@ -871,7 +871,7 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 | Ann Hopkins / Price Waterhouse award | $371,000 in back pay | [V] (Ch 9.3, "A Landmark Case") |
 | Ann Hopkins billings | "more than $34 million" | [V] (Ch 9.3) |
 | Federal minimum wage (2009 raise) | $7.25/hour | [V] (Ch 9.1, "Fair Labor Standards Act") |
-| Obama 2014 federal-contract minimum wage | $10.10 | [V] (Ch 9.1) |
+| Obama 2014 minimum wage for new federal contracts | $10.10 | [V] (Ch 9.1) |
 | FMLA leave entitlement | 12 weeks unpaid in any 12-month period | [V] (Ch 9.1, "Family and Medical Leave Act") |
 | FMLA employer threshold | 50+ employees | [V] (Ch 9.1) |
 | Title VII employer threshold | 15+ employees, 20 consecutive weeks/year | [V] (Ch 9.3, "Civil Rights Act of 1964 – Title VII") |
@@ -880,7 +880,7 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 | Griggs v. Duke Power: black vs white passing intelligence tests | 6% vs 58% | [V] (Ch 9.3) |
 | US trade unions count | ~60 unions / 14 million workers | [V] (Ch 9.2, "What Is a Trade Union?") |
 | Strike cooling-off period | 60 days | [V] (Ch 9.2, "Collective Bargaining") |
-| WARN Act layoff notice | 60 days (employers 100+) | [V] (Ch 9.2, "Timeline of Developments in Labor Law") |
+| WARN Act layoff notice | 60 days (employers with more than 100 employees) | [V] (Ch 9.2, "Timeline of Developments in Labor Law") |
 | Annual US volunteer hours value | ~$175 billion (63 million Americans) | [V] (Ch 3.2, "Where Did the Concept Originate?") |
 | US corporate charitable giving | $18+ billion/year | [V] (Ch 3.2) |
 | Cone Communications: millennials engaging with social-issue brands | 60 percent more | [V] (Ch 3.2, "Promoting Corporate Responsibility with Marketing") |
@@ -890,16 +890,16 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 | Firm-offer default irrevocability period (UCC 2-205) | 3 months | [V] (Ch 8.1) |
 | 1929 stock market loss | $25 billion (~$319 billion today) | [V] (Ch 14.2, "The Securities Exchange Act of 1934") |
 | 1933 unemployment | ~25% | [V] (Ch 14.2) |
-| Section 12(g) registration threshold | $10 million assets / 500+ owners | [V] (Ch 14.2, "The SEC") |
-| Schedule 13D filing threshold | 5% beneficial ownership; 10 days | [V] (Ch 14.1, "Schedule 13D") |
-| Corporate insider threshold | 10% of class of securities | [V] (Ch 14.1, "Insider Transactions") |
+| Section 12(g) registration threshold | assets exceeding $10 million / 500+ owners | [V] (Ch 14.2, "The SEC") |
+| Schedule 13D filing threshold | more than 5% beneficial ownership; within 10 days | [V] (Ch 14.1, "Schedule 13D") |
+| Corporate insider threshold | more than 10% of class of securities | [V] (Ch 14.1, "Insider Transactions") |
 | Form 8-K filing window | 4 business days | [V] (Ch 14.1, "Reporting Requirements") |
 | Proxy statement notice window | 40+ days | [V] (Ch 14.1) |
 | JOBS Act crowdfunding cap | $1,070,000 / 12 months | [V] (Ch 14.2, "The SEC") |
 | Martha Stewart / ImClone avoided loss | $45,673 | [V] (Ch 14.1, "Insider Trading") |
 | ImClone share-price drop | 16% | [V] (Ch 14.1) |
 | Facebook IPO price | $38/share, May 2012 | [V] (Ch 14.2, "Secondary Markets") |
-| CISG ratification (January 2018) | 84 countries; 2/3 of global trade | [V] (Ch 13.2, "Sources of International Law") |
+| CISG ratification (January 2018) | 84 countries; more than two-thirds of global trade | [V] (Ch 13.2, "Sources of International Law") |
 | UN sovereign-state count (2018) | 195 (193 full members + 2 observers) | [V] (Ch 13.1, "United Nations") |
 | EU members (2018) | 28 (UK withdrawing) | [V] (Ch 13.1, "European Union") |
 | EU population | 500+ million | [V] (Ch 13.1) |
@@ -939,7 +939,7 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 - *Forced-arbitration clauses used to silence consumers.* The text explicitly frames against using arbitration clauses "as a way to keep wrongdoings 'quiet' or to limit consumers' abilities to obtain rightful retribution" (Ch 2.3, "Ethics of Commercial Arbitration Clauses").
 - *Profit-only foundations for organisations.* The text states an organisation "built on socially responsible values… will be stronger than an organization that is built on profit alone" (Ch 3.1).
 - *CSR as marketing pitch.* "One should not use corporate social responsibility as a marketing pitch for a company. Consumers will quickly pick up on this tactic, and it can damage the brand" (Ch 3.2).
-- *Treating decisions purely on consequentialist or deontological grounds.* The text takes the position that pure deontological ethics is impractical for dispute resolution: "In real life, it is very difficult to adopt a 100% deontological viewpoint" (Ch 2.2).
+- *Treating decisions on purely deontological grounds.* The text takes the position that pure deontological ethics is impractical for dispute resolution: "In real life, it is very difficult to adopt a 100% deontological viewpoint" (Ch 2.2).
 - *Pure laissez-faire.* The 1934 Securities Exchange Act is presented as "a rejection of laissez faire" and "part of a larger social shift that opposed the long hours, unsafe working conditions, and child labor" of the Industrial Revolution (Ch 14.2).
 - *Compelled personal-service performance.* "Personal service…may not be used to compel specific performance, since doing so would constitute forced labor, i.e. slavery, which is in violation of the U.S. Constitution" (Ch 7.3).
 - *Stereotype-based BFOQs.* The text notes BFOQs must be based on "actual qualifications, rather than stereotypes about the abilities of a certain class. For example, an employer is not expected to hire a man as a model for women's clothes," and explicitly that "there are no BFOQs for discrimination on the basis of race or color" (Ch 9.3).

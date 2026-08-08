@@ -12,7 +12,7 @@ sources:
     resource: https://approachperfect.com/wp-content/uploads/2020/04/The-Approach-Perfect-Field-Guide-to-Scrum-Events-2020-04-03.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Approach Perfect Field Guide to Scrum Events, AAR Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## AAR Relevance
 
-This source is a Sprint Retrospective guide first; its AAR projection is by adaptation rather than by design. The load-bearing transfer points are Norm Kerth's Retrospective Prime Directive (the only verbatim blameless-by-default commitment the demo corpus carries from the retro-methodology tradition), the Vegas / Chatham House confidentiality rules (the mechanism for keeping AAR disclosures safe), 5-Whys with *surprise as the signal* (a discipline that maps directly to the AAR's contributory-factor phase), the one-or-two-improvement discipline (the AAR's action-design constraint), and the decisions-vs-actions split (which maps cleanly onto the AAR distinction between policy changes and tracked actions). The source also carries a quiet action-loop-closure pattern: the retro-close reads back commitments, names owners, names when each lands — exactly what Phase 5 of the AAR requires.
+This source is a Sprint Retrospective guide first; its AAR projection is by adaptation rather than by design. The load-bearing transfer points are Norm Kerth's Retrospective Prime Directive (the only verbatim blameless-by-default commitment the demo corpus carries from the retro-methodology tradition), the Vegas / Chatham House confidentiality rules (the mechanism for keeping AAR disclosures safe), 5-Whys with *the surprise check* (a discipline that maps directly to the AAR's contributory-factor phase), the one-or-two-improvement discipline (the AAR's action-design constraint), and the decisions-vs-actions split (which maps cleanly onto the AAR distinction between policy changes and tracked actions). The source also carries a quiet action-loop-closure pattern: the retro-close reads back commitments, names owners, names when each lands — exactly what Phase 5 of the AAR requires.
 
 ## Key Concepts for AAR
 
@@ -28,7 +28,7 @@ This source is a Sprint Retrospective guide first; its AAR projection is by adap
 
 2.  **Vegas Rule and Chatham House Rule as explicit confidentiality options.** The source names both: "Whatever happens in Vegas, stays in Vegas" (unanimous explicit consent before sharing) and "participants are free to use the information received, but neither the identity nor the affiliation of the speaker(s)... may be revealed." (Source: Gagné, *Field Guide*, Sprint Retrospective, "Tips") The AAR facilitator picks one explicitly at Phase 0 scoping.
 
-3.  **5-Whys with surprise as the signal.** "If you're rarely surprised by your root causes, you may not be digging deep enough." (Source: Gagné, *Field Guide*, Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") Surprise is a diagnostic indicator that the analysis has reached a layer that wasn't already assumed. Applies in AAR Phase 2 contributory-factor work.
+3.  **5-Whys with the surprise check.** "If you're rarely surprised by your root causes, you may not be digging deep enough." (Source: Gagné, *Field Guide*, Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") The check: an absence of surprise may mean the analysis has not left the already-assumed layer. Applies in AAR Phase 2 contributory-factor work.
 
 4.  **One or two improvement items, not a list.** "It's better to have one or two improvement items for the next Sprint than to have too much to change at once." (Source: Gagné, *Field Guide*, Sprint Retrospective, "Sample 1½-Hour Sprint Retrospective Agenda") The same discipline applies at AAR Phase 4: a long action list is a commitment that will not be honoured.
 
@@ -68,7 +68,7 @@ This source is a Sprint Retrospective guide first; its AAR projection is by adap
 
 | Need | Question |
 |---|---|
-| Assessing 5-Whys depth | Are you surprised by what you're finding? If not, keep digging — surprise is the signal you've reached a layer that wasn't already assumed. |
+| Assessing 5-Whys depth | Are you surprised by what you're finding? If not, keep digging — rarely being surprised may mean the analysis hasn't left the already-assumed layer. |
 | Preventing single-cause collapse | Have the contributing factors been separated from the one that was easiest to name first? |
 
 ### Phase 4 — Action design
@@ -101,7 +101,7 @@ This source is a Sprint Retrospective guide first; its AAR projection is by adap
 Reach for this source when:
 - The AAR opener needs a verbatim, blameless-by-default commitment the group can read aloud and own — the Prime Directive is the only such verbatim text in the demo corpus.
 - The facilitator needs explicit confidentiality language to choose between before the session opens.
-- Phase 2 analysis keeps landing on the same obvious factor without going deeper — the surprise-as-signal heuristic is the prompt.
+- Phase 2 analysis keeps landing on the same obvious factor without going deeper — the surprise-check heuristic is the prompt.
 - Phase 4 action design is producing a list longer than two items and no one is pushing back.
 - Phase 5 needs a close discipline: reading back commitments with names and dates.
 
@@ -129,15 +129,15 @@ A software team has completed an incident review for a deployment failure. The P
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 provides the full AAR protocol structure; this source provides the blameless-by-default language and confidentiality mechanisms TC 25-20 assumes but does not name verbatim |
 | LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO provides the administrative-firewall commitment that makes the Vegas / Chatham House rules stick at scale; use LFUO when the incident warrants a formal learning review rather than an informal AAR |
 | Liberating Structures Handbook (liberating-structures-handbook) | LS provides the conversation structures (1-2-4-All, Discovery & Action Dialogues) that operationalise the Prime Directive's blameless container; this source provides the opening commitment text |
-| OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the cognitive dynamics (conformity, anchoring, attribution bias) that explain why rank-speaks-last and surprise-as-signal are needed; use together when the facilitator needs to name what is happening in the room |
+| OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the cognitive dynamics (conformity, anchoring, attribution bias) that explain why rank-speaks-last and the surprise check are needed; use together when the facilitator needs to name what is happening in the room |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Prime Directive is borrowed-through from Norm Kerth's *Project Retrospectives: A Handbook for Team Reviews* (named explicitly in the source's Tips section), which the demo corpus does not hold directly. The retrospective sample agenda structure draws from Esther Derby and Diana Larsen's *Agile Retrospectives: Making Good Teams Great* (named explicitly), also not held directly. The Chatham House Rule is a borrowed-through device (the source quotes its full text without citation to the Chatham House Institute). The "work in process is a liability" claim cites Theory of Constraints via a hyperlink (ap.tips/toc); Goldratt's Theory of Constraints is not held directly in the corpus. The Scrum Guide is cited as the source of the three Daily Scrum questions; the Scrum Guide is held separately in this corpus.
+**Borrowed-through gaps.** The Prime Directive is borrowed-through from Norm Kerth's *Project Retrospectives: A Handbook for Team Reviews* (named explicitly in the source's Tips section), which the demo corpus does not hold directly. The retrospective sample agenda structure draws from Esther Derby and Diana Larsen's *Agile Retrospectives: Making Good Teams Great* (named explicitly), also not held directly. The Chatham House Rule is a borrowed-through device (the source quotes its full text without citation to the Chatham House Institute). The "work in process is a liability" claim appears with the displayed shortlink ap.tips/toc; the source does not name a referent. The Scrum Guide is cited as the source of the three Daily Scrum questions; the Scrum Guide is held separately in this corpus.
 
 **Named limits of the source.** The source explicitly limits itself to "the 'bare minimum' instruction required to successfully bootstrap the five standard Scrum Events and Backlog Refinement." It does not address incident review, just-culture sorting, or contributory-factor analysis. Its retrospective guidance targets iterative software teams; adaptations to cross-functional, non-software, or one-off AAR contexts are operator-applied, not source-endorsed. The source is the author's own work (the author is the corpus operator), relicensed from CC BY-ND 4.0 to CC BY 4.0 for this corpus.
 
-**Evidence-marker continuity.** The Prime Directive quotation is `[V]` in the deep ref; the distillation quotes it directly in Concept 1. The surprise-as-signal tip is `[V]` in the deep ref; the distillation paraphrases it in Concept 3. The "work in process is a liability" claim is `[V]` in the deep ref with `[BT]` to Theory of Constraints; the distillation carries the `[BT]` chain by noting the ToC lineage in this section.
+**Evidence-marker continuity.** The Prime Directive quotation is `[V]` in the deep ref; the distillation quotes it directly in Concept 1. The rarely-surprised tip is `[V]` in the deep ref; the distillation paraphrases it in Concept 3. The "work in process is a liability" claim is `[V]` in the deep ref with `[BT]` via the displayed ap.tips/toc shortlink; the distillation carries the `[BT]` chain by noting the shortlink in this section.
 
 ## Related concepts
 

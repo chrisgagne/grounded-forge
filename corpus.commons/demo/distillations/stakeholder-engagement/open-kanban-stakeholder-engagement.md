@@ -1,3 +1,4 @@
+<!-- derived-from-deep: sha256:f87aa805a67d3e95e80fbad103f14e3e8e22461db1c60dc3e247777430a6d25d -->
 # Hurtado, Open Kanban — Stakeholder-Engagement Distillation
 
 **Source:** Hurtado, J. (with Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban — Open Source Initiative to create a Kanban core that is Agile, Lean and Free*. Release 1.00 Rev A. Licence: CC BY 3.0 Unported. https://github.com/agilelion/Open-Kanban.
@@ -179,11 +180,11 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 
 **Borrowed-through gaps.** The following authors and traditions are cited in the source but are not held as primary references in this corpus:
 - Kent Beck — cited by name for the *Courage* value (the source hyperlinks Beck's name to *Extreme Programming Explained*) [BT]
-- W. Edwards Deming, System of Profound Knowledge — cited as theoretical grounding for the Holistic or Systemic Approach to Change value [BT]
-- Eliyahu M. Goldratt, Theory of Constraints — cited as theoretical grounding for the same value, paired with Deming [BT]
+- Deming, System of Profound Knowledge — cited as theoretical grounding for the Holistic or Systemic Approach to Change value [BT]
+- Goldratt, Theory of Constraints — cited as theoretical grounding for the same value, paired with Deming [BT]
 - Alistair Cockburn, "information radiator" — cited as the conceptual source for visualisation extending beyond the Kanban board [BT]
 - Donald G. Reinertsen, *The Principles of Product Development Flow* — cited as "one of the best explanations" of batch-size reduction's effect on flow [BT]
-- Toyota Production System — cited for the Kanban origin (カンバン / Kamban), Muri, and Muda [BT]
+- Toyota Production System — linked from the word *Japan*; the source says Lean originated in Japan and calls this type of Kanban カンバン (Kamban); Muri and Muda [BT]
 - Agile Manifesto (Beck et al.) — cited as one of the two movements Open Kanban aligns with [BT]
 - Alan Shalloway, Corey Ladas, Karl Scotland — named as fellow-traveller methodologists in the Movement [BT]
 - VersionOne 2013 State of Agile Survey — cited as evidence for Kanban adoption [BT]

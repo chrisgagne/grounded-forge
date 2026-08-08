@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-economics-3e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # OpenStax Principles of Economics 3e, Stakeholder-Engagement Distillation
 
@@ -36,13 +36,13 @@ This distillation projects that structural framework onto the seven-phase engage
 
 4.  **Unions as supply-side monopolies; bilateral monopoly.** Collective bargaining shifts the power balance through coordinated supply control. Union and monopsony together produce bilateral monopoly: employment is unambiguously lower than competitive, wage is indeterminate between bargaining limits. The engagement question becomes "who has what BATNA," not "what is the market wage." (Source: Ch 14.2, Ch 14.3, Ch 14.4)
 
-5.  **Discrimination and earnings gaps.** Discrimination "involves acting on the belief that members of a certain group are inferior or deserve less solely because of a factor such as race, gender, or religion" [V] (Ch 14.5). Earnings gaps by gender (~82% of male earnings) and race (~75% White-Black for men) persist after controlling for observable factors. Becker's argument that competitive markets penalise discrimination is challenged by Darity and others. Lisa D. Cook estimates GDP could be ~4.4% higher with full participation. Engagement on workforce equity must take seriously that markets alone have not closed these gaps. (Source: Ch 14.5)
+5.  **Discrimination and earnings gaps.** Discrimination "involves acting on the belief that members of a certain group are inferior or deserve less solely because of a factor such as race, gender, or religion" [V] (Ch 14.5). Earnings gaps by gender and race (Black men earn ~75% of White men's earnings) persist after controlling for observable factors. Becker's argument that competitive markets penalise discrimination is challenged by Darity and others. Lisa D. Cook estimates GDP could be ~4.4% higher with full participation. Engagement on workforce equity must take seriously that markets alone have not closed these gaps. (Source: Ch 14.5)
 
 6.  **Immigration: aggregate gains, distributional costs.** Immigration raises U.S. economic output but produces small wage reductions (~1%) for low-skill domestic workers competing with low-skill immigrants. Net fiscal effect is positive federally but can be negative at state and local levels where immigration concentrates. Engagement on immigration must distinguish aggregate from distributional framing. (Source: Ch 14.6)
 
 7.  **Inequality and the safety net.** U.S. income inequality has risen since the late 1970s, driven by household-composition changes and "winner-take-all" labour markets. The safety net (TANF, EITC, SNAP, Medicaid, SSI) reduces poverty but creates poverty-trap effects that policy design must address. Engagement on redistributive policy faces a real efficiency-equity trade-off, but well-designed programmes (especially education-as-investment) can improve both. (Source: Ch 15.1, Ch 15.3, Ch 15.4, Ch 15.5)
 
-8.  **Information asymmetry and signalling.** Akerlof's lemons problem: where one party has better information, the better-informed can drive out the trustworthy. Mechanisms reduce asymmetry: warranties, brands, occupational licences, reputation, cosigners, collateral. For stakeholder engagement, the question is "who knows what they don't know they don't know?" and "what mechanism can credibly communicate the missing information?" (Source: Ch 16.1)
+8.  **Information asymmetry and signalling.** The lemons problem: where one party has better information, the better-informed can drive out the trustworthy. Mechanisms reduce asymmetry: warranties, brands, occupational licences, reputation, cosigners, collateral. For stakeholder engagement, the question is "who knows what they don't know they don't know?" and "what mechanism can credibly communicate the missing information?" (Source: Ch 16.1)
 
 9.  **Insurance, moral hazard, and adverse selection.** Insurance pools risk but generates two information problems. Moral hazard occurs when "people engage in riskier behaviour with insurance than they would if they did not have insurance" [V] (Ch 16.2). Adverse selection: high-risk individuals seek insurance, driving out low-risk customers, in a death spiral. The mitigation tools (deductibles, copayments, mandates, group coverage, risk-pool design) are all engagement-design tools when the stakeholder context involves shared risk. (Source: Ch 16.2)
 
@@ -189,7 +189,7 @@ This worked example illustrates several key concepts: externality framing, commo
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Elinor Ostrom — local common-pool resource governance conditions (Ch 13.3) [BT]
 - Ronald Coase — Coase theorem and property-rights bargaining (Ch 12.3) [BT]
-- Joan Robinson — coined "monopsony"; quoted on economics as method (Ch 14.2) [BT]
+- Joan Robinson — introduced the term "monopsony" (crediting Bertrand Hallward with the word); quoted on economics as method (Ch 14.2) [BT]
 - Amartya Sen — poverty, inequality, and food security (Ch 20 closing case) [BT]
 - Walter Williams and Thomas Sowell — minimum-wage critique (Ch 4.1) [BT]
 - Paul Krugman — first wave of globalisation quote (Ch 33 intro) [BT]

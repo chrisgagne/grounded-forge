@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:72550dcb4a79df378ed7b1441f68804581317c24bb6c65b51c20104d797fb0c4 -->
+<!-- derived-from-deep: sha256:50489086ded47e34060d2f50fa1657b49f655a5b32abbce00473930a9c58bcf4 -->
 ---
 title: "MCDP 1: Warfighting"
 author: "U.S. Marine Corps (Krulak, Charles C., Commandant)"

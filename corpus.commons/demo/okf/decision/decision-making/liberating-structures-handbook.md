@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:49:34+12:00
 ---
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Decision-Making Distillation
 
@@ -62,7 +62,7 @@ This distillation gathers these threads into a working pattern: how to recognise
 
 15.  **Storyboard before agenda: visible-experience decision-aid.** "Try using a storyboard instead of an agenda… Unlike an agenda, it also includes and illustrates something about what the participants will experience." Diagnostic: "if your storyboard has a whole lot of podium sessions in a row, it's not going to be very engaging!" Move post-it components around to test combinations before committing the meeting design. ("Storyboard Design and Planning")
 
-16.  **Engage the Unusual Suspects upstream of the decision.** "Who's not here that could contribute to our conversation?" is named as "one of the most important questions you can ask." Decisions made without the people most affected (a) miss critical context and (b) fail at the implementation step. Companion principle: "Nothing About Me Without Me." ("Engage the Unusual Suspects"; "Nothing About Me Without Me")
+16.  **Engage the Unusual Suspects upstream of the decision.** Of "Who's not here that could contribute to our conversation?" the handbook says, "This may be one of the most important questions you can ask." Decisions made without the people most affected (a) miss critical context and (b) fail at the implementation step. Companion principle: "Nothing About Me Without Me." ("Engage the Unusual Suspects"; "Nothing About Me Without Me")
 
 17.  **Six Words: compression as a decision-clarifying exercise.** Forcing a mission, vision, or strategy to ≤8 words with a verb, target population, and measurable outcome surfaces what is actually load-bearing. "Taking some of the seriousness out of these things can actually help people get to the core of an important idea." Useful as a decision-input step for mission/strategy decisions, not as the decision itself. ("Six Words"; Mulago Foundation criteria)
 
@@ -188,7 +188,7 @@ A What/So What/Now What debrief (Source: "After Action Debrief") three weeks lat
 - *Gareth Morgan* — not held. Source of the 15-percent-control framing quoted in Key Concept 10.
 - *Plexus Institute / Positive Deviance* — not held. Origin lineage for Discovery & Action Dialogues ("applied to quality and safety problems in hospitals").
 - *Genrich Altshuller* — not held. Soviet inventor credited as TRIZ originator in Key Concept 8.
-- *Center for Creative Leadership* — not held. Source for the What/So What/Now What framing cited in Key Concept 12.
+- *Center for Creative Leadership* — not held. Its programs include the What/So What/Now What exercise cited in Key Concept 12.
 - *Mulago Foundation* — not held. Source for the Six-Words criteria cited in Key Concept 17.
 - *William Torbert, The Power of Balance (Sage, 1991)* — not held. Credited as the originator of the term "liberating structures."
 - *Edward de Bono, Teaching Thinking (Penguin, 1991)* — not held. Source of the restricting-vs-liberating-structures distinction.

@@ -1,0 +1,45 @@
+{
+  "source": "openstax-economics-3e",
+  "arm": "G-naive-notes",
+  "judge": "claude",
+  "grain": "claim",
+  "primed": true,
+  "notes_found": 10,
+  "claims_audited": 128,
+  "tally": {
+    "faithful": 124,
+    "minor_drift": 2,
+    "unsupported": 0,
+    "contradicted": 2
+  },
+  "errors": [
+    {
+      "note": "money_supply_and_multiplier.md",
+      "grade": "CONTRADICTED",
+      "claim": "M1: a narrow measure comprising currency in circulation and checkable bank deposits, with traveler's checks as a small additional component.",
+      "searches": "rg 'M1|M2|traveler'; read source lines 37814-37875 (Sec 27.2 Measuring Money)",
+      "source_check": "Source states the M1/M2 definitions CHANGED in May 2020: 'Beginning in May 2020, the Federal Reserve changed the definition of both M1 and M2. The biggest change is that savings moved to be part of M1. M1 money supply now includes cash, checkable (demand) deposits, and savings' (L37826). Figure 27.3: 'M1 = coins and currency in circulation + checkable (demand) deposit + savings deposits' (L37868). The current M1 does NOT include traveler's checks (only the superseded 'Historically' definition did, L37814) and DOES include savings deposits, which the note omits. Note reproduces the pre-2020 M1 as current fact = dated-fact drift, dropped-qualifier contradiction."
+    },
+    {
+      "note": "money_supply_and_multiplier.md",
+      "grade": "CONTRADICTED",
+      "claim": "M2: M1 plus savings deposits, money-market funds, and time deposits such as certificates of deposit.",
+      "searches": "rg 'M1|M2|savings'; read source lines 37814-37875",
+      "source_check": "Source current definition: 'M2 money supply is now measured as M1 plus time deposits, certificates of deposits, and money market funds' (L37827); Figure 27.3 'M2 = M1 + money market funds + certificates of deposit + other time deposits' (L37869). Savings deposits are part of M1, NOT M2 ('savings moved to be part of M1', L37826). The note wrongly lists savings deposits as an M2 component, contradicting the source's explicit post-May-2020 reclassification. (Money-market funds and time deposits/CDs are correctly in M2; the savings-deposit placement is the error.)"
+    },
+    {
+      "note": "market_concentration_measures.md",
+      "grade": "MINOR-DRIFT",
+      "claim": "When shares are expressed as percentages, HHI ranges from near zero for a market with many very small firms to 10,000 for a single-firm market.",
+      "searches": "rg 'Herfindahl|HHI|10,000|monopoly.*HHI|single firm'; grep every '10,000' occurrence; read source lines 15333-15420",
+      "source_check": "Source defines HHI as 'summing the squares of the market share of each firm' with percentage shares (examples 5(20^2)=2,000; 77^2+23(1^2)=5,952) and notes it 'gives greater weight to large firms' (L15333-15356), but NOWHERE states the range boundaries 'near zero' or '10,000' for a single-firm market. No '10,000' occurrence in the source relates to HHI. The stated bounds are a correct arithmetic entailment of the source's own formula and percentage convention (100^2=10,000) but are not asserted in the text = small numeric addition beyond source."
+    },
+    {
+      "note": "money_supply_and_multiplier.md",
+      "grade": "MINOR-DRIFT",
+      "claim": "Maximum change in deposits = Initial change in reserves x Money multiplier.",
+      "searches": "rg 'money multiplier'; read source lines 38360-38425, 38624-38625",
+      "source_check": "Source: 'We then multiply the money multiplier by the change in EXCESS reserves to determine the total amount of M1 money supply created in the banking system' (L38386). The note applies the multiplier to 'initial change in reserves' (dropping the 'excess' qualifier the source consistently uses) and states the product as 'maximum change in deposits' rather than 'M1 money supply created'. Structure and the 1/reserve-ratio multiplier (L38548) are correct; the dropped 'excess' qualifier is a small imprecision."
+    }
+  ]
+}

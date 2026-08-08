@@ -1,0 +1,58 @@
+{
+  "source": "letaw-handbook-sweng-methods",
+  "arm": "G-naive-notes",
+  "judge": "claude",
+  "grain": "claim",
+  "notes_found": 12,
+  "claims_audited": 94,
+  "tally": {
+    "faithful": 88,
+    "minor_drift": 6,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "note": "fist_of_five_scale.md",
+      "grade": "minor_drift",
+      "claim": "Usage: 'each participant simultaneously shows a fist or up to five fingers.'",
+      "searches": "rg -i 'fist of five', 'simultaneous', 'holding up a fist'",
+      "source_check": "Source line 1191: 'each person communicates their level or agreement or support by holding up a fist or up to five fingers.' Two-or-fewer-fingers -> discuss/revise/revote to chosen threshold matches lines 1213-1215. But 'simultaneously' is an added procedural detail not in the source."
+    },
+    {
+      "note": "scrum_framework_elements.md",
+      "grade": "minor_drift",
+      "claim": "Scrum Master 'accountable for establishing Scrum and keeping the team's focus on its process.'",
+      "searches": "rg -i 'Scrum Master', 'focus is process', 'establishing Scrum'",
+      "source_check": "Line 693: 'accountable for establishing Scrum as defined in the Scrum Guide' (faithful). Line 707: 'The Scrum Master's focus is process.' Note reframes 'the SM's focus is process' into agentive 'keeping the team's focus on its process' - a gloss beyond what the source states."
+    },
+    {
+      "note": "software_requirement_types.md",
+      "grade": "minor_drift",
+      "claim": "Nonfunctional quality-attribute example: 'Response time must be a few seconds or less in all operating environments.'",
+      "searches": "rg -i 'response time', 'few seconds', 'operating environments'",
+      "source_check": "Line 1853: 'Response time should be a few seconds or less in all operating environments.' Note substitutes modal 'must' for source's 'should' - small strength change in an otherwise verbatim example."
+    },
+    {
+      "note": "uml_class_diagram_notation.md",
+      "grade": "minor_drift",
+      "claim": "Visibility: '+ marks public members, - marks private members, # marks protected members.'",
+      "searches": "rg -i 'public method', 'protected', '+ indicates'",
+      "source_check": "Lines 2494-2495: 'The + indicates a public method, - is private, and # is protected.' Source annotates methods; note generalizes to 'members'. Standard-correct UML but a broadening beyond the source text."
+    },
+    {
+      "note": "uml_class_diagram_notation.md",
+      "grade": "minor_drift",
+      "claim": "Multiplicity: 'a label such as 0..1, 1, or 0..* that states how many instances may participate at an end of an association.'",
+      "searches": "rg '0..1', '0..*', -i 'multiplicity', 'zero or one', 'zero or more', 'exactly one'",
+      "source_check": "Concept supported by figure notes (2526 'zero or one instances', 2541 'zero or more instances'/'exactly one instance'). Literal notation 0..1/1/0..* lives only in figure images, not the converted text; note supplies correct standard notation matching the source's verbal descriptions but not verifiable in-text."
+    },
+    {
+      "note": "uml_class_diagram_notation.md",
+      "grade": "minor_drift",
+      "claim": "Inheritance: 'a line with a hollow triangular arrowhead pointing to the superclass; source is a subclass and is a target-class instance.'",
+      "searches": "rg -i 'hollow', 'triangular', 'arrowhead', 'inherit', 'subclass', 'is a'",
+      "source_check": "Line 2550: 'Class2 is a subclass of Class1; Class2 is a Class1' - relationship faithful. 'hollow triangular arrowhead pointing to the superclass' is standard UML shown only in Figure 4.10 (image); 'hollow'/'triangular'/'arrowhead' return zero hits in the source text."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "source": "openstax-principles-finance",
+  "arm": "G-naive-notes",
+  "judge": "claude",
+  "grain": "claim",
+  "notes_found": 15,
+  "claims_audited": 167,
+  "tally": {
+    "faithful": 165,
+    "minor_drift": 1,
+    "unsupported": 1,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "note": "capital_budgeting.md",
+      "grade": "unsupported",
+      "claim": "Analysis should use incremental after-tax cash flows.",
+      "searches": "rg -i 'incremental' (whole source: exactly 1 hit, line 14222, preferred-stock dividends growing 'by an incremental amount' -- unrelated to capital budgeting); rg -i 'after-tax cash flow|cash flows after.?tax|use.*after-tax' (no project-level hit; 'after-tax' appears only in the cost-of-capital chapter re after-tax cost of debt); rg -i 'relevant cash flow|marginal cash flow'",
+      "source_check": "Chapter 16 prescribes discounting the project's expected cash flows and adjusting the discount rate for project risk (line 26977-79: 'the discount rate ... can be increased or decreased to adjust for the riskiness of the project's cash flows' -- that half of the note's sentence IS faithful). But the source never instructs using 'incremental' cash flows ('incremental' occurs nowhere in a capital-budgeting context) nor that project cash flows be 'after-tax'. Standard capital-budgeting doctrine imported from training knowledge, not grounded in the source. Correct finance, source-unsupported."
+    },
+    {
+      "note": "financial_risk_management.md",
+      "grade": "minor_drift",
+      "claim": "Hedging reduces a selected exposure; it does not automatically eliminate operational, counterparty, basis, liquidity, or forecasting risk.",
+      "searches": "rg -i 'hedging.*(reduce|not.*eliminate)'; rg -c -i 'basis risk' (0); rg -i 'operational risk' (1 hit line 4143, unrelated to hedging); rg -c -i 'forecasting risk' (0); rg -i 'counterparty risk' (hit line 33521); rg -i 'remaining currency risk' (line 33477)",
+      "source_check": "Core is faithful: source shows hedging reduces exposure (line 33074-76) and that residual risk remains -- counterparty risk is explicitly named (line 33521) and standardized futures leave 'remaining currency risk' (line 33477), which is basis-like. But of the note's five-item residual list, only counterparty is source-attested; 'operational, basis, liquidity, forecasting' risk are not named in the hedging discussion (basis/forecasting risk appear nowhere; operational risk appears once at line 4143 in an unrelated context). True and reasonable elaboration, but the specific enumeration overreaches the source."
+    }
+  ]
+}

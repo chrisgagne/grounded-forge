@@ -1,0 +1,121 @@
+{
+  "round": "2026-07-28-okf",
+  "audit": "arm-G full-census bundle-vs-source fidelity (independent re-audit)",
+  "date": "2026-07-30",
+  "arm": "G",
+  "producer": "gpt-5.6-sol executing Google OKF web_ingestion_instruction.md verbatim per source (the reference implementation's only document pathway)",
+  "judge": "gpt-5.6-sol via Codex MCP, read-only, fresh session per source (same-family grader caveat applies, as in the prior round)",
+  "method": "Full census: every minted note, no per-source cap. Per source, a fresh read-only session read each note in full, then verified every substantive claim by targeted ripgrep search against the source (multiple phrasings) and read of matching regions; labels FAITHFUL / MINOR-DRIFT / UNSUPPORTED / CONTRADICTED; strict, grade down on doubt. Large textbook sources were verified by targeted per-claim search rather than a cover-to-cover read (a session that could not read a source whole was instructed to say so and not grade on a partial read).",
+  "supersedes": "judge/20260729-g-bundle-fidelity-sol.json (stratified 6-of-27 sample, 64 notes, 6 errors, 9.4%)",
+  "selection_note": "The prior sample's 6 sources were stratified by minting volume (two highest-minting, two mid-band, largest book, one small) and skewed toward the busier, more error-prone sources; the full census including the cleaner long tail lands slightly LOWER (7.2% vs 9.4%), which removes any cherry-pick concern.",
+  "reproducibility_note": "Blind re-audit (judge told nothing of the prior audit). Of the 3 committed accounting-vol2 exhibits, 2 re-flagged as hard errors (time_value_of_money_conventions, balanced_scorecard_perspectives) and 1 downgraded to MINOR-DRIFT (investment_center_performance_measures). Of the 2 economics-3e exhibits, money_supply_and_multiplier re-flagged as CONTRADICTED and income_distribution_measures downgraded to MINOR-DRIFT. Downgrades cut against the finding, i.e. the honest direction.",
+  "aggregate": {
+    "sources_minting_notes": 25,
+    "sources_minting_zero": ["openstax-introduction-business", "org-topologies-primer-2025"],
+    "notes_audited": 221,
+    "FAITHFUL": 171,
+    "MINOR-DRIFT": 34,
+    "UNSUPPORTED": 14,
+    "CONTRADICTED": 2,
+    "hard_errors": 16,
+    "hard_error_rate": "16/221 (7.2%)",
+    "any_deviation_rate": "50/221 (22.6%)"
+  },
+  "per_source": {
+    "liberating-structures-handbook": {"notes": 41, "FAITHFUL": 33, "MINOR-DRIFT": 6, "UNSUPPORTED": 2, "CONTRADICTED": 0, "errors": [
+      {"note": "agreement_uncertainty_matrix", "grade": "UNSUPPORTED", "claim": "\"Simple: High certainty and agreement\"", "source_check": "source defines the two axes and calls a recipe 'simple' but never places simple situations at high certainty AND high agreement"},
+      {"note": "portfolio_planning", "grade": "UNSUPPORTED", "claim": "\"renewal, growth, maturity, and creative destruction\"", "source_check": "source names only creative destruction and renewal; growth/maturity phases not found"},
+      {"note": "a_place_in_the_system", "grade": "MINOR-DRIFT", "claim": "adds 'silently' to selecting Person A/B", "source_check": "source says only 'find one person... choose them as Person A and another as Person B'"},
+      {"note": "fifteen_percent_solutions", "grade": "MINOR-DRIFT", "claim": "adds 'without additional authority'", "source_check": "source asks 'Where do you have freedom to act?'; no authority condition"},
+      {"note": "how_many_ways", "grade": "MINOR-DRIFT", "claim": "'same complex system' overstates", "source_check": "source: bag contents 'similar but not exactly the same'"},
+      {"note": "improv_games", "grade": "MINOR-DRIFT", "claim": "'yes, but'", "source_check": "source: 'yes and but'"},
+      {"note": "shift_and_share", "grade": "MINOR-DRIFT", "claim": "'four locations for 15 minutes'", "source_check": "source: '5 teams and 1 hour, 15 minutes at each'"},
+      {"note": "take_20_seconds", "grade": "MINOR-DRIFT", "claim": "shifts who is relieved of pressure", "source_check": "source: relieves the facilitator being addressed"}
+    ]},
+    "openstax-business-law": {"notes": 17, "FAITHFUL": 11, "MINOR-DRIFT": 3, "UNSUPPORTED": 3, "CONTRADICTED": 0, "errors": [
+      {"note": "antitrust_law", "grade": "UNSUPPORTED", "claim": "\"Ancillary restraint... attached to a broader legitimate arrangement\"", "source_check": "source confirms time/geography/scope limits but not attachment to a broader arrangement"},
+      {"note": "business_crime_types", "grade": "UNSUPPORTED", "claim": "\"Racketeering: A pattern of activities such as...\"", "source_check": "source lists the activities but never says racketeering requires a 'pattern'"},
+      {"note": "corporate_insiders_and_insider_trading", "grade": "UNSUPPORTED", "claim": "\"internal controls that identify corporate insiders, preserve required reports...\"", "source_check": "source supports controls + prompt reporting but not identify-insiders / preserve-reports"},
+      {"note": "administrative_agencies", "grade": "MINOR-DRIFT", "claim": "ALJs 'interpret' rules/statutes", "source_check": "source says ALJs 'review' rules and statutes"},
+      {"note": "contracts", "grade": "MINOR-DRIFT", "claim": "promissory estoppel 'reasonable action'", "source_check": "source lists reliance/detriment/injustice, no reasonableness qualifier"},
+      {"note": "employment_discrimination_claims", "grade": "MINOR-DRIFT", "claim": "'facially neutral' added", "source_check": "source calls disparate impact unintentional discrimination without 'facially neutral'"}
+    ]},
+    "openstax-principles-finance": {"notes": 15, "FAITHFUL": 10, "MINOR-DRIFT": 2, "UNSUPPORTED": 3, "CONTRADICTED": 0, "errors": [
+      {"note": "business_structures", "grade": "UNSUPPORTED", "claim": "\"Pools owners' resources but can be disrupted by changes in membership\"", "source_check": "no membership-disruption / withdrawal / dissolution support found"},
+      {"note": "capital_budgeting", "grade": "UNSUPPORTED", "claim": "\"incremental ... after-tax cash flows\"", "source_check": "source evaluates cash inflows/outflows; no incremental-after-tax requirement found"},
+      {"note": "financial_risk_management", "grade": "UNSUPPORTED", "claim": "\"retain, reduce, transfer, or hedge ... basis, liquidity, or forecasting risk\"", "source_check": "no retain/reduce/transfer selection framework; basis and forecasting risk not found"},
+      {"note": "stock_valuation_models", "grade": "MINOR-DRIFT", "claim": "risk comparability as a necessary condition", "source_check": "over-specifies; source supports industry/accounting comparability, not a risk requirement"},
+      {"note": "working_capital_management", "grade": "MINOR-DRIFT", "claim": "JIT 'increases sensitivity to supply interruption'", "source_check": "source warns of stockout costs, not supply interruption specifically"}
+    ]},
+    "openstax-accounting-vol2": {"notes": 14, "FAITHFUL": 8, "MINOR-DRIFT": 2, "UNSUPPORTED": 4, "CONTRADICTED": 0, "errors": [
+      {"note": "balanced_scorecard_perspectives", "grade": "UNSUPPORTED", "claim": "\"Define the measure, data source, target, reporting period, and responsible owner\"", "source_check": "no passage specifies data source, reporting period, or responsible owner"},
+      {"note": "relevant_costs", "grade": "UNSUPPORTED", "claim": "\"opportunity cost ... is relevant even though it is not recorded in the accounting system\"", "source_check": "source never states opportunity costs are unrecorded (true in general accounting, absent from THIS source)"},
+      {"note": "sustainability_reporting_frameworks", "grade": "UNSUPPORTED", "claim": "\"The approaches are not inherently exclusive...\"", "source_check": "no source passage says GRI/SASB/Integrated Reporting may be combined or are non-exclusive"},
+      {"note": "time_value_of_money_conventions", "grade": "UNSUPPORTED", "claim": "\"Annuity-due value = ordinary-annuity value x (1 + i)\"", "source_check": "no such formula; source says annuities due are 'addressed in advanced accounting courses'"},
+      {"note": "investment_center_performance_measures", "grade": "MINOR-DRIFT", "claim": "narrows generic income/assets defs; labels every WACC cost after-tax", "source_check": "supported measures over-specified"},
+      {"note": "transfer_pricing_approaches", "grade": "MINOR-DRIFT", "claim": "buyer's maximum-rational-price rule", "source_check": "generalised from a worked example rather than stated"}
+    ]},
+    "openstax-principles-marketing": {"notes": 13, "FAITHFUL": 9, "MINOR-DRIFT": 4, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "consumer_market_segmentation_bases", "grade": "MINOR-DRIFT", "claim": "precision-based condition for combining bases", "source_check": "source permits mixing bases but gives no such rationale"},
+      {"note": "product_classifications", "grade": "MINOR-DRIFT", "claim": "capital items 'of lasting value'", "source_check": "source: 'valuable ... and have tangible value', no duration"},
+      {"note": "rater_service_quality_dimensions", "grade": "MINOR-DRIFT", "claim": "empathy 'individualized'", "source_check": "not in source's empathy definition"},
+      {"note": "service_characteristics", "grade": "MINOR-DRIFT", "claim": "'appointments' example", "source_check": "unsourced added example"}
+    ]},
+    "mcdp1-warfighting": {"notes": 12, "FAITHFUL": 10, "MINOR-DRIFT": 2, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "friction", "grade": "MINOR-DRIFT", "claim": "'persistent action'", "source_check": "source: 'persistent strength of mind and spirit'"},
+      {"note": "marine_air_ground_task_force", "grade": "MINOR-DRIFT", "claim": "'ground combat element' / 'aviation combat element'", "source_check": "source: 'ground, aviation, combat service support, and command elements'"}
+    ]},
+    "letaw-handbook-sweng-methods": {"notes": 12, "FAITHFUL": 10, "MINOR-DRIFT": 1, "UNSUPPORTED": 1, "CONTRADICTED": 0, "errors": [
+      {"note": "uml_class_diagram_notation", "grade": "UNSUPPORTED", "claim": "\"Inheritance - a line with a hollow triangular arrowhead pointing to the superclass\"", "source_check": "source says only 'Class2 is a subclass of Class1'; no notation described"},
+      {"note": "fist_of_five_scale", "grade": "MINOR-DRIFT", "claim": "'simultaneously'", "source_check": "over-specification not in source"}
+    ]},
+    "openstax-accounting-vol1": {"notes": 11, "FAITHFUL": 11, "MINOR-DRIFT": 0, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": []},
+    "openstax-economics-3e": {"notes": 10, "FAITHFUL": 8, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 1, "errors": [
+      {"note": "money_supply_and_multiplier", "grade": "CONTRADICTED", "claim": "M1 excludes savings deposits; M2 adds them - presented as current", "source_check": "source flags these as historical (pre-May-2020); savings moved into M1 in May 2020; multiplier applies to excess reserves, not any initial reserve increase"},
+      {"note": "income_distribution_measures", "grade": "MINOR-DRIFT", "claim": "wealth = value of assets at a point in time", "source_check": "omits required subtraction of debts (gross assets, not net wealth)"}
+    ]},
+    "openstax-organizational-behavior": {"notes": 9, "FAITHFUL": 8, "MINOR-DRIFT": 0, "UNSUPPORTED": 1, "CONTRADICTED": 0, "errors": [
+      {"note": "management_hierarchy", "grade": "UNSUPPORTED", "claim": "\"Translating strategy into departmental plans and coordinating across units\" as middle management's emphasis", "source_check": "source says only that middle managers oversee major departments and rate near the middle; does not assign these functions"}
+    ]},
+    "openstax-principles-management": {"notes": 8, "FAITHFUL": 8, "MINOR-DRIFT": 0, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": []},
+    "barbrook-johnson-systems-mapping": {"notes": 8, "FAITHFUL": 8, "MINOR-DRIFT": 0, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": []},
+    "approach-perfect-field-guide-scrum-events": {"notes": 6, "FAITHFUL": 6, "MINOR-DRIFT": 0, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": []},
+    "scrum-guide-2020": {"notes": 6, "FAITHFUL": 4, "MINOR-DRIFT": 2, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "scrum_artifacts_and_commitments", "grade": "MINOR-DRIFT", "claim": "'must contain enough detail'", "source_check": "source: 'should have enough detail'"},
+      {"note": "scrum_events", "grade": "MINOR-DRIFT", "claim": "obsolescence as an exclusive cancellation condition", "source_check": "source: a Sprint 'could be cancelled if' the goal becomes obsolete"}
+    ]},
+    "openstax-psychology-2e": {"notes": 6, "FAITHFUL": 5, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "learning_cognition_and_memory_glossary", "grade": "MINOR-DRIFT", "claim": "'representativeness bias'", "source_check": "source consistently names it 'representative bias'"}
+    ]},
+    "lfuo-learning-review-guide-2024": {"notes": 6, "FAITHFUL": 5, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "fla_team_roles", "grade": "MINOR-DRIFT", "claim": "'add, merge, or release roles'", "source_check": "source supports expanding/merging, not releasing roles"}
+    ]},
+    "ssdl-systems-thinking-foundations": {"notes": 5, "FAITHFUL": 4, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "feedback_thinking", "grade": "MINOR-DRIFT", "claim": "asserts sharing exposes all three defect types", "source_check": "source presents sharing/refinement and diagram defects separately, no full causal claim"}
+    ]},
+    "openstax-entrepreneurship": {"notes": 5, "FAITHFUL": 3, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 1, "errors": [
+      {"note": "intellectual_property_types", "grade": "CONTRADICTED", "claim": "utility-patent row includes plants", "source_check": "source treats plant patents as a separate patent type from utility patents"},
+      {"note": "startup_financial_statements", "grade": "MINOR-DRIFT", "claim": "adds sales of equipment/facilities/investments to investing activities", "source_check": "source mentions only major purchases and securities purchases"}
+    ]},
+    "jones-evidence-based-sweng": {"notes": 5, "FAITHFUL": 4, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "source_code_size_units", "grade": "MINOR-DRIFT", "claim": "'must record the language and revision'", "source_check": "source specifies file kinds/suffixes and config-file counting only"}
+    ]},
+    "openstax-business-ethics": {"notes": 4, "FAITHFUL": 3, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "stakeholder", "grade": "MINOR-DRIFT", "claim": "external list includes shareholders and the environment", "source_check": "source names customers/suppliers/government/media as external; classifies shareholders differently"}
+    ]},
+    "flo-facilitation-guide": {"notes": 3, "FAITHFUL": 2, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "flo_course_offerings", "grade": "MINOR-DRIFT", "claim": "calls them 'the four' offerings", "source_check": "source says 'five courses in the FLO collection' then lists four"}
+    ]},
+    "open-practice-library": {"notes": 2, "FAITHFUL": 0, "MINOR-DRIFT": 2, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "mobius_phase_tags", "grade": "MINOR-DRIFT", "claim": "adds 'most useful'; blank as the sole Unclassified reason", "source_check": "'most useful' absent; source says blank is only the usual reason"},
+      {"note": "practice_catalogue_fields", "grade": "MINOR-DRIFT", "claim": "implies every record presents all three content fields", "source_check": "one record (expand-and-contract-pattern) has none of the What/Why/How sections"}
+    ]},
+    "tc-25-20-army-aar": {"notes": 1, "FAITHFUL": 0, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "after_action_reviews", "grade": "MINOR-DRIFT", "claim": "DTG optional ('when possible'); collection assigned to a lead OC", "source_check": "source: each observation should include a DTG; consolidation assigned to the AAR leader"}
+    ]},
+    "open-kanban": {"notes": 1, "FAITHFUL": 1, "MINOR-DRIFT": 0, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": []},
+    "nhs-just-culture-guide": {"notes": 1, "FAITHFUL": 0, "MINOR-DRIFT": 1, "UNSUPPORTED": 0, "CONTRADICTED": 0, "errors": [
+      {"note": "just_culture_response_outcomes", "grade": "MINOR-DRIFT", "claim": "'must' be used with organisational policy", "source_check": "source: 'should be used in conjunction with organisational policy'"}
+    ]}
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "source": "openstax-accounting-vol1",
+  "tier": "deep-ref",
+  "producer": "sol-9pass",
+  "judge": "claude",
+  "grain": "claim",
+  "scope": "subject-matter only",
+  "claims_audited": 185,
+  "tally": {
+    "faithful": 183,
+    "minor_drift": 1,
+    "unsupported": 0,
+    "contradicted": 1
+  },
+  "errors": [
+    {
+      "claim": "The source presents five SEC responsibilities: interpreting and enforcing securities laws, issuing and amending rules, overseeing securities organisations, overseeing accounting standard-setting activities, and coordinating US securities regulation with other authorities. (Ch. 14, §14.1)",
+      "marker": "[AR][BT]",
+      "grade": "CONTRADICTED",
+      "searches": "rg 'primary responsibilities'/'SEC' -> line 36383 'The SEC identifies these as its five primary responsibilities:'; rg 'interpret and enforce'|'amend existing rules'|'inspection of securities'|'oversee.*accounting standard'|'standard-setting activities'|'private regulatory'|'coordinat' across full source; rg 'inform and protect'|'facilitate capital'|'regulate securities markets'|'provide data'",
+      "source_check": "The count (five) is right but the enumerated items are wrong and conflict with the source's own list. The source's ONLY statement of the SEC's five primary responsibilities (Ch. 14, 'How Stocks Work', lines 36383-36394, reinforced in the answer key at 38358-38360) is: (1) inform and protect investors, (2) facilitate capital formation, (3) enforce federal securities laws, (4) regulate securities markets, (5) provide data. None of the reference's five phrasings (interpret/enforce laws, issue/amend rules, oversee securities organisations, oversee accounting standard-setting, coordinate US regulation with other authorities) appears anywhere in the source. The reference substituted the generic real-world SEC.gov responsibility list for the specific five the source actually states."
+    },
+    {
+      "claim": "The incorporation process is described through six steps: (1) select an available corporate name; (2) prepare the charter or articles of incorporation; (3) file the documents and pay the required fees; (4) hold an organisational meeting; (5) appoint the board and establish governance; (6) adopt bylaws and establish share terms, including par value where applicable. (Ch. 14, §14.1)",
+      "marker": "[AR]",
+      "grade": "MINOR-DRIFT",
+      "searches": "rg 'steps to incorporate' -> line 36068; read 36068-36098 (the source's six enumerated steps)",
+      "source_check": "Count matches (six) and every substantive element is present, but the step boundaries are re-partitioned. The source's six steps (lines 36070-36094) are: (1) choose available business name, (2) prepare articles of incorporation/charter, (3) file articles + pay fees, (4) hold organizational meeting to elect the board of directors, (5) board prepares and adopts corporate bylaws, (6) board agrees on a par value price for the stock. The reference splits the source's single step 4 (meeting + electing board) into two separate steps (4 'hold meeting' and 5 'appoint board / establish governance'), then merges the source's separate steps 5 (bylaws) and 6 (par value) into a single step 6. Same six-count, different grouping."
+    }
+  ]
+}

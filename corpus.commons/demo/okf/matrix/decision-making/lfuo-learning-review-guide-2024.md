@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:49:34+12:00
+  at: 2026-08-08T19:51:47+12:00
 ---
 # LFUO 2024, Decision-Making Distillation
 

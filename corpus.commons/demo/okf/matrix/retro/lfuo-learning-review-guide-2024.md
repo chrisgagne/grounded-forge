@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:51:47+12:00
 ---
 # US Forest Service LFUO 2024, Retrospective Distillation
 

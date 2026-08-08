@@ -12,7 +12,7 @@ sources:
     resource: https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:49:34+12:00
+  at: 2026-08-08T19:51:47+12:00
 ---
 # NHS Just Culture Guide, Software-Business Distillation
 

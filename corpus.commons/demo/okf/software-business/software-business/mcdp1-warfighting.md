@@ -12,7 +12,7 @@ sources:
     resource: https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-21T11:45:47+12:00
+  at: 2026-08-08T19:51:47+12:00
 ---
 # U.S. Marine Corps, MCDP-1 Warfighting — Software / Business Distillation
 

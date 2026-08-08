@@ -12,7 +12,7 @@ sources:
     resource: https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-07-12T13:36:04+12:00
+  at: 2026-08-08T19:51:47+12:00
 ---
 # Schwaber & Sutherland, The Scrum Guide — Software-Business Distillation
 

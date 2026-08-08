@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:49:34+12:00
+  at: 2026-08-08T19:51:47+12:00
 ---
 # OpenStax Organizational Behavior, Software-Business Distillation
 

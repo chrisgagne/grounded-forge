@@ -1,0 +1,30 @@
+{
+  "source": "openstax-business-law",
+  "arm": "G-naive-notes",
+  "judge": "claude",
+  "grain": "claim",
+  "notes_found": 17,
+  "claims_audited": 191,
+  "tally": {
+    "faithful": 189,
+    "minor_drift": 2,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "errors": [
+    {
+      "note": "antitrust_law.md",
+      "grade": "minor_drift",
+      "claim": "Ancillary restraint: A restriction limited in time and geography and attached to a broader legitimate arrangement.",
+      "searches": "rg -i 'ancillary|naked restraint|rule of reason' source.md; read lines 5805-5812",
+      "source_check": "Source (5808-5809) defines ancillary restraint only as 'the restriction is limited in time and geography' and 'short-term and limited in scope.' The clause 'attached to a broader legitimate arrangement' is not in the source's ancillary definition; it is an accurate legal gloss with only oblique contextual support (partnership-agreement example at 5896). Small unsupported embellishment, no distortion."
+    },
+    {
+      "note": "civil_and_criminal_liability.md",
+      "grade": "minor_drift",
+      "claim": "Typical consequences (civil case): Damages, restitution, or injunctive relief.",
+      "searches": "rg -i 'restitution' source.md; read lines 2986-3008",
+      "source_check": "In the civil-vs-criminal comparison the source (2987-2994) lists civil consequences as damages and injunctive relief. 'Restitution' is not named among civil consequences here; it appears in the source only as a contract remedy (3926) and as criminal restitution (2742, 2766). Minor inserted term, genuinely a civil remedy elsewhere in the source, so not a contradiction."
+    }
+  ]
+}

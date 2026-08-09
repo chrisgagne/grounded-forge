@@ -1,6 +1,6 @@
 # Comparative eval methodology
 
-The eval is comparative because the architectural claim is comparative. The matrix projects sources to task domains once at ingestion; the question is whether that pre-projection produces better answers per token than the alternatives: generic Claude, Claude with research forced, or Claude with the raw source corpus in context. This harness collects four method-answers to the same prompt, then asks a blind LLM judge to rank them on a 5-criterion rubric.
+The eval is comparative because the architectural claim is comparative. The matrix projects sources to task domains once at ingestion; the question is whether that pre-projection produces better answers than the alternatives: generic Claude, Claude with research forced, or Claude with the raw source corpus in context. This harness collects four method-answers to the same prompt, then asks a blind LLM judge to rank them on a 5-criterion rubric. (Token economics are measured separately; the post-migration index-load table is at [`../architecture/projection-time.md`](../architecture/projection-time.md).)
 
 ## The four methods
 
@@ -67,16 +67,14 @@ This rubric measures *answer-quality-as-perceived-by-an-LLM-judge*. It does not 
 
 For a single-source-grounded benchmark of a specific deep reference's fidelity to its source, see Pass I in the [9-pass ingestion protocol](../architecture/ingestion-protocol.md) and the calibration fixture at [`tests/audit-fixtures/`](../../tests/audit-fixtures/).
 
-One round is published whole, receipts included: the producer head-to-head at [`rounds/2026-08-08-producer-head-to-head/`](rounds/2026-08-08-producer-head-to-head/), which audited the 9-pass tier against Google's OKF reference producer over the same sources, cross-model, with matched judges and matched audit priming. Its bounded findings: ~1.7–3× claim coverage at a tied hard-error rate on the fully matched arm; the hard-error rate dominated by the producer model rather than the protocol; and the fresh-context-vs-in-context Pass I result that retired the 99.4% self-audit figure. The superseded 2026-07-28 OKF round's notice is at [`rounds/2026-07-28-okf/`](rounds/2026-07-28-okf/).
+One round is published whole, receipts included: the producer head-to-head at [`rounds/2026-08-08-producer-head-to-head/`](rounds/2026-08-08-producer-head-to-head/), which audited the 9-pass tier against Google's OKF reference producer over the same sources, cross-model, with matched judges and matched audit priming. Its findings: ~1.7× claim coverage with no detected difference in hard-error rate on the fully matched arm (~3× on a broader arm that does not support an error-rate comparison; the arms are not merged); the hard-error rate dominated by the producer model rather than the protocol; and the fresh-context-vs-in-context Pass I result that made independent verification mandatory and retired the prior self-audit figure. The superseded 2026-07-28 OKF round's notice is at [`rounds/2026-07-28-okf/`](rounds/2026-07-28-okf/).
 
 ## Known limitations of this rubric
 
-The eval rounds surfaced a structural limit the next rubric rework is designed to address. The limit is honestly named because it is load-bearing for what the eval can and cannot demonstrate.
-
 **The judge's `evidence_grounding` and `defensibility` criteria collapse to *"is this in my training prior?"*** The judge is an LLM with no separate authority to consult. When it scores whether a citation is defensible, it is checking the citation against its own training data.
 
-- On **canonical material** (sources in training-data density) that mostly maps to truth, and the rubric works.
-- On **non-canonical material** (operator-curated, private, or thinly-represented in training data) it maps to *recognise-the-derivative-cluster*. Methods that read the operator's material get marked down for being unverifiable; methods that read the canonical-derivative cluster (B's research path, for example) get marked up for being recognisable.
+- On **canonical material** (sources in training-data density) that mostly maps to truth, and the rubric works. In those rounds Method A was degenerate (the model never chose to search) and B underperformed (Research scored 8.60 vs C-original-names's 9.80), so the eval became a contest between C variants and D; the filename-obscuration probe shows C's win there is filename-key-into-training-prior, not better content access.
+- On **non-canonical material** (operator-curated, private, or thinly-represented in training data) it maps to *recognise-the-derivative-cluster*. In those rounds A was still degenerate but **B won** the rubric (9.60) on the strength of reaching the canonical-derivative cluster (names the judge recognised from prior), while C and D cited operator-curated material the judge had to take on faith. Methods that read the operator's material get marked down for being unverifiable; methods that read the canonical-derivative cluster get marked up for being recognisable.
 
 This means there is no corpus on which the single-LLM-as-judge rubric can fairly measure the matrix's distinctive value-add (per-claim auditability on operator-curated non-canonical material) because the verification surface (the judge's training prior) is precisely what the matrix is built to defend against dominating the answer.
 

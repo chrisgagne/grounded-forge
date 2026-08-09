@@ -6,9 +6,9 @@ Pass I of the 9-pass ingestion protocol is the source-only audit: every claim, t
 
 ## Status of the demo corpus
 
-The demo corpus was audited **in-context** — each deep reference audited within the session that produced it — which predates the independence requirement above, and that audit cannot be relied on as verification. An in-context source-only audit passes the producer's own confident errors: attributions to people the source never names, and enumerated counts the source contradicts, both stamped "confirmed at source." The demo corpus is therefore **pending a fresh, independent re-audit**, and its deep references should be treated as producer-drafted until then.
+The demo corpus's deep references were independently re-audited on 2026-08-08: a fresh-context auditor from a different model family traced all 9,364 claims across all 27 deep references at strict claim grain, and all 446 findings were re-verified during repair (445 fixed, 1 rejected as source-supported), with 412 propagated fixes applied to the light references and distillations. The audit-of-record — per-source machine-readable findings, the corpus summary, and the repair record — is at [`corpus.commons/demo/references/_audit/`](../../corpus.commons/demo/references/_audit/) under `independent-2026-08-08/`.
 
-The per-source in-context audit logs remain in the source repo under [`corpus.commons/demo/references/_audit/`](../../corpus.commons/demo/references/_audit/) as the record of what the in-context audit reported — not an independent-verification guarantee. They are excluded from the compiled distribution.
+The earlier per-source **in-context** audit logs (each deep reference audited within the session that produced it, before the independence requirement) remain under the same directory as the record of what the in-context audit reported — provenance, not independent verification. An in-context source-only audit passes the producer's own confident errors: attributions to people the source never names, and enumerated counts the source contradicts, both stamped "confirmed at source." Those logs are excluded from the compiled distribution.
 
 ## What a single audit pass buys
 
@@ -22,4 +22,4 @@ For the empirical question of whether pre-projection improves end-user answer qu
 
 ## Reading the per-source logs
 
-Each `_ingest_pass_I_{slug}_source_audit.md` file documents the audit procedure for that source (how the cold read and verification were performed), the fixes applied during that audit with locations, spot-checks, and notes for future re-ingestion. The log is the historical integrity record for the in-context audit; a fresh, independent re-audit is what will supersede it.
+Each `_ingest_pass_I_{slug}_source_audit.md` file documents the audit procedure for that source (how the cold read and verification were performed), the fixes applied during that audit with locations, spot-checks, and notes for future re-ingestion. The log is the historical integrity record for the in-context audit; the independent re-audit of 2026-08-08 supersedes it.

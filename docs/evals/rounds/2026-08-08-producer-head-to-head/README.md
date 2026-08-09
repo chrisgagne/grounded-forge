@@ -1,8 +1,8 @@
 # Producer head-to-head: the 9-pass protocol vs the naive OKF reference producer
 
-**TL;DR.** Both producers ran over the same demo-corpus sources; both outputs were audited claim-by-claim against those sources, cross-model, with matched judges and matched audit priming. On the fully matched arm, the 9-pass deep references carried ~1.7× the atomic claims of the naive producer's notes at observed hard-error rates of 0.33% vs 0.38% — more coverage with no detected difference in error rate. A separate, less-matched arm reached ~3× coverage but does not establish error-rate parity, and the two results are not merged. A public "more faithful / lower hallucination rate" claim is **not supported and is not made**. The round's sharpest finding went the other way: an in-context Pass I self-audit certified the producing model's own fabrications as "verified at source," and the same model running the same procedure in a fresh context failed the same file — which retired the corpus's old 99.4% figure and made fresh-context verification mandatory in the protocol.
+**TL;DR.** On the fully matched arm, the 9-pass deep references carried 909 atomic claims to the naive producer's 526 — ~1.7× the coverage — at observed hard-error rates of 0.33% vs 0.38%: more coverage with no detected difference in error rate. Both producers ran over the same demo-corpus sources, and both outputs were audited claim-by-claim against those sources, cross-model, with matched judges and matched audit priming. A separate, less-matched arm reached ~3× coverage but does not support an error-rate comparison, and the two results are not merged. A public "more faithful / lower hallucination rate" claim is **not supported and is not made**. The round also delivered the protocol's most consequential fix: an in-context Pass I self-audit certified the producing model's own fabrications as "verified at source," and the same model running the same procedure in a fresh context failed the same file. Fresh-context verification is now mandatory in the protocol, and the corpus-wide independent re-audit followed.
 
-**Date scope.** All audits in this round graded the deep references as they stood on 2026-07-29 to 2026-08-01, *before* the corpus-wide repair. The corpus has since been independently re-audited and repaired; that record, including the same auditor's per-source receipts, is at [`corpus.commons/demo/references/_audit/`](../../../../corpus.commons/demo/references/_audit/). The numbers below describe the pre-repair state and are preserved as the honest baseline.
+**Date scope.** All audits in this round graded the deep references as they stood on 2026-07-29 to 2026-08-01, *before* the corpus-wide repair. The corpus has since been independently re-audited and repaired; that record, including the same auditor's per-source receipts, is at [`corpus.commons/demo/references/_audit/`](../../../../corpus.commons/demo/references/_audit/). The numbers below describe the pre-repair state.
 
 ## Question
 
@@ -10,12 +10,12 @@ Does the 9-pass ingestion protocol produce materially different output from the 
 
 ## Producers compared
 
-- **9-pass deep references** (this repo's protocol; production by Claude Opus, with a four-source replication produced by `gpt-5.6-sol` running Passes A–E to isolate the producer-model effect). Artefacts: `corpus.commons/demo/references/{slug}-deep.md` (pre-repair state, per git history); the Sol-produced replication is at [`arm-d-sol-refs/`](arm-d-sol-refs/).
-- **Naive OKF notes** ("G"): Google's document-ingestion instruction run verbatim by `gpt-5.6-sol` over each converted source, with mechanical substitutions and **one disclosed semantic adaptation** (the reuse gate treated as satisfiable by prospective cross-source reuse — run with no adaptation, the instruction minted zero references twice, because every productive pathway presupposes a warehouse concept spine that prose documents lack). Output: 221 conformant `type: Reference` notes across the minting sources, at [`g-bundle/`](g-bundle/). The instruction is preserved verbatim at [`web_ingestion_instruction.md.txt`](web_ingestion_instruction.md.txt) (extension changed only so this repo's link checker skips Google's illustrative example paths; upstream: [GoogleCloudPlatform/knowledge-catalog](https://github.com/GoogleCloudPlatform/knowledge-catalog), Apache-2.0).
+- **9-pass deep references** (this repo's protocol; production by Claude Opus, with a replication produced by `gpt-5.6-sol` running Passes A–E to isolate the producer-model effect — eight references re-produced, four entering the producer-model and matched arms). Artefacts: `corpus.commons/demo/references/{slug}-deep.md` (pre-repair state, per git history); all eight Sol-produced replications are at [`arm-d-sol-refs/`](arm-d-sol-refs/).
+- **Naive OKF notes** ("G"): Google's document-ingestion instruction executed per source by `gpt-5.6-sol`, with mechanical substitutions and **one disclosed semantic adaptation** (the reuse gate treated as satisfiable by prospective cross-source reuse — run with no adaptation, the instruction minted zero references twice, because every productive pathway presupposes a warehouse concept spine that prose documents lack). Output: 221 conformant `type: Reference` notes across the minting sources, at [`g-bundle/`](g-bundle/). The instruction is preserved verbatim at [`web_ingestion_instruction.md.txt`](web_ingestion_instruction.md.txt) (extension changed only so this repo's link checker skips Google's illustrative example paths; upstream: [GoogleCloudPlatform/knowledge-catalog](https://github.com/GoogleCloudPlatform/knowledge-catalog), Apache-2.0).
 
 ## Comparisons and results
 
-Method details, rubric, and locked decisions: [`method.md`](method.md). "Hard" = UNSUPPORTED + CONTRADICTED at claim grain, strict, grade-down-on-doubt. Receipts for every table: [`receipts/`](receipts/).
+Method details, rubric, and locked decisions: [`method.md`](method.md). "Hard" = UNSUPPORTED + CONTRADICTED at claim grain, strict, grade-down-on-doubt. Receipts for every table: [`receipts/`](receipts/). Comparison 4 is the fully matched arm and the only one from which the no-detected-difference claim is drawn; comparisons 1–3 are the controls that show why the unmatched numbers mislead in both directions.
 
 ### 1. Cross-family claim grain, 11 sources (each arm judged by the other model family)
 
@@ -60,7 +60,7 @@ Re-auditing the naive notes with the identical primed hunt-list used on the deep
 | Naive G, primed audit (4 sources) | 2 / 526 · 0.38% |
 | Sol A–E deep refs, primed audit (4 sources) | 3 / 909 · 0.33% |
 
-**Tied on hard-error rate at ~1.7× the coverage.** The production passes add coverage at no measured cost in error rate. The earlier apparent penalty was two stacked evaluation asymmetries (leakier producer + harsher judge on one side; unprimed audit on the other). The two naive-G errors were the same Sol producer mistake (pre-2020 M1/M2 definitions presented as current) that also appears in Sol's deep ref — same model, same source passage, same error in both artefacts.
+**No detected difference in hard-error rate, at ~1.7× the coverage.** The production passes add coverage at no measured cost in error rate. The earlier apparent penalty was two stacked evaluation asymmetries (leakier producer + harsher judge on one side; unprimed audit on the other). All five hard errors trace to the same producer model: the naive notes' two were dated M1/M2 definitions presented as current; the deep references' three were two unsupported attributions (Kuznets and Krugman) and an SEC-responsibilities miscount. Five hard errors across four sources is too few for an equivalence test; the claim is no detected difference, not equality of error rates.
 
 ### 5. Fresh-context vs in-context Pass I (the finding that mattered most)
 
@@ -70,11 +70,11 @@ On the same economics deep reference:
 - **Fresh-context Pass I, same model, same procedure**: flags Akerlof, Phelps, Lucas, Sargent, Perez, and Follett as leakage; verdict FAIL.
 - Sol's fresh audit of its own A–E refs likewise caught its own leaks (Kuznets, Krugman).
 
-**The causal variable is fresh-context vs same-context, not the model.** Both models catch their own leakage with fresh eyes and certify it in-context. This retired the 99.4% self-audit figure and made fresh-context Pass I (different model preferred) mandatory in the protocol; the corpus-wide independent re-audit and repair followed on 2026-08-08.
+**The causal variable is fresh-context vs same-context, not the model.** Fresh-context audits caught self-produced leakage in both model families; the paired in-context control (run on the Claude arm) certified the same leakage as verified. This retired the 99.4% self-audit figure and made fresh-context Pass I (different model preferred) mandatory in the protocol; the corpus-wide independent re-audit and repair followed on 2026-08-08.
 
-## Defensible bottom line
+## Bottom line
 
-- The 9-pass tier's provable value over the naive producer is **~1.7–3× coverage with tiered, marked, source-traceable claims** whose errors an audit can find and fix — measured at parity on error rate where the comparison is fully matched.
+- On the fully matched arm, the 9-pass tier produced **~1.7× the claims with no detected difference in hard-error rate** — tiered, marked, source-traceable claims whose errors an audit can find and fix. A separate, less-matched arm produced ~3× the claims but does not support an error-rate comparison; the two results are not merged.
 - A "more faithful / lower hallucination rate" claim is **not supported** by this round and is not made.
 - The hard-error rate of a shipped reference is dominated by the **producer model**, not by the protocol; the protocol's audit pass only works when it runs in a **fresh context**.
 - Trust the direction, not the decimal: judge variance at strict claim grain is large (up to ~4× between judge families on identical artefacts).

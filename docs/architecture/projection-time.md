@@ -2,7 +2,7 @@
 
 ![A hand-drawn cost-curve sketch in a working notebook, titled "Projection-time". Three curves are plotted on hand-ruled axes (cost ↑ vs queries →): "file-by-file + grep" rises steeply from near the origin (grounded, but pays every time); "matrix" starts high on the y-axis and rises gently across the page (grounded once at ingestion, cheap after); "RAG" runs parallel to matrix at a lower offset (cheap, ungrounded). A small arrow labelled "break-even ~?" points to where grep crosses matrix. Two handwritten captions below the plot: "the win isn't cost. it's grounding at cost-parity with the cheapest alternatives that ground at all." and "first principles. measured comparison TBD." Pencil portraits of two ragdoll cats named "lila" and "yana" with a small heart between them sit in the bottom-right corner. Same notebook, desk, ruler, and compass-rose mug as the matrix page.](../assets/cost-curves.png)
 
-*Same notebook as the matrix page. The shape is the argument; the numbers will follow.*
+*Same notebook as the matrix page. The sketch predates the measurements: the index economics are now in the table below and the producer comparison in the head-to-head round; the vs-RAG token comparison is the one still open.*
 
 ## A concrete example first
 
@@ -30,11 +30,11 @@ The cost is amortised across every future query. If the same source is read by 1
 
 ## What this looks like at runtime
 
-The compiled assistant routes via the distillation index, reads the distillation, cites back to the deep reference. The model is selecting from prepared distillations, not assembling them. Smaller context windows do real work: loading the distillation plus the relevant section of the deep is enough for most queries, and vector retrieval over chunked raw source becomes optional. The hallucination surface shrinks because the reshape has already been audited and the model is no longer the projection layer. Citation discipline is structural rather than performative: every claim in a distillation traces, by construction, to a marked passage in the deep reference.
+The compiled assistant routes via the distillation index, reads the distillation, and attributes claims to the source with evidence markers in-band. The model is selecting from prepared distillations, not assembling them. Smaller context windows do real work: loading the distillation is enough for most queries, and vector retrieval over chunked raw source becomes optional. The projection layer is out of the answer path: the reshape happened once, under audit, and what the model reads at runtime is source-traceable text. Citation discipline is structural rather than performative: every claim in a distillation traces, by construction, to a marked passage in the deep reference.
 
 ## Routing cost is amortised across the session, not paid per query
 
-The runtime indexes load once and stay in context. Subsequent queries in the same session route against the already-loaded indexes: no second read, no second tokenisation. The same is true of any distillation the user has already pulled into the conversation. The routing tax that finding 1 in the [README's *Audit receipts and evals*](../../README.md#audit-receipts-and-evals) charged against the matrix on canonical material is a *first-query* cost; the second and subsequent queries on related topics pay only the incremental read of any new distillation the index points to.
+The runtime indexes load once and stay in context. Subsequent queries in the same session route against the already-loaded indexes: no second read, no second tokenisation. The same is true of any distillation the user has already pulled into the conversation. The routing tax charged against the matrix on canonical material in the [README's *Audit receipts and evals*](../../README.md#audit-receipts-and-evals) findings is a *first-query* cost; the second and subsequent queries on related topics pay only the incremental read of any new distillation the index points to.
 
 Concrete numbers post-migration (May 2026, demo corpus, 27 sources):
 
@@ -42,8 +42,8 @@ Concrete numbers post-migration (May 2026, demo corpus, 27 sources):
 |---|---|---|
 | Corpus-level (slug-table + reference-index + concept-index) | ~28k | Every session, once. |
 | Per-axis task index (decision-making / stakeholder-engagement / software-business / aar / retro) | ~17-19k each | Per task domain in play, once. |
-| **Per-query first-load (corpus-level + one task axis)** | **~28-47k** | First query in the session. |
-| Per-query nth-load | ~0 (incremental distillation reads only) | Subsequent same-session queries. |
+| **Per-query first-load** | **~28-47k** | First query in the session: corpus-level alone at the low end (no task axis in play), plus one task axis at the high end. |
+| Per-query nth-load | ~0 new index tokens (incremental distillation reads only; loaded indexes persist in context) | Subsequent same-session queries. |
 
 The pre-migration `.md` baseline was ~131k tokens for the same indexes loaded per query; the *amortisation argument was sound but it compounded against a 4× larger first-load cost*. The mechanical-index migration (Phase 4 of the migration, May 2026) collapsed the first-load by switching the runtime indexes from markdown to JSON, introducing slug-ID compression, and dropping the redundant 3-column "quick start" tables that re-said what the phase-by-phase tables already routed. Per-query token ratio: **34-36% of the .md baseline** on the demo corpus, **48.9% in the aggregate-all-axes worst case**. Index design at [`two-layer-indexes.md`](two-layer-indexes.md).
 
@@ -51,11 +51,9 @@ Session amortisation compounds with the migration's per-query gain. A four-query
 
 ## What this argument can and cannot show
 
-The cost-curve framing is argued from first principles: ingestion cost is paid once per source under audit; query cost is paid per question against the projected distillation rather than against raw chunks. The architecture's commitment is that this trade pays off for the use case it targets: repeated work in known task domains where the same sources get re-read for the same handful of tasks.
+Two measurements exist. The post-migration index economics are in the table above: 28–47k tokens on the first query, ~0 on the nth, down from ~131k. The producer-side comparison is in the head-to-head round: ~1.7× claim coverage with no detected difference in hard-error rate on the fully matched arm, receipts published ([`2026-08-08-producer-head-to-head`](../evals/rounds/2026-08-08-producer-head-to-head/)).
 
-The architecture has *not* produced a measured per-query token comparison against standard RAG on the same corpus and queries. That measurement would be the obvious confirmation of the cost-curve claim. Two things stand in its way. First, the comparison is shape-mismatched: standard RAG's per-query cost is dominated by chunk retrieval and assembly tokens, while the matrix's per-query cost is dominated by the distillation read; comparing them at the token level requires a fixed quality bar, and quality measurement runs into the limit named below. Second, the architectural-quality metric the matrix is built to defend (per-claim auditability against operator-curated material) is structurally invisible to the single-LLM-as-judge rubric the eval harness uses; the verification surface and the architecture's defence are the same thing. The eval section in the [README's *Audit receipts and evals*](../../README.md#audit-receipts-and-evals) names this finding directly (finding 4).
-
-The honest position: the cost-curve argument holds at the artefact level (the ingestion cost is real, dated, recorded; the query path is shorter than RAG's by construction); the per-query measurement that would confirm it numerically is a target for the next eval-rubric rework, not for the current release.
+The architecture has *not* produced a measured per-query token comparison against standard RAG on the same corpus and queries. The comparison is shape-mismatched — standard RAG's per-query cost is dominated by chunk retrieval and assembly tokens, the matrix's by the distillation read — so a token-level comparison needs a fixed quality bar, and quality measurement runs into the judge-prior limit named in [`../evals/methodology.md`](../evals/methodology.md). The cost-curve argument stands at the artefact level: the ingestion cost is real, dated, and recorded; the query path is shorter than RAG's by construction; and the vs-RAG measurement is the target of the next eval-rubric rework.
 
 ## Closest published cousins
 

@@ -165,7 +165,7 @@ When ingesting many sources in one work-session, dispatch multiple subagents in 
 - `_planning/extracted/{corpus}/{slug}.json`: deterministic preprocessor output (one per source).
 - `_planning/staging/{corpus}/refs/{slug}.json`: Sonnet refs-pass output (one per source).
 - `_planning/staging/{corpus}/concepts/candidates.json`, `decisions.json`: corpus-wide concept aggregation (single file, written once after every per-source step completes).
-- `docs/images/_ingest_image_index_{slug}.yaml`: image-index staging (one per source).
+- `docs/images/_ingest_image_index_{slug}.yaml`: image-index staging (one per source). Assembled into `{corpus-root}/sources/converted/IMAGE-INDEX.yaml` by `scripts/build_indexes/build_image_index.py` at Pass H; **an image absent from that index is not part of the library**, so the assembly step is not optional. This staging path sits at repo root rather than inside the corpus, which means a private corpus's per-figure descriptions land in a shared tree — `docs/images/` is gitignored to keep them off any public remote.
 
 The build scripts (`scripts/build_indexes/`) consume the staging artefacts and write the canonical JSON indexes in `corpus.commons/{corpus}/`. Two reasons for the staging layer:
 
@@ -173,6 +173,12 @@ The build scripts (`scripts/build_indexes/`) consume the staging artefacts and w
 - **Intermediate work survives partial failure.** If a source agent's session times out or rate-limits before its final report, staging artefacts remain on disk; the operator resumes without re-running the preprocessor.
 
 **Concurrency ceiling.** Around 4-5 simultaneous Opus 4.7 ingestion subagents. Beyond that, Anthropic-side rate limits drop requests. Wrap-up subagents (Pass H + I on already-text-complete sources) tolerate slightly more.
+
+**A stalled agent is usually not a failed agent — check disk before re-running.** Stall notifications fire on stream silence, not on death. Across a 2026 batch run, 5 of 7 agents reported failed had completed their writes; separately, two agents that *had* died left the deep reference edited and stamped with no audit log. Both mistakes are expensive in opposite directions, and both are settled the same way: look at the files. Compare content hashes and modification times against what the agent was asked to produce, and re-run only what is genuinely absent.
+
+**Where an agent dies matters more than that it died.** A half-finished ingestion leaves no broken grammar — it leaves confidently wrong classifications under an unearned stamp, and the retry inherits them with no way to tell what it is looking at. Have agents write their log or index artefact *before* reporting, and stamp only after that artefact exists, so a stamp always implies a completed pass.
+
+**A different model family is worth having in the pool, for two separate reasons.** It is the only thing that catches Pass I's prior-leakage blind spot (see Pass I in [`9-pass-protocol.md`](9-pass-protocol.md)). It also runs outside the Anthropic rate limit, so it is genuine additional capacity rather than a share of the same budget — five concurrent sessions ran without interference in 2026 testing — and it proved markedly more robust on very large tapes, completing 48k- and 72k-word source reads that had defeated several same-family agents. Expect its client to time out while it keeps working server-side: check disk before retrying, because the files usually landed.
 
 ---
 

@@ -98,6 +98,8 @@ The `**Scope:**` line is mechanical: the build reads it directly to decide wheth
 
 **Procedure:** assemble the artefacts of Passes A-D into the canonical deep-reference structure.
 
+**An empty section is a normal outcome, and `None.` is the correct way to write one.** Two headings in the template invite invention, because they are shaped as slots and a model handed a slot fills it: *Connections the author makes in the text* and *Positions the author explicitly frames against*. Most research papers — a materials characterisation, an assay, a field trial — cite work without arguing against anyone, and report results without a contrarian stance. Writing `None.` there is a finding. Manufacturing an opponent is a Pass I defect, and an audited corpus in 2026 found invented oppositions its single most recurrent form of source-external framing: a bounded positive claim ("this method suits fragile grains") restated as a position the author opposed ("against harsh processing"). Reach for these sections only when the source itself does the framing — an explicit disagreement, a named alternative it rejects, a literature it positions against. Your knowing the debate the paper sits inside is not evidence that the paper joined it.
+
 **Deep reference template:**
 
 ```markdown
@@ -142,10 +144,18 @@ Use the author's own naming if they number/name things.}
 - {Source A}, {how the author cites them: approving, critical, neutral} [BT] (Ch N).
 - ...
 
+{or, where the source cites no one in a way worth recording:}
+
+None.
+
 ## Positions the author explicitly frames against
 
 - *{Position name}.* {How the author frames against it.}
 - ...
+
+{or, where the source argues against nothing:}
+
+None.
 
 ## Citation and source-integrity notes
 
@@ -158,11 +168,17 @@ if applicable.}
 
 | Marker | Meaning | Example use |
 |---|---|---|
-| `[V]` | Verbatim. The author's own words appear in the source. | Quoted sentences. |
+| `[V]` | Verbatim. The author's own words appear in the source, reproduced character-exact. | Quoted sentences. |
 | `[AP]` | Author paraphrase. Restates the author's point in different words; the author makes that point. | Most prose paragraphs. |
 | `[AR]` | Author argument. Reports the author's argument structure (claim, warrant, conclusion). | Thesis-section paragraphs. |
 | `[AE]` | Author example. The author's own case, summarised. | Worked-example references. |
 | `[BT]` | Borrowed-through. The author cites someone else for the claim. | Cross-author connections. |
+
+**Two ways `[V]` goes wrong that are easy to miss.**
+
+**A translation can never carry `[V]`.** An English rendering of a non-English source is the ingester's wording, not the author's, however faithful. Mark the gloss `[AP]` and label it as a gloss; reserve `[V]` for the source's own characters, quoted in the source's own language. Auditing a Chinese-language pharmacopoeia reference in 2026 took its `[V]` count from 51 to zero on this rule alone — every marker sat on OCR'd-then-translated text.
+
+**On an OCR'd source, check the tape's reading order before trusting a character-match.** Two-column conversions interleave columns and scramble line order, so a passage can be present word-for-word and still not exist as a contiguous sequence anywhere in the tape. Matching the words is not verifying the quotation. Where reading order is unreliable, either verify against the page image or reclassify to `[AP]` — and say which you did.
 
 **Hard rule for the deep reference:**
 
@@ -260,17 +276,43 @@ Pass H used to ask the agent to author concept-A-Z entries by inference and hand
 
 8. **Update the per-task `task-index.json` files.** Pass G has already authored the operator-inspection `.md` views (`corpus.commons/{corpus}/distillations/{task}/{TASK}-DISTILLATION-INDEX.md`) with the new source's rows. Run `python -m scripts.build_indexes.build_task_index --corpus {corpus}` to regenerate every `corpus.commons/{corpus}/distillations/{task}/task-index.json` from the updated `.md` files.
 
-9. **Cross-check sibling distillations.** If the new source belongs in another existing distillation's "Integration with Other References" section, update the existing file. This is the one remaining hand-edit in Pass H: it operates on per-distillation prose, not on the JSON runtime indexes.
+9. **Assemble `IMAGE-INDEX.yaml`.** Run `python3 scripts/build_indexes/build_image_index.py --corpus {corpus}`. Image classification runs per source and writes to `docs/images/_ingest_image_index_{slug}.yaml`; this step folds those staging files into the corpus index at `{corpus-root}/sources/converted/IMAGE-INDEX.yaml`. **Skipping it makes every classified image invisible**, because the skill's rule is that an image absent from `IMAGE-INDEX.yaml` is not part of the library — and the staging files give no sign that anything is wrong. `--check` reports without writing. Note that the staging path is repo-root, not corpus-root, so a private corpus's per-figure descriptions land in a shared tree; `docs/images/` is gitignored for that reason.
+
+10. **Cross-check sibling distillations.** If the new source belongs in another existing distillation's "Integration with Other References" section, update the existing file. This is the one remaining hand-edit in Pass H: it operates on per-distillation prose, not on the JSON runtime indexes.
+
+   **Known gap, stated so it is not mistaken for verified.** Rows written here assert what *another* source says, and no pass checks them: Pass I verifies a reference against its own source, and nothing verifies a distillation against a different reference's source. The same applies to corpus-scope superlatives ("the only source in the corpus that reports X"). Keep such rows narrow and attributable, and treat them as the least-verified content in the corpus.
 
 **Index hygiene.** The operator-inspection `.md` views describe the corpus *as it is right now*. They are read by humans browsing the corpus; the runtime reads only the JSON. Do not add `Last updated` dates, recent-changes summaries in the header, parenthetical "now includes…" lists, or changelog sections: git history covers the journey to here. The JSON indexes are derived artefacts; never hand-edit them. All updates flow through frontmatter + slug-table + the build scripts.
 
-**Parallel-batch operation.** When ingesting many sources in one work-session, steps 2–4 (preprocess + Sonnet refs pass) run in parallel per source (each writes to its own staging path). Steps 5–7 (concept-index) run once after every parallel source agent completes: the cross-link pass needs the corpus-wide candidate aggregation. Step 8 also runs once.
+**Parallel-batch operation.** When ingesting many sources in one work-session, steps 2–4 (preprocess + Sonnet refs pass) run in parallel per source (each writes to its own staging path). Steps 5–7 (concept-index) run once after every parallel source agent completes: the cross-link pass needs the corpus-wide candidate aggregation. Steps 8 and 9 also run once.
+
+**The convergence steps are the ones that get skipped, and skipping them is invisible.** Per-source agents write their staging outputs faithfully and report success; the corpus-level assembly at the end of the batch is a single run that nobody's task list owns. A 55-source corpus audited in 2026 had missed four of them at once — no `IMAGE-INDEX.yaml` despite 46 staging files, 13 router rows still sitting in `_ingest_*.md` stubs so five distillations were unreachable, `concept-index --assemble` never run, and 20 source sidecars unwritten. Nothing looked broken from any per-source view. Before declaring a batch complete, run this checklist and check the counts, not the exit codes:
+
+```
+python -m scripts.build_indexes.build_reference_index --corpus {corpus}
+python -m scripts.build_indexes.build_concept_index   --corpus {corpus} --emit-candidates
+#   … Sonnet cross-link pass → decisions.json …
+python -m scripts.build_indexes.build_concept_index   --corpus {corpus} --assemble
+python -m scripts.build_indexes.build_task_index      --corpus {corpus}
+python3 scripts/build_indexes/build_image_index.py    --corpus {corpus}
+python3 scripts/check_derived_provenance.py           --corpus {corpus}
+```
+
+Two failure shapes to check for by hand, because no script reports them: `_ingest_*.md` staging stubs left inside `distillations/{task}/` mean Pass G rows never reached the operator view, and a stray `---` inside a phase table splits it in two — rows after a horizontal rule have no header, so the builder silently stops seeing them as a table.
 
 ## Pass I: Source-only audit
 
 **Produces:** the gate decision: deep reference ships or it does not. Plus a Pass I audit log at `{corpus-root}/references/_audit/_ingest_pass_I_{slug}_source_audit.md` recording N claims audited / N source-anchored / N stripped or marker-corrected.
 
 **Procedure:** read the deep reference cold. For every claim (prose, table cell, evidence-class marker, cross-reference, thesis paragraph), ask: can I trace this to a passage in the source? Apply fixes directly to the deep reference as you go—claim strips, marker corrections, blockquote completeness fixes—*before* finalising the audit log. The log records the audit's outcome, not a separate to-do list.
+
+**Write the audit log to disk before reporting, and stamp only after.** An agent that reads heavily and reports without writing produces nothing recoverable; an agent that edits the deep reference and dies before logging leaves damage no one can attribute. Set the frontmatter's `Pass I applied {date}` marker *after* the log exists, so a stamp always implies a log. A stamp without a log is an unearned stamp: treat it as an un-audited reference whose contents may have been half-changed by a dead attempt.
+
+**A fresh subagent is necessary and not sufficient: run a cross-family leg.** The cold read removes *context* leakage — a session cannot see the training-priors it just wrote in as source-grounded. It does not remove *prior* leakage. An auditor from the same model family as the generator holds the same background knowledge, finds the generator's leaked domain reasoning unremarkable, and passes it through as though the source had supplied it.
+
+Measured on a 55-source corpus in August 2026: forty-four references were audited by a fresh same-family subagent, then re-audited blind by a different model family before being shown the first audit's findings. The second auditor confirmed **503** findings, found **221** the same-family audit had missed, and wrongly flagged **5**. **Roughly 30% of real defects survive a cold same-family audit, at a false-positive rate under 1%** — near-perfect precision with a hole in recall shaped exactly like the generator's own priors.
+
+So: audit in a fresh subagent, then verify in a *different model family*. Give the cross-family auditor the deep reference and the source and let it trace blind; only after it has written its own findings does it read the first audit and sort every finding into confirmed / missed / over-flagged / disputed. Reading the prior log first anchors it, and an anchored second opinion is not a second opinion. Where a second family is unavailable, say so in the audit log and treat the reference as audited-but-unverified rather than passed.
 
 **Calibration exemplars (mandatory before the cold read).** Before reading the deep reference under audit, read three exemplars from `tests/audit-fixtures/` to anchor what counts as a violation and what counts as clean:
 
@@ -288,6 +330,16 @@ The full twelve-fixture set and regression runner are in [`tests/audit-fixtures/
 - A cross-reference to another author the source does not cite.
 - Task-application guidance smuggled into the deep tier.
 - Post-source vocabulary that the source did not have.
+- **Source-external analytical framing.** The most common defect by a wide margin, and the one a same-family auditor misses: domain-prior explanation wearing the source-grounded voice. It survives because it is usually *reasonable* and often *true*. Recurring forms, all observed:
+  - **Evidence-quality rankings** the source never makes — "the strongest evidence", "highest-grade", "the best-designed study here".
+  - **Plausibility judgements** — "physically plausible", "unusually clean", "unremarkable for its date", "a sensible rationale".
+  - **Methodological verdicts** — "conclusions outrun the data", "generalises beyond its sample", "unvalidated", "an empirical threshold". These cluster in the source-integrity notes, where the ingester slips from recording provenance into grading the source's rigour.
+  - **Evaluative labels** — "classic", "modest", "a surprise", "the most quotable".
+  - **Causal or mechanistic explanation** the source reports without explaining. Absence of a citation establishes only that the paper does not cite; it does not establish that a step is *established practice*.
+  - **Invented oppositions** — a bounded positive claim restated as a position the author "frames against". See the template note under Pass E.
+  - **Market, legal or task framing** in a deep reference — cost advantages, competitive incumbents, registration burden, field maturity. That belongs in a distillation if anywhere.
+
+  The test is not "is this true?" but "which passage says it?" If you find yourself agreeing because you already know it, that is the moment to go and find it in the tape.
 
 If any fail condition surfaces, fix it in place in the deep reference, then re-audit. The deep reference does not ship until Pass I passes.
 

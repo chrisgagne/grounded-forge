@@ -104,3 +104,10 @@ credentials.json
 # Operator working outputs (image-generation frames, drafts); deliberate
 # tracking via git add -f only.
 artifacts/
+
+# Image-index staging. Written per source at ingestion and consumed by
+# scripts/build_indexes/build_image_index.py. The path is repo-root rather than
+# corpus-root, so a private corpus's per-figure descriptions land here; keeping it
+# untracked is what stops them reaching a public remote. See the note in
+# .claude/skills/ingesting-resources/SKILL.md.
+docs/images/

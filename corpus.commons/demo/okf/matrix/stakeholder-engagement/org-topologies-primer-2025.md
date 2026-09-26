@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-26T16:49:29+12:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Stakeholder-Engagement Distillation
 

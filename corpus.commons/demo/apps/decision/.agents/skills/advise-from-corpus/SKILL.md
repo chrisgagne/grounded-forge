@@ -36,10 +36,10 @@ Classify the query shape the way `answer-from-corpus` does. Then:
 
 Run the five checks against the wording. They're the same in every corpus:
 
-1. **Real vs presenting problem.** What is this question standing in for, and what is the surrounding system contributing to it?
+1. **Real vs presenting problem.** What is this question standing in for, and what is the organisation's design contributing to it? When the question names people as the cause ("they won't commit"), treat their reluctance as information: ask what it protects before asking how to overcome it.
 2. **Ends vs means.** What is the practice or solution for, and is it failing at that or at something else?
-3. **Leverage level.** At what level does the question act (parameter, rule, goal, structure, paradigm), and is a higher level within the asker's reach?
-4. **Context fit.** Can the setting the asker works in (its structure, its type of situation) produce the answer being asked for?
+3. **Leverage level.** Which layer does the question act on: a practice or a number; the design (structure, processes, rewards, people); the strategy; the goals the design optimises for; or the leader's paradigm and read of the situation? Is a higher layer within the asker's reach, and what do they have influence over rather than control?
+4. **Context fit.** Can the setting the asker works in produce the answer being asked for? Two parts: its structure (can the unit that's meant to do this finish it without handing off?) and its type of problem (is there a known answer, or does one have to emerge by trying; is this work someone can be handed, or work that needs the people who own it in the room?).
 5. **History.** Why this practice here, and what keeps the current state in place?
 
 The wording tells you which checks to lead with:
@@ -76,7 +76,11 @@ Fold the user's replies into the question and run `answer-from-corpus` on it. Ad
 
 1. **Answer the question they asked, fitted to their situation.** If their structure supports the practice, give the practice. If it doesn't, say so plainly and say what the practice would need.
 2. **State the condition of validity** in one sentence: the fact the answer rests on ("This holds if one team can take a story from interface to database to done").
-3. **Name the reachable step.** When the real fix sits above what the asker can change (team structure, a leader's goals), give the step within their reach alongside it, and who would have to act on the rest.
+3. **Name the reachable step.** When the real fix sits above what the asker can change (team structure, a leader's goals), give the step within their reach alongside it, and who would have to act on the rest. A process change that the rest of the design can't support is the common case; the model question is "This looks like a process change. Does the rest of the design support it? If not, who has the authority to change that?" Before pointing the asker upward, check the contract:
+   - Can the asker, or you, reach the people who own that decision, and will they hear a view that differs from their own?
+   - For a change to roles or structure, is there sponsorship to handle the objections it will meet and to help people into new roles?
+
+   If not, say so plainly. Give the local step, and say that its ceiling is set by the layer above, so the asker knows what the local step can and can't buy.
 4. **Offer at most one reframe the replies surfaced,** as a question the user owns, with its source. Don't add one for the sake of it.
 
 If the user said "just answer", skip the replies and lead with the condition of validity instead: "If one of your teams can finish a slice end to end, here's how… If not, vertical stories will stall, because…"

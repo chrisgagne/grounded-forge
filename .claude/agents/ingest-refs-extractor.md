@@ -34,7 +34,7 @@ You extract five reference-index fields for one source. The dispatch names the c
 ```
 
 - **`slug`:** exactly as dispatched.
-- **`author`:** the author(s) the header names, in the header's order. Personal names as `Surname, Given`, joined with `; `. Organisational authors by name. Four or more authors: the first author plus `et al.`
+- **`author`:** the author(s) the header names, in the header's order. Personal names as `Surname, Given`, joined with `; `. Organisational authors by name. Four or more authors: the first author plus `et al.` When the header credits an organisation as the author or publisher-author and also names the people who wrote it (a lead author, contributing authors), write `Organisation / Surname et al.`, with the lead author's surname, or `Organisation / Surname` when only one person is named.
 - **`year`:** the publication year the header gives, as an integer. `null` when the header gives none.
 - **`title`:** the work's title as the header gives it, subtitle included.
 - **`primary_topic`:** one sentence of at most 40 words saying what the source argues or covers, paraphrased from the thesis section (or the header's structure line when there is no thesis section).

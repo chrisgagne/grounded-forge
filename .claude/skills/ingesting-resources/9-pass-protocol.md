@@ -4,6 +4,8 @@ Per-pass procedures, templates, contracts, and failure modes for [`ingesting-res
 
 Runbook (when to invoke, setup gates, post-pass operations) is in [`SKILL.md`](SKILL.md).
 
+**Audit records describe the source and the passes.** Every file a pass writes to `{corpus-root}/references/_audit/` records what was read, checked, changed and left open, in terms of the source. Write the operator's reason for ingesting it (the engagement, client, person or question that prompted it) under `corpus.local/`, or leave it out. In a `corpus.commons/` corpus the audit records ship publicly; the pre-push hook's private-term check is the backstop, not the rule.
+
 ---
 
 ## Pass A: Context

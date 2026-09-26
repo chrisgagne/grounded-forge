@@ -84,7 +84,7 @@ A corpus is self-contained: source-cards, converted markdown, references, distil
 
 Two locations, one rule: **substrate skills are corpus-agnostic; corpus-bound skills cite a specific corpus's references or task axes.**
 
-- `.claude/skills/` (repo root): substrate skills, ship with the forge: `creating-*`, `ingesting-*`, `finding-resources`, `matching-references`, `answer-from-corpus`, `audit-attribution`. Discovered automatically by Claude Code from any working directory in the repo.
+- `.claude/skills/` (repo root): substrate skills, ship with the forge: `creating-*`, `ingesting-*`, `finding-resources`, `matching-references`, `answer-from-corpus`, `advise-from-corpus`, `audit-attribution`. Discovered automatically by Claude Code from any working directory in the repo.
 - `{corpus-root}/.claude/skills/`: corpus-bound skills, travel with the corpus. Discovered automatically by Claude Code when you work *inside* that corpus directory, or from anywhere when invoked with `--add-dir {corpus-root}/`.
 
 When authoring corpus-bound skills, either work from inside the corpus or launch Claude Code with `--add-dir {corpus-root}/` so the corpus skills load alongside substrate. The build resolver checks the corpus first, then substrate; collisions warn and prefer the corpus version. Compiled apps flatten everything into the app's `.claude/skills/`, so runtime sees one directory.

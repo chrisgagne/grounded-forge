@@ -38,8 +38,8 @@ Run the five checks against the wording. They're the same in every corpus:
 
 1. **Real vs presenting problem.** What is this question standing in for, and what is the organisation's design contributing to it? When the question names people as the cause ("they won't commit"), treat their reluctance as information: ask what it protects before asking how to overcome it.
 2. **Ends vs means.** What is the practice or solution for, and is it failing at that or at something else?
-3. **Leverage level.** Which layer does the question act on: a practice or a number; the design (structure, processes, rewards, people); the strategy; the goals the design optimises for; or the leader's paradigm and read of the situation? Is a higher layer within the asker's reach, and what do they have influence over rather than control?
-4. **Context fit.** Can the setting the asker works in produce the answer being asked for? Two parts: its structure (can the unit that's meant to do this finish it without handing off?) and its type of problem (is there a known answer, or does one have to emerge by trying; is this work someone can be handed, or work that needs the people who own it in the room?).
+3. **Leverage level.** Which layer does the question act on: a practice or a number; the design (structure, processes, rewards, people); the strategy; the goals the design optimises for; or the leader's paradigm and read of the situation? Is a higher layer within the asker's reach, and what do they have influence over rather than control? When leaders have handed change down to others to carry, the people carrying it usually reach only the lower layers; say so when that's the case.
+4. **Context fit.** Can the setting the asker works in produce the answer being asked for? Two parts: its structure (can the unit that's meant to do this finish it without handing off?) and its type of problem (is there a known answer, or does one have to emerge by trying; is this work someone can be handed, or work that needs the people who own it in the room?). One sign the setting treats emergent work as plannable: it still demands fixed delivery dates for work with no known answer.
 5. **History.** Why this practice here, and what keeps the current state in place?
 
 The wording tells you which checks to lead with:
@@ -91,6 +91,15 @@ Close with three short lines:
 - **The check that ran**, in plain words ("Before improving a practice, I checked whether your team structure could support it").
 - **Where it comes from**: the source you read.
 - **The question to ask yourself next time**, phrased so the user could use it on a different practice ("Can the team that's meant to do this actually finish it without handing off?").
+
+Take the question from the check that ran. The stock forms:
+- Is there a known answer here, or does one have to emerge by trying?
+- What do I have influence over, rather than control?
+- What is the design contributing to the problem as it was presented?
+- Can this be handed to someone, or does it need the people who own it in the room?
+- This looks like a process change: does the rest of the design support it, and if not, who can change that?
+- Which layer am I acting on, and is a higher one within reach?
+- Am I contracted to ask the higher questions, and can I reach the people who own the answer?
 
 ### Step 6: Offer to keep going
 

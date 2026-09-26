@@ -19,7 +19,10 @@ Pipeline (Phase 3):
      cannot adjudicate aliases, vocabulary variation, related-but-distinct.
 
   4. Python reads the decisions, applies them to the candidate vocabulary,
-     resolves slug → ID, and writes ``concept-index.json``.
+     resolves slug → ID, and writes two variants: ``concept-index.json``
+     (runtime: name, aliases, source ids — readable whole in one pass) and
+     ``concept-index-deep.json`` (adds section/md_line body pointers; the
+     operator/audit surface).
 
 Steps 1, 2, 4 are mechanical and live in this script. Step 3 is the human
 (or orchestrator) running the Sonnet pass with the staging artefacts.
@@ -340,6 +343,34 @@ def _section_pointer(
 _WHITESPACE = re.compile(r"\s+")
 _TRAILING_PAGE_NUMBERS = re.compile(r"(?:[\s,]+\d{1,4}){1,}\s*$")
 _MD_HEADER_NOISE = re.compile(r"^#+\s|^\*\*[A-Z]\*\*$|^\*\*Symbols\*\*$", re.IGNORECASE)
+_LEADING_BULLET = re.compile(r"^\s*[-–—•*·]+\s+")
+
+# Words that, at the edge of an entry, usually mean a dangling book-index
+# sub-entry fragment ("characteristics of, 247") rather than a concept.
+# Regex cannot adjudicate this — real concepts end in function words too
+# ("genius of the and", "i intend to") — so suspects are *flagged* for the
+# cross-link LLM pass to keep or drop, never auto-dropped.
+_FRAGMENT_EDGE_WORDS = {
+    "of", "and", "the", "to", "in", "for", "on", "vs", "with", "as", "at",
+    "by", "from", "or",
+}
+
+
+def _strip_bullet(text: str) -> str:
+    """Strip a leading markdown list bullet from a scraped index line.
+
+    EPUB back-matter indexes converted to markdown arrive as bullet lists
+    ("- abandonment"); the bullet is conversion furniture, not part of the
+    concept name.
+    """
+    return _LEADING_BULLET.sub("", text)
+
+
+def _is_fragment_suspect(key: str) -> bool:
+    words = key.split()
+    if not words:
+        return False
+    return words[0] in _FRAGMENT_EDGE_WORDS or words[-1] in _FRAGMENT_EDGE_WORDS
 
 
 def _strip_trailing_locators(text: str) -> str:
@@ -381,7 +412,8 @@ def _normalise(text: str) -> str:
     surface form*, not seven copies of the same string from a multi-page
     index.
     """
-    t = _strip_trailing_locators(text)
+    t = _strip_bullet(text)
+    t = _strip_trailing_locators(t)
     t = t.strip().lower()
     t = _WHITESPACE.sub(" ", t)
     t = t.strip(".,;:—–-•· ")
@@ -414,6 +446,9 @@ def _collect_candidates(corpus: str, slug_id: dict[str, str]) -> dict:
 
         for entry in record.get("book_index_entries", []):
             text = entry.get("concept_text")
+            if not text:
+                continue
+            text = _strip_bullet(text)
             if not text or _is_structural_noise(text):
                 continue
             key = _normalise(text)
@@ -540,8 +575,16 @@ def _emit_candidates(corpus: str) -> Path:
                 {s.get("origin") for s in cand["sources"] if s.get("origin")}
             ),
         }
+        if _is_fragment_suspect(key):
+            slim_candidates[key]["fragment_suspect"] = True
 
     bundle["candidates"] = slim_candidates
+    bundle["fragment_rule"] = (
+        "candidates flagged fragment_suspect start or end with a dangling "
+        "function word; the cross-link pass must explicitly keep (real "
+        "concept) or drop (book-index sub-entry fragment) each one — "
+        "never include them silently"
+    )
 
     out_dir = staging_dir(corpus, "concepts")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -555,6 +598,30 @@ def _emit_candidates(corpus: str) -> Path:
         f"{len(slug_table['slugs'])} sources ({out_path.stat().st_size} bytes)"
     )
     return out_path
+
+
+def _clean_aliases(name: str, canonical: str, aliases: list[str]) -> list[str]:
+    """Mechanical alias hygiene at assembly time.
+
+    Strips scraped bullet markers, collapses whitespace, and de-dupes
+    case-insensitively (also against the display name and the canonical
+    slug, both of which already resolve). Purely lossless: every surviving
+    string still resolves to the same entry.
+    """
+    seen = {name.strip().lower(), canonical.strip().lower()}
+    out: list[str] = []
+    for alias in aliases:
+        if not alias:
+            continue
+        cleaned = _WHITESPACE.sub(" ", _strip_bullet(alias)).strip()
+        if not cleaned:
+            continue
+        key = cleaned.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(cleaned)
+    return out
 
 
 def _assemble(corpus: str) -> Path:
@@ -585,8 +652,8 @@ def _assemble(corpus: str) -> Path:
         canonical = entry.get("canonical")
         if not canonical:
             continue
-        aliases = entry.get("aliases", []) or []
-        name = entry.get("name", canonical)
+        name = _WHITESPACE.sub(" ", _strip_bullet(entry.get("name", canonical))).strip()
+        aliases = _clean_aliases(name, canonical, entry.get("aliases", []) or [])
         sources_out = []
         seen_ids: set[str] = set()
 
@@ -679,22 +746,74 @@ def _assemble(corpus: str) -> Path:
             f"  reconciled {len(drift_log)} slug/id drift entries; log: {drift_path}"
         )
 
-    out = {
-        "schema_version": 1,
+    # Dual emission. The runtime index is compact v2 — one row per concept,
+    # sorted by slug, one line each, so the whole inventory reads in a
+    # fraction of the v1 dict's tokens while carrying identical content.
+    # Row: [slug, name, aliases, source_ids] with an optional 5th element
+    # {id: context} when any source carries a context string. The deep
+    # variant keeps the rich dict shape with section/md_line body pointers;
+    # it is the operator/audit surface and stays at corpus level (apps
+    # never ship it — build.js ships the runtime file).
+    rows = []
+    for canonical in sorted(concepts):
+        rec = concepts[canonical]
+        row: list = [
+            canonical,
+            rec["name"],
+            rec["aliases"],
+            [src["id"] for src in rec["sources"]],
+        ]
+        contexts = {
+            src["id"]: src["context"] for src in rec["sources"] if "context" in src
+        }
+        if contexts:
+            row.append(contexts)
+        rows.append(row)
+
+    out_dir = index_output_dir(corpus)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    out_path = out_dir / "concept-index.json"
+    header = {
+        "schema_version": 2,
         "corpus": corpus,
         "generated_from": "extracted+sonnet-cross-link",
-        "concepts": concepts,
+        "row_format": ["slug", "name", "aliases", "source_ids", "contexts?"],
     }
-
-    out_path = index_output_dir(corpus) / "concept-index.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2, ensure_ascii=False)
+        f.write("{\n")
+        for key, value in header.items():
+            f.write(f"{json.dumps(key)}: {json.dumps(value, ensure_ascii=False)},\n")
+        f.write('"concepts": [\n')
+        f.write(
+            ",\n".join(
+                json.dumps(row, ensure_ascii=False, separators=(",", ":"))
+                for row in rows
+            )
+        )
+        f.write("\n]}\n")
+
+    deep_path = out_dir / "concept-index-deep.json"
+    with deep_path.open("w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "schema_version": 1,
+                "corpus": corpus,
+                "generated_from": "extracted+sonnet-cross-link",
+                "variant": "deep",
+                "concepts": concepts,
+            },
+            f,
+            indent=2,
+            ensure_ascii=False,
+        )
 
     size = out_path.stat().st_size
+    deep_size = deep_path.stat().st_size
     coverage = (section_hits / source_count * 100) if source_count else 0
     print(
-        f"wrote {out_path} ({len(concepts)} concepts, {size} bytes); "
+        f"wrote {out_path} ({len(rows)} concepts, {size} bytes runtime v2; "
+        f"{deep_size} bytes deep at {deep_path.name}); "
         f"section pointers attached to {section_hits}/{source_count} source mentions "
         f"({coverage:.0f}%)"
     )

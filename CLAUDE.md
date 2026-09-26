@@ -64,7 +64,8 @@ corpus.commons/                                 # tracked — open or open-nc; s
     references/                                 # Light + deep references
       slug-table.json                           # slug ↔ short-ID (Phase 2)
     reference-index.json                        # file catalogue (runtime)
-    concept-index.json                          # concept axis with section pointers (runtime)
+    concept-index.json                          # concept axis (runtime; v2 compact rows)
+    concept-index-deep.json                     # adds per-source section pointers (operator/audit)
     distillations/{task}/                       # Task projections, the task axis
       task-index.json                           # situation router (runtime)
       DECISION-MAKING-DISTILLATION-INDEX.md     # operator-inspection view
@@ -102,12 +103,12 @@ The retrieval order in any compiled distribution matches the procedure documente
 
 1. **Classify the query shape.** Named lookup (one source, Protocol N), diagnostic (situation in a known task domain, Protocol D), or synthesis (breadth across the corpus, Protocol S). Shape determines which indexes to read and in what order.
 2. **Lens-applicability check.** For Protocols D and S, read `lens-index.json` unconditionally and detect whether a lens materially reweights what's salient. Skipped for Protocol N. The lens shapes how sub-claims decompose, so this runs *before* decomposition.
-3. **Index, then distillation.** Read the runtime JSON indexes shipped in the app: `concept-index.json` (concept axis, dist-only variant with deep-ref pointers stripped at build time), `slug-table.json` (ID ↔ slug map), and `distillations/{task}/task-index.json` for the user's task domain. The slug-IDs resolve to distillation file paths: `distillations/{task}/{slug}-{task}.md`. The distillation is the pre-projected matrix cell: it carries verbatim quotes + evidence markers in-band for the load-bearing claims.
-4. **`concept-index.json` for named concepts.** Look up the concept (or an alias) directly; each entry lists which sources cover it plus a `context` string. Section pointers are stripped from the app's variant; the distillation full-read picks up the concept's in-source location.
+3. **Index, then distillation.** Read the runtime JSON indexes shipped in the app: `concept-index.json` (concept axis, filtered at build time to the sources whose distillations the app ships), `slug-table.json` (ID ↔ slug map), and `distillations/{task}/task-index.json` for the user's task domain. The slug-IDs resolve to distillation file paths: `distillations/{task}/{slug}-{task}.md`. The distillation is the pre-projected matrix cell: it carries verbatim quotes + evidence markers in-band for the load-bearing claims.
+4. **`concept-index.json` for named concepts.** Look up the concept (or an alias) directly; each entry lists which sources cover it, plus a `context` string where one exists. The app's variant carries no section pointers; the distillation full-read picks up the concept's in-source location.
 
 In the **corpus** (not an app), the operator has the full reference tier available and can grep across `references/`, read deep refs by slug, and reach `reference-index.json` (the catalogue with `lines_deep`, `lines_light`, full concept_tags). That tier is what supports ingestion, audit, and cross-link work — not runtime retrieval.
 
-The runtime JSON indexes are derived artefacts; never hand-edit them. The per-task `{TASK}-DISTILLATION-INDEX.md` and `lenses/LENS-INDEX.md` operator-view markdowns are the authoring loop for their respective build scripts in `scripts/build_indexes/`: Pass G authors the operator view, the build regenerates the JSON. `reference-index.json` and `concept-index.json` are built from staging artefacts and deep-ref frontmatter directly; the app build strips concept-index's deep-ref pointers and drops reference-index entirely. See [`docs/architecture/two-layer-indexes.md`](docs/architecture/two-layer-indexes.md).
+The runtime JSON indexes are derived artefacts; never hand-edit them. The per-task `{TASK}-DISTILLATION-INDEX.md` and `lenses/LENS-INDEX.md` operator-view markdowns are the authoring loop for their respective build scripts in `scripts/build_indexes/`: Pass G authors the operator view, the build regenerates the JSON. `reference-index.json` and `concept-index.json` are built from staging artefacts and deep-ref frontmatter directly; the app build filters concept-index to the sources whose distillations ship and drops reference-index entirely. See [`docs/architecture/two-layer-indexes.md`](docs/architecture/two-layer-indexes.md).
 
 ## Distillation indexes
 

@@ -10,7 +10,7 @@
 
 [`corpus.commons/demo/distillations/decision-making/task-index.json`](../../corpus.commons/demo/distillations/decision-making/task-index.json) answers "In phase X of a decision, which references should I reach for?" Phase-by-phase rows as `[need, slug-id, when]` triples.
 
-[`corpus.commons/demo/concept-index.json`](../../corpus.commons/demo/concept-index.json) is the concept axis that sits between the two: per canonical concept, the slug-IDs of every source that covers it, plus body section names and md_line pointers where one can be resolved mechanically.
+[`corpus.commons/demo/concept-index.json`](../../corpus.commons/demo/concept-index.json) is the concept axis that sits between the two: per canonical concept, the slug-IDs of every source that covers it. The build emits it in two variants: the runtime file (schema_version 2; compact rows `[slug, name, aliases, source_ids]`, one per line) and `concept-index-deep.json`, which adds body section names and md_line pointers where one can be resolved mechanically — the operator/audit surface.
 
 These three indexes do different jobs and live in different files. The separation is load-bearing.
 
@@ -38,7 +38,7 @@ The runtime indexes ship as JSON. Operator-inspection views ship alongside as ma
 |---|---|---|---|
 | Slug table | `references/slug-table.json` | — | Append-only mapping from source slug to 3-character base-36 ID. Resolves every other index's IDs to file paths. |
 | Reference index | `reference-index.json` | — | File catalogue. One record per source. |
-| Concept index | `concept-index.json` | — | Concept axis. One record per canonical concept; aliases collapsed; per-source section + md_line pointers. |
+| Concept index | `concept-index.json` (+ `concept-index-deep.json`) | — | Concept axis. One row per canonical concept; aliases collapsed. The deep variant adds per-source section + md_line pointers. |
 | Task index | `distillations/{task}/task-index.json` | `{TASK}-DISTILLATION-INDEX.md` | Situation router. Phase-by-phase rows mapping `(need, slug-id, when)`. One file per task axis. |
 | Lens index | `lens-index.json` | `lenses/LENS-INDEX.md` | Lens catalogue. One record per lens; `salience` block split from the operator-authored markdown. See *Lens-aware retrieval* below. |
 

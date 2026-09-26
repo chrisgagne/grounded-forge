@@ -165,6 +165,7 @@ class MatrixBuilder {
       try {
         await this.buildCorpusIndexes(profile, staging);
         await this.buildDistillations(profile, staging);
+        await this.shipConceptIndex(profile, staging);
         await this.buildLenses(profile, staging);
         await this.buildOkf(profile, staging, outputDir, profileName);
       } finally {
@@ -176,6 +177,7 @@ class MatrixBuilder {
 
     await this.buildCorpusIndexes(profile, outputDir);
     await this.buildDistillations(profile, outputDir);
+    await this.shipConceptIndex(profile, outputDir);
     await this.buildLenses(profile, outputDir);
     await this.buildSkills(profile, outputDir);
     await this.buildAgents(profile, outputDir);
@@ -268,27 +270,95 @@ class MatrixBuilder {
     if (fs.existsSync(slugTableSrc)) {
       fs.copyFileSync(slugTableSrc, path.join(outputDir, "slug-table.json"));
     }
-    // concept-index.json lives at the corpus root; ship a stripped
-    // variant at app root. The corpus-level index carries (section,
-    // md_line) pointers into deep refs — useful for operators but dead
-    // pointers in dist-only apps. Strip those fields here; the runtime
-    // resolves the concept inside the distillation itself (distillations
-    // are small enough to full-read). A future build step can rebuild
-    // pointers into distillation files for in-source-section routing.
-    const conceptIndexSrc = path.join(this.sourceDir, "concept-index.json");
-    if (fs.existsSync(conceptIndexSrc)) {
-      const raw = JSON.parse(fs.readFileSync(conceptIndexSrc, "utf8"));
-      const stripped = this.stripConceptIndexPointers(raw);
-      fs.writeFileSync(
-        path.join(outputDir, "concept-index.json"),
-        JSON.stringify(stripped, null, 2)
-      );
-    }
+    // concept-index.json ships in shipConceptIndex, which runs after
+    // buildDistillations so it can filter entries to the sources whose
+    // distillations actually passed the scope gate — an entry routing to
+    // a source the app does not ship is a dead pointer.
 
     console.log(`  Corpus indexes: shipped (max_scope: ${maxScope}; references not shipped)`);
   }
 
+  // Ship the app's concept-index: filtered to the sources whose
+  // distillations shipped (dead-pointer removal), with deep-ref pointers
+  // stripped. Handles both index formats: schema_version 2 (compact rows
+  // [slug, name, aliases, source_ids, contexts?]) passes through filtered,
+  // one row per line; schema_version 1 (dict keyed by slug) keeps the
+  // legacy strip+dict shape so corpora not yet regenerated ship unchanged
+  // in form. When a profile configures no distillations the index ships
+  // unfiltered — there is no shipped-source set to filter against.
+  async shipConceptIndex(profile, outputDir) {
+    const conceptIndexSrc = path.join(this.sourceDir, "concept-index.json");
+    if (!fs.existsSync(conceptIndexSrc)) return;
+    const raw = JSON.parse(fs.readFileSync(conceptIndexSrc, "utf8"));
+
+    let shippedIds = null;
+    if (this.shippedSources?.size) {
+      const slugTablePath = path.join(
+        this.sourceDir, "references", "slug-table.json"
+      );
+      if (fs.existsSync(slugTablePath)) {
+        const slugTable = JSON.parse(fs.readFileSync(slugTablePath, "utf8"));
+        shippedIds = new Set();
+        for (const [id, slug] of Object.entries(slugTable.slugs)) {
+          if (slug && this.shippedSources.has(slug)) shippedIds.add(id);
+        }
+      }
+    }
+
+    const outPath = path.join(outputDir, "concept-index.json");
+    if (raw.schema_version === 2 && Array.isArray(raw.concepts)) {
+      const kept = [];
+      for (const row of raw.concepts) {
+        const [slug, name, aliases, ids, contexts] = row;
+        const keptIds = shippedIds ? ids.filter((i) => shippedIds.has(i)) : ids;
+        if (!keptIds.length) continue;
+        const outRow = [slug, name, aliases, keptIds];
+        if (contexts) {
+          const keptCtx = Object.fromEntries(
+            Object.entries(contexts).filter(([i]) => keptIds.includes(i))
+          );
+          if (Object.keys(keptCtx).length) outRow.push(keptCtx);
+        }
+        kept.push(outRow);
+      }
+      const header =
+        `{\n"schema_version": 2,\n` +
+        `"corpus": ${JSON.stringify(raw.corpus)},\n` +
+        `"generated_from": ${JSON.stringify(`${raw.generated_from} (app: filtered to shipped sources)`)},\n` +
+        `"row_format": ${JSON.stringify(raw.row_format)},\n` +
+        `"concepts": [\n`;
+      fs.writeFileSync(
+        outPath,
+        header + kept.map((r) => JSON.stringify(r)).join(",\n") + "\n]}\n"
+      );
+      console.log(
+        `  Concept index: ${kept.length}/${raw.concepts.length} concepts shipped` +
+          (shippedIds ? ` (filtered to ${shippedIds.size} shipped sources)` : " (unfiltered: no distillations configured)")
+      );
+    } else {
+      const stripped = this.stripConceptIndexPointers(raw);
+      if (shippedIds) {
+        const kept = {};
+        for (const [slug, entry] of Object.entries(stripped.concepts)) {
+          const sources = entry.sources.filter((s) => shippedIds.has(s.id));
+          if (sources.length) kept[slug] = { ...entry, sources };
+        }
+        stripped.generated_from += " (filtered to shipped sources)";
+        stripped.concepts = kept;
+      }
+      fs.writeFileSync(outPath, JSON.stringify(stripped, null, 2));
+      console.log(
+        `  Concept index: ${Object.keys(stripped.concepts).length} concepts shipped (v1 dict)` +
+          (shippedIds ? ` (filtered to ${shippedIds.size} shipped sources)` : "")
+      );
+    }
+  }
+
   async buildDistillations(profile, outputDir) {
+    // Reset per profile: one builder instance runs many profiles under
+    // --all, and shipConceptIndex must never filter against a previous
+    // profile's shipped-source set.
+    this.shippedSources = null;
     const distConfig = profile.distillations;
     if (!distConfig || !distConfig.include?.length) {
       console.log("  Distillations: 0 (none configured)");
@@ -438,6 +508,10 @@ class MatrixBuilder {
         fs.copyFileSync(taskIndexSrc, path.join(destDir, "task-index.json"));
       }
     }
+
+    // Record the shipped-source set for shipConceptIndex's dead-pointer
+    // filter, which runs after this step.
+    this.shippedSources = shippedSources;
 
     // Emit the provenance manifest the packager reads for scope labelling.
     // The bundle's scope is the most-restrictive scope across the SHIPPED

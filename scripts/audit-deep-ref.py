@@ -65,7 +65,15 @@ def collect_deep_refs(root: Path) -> list[Path]:
     return found
 
 CITATION_TAIL_PATTERN = re.compile(
-    r"\((?:Ch\s+\d+|p\.\s*\d+|pp\.\s*\d+|[A-Z][a-z]+\s+\d{4}|\"[^\"]+\"|§|[A-Z][a-z]+,\s+\d{4})",
+    r"\((?:Ch\s+\d+|p\.\s*\d+|pp\.\s*\d+|[A-Z][a-z]+\s+\d{4}|\"[^\"]+\"|§|[A-Z][a-z]+,\s+\d{4}"
+    # Journal-article anchors. Sources without page anchors cite by section
+    # name, which the protocol mandates as the fallback style. Three forms:
+    # a named section with a quoted subsection, a numbered section heading,
+    # and a bare table/figure pointer.
+    r"|[A-Z][A-Za-z]*(?:\s+[A-Za-z]+)*,\s*\"[^\"]+\""
+    r"|Section\s+\d|Sections?\s*,"
+    r"|Table\s+\d|Fig(?:ure)?\.?\s*\d"
+    r")",
 )
 MARKER_PATTERN = re.compile(r"\[(V|AP|AR|AE|BT)\](?=[\s,.;:)\]]|$)")
 SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'])")

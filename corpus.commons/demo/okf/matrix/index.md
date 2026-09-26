@@ -11,7 +11,7 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 - [aar](aar/index.md) — 19 concept files
 - [decision-making](decision-making/index.md) — 27 concept files
 - [retro](retro/index.md) — 19 concept files
-- [software-business](software-business/index.md) — 24 concept files
+- [software-business](software-business/index.md) — 25 concept files
 - [stakeholder-engagement](stakeholder-engagement/index.md) — 27 concept files
 
 ## Lenses

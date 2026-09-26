@@ -145,6 +145,8 @@ The phase tables use four columns. The "Need" column describes the situation; "R
 | Locate the product on the two-axis OT map | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The conversation needs a crisp two-axis read: Skills Mandate (horizontal, concept-to-cash latency) and Work Mandate (vertical, strategic-pivot cost). Both axes carry commercial pricing implications. |
 | Test whether the AI landscape changes the topology target | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | "Specialization and expertise are vanishing as limited resources, due to intelligence as a service" — the elevation target may now be more ambitious than previously feasible. Re-test the topology choice against the current AI landscape. |
 | Hold divergent designs across business lines | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The company has a stable Tier-1 product and an emerging product line with different market dynamics. Each can carry its own topology rather than being forced into a whole-company single design. |
+| Define security requirements in build-vs-buy and supplier selection | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | A component or service choice needs explicit requirements, provenance, maintenance expectations and shared-responsibility boundaries. |
+| Operator frames a build-vs-buy decision | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Apply SSDF supplier requirements, continuing component verification and release provenance: PO.1.3, PW.4 and PS.3.2. |
 
 ## Phase 2: Product and engineering economics
 
@@ -267,6 +269,7 @@ The phase tables use four columns. The "Need" column describes the situation; "R
 | Apply the output-vs-outcome discipline to roadmap investment | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The roadmap is being justified by feature output rather than by outcomes. "More output usually means more cost or investment, which can lower profit (an outcome). Investing to increase outcomes is justified; 'investing' to increase output is suspect." |
 | Test DoD-completeness as the horizontal-axis signal | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | Whether a team's Definition of Done includes shipping-to-production end-to-end (CAPS-3) or only partial-DoD (TASKS-2) is the empirical read on their position along the Skills Mandate axis — and therefore on concept-to-cash latency. |
 | Name the target archetype set in commercial vocabulary | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The engineering investment case is vague about team structure. Express it as "move R&D from TASKS-1 + CAPS-1 to CAPS-3 with PART-2 platform support" — the OT vocabulary makes the commercial commitment crisp and the investment measurable. |
+| Prioritise secure-development work against delivery cost and feasibility | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Security investment must be tailored to risk, cost, applicability and automatability; a blanket checklist is obscuring the decision. |
 
 ## Phase 3: Team and capability building
 
@@ -388,6 +391,9 @@ The phase tables use four columns. The "Need" column describes the situation; "R
 | Test the Feature Factory failure mode before scaling Delivery Topology | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The team is optimised for fast feature delivery but lacks a discovery / outcome-validation mechanism. The Primer names this directly: "products and services with 'feature bloat' are a common consequence." |
 | Use the archetype language as cross-team communication infrastructure | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | Cross-function conversations about team structure lack precision. The OT named-archetype vocabulary ("CAPS-2 teams supported by TASKS-1 specialists, coordinated by CAPS-1 and PART-1 groups") conveys delivery latency, overhead, and product-strategy constraint in one sentence. |
 | Map the framework to its topology before adopting it | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The team is considering SAFe, LeSS, FAST Agile, or the Spotify Model. SAFe lands mostly at TASKS-and-CAPS; LeSS targets CAPS-3/PART-2; Rendanheyi is Adaptive-at-scale. Map the framework to its topology before deciding which tool serves the target. |
+| Assign secure-delivery accountability and required expertise | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Tools, internal staff and advisers cover different work, but release accountability, role-based proficiency or design-review expertise remains unclear. |
+| Operator names a hiring or role-structure decision for software work | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Apply SSDF secure-development accountability, role training and required implementation expertise: PO.2 and Audience. |
+| Operator names a contractor / vendor / hybrid-team decision | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Make SSDF shared responsibility, supplier requirements and provider attestation explicit: §1 p. 3 and PO.1.3. |
 
 ## Phase 4: Operations and process
 
@@ -503,6 +509,9 @@ The phase tables use four columns. The "Need" column describes the situation; "R
 | Run Conway's Law as an org-design audit | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The proposed architecture implies a team boundary that does not match the current org structure, or vice versa. The OT topology mapping is essentially a Conway's Law analysis: architecture choice and topology choice are two views of the same decision. |
 | Frame elevation as an incremental operating commitment | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The change is being framed as a big-bang reorganisation. "Elevation can be an incremental process." Commit to the first 1–2 Elevating Kata experiments, plan the re-mapping cadence, and avoid whole-company-simultaneous framing. |
 | Test for single-element optimisation eroding system flow | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | A process or reward is being changed in one layer while the surrounding structures remain unchanged. "Performance of the whole system may actually decline (flow can get worse!)" when elements are optimised in isolation. |
+| Turn security tooling into criteria, decisions and retained evidence | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Scanners are running but approvals, rejections, exceptions, protected artefacts or toolchain maintenance have no explicit process. |
+| Operator names a governance or decision-rights ambiguity | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Connect SSDF release accountability to security criteria and supporting evidence: PO.2.3, PO.3.3 and PO.4. |
+| Operator names a retrospective or learning-loop need | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | For vulnerability-related learning, use SSDF patterns, class-wide fixes and SDLC feedback: RV.3. |
 
 ## Phase 5: Risk, reliability, compliance
 
@@ -663,6 +672,9 @@ The phase tables use four columns. The "Need" column describes the situation; "R
 | Frame reliability investment as stock-trajectory | SSDL Systems Thinking Foundations | `ssdl-systems-thinking-foundations-software-business.md` | Reliability investment against a commercial milestone needs stock-trajectory framing rather than flow reporting. |
 | Detect fixes-that-fail on customer-feature debt | SSDL Systems Thinking Foundations | `ssdl-systems-thinking-foundations-software-business.md` | Per-incident scope-tightening accumulates customer-feature debt that surfaces as churn next quarter. |
 | Price human-monitoring overhead as a new operational risk | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The AI investment is being costed without accounting for human monitoring as a new responsibility. "Do the AIs need monitoring by humans? That implies new responsibilities and processes in your organization." Price the monitoring role before committing. |
+| Check secure-release coverage and ongoing vulnerability response | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | A release or security event requires evidence about design review, component integrity, tests, secure defaults, response ownership and preventing recurrence. |
+| Operator names an incident-response or post-incident-learning concern | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Apply SSDF disclosure/response processes, risk responses and recurrence prevention to software vulnerabilities: RV.1.3, RV.2 and RV.3. |
+| Operator names a compliance investment with engineering cost | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Tailor secure-development practices by risk, cost and feasibility, and specify audit artefacts and security criteria: §1 p. 3, PO.3.3 and PO.4. |
 
 ## Phase 6: Stakeholder communication
 
@@ -793,6 +805,8 @@ The phase tables use four columns. The "Need" column describes the situation; "R
 | Acknowledge the topology's named failure mode as commercial maturity signal | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | Honestly naming the chosen topology's failure mode (Resource: coordination tax; Delivery: feature bloat; Adaptive: high-variance outcomes) in a board memo or investor update signals strategic maturity — the failure mode is known and being actively countered. |
 | Communicate AI investment as bottleneck-targeted elevation, not generic adoption | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | The board or investor communication is framing an AI investment as "we are adopting AI." Reframe as a bottleneck-targeted elevation story: which archetype is the elevation target, what is the bottleneck, and how does the AI investment dissolve it. The pet-supply e-commerce example is the worked template. |
 | Communicate divergent-design decisions across business lines | Org Topologies Primer | `org-topologies-primer-2025-software-business.md` | A whole-company announcement is being drafted when different divisions have legitimately different topology targets. The OT vocabulary makes per-line design explicit rather than forcing a unified message that obscures the logic. |
+| Explain secure-development commitments and evidence to an acquirer or executive | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Technical assurance needs a common vocabulary linking requirements, owners, checks, exceptions, provenance and disclosure processes. |
+| Operator names a board-paper or exec-memo concern with technical content | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Explain secure-development commitments through SSDF common vocabulary, evidence records and accountable decisions: §1 pp. 2–3 and PO.1–PO.4. |
 
 ---
 

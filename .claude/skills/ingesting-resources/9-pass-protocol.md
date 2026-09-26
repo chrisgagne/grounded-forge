@@ -255,7 +255,7 @@ Pass H used to ask the agent to author concept-A-Z entries by inference and hand
 
 **Procedure (single-source run):**
 
-1. **Allocate the slug-ID.** Run `python -m scripts.slug_table --corpus {corpus} --add {slug}` to assign an append-only ID to the new source in `corpus.commons/{corpus}/references/slug-table.json`. If the slug already exists, the command is a no-op.
+1. **Allocate the slug-ID.** Run `python3 scripts/slug_table.py generate --corpus {corpus-root}` once the deep reference is on disk. It takes the corpus *path* (`corpus.local/aarbuddy`), not the bare name the build-index scripts take. It scans `references/*-deep.md` and appends an ID to `{corpus-root}/references/slug-table.json` for every slug not yet in it; existing IDs never change, so a rerun is safe.
 
 2. **Run the deterministic preprocessor** against the converted source:
    ```
@@ -265,6 +265,8 @@ Pass H used to ask the agent to author concept-A-Z entries by inference and hand
        --output _planning/extracted/{corpus}/{slug}.json
    ```
    Reads the converted markdown and the discovery JSON (run the discovery scan first if missing), emits a tier-aware extraction artefact: book-index entries, enumerated methods, heading tree, page-marker map, derived-tier log. No LLM calls; no source rereads.
+
+   **Discovery scan, when `_planning/discovery/{slug}.json` is missing.** Run the mechanical baseline from the repo root, `python -m scripts.mechanical_index.discovery_scan_mechanical --corpus {corpus-root}`. It takes the corpus path and writes a baseline for every source that lacks one. Then dispatch the [`ingest-discovery-scanner`](../../agents/ingest-discovery-scanner.md) agent with the corpus root and slug. The agent reads the converted source in full and adds the author's enumerated named methods, which the regex baseline leaves empty. Those methods pass the concept-candidate filter from a single source, where a book-index entry needs two: the scan is how a source's own named methods enter the concept index.
 
 3. **Extract reference-index fields via Sonnet semantic pass.** Dispatch the [`ingest-refs-extractor`](../../agents/ingest-refs-extractor.md) agent with the corpus name, corpus root and slug. It reads the new deep reference's header and thesis and writes `{author, year, title, primary_topic, concept_tags}` to `_planning/staging/{corpus}/refs/{slug}.json`. Frontmatter prose varies (`Beck et al. (2001)`, `OpenStax (2019)`, organisational authors, working papers without years); regex would mis-attribute silently, so this is delegated to a constrained LLM step. Dispatch the named agent rather than a general-purpose one: the named agent pins Sonnet, and a general-purpose subagent inherits the session's Opus.
 

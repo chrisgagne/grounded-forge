@@ -16,6 +16,9 @@
     "list": "node build.js --list",
     "test:lens-visibility": "node tests/lens-visibility.test.js",
     "test:derived-provenance": "python3 tests/derived-provenance.test.py",
+    "test:mechanical-headings": "python3 tests/mechanical-headings.test.py",
+    "test:extraction-manifest": "python3 tests/extraction-manifest.test.py",
+    "mcp": "node scripts/mcp/corpus-server.mjs",
     "package": "node scripts/package.js",
     "package:all": "node scripts/package.js --all",
     "create-corpus": "python3 scripts/create-corpus.py",
@@ -31,6 +34,7 @@
     "slug-table:demo:check": "python3 scripts/slug_table.py check --corpus corpus.commons/demo"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "js-yaml": "^4.1.0",
     "tar": "^7.5.15"
   },

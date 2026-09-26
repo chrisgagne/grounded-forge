@@ -5,15 +5,15 @@
 
 ## Decision-Making Relevance
 
-The Primer is an applied decision-making framework for the class of decisions that touch organisational structure: choosing an org goal, choosing a target topology, deciding whether to elevate, deciding where to invest in AI, and the meta-decision of whether to adopt a framework at all. It treats org design as a controllable internal variable that can be deliberately decided against business strategy — in contrast to the business outcomes themselves, which are "uncertain and probabilistic" and outside leadership's full control.
+The Primer is an applied decision-making framework for the class of decisions that touch organisational structure: choosing an org goal, choosing a target topology, deciding whether to elevate, deciding where to invest in AI, and the meta-decision of whether to adopt a framework at all. It treats org design as a controllable internal variable that can be deliberately decided against business strategy — in contrast to the business outcomes themselves, which are "uncertain and probabilistic" [V] and outside leadership's full control.
 
-The Primer encodes decision discipline in several layers. The **MADE method** structures any org-change decision as a four-step sequence: Map (current archetypes), Assess (fit-for-purpose against business objective), Design (target org goal and topology), Elevate (incremental experiments via Elevating Katas™). The **three named topologies** (Resource, Delivery, Adaptive) act as decision-anchors: choosing one is a deliberate commitment to a goal (utilisation, output, outcome) with predictable strengths and predictable failure modes. The **strategic-design stance** — "the org goal (e.g. adaptiveness) should align with and influence the business objective (e.g. profit)" — is a chain-of-fit decision rule: business strategy → org goal → topology → frameworks (in that order, not the reverse). The **three guiding questions** for strategic AI adoption are explicit decision aids for where to invest AI effort given limited resources of money, time, and attention.
+The Primer encodes decision discipline in several layers. The **MADE method** structures any org-change decision as a four-step sequence: Map (current archetypes), Assess (fit-for-purpose against business objective), Design (target org goal and topology), Elevate (incremental experiments via Elevating Katas™). The **three named topologies** (Resource, Delivery, Adaptive) act as decision-anchors: choosing one is a deliberate commitment to a goal (utilisation, output, outcome) with predictable strengths and predictable failure modes. The **strategic-design stance** — "the org design goal (e.g. 'adaptive') should align with and influence the business objective (e.g. 'profit')" [V] — is a chain-of-fit decision rule: business strategy → org goal → topology → frameworks (in that order, not the reverse). The **three guiding questions** for strategic AI adoption are explicit decision aids for where to invest AI effort given limited resources of money, time, and attention.
 
-A second decision-discipline thread is the explicit positioning against framework-first decisions. The Primer treats framework adoption as a category error when the framework is chosen as the answer rather than as a tool: "Org Topologies—including but not limited to Resource, Delivery, or Adaptive—serve as a reference for assessing and designing a new target structure supporting the org design goals. And while the Elevating Katas provide one set of guides to get change going, of course people will also get guidance from existing frameworks, while aiming for the target topology." The decision rule is: pick the target topology first, then choose which framework's practices help you elevate toward it.
+A second decision-discipline thread is the explicit positioning against framework-first decisions. The Primer treats framework adoption as a category error when the framework is chosen as the answer rather than as a tool: "Org Topologies—including but not limited to Resource, Delivery, or Adaptive—serve as a reference for assessing and designing a new target structure supporting the org design goals. And while the Elevating Katas provide one set of guides to get change going, of course people will also get guidance from existing frameworks, while aiming for the target topology." [V] The decision rule is: pick the target topology first, then choose which framework's practices help you elevate toward it.
 
 A third thread is the discipline of incremental, divergent design within one organisation. "Companies may also choose different org designs for different parts of the company. One division might focus on servicing existing customers on a legacy product, while another is experimenting with new offerings — each requiring its own goal and design." This rejects whole-org single-design decisions and validates per-business-area design decisions tied to per-business-area objectives.
 
-A fourth thread is the systems-thinking discipline embedded in the MAP step: decisions about individual org-design elements (policies, structures, rewards) are warned against because "if each element (e.g. policies, structures) is optimized in isolation, the performance of the whole system may actually decline for the desired goal (flow can get worse!)." Local optimisation is a decision failure mode.
+A fourth thread is the systems-thinking discipline embedded in the MAP step: decisions about individual org-design elements (policies, structures, rewards) are warned against because "if each element (e.g. policies, structures) is optimized in isolation, the performance of the whole system may actually decline for the desired goal (flow can get worse!)." [V] Local optimisation is a decision failure mode.
 
 This distillation gathers these threads into a working pattern: how to use the MADE method as a structured decision-process for org change; how to use the three topologies as decision-anchors with named tradeoffs; how to use the OT vocabulary to communicate decisions across organisational boundaries; and how to decide where AI investment will produce outsized return given the org's elevation target.
 
@@ -27,25 +27,25 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 4. <!-- concept: skills-work-mandates --> **The two axes as decision dimensions.** Skills mandate (horizontal: how broad is the unit's skill range, decreasing transaction cost rightward) and Work mandate (vertical: how broad is the unit's work range, decreasing switching cost upward). Most org-design decisions can be located as "move rightward", "move upward", or "move both" — the Elevate step is literally upper-right movement on the map. (pp. 6–7)
 
-5. <!-- concept: output-vs-outcome --> **Output-versus-outcome decision discipline.** "More output usually means more cost or investment, which can lower profit (an outcome). Investing to increase outcomes (healthy people, profit) is justified; 'investing' to increase output is suspect." Any org-design decision that increases output without a chain-of-fit story to outcome is suspect by default. (p. 8, "Output versus Outcome Archetypes")
+5. <!-- concept: output-vs-outcome --> **Output-versus-outcome decision discipline.** "More output usually means more cost or investment, which can lower profit (an outcome). Investing to increase outcomes (healthy people, profit) is justified; 'investing' to increase output is suspect." [V] Any org-design decision that increases output without a chain-of-fit story to outcome is suspect by default. (p. 8, "Output versus Outcome Archetypes")
 
-6. <!-- concept: divergent-org-designs --> **The single-org-multiple-designs decision rule.** "Companies may also choose different org designs for different parts of the company." A decision about org design does not need to bind the whole organisation. Different divisions can hold different topologies fitted to their respective business objectives. (p. 18, "MADE Real: (3) DESIGN")
+6. <!-- concept: divergent-org-designs --> **The single-org-multiple-designs decision rule.** "Companies may also choose different org designs for different parts of the company." [V] A decision about org design does not need to bind the whole organisation. Different divisions can hold different topologies fitted to their respective business objectives. (p. 18, "MADE Real: (3) DESIGN")
 
-7. <!-- concept: framework-thinking --> **The framework-first failure mode.** "Implementing an industry-standard management framework as key to success... is the pitch from consulting companies big and small." The three failure modes named: root-cause neglect, no buy-in, cargo-cult. A decision to "adopt SAFe" or "adopt LeSS" without first deciding the target topology is the failure pattern. (p. 22, "Strategic Org Design vs. Framework Thinking")
+7. <!-- concept: framework-thinking --> **The framework-first failure mode.** "Framework thinking assumes that implementing an industry-standard management framework is key to success. This is the pitch from consulting companies big and small" [V]. The three failure modes named: root-cause neglect, no buy-in, cargo-cult. A decision to "adopt SAFe" or "adopt LeSS" without first deciding the target topology is the failure pattern. (p. 22, "Strategic Org Design vs. Framework Thinking")
 
 8. <!-- concept: strategic-ai-adoption --> **AI investment as a bottleneck-targeting decision.** Don't decide "adopt AI everywhere"; decide which archetypes are part of the target topology, which bottlenecks limit moving to those archetypes, and where AI can have the outsized impact on those bottlenecks. The decision is about *where*, given limited money, time, and attention. (p. 20, "Strategic AI Adoption")
 
 9. <!-- concept: systems-thinking --> **The systems-thinking decision rule for the MAP step.** Optimising individual org-design elements in isolation can degrade the system goal ("flow can get worse"). Decisions about policies, structures, or rewards must be made systemically — accounting for how each element interacts with the others — not as point decisions. (p. 16, "MADE Real: (1) MAP")
 
-10. <!-- concept: elevating-katas --> **The elevation-is-incremental decision rule.** "Elevation can be an incremental process that gradually improves the capabilities of an organization." Decisions about org change do not need to be discrete big-bang choices; the periodic re-mapping completes the learning loop. "We are never finished with the perfection journey." (p. 19, "MADE Real: (4) ELEVATE")
+10. <!-- concept: elevating-katas --> **The elevation-is-incremental decision rule.** "Elevation can be an incremental process that gradually improves the capabilities of an organization." [V] Decisions about org change do not need to be discrete big-bang choices; the periodic re-mapping completes the learning loop. "We are never finished with the perfection journey." [V] (p. 19, "MADE Real: (4) ELEVATE")
 
-11. <!-- concept: named-archetype-language --> **The named-archetype communication discipline.** When deciding org changes across stakeholders, using OT's named archetype vocabulary (CAPS-2, WHOLE-3, TASKS-1) is named as a decision-quality enabler: it lets people "describe both the current state and the desired future state of their organization with shared understanding" without resorting to "framework-specific jargon" that pre-loads the decision with assumptions. (p. 5, "Language of Org Design")
+11. <!-- concept: named-archetype-language --> **The named-archetype communication discipline.** When deciding org changes across stakeholders, using OT's named archetype vocabulary (CAPS-2, WHOLE-3, TASKS-1) is named as a decision-quality enabler: it lets people "describe both the current state and the desired future state of their organization with shared understanding" [V] without resorting to "framework-specific jargon" [V] that pre-loads the decision with assumptions. (p. 5, "Language of Org Design")
 
-12. <!-- concept: strategic-org-design --> **Strategy-execution alignment as a leadership decision.** "Senior management only defining business objectives" is named as a failure mode. The strategic-design stance is that leaders must also decide the internal org design — they cannot delegate the structural-fit question. The external (business objective) and internal (org design) are *one decision* tied at the leadership level. (p. 10, "Strategic Org Design")
+12. <!-- concept: strategic-org-design --> **Strategy-execution alignment as a leadership decision.** "Senior management only defining business objectives" [V] is named as a failure mode. The strategic-design stance is that leaders must also decide the internal org design — they cannot delegate the structural-fit question. The external (business objective) and internal (org design) are *one decision* tied at the leadership level. (p. 10, "Strategic Org Design")
 
-13. <!-- concept: multi-goal-decisions --> **The deferred-multi-goal decision warning.** "If more than one goal is chosen together for an organization, issues arise: Is some goal primary over others? Do they conflict? Can the org design support them all? These issues are beyond the scope of this Primer." A multi-goal decision is named as harder; treat it as a separate harder problem rather than collapsing it into a single-goal decision. (p. 18, "MADE Real: (3) DESIGN")
+13. <!-- concept: multi-goal-decisions --> **The deferred-multi-goal decision warning.** "If more than one goal is chosen together for an organization, issues arise: Is some goal primary over others? Do they conflict? Can the org design support them all? These issues are beyond the scope of this Primer." [V] A multi-goal decision is named as harder; treat it as a separate harder problem rather than collapsing it into a single-goal decision. (p. 18, "MADE Real: (3) DESIGN")
 
-14. <!-- concept: psychology-of-change --> **The "people have to own – not rent – their change" decision discipline.** Change decisions that are pushed onto people who didn't create them tend to fail because "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work." A decision to push a pre-built solution is a decision whose execution will be degraded by the absence of buy-in. (p. 1, "Cover"; p. 3, "Management Summary")
+14. <!-- concept: psychology-of-change --> **The "people have to own – not rent – their change" decision discipline.** Change decisions that are pushed onto people who didn't create them tend to fail because "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work." [V] A decision to push a pre-built solution is a decision whose execution will be degraded by the absence of buy-in. (p. 1, "Cover"; p. 3, "Management Summary")
 
 ## Questions to Ask During Decision-Making
 
@@ -57,7 +57,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 | Name the current topology | If we apply the MADE map to the current state, what topology does it look like — Resource, Delivery, Adaptive, or something else? |
 | Surface the implicit org goal | What org goal does the current design optimise for (utilisation, predictability, flow, customer delight, adaptiveness)? Often the implicit goal is utilisation by default. |
 | Test for framework-first reasoning | Is the proposed decision framed as "adopt framework X" or "move toward topology Y"? Framework-first is the failure mode. |
-| Test for single-team scope | Is the proposed change a single-team change in an unchanged surrounding ecosystem? "A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged." |
+| Test for single-team scope | Is the proposed change a single-team change in an unchanged surrounding ecosystem? "A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged." [V] |
 | Test for whole-org-single-design framing | Does the decision assume one design for the whole company, when different parts could carry different designs fitted to their respective objectives? |
 
 ### Phase 2: Bounding (Defining the decision and its constraints)
@@ -66,9 +66,9 @@ This distillation gathers these threads into a working pattern: how to use the M
 |---|---|
 | Locate the decision on the OT axes | Is this a rightward decision (increasing skill mandate, decreasing transaction cost), an upward decision (increasing work mandate, decreasing switching cost), or both? |
 | Identify the archetypes that change | Which named archetypes are in the current state, and which target archetypes does the decision propose to move them toward (e.g. TASKS-2 → CAPS-3)? |
-| Name the systems-thinking dependencies | What other org-design elements (policies, rewards, structures, processes) will need to change in concert? "If each element is optimized in isolation, the performance of the whole system may actually decline." |
+| Name the systems-thinking dependencies | What other org-design elements (policies, rewards, structures, processes) will need to change in concert? "If each element (e.g. policies, structures) is optimized in isolation, the performance of the whole system may actually decline for the desired goal (flow can get worse!)" [V] |
 | Surface the topology-specific failure mode we are accepting | If moving toward Resource: the narrow-specialist coordination cost. If toward Delivery: feature bloat with no outcome guarantee. If toward Adaptive: high-uncertainty tolerance and the difficulty of inter-archetype overlap. |
-| Test single-goal vs multi-goal | Is the decision selecting one org goal, or is it stacking multiple goals? Multi-goal stacking is named as harder and "beyond the scope of this Primer." |
+| Test single-goal vs multi-goal | Is the decision selecting one org goal, or is it stacking multiple goals? Multi-goal stacking is named as harder and "beyond the scope of this Primer." [V] |
 | Define the AI bottleneck | If AI investment is part of the decision, which archetypes are part of the target and what is the dominant bottleneck limiting adoption of those archetypes? |
 
 ### Phase 3: Generating options (Imagining alternative org designs)
@@ -77,19 +77,19 @@ This distillation gathers these threads into a working pattern: how to use the M
 |---|---|
 | Apply the three topologies as starting hypotheses | For the business objective, would Resource, Delivery, or Adaptive be the better fit? What does the worked-example logic look like for each? |
 | Explore divergent designs across divisions | Could one division retain Resource Topology (e.g. servicing legacy customers) while another moves to Adaptive (e.g. experimenting with new offerings)? |
-| Imagine an incremental elevation path | What is the smallest move rightward or upward we could trial as a "thoughtful experiment" (an Elevating Kata) in the next cycle? |
+| Imagine an incremental elevation path | What is the smallest move rightward or upward we could trial as a "thoughtful experiment" [V] (an Elevating Kata) in the next cycle? |
 | Consider Resource-Topology fit honestly | Is the current Resource Topology actually fit-for-purpose because the directing-doing relationships are temporary (a producer-dancer pattern)? If yes, the decision may be to *retain* the topology with better systems-of-fit. |
 | Use the OT vocabulary to express the option | Can the option be expressed in the form "move from {current archetype set} to {target archetype set}" with named archetypes? If not, the option is under-specified. |
-| Consider where AI changes the option space | Now that "specialization and expertise are vanishing as limited resources," what target archetypes are feasible that previously weren't due to the "we don't have enough experts" constraint? |
+| Consider where AI changes the option space | Now that "specialization and expertise are vanishing as limited resources," [V] what target archetypes are feasible that previously weren't due to the "we don't have enough experts" [V] constraint? |
 
 ### Phase 4: Evaluating options (Testing fit-for-purpose)
 
 | Need | Question |
 |---|---|
-| Test strategic alignment | Does the chosen org goal (e.g. flow, adaptiveness) actually deliver the capabilities required by the business strategy? "This step is about testing the existing org design for strategic alignment." |
+| Test strategic alignment | Does the chosen org goal (e.g. flow, adaptiveness) actually deliver the capabilities required by the business strategy? "This step is about testing the existing org design for strategic alignment." [V] |
 | Run the named-failure-mode check | For each option, name the topology-specific failure mode and ask: are we prepared to accept this failure mode? (Resource: coordination tax; Delivery: feature bloat; Adaptive: high-variance outcomes.) |
 | Run the systems-fit check | For each option, are the other org-design elements (policies, structures, rewards) compatible? If not, what is the smallest set of co-changes required? |
-| Test for buy-in | Will the people affected by this change be co-creators of it or recipients of it? "People, when not owning the change ideas, won't fully accept them." A pushed change is a degraded change. |
+| Test for buy-in | Will the people affected by this change be co-creators of it or recipients of it? "People, when not owning the change ideas, won't fully accept them." [V] A pushed change is a degraded change. |
 | Test AI investment ROI | Does the AI investment target a bottleneck in the elevation path, or is it generic "adopt AI"? Generic adoption is named as inferior to targeted bottleneck investment. |
 | Test for the divergent-design option | Are we choosing one design for the whole company because we haven't considered divergent-by-division designs? |
 
@@ -102,7 +102,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 | Frame the chosen frameworks as tools, not the answer | If the decision involves adopting (or partially adopting) SAFe, LeSS, Team Topologies, etc., frame those as elevating-kata sources, not as the decision itself. |
 | Acknowledge the rejected alternatives | Which other topologies were considered and why this one was preferred? This signals the failure mode you've accepted. |
 | Commit to incremental elevation | What are the first one or two experiments (Elevating Katas) that will produce the first measurable move? Avoid big-bang reorganisation framing. |
-| Plan the next MAP cycle | When will we re-map to test whether the elevation has actually happened? "Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop." |
+| Plan the next MAP cycle | When will we re-map to test whether the elevation has actually happened? "Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop." [V] |
 
 ### Phase 6: Reviewing (Closing the learning loop)
 
@@ -118,17 +118,17 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 1. **"Adopt framework X" as the org-change decision.** The Primer names this as the consulting pitch and the cargo-cult source. The correct decision sequence is goal → topology → framework, not framework → ?. (p. 22)
 
-2. **Optimising one org-design element in isolation.** Reward policies changed without changes to structure; structures changed without changes to incentives. "Performance of the whole system may actually decline." (p. 16)
+2. **Optimising one org-design element in isolation.** Reward policies changed without changes to structure; structures changed without changes to incentives. "Performance of the whole system may actually decline." [V] (p. 16)
 
 3. **Picking a topology by aesthetics rather than fit.** Resource Topology is treated culturally as backward and Adaptive as progressive, but Resource is the right answer for some classes of work (a movie producer hiring dancers for a scene). The decision must be by fit, not by topology preference. (pp. 11, 13)
 
-4. **Single-team focus.** Changing one team while the surrounding ecosystem is unchanged. "A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged." (p. 4)
+4. **Single-team focus.** Changing one team while the surrounding ecosystem is unchanged. "A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged." [V] (p. 4)
 
-5. **Multi-goal stacking without explicit prioritisation.** Choosing "adaptiveness *and* flow *and* utilisation" as parallel org goals without naming which is primary. The Primer flags this as "beyond the scope of this Primer" — meaning the practitioner has to do extra work, not that the issue can be ignored. (p. 18)
+5. **Multi-goal stacking without explicit prioritisation.** Choosing "adaptiveness *and* flow *and* utilisation" as parallel org goals without naming which is primary. The Primer flags this as "beyond the scope of this Primer" [V] — meaning the practitioner has to do extra work, not that the issue can be ignored. (p. 18)
 
 6. **Whole-org single-design assumption.** Forcing one topology on a multi-division business when divergent designs would fit better. (p. 18)
 
-7. **Pushed change without co-creation.** "People, when not owning the change ideas, won't fully accept them." A decision to roll out a change designed elsewhere is a decision whose execution will be degraded. (p. 3)
+7. **Pushed change without co-creation.** "People, when not owning the change ideas, won't fully accept them." [V] A decision to roll out a change designed elsewhere is a decision whose execution will be degraded. (p. 3)
 
 8. **Generic "adopt AI" investment.** Spreading AI investment evenly rather than targeting the bottlenecks that constrain the elevation path. (p. 20)
 
@@ -148,7 +148,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 ## Integration with Other References
 
-- **Scrum Guide (Schwaber & Sutherland, 2020).** The Primer explicitly maps the OT horizontal axis to "the increasing completeness of the Definition of Done" in Scrum. Decisions about whether a team is at CAPS-2 (multi-skill but incomplete) vs CAPS-3 (end-to-end) can be partly tested by whether the team can satisfy a DoD that includes shipping-to-production end-to-end. See `scrum-guide-2020-decision-making.md` for the empiricism / inspection-and-adaptation chain that underpins OT's "periodic re-mapping" discipline.
+- **Scrum Guide (Schwaber & Sutherland, 2020).** The Primer explicitly maps the OT horizontal axis to "the increasing completeness of the Definition of Done" [V] in Scrum. Decisions about whether a team is at CAPS-2 (multi-skill but incomplete) vs CAPS-3 (end-to-end) can be partly tested by whether the team can satisfy a DoD that includes shipping-to-production end-to-end. See `scrum-guide-2020-decision-making.md` for the empiricism / inspection-and-adaptation chain that underpins OT's "periodic re-mapping" [V] discipline.
 
 - **Approach Perfect Field Guide to Scrum Events.** OT's claim that elevation is incremental and that periodic re-mapping completes the learning loop maps to the Field Guide's framing of Sprint Review and Sprint Retrospective as inspect-and-adapt cadences. Decisions about org-elevation experiments can be sequenced through retro-driven small experiments rather than top-down rollouts. See `approach-perfect-field-guide-scrum-events-decision-making.md`.
 

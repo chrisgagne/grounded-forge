@@ -45,8 +45,12 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+# The trailing class is horizontal whitespace only. `\s*$` under MULTILINE
+# swallows the newlines after the stamp, so re-stamping an artefact deleted the
+# blank line between the stamp and the H1 that every file in the corpus carries.
 STAMP_RE = re.compile(
-    r"^<!--\s*derived-from-deep:\s*sha256:([0-9a-f]{64})\s*-->\s*$", re.MULTILINE
+    r"^<!--[ \t]*derived-from-deep:[ \t]*sha256:([0-9a-f]{64})[ \t]*-->[ \t]*$",
+    re.MULTILINE,
 )
 
 

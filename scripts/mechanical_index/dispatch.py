@@ -10,6 +10,12 @@ The dispatcher reads ``book_index.shape``, ``page_markers.present``, and
 that field. A source can be multi-tier: Forsgren has an anchor-linked
 Lists-of-Figures, a plaintext Quick Reference, and a flattened-plaintext
 back-matter index all in the same file. Every applicable handler runs.
+
+Journal articles carry none of those artefacts — no front-matter TOC, no
+back-matter index, no enumerated named methods — but they do carry a numbered
+section spine that the heading extractor recovers. That spine is its own tier
+(``numbered-sections``); without it a paper falls through to
+``inference-only`` and the concept index gets no in-source pointers for it.
 """
 
 from __future__ import annotations
@@ -187,8 +193,28 @@ def run(source_lines: list[str], discovery: dict) -> dict:
             }
         )
 
-    # 4. Inference-only fallback signal.
-    if not out["book_index_entries"] and not out["front_matter_toc"] and not out["enumerated_methods"]:
+    # 4. Numbered plaintext section spine — the journal-article routing
+    #    surface. Converters strip heading typography from two-column article
+    #    PDFs, so this is the only structural artefact most papers carry.
+    numbered = [h for h in heading_tree if h.get("kind") == "numbered-plaintext"]
+    if numbered:
+        out["derived_tier"].append("numbered-sections")
+        out["handler_log"].append(
+            {
+                "handler": "headings",
+                "convention": "numbered-plaintext",
+                "entries": len(numbered),
+                "top_level_sections": len({h["title"].split(".", 1)[0] for h in numbered}),
+            }
+        )
+
+    # 5. Inference-only fallback signal.
+    if (
+        not out["book_index_entries"]
+        and not out["front_matter_toc"]
+        and not out["enumerated_methods"]
+        and not numbered
+    ):
         out["derived_tier"].append("inference-only")
         out["handler_log"].append(
             {

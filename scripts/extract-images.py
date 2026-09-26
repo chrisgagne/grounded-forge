@@ -9,8 +9,16 @@ corpus.commons/{corpus}/sources/original/{slug}.{pdf,epub}, the script:
    sometimes prefixed; matches the existing {prefix}-{slug}.md naming).
 3. Writes images to
    corpus.commons/{corpus}/sources/converted/{md-slug}-images/.
-4. Emits an extraction manifest at
+4. Merges its results into the corpus-wide extraction manifest at
    corpus.commons/{corpus}/sources/converted/extraction-manifest.json.
+
+The manifest is corpus-shared but the extractor runs per source, and during a
+parallel ingestion batch four or five of them run at once. So the write is a
+merge, not an overwrite: entries for the sources handled by *this* invocation
+are replaced, every sibling entry is carried through, and the whole
+read-modify-write happens under an exclusive lock on the converted/ directory
+and lands via os.replace. Without that, the last extractor to finish published
+a manifest holding only its own images and silently dropped its siblings'.
 
 Classification (SUBSTANTIVE vs DECORATIVE) happens during ingestion
 review; classified entries land in
@@ -23,11 +31,16 @@ Dependencies:
     pip install PyMuPDF ebooklib
 """
 
+import contextlib
+import errno
+import fcntl
 import hashlib
 import json
 import os
 import re
 import sys
+import tempfile
+import time
 from pathlib import Path
 
 try:
@@ -41,11 +54,110 @@ try:
 except ImportError:
     ebooklib = None
 
-REPO_ROOT = Path(__file__).parent.parent
+# Resolved so the manifest's relative paths survive a symlinked checkout.
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 MIN_WIDTH = 100
 MIN_HEIGHT = 100
 MIN_BYTES = 5000
+
+MANIFEST_NAME = "extraction-manifest.json"
+LOCK_TIMEOUT_S = 120
+LOCK_POLL_S = 0.05
+
+
+@contextlib.contextmanager
+def converted_dir_lock(converted_dir):
+    """Hold an exclusive advisory lock for one corpus's converted/ directory.
+
+    The lock is taken on the directory itself rather than on a sidecar file:
+    the manifest is published by os.replace, which swaps the inode, so a lock
+    held on the manifest would not exclude anything. The directory's inode is
+    stable, and locking it leaves no artefact behind in the corpus.
+
+    Advisory locks only bind processes that ask for them, which is fine — the
+    extractor is the only writer.
+    """
+    fd = os.open(str(converted_dir), os.O_RDONLY)
+    deadline = time.monotonic() + LOCK_TIMEOUT_S
+    try:
+        while True:
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except OSError as e:
+                if e.errno not in (errno.EACCES, errno.EAGAIN):
+                    raise
+                if time.monotonic() >= deadline:
+                    raise SystemExit(
+                        f"Timed out after {LOCK_TIMEOUT_S}s waiting for the manifest lock on "
+                        f"{converted_dir}. Another extractor may be stuck; check for a hung run."
+                    )
+                time.sleep(LOCK_POLL_S)
+        try:
+            yield
+        finally:
+            fcntl.flock(fd, fcntl.LOCK_UN)
+    finally:
+        os.close(fd)
+
+
+def load_manifest(manifest_path):
+    """Read the manifest, tolerating absence. A malformed file is reported and
+    treated as empty — it is a regenerable working artefact, but the operator
+    needs to know the history went missing rather than find out downstream.
+    """
+    if not manifest_path.exists():
+        return []
+    try:
+        with open(manifest_path) as f:
+            existing = json.load(f)
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"  WARNING: {manifest_path} unreadable ({e}); rebuilding from this run only")
+        return []
+    if not isinstance(existing, list):
+        print(f"  WARNING: {manifest_path} is not a JSON list; rebuilding from this run only")
+        return []
+    return [e for e in existing if isinstance(e, dict)]
+
+
+def manifest_sort_key(entry):
+    return (
+        str(entry.get("source_file") or ""),
+        entry.get("page") if isinstance(entry.get("page"), int) else -1,
+        str(entry.get("file") or ""),
+    )
+
+
+def merge_manifest(converted_dir, handled_sources, entries):
+    """Fold this run's entries into the corpus manifest and return the total.
+
+    Held under the directory lock so five concurrent extractors serialise
+    rather than overwrite. Entries for `handled_sources` are dropped before the
+    new ones go in, so re-running one source refreshes its own images without
+    duplicating them or disturbing anyone else's.
+    """
+    manifest_path = converted_dir / MANIFEST_NAME
+    handled = {str(Path(s).resolve().relative_to(REPO_ROOT)) for s in handled_sources}
+
+    with converted_dir_lock(converted_dir):
+        merged = [e for e in load_manifest(manifest_path) if e.get("source_file") not in handled]
+        merged.extend(entries)
+        merged.sort(key=manifest_sort_key)
+
+        fd, tmp_name = tempfile.mkstemp(dir=str(converted_dir), prefix=".manifest-", suffix=".json")
+        try:
+            with os.fdopen(fd, "w") as f:
+                json.dump(merged, f, indent=2)
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmp_name, manifest_path)
+        except BaseException:
+            with contextlib.suppress(OSError):
+                os.unlink(tmp_name)
+            raise
+
+    return len(merged)
 
 
 def slugify(name):
@@ -57,18 +169,26 @@ def slugify(name):
     return slug[:60]
 
 
+# A source can be handed to the extractor from either staging directory.
+# `ingesting-resources` runs extraction while the input is still in ingest/ —
+# it has to, because the next step removes the input — and re-extraction later
+# runs against the promoted copy in original/.
+SOURCE_DIRS = ("original", "ingest")
+
+
 def resolve_converted_dir(source_path):
-    """Walk up from a source path under corpus.commons/{corpus}/sources/original/
+    """Walk up from a source path under {corpus}/sources/{original,ingest}/
     to find the sibling converted/ dir.
     """
     p = source_path.resolve()
     for parent in p.parents:
         sibling = parent.parent / "converted"
-        if parent.name == "original" and sibling.is_dir():
+        if parent.name in SOURCE_DIRS and sibling.is_dir():
             return sibling
     raise SystemExit(
         f"Could not resolve converted/ dir from {source_path}. "
-        "Source must live under corpus.commons/{corpus}/sources/original/."
+        "Source must live under {corpus}/sources/original/ or {corpus}/sources/ingest/, "
+        "alongside a sibling converted/ directory."
     )
 
 
@@ -87,7 +207,7 @@ def resolve_md_slug(source_path, converted_dir):
 def extract_pdf_images(pdf_path, output_dir):
     if fitz is None:
         print(f"  SKIP (no PyMuPDF): {pdf_path}")
-        return []
+        return None
 
     manifest = []
     seen = set()
@@ -96,7 +216,7 @@ def extract_pdf_images(pdf_path, output_dir):
         doc = fitz.open(str(pdf_path))
     except Exception as e:
         print(f"  ERROR opening {pdf_path}: {e}")
-        return []
+        return None
 
     for page_num in range(len(doc)):
         page = doc[page_num]
@@ -145,7 +265,7 @@ def extract_pdf_images(pdf_path, output_dir):
 def extract_epub_images(epub_path, output_dir):
     if ebooklib is None:
         print(f"  SKIP (no ebooklib): {epub_path}")
-        return []
+        return None
 
     manifest = []
     seen = set()
@@ -154,7 +274,7 @@ def extract_epub_images(epub_path, output_dir):
         book = epub.read_epub(str(epub_path), options={"ignore_ncx": True})
     except Exception as e:
         print(f"  ERROR reading {epub_path}: {e}")
-        return []
+        return None
 
     img_idx = 0
     for item in book.get_items():
@@ -222,6 +342,13 @@ def process_file(source_path):
     else:
         return []
 
+    if manifest is None:
+        # The source was never inspected — a missing dependency or an
+        # unreadable file. That is not the same as "inspected, found nothing",
+        # and the caller must not let it clear this source's manifest entries.
+        print(f"    -> not inspected; leaving any existing entries alone")
+        return None
+
     if manifest:
         print(f"    -> {len(manifest)} images extracted")
     else:
@@ -234,17 +361,18 @@ def process_file(source_path):
 
 
 def collect_sources():
-    """Find every PDF/EPUB under any corpus.commons/*/sources/original/ dir."""
+    """Find every PDF/EPUB under any corpus tier's sources/original/ dir."""
     sources = []
-    commons = REPO_ROOT / "corpus.commons"
-    if not commons.exists():
-        return sources
-    for original in commons.glob("*/sources/original"):
-        for root, _, files in os.walk(original):
-            for f in files:
-                p = Path(root) / f
-                if p.suffix.lower() in (".pdf", ".epub"):
-                    sources.append(p)
+    for tier in ("corpus.commons", "corpus.local"):
+        root_dir = REPO_ROOT / tier
+        if not root_dir.exists():
+            continue
+        for original in root_dir.glob("*/sources/original"):
+            for root, _, files in os.walk(original):
+                for f in files:
+                    p = Path(root) / f
+                    if p.suffix.lower() in (".pdf", ".epub"):
+                        sources.append(p)
     return sorted(sources)
 
 
@@ -264,25 +392,49 @@ def main():
     print(f"Extracting images from {len(targets)} source(s)")
     print(f"{'=' * 60}")
 
-    manifest_by_dir = {}
+    # Sources are grouped by converted/ dir so one lock covers one corpus, and
+    # the source list is kept alongside the entries: a source that yielded no
+    # images still has to clear any stale entries it left behind.
+    runs = {}
     for source in targets:
         if not source.exists():
             print(f"  ERROR: {source} not found")
             continue
         converted_dir = resolve_converted_dir(source)
-        manifest_by_dir.setdefault(converted_dir, []).extend(process_file(source))
+        run = runs.setdefault(converted_dir, {"sources": [], "entries": [], "skipped": []})
+        entries = process_file(source)
+        if entries is None:
+            # Un-inspected. Keep it out of handled_sources so merge_manifest
+            # carries its existing entries through untouched.
+            run["skipped"].append(source)
+            continue
+        run["sources"].append(source)
+        run["entries"].extend(entries)
 
     total = 0
-    for converted_dir, manifest in manifest_by_dir.items():
-        manifest_path = converted_dir / "extraction-manifest.json"
-        with open(manifest_path, "w") as f:
-            json.dump(manifest, f, indent=2)
-        total += len(manifest)
-        print(f"\nManifest: {manifest_path.relative_to(REPO_ROOT)} ({len(manifest)} images)")
+    skipped_any = False
+    for converted_dir, run in runs.items():
+        if run["skipped"]:
+            skipped_any = True
+            names = ", ".join(s.name for s in run["skipped"])
+            print(f"\n  NOT INSPECTED ({len(run['skipped'])}): {names}")
+        if not run["sources"]:
+            continue
+        merged = merge_manifest(converted_dir, run["sources"], run["entries"])
+        total += len(run["entries"])
+        manifest_path = converted_dir / MANIFEST_NAME
+        print(
+            f"\nManifest: {manifest_path.relative_to(REPO_ROOT)} "
+            f"({len(run['entries'])} images this run, {merged} in the corpus)"
+        )
 
     print(f"\n{'=' * 60}")
     print(f"DONE: {total} total image(s) extracted")
     print(f"{'=' * 60}")
+    if skipped_any:
+        print("\nSome sources were not inspected. Install the missing extractor")
+        print("  pip install PyMuPDF ebooklib")
+        print("and re-run; their existing manifest entries were left intact.")
     print("\nNext: classify each extracted image as SUBSTANTIVE or")
     print("DECORATIVE. Append SUBSTANTIVE entries to")
     print("corpus.commons/{corpus}/sources/converted/IMAGE-INDEX.yaml.")

@@ -121,6 +121,8 @@ One concept file per source, projected onto the `software-business` task axis. E
 - Locate the product on the two-axis OT map → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test whether the AI landscape changes the topology target → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Hold divergent designs across business lines → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Define security requirements in build-vs-buy and supplier selection → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator frames a build-vs-buy decision → [nist-ssdf-1-1](nist-ssdf-1-1.md)
 
 ## Phase 2: Product and engineering economics
 
@@ -241,6 +243,7 @@ One concept file per source, projected onto the `software-business` task axis. E
 - Apply the output-vs-outcome discipline to roadmap investment → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test DoD-completeness as the horizontal-axis signal → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Name the target archetype set in commercial vocabulary → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Prioritise secure-development work against delivery cost and feasibility → [nist-ssdf-1-1](nist-ssdf-1-1.md)
 
 ## Phase 3: Team and capability building
 
@@ -360,6 +363,9 @@ One concept file per source, projected onto the `software-business` task axis. E
 - Test the Feature Factory failure mode before scaling Delivery Topology → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Use the archetype language as cross-team communication infrastructure → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Map the framework to its topology before adopting it → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Assign secure-delivery accountability and required expertise → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names a hiring or role-structure decision for software work → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names a contractor / vendor / hybrid-team decision → [nist-ssdf-1-1](nist-ssdf-1-1.md)
 
 ## Phase 4: Operations and process
 
@@ -473,6 +479,9 @@ One concept file per source, projected onto the `software-business` task axis. E
 - Run Conway's Law as an org-design audit → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Frame elevation as an incremental operating commitment → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test for single-element optimisation eroding system flow → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Turn security tooling into criteria, decisions and retained evidence → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names a governance or decision-rights ambiguity → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names a retrospective or learning-loop need → [nist-ssdf-1-1](nist-ssdf-1-1.md)
 
 ## Phase 5: Risk, reliability, compliance
 
@@ -631,6 +640,9 @@ One concept file per source, projected onto the `software-business` task axis. E
 - Frame reliability investment as stock-trajectory → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Detect fixes-that-fail on customer-feature debt → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Price human-monitoring overhead as a new operational risk → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Check secure-release coverage and ongoing vulnerability response → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names an incident-response or post-incident-learning concern → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names a compliance investment with engineering cost → [nist-ssdf-1-1](nist-ssdf-1-1.md)
 
 ## Phase 6: Stakeholder communication
 
@@ -759,8 +771,10 @@ One concept file per source, projected onto the `software-business` task axis. E
 - Acknowledge the topology's named failure mode as commercial maturity signal → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Communicate AI investment as bottleneck-targeted elevation, not generic adoption → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Communicate divergent-design decisions across business lines → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Explain secure-development commitments and evidence to an acquirer or executive → [nist-ssdf-1-1](nist-ssdf-1-1.md)
+- Operator names a board-paper or exec-memo concern with technical content → [nist-ssdf-1-1](nist-ssdf-1-1.md)
 
-## All concept files (24)
+## All concept files (25)
 
 - [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
@@ -770,6 +784,7 @@ One concept file per source, projected onto the `software-business` task axis. E
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md)
 - [U.S. Marine Corps, MCDP-1 Warfighting](mcdp1-warfighting.md)
 - [NHS Just Culture Guide](nhs-just-culture-guide.md)
+- [NIST SSDF v1.1 for software-business work](nist-ssdf-1-1.md)
 - [Hurtado, Open Kanban](open-kanban.md)
 - [Open Practice Library](open-practice-library.md)
 - [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md)

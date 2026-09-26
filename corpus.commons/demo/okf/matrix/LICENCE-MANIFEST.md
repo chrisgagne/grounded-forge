@@ -10,7 +10,7 @@ generated:
 
 **Bundle:** matrix (OKF 0.2, emitted by grounded-forge/0.4.0)
 **Most-restrictive scope:** open-nc
-**Sources:** 27
+**Sources:** 28
 
 ## Scope levels
 
@@ -37,6 +37,7 @@ The bundle inherits the most-restrictive scope across all sources below. The rec
 | liberating-structures-handbook | open-nc | unknown |
 | mcdp1-warfighting | open | unknown |
 | nhs-just-culture-guide | open | Open Government Licence v3.0 (UK public-sector open licence |
+| nist-ssdf-1-1 | open | United States public domain |
 | open-kanban | open | Creative Commons Attribution 3.0 Unported (CC BY 3.0) |
 | open-practice-library | open | CC BY 4.0 for content (site-level declaration) |
 | openstax-accounting-vol1 | open-nc | unknown |

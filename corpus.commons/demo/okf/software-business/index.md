@@ -8,7 +8,7 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 
 ## Task axes
 
-- [software-business](software-business/index.md) — 24 concept files
+- [software-business](software-business/index.md) — 25 concept files
 
 ## Lenses
 

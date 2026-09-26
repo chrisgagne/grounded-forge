@@ -74,15 +74,22 @@ function emitOkfBundle(opts) {
   // Co-occurrence graph from the concept index: two sources are related
   // when they cover a shared concept. id -> Map(relatedId -> Set(concept)).
   // Deterministic — no embedding similarity, no model call.
+  // Schema 2 rows are [slug, name, aliases, source_ids, contexts?];
+  // schema 1 is a map of slug -> { name, sources: [{ id }] }.
+  const conceptRows = Array.isArray(conceptIndex.concepts)
+    ? conceptIndex.concepts.map(([slug, name, , ids]) => [name || slug, ids || []])
+    : Object.entries(conceptIndex.concepts || {}).map(([key, entry]) => [
+        entry.name || key,
+        (entry.sources || []).map((s) => s.id),
+      ]);
   const related = new Map();
-  for (const [key, entry] of Object.entries(conceptIndex.concepts || {})) {
-    const ids = (entry.sources || []).map((s) => s.id);
+  for (const [name, ids] of conceptRows) {
     for (const a of ids) {
       if (!related.has(a)) related.set(a, new Map());
       for (const b of ids) {
         if (a === b) continue;
         if (!related.get(a).has(b)) related.get(a).set(b, new Set());
-        related.get(a).get(b).add(entry.name || key);
+        related.get(a).get(b).add(name);
       }
     }
   }

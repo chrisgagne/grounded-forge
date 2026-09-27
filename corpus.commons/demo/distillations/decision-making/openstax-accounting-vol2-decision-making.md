@@ -15,7 +15,7 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 ## Key Concepts for Decision-Making
 
-1. <!-- concept: planning-controlling-evaluating --> **The planning-controlling-evaluating cycle.** Most managerial decisions sit somewhere on this cycle. Planning sets goals and targets; controlling monitors progress; evaluating compares actual to expected and informs the next cycle. Decisions are not isolated events but moves within this loop. (Source: OpenStax, *Principles of Accounting Vol 2*, Ch 1.1, "Define Managerial Accounting and Identify the Three Primary Responsibilities of Management" [V])
+1. <!-- concept: planning-controlling-evaluating --> **The planning-controlling-evaluating cycle.** Most managerial decisions sit somewhere on this cycle. Planning sets goals and targets; controlling monitors progress; evaluating compares actual to expected and informs the next cycle. Decisions are not isolated events but moves within this loop. (Source: OpenStax, *Principles of Accounting Vol 2*, Ch 1.1, "Define Managerial Accounting and Identify the Three Primary Responsibilities of Management")
 
 2. <!-- concept: cost-behaviour --> **Cost classification is decision-relative.** Costs are not intrinsically fixed or variable, direct or indirect, product or period, relevant or irrelevant — they earn those labels relative to the decision under consideration. The same rent expense may be fixed for one company, committed for another, period for a third. Practitioners should ask "fixed for what decision?" rather than "is this a fixed cost?" (Source: Ch 2.2)
 

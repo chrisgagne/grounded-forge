@@ -97,7 +97,7 @@ The demo corpus's `openstax-organizational-behavior` slug is the canonical worke
 
 ## Retrieval pattern
 
-**Apps ship distillations only.** The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with the compiled application. Distillations carry paraphrased prose with parenthetical attribution and verbatim blockquotes copied from already-audited Pass D passages, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved in-band. The retrieval skill reads distillations; the deep ref is a build-time input, not a runtime artefact.
+**Apps ship distillations only.** The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with the compiled application. Distillations carry paraphrased prose with parenthetical attribution and verbatim quotations marked `[V]` (open and open-nc sources only; copyrighted, confidential and personal sources are paraphrased, and the build enforces it), each matching the converted source word for word, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved in-band. The retrieval skill reads distillations; the deep ref is a build-time input, not a runtime artefact.
 
 The retrieval order in any compiled distribution matches the procedure documented in [`.claude/skills/answer-from-corpus/SKILL.md`](.claude/skills/answer-from-corpus/SKILL.md):
 

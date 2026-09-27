@@ -11,7 +11,7 @@ MCDP-1 is, in significant part, a treatise on decision-making under uncertainty 
 
 The doctrine's starting position is that war's environment is *friction, uncertainty, fluidity, disorder, complexity, danger* — constitutive features, not exceptions. This is the operating frame for any decision-maker working in conditions that resemble war's structure: complex socio-technical systems, fast-moving markets, ambiguous customer needs, multi-party negotiations, crisis management, public-sector politics.
 
-The implication for decision practice: methods that assume the environment is reducible, predictable, or fully analysable will fail. Decision frameworks suitable for stable / well-bounded contexts are inappropriate for uncertain / fluid contexts. The pamphlet is explicit: *"no degree of technological development or scientific calculation will diminish the human dimension in war."*
+The implication for decision practice: methods that assume the environment is reducible, predictable, or fully analysable will fail. Decision frameworks suitable for stable / well-bounded contexts are inappropriate for uncertain / fluid contexts. The pamphlet is explicit: *"no degree of technological development or scientific calculation will diminish the human dimension in war." [V]*
 
 ### 2. The OODA loop as the cycle of decision (Ch 2 Notes 18)
 

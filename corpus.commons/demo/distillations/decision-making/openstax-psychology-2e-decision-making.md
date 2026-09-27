@@ -20,7 +20,7 @@ The source's bias inventory — the load-bearing list for any decision-making hu
 - *Hindsight bias*: "belief that the event just experienced was predictable" [V] (Ch 7.3, Table 7.3).
 - *Availability heuristic*: "decision is based upon either an available precedent or an example that may be faulty" [V] (Ch 7.3, Table 7.3).
 
-Heuristics — the shortcut mode that defaults under load — "are not always the best method for making a rational decision" [V] (Ch 7.3, "Problem-Solving Strategies").
+Heuristics — the shortcut mode that defaults under load — are "not always the best method for making a rational decision" [V] (Ch 7.3, "Problem-Solving Strategies").
 
 Self-efficacy — the precondition for any decision to attempt difficult work — is defined as "an individual's belief in their own capability to complete a task" [V] (Ch 10.1, "Self-efficacy and Social Motives").
 
@@ -50,7 +50,7 @@ Self-efficacy — the precondition for any decision to attempt difficult work �
 
 12. <!-- concept: implicit-bias --> **Implicit bias.** The dual attitudes model distinguishes explicit from implicit attitudes; implicit bias can operate even where explicit bias is absent. Decisions about people (hiring, promotion, evaluation) are vulnerable to implicit bias even when decision-makers are sincere about their conscious values. (Source: Ch 12.5)
 
-13. <!-- concept: self-efficacy --> **Self-efficacy.** Bandura's "individual's belief in their own capability to complete a task" predicts goal-setting and persistence. Self-efficacy is shaped by past performance, vicarious experience, social persuasion, and physiological state. Decisions about whether to attempt difficult work are partly decisions about whether the actor believes they can succeed. (Source: Ch 10.1; Ch 11.4)
+13. <!-- concept: self-efficacy --> **Self-efficacy.** Bandura's "individual's belief in their own capability to complete a task" [V] predicts goal-setting and persistence. Self-efficacy is shaped by past performance, vicarious experience, social persuasion, and physiological state. Decisions about whether to attempt difficult work are partly decisions about whether the actor believes they can succeed. (Source: Ch 10.1; Ch 11.4)
 
 14. <!-- concept: locus-of-control --> **Locus of control.** Rotter's internal versus external orientation: internals attribute outcomes to their own actions; externals attribute outcomes to forces outside themselves. The implication for decision-making is that the same evidence may produce different responses depending on the actor's attributional habit. (Source: Ch 11.4)
 
@@ -201,4 +201,4 @@ This worked example illustrates several key concepts in the source: heuristic-ve
 
 **Named limits of the source.** The book is an introductory psychology survey; the decision-relevant content (Ch 7, Ch 8, Ch 12, Ch 10, Ch 13) is compressed relative to specialist sources. The bias inventory in Ch 7.3 compresses the Kahneman-Tversky programme into five items; practitioners needing depth should go to the primary literature. Clinical, developmental, and biological chapters are excluded from this distillation as outside the decision-making scope.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-psychology-2e-deep.md`). Key Concepts are drawn from `[AP]` (the source's stated cognitive framework positions) or `[AE]` (worked examples and study summaries). The experimental findings and theories named above (Kahneman-Tversky, Asch, Milgram, Janis, Festinger, Loftus, Bandura, Rotter, Schacter, Yerkes-Dodson, Schachter-Singer, Latané-Darley, Greenberg) are all `[BT]` — the source endorses and explains them as established psychology but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-psychology-2e-deep.md`). Key Concepts are drawn from `[AP]` (the source's stated cognitive framework positions) or `[AE]` (worked examples and study summaries). The experimental findings and theories named above (Kahneman-Tversky, Asch, Milgram, Janis, Festinger, Loftus, Bandura, Rotter, Schacter, Yerkes-Dodson, Schachter-Singer, Latané-Darley, Greenberg) are all `[BT]` — the source endorses and explains them as established psychology but did not originate them.

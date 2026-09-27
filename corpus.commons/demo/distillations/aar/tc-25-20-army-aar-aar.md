@@ -13,25 +13,25 @@ TC 25-20 is the canonical AAR doctrine. Its load-bearing contribution to the AAR
 
 2. <!-- concept: aar-four-step-cycle --> **Four-step cycle: Planning, Preparing, Conducting, Following up.** The AAR is a process, not an event. Chapter 5 is explicit: "The real benefits of AARs come from taking the results and applying them to future training" [V] (Source: *TC 25-20*, Ch 5, "Benefits"). Follow-up is not optional post-processing — it is where the benefit is.
 
-3. <!-- concept: formal-aar --> **Formal vs informal AAR.** Formal AARs are resource-intensive, planned 6–8 weeks out, typically company-level and above. Informal AARs use the same format with minimal resources — "using nothing more than pinecones to represent squad members" (Source: *TC 25-20*, Ch 1, "Informal"). Choose by fit, not by formality preference.
+3. <!-- concept: formal-aar --> **Formal vs informal AAR.** Formal AARs are resource-intensive, planned 6–8 weeks out, typically company-level and above. Informal AARs use the same format with minimal resources — "using nothing more than pinecones to represent squad members" [V] (Source: *TC 25-20*, Ch 1, "Informal"). Choose by fit, not by formality preference.
 
-4. <!-- concept: two-echelons-above --> **Two-echelons-above evaluator rule.** External evaluations are conducted "two levels above the unit being evaluated" (Source: *TC 25-20*, Ch 2, "The After-Action Review Plan"). One echelon up is too close for honest independent assessment.
+4. <!-- concept: two-echelons-above --> **Two-echelons-above evaluator rule.** External evaluations are conducted "two levels above the unit being evaluated" [V] (Source: *TC 25-20*, Ch 2, "The After-Action Review Plan"). One echelon up is too close for honest independent assessment.
 
-5. <!-- concept: experience-over-rank --> **Experience over rank for OC selection.** "If trainers must choose between experience and understanding of current TTPs or rank, they should go with experience" (Source: *TC 25-20*, Ch 2, "Selecting and Training Observers and Controllers"). A junior person with deep role experience observes better than a senior person without it.
+5. <!-- concept: experience-over-rank --> **Experience over rank for OC selection.** "If trainers must choose between experience and understanding of current TTPs or rank, they should go with experience" [V] (Source: *TC 25-20*, Ch 2, "Selecting and Training Observers and Controllers"). A junior person with deep role experience observes better than a senior person without it.
 
 6. <!-- concept: three-discussion-techniques --> **Three discussion-organisation techniques.** Chronological for narrative recall; Battlefield Operating Systems (BOS) for systemic cross-phase patterns; key events/themes for tight focus when time is limited. The leader can switch between them within a single AAR when systemic issues emerge (Source: *TC 25-20*, Ch 4, "Flexibility").
 
-7. <!-- concept: open-ended-questions --> **Open-ended question discipline.** "SGT Johnson, what happened when your Bradley crested the hill?" over "SGT Johnson, why didn't you engage the enemy tanks to your front?" (Source: *TC 25-20*, Ch 4, "Summary of Recent Events"). The first invites narrative; the second invites self-defence.
+7. <!-- concept: open-ended-questions --> **Open-ended question discipline.** "SGT Johnson, what happened when your Bradley crested the hill?" [V] over "SGT Johnson, why didn't you engage the enemy tanks to your front?" [V] (Source: *TC 25-20*, Ch 4, "Summary of Recent Events"). The first invites narrative; the second invites self-defence.
 
-8. <!-- concept: spirit-and-climate --> **Spirit and climate as operational concerns.** "The environment and climate surrounding an AAR must be one in which the soldiers and leaders openly and honestly discuss what actually transpired" (Source: *TC 25-20*, Preface). Soldier participation is directly related to the atmosphere created during the introduction.
+8. <!-- concept: spirit-and-climate --> **Spirit and climate as operational concerns.** "The environment and climate surrounding an AAR must be one in which the soldiers and leaders openly and honestly discuss what actually transpired" [V] (Source: *TC 25-20*, Preface). Soldier participation is directly related to the atmosphere created during the introduction.
 
-9. <!-- concept: train-to-weakness --> **Train to weakness, not to strength.** "Train to weakness, not to strength" (Source: *TC 25-20*, Ch 4, "Tasks to Sustain/Improve"). Allocate finite development resource to known weakness. Deviation from this default requires a reason.
+9. <!-- concept: train-to-weakness --> **Train to weakness, not to strength.** "Train to weakness, not to strength" [V] (Source: *TC 25-20*, Ch 4, "Tasks to Sustain/Improve"). Allocate finite development resource to known weakness. Deviation from this default requires a reason.
 
-10. <!-- concept: critical-gate-tasks --> **Critical gate tasks as stop-rules.** "The unit must always retrain and perform critical gate tasks derived from the Combined Arms Training Strategy (CATS) to standard before progressing" (Source: *TC 25-20*, Ch 5, "Immediate Retraining"). Gate task failure is a stop, not a partial score.
+10. <!-- concept: critical-gate-tasks --> **Critical gate tasks as stop-rules.** "The unit must always retrain and perform critical gate tasks derived from the Combined Arms Training Strategy (CATS) to standard before progressing" [V] (Source: *TC 25-20*, Ch 5, "Immediate Retraining"). Gate task failure is a stop, not a partial score.
 
-11. <!-- concept: fratricide-mandatory-discussion --> **Fratricide as mandatory deep-discussion topic.** "All incidents or near incidents of fratricide…will be discussed in detail" (Source: *TC 25-20*, Ch 4, "Fratricide"). Name your fratricide-equivalents — severity-overrides-time-budget topics — in advance, not after the fact.
+11. <!-- concept: fratricide-mandatory-discussion --> **Fratricide as mandatory deep-discussion topic.** "All incidents or near incidents of fratricide…will be discussed in detail" [V] (Source: *TC 25-20*, Ch 4, "Fratricide"). Name your fratricide-equivalents — severity-overrides-time-budget topics — in advance, not after the fact.
 
-12. <!-- concept: force-protection-standing-agenda --> **Force protection touched every AAR.** "Safety should be specifically addressed in every AAR and discussed in detail when it impacts unit effectiveness" (Source: *TC 25-20*, Ch 4, "Discussion of Force Protection"). Standing-agenda discipline: certain topics fire regardless of whether they came up during the event.
+12. <!-- concept: force-protection-standing-agenda --> **Force protection touched every AAR.** "Safety should be specifically addressed in every AAR and discussed in detail when it impacts unit effectiveness" [V] (Source: *TC 25-20*, Ch 4, "Discussion of Force Protection"). Standing-agenda discipline: certain topics fire regardless of whether they came up during the event.
 
 13. <!-- concept: statistics-not-grading --> **Statistics serve teaching, not grading.** "Chart after chart of ratios, bar graphs, and tables quickly obscures any meaning and lends itself to a 'grading' of unit performance. This stifles discussion and degrades the AAR's value" (Source: *TC 25-20*, Ch 4, "Statistics"). Metrics support observations; they do not assign verdicts.
 
@@ -56,15 +56,15 @@ TC 25-20 is the canonical AAR doctrine. Its load-bearing contribution to the AAR
 | Need | Question |
 |---|---|
 | How to organise the discussion? | Which technique fits the question: chronological (narrative recall), BOS-equivalent (systemic cross-phase patterns), or key events (tight focus, limited time)? Can we switch when systemic issues emerge? |
-| Are accounts diverging? | Are divergent perspectives a problem to solve or evidence to surface? The AAR is multi-perspective discovery: "no commander, no matter how skilled, will see as much as the individual soldiers and leaders who actually conduct the training." |
+| Are accounts diverging? | Are divergent perspectives a problem to solve or evidence to surface? The AAR is multi-perspective discovery: "no commander, no matter how skilled, will see as much as the individual soldiers and leaders who actually conduct the training." [V] |
 | Are we asking open-ended questions? | Is each question inviting narrative ("what happened when…") or inviting self-defence ("why didn't you…")? |
-| Is the OPFOR perspective represented? | "The enemy's perspective is often useful in identifying why a unit was or was not successful." Who holds the OPFOR view in this incident? Have we heard it? |
+| Is the OPFOR perspective represented? | "The enemy's perspective is often useful in identifying why a unit was or was not successful." [V] Who holds the OPFOR view in this incident? Have we heard it? |
 
 ### Phase 2: Contributory-Factor Analysis
 
 | Need | Question |
 |---|---|
-| Are we naming contributory factors or a single cause? | TC 25-20 consistently uses plural framing — "weaknesses to improve and strengths to sustain." What are the multiple factors, not the cause? |
+| Are we naming contributory factors or a single cause? | TC 25-20 consistently uses plural framing — "weaknesses to improve and strengths to sustain." [V] What are the multiple factors, not the cause? |
 | Are we switching discussion technique to surface systemic patterns? | When a BOS-equivalent pattern emerges across phases, does the discussion technique need to switch from chronological to BOS? |
 | Are statistics serving teaching or grading? | Is each chart identifying a trend or reinforcing a teaching point, or has it slipped into scoring the unit's performance? |
 
@@ -88,7 +88,7 @@ TC 25-20 is the canonical AAR doctrine. Its load-bearing contribution to the AAR
 
 | Need | Question |
 |---|---|
-| Is the next-action commitment locked? | "The real benefits of AARs come from taking the results and applying them to future training." Who owns the next action, and when? |
+| Is the next-action commitment locked? | "The real benefits of AARs come from taking the results and applying them to future training." [V] Who owns the next action, and when? |
 | If retraining is delayed, is the delay visible? | Soldiers must understand the task was not performed to standard and retraining will occur. Is the deferral timed and communicated, not silent? |
 | Has the SOP been revised? | Did the review surface SOP problems? Has the revision been implemented, not just noted? |
 | Did the leader close correctly? | Summary of key points, positive ending, link to next training, then leave so the unit can discuss in private? |
@@ -97,11 +97,11 @@ TC 25-20 is the canonical AAR doctrine. Its load-bearing contribution to the AAR
 
 | Signal | Diagnosis | Follow-up |
 |---|---|---|
-| The post-event discussion opens with a senior participant explaining what happened, and others affirm rather than contribute | Critique mode — one viewpoint is being transmitted rather than multiple perspectives being discovered; the TC is explicit that a critique "stifles learning and team building" | Reframe: "What we've heard is one account. Let's hear from someone who was in a different position." Open-ended questions from here forward. |
-| The discussion ends without a named owner and date for each action | Follow-up phase omitted — the TC is explicit: "the real benefits of AARs come from taking the results and applying them to future training." The AAR cycle has not closed | Before the room clears: assign owners, set dates, flag which items require SOP revision |
+| The post-event discussion opens with a senior participant explaining what happened, and others affirm rather than contribute | Critique mode — one viewpoint is being transmitted rather than multiple perspectives being discovered; the TC is explicit that a critique "stifles learning and team building" [V] | Reframe: "What we've heard is one account. Let's hear from someone who was in a different position." Open-ended questions from here forward. |
+| The discussion ends without a named owner and date for each action | Follow-up phase omitted — the TC is explicit: "the real benefits of AARs come from taking the results and applying them to future training." [V] The AAR cycle has not closed | Before the room clears: assign owners, set dates, flag which items require SOP revision |
 | Post-event statistics are being used to rank or score team members | Statistics-as-verdict — the TC warns directly that statistical presentations "lend themselves to a 'grading' of unit performance" and "stifles discussion" | Redirect: "What does this trend tell us about what happened? What teaching point does it reinforce?" |
 | The AAR skips the review of what the standard was before discussing what happened | No-standard problem — without knowing the pre-committed criterion, the discussion will debate what good looks like rather than what happened | Name the standard first, even retroactively; if no standard existed, make setting one an output |
-| Resources are being directed toward a known-strength capability for the next training event | Training-to-strength failure mode — the TC's default is explicit: "train to weakness, not to strength" | Ask: "What is the reason for deviating from the train-to-weakness default?" If no reason is offered, redirect resources |
+| Resources are being directed toward a known-strength capability for the next training event | Training-to-strength failure mode — the TC's default is explicit: "train to weakness, not to strength" [V] | Ask: "What is the reason for deviating from the train-to-weakness default?" If no reason is offered, redirect resources |
 
 ## When to Use This Reference
 

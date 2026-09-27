@@ -19,7 +19,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 ## Key Concepts for Decision-Making
 
-1. <!-- concept: made-method --> **The MADE method as a decision process.** Map → Assess → Design → Elevate. The first decision (MAP) is what you currently are; the second (ASSESS) is whether that is what you should be; the third (DESIGN) is what you should be; the fourth (ELEVATE) is the experiments by which you become that. The method enforces an order: don't decide the target before mapping the current. (Source: Krivitsky, Larman & Flemm, *Org Topologies Primer* 2025, p. 15, "Change MADE Real: the Method" [V])
+1. <!-- concept: made-method --> **The MADE method as a decision process.** Map → Assess → Design → Elevate. The first decision (MAP) is what you currently are; the second (ASSESS) is whether that is what you should be; the third (DESIGN) is what you should be; the fourth (ELEVATE) is the experiments by which you become that. The method enforces an order: don't decide the target before mapping the current. (Source: Krivitsky, Larman & Flemm, *Org Topologies Primer* 2025, p. 15, "Change MADE Real: the Method")
 
 2. <!-- concept: chain-of-fit --> **The chain-of-fit decision rule.** Business strategy → organisational goal → topology → frameworks. The order is the rule: chose the goal that delivers the strategy, then the topology that delivers the goal, then the framework that helps you elevate toward the topology. Frameworks are not the unit of decision. (p. 22, "Strategic Org Design vs. Framework Thinking")
 

@@ -11,7 +11,7 @@ The distillation is therefore narrower than the corresponding OpenStax distillat
 
 ## Key Concepts for Stakeholder-Engagement
 
-1. <!-- concept: stakeholder-network-analysis --> **Stakeholders identified through network analysis.** Lim's RALIC study at UCL used PageRank applied to the stakeholder-network graph (built from snowball sampling and project documentation) to rank 85 stakeholders by salience; the resulting rankings correlated strongly with the project's ground-truth ranking. This is a defensible quantitative method when the stakeholder set is large or unclear. (Source: Jones, *Evidence-based Software Engineering*, Ch 5.4.5, "Discovering functionality needed for acceptance" [V])
+1. <!-- concept: stakeholder-network-analysis --> **Stakeholders identified through network analysis.** Lim's RALIC study at UCL used PageRank applied to the stakeholder-network graph (built from snowball sampling and project documentation) to rank 85 stakeholders by salience; the resulting rankings correlated strongly with the project's ground-truth ranking. This is a defensible quantitative method when the stakeholder set is large or unclear. (Source: Jones, *Evidence-based Software Engineering*, Ch 5.4.5, "Discovering functionality needed for acceptance")
 
 2. <!-- concept: stakeholder-salience --> **Stakeholder salience as the prioritisation metric.** Salience is "the degree to which managers give priority to competing stakeholder claims" [V] (Mitchell-Agle-Wood). It can be measured by network-position metrics (PageRank), by reciprocal salience (each stakeholder rates the others), or by the directness of stakeholders' role in the system being built. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
 

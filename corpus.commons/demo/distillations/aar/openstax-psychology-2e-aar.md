@@ -9,7 +9,7 @@ Psychology 2e is the facilitator's cognitive-science substrate for understanding
 
 ## Key Concepts for AAR
 
-1. <!-- concept: hindsight-bias --> **Hindsight bias.** "Belief that the event just experienced was predictable" [V] (Source: OpenStax, *Psychology 2e*, Ch 7.3, "Pitfalls to Problem Solving" [V], Table 7.3). In AARs: once the outcome is known, participants experience the contributing factors as obvious. This bias contaminates both participant accounts and observer evaluations. Interviewing as soon as possible and prohibiting counterfactual framing ("but we should have known...") are the direct procedural responses.
+1. <!-- concept: hindsight-bias --> **Hindsight bias.** "Belief that the event just experienced was predictable" [V] (Source: OpenStax, *Psychology 2e*, Ch 7.3, "Pitfalls to Problem Solving", Table 7.3). In AARs: once the outcome is known, participants experience the contributing factors as obvious. This bias contaminates both participant accounts and observer evaluations. Interviewing as soon as possible and prohibiting counterfactual framing ("but we should have known...") are the direct procedural responses.
 
 2. <!-- concept: availability-heuristic --> **Availability heuristic.** "Decision is based upon either an available precedent or an example that may be faulty" [V] (Source: OpenStax, *Psychology 2e*, Ch 7.3, Table 7.3). In AARs: participants weight vivid or recent incidents more than base rates. The most salient recent failure shapes the theory of the current incident regardless of how representative that failure is.
 

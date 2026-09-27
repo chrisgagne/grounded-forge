@@ -41,7 +41,7 @@ SSDL's five briefs project onto the AAR axis at two critical junctures. In Phase
 |---|---|
 | Accounts diverge and the facilitator risks arbitrating | Each account reflects a different mental model of the same event. What does each account reveal about that person's position in the system — what they could see, what they could not see, and what they assumed? (Source: Brief 1.03, "+ CONCEPT") |
 | The facilitator wants to surface the local rationality of a decision that looks bad in hindsight | Given what this person knew at the time, what would their mental map of the situation have looked like? What would have made their action rational from their vantage point? (Source: Brief 1.03, "+ CONCEPT") |
-| The group is treating one account as the ground truth | All participants hold partial models. Who in the room had a view of the system no one else had? Whose account, added to the others, makes the picture more complete? (Source: Brief 1.03, figure caption: "each of us has our own, valid mental picture of the parts, but our understanding of the whole is limited by our own unique vantage point" [V]) |
+| The group is treating one account as the ground truth | All participants hold partial models. Who in the room had a view of the system no one else had? Whose account, added to the others, makes the picture more complete? (Source: Brief 1.03, figure caption: "each of us has our own, valid mental picture of the parts, but our understanding of the whole is limited by our own unique vantage point") |
 | The timeline reveals a gap between action and outcome | Was there a time delay between the causal factor and the visible effect? What was accumulating in that gap — trust, pressure, fatigue, degraded margin — that made the final outcome possible? (Source: Brief 1.02, "+(Some) Characteristics of complex problems in education") |
 
 ### Phase 2: Contributory-Factor Analysis
@@ -65,7 +65,7 @@ SSDL's five briefs project onto the AAR axis at two critical junctures. In Phase
 
 | Need | Question |
 |---|---|
-| The same action has been recommended before with no lasting effect | If the fix has been tried and the problem returned, that is a *fixes that fail* or *shifting the burden* signal. What is the fundamental solution the symptomatic fix has been crowding out? (Source: Brief 1.07, "Archetype #1: Fixes that fail"; "Archetype #3: Shifting the burden" [V]) |
+| The same action has been recommended before with no lasting effect | If the fix has been tried and the problem returned, that is a *fixes that fail* or *shifting the burden* signal. What is the fundamental solution the symptomatic fix has been crowding out? (Source: Brief 1.07, "Archetype #1: Fixes that fail"; "Archetype #3: Shifting the burden") |
 | The team wants to build recurring pattern awareness | Which archetype, if any, names the recurring structure? Can the team use that pattern name as shared vocabulary for recognising the dynamic earlier in future events? (Source: Brief 1.07, "+ HOW TO USE SYSTEM ARCHETYPES IN PRACTICE") |
 
 ## What to Look For

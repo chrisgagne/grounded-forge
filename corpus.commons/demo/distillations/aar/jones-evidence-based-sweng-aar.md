@@ -9,7 +9,7 @@ Jones projects onto the software-incident AAR as an *empirical anchor*: the book
 
 ## Key Concepts for AAR
 
-1. <!-- concept: sweng-evidence-collapse --> **Post-1980 evidence collapse.** Only 2% of software-engineering papers (1993–2002) reported experiments; of those, 72.6% used students only as subjects. (Source: Jones, *Evidence-Based Software Engineering*, Ch 1, "History of software engineering research" [V]) A systematic lack of evidence is itself a contributory factor when incident cause-analysis relies on claims that were never empirically tested.
+1. <!-- concept: sweng-evidence-collapse --> **Post-1980 evidence collapse.** Only 2% of software-engineering papers (1993–2002) reported experiments; of those, 72.6% used students only as subjects. (Source: Jones, *Evidence-Based Software Engineering*, Ch 1, "History of software engineering research") A systematic lack of evidence is itself a contributory factor when incident cause-analysis relies on claims that were never empirically tested.
 
 2. <!-- concept: goodharts-law --> **Goodhart's Law as measurement contributory factor.** "Any observed statistical regularity will tend to collapse once pressure is placed on it for control purposes" [V] (Source: Ch 13.1.1, "Measurement uncertainty") When an incident's contributory factors include metrics used as control targets — velocity, defect count, coverage thresholds — this is the explanatory frame.
 

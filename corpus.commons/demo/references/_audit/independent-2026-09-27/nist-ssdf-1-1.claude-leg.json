@@ -1,0 +1,63 @@
+{
+ "source": "nist-ssdf-1-1",
+ "auditor": "claude-opus-5-5, independent Pass I, fresh subagent, blind (prior audit log not read)",
+ "date": "2026-09-26",
+ "deep_sha256": "2d50b8ceca4fc0465640ff4a957e731090f22c2c3b0aa500a97ea1f08bba6f81",
+ "read_coverage": {
+  "deep": "lines 1-228 of 228",
+  "source": "lines 1-2298 of 2298",
+  "complete": true
+ },
+ "claims_audited": 189,
+ "tally": {
+  "faithful": 188,
+  "minor_drift": 1,
+  "unsupported": 0,
+  "contradicted": 0
+ },
+ "toc_check": {
+  "source_sections": [
+   "Cover and title pages (PDF pp. 1-2)",
+   "Authority (PDF p. 3)",
+   "Reports on Computer Systems Technology (p. ii)",
+   "Abstract (p. ii)",
+   "Keywords (p. ii)",
+   "Trademark Information (p. ii)",
+   "Acknowledgments (p. iii)",
+   "Audience (pp. iii-iv)",
+   "Note to Readers (p. iv)",
+   "Patent Disclosure Notice (p. v)",
+   "Executive Summary (p. vi)",
+   "Table of Contents; List of Tables (p. vii)",
+   "1 Introduction (pp. 1-3, footnotes 1-4)",
+   "2 The Secure Software Development Framework (p. 4)",
+   "Table 1: PO.1-PO.5 (pp. 5-9)",
+   "Table 1: PS.1-PS.3 (pp. 9-10)",
+   "Table 1: PW.1-PW.9 incl. retired PW.3 rows (pp. 11-16)",
+   "Table 1: RV.1-RV.3 (pp. 16-19)",
+   "Table 1 footnotes 5-9",
+   "References (pp. 20-23)",
+   "Appendix A: The SSDF and Executive Order 14028, Table 2 (p. 24)",
+   "Appendix B: Acronyms (pp. 25-26)",
+   "Appendix C: Change Log (p. 27)"
+  ],
+  "missing_from_deep": []
+ },
+ "findings": [
+  {
+   "id": "F001",
+   "deep_line": 209,
+   "claim": "NIST Cybersecurity Framework v1.1: an analogy for providing a common language. The footnote says SSDF practices may support CSF outcomes but do not map to its Functions/Categories/Subcategories and are typically different parties' responsibility. [BT] (§1, p. 2 and footnote 2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "dropped-qualifier (omitted countervailing source content)",
+   "source_check": "What the bullet says is accurate: §1 p. 2 calls the common-language approach 'similar to the approach taken by' the CSF (source.md 385-388), and footnote 2 says SSDF practices 'may help support' CSF Functions, Categories and Subcategories 'but ... do not map to them' (399-403). But the source also uses NISTCSF as a Table 1 References key for 14 tasks: PO.1.1 ID.GV-3 (545), PO.1.2 (592), PO.1.3 ID.SC-3 (621), PO.2.1 (675), PO.2.2 PR.AT (700), PO.2.3 (741), PO.5.1 (945), PO.5.2 (995), PS.1.1 PR.AC-4/PR.DS-6/PR.IP-3 (1038), PS.2.1 (1078), PS.3.1 (1108), PW.1.1 ID.RA (1183), PW.4.1 ID.SC-2 (1341), PW.4.4 (1410). It is also a bibliography entry, Version 1.1 (2018) (2059-2062). The deep presents the CSF only as an analogy plus a no-mapping footnote. Its bullets that list Table 1's mapped references (line 211, 'the bibliography and Table 1 include ...') and the other NIST references (line 213) both leave NISTCSF out, so a reader would conclude that the CSF is not a Table 1 reference. No sentence is false. The picture is incomplete in a way that misleads.",
+   "searches": [
+    "NISTCSF (source: 16 hits, 14 of them Table 1 reference rows)",
+    "Cybersecurity Framework (source and deep)",
+    "CSF (deep: 1 hit, line 209)"
+   ],
+   "fix": "correct: append to the bullet: \"Table 1 nonetheless lists NISTCSF subcategory references for 14 tasks (e.g., PO.1.1: ID.GV-3; PS.1.1: PR.AC-4, PR.DS-6, PR.IP-3), and the References list cites the CSF as Version 1.1 (2018). [BT] (Table 1, pp. 5-13; References, p. 21)\""
+  }
+ ],
+ "notes": "Full read of both files, with line counts and deep sha256 matching packet.json. Mechanical checks: the set of practice and task IDs in the deep matches the source exactly (20 practice rows, 19 live plus retired PW.3; 47 task rows, 42 live plus retired PW.3.1, PW.3.2, PW.4.3, PW.4.5 and PW.5.2). The deep states no practice or task counts, so there was nothing to miscount. All 19 live practice names match the source character for character. Both [V] blockquotes (deep 35, 45) match the source character for character once line wraps are joined. Every printed-page pointer checked out, including footnotes 1, 2, 4, 5, 6, 7 and 8 and the Table 2 row mappings for 4e(vii), 4e(viii) and 4e(ix). No training leakage, no post-source vocabulary and no task guidance of the ingester's own were found. The 'Positions ... frames against' entry is a real opposition, because the source says 'not to create a checklist' (440-442). The deep 205 statement that the source gives no measured percentage reduction is a correct absence claim on a full read. Omissions inside covered sections, not graded and not fail conditions: the §1 future-work paragraph (344-351) and footnote 3 (405-406); the Executive Summary's acquisition recommendations (261-263); PW.1's 'secure by design' rationale (1156-1159); footnote 9 on the NVD (1797-1798). Borderline and not flagged: deep 91 renders PO.4.1 Example 3 as 'add security to the Definition of Done', while the source reads 'Add software security criteria to existing checks (e.g., the Definition of Done in agile SDLC methodologies)' (866-867). A repairer may want to restore the 'e.g. ... agile' bound. For the repairer: Appendix C's Sept 2021 log says 'moved PW.3.2 to PW.4.5' (2285), but Table 1 says 'PW.3.2: Moved to PW.4.4' (1293). The deep correctly credits PW.3.2 to PW.4.4 to Table 1 (127), though it cites Appendix C alongside without noting the difference. The List of Tables titles Table 2 '... EO 14028 Clauses' (306) while the caption reads '... Subsections' (2173). Table 1's group label is 'Protect Software (PS)' (1002) where §2 has 'Protect the Software (PS)' (474); the deep uses the §2 form. The metadata header, coverage line and source-integrity notes (deep 1-9, 220-228) are out of scope and were not graded. Boilerplate front matter (Reports on Computer Systems Technology, Keywords, Trademark Information) is named in the Structure header but not in the body; it carries no subject-matter claims, so it is not listed as missing. The audit was run on 2026-09-27; the date field follows the batch schema."
+}

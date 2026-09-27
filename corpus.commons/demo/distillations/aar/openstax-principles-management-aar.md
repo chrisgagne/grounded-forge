@@ -35,7 +35,7 @@ Principles of Management enters the AAR axis at two distinct moments: when an AA
 
 13. <!-- concept: goal-setting --> **Goal theory (Locke).** Difficult, specific, accepted, committed-to goals produce better performance; participation in goal-setting increases commitment [V, paraphrased]. AAR action design benefits from goal specificity: vague actions do not produce Locke-compliant commitment. (Source: Ch 14.3, "Goal Theory")
 
-14. <!-- concept: groupthink --> **Groupthink and devil's advocate.** Groupthink suppresses dissent; assigning a devil's advocate role surfaces latent disagreement [V]. When an AAR's debrief produces suspiciously fast consensus on actions, groupthink may be operating. (Source: Ch 2.6)
+14. <!-- concept: groupthink --> **Groupthink and devil's advocate.** Groupthink suppresses dissent; assigning a devil's advocate role surfaces latent disagreement [AP]. When an AAR's debrief produces suspiciously fast consensus on actions, groupthink may be operating. (Source: Ch 2.6)
 
 ## Questions to Ask During AAR
 

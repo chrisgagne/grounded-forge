@@ -25,7 +25,7 @@ Open Kanban's retro projection is strongest on three axes. The Holistic or Syste
 
 8. <!-- concept: visualise-workflow --> **Visualize the workflow — making the invisible visible.** "When we are doing knowledge work, like programming a method, designing a user interface or writing a business report most of the work is invisible." [V] ("Open Kanban Practices") For Phase 2 data gathering: the team's process breakdowns during the Sprint are largely invisible until they are named and placed in a shared view. Written sticky notes, grouped by theme, are a form of workflow visualisation for the retrospective itself.
 
-9. <!-- concept: waste-elimination --> **Focus on Value — eliminate waste.** "Value is at the center of Lean and TPS, but frequently it is mentioned as the reverse side of the coin: eliminate waste or 'Muda' in Japanese. By eliminating waste, we optimize the creation of value." [V] ("Open Kanban Values") For Phase 3: frame the insight question as "where did waste appear in this Sprint?" Waste includes rework, waiting, over-processing, and work that was started and not finished.
+9. <!-- concept: waste-elimination --> **Focus on Value — eliminate waste.** "Value is at the center of Lean and TPS, but frequently it is mentioned as the reverse side of the coin: eliminate waste or 'Muda' in Japanese... By eliminating waste, we optimize the creation of value." [V] ("Open Kanban Values") For Phase 3: frame the insight question as "where did waste appear in this Sprint?" Waste includes rework, waiting, over-processing, and work that was started and not finished.
 
 10. <!-- concept: communication-and-collaboration --> **Communication and Collaboration — both required, neither sufficient alone.** "One value does not work without the other... To succeed we need to make ourselves heard (communicate) but also we need to be able to work with others to create value." [V] ("Open Kanban Values") For Phase 3 and Phase 4: if communication broke down, ask whether collaboration also broke down, or whether the information moved but nothing was done with it. The diagnosis changes the experiment.
 
@@ -44,7 +44,7 @@ Open Kanban's retro projection is strongest on three axes. The Holistic or Syste
 | Need | Question |
 |---|---|
 | Same experiment recurring | Has this experiment been proposed two or three retros in a row without movement? If so, either the experiment is in the wrong part of the system, or a constraint above team level is blocking it. Escalation is the right move, not another iteration of the same fix. |
-| Structural change territory | Has the experiment crossed into structural-change territory — something no single part of the team can deliver alone? "No single part of a system can ever bring overall improvement": escalate to leadership rather than retry at team level. |
+| Structural change territory | Has the experiment crossed into structural-change territory — something no single part of the team can deliver alone? "No single part of a system can ever bring overall improvement" [V]: escalate to leadership rather than retry at team level. |
 
 ### Phase 1 — Priming
 
@@ -133,7 +133,7 @@ The batch-size discipline, one-constraint focus, Muri naming, learning-upstream 
 | Reference | Relationship |
 |---|---|
 | Approach Perfect Field Guide | The Field Guide's one-or-two-improvements discipline is the practitioner expression of Open Kanban's batch-size reduction; both say the same thing from different angles |
-| Org Topologies Primer | Open Kanban's Holistic-Systemic value ("no single part of a system can ever bring overall improvement") is the named rationale for the OT escalation move when the constraint is above team level |
+| Org Topologies Primer | Open Kanban's Holistic-Systemic value ("no single part of a system can ever bring overall improvement" [V]) is the named rationale for the OT escalation move when the constraint is above team level |
 | Liberating Structures Handbook | LS's 15% Solutions is the facilitation move that surfaces what's in the team's locus of control; Open Kanban's one-constraint discipline is what makes the 15% tractable |
 | SSDL Systems Thinking Foundations | SSDL's system archetypes name the feedback structure Open Kanban's Holistic-Systemic value asserts; use SSDL to classify the dynamic and Open Kanban to ground the systemic-locus argument |
 | Open Practice Library | OPL's Design of Experiments formalises the hypothesis that Open Kanban's learning-before-improvement principle demands |

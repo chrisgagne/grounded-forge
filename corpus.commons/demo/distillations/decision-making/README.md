@@ -17,7 +17,7 @@ One distillation per source in the corpus, named `{source-slug}-decision-making.
 
 ## What does not go here
 
-- Verbatim source blockquotes. Distillations paraphrase concepts and cite parenthetically: `(Source: Author, Title, Ch N, "Section name")`. Verbatim quotes live in the deep reference, where the evidence-class marker travels with them and Pass D exactness verification has run. Link to the deep ref rather than duplicating the quote.
+- Quotations that are not word for word in the source. A quotation carries `[V]` only when it matches the converted source exactly; otherwise distillations paraphrase and cite parenthetically: `(Source: Author, Title, Ch N, "Section name")`.
 - Material not traceable to the deep reference. Distillations derive from the verified deep, not from the source directly. If you need a claim that the deep doesn't carry, re-ingest the source so the deep gets it; don't smuggle the claim into the distillation.
 - Author biographical material the source does not provide.
 

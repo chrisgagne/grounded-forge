@@ -5,7 +5,7 @@
 
 ## Decision-Making Relevance
 
-The volume's entire object is decision-relevant information for managers. The opening definition frames managerial accounting as "the process that allows decision makers to set and evaluate business goals by determining what information they need to make a particular decision and how to analyze and communicate this information" (Source: Ch 1.1). Where financial accounting reports historical results to external users under GAAP, managerial accounting produces detailed, timely, often forward-looking information custom-shaped to internal decisions.
+The volume's entire object is decision-relevant information for managers. The opening definition frames managerial accounting as "the process that allows decision makers to set and evaluate business goals by determining what information they need to make a particular decision and how to analyze and communicate this information" [V] (Source: Ch 1.1). Where financial accounting reports historical results to external users under GAAP, managerial accounting produces detailed, timely, often forward-looking information custom-shaped to internal decisions.
 
 Two chapters are explicitly decision-focused. Ch 10 ("Short-Term Decision Making") catalogues five canonical short-term decision categories — special orders, make-or-buy, keep-or-discontinue, sell-or-process-further, constrained-resource allocation — and develops the relevant-cost analysis that addresses each. Ch 11 ("Capital Budgeting Decisions") addresses long-term decisions through payback period, accounting rate of return, net present value, and internal rate of return. The volume's decision-making framing is structural: short-term decisions ignore the time value of money and turn on relevant costs that differ between alternatives; long-term decisions turn on discounted cash flows.
 
@@ -15,7 +15,7 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 ## Key Concepts for Decision-Making
 
-1. <!-- concept: planning-controlling-evaluating --> **The planning-controlling-evaluating cycle.** Most managerial decisions sit somewhere on this cycle. Planning sets goals and targets; controlling monitors progress; evaluating compares actual to expected and informs the next cycle. Decisions are not isolated events but moves within this loop. (Source: OpenStax, *Principles of Accounting Vol 2*, Ch 1.1, "Define Managerial Accounting and Identify the Three Primary Responsibilities of Management")
+1. <!-- concept: planning-controlling-evaluating --> **The planning-controlling-evaluating cycle.** Most managerial decisions sit somewhere on this cycle. Planning sets goals and targets; controlling monitors progress; evaluating compares actual to expected and informs the next cycle. Decisions are not isolated events but moves within this loop. (Source: OpenStax, *Principles of Accounting Vol 2*, Ch 1.1, "Define Managerial Accounting and Identify the Three Primary Responsibilities of Management" [V])
 
 2. <!-- concept: cost-behaviour --> **Cost classification is decision-relative.** Costs are not intrinsically fixed or variable, direct or indirect, product or period, relevant or irrelevant — they earn those labels relative to the decision under consideration. The same rent expense may be fixed for one company, committed for another, period for a third. Practitioners should ask "fixed for what decision?" rather than "is this a fixed cost?" (Source: Ch 2.2)
 
@@ -169,7 +169,7 @@ These five decisions illustrate the volume's central decision-making patterns: r
 - **Using payback period as a substantive evaluation tool.** It is a screen; ignoring time value of money and post-payback cash flows distorts long-horizon decisions.
 - **Ranking products by unit margin in a constraint-binding environment.** The relevant ranking is per unit of the constraint; otherwise capacity is wasted on lower-yielding products.
 - **Mixing short-term and long-term analytical frames.** Discounting next year's cash flow in a short-term make-or-buy decision adds noise; ignoring time value in a 10-year capital decision distorts the comparison.
-- **Sunk-cost-driven decisions.** Past investments are sunk; decisions are forward-looking. The volume's refrain: "sunk costs have no bearing on future events and are not relevant in decision-making" (Ch 10.1).
+- **Sunk-cost-driven decisions.** Past investments are sunk; decisions are forward-looking. The volume's refrain: "sunk costs have no bearing on future events and are not relevant in decision-making" [V] (Ch 10.1).
 - **Sole reliance on financial measures for performance evaluation.** They lag, can be gamed, and miss long-term-value-creating decisions; the balanced scorecard is the recommended remedy.
 - **Pure cost-minimisation in ethically charged decisions.** The Ford Pinto case is the volume's central ethical caution. Decisions that look cheap in the spreadsheet can be ruinous in reality.
 - **Budget slack and managing-to-the-variance.** Inflated standards make actual results look good while degrading the long-term performance signal; short-term decisions to meet variance thresholds at the cost of long-term value erode capability.
@@ -198,10 +198,10 @@ These five decisions illustrate the volume's central decision-making patterns: r
 - *Robert Kaplan and David Norton* — cited as developers of the balanced scorecard (Ch 12.4) [BT]. Key Concept 14 paraphrases the book's treatment.
 - *Art Schneidermann / Analog Devices* — cited as the earlier BSC origin (Ch 12.4) [BT].
 - *Chris Argyris* — cited for double-loop learning (Ch 9.1) [BT].
-- *John Elkington* — cited for the triple bottom line, "first proposed in 1997" (Ch 13.1) [BT].
+- *John Elkington* — cited for the triple bottom line, "first proposed in 1997" [V] (Ch 13.1) [BT].
 - *Toyota Motor Corporation* — cited as origin of just-in-time and lean practices (Ch 1.5) [BT].
 - *Ford Pinto case* — cited as the central ethical caution in Ch 10.6; not held as a primary reference.
 
 **Named limits of the source.** The book covers managerial (internal) accounting. It does not cover: financial accounting for external reporting (that is Vol 1's scope); IFRS (not addressed); real-options theory for capital budgeting (mentioned in passing but not developed); transfer pricing beyond introductory framing; or detailed tax accounting. The ethics framework (Ch 1.4) is the IMA's eight-step model; it is not a substitute for a full ethics treatment such as OpenStax *Business Ethics*.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-accounting-vol2-deep.md`). Key Concept citations use `(Source: Ch N, "Section name")` anchors aligned with the deep ref's `[V]` extracts. The Ford Pinto anti-pattern and the sunk-cost refrain ("sunk costs have no bearing on future events and are not relevant in decision-making") are `[V]`-marked in the deep ref and cited verbatim there; this distillation paraphrases them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-accounting-vol2-deep.md`). Key Concept citations use `(Source: Ch N, "Section name")` anchors aligned with the deep ref's `[V]` extracts. The Ford Pinto anti-pattern and the sunk-cost refrain ("sunk costs have no bearing on future events and are not relevant in decision-making") are `[V]`-marked in the deep ref and cited verbatim there; this distillation paraphrases them.

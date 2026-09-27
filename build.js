@@ -502,10 +502,13 @@ class MatrixBuilder {
         total++;
       }
 
-      // Ship the per-axis runtime task-index alongside the .md distillations.
-      const taskIndexSrc = path.join(srcDir, "task-index.json");
-      if (fs.existsSync(taskIndexSrc)) {
-        fs.copyFileSync(taskIndexSrc, path.join(destDir, "task-index.json"));
+      // Ship the per-axis runtime task-index alongside the .md distillations,
+      // plus any shard files it names (a large axis splits its long listener
+      // and disagreement cells into task-index.shard-*.json).
+      for (const f of fs.readdirSync(srcDir)) {
+        if (f === "task-index.json" || /^task-index\.shard-.+\.json$/.test(f)) {
+          fs.copyFileSync(path.join(srcDir, f), path.join(destDir, f));
+        }
       }
     }
 

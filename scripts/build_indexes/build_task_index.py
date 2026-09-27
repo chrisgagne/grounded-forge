@@ -29,6 +29,17 @@ columns as phase-by-phase rows ``(need, reference, distillation, when)``.
 Tables with other shapes are recorded as-is in a ``raw_rows`` list so the
 operator can see what was skipped.
 
+A 4-column table in which no row names a distillation (a reference table,
+or the Named disagreements table) is not a routing table: its rows keep every
+cell, with the table's own header as ``columns``.
+
+An axis whose index would exceed ``SHARD_THRESHOLD_BYTES`` is split. The
+main ``task-index.json`` (``schema_version`` 2) keeps every routing row, each
+listener trigger with its ``[D#]`` pointers, and each disagreement's number
+and question; the long cells move to ``task-index.shard-{section}.json``
+files, named by each section's ``shard`` field. Readers load a shard only for
+the section in play.
+
 Distillation references are matched back to source slugs via filename
 suffix-stripping (``openstax-foo-decision-making.md`` → ``openstax-foo``).
 
@@ -116,10 +127,22 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
     in_table = False
     pending_header: list[str] | None = None
     current_rows: list[dict] = []
+    current_cells: list[list[str]] = []
     current_table_shape: int | None = None
 
     def flush_table() -> None:
-        nonlocal current_rows, current_table_shape, pending_header, in_table
+        nonlocal current_rows, current_cells, current_table_shape, pending_header, in_table
+        # A 4-column table in which no row names a distillation is not a
+        # routing table (the Named disagreements table, for one). Keep every
+        # cell under its own header instead of forcing the routing triple,
+        # which would drop the two middle columns.
+        if (
+            current_table_shape == 4
+            and current_rows
+            and all(isinstance(r, list) and r[1] is None for r in current_rows)
+        ):
+            current_rows = [list(c) for c in current_cells]
+            current_table_shape = -4
         if current_rows:
             section_path = [t for _, t in current_section_stack]
             # Skip the in-document "Format" example tables — they document
@@ -151,6 +174,8 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
                     if current_table_shape == 4
                     else ["situation", "ids"]
                     if current_table_shape == 3
+                    else [h.strip() for h in (pending_header or [])] or None
+                    if current_table_shape == -4
                     else None
                 )
                 sections.append(
@@ -162,6 +187,7 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
                     }
                 )
         current_rows = []
+        current_cells = []
         current_table_shape = None
         pending_header = None
         in_table = False
@@ -218,6 +244,7 @@ def _parse_index_file(path: Path, task: str, slug_id: dict[str, str]) -> dict:
             row_record = {"cells": cells}
 
         current_rows.append(row_record)
+        current_cells.append(cells)
 
     flush_table()
 
@@ -291,6 +318,78 @@ def build(corpus: str) -> list[dict]:
     return payloads
 
 
+# An axis whose index grows past this size is split: task-index.json keeps
+# every routing row, every listener trigger (with its [D#] pointers) and the
+# question of every named disagreement, while the long response cells move to
+# one shard file per listener section plus one for the full disagreement table.
+# The runtime reads task-index.json, matches a trigger or a phase, then loads
+# only the shard it needs. Below the threshold nothing changes.
+SHARD_THRESHOLD_BYTES = 150_000
+SHARD_MIN_SECTION_BYTES = 5_000  # small tables stay inline
+SHARD_PREFIX = "task-index.shard-"
+_DREF = re.compile(r"\[D(\d+)\]")
+
+
+def _shard_name(title: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", (title or "section").lower()).strip("-")
+    return f"{SHARD_PREFIX}{slug or 'section'}.json"
+
+
+def _shard(payload: dict) -> tuple[dict, dict[str, dict]]:
+    size = len(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
+    if size <= SHARD_THRESHOLD_BYTES:
+        return payload, {}
+    shards: dict[str, dict] = {}
+    sections: list[dict] = []
+    for sec in payload["sections"]:
+        rows = sec["rows"]
+        cols = sec.get("columns") or []
+        if len(json.dumps(sec, ensure_ascii=False).encode("utf-8")) < SHARD_MIN_SECTION_BYTES:
+            sections.append(sec)
+            continue
+        is_listener = rows and all(
+            isinstance(r, dict) and len(r.get("cells", [])) == 2 for r in rows
+        )
+        is_disagreements = (
+            rows
+            and all(isinstance(r, list) and len(r) == 4 for r in rows)
+            and cols
+            and cols[0].strip() == "#"
+        )
+        if is_listener:
+            name = _shard_name(sec["section"])
+            full = [r["cells"] for r in rows]
+            shards[name] = {"section": sec["section"], "columns": ["trigger", "response"], "rows": full}
+            sections.append(
+                {
+                    "section": sec["section"],
+                    "columns": ["trigger", "disagreements"],
+                    "shard": name,
+                    "rows": [
+                        [c[0], [f"D{n}" for n in dict.fromkeys(_DREF.findall(c[1]))]]
+                        for c in full
+                    ],
+                }
+            )
+        elif is_disagreements:
+            name = _shard_name(sec["section"])
+            shards[name] = {"section": sec["section"], "columns": cols, "rows": rows}
+            sections.append(
+                {
+                    "section": sec["section"],
+                    "columns": [cols[0], cols[1]],
+                    "shard": name,
+                    "rows": [[r[0], r[1]] for r in rows],
+                }
+            )
+        else:
+            sections.append(sec)
+    out = dict(payload)
+    out["schema_version"] = 2
+    out["sections"] = sections
+    return out, shards
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Build per-axis task-index.json files"
@@ -306,13 +405,24 @@ def main(argv: list[str] | None = None) -> int:
 
     total_bytes = 0
     for record in payloads:
-        out_path = record["output_dir"] / "task-index.json"
+        out_dir = record["output_dir"]
+        for stale in out_dir.glob(f"{SHARD_PREFIX}*.json"):
+            stale.unlink()
+        payload, shards = _shard(record["payload"])
+        out_path = out_dir / "task-index.json"
         with out_path.open("w", encoding="utf-8") as f:
-            json.dump(record["payload"], f, indent=2, ensure_ascii=False)
+            json.dump(payload, f, indent=2, ensure_ascii=False)
         size = out_path.stat().st_size
-        total_bytes += size
-        rows = sum(len(s["rows"]) for s in record["payload"]["sections"])
-        print(f"  {record['task']}: {rows} rows, {size:,} bytes → {out_path}")
+        shard_bytes = 0
+        for name, body in shards.items():
+            sp = out_dir / name
+            with sp.open("w", encoding="utf-8") as f:
+                json.dump(body, f, indent=2, ensure_ascii=False)
+            shard_bytes += sp.stat().st_size
+        total_bytes += size + shard_bytes
+        rows = sum(len(s["rows"]) for s in payload["sections"])
+        extra = f" + {len(shards)} shards, {shard_bytes:,} bytes" if shards else ""
+        print(f"  {record['task']}: {rows} rows, {size:,} bytes{extra} → {out_path}")
     print(f"wrote {len(payloads)} per-axis task indexes ({total_bytes:,} bytes total)")
     return 0
 

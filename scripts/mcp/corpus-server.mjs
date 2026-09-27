@@ -245,16 +245,33 @@ const handlers = {
     const terms = (query || "").toLowerCase().split(/\s+/).filter((t) => t.length > 3);
     const out = [];
 
+    // Rows come in three shapes: routing triples [need, id, when] (columns
+    // need/id/when), full-cell rows under the table's own header, and — in a
+    // sharded index — pointer rows whose full cells live in section.shard.
+    const cellsOf = (row) => (Array.isArray(row) ? row : row.cells || []);
     for (const section of index.sections) {
-      const rows = section.rows.filter((row) => {
+      let rows = section.rows;
+      if (section.shard) {
+        const shard = readJson(path.join("distillations", task, section.shard));
+        if (shard) rows = shard.rows;
+      }
+      const cols = section.shard ? null : section.columns;
+      rows = rows.filter((row) => {
         if (!terms.length) return true;
-        const hay = row.join(" ").toLowerCase();
+        const hay = cellsOf(row).flat().join(" ").toLowerCase();
         return terms.some((t) => hay.includes(t));
       });
       if (!rows.length) continue;
       out.push(`\n## ${section.section}`);
-      for (const [need, id, when] of rows) {
-        out.push(`- **${need}** — ${slugForId(id) ?? id}\n  ${when}`);
+      const isRouting = cols && cols[0] === "need" && cols[1] === "id";
+      for (const row of rows) {
+        const c = cellsOf(row);
+        if (isRouting) {
+          const [need, id, when] = c;
+          out.push(`- **${need}** — ${slugForId(id) ?? id}\n  ${when}`);
+        } else {
+          out.push(`- **${c[0]}** — ${c.slice(1).flat().join(" | ")}`);
+        }
       }
     }
 

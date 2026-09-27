@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:43:28+13:00
 ---
 # OpenStax Organizational Behavior, Decision-Making Distillation
 
@@ -188,7 +188,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 **Named limits of the source.** The text is an introductory OB survey; it provides orientation to all major decision-making concepts but not the depth of specialist sources on any single topic. Cognitive-bias coverage concentrates on the six barriers; behavioural-economics depth (prospect theory, dual-process experiments) is not developed. The ethical decision-making section (Rest's model) is brief. The cross-cultural negotiation section draws on decades-old American/Arab/Russian typologies (Table 14.5) that should be treated as directional rather than current.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-organizational-behavior-deep.md`). Key Concepts 1–10 are `[AP]` or `[AE]` drawn from the source. Most underlying theories (Adams, Vroom, Locke, Simon, Rest, Thomas, Cooperrider) are `[BT]` — the source endorses and explains them but does not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-organizational-behavior-deep.md`). Key Concepts 1–10 are `[AP]` or `[AE]` drawn from the source. Most underlying theories (Adams, Vroom, Locke, Simon, Rest, Thomas, Cooperrider) are `[BT]` — the source endorses and explains them but does not originate them.
 
 ## Related concepts
 

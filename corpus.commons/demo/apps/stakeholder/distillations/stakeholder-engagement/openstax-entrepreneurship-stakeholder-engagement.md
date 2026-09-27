@@ -10,7 +10,7 @@ For stakeholder engagement practitioners, the text is especially useful on the d
 
 ## Key Concepts for Stakeholder Engagement
 
-1.  **Shareholder vs. stakeholder distinction.** The text contrasts shareholders, "a small group who are the owners (or stockholders)", with stakeholders, "a large group that includes all those people and organizations with a vested interest in the business" [V] (Source: OpenStax, *Entrepreneurship*, Ch 3.1, "Stakeholders").
+1.  **Shareholder vs. stakeholder distinction.** The text contrasts shareholders, "a small group who are the owners (or stockholders)" [V], with stakeholders, "a large group that includes all those people and organizations with a vested interest in the business" [V] (Source: OpenStax, *Entrepreneurship*, Ch 3.1, "Stakeholders").
 
 2.  **Business Roundtable stakeholder commitment.** The 2019 statement commits to delivering value to customers, investing in employees, dealing fairly with suppliers, supporting communities, and generating long-term shareholder value. (Source: Ch 3.1)
 
@@ -222,8 +222,8 @@ The framework's contribution is to surface that the cooperative has eight distin
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:
 - The source is a US-context entrepreneurship textbook; legal forms (benefit corporation, LLC) and tax treatment are US-specific; practitioners in other jurisdictions require local equivalents.
 - Pedagogical scaffolding (Key Terms, Summary, Review Questions, Discussion Questions, Case Questions, Suggested Resources) excluded under Option B.
-- The source critiques "if you build it, they will come" framing and solo-founder romanticism; these critiques apply to the worked-example scenario, which intentionally models a more collaborative stakeholder design.
+- The source critiques the "if you build it, they will come" [BT] framing (a popular axiom it traces to the 1989 film *Field of Dreams*) and solo-founder romanticism; these critiques apply to the worked-example scenario, which intentionally models a more collaborative stakeholder design.
 - The resource-dependence and founders'-agreement content is introductory; practitioners should supplement with primary practitioner sources for specific legal contexts.
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `references/openstax-entrepreneurship-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (32 `[BT]` markers). This distillation paraphrases throughout; all substantive claims are `[AP]`-class relative to the deep ref. The cooperative scenario is operator-authored. The shareholder-primacy critique (Ch 3.1) and the profit-only framing critique (Ch 3.2) are `[AR]` in the deep ref. Where the source cites external authors (Granovetter, Pfeffer-Salancik, Rogers), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.
+**Evidence-marker continuity.** The deep reference at `references/openstax-entrepreneurship-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (32 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The cooperative scenario is operator-authored. The shareholder-primacy critique (Ch 3.1) and the profit-only framing critique (Ch 3.2) are `[AR]` in the deep ref. Where the source cites external authors (Granovetter, Pfeffer-Salancik, Rogers), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.

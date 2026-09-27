@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-financial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Decision-Making Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## Decision-Making Relevance
 
-OpenStax's *Principles of Accounting Vol 1* is structurally a decision-making text even though it is taught as a technical accounting course. The book defines accounting itself as "the process of organizing, analyzing, and communicating financial information that is used for decision-making" (Ch 1.1). Every chapter foregrounds choices that managers, auditors, and external stakeholders must make under uncertainty, rather than algorithmic procedures with single right answers.
+OpenStax's *Principles of Accounting Vol 1* is structurally a decision-making text even though it is taught as a technical accounting course. The book defines accounting itself as "the process of organizing, analyzing, and communicating financial information that is used for decision-making" [V] (Ch 1.1). Every chapter foregrounds choices that managers, auditors, and external stakeholders must make under uncertainty, rather than algorithmic procedures with single right answers.
 
 The decisions concentrate at four levels. *Method-selection* decisions surface where US GAAP permits multiple acceptable treatments (cost-flow assumptions for inventory in Ch 10; depreciation methods in Ch 11; allowance methods for bad debt in Ch 9; revenue-recognition timing for long-term contracts in Ch 9.5; perpetual versus periodic inventory in Ch 6.2; indirect versus direct cash-flow method in Ch 16). *Estimation* decisions sit alongside method selection (useful life and salvage value for depreciation, percentage-of-completion progress, allowance percentages, contingent-liability probability). *Disclosure* decisions concern whether and how to report (contingent liabilities under FASB's two-requirement test in Ch 12.3; full-disclosure principle in Ch 3.1; SOX 302 and 404 attestations in Ch 8). *Ethical-edge* decisions are the most consequential — earnings management within GAAP versus earnings manipulation outside it (Ch 9.4); capitalising versus expensing (the WorldCom case in Ch 11.2); cookie-jar accounting (Bristol-Myers Squibb in Ch 4.1); revenue-recognition cutoff (HealthSouth in Ch 8.7); fraudulent depreciation estimates (Waste Management in Ch 11.3).
 
@@ -38,13 +38,13 @@ The book repeatedly takes the position that financial-accounting choices have *r
 
 5.  **The five-step revenue recognition model (FASB ASU 2014-09 / Topic 606).** Identify the contract; identify performance obligations; determine the transaction price; allocate price to obligations; recognise revenue when each obligation is satisfied. Replaces industry-specific revenue recognition with a principle-based approach affecting every revenue decision. (Source: Ch 9.1)
 
-6.  **Inventory cost-flow choice (FIFO, LIFO, weighted average, specific identification).** A choice about how to allocate costs, not a description of physical flow. In inflationary periods, FIFO produces higher net income and higher taxes; LIFO produces lower net income and lower taxes. IFRS forbids LIFO entirely. The choice is "a business model decision" under FASB's view; under IFRS the choice is denied because FIFO "more closely matches the flow of goods". (Source: Ch 10.1)
+6.  **Inventory cost-flow choice (FIFO, LIFO, weighted average, specific identification).** A choice about how to allocate costs, not a description of physical flow. In inflationary periods, FIFO produces higher net income and higher taxes; LIFO produces lower net income and lower taxes. IFRS forbids LIFO entirely. The choice is "a business model decision" [V] under FASB's view; under IFRS the choice is denied because FIFO "more closely matches the flow of goods" [V]. (Source: Ch 10.1)
 
-7.  **Depreciation method choice (straight-line, units-of-production, double-declining-balance).** Plus useful-life and salvage-value estimation. Depreciation expense is determined by all three together. The text takes a sharp position that "management teams typically fail to invest either time or attention into making or periodically revisiting and revising reasonably supportable estimates of asset lives or salvage values" — a quality-of-decision-making complaint. Waste Management's $1.7B fraud was depreciation-estimate manipulation. (Source: Ch 11.3)
+7.  **Depreciation method choice (straight-line, units-of-production, double-declining-balance).** Plus useful-life and salvage-value estimation. Depreciation expense is determined by all three together. The text takes a sharp position that "management teams typically fail to invest either time or attention into making or periodically revisiting and revising reasonably supportable estimates of asset lives or salvage values" [V] — a quality-of-decision-making complaint. Waste Management's $1.7B fraud was depreciation-estimate manipulation. (Source: Ch 11.3)
 
 8.  **Bad debt: direct write-off versus three allowance methods.** Direct write-off violates the matching principle and is unacceptable under GAAP for financial reporting (though required for tax). The three allowance methods (percentage of sales, percentage of accounts receivable, aging of receivables) trade off simplicity against accuracy. Aging is most accurate but assumes more about category definitions and percentages — each itself a choice. (Source: Ch 9.2)
 
-9.  **Contingent-liability decision matrix.** Combine likelihood of occurrence (probable, reasonably possible, remote) with measurability (estimable or inestimable) to determine treatment: journalise, footnote-disclose, or omit. US GAAP probable threshold is ~80%; IFRS uses ~50% ("more likely than not"). When a range is estimable, US GAAP records the low end; IFRS records the discounted midpoint. (Source: Ch 12.3)
+9.  **Contingent-liability decision matrix.** Combine likelihood of occurrence (probable, reasonably possible, remote) with measurability (estimable or inestimable) to determine treatment: journalise, footnote-disclose, or omit. US GAAP probable threshold is ~80%; IFRS uses ~50% (IFRS defines probable as "more likely than not" [BT]). When a range is estimable, US GAAP records the low end; IFRS records the discounted midpoint. (Source: Ch 12.3)
 
 10.  **Sarbanes-Oxley sections 302 and 404.** Section 302: CEO and CFO personally certify they have reviewed the internal control report and that financial information fairly states financial conditions. Section 404: management performs annual audits of internal control effectiveness. Both push decision-making about controls and reporting into the executive seat with personal liability. (Source: Ch 8.5)
 
@@ -188,7 +188,7 @@ This worked example illustrates several key concepts in the source: the GAAP-per
 
 **Named limits of the source.** The book covers financial accounting for external reporting under US GAAP. It does not cover: managerial accounting for internal decisions (that is Vol 2's scope); IFRS in depth (divergences are noted but not fully developed); industry-specific accounting standards beyond the worked examples; tax accounting (the IRS conformity rule is mentioned for LIFO but income tax accounting is not a chapter topic); or auditing standards (PCAOB, GAAS) beyond the auditor-independence and audit-committee narrative.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-accounting-vol1-deep.md`). Key Concept citations use `(Source: Ch N, "Section name")` anchors that map directly to the deep ref's `[V]` and `[AP]` extracts. The ethical-edge pattern in What to Look For and Anti-patterns derives from passages marked `[V]` in the deep ref; the evidence classification is preserved in the deep ref and should be consulted when a claim is load-bearing for an audit or legal context.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-accounting-vol1-deep.md`). Key Concept citations use `(Source: Ch N, "Section name")` anchors that map directly to the deep ref's `[V]` and `[AP]` extracts. The ethical-edge pattern in What to Look For and Anti-patterns derives from passages marked `[V]` in the deep ref; the evidence classification is preserved in the deep ref and should be consulted when a claim is load-bearing for an audit or legal context.
 
 ## Related concepts
 

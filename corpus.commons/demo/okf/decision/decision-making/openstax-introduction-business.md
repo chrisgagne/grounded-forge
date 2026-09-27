@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/introduction-business
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:43:28+13:00
 ---
 # OpenStax Introduction to Business, Decision-Making Distillation
 
@@ -32,7 +32,7 @@ This distillation consolidates these threads: how to recognise decision type and
 
 2.  **Risk-return trade-off.** The source states the principle directly: "The higher the risk, the greater the return that is required" [V] (Source: OpenStax, *Introduction to Business*, Ch 16.1, "The Role of Finance and the Financial Manager"). Financial managers consider risk and return in every investment, financing, and capital-budgeting choice. The principle applies to non-financial decisions too — the cost of new product development, market entry, or technology investment must be weighed against the magnitude and likelihood of benefit.
 
-3.  **Five-step decision-making process.** Used across the book for any non-trivial decision: (1) recognise or define the problem or opportunity; (2) gather information to identify alternative solutions or actions; (3) select one or more alternatives after evaluating strengths and weaknesses; (4) put the chosen alternative into action; (5) gather information to obtain feedback on effectiveness. The text warns: "It can be easy (and dangerous) for managers to get stuck at any stage of the decision-making process," citing analysis paralysis. (Source: Ch 6.6, Exhibit 6.7)
+3.  **Five-step decision-making process.** Used across the book for any non-trivial decision: (1) recognise or define the problem or opportunity; (2) gather information to identify alternative solutions or actions; (3) select one or more alternatives after evaluating strengths and weaknesses; (4) put the chosen alternative into action; (5) gather information to obtain feedback on effectiveness. The text warns: "It can be easy (and dangerous) for managers to get stuck at any stage of the decision-making process," [V] citing analysis paralysis. (Source: Ch 6.6, Exhibit 6.7)
 
 4.  **Four planning types ordered by horizon.** Strategic (1-5 years; top management; broad/general; high uncertainty); tactical (less than 1 year; middle management; more specific; moderate certainty); operational (current; supervisory; specific/concrete; reasonable certainty); contingency (alternative paths for crises). Choosing the right planning horizon is the first decision before structuring any other decision. (Source: Ch 6.2, Table 6.2)
 
@@ -200,7 +200,7 @@ This worked example illustrates several key concepts: the five-step process, the
 
 **Named limits of the source.** This is an introductory survey across all business functions, so no single topic — decision-making, motivation, finance, operations — receives specialist depth. The five-step decision process is presented without the bias-mitigation and debiasing protocols available in more focused sources. The ethics coverage (feelings test, newspaper test, Carroll's pyramid) provides useful framing but stops short of systematic ethical-analysis methods.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-introduction-business-deep.md`). Key Concepts draw on `[AP]` (author's positions) and `[AE]` (examples) from the source. Motivation theories (Maslow, McGregor, Herzberg, Vroom, Adams) are `[BT]` — the source endorses and explains them but does not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-introduction-business-deep.md`). Key Concepts draw on `[AP]` (author's positions) and `[AE]` (examples) from the source. Motivation theories (Maslow, McGregor, Herzberg, Vroom, Adams) are `[BT]` — the source endorses and explains them but does not originate them.
 
 ## Related concepts
 

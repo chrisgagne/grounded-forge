@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # FLO Facilitation Guide, AAR Distillation
 
@@ -26,17 +26,17 @@ The FLO Facilitation Guide is an online facilitation craft text — and most AAR
 
 1.  **Facilitative vs transmissive question framing.** A transmissive question delivers information through the question ("don't you think we should have escalated earlier?"); a facilitative question opens space ("what was your read of the situation at that point?"). The FLO design is built on this distinction. (Source: Bennett et al., *FLO Facilitation Guide*, Ch 1, "What is facilitation in an educational context?") For AAR work it maps directly onto TC 25-20's open-ended question discipline and LFUO's deflection-question protocol.
 
-2.  **The sage-on-the-stage refusal.** The Guide frames the facilitator's job as helping participants "understand course content through questioning and suggestions" rather than acting as the "'sage on the stage'" [V] (Source: Ch 1). In AAR terms: the learning is in the participants' accounts, not in the facilitator's analysis. The facilitator surfaces, not interprets.
+2.  **The sage-on-the-stage refusal.** The Guide frames the facilitator's job as helping participants "understand course content through questioning and suggestions" [V] rather than acting as the "'sage on the stage'" [V] (Source: Ch 1). In AAR terms: the learning is in the participants' accounts, not in the facilitator's analysis. The facilitator surfaces, not interprets.
 
-3.  **Anxious Annie — name the worry, trust the process.** Leonne Beebe's reflective post names the pattern: facilitator anxiety shows up when participants are slow to post, slow to engage, not on the timeline expected. The Guide's discipline: "remember facilitation is not about me; it's about helping the participants as they need and ask for help. There is a saying that RRU folks often refer to called 'Trust the process.'" [V] [AE] (Source: Ch 4, "Example of reflective post") For AARs: the facilitator who is anxious about silence or slow timelines can mistake participant processing for disengagement and rush in.
+3.  **Anxious Annie — name the worry, trust the process.** Leonne Beebe's reflective post names the pattern: facilitator anxiety shows up when participants are slow to post, slow to engage, not on the timeline expected. The Guide's discipline: "remember facilitating is not about me; it's about helping the participants as they need and ask for help. There is a saying that RRU folks often refer to called 'Trust the process.'" [V] [AE] (Source: Ch 4, "Example of reflective post") For AARs: the facilitator who is anxious about silence or slow timelines can mistake participant processing for disengagement and rush in.
 
 4.  **Vegas rules as a trust foundation.** "You may wish to establish 'Vegas rules,' i.e. what happens in the course, stays in the course" [V] (Source: Ch 4, "Privacy and Confidentiality") Privacy rules are the foundation of honest exchange, set alongside institutional privacy and confidentiality policies. For AARs this aligns with the LFUO administrative-firewall framing: explicit confidentiality commitment before the session opens.
 
-5.  **Scaffolding-and-fading arc — calibrate presence to phase.** In early phases, facilitator presence is high: welcoming, clarifying, troubleshooting. As participants own the conversation, the facilitator "steps back and encourages learning… they participate in discussions but don't lead" [V] (Source: Ch 3, "Roles and functions of FLO facilitators") For an AAR: Phase 0 (scoping) and Phase 1 (timeline construction) demand active facilitative presence; Phase 2–3 (contributory factors, just-culture) should be participant-led with the facilitator weaving and summarising.
+5.  **Scaffolding-and-fading arc — calibrate presence to phase.** In early phases, facilitator presence is high: welcoming, clarifying, troubleshooting. As participants own the conversation, facilitators "step back and encourage learning… They participate in discussions but don't lead" [V] (Source: Ch 3, "Roles and functions of FLO facilitators") For an AAR: Phase 0 (scoping) and Phase 1 (timeline construction) demand active facilitative presence; Phase 2–3 (contributory factors, just-culture) should be participant-led with the facilitator weaving and summarising.
 
 6.  **Engagement-equity tracking matrix.** A simple spreadsheet — participant names in the first column, marks for each interaction — distributes the facilitator's responses fairly. (Source: Ch 6, "One idea to help you track interactions") For AARs in hybrid or video settings, this is the practical tool for noticing who has not spoken in thirty minutes.
 
-7.  **Recording as consent, not default.** "If recording synchronous sessions, confirm OK with session participants before hitting record" [V] (Source: Ch 4, "Privacy and Confidentiality") For AARs: recording may chill candour. Explicit consent before recording; default is no recording unless all participants agree.
+7.  **Recording as consent, not default.** "If you plan on recording your synchronous sessions, confirm that this is OK with the session participants before you hit the record button" [V] (Source: Ch 4, "Privacy and Confidentiality") For AARs: recording may chill candour. Explicit consent before recording; default is no recording unless all participants agree.
 
 8.  **Modelling-as-through-line.** FLO facilitators "model positive professional presence" and complete the FLIF reflection alongside participants. (Source: Ch 3; Ch 4, "The FLIF Facilitation Process") For AARs: the facilitator models local-rationality framing by applying it to their own moves out loud ("I'm going to ask the question this way because I want to hear your account, not test your decision").
 

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/psychology-2e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:43:28+13:00
 ---
 # OpenStax Psychology 2e, AAR Distillation
 
@@ -32,7 +32,7 @@ Psychology 2e is the facilitator's cognitive-science substrate for understanding
 
 4.  **Confirmation bias.** "Focuses on information that confirms existing beliefs" [V] (Source: OpenStax, *Psychology 2e*, Ch 7.3, Table 7.3). In AARs: a group that has a working theory of the incident will process confirming data more strongly than disconfirming data. The facilitator's move is to name disconfirming data explicitly and ask the group to account for it.
 
-5.  **Fundamental attribution error.** "People tend to overemphasize internal factors as explanations… for the behavior of other people" and "underestimate the power of the situation on the behavior of others" [V] (Source: OpenStax, *Psychology 2e*, Ch 12.1, "Fundamental Attribution Error"). The Ross, Amabile, and Steinmetz quizmaster study: observers rated questioners as more knowledgeable than contestants despite the obvious situational asymmetry [BT]. In AARs: this is the mechanism behind individual blame. The facilitator's vocabulary is local rationality and situational pressure, not character assessment.
+5.  **Fundamental attribution error.** "People tend to overemphasize internal factors as explanations… for the behavior of other people" [V] and "underestimate the power of the situation on the behavior of others" [V] (Source: OpenStax, *Psychology 2e*, Ch 12.1, "Fundamental Attribution Error"). The Ross, Amabile, and Steinmetz quizmaster study: observers rated questioners as more knowledgeable than contestants despite the obvious situational asymmetry [BT]. In AARs: this is the mechanism behind individual blame. The facilitator's vocabulary is local rationality and situational pressure, not character assessment.
 
 6.  **Actor-observer bias and self-serving bias.** The actor attributes their own behaviour situationally and others' dispositionally; the self-serving bias attributes success to disposition and failure to situation (Source: OpenStax, *Psychology 2e*, Ch 12.1). In AARs: these two biases together produce the pattern in which each function attributes the incident to adjacent functions while explaining its own choices as situationally forced.
 

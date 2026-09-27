@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/psychology-2e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax Psychology 2e, Retro Distillation
 
@@ -32,7 +32,7 @@ Psychology 2e is the facilitator's and coach's cognitive-science substrate for u
 
 4.  **Confirmation bias.** "Focuses on information that confirms existing beliefs" [V] (Ch 7.3, Table 7.3). In retros: the team that has already decided what the problem is will read the stickies to confirm that theory. Disconfirming data gets passed over. The facilitator's move: name the disconfirming sticky explicitly and ask the group to account for it.
 
-5.  **Fundamental attribution error.** "People tend to overemphasize internal factors as explanations… for the behavior of other people" and "underestimate the power of the situation" [V] (Ch 12.1). In retros: the team attributes the sprint's difficulties to individuals (inside or outside the team) rather than to conditions. The coach's vocabulary is: situational pressure, structural constraint, information state — not character assessment.
+5.  **Fundamental attribution error.** "People tend to overemphasize internal factors as explanations… for the behavior of other people" [V] and "underestimate the power of the situation" [V] (Ch 12.1). In retros: the team attributes the sprint's difficulties to individuals (inside or outside the team) rather than to conditions. The coach's vocabulary is: situational pressure, structural constraint, information state — not character assessment.
 
 6.  **Actor-observer bias and self-serving bias.** Actors attribute their own behaviour situationally; observers attribute others' dispositionally. Self-serving bias attributes success to the team's skill and failure to outside factors (Ch 12.1). In retros: the team's reading of "what we did well" and "what slowed us down" will follow this pattern by default. The facilitator surfaces the structural conditions behind both.
 
@@ -42,9 +42,9 @@ Psychology 2e is the facilitator's and coach's cognitive-science substrate for u
 
 9.  **Normative vs informational social influence.** *Normative social influence* is conformity to fit in; *informational social influence* is conformity to learn the right answer (Ch 12.4). In retros: when a team member suppresses a delta because others seem fine, that is normative influence. When a team member defers to the lead's read because the lead must know better, that is informational influence. Both suppress real data; both require written-first structure to counteract.
 
-10.  **Motivation — intrinsic vs extrinsic and the overjustification effect.** "As the level of extrinsic rewards increases, the amount of intrinsic motivation decreases" [V] (Ch 10.1). The overjustification effect: an activity once done for its own sake is reclassified as work when extrinsic reinforcement arrives (Ch 10.1). In retros: a team that has been velocity-tracked, OKR-graded, and management-reviewed for every metric may have had its intrinsic motivation for craft and quality crowded out. Recurring retro themes about quality and technical debt may be overjustification-effect presentations.
+10.  **Motivation — intrinsic vs extrinsic and the overjustification effect.** Intrinsic motivation "is diminished when extrinsic motivation is given" [V] (Ch 10.1). The overjustification effect: an activity once done for its own sake is reclassified as work when extrinsic reinforcement arrives (Ch 10.1). In retros: a team that has been velocity-tracked, OKR-graded, and management-reviewed for every metric may have had its intrinsic motivation for craft and quality crowded out. Recurring retro themes about quality and technical debt may be overjustification-effect presentations.
 
-11.  **Reinforcement schedules and team norms.** Variable-ratio schedules produce the highest and most extinction-resistant response rates [V] (Ch 6.3, Table 6.3). In retros: the team norm of completing retrospective experiments is reinforced on a variable-ratio schedule — sometimes they get done, sometimes they don't, no predictable pattern. Variable-ratio schedules are extremely hard to extinguish. The Phase 0.5 experiment review is the scheduled reinforcement that makes follow-through norms durable: the schedule itself is the intervention.
+11.  **Reinforcement schedules and team norms.** Variable-ratio schedules produce the highest and most extinction-resistant response rates [AP] (Ch 6.3, Table 6.3). In retros: the team norm of completing retrospective experiments is reinforced on a variable-ratio schedule — sometimes they get done, sometimes they don't, no predictable pattern. Variable-ratio schedules are extremely hard to extinguish. The Phase 0.5 experiment review is the scheduled reinforcement that makes follow-through norms durable: the schedule itself is the intervention.
 
 12.  **Stress — Yerkes-Dodson and general adaptation syndrome.** Optimal arousal varies with task complexity: complex tasks favour lower arousal (Ch 10.1, "arousal theory"). Selye's GAS: alarm → resistance → exhaustion (Ch 14.1). In retros: a team that has been in sustained resistance or approaching exhaustion will have degraded problem-solving capacity during the retro itself. The facilitator adjusts the pace and depth of the insight phase to the team's stress state. A heavily loaded team may need a shorter, lighter retro with one experiment rather than a comprehensive root-cause analysis.
 

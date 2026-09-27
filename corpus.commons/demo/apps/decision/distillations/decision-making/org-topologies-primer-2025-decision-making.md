@@ -34,7 +34,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 8.  **AI investment as a bottleneck-targeting decision.** Don't decide "adopt AI everywhere"; decide which archetypes are part of the target topology, which bottlenecks limit moving to those archetypes, and where AI can have the outsized impact on those bottlenecks. The decision is about *where*, given limited money, time, and attention. (p. 20, "Strategic AI Adoption")
 
-9.  **The systems-thinking decision rule for the MAP step.** Optimising individual org-design elements in isolation can degrade the system goal ("flow can get worse"). Decisions about policies, structures, or rewards must be made systemically — accounting for how each element interacts with the others — not as point decisions. (p. 16, "MADE Real: (1) MAP")
+9.  **The systems-thinking decision rule for the MAP step.** Optimising individual org-design elements in isolation can degrade the system goal ("flow can get worse" [V]). Decisions about policies, structures, or rewards must be made systemically — accounting for how each element interacts with the others — not as point decisions. (p. 16, "MADE Real: (1) MAP")
 
 10.  **The elevation-is-incremental decision rule.** "Elevation can be an incremental process that gradually improves the capabilities of an organization." [V] Decisions about org change do not need to be discrete big-bang choices; the periodic re-mapping completes the learning loop. "We are never finished with the perfection journey." [V] (p. 19, "MADE Real: (4) ELEVATE")
 
@@ -44,7 +44,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 13.  **The deferred-multi-goal decision warning.** "If more than one goal is chosen together for an organization, issues arise: Is some goal primary over others? Do they conflict? Can the org design support them all? These issues are beyond the scope of this Primer." [V] A multi-goal decision is named as harder; treat it as a separate harder problem rather than collapsing it into a single-goal decision. (p. 18, "MADE Real: (3) DESIGN")
 
-14.  **The "people have to own – not rent – their change" decision discipline.** Change decisions that are pushed onto people who didn't create them tend to fail because "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work." [V] A decision to push a pre-built solution is a decision whose execution will be degraded by the absence of buy-in. (p. 1, "Cover"; p. 3, "Management Summary")
+14.  **The "people have to own – not rent – their change" [V] decision discipline.** Change decisions that are pushed onto people who didn't create them tend to fail because "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work." [V] A decision to push a pre-built solution is a decision whose execution will be degraded by the absence of buy-in. (p. 1, "Cover"; p. 3, "Management Summary")
 
 ## Questions to Ask During Decision-Making
 
@@ -76,7 +76,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 |---|---|
 | Apply the three topologies as starting hypotheses | For the business objective, would Resource, Delivery, or Adaptive be the better fit? What does the worked-example logic look like for each? |
 | Explore divergent designs across divisions | Could one division retain Resource Topology (e.g. servicing legacy customers) while another moves to Adaptive (e.g. experimenting with new offerings)? |
-| Imagine an incremental elevation path | What is the smallest move rightward or upward we could trial as a "thoughtful experiment" [V] (an Elevating Kata) in the next cycle? |
+| Imagine an incremental elevation path | What is the smallest move rightward or upward we could trial in the next cycle as an Elevating Kata, one of the practices the Primer says "can be applied as thoughtful experiments" [V]? |
 | Consider Resource-Topology fit honestly | Is the current Resource Topology actually fit-for-purpose because the directing-doing relationships are temporary (a producer-dancer pattern)? If yes, the decision may be to *retain* the topology with better systems-of-fit. |
 | Use the OT vocabulary to express the option | Can the option be expressed in the form "move from {current archetype set} to {target archetype set}" with named archetypes? If not, the option is under-specified. |
 | Consider where AI changes the option space | Now that "specialization and expertise are vanishing as limited resources," [V] what target archetypes are feasible that previously weren't due to the "we don't have enough experts" [V] constraint? |
@@ -155,7 +155,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 - **OpenStax Principles of Management.** For the org-structure decision content the Primer treats as background (Mintzberg's structures, contingency factors, the six common structure types), see `openstax-principles-management-decision-making.md`. OT is at the *strategic-design-stance* level; OpenStax PoM is at the *structure-catalogue* level.
 
-- **OpenStax Organizational Behavior.** For the "people have to own – not rent – their change" thread, see `openstax-organizational-behavior-decision-making.md` on programmed vs non-programmed decisions and the psychology of resistance — OT's psychology-of-change framing has its grounding in this body of work.
+- **OpenStax Organizational Behavior.** For the "people have to own – not rent – their change" [V] thread, see `openstax-organizational-behavior-decision-making.md` on programmed vs non-programmed decisions and the psychology of resistance — OT's psychology-of-change framing has its grounding in this body of work.
 
 - **SSDL Systems Thinking Foundations.** For the systems-thinking discipline OT asks the MAP step to practise, see `ssdl-systems-thinking-foundations-decision-making.md`. The system-archetype catalogue (limits to growth, shifting the burden, fixes that fail) is the diagnostic vocabulary for the dynamics that constrain elevation.
 

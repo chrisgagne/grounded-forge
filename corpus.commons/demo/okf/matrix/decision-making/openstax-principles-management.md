@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:43:28+13:00
 ---
 # OpenStax Principles of Management, Decision-Making Distillation
 
@@ -100,7 +100,7 @@ Where Organizational Behavior contributes the cognitive process, Principles of M
 | Consider long-term consequences | What are the multi-year implications, beyond the immediate decision frame? Has short-term-profit bias crept in? |
 | Use the news-test for ethics | If this decision were on the front page of a major newspaper tomorrow, would I feel guilty or proud? |
 | Balance evidence and judgment | Where evidence is strong, follow it. Where evidence is thin, what is my best-supported judgment? |
-| Resist "stuck in the middle" | If this is a strategic decision, am I genuinely committing to one generic strategy (cost leadership, differentiation, focus), or trying to do everything? |
+| Resist "stuck in the middle" [V] | If this is a strategic decision, am I genuinely committing to one generic strategy (cost leadership, differentiation, focus), or trying to do everything? |
 | Recognise that perfection is unattainable | Am I waiting too long to gather evidence and paralysing the process? Is "good enough given the constraints" the appropriate target? |
 
 ### Phase 5: Implementation (Acting on the decision)
@@ -217,7 +217,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 **Named limits of the source.** The book is an introductory management survey; it develops a wide range of decision-making frameworks but rarely at depth. Strategic-analysis tools (SWOT, PESTEL, Five Forces, VRIO) are introduced without the strategic-planning context needed to apply them well in practice — that requires supplementing with strategy-specialist sources. The ethical decision-making section covers Rest's model and seven ethical principles but does not develop case-level ethical analysis; practitioners facing hard ethical choices need more than a survey treatment.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-principles-management-deep.md`). Key Concepts are `[AP]` (the source's stated positions) or `[AE]` (examples drawn from the source). The foundational frameworks cited here — bounded rationality, Follett's conflict paths, Porter's generic strategies, Rest's ethical model, Drucker's goal framework, Lewin/Kotter/AI change models — are all `[BT]`; the source endorses and explains them but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-management-deep.md`). Key Concepts are `[AP]` (the source's stated positions) or `[AE]` (examples drawn from the source). The foundational frameworks cited here — bounded rationality, Follett's conflict paths, Porter's generic strategies, Rest's ethical model, Drucker's goal framework, Lewin/Kotter/AI change models — are all `[BT]`; the source endorses and explains them but did not originate them.
 
 ## Related concepts
 

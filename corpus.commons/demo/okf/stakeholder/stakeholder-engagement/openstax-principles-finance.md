@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-finance
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax Principles of Finance, Stakeholder-Engagement Distillation
 
@@ -30,7 +30,7 @@ Where OpenStax *Organizational Behavior* gives the political mechanics (power ba
 
 1.  **Stakeholders defined.** "Any person or group that has an interest in the outcomes of an organization's actions . . . employees, customers, shareholders, suppliers, communities, and governments." A stakeholder may not own equity but is affected by the firm's decisions; their concerns are not always financial. (Source: Ch 2.2, "Stakeholders")
 
-2.  **Stakeholder versus shareholder distinction.** A shareholder is an owner with voting rights and a residual claim; a stakeholder is broader, including those without ownership. The book is explicit that "a firm has important nonfinancial goals" alongside the dominant frame of shareholder-wealth maximisation. (Source: Ch 2.2; Ch 2, "Why It Matters")
+2.  **Stakeholder versus shareholder distinction.** A shareholder is an owner with voting rights and a residual claim; a stakeholder is broader, including those without ownership. The book is explicit that "a firm has important nonfinancial goals" [V] alongside the dominant frame of shareholder-wealth maximisation. (Source: Ch 2.2; Ch 2, "Why It Matters")
 
 3.  **Three classes of agency conflict.** The book catalogues three stakeholder-conflict types: stockholders versus management (the WorldCom 2001 case as illustration); investors versus creditors (when a firm takes on more risk to pursue equity returns, threatening debt service); and stockholders versus other stakeholders (the Harry & David 2011 leveraged-buyout case as illustration of shareholders putting their interests ahead of employees, communities, and other stakeholders). (Source: Ch 2.4, "Agency Problems and Issues")
 
@@ -38,13 +38,13 @@ Where OpenStax *Organizational Behavior* gives the political mechanics (power ba
 
 5.  **Creditor versus shareholder claim ordering.** Bondholders have contractual cash-flow claims (coupon and face value); preferred shareholders rank ahead of common but behind bondholders; common shareholders are residual claimants. Liquidation order shapes risk profile and engagement leverage. (Source: Ch 10.1; Ch 11.4; Ch 17.6)
 
-6.  **Board of directors as the formal engagement structure.** A board "represents shareholders" but is "ultimately responsible for running the company"; functions include CEO selection, dividend policy, and ensuring sufficient resources. Independent directors with no material interest beyond directorship bring objectivity and protect against hidden agendas. International structures (executive-board / supervisory-board pairings in EU and Asia) vary. (Source: Ch 2.3)
+6.  **Board of directors as the formal engagement structure.** A board "represents shareholders" but is "ultimately responsible for running the company" [V]; functions include CEO selection, dividend policy, and ensuring sufficient resources. Independent directors with no material interest beyond directorship bring objectivity and protect against hidden agendas. International structures (executive-board / supervisory-board pairings in EU and Asia) vary. (Source: Ch 2.3)
 
 7.  **The audit committee and SOX.** The Sarbanes-Oxley Act (2002) requires CEO and CFO certification of financial reporting, internal controls, and external-auditor confirmation; a strong independent audit committee is the operating mechanism. SOX significantly raised the standard of public-company financial reporting and shifted the engagement floor for investor relations. (Source: Ch 2.3, "Oversight: Corporate Governance")
 
-8.  **Investor relations as stakeholder engagement.** IR combines communication, marketing, and finance to control information flow between a public corporation and its investors and stakeholders. Quarterly reporting (10-Q within 45 days), 10-K annual filings, 8-K event filings, conference calls, and roadshows are the practical channels. "Key messages supporting any ownership or potential investment case should be clear and consistent" and "embedded within the company's materials." (Source: Ch 2.5)
+8.  **Investor relations as stakeholder engagement.** IR combines communication, marketing, and finance to control information flow between a public corporation and its investors and stakeholders. Quarterly reporting (10-Q within 45 days), 10-K annual filings, 8-K event filings, conference calls, and roadshows are the practical channels. "Key messages supporting any ownership or potential investment case should be clear and consistent" [V] and "embedded within the company's materials." [V] (Source: Ch 2.5)
 
-9.  **ESG ratings.** Environmental, social, and governance ratings have grown from an internal risk-assessment tool into "unique scores used by investors to gauge the potential attractiveness of investment in the subject company." Firms with high ESG metrics are believed to represent superior investments; ESG is a starting point, not the entire story. (Source: Ch 2.4, "Impact of ESG Ratings")
+9.  **ESG ratings.** Environmental, social, and governance ratings have grown from an internal risk-assessment tool into "unique scores used by investors to gauge the potential attractiveness of investment in the subject company." [V] Firms with high ESG metrics are believed to represent superior investments; ESG is a starting point, not the entire story. (Source: Ch 2.4, "Impact of ESG Ratings")
 
 10.  **Domestic versus international versus global firms.** Domestic firms operate within US borders under GAAP and SEC rules. International firms have foreign operations regulated by host-country laws; parent-company accounting follows GAAP. Global firms have substantial multi-country operations with no single centre; corporate-governance regulations follow the country of the parent. International stakeholder engagement involves IFRS, host-country laws, and EDGAR-equivalent regulators. (Source: Ch 2.6)
 
@@ -93,7 +93,7 @@ Where OpenStax *Organizational Behavior* gives the political mechanics (power ba
 | Need | Question |
 |---|---|
 | Distinguish creditor-versus-shareholder tension | Is this a leverage decision where the interest tax shield benefits shareholders but raises creditor risk? Use trade-off theory (Ch 17.5) to weigh tax shield against financial-distress costs. |
-| Distinguish short-term versus long-term shareholder tension | Are quarterly earnings pressures pushing decisions that hurt long-term shareholder value? The book is explicit that "managerial actions that affect a company's value may not immediately be reflected in the price of a company's stock." |
+| Distinguish short-term versus long-term shareholder tension | Are quarterly earnings pressures pushing decisions that hurt long-term shareholder value? The book is explicit that "managerial actions that affect a company's value may not immediately be reflected in the price of a company's stock." [V] |
 | Distinguish shareholder-versus-other-stakeholder tension | Is this a decision where shareholder gains come from employees, customers, suppliers, or communities (the Harry & David pattern)? |
 | Apply the agency-conflict mitigations | Are incentives, stock-based compensation, ethical-behaviour penalties, and credible takeover threats in place to align manager-stakeholder interests? |
 | Surface forecast assumptions | When pro forma forecasts diverge from outcomes, are we engaging stakeholders on the diagnosis, or shielding the gap? Forecasting honesty is itself a stakeholder-engagement act. |
@@ -104,7 +104,7 @@ Where OpenStax *Organizational Behavior* gives the political mechanics (power ba
 |---|---|
 | Document governance decisions formally | Board resolutions, audit-committee charters, internal-control attestations — are decisions captured in the formal record so future stakeholders (auditors, regulators, successor boards) can trace them? |
 | Communicate decisions to all stakeholder classes | Bondholders (indenture, rating-agency briefing), preferred shareholders (dividend declarations), common shareholders (proxy materials, conference calls), employees (internal communications), suppliers (purchasing-policy updates), regulators (filings). Each class needs an appropriate channel. |
-| Preserve reporting consistency | "Key messages supporting any ownership or potential investment case should be clear and consistent" across IR materials, conference calls, and filings. |
+| Preserve reporting consistency | "Key messages supporting any ownership or potential investment case should be clear and consistent" [V] across IR materials, conference calls, and filings. |
 | Handle non-disclosure obligations | Material non-public information cannot be selectively disclosed. Plan ratification mechanics so disclosure happens through proper channels in the proper sequence. |
 
 ### Phase 6: Ratifying (Making the agreement stick)
@@ -130,7 +130,7 @@ Where OpenStax *Organizational Behavior* gives the political mechanics (power ba
 
 - **Pattern: Aggressive earnings forecasts that miss reality.** Signal: pro forma projections consistently above realised results; analyst surprise on quarterly calls. Diagnosis: forecasting ethics has slipped (Ch 18.1); subjective adjustments are being made under stakeholder-expectation pressure. Follow-up: surface the bias openly with auditors and the audit committee; recalibrate forecasts; communicate the recalibration to investors before the next miss.
 - **Pattern: Capital structure shifting toward leverage during a credit cycle.** Signal: rising debt-to-equity ratio; increasing interest tax shield; some indication of financial-distress risk. Diagnosis: the trade-off-theory benefit may be exhausted; stockholder-creditor agency conflict is intensifying. Follow-up: stress-test capital structure against industry distress patterns; consult bondholders and rating agencies; consider whether the marginal tax shield is worth the marginal distress cost.
-- **Pattern: Dividend cut perceived as managerial signalling.** Signal: stock-price drop on dividend cut beyond the cash-flow effect; Buffett-style "almost a last resort" interpretation by analysts. Diagnosis: cut is being read as managers signalling growth-opportunity loss. Follow-up: clarify the rationale (reinvestment opportunities versus distress) on the quarterly call; engage major institutional shareholders directly.
+- **Pattern: Dividend cut perceived as managerial signalling.** Signal: stock-price drop on dividend cut beyond the cash-flow effect; Buffett-style "almost a last resort" [V] interpretation by analysts. Diagnosis: cut is being read as managers signalling growth-opportunity loss. Follow-up: clarify the rationale (reinvestment opportunities versus distress) on the quarterly call; engage major institutional shareholders directly.
 - **Pattern: Supplier complaints about late payment.** Signal: payables-deferral period expanding; supplier credit-limit reductions; trade-credit terms tightening. Diagnosis: the firm is optimising payables-deferral but violating credit terms (Ch 19.1 warning). Follow-up: pay on time; rebuild supplier trust; if working-capital constraints are real, negotiate revised terms transparently rather than through delayed payment.
 - **Pattern: Common shareholders bringing charges over a manager-friendly decision.** Signal: derivative suits, proxy contests, activist-investor letters. Diagnosis: stockholder-versus-management agency conflict has surfaced; mitigations may be inadequate. Follow-up: review board independence, audit-committee robustness, and incentive-compensation alignment; consider engaging the activist directly rather than through litigation.
 - **Pattern: Bondholder downgrades without operational deterioration.** Signal: rating-agency action on financial-policy grounds rather than operational performance. Diagnosis: stakeholder concern about leverage, dividend policy, or covenant headroom; investor-versus-creditor conflict signal. Follow-up: rating-agency briefing; possible covenant restructuring; transparent engagement with bondholders.
@@ -174,8 +174,8 @@ This example illustrates several key concepts in the source: stakeholder definit
 - **Selective disclosure to favoured analysts or investors.** SOX and Reg FD make this a regulatory violation as well as a stakeholder breach; IR engagement must work through public channels for material information.
 - **Treating supplier trade-credit as free financing.** Forgoing 2/10 net 30 discounts costs 36.73% annualised; aggressively extending payables damages supplier relationships and credit ratings. Both economic and relational costs are real.
 - **Treating ESG as a disclosure exercise.** ESG ratings reflect practice, not just reporting. Engagement that does not change practice is greenwashing in financial-market form.
-- **Optimising for quarterly EPS at the expense of long-term value.** "Managerial actions that affect a company's value may not immediately be reflected in the price of a company's stock"; managing to the quarterly print at long-term cost is the dominant pathology the book frames against.
-- **Treating dividend policy as a residual decision.** Buffett's "almost a last resort" formulation captures the signalling weight of dividend changes. Surprise cuts impose stakeholder-relationship costs beyond the cash-flow effect.
+- **Optimising for quarterly EPS at the expense of long-term value.** "Managerial actions that affect a company's value may not immediately be reflected in the price of a company's stock" [V]; managing to the quarterly print at long-term cost is the dominant pathology the book frames against.
+- **Treating dividend policy as a residual decision.** Buffett's "almost a last resort" [V] formulation captures the signalling weight of dividend changes. Surprise cuts impose stakeholder-relationship costs beyond the cash-flow effect.
 - **Operating under a single-jurisdiction governance frame for global operations.** The text distinguishes domestic, international, and global firms; engagement must respect each regulatory regime, including IFRS, host-country corporate law, and SEC.
 
 ## Integration with Other References
@@ -196,7 +196,7 @@ This example illustrates several key concepts in the source: stakeholder definit
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Jensen and Meckling — agency theory; stockholder-manager and investor-creditor conflicts (Ch 2.4) [BT]
 - Modigliani and Miller (MM Propositions) — capital-structure irrelevance and the extension to trade-off theory (Ch 17) [BT]
-- Warren Buffett — dividend policy ("almost a last resort") and compounding-return framing (Ch 12.4) [BT]
+- Warren Buffett — dividend policy ("almost a last resort" [V]) and compounding-return framing (Ch 12.4) [BT]
 - Meir Statman — ~12-stock portfolio diversification threshold (Ch 15.2) [BT]
 - Renaissance Capital — SPAC vs IPO return study (Ch 12.1) [BT]
 - The DuPont method — developed at DuPont in 1919 (Ch 6.6) [BT]
@@ -210,7 +210,7 @@ This example illustrates several key concepts in the source: stakeholder definit
 - Worked numerical examples in the deep ref (Bacon Signs, Clear Lake Sporting Goods, etc.) are author-constructed pedagogical cases, not real companies.
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `references/openstax-principles-finance-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (16 `[BT]` markers). This distillation paraphrases throughout; all substantive claims are `[AP]`-class relative to the deep ref. The SPAC-vs-IPO finding and trade-credit-cost calculation are `[V]` in the deep ref (verbatim quotes from source). The leveraged-buyback scenario in the Worked Example is operator-authored. The payback-period critique and IRR-ranking critique are `[AR]`. Where the source cites external authors (Jensen-Meckling, MM, Statman), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.
+**Evidence-marker continuity.** The deep reference at `references/openstax-principles-finance-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (16 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The SPAC-vs-IPO finding and trade-credit-cost calculation are `[V]` in the deep ref (verbatim quotes from source). The leveraged-buyback scenario in the Worked Example is operator-authored. The payback-period critique and IRR-ranking critique are `[AR]`. Where the source cites external authors (Jensen-Meckling, MM, Statman), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.
 
 ## Related concepts
 

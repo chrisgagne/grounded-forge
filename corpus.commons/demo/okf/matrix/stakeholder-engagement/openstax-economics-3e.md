@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-economics-3e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax Principles of Economics 3e, Stakeholder-Engagement Distillation
 
@@ -44,7 +44,7 @@ This distillation projects that structural framework onto the seven-phase engage
 
 8.  **Information asymmetry and signalling.** The lemons problem: where one party has better information, the better-informed can drive out the trustworthy. Mechanisms reduce asymmetry: warranties, brands, occupational licences, reputation, cosigners, collateral. For stakeholder engagement, the question is "who knows what they don't know they don't know?" and "what mechanism can credibly communicate the missing information?" (Source: Ch 16.1)
 
-9.  **Insurance, moral hazard, and adverse selection.** Insurance pools risk but generates two information problems. Moral hazard occurs when "people engage in riskier behaviour with insurance than they would if they did not have insurance" [V] (Ch 16.2). Adverse selection: high-risk individuals seek insurance, driving out low-risk customers, in a death spiral. The mitigation tools (deductibles, copayments, mandates, group coverage, risk-pool design) are all engagement-design tools when the stakeholder context involves shared risk. (Source: Ch 16.2)
+9.  **Insurance, moral hazard, and adverse selection.** Insurance pools risk but generates two information problems. Moral hazard occurs when "people engage in riskier behavior with insurance than they would if they did not have insurance" [V] (Ch 16.2). Adverse selection: high-risk individuals seek insurance, driving out low-risk customers, in a death spiral. The mitigation tools (deductibles, copayments, mandates, group coverage, risk-pool design) are all engagement-design tools when the stakeholder context involves shared risk. (Source: Ch 16.2)
 
 10.  **Public-choice realism: rational ignorance, special interests, pork-barrel.** Anthony Downs's rational ignorance: voters lack incentives to become well-informed. Special-interest groups exploit concentrated benefits and dispersed costs. Pork-barrel and logrolling produce legislative outcomes that do not maximise social welfare. Engagement with political stakeholders must acknowledge these structural features rather than assume an idealised democratic process. (Source: Ch 18)
 
@@ -177,9 +177,9 @@ This worked example illustrates several key concepts: externality framing, commo
 | Reference | Connection |
 |---|---|
 | OpenStax Organizational Behavior (stakeholder engagement) | Org Behavior provides the political mechanics (power bases, resource dependence, strategic contingencies, conflict modes, BATNA, cultural intelligence). Economics provides the structural framing (externality, free-rider, monopsony, elasticity, regulatory capture). Pair them: structural analysis tells you why the engagement looks the way it does; political mechanics tell you how to work it. |
-| OpenStax Business Ethics (stakeholder engagement) | Business Ethics provides the normative framing (Donaldson and Preston, the moral minimum, triple bottom line, earth jurisprudence, voiceless stakeholders). Economics provides the institutional analysis (when do voluntary mechanisms work; when does free-riding require taxation; when does monopsony require collective bargaining; when does common-pool require local self-governance). The two together give "why does this matter" and "what institutional design fits." |
+| OpenStax Business Ethics (stakeholder engagement) | Business Ethics provides the normative framing (Donaldson and Preston, the moral minimum, triple bottom line, earth jurisprudence, voiceless stakeholders). Economics provides the institutional analysis (when do voluntary mechanisms work; when does free-riding require taxation; when does monopsony require collective bargaining; when does common-pool require local self-governance). The two together give "why does this matter" [V] and "what institutional design fits." |
 | Coase / property rights / transaction costs | Ch 12.3 introduces the Coase theorem. For externality engagements, well-defined property rights and low transaction costs may permit private negotiation; otherwise, regulation or market-based interventions (charges, permits) are required. |
-| Ostrom / common-pool resources | Ch 13.3 references Ostrom's "non-tragedy of the commons" demonstrating that local communities can self-govern common resources under specific design conditions (monitoring, graduated sanctions, conflict-resolution mechanisms, nested institutions). |
+| Ostrom / common-pool resources | Ch 13.3 references Ostrom's "non-tragedy of the commons" [BT] demonstrating that local communities can self-govern common resources under specific design conditions (monitoring, graduated sanctions, conflict-resolution mechanisms, nested institutions). |
 | Public-choice theory | Ch 18 introduces rational ignorance, special-interest politics, and voting cycles. Pair with stakeholder-engagement work in political and policy contexts where these structural features dominate. |
 | Game theory and prisoner's dilemma | Ch 10 covers oligopoly and cartel dynamics; Ch 13.3 connects to the prisoner's dilemma / public-good underprovision. For multi-party engagements with strategic interaction, the comparative-statics framework is insufficient; game-theoretic analysis completes the picture. |
 | Behavioural economics | Ch 6.3 introduces loss aversion, mental accounting, fungibility failure. Stakeholder engagement design should compensate for these biases in itself and in stakeholders, especially in the framing of losses vs gains and in the design of voluntary-vs-mandatory contribution structures. |
@@ -203,7 +203,7 @@ This worked example illustrates several key concepts: externality framing, commo
 - The source covers positive economics (what is) and normative economics (what should be) without always distinguishing them cleanly; practitioners should track which claims are descriptive versus prescriptive.
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `references/openstax-economics-3e-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (39 `[BT]` markers). This distillation paraphrases throughout; all substantive claims are `[AP]`-class relative to the deep ref. The watershed scenario in the Worked Example is operator-authored. The pro-trade stance against protectionism is `[AR]` in the deep ref. Where the source cites external authors (Ostrom, Coase, Sen, Robinson), the `[BT]` marker travels with the citation in the deep ref; this distillation names those dependencies in the Borrowed-through section above.
+**Evidence-marker continuity.** The deep reference at `references/openstax-economics-3e-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (39 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The watershed scenario in the Worked Example is operator-authored. The pro-trade stance against protectionism is `[AR]` in the deep ref. Where the source cites external authors (Ostrom, Coase, Sen, Robinson), the `[BT]` marker travels with the citation in the deep ref; this distillation names those dependencies in the Borrowed-through section above.
 
 ## Related concepts
 

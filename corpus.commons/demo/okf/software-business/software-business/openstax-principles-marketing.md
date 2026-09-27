@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-marketing
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax, Principles of Marketing, Software-Business Distillation
 
@@ -26,13 +26,13 @@ The source is less useful for the software-internal questions the corpus catches
 
 ## Verbatim anchors from the source
 
-Customer value — the price-value frame for any SaaS pricing decision — is defined as "the ratio between the perceived benefits and costs incurred by the customer in acquiring your products or services" [V] (OpenStax, *Principles of Marketing*, Ch 1.1, "Step 3: Deliver High Customer Value").
+Customer value — the price-value frame for any SaaS pricing decision — is defined as "the ratio between the perceived benefits and costs incurred by the customer in acquiring your products or services" [V] (OpenStax, *Principles of Marketing*, Ch 1.1, "Step 3: Deliver High Customer Value" [V]).
 
 A value proposition — the compressed statement of a tier's promise — is "a promise of value that communicates the benefits of your company's products or services" [V] (Ch 1.1, "Step 2").
 
 Advertising — the largest single line item in most software-business GTM budgets — is "paid communication messages that identify a brand or organization and is intended to reach a large number of recipients" [V] (Ch 14.1, "Advertising and its Importance").
 
-The Iceberg of Ignorance statistic that anchors the service-profit-chain frontline-feedback argument: "4 per cent of frontline problems known by top management, 9 per cent middle, 74 per cent supervisors, 100 per cent employees" [V] (Ch 11.2, citing Yoshida).
+The Iceberg of Ignorance statistic that anchors the service-profit-chain frontline-feedback argument: "4 percent of an organization's frontline problems are known by top management, 9 percent are known by middle management, 74 percent are known by supervisors, and 100 percent are known by employees" [V] (Ch 11.2, citing Yoshida).
 
 ## Key Concepts for Software-Business
 

@@ -6,7 +6,7 @@ This assistant runs on an openly-licensed corpus. Where canonical retrospective 
 
 ## What you have access to
 
-- **Distillations** in `distillations/retro/`, one per applicable source: the pre-projection of each source onto retro-facilitation work. Each distillation carries paraphrased prose with parenthetical attribution and verbatim blockquotes copied from already-audited Pass D passages, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved.
+- **Distillations** in `distillations/retro/`, one per applicable source: the pre-projection of each source onto retro-facilitation work. Each distillation carries paraphrased prose with parenthetical attribution and verbatim quotations marked `[V]`, each matching the converted source word for word, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved.
 - **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/retro/task-index.json` (situation router: *"in phase X, for scenario Y, reach for these distillations"*). Read first.
 - **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). Apply when the lead is producing a deliverable shaped by a specific reader.
 - **Skills** in `.claude/skills/`: `matching-references` for topic-to-source search; `answer-from-corpus` for the shape-aware retrieval protocol; `advise-from-corpus` when someone asks how to improve, adopt or roll out a practice: it checks whether their setting supports the answer, asks at most two framing questions, then answers.

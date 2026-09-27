@@ -12,7 +12,7 @@ sources:
     resource: http://www.knosof.co.uk/ESEUR/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:43:28+13:00
 ---
 # Jones, Evidence-based Software Engineering — Stakeholder-Engagement Distillation
 
@@ -28,7 +28,7 @@ The distillation is therefore narrower than the corresponding OpenStax distillat
 
 1.  **Stakeholders identified through network analysis.** Lim's RALIC study at UCL used PageRank applied to the stakeholder-network graph (built from snowball sampling and project documentation) to rank 85 stakeholders by salience; the resulting rankings correlated strongly with the project's ground-truth ranking. This is a defensible quantitative method when the stakeholder set is large or unclear. (Source: Jones, *Evidence-based Software Engineering*, Ch 5.4.5, "Discovering functionality needed for acceptance")
 
-2.  **Stakeholder salience as the prioritisation metric.** Salience is "the degree to which managers give priority to competing stakeholder claims" (Mitchell-Agle-Wood). It can be measured by network-position metrics (PageRank), by reciprocal salience (each stakeholder rates the others), or by the directness of stakeholders' role in the system being built. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
+2.  **Stakeholder salience as the prioritisation metric.** Salience is "the degree to which managers give priority to competing stakeholder claims" [V] (Mitchell-Agle-Wood). It can be measured by network-position metrics (PageRank), by reciprocal salience (each stakeholder rates the others), or by the directness of stakeholders' role in the system being built. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
 
 3.  **Requirements prioritisation by fixed-budget allocation.** Regnell et al. asked stakeholders to allocate a fixed budget (100,000 units) across a list of requirements. The variance in the assigned values, computed by leaving each stakeholder out one at a time, reveals the dependence of the priority ranking on individual stakeholders. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
 
@@ -182,7 +182,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - The Mitchell-Agle-Wood salience model is mentioned but used as an algorithmic ranking method, not as an ethical framework.
 - Jones explicitly disclaims rigour on some of his own models: "most of these models were created by your author after seeing the data, what is sometimes known as HARKing" [V] (Ch 1, "What has been learned?").
 
-**Evidence-marker continuity.** The deep reference at `references/jones-evidence-based-sweng-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. The PageRank stakeholder-network study (Ch 5.4.5) is `[AP]`; the information-asymmetry framing (Ch 3.4.6) is `[AP]`; the anchoring study on professionals' estimates (Ch 5.3) is `[AP]`; the borrowed-through citation chain (Mitchell-Agle-Wood, Regnell, Jørgensen-Sjøberg, Asch, Axelrod) is `[BT]`. Jones's contrarian positions (HARKing disclaimer, evidence-based research as "essentially a blank slate") are `[AR]`. This distillation paraphrases throughout; no verbatim blockquotes appear here.
+**Evidence-marker continuity.** The deep reference at `references/jones-evidence-based-sweng-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. The PageRank stakeholder-network study (Ch 5.4.5) is `[AP]`; the information-asymmetry framing (Ch 3.4.6) is `[AP]`; the anchoring study on professionals' estimates (Ch 5.3) is `[AP]`; the borrowed-through citation chain (Mitchell-Agle-Wood, Regnell, Jørgensen-Sjøberg, Asch, Axelrod) is `[BT]`. Jones's contrarian positions (HARKing disclaimer, evidence-based research as "essentially a blank slate") are `[AR]`. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word.
 
 ## Related concepts
 

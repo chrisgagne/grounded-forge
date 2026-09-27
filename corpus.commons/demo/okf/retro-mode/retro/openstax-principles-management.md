@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax Principles of Management, Retro Distillation
 
@@ -42,7 +42,7 @@ Principles of Management projects onto the retro axis as a diagnostic substrate,
 
 9.  **Groupthink** — occurs when group members suppress dissent to preserve team spirit and avoid disrupting harmony (Ch 2.6). Counter-measures: assign a devil's advocate; form groups with diverse members; encourage everyone to speak. When a retro produces fast unanimity on experiments, groupthink may be operating.
 
-10.  **Four change-management models** — Lewin (unfreeze / change / refreeze, stable contexts), Kotter (urgency-driven, top-down, deficit-based), Cooperrider Appreciative Inquiry (abundance-based, bottom-up), Olson-Eoyang CAS (empower agents, strengthen connections, ensure flow) (Ch 10.3). The retro is most naturally an AI-type intervention: it asks "who are we when we are at our best?" before asking "what could be?" The choice of change model shapes whether the experiment is experienced as imposed or discovered.
+10.  **Four change-management models** — Lewin (unfreeze / change / refreeze, stable contexts), Kotter (urgency-driven, top-down, deficit-based), Cooperrider Appreciative Inquiry (abundance-based, bottom-up), Olson-Eoyang CAS (empower agents, strengthen connections, ensure flow) (Ch 10.3). The retro is most naturally an AI-type intervention: it asks the question the source says is commonly used in the discover phase, "who are we when we are at our best?" [BT], before asking "what could be?" The choice of change model shapes whether the experiment is experienced as imposed or discovered.
 
 11.  **Goal theory (Locke)** — specific, difficult, accepted, committed-to goals produce better performance; participation in goal-setting increases commitment (Ch 14.3, "Goal Theory"). Retro experiments with vague success criteria do not produce Locke-compliant commitment. "Be more collaborative" is not a goal; "pair-review every PR before merge for the next two weeks" is.
 
@@ -126,7 +126,7 @@ Phase 3: the lead applies Follett's integration path. The two perspectives are n
 
 Phase 4: the experiment is stated specifically: "We will document major technical decisions in a shared log, linked from the relevant story, within one Sprint." Specific, measurable, accepted. The team owns it.
 
-The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal criteria, and managing-as-paradox framing all trace to Principles of Management (Ch 15.2, "Team Development Over Time"; Ch 3.6, "Follett and Conflict Resolution"; Ch 14.2, "Self-Determination Theory"; Ch 14.3, "Goal Theory"; Ch 15.3, "Things to Consider When Managing Teams").
+The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal criteria, and managing-as-paradox framing all trace to Principles of Management (Ch 15.2, "Team Development Over Time"; Ch 3.6, "Follett and Conflict Resolution" [V]; Ch 14.2, "Self-Determination Theory"; Ch 14.3, "Goal Theory"; Ch 15.3, "Things to Consider When Managing Teams" [V]).
 
 ## Anti-patterns This Reference Helps Avoid
 

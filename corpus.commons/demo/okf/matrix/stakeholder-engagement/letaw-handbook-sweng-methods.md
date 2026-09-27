@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods — Stakeholder-Engagement Distillation
 
@@ -20,9 +20,9 @@ generated:
 
 ## Stakeholder-Engagement Relevance
 
-Letaw's *Handbook* threads stakeholder engagement through four chapters rather than confining it to one. **Chapter 2 (Project Management and Teamwork)** addresses the engagement of *team members* — Tuckman's five-stage development model, ground rules with whole-team buy-in, RACI matrix for decision rights, fist of five for consensus — and the engagement of *clients* via the project priority matrix decided "before the project starts, with the client." **Chapter 3 (Requirements)** is the chapter most directly about external stakeholder engagement: requirements elicitation through interviews, focus groups, lab studies, and exploratory research; user stories that frame functionality from the user's perspective; client conversations to set priorities and acceptance criteria. **Chapter 6 (Paper Prototyping)** is a structured method for engaging users in design feedback through low-fidelity prototypes and the think-aloud protocol. **Chapter 7 (Inclusivity Heuristics)** reframes stakeholder engagement as inclusive design: building technology that "draws on the full range of human diversity" and explicitly engaging stakeholders across attitudes toward risk, computer self-efficacy, information processing style, learning style, and motivations, embodied as the personas Abi, Pat, and Tim.
+Letaw's *Handbook* threads stakeholder engagement through four chapters rather than confining it to one. **Chapter 2 (Project Management and Teamwork)** addresses the engagement of *team members* — Tuckman's five-stage development model, ground rules with whole-team buy-in, RACI matrix for decision rights, fist of five for consensus — and the engagement of *clients* via the project priority matrix decided "before the project starts, with the client." **Chapter 3 (Requirements)** is the chapter most directly about external stakeholder engagement: requirements elicitation through interviews, focus groups, lab studies, and exploratory research; user stories that frame functionality from the user's perspective; client conversations to set priorities and acceptance criteria. **Chapter 6 (Paper Prototyping)** is a structured method for engaging users in design feedback through low-fidelity prototypes and the think-aloud protocol. **Chapter 7 (Inclusivity Heuristics)** reframes stakeholder engagement as inclusive design: building technology that "draws on the full range of human diversity" [V] and explicitly engaging stakeholders across attitudes toward risk, computer self-efficacy, information processing style, learning style, and motivations, embodied as the personas Abi, Pat, and Tim.
 
-A unifying theme runs through these threads: each engagement method is presented as *risk mitigation*. Ground rules reduce team-conflict risk. RACI reduces the risk of "shipping a broken product to customers because nobody was assigned to quality assurance." Fist of five reduces decision-commitment risk by surfacing latent dissent. Requirements elicitation reduces drift risk by capturing what stakeholders actually want before code is written. Paper prototyping reduces design-failure risk by getting user feedback before code is written. The Inclusivity Heuristics reduce the risk of designing software that excludes the diversity of real users.
+A unifying theme runs through these threads: each engagement method is presented as *risk mitigation*. Ground rules reduce team-conflict risk. RACI reduces the risk of "shipping a broken product to customers because nobody was assigned to quality assurance." [V] Fist of five reduces decision-commitment risk by surfacing latent dissent. Requirements elicitation reduces drift risk by capturing what stakeholders actually want before code is written. Paper prototyping reduces design-failure risk by getting user feedback before code is written. The Inclusivity Heuristics reduce the risk of designing software that excludes the diversity of real users.
 
 This distillation gathers these threads into a working pattern: how to engage *team* stakeholders during project formation and execution; how to elicit requirements from *external* stakeholders (clients, users, regulators); how to test design decisions with *user* stakeholders before committing implementation; and how to extend stakeholder engagement to the full range of cognitive styles users actually bring.
 
@@ -34,7 +34,7 @@ This distillation gathers these threads into a working pattern: how to engage *t
 
 3.  **Ground rules with whole-team buy-in.** A preemptive or reactive method for reducing team conflict and dysfunction. To be effective, ground rules need buy-in from the whole team; rules feeling "silly, phony, too aspirational, too inflexible, or too authoritative" invalidate the effort. Eight diagnostic questions are offered as starting points; the criterion of "meaningful and authentic" is invariant. (Source: Ch 2.4.1)
 
-4.  **RACI matrix for explicit decision rights.** Responsible (who does the work), Accountable (who approves and ensures completion), Consulted (who advises), Informed (who is kept up to date). The matrix reduces risk by preventing the failure mode in which no one knows who needs to do what — the canonical example is "shipping a broken product to customers because nobody was assigned to quality assurance." (Source: Ch 2.4.2)
+4.  **RACI matrix for explicit decision rights.** Responsible (who does the work), Accountable (who approves and ensures completion), Consulted (who advises), Informed (who is kept up to date). The matrix reduces risk by preventing the failure mode in which no one knows who needs to do what — the canonical example is "shipping a broken product to customers because nobody was assigned to quality assurance." [V] (Source: Ch 2.4.2)
 
 5.  **Fist of five for consensus.** Six-level voting: None (strong reject, blocks), One (reject, major issues), Two (weak reject), Three (weak accept), Four (accept), Five (strong accept, willing to lead). Two-or-fewer triggers discussion; the team or its leader decides how much consensus is required. The mechanism surfaces latent dissent and increases team motivation, ownership, and investment. (Source: Ch 2.4.3)
 
@@ -44,7 +44,7 @@ This distillation gathers these threads into a working pattern: how to engage *t
 
 8.  **Four elicitation methods.** Interviews (structured / semi-structured / unstructured); focus groups (small group conversations with moderator guidance); lab studies (participants perform tasks in a controlled setting, then give feedback); exploratory research (immersing oneself in the world of relevant people and products — fly-on-the-wall observations, ethnographic methods). Hanington & Martin (2019) [BT] provides fuller treatment. (Source: Ch 3.4)
 
-9.  **User stories as stakeholder-perspective specification.** "As a <role> I can <capability>, so that <receive benefit>." Written in plain English so non-technical stakeholders can understand them. Stakeholders may originate user stories; clients guide prioritisation; conversation about each user story extracts details that get added back to the card. The INVEST acronym (Independent, Negotiable, Valuable, Estimable, Small, Testable) characterises a good user story — and the *N* (Negotiable) is the explicit invitation to ongoing stakeholder conversation. (Source: Ch 3.6.1, citing Wake 2003 [BT])
+9.  **User stories as stakeholder-perspective specification.** "As a <role> I can <capability>, so that <receive benefit>." [V] Written in plain English so non-technical stakeholders can understand them. Stakeholders may originate user stories; clients guide prioritisation; conversation about each user story extracts details that get added back to the card. The INVEST acronym (Independent, Negotiable, Valuable, Estimable, Small, Testable) characterises a good user story — and the *N* (Negotiable) is the explicit invitation to ongoing stakeholder conversation. (Source: Ch 3.6.1, citing Wake 2003 [BT])
 
 10.  **Definition of Done negotiated with the client.** Acceptance criteria say what must be true about the functionality for the user story to be considered done. Often written in given-when-then format. The DoD is a stakeholder-engagement artefact: it is the boundary between "developer says done" and "client agrees it is done." (Source: Ch 3.6.1)
 
@@ -78,7 +78,7 @@ This distillation gathers these threads into a working pattern: how to engage *t
 | Decide the project priority matrix with the client | Have we agreed with the client which of time, cost, and scope is Constrained, Enhanced, or Accepted? Will this matrix be the referent when scope-creep questions arrive? |
 | Choose the elicitation method | Which method fits this stakeholder and this question — structured interview, semi-structured interview, focus group, lab study, or exploratory research? |
 | Anticipate the five elicitation pitfalls | Could this stakeholder lack experience/expertise to articulate what they want? Could they have bad ideas? Not know what they want? Want what is bad for them? Communicate imperfectly? |
-| Frame user stories for the conversation | If user stories are the artefact, are they in the "As a <role> I can <capability>, so that <receive benefit>" template? Do they meet INVEST? |
+| Frame user stories for the conversation | If user stories are the artefact, are they in the "As a <role> I can <capability>, so that <receive benefit>" [V] template? Do they meet INVEST? |
 
 ### Phase 3: Convening (How to engage in the moment)
 
@@ -196,7 +196,7 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Tuckman (1965) and Tuckman & Jensen (1977) — five-stage team-development model (Ch 2.4) [BT]
 - Beck et al. (2001), Agile Manifesto — grounding document for the Agile philosophy (Ch 1.2.1) [BT]
-- Wake (2003), "Invest in good stories" — INVEST acronym for good user stories (Ch 3.6.1) [BT]
+- Wake (2003), "Invest in good stories" [V] — INVEST acronym for good user stories (Ch 3.6.1) [BT]
 - Hanington & Martin (2019) — fuller treatment of requirements-elicitation methods (Ch 3.4) [BT]
 - Burnett et al. (2016, 2021), GenderMag project — source of the Inclusivity Heuristics and five cognitive facets (Ch 7) [BT]
 - Nielsen & Molich (1990); Nielsen (1994) — heuristic evaluation as a usability inspection method (Ch 7.1) [BT]
@@ -213,7 +213,7 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 - Regulatory-stakeholder engagement (privacy law, accessibility law) is gestured at through quality attributes and constraints but not developed.
 - The source is CC BY-NC 4.0 (open-nc); derivative works for commercial purposes require permission.
 
-**Evidence-marker continuity.** The deep reference at `references/letaw-handbook-sweng-methods-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers throughout (111 `[V]`, 57 `[BT]`, 11 `[AP]`, 1 `[AR]`). This distillation paraphrases throughout; Key Concepts drawn from the source's method chapters are `[V]` in the deep ref (verbatim from source). The Agile Manifesto, Tuckman model, INVEST acronym, and the eight-attribute good-requirement standard are all `[BT]` in the deep ref (cited in the source). The healthcare-clinic scheduling example in the Worked Example is operator-authored. The five-elicitation-pitfalls framing and the ODOT TOCS microservices case are `[V]` and `[AE]` respectively in the deep ref.
+**Evidence-marker continuity.** The deep reference at `references/letaw-handbook-sweng-methods-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers throughout (111 `[V]`, 57 `[BT]`, 11 `[AP]`, 1 `[AR]`). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; Key Concepts drawn from the source's method chapters are `[V]` in the deep ref (verbatim from source). The Agile Manifesto, Tuckman model, INVEST acronym, and the eight-attribute good-requirement standard are all `[BT]` in the deep ref (cited in the source). The healthcare-clinic scheduling example in the Worked Example is operator-authored. The five-elicitation-pitfalls framing and the ODOT TOCS microservices case are `[V]` and `[AE]` respectively in the deep ref.
 
 ## Related concepts
 

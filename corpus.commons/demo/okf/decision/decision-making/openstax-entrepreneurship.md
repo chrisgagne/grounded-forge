@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/entrepreneurship
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax Entrepreneurship, Decision-Making Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## Decision-Making Relevance
 
-The OpenStax *Entrepreneurship* text is, at the operational level, a sequence of decisions an entrepreneur must make: whether to start, what to start, how to validate, how to fund, what structure to choose, when to pivot, when to harvest, and what role to play after. The book's organising premise that "an entrepreneur is someone who identifies and acts on an idea or problem" (Ch 1.1) makes the act of decision the constitutive feature of entrepreneurship rather than a peripheral concern.
+The OpenStax *Entrepreneurship* text is, at the operational level, a sequence of decisions an entrepreneur must make: whether to start, what to start, how to validate, how to fund, what structure to choose, when to pivot, when to harvest, and what role to play after. The book's organising premise that "an entrepreneur is someone who identifies and acts on an idea or problem" [V] (Ch 1.1) makes the act of decision the constitutive feature of entrepreneurship rather than a peripheral concern.
 
 The text is particularly strong on iterative decision-making under uncertainty (build-measure-learn, MVP-driven validation, ten pivot strategies), on group decision techniques (Delphi method, Nominal Group), on decision biases (overconfidence, optimism, escalation of commitment, planning fallacy, status quo bias, hindsight bias), and on the structural decisions that shape risk allocation (entity selection, founders' agreements, IP strategy). It is less strong on individual cognitive bias mitigation in single high-stakes decisions; for that the text leans on Klein's intuition framing rather than developing its own protocol.
 
@@ -72,7 +72,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 22.  **Entity selection.** The for-profit/nonprofit decision and the C/S/B/LLC/LLP/LLLP/sole-proprietorship decision shape risk, taxation, and capital-access. (Source: Ch 13)
 
-23.  **"Begin with the end in mind."** Treat the eventual harvest or exit as a design constraint from day one. (Source: Ch 15.1)
+23.  **"Begin with the end in mind." [V]** Treat the eventual harvest or exit as a design constraint from day one. (Source: Ch 15.1)
 
 ## Questions to Ask During Decision-Making
 
@@ -224,7 +224,7 @@ The structured walk through these steps surfaces that the founder's intended nex
 
 **Named limits of the source.** The text is an introductory survey aimed at aspiring entrepreneurs, not an executive strategy reference. Its cognitive-bias coverage leans on Cossette's entrepreneurship review rather than Kahneman's primary work; practitioners wanting deeper bias-debiasing protocols should supplement with behavioural-economics sources. The book's financing content covers seed and early-stage structures well but does not address growth-equity or late-stage deal mechanics in depth.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-entrepreneurship-deep.md`). Key Concepts 1–23 are `[AP]` (author's position) or `[AE]` (author's example) drawn from OpenStax. The disruptive-innovation and lean-startup material is structurally `[BT]` — the source endorses these frameworks but does not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-entrepreneurship-deep.md`). Key Concepts 1–23 are `[AP]` (author's position) or `[AE]` (author's example) drawn from OpenStax. The disruptive-innovation and lean-startup material is structurally `[BT]` — the source endorses these frameworks but does not originate them.
 
 ## Related concepts
 

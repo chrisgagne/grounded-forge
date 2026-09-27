@@ -6,7 +6,7 @@ argument-hint: "<question or topic>"
 
 # Answer from corpus
 
-Source-grounded answer protocol for any substantive question the corpus may cover. It runs in one of two modes, set by where it runs. In the project, the corpus's reference tier is present, so the skill routes through the main concept index and reads references. Inside a compiled app, the reference tier doesn't travel, so the skill reads the distillations the app ships: each carries paraphrased prose with parenthetical attribution and verbatim blockquotes copied from already-audited Pass D passages, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved.
+Source-grounded answer protocol for any substantive question the corpus may cover. It runs in one of two modes, set by where it runs. In the project, the corpus's reference tier is present, so the skill routes through the main concept index and reads references. Inside a compiled app, the reference tier doesn't travel, so the skill reads the distillations the app ships: each carries paraphrased prose with parenthetical attribution and verbatim quotations marked `[V]` (open and open-nc sources only; copyrighted, confidential and personal sources are paraphrased, and the build enforces it), each matching the converted source word for word, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved.
 
 Invoke this skill to *operationalise* the bundled CLAUDE.md's grounding directive: CLAUDE.md sets the principle (search before reasoning from priors; cite or admit guessing), this protocol runs it as executable steps — shape-classification, traceability, citation density, corpus breadth.
 
@@ -151,9 +151,11 @@ Result: a candidate set of slug-IDs (author + title resolved from the first para
 
 Stopping rule is *triangulation*, not just coverage. Continue until every sub-claim has at least two sources you'd cite, AND you've identified at least one place where authors converge and one place where they disagree or emphasise differently.
 
-**Pass 3: Citation density.** Distillations already carry verbatim blockquotes with evidence markers for the load-bearing passages — that *is* Pass 3 in dist-only retrieval. The verbatim register fired in the distillation at Pass G; what's in the distillation is already audit-of-record material (copied from Pass D's audited blockquotes in the deep ref). Pull the verbatim quotes from the distillation directly when the deliverable needs them; do not re-extract from anywhere else.
+**Pass 3: Citation density.** Distillations carry `[V]`-marked verbatim quotes for the load-bearing passages — that *is* Pass 3 in dist-only retrieval. A `[V]` quote in a distillation has been checked word for word against the converted source. Pull it from the distillation directly when the deliverable needs it; do not re-extract from anywhere else.
 
 When a distillation lacks the in-band verbatim register (older distillations produced before the Pass G schema change), surface that in the trace: *"distillation carries paraphrased citations only; older Pass G schema."* Do not invent verbatim quotes.
+
+**Quote an author only from marked text.** Put a passage in quotation marks and attribute it to an author only when the distillation marks it verbatim, with a `[V]` marker or as a blockquote. Distillations also put their own facilitation scripts and key terms in quotation marks, so unmarked quoted text may be the distillation's wording, not the author's. Paraphrase it with attribution instead.
 
 Pick the regime by deliverable signal:
 

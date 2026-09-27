@@ -12,7 +12,7 @@ sources:
     resource: https://doi.org/10.6028/NIST.SP.800-218
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-26T16:29:13+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 
 # NIST SSDF v1.1 for software-business work
@@ -26,9 +26,9 @@ SSDF helps a software leader specify what secure delivery requires across the or
 
 The investment question is contextual: which practices apply, what risk do they address, and what implementation is feasible at the organisation's stage? SSDF directs attention to risk, cost, feasibility, applicability and automatability, and leaves implementation methods open. This makes it useful for a security work plan or an assurance memo whose commitments must be both operationally specific and resourced. [AR] (Source: Souppaya et al., SSDF v1.1, §1, p. 3)
 
-> "The focus is on the outcomes of the practices rather than on the tools, techniques, and mechanisms to do so."
+> "The focus is on the outcomes of the practices rather than on the tools, techniques, and mechanisms to do so." [V]
 >
-> [V] (Source: Souppaya et al., SSDF v1.1, Executive Summary, p. vi)
+> (Source: Souppaya et al., SSDF v1.1, Executive Summary, p. vi)
 
 ## Key Concepts for Software-Business
 
@@ -117,9 +117,9 @@ Finally, the plan states how the team receives reports, chooses risk responses a
 
 The founder uses local risk, feasibility and cost to select the implementation depth and sequence, preserving the source's central constraint:
 
-> "The intention of the SSDF is not to create a checklist to follow, but to provide a basis for planning and implementing a risk-based approach to adopting secure software development practices."
+> "The intention of the SSDF is not to create a checklist to follow, but to provide a basis for planning and implementing a risk-based approach to adopting secure software development practices." [V]
 >
-> [V] (Source: Souppaya et al., SSDF v1.1, §1, p. 3)
+> (Source: Souppaya et al., SSDF v1.1, §1, p. 3)
 
 ## Anti-patterns This Reference Helps Avoid
 

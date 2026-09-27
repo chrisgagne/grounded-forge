@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:43:28+13:00
 ---
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Stakeholder-Engagement Distillation
 
@@ -26,39 +26,39 @@ The Guide's load-bearing stakeholder-engagement contributions are: (a) the scaff
 
 ## Key Concepts for Stakeholder-Engagement
 
-1.  **Scaffolding-and-fading presence allocation.** "During the first week of each course, facilitator presence is high as the facilitators take on the roles of a community builder and a guide. … As the course moves on, … FLO facilitators take on the roles of coach and mentor. They step back and encourage learning through the use of different questioning strategies and proven facilitation techniques. They participate in discussions but don't lead." Engagement-design principle: facilitator presence is a budgeted resource — high when the group needs scaffolding, lighter once the group builds capacity. (Source: Currie et al., *FLO Facilitation Guide*, Ch 3, "Roles and functions of FLO facilitators")
+1.  **Scaffolding-and-fading presence allocation.** "During the first week of each course, facilitator presence is high as the facilitators take on the roles of a community builder and a guide. … As the course moves on, … FLO facilitators take on the roles of coach and mentor. They step back and encourage learning through the use of different questioning strategies and proven facilitation techniques. They participate in discussions but don't lead." [V] Engagement-design principle: facilitator presence is a budgeted resource — high when the group needs scaffolding, lighter once the group builds capacity. (Source: Currie et al., *FLO Facilitation Guide*, Ch 3, "Roles and functions of FLO facilitators")
 
-2.  **Modelling as the central mechanism.** "In addition to talking about online facilitation skills with our participants throughout the course, we also model those same skills. We want our participants to see us continually working on enhancing the skills in ourselves — to model reflective practice as an online facilitator and to bring an authentic presence to our courses." The facilitator's authentic engagement with the practice is part of the curriculum. (Source: Ch 3, "Developing FLO facilitation skills")
+2.  **Modelling as the central mechanism.** "In addition to talking about online facilitation skills with our participants throughout the course, we also model those same skills. We want our participants to see us continually working on enhancing the skills in ourselves — to model reflective practice as an online facilitator and to bring an authentic presence to our courses." [V] The facilitator's authentic engagement with the practice is part of the curriculum. (Source: Ch 3, "Developing FLO facilitation skills")
 
-3.  **Climate is operational, not soft.** Two of four core skill categories (Build/Sustain Online Community; Model Effective Online Facilitation) are explicitly climate-and-community focused. Privacy-and-confidentiality with Vegas rules is treated as a foundation-of-trust design choice: "Our learning relies on the exchange of honest, constructive feedback, and we need to agree on rules that support this foundation of trust." (Source: Ch 3, "Developing FLO facilitation skills"; Ch 4, "Privacy and Confidentiality")
+3.  **Climate is operational, not soft.** Two of four core skill categories (Build/Sustain Online Community; Model Effective Online Facilitation) are explicitly climate-and-community focused. Privacy-and-confidentiality with Vegas rules is treated as a foundation-of-trust design choice: "Our learning relies on the exchange of honest, constructive feedback, and we need to agree on rules that support this foundation of trust." [V] (Source: Ch 3, "Developing FLO facilitation skills"; Ch 4, "Privacy and Confidentiality")
 
-4.  **Open-ended, invitational, probing questions.** Across all four courses, the Guide's question form is invitational — "post in their planning forum to ask some open-ended questions about how they think things are going"; the MicroCourse facilitator's "curious voice" is an explicit tone. Engagement-design principle: closed and directive questions extract specific data; open and invitational questions surface what the participant brought. (Source: Ch 4, "Example of video feedback with transcript"; Ch 7, "Monitor the sharing of drafts and prototypes"; Ch 3, "Accessible design, inclusive facilitation")
+4.  **Open-ended, invitational, probing questions.** Across all four courses, the Guide's question form is invitational — "post in their planning forum to ask some open-ended questions about how they think things are going" [V]; the MicroCourse facilitator's "curious voice" is an explicit tone. Engagement-design principle: closed and directive questions extract specific data; open and invitational questions surface what the participant brought. (Source: Ch 4, "Example of video feedback with transcript"; Ch 7, "Monitor the sharing of drafts and prototypes"; Ch 3, "Accessible design, inclusive facilitation")
 
 5.  **Resist-thoroughness: protect peer-to-peer engagement.** "Resist the urge to be thorough, but be clear that you're only commenting on one or two aspects of the artifact. Invite participants to jump in and elaborate. … Jumping in too quickly to offer your advice or feedback, or to respond to questions, might discourage others from engaging." Facilitator silence creates space for peer engagement; facilitator over-presence crowds it out. (Source: Ch 7, "Monitor the sharing of drafts and prototypes")
 
-6.  **Develop-vs-grade default protects candour.** "This course is designed to be developmental; it is not a graded course in the traditional sense." The self-assessment rubric (three-level developmental: Beginning / Developing / Accomplished) is the default mode. Engagement-design principle: grading drops candour; self-assessment maintains it. (Source: Ch 4, "Course assessment strategies")
+6.  **Develop-vs-grade default protects candour.** "This course is designed to be developmental; it is not a graded course in the traditional sense." [V] The self-assessment rubric (three-level developmental: Beginning / Developing / Accomplished) is the default mode. Engagement-design principle: grading drops candour; self-assessment maintains it. (Source: Ch 4, "Course assessment strategies")
 
 7.  **Track architecture for varied stretch.** FLO Synchronous offers two tracks (Reviewing Participant vs Practicing Facilitator) with different requirements and rubric items. When an engagement includes participants with varied readiness, designing two explicit tracks is better than a single default with implicit opt-out. (Source: Ch 6, "Help participants choose")
 
-8.  **Counsel-out as a respectful move.** "If you find out a participant is deeply struggling, perhaps from an overwhelming schedule, your role is to help them decide if now is the right time to take the course. We strongly advise against allowing participants to audit FLO courses." A struggling participant continuing in degraded form serves neither the participant nor the group. (Source: Ch 6, "Be in touch with participants who haven't logged in")
+8.  **Counsel-out as a respectful move.** "If you find out a participant is deeply struggling, perhaps from an overwhelming schedule, your role is to help them decide if now is the right time to take the course. We strongly advise against allowing participants to audit FLO courses." [V] A struggling participant continuing in degraded form serves neither the participant nor the group. (Source: Ch 6, "Be in touch with participants who haven't logged in")
 
-9.  **Engagement-equity tracking matrix.** "One idea to help you track interactions with your participants to ensure you engage with them fairly equally throughout the course is to use a tracking matrix. … Every time you respond to a participant, make a mark in a column next to their name." Facilitator attention tends to flow toward already-engaged participants; surfacing the distribution makes the inequity visible. (Source: Ch 6, "One idea to help you track interactions")
+9.  **Engagement-equity tracking matrix.** "One idea to help you track interactions with your participants to ensure you engage with them fairly equally throughout the course is to use a tracking matrix. … Every time you respond to a participant, make a mark in a column next to their name." [V] Facilitator attention tends to flow toward already-engaged participants; surfacing the distribution makes the inequity visible. (Source: Ch 6, "One idea to help you track interactions")
 
 10.  **Welcome post as first move and first-impression artefact.** "This is your first impression. … Make sure your post sets a good impression: establishes instructor presence, presents a clear message without being too long or too short. Be sure your introductory post ends with an invitation for your participants to share their introductions in a similar way." The convening communication carries the tone, the climate, and the invitation; it is not a logistics document. (Source: Ch 4, "Your Welcome post doesn't have to be just text…")
 
-11.  **Be pro-active in first-week overwhelm.** "Mention that the first week of an online course is often overwhelming (for both participants and facilitators), that it will get better, and that you will do what you can to mitigate start-up stresses." Name predictable participant experiences before participants experience them as personal failings. (Source: Ch 4, "Be pro-active in the first week")
+11.  **Be pro-active in first-week overwhelm.** "Mention that the first week of an online course is often overwhelming (for both participants and facilitators), that it will get better, and that you will do what you can to mitigate start-up stresses." [V] Name predictable participant experiences before participants experience them as personal failings. (Source: Ch 4, "Be pro-active in the first week")
 
-12.  **No-pressuring-tone discipline.** "Avoid pressuring participants to comply with course deadlines, or suggesting they are only welcome if they are committed to following the activity plan. This is an informal, adult learning environment; expect that individuals will have their own agenda." Tone that polices rather than supports degrades engagement quality. (Source: Ch 7, "Write a welcome post")
+12.  **No-pressuring-tone discipline.** "Avoid pressuring participants to comply with course deadlines, or suggesting they are only welcome if they are committed to following the activity plan. This is an informal, adult learning environment; expect that individuals will have their own agenda." [V] Tone that polices rather than supports degrades engagement quality. (Source: Ch 7, "Write a welcome post")
 
-13.  **Closing-and-leaving design.** "An important facilitator role is to draw the course to a close and celebrate learning, connections and accomplishments." The closing is designed, not improvised; it includes celebration, reflection, and a forward-look. (Source: Ch 5, "Closing the course")
+13.  **Closing-and-leaving design.** "An important facilitator role is to draw the course to a close and celebrate learning, connections and accomplishments." [V] The closing is designed, not improvised; it includes celebration, reflection, and a forward-look. (Source: Ch 5, "Closing the course")
 
 14.  **Co-facilitation on complementarity criteria.** Co-conveners chosen for complementarity — complementary skills (technical vs facilitation), complementary working hours (night owl vs early riser) — sustain longer engagement coverage than co-conveners chosen for seniority or convenience. (Source: Ch 7, "Two heads are better than one")
 
-15.  **Accessibility as ongoing inclusive facilitation.** "Ensuring accessibility of learning is an ongoing quest, as technologies change and we gain experience in online facilitation of FLO courses." Four diagnostic questions for repeat use. Inclusion is a continuing practice, not a state. (Source: Ch 3, "Accessible design, inclusive facilitation")
+15.  **Accessibility as ongoing inclusive facilitation.** "Ensuring accessibility of learning is an ongoing quest, as technologies change and we gain experience in online facilitation of FLO courses." [V] Four diagnostic questions for repeat use. Inclusion is a continuing practice, not a state. (Source: Ch 3, "Accessible design, inclusive facilitation")
 
-16.  **Harvest the gems — collective sense-making.** "Throughout the course, it's useful to create a routine that brings together the resources that the participants are sharing." The convener has a role in surfacing collective output back to the group, making the group's work visible to itself. (Source: Ch 7, "Harvest the gems!")
+16.  **Harvest the gems — collective sense-making.** "Throughout the course, it's useful to create a routine that brings together the resources that the participants are sharing." [V] The convener has a role in surfacing collective output back to the group, making the group's work visible to itself. (Source: Ch 7, "Harvest the gems!")
 
-17.  **Reflective practice as scheduled, structured, modelled, shared discipline.** "Evidence has shown that learning is improved when participants become more aware (metacognition) of how and what they are learning." Reflection that is scheduled, structured, modelled by the facilitator, and shared in the group produces metacognitive learning that unstructured reflection does not. (Source: Ch 5, sidebar on reflective practice)
+17.  **Reflective practice as scheduled, structured, modelled, shared discipline.** "Evidence has shown that learning is improved when participants become more aware (metacognition) of how and what they are learning." [V] Reflection that is scheduled, structured, modelled by the facilitator, and shared in the group produces metacognitive learning that unstructured reflection does not. (Source: Ch 5, sidebar on reflective practice)
 
 ## Questions to Ask During Stakeholder-Engagement
 
@@ -85,7 +85,7 @@ The Guide's load-bearing stakeholder-engagement contributions are: (a) the scaff
 
 | Need | Question |
 |---|---|
-| Have we crafted the welcome post or convening message? | "This is your first impression." Establish presence; clear without being too long or too short; ends with invitation. |
+| Have we crafted the welcome post or convening message? | "This is your first impression." [V] Establish presence; clear without being too long or too short; ends with invitation. |
 | Have we stated the climate rules out loud? | Vegas rules, privacy, recording consent, what happens if people miss a session. The rules are stated, not assumed. |
 | Have we set up the engagement-equity tracking? | Tracking matrix or equivalent — participant names and many blank columns; mark when responding; review periodically. |
 | Have we designed accessibility into the engagement? | UDL multiple-means lens; alternatives to new tools; awareness of how diverse learners perceive the environment. |
@@ -96,7 +96,7 @@ The Guide's load-bearing stakeholder-engagement contributions are: (a) the scaff
 |---|---|
 | Are we calibrating our presence to the phase? | Heavy in the opening weeks (community building, scaffolding); lighter in middle weeks (coach, mentor). Where are we on the arc, and where should we be? |
 | Are we modelling what we are asking participants to do? | If we are asking them to share reflective practice, are we sharing our own? |
-| Are we using open-ended invitational questions? | Asking "how they think things are going" — is the question-form discipline holding, or drifting into closed questions? |
+| Are we using open-ended invitational questions? | Asking "how they think things are going" [V] — is the question-form discipline holding, or drifting into closed questions? |
 | Are we resisting thoroughness in our feedback? | Comment on one or two aspects of the artefact; invite participants to elaborate. |
 | Are we surfacing predictable participant experiences structurally? | First-week overwhelm, Week-3 anxiety, end-of-course let-down. Naming these structurally rather than personally is part of the work. |
 | Are we noticing the Anxious-Annie pattern in ourselves? | When we feel the urge to chase, over-respond, intervene early — is this responding to a participant problem, or to our own facilitator anxiety? |
@@ -110,14 +110,14 @@ The Guide's load-bearing stakeholder-engagement contributions are: (a) the scaff
 | Have we designed the closing? | Synchronous celebration, final forum post — the closing is a designed move, not an improvised end. What is ours? |
 | Have we run a structured reflective practice across the engagement? | Learning Journal equivalent, weekly nuggets equivalent, Looking-Back/Looking-Forward closing. |
 | Have we harvested the gems? | What did this group surface that is worth bringing back to the group? |
-| Have we scheduled the co-facilitator debrief? | "Don't part company with your co-facilitators without scheduling a debrief." The debrief is a closure move, not optional. |
+| Have we scheduled the co-facilitator debrief? | "Don't part company with your co-facilitators without scheduling a debrief." [V] The debrief is a closure move, not optional. |
 
 ### Phase 6: Post-engagement
 
 | Need | Question |
 |---|---|
 | Have we responded to participant self-assessments? | Especially where the participant's self-assessment and our perception differ — reach out directly to invite discussion. |
-| Have we reflected on our own facilitation? | "Make notes of things that you'd like to enhance or change for next time — especially while it's fresh in your memory!" |
+| Have we reflected on our own facilitation? | "Make notes of things that you'd like to enhance or change for next time — especially while it's fresh in your memory!" [V] |
 | Have we kept in touch with participants where appropriate? | Continued connection extends the engagement value beyond the formal close. |
 
 ## What to Look For
@@ -201,7 +201,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - The Guide does not develop negotiation theory, conflict-resolution methodology, or cross-cultural facilitation; its cultural awareness note is limited to the accessibility diagnostic questions.
 - MicroCourse facilitation is explicitly lighter-touch than Fundamentals/Design/Synchronous; the Guide acknowledges that the equity-tracking and counsel-out moves do not apply in the same way to MicroCourses.
 
-**Evidence-marker continuity.** The deep reference at `references/flo-facilitation-guide-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. The scaffolding-and-fading arc, climate-as-operational framing, resist-thoroughness rule, engagement-equity tracking, welcome-post discipline, and closing design are all `[V]`-marked (verbatim from source). The four core skill categories are `[AP]` (paraphrase of the source's table). The borrowed-through lineage (CoI model, UDL, participant testimony as evidence) is `[BT]`. This distillation paraphrases throughout; no verbatim blockquotes appear here — verbatim passages are held in the deep ref under Pass D exactness verification.
+**Evidence-marker continuity.** The deep reference at `references/flo-facilitation-guide-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. The scaffolding-and-fading arc, climate-as-operational framing, resist-thoroughness rule, engagement-equity tracking, welcome-post discipline, and closing design are all `[V]`-marked (verbatim from source). The four core skill categories are `[AP]` (paraphrase of the source's table). The borrowed-through lineage (CoI model, UDL, participant testimony as evidence) is `[BT]`. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; the deep ref holds the full verbatim register under Pass D exactness verification.
 
 ## Related concepts
 

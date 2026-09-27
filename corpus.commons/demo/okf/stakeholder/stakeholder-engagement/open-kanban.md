@@ -12,7 +12,7 @@ sources:
     resource: https://github.com/agilelion/Open-Kanban
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # Hurtado, Open Kanban — Stakeholder-Engagement Distillation
 
@@ -22,43 +22,43 @@ generated:
 
 Open Kanban does not name "stakeholder engagement" as a distinct concern, but engagement runs through the framework's values and practices in three recognisable patterns: the *team-internal engagement* enabled by the five values; the *cross-functional engagement* via the Kanban board as an information radiator; and the *cross-organisational engagement* enacted through the Open Kanban Movement itself.
 
-**Team-internal engagement.** The five values *condition* the team's engagement quality. Respect for people enables the delegation and pull-based work flow without which a Kanban team cannot self-organise. Courage enables the upward feedback ("when a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it") without which engagement is only nominal. Communication and Collaboration are packaged deliberately as one value because "one value does not work without the other" — the team's working unit requires both simultaneously. Focus on Value gives engagement a common reference point ("the creation of value... Value implies customer satisfaction"). The Holistic or Systemic Approach value, grounded in Deming and Goldratt [BT], names *people* as "the key part of the system" — not as resources but as "full rounded individuals who make the system work."
+**Team-internal engagement.** The five values *condition* the team's engagement quality. Respect for people enables the delegation and pull-based work flow without which a Kanban team cannot self-organise. Courage enables the upward feedback ("when a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it" [V]) without which engagement is only nominal. Communication and Collaboration are packaged deliberately as one value because "one value does not work without the other" [V] — the team's working unit requires both simultaneously. Focus on Value gives engagement a common reference point ("the creation of value... Value implies customer satisfaction" [V]). The Holistic or Systemic Approach value, grounded in Deming and Goldratt [BT], names *people* as "the key part of the system" [V] — not as resources but as "full rounded individuals who make the system work." [V]
 
-**Cross-functional engagement through visualisation.** The Kanban board is named explicitly as a collaboration enabler: "This Kanban practice makes it easier to collaborate in a team setting, and also provides transparency about the process and the work everyone is doing. If you are a manager you can easily see at any moment what is the status of things, and if you are a team member you can see your impact on the overall work." The information radiator (Cockburn's term, cited [BT]) is the engagement-enabling artefact: it makes the work visible to anyone who walks past.
+**Cross-functional engagement through visualisation.** The Kanban board is named explicitly as a collaboration enabler: "This Kanban practice makes it easier to collaborate in a team setting, and also provides transparency about the process and the work everyone is doing. If you are a manager you can easily see at any moment what is the status of things, and if you are a team member you can see your impact on the overall work." [V] The information radiator (Cockburn's term, cited [BT]) is the engagement-enabling artefact: it makes the work visible to anyone who walks past.
 
-**Cross-organisational engagement through the Movement.** Open Kanban's "Movement" framing — modelled on the Free Software Movement's four freedoms — is itself a sustained engagement strategy with the broader Kanban community. The author explicitly invites Alan Shalloway, Corey Ladas, and Karl Scotland [BT] to participate. The CC BY 3.0 licence is the structural enabler — anyone can fork, modify, redistribute, or build commercial derivatives — and the reciprocal ask is engagement-shaped: "Contribute your best ideas back to Open Kanban root repository."
+**Cross-organisational engagement through the Movement.** Open Kanban's "Movement" framing — modelled on the Free Software Movement's four freedoms — is itself a sustained engagement strategy with the broader Kanban community. The author explicitly invites Alan Shalloway, Corey Ladas, and Karl Scotland [BT] to participate. The CC BY 3.0 licence is the structural enabler — anyone can fork, modify, redistribute, or build commercial derivatives — and the reciprocal ask is engagement-shaped: "Contribute your best ideas back to Open Kanban root repository." [V]
 
-A fourth thread runs through the methodology's lean-leadership stance: team-based leadership without role restructuring. "Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value." The framework deliberately refuses to require a precondition (formal restructuring) it cannot guarantee.
+A fourth thread runs through the methodology's lean-leadership stance: team-based leadership without role restructuring. "Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value." [V] The framework deliberately refuses to require a precondition (formal restructuring) it cannot guarantee.
 
 ## Key Concepts for Stakeholder Engagement
 
 1.  **Stakeholders in Open Kanban (named in the source).** The source names: developers; managers and "person in authority"; team members; customers (implicit in *Focus on Value*); the broader Kanban community; fellow-traveller methodologists by name (Alan Shalloway, Corey Ladas, Karl Scotland [BT]); and the Open Kanban contributor community via GitHub. Stakeholder typology is not exhausted; the source surfaces engagement *patterns* more than a stakeholder map. (Source: Hurtado, *Open Kanban* Release 1.00 Rev A, throughout)
 
-2.  **Respect for people as the engagement foundation.** "At the core of Lean and TPS is respecting people. Respect for people also means assuming responsibility for your actions, and empowering others to take those actions." Engagement without respect collapses into compliance. The pull-based scheduling discipline operationalises respect: the team member doing the work is trusted to pull what they will do next. ("Open Kanban Values" — Respect for people)
+2.  **Respect for people as the engagement foundation.** "At the core of Lean and TPS is respecting people. Respect for people also means assuming responsibility for your actions, and empowering others to take those actions." [V] Engagement without respect collapses into compliance. The pull-based scheduling discipline operationalises respect: the team member doing the work is trusted to pull what they will do next. ("Open Kanban Values" — Respect for people)
 
-3.  **Courage as the upward-engagement enabler.** "Like Kent Beck [BT] noticed in order to improve or even correct mistakes we need courage. When a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." Engagement that flows only top-down is partial; without lower-rank correction of higher-rank decisions, the system has no feedback. ("Open Kanban Values" — Courage)
+3.  **Courage as the upward-engagement enabler.** "Like Kent Beck [BT] noticed in order to improve or even correct mistakes we need courage. When a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." [V] Engagement that flows only top-down is partial; without lower-rank correction of higher-rank decisions, the system has no feedback. ("Open Kanban Values" — Courage)
 
-4.  **Communication and Collaboration packaged as one value.** "Communication, and collaboration are at the center of teamwork. One value does not work without the other that is the reason we decided to group them together. To succeed we need to make ourselves heard (communicate) but also we need to be able to work with others to create value." The deliberate packaging is a stake in the ground: engagement that does only one of these is engagement that fails. ("Open Kanban Values" — Communication and Collaboration)
+4.  **Communication and Collaboration packaged as one value.** "Communication, and collaboration are at the center of teamwork. One value does not work without the other that is the reason we decided to group them together. To succeed we need to make ourselves heard (communicate) but also we need to be able to work with others to create value." [V] The deliberate packaging is a stake in the ground: engagement that does only one of these is engagement that fails. ("Open Kanban Values" — Communication and Collaboration)
 
-5.  **People as the key part of the system.** "The key part of the system is people, not just as resources, but also as full rounded individuals who make the system work." The Holistic / Systemic value grounded in Deming and Goldratt refuses the resource-allocation framing of stakeholders; people are constitutive of the system, not inputs to it. ("Open Kanban Values" — Holistic or Systemic Approach to Change)
+5.  **People as the key part of the system.** "The key part of the system is people, not just as resources, but also as full rounded individuals who make the system work." [V] The Holistic / Systemic value grounded in Deming and Goldratt refuses the resource-allocation framing of stakeholders; people are constitutive of the system, not inputs to it. ("Open Kanban Values" — Holistic or Systemic Approach to Change)
 
-6.  **Sustainable pace as an engagement-quality constraint.** "If you respect your team you will not work them to death, or subject any worker to intellectual or physical demands that make it nearly impossible to succeed. An exhausted developer, manager or team are the perfect recipe for disaster." *Muri* (overburden) destroys engagement; sustainable pace protects it. ("Open Kanban Values" — Respect for people)
+6.  **Sustainable pace as an engagement-quality constraint.** "If you respect your team you will not work them to death, or subject any worker to intellectual or physical demands that make it nearly impossible to succeed. An exhausted developer, manager or team are the perfect recipe for disaster." [V] *Muri* (overburden) destroys engagement; sustainable pace protects it. ("Open Kanban Values" — Respect for people)
 
-7.  **The Kanban board as cross-functional engagement artefact.** "Kanban boards [are] visual representations of the flow of work that show how work items move from stage to the next... This Kanban practice makes it easier to collaborate in a team setting, and also provides transparency about the process and the work everyone is doing." The board engages the team and the manager simultaneously. ("Open Kanban Practices" — Visualize the workflow)
+7.  **The Kanban board as cross-functional engagement artefact.** "Kanban boards [are] visual representations of the flow of work that show how work items move from stage to the next... This Kanban practice makes it easier to collaborate in a team setting, and also provides transparency about the process and the work everyone is doing." [V] The board engages the team and the manager simultaneously. ("Open Kanban Practices" — Visualize the workflow)
 
-8.  **Information radiators broaden the engagement field.** "Visualizing the workflow is not limited to Kanban boards; one can also use signs and diagrams that the team can see in their work environment, like dashboards, performance metrics or other information radiators." (Cockburn's term, cited [BT].) Any stakeholder who walks past sees the work. ("Open Kanban Practices" — Visualize the workflow)
+8.  **Information radiators broaden the engagement field.** "Visualizing the workflow is not limited to Kanban boards; one can also use signs and diagrams that the team can see in their work environment, like dashboards, performance metrics or other information radiators." [V] (Cockburn's term, cited [BT].) Any stakeholder who walks past sees the work. ("Open Kanban Practices" — Visualize the workflow)
 
-9.  **Team-based leadership without role restructuring.** "Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value. Teams and team leadership are crucial to deliver value... No need for new roles or titles, but we do have a need for working teams, with leaders in them!" ("Open Kanban Practices" — Lead using a team approach)
+9.  **Team-based leadership without role restructuring.** "Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value. Teams and team leadership are crucial to deliver value... No need for new roles or titles, but we do have a need for working teams, with leaders in them!" [V] ("Open Kanban Practices" — Lead using a team approach)
 
-10.  **The Open Kanban Movement as field-level engagement strategy.** "Open Kanban is a movement to make the core values and principles of Kanban available to all... Likewise Open Kanban's purpose is to give the Kanban community those four freedoms, but now in the context of shared knowledge." The Movement framing — and the CC BY 3.0 licence that operationalises it — is itself a sustained engagement with the broader Kanban field. ("Our Movement for a Free Open Kanban")
+10.  **The Open Kanban Movement as field-level engagement strategy.** "Open Kanban is a movement to make the core values and principles of Kanban available to all... Likewise Open Kanban's purpose is to give the Kanban community those four freedoms, but now in the context of shared knowledge." [V] The Movement framing — and the CC BY 3.0 licence that operationalises it — is itself a sustained engagement with the broader Kanban field. ("Our Movement for a Free Open Kanban")
 
-11.  **Explicit invitations to named fellow-travellers.** "We already share many key ideas with Alan Shalloway's Kanban for Teams, Corey Ladas Scrumban and Karl Scotland's Kanban Thinking. We extend an open invitation to them, and to any leading thinker or organization that wants to join us." The author engages the field by naming people, not just positions. ("The Open Kanban Movement")
+11.  **Explicit invitations to named fellow-travellers.** "We already share many key ideas with Alan Shalloway's Kanban for Teams, Corey Ladas Scrumban and Karl Scotland's Kanban Thinking. We extend an open invitation to them, and to any leading thinker or organization that wants to join us." [V] The author engages the field by naming people, not just positions. ("The Open Kanban Movement")
 
 12.  **Reciprocal contribution as the engagement ask.** "We only ask you that you: Give us credit; Contribute your best ideas back to Open Kanban root repository." CC BY 3.0 does not require Share-Alike, so the contribution-back is a *request*, not a legal obligation — but the methodology's stated preference is reciprocal community engagement. ("Open Kanban's License")
 
-13.  **Continuous learning as engagement renewal.** "There are many ways a Kanban team can implement this practice, you could have Retrospectives, Strategy Meetings or even Kaizen Groups." The forms vary; the engagement function is the same — periodic, structured team conversation about how the work is going. ("Open Kanban Practices" — Learn and improve continuously)
+13.  **Continuous learning as engagement renewal.** "There are many ways a Kanban team can implement this practice, you could have Retrospectives, Strategy Meetings or even Kaizen Groups." [V] The forms vary; the engagement function is the same — periodic, structured team conversation about how the work is going. ("Open Kanban Practices" — Learn and improve continuously)
 
-14.  **Cross-domain applicability.** "Although it's main focus is in IT and Software Development, Open Kanban can be used in any business or non-profit to achieve agility and continuous improvement." Engagement patterns transfer across knowledge-work domains. ("Open Kanban Definition")
+14.  **Cross-domain applicability.** "Although it's main focus is in IT and Software Development, Open Kanban can be used in any business or non-profit to achieve agility and continuous improvement." [V] Engagement patterns transfer across knowledge-work domains. ("Open Kanban Definition")
 
 ## Questions to Ask During Stakeholder Engagement
 
@@ -68,7 +68,7 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 |---|---|
 | Identify team stakeholders | Who is on the team — developers, designers, analysts, testers, leads? Open Kanban does not require role redefinition, so the existing team membership is the engagement frame. |
 | Identify cross-functional stakeholders | Who else needs visibility into the team's flow — managers, downstream operations, customer support, dependent teams? The Kanban board is the artefact they engage with. |
-| Identify the manager-as-stakeholder | "If you are a manager you can easily see at any moment what is the status of things." Is the manager engaging with the board, or working around it? |
+| Identify the manager-as-stakeholder | "If you are a manager you can easily see at any moment what is the status of things." [V] Is the manager engaging with the board, or working around it? |
 | Surface "person in authority" engagement | Is there someone in authority whose decisions affect the team's work? Open Kanban's Courage value names this stakeholder type explicitly — courage is the named lever for upward engagement. |
 | Identify field-level stakeholders | Are there fellow practitioners, methodologists, or vendors the team or organisation engages with around its Kanban practice? Open Kanban's Movement framing names this layer. |
 | Test whether people are framed as resources | Are stakeholders being treated as inputs to a system or as constitutive parts of it? "People... [are] not just as resources, but also as full rounded individuals who make the system work." |
@@ -82,7 +82,7 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 | Frame engagement at the right organisational level | Is the engagement happening at the team level (where pull and leadership operate), the cross-functional level (where the board makes flow visible), or the field level (where the Movement framing applies)? |
 | Frame around sustainable pace | Will the engagement (and the work that follows) sustain over multiple cycles? *Muri* (overburden) destroys engagement quality. |
 | Frame around team-based leadership | Is the team's leadership being engaged, or being bypassed? Open Kanban does not require new titles; it requires team leadership to be present. |
-| Frame around the customer | "Value implies customer satisfaction, and that is the purpose of our efforts." Is the customer on the engagement map, or has the conversation drifted to internal stakeholders only? |
+| Frame around the customer | "Value implies customer satisfaction, and that is the purpose of our efforts." [V] Is the customer on the engagement map, or has the conversation drifted to internal stakeholders only? |
 
 ### Phase 3: Convening (How to engage in the moment)
 
@@ -91,8 +91,8 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 | Use the Kanban board as conversation anchor | Are the team and the cross-functional stakeholders looking at the board together? Open Kanban's collaboration claim is that the board is the artefact that organises the conversation. |
 | Encourage upward correction | Has the lower-rank-corrects-higher-rank moment that Open Kanban's Courage value names happened, or has the engagement stayed top-down? |
 | Honour pull discipline in the conversation | If a team member resists a commitment, are they being heard (pull) or overridden (push)? The pull-based scheduling principle applies to engagement decisions, not only to work decisions. |
-| Treat the manager as collaborator, not arbiter | "Manager you can easily see at any moment what is the status of things, and if you are a team member you can see your impact on the overall work." The board levels the engagement asymmetry. |
-| Sustain Communication and Collaboration together | Are people being heard (communicated with), and are they working with others (collaborating)? "One value does not work without the other." |
+| Treat the manager as collaborator, not arbiter | "Manager you can easily see at any moment what is the status of things, and if you are a team member you can see your impact on the overall work." [V] The board levels the engagement asymmetry. |
+| Sustain Communication and Collaboration together | Are people being heard (communicated with), and are they working with others (collaborating)? "One value does not work without the other." [V] |
 | Engage the customer's perspective | Where the engagement involves the product or service, is the customer's value-perspective surfaced? |
 
 ### Phase 4: Capturing (Recording what was learned)
@@ -122,8 +122,8 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 |---|---|
 | Close the work visible on the board | Has the completed work been moved to *done* on the board (or its information-radiator equivalent)? The visible-closure ritual matters. |
 | Hand over backlog items if the team disbands | If the team is being reorganised, what is the disposition of remaining backlog items and the persistent board? |
-| Close the engagement cycle with a learning step | "Learning is the key concept before continuous improvement can ever happen!" Did the engagement cycle close with a Retrospective, Strategy Meeting, or Kaizen Group? |
-| Contribute back at the field level | If the team learned something general about Kanban practice, can it be contributed back to the Open Kanban repository? "Contribute your best ideas back to Open Kanban root repository." |
+| Close the engagement cycle with a learning step | "Learning is the key concept before continuous improvement can ever happen!" [V] Did the engagement cycle close with a Retrospective, Strategy Meeting, or Kaizen Group? |
+| Contribute back at the field level | If the team learned something general about Kanban practice, can it be contributed back to the Open Kanban repository? "Contribute your best ideas back to Open Kanban root repository." [V] |
 
 ## What to Look For
 
@@ -133,14 +133,14 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 
 **Signal:** Lower-rank team members consistently agree with higher-rank suggestions in the room, then raise concerns in side conversations afterward.
 **Diagnosis:** The Courage value is not firing. The engagement pattern is top-down; upward correction requires a climate where it is safe.
-**Follow-up:** Name the pattern explicitly. The Courage value is the named lever: "when a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." Ask for the side-conversation concerns to be raised in the room.
+**Follow-up:** Name the pattern explicitly. The Courage value is the named lever: "when a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." [V] Ask for the side-conversation concerns to be raised in the room.
 
 **Signal:** Stakeholders keep asking for status updates that the Kanban board is supposed to answer.
 **Diagnosis:** The board is not visible enough, or stakeholders have not been oriented to reading it. The information radiator is not radiating.
 **Follow-up:** Redesign the board's visibility — physical location, digital access, or summary radiator. Orient cross-functional stakeholders to the board as the status answer. The board makes the work visible to anyone who walks past; if stakeholders are not walking past, route them there.
 
 **Signal:** The team's Retrospective produces the same improvement ideas month after month without implementation.
-**Diagnosis:** "Learn and improve continuously" is being performed (the retrospective happens) but not enacted (the improvements are not pulled into work). The engagement cycle is closing without locking change.
+**Diagnosis:** "Learn and improve continuously" [V] is being performed (the retrospective happens) but not enacted (the improvements are not pulled into work). The engagement cycle is closing without locking change.
 **Follow-up:** Apply the Kanban board to the improvement ideas: add them as backlog items, pull them like any other work, and make them visible. The fourth practice — Learn and improve continuously — requires the same pull discipline as the first three.
 
 ## When to Use This Reference
@@ -171,11 +171,11 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 
 - **Treating stakeholder engagement as separate from the board** — the board is the cross-functional engagement artefact; engagement that bypasses it re-introduces the opacity the board was designed to eliminate.
 - **Push-based scheduling presented as engagement** — assigning work to team members (push) rather than letting them pull from a prioritised backlog removes the engagement-quality signal that pull-based scheduling provides.
-- **Communication without Collaboration** — telling stakeholders what the team is doing is communication; involving stakeholders in shaping the work is collaboration. Open Kanban packages these as one value because "one value does not work without the other."
+- **Communication without Collaboration** — telling stakeholders what the team is doing is communication; involving stakeholders in shaping the work is collaboration. Open Kanban packages these as one value because "one value does not work without the other." [V]
 - **Letting the Courage-required moment pass silently** — lower-rank stakeholders correcting higher-rank decisions is the named mechanism for system feedback; without it, the feedback loop is broken.
 - **Overburden as engagement-quality management** — *Muri* (overburden) destroys the sustainable pace that makes consistent engagement possible; treating "we can always do one more" as a sign of team commitment is the named failure mode.
 - **Treating people as resources** — Open Kanban's Deming-grounded Holistic / Systemic value refuses this; people constitute the system, they are not inputs to it.
-- **Engagement without a learning close** — "Learning is the key concept before continuous improvement can ever happen!" An engagement cycle that closes without a Retrospective, Strategy Meeting, or Kaizen Group has not closed its learning loop.
+- **Engagement without a learning close** — "Learning is the key concept before continuous improvement can ever happen!" [V] An engagement cycle that closes without a Retrospective, Strategy Meeting, or Kaizen Group has not closed its learning loop.
 - **Field-level engagement without naming who is invited** — the Movement framing's explicit invitation to named fellow-travellers is the model; naming people (not positions) is what makes engagement real.
 - **CC BY 3.0 licence as an excuse not to contribute back** — the licence does not require Share-Alike, but the methodology's stated preference is reciprocal community engagement; treating the licence permissiveness as permission to extract without contributing is the named failure mode.
 
@@ -198,7 +198,7 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 - Deming, System of Profound Knowledge — cited as theoretical grounding for the Holistic or Systemic Approach to Change value [BT]
 - Goldratt, Theory of Constraints — cited as theoretical grounding for the same value, paired with Deming [BT]
 - Alistair Cockburn, "information radiator" — cited as the conceptual source for visualisation extending beyond the Kanban board [BT]
-- Donald G. Reinertsen, *The Principles of Product Development Flow* — cited as "one of the best explanations" of batch-size reduction's effect on flow [BT]
+- Donald G. Reinertsen, *The Principles of Product Development Flow* — cited as "one of the best explanations" [V] of batch-size reduction's effect on flow [BT]
 - Toyota Production System — linked from the word *Japan*; the source says Lean originated in Japan and calls this type of Kanban カンバン (Kamban); Muri and Muda [BT]
 - Agile Manifesto (Beck et al.) — cited as one of the two movements Open Kanban aligns with [BT]
 - Alan Shalloway, Corey Ladas, Karl Scotland — named as fellow-traveller methodologists in the Movement [BT]
@@ -213,7 +213,7 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 - Just Culture / blame-free incident response is not addressed; the Courage value is the only engagement-safety concept in the source.
 - Licensed CC BY 3.0 Unported; no share-alike requirement on derivatives.
 
-**Evidence-marker continuity.** The deep reference at `references/open-kanban-deep.md` uses `[V]`, `[AR]`, and `[BT]` markers throughout (48 `[V]`, 23 `[BT]`, 2 `[AR]`). This distillation paraphrases throughout; Key Concepts drawn from the source's values and practices sections are `[V]` in the deep ref (verbatim from source). The Kent Beck (Courage), Deming, Goldratt, Cockburn, and Reinertsen citations are all `[BT]` in the deep ref. The government-agency Kanban scenario in the Worked Example is operator-authored. The Open Kanban Movement framing and the CC BY 3.0 licence discussion are `[V]`-marked in the deep ref.
+**Evidence-marker continuity.** The deep reference at `references/open-kanban-deep.md` uses `[V]`, `[AR]`, and `[BT]` markers throughout (48 `[V]`, 23 `[BT]`, 2 `[AR]`). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; Key Concepts drawn from the source's values and practices sections are `[V]` in the deep ref (verbatim from source). The Kent Beck (Courage), Deming, Goldratt, Cockburn, and Reinertsen citations are all `[BT]` in the deep ref. The government-agency Kanban scenario in the Worked Example is operator-authored. The Open Kanban Movement framing and the CC BY 3.0 licence discussion are `[V]`-marked in the deep ref.
 
 ## Related concepts
 

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-marketing
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # OpenStax, Principles of Marketing, Decision-Making Distillation
 
@@ -223,7 +223,7 @@ Decision: stretch-down product development to a new segment is the highest-expec
 
 **Named limits of the source.** The text is an introductory marketing survey; it covers the commercial decision space — customer acquisition, segmentation, pricing, promotion, distribution — with breadth but limited depth on any single domain. Pricing theory (especially game-theoretic competitive pricing and price-discrimination mechanics) is introduced without full treatment. The sustainability chapter (Ch 19) covers ESG orientation but does not develop full ESG-reporting or life-cycle analysis methods. The book is explicitly silent on internal organisational decisions.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-principles-marketing-deep.md`). Key Concepts are `[AP]` (the source's stated positions on marketing method) or `[AE]` (worked examples drawn from the source). The foundational frameworks imported from other authors — Maslow, Hofstede, Rogers, Levitt, Ries/Trout — are all `[BT]`; the source endorses and applies them but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-marketing-deep.md`). Key Concepts are `[AP]` (the source's stated positions on marketing method) or `[AE]` (worked examples drawn from the source). The foundational frameworks imported from other authors — Maslow, Hofstede, Rogers, Levitt, Ries/Trout — are all `[BT]`; the source endorses and applies them but did not originate them.
 
 ## Related concepts
 

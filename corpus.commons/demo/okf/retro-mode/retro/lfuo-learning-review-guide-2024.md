@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # US Forest Service LFUO 2024, Retrospective Distillation
 
@@ -24,9 +24,9 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 
 ## Key Concepts for Retrospective
 
-1.  **Cause is constructed, not discovered.** "Cause isn't something investigators 'find' or 'discover'; cause is always something we create by recreating the event showing how certain anomalies led to the accident" (Appendix B, "A Deeper Dive into Causal Factors"). In retro, whenever the team reaches for "root cause," redirect: what are the conditions — networked, not linear — that collectively shaped this outcome?
+1.  **Cause is constructed, not discovered.** "Cause isn't something investigators 'find' or 'discover'; cause is always something we create by recreating the event showing how certain anomalies led to the accident" [V] (Appendix B, "A Deeper Dive into Causal Factors" [V]). In retro, whenever the team reaches for "root cause," redirect: what are the conditions — networked, not linear — that collectively shaped this outcome?
 
-2.  **Networked causality as the replacement vocabulary.** "The combined total of those conditions that collectively influenced the event or outcome" (Glossary, "Networked causality"). The vocabulary shift matters because it changes what the team looks for. Linear cause points to one fix; networked causality points to a system.
+2.  **Networked causality as the replacement vocabulary.** "The combined total of those conditions that collectively influenced the event or outcome" [V] (Glossary, "Networked causality"). The vocabulary shift matters because it changes what the team looks for. Linear cause points to one fix; networked causality points to a system.
 
 3.  **Counterfactual reasoning is forbidden.** "FLA teams must guard against making counterfactual arguments such as: 'If this person had done X, then the outcome would have been Y and the accident would not have occurred.' The FLA is only useful when it learns why people did what they actually did" (Part 9, "Avoid Counterfactual Arguments"). In retro, state the rule aloud at the opening when blame language or counterfactual framing is anticipated.
 
@@ -34,11 +34,11 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 
 5.  **Beliefs, perceptions, expectations, paradigms decomposition.** Each key recurring problem can be decomposed into the beliefs, perceptions, expectations, and paradigms the team held before the Sprint that turned out to be wrong, inaccurate, or misleading (Part 7, step 4). This four-category decomposition surfaces what is invisible in a surface-level data-gathering pass.
 
-6.  **Work-as-imagined vs work-as-done as the diagnostic frame.** "How were we actually completing the work vs how managers were expecting the work to be completed?" (Part 1, "Systems Thinking"). In retro, this is the recurring-problem diagnostic: where is the gap between what the team's process says should happen and what the team actually does?
+6.  **Work-as-imagined vs work-as-done as the diagnostic frame.** "How were we actually completing the work vs how managers were expecting the work to be completed?" [V] (Part 1, "Systems Thinking"). In retro, this is the recurring-problem diagnostic: where is the gap between what the team's process says should happen and what the team actually does?
 
-7.  **Multiple improbable events as the pattern in complex systems.** "Most often, the Lessons Learned Analysis will reveal that multiple improbable events were necessary for the accident to occur" (Part 7). Scaled to retro: a recurring problem that has not yielded to a single fix is almost certainly the product of multiple interacting conditions, not a single cause that has been missed.
+7.  **Multiple improbable events as the pattern in complex systems.** "Most often, the Lessons Learned Analysis will reveal that multiple improbable events were necessary for the accident to occur" [V] (Part 7). Scaled to retro: a recurring problem that has not yielded to a single fix is almost certainly the product of multiple interacting conditions, not a single cause that has been missed.
 
-8.  **Just Culture framing as the substrate for blame-free retrospection.** "Employees make mistakes, but most of the time (almost continuously) they are actually *creating safety*" (Part 1, "Part 1 — Foundational Principles"). In retro: human performance variability is "not only normal, it's the rule!" (Part 1, "Learning"). This framing supports the Prime Directive's intent without requiring direct citation of Kerth.
+8.  **Just Culture framing as the substrate for blame-free retrospection.** "Employees make mistakes, but most of the time (almost continuously) they are actually *creating safety*" [V] (Part 1, "Part 1 — Foundational Principles"). In retro: human performance variability is "not only normal, it's the rule!" [V] (Part 1, "Learning"). This framing supports the Prime Directive's intent without requiring direct citation of Kerth.
 
 9.  **Learning and validation discipline.** The guide's emphasis that experiments require validation — checking whether the lesson was learned, not just whether the action was done — scales directly to Phase 0.5. What was the lesson the experiment was designed to surface? What changed because of it?
 
@@ -64,7 +64,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 
 | Need | Question |
 |---|---|
-| Is the LFUO framing on variability relevant here? | Is the team treating mistakes as aberrations or as normal? "Errors, mistakes, and lapses are inherent in the human condition" (Part 1, "Learning"). Naming this shifts the energy before data gathering begins. |
+| Is the LFUO framing on variability relevant here? | Is the team treating mistakes as aberrations or as normal? "Errors, mistakes, and lapses are inherent in the human condition" [V] (Part 1, "Learning"). Naming this shifts the energy before data gathering begins. |
 
 ### Phase 3: Insight / Cause Analysis
 
@@ -122,7 +122,7 @@ The team now has five networked conditions: story-writing process, refinement ti
 
 Phase 4: the experiment is designed as a hypothesis with a validation criterion. "We believe the scheduling conflict is the primary barrier; if we shift refinement by ten minutes, QA will attend at least three of the next four sessions." Named owner, named date, named evidence criterion.
 
-The cause-as-construction principle, counterfactual prohibition, Five Hows, local-rationality framing, and learning-validation discipline all trace to the LFUO guide (Appendix B, "A Deeper Dive into Causal Factors"; Part 9, "Avoid Counterfactual Arguments"; Part 7, "The Five Hows — A Sensemaking Tool"; Part 1, "Foundational Principles").
+The cause-as-construction principle, counterfactual prohibition, Five Hows, local-rationality framing, and learning-validation discipline all trace to the LFUO guide (Appendix B, "A Deeper Dive into Causal Factors" [V]; Part 9, "Avoid Counterfactual Arguments"; Part 7, "The Five Hows — A Sensemaking Tool" [V]; Part 1, "Foundational Principles").
 
 ## Anti-patterns This Reference Helps Avoid
 

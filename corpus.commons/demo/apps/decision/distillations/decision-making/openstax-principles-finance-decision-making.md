@@ -182,7 +182,7 @@ By NPV, A wins (highest absolute value). By IRR alone, C is roughly tied with A 
 - *Irving Fisher, Fisher effect* — nominal vs real interest rates: (1 + i) = (1 + R)(1 + h) (Ch 7.4) [BT].
 - *DuPont method* — developed at DuPont in 1919; ROE decomposition into profit margin × asset turnover × equity multiplier (Ch 6.6) [BT]. Key Concept 10 traces here.
 - *Meir Statman* — research establishing that ~12 stocks produce a reasonably diversified portfolio (Ch 15.2) [BT]. Key Concept 6 references this threshold.
-- *Benjamin Graham and Warren Buffett* — value investing methodology; Buffett's dividend-policy view as "almost a last resort" (Ch 12.1, Ch 12.4) [BT].
+- *Benjamin Graham and Warren Buffett* — value investing methodology; Buffett's dividend-policy view as "almost a last resort" [V] (Ch 12.1, Ch 12.4) [BT].
 - *Burton Malkiel* — cited for the empirical finding that IPOs underperform the market by ~4 per cent per year on average (Ch 12.1) [BT].
 - *Gordon growth model* — constant-growth dividend discount model: P = D₁ / (r - g) (Ch 11.2) [BT].
 - *Karl Pearson* — developer of the correlation coefficient (Ch 14.1) [BT].
@@ -190,4 +190,4 @@ By NPV, A wins (highest absolute value). By IRR alone, C is roughly tied with A 
 
 **Named limits of the source.** The book is an introductory finance text; it develops the core quantitative toolkit (TVM, NPV/IRR, CAPM, WACC) with solid rigour but does not cover advanced topics: real options theory for capital budgeting, credit derivatives, securitisation mechanics, or private-equity valuation. Qualitative and behavioural dimensions of financial decision-making (cognitive biases in capital allocation, overconfidence in forecasts) are acknowledged but not developed; those gaps are better served by the Organizational Behavior distillation.
 
-**Evidence-marker continuity.** This distillation paraphrases throughout; verbatim passages live in the deep reference (`openstax-principles-finance-deep.md`). Key Concepts are `[AP]` (the source's stated positions on method and principle) or `[AR]` (the source's reasoning, e.g., why NPV beats IRR for mutually exclusive projects). The DuPont method, MM Proposition II, Fisher effect, and Gordon growth model are `[BT]` — the source presents them as established frameworks without claiming to originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-finance-deep.md`). Key Concepts are `[AP]` (the source's stated positions on method and principle) or `[AR]` (the source's reasoning, e.g., why NPV beats IRR for mutually exclusive projects). The DuPont method, MM Proposition II, Fisher effect, and Gordon growth model are `[BT]` — the source presents them as established frameworks without claiming to originate them.

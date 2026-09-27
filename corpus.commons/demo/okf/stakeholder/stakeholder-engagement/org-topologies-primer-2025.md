@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-26T16:49:29+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Stakeholder-Engagement Distillation
 
@@ -20,23 +20,23 @@ generated:
 
 ## Stakeholder-Engagement Relevance
 
-The Primer is unusual among org-design texts in treating the *engagement* of the people affected by change as load-bearing, not as downstream rollout work. The cover declares OT as "the first human-centric plus AI-friendly organizational change approach" [V] and frames the human-centric claim explicitly: "OT is based on the psychology of change, recognizing that people have to own – not rent – their change." The Management Summary names lack-of-ownership as "an underappreciated factor behind failed change": "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work. As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities."
+The Primer is unusual among org-design texts in treating the *engagement* of the people affected by change as load-bearing, not as downstream rollout work. The cover declares OT as "the first human-centric plus AI-friendly organizational change approach" [V] and frames the human-centric claim explicitly: "OT is based on the psychology of change, recognizing that people have to own – not rent – their change." [V] The Management Summary names lack-of-ownership as "an underappreciated factor behind failed change": "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work. As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities."
 
 This stance has three operational consequences for stakeholder engagement. First, the choice of *vocabulary* matters: OT's named archetype language ("CAPS-2", "WHOLE-3", "TASKS-1") is positioned as a deliberately framework-agnostic discourse — "without resorting to 'agile' or other framework-specific jargon" — that "bringing together specialists from different backgrounds and facilitating open, unambiguous discussions about the current situation and the next steps." [V] Vocabulary is an engagement choice: framework-laden language pre-loads who is in the in-group and who isn't. Second, the MADE method's MAP step is explicitly an engagement activity: "going to the hands-on workplace to understand how the units work" [V] — not a back-office mapping exercise. Third, the closing co-creation note on p. 27 is a reflexive statement that the Primer itself was made by co-creation and that co-creation power increases as units move rightward (broader skill mandate) and upward (broader work mandate) on the OT map.
 
-A second engagement-discipline thread runs through the framework-vs-strategic-design distinction. The Primer treats framework adoption as a stakeholder-disengagement failure mode: "the pitch from consulting companies big and small" [V] produces "lack of enthusiastic understanding and support for the change, since the people didn't figure it out and create it themselves; it's pushed on to them. Don't underestimate this psychological dynamic!" The decision to *invite* stakeholders into designing their own org change versus *announcing* a chosen framework is an engagement-strategy decision with predictable downstream consequences ("cargo-cult" mentality, "Religious Wars", failed adoption).
+A second engagement-discipline thread runs through the framework-vs-strategic-design distinction. The Primer treats framework adoption as a stakeholder-disengagement failure mode: "the pitch from consulting companies big and small" [V] produces "lack of enthusiastic understanding and support for the change, since the people didn't figure it out and create it themselves; it's pushed on to them. Don't underestimate this psychological dynamic!" [V] The decision to *invite* stakeholders into designing their own org change versus *announcing* a chosen framework is an engagement-strategy decision with predictable downstream consequences ("cargo-cult" mentality, "Religious Wars", failed adoption).
 
 A third thread is the multi-level-engagement requirement. The Primer is explicit that single-team interventions miss the bigger picture: "True organizational impact requires alignment across all levels—from the organization's strategic decisions to HR and Finance policies, from group structures to how teams collaborate daily. Real change happens when everyone in the organization understands their role in the transformation and sees how improved organizational design can make their work more effective and meaningful at the global organizational level." Engagement design must cover strategic leadership, HR/Finance policy owners, group/team structures, and individual contributors as one connected system.
 
-A fourth thread, distinctive to the 2025 Edition, is the engagement framing for AI adoption. The three guiding questions for strategic AI adoption are structured as conversation prompts: "What parts of the organization are the focus of development with OT?", "What archetypes are part of your target, and what are the major bottlenecks?", "Do the AIs need monitoring by humans?" The third question's answer carries a stakeholder-engagement implication: "That implies new responsibilities and processes in your organization. We predict that monitoring will become an important responsibility for human workers." Naming the new responsibility before deciding the AI adoption is itself an engagement move.
+A fourth thread, distinctive to the 2025 Edition, is the engagement framing for AI adoption. The three guiding questions for strategic AI adoption are structured as conversation prompts: "What parts of the organization are the focus of development with OT?" [V], "What archetypes are part of your target, and what are the major bottlenecks?" [V], "Do the AIs need monitoring by humans?" [V] The third question's answer carries a stakeholder-engagement implication: "That implies new responsibilities and processes in your organization. We predict that monitoring will become an important responsibility for human workers." [V] Naming the new responsibility before deciding the AI adoption is itself an engagement move.
 
 This distillation gathers these threads into a working pattern: how to design stakeholder engagement around an org-change initiative; how to use the OT vocabulary as a discourse that invites rather than excludes; how to structure the MAP/ASSESS/DESIGN/ELEVATE sequence as co-creation rather than rollout; and how to anticipate and pre-empt the disengagement failure modes the Primer names directly.
 
 ## Key Concepts for Stakeholder-Engagement
 
-1.  **"People have to own – not rent – their change" as the foundational engagement principle.** The cover frames OT as based on "the psychology of change" — change initiatives that do not engage their people in the design of the change will be degraded in execution because the people will not "go the extra mile to make them work." [V] (Source: Krivitsky, Larman & Flemm, *Org Topologies Primer* 2025, p. 1, "Cover"; p. 3, "Management Summary")
+1.  **"People have to own – not rent – their change" [V] as the foundational engagement principle.** The cover frames OT as based on "the psychology of change" [V] — change initiatives that do not engage their people in the design of the change will be degraded in execution because the people will not "go the extra mile to make them work." [V] (Source: Krivitsky, Larman & Flemm, *Org Topologies Primer* 2025, p. 1, "Cover"; p. 3, "Management Summary")
 
-2.  **Vocabulary as engagement infrastructure.** OT's named archetypes (CAPS-2, WHOLE-3, TASKS-1) are positioned as a deliberately framework-agnostic discourse that lets specialists "from different backgrounds" [V] hold "open, unambiguous discussions." [V] The choice of vocabulary is a stakeholder-inclusion choice: framework-laden language pre-loads the in-group. (p. 5, "Language of Org Design")
+2.  **Vocabulary as engagement infrastructure.** OT's named archetypes (CAPS-2, WHOLE-3, TASKS-1) are positioned as a deliberately framework-agnostic discourse that lets specialists "from different backgrounds" [V] hold "open, unambiguous discussions" [V]. The choice of vocabulary is a stakeholder-inclusion choice: framework-laden language pre-loads the in-group. (p. 5, "Language of Org Design")
 
 3.  **The MAP step as a stakeholder-engagement activity.** The MAP step requires "going to the hands-on workplace to understand how the units work: what kind of units are they, what is their input, what is their output, and which other archetypes are needed in the chain of value creation?" [V] Mapping is not a back-office activity — it is in-the-workplace stakeholder dialogue. (p. 16, "MADE Real: (1) MAP")
 
@@ -44,7 +44,7 @@ This distillation gathers these threads into a working pattern: how to design st
 
 5.  **Co-creation as a reflexive principle.** "This Primer is a product of co-creation. None of us would have been able to create it alone with such sharpness. Co-creation is a thing. And that's very much relevant to the map itself. As a team moves rightward on the map, its co-creation power increases." [V] The same property the Primer claims for elevated archetypes — co-creation capability — is the property the engagement process must enact. (p. 27, "Closing note")
 
-6.  **Framework-first as engagement failure mode.** "Implementing an industry-standard management framework" [V] produces "lack of enthusiastic understanding and support for the change, since the people didn't figure it out and create it themselves; it's pushed on to them. Don't underestimate this psychological dynamic!" The Primer is explicit that this is a *psychological* phenomenon, not a comprehension problem; more training will not fix it. (p. 22, "Strategic Org Design vs. Framework Thinking")
+6.  **Framework-first as engagement failure mode.** "Implementing an industry-standard management framework" [V] produces "lack of enthusiastic understanding and support for the change, since the people didn't figure it out and create it themselves; it's pushed on to them. Don't underestimate this psychological dynamic!" [V] The Primer is explicit that this is a *psychological* phenomenon, not a comprehension problem; more training will not fix it. (p. 22, "Strategic Org Design vs. Framework Thinking")
 
 7.  **Multi-level engagement as a structural requirement.** "True organizational impact requires alignment across all levels—from the organization's strategic decisions to HR and Finance policies, from group structures to how teams collaborate daily." [V] Engagement must reach strategic leaders, policy owners (HR, Finance), group/team structures, and individual contributors as one connected system. (p. 4, "The Hidden Complexities of Org Change")
 
@@ -56,7 +56,7 @@ This distillation gathers these threads into a working pattern: how to design st
 
 11.  **The single-team-focus engagement trap.** "A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged." [V] A change initiative that engages only one team while leaving its surroundings untouched is named as a failure pattern: the team becomes the visible exception rather than the elevation example. (p. 4, "The Hidden Complexities of Org Change")
 
-12.  **Strategic AI adoption as a stakeholder conversation.** The three guiding questions for AI investment ("What parts of the organization are the focus of development with OT?", "What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption?", "Do the AIs need monitoring by humans?") are framed as questions to ask and answer with stakeholders — not as decisions handed down. The third question explicitly invokes new responsibilities for human workers, which is a stakeholder-engagement concern. (p. 20, "Strategic AI Adoption")
+12.  **Strategic AI adoption as a stakeholder conversation.** The three guiding questions for AI investment ("What parts of the organization are the focus of development with OT?" [V], "What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption?" [V], "Do the AIs need monitoring by humans?" [V]) are framed as questions to ask and answer with stakeholders — not as decisions handed down. The third question explicitly invokes new responsibilities for human workers, which is a stakeholder-engagement concern. (p. 20, "Strategic AI Adoption")
 
 13.  **Different designs for different parts as a multi-stakeholder accommodation.** "Companies may also choose different org designs for different parts of the company. One division might focus on servicing existing customers on a legacy product, while another is experimenting with new offerings—each requiring its own goal and design." [V] Recognising that different stakeholder groups (legacy customers' service team vs new-market experiment team) need different designs is an explicit accommodation. (p. 18, "MADE Real: (3) DESIGN")
 
@@ -80,7 +80,7 @@ This distillation gathers these threads into a working pattern: how to design st
 | Need | Question |
 |---|---|
 | Choose the engagement vocabulary | Are we using OT's framework-agnostic vocabulary (named archetypes), or are we starting from a framework name (SAFe, LeSS, Team Topologies)? Framework-laden vocabulary excludes; archetype vocabulary invites. |
-| Frame the conversation as co-creation, not rollout | "People have to own – not rent – their change." Is the engagement design inviting participation in mapping/assessing/designing, or announcing a chosen design? |
+| Frame the conversation as co-creation, not rollout | "People have to own – not rent – their change." [V] Is the engagement design inviting participation in mapping/assessing/designing, or announcing a chosen design? |
 | Use the MAP step as the initial engagement activity | The MAP step requires going to the hands-on workplace. Can we structure the initial engagement as visible, in-place mapping with the people whose archetypes are being mapped? |
 | Make mismatch visible together | Can we structure the ASSESS step as a shared activity where stakeholders see the mismatch themselves, rather than being told there is one? |
 | Frame change as experiments (Elevating Katas) | Are the proposed changes framed as "thoughtful experiments" [V] with named hypotheses and named end-states, or as decisions to be implemented? Experiment framing invites contribution. |
@@ -94,16 +94,16 @@ This distillation gathers these threads into a working pattern: how to design st
 | Pre-empt the framework-cargo-cult failure mode | Can we name explicitly that "the pitch from consulting companies big and small" [V] of adopting a framework as the answer produces three failure modes (root-cause neglect, no buy-in, cargo-cult)? Naming it pre-empts it. |
 | Anchor on the business objective with the business-side stakeholders | Can senior leaders restate the business objective the org change is intended to serve, and the chain-of-fit by which the proposed topology delivers it? Their participation in this restating is the engagement move. |
 | Acknowledge the topology's named failure mode | When proposing a target topology, are we naming its failure mode (Resource: coordination cost; Delivery: feature bloat; Adaptive: high-variance outcomes)? Honest naming builds engagement. |
-| Accommodate divergent designs | If some stakeholder groups are best served by a different target topology than others, are we surfacing and respecting that ("Companies may also choose different org designs for different parts of the company")? |
+| Accommodate divergent designs | If some stakeholder groups are best served by a different target topology than others, are we surfacing and respecting that ("Companies may also choose different org designs for different parts of the company" [V])? |
 
 ### Phase 4: Sustaining engagement through ELEVATE
 
 | Need | Question |
 |---|---|
-| Frame Elevating Katas as stakeholder-driven experiments | Are the experiments designed by the people who will run them, or assigned to them? "People have to own – not rent – their change." |
+| Frame Elevating Katas as stakeholder-driven experiments | Are the experiments designed by the people who will run them, or assigned to them? "People have to own – not rent – their change." [V] |
 | Use re-mapping as a recurring engagement rhythm | "Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop of feedback and adapting." [V] Is the re-mapping scheduled and inclusive of the same stakeholders engaged in the original map? |
-| Surface "things are getting worse for goal X" honestly | If local optimisation has degraded the system goal ("flow can get worse"), is the re-mapping conversation designed to surface this without blame? |
-| Maintain the human-centric stance with AI adoption | Is the AI-adoption rollout treating the human stakeholders as monitors-of-AI co-designers, or as people being replaced? "Monitoring will become an important responsibility for human workers" is engagement language, not displacement language. |
+| Surface "things are getting worse for goal X" honestly | If local optimisation has degraded the system goal ("flow can get worse" [V]), is the re-mapping conversation designed to surface this without blame? |
+| Maintain the human-centric stance with AI adoption | Is the AI-adoption rollout treating the human stakeholders as monitors-of-AI co-designers, or as people being replaced? "Monitoring will become an important responsibility for human workers" [V] is engagement language, not displacement language. |
 | Test for drift back to Resource framing | Is the language of "resources" creeping back in? That signals Resource-Topology drift and predicts disengagement. |
 | Celebrate co-creation explicitly | "A co-creating end-to-end team is not just about speed and flow." [V] Naming co-creation as a value-add of the elevation (not just speed) is itself an engagement choice. |
 
@@ -117,7 +117,7 @@ This distillation gathers these threads into a working pattern: how to design st
 
 4. **Mapping in the back office, not in the workplace.** Mapping that does not involve "going to the hands-on workplace" [V] misses the engagement opportunity and surfaces an inaccurate map. (p. 16)
 
-5. **Announcing the mismatch rather than co-discovering it.** When ASSESS-step mismatch is delivered as a leadership conclusion rather than co-seen with stakeholders, "people don't see and understand there's a mismatch." (p. 17)
+5. **Announcing the mismatch rather than co-discovering it.** When ASSESS-step mismatch is delivered as a leadership conclusion rather than co-seen with stakeholders, "people don't see and understand there's a mismatch." [V] (p. 17)
 
 6. **Senior leadership decoupled from internal design.** "Senior management only defining business objectives" [V] is named as a strategic-design failure. Engagement requires senior leadership inside the design conversation, not above it. (p. 10)
 
@@ -125,7 +125,7 @@ This distillation gathers these threads into a working pattern: how to design st
 
 8. **AI rollouts framed as people-displacement.** Generic "adopt AI" without the bottleneck-targeting and human-monitoring framing predicts disengagement among the human stakeholders whose archetypes change. (p. 20)
 
-9. **Local-optimisation pressure without systems-thinking pushback.** When stakeholder pressure to optimise a single element (a reward, a structure, a process) is not met with the systems-thinking discipline, "performance of the whole system may actually decline" and engagement collapses. (p. 16)
+9. **Local-optimisation pressure without systems-thinking pushback.** When stakeholder pressure to optimise a single element (a reward, a structure, a process) is not met with the systems-thinking discipline, "performance of the whole system may actually decline" [V] and engagement collapses. (p. 16)
 
 10. **Multi-goal stacking without stakeholder accommodation.** Choosing multiple org goals (adaptiveness + flow + utilisation) in parallel without surfacing the conflicts, which the Primer explicitly defers as "beyond the scope of this Primer" [V]. Stakeholders affected by the conflicts will disengage. (p. 18)
 
@@ -139,9 +139,9 @@ This distillation gathers these threads into a working pattern: how to design st
 
 ## Integration with Other References
 
-- **NHS Just Culture Guide.** Both texts share an engagement-discipline stance: the NHS guide's "action singling out an individual is rarely appropriate" pairs with OT's "people have to own – not rent – their change" — both reject the individual-blame engagement failure mode in favour of system-level engagement. See `nhs-just-culture-guide-stakeholder-engagement.md`.
+- **NHS Just Culture Guide.** Both texts share an engagement-discipline stance: the NHS guide's "action singling out an individual is rarely appropriate" pairs with OT's "people have to own – not rent – their change" [V] — both reject the individual-blame engagement failure mode in favour of system-level engagement. See `nhs-just-culture-guide-stakeholder-engagement.md`.
 
-- **Liberating Structures Handbook.** OT's "co-creation power increases" [V] and "people have to own – not rent – their change" are the same engagement-discipline frame as the Liberating Structures stance against the "five conventional structures" that suppress inclusion. The MAP step's "going to the hands-on workplace" [V] is a Liberating-Structures-compatible engagement design. See `liberating-structures-handbook-stakeholder-engagement.md`.
+- **Liberating Structures Handbook.** OT's "co-creation power increases" [V] and "people have to own – not rent – their change" [V] are the same engagement-discipline frame as the Liberating Structures stance against the "five conventional structures" that suppress inclusion. The MAP step's "going to the hands-on workplace" [V] is a Liberating-Structures-compatible engagement design. See `liberating-structures-handbook-stakeholder-engagement.md`.
 
 - **FLO Facilitation Guide.** OT's MAP and ASSESS steps are facilitated activities — and the FLO discipline of pure-question facilitation (where the facilitator does not advise) is the methodological complement to the engagement stance OT advocates. See `flo-facilitation-guide-stakeholder-engagement.md`.
 

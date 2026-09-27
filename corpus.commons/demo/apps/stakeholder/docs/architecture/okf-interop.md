@@ -52,7 +52,7 @@ That is deliberate. Pass I — the source-only audit behind every distillation �
 
 OKF's model is one canonical file per concept; it has no task dimension. But concept ids are file paths, and directory nesting is unrestricted — so the bundle *expresses* the task axis as structure: `/decision-making/openstax-organizational-behavior.md` and `/retro/openstax-organizational-behavior.md` are different concept files, same source, different projection, each linking its siblings ("Same source, other task axes").
 
-The shipped `matrix` bundle carries all five demo task axes — 116 concept files from 27 sources — in one tree. Diffing any two axis directories shows the same sources projected differently, which is the matrix architecture made visible inside someone else's format. A consumer that knows nothing about task axes still navigates it correctly, because to OKF it is just directories; a consumer that reads the root `index.md` learns what the directories mean.
+The shipped `matrix` bundle carries all five demo task axes — 117 concept files from 28 sources — in one tree. Diffing any two axis directories shows the same sources projected differently, which is the matrix architecture made visible inside someone else's format. A consumer that knows nothing about task axes still navigates it correctly, because to OKF it is just directories; a consumer that reads the root `index.md` learns what the directories mean.
 
 ## Validation and the receipt
 

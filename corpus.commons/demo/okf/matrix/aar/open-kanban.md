@@ -12,7 +12,7 @@ sources:
     resource: https://github.com/agilelion/Open-Kanban
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-08-08T19:51:47+12:00
+  at: 2026-09-27T13:37:52+13:00
 ---
 # Open Kanban, AAR Distillation
 
@@ -96,7 +96,7 @@ This source carries the corpus's open-licence statement of the Goldratt-Deming s
 
 ## Worked Example
 
-A software-delivery team reviews a series of missed releases. The timeline (Phase 1) shows that the development team was running at 90% capacity for the preceding three months while also carrying two other parallel projects. The facilitator applies the Respect for People / Muri frame: "An exhausted developer, manager or team are the perfect recipe for disaster." (Source: Hurtado, *Open Kanban*, "Open Kanban Values".) Overburden is named as a contributory factor — not the error in the release process, but the system condition that made the error probable. In Phase 4, the group generates four actions. The facilitator applies the constraint-focus discipline (Source: "Open Kanban Practices"): "Of all the contributory factors named, which one — if addressed — would most reduce the likelihood of this pattern recurring?" The group identifies capacity allocation as the constraint: the team was perpetually overloaded because no one in the organisation was empowered to push back on the third parallel project. The action is one: establish a named person with authority to refuse additional project assignments when team capacity is below 70%. The other three proposed actions are deferred — they are symptoms of the same constraint and will resolve when the constraint moves.
+A software-delivery team reviews a series of missed releases. The timeline (Phase 1) shows that the development team was running at 90% capacity for the preceding three months while also carrying two other parallel projects. The facilitator applies the Respect for People / Muri frame: "An exhausted developer, manager or team are the perfect recipe for disaster." [V] (Source: Hurtado, *Open Kanban*, "Open Kanban Values".) Overburden is named as a contributory factor — not the error in the release process, but the system condition that made the error probable. In Phase 4, the group generates four actions. The facilitator applies the constraint-focus discipline (Source: "Open Kanban Practices"): "Of all the contributory factors named, which one — if addressed — would most reduce the likelihood of this pattern recurring?" The group identifies capacity allocation as the constraint: the team was perpetually overloaded because no one in the organisation was empowered to push back on the third parallel project. The action is one: establish a named person with authority to refuse additional project assignments when team capacity is below 70%. The other three proposed actions are deferred — they are symptoms of the same constraint and will resolve when the constraint moves.
 
 ## Anti-patterns This Reference Helps Avoid
 

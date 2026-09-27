@@ -107,7 +107,7 @@ One line, once: offer to go further on the reframe (what it would take to change
 
 ### Trace footer
 
-Append the `answer-from-corpus` trace, with a `frame:` tag added to its bracket:
+Append the `answer-from-corpus` trace to every turn this skill produces, including a framing round that stops to wait for replies, with a `frame:` tag added to its bracket:
 
 - `frame: <check(s)>, asked: <n>` when framing questions were asked;
 - `frame: <check(s)>, asked: 0 (just answer)` when the user opted out;

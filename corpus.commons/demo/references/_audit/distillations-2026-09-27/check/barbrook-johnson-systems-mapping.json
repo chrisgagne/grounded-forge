@@ -1,0 +1,113 @@
+{
+ "slug": "barbrook-johnson-systems-mapping",
+ "changed_lines_checked": 190,
+ "tally": {
+  "faithful": 179,
+  "minor_drift": 7,
+  "unsupported": 1,
+  "contradicted": 0,
+  "edit_defect": 3
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/barbrook-johnson-systems-mapping-deep.md",
+   "line": 279,
+   "text": "**Capturing and recording.** Two options: dedicated note-taker (default), or audio/video recording (more accurate but inhibits conversation and creates a transcription burden \u2014 \"Transcription can easily take five or six times ...\" [V] (Ch 10, \"Capturing and Recording Workshops\"). Notes are written up ...",
+   "grade": "EDIT-DEFECT",
+   "problem": "Pre-existing, carried through the repair: the parenthesis opened before 'more accurate' is never closed; the added sentence now follows the unbalanced clause. Quotes themselves verified word for word (source 7696-7697, 7705-7706).",
+   "evidence": "converted 7701-7706",
+   "fix": "correct: or audio/video recording (more accurate but inhibits conversation and creates a transcription burden: \"Transcription can easily take five or six times the length of the recording when there are multiple people involved\" [V]) (Ch 10, \"Capturing and Recording Workshops\")."
+  },
+  {
+   "file": "corpus.commons/demo/references/barbrook-johnson-systems-mapping-deep.md",
+   "line": 283,
+   "text": "*confusion about the method* (\"be prepared to explain how the mapping method you are using works in two or three different ways\"; the canonical prompt: \"OK, so that is because as X increases Y tends to go down?\" [V] (Ch 10, \"Common Issues\"); *disengagement of stakeholders* ...",
+   "grade": "EDIT-DEFECT",
+   "problem": "Pre-existing, carried through the repair: the parenthesis opened before 'be prepared' is never closed. All added [V] quotations on this line verified word for word (source 7749-7841).",
+   "evidence": "converted 7793-7823",
+   "fix": "correct: *confusion about the method* (\"be prepared to explain how the mapping method you are using works in two or three different ways\"; the canonical prompt: \"OK, so that is because as X increases Y tends to go down?\" [V]);"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/barbrook-johnson-systems-mapping-aar.md",
+   "line": 34,
+   "text": "12. <!-- concept: gateway-tools --> **Systems mapping as a gateway, with named limits.** ... Of CLDs specifically: \"if feedback loops are not present, or important, in your system, then the method will be less useful\" [V] (Ch 4, ...). When the incident is simple and the fix is obvious, the overhead of formal mapping is not warranted.",
+   "grade": "MINOR-DRIFT",
+   "problem": "All three [V] quotations verified (source 1309-1313, 3088-3089). But the closing sentence keeps the 'do not map simple incidents' stance that audit D005 found absent from the deep ref; placed unattributed at the end of a concept built from the authors' named limits, it reads as this source's conclusion. The stance belongs to SSDL (Brief 1.02), as line 89 now says.",
+   "evidence": "Deep 69 (gateway, emergent-effects limit), 127 (CLD feedback limit); no simple-incident gate in the deep ref; ssdl-systems-thinking-foundations-deep 23, 55",
+   "fix": "correct: In AAR terms, when the incident is simple and the fix is obvious, formal mapping may not be warranted (SSDL's broken-ankle test, Brief 1.02)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/barbrook-johnson-systems-mapping-aar.md",
+   "line": 118,
+   "text": "The Barbrook-Johnson & Penn text is largely a methods overview, but Ch 5 (Participatory Systems Mapping) is the authors' own method; its borrowed-through chain is extensive and is recorded in the deep ref.",
+   "grade": "EDIT-DEFECT",
+   "problem": "After the rewrite, 'its' now points at Ch 5 / the authors' own method, so the sentence says PSM's borrowed-through chain is extensive. The extensive borrowed-through chain belongs to the text as a whole (deep 337-350); the PSM lineage is the authors' own work (deep 346). The wording was copied from audit D014's fix, which had the same ambiguity.",
+   "evidence": "Deep 337-350 (Connections list across all chapters); deep 346 ('The authors' own PSM lineage')",
+   "fix": "correct: The Barbrook-Johnson & Penn text is largely a methods overview, but Ch 5 (Participatory Systems Mapping) is the authors' own method. The text's borrowed-through chain as a whole is extensive and is recorded in the deep ref."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/barbrook-johnson-systems-mapping-decision-making.md",
+   "line": 12,
+   "text": "The book is candid about limits: prediction is not the primary value of systems mapping, and even where a method is designed for it (System Dynamics) the authors call it \"certainly very difficult, and success may well be fleeting\" [V] (Ch 8, \"What Is System Dynamics?\").",
+   "grade": "MINOR-DRIFT",
+   "problem": "The [V] quote is word for word (source 8 'What Is System Dynamics?'; deep 229). But 'where a method is designed for it (System Dynamics)' says System Dynamics is a prediction method. The source's condition is about the modeller's purpose and model design: 'If our purpose is to predict, and we have designed with this in mind, it is not beyond the reach of methods like System Dynamics'. The wording comes from audit D001's fix.",
+   "evidence": "Deep 229: 'purpose drives the model. If our purpose is to predict, and we have designed with this in mind, it is not beyond the reach of methods like System Dynamics, but it is certainly very difficult, and success may well be fleeting' [V]",
+   "fix": "correct: The book is candid about limits: prediction is not the primary value of systems mapping, and even when a model is designed to predict, with a method like System Dynamics, the authors call it \"certainly very difficult, and success may well be fleeting\" [V] (Ch 8, \"What Is System Dynamics?\")."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/barbrook-johnson-systems-mapping-decision-making.md",
+   "line": 217,
+   "text": "**Evidence-marker continuity.** ... Quoted `[V]`: the appropriateness definition (Ch 11), ... and the Phase 5 and 6 quotations (Ch 9, Ch 4, Ch 6). Paraphrased with citation: ...",
+   "grade": "MINOR-DRIFT",
+   "problem": "The rewritten list of [V] quotations reads as complete but leaves out three that the file carries: \"a form of quantitative storytelling\" (lines 139 and 176, Ch 6), \"allocate half of your resources to design and communication\" (line 148, Ch 4) and Box & Draper's \"All models are wrong, but some are useful\" (line 201, [BT]). Every item it does list was checked and is present with [V].",
+   "evidence": "Distillation lines 139, 148, 176, 201",
+   "fix": "correct: insert after 'the prediction caveat and the System Dynamics time cost (Ch 8),': the FCM 'form of quantitative storytelling' phrase (Ch 6), the 'allocate half of your resources to design and communication' heuristic (Ch 4), Box & Draper's 'All models are wrong, but some are useful' (Ch 1, `[BT]`),"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/barbrook-johnson-systems-mapping-retro.md",
+   "line": 8,
+   "text": "The appropriateness triangle from Ch 11 applies: if feedback loops are not present, or important, in the recurring problem, a CLD is overhead the team does not need (Ch 4).",
+   "grade": "MINOR-DRIFT",
+   "problem": "Cited to Ch 4 but stronger than Ch 4: the source says the method 'will be less useful', not that it is unneeded overhead. The same file quotes the source wording correctly at lines 54 and 89.",
+   "evidence": "Source 3088-3089: 'If feedback loops are not present, or important, in your system, then the method will be less useful.'; deep 127",
+   "fix": "correct: The appropriateness triangle from Ch 11 applies: if feedback loops are not present, or important, in the recurring problem, a CLD \"will be less useful\" [V] (Ch 4, \"What Are Causal Loop Diagrams Good and Bad At?\")."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/barbrook-johnson-systems-mapping-retro.md",
+   "line": 12,
+   "text": "1. <!-- concept: appropriateness-triangle --> **Appropriateness triangle for tool selection (Ch 11, \"Choosing Systems Mapping Methods\", Fig. 11.1)** \u2014 \"where a method fits with both the project and the system, we can say it is an 'appropriate' method.\" [V]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Wrong locator for the [V] quote. The quoted sentence is in the Ch 11 chapter introduction, before the 'Comparing Systems Mapping Methods' heading, not in 'Choosing Systems Mapping Methods' (Fig. 11.1 is in Choosing, but the quote is not). The same passage is cited correctly to the chapter title in this file's Worked Example blockquote (line 103), and in the deep ref (17, 291) and the AAR and decision-making distillations.",
+   "evidence": "Source 8150-8153 (chapter intro); 'Comparing Systems Mapping Methods' heading at 8202; 'Choosing Systems Mapping Methods' at 8304; Fig. 11.1 at 8317/8342",
+   "fix": "correct: **Appropriateness triangle for tool selection (Ch 11, \"Comparing, Choosing, and Combining Systems Mapping Methods\"; Fig. 11.1 in \"Choosing Systems Mapping Methods\")**"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/barbrook-johnson-systems-mapping-retro.md",
+   "line": 134,
+   "text": "**Evidence-marker continuity.** Quotations marked `[V]` match the source word for word and are copied from the deep ref: the appropriateness definition (Concept 1, ...) ... and the twenty-node limit and CLD limits in the Phase 3 table. ...",
+   "grade": "MINOR-DRIFT",
+   "problem": "The rewritten list reads as complete but leaves out five [V] quotations the file carries: 'will be less useful' in When to Use (line 89) and the four in Named limits (line 132: the scope criterion, the System Dynamics time cost, the BBN 'rather repetitive conversations', and 'increasingly fast-paced nature of work'). Every item it does list was checked and is present with [V].",
+   "evidence": "Distillation lines 89, 132",
+   "fix": "correct: replace the final clause with: ..., the twenty-node limit and CLD limit in the Phase 3 table and When to Use, and the scope criterion, System Dynamics time cost, BBN elicitation and fast-paced-work quotations in Named limits."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/barbrook-johnson-systems-mapping-stakeholder-engagement.md",
+   "line": 8,
+   "text": "CLDs, Bayesian Belief Networks and System Dynamics can be run participatively; for System Dynamics this is common.",
+   "grade": "UNSUPPORTED",
+   "problem": "DEEP-REF GAP (source-true). 'For System Dynamics this is common' is in the source but not in the deep ref, whose participatory-variant paragraph (deep 239) gives only the names 'group model building', 'mediated modelling', 'Participatory System Dynamics'. The rest of the line matches audit D001's fix.",
+   "evidence": "Source 6365-6366: 'As with most of the methods in this book, System Dynamics modelling can be done in a participatory setting, and this is common.' Deep 239 has no 'common'.",
+   "fix": "correct (deep ref, not the distillation): add to deep 239 before 'Sometimes called': \"System Dynamics modelling can be done in a participatory setting, and this is common\" [V] (Ch 8, \"How Do You Do System Dynamics?\"). Alternative: strip '; for System Dynamics this is common' from the distillation."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/barbrook-johnson-systems-mapping-stakeholder-engagement.md",
+   "line": 94,
+   "text": "| Should this be one workshop or many? | PSM is iterative and \"may never feel finished\" [V] (Ch 5); online, \"shorter but more sessions\" can work well (Ch 10). |",
+   "grade": "MINOR-DRIFT",
+   "problem": "The new cell adds a second quotation, \"shorter but more sessions\", without a [V] marker, although it is verbatim (the bullet heading 'Shorter but more sessions can work well', source 7917). The audit graded unmarked verbatim quotations in this file as MINOR-DRIFT (D007, D008, D016, D020). The wording came from audit D013's fix.",
+   "evidence": "Source 7917-7921 (Ch 10, 'Running Online Workshops'); deep 285",
+   "fix": "re-mark: [V] \u2014 correct: online, \"shorter but more sessions\" [V] can work well (Ch 10, \"Running Online Workshops\")."
+  }
+ ],
+ "notes": "COMPLETE. Coverage: all 7 changed files read in full (deep ref 373 lines, light ref 103, five distillations 122/217/134/287/235); every added [V] checked against the converted source with /usr/bin/grep -F plus a context read; all 3 vflags graded; 9 changed index rows checked. Stamp lines ignored. Severity: all 11 findings are small one-line fixes; none reverses a source claim. The two deep-ref EDIT-DEFECTs are pre-existing unclosed parentheses carried through the repair. Deep ref diff fully checked against converted source (42 changed or added lines; every added [V] quote grep-verified and every locator checked against section headings). Ch 11 locator moves to the chapter title are correct: the appropriateness, bias and default-combining passages sit in the chapter intro (source 8150-8191), before the 'Comparing Systems Mapping Methods' heading at 8202. Light ref: stamp-only change; body read in full, no stale errors. AAR distillation: 16 changed lines checked, read in full; every change maps to an audit fix (D001-D015); SSDL claims (Brief 1.02 broken-ankle quote, five archetypes with templates and examples, expert-vs-novice warning, Kim lineage) verified against ssdl-systems-thinking-foundations-deep 23, 222-258, 280. AAR index row (PSM submap focus) matches the distillation. Decision-making distillation: 25 changed lines checked, read in full; changes map to audit D001-D020. Fig. 11.1 sits in 'Choosing Systems Mapping Methods' (source 8317, 8342), so those locators are right; SD time-cost quote at source 6510; no decision-theory terms in the source (the 'silence' framing is accurate). vflag line 77 'surprised just how much they gain': FAITHFUL (split by the page-181 header, source 8692-8703). Retro distillation: 29 changed lines checked, read in full; changes map to audit D001-D031 (Five Whys claims stripped, dominance advice now matches Ch 2 and Ch 10). New cross-source claims verified: Org Topologies ASSESS/DESIGN/ELEVATE (org-topologies-primer-2025-deep 132-152), FLO 'step back' scaffolding-and-fading (flo-facilitation-guide-deep 73-75), Psychology 2e Asch and normative social influence (openstax-psychology-2e-deep 299). Software-business distillation: 37 changed lines checked, read in full, all FAITHFUL; changes map to audit D001-D033. Cross-source claims verified: SSDL templates (ssdl deep 226, 240), Accounting Vol 2 Goldratt [BT] and SnowBucks (accounting-vol2-deep 293, 513), Business Ethics three-column spreadsheet Ch 1.2 and Grunig-Hunt [BT] Ch 3.2 (business-ethics-deep 39, 115-117), OB Ch 6.2 reflective/reactive systems and heuristics (OB deep 177-183), LS 1-2-4-Whole Group / TRIZ / Conversation Cafe / Simple Rules (LS deep 59-115), FLO online community and norms (FLO deep 85); Rogers (2014) reference matches source 2650. vflag line 34 (BBN transparency): FAITHFUL, split only by the 'BAYESIAN BELIEF NETWORKS / 109' page header (source 5674-5689). Observation, not graded: line 124 pairs this book's 'limits to success' with SSDL's 'limits to growth' template; the two are the same Kim archetype under different names, but neither deep ref states the equivalence. Software-business index rows (5) match lines 74, 75, 93, 112, 118. Stakeholder-engagement distillation: 32 changed lines checked, read in full; changes map to audit D001-D029 (Ostrom and Mitchell-Agle-Wood rows and the Ostrom [BT] entry stripped, as the audit asked). Every Key Concept quotation checked against the deep ref; the '22 [BT] markers' count is correct (22 before and after the repair). FLO co-facilitation mentorship (flo deep 99) and LFUO Network of Influences (lfuo deep 239) verified. vflag line 48 (ToC process value): FAITHFUL, split only by the page-42 header (source 2425-2438); 'Cultivate' capitalised is the only other difference. Stakeholder-engagement index rows (3) match the distillation (lines 126, 134, 66; the process-value row matches Concept 13 and the When-to-Use bullet, though its pre-existing 'Ch 12 second take-home' label names content this distillation does not carry as a concept). Residual-error sweep across all five distillations (Five Whys, leverage, Mitchell, Ostrom, Min Specs, 5-7 nodes, five to eight, non-negotiable, two or three loops, old Ch 11 locator): none left. Out of scope, not graded: a few unchanged lines still carry verbatim fragments in quotation marks without [V] (e.g. decision-making 46 \"'what if?' questions\", 48 \"going up and down\")."
+}

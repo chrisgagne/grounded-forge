@@ -1,0 +1,23 @@
+{
+ "slug": "openstax-business-ethics",
+ "changed_lines_checked": 178,
+ "tally": {
+  "faithful": 177,
+  "minor_drift": 1,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 0
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/openstax-business-ethics-decision-making.md",
+   "line": 36,
+   "text": "Bribery is illegal under US law extra-territorially and under the laws the OECD conventions have prompted; the text credits the OECD Convention on Combating Bribery of Foreign Public Officials with forty-three signatories.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The plural 'OECD conventions' credits both conventions with prompting national laws. The source (and the repaired deep ref) credits only the 1997 OECD Anti-Bribery Convention with getting its signatories to enact stricter laws; the separately named Convention on Combating Bribery is given only its forty-three signatories. The 1997 convention is also left unnamed, so the two instruments blur again.",
+   "evidence": "Source 11447-11453: 'The 1997 Organization for Economic Cooperation and Development (OECD) Anti-Bribery Convention has been instrumental in getting its signatories (the United Kingdom and most European Union nations) to enact stricter antibribery laws... There is also the OECD Convention on Combating Bribery of Foreign Public Officials in International Business Transactions, which has forty-three signatories'. Deep 304.",
+   "fix": "correct: Bribery is illegal under US law extra-territorially and under the stricter laws the 1997 OECD Anti-Bribery Convention has pushed its signatories to enact; the text separately credits the OECD Convention on Combating Bribery of Foreign Public Officials in International Business Transactions with forty-three signatories."
+  }
+ ],
+ "notes": "COMPLETE. Full reads: deep ref changed lines in context (22), light ref (3), and all five distillations read in full (AAR 18 changed lines, decision-making 26, retro 16, software-business 43, stakeholder-engagement 30), plus 20 added index rows. Every new [V] in the deep ref was grepped against sources/converted/openstax-business-ethics.md and read in context; all verbatim, locators correct. MORAL/ETHICAL MINIMUM: fixed everywhere. Deep 19 now separates the ethical minimum ('the least a company might do that complies with the law', source 3870, Ch 3.1) from the moral minimum ('to satisfy the base threshold for acting ethically', source 5343-5345, Ch 4.1 'The Two Sides of the Corporate Responsibility Debate'); deep 109 adds the body-text definition beside the key-term one (source 4781); light ref 13/25 and decision-making 10/22 follow. Grep of all changed files finds no remaining 'moral minimum = legal compliance'. OECD: deep 304 and light 53 now match source 11447-11453: the 1997 Anti-Bribery Convention pushed signatories (UK, most EU) to stricter laws, UK Bribery Act 2010 and Canada's 1999 Act followed, and the separately named Convention on Combating Bribery of Foreign Public Officials has forty-three signatories (all 35 OECD countries plus eight). Software-business 34 is faithful. Decision-making 36 drifts slightly (plural 'conventions' credits both with prompting laws): the one finding. vflags: both MISS entries (aar:24, retro:20, tone-at-the-top quote) FAITHFUL; only a page header separates 'with' and 'their' (source 17751-17760); [BT] justified ('Workplace research indicates'). Removals all justified by the audit record: retro social-contract anti-pattern (D009) and false [AP] provenance (D011); software-business invented $4.1M result (D032) and Mitchell-Agle-Wood row (D037); stakeholder-engagement Freeman (D028), Bhopal/Nestle/Ch 13.1 (D033), invented 18-month outcome replaced by a review plan (D021). [BT] count: deep now has 107 [BT] tokens (Tarbell's malformed '[V] BT]' repaired), matching stakeholder-engagement 209. Ungraded locator nits (inherited, not introduced): AAR 26 cites the 'If an organization is aware...' quote to Ch 3.2 'The Chicago Tylenol Murders'; the passage sits under 'Defining Stakeholder Categories' (source 4082, 4133), just before the box. Deep 124 carries the same box locator for the publics typology and the original audit prescribed it. Stakeholder-engagement 181 cites the UDHR 'useful starting point' quote to Ch 5.3, Ch 5.4; the quote is Ch 5.4 only (source 8005)."
+}

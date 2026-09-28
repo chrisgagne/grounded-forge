@@ -18,7 +18,7 @@ The reference tier (light + deep) lives at corpus level as the audit-of-record b
 
 The demo corpus draws retrospective substance from:
 
-- **Closest-to-canonical retro source:** Approach Perfect Field Guide to Scrum Events (Gagné; CC BY 4.0): Sprint Retrospective in Derby-Larsen 5-segment form, Norm Kerth's Prime Directive verbatim, Vegas / Chatham House rules, √n voting, 5-Whys with surprise-as-signal, one-or-two-improvements discipline.
+- **Closest-to-canonical retro source:** Approach Perfect Field Guide to Scrum Events (Gagné; CC BY 4.0): a six-segment Sprint Retrospective agenda based on Derby and Larsen, Norm Kerth's Prime Directive verbatim, Vegas / Chatham House rules, √n voting, 5-Whys with surprise-as-signal, one-or-two-improvements discipline.
 - **Canonical Scrum:** Scrum Guide 2020 (Schwaber & Sutherland; CC BY-SA 4.0).
 - **Practice catalogue:** Open Practice Library (CC BY 4.0): Retrospective, Blameless Postmortem, Five Whys, Establish Shared Principles, 1-2-4-All, Disagree and Commit, Design of Experiments, Evals, Human-in-the-Loop.
 - **Activity catalogue:** Liberating Structures Handbook (CC BY-NC-SA 3.0): 1-2-4-All, Troika, Wise Crowds, What/So What/Now What (named *After Action Debrief* with CCL attribution), 15% Solutions, Discovery & Action Dialogues, Mini Constellations, TRIZ, Wicked Questions, Six Words.

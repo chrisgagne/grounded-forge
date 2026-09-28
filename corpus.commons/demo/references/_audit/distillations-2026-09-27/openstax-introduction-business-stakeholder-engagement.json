@@ -1,0 +1,339 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-introduction-business-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-229 of 229",
+    "deep": "lines 1-908 of 908",
+    "complete": true
+  },
+  "claims_audited": 162,
+  "tally": {
+    "faithful": 130,
+    "minor_drift": 20,
+    "unsupported": 12,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Relevance; also 10, KC2 heading + anchor (16), Questions 59, WTLF 129, Worked Example 160, 179",
+      "claim": "anchored by Carroll's four-component pyramid of CSR (economic, legal, ethical, philanthropic)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Wrong attribution: the source presents the pyramid with no theorist. The concept anchor `carrolls-pyramid` at line 16 carries the misattribution into the concept index.",
+      "evidence": "Deep 879: 'presented in source without a theorist attribution (Ch 2.3) [AP]'. Converted source: no 'Carroll' outside one endnote byline (50299).",
+      "fix": "correct: replace 'Carroll's (four-component) pyramid' with 'the four-component CSR pyramid' at 8, 10, 16, 59, 129, 160, 179; change the anchor to `<!-- concept: corporate-social-responsibility -->`."
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "Ch 8 develops HR processes ... for engaging the most important internal stakeholder group.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'the most important' ranking is not in the source.",
+      "evidence": "Deep 97, 326. Source 5551-5552 says 'An organization's first responsibility is to provide a job to employees'; no ranking of stakeholder groups.",
+      "fix": "correct: for engaging employees, the main internal stakeholder group."
+    },
+    {
+      "id": "D003",
+      "line": 14,
+      "section": "Key Concepts 1 (Four stakeholder groups)",
+      "claim": "employees, customers, the general public, and investors [V] ... Each group has its own engagement modalities, expectations, and indicators of trust.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The [V] list is trimmed without ellipses (the source reads 'its employees, its customers, the general public, and its investors'). 'engagement modalities' and 'indicators of trust' are not in the source, which sets out the business's responsibilities to each group.",
+      "evidence": "Source 5548-5549. Deep 17 (full [V] sentence), 95-100.",
+      "fix": "correct: \"The stakeholders of a business are its employees, its customers, the general public, and its investors\" [V] ... The source sets out distinct responsibilities to each group."
+    },
+    {
+      "id": "D004",
+      "line": 22,
+      "section": "Key Concepts 5 (Managerial roles); also anchor, Questions 117, Worked Example 166-168, 179, Integration 200, Citation notes 214",
+      "claim": "Three managerial role categories (Mintzberg). ... decisional (entrepreneur, disturbance handler, resource allocator, negotiator)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "This source names no theorist for the role typology; Mintzberg comes from OpenStax Principles of Management. Line 214 lists Mintzberg among authors 'cited in the source'. The source's Table 6.5 shows three decisional roles; negotiator is only implied by the preceding text.",
+      "evidence": "Deep 242 (negotiator 'not shown in the truncated table but implied'), 876 ('named in source as the typology but no theorist named (Ch 6.6) [AP]'). grep 'Mintzberg' in source: 0 hits. openstax-principles-management-deep 33-37 (Mintzberg's role clusters [BT]).",
+      "fix": "correct: **Three managerial role categories** (the source names no theorist; OpenStax Principles of Management attributes them to Mintzberg). ... decisional (entrepreneur, disturbance handler, resource allocator; the text also mentions negotiating compromises). Change the anchor to `managerial-roles`; drop 'Mintzberg's' at 117, 166-168, 179, 200; remove 214 from the 'cited in the source' list."
+    },
+    {
+      "id": "D005",
+      "line": 28,
+      "section": "Key Concepts 8 (Corporate culture); also Relevance 8, Anti-patterns 191, Integration 207",
+      "claim": "Corporate culture as the medium of engagement. ... Engagement happens through culture even when individual interactions are absent. (Source: Ch 6.4)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source defines culture and says how it forms and shows itself; it does not call culture a medium of stakeholder engagement. The claim is cited to Ch 6.4 and repeated three times. The [V] definition itself is exact (source 17321-17322).",
+      "evidence": "Deep 234: definition; evolves over time; founders' vision and leadership style; heroes, myths, symbols, ceremonies.",
+      "fix": "correct: **Corporate culture.** ... [V]. It evolves over time, is shaped by the founders' vision and the dominant leadership style, and shows itself through heroes, myths, symbols and ceremonies (Ch 6.4). Applied here (not the source's claim): culture shapes how employees experience engagement. Apply the same at 8, 191, 207."
+    },
+    {
+      "id": "D006",
+      "line": 34,
+      "section": "Key Concepts 11 (5Ps); also Integration 202",
+      "claim": "integration matters more than perfection in any single dimension (202: misalignment across the five produces the appearance of competence with the substance of dissatisfaction)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Comparative claims the source does not make.",
+      "evidence": "Deep 493-499: the five tools, no ranking of integration over single-P excellence.",
+      "fix": "strip the clause at 34; at 202 correct to: Customer engagement uses all five tools (product, price, place, promotion, people); check each for alignment when customers are dissatisfied."
+    },
+    {
+      "id": "D007",
+      "line": 38,
+      "section": "Key Concepts 13 (IMC); also Integration 203",
+      "claim": "Stakeholder confusion comes from inconsistent messaging.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source says disjointed promotion led many companies to adopt IMC; 'stakeholder confusion' as the general cause is the distillation's generalisation.",
+      "evidence": "Source 34142-34146. Deep 588.",
+      "fix": "correct: The source presents IMC as the answer to disjointed promotion (Ch 12.5)."
+    },
+    {
+      "id": "D008",
+      "line": 42,
+      "section": "Key Concepts 15 (Collective bargaining)",
+      "claim": "Unions represent ~10.7% of US workers. Collective bargaining produces a labor agreement with terms governing wages, benefits, work conditions, grievance handling, and dispute resolution.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "10.7% is union membership in 2017, not representation, and the year is dropped. The source's contract list is union security, management rights, wages, benefits and job security; grievance handling is a separate process (Ch 8.8), not listed as a contract term.",
+      "evidence": "Deep 363, 367. Source 21990-22003 ('typically covers such issues as union security, management rights, wages, benefits, and job security'), 22133.",
+      "fix": "correct: Union membership fell to 10.7% of workers (14.8 million) in 2017. Collective bargaining produces a labor agreement that typically covers union security, management rights, wages, benefits and job security; grievances follow a separate step-by-step procedure (Ch 8.8)."
+    },
+    {
+      "id": "D009",
+      "line": 46,
+      "section": "Key Concepts 17 (Annual report); also the orphan Integration row at 229",
+      "claim": "The annual report, including balance sheet, income statement, statement of cash flows, and independent auditor's opinion, is the primary investor-engagement document.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source says financial statements are 'the chief element of the annual report' and lists the three statements; it does not call the annual report 'the primary investor-engagement document'. The annual-report passage is in the source but not in the deep ref. Line 229 repeats the claim as an Integration-table row stranded after the citation notes.",
+      "evidence": "Source 39147-39157. Deep 623, 631-635 (statements; SOX), no 'annual report' passage.",
+      "fix": "correct: **Annual report and financial transparency.** Financial statements (balance sheet, income statement, statement of cash flows) are the chief element of the annual report, a yearly document describing the firm's financial status (Ch 14). Sarbanes-Oxley added CEO/CFO certification and internal-control requirements (Ch 14.2). | cycle-to-deep: add the annual-report sentence (source 39147-39151) to deep Part XIV. Move or strip the orphan row at 229."
+    },
+    {
+      "id": "D010",
+      "line": 50,
+      "section": "Key Concepts 19 (Customer satisfaction)",
+      "claim": "Lexus tops industry rankings consistently because of focus on customer satisfaction across the JD Powers four-measure framework (vehicle quality/reliability, vehicle appeal, ownership costs, service satisfaction).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The four-measure survey is in the source but not in the deep ref. 'because of focus on customer satisfaction' adds a causal claim: the source reports that Lexus wins and leads the survey, not why.",
+      "evidence": "Source 29612-29617. Deep 487 ('Lexus consistently wins JD Powers ratings').",
+      "fix": "correct: Lexus consistently wins JD Powers customer-satisfaction awards; the survey's four measures are vehicle quality/reliability, vehicle appeal, ownership costs and dealer service satisfaction. | cycle-to-deep: add the four-measure sentence to deep 487."
+    },
+    {
+      "id": "D011",
+      "line": 71,
+      "section": "Questions, Phase 2 (Surface BATNA equivalents)",
+      "claim": "If negotiation is involved, what is each party's alternative?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "BATNA is not in this source; it is carried by OpenStax Organizational Behavior.",
+      "evidence": "grep 'BATNA' in source: 0 hits. Present in openstax-organizational-behavior-deep.",
+      "fix": "correct: keep the question, tag it '(see OpenStax Organizational Behavior, negotiation)'."
+    },
+    {
+      "id": "D012",
+      "line": 80,
+      "section": "Questions, Phase 3 (Avoid groupthink)",
+      "claim": "Will dissenting views be heard? Have devil's advocates been assigned for high-stakes decisions?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Groupthink and devil's advocacy are not treated in this source; they are carried by OpenStax Principles of Management.",
+      "evidence": "Source 24340 only ('groupthink' as a Japanese cultural belief). openstax-principles-management-deep 103-109.",
+      "fix": "correct: tag the row '(see OpenStax Principles of Management, Ch 2.6)'."
+    },
+    {
+      "id": "D013",
+      "line": 88,
+      "section": "Questions, Phase 4 (Process vs relationship conflict); also Worked Example 173",
+      "claim": "Is the disagreement about substance (productive) or about people (corrosive)? (173: The director treats these as productive process conflict)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The process/relationship conflict distinction is not in this source; it comes from OpenStax Organizational Behavior and Principles of Management.",
+      "evidence": "grep 'process conflict', 'relationship conflict' in source: 0 hits. Present in openstax-organizational-behavior-deep and openstax-principles-management-deep.",
+      "fix": "correct: tag the row and the worked-example step '(OpenStax Organizational Behavior)'."
+    },
+    {
+      "id": "D014",
+      "line": 89,
+      "section": "Questions, Phase 4 (Apply the right power base)",
+      "claim": "Pure-rationality engagement may produce alienation rather than commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source lists the five power bases and their origins; it says nothing about rational persuasion, alienation or commitment.",
+      "evidence": "Deep 224. Source 15890-15910.",
+      "fix": "correct: Which of the five power bases (legitimate, reward, coercive, expert, referent) am I relying on, and which does each stakeholder hold? (Ch 6.4)"
+    },
+    {
+      "id": "D015",
+      "line": 91,
+      "section": "Questions, Phase 4 (Invoke procedural justice)",
+      "claim": "For employee engagement, even when distributive outcomes disappoint, fair process sustains commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Procedural justice is not in this source (0 hits); it is carried by OpenStax Principles of Management / Organizational Behavior. The source's equity guidance is to understand perceptions of fairness and reduce concerns about inequity.",
+      "evidence": "Source 24654-24656. openstax-principles-management-deep 682; openstax-organizational-behavior-deep 239.",
+      "fix": "correct: Do employees see the outcome as fair relative to their referents? Take steps to reduce concerns about inequity (Ch 9.6). Tag procedural justice to OpenStax Organizational Behavior."
+    },
+    {
+      "id": "D016",
+      "line": 98,
+      "section": "Questions, Phase 5 (Test agreement understanding)",
+      "claim": "in some cultures, a signed contract begins rather than closes negotiation",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Cross-cultural factual claim with no basis in the source or deep ref (the source's cultural material covers language, customs and motivation patterns).",
+      "evidence": "Deep 139 (Ch 3.7 cultural differences: language, customs, traditions), 398 (Adler-Gunderson motivation). No contract-culture passage in the source.",
+      "fix": "strip the clause"
+    },
+    {
+      "id": "D017",
+      "line": 127,
+      "section": "What to Look For (Conflict into personal attack)",
+      "claim": "Diagnosis: process conflict has shifted into relationship conflict.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "A diagnosis in vocabulary this source does not have.",
+      "evidence": "grep 'process conflict' / 'relationship conflict' in source: 0 hits.",
+      "fix": "strip, or move to the Integration table under OpenStax Organizational Behavior."
+    },
+    {
+      "id": "D018",
+      "line": 128,
+      "section": "What to Look For (Influence produces alienation)",
+      "claim": "Diagnosis: coercive or pure-reward power being used where referent or expert power would have produced commitment. Follow-up: shift to influence based on rationality, expertise, or trust",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source names the five power bases but says nothing about which produce commitment, compliance or resentment; those outcomes come from the OB/PoM treatment of French and Raven.",
+      "evidence": "Deep 224. Source 15890-15910. 'French and Raven' carried by openstax-organizational-behavior-deep and openstax-principles-management-deep.",
+      "fix": "correct: Diagnosis: check which of the five power bases is in play (Ch 6.4); for how each base tends to land (commitment vs compliance), see OpenStax Organizational Behavior."
+    },
+    {
+      "id": "D019",
+      "line": 140,
+      "section": "When to Use (140 and 143)",
+      "claim": "A change initiative requires alignment across functional areas with different time and goal orientations. / A coalition has formed in opposition to a proposal",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Gates for content this source does not carry: time and goal orientations and coalition politics are OB material. This source's only coalitions are union federations.",
+      "evidence": "grep 'time orientation' in source: 0; 'coalition' only at 21886-21888 (Change to Win Coalition) and 28056. Present in openstax-organizational-behavior-deep.",
+      "fix": "strip both bullets or reroute them to OpenStax Organizational Behavior."
+    },
+    {
+      "id": "D020",
+      "line": 141,
+      "section": "When to Use; also Anti-patterns 186",
+      "claim": "A negotiation is approaching and the team needs to choose distributive vs integrative framing. / Distributive framing of an integrative relationship.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "This source has no distributive/integrative negotiation framework (its one 'distributive' is about income distribution in Ch 2). Offered as a reason to reach for this reference and as an anti-pattern it helps avoid.",
+      "evidence": "grep 'integrative' in source: 0; 'distributive': 1 (5027, income distribution). Carried by openstax-organizational-behavior-deep, openstax-business-law-deep.",
+      "fix": "strip both; if kept, route to OpenStax Organizational Behavior / Business Law."
+    },
+    {
+      "id": "D021",
+      "line": 179,
+      "section": "Worked Example (summary)",
+      "claim": "The four-stakeholder frame (Ch 2.4), Carroll's pyramid (Ch 2.3), Mintzberg's liaison/spokesperson/leader roles (Ch 6.6), and participative-consultative leadership (Ch 6.4) are `[AP]`-marked passages in the deep ref.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker claim wrong: the four-stakeholder definition is [V] in the deep ref (deep 95, 17); participative leadership is unmarked (deep 229), with the anti-autocratic trend [V]/[AR] (deep 228, 890). Only the pyramid (879) and role typology (876) are [AP].",
+      "evidence": "Deep 17, 95, 228-229, 876, 879, 890.",
+      "fix": "correct: The four-stakeholder definition is [V] in the deep ref; the CSR pyramid and the managerial-role typology are [AP]; participative leadership is paraphrase, with the move away from autocratic leadership [V]."
+    },
+    {
+      "id": "D022",
+      "line": 185,
+      "section": "Anti-patterns",
+      "claim": "Pure-rationality engagement with culturally diverse stakeholders. Rationality alone misses the cultural and emotional dimensions of engagement.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'pure rationality' and 'emotional dimensions' are not in the source. What it does support is attention to cultural variation (Adler-Gunderson; Ch 3.7 language and customs).",
+      "evidence": "Deep 139, 398.",
+      "fix": "correct: **Ignoring cultural variation.** The source shows motivation patterns and language and customs differ by culture (Ch 3.7; Ch 9.6, Adler and Gunderson); one message will not land the same way everywhere."
+    },
+    {
+      "id": "D023",
+      "line": 187,
+      "section": "Anti-patterns",
+      "claim": "Coercive power as default influence. It produces compliance and alienation, not commitment.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source gives no outcomes for any power base.",
+      "evidence": "Deep 224. Source 15890-15910.",
+      "fix": "strip, or route to OpenStax Organizational Behavior (French and Raven outcomes)."
+    },
+    {
+      "id": "D024",
+      "line": 188,
+      "section": "Anti-patterns; also Integration 208",
+      "claim": "Closed-system thinking about stakeholder relationships ... misses the open-system reality. (208: Open systems thinking | Stakeholder engagement is the human side of the resource exchanges that constitute the organisation as an open system)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Open-systems theory is not in this source.",
+      "evidence": "grep 'open system' in source: 0 hits. Carried by openstax-principles-management-deep 19 and openstax-organizational-behavior-deep.",
+      "fix": "strip the anti-pattern; at 208 rename the row to `openstax-principles-management` and say that source carries the open-systems framing."
+    },
+    {
+      "id": "D025",
+      "line": 189,
+      "section": "Anti-patterns",
+      "claim": "Pay/reward systems disconnected from engagement quality. Equity theory predicts disengagement when the link between effort, performance, and reward is unclear.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong theory for the mechanism: the effort-performance-reward links are expectancy theory. Equity theory is about outcome-to-input comparisons with a referent.",
+      "evidence": "Deep 391 (expectancy: effort-to-performance, performance-to-outcome, outcomes-to-needs), 392 (equity).",
+      "fix": "correct: Expectancy theory predicts weak motivation when the links from effort to performance to valued outcome are unclear; equity theory predicts reduced effort, raise requests, distorted perceptions or exit when employees see their outcome-to-input ratio as unfair (Ch 9.6)."
+    },
+    {
+      "id": "D026",
+      "line": 190,
+      "section": "Anti-patterns",
+      "claim": "Avoiding necessary process conflict. Avoiding conflict appears to maintain relationships in the short term but allows substantive disagreements to fester.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Listed as an anti-pattern this reference helps avoid; the source has no process-conflict content.",
+      "evidence": "grep 'process conflict' in source: 0 hits.",
+      "fix": "strip"
+    },
+    {
+      "id": "D027",
+      "line": 198,
+      "section": "Integration (Bounded rationality row)",
+      "claim": "Bounded rationality (Simon) | Stakeholders, like managers, have bounded rationality",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Concept absent from this source; the row names no corpus reference. Bounded rationality is carried by OpenStax Principles of Management and Organizational Behavior.",
+      "evidence": "grep 'bounded rationality' in source: 0. openstax-principles-management-deep 77; openstax-organizational-behavior-deep 185, 688.",
+      "fix": "correct: `openstax-principles-management` / `openstax-organizational-behavior` | Those sources carry bounded rationality (Simon); use them to account for what each stakeholder can plausibly process."
+    },
+    {
+      "id": "D028",
+      "line": 199,
+      "section": "Integration (Carroll row)",
+      "claim": "Carroll's pyramid of CSR | Carroll's framework is the source's primary CSR construct",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source names no theorist for the pyramid; the row also names no other corpus reference.",
+      "evidence": "Deep 879.",
+      "fix": "correct: `openstax-business-ethics` | Pair this source's four-component CSR pyramid (Ch 2.3) with the ethics text's fuller stakeholder treatment. (Or strip.)"
+    },
+    {
+      "id": "D029",
+      "line": 201,
+      "section": "Integration (Power bases row)",
+      "claim": "Five power bases (French and Raven) | Treated lightly in Ch 6.4 of OpenStax-Intro-Business",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "This source does not name French and Raven ('Researchers have identified five primary sources'); the attribution comes from OB/PoM.",
+      "evidence": "Source 15890-15891. grep 'Raven' in source: 0. Present in openstax-organizational-behavior-deep and openstax-principles-management-deep.",
+      "fix": "correct: `openstax-organizational-behavior` (French and Raven's five power bases) | This source lists the same five bases without attribution (Ch 6.4); OB supplies the theory and the outcomes of each."
+    },
+    {
+      "id": "D030",
+      "line": 204,
+      "section": "Integration (Equity row)",
+      "claim": "Equity theory (Adams) | ... procedural justice sustains commitment even when distributive outcomes disappoint.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Adams is not named and procedural justice is absent from this source; the row presents both as the source's equity theory.",
+      "evidence": "Deep 392, 872 ('no theorist named'). grep 'procedural' in source: 0. openstax-principles-management-deep 682.",
+      "fix": "correct: `openstax-organizational-behavior` (equity theory, Adams; organisational justice) | This source gives equity theory without a named theorist (Ch 9.6); OB adds procedural and distributive justice."
+    },
+    {
+      "id": "D031",
+      "line": 213,
+      "section": "Citation notes (Borrowed-through gaps)",
+      "claim": "Carroll's pyramid of CSR ... attributed without external citation in the source (Ch 2.3) [AP] (listed under 'authors and bodies ... cited in the source')",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source never mentions Carroll, so he cannot be a borrowed-through author 'cited in the source'.",
+      "evidence": "Deep 879. Source: no Carroll outside one endnote byline.",
+      "fix": "strip"
+    },
+    {
+      "id": "D032",
+      "line": 220,
+      "section": "Citation notes (Borrowed-through gaps)",
+      "claim": "Sarbanes-Oxley Act — PCAOB; financial-statement certification (Ch 14.2) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker wrong: the deep ref marks the SOX account [AP] (the source's own explanation of a statute, not a relayed author).",
+      "evidence": "Deep 882: 'Sarbanes-Oxley — created PCAOB ... (Ch 14.2) [AP]'.",
+      "fix": "re-mark: [AP] (or move SOX out of the borrowed-through list)"
+    }
+  ],
+  "notes": "The distillation looks templated on the OpenStax Organizational Behavior stakeholder distillation. A cluster of OB/PoM concepts appears as if this source carried them: process vs relationship conflict, BATNA, distributive vs integrative negotiation, power-base outcomes (commitment/compliance), procedural justice, open systems, groupthink/devil's advocate, bounded rationality, time/goal orientations, coalitions, and the Mintzberg and French-and-Raven attributions. None are in the converted source (each grep = 0 hits); all are in the OB and/or PoM deep refs. The Carroll misattribution again runs through the file and a concept anchor (`carrolls-pyramid`). Structural defects, not graded as claims: (a) the Integration table names concepts, not corpus references, in 10 of 11 rows; (b) an orphan Integration row ('Annual report and financial transparency') sits at line 229 after the Evidence-marker section; (c) the scope is open, but the distillation carries no verbatim blockquotes, only inline [V] quotes, where the protocol asks for 2-5 blockquotes. All inline [V] quotations were checked word-for-word against the converted source: stakeholders (5548), CSR (5386-5387, both clauses), leadership (15860), power (15890-15891), culture (17321-17322), retention (29657), customer satisfaction (29607-29608), canned presentations (34483). All exact except the trimmed stakeholder list at line 14. The '16 [BT] markers' count at 228 is correct. The worked-example figures (45 employees, 3,000 weekly customers) are scenario-internal. Claim count is approximate (about 162 discrete claims); grouped findings list their repeated lines in the section field."
+}

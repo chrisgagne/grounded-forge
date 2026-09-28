@@ -1,0 +1,265 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/letaw-handbook-sweng-methods-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-169 of 169",
+    "deep": "lines 1-392 of 392 (corpus.commons/demo/references/letaw-handbook-sweng-methods-deep.md)",
+    "complete": true,
+    "other": "projection-protocol.md read in full. Converted source checked at: fist of five 1184-1219; project priority matrix 1243-1290; Eisenhower, finer-grained prioritisation, estimation and planning poker 1291-1400; TOCS case 5.5; upgrading 5.3.5; paper prototyping 6.1; personas 7.2-7.3; Ch 8 in full; glossary 'refactoring'; searches for 'secur', 'ethic', 'grade', 'prediction'. Other deep refs checked by targeted search: openstax-organizational-behavior (programmed decisions, six-step process, bounded rationality), openstax-principles-management (Ch 17 PDCA/MBO, Ch 18 MTI, 'balanced'), openstax-principles-marketing (Gap Model), jones-evidence-based-sweng (thesis, Agile, estimation), approach-perfect-field-guide-scrum-events (header, estimation)."
+  },
+  "claims_audited": 140,
+  "tally": {"faithful": 115, "minor_drift": 16, "unsupported": 3, "contradicted": 6},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "Letaw's Handbook presents software-engineering methods as risk-reduction tools — each method is repeatedly justified by what kind of decision it improves or what kind of negative outcome it averts.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Chapter-level framing generalised to the whole book",
+      "evidence": "Deep ref line 19: Chapter 2 frames each of its methods around the probability of negative outcomes; 'other chapters frame their methods around requirements, communication, architecture, usability, and maintainability'.",
+      "fix": "correct: Letaw's *Handbook* frames its project-management methods (Ch 2) as risk-reduction tools, and several later methods carry the same logic (paper prototyping cuts cost by catching UI flaws early, Ch 6.3; refactoring pays down technical debt, Ch 8.2)."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "The triple constraint (time, cost, scope) forces every project decision to be a trade-off where loosening one constraint demands tightening another.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Scope widened ('every project decision') and trade-off direction worded backwards",
+      "evidence": "Deep ref line 57: 'making strategic project decisions involves adjusting project constraints. If you want to reduce time and cost spent on a project or increase project scope, you'll need a corresponding change in one or more other constraints'. Improving one constraint costs another; relaxing one does not demand tightening another.",
+      "fix": "correct: The triple constraint (time, cost, scope) makes strategic project decisions trade-offs: to cut time or cost, or to add scope, one or more of the other constraints has to give (Ch 2.2)."
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "The project priority matrix ... makes those trade-offs explicit at project start, with the client, before pressure forces them implicitly.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Absent from deep ref; source-true (cycle-to-deep)",
+      "evidence": "Deep ref line 81 gives the Constrain/Enhance/Accept definitions and the NIH example, not when or with whom the matrix is set. Source (after the NIH example, Ch 2.5.2): 'Ideally, the project priority matrix would be defined before the project starts (with the client) and referenced throughout the project as needed.'",
+      "fix": "cycle-to-deep: add the Ch 2.5.2 'defined before the project starts (with the client) and referenced throughout the project' sentence to the deep ref; wording can stay."
+    },
+    {
+      "id": "D004",
+      "line": 12,
+      "section": "Decision-Making Relevance",
+      "claim": "for code maintenance (twelve named code smells, each with a refactoring prescription)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 4 comment + 3 function + 4 general-code smells = 11. Source 8.6 Summary lists the same 11.",
+      "fix": "correct: (eleven named code smells, each with a refactoring prescription)"
+    },
+    {
+      "id": "D005",
+      "line": 18,
+      "section": "Key Concepts #1",
+      "claim": "Decided once with the client at project start, the matrix becomes the referent for downstream trade-off calls. (Source: ... Ch 2.5.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Absent from deep ref; source-true but hardened ('decided once' vs source's 'ideally ... referenced throughout the project as needed')",
+      "evidence": "Not in deep ref (line 81). Source Ch 2.5.2: 'Ideally, the project priority matrix would be defined before the project starts (with the client) and referenced throughout the project as needed.'",
+      "fix": "correct: Ideally set with the client before the project starts and referenced throughout as needed (Ch 2.5.2), the matrix becomes the referent for downstream trade-off calls. Plus cycle-to-deep."
+    },
+    {
+      "id": "D006",
+      "line": 20,
+      "section": "Key Concepts #2",
+      "claim": "Each method in the book is presented as a way to reduce risk: defining and tracking the project, communicating with the team, researching the implications of decisions, developing backup plans, and selecting suitable tools.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Ch 2 catalogue generalised to the whole book",
+      "evidence": "Deep ref line 19: the five-item catalogue is 'at the head of Chapter 2'; other chapters frame their methods differently.",
+      "fix": "correct: Each project-management method in Ch 2 is presented as a way to reduce risk; the chapter's catalogue of risk-mitigation moves is defining and tracking the project, communicating with the team, researching the implications of decisions, developing backup plans, and selecting suitable tools."
+    },
+    {
+      "id": "D007",
+      "line": 24,
+      "section": "Key Concepts #4",
+      "claim": "**Programmed vs spike-warranted decisions.** ... (Source: Ch 1.2.3, \"Agile Methods\"; Ch 2.5.4, \"Finer-Grained Prioritization\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "OpenStax OB vocabulary ('programmed' decisions) placed under a Letaw citation",
+      "evidence": "'Programmed decision' is OB's term (openstax-organizational-behavior-deep.md line 179); it does not appear in the Letaw deep ref. The spike content itself matches deep ref lines 49 and 85; 'many unknowns' is the source's spike example (Ch 2.5.4), not in the deep ref.",
+      "fix": "correct: **Clear path vs spike-warranted decisions.** (Keep the OB analogy in the Integration table, where it is flagged as an analogy.)"
+    },
+    {
+      "id": "D008",
+      "line": 26,
+      "section": "Key Concepts #5",
+      "claim": "Two-or-fewer triggers explicit discussion before commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Absent from deep ref; source-true but hardened ('can' → 'triggers')",
+      "evidence": "Deep ref line 75 has the encoding only. Source Ch 2.4.3: 'If anyone suggests rejecting the statement or idea by holding up two or fewer fingers, the team can stop, discuss, make changes, and vote again until there's sufficient consensus. It's up to the team or its leader to decide how much consensus is needed.'",
+      "fix": "correct: If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again; how much consensus is enough is the team's or leader's call. Plus cycle-to-deep."
+    },
+    {
+      "id": "D009",
+      "line": 30,
+      "section": "Key Concepts #7",
+      "claim": "Either way, the estimate is an artefact of the decision to commit, not a prediction.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Position the source does not hold, attributed to Ch 2.5.5",
+      "evidence": "Deep ref line 87: ideal days = 'a number of days you think it'd take to complete the task'; teams make initial velocity estimates 'and adjust based on accuracy'. Source Ch 2.5.5 opens: estimation is 'figuring out ahead of time how long a task is likely to take'. The distillation's own Phase 6 row (line 99) compares actual to estimated.",
+      "fix": "strip"
+    },
+    {
+      "id": "D010",
+      "line": 30,
+      "section": "Key Concepts #7",
+      "claim": "The discussion is the value, not the number. (Source: Ch 2.5.5)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Claim attributed to Letaw that neither deep ref nor source makes",
+      "evidence": "Deep ref line 89: differences open a discussion and the process repeats until estimates 'become sufficiently consistent'. Source: 'differences open a discussion ... The team discusses and, once ready, can repeat the process until estimates become sufficiently consistent.' The discussion serves a better estimate; nothing demotes the number.",
+      "fix": "correct: Differences in the revealed estimates are expected and open a discussion; someone with a high or low estimate may know something the others don't (Ch 2.5.5)."
+    },
+    {
+      "id": "D011",
+      "line": 38,
+      "section": "Key Concepts #11",
+      "claim": "**Code-maintenance decisions: twelve named smells.**",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong; the line lists 11 names",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: **Code-maintenance decisions: eleven named smells.**"
+    },
+    {
+      "id": "D012",
+      "line": 38,
+      "section": "Key Concepts #11",
+      "claim": "Refactoring is \"improving code without changing what it does\" and is the structured response to technical debt — the cost of decisions deferred.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation marks around a non-verbatim string; technical debt given a definition the source does not give",
+      "evidence": "Deep ref line 293 / source Ch 8.2: 'Refactoring is when you improve your code without changing what the code does. Refactoring is a way to pay down technical debt.' Glossary: 'Improving code design without changing what the code does.' Deep ref line 291 ties technical debt to sloppy code building up, not to deferred decisions.",
+      "fix": "correct: Refactoring \"is when you improve your code without changing what the code does\" [V] and \"is a way to pay down technical debt\" [V], the debt that sloppy code builds up (Ch 8.1-8.2)."
+    },
+    {
+      "id": "D013",
+      "line": 81,
+      "section": "Questions — Phase 4",
+      "claim": "In Agile terms: programmed task or spike-warranted?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "OB term labelled as Agile vocabulary",
+      "evidence": "'Programmed' decisions are OpenStax OB's category (OB deep ref line 179); neither the Letaw deep ref nor its Agile chapter uses the term.",
+      "fix": "correct: In Letaw's terms: is the path clear enough to estimate and commit, or is a spike warranted?"
+    },
+    {
+      "id": "D014",
+      "line": 109,
+      "section": "What to Look For",
+      "claim": "The triple constraint is operating but the project priority matrix has not been agreed with the client (Source: Ch 2.2 ...; Ch 2.5.2 ...)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Premise ('agreed with the client') absent from deep ref; source-true (cycle-to-deep)",
+      "evidence": "See D003/D005. Source Ch 2.5.2: the matrix 'would be defined before the project starts (with the client)'.",
+      "fix": "cycle-to-deep; wording can stay once the deep ref carries the Ch 2.5.2 sentence."
+    },
+    {
+      "id": "D015",
+      "line": 111,
+      "section": "What to Look For",
+      "claim": "Planning-poker value is being forfeited — the discussion is the value, not the number (Source: Ch 2.5.5)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same unsourced claim as D010, with explicit citation",
+      "evidence": "See D010.",
+      "fix": "correct: Planning poker's benefit is being forfeited: a lone estimator loses the high and low estimates whose differences open a discussion (Source: Ch 2.5.5)"
+    },
+    {
+      "id": "D016",
+      "line": 126,
+      "section": "When to Use This Reference",
+      "claim": "the twelve named code smells",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: the eleven named code smells"
+    },
+    {
+      "id": "D017",
+      "line": 128,
+      "section": "When to Use This Reference",
+      "claim": "The book deliberately stays method-level and does not cover specific technology choices, detailed Agile vs Waterfall comparative analysis, ethics, security, or quantitative cost models; reach for Jones ... for evidence-calibrated views on Agile practice claims.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Exclusion list not in deep ref and partly wrong (security); Jones pointer overstated",
+      "evidence": "The deep ref records no author-stated exclusion list. Deep ref line 203 covers 'potentially less secure communication' as a microservices disadvantage (Ch 5.2.2). Jones deep ref line 149: 'The rarity of measurement data for any of the agile processes means this evidence-based book has little to say about them.'",
+      "fix": "correct: The book stays at the level of methods and curates rather than covers everything (Introduction, 'It's Not Necessary to Study Every Detail'); for evidence on estimation and productivity claims, reach for Jones, who also notes that Agile processes have too little measurement data for him to assess."
+    },
+    {
+      "id": "D018",
+      "line": 132,
+      "section": "Worked Example",
+      "claim": "Time is Enhanced (deliver in 12 weeks)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Framework term misapplied: a fixed deadline is Constrain, not Enhance",
+      "evidence": "Deep ref line 81: Constrain = 'The constraint is fixed (can get better but must not get worse)'; Enhance = 'Try to improve (e.g., take less time, spend less, have more features)'.",
+      "fix": "correct: Time is Enhanced (aim to beat the 12-week target)"
+    },
+    {
+      "id": "D019",
+      "line": 136,
+      "section": "Worked Example",
+      "claim": "the shortcut menu replaces the explicit guided-path UI she relies on",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Persona gendered against the source's explicit note",
+      "evidence": "Deep ref line 260: 'the personas can have any gender and picture' [V]. Source Ch 7 refers to Abi by name throughout with no pronoun.",
+      "fix": "correct: the shortcut menu replaces the explicit guided-path UI Abi relies on"
+    },
+    {
+      "id": "D020",
+      "line": 138,
+      "section": "Worked Example",
+      "claim": "Scope is Constrained; the request requires loosening the constraint, which means a corresponding tightening of Time (push to 14 weeks) or Cost (add budget).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Trade-off vocabulary inverted: pushing to 14 weeks and adding budget loosen Time and Cost; adding a feature does not breach a Constrained scope",
+      "evidence": "Deep ref line 57: increasing scope needs 'a corresponding change in one or more other constraints'. Deep ref line 81: Constrain = 'can get better but must not get worse'; Accept = 'Can worsen (e.g., more time, more personnel ...)'. In the example's own matrix, Cost is the Accepted constraint and is the one designed to give.",
+      "fix": "correct: Adding the reporting module increases scope, so another constraint has to give (Ch 2.2). The matrix already says which: Cost is Accepted, so the team prices the module as added budget rather than eating into the Enhanced timeline."
+    },
+    {
+      "id": "D021",
+      "line": 145,
+      "section": "Integration with Other References",
+      "claim": "OpenStax, Principles of Management (Ch 17–18): Provides the strategic planning and control-cycle frame (PDCA, MBO, balanced scorecard)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Cross-source claim partly unsupported and mis-cited",
+      "evidence": "openstax-principles-management-deep.md: Ch 17 carries planning/controlling, the Deming (PDCA) cycle (line 833) and MBO (line 859). No 'balanced scorecard' anywhere in the deep ref. Ch 18 is Management of Technology and Innovation (line 863), not a control-cycle chapter.",
+      "fix": "correct: **OpenStax, *Principles of Management*** (Ch 17) | Provides the planning and control-cycle frame (Deming/PDCA cycle, MBO) within which Letaw's project-level methods sit."
+    },
+    {
+      "id": "D022",
+      "line": 146,
+      "section": "Integration with Other References",
+      "claim": "Jones calibrates which Agile practice claims are evidence-based and which are folklore. Use Letaw for how to run the practices; use Jones to know which outcome claims for those practices are supported by data.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Cross-source claim contradicted by the other source's own disclaimer",
+      "evidence": "jones-evidence-based-sweng-deep.md line 149: 'The rarity of measurement data for any of the agile processes means this evidence-based book has little to say about them' [V] (Ch 5.4.3). Jones does carry estimation evidence (anchoring, round-number peaks in agile task estimates, line 145) and treats productivity and complexity-metric claims as folklore (line 17).",
+      "fix": "correct: Jones says Agile processes have too little measurement data for his book to assess (Ch 5.4.3), but his estimation evidence (anchoring on manager statements, round-number peaks in agile task estimates, Ch 5.3) bears directly on story points and planning poker. Use Letaw for how to run the practices; use Jones for what the data says about estimates."
+    },
+    {
+      "id": "D023",
+      "line": 163,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Fowler & Beck (2019), Refactoring — ... Cited for further refactoring guidance beyond the twelve named smells.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: beyond the eleven named smells."
+    },
+    {
+      "id": "D024",
+      "line": 167,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The handbook explicitly stays method-level: no specific technology choices (Python vs Java, AWS vs Azure), no detailed Agile-vs-Waterfall comparative analysis ..., no quantitative cost models (risk is treated qualitatively), no ethics or security coverage beyond cognitive-style inclusivity.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Presented as the author's explicit scope statement, which the deep ref does not record; 'no security coverage' is wrong",
+      "evidence": "Deep ref records the author's curation stance ('It's Not Necessary to Study Every Detail', line 378) but no exclusion list. Deep ref line 203: network communication 'more prone to interception and alteration' is a named microservices disadvantage. Deep ref line 19 gives a quantitative risk definition ('estimated probability of a loss').",
+      "fix": "correct: The handbook stays at the level of methods and curates 'a set of software engineering methods that are known to be useful across multiple contexts' rather than aiming for completeness (Introduction). It does not compare specific technologies, gives no quantitative cost models, and touches security only as a microservices communication risk (Ch 5.2.2)."
+    },
+    {
+      "id": "D025",
+      "line": 169,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Key [V] passages that this distillation paraphrases — including ... the RACI shipping-failure example (Ch 2.4.2) ... and the develop-vs-grade prototype-fidelity rule (Ch 6)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Names a rule that exists in neither deep ref nor source; also misdescribes the RACI example as paraphrased",
+      "evidence": "No 'develop-vs-grade' rule in the deep ref (Part VI, lines 228-242) or source Ch 6 (no 'grade' in the source outside 'upgrade'). The RACI shipping-failure example is quoted with [V] in Concept 6 (line 28), not paraphrased.",
+      "fix": "correct: Key [V] passages this distillation paraphrases include the triple-constraint trade-off (Ch 2.2), the fist-of-five encoding (Ch 2.4.3), the spike definition (Ch 1.2.3) and the fidelity-level definitions (Ch 6); the RACI shipping-failure example (Ch 2.4.2) is quoted with [V]."
+    }
+  ],
+  "notes": "Grading convention: a claim the source supports but the deep ref lacks is graded MINOR-DRIFT with a cycle-to-deep fix (D003, D005, D008, D014); UNSUPPORTED is kept for claims neither the deep ref nor the source supports. Most serious: the estimation stance in Concept 7 ('not a prediction', 'the discussion is the value, not the number') inverts Letaw's definition of estimation and recurs in What to Look For; the Jones integration row sends users to Jones for exactly what Jones says his book cannot give; 'twelve' code smells recurs four times (source and deep ref: eleven). The worked example is hypothetical and presents no outcome as the source's finding, but it misapplies the priority-matrix terms (Time as Enhanced with a fixed deadline; 'tightening' used for giving more time and budget). OB, Principles of Marketing and Field Guide integration rows match their deep refs; the Principles of Management row cites a balanced scorecard the deep ref lacks and a Ch 18 that is about technology and innovation. All four [V] Eisenhower quotations, the RACI example quote, the paper-prototype quote and 'Smelly code leads to smellier code' match the source word for word."
+}

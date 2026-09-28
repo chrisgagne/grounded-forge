@@ -1,0 +1,439 @@
+{
+ "distillation": "corpus.commons/demo/distillations/software-business/openstax-business-ethics-software-business.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-250 of 250",
+  "deep": "lines 1-660 of 660",
+  "complete": true
+ },
+ "claims_audited": 225,
+ "tally": {
+  "faithful": 183,
+  "minor_drift": 32,
+  "unsupported": 7,
+  "contradicted": 3
+ },
+ "findings": [
+  {
+   "id": "D001",
+   "line": 8,
+   "section": "Software-Business Relevance",
+   "claim": "OpenStax's *Business Ethics* is the corpus's only substantive treatment of the normative-stakeholder argument",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overclaim about the corpus: other deep refs treat stakeholder theory and obligations beyond shareholders; Business Ethics is the only one carrying the Donaldson-Preston typology.",
+   "evidence": "Principles of Management deep 263 (stakeholder theory, Ch 5.6, citing Freeman); Accounting Vol 2 deep 403 (obligation to groups beyond shareholders); Entrepreneurship deep 19 (stakeholder view vs Dodge v. Ford).",
+   "fix": "correct: OpenStax's *Business Ethics* is the corpus's fullest treatment of the normative-stakeholder argument and its only source for the Donaldson-Preston typology"
+  },
+  {
+   "id": "D002",
+   "line": 22,
+   "section": "Key Concepts #4",
+   "claim": "For software-business communication ..., the model sequences the audience set and frames each one's appropriate channel.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The linkage model classifies; it does not sequence (sequence is Ch 3.3 prioritisation). The source (not the deep) says the four publics help design the message and decide how to communicate.",
+   "evidence": "Source 4133-4136: 'These categories help the organization design its message about a problem and decide how to communicate... If an organization is aware of a problem and the public is not, the organization has an opportunity to communicate and guide the public'. Deep 122 carries definitions only.",
+   "fix": "cycle-to-deep: add the source 4133-4136 passage to the deep's Ch 3.2 publics paragraph as [V]; then correct: the linkage model names the audience set and the four publics shape each audience's message; sequence them with Ch 3.3 prioritisation."
+  },
+  {
+   "id": "D003",
+   "line": 24,
+   "section": "Key Concepts #5",
+   "claim": "(low-power-high-interest = communicate/inform but priority is conditional)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Quadrant guidance attributed to 'the book's prioritisation framework' that the deep ref does not carry; the source text names only the high-high key stakeholder and a low-low farmer example (Figure 3.5's content did not convert).",
+   "evidence": "Deep 126 (high-power-high-interest = key stakeholder; priority rises if a problem arises; exigency). Source 4340-4352.",
+   "fix": "strip"
+  },
+  {
+   "id": "D004",
+   "line": 32,
+   "section": "Key Concepts #9",
+   "claim": "\"submarine, hero-type, deli-style, pita, or wrapped or rolled sandwiches\"",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quotation not verbatim ('and/or' altered to 'or').",
+   "evidence": "Deep 274; source 10702: 'pita, and/or wrapped or rolled sandwiches'.",
+   "fix": "correct: \"submarine, hero-type, deli-style, pita, and/or wrapped or rolled sandwiches\""
+  },
+  {
+   "id": "D005",
+   "line": 36,
+   "section": "Key Concepts #11",
+   "claim": "The Sherron Watkins / Enron and Sallie Krawcheck / Merrill Lynch cases illustrate the career cost even of ethical and protected disclosure.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Watkins received no whistleblower protection; only Krawcheck's internal speech is described as protected.",
+   "evidence": "Deep 312 (Watkins reported internally, went to the press, 'received no whistleblower protection'); deep 314 (Krawcheck: 'moral cost even of internal protected speech').",
+   "fix": "correct: ...illustrate the career cost of speaking up, whether unprotected (Watkins, who went to the press rather than the SEC) or internal and protected (Krawcheck)."
+  },
+  {
+   "id": "D006",
+   "line": 55,
+   "section": "Questions, Phase 1",
+   "claim": "Would we apply this same data-handling, employment-practice, and tax position in our home market? If not, the cultural-relativism defence is operating; the FCPA / OECD framework explicitly rejects it.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overreach: the FCPA/OECD instruments address bribery only; the deep ref has the book (not the statute) rejecting relativism, and says nothing about data-handling, employment or tax positions.",
+   "evidence": "Deep 298 (FCPA prohibits bribery of foreign officials; nationality principle); deep 15 and 647 (the book, not the FCPA, rejects the 'when in Rome' defence of bribery, kickbacks, sweatshops, corruption).",
+   "fix": "correct: If not, the cultural-relativism defence is operating; the book's single-standard rule rejects it (Ch 1.3), and for payments to officials the FCPA / OECD framework applies (Ch 7.4)."
+  },
+  {
+   "id": "D007",
+   "line": 72,
+   "section": "Questions, Phase 3",
+   "claim": "Pay-secrecy bans in 10 US states require transparency.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overstated: the bans stop employers enforcing pay secrecy (employees may discuss pay); the deep ref says nothing about requiring the employer to publish pay.",
+   "evidence": "Deep 304 (ten states 'have banned pay secrecy'; NLRB made most pay-secrecy policies unenforceable).",
+   "fix": "correct: Ten US states ban pay-secrecy policies, and most such policies are unenforceable under the NLRA (Ch 7.5)."
+  },
+  {
+   "id": "D008",
+   "line": 75,
+   "section": "Questions, Phase 3",
+   "claim": "The 30% benefits saving is \"often the margin between middle class and falling below\" (Ch 8.4).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quotation not verbatim.",
+   "evidence": "Deep 354; source 13247-13248: 'is often the margin between being in the middle class and falling below it'.",
+   "fix": "correct: The 30 percent saving \"is often the margin between being in the middle class and falling below it\" [V] (Ch 8.4)."
+  },
+  {
+   "id": "D009",
+   "line": 85,
+   "section": "Questions, Phase 4",
+   "claim": "The Sherron Watkins / Sallie Krawcheck pattern (Ch 7.5) — even protected ethical disclosure carrying career cost",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Watkins was not protected (see D005).",
+   "evidence": "Deep 312 (Watkins reported internally, went to the press, 'received no whistleblower protection'); deep 314 (Krawcheck: 'moral cost even of internal protected speech').",
+   "fix": "correct: The Watkins / Krawcheck cases (Ch 7.5), where speaking up carried career cost whether or not it was protected, are the failure mode to design against."
+  },
+  {
+   "id": "D010",
+   "line": 93,
+   "section": "Questions, Phase 5",
+   "claim": "The Tylenol playbook (proactive, comprehensive disclosure to the active public, including those not yet aware) is more effective long-run than the Volkswagen playbook (cover-up exposed by external actors).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source's Tylenol case is a voluntary nationwide recall and refund beyond the affected area, not a disclosure campaign; 'exposed by external actors' is not in the source ('When the fraud was discovered'). The deep ref carries only the enlightened-vs-failure framing.",
+   "evidence": "Deep 122 (Tylenol presented as J&J modelling enlightened communication across publics; VW cover-up as failure mode); deep 596 (~30 million bottles). Source 4144-4165: J&J voluntarily removed all Tylenol from the US market and refunded full retail price 'despite the fact that it and law enforcement realized the cyanide poisoning was limited to Cook County'; 'the entire drug industry responded, following Johnson & Johnson's lead, by introducing tamper-proof containers'; market share 37% -> 7% -> 30%. Source 4194-4203 (VW).",
+   "fix": "cycle-to-deep: add the Tylenol recall details (source 4144-4165) to deep 122; then correct: The Tylenol response (voluntary nationwide recall and refund well beyond the affected area, Ch 3.2) restored the product; the Volkswagen cover-up proved 'extremely expensive' once discovered (Ch 3.2)."
+  },
+  {
+   "id": "D011",
+   "line": 94,
+   "section": "Questions, Phase 5",
+   "claim": "BHP Billiton, GlaxoSmithKline, and Telia paid heavily for variants of it [the cultural-relativism defence]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The deep ref reports the fines for bribery (Olympic tickets; Uzbekistan), not that these firms invoked a relativism defence.",
+   "evidence": "Deep 298.",
+   "fix": "correct: BHP Billiton, GlaxoSmithKline (Olympic tickets for foreign officials) and Telia (bribery in Uzbekistan) paid heavily under the FCPA (Ch 7.4)."
+  },
+  {
+   "id": "D012",
+   "line": 97,
+   "section": "Questions, Phase 5",
+   "claim": "The book's framing of automation as a social-contract issue (Ch 10.4)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Attributes a framing to Ch 10.4 that the deep ref does not contain; Ch 10.4 covers job-loss estimates, the AI definition, Accenture/KPMG forecasts, and governance questions (disclosing AI to customers, EU robot regulation). The social-contract argument lives in Ch 1.2/4.1.",
+   "evidence": "Deep 442-452 (Ch 10.4 content); deep 47, 140 (social contract, Ch 1.2, 4.1).",
+   "fix": "correct: The social-contract argument (Ch 1.2, Ch 4.1), applied to the automation and AI governance questions the book raises (Ch 10.4), and the triple-bottom-line frame (Ch 3.4) make these costs visible."
+  },
+  {
+   "id": "D013",
+   "line": 105,
+   "section": "Questions, Phase 6",
+   "claim": "The latent-public window is when proactive communication can guide the framing; once the public is active, the firm is reacting.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source, not carried by the deep ref.",
+   "evidence": "Source 4133-4136: 'These categories help the organization design its message about a problem and decide how to communicate... If an organization is aware of a problem and the public is not, the organization has an opportunity to communicate and guide the public'. Deep 122 carries definitions only.",
+   "fix": "cycle-to-deep: add source 4133-4136 to deep 122 as [V] (Ch 3.2, \"The Chicago Tylenol Murders\")."
+  },
+  {
+   "id": "D014",
+   "line": 106,
+   "section": "Questions, Phase 6",
+   "claim": "Apply Mitchell-Agle-Wood-style power × interest × exigency for board / regulator / customer prioritisation",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Names an external framework (not in the source or corpus) as the tool; the row's own note concedes the book's framework is power x interest with exigency.",
+   "evidence": "Deep 126 (power x interest matrix; exigency). No Mitchell, Agle or Wood in the deep ref or source.",
+   "fix": "correct: Apply the book's power × interest matrix with exigency (Ch 3.3) for board / regulator / customer prioritisation"
+  },
+  {
+   "id": "D015",
+   "line": 109,
+   "section": "Questions, Phase 6",
+   "claim": "identify stakeholders (and reidentify periodically); ... inform stakeholders that their concerns were considered. For board, customer, and regulator communication around incidents, the closing-the-loop step is where engagement integrity is judged.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Step wording is supported by the source but not the deep ref (deep: 'let stakeholders know they matter'); the 'engagement integrity is judged' premise is in neither.",
+   "evidence": "Deep 128. Source 4386-4400 ('periodically reidentified'; 'stakeholders should be informed that their concerns were taken into consideration').",
+   "fix": "cycle-to-deep: add source 4386-4400 MITRE wording to deep 128; then correct: drop 'the closing-the-loop step is where engagement integrity is judged'."
+  },
+  {
+   "id": "D016",
+   "line": 110,
+   "section": "Questions, Phase 6",
+   "claim": "Johnson & Johnson's recall of ~30 million bottles plus tamper-proof-packaging redesign ... The pattern: proactive disclosure beyond the legal minimum, substantive remediation, transparent communication across all four publics.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Tamper-proof containers were the drug industry's response following J&J's lead (source), not in the deep ref; the source frames J&J's act as a recall beyond the affected area, not disclosure beyond a legal minimum.",
+   "evidence": "Deep 122 (Tylenol presented as J&J modelling enlightened communication across publics; VW cover-up as failure mode); deep 596 (~30 million bottles). Source 4144-4165: J&J voluntarily removed all Tylenol from the US market and refunded full retail price 'despite the fact that it and law enforcement realized the cyanide poisoning was limited to Cook County'; 'the entire drug industry responded, following Johnson & Johnson's lead, by introducing tamper-proof containers'; market share 37% -> 7% -> 30%.",
+   "fix": "cycle-to-deep: add the Tylenol recall details to deep 122; then correct: Johnson & Johnson's voluntary nationwide recall of ~30 million bottles, with full refunds, well beyond the affected area; the industry followed with tamper-proof containers (Ch 3.2)."
+  },
+  {
+   "id": "D017",
+   "line": 116,
+   "section": "Runtime triggers",
+   "claim": "Ch 10.4 framing of automation and AI as social-contract question",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Same unsupported attribution as D012.",
+   "evidence": "Deep 442-452.",
+   "fix": "correct: social-contract argument (Ch 1.2, Ch 4.1) applied to the AI governance questions Ch 10.4 raises"
+  },
+  {
+   "id": "D018",
+   "line": 117,
+   "section": "Runtime triggers",
+   "claim": "California's 2017 ban on most post-employment non-competes is the floor",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mischaracterised: California's law is the most restrictive jurisdiction the source names, not a floor that others meet.",
+   "evidence": "Deep 274 (California (2017) declared most post-employment non-competes void; 20% of workforce covered elsewhere).",
+   "fix": "correct: California's 2017 law voiding most post-employment non-competes shows how far one jurisdiction has gone"
+  },
+  {
+   "id": "D019",
+   "line": 118,
+   "section": "Runtime triggers",
+   "claim": "Equifax counter-example (Ch 1.2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's Ch 1.2 case box ('The Equifax Data Breach'), which the deep ref does not carry (it lists Equifax only as a scandal exemplar, Ch 5.4, Ch 11).",
+   "evidence": "Deep 632. Source 1195-1225.",
+   "fix": "cycle-to-deep: add a line for the Ch 1.2 case box \"The Equifax Data Breach\" (source 1195-1203: executives sold nearly $2 million of stock after learning of the hack; shares fell nearly 14 percent)."
+  },
+  {
+   "id": "D020",
+   "line": 119,
+   "section": "Runtime triggers",
+   "claim": "automation as social-contract question (Ch 10.4)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Same unsupported attribution as D012.",
+   "evidence": "Deep 442-452.",
+   "fix": "correct: social-contract argument (Ch 1.2, Ch 4.1) applied to Ch 10.4's AI governance questions"
+  },
+  {
+   "id": "D021",
+   "line": 131,
+   "section": "What to Look For",
+   "claim": "the 30% benefits saving is \"the margin between middle class and below\"; Ch 8.4",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quotation not verbatim (see D008).",
+   "evidence": "Deep 354.",
+   "fix": "correct: the 30 percent saving \"is often the margin between being in the middle class and falling below it\" [V] (Ch 8.4)"
+  },
+  {
+   "id": "D022",
+   "line": 134,
+   "section": "What to Look For",
+   "claim": "the FCPA / OECD framework explicitly rejects the cultural-relativism defence (Ch 7.4) [applied to data-handling, employment, or anti-corruption posture]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overreach, as D006: the FCPA covers bribery; the rejection of relativism is the book's.",
+   "evidence": "Deep 298 (FCPA prohibits bribery of foreign officials; nationality principle); deep 15 and 647 (the book, not the FCPA, rejects the 'when in Rome' defence of bribery, kickbacks, sweatshops, corruption).",
+   "fix": "correct: the book rejects the cultural-relativism defence (Ch 1.3), and the FCPA / OECD framework prohibits bribery of foreign officials (Ch 7.4)."
+  },
+  {
+   "id": "D023",
+   "line": 135,
+   "section": "What to Look For",
+   "claim": "apply the App C credo on multiple stakeholders being \"significant though not equal\"",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quoted phrase is the deep ref's heading, not the source's words.",
+   "evidence": "Deep 488: 'While not all stakeholders are equal in significance, they nonetheless all are significant.' [V] (App C).",
+   "fix": "correct: apply the App C credo: \"While not all stakeholders are equal in significance, they nonetheless all are significant\" [V] (App C)"
+  },
+  {
+   "id": "D024",
+   "line": 136,
+   "section": "What to Look For",
+   "claim": "consider that even ethical and protected disclosure carries career cost in the corpus's worked examples",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Watkins was not protected (see D005); the cases are the source's, not 'worked examples'.",
+   "evidence": "Deep 312 (Watkins reported internally, went to the press, 'received no whistleblower protection'); deep 314 (Krawcheck: 'moral cost even of internal protected speech').",
+   "fix": "correct: consider that speaking up carried career cost in the source's Watkins and Krawcheck cases (Ch 7.5), protected or not."
+  },
+  {
+   "id": "D025",
+   "line": 162,
+   "section": "Worked Example",
+   "claim": "the affected user population is *nonpublic* (no problem recognised — the data was never exfiltrated) ... moves the broader affected user population from *nonpublic* to *aware*; regulators are *aware* (the firm is about to inform them)",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Four-publics definitions misapplied: in the deep ref, nonpublic means no problem exists or is recognised and latent means a problem exists but is unrecognised. Users whose data was logged face a problem they do not recognise: latent. The example's own gloss ('no problem recognised') is the latent definition, and line 158 already calls the user base 'a latent public'. Regulators not yet informed are also latent.",
+   "evidence": "Deep 122 (nonpublic (no problem), latent (problem unrecognised), aware, active). Source 4129-4136: 'In the nonpublic cohort, no problem is recognized or exists. For the latent public, a problem is there but the public does not recognize it... If an organization is aware of a problem and the public is not' — the exact situation in the example.",
+   "fix": "correct: Currently: the affected user population is *latent* (a problem exists that they do not recognise). Regulators in notification-required jurisdictions are *latent* until informed. The internal engineering team is *aware*. The CFO's plan leaves most affected users *latent*... The ethical-maximum framing moves the broader affected user population from *latent* to *aware* through proactive disclosure."
+  },
+  {
+   "id": "D026",
+   "line": 162,
+   "section": "Worked Example",
+   "claim": "The source's Tylenol worked example is the model: Johnson & Johnson's proactive, comprehensive disclosure to the active public, including those not yet aware. (also line 160: 'the Tylenol playbook: proactive, comprehensive disclosure to the entire affected population')",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source's Tylenol case is a recall and refund beyond the affected area; it describes no disclosure campaign to publics (see D010).",
+   "evidence": "Deep 122 (Tylenol presented as J&J modelling enlightened communication across publics; VW cover-up as failure mode); deep 596 (~30 million bottles). Source 4144-4165: J&J voluntarily removed all Tylenol from the US market and refunded full retail price 'despite the fact that it and law enforcement realized the cyanide poisoning was limited to Cook County'; 'the entire drug industry responded, following Johnson & Johnson's lead, by introducing tamper-proof containers'; market share 37% -> 7% -> 30%.",
+   "fix": "correct: The source's Tylenol case is the model: Johnson & Johnson pulled every bottle nationwide and refunded full retail price although it knew the poisoning was confined to Cook County (Ch 3.2)."
+  },
+  {
+   "id": "D027",
+   "line": 164,
+   "section": "Worked Example",
+   "claim": "(Source: Ch 2.5, \"Kant's Ethical Theory\"; ...)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mis-cited section: no section of that name exists; the deep ref cites Ch 2.5 'Aroused From \"Dogmatic Slumber\"' and 'Kantian Business Ethics'.",
+   "evidence": "Deep 89, 91; source grep finds no 'Kant's Ethical Theory'.",
+   "fix": "correct: (Source: Ch 2.5, \"Aroused From 'Dogmatic Slumber'\"; App C, \"The Nature of Business Ethics\")"
+  },
+  {
+   "id": "D028",
+   "line": 164,
+   "section": "Worked Example",
+   "claim": "The lead author's Appendix C credo — the means ennoble the ends — argues for the ethical-maximum response even when the consequence calculation would favour minimum disclosure.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Attributes a specific conclusion to App C; the credo argues deontology over utilitarianism in framing strategy, and the step to 'ethical-maximum disclosure' is the distillation's.",
+   "evidence": "Deep 484 (App C: ends not sufficient justification for means; means ennoble the ends).",
+   "fix": "correct: Applying the lead author's Appendix C credo (the means ennoble the ends), the consequence calculation alone cannot settle the disclosure choice."
+  },
+  {
+   "id": "D029",
+   "line": 166,
+   "section": "Worked Example",
+   "claim": "the source's position that ethical conduct generates goodwill that compounds into long-term profitability ... (Source: Ch 1.2, \"A Brief Introduction to Corporate Social Responsibility\")",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mis-cited section: the goodwill argument sits under 'Stockholders, Stakeholders, and Goodwill'.",
+   "evidence": "Deep 41; source 1073 (heading), 1117-1122, 1162.",
+   "fix": "correct: (Source: Ch 1.2, \"Stockholders, Stakeholders, and Goodwill\")"
+  },
+  {
+   "id": "D030",
+   "line": 168,
+   "section": "Worked Example",
+   "claim": "(5) A 60-day follow-up communication ... — the closing-the-loop step the source names as where engagement integrity is judged. (Source: Ch 3.3, \"Stakeholder Prioritization\"; ...)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Attributes to the source a claim it does not make; the MITRE passage says only that stakeholders should be told their concerns were considered and that they are important. MITRE is also under 'Managing Stakeholder Expectations', not 'Stakeholder Prioritization'.",
+   "evidence": "Deep 128 (MITRE, Ch 3.3, 'Managing Stakeholder Expectations'). Source 4396-4400.",
+   "fix": "correct: (5) A 60-day follow-up communication summarising changes made in response to user feedback, MITRE's final step: tell stakeholders their concerns were considered (Ch 3.3, \"Managing Stakeholder Expectations\")."
+  },
+  {
+   "id": "D031",
+   "line": 170,
+   "section": "Worked Example",
+   "claim": "The source's framing: a company that treats its stakeholders \"merely as means to an end\" has failed the normative test regardless of the legal outcome.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quoted phrase is not in the source body or the deep ref; the 'failed ... regardless of the legal outcome' verdict is the distillation's.",
+   "evidence": "Deep 111: 'stakeholders as ends in themselves rather than simply as means to achieve better financial results' [V] (Ch 3.2). Source grep: 'merely as means' absent; 'means to an end' only in the Answer Key (19496).",
+   "fix": "correct: The source's normative approach treats \"stakeholders as ends in themselves rather than simply as means to achieve better financial results\" [V] (Ch 3.2)."
+  },
+  {
+   "id": "D032",
+   "line": 172,
+   "section": "Worked Example",
+   "claim": "Result eighteen months later ... ~$4.1M in direct costs ... no measurable customer churn ... consortium invited the firm ... Goodwill ... trended positively ... consistent with the source's argument that ethical conduct builds the goodwill that compounds into long-term profitability. (Source: Ch 1.2)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Invented quantified outcome presented as the framework's demonstrated effect and cited to Ch 1.2. The deep ref reports the book's argument, not evidence of this kind; the distillation's own named limits (line 248) say the book carries no effectiveness findings.",
+   "evidence": "Deep 13, 41 (argument only). Distillation line 248.",
+   "fix": "strip (or relabel the paragraph as hypothetical and drop the source citation and the 'consistent with' sentence)"
+  },
+  {
+   "id": "D033",
+   "line": 178,
+   "section": "Anti-patterns",
+   "claim": "Cultural relativism defending bribery, data-handling, or employment-practice asymmetry. The single-standard rule and FCPA framework reject this.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The FCPA rejects bribery only; data-handling and employment asymmetry fall under the book's single-standard rule alone (see D006).",
+   "evidence": "Deep 298 (FCPA prohibits bribery of foreign officials; nationality principle); deep 15 and 647 (the book, not the FCPA, rejects the 'when in Rome' defence of bribery, kickbacks, sweatshops, corruption).",
+   "fix": "correct: The single-standard rule rejects this (Ch 1.3); for bribery, so does the FCPA (Ch 7.4)."
+  },
+  {
+   "id": "D034",
+   "line": 184,
+   "section": "Anti-patterns",
+   "claim": "the False Claims Act and protected-disclosure statutes exist precisely because internal channels often fail",
+   "grade": "CONTRADICTED",
+   "failure_mode": "The source gives a different reason for the FCA (Civil War procurement fraud against the Union Army) and advises internal channels first.",
+   "evidence": "Deep 308, 310. Source 11722-11723 ('enacted in 1863, during the American Civil War, because Congress was worried that suppliers of goods to the Union Army might cheat the government').",
+   "fix": "correct: \"Whistleblowers are disloyal.\" Treating substantive engineering, security, or research dissent as betrayal; the source advises internal channels first and shows what speaking up cost Watkins and Krawcheck (Ch 7.5)."
+  },
+  {
+   "id": "D035",
+   "line": 201,
+   "section": "Through the business-executive-stakeholder lens",
+   "claim": "\"Approve ethical-maximum response (cost ~$4.1M, 18-month goodwill recovery) or minimum-compliance response (cost ~$2.5M, projected sector-baseline goodwill drift).\"",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Reuses the worked example's invented result (D031) as decision parameters without marking them hypothetical.",
+   "evidence": "Distillation line 172 (hypothetical figures).",
+   "fix": "correct: \"Approve ethical-maximum response (cost $X, rationale) or minimum-compliance response (cost $Y, rationale).\" (hypothetical figures from the worked example)"
+  },
+  {
+   "id": "D036",
+   "line": 226,
+   "section": "Integration",
+   "claim": "OpenStax, *Principles of Management* ... Mintzberg's organisational structures",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The PoM deep ref carries Mintzberg's three managerial role clusters; its organisational-structure content (mechanistic/organic, six types) is not attributed to Mintzberg.",
+   "evidence": "PoM deep 33-37 (Mintzberg role clusters); PoM deep 185-189 (structures, Ch 4.3).",
+   "fix": "correct: Mintzberg's managerial roles, mechanistic-versus-organic structures"
+  },
+  {
+   "id": "D037",
+   "line": 232,
+   "section": "Integration",
+   "claim": "Mitchell-Agle-Wood stakeholder framework (external) ... Both are in the same family of stakeholder-prioritisation frameworks",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Characterises a framework held nowhere in the corpus, from outside knowledge; an Integration row for a non-corpus source.",
+   "evidence": "No Mitchell, Agle or Wood in this deep ref, the source, or other demo deep refs.",
+   "fix": "strip"
+  },
+  {
+   "id": "D038",
+   "line": 244,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "*McKinsey diversity studies, Grant Thornton 2014 report, Denver Investments LGBTQ analysis* — empirical research cited for the diversity-dividend argument (Ch 8.1, Ch 8.3)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Grant Thornton's 2014 report is cited for sustainability motivations (Ch 4.2), not diversity.",
+   "evidence": "Deep 154 (Grant Thornton, Ch 4.2, cost management 67%); deep 322, 338.",
+   "fix": "correct: *McKinsey diversity studies and Denver Investments LGBTQ analysis* (Ch 8.1, Ch 8.3), and the *Grant Thornton 2014 report* on sustainability motivations (Ch 4.2)"
+  },
+  {
+   "id": "D039",
+   "line": 245,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "Patrick Henry (Harvard Business School)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Misattribution: Patrick Henry is a business consultant citing a Harvard Business School study by Shikhar Ghosh.",
+   "evidence": "Deep 372.",
+   "fix": "correct: Patrick Henry (business consultant, citing Shikhar Ghosh's Harvard Business School study)"
+  },
+  {
+   "id": "D040",
+   "line": 248,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "It does not carry empirical research findings on the actual effectiveness of ethical frameworks in producing better business outcomes — it presents theoretical arguments and case examples.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overbroad: the deep ref relays third-party findings linking ethical practices to financial results (Global 100 returns ~25% higher; McKinsey diversity dividend; Denver Investments LGBTQ outperformance), and this distillation's own line 250 cites the McKinsey figures.",
+   "evidence": "Deep 156, 322, 338.",
+   "fix": "correct: It carries no controlled evidence that applying its ethical frameworks produces better decisions; it relays third-party studies linking sustainability, diversity and LGBTQ-inclusive policies to financial returns [BT] (Ch 4.2, Ch 8.1, Ch 8.3), alongside theoretical arguments and cases."
+  },
+  {
+   "id": "D041",
+   "line": 248,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "AI ethics appears primarily in the context of human-judgment principles (the IBM-1979 \"A computer can never be held accountable\" principle) rather than as a technical-ethics treatment",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Training-data leakage: the IBM 1979 principle appears nowhere in the source or the deep ref. The deep ref's AI content is Ch 10.4: job-loss estimates, the AI definition, Accenture and KPMG forecasts, and governance questions (telling customers they are dealing with AI; EU robot regulation and liability).",
+   "evidence": "Deep 442-452. Source grep: 'held accountable' occurs only at 1086 and 17909, neither about computers; IBM mentions concern its mission statement (Ch 5).",
+   "fix": "correct: AI appears in Ch 10.4 as a workforce-automation and governance topic (job-loss estimates, disclosure of AI to customers, EU robot regulation and liability) rather than as a technical-ethics treatment"
+  },
+  {
+   "id": "D042",
+   "line": 250,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "the Grunig-Hunt four-category and four-publics definitions [V]; Normative positions ... carry [AP] markers; Legal and regulatory citations (SOX, FCPA, WARN Act, Citizens United) are [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker inventory misdescribes the deep ref: the four-publics definitions are [BT]; the book's stakeholder-pluralism position is [AR]; SOX and FCPA are unmarked in prose and [V] in the statistics table.",
+   "evidence": "Deep 122 ([BT] publics); deep 17, 636 ([AR]); deep 168, 298 (unmarked), 574-576 ([V]).",
+   "fix": "correct: ...the Grunig-Hunt category quotations [V] and four-publics typology [BT]... Normative positions ... carry [AR] markers. Legal and regulatory citations carry mixed markers (Citizens United [BT]; SOX and FCPA dates [V])."
+  }
+ ],
+ "notes": "Longest and weakest of the five. The facts in the Key Concepts (ECPA, AMA survey, non-competes, FCPA fines, FCA awards, ADA/Verizon, pay-equity figures, Microsoft) trace cleanly. The failures cluster in the synthesis layers: (1) training-data leakage in the named limits (IBM 1979 'a computer can never be held accountable', absent from the source); (2) the worked example misapplies the four-publics definitions (latent users called nonpublic) and ends with an invented quantified result cited to Ch 1.2, which the lens section then reuses as decision inputs; (3) 'automation as a social-contract question (Ch 10.4)' is attributed to the book three times; (4) the Tylenol case is recast as a disclosure playbook when the source describes a recall; (5) an external framework (Mitchell-Agle-Wood) is characterised in a Phase 6 row and an Integration row. The lens section's Paradigm-A/B and Model-I vocabulary traces to lenses/business-executive-stakeholder.md and was graded as lens application. Integration claims about Business Law (TKI), OB (French and Raven), Principles of Management (Porter, PESTEL) and Jones check out apart from the Mintzberg-structures slip."
+}

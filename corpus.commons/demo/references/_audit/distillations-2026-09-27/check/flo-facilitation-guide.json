@@ -1,0 +1,86 @@
+{
+ "slug": "flo-facilitation-guide",
+ "changed_lines_checked": 88,
+ "tally": {
+  "faithful": 83,
+  "minor_drift": 5,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 3
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/aar/flo-facilitation-guide-aar.md",
+   "line": 18,
+   "text": "For AARs this aligns with LFUO's confidentiality framing: LFUO describes AARs as predominantly closed, personal and confidential, and has the degree of confidentiality explained when setting the stage; LFUO's administrative firewall (no punitive use of what is said) is a separate commitment.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Other-source scope conflation: LFUO's 'degree of confidentiality' explanation belongs to its Facilitated Learning Analysis (Part 6, 'Setting the stage'), not to its AAR tool; the sentence reads as if LFUO's AAR framing includes it.",
+   "evidence": "lfuo-learning-review-guide-2024-deep.md:49 AAR = 'predominantly closed, personal, and confidential' [V] (Part 2, 'The tools'); :120 'Throughout the FLA process, team members should be prepared to explain ... the degree of confidentiality' [V] (Part 6, 'Setting the stage').",
+   "fix": "correct: For AARs this aligns with LFUO's confidentiality framing: LFUO describes AARs as predominantly closed, personal and confidential, and for its Facilitated Learning Analysis has the team explain the degree of confidentiality when setting the stage; LFUO's administrative firewall (no punitive use of what is said) is a separate commitment."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md",
+   "line": 24,
+   "text": "... is the default mode; grading is the opt-in. (That grading reduces candour is this distillation's inference, not the Guide's.) (Source: Ch 4, \"Course assessment strategies\")",
+   "grade": "EDIT-DEFECT",
+   "problem": "Leftover trace of the removed claim: the concept no longer says grading reduces candour (heading 'protects candour' and the 'grading drops candour' principle were cut), so the parenthetical disclaims an inference the concept does not make. The labelled inference that remains lives at line 113, which carries its own hedge.",
+   "evidence": "Line 24 as it now stands; line 113 'Diagnosis (this distillation's reading, not the Guide's)'.",
+   "fix": "correct: The self-assessment rubric (three-level developmental: Beginning / Developing / Accomplished) is the default mode; grading is the opt-in. (Source: Ch 4, \"Course assessment strategies\")"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md",
+   "line": 180,
+   "text": "- Leonne Beebe — \"Anxious Annie\" pattern (Ch 4, \"Example of reflective post\") [V] [AE]",
+   "grade": "EDIT-DEFECT",
+   "problem": "Re-marked from [BT] to [V] [AE] but left in the 'Borrowed-through gaps' list; line 189 now says the borrowed-through lineage is CoI and UDL only and that participant testimony is [V] [AE]. The item no longer belongs under this heading.",
+   "evidence": "Line 176 heading 'Borrowed-through gaps. The following authors and bodies are cited in the source...'; line 189 'The borrowed-through lineage (CoI model, UDL) is [BT]; participant testimony (Beebe, Leung) is [V] [AE] in the deep ref'; deep 156-157 Beebe [V] [AE].",
+   "fix": "strip"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md",
+   "line": 181,
+   "text": "- Robin Leung — co-facilitation complementarity example (Ch 7, \"Two heads are better than one\") [V] [AE]",
+   "grade": "EDIT-DEFECT",
+   "problem": "Same as line 180: participant testimony listed under 'Borrowed-through gaps' after being re-marked [V] [AE]; contradicts line 189's split.",
+   "evidence": "Line 189; deep 307 Leung [V] [AE].",
+   "fix": "strip"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 386,
+   "text": "| Set class size and time-budget for the engagement | FLO Facilitation Guide | `flo-facilitation-guide-decision-making.md` | When sizing a learning engagement: Fundamentals-shape (14–20, 15–25 hrs/wk facilitator), Design-shape, Synchronous-shape (10 or more, into the 20s; ideally 6–8 or more Practicing Facilitators in a class of 20), MicroCourse-shape (10+ active). |",
+   "grade": "MINOR-DRIFT",
+   "problem": "Index row does not match the distillation it points to: the decision-making distillation carries no Practicing Facilitator target (its class-size concept, line 36, and Phase 2 row, line 60, give only '10 or more, into the 20s'). The figure is true to the deep ref (243, 359) but the router promises content the file lacks. The clause was pre-existing ('~6–8'); the repair reworded it rather than removing it.",
+   "evidence": "decision-making distillation lines 36, 60 (no 6–8 figure; grep for '6.8' finds only participant hours at 61); deep 243 'Ideally 6-8 participants or more would choose to go that route in that size of class' [V].",
+   "fix": "correct: When sizing a learning engagement: Fundamentals-shape (14–20, 15–25 hrs/wk facilitator), Design-shape, Synchronous-shape (10 or more, into the 20s), MicroCourse-shape (10+ active)."
+  },
+  {
+   "file": "corpus.commons/demo/references/flo-facilitation-guide.md",
+   "line": 176,
+   "text": "4. **Climate and community are operational.** Two of four core skill categories are explicitly community-focused; privacy and trust are foundations, not soft skills.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error the repair corrected at light ref line 13 and deep ref line 21, still present in the changed light ref (unchanged line). Contradicts the deep ref as it now stands.",
+   "evidence": "deep 21 'One of the four, Build and Sustain Online Community, names community directly'; source 886-906 Core FLO Facilitation Skills table; light ref 13 (repaired).",
+   "fix": "correct: 4. **Climate and community are operational.** One of four core skill categories (Build and Sustain Online Community) is community-focused; privacy and trust are foundations, not soft skills."
+  },
+  {
+   "file": "corpus.commons/demo/references/flo-facilitation-guide.md",
+   "line": 27,
+   "text": "- **FLO Synchronous** (3 weeks, two-track choice of Reviewing Participant or Practicing Facilitator; 10–20 participants).",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same class-size error the repair fixed in the decision-making distillation (audit D007) and index, still present in the changed light ref (unchanged line); also inconsistent with the light ref's own line 144.",
+   "evidence": "deep 243 / source: 'FLO Synchronous works well with 10 or more participants and can accommodate participant numbers into the 20s, most likely with two facilitators' [V]; light ref 144 '10+ to into the 20s'.",
+   "fix": "correct: - **FLO Synchronous** (3 weeks, two-track choice of Reviewing Participant or Practicing Facilitator; 10 or more participants, into the 20s)."
+  },
+  {
+   "file": "corpus.commons/demo/references/flo-facilitation-guide.md",
+   "line": 91,
+   "text": "In a class of 20, aim for ~6–8 Practicing Facilitators; actively encourage risk-taking onto the Practicing Facilitator track rather than letting natural defaults push everyone to Reviewing Participant.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error class the repair fixed at decision-making line 20 (audit D005): a hedged 'natural inclination might be' promoted to a default that pushes 'everyone' to the lighter track; '~6–8' also drops 'or more'. Unchanged line in a changed file.",
+   "evidence": "deep 243: 'Ideally 6-8 participants or more would choose to go that route' [V]; 'when their natural inclination might be to play it safe on the Reviewing Participants track' [V]; source 5654-5655.",
+   "fix": "correct: In a class of 20, ideally 6–8 or more choose the Practicing Facilitator track; actively encourage risk-taking onto that track, since a participant's natural inclination might be to play it safe on the Reviewing Participants track."
+  }
+ ],
+ "notes": "Complete. Read in full: deep ref (428 lines), light ref (194), all four distillations (129/194/144/189); every changed statement checked against the converted source (deep/light) or the deep ref (distillations), with other-source claims checked against lfuo, tc-25-20, liberating-structures-handbook, openstax-psychology-2e, openstax-organizational-behavior and barbrook-johnson deep refs. changed_lines_checked=88: deep 6, light 1, aar 10, decision-making 21, retro 11, stakeholder-engagement 23, index rows 16. The tally covers those 88 changed lines (83 faithful, 2 minor-drift, 3 edit-defect) plus 3 unchanged light-ref lines (27, 91, 176) flagged under the same-error-elsewhere check, which account for 3 of the 5 minor-drift. Deep-ref additions (Ch 4 Week 5 wrap-up, Ch 5 Week 4 closing and Post-course, Ch 6 rubric follow-up and own-facilitation reflection, Hrastinski 'when, why and how' annotation, one-of-four core categories) all match the source word for word apart from line breaks and curly apostrophes; locators correct ('Closing the course' is a bold run-in label inside Ch 5 Week 4, acceptable as a section anchor). These additions retroactively support several audit findings the repair left in place in the distillations (decision-making 18 'when, why and how', 97, 108, 132, 162; stakeholder-engagement 38, 86 'end-of-course let-down', 104-106, 137, 139, 189), which is a legitimate resolution. vflags: all 3 FAITHFUL. decision-making:22 (pre-existing) joins Ch 7 list items 1-3 verbatim, differing only in list numbering and line breaks (source 6633-6641). stakeholder-engagement:22 is items 3-4 plus the sidebar with an ellipsis over the omitted text; words verbatim (source 6639-6663). stakeholder-engagement:186 is verbatim from the Core Skills table, split only by a <br> (source 887). Minor non-flagged observations: decision-making 63 says the Design and Synchronous task lists lead with 'several weeks before the course begins' — true to source (4643, 5945) but the deep ref carries that timing only for Fundamentals. Retro 140's 'the Guide cites liberatingstructures.com' is true to source (5734-5756) but not stated in the deep ref. Unchanged index rows outside the changed-line scope still carry wording the distillation lacks: STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md 178 'light-hand facilitator stance' and 184 'asynchronous bulletin board / mind map' (the stakeholder distillation mentions neither)."
+}

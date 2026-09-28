@@ -1,11 +1,11 @@
 <!-- derived-from-deep: sha256:f87aa805a67d3e95e80fbad103f14e3e8e22461db1c60dc3e247777430a6d25d -->
 # Open Kanban, AAR Distillation
 
-**Source:** Joseph Hurtado (with contributor Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban*, Release 1.00 Rev A. CC BY 3.0 Unported. Scope: open. Note: Open Kanban is the corpus's redistributable Kanban-methodology slot, not a canonical-Kanban-authority source; Hurtado is a minor author by broader industry-recognition standards. The Goldratt and Deming lineage cited below is borrowed-through: Goldratt's *Theory of Constraints* and Deming's *System of Profound Knowledge* are both cited by name in the source but are not in this corpus.
+**Source:** Joseph Hurtado (with contributor Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban*, Release 1.00 Rev A. CC BY 3.0 Unported. Scope: open. Operator note (not from the source): Open Kanban is the corpus's redistributable Kanban-methodology slot, not a canonical-Kanban-authority source; Hurtado is a minor author by broader industry-recognition standards. The Goldratt and Deming lineage cited below is borrowed-through: Goldratt's *Theory of Constraints* and Deming's *System of Profound Knowledge* are both cited by name in the source but are not in this corpus.
 
 ## AAR Relevance
 
-Open Kanban's AAR projection runs through two of its five values. The Holistic or Systemic Approach to Change value — which names Deming and Goldratt explicitly — gives the AAR its system-level reading discipline: no single contributor can be isolated as the cause; the whole system must be held. "Deming's System of Profound Knowledge and Goldratt's Theory of Constraints reminds us that no single part of a system can ever bring overall improvement." [V] (Source: Hurtado, *Open Kanban*, "Open Kanban Values") This is the demo corpus's open-licence carrier of the Goldratt-tradition constraint focus. The Learn and Improve Continuously practice makes learning upstream of improvement structurally explicit: "Learning is the key concept before continuous improvement can ever happen!" [V] (Source: "Open Kanban Practices") For the AAR, that means the review itself must produce genuine learning — shared, embedded in the workflow — before any action can be trusted to change the system.
+Open Kanban's AAR projection runs through one of its five values and one of its four practices. The Holistic or Systemic Approach to Change value — which names Deming and Goldratt explicitly — gives the AAR its system-level reading discipline: no single part of a system can bring overall improvement, so the review holds the whole system in view before weighing any one part. "Deming's System of Profound Knowledge and Goldratt's Theory of Constraints reminds us that no single part of a system can ever bring overall improvement." [V] (Source: Hurtado, *Open Kanban*, "Open Kanban Values") The Learn and Improve Continuously practice makes learning upstream of improvement structurally explicit: "Learning is the key concept before continuous improvement can ever happen!" [V] (Source: "Open Kanban Practices") For the AAR, that means the review itself must produce genuine learning — shared, embedded in the workflow — before any action can be trusted to change the system.
 
 ## Key Concepts for AAR
 
@@ -13,13 +13,13 @@ Open Kanban's AAR projection runs through two of its five values. The Holistic o
 
 2. <!-- concept: learning-upstream-of-improvement --> **Learning as upstream prerequisite to improvement.** "Learning is the key concept before continuous improvement can ever happen! Once learning is part of the culture, part of the workflow, then improving continuously becomes easy." [V] (Source: "Open Kanban Practices") An AAR that produces an action list without genuine shared learning has not produced its benefit; the action list is downstream of understanding.
 
-3. <!-- concept: batch-size-discipline --> **Reduce the Batch Size — constraint-focused action discipline.** "Research in the way the mind works, and countless experiences from Lean, the Theory of Constraints and Kanban confirm that to deliver value faster, with better flow and good team morale we need to focus and limit the number of things we do." [V] (Source: "Open Kanban Practices") For AAR Phase 4 action design: find the one constraint this event has revealed, and act on that. A long action list is the same failure mode as a large batch.
+3. <!-- concept: batch-size-discipline --> **Reduce the Batch Size — focus and limit the number of things in progress.** "Research in the way the mind works, and countless experiences from Lean, the Theory of Constraints and Kanban confirm that to deliver value faster, with better flow and good team morale we need to focus and limit the number of things we do." [V] (Source: "Open Kanban Practices") For AAR Phase 4 action design: commit to few actions and finish them. A long action list is the same failure mode as a large batch.
 
 4. <!-- concept: wip-limiting --> **WIP-limiting as consequence, not primary rule.** "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts.'" [V] (Source: "Open Kanban Practices") For AAR action design: the discipline is batch-size reduction first; limiting the number of concurrent improvement items is the downstream expression of that.
 
-5. <!-- concept: respect-for-people --> **Respect for People — sustainable pace as system-integrity requirement.** "If you respect your team you will not work them to death, or subject any worker to intellectual or physical demands that make it nearly impossible to succeed. An exhausted developer, manager or team are the perfect recipe for disaster." [V] (Source: "Open Kanban Values") The Lean gloss is named explicitly: *Muri* (overburden) is the failure mode. For AAR Phase 3 and Phase 4: overburden — not just error — may be a contributory factor. Name it.
+5. <!-- concept: respect-for-people --> **Respect for People — sustainable pace as system-integrity requirement.** "If you respect your team you will not work them to death, or subject any worker to intellectual or physical demands that make it nearly impossible to succeed. An exhausted developer, manager or team are the perfect recipe for disaster." [V] (Source: "Open Kanban Values") The source pairs Agile's sustainable pace with Lean's *Muri* and names exhaustion as the failure mode. For AAR Phase 3 and Phase 4: exhaustion — not just error — may be a contributory factor. Name it.
 
-6. <!-- concept: courage-upward-correction --> **Courage — upward correction.** "When a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." [V] (Source: "Open Kanban Values", citing Kent Beck, borrowed-through) For the AAR: the psychological container must support correction flowing upward; if the confidentiality rules and Prime Directive do not hold, courage is required to compensate for what the container failed to provide.
+6. <!-- concept: courage-upward-correction --> **Courage — upward correction.** "When a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." [V] (Source: "Open Kanban Values"; the source credits Kent Beck, borrowed-through, with the idea that correcting mistakes takes courage; the manager/VP illustration is Hurtado's) For the AAR: the psychological container must support correction flowing upward; if the confidentiality rules and Prime Directive do not hold, courage is required to compensate for what the container failed to provide.
 
 7. <!-- concept: visualise-workflow --> **Visualize the workflow — making the invisible visible.** "When we are doing knowledge work, like programming a method, designing a user interface or writing a business report most of the work is invisible." [V] (Source: "Open Kanban Practices") For AAR Phase 1 timeline work: the incident's contributory factors are also largely invisible until made concrete. A visual timeline makes the shared account inspectable in a way that a verbal account cannot be.
 
@@ -36,7 +36,7 @@ Open Kanban's AAR projection runs through two of its five values. The Holistic o
 | Need | Question |
 |---|---|
 | System-level reading | Have we held the whole system — technical, process, social, organisational — before naming any single contributing factor? Which part of the system is being isolated, and what does the rest of the system look like around it? |
-| Overburden as contributor | Was any person or team operating at a pace that made error predictable? If so, *Muri* (overburden) is a contributory factor independent of any individual's competence. |
+| Overwork as contributor | Was any person or team operating at a pace that made error predictable? If so, working past a sustainable pace is a contributory factor independent of any individual's competence. |
 | Communication-collaboration breakdown | Was the failure a communication failure, a collaboration failure, or both? Communication is whether the information moved; collaboration is whether the people who held the information worked together to act on it. |
 
 ### Phase 3 — Just-culture sorting
@@ -49,46 +49,46 @@ Open Kanban's AAR projection runs through two of its five values. The Holistic o
 
 | Need | Question |
 |---|---|
-| Constraint focus | Of all the contributory factors named, which one — if addressed — would most reduce the likelihood of this event recurring? That is the constraint. Act on that one first. |
-| Batch-size discipline | Are we committing to one or two actions, or to a list? A list is a large batch. Large batches don't finish. |
-| System scope of the action | Does the proposed action address the constraint at the level it actually lives in? An action that addresses a symptom in one subsystem while the constraint lives in the organisation design will not hold. |
+| Focus the actions | Of all the contributory factors named, which one or two can we act on and finish first? Limit the actions in progress. |
+| Batch-size discipline | Are we committing to one or two actions, or to a list? A list is a large batch; keeping the team focused helps it finish what it starts faster. |
+| System scope of the action | Does the proposed action address the cause at the level it actually lives in? An action that addresses a symptom in one subsystem while the cause lives in the organisation design will not hold. |
 
 ### Phase 5 — Learning-loop closure
 
 | Need | Question |
 |---|---|
 | Learning embedded or just listed | Has the learning from this AAR been put somewhere the team will encounter it again, or is it in a document no one will read? Learning must be part of the workflow, not an appendix to it. |
-| Improvement verified | At the next review of this event's actions, did the constraint move? If not, either the action was wrong or it wasn't done. Name which. |
+| Improvement verified | At the next review of this event's actions, did the targeted condition change? If not, either the action was wrong or it wasn't done. Name which. |
 
 ## What to Look For
 
 | Signal | Diagnosis | Follow-up |
 |---|---|---|
 | The group names one factor and moves quickly to action design | Single-part isolation — the holistic reading has not been established | Hold: "Which part of the system is being isolated? What does the rest of the system look like around it?" |
-| The action list reaches five items and no one applies the constraint test | Large-batch action design — the learning will be diluted across too many simultaneous changes | Apply the constraint test: which one action, if done, would most reduce recurrence? Do that one. |
-| A team is identified as the cause but their workload at the time of the incident is not examined | Muri as an unexamined contributory factor | Ask: was this team operating at a pace that made error predictable, before we name the error as the cause? |
+| The action list reaches five items and no one cuts it | Large-batch action design — the learning will be diluted across too many simultaneous changes | Cut to the one or two actions the team can finish; batch-size reduction applies to the action list. |
+| A team is identified as the cause but their workload at the time of the incident is not examined | An unsustainable pace as an unexamined contributory factor | Ask: was this team operating at a pace that made error predictable, before we name the error as the cause? |
 | The AAR learning lives in a report that no one reads again | Learning is listed, not embedded | Ask: where in the team's regular workflow will they encounter this learning again? |
 
 ## When to Use This Reference
 
 Reach for this source when:
 - The contributory-factor analysis is converging on a single part of the system before the whole system has been read.
-- Phase 4 action design is producing a long list and no one is applying the constraint focus — which one action would most move the needle?
-- Overburden (*Muri*) is a candidate contributory factor and the group has not named it yet.
+- Phase 4 action design is producing a long list and the group is not limiting how many actions it takes on.
+- Overwork beyond a sustainable pace is a candidate contributory factor and the group has not named it yet.
 - The learning-loop closure needs to address whether the learning is embedded in the workflow or merely documented.
 
-This source carries the corpus's open-licence statement of the Goldratt-Deming systems-level discipline. It is a light but specific reference; pair it with LFUO for the methodology and SSDL for the systems-thinking vocabulary.
+This source carries a one-sentence open-licence statement of the Deming-Goldratt whole-system position. It is a light but specific reference; pair it with LFUO for the methodology and SSDL for the systems-thinking vocabulary.
 
 ## Worked Example
 
-A software-delivery team reviews a series of missed releases. The timeline (Phase 1) shows that the development team was running at 90% capacity for the preceding three months while also carrying two other parallel projects. The facilitator applies the Respect for People / Muri frame: "An exhausted developer, manager or team are the perfect recipe for disaster." [V] (Source: Hurtado, *Open Kanban*, "Open Kanban Values".) Overburden is named as a contributory factor — not the error in the release process, but the system condition that made the error probable. In Phase 4, the group generates four actions. The facilitator applies the constraint-focus discipline (Source: "Open Kanban Practices"): "Of all the contributory factors named, which one — if addressed — would most reduce the likelihood of this pattern recurring?" The group identifies capacity allocation as the constraint: the team was perpetually overloaded because no one in the organisation was empowered to push back on the third parallel project. The action is one: establish a named person with authority to refuse additional project assignments when team capacity is below 70%. The other three proposed actions are deferred — they are symptoms of the same constraint and will resolve when the constraint moves.
+A software-delivery team reviews a series of missed releases. The timeline (Phase 1) shows that the development team was running at 90% capacity for the preceding three months while also carrying two other parallel projects. The facilitator applies the Respect for People / sustainable-pace frame: "An exhausted developer, manager or team are the perfect recipe for disaster." [V] (Source: Hurtado, *Open Kanban*, "Open Kanban Values".) Overwork is named as a contributory factor — not the error in the release process, but the system condition that made the error probable. In Phase 4, the group generates four actions. The facilitator applies the batch-size practice (Source: Hurtado, *Open Kanban*, "Open Kanban Practices"): limit the number of things in progress. The facilitator's own question narrows the list: which one factor, if addressed, would most reduce the chance of this pattern recurring? The group identifies capacity allocation as that factor: the team was perpetually overloaded because no one in the organisation was empowered to push back on the third parallel project. The action is one: establish a named person with authority to refuse additional project assignments when team capacity is below 70%. The other three proposed actions are deferred until the first is done.
 
 ## Anti-patterns This Reference Helps Avoid
 
 - Isolating a single part of the system as the cause and designing an action that only touches that part, while the rest of the system remains unchanged.
 - Producing a long action list and treating volume as diligence — batch-size discipline applies to AAR actions as much as to Kanban stories.
-- Treating overburden (*Muri*) as a background condition rather than as a named contributory factor with its own action.
-- Running a blameless AAR that still lacks the courage infrastructure (Prime Directive, confidentiality rules, rank-speaks-last) that makes honest accounts possible.
+- Treating overwork as a background condition rather than as a named contributory factor with its own action.
+- Assuming a blameless format removes the need for courage: when a person in authority makes a mistake, it takes courage for someone of lower rank to say so (Source: "Open Kanban Values").
 - Treating the AAR's action list as the learning output, when the action list is downstream of understanding.
 - Closing the AAR without embedding the learning in a structure the team will encounter again.
 - Designing actions that address only the technical or process layer when the contributory factors include organisational or social layers.
@@ -97,15 +97,15 @@ A software-delivery team reviews a series of missed releases. The timeline (Phas
 
 | Reference | Relationship |
 |---|---|
-| LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO provides the methodology for learning-review facilitation; this source provides the constraint-focus and batch-size discipline for the action-design output of that methodology |
-| SSDL Systems Thinking Foundations (ssdl-systems-thinking-foundations) | SSDL provides the system-archetypes vocabulary (limits to growth, shifting the burden) that names the structural patterns this source's holistic-system stance requires; use SSDL to name the archetype, use this source to apply the constraint test |
+| LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO provides the methodology for learning-review facilitation; this source provides the batch-size discipline (focus; limit the number of things in progress) for the action-design output of that methodology |
+| SSDL Systems Thinking Foundations (ssdl-systems-thinking-foundations) | SSDL provides the system-archetypes vocabulary (limits to growth, shifting the burden) that names the structural patterns this source's holistic-system stance requires; use SSDL to name the archetype; use this source's holistic value to keep the whole system in view when choosing the action |
 | Approach Perfect Field Guide (approach-perfect-field-guide-scrum-events) | The Field Guide provides the one-or-two-improvement discipline and the decisions-vs-actions split that are the practical expression of this source's batch-size doctrine; the two sources reinforce the same action-design constraint from different angles |
-| TC 25-20 (tc-25-20-army-aar) | TC 25-20's "train to weakness" principle is the AAR-domain expression of this source's constraint focus: allocate finite development resource to the binding constraint, not to strengthening known strengths |
+| TC 25-20 (tc-25-20-army-aar) | TC 25-20's "Train to weakness, not to strength" [V] says where retraining effort goes; this source's batch-size practice says how many improvement items to run at once. Together they cover what to work on and how much |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** Deming (System of Profound Knowledge) and Goldratt (Theory of Constraints) are both cited by name in the source with external links; neither is held directly in this corpus. The corpus's open-licence carrier of Goldratt-tradition constraint thinking is this source; Goldratt's original work is not openly licensed and cannot be cited directly here. Kent Beck is cited borrowed-through for the Courage value (the source hyperlinks Beck's name to *Extreme Programming Explained*); Beck is not held directly. Donald G. Reinertsen (*Principles of Product Development Flow*) is cited borrowed-through for the batch-size mechanism; Reinertsen is not held directly.
+**Borrowed-through gaps.** Deming (System of Profound Knowledge) and Goldratt (Theory of Constraints) are both cited by name in the source with external links; neither is held directly in this corpus. This source cites Goldratt's Theory of Constraints twice (the holistic value; the multitasking evidence) without developing constraint thinking; the corpus's fuller TOC mention is OpenStax Accounting Vol 2 (five focusing steps, [BT]). Kent Beck is cited borrowed-through for the Courage value (the source hyperlinks Beck's name to *Extreme Programming Explained*); Beck is not held directly. Donald G. Reinertsen (*Principles of Product Development Flow*) is cited borrowed-through for the batch-size mechanism; Reinertsen is not held directly.
 
-**Named limits of the source.** Open Kanban is explicitly framed as a *lightweight open-source Kanban* specification, not an authoritative Kanban methodology; the source positions it as a free, collaborative-friendly response to proprietary interpretations of Kanban without naming any Kanban body. The source is short (approximately 3,200 words) and covers principles and practices at a high level without the depth of a full methodology text. Its systemic-thinking position borrows from Deming and Goldratt without developing those frameworks internally; all depth in those lineages comes from the borrowed-through sources, which the demo corpus does not hold.
+**Named limits of the source.** Open Kanban frames itself as an ultra-light kernel, "not a full or complete Agile or Lean method" [V] ("Open Kanban Definition"); that it is not a canonical Kanban authority is the operator's corpus-role note, not the source's claim. The source positions it as a free, collaborative-friendly response to proprietary interpretations of Kanban without naming any Kanban body. The source is short (approximately 3,200 words) and covers principles and practices at a high level without the depth of a full methodology text. Its systemic-thinking position borrows from Deming and Goldratt without developing those frameworks internally; all depth in those lineages comes from the borrowed-through sources, which the demo corpus does not hold.
 
-**Evidence-marker continuity.** All ten concepts in the Key Concepts section are `[V]` in the deep ref — they are direct quotations from the source's values and practices sections, preserved with `[V]` markers. The Deming-Goldratt passage is `[V]` with `[BT]` to both authors; the distillation preserves both markers in Concept 1. The Kent Beck Courage attribution is `[V]` with `[BT]`; the distillation preserves the borrowed-through flag in Concept 6 and in this section.
+**Evidence-marker continuity.** All ten concepts in the Key Concepts section are `[V]` in the deep ref — they are direct quotations from the source's values and practices sections, preserved with `[V]` markers. The Deming-Goldratt passage is `[V]` with `[BT]` to both authors in the deep ref; Concept 1 carries `[V]` and names the borrowed-through lineage in its title. The Kent Beck Courage attribution is `[V]` with `[BT]`; the distillation preserves the borrowed-through flag in Concept 6 and in this section.

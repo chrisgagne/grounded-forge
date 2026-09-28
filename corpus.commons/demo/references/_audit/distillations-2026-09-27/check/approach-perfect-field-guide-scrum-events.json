@@ -1,0 +1,122 @@
+{
+ "slug": "approach-perfect-field-guide-scrum-events",
+ "changed_lines_checked": 231,
+ "tally": {
+  "faithful": 219,
+  "minor_drift": 9,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 3
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/aar/approach-perfect-field-guide-scrum-events-aar.md",
+   "line": 49,
+   "text": "| Opening the review | Has the Prime Directive been read aloud? (... [BT]) |\n### Phase 2 — Contributory-factor analysis",
+   "grade": "EDIT-DEFECT",
+   "problem": "Deleting the 'Preventing rank' row also deleted the blank line that closed the Phase 1 table, so the '### Phase 2' heading now sits directly under the last table row. Renders in GFM but breaks in stricter renderers and differs from every other table in the file.",
+   "evidence": "git diff: '-| Preventing rank ... |' and '-' (blank) both removed; line 50 '### Phase 2' follows line 49 table row.",
+   "fix": "correct: insert one blank line between line 49 and line 50"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/approach-perfect-field-guide-scrum-events-aar.md",
+   "line": 87,
+   "text": "- Phase 4 action design is producing a list longer than two items and no one is pushing back.\nDo not reach for this source when the incident is large enough ...",
+   "grade": "EDIT-DEFECT",
+   "problem": "Stripping the Phase 5 bullet also removed the blank line before the 'Do not reach for this source' paragraph, so markdown folds that paragraph into the last bullet as a lazy continuation line.",
+   "evidence": "git diff: '-- Phase 5 needs a close discipline ...' and '-' (blank) both removed.",
+   "fix": "correct: insert one blank line between line 86 and line 87"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/approach-perfect-field-guide-scrum-events-aar.md",
+   "line": 99,
+   "text": "- Conflating policy changes with tracked tasks, then finding that neither mechanism owned the commitment.- Presenting progress updates on prior AAR actions without checking whether the declared-complete work was actually done.",
+   "grade": "EDIT-DEFECT",
+   "problem": "Stripping the senior-person anti-pattern (D012) fused the two neighbouring bullets onto one line.",
+   "evidence": "git diff shows the two bullets joined with no newline.",
+   "fix": "correct: split into two lines: '- Conflating policy changes with tracked tasks, then finding that neither mechanism owned the commitment.' / '- Presenting progress updates on prior AAR actions without checking whether the declared-complete work was actually done.'"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/approach-perfect-field-guide-scrum-events-decision-making.md",
+   "line": 26,
+   "text": "The Sprint Backlog and Sprint Goal anchor the team's attention; they don't bind it to a contract. Treat them as focus, not commitment.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Drops 'firm'. The source rules out only a FIRM commitment and keeps a good-faith forecast the team 'attempts to live up to'; it also lists 'commitment' among the Retrospective's cultural preconditions. 'Not commitment' overstates the rule the verbatim quote on the same line states correctly.",
+   "evidence": "Source 402-406: 'cannot and must not make a firm commitment to delivering the entire Sprint Backlog or even the Sprint Goal ... a focusing tool that limits context switching and a good-faith forecast that the Development Team attempts to live up to.' Source 674: 'A culture of courage, commitment, respect, and openness.' Deep 114.",
+   "fix": "correct: The Sprint Backlog and Sprint Goal anchor the team's attention; they don't bind it to a contract. Treat them as focus and a good-faith forecast, not a firm commitment."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/approach-perfect-field-guide-scrum-events-decision-making.md",
+   "line": 34,
+   "text": "(\"As a coffee drinker, I can have coffee that's just the right temperature so that I can delight in its ideal taste\") not implementation specifications (\"Integrate the Acme steam-heating element into the brew assembly\" [V])",
+   "grade": "MINOR-DRIFT",
+   "problem": "The repair removed the [V] from the citation parenthesis (section-title rule), which left the first coffee quotation verbatim but unmarked. The file's own marker note (line 212) says unmarked text is paraphrase and lists the coffee example as [V].",
+   "evidence": "Source 349-351/357: 'As a coffee drinker, I can have coffee that's just the right temperature so that I can delight in its ideal taste' (verbatim across a page break). Deep 99 [V].",
+   "fix": "re-mark: [V] after '...so that I can delight in its ideal taste\"' (i.e. '(\"As a coffee drinker, ... ideal taste\" [V])')"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/approach-perfect-field-guide-scrum-events-decision-making.md",
+   "line": 188,
+   "text": "- **Schwaber & Sutherland, *The Scrum Guide* 2020** (canonical framework definition): The Field Guide *illustrates* the textbook Scrum the Guide *defines*.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error as audit D034, left in place after the repair fixed it at line 200. The April 2020 Field Guide cannot illustrate the November 2020 edition; line 200 now says the held edition differs (drops the three questions, adds the Product Goal).",
+   "evidence": "Deep 5 (Field Guide dated April 3, 2020); scrum-guide-2020 deep 5 (November 2020 edition), 141 (no three questions); distillation line 200.",
+   "fix": "correct: - **Schwaber & Sutherland, *The Scrum Guide* 2020** (canonical framework definition; the corpus holds the November 2020 edition, later than the one the Field Guide illustrates): The Field Guide *illustrates* textbook Scrum; the Guide *defines* it."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/approach-perfect-field-guide-scrum-events-software-business.md",
+   "line": 40,
+   "text": "The coffee-temperature contrast: \"As a coffee drinker, I can have coffee that's just the right temperature so that I can delight in its ideal taste\" (good) versus \"Integrate the Acme steam-heating element into the brew assembly\" [V] (bad).",
+   "grade": "MINOR-DRIFT",
+   "problem": "Removing the [V] from the citation parenthesis left the first coffee quotation verbatim but unmarked; the [V] now sits on the second quotation only. The file's marker note (line 222) says the coffee-temperature example is quoted [V]. Same pattern as decision-making line 34.",
+   "evidence": "Source 349-351/357 (verbatim across a page break); deep 99 [V].",
+   "fix": "re-mark: [V] after '...delight in its ideal taste\"' (before '(good)')"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/approach-perfect-field-guide-scrum-events-software-business.md",
+   "line": 72,
+   "text": "Or does it require an out-of-cycle exception that the Field Guide's \"practise-the-form\" discipline would treat as a quiet deviation?",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same quotation-mark error as line 184: a label presented in quotation marks and attributed to the Field Guide.",
+   "evidence": "Phrase absent from source 10-17.",
+   "fix": "correct: Or does it require an out-of-cycle exception that the Field Guide's practise-the-form discipline would treat as a quiet deviation?"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/approach-perfect-field-guide-scrum-events-software-business.md",
+   "line": 184,
+   "text": "\"Practise the form before deviating\" discipline has been replaced by undeclared drift.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error as decision-making audit D027 (fixed there at line 183), still present here: quotation marks around a phrase the source never uses, so it reads as the author's words.",
+   "evidence": "Source 10-17: 'deviate from it only with well-formed experiments after practicing diligently ...'; 'a wise martial arts student will long practice the basic forms ...'. The phrase 'practise the form before deviating' does not appear.",
+   "fix": "correct: The practise-the-form-before-deviating discipline has been replaced by undeclared drift."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/approach-perfect-field-guide-scrum-events-software-business.md",
+   "line": 220,
+   "text": "The \"firm commitment\" refusal is a deliberate scope boundary: the source offers forecasts in place of commitments and does not offer methods for producing firm-date commitments.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Drops 'firm'. The source replaces FIRM commitments with a focusing tool and a good-faith forecast the team 'attempts to live up to'; it does not replace commitment as such.",
+   "evidence": "Source 402-406; deep 114.",
+   "fix": "correct: the source offers good-faith forecasts in place of firm commitments and does not offer methods for producing firm-date commitments."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/approach-perfect-field-guide-scrum-events-stakeholder-engagement.md",
+   "line": 177,
+   "text": "Verbatim quotations in this distillation are marked `[V]` and copied from the deep ref.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The new marker note is not true of the file: three verbatim source quotations remain unmarked, and the Prime Directive quotations are marked [BT], not [V].",
+   "evidence": "Unmarked but verbatim: line 12 'participate daily' (source 63, at-a-glance table); line 75 'work[ing] together daily with business people, who are often invited to participate in Sprint Planning, Daily Scrum, and Sprint Reviews' (source 104-105); line 98 'As a coffee drinker, ... ideal taste' (source 349-357). [BT]: lines 60, 86, 197, 208.",
+   "fix": "re-mark: [V] after the three quotations at lines 12, 75 and 98; correct line 177 to: Verbatim quotations in this distillation are marked `[V]` (the Prime Directive `[BT]`, as Kerth's words relayed by the guide) and copied from the deep ref."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/approach-perfect-field-guide-scrum-events-stakeholder-engagement.md",
+   "line": 194,
+   "text": "- **Schwaber & Sutherland, *The Scrum Guide* 2020** (canonical framework definition): The Field Guide *illustrates* the textbook Scrum the Guide *defines*.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error as the decision-making audit's D034 and this file's D028 (fixed at line 207): the April 2020 Field Guide cannot illustrate the November 2020 edition. Line 207 now says so, so the file contradicts itself.",
+   "evidence": "Deep 5; scrum-guide-2020 deep 5; distillation line 207.",
+   "fix": "correct: - **Schwaber & Sutherland, *The Scrum Guide* 2020** (canonical framework definition; the corpus holds the November 2020 edition, later than the one the Field Guide illustrates): The Field Guide *illustrates* textbook Scrum; the Guide *defines* it."
+  }
+ ],
+ "notes": "COMPLETE. Full reads: converted source (923 lines), deep ref (367), light ref changed line, and all five distillations (aar 117, decision-making 212, retro 155, software-business 222, stakeholder-engagement 223). Count = 227 changed lines (deep 2, light 1, aar 17, decision-making 48, retro 30, software-business 54, stakeholder-engagement 41, index rows 34) + 4 unchanged lines flagged as the same error still present (decision-making 188; software-business 72, 184; stakeholder-engagement 194). Deep and light ref: the participant-tier sentence is exact against source 97-104 (Sprint: Required+Invited), 212-217 (Planning: Required+Invited), 446-452 (Daily Scrum: all three), 573-576 (Review: Required+Strongly Suggested), 658-661 (Retro: no labels), 824-829 (Refinement: Required+Strongly Suggested); non-interference locator now Sprint Planning + Daily Scrum 'Participants' (source 215-217, 450-452). COMMITMENT WORDING (special check): every restatement of the rule was read. Correct: decision-making 14, 26 (quote), 109, 151, 177; software-business 14, 26, 28, 68, 69, 125, 136, 175, 192; stakeholder-engagement 99, 144. Two glosses drop 'firm' and are flagged: decision-making 26 ('Treat them as focus, not commitment') and software-business 220 ('forecasts in place of commitments'). Headings like 'Communicate forecasts, not commitments' (SB 124) and 'Forecasts, not commitments' (SE index) describe Sprint Review forecasts, which are not commitments, and were left FAITHFUL. Decision-making 140 (signal: 'commitment' or 'guarantee' language) left FAITHFUL as a reasonable symptom. VFLAGS: all 8 FAITHFUL. The 5 MISS on the no-firm-commitment passage and 'gaming the system' (DM 14, 26; SB 14, 26) come from the converted file wrapping '. ( ap.tips/tradeoffs) Attempting to do so will only' in markdown link syntax; SE 40 and 46 come from <br> table cells and a missing space in '_Scrum  Team_' (confirmed by a normalised match). The 2 CROSS ('little to say about them', DM 190 / SB 207) are attributed to Jones and match jones converted 21537-21538 (Ch 5.4.3). INDEX ROWS: 34 added rows naming this source's distillations all match their distillations. Removed rows justified: decision-making 'partial-implementation drift' (audit D023), retro 'INVEST-style discipline' (INVEST appears in neither the source nor the distillation), stakeholder-engagement 'Communicate the Sprint Goal' (D017). Other-source claims verified against their deep refs: TC 25-20 15/121/221/257; LFUO 132-145; LS 7/59/194; OB 81/202/208-210/302; Letaw 53-95 (Ch 2), 97-134 (Ch 3), Ch 6; Jones 35-37 (Ch 1), 149-151, 155/159 (RALIC, Mitchell-Agle-Wood salience, Ch 5.4.5 = converted 21702-21881), 173, 135; PoM 185-192 (Ch 4.3, Daft), 263 (Ch 5.6), 57 (Ch 2.1), 831-833 (Ch 17.2 PDCA); Accounting Vol 2 53/301/513 (Goldratt Ch 1.5); Business Ethics 130 (Ch 3.3 power x interest); NHS 13-15/34; Open Kanban 68-81; Org Topologies 1-20; Scrum Guide 2020 5/141; deep-ref marker counts [V] 187, [AP] 27, [AR] 0, [AE] 2, [BT] 17. The five formerly 'once projected' software-business distillations exist. Not flagged, for the caller's judgement: (a) aar 28, aar 91, retro 8/109 say the wrap-up 'closes with appreciations'; the source makes them conditional ('If you haven't done a round of appreciations yet'), a small simplification the deep ref (232) carries in full. (b) Softer versions of the Scrum Guide chronology slip remain at retro 142 ('practitioner expansion of the Guide's sparse retro definition') and software-business 206. (c) software-business 184 also uses Scrum Guide 2020 vocabulary ('watering down accountabilities', 'accountabilities blurred'). (d) aar 32 points to 'TC 25-20, App A' for 'rank-ordering of voices'; App A is the seating rule against rank consciousness, a loose but serviceable pointer. The velocity example's ≈30 and the worked-example figures built on it were not graded, per instruction."
+}

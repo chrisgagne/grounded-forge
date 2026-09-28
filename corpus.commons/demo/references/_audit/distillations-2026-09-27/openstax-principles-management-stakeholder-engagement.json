@@ -1,0 +1,319 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-principles-management-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-211 of 211",
+    "deep": "lines 1-1024 of 1024",
+    "complete": true
+  },
+  "claims_audited": 175,
+  "tally": {
+    "faithful": 145,
+    "minor_drift": 22,
+    "unsupported": 6,
+    "contradicted": 2
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 38,
+      "section": "Key Concepts, 12",
+      "claim": "Managers spend most of their time with peers across organisational boundaries (Stewart's 47 per cent finding).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "47 per cent is not 'most'; peers are the largest single share. 'Across organisational boundaries' is also added: Stewart's peers are not defined as outside the organisation.",
+      "evidence": "Deep 41: Stewart's 160 managers spent 47 per cent of their time with peers, 41 per cent with people inside their unit, 12 per cent with superiors (Ch 1.2; Ch 16.3).",
+      "fix": "correct: Managers spend more time with peers than with anyone else (47 per cent in Stewart's study, against 12 per cent with superiors)."
+    },
+    {
+      "id": "D002",
+      "line": 40,
+      "section": "Key Concepts, 13",
+      "claim": "Integration is the strongest stakeholder-engagement outcome where stakes are high and relationships are ongoing.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds a condition (high stakes, ongoing relationship) that neither the deep ref nor the source gives. The source favours integration generally.",
+      "evidence": "Deep 156: three paths, no ranking. Source 3802-3811: dominance carries social costs; compromise leaves neither side happy; integration satisfies both.",
+      "fix": "correct: Integration, an agreement that satisfies both sides, is the outcome Follett favours; dominance is rarely possible and carries social costs, and compromise leaves neither side happy."
+    },
+    {
+      "id": "D003",
+      "line": 44,
+      "section": "Key Concepts, 15",
+      "claim": "These frameworks ground cross-border stakeholder engagement under the single ethical standard.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "'Single ethical standard' is OpenStax Business Ethics' position, not this source's. This source lists ethical relativism among its seven principles with limits, and its Levi Strauss case shows a negotiated middle path between the firm's norms and local norms.",
+      "evidence": "'single standard' / 'single ethical' 0 hits in this deep ref and in the converted source. Deep 237: relativism with limits. Deep 269: Levi Strauss/Bangladesh negotiated resolution [AE]. openstax-business-ethics-deep 15: single universal standard as that book's load-bearing claim [AR].",
+      "fix": "correct: These frameworks set floors for cross-border stakeholder engagement; the Levi Strauss case (Ch 5.7) shows negotiating between the firm's norms and local norms above that floor."
+    },
+    {
+      "id": "D004",
+      "line": 46,
+      "section": "Key Concepts, 16",
+      "claim": "**Brown-Trevino moral entrepreneur.** A moral entrepreneur creates or enforces a new ethical norm (the source credits Kaptein and Becker with this definition) ... The related concept, Brown and Trevino's ethical leadership, is defined as \"the demonstration of normatively appropriate conduct ...\" [BT].",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The body is right per the source, which the deep ref gets wrong: the deep ref attaches Brown and Trevino's ethical-leadership definition to 'moral entrepreneur' and names the concept 'Brown and Trevino's'. The distillation's Kaptein/Becker attribution and the separation of the two concepts come from the source, not the deep ref, and the heading still carries the deep ref's 'Brown-Trevino' label. 'Stakeholder engagement at scale requires moral entrepreneurs' is the distillation's claim.",
+      "evidence": "Deep 273: 'Brown and Trevino's moral entrepreneur is someone who creates a new ethical norm or enforces a new norm through \"the demonstration of normatively appropriate conduct ...\"' [V]. Source 7027-7033: Brown and Trevino found exposure makes people more likely to become moral entrepreneurs; 'Brown and Trevino's ethical leadership is defined as \"the demonstration of normatively appropriate conduct ...\"'. Source 7071-7073: 'According to Kaptein, someone who creates a new ethical norm is called a moral entrepreneur. Becker ... differentiates between ... those who create new norms and those who enforce new norms.'",
+      "fix": "correct: heading to **Moral entrepreneur (Kaptein) and ethical leadership (Brown and Trevino).**; drop 'Stakeholder engagement at scale requires moral entrepreneurs in leadership positions.' | cycle-to-deep: rewrite deep 273 as 'Kaptein's *moral entrepreneur* is someone who creates a new ethical norm; Becker distinguishes those who create and those who enforce new norms (Ch 5.8, \"Moral Entrepreneur\"). Brown and Trevino found that people exposed to a moral entrepreneur are more likely to become one [BT]. Brown and Trevino's *ethical leadership* is \"the demonstration of normatively appropriate conduct through personal actions and interpersonal relationships, and the promotion of such conduct to followers through two-way communication, reinforcement, and decision-making\" [V].'"
+    },
+    {
+      "id": "D005",
+      "line": 68,
+      "section": "Questions, Phase 2",
+      "claim": "Is this an aggregate-consequences (utilitarian) decision, a duty-based (universalism / rights / justice) decision, or a character-based (virtue ethics, common good) decision?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Regroups the seven principles in a way the source does not: rights and justice are not labelled duty-based, and common good is not character-based. Relativism is dropped.",
+      "evidence": "Deep 229-237: utilitarianism (consequentialist), universalism (duty-based), rights (entitlements), justice (procedures, compensation, retribution), virtue (character-based), common good (broader environment), relativism (self-interest, cultural).",
+      "fix": "correct: Which principle frames it: consequences (utilitarianism), duty (universalism), entitlements (rights), fair procedure and compensation (justice), character (virtue ethics), the wider community (common good), or local norms (relativism, with its limits)?"
+    },
+    {
+      "id": "D006",
+      "line": 71,
+      "section": "Questions, Phase 2",
+      "claim": "Integration is strongest for ongoing high-stakes relationships.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same added condition as D002.",
+      "evidence": "As D002.",
+      "fix": "correct: Integration, which satisfies both sides, is the path Follett favours."
+    },
+    {
+      "id": "D007",
+      "line": 93,
+      "section": "Questions, Phase 4",
+      "claim": "Reward and coercive power produce compliance and alienation; rationality, expertise, and moralistic appeal produce commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Lumps reward power with alienation. The source ties alienation to coercive power and measured, tit-for-tat responses to reward power.",
+      "evidence": "Deep 620; source 19349-19355: 'Leaders who rely on coercive power often alienate followers ... Leaders who rely on reward power develop followers who are very measured in their responses'.",
+      "fix": "correct: Coercive power tends to alienate; reward power produces measured, 'what am I getting?' responses; rationality, expertise, and moralistic appeal produce commitment."
+    },
+    {
+      "id": "D008",
+      "line": 94,
+      "section": "Questions, Phase 4",
+      "claim": "Even when distributive outcomes disappoint, fair process sustains commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref defines procedural and distributive justice but makes no commitment claim; the source's nearest statement is about perceived fairness (seniority-based layoffs seen as fairer).",
+      "evidence": "Deep 682: distributive vs procedural justice; 'Layoffs based on seniority may be perceived as more fair than layoffs based on supervisors' opinions' [AP] (Ch 14.4). Source 22694-22709.",
+      "fix": "correct: People judge the fairness of the process as well as the outcome (procedural vs distributive justice, Ch 14.4); a fair process can make a disappointing outcome easier to accept."
+    },
+    {
+      "id": "D009",
+      "line": 100,
+      "section": "Questions, Phase 5",
+      "claim": "Cultural differences shape contract interpretation: a signed contract is the end in some cultures and the beginning in others.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Not in this deep ref, the converted source, or the OB deep ref (the likeliest neighbour for cross-cultural negotiation).",
+      "evidence": "No contract-interpretation content in openstax-principles-management-deep 1-1024; converted source has no 'signed contract'/'contract ... beginning' passage; openstax-organizational-behavior-deep 458-464 covers negotiation stages and BATNA only.",
+      "fix": "correct: Do all parties understand the same agreement? Cultural differences can hide divergent readings: the Suntory-Jim Beam case shows one side assuming individual authority where the other decided by consensus (Ch 6.4)."
+    },
+    {
+      "id": "D010",
+      "line": 113,
+      "section": "Questions, Phase 6",
+      "claim": "Tone-at-the-top failures degrade engagement faster than any tactical mistake.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Comparative speed claim the source does not make; the deep ref gives tone at the top as setting the ethical climate.",
+      "evidence": "Deep 206, 243: the founder's or top leader's values 'set the tone at the top' [V]; 'The \"tone at the top\" sets the ethical climate.'",
+      "fix": "correct: Tone at the top sets the ethical climate (Ch 4.5, Ch 5.4); leadership behaviour that contradicts stated values undercuts the engagement."
+    },
+    {
+      "id": "D011",
+      "line": 121,
+      "section": "What to Look For",
+      "claim": "Diagnosis: cultural differences in what an agreement means (contract-as-end versus contract-as-beginning, individual-vs-consensus authority).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The contract-as-end/beginning distinction is not in the deep ref or source (as D009). The individual-vs-consensus half is supported by the cultural-paradox material.",
+      "evidence": "As D009. Deep 307: cultural paradox, Suntory-Jim Beam consensus decision.",
+      "fix": "correct: Diagnosis: cultural differences in who holds decision authority (individual vs consensus; the cultural paradox, Ch 6.4)."
+    },
+    {
+      "id": "D012",
+      "line": 124,
+      "section": "What to Look For",
+      "claim": "Influence attempts produce compliance and alienation ... Diagnosis: coercive or pure-reward power being used where referent, expert, or rational influence would have produced commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Folds reward power into alienation (as D007) and credits referent power with commitment; the source says referent power produces identification, and rationality, expertise and moralistic appeal produce commitment.",
+      "evidence": "Deep 620: 'referent power produces identification; rationality, expertise, and moralistic appeal produce commitment and internalisation'.",
+      "fix": "correct: Diagnosis: coercive power (alienation) or reward power (measured, transactional responses) being used where rationality, expertise, or moralistic appeal would have produced commitment."
+    },
+    {
+      "id": "D013",
+      "line": 126,
+      "section": "What to Look For",
+      "claim": "Diagnosis: ethical relativism has been used to evade the single standard and the FCPA / UN Global Compact frameworks. Follow-up: surface the single ethical standard ...",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imports Business Ethics' 'single standard' (as D003).",
+      "evidence": "As D003.",
+      "fix": "correct: Diagnosis: ethical relativism is being stretched past the limits the text names (blind spots, enabling abuses; Ch 5.3) and past FCPA / UN Global Compact obligations (Ch 5.7). Follow-up: name those limits; apply the FCPA / UN Global Compact frameworks."
+    },
+    {
+      "id": "D014",
+      "line": 127,
+      "section": "What to Look For",
+      "claim": "Diagnosis: stakeholders have aggregated their power as counterpower; resource dependencies have triggered.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Uses resource-dependence theory, which is held by OpenStax Organizational Behavior, not this source, without saying so.",
+      "evidence": "'resource dependence' 0 hits in this deep ref and source. openstax-organizational-behavior-deep 422-424: Salancik-Pfeffer resource dependence [BT].",
+      "fix": "correct: Diagnosis: stakeholders have pooled their power (see OB Ch 13.3 on resource dependence for the mechanics)."
+    },
+    {
+      "id": "D015",
+      "line": 144,
+      "section": "Worked Example",
+      "claim": "suppliers hold expert and resource power",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Resource power' is not one of the French-Raven bases the example is applying.",
+      "evidence": "Deep 612-618: reward, coercive, referent, expert, legitimate.",
+      "fix": "correct: suppliers hold expert and reward power (control of inputs the firm needs)"
+    },
+    {
+      "id": "D016",
+      "line": 158,
+      "section": "Worked Example",
+      "claim": "The eight-question stakeholder framework, the seven ethical principles (Ch 5), the four Hofstede/GLOBE cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, and the news-test framing are all `[AP]`-marked passages in the deep ref.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Misstates the deep ref's markers: none of these is [AP].",
+      "evidence": "Deep 229: seven principles [BT]. Deep 283, 292: Hofstede, GLOBE [BT]. Deep 766: head-body-heart [V]. Deep 156: Follett [BT] with [V terms]. Deep 97: news test [V, paraphrased]. Deep 263: eight questions, no marker.",
+      "fix": "correct: The seven ethical principles, Hofstede, GLOBE and Follett are [BT] in the deep ref; head-body-heart cultural intelligence is [V]; the news test is [V, paraphrased]; the eight-question framework is unmarked paraphrase of Exhibit 5.8. No verbatim source blockquotes appear in this distillation."
+    },
+    {
+      "id": "D017",
+      "line": 168,
+      "section": "Anti-patterns",
+      "claim": "Winning the moment can lose the relationship; integration (Follett) takes longer but produces durable agreements.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Dominance's cost is in the source (a disaffected workforce) but not the deep ref; 'takes longer' and 'durable agreements' are in neither.",
+      "evidence": "Deep 156. Source 3802-3804: dominance 'impossible without incurring social costs in terms of a disaffected workforce'.",
+      "fix": "correct: Dominance is rarely possible and carries social costs; integration finds an agreement that satisfies both. | cycle-to-deep: add to deep 156 'Dominance is \"impossible without incurring social costs in terms of a disaffected workforce\" [V]; in a compromise \"neither side is happy\" [V] (Ch 3.6).'"
+    },
+    {
+      "id": "D018",
+      "line": 169,
+      "section": "Anti-patterns",
+      "claim": "Leadership behaviour that contradicts stated stakeholder values degrades engagement faster than tactical missteps.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same unsupported comparative as D010.",
+      "evidence": "As D010.",
+      "fix": "correct: Leadership behaviour that contradicts stated stakeholder values undercuts the engagement; tone at the top sets the ethical climate (Ch 5.4)."
+    },
+    {
+      "id": "D019",
+      "line": 170,
+      "section": "Anti-patterns",
+      "claim": "Treating CSR as PR. Greenwashing claims without substantive practice change destroys stakeholder trust when discovered.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Greenwashing is not in the source; the nearest support is Cialdini et al. on the costs of organisational dishonesty.",
+      "evidence": "'greenwash' 0 hits in source. Deep 245: 'dishonest organizations suffer from tarnished reputations ...' [BT].",
+      "fix": "correct: **Treating CSR as PR.** CSR claims without practice change are a form of organisational dishonesty, whose costs (tarnished reputation, lower productivity) 'greatly outweigh any short-term gains' (Cialdini et al., Ch 5.4)."
+    },
+    {
+      "id": "D020",
+      "line": 179,
+      "section": "Integration with Other References",
+      "claim": "Triple bottom line (Elkington)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source cites Elkington for TBL (endnote 51); the deep ref does not name him.",
+      "evidence": "Deep 259: TBL, no originator. Source 6596 (endnote 51 → 29317): 'Elkington, J., Cannibals with Forks, Oxford University Press, 1999.'",
+      "fix": "cycle-to-deep: add to deep 259 'the triple bottom line, cited to Elkington's *Cannibals with Forks* (1999) [BT] (Ch 5.6)'."
+    },
+    {
+      "id": "D021",
+      "line": 180,
+      "section": "Integration with Other References",
+      "claim": "The text endorses servant leadership as the ethical leadership style.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates: the text presents stewardship, servant leadership, and Brown and Trevino's ethical leadership side by side, without naming servant leadership as the ethical style.",
+      "evidence": "Deep 241-247 (Ch 5.4: values-based leadership, five virtue behaviours, stewardship, servant leadership); source Ch 5.8 ethical leadership.",
+      "fix": "correct: The text presents servant leadership and stewardship among its ethical-leadership styles (Ch 5.4)."
+    },
+    {
+      "id": "D022",
+      "line": 183,
+      "section": "Integration with Other References",
+      "claim": "Follett's three paths ... and Thomas's five modes provide the choice apparatus for stakeholder conflict. Integration is preferred for high-stakes ongoing relationships.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Thomas's five modes are held by OB (Ch 14.2) and Business Law (Thomas-Kilmann), not this source; the row does not say so. The relationship condition is added (as D002).",
+      "evidence": "No Thomas conflict modes in this deep ref. openstax-organizational-behavior-deep 440-446; openstax-business-law-deep 51-58.",
+      "fix": "correct: | Conflict resolution (Follett here; Thomas in OB Ch 14.2 and Business Law Ch 2.1) | Follett's three paths pair with the Thomas modes held by OB and Business Law to give the choice apparatus for stakeholder conflict. |"
+    },
+    {
+      "id": "D023",
+      "line": 184,
+      "section": "Integration with Other References",
+      "claim": "AI offers a bottom-up alternative producing stronger commitment than top-down ratification.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Claims a demonstrated effect of Appreciative Inquiry that the deep ref does not report.",
+      "evidence": "Deep 489, 492: AI abundance-based, bottom-up; model choice depends on deficit/abundance, top-down/bottom-up, mindset. No commitment outcome.",
+      "fix": "correct: For organisation-wide change, AI offers a bottom-up, abundance-based alternative to top-down ratification (Ch 10.3)."
+    },
+    {
+      "id": "D024",
+      "line": 186,
+      "section": "Integration with Other References",
+      "claim": "Cross-border stakeholder engagement under the single ethical standard. Pair with the seven ethical principles and the rejection of ethical relativism.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imports the 'single standard' (as D003) and says the text rejects ethical relativism; the text lists relativism as one of its seven principles, with limits.",
+      "evidence": "Deep 237: relativism with limits (blind spots, dictatorships, enabling abuses). Deep 269: Levi Strauss negotiated values.",
+      "fix": "correct: Cross-border ethics floors. Pair with the seven ethical principles, including the limits the text sets on ethical relativism (Ch 5.3), and the Levi Strauss negotiated-values case (Ch 5.7)."
+    },
+    {
+      "id": "D025",
+      "line": 188,
+      "section": "Integration with Other References",
+      "claim": "Brown-Trevino moral entrepreneur",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Carries the deep ref's misattribution (D004): the source credits the moral-entrepreneur concept to Kaptein (and Becker); Brown and Trevino studied exposure effects and defined ethical leadership.",
+      "evidence": "As D004.",
+      "fix": "correct: Moral entrepreneur (Kaptein) and ethical leadership (Brown and Trevino)"
+    },
+    {
+      "id": "D026",
+      "line": 193,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "R. Edward Freeman — stakeholder theory; eight-question framework (Ch 2.4) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong chapter: stakeholder theory and the Exhibit 5.8 questions are Ch 5.6; Ch 2.4 is the decision-barriers section.",
+      "evidence": "Deep 263 (Ch 5.6, 'Stakeholder Management'; Exhibit 5.8). Source 6716: Exhibit 5.8 'Stakeholder Map Source: Freeman, R. Edward. (1984)'.",
+      "fix": "correct: R. Edward Freeman — stakeholder theory; the Exhibit 5.8 stakeholder map behind the eight questions (Ch 5.6) [BT]"
+    },
+    {
+      "id": "D027",
+      "line": 194,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Mary Parker Follett — integration vs dominance vs compromise (Ch 2.4) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong chapter: Follett is Ch 3.6 (the distillation's own Key Concept 13 cites Ch 3.6).",
+      "evidence": "Deep 156 (Ch 3.6, 'Follett and Conflict Resolution').",
+      "fix": "correct: Mary Parker Follett — integration vs dominance vs compromise (Ch 3.6) [BT]"
+    },
+    {
+      "id": "D028",
+      "line": 198,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Brown and Trevino — moral entrepreneur (Ch 5.8) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same misattribution as D025.",
+      "evidence": "As D004.",
+      "fix": "correct: Kaptein and Becker — moral entrepreneur; Brown and Trevino — ethical leadership and the exposure finding (Ch 5.8) [BT]"
+    },
+    {
+      "id": "D029",
+      "line": 202,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Katz and Kahn — open systems (Ch 1) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong chapter: Katz and Kahn are Ch 4.4 (and the systems school in Ch 3.7); the distillation's own Key Concept 14 cites Ch 4.4.",
+      "evidence": "Deep 200 (Ch 4.4); deep 160 (Ch 3.7); deep 960.",
+      "fix": "correct: Katz and Kahn — open systems (Ch 3.7; Ch 4.4) [BT]"
+    },
+    {
+      "id": "D030",
+      "line": 211,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "(108 `[BT]` markers) ... The shareholder-primacy critique and conflict-avoidance critique are `[AR]`.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The deep ref marks the shareholder-primacy critique [V] (twice), not [AR]; the conflict-avoidance critique is [AR] in one entry and [V] in another. The [BT] count is also off (118 bare [BT], 125 including '[BT, ...]' variants).",
+      "evidence": "Deep 59 and 988: shareholder-wealth passage [V]. Deep 990: ignoring conflict [AR]; deep 995: conflict avoidance in teams [V]. grep of deep: 118 '[BT]', 125 '[BT'.",
+      "fix": "correct: The shareholder-primacy critique is [V] in the deep ref (Ch 2.1) and quoted [V] here; the conflict-avoidance critique is [AR] (Ch 2.4) with a supporting [V] passage (Ch 15.4). Drop the marker count."
+    }
+  ],
+  "notes": "All [V] quotations (lines 8 x2, 10, 16, 20, 48) and the [BT] Brown-Trevino definition (46) match the converted source word for word. OB integration row (177: power bases, resource dependence, strategic contingencies, BATNA) checked against openstax-organizational-behavior-deep 422-464: FAITHFUL. DEEP-REF DEFECT (not a distillation fault): openstax-principles-management-deep 273 attaches Brown and Trevino's ethical-leadership definition to 'moral entrepreneur' and names the concept Brown and Trevino's; the source (7027-7073) credits the concept to Kaptein and Becker. The distillation's line 46 body is correct per the source; see D004 for the deep-ref rewrite. Three findings (D004, D017, D020) carry cycle-to-deep passages. Structural note, not graded: most Integration rows (178-188) are concept rows restating this source's own content rather than links to other corpus references."
+}

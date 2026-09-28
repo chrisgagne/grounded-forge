@@ -1,0 +1,539 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/openstax-entrepreneurship-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-270 of 270",
+    "deep": "lines 1-497 of 497",
+    "complete": true
+  },
+  "claims_audited": 172,
+  "tally": {
+    "faithful": 120,
+    "minor_drift": 45,
+    "unsupported": 3,
+    "contradicted": 4
+  },
+  "findings": [
+    {
+      "id": "S001",
+      "line": 8,
+      "section": "Software-Business Relevance",
+      "claim": "\"an entrepreneur is someone who identifies and acts on an idea or problem\" [V] (Ch 1.1, \"Entrepreneurship Today\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] quotation cut mid-sentence with no ellipsis; drops the definitional qualifier 'that no one else has identified or acted on'.",
+      "evidence": "Deep 13, 25 carry the full sentence [V].",
+      "fix": "correct: \"an entrepreneur is someone who identifies and acts on an idea or problem that no one else has identified or acted on\" [V] (Ch 1.1, \"Entrepreneurship Today\")"
+    },
+    {
+      "id": "S002",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "It is weaker on the technical-debt-against-revenue trade-off (no software-specific framework; Jones carries that load)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Jones explicitly rejects the technical-debt concept; he frames deferred investment as a real option. Naming Jones as the carrier of the technical-debt trade-off inverts his position.",
+      "evidence": "jones-evidence-based-sweng-deep 91: 'the term technical debt is explicitly rejected (\"this is incorrect, there is no debt, and there may not be any need for more work in the future\" [V] (Ch 3.2.5, \"Real options\", footnote))'; deferred implementation 'has the form of an American call option' [V].",
+      "fix": "correct: It is weaker on when to defer engineering investment against revenue work (no software-specific framework; Jones reframes deferred implementation as a real option and rejects the 'technical debt' label)"
+    },
+    {
+      "id": "S003",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "on engineering-team capacity planning (no role-structure analysis at the engineering-org level; Letaw carries that), and on the technical/commercial constraint where they meet in mature delivery (`openstax-accounting-vol2` and `openstax-principles-finance` are sharper on relevant-cost discipline)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Letaw's deep ref has RACI role definitions but nothing on capacity planning; the principles-finance deep ref carries no relevant-cost analysis (accounting-vol2 does).",
+      "evidence": "letaw-handbook-sweng-methods-deep: 'capacity' 0 hits; RACI at 73. openstax-principles-finance-deep: 'relevant cost' 0 hits. openstax-accounting-vol2-deep 15, 17 (decision-relative cost classification, make-or-buy etc.).",
+      "fix": "correct: on engineering-team role structure (Letaw's RACI matrix carries that), and on relevant-cost analysis where technical and commercial constraints meet (`openstax-accounting-vol2` is sharper there)"
+    },
+    {
+      "id": "S004",
+      "line": 20,
+      "section": "Key Concepts 3 (Business-model archetypes)",
+      "claim": "Direct (one-sided customer; SaaS, single-tenant)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Single-tenant' is not in the deep ref and confuses the archetype: 'direct' is about who pays (one-sided customers), not hosting tenancy.",
+      "evidence": "Deep 297: 'direct (one-sided customers, e.g., a coffee shop, SaaS)'.",
+      "fix": "correct: Direct (one-sided customers; e.g. a coffee shop, SaaS)"
+    },
+    {
+      "id": "S005",
+      "line": 24,
+      "section": "Key Concepts 5 (Build-measure-learn loop)",
+      "claim": "The discipline runs prototype → customer feedback → learn → revised prototype until product-market fit, replacing the build-then-launch sequence with continuous iteration anchored on validated learning.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Stopping criterion changed (the deep ref and source end the loop when the prototype is good enough for release); 'validated learning' is Ries's term, absent from the deep ref and the source.",
+      "evidence": "Deep 261 ('repeated until the prototype is good enough for general release'). Converted source 20190; grep 'validated learning': 0 hits.",
+      "fix": "correct: The discipline runs prototype → customer feedback → learn → revised prototype until the prototype is good enough for general release, replacing the build-then-launch sequence with continuous iteration."
+    },
+    {
+      "id": "S006",
+      "line": 26,
+      "section": "Key Concepts 6 (MVP)",
+      "claim": "The bare-minimum prototype that elicits useful feedback — video, sketch, landing page, or partially-instrumented service can each qualify. The Dropbox explainer-video and Zappos manual-fulfilment landing page are the canonical examples.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Manual-fulfilment' and 'partially-instrumented service' are not in the deep ref or the source (the source's Zappos MVP is a bare-bones webpage with traffic measured). The feedback purpose and the Dropbox video are source-supported but absent from the deep ref.",
+      "evidence": "Deep 263, 265 ('Zappos (Nick Swinmurn's bare-bones webpage MVP)'). Converted source 20121-20123 (Dropbox 'short video description'), 20233-20234 ('enough substance to elicit feedback'), 20268-20277 (Zappos bare-bones website, measured traffic).",
+      "fix": "correct: The bare-minimum prototype that elicits useful feedback: sketches, videos, explanations, or a basic version of the product can each qualify. Dropbox's short explainer video and Zappos's bare-bones webpage are the examples (Ch 10.1). | cycle-to-deep: the Dropbox video MVP and the 'elicit feedback' sentence (Ch 10.1)"
+    },
+    {
+      "id": "S007",
+      "line": 28,
+      "section": "Key Concepts 7 (Innovation accounting)",
+      "claim": "assumption-validation metrics that test whether MVP changes are creating desired learning",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref says 'desired results', not 'desired learning'; the assumption-testing metrics are source-supported but not in the deep ref.",
+      "evidence": "Deep 265. Converted source 20313-20325 ('to assess whether the changes made to the product are creating the desired results'; 'Measurements may include testing assumptions about the business ... sign-ups, and retention rates').",
+      "fix": "correct: metrics such as tested business assumptions, sign-ups, and cohort retention that show whether MVP changes are creating the desired results | cycle-to-deep: the Ch 10.1 innovation-accounting measurements sentence"
+    },
+    {
+      "id": "S008",
+      "line": 30,
+      "section": "Key Concepts 8 (Funding ladder)",
+      "claim": "mature (later VC rounds, IPO). Each stage carries different governance, reporting, and runway commitments that constrain engineering investment decisions.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's mature-stage options are private equity or an IPO, not later VC rounds; the governance/reporting claim is not in the deep ref or source.",
+      "evidence": "Deep 237-239. Converted source 18323-18329 ('mature companies may consider selling a portion of the company, either to a private equity group or through an IPO'); 18307 (private equity 'generally invests later than venture capitalists').",
+      "fix": "correct: mature (private equity or IPO, typically to fund expansion). Each stage draws on different capital providers, which shapes what engineering investment the next provider will fund."
+    },
+    {
+      "id": "S009",
+      "line": 40,
+      "section": "Key Concepts 13 (Four IP-protection mechanisms)",
+      "claim": "For software the practical mix tilts away from patents and toward trademarks plus trade secrets because patent-disclosure-plus-prosecution-timeline is mismatched with iteration tempo. (Source: Ch 3.1; Ch 14.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source (Ch 7.4) says to build first and seek patents later, and to protect know-how and trade secrets developed through iteration since they are not always patentable; it never recommends trademarks as a substitute. Cited to Ch 3.1/14.1, which present the mechanisms without a preference. The Ch 7.4 know-how passage is not in the deep ref.",
+      "evidence": "Deep 89, 369, 488. Converted source 13890-13905 (Ch 7.4: build first, seek patents later; 'know how' and trade secrets must be protected since not always patentable); 30737-30745 (Ch 14.1: 'An inventor has a choice: patent the invention or keep it as a trade secret', pros and cons, no preference).",
+      "fix": "correct: For fast-moving fields the text suggests building first and seeking patents later, and protecting the know-how and trade secrets that iteration produces, since they are not always patentable (Ch 7.4). | cycle-to-deep: Ch 7.4 'Protecting initial ideas is not as important as protecting versions of products and services developed through iterative learning and testing processes because \"know how\" and trade secrets are considered intellectual property and must be protected since they are not always patentable.'"
+    },
+    {
+      "id": "S010",
+      "line": 42,
+      "section": "Key Concepts 14 (Build-first-patent-later)",
+      "claim": "The text explicitly recommends building first and patenting only as a strategic afterthought in software and rapidly-iterating product fields, against the common founder instinct to patent the idea before building. (Source: Ch 4.3; Ch 7.4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: the source hedges ('it may be best to build first and seek patents later, particularly in a highly competitive field') and advises patenting manufactured goods once finalised; 'strategic afterthought' is not its framing. Ch 4.3 carries no build-first advice (only Ch 7.4 does), and the source does not name software; both come from the deep ref (488).",
+      "evidence": "Deep 488. Converted source 13890-13895 (Ch 7.4). Ch 4.3 patent passages (source 8846-8898) cover patent research and agents, not timing.",
+      "fix": "correct: For intellectual property in highly competitive, fast-moving fields, the text suggests it may be best to build first and seek patents later; for manufactured goods, seek a patent once the product is finalised (Ch 7.4). Also flag the deep ref (488) to drop Ch 4.3 and 'software' from this position."
+    },
+    {
+      "id": "S011",
+      "line": 44,
+      "section": "Key Concepts 15 (Founders' agreement)",
+      "claim": "covering individual contributions, compensation, vesting schedule, performance evaluation, dispute resolution, and a buyback clause",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Vesting, performance evaluation and dispute resolution are in the source but not the deep ref, which carries contributions, compensation plan and buyback clause only.",
+      "evidence": "Deep 387. Converted source 32608 (vesting plan), 32624 (evaluation period for performance), 32663-32669 (buyback clause 'should also include a dispute resolution process').",
+      "fix": "cycle-to-deep: the Ch 15.1 founders'-agreement question list (monthly compensation, vesting plan, early departure, evaluation period) and the buyback clause's dispute-resolution requirement"
+    },
+    {
+      "id": "S012",
+      "line": 46,
+      "section": "Key Concepts 16 (Vesting and the buyback clause)",
+      "claim": "Founder equity vests against contribution; the buyback clause governs what happens if a founder departs before vesting completes or before a financing round.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Vesting is source-supported but not in the deep ref; the source ties the buyback clause to exits before the next financing round or harvest, not to vesting completion.",
+      "evidence": "Deep 387 ('buyback clause covering exits prior to financing rounds or harvest'). Converted source 32608, 32663-32666.",
+      "fix": "correct: A vesting plan ties equity to defined timelines; the buyback clause covers a team member who exits before the next financing round or harvest, stating compensation and profit distribution (Ch 15.1). | cycle-to-deep: see S011"
+    },
+    {
+      "id": "S013",
+      "line": 56,
+      "section": "Key Concepts 21 (Cognitive biases)",
+      "claim": "Cossette's review identifies overconfidence and optimism as the two most-cited contributors",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref and source say 'most significant', not 'most-cited'.",
+      "evidence": "Deep 393. Converted source 32985-32988.",
+      "fix": "correct: Cossette's review identifies overconfidence and optimism as the two most significant biases contributing to"
+    },
+    {
+      "id": "S014",
+      "line": 60,
+      "section": "Key Concepts 23 (Six pitch elements)",
+      "claim": "Each tailored to the audience (F&F, angel, VC, trade group, board).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's pitch-audience table has no trade-group or board audience.",
+      "evidence": "Deep 195 (six elements). Converted source 13399-13414 (Table 7.3: friends and family, elevator-pitch competitions, pitch-competition judges, early investors, employees).",
+      "fix": "correct: Each tailored to the audience (friends and family, pitch-competition judges, early investors, employees)."
+    },
+    {
+      "id": "S015",
+      "line": 62,
+      "section": "Key Concepts 24 (Audience-tailored pitch matrix)",
+      "claim": "F&F, elevator-pitch competitions, investors, employees, trade groups, and grant agencies each need different pitch length, content, and ask. (Source: Ch 7.3, Table 7.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Table 7.3 lists five audiences; trade groups and grant agencies are not among them and pitch-competition judges are missing. The deep ref does not carry Table 7.3.",
+      "evidence": "Converted source 13399-13414. Deep 195-197 (no table).",
+      "fix": "correct: Friends and family, elevator-pitch competitions, pitch-competition judges, early investors, and employees each need a different pitch length, approach, and ask (Ch 7.3, Table 7.3). | cycle-to-deep: Table 7.3 rows"
+    },
+    {
+      "id": "S016",
+      "line": 66,
+      "section": "Key Concepts 26 (Harvest framing)",
+      "claim": "Treat the eventual harvest (acquisition, IPO, lifestyle exit) as a design constraint from day one",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source contrasts a lifestyle business with harvesting (a clash of team expectations), rather than listing it as a harvest type; the lifestyle-business contrast is not in the deep ref.",
+      "evidence": "Deep 389. Converted source 32592-32595 ('If some team members have an interest in creating a lifestyle business ... while other team members want to harvest the venture with significant returns, there is a clash').",
+      "fix": "correct: Treat the eventual harvest (sale to another company or IPO) as a design constraint from day one, and settle first whether the team wants a lifestyle business or a harvest | cycle-to-deep: the Ch 15.1 lifestyle-vs-harvest passage"
+    },
+    {
+      "id": "S017",
+      "line": 82,
+      "section": "Questions, Phase 1 (Pick the right competitive lens)",
+      "claim": "Which of the competitive-analysis grid, SWOT, PESTEL, or three-circles tool fits this market? (Ch 5.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "This source uses PEST (four factors), as a feeder to SWOT; PESTEL is from openstax-principles-management.",
+      "evidence": "Deep 153 ('PEST ... introduced as a feeder analysis to the SWOT'). Converted source: 'PESTEL' 0 hits.",
+      "fix": "correct: Which of the competitive-analysis grid, SWOT (fed by PEST), or three-circles tool fits this market? (Ch 5.3)"
+    },
+    {
+      "id": "S018",
+      "line": 83,
+      "section": "Questions, Phase 1 (Recognise the pivot symptom)",
+      "claim": "Zoom-in for \"one feature became the product\"; customer-segment for \"different customers may pay\"; platform for \"build the layer underneath\"; technology for \"our underlying tech mismatches the demand\".",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The pivot definitions are in the source's Table 10.2 but not the deep ref (names only). The technology gloss departs from the source, which defines it as serving an existing customer through cheaper means using other technology.",
+      "evidence": "Deep 269. Converted source 20591, 20619-20627 (Table 10.2: 'Technology | Sometimes achieving a solution that serves an existing customer through cheaper means occurs when other technology is used').",
+      "fix": "correct: ... technology for \"other technology could serve the same customer more cheaply\" | cycle-to-deep: Table 10.2 one-line definitions"
+    },
+    {
+      "id": "S019",
+      "line": 90,
+      "section": "Questions, Phase 2 (Scope the MVP)",
+      "claim": "a landing page, a video, a partial product, a manual back-end masquerading as software?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'A manual back-end masquerading as software' is not an MVP form in the deep ref or source (sketches, videos, explanations, basic version, bare-bones webpage).",
+      "evidence": "Deep 263. Converted source 20231-20233.",
+      "fix": "correct: a sketch, a video, an explanation of how it might look, a bare-bones webpage, or a basic version of the product?"
+    },
+    {
+      "id": "S020",
+      "line": 91,
+      "section": "Questions, Phase 2 (Choose validation metrics)",
+      "claim": "What assumption-validation metrics matter at this stage — activation rate, retention curve, willingness-to-pay signals — instead of revenue and profit?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's examples are tested business assumptions, attributes customers like, sign-ups and cohort retention; activation rate and willingness-to-pay are not given. None of the examples are in the deep ref.",
+      "evidence": "Deep 265. Converted source 20321-20325.",
+      "fix": "correct: What metrics matter at this stage (tested assumptions, sign-ups, cohort retention) instead of revenue and profit? | cycle-to-deep: see S007"
+    },
+    {
+      "id": "S021",
+      "line": 95,
+      "section": "Questions, Phase 2 (Gate the technical-debt question)",
+      "claim": "for the empirical debt-cost calculus reach into `jones-evidence-based-sweng`",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Jones rejects the debt framing outright ('there is no debt'); he offers real-options and survival-adjusted maintenance economics instead.",
+      "evidence": "jones-evidence-based-sweng-deep 91 (technical debt 'explicitly rejected'; real options), 129 (maintenance-to-development ratio below one, survival-adjusted).",
+      "fix": "correct: for the empirical economics of deferred implementation, reach into `jones-evidence-based-sweng`, which treats it as a real option and rejects the 'debt' label"
+    },
+    {
+      "id": "S022",
+      "line": 101,
+      "section": "Questions, Phase 3 (Lock in founders' equity)",
+      "claim": "a founders' agreement that covers contributions, vesting, performance evaluation, dispute resolution, and a buyback clause",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as S011.",
+      "evidence": "Deep 387. Converted source 32608, 32624, 32667.",
+      "fix": "cycle-to-deep: see S011"
+    },
+    {
+      "id": "S023",
+      "line": 102,
+      "section": "Questions, Phase 3 (Set the vesting schedule)",
+      "claim": "What vesting schedule (typical four-year with one-year cliff, or other) ... (Ch 15.1)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The 'typical four-year with one-year cliff' norm is not in the deep ref or source; the source asks only whether a vesting plan has defined timelines aligned with equity percentages.",
+      "evidence": "Deep 387 (no vesting). Converted source 32608; 'cliff' 0 relevant hits.",
+      "fix": "correct: Is there a vesting plan with defined timelines aligned with equity percentages, and what happens if a team member leaves before an exit event? (Ch 15.1)"
+    },
+    {
+      "id": "S024",
+      "line": 121,
+      "section": "Questions, Phase 5 (Pick the IP-protection mix)",
+      "claim": "For fast-moving fields the text recommends build-first-patent-later and prefers trademarks plus trade secrets over the disclosure-and-twenty-year-clock of utility patents.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as S009: no trademark preference in the source; the trade-secret emphasis is Ch 7.4 (know-how), not in the deep ref.",
+      "evidence": "Deep 369, 488. Converted source 13890-13905, 30737-30745.",
+      "fix": "correct: For fast-moving fields the text suggests building first and seeking patents later, and protecting the know-how and trade secrets iteration produces (Ch 7.4); Ch 14.1 sets out the patent-vs-trade-secret trade-off (trade secrets unlimited in time but weaker to enforce). | cycle-to-deep: see S009"
+    },
+    {
+      "id": "S025",
+      "line": 123,
+      "section": "Questions, Phase 5 (Apply the four risk-mitigation strategies)",
+      "claim": "For each material risk — avoid (do not enter), reduce (build the control), transfer (insure or contract out), or accept (price it in)? (Ch 13.7)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The four-strategy taxonomy is not in the deep ref or in Ch 13.7 of the source.",
+      "evidence": "Deep 359 (ERM: identification, assessment, abatement; protections: limited liability, financial planning, insurance). Converted source 29560-29850: no avoid/reduce/transfer/accept; risk matrix at 29627-29632.",
+      "fix": "correct: Apply enterprise risk management | For each material risk, have we identified it, assessed its likelihood and severity (a risk matrix helps), and chosen an abatement — limited-liability structure, financial planning, or insurance? (Ch 13.7)"
+    },
+    {
+      "id": "S026",
+      "line": 124,
+      "section": "Questions, Phase 5 (Prevent piercing the corporate veil)",
+      "claim": "are required formalities (meetings, minutes, documented decisions) being kept, and are documents being signed in the entity's name?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The formalities list is in the source but the deep ref carries only commingling.",
+      "evidence": "Deep 347. Converted source 28487-28490, 28514-28517.",
+      "fix": "cycle-to-deep: the Ch 13.2 corporate-formalities list and the Woodruff formalities finding"
+    },
+    {
+      "id": "S027",
+      "line": 132,
+      "section": "Questions, Phase 6 (Pick the audience-tailored pitch shape)",
+      "claim": "F&F (relational, lower-detail), angel (industry-domain, smaller cheque), VC (market-and-margin, larger cheque), trade group (ecosystem-impact), or grant agency (mission-fit)? ... (Ch 7.3, Table 7.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Table 7.3 has no angel/VC split, trade-group or grant-agency rows, and no 'market-and-margin' or 'mission-fit' shapes; only the F&F row (emotional, reputation over data) and VC larger cheques (Ch 9.1) are supported.",
+      "evidence": "Converted source 13399-13414. Deep 237 (VCs invest larger amounts).",
+      "fix": "correct: Is this pitch for friends and family (short, verbal, relational), a pitch competition (two to fifteen minutes, ending in a call to action), early investors (ten to twenty minutes, formal, a specific ask for capital needs and use), or employees (inform and inspire)? (Ch 7.3, Table 7.3)"
+    },
+    {
+      "id": "S028",
+      "line": 134,
+      "section": "Questions, Phase 6 (Match the funding stage to the engineering investment)",
+      "claim": "At seed are we F&F-and-bootstrapping; at early stage angels or VCs; at growth a Series A or further; at maturity an IPO consideration?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's funding cycle has three stages (seed, early, mature); the 'growth / Series A' stage is not in the deep ref or source, and the mature-stage options are private equity or IPO.",
+      "evidence": "Deep 15, 237-239. Converted source 18260-18262, 18323-18329; 'Series A' 0 hits.",
+      "fix": "correct: At seed are we on personal savings, F&F, and bootstrapping; at early stage, angels or VCs; at maturity, private equity or an IPO? (Ch 9.1)"
+    },
+    {
+      "id": "S029",
+      "line": 135,
+      "section": "Questions, Phase 6 (Set fail-safe points before pitching)",
+      "claim": "Have we written specific decision triggers ... into the plan",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Within the business plan' / 'before opening the venture' is source-supported but not in the deep ref.",
+      "evidence": "Deep 395. Converted source 32991-32994.",
+      "fix": "cycle-to-deep: 'we can identify fail-safe points within the business plan ... Identifying these trigger points and creating contingency plans before opening the venture' (Ch 15.2)"
+    },
+    {
+      "id": "S030",
+      "line": 138,
+      "section": "Questions, Phase 6 (Sequence the post-harvest role)",
+      "claim": "After exit, am I best positioned as serial entrepreneur, mentor, consultant, or champion",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Serial entrepreneur as a post-exit path is in Ch 15.4 of the source but not the deep ref.",
+      "evidence": "Deep 405. Converted source 33524-33526.",
+      "fix": "cycle-to-deep: Ch 15.4 post-exit options (serial entrepreneur, time off, social entrepreneur, angel investor)"
+    },
+    {
+      "id": "S031",
+      "line": 148,
+      "section": "Through the cto lens",
+      "claim": "The lens flags this as a gap the CTO will fill from elsewhere in the corpus (Jones on cognitive capitalism, the architecture's `llm-epistemology.md`)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Jones's cognitive capitalism is about human cognition as the means of software production; the Jones deep ref has no AI content, so it cannot fill an AI-as-substrate gap.",
+      "evidence": "jones-evidence-based-sweng-deep 87 ('human cognition is the means of production'); grep for AI/artificial intelligence/LLM: no substantive hits.",
+      "fix": "correct: The lens flags this as a gap the CTO will fill from outside this text (the architecture's `llm-epistemology.md`); Jones's cognitive-capitalism chapter frames human cognition as the means of software production, a useful baseline but not an AI treatment."
+    },
+    {
+      "id": "S032",
+      "line": 170,
+      "section": "What to Look For (team patents before building)",
+      "claim": "Follow-up: invert to build-first-patent-later; route IP spend toward trademarks and trade-secret hygiene",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Applied guidance resting on the trademark preference the source does not state (see S009).",
+      "evidence": "Deep 488. Converted source 13890-13905.",
+      "fix": "correct: Follow-up: invert to build-first-patent-later; protect the know-how and trade secrets iteration produces (Ch 7.4)"
+    },
+    {
+      "id": "S033",
+      "line": 174,
+      "section": "What to Look For (funding-ladder step skipped)",
+      "claim": "Signal: founder pitching VCs before securing F&F or angel rounds, or pitching angels before bootstrapping has produced any validated learning. Diagnosis: funding-ladder mismatch with venture stage (Ch 9.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The F&F-first expectation is in the source but not the deep ref; the bootstrapping-before-angels condition is in neither.",
+      "evidence": "Deep 237. Converted source 18266-18269 ('Before an outsider will invest in a business, they will typically expect an entrepreneur to have exhausted ... F&F financing').",
+      "fix": "correct: Signal: founder pitching angels or VCs before exhausting personal savings and F&F financing. | cycle-to-deep: the Ch 9.1 'Before an outsider will invest' sentence"
+    },
+    {
+      "id": "S034",
+      "line": 178,
+      "section": "What to Look For (entity structure vs trajectory)",
+      "claim": "Signal: bootstrap-funded LLC trying to issue option grants",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The premise that an LLC structure blocks option grants is not in the deep ref or source (the source mentions stock options only as an employee benefit, Ch 14.3).",
+      "evidence": "Deep 355 (LLC: limited liability, pass-through). Converted source 32041 (stock options as a benefit).",
+      "fix": "strip the LLC-options signal, keeping the sole-proprietorship and C-vs-S-corporation signals"
+    },
+    {
+      "id": "S035",
+      "line": 180,
+      "section": "What to Look For (pitch deck and audience mismatched)",
+      "claim": "a single deck used at trade-association events and in board meetings ... produce three pitch variants (relational/F&F, market-and-margin/investor, ecosystem-impact/trade)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Trade-association and board audiences and the 'ecosystem-impact' shape are not in Table 7.3.",
+      "evidence": "Converted source 13399-13414.",
+      "fix": "correct: produce variants per Table 7.3 audience (friends and family, pitch competition, early investors, employees) and tag each by length and ask (Ch 7.3)"
+    },
+    {
+      "id": "S036",
+      "line": 197,
+      "section": "When to Use This Reference",
+      "claim": "Jones is sharper on the post-1980 evidence collapse and KLOC-power-law mythology",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Garbled label. Jones's folklore targets are Halstead's and McCabe's metrics (and the 28-to-1 claim); the KLOC power laws are his evidence that those metrics merely track size, not the myth itself.",
+      "evidence": "jones-evidence-based-sweng-deep 15 (folklore: 28-to-1 claim, Halstead and McCabe), 175 (Halstead_volume ∝ KLOC^1.1, McCabe ∝ KLOC^0.8, 'Folklore metrics').",
+      "fix": "correct: Jones is sharper on the post-1980 evidence collapse and on folklore metrics (Halstead, McCabe) that merely track code size"
+    },
+    {
+      "id": "S037",
+      "line": 207,
+      "section": "Worked Example, step 2",
+      "claim": "The fail-safe-point analysis (Ch 15.2) says: a Series A pitch with zero paying customers and six failed pilots will face a fundraise miss with high probability.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Presents a predicted outcome as what the source's framework says. Fail-safe points trigger a review of corrective action; the deep ref and source make no prediction about fundraising success. The '4-to-6 months to wire' figure in the same step is also unsourced (acceptable only as scenario assumption).",
+      "evidence": "Deep 395 (fail-safe points 'trigger the entrepreneur to consider what actions are needed to bring the venture back to a healthy position and whether this action is reasonable and feasible').",
+      "fix": "correct: Fail-safe points (Ch 15.2) exist for this moment: fourteen months in with zero paying customers should trigger the question of what action would bring the venture back to a healthy position, and whether that action is feasible, before any raise."
+    },
+    {
+      "id": "S038",
+      "line": 211,
+      "section": "Worked Example, step 4",
+      "claim": "For Series A audiences (VCs), the deck needs market-and-margin framing: the TAM/SAM/SOM narrative ... (Ch 7.3, Table 7.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "SOM is not in the source (TAM and SAM are, Ch 8.2), and Table 7.3 does not prescribe market-and-margin framing for investors; its early-investor row asks for a formal presentation with a specific ask for capital needs and use.",
+      "evidence": "Deep 219 (TAM, SAM). Converted source 13414 (early investors row); 'SOM' 0 hits.",
+      "fix": "correct: For early investors, Table 7.3 calls for a formal presentation with a specific ask for capital needs and use; carry the TAM/SAM narrative (Ch 8.2) and the path to break-even (Ch 9.4)."
+    },
+    {
+      "id": "S039",
+      "line": 223,
+      "section": "Anti-patterns (Patent-first IP strategy)",
+      "claim": "Framework prefers trademarks plus trade secrets for fast-moving fields and patents only for stabilised mechanisms (Ch 4.3; Ch 7.4).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as S009; attributes a trademark preference to the framework.",
+      "evidence": "Deep 488. Converted source 13890-13905.",
+      "fix": "correct: The framework suggests building first and seeking patents later in highly competitive fields, protecting the know-how and trade secrets iteration produces, and patenting manufactured goods once finalised (Ch 7.4)."
+    },
+    {
+      "id": "S040",
+      "line": 227,
+      "section": "Anti-patterns (Funding-ladder skipping)",
+      "claim": "pitching angels before bootstrapping has produced validated learning. Each rung carries stage-appropriate evidence requirements; skipping a rung produces predictable rejection (Ch 9.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: the source says outsiders 'typically expect' F&F financing to be exhausted first; 'predictable rejection' and the bootstrapping-before-angels condition are not in the deep ref or source.",
+      "evidence": "Deep 237. Converted source 18266-18269.",
+      "fix": "correct: Pitching angels or VCs before exhausting personal and F&F financing, which outside investors typically expect first (Ch 9.1). | cycle-to-deep: see S033"
+    },
+    {
+      "id": "S041",
+      "line": 229,
+      "section": "Anti-patterns (Pitch-for-everyone deck)",
+      "claim": "Using the same deck and ask across F&F, angels, VCs, trade groups, and grant agencies. The audience-tailored pitch matrix is the discipline (Ch 7.3, Table 7.3).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Trade groups and grant agencies are not Table 7.3 audiences.",
+      "evidence": "Converted source 13399-13414.",
+      "fix": "correct: Using the same deck and ask across friends and family, pitch competitions, early investors, and employees (Ch 7.3, Table 7.3)."
+    },
+    {
+      "id": "S042",
+      "line": 235,
+      "section": "Anti-patterns (Entity-structure trajectory mismatch)",
+      "claim": "building an LLC into a structure that needs to issue stock options to scale",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as S034: the LLC/stock-option premise is not in the deep ref or source.",
+      "evidence": "Deep 355. Converted source 32041.",
+      "fix": "strip the LLC clause"
+    },
+    {
+      "id": "S043",
+      "line": 245,
+      "section": "Integration with Other References (jones-evidence-based-sweng row)",
+      "claim": "Jones's empirical findings ... (the post-1980 evidence collapse, KLOC-power-law mythology, the bi-exponential fault-report pattern, agency theory in vendor-client relations) ... Use Jones where the question turns on engineering capacity, technical-debt cost, reliability investment, or build-vs-buy economics",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Jones rejects technical debt as a concept, so 'technical-debt cost' routes readers to a source that denies the frame; build-vs-buy is not in the Jones deep ref; 'KLOC-power-law mythology' garbles the folklore-metrics finding (see S036). Evidence collapse, bi-exponential pattern and agency theory are correct.",
+      "evidence": "jones-evidence-based-sweng-deep 35-37 (post-1980 collapse), 91 (technical debt rejected; real options), 99 (agency theory, client and vendor), 165-167 (bi-exponential), 175 (folklore metrics). 'build' + 'buy': 0 hits.",
+      "fix": "correct: Jones's empirical findings (the post-1980 evidence collapse, folklore metrics such as Halstead and McCabe that merely track size, the bi-exponential pattern of duplicate fault reports, agency theory in client-vendor relations) extend this text into engineering-economic territory. Use Jones where the question turns on estimation, deferred implementation as a real option, maintenance economics, or reliability investment."
+    },
+    {
+      "id": "S044",
+      "line": 246,
+      "section": "Integration with Other References (letaw-handbook-sweng-methods row)",
+      "claim": "Letaw's RACI, decision-rights, microservices-boundary, Tuckman team-stage, and triple-constraint material",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Letaw deep ref has no decision-rights material (RACI covers responsible/accountable/consulted/informed); its microservices content is organisation around business capabilities rather than boundary-setting method.",
+      "evidence": "letaw-handbook-sweng-methods-deep 57 (triple constraint), 67 (Tuckman), 73 (RACI), 205 (organised around business capabilities); 'decision right' 0 hits.",
+      "fix": "correct: Letaw's RACI, Tuckman team-development stages, triple constraint, and monolith-vs-microservices material (services organised around business capabilities)"
+    },
+    {
+      "id": "S045",
+      "line": 247,
+      "section": "Integration with Other References (openstax-principles-management row)",
+      "claim": "Mintzberg's six organisational structures, the five forces, PESTEL, and the motivation frameworks",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong author attached: the six structure types (functional, divisional, geographic, matrix, networked team, virtual) are not attributed to Mintzberg in that deep ref; Mintzberg is cited there for the three managerial role clusters.",
+      "evidence": "openstax-principles-management-deep 33-37 (Mintzberg role clusters), 189-196 (six structure types, Ch 4.3, no Mintzberg), 362-379 (PESTEL, Porter's Five Forces), 23 (motivation).",
+      "fix": "correct: The six organisational structure types, Porter's Five Forces, PESTEL, and the motivation frameworks"
+    },
+    {
+      "id": "S046",
+      "line": 249,
+      "section": "Integration with Other References (openstax-principles-finance row)",
+      "claim": "investor-update mechanics ... use `openstax-principles-finance` for the Series-A-onward investor-relations and valuation discipline",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The finance deep ref's investor relations is a public-corporation function (communication between a public corporation and its investors); it does not cover private Series A investor updates.",
+      "evidence": "openstax-principles-finance-deep 108-110 ('Investor relations (IR) ... between a public corporation and its investors').",
+      "fix": "correct: Capital structure, cost of capital, and valuation extend this text's funding-ladder treatment; use `openstax-principles-finance` for valuation and, at IPO and after, public-company investor relations."
+    },
+    {
+      "id": "S047",
+      "line": 250,
+      "section": "Integration with Other References (openstax-business-law row)",
+      "claim": "Detailed contract, IP, and antitrust framework ... use `openstax-business-law` for contract terms, IP enforcement, and antitrust exposure detail.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The business-law deep ref (Business Law I Essentials) has contract and antitrust coverage but no IP treatment beyond passing mentions.",
+      "evidence": "openstax-business-law-deep: 'intellectual property' 2 hits (106 dispute types; 502 warranty against infringement); contract law Part VII (372ff); antitrust 11 hits.",
+      "fix": "correct: Detailed contract, tort, and antitrust framework extends this text's Ch 3.1 and Ch 13 treatments; use `openstax-business-law` for contract terms, liability, and antitrust exposure."
+    },
+    {
+      "id": "S048",
+      "line": 251,
+      "section": "Integration with Other References (openstax-business-ethics row)",
+      "claim": "Stakeholder-versus-shareholder framing, duty-of-care chapters, and social-contract argument ... the externalised-cost frame on AI-and-engineering decisions",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The ethics deep ref has a duty of loyalty, not duty-of-care chapters; its externalities material (TBL, Pigovian tax) and its AI section (governance questions) are separate, with no externalised-cost frame on AI or engineering.",
+      "evidence": "openstax-business-ethics-deep 47 (social contract), 105 (stakeholders), 132 (externalities in TBL), 158 (Pigovian tax), 266-268 (duty of loyalty), 442-452 (robotics and AI, governance questions).",
+      "fix": "correct: Stakeholder-versus-shareholder framing, the social-contract argument, the triple bottom line, and the AI-governance questions extend this text's Ch 3 treatment of CSR and stakeholder ethics."
+    },
+    {
+      "id": "S049",
+      "line": 255,
+      "section": "Integration with Other References (Osterwalder row)",
+      "claim": "The BMC is reproduced and treated as the primary design tool for software ventures (Ch 11.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates prominence: one of three focal canvases in Ch 11.2 and one of four frameworks in Ch 2.4; the source calls it 'a popular tool'. The text does not single out software ventures.",
+      "evidence": "Deep 77, 311. Converted source 24782.",
+      "fix": "correct: The BMC is reproduced as one of three focal canvases alongside the Lean Canvas and Social Business Model Canvas (Ch 11.2)"
+    },
+    {
+      "id": "S050",
+      "line": 265,
+      "section": "Citation and Source-Integrity Notes (Cossette bullet)",
+      "claim": "the cognitive-bias review of entrepreneurs (overconfidence, planning fallacy as dominant contributors to failure)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Cossette's two dominant biases are overconfidence and optimism; the source lists the planning fallacy among the 'other causes'. Key Concept 21 (line 56) has it right.",
+      "evidence": "Deep 393. Converted source 32985-32989 ('overconfidence and optimism are the two most significant biases ... Other causes ... include \"the law of small numbers, the illusion of control, the planning fallacy ...\"').",
+      "fix": "correct: the cognitive-bias review of entrepreneurs (overconfidence and optimism as the two most significant biases behind failure to change or end a venture)"
+    },
+    {
+      "id": "S051",
+      "line": 268,
+      "section": "Citation and Source-Integrity Notes (Named limits)",
+      "claim": "the text predates the current LLM platform wave and addresses AI only as a PEST-category external factor",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Understates the source and contradicts the distillation's own line 148: AI also appears as an employment-risk driver (Ch 1.1) and as a $13 trillion opportunity driver (Ch 5.1).",
+      "evidence": "Deep 31 (47 per cent of US employment at risk through AI, Ch 1.1), 145 (AI projected $13 trillion by 2025, Ch 5.1), 377 (AI tooling as PEST technological factor, Ch 14.2).",
+      "fix": "correct: the text predates the current LLM platform wave and treats AI as an employment-risk driver (Ch 1.1), an opportunity driver (Ch 5.1), and a PEST technological factor (Ch 14.2), not as a substrate for organisational redesign"
+    },
+    {
+      "id": "S052",
+      "line": 270,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity)",
+      "claim": "no verbatim source passages are reproduced in the distillation. The cognitive-bias material (overconfidence, planning fallacy, escalation of commitment, fail-safe points) is drawn from [V]-marked content in Ch 15.2",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "False on its face: lines 8, 22, 24 and 58 carry [V] quotations. And in the deep ref only escalation of commitment and fail-safe points are [V]; the overconfidence/planning-fallacy material is unmarked paraphrase.",
+      "evidence": "Distillation lines 8, 22, 24, 58. Deep 393 (unmarked), 395 ([V]).",
+      "fix": "correct: Four passages are quoted [V], copied from the deep reference (lines 8, 22, 24, 58). Escalation of commitment and fail-safe points are [V] in the deep ref; the bias list is paraphrase."
+    }
+  ],
+  "notes": "All [V] quotations (lines 8, 22, 24, 58) match the converted source word for word (line 8 truncated, S001). Integration rows checked against the jones, letaw, principles-management, accounting-vol2, principles-finance, business-law, business-ethics and principles-marketing deep refs; accounting-vol2 and principles-marketing rows are faithful. Root cause of the three technical-debt CONTRADICTED findings (S002, S021, S043): the Jones deep ref records that Jones explicitly rejects the 'technical debt' term. Recurring passing mentions graded FAITHFUL rather than re-flagged, because the named cycle-to-deep fix covers them: vesting and dispute resolution at lines 8, 10, 146, 168 (S011); pre-committed fail-safe points at lines 159, 172, 182, 231 (S029); lifestyle-vs-harvest at 137, 184, 195 (S016); non-Table-7.3 pitch audiences in passing at lines 157 and 193 (S015). Deep-ref issue surfaced: deep 488 cites Ch 4.3 and names 'software' for the build-first-patent-later position; the source carries it only in Ch 7.4 and says 'intellectual property ... in a highly competitive field'. Lens sections (cto, business-executive-stakeholder) audited only for claims about the source; lens vocabulary (Paradigm A/B, Past-tempo) is not graded."
+}

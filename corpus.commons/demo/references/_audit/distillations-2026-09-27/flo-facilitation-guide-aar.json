@@ -1,0 +1,100 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/flo-facilitation-guide-aar.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-129 of 129", "deep": "lines 1-422 of 422", "complete": true},
+  "claims_audited": 103,
+  "tally": {"faithful": 94, "minor_drift": 8, "unsupported": 1, "contradicted": 0},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "\"most AARs in this audience's world are virtual or hybrid\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "unsourced empirical premise the relevance case rests on",
+      "evidence": "Nothing in the deep ref (or any claim it relays) speaks to how AARs are run. The FLO Guide is about online courses; the share of AARs that are virtual is the distillation's own assertion.",
+      "fix": "correct: \"When an AAR is virtual or hybrid, the FLO Facilitation Guide's online facilitation craft applies directly.\""
+    },
+    {
+      "id": "D002",
+      "line": 12,
+      "section": "Key Concepts for AAR (1) and Relevance line 8",
+      "claim": "\"Facilitative vs transmissive question framing. A transmissive question delivers information through the question ...; a facilitative question opens space ... The FLO design is built on this distinction. (Source: ... Ch 1, 'What is facilitation in an educational context?')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "coined concept name and question-level typology attributed to Ch 1",
+      "evidence": "Deep 31-33: Ch 1's distinction is between direct teaching ('sage on the stage') and facilitative teaching ('guide on the side'), with facilitation 'helping learners understand course content through questioning and suggestions'. The word 'transmissive' and a two-type typology of questions do not appear. The nearest support is the deep ref's own cross-cutting synthesis (deep 319: 'open-ended, invitational, and probing questions rather than closed or directive ones'), which is not Ch 1.",
+      "fix": "correct: \"Facilitative vs direct teaching. Ch 1 frames the shift from direct teaching ('sage on the stage') to facilitative teaching that works 'through questioning and suggestions' [V]. Applied to AAR questions, this distillation separates questions that carry the facilitator's conclusion from questions that open the participant's account.\""
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Key Concepts for AAR (1)",
+      "claim": "\"For AAR work it maps directly onto ... LFUO's deflection-question protocol.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "integration claim mischaracterises the other source's concept",
+      "evidence": "LFUO deep 113: deflection questions are a trauma-management move, used to 'walk the person away' from vivid, difficult recall by asking about 'something that went right or something they know very well'. They are not an open-versus-leading question discipline. TC 25-20 deep 134 does support the open-ended half of the mapping.",
+      "fix": "correct: \"For AAR work it maps onto TC 25-20's open-ended question discipline; LFUO's deflection questions are a separate tool for moving a witness off distressing recall.\""
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts for AAR (4)",
+      "claim": "\"For AARs this aligns with the LFUO administrative-firewall framing: explicit confidentiality commitment before the session opens.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "other source's concept defined wrongly",
+      "evidence": "LFUO deep 67: the administrative firewall separates the FLA from 'any potential administrative actions that may be taken against the employee' (non-punitive assurance), not a peer confidentiality agreement. LFUO's confidentiality material is separate: deep 49 (AARs are 'predominantly closed, personal, and confidential'), deep 105 (explain 'the degree of confidentiality' when setting the stage).",
+      "fix": "correct: \"For AARs this aligns with LFUO's confidentiality framing: AARs are 'predominantly closed, personal, and confidential' and the degree of confidentiality is explained when setting the stage; LFUO's administrative firewall (no punitive use of what is said) is a separate commitment.\""
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Key Concepts for AAR (8)",
+      "claim": "FLO facilitators \"model positive professional presence\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "paraphrase presented in quotation marks as the source's words",
+      "evidence": "Deep 89 carries this as a paraphrase [AP] of the Core FLO Facilitation Skills table. Source 906 reads 'Model a positive and professional presence throughout the course.'",
+      "fix": "correct: FLO facilitators \"Model a positive and professional presence throughout the course\" [V] (Ch 3, \"Developing FLO facilitation skills\", Core FLO Facilitation Skills table)"
+    },
+    {
+      "id": "D006",
+      "line": 30,
+      "section": "Key Concepts for AAR (10)",
+      "claim": "\"Avoid pressuring participants to comply with course deadlines, or suggesting they are only welcome if they are committed\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] quotation truncated mid-clause without ellipsis, broadening its meaning",
+      "evidence": "Deep 293 / source: '...only welcome if they are committed to following the activity plan. This is an informal, adult learning environment; expect that individuals will have their own agenda.' Cutting at 'committed' turns commitment to a plan into commitment in general.",
+      "fix": "correct: \"Avoid pressuring participants to comply with course deadlines, or suggesting they are only welcome if they are committed to following the activity plan\" [V]"
+    },
+    {
+      "id": "D007",
+      "line": 100,
+      "section": "Worked Example (also Key Concept 6 line 22, What to Look For line 83)",
+      "claim": "\"the facilitator tracks participation on a simple spreadsheet: by thirty minutes in, two of the four remote participants have not spoken ... (Ch 6, 'One idea to help you track interactions')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source tool repurposed and cited as if the source describes the new use",
+      "evidence": "Deep 247 / source 5617-5618: the matrix tracks the facilitator's own responses to each participant ('Every time you respond to a participant, make a mark') so the facilitator can 'spread out your forum post responses' and each participant feels heard. It does not track who has spoken. Key Concept 6 describes it correctly; the worked example and line 22 turn it into a speaking-time log.",
+      "fix": "correct: \"the facilitator adapts the Guide's tracking matrix (Ch 6, 'One idea to help you track interactions'), which in the Guide logs the facilitator's own responses to each participant, into a log of who has spoken\""
+    },
+    {
+      "id": "D008",
+      "line": 120,
+      "section": "Integration with Other References",
+      "claim": "\"LS provides conversation structures (1-2-4-All, DADs) for equity and ownership\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong structure name for the corpus source cited",
+      "evidence": "Liberating Structures Handbook deep 7 and 59 name the structure '1-2-4-Whole Group'. '1-2-4-All' is the FLO Guide's name for the liberatingstructures.com activity (source 5734). DADs and the ownership framing are in the handbook (deep 17, 83).",
+      "fix": "correct: \"LS provides conversation structures (1-2-4-Whole Group, Discovery & Action Dialogues) for voice and ownership\""
+    },
+    {
+      "id": "D009",
+      "line": 121,
+      "section": "Integration with Other References",
+      "claim": "\"Psychology 2e names the conformity and anchoring dynamics that equity tracking and written-first input are designed to prevent\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "design purpose attributed to the FLO tool that the source does not give",
+      "evidence": "Psychology 2e deep 144 and 289-291 do name anchoring bias and conformity. But the FLO tracking matrix's stated purpose (deep 247) is to 'engage with them fairly equally' so each participant 'feel[s] heard by you'; the Guide says nothing about conformity or anchoring, and written-first input is not a FLO practice at all.",
+      "fix": "correct: \"Psychology 2e names the conformity and anchoring dynamics that this distillation's equity tracking and written-first input can help counter; pair when the facilitator needs to name what is happening\""
+    }
+  ],
+  "notes": "Counting: claims_audited counts distinct assertions (Relevance sentences, each concept's source claim and AAR application, each question row, each What-to-Look-For row as signal+diagnosis and follow-up, When-to-Use bullets, worked-example steps, anti-pattern bullets, integration rows split into other-source claim and relationship, and integrity-note items). faithful = claims_audited - findings. Quote check: every quoted span was compared mechanically against the deep ref and converted source (normalising quotes, dashes, emphasis), then mismatches were read by hand. All [V] spans match the source word for word except D006 (truncation); nested-quote substitution on 'Vegas rules' is acceptable. The Anxious Annie passage is by Leonne Beebe (source 2234) as stated. Other deep refs opened for integration claims (targeted greps, not end-to-end reads): tc-25-20-army-aar-deep (open-ended questions, deep 17, 126, 134), lfuo-learning-review-guide-2024-deep (firewall 67, deflection 113, confidentiality 49/87/105), liberating-structures-handbook-deep (1-2-4-Whole Group 59, DADs 83, ownership 17), openstax-psychology-2e-deep (conformity 289-291, anchoring 144). No Community of Inquiry source is held in the corpus, so the borrowed-through note is accurate; the FLO Guide's Liberating Structures citations link to liberatingstructures.com (source 2563, 5734), so the 'LS tradition rather than the handbook' note is accurate. Non-graded observations: (1) provenance stamp matches the current deep ref (sha256 98fa9141...); (2) the Worked Example carries no [V] blockquote copied from the deep ref, as the projection protocol asks; (3) several question rows (Phase 2-4, e.g. 'Who specifically is taking this on, and by when?') are generic AAR practice not derived from this source; they attribute nothing to the Guide so are not graded, but they are the thin spots of the projection; (4) the evidence-marker continuity note does not mention the Concept 8 quoted paraphrase (D005); (5) the 'trust the process' discipline comes from Beebe's reflection on asynchronous posting delays across a week, and the 'hold silence for ten seconds' application is operator-supplied, which the Named-limits note covers generally."
+}

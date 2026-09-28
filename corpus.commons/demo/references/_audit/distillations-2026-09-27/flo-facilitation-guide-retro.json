@@ -1,0 +1,130 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/flo-facilitation-guide-retro.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-144 of 144", "deep": "lines 1-422 of 422", "complete": true},
+  "claims_audited": 116,
+  "tally": {"faithful": 104, "minor_drift": 8, "unsupported": 3, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "\"FLO is online facilitation; most retros are online; the match is direct.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "unsourced empirical premise the relevance case rests on",
+      "evidence": "Nothing in the deep ref speaks to how retrospectives are run. The share of retros held online is the distillation's own assertion.",
+      "fix": "correct: \"FLO is online facilitation; when a retro is run on Teams, Meet or Zoom, the match is direct.\""
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "\"Vegas-rules privacy as a non-negotiable trust foundation\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "optional practice presented as non-negotiable in describing the source's contribution",
+      "evidence": "Deep 132-138: the Guide says 'we need to agree on rules that support this foundation of trust' [V], and offers Vegas rules as one such rule: 'You may wish to establish \"Vegas rules\"' [V]. The need for agreed rules is firm; Vegas rules specifically are optional. Line 18's 'For retros: this is a Phase 0 step, not optional' is labelled as the distillation's application and is fine.",
+      "fix": "correct: \"agreed privacy rules (the Guide suggests Vegas rules) as the trust foundation\""
+    },
+    {
+      "id": "D003",
+      "line": 8,
+      "section": "Retro Relevance (also What to Look For line 88)",
+      "claim": "\"counsel-out as a named option when a participant is clearly not in a position to engage safely\"; line 88: \"person may be overwhelmed or unsafe\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source concept reframed (commitment/schedule recast as safety)",
+      "evidence": "Deep 251: 'If you find out a participant is deeply struggling, perhaps from an overwhelming schedule, your role is to help them decide if now is the right time to take the course' [V]; the rationale is commitment and learning outcomes. The Guide's counsel-out says nothing about safety to engage.",
+      "fix": "correct: \"counsel-out as a named option when a participant is deeply struggling (the Guide's example is an overwhelming schedule) and now may not be the right time\""
+    },
+    {
+      "id": "D004",
+      "line": 12,
+      "section": "Key Concepts for Retro (1)",
+      "claim": "\"Facilitative vs transmissive question framing. A transmissive question delivers the facilitator's conclusion through the question; a facilitative question opens the participant's account (Ch 1, 'What is facilitation in an educational context?').\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "coined concept name and question-level typology attributed to Ch 1",
+      "evidence": "Deep 31-33: Ch 1 distinguishes direct teaching ('sage on the stage') from facilitative teaching ('guide on the side') that works 'through questioning and suggestions'. It has no transmissive/facilitative typology of questions and does not use 'transmissive'. Nearest support is the deep ref's own cross-cutting synthesis (deep 319), not Ch 1.",
+      "fix": "correct: \"Facilitative vs direct teaching. Ch 1 frames facilitation as helping learners 'through questioning and suggestions' [V] rather than as the 'sage on the stage' [V]. Applied to retro questions, this distillation separates questions that carry the lead's conclusion from questions that open the team's account.\""
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Key Concepts for Retro (8)",
+      "claim": "FLO facilitators \"model positive professional presence\" and \"model reflective practice as an online facilitator\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] marker on a paraphrase",
+      "evidence": "The second phrase is word for word (deep 15). The first is the deep ref's paraphrase [AP] (deep 89); source 906 reads 'Model a positive and professional presence throughout the course.'",
+      "fix": "correct: FLO facilitators \"Model a positive and professional presence throughout the course\" and \"model reflective practice as an online facilitator\" [V]"
+    },
+    {
+      "id": "D006",
+      "line": 107,
+      "section": "Worked Example",
+      "claim": "\"The coach tracks the matrix: after twelve minutes, two names have not contributed at all.\" (traced at line 113 to Ch 6, 'One idea to help you track interactions')",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source tool repurposed and cited as if the source describes the new use",
+      "evidence": "Deep 247 / source 5617: the matrix logs the facilitator's own responses to each participant ('Every time you respond to a participant, make a mark') so the facilitator can spread out forum responses. It does not log who has contributed. Key Concept 5 describes it correctly and labels the retro use as an application; the worked example and trace line present the contribution log as the Guide's matrix.",
+      "fix": "correct: \"The coach keeps a contribution log adapted from the Guide's tracking matrix (which in the Guide logs the facilitator's own responses): after twelve minutes, two names have not contributed at all.\""
+    },
+    {
+      "id": "D007",
+      "line": 113,
+      "section": "Worked Example (trace line)",
+      "claim": "\"The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, transmissive-question coaching, and counsel-out principle trace to the FLO Guide (Ch 3, ...; Ch 4, 'Example of reflective post' [V]; Ch 6, 'One idea to help you track interactions' [V]; Ch 4, 'Privacy and Confidentiality'; Ch 6, 'Be in touch with participants' [V]).\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited (transmissive-question coaching mapped to the privacy section) and [V] markers on section titles",
+      "evidence": "The fourth concept, transmissive-question coaching, pairs with 'Ch 4, Privacy and Confidentiality', which is about privacy rules (deep 132-138), not questions; the question framing is not in the Guide as such (see D004). The three [V] markers sit on section names, not quotations; the repo's citation contract gives section titles no marker.",
+      "fix": "correct: \"The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, Vegas rules and counsel-out principle trace to the FLO Guide (Ch 3, 'Roles and functions of FLO facilitators'; Ch 4, 'Example of reflective post'; Ch 6, 'One idea to help you track interactions'; Ch 4, 'Privacy and Confidentiality'; Ch 6, 'Be in touch with participants'). The transmissive-question coaching is this distillation's application of Ch 1.\""
+    },
+    {
+      "id": "D008",
+      "line": 95,
+      "section": "When to Use This Reference",
+      "claim": "\"the scaffolding-and-fading arc, Anxious-Annie pattern, and equity-tracking matrix are all specific to the coaching-a-lead scenario\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source concepts misdescribed as specific to a scenario the source does not address",
+      "evidence": "Deep 17/73-75 (arc), 154-159 (Annie), 247 (matrix): all three are general course-facilitator practices for FLO cohorts. The Guide says nothing about coaching a lead; the distillation's own Named-limits note (line 142) says the retro mapping is 'application by analogy'.",
+      "fix": "correct: \"the scaffolding-and-fading arc, Anxious-Annie pattern, and equity-tracking matrix all transfer to the coaching-a-lead scenario\""
+    },
+    {
+      "id": "D009",
+      "line": 132,
+      "section": "Integration with Other References",
+      "claim": "\"LS's 1-2-4-All and Discovery & Action Dialogues are the specific Phase 2 and Phase 4 moves that FLO's engagement-equity and written-first principles support\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "principle attributed to FLO that the source does not contain; wrong structure name for the corpus source",
+      "evidence": "The FLO deep ref has no written-first principle; grep of the converted source finds none either (its 1-2-4-All description, source 5734-5739, is think-in-silence then pairs and foursomes, not writing first). Liberating Structures Handbook deep 7 and 59 name the structure '1-2-4-Whole Group'; DADs are at LS deep 83.",
+      "fix": "correct: \"LS's 1-2-4-Whole Group and Discovery & Action Dialogues are specific Phase 2 and Phase 4 moves that serve FLO's engagement-equity aim; written-first input is this distillation's addition\""
+    },
+    {
+      "id": "D010",
+      "line": 133,
+      "section": "Integration with Other References",
+      "claim": "\"Psychology 2e explains the cognitive mechanisms (conformity, normative social influence, anchoring) that FLO's written-first and equity-tracking practices are designed to counteract\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "practice and design purpose attributed to FLO that the source does not give",
+      "evidence": "Psychology 2e deep 144 (anchoring) and 289-291 (conformity, normative social influence) check out. But written-first is not a FLO practice, and the FLO tracking matrix's stated purpose (deep 247) is to 'engage with them fairly equally' so each participant feels heard; FLO says nothing about conformity or anchoring.",
+      "fix": "correct: \"Psychology 2e explains the mechanisms (conformity, normative social influence, anchoring) that this distillation's written-first input and FLO's equity tracking can help counter\""
+    },
+    {
+      "id": "D011",
+      "line": 140,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Liberating Structures is cited for the 1-2-4-All example [BT] (Ch 6, 'Week 2'). None of these are held directly in this corpus as primary references.\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false statement about corpus holdings, contradicted by the distillation's own integration table",
+      "evidence": "The corpus holds corpus.commons/demo/references/liberating-structures-handbook-deep.md, and this distillation cites the Liberating Structures Handbook at lines 101 and 132. The AAR and decision-making distillations of the same source state that LS is held. The accurate nuance (AAR line 125): the Guide's citation is to liberatingstructures.com (source 5734), not to the handbook's text.",
+      "fix": "correct: \"Liberating Structures is cited for the 1-2-4-All example [BT] (Ch 6, 'Week 2'); the corpus holds the Liberating Structures Handbook, but the Guide cites liberatingstructures.com rather than the handbook's text. None of the others are held in this corpus.\""
+    },
+    {
+      "id": "D012",
+      "line": 144,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity)",
+      "claim": "\"this distillation paraphrases the arc as a phase-calibration principle\"; \"the distillation carries the pattern as a diagnostic without the verbatim anecdote\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note misdescribes the distillation's own marker use",
+      "evidence": "Line 14 quotes the arc verbatim with two [V] markers; line 16 quotes the Anxious-Annie resolution verbatim with [V] [AE]. The note also misses the [V] on the paraphrase 'model positive professional presence' at line 26 (D005).",
+      "fix": "correct: \"The scaffolding-and-fading arc is quoted [V] from the deep ref in Concept 2; the Anxious-Annie resolution is quoted [V] [AE] in Concept 3 (the full anecdote stays in the deep ref).\""
+    }
+  ],
+  "notes": "Counting: claims_audited counts distinct assertions (Relevance clauses, each Key Concept's source claim and retro application, each question row, each What-to-Look-For row as signal+diagnosis and follow-up, When-to-Use bullets and preference sentences, worked-example steps, anti-pattern bullets, integration rows split into other-source claim and relationship, and integrity-note items). faithful = claims_audited - findings; a finding covering the same error on two lines counts once. Quote check: every quoted span was compared mechanically against the deep ref and converted source (normalising quotes, dashes, emphasis), then mismatches were read by hand. All [V] spans match the source word for word except D005's first phrase; nested-quote substitution on 'Vegas rules' is acceptable. Other deep refs opened (targeted greps, not end-to-end reads): liberating-structures-handbook-deep (1-2-4-Whole Group, DADs), openstax-psychology-2e-deep (conformity, normative influence, anchoring), openstax-organizational-behavior-deep (conformity Ch 9.2 line 294, groupthink Ch 6.6 line 202 — row checks out), scrum-guide-2020-deep (Sprint Retrospective 155-163 — 'the Scrum Team inspects', so 'team-owned' is fair), approach-perfect-field-guide-scrum-events-deep (retrospective agenda, Prime Directive — the Field Guide row checks out), tc-25-20-army-aar-deep (climate, deep 17 — row checks out). Non-graded observations: (1) provenance stamp matches the current deep ref (sha256 98fa9141...); (2) the Worked Example carries no [V] blockquote copied from the deep ref; (3) most question rows (safety check, manager speaks last, vote on experiments, owner and date) are generic retro practice not derived from this source; they attribute nothing to the Guide so are not graded; (4) Concept 11's claim that written-first input 'equalises non-native speakers, introverts, and high-power-distance participants' is an unsourced empirical premise stated as the distillation's application, not attributed to the Guide; (5) the worked example claims to trace the Anxious-Annie pattern and counsel-out, but neither appears in the scenario (the person who scores 2 on safety is not counselled out)."
+}

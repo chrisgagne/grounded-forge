@@ -22,11 +22,11 @@ A fourth load-bearing claim is that *internal controls* and *Sarbanes-Oxley* exi
 
 ### Accounting defined
 
-**Accounting** is "the process of organizing, analyzing, and communicating financial information that is used for decision-making" [V] (Ch 1.1). The text situates accounting between financial and nonfinancial considerations: "managers and other decision makers often use nonfinancial, or managerial, information," and "sound organizational decisions are often (and should be) based on both financial and nonfinancial information" [V] (Ch 1.4, "Managers and Other Employees"). Financial accounting is "used to generate information for stakeholders outside of an organization, such as owners, stockholders, lenders, and governmental entities such as the Securities and Exchange Commission (SEC) and the Internal Revenue Service (IRS)" [V] (Ch 1.1). Managerial accounting "uses both financial and nonfinancial information as a basis for making decisions within an organization with the purpose of equipping decision makers to set and evaluate business goals by determining what information they need to make a particular decision and how to analyze and communicate this information" [V] (Ch 1.1).
+**Accounting** is "the process of organizing, analyzing, and communicating financial information that is used for decision-making" [V] (Ch 1.1). The text situates accounting between financial and nonfinancial considerations: "managers and other decision makers often use nonfinancial, or managerial, information," and "sound organizational decisions are often (and should be) based on both financial and nonfinancial information" [V] (Ch 1.4, "Managers and Other Employees"). Financial accounting is "used to generate information for stakeholders outside of an organization, such as owners, stockholders, lenders, and governmental entities such as the Securities and Exchange Commission (SEC) and the Internal Revenue Service (IRS)" [V] (Ch 1.1). "Financial accounting is also a foundation for understanding managerial accounting" [V] (Ch 1.1), which "uses both financial and nonfinancial information as a basis for making decisions within an organization with the purpose of equipping decision makers to set and evaluate business goals by determining what information they need to make a particular decision and how to analyze and communicate this information" [V] (Ch 1.1). The two work together: management of a car manufacturer, for example, "would use both financial and managerial accounting information to help improve the business" [V] (Ch 1.1).
 
 ### Financial reporting institutions
 
-The text catalogues the regulatory institutions that govern financial accounting: **GAAP** (Generally Accepted Accounting Principles), the **FASB** (Financial Accounting Standards Board) which "is an independent, nonprofit organization that sets financial accounting and reporting standards for both public and private sector businesses in the United States" [V] (Ch 1.1), the **SEC** (Securities and Exchange Commission), the **AICPA** (American Institute of Certified Public Accountants), and the **PCAOB** (Public Company Accounting Oversight Board), which "was created after several major cases of corporate fraud, leading to the Sarbanes-Oxley Act of 2002, known as SOX" [AP] (Ch 1.1). Governmental accounting follows separate **GASB** (Governmental Accounting Standards Board) standards. International accounting under **IFRS** (International Financial Reporting Standards) is set by the **IASB**, with FASB and IASB working since 2002 toward convergence; over 120 countries have adopted IFRS or permit its use [AP] (Ch 1.4, IFRS Connection).
+The text catalogues the regulatory institutions that govern financial accounting: **GAAP** (Generally Accepted Accounting Principles), the **FASB** (Financial Accounting Standards Board) which "is an independent, nonprofit organization that sets the standards for financial accounting and reporting, including generally accepted accounting principles (GAAP), for both public- and private-sector businesses in the United States" [V] (Ch 3.1), the **SEC** (Securities and Exchange Commission), the **AICPA** (American Institute of Certified Public Accountants), and the **PCAOB** (Public Company Accounting Oversight Board), which "was created after several major cases of corporate fraud, leading to the Sarbanes-Oxley Act of 2002, known as SOX" [AP] (Ch 1.1). Governmental accounting follows separate **GASB** (Governmental Accounting Standards Board) standards. International accounting under **IFRS** (International Financial Reporting Standards) is set by the **IASB**, with FASB and IASB working since 2002 toward convergence; over 120 countries have adopted IFRS or permit its use [AP] (Ch 1.4, IFRS Connection).
 
 ### Three organisation types and their stakeholders
 
@@ -71,7 +71,7 @@ Ten elements of the financial statements per FASB SFAC No. 6: revenue, expenses,
 
 ### Cash basis versus accrual basis
 
-Cash basis accounting records transactions when cash is exchanged. Accrual basis accounting records transactions when they occur, regardless of cash timing. "The accrual method is theoretically preferable to the cash basis of accounting" because "accrual accounting is advantageous because it distinguishes between the timing of the transactions (when goods and services are provided) and when the cash involved in the transactions is exchanged" [AP] (Ch 2.1, "Statement of Cash Flows"). The accrual method underlies the rest of the volume.
+Cash basis accounting records transactions when cash is exchanged. Accrual basis accounting records transactions when they occur, regardless of cash timing. While the cash basis suits small businesses and certain types of businesses, "the accrual basis of accounting is theoretically preferable to the cash basis of accounting. Accrual accounting is advantageous because it distinguishes between the timing of the transactions (when goods and services are provided) and when the cash involved in the transactions is exchanged" [V] (Ch 2.1, "Statement of Cash Flows"). The accrual method underlies the rest of the volume.
 
 ### Liquidity ratios introduced
 
@@ -86,7 +86,7 @@ Ch 3.1 catalogues the conceptual framework that guides US GAAP [AP]:
 - **Revenue recognition principle:** revenue is recognised in the period earned, not when cash is received.
 - **Expense recognition (matching) principle:** expenses are matched with the revenues they helped generate.
 - **Cost principle:** assets are recorded at value at acquisition date, with limited exceptions for financial instruments under fair-value accounting.
-- **Full disclosure principle:** any business activities that could affect the financial statements must be reported (in footnotes or addenda).
+- **Full disclosure principle:** "states that a business must report any business activities that could affect what is reported on the financial statements" [V] (Ch 3.1, "Full Disclosure Principle"). Examples include pending litigation, acquisition information, methods used to calculate certain figures, and stock options; "These disclosures are usually recorded in footnotes on the statements, or in addenda to the statements" [V].
 - **Separate entity concept:** "a business may only report activities on financial statements that are specifically related to company operations, not those activities that affect the owner personally" [V] (Ch 3.1, "Separate Entity Concept").
 - **Conservatism:** "if there is uncertainty in a potential financial estimate, a company should err on the side of caution and report the most conservative amount. This would mean that any uncertain or estimated expenses/losses should be recorded, but uncertain or estimated revenues/gains should not" [V] (Ch 3.1, "Conservatism").
 - **Monetary measurement concept:** transactions must be measured in a monetary unit (US dollar in the US).
@@ -95,7 +95,7 @@ Ch 3.1 catalogues the conceptual framework that guides US GAAP [AP]:
 
 ### Auditor independence
 
-"Auditors' independence from company management is essential for a successful audit because it enables them to approach the audit with the necessary professional skepticism" [V] (Ch 3.1, citing the Center for Audit Quality). The audit committee, not management, oversees the external auditor's work to "monitor disagreements between management and the auditor about financial reporting" [AP] (Ch 3.1). Internal auditors are not independent of the company; only external auditors provide GAAP-conformity opinions.
+"Auditors' independence from company management is essential for a successful audit because it enables them to approach the audit with the necessary professional skepticism" [V] (Ch 3.1, citing the Center for Audit Quality). Relaying the Center for Audit Quality's key practice for protecting independence, the text has the external auditor report not to management but to the audit committee: "The audit committee oversees the auditors' work and monitors disagreements between management and the auditor about financial reporting" [V] (Ch 3.1). Internal auditors are not independent of the company; only external auditors provide GAAP-conformity opinions.
 
 ### The accounting equation, double-entry, debits and credits, T-accounts
 
@@ -209,7 +209,7 @@ The text concentrates on the *opportunity* axis because that is where internal c
 
 Internal controls are "the systems used by an organization to manage risk and diminish the occurrence of fraud" [V] (Ch 8.2). The **Committee of Sponsoring Organizations (COSO)** issued the Internal Control–Integrated Framework, identifying five components of an effective internal control system: control environment, risk assessment, control activities, information and communication, and monitoring [BT] (Ch 8.2, Figure 8.3).
 
-A properly designed system: "ensure assets are properly used; ensure that the accounting system is functioning properly; monitor operations of the organization to ensure maximum efficiency; ensure that assets are kept secure; ensure that employees are in compliance with corporate policies" [V] (Ch 8.2).
+A properly designed system: "ensure assets are properly used; ensure that the accounting system is functioning properly; monitor operations of the organization to ensure maximum efficiency; ensure that assets are kept secure; ensure that employees are in compliance with corporate policies" [V] (Ch 8.2). "An effective internal control system allows a business to monitor its employees, but it also helps a company protect sensitive customer data" [V]; the text's example is "the 2017 massive data breach at Equifax that compromised data of over 143 million people" [V], where proper internal controls would have kept unauthorised parties from the data and protected it "from corruption, damage, or misuse" [V] (Ch 8.2).
 
 ### Six elements of a strong internal control system
 
@@ -236,7 +236,7 @@ Enron's failure: "When this practice was uncovered, the owners of Enron stock lo
 - Limit non-audit services (such as consulting) provided to the same client.
 - Rotate audit lead: "the person in charge of the audit can serve for a period of no longer than seven years without a break of two years" [V].
 - The PCAOB oversees the auditors of public companies, "established in 2002... to ensure independent, accurate, and informative audit reports, monitoring the audits of securities brokers and dealers, and maintaining oversight of the accountants and accounting firms that audit publicly traded companies" [AP].
-- Section 404: management must perform annual audits to assess and document internal control effectiveness, and selected executives must sign attesting that the audit fairly represents the company's financial records and conditions.
+- Section 404: management must perform annual audits "to assess and document the effectiveness of all internal controls that have an impact on the financial reporting of the organization" [V], and selected executives must sign attesting that the audit fairly represents the company's financial records and conditions.
 - Section 302: CEO and CFO personally certify that they have reviewed the internal control report, that it does not contain inaccurate information, and that they believe all financial information fairly states the financial conditions, income, and cash flows. "The sign-off under Section 302 makes the CEO and CFO personally responsible for financial reporting as well as internal control structure" [AP] (Ch 8.5, "Discuss Management Responsibilities for Maintaining Internal Controls within an Organization").
 - Penalties: up to $5 million in fines and 20-25 years in prison; "The penalty is more severe for securities fraud (25 years) than for mail or wire fraud (20 years)" [V] (Ch 8.2).
 - All business records, electronic records, and electronic messages must be stored for at least five years (Ch 8.7).
@@ -247,7 +247,7 @@ Enron's failure: "When this practice was uncovered, the owners of Enron stock lo
 
 ### Petty cash and bank reconciliation
 
-A **petty cash fund** is "a predetermined amount of cash held on hand to be used to make payments for small day-to-day purchases" [V] (Ch 8.4); it is an **imprest account** with a fixed balance replaced as it is spent.
+A **petty cash fund** is "a predetermined amount of cash held on hand to be used to make payments for small day-to-day purchases" [V] (Ch 8.4); it is an **imprest account** with a fixed balance replaced as it is spent. Petty cash purchases are considered not material in nature: "Recall that materiality means that the dollar amount in question would have a significant impact in financial results or influence investor decisions" [V] (Ch 8.4).
 
 A **bank reconciliation** is "the internal financial report that explains and documents any differences that may exist between the balance of a checking account as reflected by the bank's records (bank balance) for a company and the company's accounting records (company balance)" [V] (Ch 8.6, "Define the Purpose of a Bank Reconciliation"). Common reconciling items: outstanding checks, deposits in transit, deductions for bank service fees and NSF (nonsufficient funds) checks, errors, and additions such as interest or funds collected by the bank for the client.
 
@@ -267,7 +267,7 @@ Enron used **special purpose entities** (SPEs) — "separate, often complicated 
 
 ### Cybersecurity as a SOX-era control
 
-**Cybersecurity** is "the practice of protecting software, hardware, and data from digital attacks" [V] (Ch 8.7, "Sarbanes-Oxley Act Compliance Today"). Modern SOX compliance has expanded beyond financial reporting to information technology activities, with significant growth in cybersecurity disclosures [AP].
+**Cybersecurity** is "the practice of protecting software, hardware, and data from digital attacks" [V] (Ch 8.7, "Sarbanes-Oxley Act Compliance Today"). Since its passage SOX "has adapted to changing technology and now requires public companies to protect their accounting and financial data from hackers and other outside or internal forces through stronger internal controls designed to protect the data" [V]. Relaying the Journal of Accountancy, the text names three conditions increasingly affecting SOX compliance: PCAOB inspection requirements, the new revenue-recognition standard, and cybersecurity, where "the number of recent cybersecurity disclosures has significantly grown" [V]. Instead of requiring compliance with just the financial component of reporting and internal control, "the guidelines now allow application to information technology (IT) activities as well" [V] (Ch 8.7).
 
 ## Part IX: Accounting for receivables (Ch 9)
 
@@ -280,6 +280,8 @@ Enron used **special purpose entities** (SPEs) — "separate, often complicated 
 3. Determine the transaction price.
 4. Allocate the transaction price to the separate performance obligations.
 5. Recognise revenue when each performance obligation is satisfied.
+
+The book sets its own limit on this material: "While a detailed look at each of these five requirements is too involved for an introductory course, we can use a simple example to show the five steps" [V] (Ch 9.1). The example is a $600 six-month landscaping contract recognised as the work is performed.
 
 The model "replaces U.S. GAAP's current industry-specific revenue recognition practices with a principle-based approach, potentially affecting both day-to-day business accounting and the execution of business contracts with customers" [AP, citing AICPA] (Ch 9.1, Ethical Considerations).
 
@@ -304,7 +306,7 @@ The **net realizable value** of accounts receivable = AR – allowance for doubt
 
 ### Earnings management versus earnings manipulation
 
-This section is the book's most explicit treatment of an ethics-edge area. The text distinguishes the two: "**Earnings management** works within GAAP constraints to improve stakeholders' views of the company's financial position. **Earnings manipulation** is noticeably different in that it typically ignores GAAP rules to alter earnings significantly. Carried to an extreme, manipulation can lead to fraudulent behavior by a company" [V] (Ch 9.4, "Discuss the Role of Accounting for Receivables in Earnings Management"). The text identifies several legitimate-but-pliable estimation choices in receivables: changing the bad-debt percentage, changing aging-category boundaries, changing the estimation method (income-statement vs balance-sheet vs aging), each within GAAP — but each affecting reported income and AR balances. "These changes would need to be considered acceptable by the company's outside auditors during the annual independent audit" [V].
+This section is the book's most explicit treatment of an ethics-edge area. It sets the condition first: "any attempts by companies to make their financial position look better must be based on assumptions by the company that can be verified by an outside, independent party, such as a major public accounting firm" [V] (Ch 9.4). The text distinguishes the two: "**Earnings management** works within GAAP constraints to improve stakeholders' views of the company's financial position. **Earnings manipulation** is noticeably different in that it typically ignores GAAP rules to alter earnings significantly. Carried to an extreme, manipulation can lead to fraudulent behavior by a company" [V] (Ch 9.4, "Discuss the Role of Accounting for Receivables in Earnings Management"). The text identifies several legitimate-but-pliable estimation choices in receivables: changing the bad-debt percentage, changing aging-category boundaries, changing the estimation method (income-statement vs balance-sheet vs aging), each within GAAP — but each affecting reported income and AR balances. For the aging method's categories and percentages, "such changes would need to be considered acceptable by the company's outside auditors during the annual independent audit" [V].
 
 The text takes a position on what motivates earnings management: showing healthier income, meeting market expectations, securing management bonuses, attracting investors, securing borrowing, increasing valuation in M&A contexts, deferring tax obligations [AP] (Ch 9.4). Ratio analysis and trend analysis are presented as the analyst's tools to spot earnings management.
 
@@ -316,6 +318,8 @@ Two methods for long-term construction-type contracts [AP] (Ch 9.5):
 - **Completed contract method:** revenue and expenses delayed until contract complete. Used when cost and earnings cannot be reasonably estimated.
 
 For real-estate **installment sales**, the installment method defers gross profit recognition over the life of the receivable based on a gross-profit-percentage application to each cash collection (Ch 9.5).
+
+Two further long-term cases [AP] (Ch 9.5): multi-year magazine subscriptions "are long-term service contracts with payment usually occurring in advance of any provided service" [V], and the company "may not recognize this revenue until the subscription has been provided" [V]; a combined equipment purchase with an accompanying service contract "requires separate reporting of the sale and service contract" [V], with the service revenue estimated and distributed over the life of the contract, or deferred until the contract expires.
 
 ## Part X: Inventory (Ch 10)
 
@@ -338,9 +342,13 @@ The text emphasises that the cost-flow assumption is a *choice about how to allo
 
 The text takes a clear position on the international divergence: "IFRS does not permit the use of LIFO. This is a major difference between US GAAP and IFRS. The AICPA estimates that roughly 35-40% of all US companies use LIFO, and in some industries, such as oil and gas, the use of LIFO is more prevalent. Because LIFO generates lower taxable income during times of rising prices, it is estimated that eliminating LIFO would generate an estimated $102 billion in tax revenues in the US for the period 2017-2026. In creating IFRS, the IASB chose to eliminate LIFO, arguing that FIFO more closely matches the flow of goods. In the US, FASB believes the choice between LIFO and FIFO is a business model decision that should be left up to each company" [V] (Ch 10.1, IFRS Connection).
 
+### Consistency, method changes, and the LIFO tax exception
+
+Once chosen, a costing method "would typically be applied repeatedly over the remainder of the company's history to accomplish the generally accepted accounting principle of consistency from one period to another. It is possible to change methods if the company finds that a different method more accurately reflects results of operations, but the change requires disclosure in the company's notes to the financial statements, which alerts financial statement users of the impact of the change in methodology" [V] (Ch 10.1). Although the IRS generally allows different methods for tax and for financial statements, "an exception exists that prohibits the use of LIFO inventory costing on the company tax return unless LIFO is also used for the financial statement costing calculations" [V] (Ch 10.1).
+
 ### Inflation and deflation effects
 
-In inflation, FIFO produces higher ending inventory and lower COGS (higher net income); LIFO produces lower ending inventory and higher COGS (lower net income, lower taxes). In deflation, the effects reverse [AP] (Ch 10.1, "Inflationary Versus Deflationary Cycles").
+In inflation, FIFO produces higher ending inventory and lower COGS (higher net income); LIFO produces lower ending inventory and higher COGS (lower net income, lower taxes). In deflation, the effects reverse [AP] (Ch 10.1, "Inflationary Versus Deflationary Cycles"). Under FIFO in inflation, "the income statement reflects lower cost of goods sold than the current prices for those goods, which produces higher profits than if the goods were costed with current inventory prices" [V]; "The effect of inflationary and deflationary cycles on LIFO inventory valuation are the exact opposite of their effects on FIFO inventory valuation" [V] (Ch 10.1).
 
 ### Lower of cost or market (LCM) and the conservatism principle
 
@@ -365,7 +373,7 @@ Citing Statement on Auditing Standards (SAS) No. 99 and AU Section 316: auditors
 
 ### Capitalisation versus expensing
 
-To **capitalise** is "the process by which a long-term asset is recorded on the balance sheet and its allocated costs are expensed on the income statement over the asset's economic life" [V] (Ch 11.2). The capitalised cost includes "all of the costs necessary to place the asset into service" — purchase price, sales taxes, shipping, assembly, legal fees [AP] (Ch 11.3). Routine repairs and maintenance are expensed; improvements that extend useful life or increase capacity are capitalised.
+To **capitalise** is "the process by which a long-term asset is recorded on the balance sheet and its allocated costs are expensed on the income statement over the asset's economic life" [V] (Ch 11.2). The capitalised cost includes "all of the costs necessary to place the asset into service" [V] — purchase price, sales taxes, shipping, assembly, legal fees [AP] (Ch 11.3). Routine repairs and maintenance are expensed; improvements that extend useful life or increase capacity are capitalised.
 
 ### Three depreciation methods
 
@@ -375,7 +383,7 @@ To **capitalise** is "the process by which a long-term asset is recorded on the 
 - **Units-of-production:** (cost – salvage value) × (units produced this period / total units estimated). Tied to usage.
 - **Double-declining-balance:** book value × straight-line rate × 2. Accelerated; salvage value is not subtracted in the first year's calculation but the asset cannot be depreciated below salvage value.
 
-The text takes a position on the ethics of estimating useful life and salvage value: "management teams typically fail to invest either time or attention into making or periodically revisiting and revising reasonably supportable estimates of asset lives or salvage values, or the selection of depreciation methods, as prescribed by GAAP" [V, citing The CPA Journal] (Ch 11.3, "Depreciation Analysis Requires Careful Evaluation"). Waste Management was disciplined by the SEC "for fraudulently altering its estimates to reduce depreciation expense and overstate net income by $1.7 billion" [AP] (Ch 11.3, citing SEC).
+The text takes a position on the ethics of estimating useful life and salvage value. It quotes Howard B. Levy in The CPA Journal: "management teams typically fail to invest either time or attention into making or periodically revisiting and revising reasonably supportable estimates of asset lives or salvage values, or the selection of depreciation methods, as prescribed by GAAP" [BT], and gives its own judgement: "This failure is not an ethical approach to properly accounting for the use of assets" [V] (Ch 11.3, "Depreciation Analysis Requires Careful Evaluation"). Waste Management was disciplined by the SEC "for fraudulently altering its estimates to reduce depreciation expense and overstate net income by $1.7 billion" [AP] (Ch 11.3, citing SEC).
 
 ### IFRS component depreciation and fair-value option
 
@@ -404,7 +412,7 @@ A **current liability** is "a debt or obligation due within a company's standard
 [AP] (Ch 12.1):
 
 - **Accounts payable:** financial obligations to suppliers after credit purchases.
-- **Unearned revenue (deferred revenue):** customer's advance payment for product or service not yet provided.
+- **Unearned revenue (deferred revenue):** customer's advance payment for product or service not yet provided. The text's example is Amazon, whose unearned revenue came mostly from Amazon Web Services and Prime: "The advance payment for web services is transferred to revenue over the term of the contract. The same is true for Prime membership. Amazon receives $99 in advance pay from customers, which is amortized over the twelve-month period of the service agreement" [V] (Ch 12.1, "Thinking about Unearned Revenue", citing Business Insider for the $4.8 billion Q4 2016 figure).
 - **Current portion of a note payable:** the portion due within the current year.
 - **Taxes payable:** sales taxes collected on behalf of governments, income taxes payable, etc.
 - **Interest payable:** accrued interest not yet paid.
@@ -429,7 +437,7 @@ A **contingency** is "a current situation that has an outcome that is unknown or
 | Reasonably possible | (Either) | No | Yes |
 | Remote | (Either) | No | No |
 
-US GAAP probable threshold is often interpreted at ~80% likelihood; IFRS uses "more likely than not" (~50%). When estimating loss contingencies in a range, US GAAP records the low end of the range; IFRS records the discounted midpoint [AP] (Ch 12.3, IFRS Connection).
+Under US GAAP, probable means "likely" to occur "and is often assessed as an 80% likelihood by practitioners" [V]; under IFRS, "probable is defined as 'more likely than not' and is typically assessed at 50% by practitioners" [V]. "The determination of whether a contingency is probable is based on the judgment of auditors and management in both situations" [V]. For a loss estimated in a range, "under IFRS, the discounted midpoint of that range would be accrued, and the range disclosed. Under US GAAP, the low end of the range would be accrued, and the range disclosed" [V] (Ch 12.3, IFRS Connection).
 
 ### Payroll: involuntary and voluntary deductions
 
@@ -552,6 +560,10 @@ Three dates: **date of declaration** (board votes; dividend becomes a legal liab
 ### Stock dividends and stock splits
 
 A **small stock dividend** (less than 25% of outstanding) reduces retained earnings by market value of new shares. A **large stock dividend** (over 25%) reduces retained earnings by par value. A **stock split** issues new shares in place of old at a different par value (e.g., 2-for-1 doubles shares and halves par value); a **reverse stock split** is the opposite [AP] (Ch 14.3).
+
+### Prior period adjustments and restatement
+
+**Prior period adjustments** "are corrections of errors that appeared on previous periods' financial statements" [V], stemming from mathematical errors, misinterpretation of GAAP, or a misunderstanding of facts at the time. "Since the financial statements have already been issued, they must be corrected. The correction involves changing the financial statement amounts to the amounts they would have been had no errors occurred, a process known as restatement" [V] (Ch 14.4, "Prior Period Adjustments"). The adjustment goes to beginning retained earnings, so it has no effect on current-period net income; the goal is to keep the error correction from distorting the current period's profitability [AP] (Ch 14.4). Relaying Kevin LaCroix, the text reports that SOX's added reporting requirements prompted a surge of corrections in 2005 and 2006; since then the number of companies making corrections has dropped over 60%, partly due to the number of US companies listed on stock exchanges and partly due to tighter regulations, and the severity of the errors has declined, "primarily due to tighter regulation, which has forced companies to improve their internal controls" [BT] (Ch 14.4, "Are Companies Making Fewer Errors in Financial Reporting?"). (Ch 14.4, "Are Companies Making Fewer Errors in Financial Reporting?").
 
 ### Earnings per share
 
@@ -696,7 +708,7 @@ The text takes a measured position on negative cash flow: "Investors do not alwa
 | Enron stock price drop | $91 → less than $1 per share | [V] (Ch 8.2) |
 | Enron stockholder losses | $40 billion | [V] (Ch 8.2) |
 | Waste Management overstatement of net income | $1.7 billion | [V] (Ch 11.3, Ch 2.3) |
-| Madoff Ponzi scheme | "tens of billions of dollars" | [V] (Ch 8.1) |
+| Amount Bernie Madoff swindled out of investors and not-for-profits | "tens of billions of dollars" | [V] (Ch 8.1) |
 | SCICAP Federal Credit Union (Iowa) embezzlement period | 37 years | [V] (Ch 8.1) |
 | SCICAP Federal Credit Union embezzled amount | over $2.7 million | [V] (Ch 8.1) |
 | Currier (Enid, OK) bank fraud | $6.2 million across 61 fraudulent loans | [V] (Ch 8.2) |

@@ -1,0 +1,131 @@
+{
+ "slug": "lfuo-learning-review-guide-2024",
+ "changed_lines_checked": 232,
+ "tally": {
+  "faithful": 224,
+  "minor_drift": 11,
+  "unsupported": 1,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/lfuo-learning-review-guide-2024-deep.md",
+   "line": 238,
+   "text": "or after a complex FLA has concluded (a Learning Review process coach joins the FLA process coach and team) [AP]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Drops the source's condition: a Learning Review process coach joins only if the assigned FLA process coach is not familiar with a Learning Review.",
+   "evidence": "source 3288-3292: 'If the assigned FLA process coach is not familiar with a LR, a Learning Review process coach will work with the FLA Process coach and the FLA team to construct a team'",
+   "fix": "correct: or after a complex FLA has concluded (if the FLA process coach is not familiar with a Learning Review, a Learning Review process coach joins the FLA process coach and team) [AP]"
+  },
+  {
+   "file": "corpus.commons/demo/references/lfuo-learning-review-guide-2024.md",
+   "line": 78,
+   "text": "**Counterfactual arguments are forbidden.** \"If this person had done X, then Y would have happened\" reasoning is incompatible with the FLA's purpose",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line in a changed file, but the same misquotation the repair corrected in the decision-making distillation (audit D007) and the analogous hindsight-bias misquote the repair corrected at light line 94; the quoted words are not the source's.",
+   "evidence": "deep 205 / source 2858-2862: 'such as: “If this person had done X, then the outcome would have been Y and the accident would not have occurred.”'",
+   "fix": "correct: \"If this person had done X, then the outcome would have been Y and the accident would not have occurred\" reasoning is incompatible with the FLA's purpose"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/lfuo-learning-review-guide-2024-decision-making.md",
+   "line": 48,
+   "text": "citing Gary Klein: \"a model people can use experience to generate a plausible option as the first one they consider.\" [BT]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Verbatim Glossary quotation carries [BT] but no [V]; deep 318 marks it [V] [BT], the file's note (line 202) says only [V]-marked quotations are verbatim, and the software-business sibling (line 36) was re-marked [V] [BT] for the same definition.",
+   "evidence": "source 4949-4950: '**Recognition primed decision making:** “a model people can use experience to generate a plausible option as the first one they consider.”'; deep 318",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "file": "corpus.commons/demo/references/lfuo-learning-review-guide-2024-deep.md",
+   "line": 250,
+   "text": "- **Organizational Learning Product** — \"directed to answer the specific needs of the organization, in terms of understanding the organizational, structural, systemic, and cultural contributors to the event.\" Designed for policy-makers and higher levels.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Verbatim quotation on a changed line carries no evidence marker (wording carried over from the pre-repair line; the [V] later in the line covers only the next quotation).",
+   "evidence": "source 3483-3485: 'Organizational learning is traditionally presented as a written report directed to answer the specific needs of the organization, in terms of understanding the organizational, structural, systemic, and cultural contributors to the event.'",
+   "fix": "re-mark: [V] after the first quotation (\"...contributors to the event\" [V].)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/lfuo-learning-review-guide-2024-aar.md",
+   "line": 92,
+   "text": "The guide cites Dekker, Hollnagel, Reason and Conklin in its Recommended Reading, Weick and Sutcliffe in its Glossary and Handout D, and Klein in its Glossary; the demo holds none of them directly.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Hollnagel in the Recommended Reading does not trace to the deep ref: deep 329 places Hollnagel in Part 3 footnote 2, Part 5, Handout A, the Glossary and Appendix B footnote 11, not Recommended Reading. True to source (source 5070-5072 lists The ETTO Principle under Recommended Reading), so the alternative fix is to add 'Recommended Reading' to deep 329.",
+   "evidence": "deep 328-336; source 5031-5098",
+   "fix": "correct (preferred, one edit resolves this and retro 132): add Recommended Reading to the Hollnagel locator list at deep 329, e.g. '(Part 3 footnote 2; Part 5; Handout A; Glossary, \"Efficiency-Thoroughness Trade-Off\"; Recommended Reading)'. Otherwise correct the distillation to: The guide cites Dekker, Reason and Conklin in its Recommended Reading, Hollnagel in its footnotes, Handout A and Glossary, Weick and Sutcliffe in its Glossary and Handout D, and Klein in its Glossary; the demo holds none of them directly."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/lfuo-learning-review-guide-2024-decision-making.md",
+   "line": 40,
+   "text": "\"Risk does not exist 'out there,' ... there is no such thing as a 'real risk' or 'objective risk.'\" [BT]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line in a changed file, same marker gap as line 48: the Slovic quotation is verbatim (source Handout A) and deep 285 marks it [V] [BT], but the distillation marks it [BT] only, against its own continuity note at line 202.",
+   "evidence": "deep 285: '... there is no such thing as a 'real risk' or 'objective risk'\" [V] [BT] (Handout A ..., quoting Slovic via Kahneman)'",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/lfuo-learning-review-guide-2024-decision-making.md",
+   "line": 123,
+   "text": "\"Are our policies keeping up with a changing system of work?\" [V] and \"Is our organisation sending mixed messages to field-going personnel?\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line in a changed file. The second question sits in quotation marks but respells the source's 'organization' as 'organisation'; the repair corrected other altered wording inside quotation marks in this file (audit D007, D011).",
+   "evidence": "deep 228 / source 3053-3055: '“Is our organization sending mixed messages to field-going personnel?”'",
+   "fix": "correct: \"Are our policies keeping up with a changing system of work?\" [V] and \"Is our organization sending mixed messages to field-going personnel?\" [V]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/lfuo-learning-review-guide-2024-retro.md",
+   "line": 132,
+   "text": "The LFUO guide names Dekker, Hollnagel and Reason in its Recommended Reading",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same as aar 92: Hollnagel's place in the Recommended Reading is true to source (5070-5072) but absent from the deep ref, whose Hollnagel entry (deep 329) lists only Part 3 fn 2, Part 5, Handout A, Glossary and Appendix B fn 11.",
+   "evidence": "deep 328-336; source 5031-5098",
+   "fix": "correct (preferred): add Recommended Reading to the Hollnagel locator list at deep 329 (resolves aar 92 too). Otherwise: The LFUO guide names Dekker and Reason in its Recommended Reading, footnotes Hollnagel, and cites Weick and Sutcliffe in its Glossary and Handout D and Klein in its Glossary"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/lfuo-learning-review-guide-2024-retro.md",
+   "line": 113,
+   "text": "- Designing experiments that tick a box (\"we tried it\") without a learning criterion for validation.",
+   "grade": "UNSUPPORTED",
+   "problem": "Unchanged line in a changed file, but a residue of the learning-validation claim the repair removed (audit retro D-lines 28, 95, 98, 110: the guide has no experiment-validation discipline). Under 'Anti-patterns This Reference Helps Avoid' it still credits LFUO with guarding against unvalidated experiments; with Key Concept 9 (learning-validation) gone, nothing in the file or the deep ref supports it.",
+   "evidence": "deep ref: no passage on experiments or validation criteria; audit retro findings for lines 28 and 95 graded the same claim UNSUPPORTED",
+   "fix": "strip"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/lfuo-learning-review-guide-2024-software-business.md",
+   "line": 184,
+   "text": "Recognition-primed decision making: people \"use experience to generate a plausible option as the first one they consider.\" [V]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line in a changed file carrying the error the repair fixed at line 36 (audit: RPD definition quoted [V] only): the Glossary relays Klein's definition, and deep 318 marks it [V] [BT].",
+   "evidence": "deep 318: '\"A model people can use experience to generate a plausible option as the first one they consider\" [V] [BT] (Glossary, \"Recognition primed decision making\", citing Gary Klein)'; source 4949-4951",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/lfuo-learning-review-guide-2024-stakeholder-engagement.md",
+   "line": 198,
+   "text": "The liaison roles (Part 5) are paraphrased in the deep reference; the administrative-firewall commitment (Part 3), the \"give participants control over the setting\" principle (Part 6), ... are `[V]`-marked passages there.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Made stale by the same repair: the repaired deep ref now carries the liaison guidance as [V] (deep 75, 77: 'Provide employees with a trusted liaison ...' [V]; Family/Hospital Liaisons 'aid in bridging the gap ...' [V]), so 'paraphrased in the deep reference' is no longer true. The quotation marks around 'give participants control over the setting' also read as source words; the source's words are 'give as much control as possible to the participants'.",
+   "evidence": "deep 75, 77, 122",
+   "fix": "correct: The scenario is operator-authored. The liaison guidance (Part 5), the administrative-firewall commitment (Part 3), the principle of giving participants control over the setting (Part 6), the Ten Principles and Agreements (Part 6), the \"exploit points of departure\" [V] facilitation move (Part 6), and the readback validation (Part 8, 9) are `[V]`-marked passages in the deep reference. No verbatim source blockquotes appear in this distillation."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/lfuo-learning-review-guide-2024-stakeholder-engagement.md",
+   "line": 24,
+   "text": "Just Culture is the intersection of trust, fairness, and dignity, in which \"everyone can speak.\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "Source words in quotation marks on a changed line with no evidence marker; the file's note (line 249) says only [V]-marked quotations are verbatim, and the repair added [V] to other unmarked quotations in these files (audit aar 22/30, retro 16, SE 48/64).",
+   "evidence": "deep 29: 'an open and safe reporting system in which \"everyone can speak\" [V] (Part 1, \"Just Culture\")'",
+   "fix": "re-mark: [V] after \"everyone can speak.\""
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/SOFTWARE-BUSINESS-DISTILLATION-INDEX.md",
+   "line": 545,
+   "text": "| Commit administrative firewall in writing | ... | Without explicit exclusion of disciplinary action, forced retraining, removal from on-call, performance-management impact, and compensation impact, the guide calls this firewall critical to protecting honest accounts. |",
+   "grade": "EDIT-DEFECT",
+   "problem": "Broken sentence left by the edit: the 'Without ...' clause no longer attaches to its consequence; the new main clause ('the guide calls this firewall critical') does not follow from it.",
+   "evidence": "software-business distillation line 66: 'The delegation must explicitly exclude disciplinary action, forced retraining, removal from on-call, performance-management impact, and compensation impact. The guide calls this firewall critical to protecting honest accounts.'",
+   "fix": "correct: The delegation must explicitly exclude disciplinary action, forced retraining, removal from on-call, performance-management impact, and compensation impact; the guide calls this firewall critical to protecting honest accounts."
+  }
+ ],
+ "notes": "Complete (run 2 re-checked run 1's partial output and every file). Coverage: full read of the deep ref (367 lines), light ref (144), all five distillations (aar 147, decision-making 202, retro 136, software-business 228, stakeholder-engagement 249); every changed [V] checked mechanically against the converted source and every MISS/LOOSE read in the source; every added claim traced to the deep ref and, for new deep-ref text, to the source passage. changed_lines_checked = 232 non-blank added lines (deep 54, light 2, aar 30, decision-making 32, retro 17, software-business 40, stakeholder-engagement 34, index rows 23). The tally counts changed lines; five findings (light 78, decision-making 40 and 123, software-business 184, retro 113) sit on unchanged lines and carry the same error the repair fixed elsewhere, so they are listed but not in the faithful arithmetic. Run-1 findings: deep 238 and light 78 confirmed; decision-making 48 confirmed. vflags: both FAITHFUL. software-business 180 ('An FLA is a scalable process ... without recommendations') breaks only on a page number (source 734-740, '14'); stakeholder-engagement 62 ('Storytelling is widely recognized ...') breaks only on a page number (source 2477-2489, '51'). Interview guidance (special check): the source (1914-1981) tells interviewers not to deliberately take the interview into deeper recall and to leave that to mental health professionals; if the person goes there anyway, deflect to something that went right or that they know well; and make sure people, FLA team included, can reach mental health professionals. Deep 128, light 56, aar 30/58/101 and the AAR index row all state this correctly; the three audit CONTRADICTED lines in aar ('return to the difficult memory / passage once steadier') are gone, and a grep of all five distillations finds no remaining instruction to return to or probe the traumatic memory. Decision-making and retro do not cover interviewing. software-business 69 and stakeholder-engagement 42/96 describe only the deflection half and do not state the don't-go-deeper limit; they do not contradict the source, but adding one clause ('do not deliberately take the interview into deeper recall; leave that to mental health professionals') would make them match aar. stakeholder-engagement 95 (unchanged) says 'The opening of the interview is for rapport, not for substantive questions'; the source says only that the deflection question is often learned early and shows the value of getting to know the person (source 1974-1976, not in the deep ref). Removals: retro Key Concept 9 (learning-validation), two When-to-Use bullets, the retro index 'Validate the experiment's learning' row and the Phase 0.5 relevance claims were removed; all match audit UNSUPPORTED findings (retro 8, 28, 95, 98, 110). The removed deep-ref paragraph on focus groups (old 202) is fully re-covered by the new deep 232 and 239. Unfixed-looking audit findings in stakeholder-engagement (32, 40, 52, 54, 58, 76, 97, 107, 145, 210) were resolved by adding the passages to the deep ref (deep 77, 100, 126, 130, 149, 201, 244, 33); verified. Stakeholder-engagement 34/143 call Appendix F 'a graphic in the PDF': not stated in the deep ref, but checked against the original PDF (pages 77-78 are images; pdftotext returns no text), so graded FAITHFUL. Hollnagel in the Recommended Reading (aar 92, retro 132) is true to source 5070-5072; the one-line fix is to add Recommended Reading to the Hollnagel locators at deep 329."
+}

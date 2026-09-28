@@ -1,0 +1,359 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/lfuo-learning-review-guide-2024-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-202 of 202",
+    "deep": "lines 1-323 of 323",
+    "complete": true
+  },
+  "claims_audited": 166,
+  "tally": {
+    "faithful": 132,
+    "minor_drift": 28,
+    "unsupported": 5,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 12,
+      "section": "Decision-Making Relevance",
+      "claim": "\"the same level situational awareness, belief, and expectation that was held by those involved in the accident — which they had before the accident\" (Part 7) — quoted with no marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 149 carries this sentence [V]; source 2304-2306 matches.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D002",
+      "line": 20,
+      "section": "Key Concepts #1",
+      "claim": "\"fatalities get big teams, near-misses get nothing\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's tendency hardened into an absolute",
+      "evidence": "Deep 61 / source 864-867: 'the natural tendency is to base the size and complexity of the review team upon the severity of the outcome. Often, the more \\'serious the accident,\\' the more resources are put toward the review team.' Nothing says near-misses get nothing.",
+      "fix": "correct: \"the more serious the accident, the more resources go to the review team\""
+    },
+    {
+      "id": "D003",
+      "line": 22,
+      "section": "Key Concepts #2",
+      "claim": "RLS is \"one to two pages, shareable, often anonymous\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source (absent from deep ref); 'often' loosens 'if they wish'",
+      "evidence": "Deep 51 says only 'a simple learning product' and that the WFLLC tool 'allows anonymous lesson posting' [AP]. Source 719-726: 'usually takes the form of a one or two-page narrative document'; lessons can be submitted 'anonymously if they wish'. True to source but not in the deep ref, and 'often anonymous' is not the source's claim.",
+      "fix": "correct: \"RLS (a simple, shareable learning product; lessons can be submitted anonymously)\""
+    },
+    {
+      "id": "D004",
+      "line": 24,
+      "section": "Key Concepts #3",
+      "claim": "\"Eleven decision-support questions are explicitly listed: ...\" (eleven enumerated)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "list re-extracted from source and altered",
+      "evidence": "Deep 63 gives six questions ('include:'). Source 909-942 has eleven bullets, but the distillation splits 'How long should this take? How much time and money...' into two and drops the eleventh bullet ('What other jurisdictions or agencies are involved? ... interagency agreement'). Five of the listed questions are absent from the deep ref.",
+      "fix": "correct: list the six questions in deep 63, or add the full eleven-bullet list (including the interagency question, with 'how long / how much time and money' as one bullet) to the deep ref first"
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Key Concepts #4",
+      "claim": "\"Recommendations on a single data point, without this vetting, are framed as decision-making errors.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "position loosened and relabelled",
+      "evidence": "Deep 97: 'We argue against providing recommendations on the basis of a single data point' [V]. The guide argues against it; it does not frame it as a decision-making error.",
+      "fix": "correct: \"The guide argues against providing recommendations on the basis of a single data point [V] (Part 5, 'Recommendations vs Lessons Learned').\""
+    },
+    {
+      "id": "D006",
+      "line": 28,
+      "section": "Key Concepts #5",
+      "claim": "conditions listed as \"(environmental, organisational, cultural, cognitive)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept's categories altered",
+      "evidence": "Deep 267 (Glossary, 'Conditions'): 'environmental conditions... as well as social, cultural, and political influences' [V]. 'Organisational' and 'cognitive' are not the Glossary's categories; 'social' and 'political' are dropped. The distillation's own Phase 3 row (line 85) gets the four right.",
+      "fix": "correct: \"(environmental, social, cultural, political)\""
+    },
+    {
+      "id": "D007",
+      "line": 30,
+      "section": "Key Concepts #6",
+      "claim": "\"'If this person had done X, then Y would have happened' is the canonical pattern to avoid.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered wording in quotation marks",
+      "evidence": "Deep 184 / source 2860-2862: 'If this person had done X, then the outcome would have been Y and the accident would not have occurred.' [V].",
+      "fix": "correct: \"'If this person had done X, then the outcome would have been Y and the accident would not have occurred' [V] is the pattern to avoid.\""
+    },
+    {
+      "id": "D008",
+      "line": 34,
+      "section": "Key Concepts #8",
+      "claim": "\"The Lessons Learned Analysis dialogues five categories of pre-event mental state.\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "count wrong",
+      "evidence": "Deep 158 and source 2413-2421 list four: beliefs, perceptions, expectations, paradigms. The concept's own body lists four, and line 82 calls it the 'four-category decomposition'.",
+      "fix": "correct: \"four categories\""
+    },
+    {
+      "id": "D009",
+      "line": 34,
+      "section": "Key Concepts #8",
+      "claim": "\"For each key decision or action, the team identifies and discusses the beliefs, perceptions, expectations, and paradigms ...\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "procedure order inverted",
+      "evidence": "Deep 158-159 / source 2413-2427: step 4 runs the decomposition for each interesting, odd or disturbing lesson learned; step 5 then identifies the key decisions 'that flowed from those beliefs'. The unit of step 4 is the lesson learned, not the key decision.",
+      "fix": "correct: \"For each interesting, odd or disturbing lesson learned, the team discusses the beliefs, perceptions, expectations and paradigms held before the experience that turned out wrong; step 5 then identifies the key decisions that flowed from them.\""
+    },
+    {
+      "id": "D010",
+      "line": 36,
+      "section": "Key Concepts #9",
+      "claim": "\"The decision to terminate is the team leader's, communicated to the Delegating Official via memo without disclosing details.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "procedural detail added",
+      "evidence": "Deep 190 / source 2924-2931: the team leader 'should write a memo to the Delegating Official stating that the FLA has been terminated and that there may be cause to initiate an administrative or law enforcement investigation.' Nothing specifies whose decision it is or that the memo withholds details (the confidentiality rule is separate: team members must not discuss what they learned).",
+      "fix": "correct: \"The team leader writes a memo to the Delegating Official stating that the FLA has been terminated and that there may be cause for an administrative or law enforcement investigation.\""
+    },
+    {
+      "id": "D011",
+      "line": 44,
+      "section": "Key Concepts #13",
+      "claim": "Interview language drifts from \"what I wished I had done differently\" to \"what other people should have done\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "first phrase in quotation marks is not the source's wording",
+      "evidence": "Deep 213 / source 4556-4559: 'find their language packed with things they wished they had done differently. Then, in the subsequent weeks, this person's language changes to the certainty of what other people should have done.' 'what I wished I had done differently' does not occur.",
+      "fix": "correct: Interview language, at first \"packed with things they wished they had done differently\", shifts in the following weeks \"to the certainty of what other people should have done\" [V] (Handout C, \"FLA 'Watch outs'\")."
+    },
+    {
+      "id": "D012",
+      "line": 46,
+      "section": "Key Concepts #14",
+      "claim": "\"Fundamental attribution error is the most common framing trap.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "superlative added",
+      "evidence": "Deep 69 / 312: 'Blaming employees can be a form of the Fundamental Attribution Error' [V]. No frequency ranking.",
+      "fix": "correct: \"Fundamental attribution error is a framing trap the guide names.\""
+    },
+    {
+      "id": "D013",
+      "line": 48,
+      "section": "Key Concepts #15",
+      "claim": "\"Recognition Primed Decision Making is the default operational pattern.\" ... \"participants did not deliberate between multiple options — they generated an experience-based first option and acted.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "glossary definition generalised into a universal claim",
+      "evidence": "Deep 274: the Glossary defines RPD, citing Klein [V][BT]; the guide does not call it the default pattern. The nearest support is Principle 7 (deep 127): 'Almost all human actions and decisions are intuitive responses to circumstances largely based on past experiences' [V], which is hedged ('almost all') and not framed as RPD.",
+      "fix": "correct: \"The Glossary defines Recognition Primed Decision Making (citing Klein) [BT], and Principle 7 holds that 'almost all human actions and decisions are intuitive responses to circumstances largely based on past experiences' [V]. The analyst's job is to understand why the first option seemed right.\""
+    },
+    {
+      "id": "D014",
+      "line": 50,
+      "section": "Key Concepts #16",
+      "claim": "ETTO passage attributed to Hollnagel and marked [V] only",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker incomplete",
+      "evidence": "Deep 270: the Glossary ETTO entry quotes Hollnagel, carried as [V] [BT]. The guide is relaying Hollnagel's words.",
+      "fix": "re-mark: [V] [BT]"
+    },
+    {
+      "id": "D015",
+      "line": 54,
+      "section": "Key Concepts #18",
+      "claim": "\"For high-reliability environments, the HRO framing tends to surface decision dynamics the AAR framing misses.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "effectiveness claim with no basis; source's actual condition omitted",
+      "evidence": "Deep 217 presents the two styles without comparing them. Source 4581-4586: HRO-type questions 'should be reserved for cases in which the people who were involved with the incident are already familiar with the HRO traits and understand the principles.'",
+      "fix": "correct: \"The guide reserves HRO-style questions for participants already familiar with the HRO traits (Handout D).\""
+    },
+    {
+      "id": "D016",
+      "line": 75,
+      "section": "Questions, Phase 2",
+      "claim": "\"Appendix C asks the Delegating Official to confirm willingness to disseminate lessons in a public report, even if uncomfortable.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source; absent from deep ref",
+      "evidence": "Source 3860-3869 supports it ('The answer to this question must be \\'Yes.\\' ... Some information in the learning product may make you feel uncomfortable'). The deep ref's Appendix C coverage (deep 192) carries only the reckless-and-willful definition.",
+      "fix": "correct: keep, and add Appendix C's dissemination question to the deep ref so the claim has an audited anchor"
+    },
+    {
+      "id": "D017",
+      "line": 76,
+      "section": "Questions, Phase 2",
+      "claim": "\"If punishment is the implicit intent, the FLA process should be dropped — punishment and FLA are incompatible.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source; absent from deep ref",
+      "evidence": "Source 3874-3878: 'If punishment is intended, in whatever form, the FLA process should be dropped.' Not in the deep ref.",
+      "fix": "correct: keep, and add Appendix C's 'learning rather than punishing' question to the deep ref"
+    },
+    {
+      "id": "D018",
+      "line": 98,
+      "section": "Questions, Phase 4",
+      "claim": "\"'When 'we just need more training' comes up… Try to dig deeper.' Sometimes the answer is training; often the work-system design is the issue.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]; 'sometimes' hardened to 'often'",
+      "evidence": "Deep 313: 'When \\'we just need more training\\' comes up… Try to dig deeper. Sometimes, that is the answer, but sometimes it's not. If you don't have on your PPE because you can't do your job properly and wear it, it's a bigger issue than training' [V].",
+      "fix": "correct: \"'When \\'we just need more training\\' comes up… Try to dig deeper. Sometimes, that is the answer, but sometimes it's not' [V] (Part 6, 'Suggestions to FLA Facilitator for the Group Dialogue Session').\""
+    },
+    {
+      "id": "D019",
+      "line": 105,
+      "section": "Questions, Phase 5",
+      "claim": "\"Is litigation against an employee or the agency likely? If yes, a confidential administrative investigation is the right tool, not an FLA.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source (absent from deep ref); 'should consider' hardened",
+      "evidence": "Source 3833-3838 (Appendix C): 'the Delegating Official should consider a confidential administrative investigation. An FLA investigation is inappropriate under the threat of a criminal or civil action.' Not in the deep ref.",
+      "fix": "correct: \"If yes, the guide says the Delegating Official should consider a confidential administrative investigation; an FLA is inappropriate under threat of criminal or civil action (Appendix C).\" Add the passage to the deep ref."
+    },
+    {
+      "id": "D020",
+      "line": 106,
+      "section": "Questions, Phase 5",
+      "claim": "termination memo recommending action \"without disclosing details\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "procedural detail added",
+      "evidence": "As D010: source 2924-2926 gives the memo's content (FLA terminated; may be cause for an administrative or law enforcement investigation); 'without disclosing details' is not stated.",
+      "fix": "correct: strip \"without disclosing details\""
+    },
+    {
+      "id": "D021",
+      "line": 115,
+      "section": "Questions, Phase 6",
+      "claim": "\"'Safety is in the entire system.' [V]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source, not copied from the deep ref; no citation",
+      "evidence": "Source 3801-3802 (Appendix B): 'However, safety is in the entire system.' Word-for-word true, but the deep ref does not carry the sentence (deep 231 carries the sharp-end/blunt-end sentence that follows it).",
+      "fix": "correct: quote the audited deep-ref passage instead: 'Practitioners at the \\'sharp end\\' ... are inheritors of policies, training programs, tools, culture, incentives, etc., that are the responsibility of those managers and administrators at the \\'blunt-end\\'' [V] (Appendix B, 'A Deeper Dive into Causal Factors')"
+    },
+    {
+      "id": "D022",
+      "line": 124,
+      "section": "Questions, Phase 7",
+      "claim": "\"the Delegating Official is responsible for follow-up\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source; absent from deep ref",
+      "evidence": "Source 3415-3417: the SAP 'that the Delegating Official takes ownership of and is responsible for following up on'. The deep ref (deep 204) says only that the SAP designates who is responsible.",
+      "fix": "correct: keep, and add the source sentence to the deep ref's Part 10-11 section"
+    },
+    {
+      "id": "D023",
+      "line": 131,
+      "section": "What to Look For",
+      "claim": "Diagnosis cites (Part 9, \"Avoid Counterfactual Arguments\") for the training reflex; \"training recommendations often add workplace complexity\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited section; claim narrowed to training",
+      "evidence": "The 'we just need more training' passage is Part 6 (deep 313). The complexity claim is about recommendations in general, not training recommendations (deep 95).",
+      "fix": "correct: cite (Part 7, 'The Lessons Learned Analysis'; Part 6, 'Suggestions to FLA Facilitator for the Group Dialogue Session'; Part 5, 'Recommendations vs Lessons Learned') and write \"recommendations often add workplace complexity\""
+    },
+    {
+      "id": "D024",
+      "line": 133,
+      "section": "What to Look For",
+      "claim": "\"(fatality gets a large team; near-miss gets nothing)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's tendency hardened into an absolute",
+      "evidence": "As D002 (deep 61).",
+      "fix": "correct: \"(the more serious the outcome, the larger the team)\""
+    },
+    {
+      "id": "D025",
+      "line": 157,
+      "section": "Worked Example",
+      "claim": "\"a narrative that makes the entrapment 'vivid, engaging, and relevant'\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "phrase in quotation marks found in neither deep ref nor source",
+      "evidence": "grep of the converted source: 'vivid' occurs only at 1936 ('vivid memories'); 'engaging' never with 'vivid' or 'relevant'. The deep ref has no such phrase.",
+      "fix": "correct: \"a narrative with sensory detail and the characters' internal voice (Part 8, 'Storytelling Basics')\""
+    },
+    {
+      "id": "D026",
+      "line": 157,
+      "section": "Worked Example",
+      "claim": "\"All framework citations trace back through the deep reference.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "self-certification not true of the file",
+      "evidence": "The worked example itself carries a quoted phrase with no deep-ref anchor (D025), and several rows elsewhere re-extract from the source (D003, D004, D016, D017, D019, D021, D022).",
+      "fix": "strip"
+    },
+    {
+      "id": "D027",
+      "line": 168,
+      "section": "Anti-patterns",
+      "claim": "\"often the issue is that the work-system design makes the work impossible to do safely while following procedure\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'sometimes' hardened to 'often'; example generalised",
+      "evidence": "Deep 313: 'Sometimes, that is the answer, but sometimes it's not. If you don't have on your PPE because you can't do your job properly and wear it, it's a bigger issue than training' [V].",
+      "fix": "correct: \"sometimes that's the answer and sometimes it's not; if people can't do the job and wear the PPE, it's a bigger issue than training\""
+    },
+    {
+      "id": "D028",
+      "line": 174,
+      "section": "Anti-patterns",
+      "claim": "\"reckless and willful disregard for human safety is the bright line\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "unsupported characterisation; second trigger dropped",
+      "evidence": "Deep 190: termination applies to reckless and willful disregard for human safety or a serious criminal act; the guide says such a discovery is 'highly unlikely'. 'Bright line' is not the guide's.",
+      "fix": "correct: \"reckless and willful disregard for human safety, or a serious criminal act, ends the FLA (Part 9)\""
+    },
+    {
+      "id": "D029",
+      "line": 181,
+      "section": "Integration with Other References",
+      "claim": "OpenStax OB \"(Ch 6, 13)\" provides \"the cognitive-bias theory (anchoring, fundamental attribution error, escalation of commitment)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "openstax-organizational-behavior-deep.md: anchoring does not appear; the fundamental attribution error is Ch 3.3 (line 81); escalation of commitment is Ch 6.4 (line 186); Ch 13 is power and politics (line 398). Ch 6.4 also carries bounded rationality.",
+      "fix": "correct: \"OpenStax, Organizational Behavior (Ch 3, 6) | Provides the attribution theory (fundamental attribution error, Ch 3.3) and the decision barriers (bounded rationality, escalation of commitment, Ch 6.4) that LFUO applies in practice.\""
+    },
+    {
+      "id": "D030",
+      "line": 182,
+      "section": "Integration with Other References",
+      "claim": "OpenStax Psychology 2e \"Provides deeper treatment of hindsight bias, recognition-primed decision-making, and bounded rationality that the guide cites via Kahneman and Klein.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "openstax-psychology-2e-deep.md has hindsight bias (line 146) but no recognition-primed decision-making, no bounded rationality, and no Klein (grep: no hits). LFUO cites Kahneman only as the vehicle for the Slovic risk quotation (deep 241, 288), not for hindsight bias; its hindsight-bias reading is Roese & Vohs (deep 215).",
+      "fix": "correct: \"Provides the cognitive-psychology treatment of hindsight bias and reconstructive memory (Ch 7.3, Ch 8) behind LFUO's interview-early advice.\""
+    },
+    {
+      "id": "D031",
+      "line": 190,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"The distillation paraphrases the ETTO framing from the guide's rendering.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "note contradicts the file",
+      "evidence": "Key Concept 16 (line 50) quotes the ETTO passage [V].",
+      "fix": "correct: \"The distillation quotes the guide's rendering of ETTO [V][BT].\""
+    },
+    {
+      "id": "D032",
+      "line": 191,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Key Concepts 5, 6, and 14 paraphrase Dekker-derived content as rendered by the guide.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "attribution to Dekker not in the deep ref",
+      "evidence": "Deep 225-233: the Appendix B causal-statement passages are the guide's own [V], with the 'normal performance variability' line attributed to Hollnagel [BT]. Deep 184: the counterfactual prohibition is the guide's own [V]. Deep 69: the FAE sentence is the guide's own [V]. The deep ref links none of these to Dekker.",
+      "fix": "correct: \"Dekker is cited for the Lessons Learned Analysis epigram (Part 7), perspective-respecting storytelling (Part 8), the Learning Review's sensemaking frame (Part 10) and the restorative-justice definition (Glossary).\""
+    },
+    {
+      "id": "D033",
+      "line": 202,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"This distillation paraphrases except for quotations marked [V], which match the source word for word\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note overstates",
+      "evidence": "Several quotations carry no marker (lines 12, 30, 98) and one quoted phrase is in neither source nor deep ref (line 157).",
+      "fix": "correct: fix D001, D007, D018, D025, then the note stands"
+    },
+    {
+      "id": "D034",
+      "line": 202,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Key [V] passages that this distillation paraphrases — including ... the causal-statements prohibition ..., the cause-as-construction claim ..., the reckless-and-willful-disregard termination criterion ..., and the safety-as-reasonableness framing\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "note contradicts the file",
+      "evidence": "These passages are quoted with [V] in Key Concepts 5 (line 28), 9 (line 36) and 10 (line 38), not paraphrased.",
+      "fix": "correct: \"Key [V] passages quoted here include the causal-statements prohibition, the cause-as-construction claim, the reckless-and-willful definition and the safety-as-reasonableness framing; the severity-of-outcome warning and the counterfactual prohibition are paraphrased.\""
+    }
+  ],
+  "notes": "Several claims are true to the source but absent from the deep ref (RLS page length, the full eleven-question Part 3 list, Appendix C's dissemination, punishment and litigation questions, the DO's SAP follow-up duty, 'Safety is in the entire system'). They are graded MINOR-DRIFT as re-extractions, not UNSUPPORTED; the right fix is to add Appendix C's DO questions and the Part 11 SAP sentence to the deep ref so these have an audited anchor. Real errors: 'five categories' where the source has four (line 34); the HRO-vs-AAR effectiveness claim (line 54), where the source instead reserves HRO questions for participants already familiar with the traits; a quoted phrase in the worked example found nowhere in the source (line 157); and two integration rows that attribute to OpenStax OB and Psychology 2e content their deep refs do not hold (anchoring; RPD; bounded rationality in Psych 2e). Cosmetic: line 36 doubles the [V] marker inside the citation parentheses. The worked example is hypothetical and presents no outcome as the source's finding. Checked and faithful: NHS (nhs deep 7), Barbrook-Johnson & Penn seven methods (bj deep 3, 7), Field Guide's Prime Directive (ap field guide deep 218)."
+}

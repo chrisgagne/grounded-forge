@@ -1,0 +1,139 @@
+{
+ "distillation": "corpus.commons/demo/distillations/retro/openstax-business-ethics-retro.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-96 of 96",
+  "deep": "lines 1-660 of 660",
+  "complete": true
+ },
+ "claims_audited": 62,
+ "tally": {
+  "faithful": 50,
+  "minor_drift": 7,
+  "unsupported": 4,
+  "contradicted": 1
+ },
+ "findings": [
+  {
+   "id": "D001",
+   "line": 18,
+   "section": "Key Concepts #4",
+   "claim": "safe reporting channels are a precondition for ethical behaviour; absent safe channels, known problems go unreported not from bad character but from rational self-protection (Ch 7.5, \"Whistleblowing: Risks and Rewards\") ... the absence of safe channels — not character failure — is the more likely explanation.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "A principle the deep ref does not contain, cited to Ch 7.5 as though the source states it. Local-rationality framing from outside this source, attributed to it.",
+   "evidence": "Deep 308-314 carry Ch 7.5's definition (whistleblowing = reporting to a governmental entity), guidance (motive, internal channels first, hard evidence, seriousness, likelihood of stopping the act), statutes, and the Watkins and Krawcheck cost cases; nothing on safe channels as a precondition or silence as rational self-protection rather than character. The source's own stance runs the other way: 'most employees do not want to cover up unethical or illegal conduct, nor should they' (source 11668-11670), and fear of job loss cannot justify unethical conduct (source 8229-8232, Ch 5.4).",
+   "fix": "correct: **Speaking up and its costs** — the source defines whistleblowing as reporting a legal violation to a government agency, advises trying internal channels first, and shows what speaking up cost Watkins (Enron) and Krawcheck (Merrill Lynch) (Ch 7.5, \"Whistleblowing: Risks and Rewards\"). When a retro reveals that team members knew about a problem and did not surface it, ask what raising it would have cost them and whether an internal channel existed."
+  },
+  {
+   "id": "D002",
+   "line": 20,
+   "section": "Key Concepts #5",
+   "claim": "\"employees are more likely to be unethical when they are dissatisfied with their jobs or see their superiors acting unethically\" (no marker) ... When a retro experiment targets a behavioural norm the lead or manager models in the opposite direction, the experiment will not survive beyond the retro.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Verbatim quotation carries no evidence marker (deep: [V] [BT]); the application turns 'more likely' into a certainty ('will not survive'). The same overstatement recurs at line 38 ('designed to fail') and line 66.",
+   "evidence": "Deep 468: '...see their superiors acting unethically' [V] [BT] (Ch 11.2). Source 17751-17760 ('Workplace research indicates...').",
+   "fix": "correct: \"employees are more likely to be unethical when they are dissatisfied with their jobs or see their superiors acting unethically\" [V] [BT] (Ch 11.2, \"Relationships Matter\"). When a retro experiment targets a behavioural norm the lead or manager models in the opposite direction, the experiment is unlikely to hold."
+  },
+  {
+   "id": "D003",
+   "line": 22,
+   "section": "Key Concepts #6",
+   "claim": "phronesis names the gap: not character failure, but accumulated context that made the shortcut legible",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept stretched: in the source, phronesis is the practical wisdom that enables virtuous action 'guided by values and morals' and finds the golden mean; it is what should have caught the shortcut, not an account of why the shortcut seemed reasonable (that is local rationality, from LFUO).",
+   "evidence": "Deep 35 (phronesis: prudent judgments 'guided by values and morals'); deep 65 (central intellectual virtue; golden mean between excess and deficiency). LFUO deep 161 (why, in context, actions made sense).",
+   "fix": "correct: When a retro reveals that the team cut a corner that felt locally reasonable, phronesis asks what practical wisdom, built from experience and guided by values, would have weighed differently, and how the team builds that judgment."
+  },
+  {
+   "id": "D004",
+   "line": 45,
+   "section": "What to Look For",
+   "claim": "\"We knew about this but didn't raise it\" → Absence of safe reporting channels is the more likely explanation than character failure",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Diagnosis rests on the premise at D001, which the deep ref does not contain.",
+   "evidence": "Deep 308-314 carry Ch 7.5's definition (whistleblowing = reporting to a governmental entity), guidance (motive, internal channels first, hard evidence, seriousness, likelihood of stopping the act), statutes, and the Watkins and Krawcheck cost cases; nothing on safe channels as a precondition or silence as rational self-protection rather than character. The source's own stance runs the other way: 'most employees do not want to cover up unethical or illegal conduct, nor should they' (source 11668-11670), and fear of job loss cannot justify unethical conduct (source 8229-8232, Ch 5.4).",
+   "fix": "correct: Diagnosis: speaking up looked costly or had no channel. Follow-up: ask what raising it would have cost and whether an internal channel existed (Ch 7.5)."
+  },
+  {
+   "id": "D005",
+   "line": 46,
+   "section": "What to Look For",
+   "claim": "Tone-at-the-top will undo the experiment within a Sprint",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Certainty and a timeframe the source does not give; Ch 11.2 says employees are 'more likely' to act unethically when superiors do.",
+   "evidence": "Deep 468; deep 21 (tone at the top as the most effective means by which ethical behaviour is learned).",
+   "fix": "correct: Tone at the top is likely to undo the experiment (Ch 11.2)"
+  },
+  {
+   "id": "D006",
+   "line": 64,
+   "section": "Worked Example",
+   "claim": "The lead applies the whistleblower-protection framing: the silence is not a character failure. It is rational self-protection in the absence of safe channels (Ch 7.5, \"Whistleblowing: Risks and Rewards\").",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Cites Ch 7.5 for a principle the deep ref does not contain (see D001); whistleblowing in the source is reporting to a government agency, not raising an issue with a product manager.",
+   "evidence": "Deep 308-314 carry Ch 7.5's definition (whistleblowing = reporting to a governmental entity), guidance (motive, internal channels first, hard evidence, seriousness, likelihood of stopping the act), statutes, and the Watkins and Krawcheck cost cases; nothing on safe channels as a precondition or silence as rational self-protection rather than character. The source's own stance runs the other way: 'most employees do not want to cover up unethical or illegal conduct, nor should they' (source 11668-11670), and fear of job loss cannot justify unethical conduct (source 8229-8232, Ch 5.4).",
+   "fix": "correct: The lead draws on Ch 7.5: the source advises raising problems through internal channels first and shows the career costs of speaking up (Watkins, Krawcheck). Here there is no formal channel and a product manager who reacts defensively, so the experiment targets the channel."
+  },
+  {
+   "id": "D007",
+   "line": 75,
+   "section": "Anti-patterns",
+   "claim": "Diagnosing silence about a known problem as character failure when the absence of safe reporting channels is the more likely explanation.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Same unsupported premise as D001.",
+   "evidence": "Deep 308-314 carry Ch 7.5's definition (whistleblowing = reporting to a governmental entity), guidance (motive, internal channels first, hard evidence, seriousness, likelihood of stopping the act), statutes, and the Watkins and Krawcheck cost cases; nothing on safe channels as a precondition or silence as rational self-protection rather than character. The source's own stance runs the other way: 'most employees do not want to cover up unethical or illegal conduct, nor should they' (source 11668-11670), and fear of job loss cannot justify unethical conduct (source 8229-8232, Ch 5.4).",
+   "fix": "correct: Treating silence about a known problem as the whole story without asking what speaking up would have cost and whether a channel existed (Ch 7.5)."
+  },
+  {
+   "id": "D008",
+   "line": 76,
+   "section": "Anti-patterns",
+   "claim": "tone-at-the-top dynamics will undo the experiment within a Sprint",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Invented timeframe and certainty (see D005).",
+   "evidence": "Deep 468.",
+   "fix": "correct: tone-at-the-top dynamics are likely to undo the experiment (Ch 11.2)."
+  },
+  {
+   "id": "D009",
+   "line": 77,
+   "section": "Anti-patterns",
+   "claim": "Framing accountability as individual blame when the social-contract argument points to a structural condition the team could not have resolved alone.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept misapplied: the source's social contract is a corporation's obligation to the society that lets it incorporate; it says nothing about structural conditions or individual blame.",
+   "evidence": "Deep 47 (social contract: in return for the right to incorporate, a company gives back to society); deep 140 (quid pro quo of CSR).",
+   "fix": "strip"
+  },
+  {
+   "id": "D010",
+   "line": 92,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "The *Dodge v. Ford Motor Company* and *Burwell v. Hobby Lobby* cases are cited for corporate-personhood and shareholder-vs-stakeholder arguments [BT] (Ch 4.1).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Loosened: the deep ref uses both cases for the shareholder-primacy debate; corporate personhood is tied to Citizens United (Ch 4.2).",
+   "evidence": "Deep 142 (Dodge v. Ford, Hobby Lobby: shareholder primacy and management latitude); deep 150 (corporate personhood, Citizens United).",
+   "fix": "correct: The *Dodge v. Ford Motor Company* and *Burwell v. Hobby Lobby* cases are cited for the shareholder-primacy debate [BT] (Ch 4.1)."
+  },
+  {
+   "id": "D011",
+   "line": 96,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "The whistleblower-protection principle (safe channels as a precondition, not character) is `[AP]` in the deep ref (author's interpretation of the legal and ethical literature); the distillation carries it at the same level of certainty.",
+   "grade": "CONTRADICTED",
+   "failure_mode": "False audit trail: the deep ref, read in full, contains no such passage at any marker level. The note manufactures provenance for the distillation's unsupported principle (D001).",
+   "evidence": "Deep 308-314 carry Ch 7.5's definition (whistleblowing = reporting to a governmental entity), guidance (motive, internal channels first, hard evidence, seriousness, likelihood of stopping the act), statutes, and the Watkins and Krawcheck cost cases; nothing on safe channels as a precondition or silence as rational self-protection rather than character. The source's own stance runs the other way: 'most employees do not want to cover up unethical or illegal conduct, nor should they' (source 11668-11670), and fear of job loss cannot justify unethical conduct (source 8229-8232, Ch 5.4).",
+   "fix": "strip"
+  },
+  {
+   "id": "D012",
+   "line": 96,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "The tone-at-the-top claim (\"employees are more likely to be unethical when they see their superiors acting unethically\") is `[V]` in the deep ref",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quoted text drops 'are dissatisfied with their jobs or' without an ellipsis; deep marks it [V] [BT].",
+   "evidence": "Deep 468.",
+   "fix": "correct: The tone-at-the-top claim (\"employees are more likely to be unethical when they are dissatisfied with their jobs or see their superiors acting unethically\") is `[V] [BT]` in the deep ref"
+  }
+ ],
+ "notes": "The distillation's load-bearing retro move, 'silence is rational self-protection in the absence of safe channels, not character failure', is not in the deep ref and is cited to Ch 7.5 in four places (lines 18, 45, 64, 75); the integrity note at line 96 then claims the deep carries it as [AP], which is false. The source's own stance runs the other way (employees should not cover up wrongdoing; fear of job loss does not justify unethical conduct). Tone-at-the-top is applied with more certainty than Ch 11.2's 'more likely' allows. Concept anchors: phronesis and ethical min/max are anchored as 'ethics' (lines 14, 22), which will misroute concept-index lookups; not graded as content. Integration claims (LFUO counterfactual prohibition, NHS, OB attribution bias, OPL Blameless Postmortem, Field Guide retro structure) check out."
+}

@@ -1,0 +1,209 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/open-kanban-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-111 of 111",
+    "deep": "lines 1-176 of 176",
+    "complete": true
+  },
+  "claims_audited": 88,
+  "tally": {
+    "faithful": 69,
+    "minor_drift": 12,
+    "unsupported": 7,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "This is the demo corpus's open-licence carrier of the Goldratt-tradition constraint focus.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imports Theory of Constraints 'constraint focus' (identify the constraint, act on it) and assigns it to this source. The source cites Goldratt only for the holistic claim and as one link in the multitasking evidence; it has no constraint-identification step. The corpus also holds a fuller TOC mention elsewhere.",
+      "evidence": "Deep 52: Goldratt cited for 'no single part of a system can ever bring overall improvement' [V]/[BT]. Deep 70: TOC is one hyperlinked source for 'Multitasking does not work' [BT]. Nothing in deep 1-176 describes finding or acting on a constraint. openstax-accounting-vol2-deep 501 carries Goldratt's five focusing steps [BT]; mcdp1-warfighting-deep 228 draws the main-effort/constraint parallel.",
+      "fix": "strip"
+    },
+    {
+      "id": "D002",
+      "line": 16,
+      "section": "Key Concepts, 3",
+      "claim": "Reduce the Batch Size — constraint-focused action discipline. ... For AAR Phase 4 action design: find the one constraint this event has revealed, and act on that.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Relabels the batch-size practice as a constraint-finding discipline. The source's batch-size practice is about focus and limiting the number of things in progress; it never asks the reader to find a constraint.",
+      "evidence": "Deep 70-72 and 81: batch-size reduction = 'focus and limit the number of things we do'; 'reduce the complexity and the quantity of things you do at any stage of the value chain' [V]. No constraint-identification language in the deep ref.",
+      "fix": "correct: **Reduce the Batch Size — focus and limit the number of things in progress.** [keep quote] For AAR Phase 4 action design: commit to few actions and finish them. A long action list is the same failure mode as a large batch."
+    },
+    {
+      "id": "D003",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "Open Kanban's AAR projection runs through two of its five values.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Miscount/misclassification: the two items named are one value (Holistic or Systemic Approach to Change) and one practice (Learn and improve continuously).",
+      "evidence": "Deep 114-115: five values and four practices listed separately; 'Learn and improve continuously' is Practice 4 (deep 83-87).",
+      "fix": "correct: Open Kanban's AAR projection runs through one of its five values and one of its four practices."
+    },
+    {
+      "id": "D004",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "gives the AAR its system-level reading discipline: no single contributor can be isolated as the cause; the whole system must be held.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: the source's claim is about improvement ('no single part of a system can ever bring overall improvement'), not about causal attribution. Recasting it as a rule about isolating causes goes beyond the text.",
+      "evidence": "Deep 52: 'no single part of a system can ever bring overall improvement. We need to take a holistic view of the system and understand it' [V] ('Open Kanban Values').",
+      "fix": "correct: gives the AAR its system-level reading discipline: no single part of a system can bring overall improvement, so the review holds the whole system in view before weighing any one part."
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts, 5",
+      "claim": "The Lean gloss is named explicitly: *Muri* (overburden) is the failure mode.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Outside-knowledge gloss. The source names Muri as the Lean counterpart of Agile's sustainable pace; it never translates Muri as 'overburden' or names it a failure mode. The gloss recurs at lines 39, 69, 77, 84 and 90 ('Muri (overburden)').",
+      "evidence": "Deep 29: 'Respect for people also aligns with sustainable pace in Agile, or Muri 無理 in Lean' [V]. Deep 154: 'The Muri gloss is named explicitly as the Lean parallel to Agile's sustainable pace.' Source line 89 matches.",
+      "fix": "correct: The source pairs Agile's sustainable pace with Lean's *Muri* and names exhaustion as the failure mode: \"An exhausted developer, manager or team are the perfect recipe for disaster\" [V]. (At lines 39, 69, 77, 84, 90 say 'overwork' or 'exhaustion' rather than 'Muri (overburden)'.)"
+    },
+    {
+      "id": "D006",
+      "line": 52,
+      "section": "Questions, Phase 4 (Constraint focus)",
+      "claim": "Of all the contributory factors named, which one — if addressed — would most reduce the likelihood of this event recurring? That is the constraint. Act on that one first.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Applied guidance resting on a premise the source does not supply: the row is labelled 'Constraint focus' and defines 'the constraint' as the source's discipline. Open Kanban has no constraint concept.",
+      "evidence": "Deep 1-176: no constraint-identification step; batch-size practice at deep 70-81 asks only to focus and limit the number of things in progress.",
+      "fix": "correct: Need 'Focus the actions' | 'Of all the contributory factors named, which one or two can we act on and finish first? Limit the actions in progress.'"
+    },
+    {
+      "id": "D007",
+      "line": 53,
+      "section": "Questions, Phase 4 (Batch-size discipline)",
+      "claim": "A list is a large batch. Large batches don't finish.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: the source says focus helps teams finish faster, not that large batches don't finish.",
+      "evidence": "Deep 72: 'Keeping the team focused helps them finish what they start faster' [V] ('Open Kanban Practices').",
+      "fix": "correct: A list is a large batch; keeping the team focused helps it finish what it starts faster."
+    },
+    {
+      "id": "D008",
+      "line": 68,
+      "section": "What to Look For, row 2",
+      "claim": "The action list reaches five items and no one applies the constraint test ... Apply the constraint test: which one action, if done, would most reduce recurrence? Do that one.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The large-batch diagnosis is supported; the 'constraint test' follow-up is imported TOC framing the source does not contain.",
+      "evidence": "Deep 70-81 (batch-size = focus, limit number of things). No constraint test in the deep ref.",
+      "fix": "correct: Signal 'The action list reaches five items and no one cuts it' | Follow-up 'Cut to the one or two actions the team can finish; batch-size reduction applies to the action list.'"
+    },
+    {
+      "id": "D009",
+      "line": 76,
+      "section": "When to Use This Reference",
+      "claim": "Phase 4 action design is producing a long list and no one is applying the constraint focus — which one action would most move the needle?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Routes to this source for a capability it lacks (constraint focus).",
+      "evidence": "Deep 1-176: no constraint focus; batch-size practice deep 70-81.",
+      "fix": "correct: Phase 4 action design is producing a long list and the group is not limiting how many actions it takes on."
+    },
+    {
+      "id": "D010",
+      "line": 84,
+      "section": "Worked Example",
+      "claim": "The facilitator applies the constraint-focus discipline (Source: \"Open Kanban Practices\"): \"Of all the contributory factors named, which one — if addressed — would most reduce the likelihood of this pattern recurring?\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Cites 'Open Kanban Practices' for a constraint-focus discipline the section does not contain, and places the distillation's own question in quotation marks straight after the source citation, where it reads as the source's words.",
+      "evidence": "Deep 56-87 (Open Kanban Practices): visualise, lead with teams, reduce batch size, learn and improve. No constraint-focus discipline; the quoted question appears nowhere in the source (source lines 103-125).",
+      "fix": "correct: The facilitator applies the batch-size practice (Source: Hurtado, *Open Kanban*, \"Open Kanban Practices\"): limit the number of things in progress. The facilitator's own question narrows the list: which one factor, if addressed, would most reduce the chance of this pattern recurring?"
+    },
+    {
+      "id": "D011",
+      "line": 84,
+      "section": "Worked Example",
+      "claim": "The other three proposed actions are deferred — they are symptoms of the same constraint and will resolve when the constraint moves.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "States an outcome (symptoms resolve once the constraint moves) as the framework's effect; the deep ref reports no such effect.",
+      "evidence": "Deep 1-176: no claim that deferred items resolve on their own when a constraint is relieved.",
+      "fix": "correct: The other three proposed actions are deferred until the first is done."
+    },
+    {
+      "id": "D012",
+      "line": 91,
+      "section": "Anti-patterns",
+      "claim": "Running a blameless AAR that still lacks the courage infrastructure (Prime Directive, confidentiality rules, rank-speaks-last) that makes honest accounts possible.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Listed as an anti-pattern this reference helps avoid, but the Prime Directive, confidentiality rules and rank-speaks-last are not in this source; the source treats courage as a value people bring, not as infrastructure.",
+      "evidence": "Deep 33: courage is needed when 'someone with lower rank notices' a senior's mistake [V]. Prime Directive appears only in approach-perfect-field-guide-scrum-events-deep 218, 244, 327.",
+      "fix": "correct: Assuming a blameless format removes the need for courage: when a person in authority makes a mistake, it takes courage for someone of lower rank to say so (Source: \"Open Kanban Values\")."
+    },
+    {
+      "id": "D013",
+      "line": 100,
+      "section": "Integration, LFUO row",
+      "claim": "this source provides the constraint-focus and batch-size discipline for the action-design output of that methodology",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Half-supported: batch-size discipline is in the source; constraint focus is not.",
+      "evidence": "Deep 70-81 (batch size). No constraint focus in deep 1-176.",
+      "fix": "correct: this source provides the batch-size discipline (focus; limit the number of things in progress) for the action-design output of that methodology"
+    },
+    {
+      "id": "D014",
+      "line": 101,
+      "section": "Integration, SSDL row",
+      "claim": "use SSDL to name the archetype, use this source to apply the constraint test",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "SSDL half is right (limits to growth and shifting the burden are among SSDL Brief 1.07's five archetypes); 'constraint test' is not in this source.",
+      "evidence": "ssdl-systems-thinking-foundations-deep 238, 254, 306. Open Kanban deep 1-176: no constraint test.",
+      "fix": "correct: use SSDL to name the archetype; use this source's holistic value to keep the whole system in view when choosing the action"
+    },
+    {
+      "id": "D015",
+      "line": 103,
+      "section": "Integration, TC 25-20 row",
+      "claim": "TC 25-20's \"train to weakness\" principle is the AAR-domain expression of this source's constraint focus: allocate finite development resource to the binding constraint",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The TC 25-20 half is right ('Train to weakness, not to strength' [V]); 'this source's constraint focus' and 'binding constraint' are not in Open Kanban.",
+      "evidence": "tc-25-20-army-aar-deep 169, 256: 'Train to weakness, not to strength' [V] (Ch 4, 'Tasks to Sustain/Improve'). Open Kanban deep 1-176: no constraint focus.",
+      "fix": "correct: TC 25-20's \"train to weakness, not to strength\" says where retraining effort goes; this source's batch-size practice says how many improvement items to run at once. Together they cover what to work on and how much."
+    },
+    {
+      "id": "D016",
+      "line": 107,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "The corpus's open-licence carrier of Goldratt-tradition constraint thinking is this source",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source cites Goldratt but carries no constraint thinking; the corpus's fuller TOC material is in OpenStax Accounting Vol 2.",
+      "evidence": "Deep 52, 70, 131: TOC cited [BT] for the holistic claim and multitasking only. openstax-accounting-vol2-deep 501: Goldratt's TOC 'with five focusing steps for continuous improvement' [BT]; deep 295 constraint-resource ranking.",
+      "fix": "correct: This source cites Goldratt's Theory of Constraints twice (the holistic value; the multitasking evidence) without developing constraint thinking; the corpus's fuller TOC mention is OpenStax Accounting Vol 2 (five focusing steps, [BT])."
+    },
+    {
+      "id": "D017",
+      "line": 109,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "Open Kanban is explicitly framed as a *lightweight open-source Kanban* specification, not an authoritative Kanban methodology",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attribution: the source frames itself as ultra-light and 'not a full or complete' method; 'not an authoritative Kanban methodology' is the operator's corpus-role caveat, which the deep ref labels as not from the source. The source in fact claims to correspond to 'what most people ... think of when they refer to Kanban itself'.",
+      "evidence": "Deep 17, 151: 'not a full or complete Agile or Lean method' [V]. Deep 15: 'Open Kanban actually corresponds to what most people familiar with the Agile movement think of when they refer to Kanban itself' [V]. Deep 160-164: authority caveat is 'operator-supplied, not from source'; 'no claim of canonical authority is made by the source'.",
+      "fix": "correct: Open Kanban frames itself as an ultra-light 'kernel', \"not a full or complete Agile or Lean method\" [V] (\"Open Kanban Definition\"); that it is not a canonical Kanban authority is the operator's corpus-role note, not the source's claim."
+    },
+    {
+      "id": "D018",
+      "line": 111,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "The Deming-Goldratt passage is `[V]` with `[BT]` to both authors; the distillation preserves both markers in Concept 1.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Self-audit is inaccurate: Concept 1 (line 12) carries [V] only; 'borrowed-through' appears as words in the title, not as a [BT] marker.",
+      "evidence": "Distillation line 12. Deep 52: [V] quote plus [BT] for Deming and Goldratt.",
+      "fix": "correct: add [BT] after the Concept 1 citation, or change the note to 'Concept 1 carries [V] and names the borrowed-through lineage in its title.'"
+    },
+    {
+      "id": "D019",
+      "line": 4,
+      "section": "Header note",
+      "claim": "Note: Open Kanban is the corpus's redistributable Kanban-methodology slot, not a canonical-Kanban-authority source; Hurtado is a minor author by broader industry-recognition standards.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported by the deep ref's operator caveat, but the deep ref flags that caveat as 'operator-supplied, not from source'; the distillation drops the label, so an app reader cannot tell it is not the source's claim.",
+      "evidence": "Deep 160-166: 'Corpus-role caveat (operator-supplied, not from source)'; 'The source itself makes no statements about its author's standing'.",
+      "fix": "correct: Operator note (not from the source): Open Kanban is the corpus's redistributable Kanban-methodology slot, not a canonical-Kanban-authority source; Hurtado is a minor author by broader industry-recognition standards."
+    }
+  ],
+  "notes": "All ten Key Concepts quotations match the converted source word for word (Concept 8 capitalises 'There' mid-sentence; no word change). The dominant failure is an imported Theory of Constraints 'constraint focus' (find the one constraint, act on it) attributed to Open Kanban across Relevance, Concept 3, Phase 4 questions, What to Look For, When to Use, the Worked Example, three integration rows and the Borrowed-through note; the source cites Goldratt only for the holistic claim and the multitasking evidence. Second recurring drift: Muri glossed as 'overburden' (the source pairs Muri with sustainable pace). Integration checks: SSDL archetypes (limits to growth, shifting the burden), AP Field Guide one-or-two improvements and decisions/actions split, and TC 25-20 'train to weakness' all verified in their deep refs. Deming, Goldratt, Beck and Reinertsen are not held as primary sources (grep across all deep refs)."
+}

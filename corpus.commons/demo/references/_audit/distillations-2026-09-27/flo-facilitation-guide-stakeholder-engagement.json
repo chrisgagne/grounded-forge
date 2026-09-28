@@ -1,0 +1,190 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-189 of 189", "deep": "lines 1-422 of 422", "complete": true},
+  "claims_audited": 165,
+  "tally": {"faithful": 147, "minor_drift": 12, "unsupported": 5, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 18,
+      "section": "Key Concepts (3)",
+      "claim": "\"Two of four core skill categories (Build/Sustain Online Community; Model Effective Online Facilitation) are explicitly climate-and-community focused.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "deep ref's synthesis sharpened: pair chosen and 'explicitly' added",
+      "evidence": "Deep 21 says only 'Two of the four are about community and climate' without naming them. Deep 89: Model Effective Online Facilitation's sub-skills are presence, co-facilitator planning, time, feedback-seeking, questioning, monitoring participation, reflective practice, pedagogy and technical skills, not explicitly climate. Support Diverse Learners (deep 83: invite cultural knowledge, encourage risk-taking) is at least as climate-focused.",
+      "fix": "correct: \"The core skill categories give community and climate their own weight: Build and Sustain Online Community is wholly about it, and the other categories carry climate sub-skills such as encouraging risk-taking and maintaining a balanced presence.\""
+    },
+    {
+      "id": "D002",
+      "line": 22,
+      "section": "Key Concepts (5)",
+      "claim": "\"Resist the urge to be thorough, but be clear that you're only commenting on one or two aspects of the artifact. Invite participants to jump in and elaborate. … Jumping in too quickly ...\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim source text carried without a [V] marker; list item truncated with a period",
+      "evidence": "Deep 283-291: items 3 and 4 of the MicroCourse list and the sidebar, all [V]. Item 4 continues 'Invite participants to jump in and elaborate, using your curious voice: ...'; the distillation ends it with a full stop. Per the projection protocol, quoted text without a marker reads as the distillation's own wording, and the continuity note (line 189) says quotations are marked.",
+      "fix": "re-mark: [V] after the quotation; correct: \"... Invite participants to jump in and elaborate, using your curious voice ... Jumping in too quickly ...\" [V]"
+    },
+    {
+      "id": "D003",
+      "line": 24,
+      "section": "Key Concepts (6); same claim at lines 10 (f), 65, 113, 150",
+      "claim": "\"Develop-vs-grade default protects candour ... Engagement-design principle: grading drops candour; self-assessment maintains it.\"; line 113: \"When participants know they will be graded, they optimise for grade rather than for learning.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "causal claim attached to the Guide's default that the source does not make",
+      "evidence": "Deep 178 and 407: the Guide's reason for the no-grade default is that the course 'is designed to be developmental; it is not a graded course in the traditional sense' [V]. Nothing in the deep ref links grading to candour or to optimising for grade; the trust passage (deep 21, 132) is about privacy rules.",
+      "fix": "correct: \"Develop-vs-grade default. 'This course is designed to be developmental; it is not a graded course in the traditional sense.' [V] Self-assessment via rubric is the default; grading is the opt-in. (That grading reduces candour is this distillation's inference, not the Guide's.)\""
+    },
+    {
+      "id": "D004",
+      "line": 30,
+      "section": "Key Concepts (9)",
+      "claim": "\"Facilitator attention tends to flow toward already-engaged participants; surfacing the distribution makes the inequity visible.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mechanism added to the source's rationale",
+      "evidence": "Deep 247: the matrix is to 'ensure you engage with them fairly equally' and 'may help each participant feel heard by you as their facilitator' [V]. The Guide gives no claim about which way facilitator attention drifts.",
+      "fix": "correct: \"The matrix makes the spread of the facilitator's responses visible so that, in the Guide's words, it 'may help each participant feel heard by you as their facilitator' [V].\""
+    },
+    {
+      "id": "D005",
+      "line": 32,
+      "section": "Key Concepts (10)",
+      "claim": "\"This is your first impression. … Make sure your post sets a good impression: establishes instructor presence, presents a clear message without being too long or too short. Be sure your introductory post ends with an invitation ...\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim source text carried without a [V] marker",
+      "evidence": "Word for word at source 1864-1877 (Ch 4, bullets under the Welcome post); deep 142 carries the key phrases as [V]. The same phrase at line 73 is marked [V]; here it is not.",
+      "fix": "re-mark: [V] after the quotation"
+    },
+    {
+      "id": "D006",
+      "line": 38,
+      "section": "Key Concepts (13); also Worked Example line 137",
+      "claim": "\"'An important facilitator role is to draw the course to a close and celebrate learning, connections and accomplishments.' [V] ... (Source: Ch 5, 'Closing the course')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] quote re-extracted from source; cited section absent from the deep ref",
+      "evidence": "Word for word at source 4549 (Ch 5, Week 4, 'Closing the course'), but neither the sentence nor a 'Closing the course' section is in the deep ref. Deep 213 carries 'close the course (synchronous celebration if possible)' [AP] (Ch 5, 'Week 4: Showcase designs'); deep 75 'host a final wrap-up to celebrate achievements' [AP].",
+      "fix": "correct: \"Closing is a facilitator task: 'close the course (synchronous celebration if possible)' with a final Looking Back/Looking Forward reflective activity (Ch 5, 'Week 4: Showcase designs').\"; line 137 cite Ch 5, 'Week 4: Showcase designs'"
+    },
+    {
+      "id": "D007",
+      "line": 40,
+      "section": "Key Concepts (14)",
+      "claim": "\"Co-conveners chosen for complementarity ... sustain longer engagement coverage than co-conveners chosen for seniority or convenience. (Source: Ch 7, 'Two heads are better than one')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "single testimony [AE] generalised into a comparative finding",
+      "evidence": "Deep 301 and 327: one co-facilitator's reflection (Robin Leung, [V] [AE]) that their technical/facilitation and night-owl/early-riser mix 'complemented one another very well'. The Guide makes no comparison with seniority- or convenience-based pairings.",
+      "fix": "correct: \"Robin Leung's reflection names complementarity in skills (technical vs facilitation) and working hours (night owl vs early riser) as what made co-facilitation work [AE] (Ch 7, 'Two heads are better than one'). Choosing on complementarity rather than seniority is this distillation's application.\""
+    },
+    {
+      "id": "D008",
+      "line": 46,
+      "section": "Key Concepts (17)",
+      "claim": "\"Reflection that is scheduled, structured, modelled by the facilitator, and shared in the group produces metacognitive learning that unstructured reflection does not.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source claim extended into a comparison the source does not make",
+      "evidence": "Deep 323: 'Evidence has shown that learning is improved when participants become more aware (metacognition) of how and what they are learning. FLO courses integrate structures to promote both individual and collaborative reflective practice' [V]. There is no claim that unstructured reflection fails to produce metacognition.",
+      "fix": "correct: \"FLO builds reflection in as a scheduled, structured, modelled and shared practice because, in the Guide's words, 'learning is improved when participants become more aware (metacognition) of how and what they are learning' [V].\""
+    },
+    {
+      "id": "D009",
+      "line": 86,
+      "section": "Questions, Phase 4",
+      "claim": "\"First-week overwhelm, Week-3 anxiety, end-of-course let-down.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "list extended with an item the source does not name",
+      "evidence": "First-week overwhelm (deep 146) and Week-3 anxiety (deep 212, FLO Design) are in the deep ref; 'end-of-course let-down' is not. The matching anti-pattern at line 155 lists only the first two.",
+      "fix": "correct: \"First-week overwhelm, Week-3 anxiety.\""
+    },
+    {
+      "id": "D010",
+      "line": 105,
+      "section": "Questions, Phase 6",
+      "claim": "\"'Make notes of things that you'd like to enhance or change for next time — especially while it's fresh in your memory!' [V]\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "[V] quote not in the deep ref (re-extracted from source at Pass G)",
+      "evidence": "Word for word at source 5925 (Ch 6, after the course), but absent from the deep ref; deep 243 carries only 'read course feedback forms; debrief with co-facilitators' [AP].",
+      "fix": "correct: \"Have we read the course feedback forms and debriefed with co-facilitators (Ch 6, 'After the course')?\" (or add the passage to the deep ref first, then copy it)"
+    },
+    {
+      "id": "D011",
+      "line": 139,
+      "section": "Worked Example (trace note)",
+      "claim": "\"all framework citations trace through corpus.commons/demo/references/flo-facilitation-guide-deep.md ... closing design (Ch 5) ... [is a] [V]-marked passage in the deep ref\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong statement of what the deep ref carries and how it is marked",
+      "evidence": "The Ch 5 closing citation ('Closing the course', line 137) is not in the deep ref (see D006). The deep ref's Ch 5 closing material is [AP] (deep 213); its [V] closing passages are Ch 7 ('Write a closing post', 'Facilitator debrief', deep 309).",
+      "fix": "correct: \"... and closing design (Ch 5 [AP]; Ch 7 [V]) are carried in the deep ref.\" and re-cite line 137 per D006"
+    },
+    {
+      "id": "D012",
+      "line": 167,
+      "section": "Integration with Other References",
+      "claim": "\"Ch 10's workshop-facilitation runbook presupposes the facilitation craft FLO develops fully: contracting, energy management, intervention selection, co-facilitation.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "practices attributed to FLO that its deep ref does not contain; other source's content understated",
+      "evidence": "The FLO deep ref has no contracting, energy management or intervention-selection material; co-facilitation is supported (deep 325-327). Barbrook-Johnson deep 265-277 shows Ch 10 carries its own facilitation guidance (clear prompts, managing group dynamics, give away power, breaks, working in pairs, common issues), so it does not simply presuppose FLO's.",
+      "fix": "correct: \"Ch 10's workshop runbook carries short facilitation guidance (managing dynamics, giving away power, working in pairs); FLO supplies the longer craft of presence, modelling, climate and co-facilitation over a multi-week arc. Pair FLO for facilitation practice; Barbrook-Johnson for systems-mapping workshop specifics.\""
+    },
+    {
+      "id": "D013",
+      "line": 168,
+      "section": "Integration with Other References",
+      "claim": "\"The 'give away power' principle and peer-engagement structures in LS complement FLO's resist-thoroughness rule.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "principle attributed to the wrong corpus source",
+      "evidence": "'give away power' does not appear in the Liberating Structures Handbook deep ref. It is Barbrook-Johnson & Penn, Ch 10, 'Facilitating Discussion': 'give away power (ask participants to draw rather than facilitator drawing)' (barbrook-johnson-systems-mapping-deep 273).",
+      "fix": "correct: \"LS's ownership-over-buy-in principle and peer-engagement structures complement FLO's resist-thoroughness rule.\" (move 'give away power' to the Barbrook-Johnson row)"
+    },
+    {
+      "id": "D014",
+      "line": 171,
+      "section": "Integration with Other References",
+      "claim": "\"Group dynamics, communication networks, Tuckman stages, and servant-leadership theory (OB Chs 9–14)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "topics attributed to another source that its deep ref does not carry",
+      "evidence": "openstax-organizational-behavior-deep carries group dynamics (Ch 9, line 274) and Tuckman (Ch 9.1, line 282). It has no 'communication network' material and no servant leadership; grep of the OB converted source finds no 'servant leadership' at all.",
+      "fix": "correct: \"Group dynamics, Tuckman stages, conformity and team development (OB Chs 9–10), with communication and leadership in Chs 11–12\""
+    },
+    {
+      "id": "D015",
+      "line": 184,
+      "section": "Citation and Source-Integrity Notes (Named limits)",
+      "claim": "\"The Guide is scoped to online facilitation in multi-week cohort courses\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "scope overstated (MicroCourses are one week)",
+      "evidence": "Deep 43: the FLO family is 'a growing collection of one- to five-week online courses' [V]; MicroCourses run 5 days (deep 267) with no enrolment limit (deep 269). Line 187 of the same note acknowledges MicroCourses.",
+      "fix": "correct: \"The Guide is scoped to online facilitation in one- to five-week cohort courses\""
+    },
+    {
+      "id": "D016",
+      "line": 186,
+      "section": "Citation and Source-Integrity Notes (Named limits)",
+      "claim": "\"its cultural awareness note is limited to the accessibility diagnostic questions\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "limit stated that the deep ref contradicts",
+      "evidence": "Deep 83: the Support Diverse Learners Online category includes 'invite cultural and acquired knowledge' [AP] (source 889: 'Invite participants to share cultural and acquired knowledge and perspectives'). Fundamentals Week 2 is 'Diversity of Learners' (deep 124). The accessibility questions (deep 67-70) speak of diversity of learners, not culture.",
+      "fix": "correct: \"The Guide does not develop negotiation theory, conflict-resolution methodology, or cross-cultural facilitation; its cultural note is one core sub-skill ('Invite participants to share cultural and acquired knowledge and perspectives') and the Week-2 Diversity of Learners topic.\""
+    },
+    {
+      "id": "D017",
+      "line": 187,
+      "section": "Citation and Source-Integrity Notes (Named limits)",
+      "claim": "\"the Guide acknowledges that the equity-tracking and counsel-out moves do not apply in the same way to MicroCourses\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source acknowledgement stretched to cover a practice it does not mention",
+      "evidence": "Deep 269: 'Facilitators do not reach out to participants if they aren't engaging in the course, such as they would to participants of other FLO courses' [V]; this covers outreach to non-engaging participants (and so counsel-out). The Guide says nothing about the tracking matrix and MicroCourses.",
+      "fix": "correct: \"the Guide acknowledges that MicroCourse facilitators do not reach out to non-engaging participants as they would in other FLO courses\""
+    },
+    {
+      "id": "D018",
+      "line": 189,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity; also Borrowed-through lines 180-181)",
+      "claim": "\"The borrowed-through lineage (CoI model, UDL, participant testimony as evidence) is [BT]\"; lines 180-181 list Leonne Beebe and Robin Leung as [BT]; \"closing design [is] [V]-marked\"; \"This distillation paraphrases except for quotations marked [V]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note misstates the deep ref's markers and the distillation's own",
+      "evidence": "Deep 102, 157, 301 mark the Beebe and Leung testimony [V] [AE], not [BT]. The Ch 5 closing material is [AP] in the deep ref (deep 213). Lines 22 and 32 carry verbatim source text with no [V] marker (D002, D005), so the 'paraphrases except for quotations marked [V]' statement does not hold.",
+      "fix": "correct: \"Participant testimony (Beebe, Leung) is [V] [AE] in the deep ref; CoI and UDL are [BT]. Closing design is [AP] for Ch 5 and [V] for Ch 7.\"; re-mark lines 22 and 32 [V]"
+    }
+  ],
+  "notes": "Counting: claims_audited counts distinct assertions (Relevance sentences and items a-j, each Key Concept's source claim and engagement principle, each question row and its embedded premise, each What-to-Look-For bullet's claim/signal/diagnosis/follow-up, When-to-Use bullets, worked-example steps and trace note, anti-pattern bullets, integration rows split into other-source claim and relationship, and integrity-note items). faithful = claims_audited - findings; a finding covering the same error on several lines counts once. Quote check: every quoted span was compared mechanically against the deep ref and converted source (normalising quotes, dashes, emphasis, list bullets), then mismatches were read by hand. All [V] spans match the source word for word; [V] spans absent from the deep ref: lines 38 (D006) and 105 (D010). The Worked Example's equity check uses the tracking matrix correctly (facilitator responses), unlike the AAR and retro distillations. Other deep refs opened (targeted greps, not end-to-end reads): barbrook-johnson-systems-mapping-deep (Ch 10, 265-277), liberating-structures-handbook-deep (no 'give away power'), lfuo-learning-review-guide-2024-deep (ten Principles and Agreements 117-130, deflection 113 — row checks out), tc-25-20-army-aar-deep ('Key is the spirit in which AARs are given', deep 17 — row checks out), openstax-organizational-behavior-deep (Ch 9-12 headings, Tuckman 282), ssdl-systems-thinking-foundations-deep (GMB 83-85; its facilitation content is limited to cautions such as the expert-vs-novice dynamic, so 'does not develop facilitation craft' is fair). Non-graded observations: (1) provenance stamp matches the current deep ref (sha256 98fa9141...); (2) the Worked Example has no [V] blockquote (the trace note says so openly); (3) Phase 6 row 1 ('reach out directly to invite discussion' where self-assessment and facilitator perception differ) is source-true (source 5914-5918) but not in the deep ref; it attributes nothing, so it is not graded; (4) the Relevance claim that FLO is 'the corpus's most directly applicable source' on stakeholder engagement is a comparative judgement, not a source claim; (5) the 'complementarity rather than seniority' gloss recurs at lines 121 and 161; only the comparative-outcome version at line 40 is graded (D007)."
+}

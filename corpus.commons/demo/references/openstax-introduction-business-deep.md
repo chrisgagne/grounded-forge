@@ -74,7 +74,7 @@ Four types of competitive structure are catalogued (Ch 1.7, "Competing in a Free
 
 ### Eleven categories of unethical activity
 
-The Brigham Young University researchers' classification is reproduced (Ch 2.1, "Recognizing Unethical Business Activities"): taking things that don't belong to you; saying things you know are not true; giving or allowing false impressions; buying influence or engaging in a conflict of interest; hiding or divulging information; taking unfair advantage; committing improper personal behavior; abusing power and mistreating individuals; permitting organizational abuse; violating rules; and condoning unethical actions [AP].
+The Brigham Young University researchers' classification is reproduced (Ch 2.1, "Recognizing Unethical Business Activities"): taking things that don't belong to you; saying things you know are not true; giving or allowing false impressions; buying influence or engaging in a conflict of interest; hiding or divulging information; taking unfair advantage; committing improper personal behavior; abusing power and mistreating individuals; permitting organizational abuse; violating rules; and condoning unethical actions [BT].
 
 ### Three organisational tools for ethical conduct
 
@@ -84,11 +84,11 @@ Organisations encourage ethical conduct through (Ch 2.2, "How Organizations Infl
 - *Ethics training programs*: 80%+ of U.S. companies provide some form (Ch 2.2).
 - *Formal codes of ethics*: provide knowledge of what the firm expects; effective only when senior management abides by them and emphasises them regularly (Ch 2.2, "Establishing a Formal Code of Ethics").
 
-Two decision tests are added: the *feelings test* (after deciding, do I sleep well or feel discomfort?) and the *newspaper or social media test* (how would the front page describe my decision?) (Ch 2.2, "Making the Right Decision").
+Two decision tests are added: the *feelings test* (after deciding, do I sleep well or feel discomfort?) and the *newspaper or social media test* (how would the front page describe my decision?) (Ch 2.2, "Making the Right Decision"). The tests come after three prior questions: does the action break a law, does it violate the company's code of ethics, and does it meet one's own ethical philosophy (Ch 2.2). The feelings test asks "How does it make me feel?" [V]; discomfort after a decision can show up as a loss of sleep or appetite, and "Those feelings of conscience can serve as a future guide in resolving ethical dilemmas" [V]. Of the newspaper test the text says: "This test is helpful in spotting and resolving potential conflicts of interest" [V] (Ch 2.2, "Making the Right Decision").
 
 ### The pyramid of corporate social responsibility
 
-*Corporate social responsibility (CSR)* is "the concern of businesses for the welfare of society as a whole" beyond what is required by law or union contract [V] (Ch 2.3, "Managing a Socially Responsible Business"). The pyramid has four components stacked from foundation upward (Ch 2.3, Exhibit 2.4): economic responsibility (the foundation — without profit, the others don't matter), legal responsibility (obey the law), ethical responsibility (do what is right, just, and fair), and philanthropic responsibility (be a good corporate citizen). Business activity sorts into three categories: illegal-and-irresponsible; irresponsible-but-legal; and legal-and-responsible (the vast majority) [AP] (Ch 2.3).
+*Corporate social responsibility (CSR)* is "the concern of businesses for the welfare of society as a whole" [V]; it "consists of obligations beyond those required by law or union contract" [V] (Ch 2.3, "Managing a Socially Responsible Business"). The pyramid has four components stacked from foundation upward (Ch 2.3, Exhibit 2.4): economic responsibility (the foundation — without profit, the others don't matter), legal responsibility (obey the law), ethical responsibility (do what is right, just, and fair), and philanthropic responsibility (be a good corporate citizen). Business activity sorts into three categories: illegal-and-irresponsible; irresponsible-but-legal; and legal-and-responsible (the vast majority) [AP] (Ch 2.3).
 
 ### Stakeholders defined
 
@@ -227,9 +227,9 @@ Leadership styles span a continuum (Ch 6.4, "Leadership Styles", Table 6.4):
 
 - *Autocratic*: directive; manager makes most decisions; one-way information flow; military and some production-line settings. The text notes "the trend in organizations today is away from the directive, controlling style of the autocratic leader" [V].
 - *Participative*: shares decision-making with group members; encourages discussion. Three sub-types: *democratic* (group votes); *consensual* (all parties must agree); *consultative* (manager confers but retains final authority).
-- *Free-rein (laissez-faire)*: manager turns over authority and control to subordinates; assigns tasks; gets involved only if asked. Drawback: if accompanied by unclear expectations and lack of feedback, frustrating for employees.
+- *Free-rein (laissez-faire)*: manager turns over authority and control to subordinates; assigns tasks; gets involved only if asked. Table 6.4 says the approach works well with highly motivated, experienced, educated personnel. Drawback: if accompanied by unclear expectations and lack of feedback, frustrating for employees.
 
-*Situational leadership* selects among styles based on the maturity and competency levels of those completing the tasks (Ch 6.4). *Empowerment* is "giving employees increased autonomy and discretion to make their own decisions, as well as control over the resources needed to implement those decisions" [V] (Ch 6.4, "Employee Empowerment"). The Norfolk Southern engineer Jeff McCracken's post-Hurricane-Katrina five-mile track rescue is presented as an example of empowered decision-making at a distance from headquarters [AE] (Ch 6.4).
+*Situational leadership* selects among styles based on the maturity and competency levels of those completing the tasks (Ch 6.4). Newly hired employees may respond well to authoritative leadership until they understand the job requirements and can handle routine decisions; once established, they may perform better under a participative or free-rein style (Ch 6.4, "Leadership Styles"). *Empowerment* is "giving employees increased autonomy and discretion to make their own decisions, as well as control over the resources needed to implement those decisions" [V] (Ch 6.4, "Employee Empowerment"). The Norfolk Southern engineer Jeff McCracken's post-Hurricane-Katrina five-mile track rescue is presented as an example of empowered decision-making at a distance from headquarters [AE] (Ch 6.4).
 
 *Corporate culture* is "the set of attitudes, values, and standards of behavior that distinguishes one organization from another" [V] (Ch 6.4, "Corporate Culture"). Culture evolves over time and is influenced by founders' vision and dominant leadership style; it manifests through heroes, myths, symbols, and ceremonies.
 
@@ -239,7 +239,7 @@ Managers' roles fall into three categories (Ch 6.6, "Managerial Roles", Table 6.
 
 - *Informational roles*: monitor (gather information), disseminator (provide information internally), spokesperson (transmit information externally).
 - *Interpersonal roles*: figurehead (symbolic representation), leader (guide and motivate employees), liaison (go-between among individuals inside and outside the organisation).
-- *Decisional roles*: entrepreneur (search for opportunities, initiate change), disturbance handler (handle unexpected events), resource allocator (designate use of resources), negotiator (not shown in the truncated table but implied).
+- *Decisional roles*: entrepreneur (search for opportunities, initiate change), disturbance handler (handle unexpected events), resource allocator (designate use of resources). Table 6.5 lists these three; the prose adds that in a decisional role a manager may "help resolve conflicts, or negotiate compromises" [V] (Ch 6.6).
 
 ### Programmed vs non-programmed decisions
 
@@ -255,7 +255,7 @@ Five steps for both programmed and non-programmed decisions (Ch 6.6, Exhibit 6.7
 4. Put the chosen alternative into action.
 5. Gather information to obtain feedback on the effectiveness of the chosen plan.
 
-The text warns that "it can be easy (and dangerous) for managers to get stuck at any stage" — citing analysis paralysis as a particular hazard for entrepreneurs (Ch 6.6).
+The text warns: "It can be easy (and dangerous) for managers to get stuck at any stage of the decision-making process" [V] — citing analysis paralysis as a particular hazard for entrepreneurs (Ch 6.6).
 
 ### Crisis management
 
@@ -281,7 +281,7 @@ Many large organisations use combinations. Procter & Gamble's "four pillars": Gl
 
 The *line organization* has direct, clear lines of authority and communication flowing from top managers downward (Ch 7.1, "Line-and-Staff Organization"). The *line-and-staff organization* adds staff positions (legal, HR, consulting) that provide advisory and support services to line managers.
 
-The *matrix structure* (project-management approach) combines functional and product departmentalization; each employee has two direct supervisors (functional manager and project manager) (Ch 7.2, "Matrix Structure"). Advantages: teamwork, efficient use of resources, flexibility, ability to balance conflicting objectives, higher performance, opportunities for personal/professional development. Disadvantages: power struggles, confusion among team members, lack of cohesiveness — and the violation of unity-of-command. Unilever moved from matrix to product departmentalization (Ch 7.4) [AE].
+The *matrix structure* (project-management approach) combines functional and product departmentalization; each employee has two direct supervisors (functional manager and project manager) (Ch 7.2, "Matrix Structure"). Advantages: teamwork, efficient use of resources, flexibility, ability to balance conflicting objectives, higher performance, opportunities for personal/professional development. Disadvantages: power struggles, confusion among team members, lack of cohesiveness — and the violation of unity-of-command. Unilever moved from matrix to product departmentalization after employees in divisions operating in both North America and Europe were unsure which CEO's decisions took precedence (Ch 7.4) [AE].
 
 A *committee structure* puts authority and responsibility in a group rather than an individual; committees can coordinate complex tasks but may be slow and dominated by individuals (Ch 7.2, "Committee Structure").
 
@@ -303,7 +303,7 @@ The team structure has three evolutionary forms (Ch 7.3, "Types of Teams"):
 
 ### Centralisation vs decentralisation
 
-*Centralization* concentrates formal authority in one area or level; *decentralization* pushes authority down the hierarchy (Ch 7.5). Decentralisation suits large organisations, dynamic environments, managers willing to share power, employees willing to accept responsibility, and geographically dispersed companies.
+*Centralization* concentrates formal authority in one area or level; *decentralization* pushes authority down the hierarchy (Ch 7.5). Benefits of decentralisation can include quicker decision-making, more innovation and creativity, greater flexibility, faster development of lower-level managers, and higher job satisfaction and commitment. "But decentralization can also be risky. If lower-level personnel don’t have the necessary skills and training to perform effectively, they may make costly mistakes" [V] (Ch 7.5). Decentralisation suits large organisations, dynamic environments, managers willing to share power, employees willing to accept responsibility, and geographically dispersed companies.
 
 ### Mechanistic vs organic structures
 
@@ -387,10 +387,10 @@ The chapter develops a chronological account of motivation thinking:
 3. *Maslow's hierarchy of needs* (Maslow): five levels — physiological → safety → social → esteem → self-actualisation; people act to satisfy unmet needs; when a need is satisfied, importance diminishes [BT] (Ch 9.3, "Maslow's Hierarchy of Needs"). Wegmans is presented as addressing all five levels (high pay, 100% medical premiums, low turnover and long employee tenure, recognition by Danny Wegman, training trips for cheese/wine managers) [AE]. Critique: research has not verified the strict hierarchy.
 4. *McGregor's Theory X and Theory Y* (McGregor): Theory X assumes pessimistic view (people dislike work, must be controlled, prefer being directed); Theory Y assumes optimistic view (work is natural, people are self-directed, accept responsibility, are creative) [BT] (Ch 9.4, "McGregor's Theories X and Y"). Theory Y companies populate Fortune's "100 Best Companies to Work For" — Starbucks, J. M. Smucker, SAS Institute, Whole Foods Market, Wegmans, Genencor.
 5. *Theory Z* (Ouchi): combines U.S. and Japanese practices — long-term employment, slow career development, moderate specialisation, group decision-making, individual responsibility, informal control with explicit performance measures, holistic concern for workers [BT] (Ch 9.4, "Theory Z").
-6. *Herzberg's motivator-hygiene theory*: certain job factors (motivators / job satisfiers — achievement, recognition, work itself, responsibility) are intrinsic and lead to satisfaction; others (hygiene factors / job dissatisfiers — company policy, supervision, working conditions, interpersonal relationships) are extrinsic and prevent dissatisfaction but don't motivate [BT] (Ch 9.5, "Herzberg's Motivator-Hygiene Theory", Table 9.2). The opposite of satisfaction is not dissatisfaction — they are produced by different mechanisms.
+6. *Herzberg's motivator-hygiene theory*: certain job factors (motivators / job satisfiers — achievement, recognition, work itself, responsibility) are intrinsic and lead to satisfaction; others (hygiene factors / job dissatisfiers — company policy, supervision, working conditions, interpersonal relationships) are extrinsic and prevent dissatisfaction but don't motivate [BT] (Ch 9.5, "Herzberg's Motivator-Hygiene Theory", Table 9.2). The opposite of satisfaction is not dissatisfaction — they are produced by different mechanisms. Good working conditions "will keep employees at a job but won’t make them work harder" [V], while poor ones may make employees quit; "a lack of job satisfiers may merely lead to workers doing an adequate job, rather than their best" [V] (Ch 9.5).
 7. *Expectancy theory*: probability of an individual acting in a particular way "depends on the strength of that individual's belief that the act will have a particular outcome and on whether the individual values that outcome" [V] (Ch 9.6, "Expectancy Theory"). Three relationships: effort-to-performance, performance-to-outcome, outcomes-to-individual-needs. *Valence* is the value an individual places on outcomes.
-8. *Equity theory*: worker satisfaction is influenced by perceptions of fair treatment compared with coworkers (Ch 9.6, "Equity Theory"). Workers compare their *outcomes-to-inputs* ratio to a referent's. When inequity is perceived, workers will: change work habits, change job benefits/income, distort their perception of themselves, distort their perceptions of others, look at the situation from a different perspective, or leave the situation.
-9. *Goal-setting theory*: an individual's intention to work toward a goal is a primary source of motivation (Ch 9.6, "Goal-Setting Theory"). Three components: specific goals lead to higher performance than generalised goals; more difficult goals lead to better performance (when accepted); feedback enhances performance.
+8. *Equity theory*: worker satisfaction is influenced by perceptions of fair treatment compared with coworkers (Ch 9.6, "Equity Theory"). Workers compare their *outcomes-to-inputs* ratio to a referent's. When inequity is perceived, workers will: change work habits (exert less effort), change job benefits/income (ask for a raise, steal from the employer), distort their perception of themselves, distort their perceptions of others, look at the situation from a different perspective, or leave the situation. The text's guidance for managers: they "can make an effort to understand an employee’s perceptions of fairness and take steps to reduce concerns about inequity" [V] (Ch 9.6, "Equity Theory").
+9. *Goal-setting theory*: an individual's intention to work toward a goal is a primary source of motivation (Ch 9.6, "Goal-Setting Theory"). Once set, a goal clarifies what needs to be accomplished and how much effort completion will take. Three components: specific goals lead to higher performance than generalised goals ("do your best"); more difficult goals lead to better performance (when accepted); feedback enhances performance.
 10. *Reinforcement theory*: "behavior is a function of its consequences" [V] (Ch 9.6, "Reinforcement Theory"). Three types of consequences: positive (reward), negative (punishment), and none. *Reward* is anything that increases the behavior; *punishment* is anything that decreases it.
 
 ### Cross-cultural variation in motivation
@@ -450,7 +450,7 @@ Four layout types (Ch 10.3, "Designing the Facility", Exhibit 10.7):
 
 ### Resource planning
 
-Resource planning starts with a forecast of finished goods, then a *bill of material* listing items needed, then *purchasing* (procurement) (Ch 10.4, "Pulling It Together: Resource Planning"). The *make-or-buy decision* turns on quantity, secrecy needs, and supplier reliability/quality. Inventory management balances costs of holding inventory, frequent reordering, and stockouts.
+Resource planning starts with a forecast of finished goods, then a *bill of material* listing items needed, then *purchasing* (procurement) (Ch 10.4, "Pulling It Together: Resource Planning"). The *make-or-buy decision* turns on quantity, secrecy needs, and supplier reliability/quality (Ch 10.4, "Make or Buy?"). On quantity: "If a part is used in only one of many products, buying the part may be more cost-effective than making it" [V]. On secrecy: "if a product has special design features that need to be kept secret to protect a competitive advantage, a firm may decide to produce all parts internally" [V]. On suppliers: a firm must consider whether outside sources can provide the high-quality supplies it needs reliably, since late or inferior parts can halt production or damage its reputation. Buying from outside sources instead of making internally is *outsourcing*. Inventory management balances costs of holding inventory, frequent reordering, and stockouts.
 
 Computerised systems: *MRP* (materials requirement planning) uses a master schedule to ensure right materials/labor/equipment at right times; *MRP II* extends to integrate finance, marketing, accounting, engineering, and manufacturing; *ERP* (enterprise resource planning) further incorporates suppliers and customers (Ch 10.4, "Computerized Resource Planning").
 
@@ -460,7 +460,7 @@ The *supply chain* is "the entire sequence of securing inputs, producing goods, 
 
 ### Routing, scheduling, Gantt, CPM, PERT
 
-*Routing* sets the work flow — sequence of machines/operations for production (Ch 10.5, "Production and Operations Control"). *Scheduling* specifies and controls time for each step. Three scheduling tools: *Gantt charts* (bar graphs of scheduled vs actual production); *Critical Path Method (CPM)* (identifies longest path through linked activities; tasks on the path must finish on time or whole project slips); *PERT* (program evaluation and review technique; assigns three time estimates per activity — optimistic, most probable, pessimistic — to anticipate delays).
+*Routing* sets the work flow — sequence of machines/operations for production (Ch 10.5, "Production and Operations Control"). *Scheduling* specifies and controls time for each step. Three scheduling tools: *Gantt charts* (bar graphs of scheduled vs actual production); *Critical Path Method (CPM)* (identifies longest path through linked activities; tasks on the path must finish on time or whole project slips); *PERT* (program evaluation and review technique; assigns three time estimates per activity — optimistic, most probable, pessimistic — to anticipate delays). The difference between the two: "CPM assumes that the amount of time needed to finish a task is known with certainty" [V], so its diagram shows one time per activity, whereas PERT's three estimates let managers anticipate delays and potential problems (Ch 10.5, "Scheduling: When Do We Do It?").
 
 ### Quality management and lean
 
@@ -484,7 +484,7 @@ Three major trends (Ch 10.8, "Trends in Production and Operations Management"): 
 
 The *marketing concept* uses customer needs and wants as the starting point for product development [V] (Ch 11.1). *Customer value* is "the ratio of benefits for the customer (organization or consumer) to the sacrifice necessary to obtain those benefits" [V] (Ch 11.1, "Customer Value"). Southwest Airlines is the example: doesn't offer assigned seats, meals, or in-flight movies but consistently delivers on-time departures and beats full-service airlines on service value [AE].
 
-*Customer satisfaction* is "the customer's feeling that a product has met or exceeded expectations" [V] (Ch 11.1, "Customer Satisfaction"). Lexus consistently wins JD Powers ratings (Ch 11.1).
+*Customer satisfaction* is "the customer's feeling that a product has met or exceeded expectations" [V] (Ch 11.1, "Customer Satisfaction"). Lexus consistently wins awards for customer satisfaction; JD Powers surveys car owners two years after purchase, and its Customer Satisfaction Survey has four measures: vehicle quality/reliability, vehicle appeal, ownership costs, and service satisfaction from a dealer. Lexus has led the industry as America's top-ranked vehicle for five years in a row [AE] (Ch 11.1).
 
 *Relationship marketing* focuses on long-term partnerships with customers (Ch 11.1, "Building Relationships"). Studies show "increasing customer retention rates by 5 percent increases profits by anywhere from 25 to 95 percent" [V] (Ch 11.1).
 
@@ -500,7 +500,7 @@ Marketing strategy has five tools (the 5Ps, also called the marketing mix) (Ch 1
 
 ### Six environmental forces
 
-Marketers gather data on six environmental forces (Ch 11.2): cultural/social, demographic, economic, technological, political/legal, competitive. *Environmental scanning* is the team-based process of continually collecting and evaluating environmental information.
+Marketers gather data on six environmental forces (Ch 11.2): cultural/social, demographic, economic, technological, political/legal, competitive. *Environmental scanning* is the team-based process of continually collecting and evaluating environmental information. "The goal in gathering the environmental data is to identify current and future market opportunities and threats" [V] (Ch 11.2, "What Is Marketing Strategy?").
 
 ### Four competitive advantage types
 
@@ -585,7 +585,7 @@ Six elements (Ch 12.5, "The Promotional Mix"):
 - *Social media*: using platforms (Facebook, Twitter, Pinterest, Instagram, blogs) to generate buzz; different skill set than traditional advertising; required to handle "going viral" defensively (Ch 12.10).
 - *E-commerce*: company website to support and expand marketing (online ordering, interactive components, customer data collection) (Ch 12.11).
 
-*Integrated marketing communications (IMC)* coordinates all promotional activities so the consumer receives a consistent unified message regardless of channel (Ch 12.5, "Integrated Marketing Communications"). Southwest Airlines' "Transfarency" campaign integrated website, advertising, and airport signage [AE].
+*Integrated marketing communications (IMC)* coordinates all promotional activities so the consumer receives a consistent unified message regardless of channel (Ch 12.5, "Integrated Marketing Communications"). The text presents IMC as the response to a disjointed approach to promotion, which has propelled many companies to adopt it. IMC "involves carefully coordinating all promotional activities" [V] — traditional advertising (including direct marketing), sales promotion, personal selling, public relations, social media and e-commerce, packaging, and other forms of promotion — "to produce a consistent, unified message that is customer focused" [V] (Ch 12.5). Southwest Airlines' "Transfarency" campaign integrated website, advertising, and airport signage [AE].
 
 ### Six-step personal-selling process
 
@@ -606,17 +606,19 @@ The text emphasises that "in today's business world, in which relationships are 
 
 The IT chapter develops six focal areas: how technology transforms business through information; computer networks (LAN, WAN, internet, intranets, extranets); management information systems; technology management and planning; protecting computers and information; and trends in IT (Ch 13). The trends section names three trends reshaping the IT landscape: digital forensics, the shift to a distributed workforce, and the increasing use of grid computing (Ch 13.6). The book's IT chapter is more dated than other chapters (covers decisions companies face in technology adoption — buy vs build, make vs buy software, IT governance) and is therefore lighter coverage in this deep ref. Computer networks support employee collaboration; *cloud computing* lets businesses store and access data without running applications on local servers; mobile technology enables anywhere communication; robots automate repetitive tasks; *blockchain technology* may automate multi-party transactions in the future (Ch 13.6 and Ch 10.4).
 
+Ch 13.1 notes that company-wide *enterprise resource planning (ERP)* systems bringing together human resources, operations, and technology are becoming an integral part of business strategy (Ch 13.1). On networks, "Several forms of WANs—intranets, virtual private networks (VPN), and extranets—use internet technology" [V] (Ch 13.2, "Connecting Near and Far with Networks"). A *virtual private network* connects two or more private networks over a public network such as the internet, with security measures that admit only authorised users; it can cost less than purchased equipment and leased private lines, and lets salespeople and telecommuters reach the company network as if on site, though its availability and performance depend on factors largely outside the organisation's control (Ch 13.2, "Private Lines: Virtual Private Networks"). *Application service providers (ASP)* offer an alternative to buying or upgrading software: "Companies subscribe, usually on a monthly basis, to an ASP" [V], and "Other names for ASPs include on-demand software, hosted applications, and software-as-a-service" [V]. ASPs supply enterprise, collaborative, and personal-use applications; subscribers avoid purchasing, installing, supporting, and upgrading software; *managed service providers (MSP)* are the next generation, adding customisation and complete management of network servers (Ch 13.2, "Software on Demand: Application Service Providers").
+
 ## Part XIV: Accounting (Ch 14)
 
 ### Accounting basics
 
-*Accounting* is "the process of collecting, recording, classifying, summarizing, reporting, and analyzing financial activities" [V] (Ch 14.1, "Accounting Basics"). Two report types: *managerial accounting* (internal; for managers' evaluation and decisions about current and future operations) and *financial accounting* (external; for lenders, suppliers, investors, government, and others) (Ch 14.1, "Who Uses Financial Reports?").
+*Accounting* is "the process of collecting, recording, classifying, summarizing, reporting, and analyzing financial activities" [V] (Ch 14.1, "Accounting Basics"). Two report types: *managerial accounting* (internal; for managers' evaluation and decisions about current and future operations) and *financial accounting* (external; for lenders, suppliers, investors, government, and others) (Ch 14.1, "Who Uses Financial Reports?"). "Financial statements are the chief element of the annual report, a yearly document that describes a firm’s financial status" [V]; annual reports usually discuss the past year's activities and future prospects, and include three primary financial statements: the balance sheet, the income statement, and the statement of cash flows (Ch 14.1).
 
 The *generally accepted accounting principles (GAAP)* govern U.S. financial reporting; the *Financial Accounting Standards Board (FASB)* establishes financial accounting standards. The *International Accounting Standards Board (IASB)* publishes International Financial Reporting Standards (IFRS); as of the source's writing, FASB and IASB have not agreed on a global set of standards — "for now" the two organizations agree to disagree on when and if they can converge GAAP and IFRS (Ch 14.1, inset).
 
 ### Public vs private accountants and the post-Enron environment
 
-*Public accountants* serve organisations and individuals on a fee basis; the largest U.S. public accounting firms — Deloitte, PwC, EY, KPMG — are the "Big Four" (Arthur Andersen disbanded after Enron 2002) (Ch 14.2, "Public Accountants"). *Auditing* is "the process of reviewing the records used to prepare financial statements and issuing a formal auditor's opinion indicating whether the statements have been prepared in accordance with accepted accounting rules" [V] (Ch 14.2). Only CPAs can issue the auditor's opinion.
+*Public accountants* serve organisations and individuals on a fee basis; the largest U.S. public accounting firms — Deloitte, PwC, EY, KPMG — are the "Big Four" (Arthur Andersen disbanded after Enron 2002) (Ch 14.2, "Public Accountants"). *Auditing* is "the process of reviewing the records used to prepare financial statements" [V], an important responsibility of public accountants, who issue a formal auditor's opinion indicating whether the statements have been prepared in accordance with accepted accounting rules; "This written opinion is an important part of a company’s annual report" [V] (Ch 14.2, "Public Accountants"). Only CPAs can issue the auditor's opinion.
 
 *Private accountants* are employed to serve one organisation; CMA (certified management accountant) is the analogous certification.
 
@@ -671,7 +673,7 @@ Online banking, mobile banking, blockchain/cryptocurrency emergence, and consoli
 
 ### Financial management role and risk-return tradeoff
 
-*Financial management* is "the art and science of managing a firm's money so that it can meet its goals" [V] (Ch 16.1, "The Role of Finance and the Financial Manager"). Three key activities: financial planning, investment (spending), financing (raising). The main goal is to maximize firm value to owners — measured by share price for public companies, by sale price for private. The financial manager balances *return* (opportunity for profit) and *risk* (chance of loss). "The higher the risk, the greater the return that is required" [V] — the *risk-return trade-off* (Ch 16.1).
+*Financial management* is "the art and science of managing a firm's money so that it can meet its goals" [V] (Ch 16.1, "The Role of Finance and the Financial Manager"). Three key activities: financial planning, investment (spending), financing (raising). The main goal is to maximize firm value to owners — measured by share price for public companies, by sale price for private. The financial manager balances *return* (opportunity for profit) and *risk* (chance of loss). "The higher the risk, the greater the return that is required" [V] — the *risk-return trade-off*, which the text calls "a basic principle in finance" and a "widely accepted concept" [V]; financial managers weigh many risk and return factors when making investment and financing decisions (Ch 16.1).
 
 ### Use of funds
 
@@ -796,7 +798,7 @@ Intellectual property (App A, "Patents, Copyrights, and Trademarks"): *patent* (
 
 A *tort* is "a civil, or private, act that harms other people or their property" [V] (App A, "Tort Law"). Examples: medical malpractice, slander, libel, product liability, fraud. *Negligence* is failing to take reasonable care for others' safety.
 
-*Product liability*: manufacturers' and sellers' responsibility for defects (App A, "Product-Liability Law"). *Strict liability* makes manufacturer/seller liable for defective products even if all possible care was taken. The asbestos lawsuits exceed $70 billion total cost (App A) [V].
+*Product liability*: manufacturers' and sellers' responsibility for defects (App A, "Product-Liability Law"). *Strict liability* makes manufacturer/seller liable for defective products even if all possible care was taken: "A manufacturer or seller is liable for any personal injury or property damage caused by defective products or packaging—even if all possible care was used to prevent such defects" [V] (App A, "Product-Liability Law"). The asbestos lawsuits exceed $70 billion total cost (App A) [V].
 
 ### Bankruptcy
 
@@ -891,7 +893,7 @@ The text reproduces a long list of major consumer protection laws (App A, Table 
 - **Free-rein leadership is not always preferred.** Although one might assume subordinates prefer free-rein, this approach can be frustrating when accompanied by unclear expectations and lack of feedback (Ch 6.4) [AR].
 - **Canned sales presentations are ineffective in modern relationship-driven selling.** "Canned or structured presentations are not well received, nor do they support the idea of building a great bond with the customer. A completely unstructured presentation that has no set format is a much more successful approach" [V] (Ch 12.7) [AR].
 - **Cost-only competitive advantage erodes.** "Cost competitive advantages are subject to continual erosion" — competitors adopt the same lower-cost technology or suppliers (Ch 11.2, "Cost Competitive Advantage") [AR].
-- **Matrix structures can hinder accountability.** "Matrix structures make it easier to blame others when things don't go as planned" — Unilever moved from matrix to product departmentalization for this reason (Ch 7.2 and 7.4) [AR].
+- **Matrix structures can hinder accountability.** Some CEOs and other top managers suggest that "matrix structures make it easier to blame others when things don’t go as planned" [V] (Ch 7.2). Unilever abandoned its matrix for product departmentalization because employees were unsure which CEO's decisions took precedence; companies like Unilever tend to abandon matrix structures over unclear or duplicate reporting relationships, a lack of unity of command (Ch 7.4) [AR].
 - **Bankruptcy law tightens accountability.** Under the 2005 Bankruptcy Abuse Prevention and Consumer Protection Act, "Americans with heavy debt will find it difficult to avoid meeting their financial obligations" (App A) — the text reports that the law imposes an objective, needs-based bankruptcy test and stricter repayment requirements, and attributes the justificatory arguments to the law's supporters [AR].
 - **Knowledge work requires different management.** Knowledge workers are "associates," not "subordinates"; "within their area of knowledge, they are supposed to do the telling" [V] (Ch 9.8) — argues against authority-based management of specialised expertise [AR].
 

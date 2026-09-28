@@ -1,0 +1,140 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/mcdp1-warfighting-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-63 of 63", "deep": "lines 1-254 of 254", "complete": true},
+  "claims_audited": 40,
+  "tally": {"faithful": 27, "minor_drift": 9, "unsupported": 2, "contradicted": 2},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 24,
+      "section": "Decision-Making Relevance, thread 3 (Mission tactics / commander's intent)",
+      "claim": "Mission tactics: senior gives what and why (intent), never how.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Absolute rule the source qualifies: the senior does prescribe method where coordination requires it and intervenes by exception.",
+      "evidence": "Deep 186 [V] (Ch 4, \"Mission tactics\"): \"The senior prescribes the method of execution only to the degree that is essential for coordination. The senior intervenes in a subordinate's execution only by exception.\" Deep 142: senior provides support \"without unnecessarily prescribing their actions.\"",
+      "fix": "correct: The doctrinal answer to *who should decide what?* is *mission tactics*: the senior gives the task and its intent, and \"prescribes the method of execution only to the degree that is essential for coordination\" [V] (Ch 4, \"Mission tactics\")."
+    },
+    {
+      "id": "D002",
+      "line": 62,
+      "section": "Connections to other corpus sources",
+      "claim": "NHS Just Culture Guide (slug 007) — for the severity on inaction, leniency on overbold action asymmetry in healthcare-decision contexts.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Attributes to the NHS guide an asymmetry it does not hold. The guide runs actions and omissions through the same five tests and starts from the prior that action singling out an individual is rarely appropriate; nothing in it calls for severity toward inaction.",
+      "evidence": "NHS deep 14: \"action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action\" [V]; deep 30 and 66: one \"action (or failure to act)\" at a time, same tests for \"the action/omission in question\". No boldness/inaction asymmetry anywhere in the NHS deep ref.",
+      "fix": "correct: NHS Just Culture Guide (slug 007): a contrast case. MCDP-1 asks for leniency on overbold errors and severity on inaction; the NHS guide runs any action or omission through the same tests and treats singling out an individual as rarely appropriate. Read together, they separate the culture you want for initiative from the fairness test for an individual after harm."
+    },
+    {
+      "id": "D003",
+      "line": 18,
+      "section": "Decision-Making Relevance, thread 2 (OODA)",
+      "claim": "The most important node in the cycle — though MCDP-1 does not develop this as fully as Boyd's original — is Orient, where past experience / culture / new information / analysis-and-synthesis interact to shape what counts as a meaningful situation.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Training-data content from Boyd's own work, presented as partly developed in MCDP-1. The source defines orientation only as making \"an estimate of the situation\" and ranks no node above the others.",
+      "evidence": "Deep 43 [V] (Notes 18 of Ch 2) and source 4289-4296: \"On the basis of the observation, he orients; that is, he makes an estimate of the situation.\" No mention of culture, experience, analysis-synthesis, or Orient's primacy.",
+      "fix": "strip"
+    },
+    {
+      "id": "D004",
+      "line": 38,
+      "section": "Decision-Making Relevance, thread 5 (Surfaces and gaps)",
+      "claim": "Most failed strategies push against strength because that is where the institutional opponent is most visible; the opportunity is usually where no-one is looking.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Empirical generalisation about strategy failure with no source; not in the deep ref.",
+      "evidence": "Deep 148 (Ch 4, \"Surfaces and gaps\") gives the rule (avoid strength, exploit weakness) and the pull-through-gaps mechanism; no claim about why strategies fail or where opportunity usually lies.",
+      "fix": "strip"
+    },
+    {
+      "id": "D005",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "Six threads from the pamphlet sit directly on decision practice.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong: the section lists seven numbered threads.",
+      "evidence": "Distillation headings ### 1 through ### 7 (lines 10-46).",
+      "fix": "correct: Seven threads from the pamphlet sit directly on decision practice."
+    },
+    {
+      "id": "D006",
+      "line": 18,
+      "section": "Decision-Making Relevance, thread 2 (OODA)",
+      "claim": "The side that completes the cycle faster, or that operates in a way the adversary cannot orient to, wins.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "States the deep ref's thesis-heading wording as MCDP-1 content. 'Operates in a way the adversary cannot orient to' is not in the source, and 'wins' overstates 'gains an advantage'.",
+      "evidence": "Deep 43 [V] (Notes 18 of Ch 2): \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle ... until, finally, he is overcome by events.\" Source has no 'orient to'.",
+      "fix": "correct: Boyd argued that \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle\" [V] (Notes 18 of Ch 2)."
+    },
+    {
+      "id": "D007",
+      "line": 24,
+      "section": "Decision-Making Relevance, thread 3",
+      "claim": "Intent must be understood two levels up.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens 'should understand ... at least two levels up'.",
+      "evidence": "Deep 144 [V] (Ch 4, \"Commander's intent\"): subordinates \"should understand the intent of the commander at least two levels up.\"",
+      "fix": "correct: Subordinates \"should understand the intent of the commander at least two levels up\" [V] (Ch 4, \"Commander's intent\")."
+    },
+    {
+      "id": "D008",
+      "line": 26,
+      "section": "Decision-Making Relevance, thread 3",
+      "claim": "Decentralised decision-making works only when subordinates know the intent two levels up; without it, decentralisation produces incoherence.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported in spirit (intent is essential to unity of effort) but hardened to a necessary condition tied to the two-levels rule, which the source states as 'should'.",
+      "evidence": "Deep 41 [V] (Ch 4, \"Philosophy of command\"): decisions \"based on their understanding of their senior's intent\"; deep 144 two levels up as 'should'; source 3761: \"A clear expression and understanding of intent is essential to unity of effort.\"",
+      "fix": "correct: Decentralised decision-making depends on shared intent; MCDP-1 calls a clear understanding of intent \"essential to unity of effort\" (Ch 4, \"Commander's intent\"). Without it, decentralisation produces incoherence."
+    },
+    {
+      "id": "D009",
+      "line": 30,
+      "section": "Decision-Making Relevance, thread 4 (Main effort)",
+      "claim": "Main effort (Schwerpunkt) ... Every decision the doctrine recognises is filtered through Schwerpunkt.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's term is 'main effort'; 'Schwerpunkt' comes from the deep ref's [AR] note. 'Every decision the doctrine recognises' overgeneralises a tool for unity of effort.",
+      "evidence": "Deep 146 [V] (Ch 4, \"Main effort\"): \"Of all the actions going on within our command, we recognize one as the most critical to success at that moment\"; \"How can I best support the main effort?\"; the Schwerpunkt label sits in the [AR] note. Source: no occurrence of 'Schwerpunkt'.",
+      "fix": "correct: Main effort as the decision-filtering discipline (Ch 4). MCDP-1 designates one action as \"the most critical to success at that moment\" and asks every other unit \"How can I best support the main effort?\" [V] (Ch 4, \"Main effort\")."
+    },
+    {
+      "id": "D010",
+      "line": 34,
+      "section": "Decision-Making Relevance, thread 5",
+      "claim": "Surfaces and gaps (Ch 2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited chapter: surfaces and gaps is Ch 4.",
+      "evidence": "Deep 148: (Ch 4, \"Surfaces and gaps\"); source 3842 in Ch 4 'The Conduct of War'.",
+      "fix": "correct: Surfaces and gaps (Ch 4)"
+    },
+    {
+      "id": "D011",
+      "line": 42,
+      "section": "Decision-Making Relevance, thread 6 (Doctrine as a way of thinking)",
+      "claim": "Decision frameworks (the Vroom-Yetton model, the DACI matrix, the Cynefin sense-act-respond protocols) are useful insofar as they develop judgment; corrosive insofar as they substitute for judgment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The extension from MCDP-1's 'doctrine requires judgment in application' is fair applied guidance, but 'sense-act-respond' is not a Cynefin response pattern. No Cynefin source is held in this corpus; the Open Practice Library deep ref lists the patterns as Sense-Categorize-Respond, Sense-Analyze-Respond, Probe-Sense-Respond, Act-Sense-Respond.",
+      "evidence": "Deep 107 [V] (Ch 3, \"Doctrine\"): \"general guidance that requires judgment in application\"; OPL deep 215 (Cynefin response patterns); MCDP-1 deep 225 names probe-sense-respond and act-sense-respond.",
+      "fix": "correct: replace 'the Cynefin sense-act-respond protocols' with 'the Cynefin domain responses (see the Open Practice Library, slug 009)'."
+    },
+    {
+      "id": "D012",
+      "line": 50,
+      "section": "Decision-Making Relevance, thread 7 (Severity on errors of inaction)",
+      "claim": "Decisions that should be made faster require the asymmetry to be inverted — errors of commission tolerated, errors of omission penalised.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Broadens the source's leniency (errors by junior leaders stemming from overboldness, as part of learning) to all errors of commission; drops the source's limit that leniency is no 'free license to act stupidly or recklessly'.",
+      "evidence": "Deep 109 [V] (Ch 3, \"Professionalism\"): \"errors by junior leaders stemming from overboldness are a necessary part of learning. We should deal with such errors leniently\"; source 2398-2401: constructive criticism still applies; \"Nor does it give subordinates free license to act stupidly or recklessly.\"",
+      "fix": "correct: Decisions that should be made faster require the asymmetry to be inverted: errors of overboldness treated leniently as part of learning, errors of inaction or timidity dealt with severely (Ch 3, \"Professionalism\"). Leniency is not licence for recklessness."
+    },
+    {
+      "id": "D013",
+      "line": 54,
+      "section": "Decision-Making Cautions",
+      "claim": "The OODA / Schwerpunkt / mission-tactics / surfaces-and-gaps machinery transfers; the Zweikampf framing usually does not.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref treats the clash of independent wills as the foundation of tempo, mission tactics and OODA; OODA's relative-speed advantage and surfaces-and-gaps both presuppose an opposing will. Separating them needs a caveat, not a clean split. 'Schwerpunkt' is again not the source's term.",
+      "evidence": "Deep 37 [AR]: the interacting-wills claim \"is the foundation for every later move toward tempo, mission tactics, and the OODA loop\"; deep 91 \"it is relative speed that matters\"; deep 148 gaps are enemy weaknesses.",
+      "fix": "correct: The main-effort and mission-tactics machinery transfers most readily. OODA tempo and surfaces-and-gaps assume an opposing will; in civilian settings, name who or what that is (a competitor, a changing market) before applying them. The pure Zweikampf framing usually does not transfer."
+    }
+  ],
+  "notes": "Hash matches current deep ref. The file does not follow the nine-section template (no Key Concepts, phase question tables, What to Look For, Worked Example, integration table or citation notes); only one [V] quote (verified at source 727). For a decision-making projection it omits the deep ref's own Ch 4 'Decisionmaking' section (deep 140: 'any decision is generally better than no decision', time-competitive decisionmaking, intuitive vs analytical modes, the Patton note) and the dissent-then-support rule (deep 111), the two most decision-specific passages in the source."
+}

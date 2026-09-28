@@ -1,0 +1,229 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/lfuo-learning-review-guide-2024-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-140 of 140",
+    "deep": "lines 1-323 of 323",
+    "complete": true
+  },
+  "claims_audited": 95,
+  "tally": {
+    "faithful": 74,
+    "minor_drift": 14,
+    "unsupported": 6,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 4,
+      "section": "Header",
+      "claim": "\"Dekker, Hollnagel, Weick, Klein, and Reason — the full HOP canon\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "imported framing label",
+      "evidence": "Neither the deep ref nor the source uses 'HOP'. Deep 284-292 supports only that the guide cites these authors.",
+      "fix": "correct: strip \"— the full HOP canon —\""
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Retrospective Relevance",
+      "claim": "\"... and the experiment-review discipline all transfer intact to the iterative team-internal retro context\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "concept attributed to the source that it does not contain",
+      "evidence": "The word 'experiment' does not occur in the converted source (grep: 0 hits) or the deep ref. The only 'validation' in the guide is the Readback, which validates the accuracy of the learning-product story with participants (deep 180), not whether an action produced a lesson.",
+      "fix": "strip \"and the experiment-review discipline\""
+    },
+    {
+      "id": "D003",
+      "line": 8,
+      "section": "Retrospective Relevance",
+      "claim": "\"LFUO fires most sharply on Phase 0.5 (were last retro's experiments learned from, not just done?)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "phase routing rests on a concept the source does not contain",
+      "evidence": "The word 'experiment' does not occur in the converted source (grep: 0 hits) or the deep ref. The only 'validation' in the guide is the Readback, which validates the accuracy of the learning-product story with participants (deep 180), not whether an action produced a lesson.",
+      "fix": "correct: \"LFUO fires most sharply on Phase 3 (refuse root cause; refuse counterfactual; reconstruct how the recurring problem made sense) and the background of Phase 0\""
+    },
+    {
+      "id": "D004",
+      "line": 16,
+      "section": "Key Concepts #3",
+      "claim": "Counterfactual-arguments passage quoted with no evidence marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 184 carries it [V] (Part 9, 'Avoid Counterfactual Arguments'); source 2860-2866 matches.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D005",
+      "line": 18,
+      "section": "Key Concepts #4",
+      "claim": "\"The Lessons Learned Analysis applies the Five Hows to each key decision in an event: how did the participant develop their situational awareness, and why did the action make sense to them in context at the time? (Part 7, 'The Five Hows — A Sensemaking Tool')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "questions presented as the Five Hows' content, cited to a section whose list is unextracted",
+      "evidence": "Deep 151: the list of five 'Hows' is a graphic that did not extract; the deep ref carries only the intent ('explore how and why the decisions and actions that seemed wrong in hindsight were actually valid or at least legitimate in context'). The question wording here comes from the Part 6 interview objective (deep 115: 'describe how the people involved developed their understanding of the situation and made sense of their choices at the time and in context').",
+      "fix": "correct: \"The Lessons Learned Analysis applies the Five Hows to the most important key decisions or actions, to 'explore how and why the decisions and actions that seemed wrong in hindsight were actually valid or at least legitimate in context at the time' [V] (Part 7, 'The Five Hows – A Sensemaking Tool').\""
+    },
+    {
+      "id": "D006",
+      "line": 24,
+      "section": "Key Concepts #7",
+      "claim": "\"a recurring problem that has not yielded to a single fix is almost certainly the product of multiple interacting conditions\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's hedged accident finding hardened and transferred",
+      "evidence": "Deep 163: 'Most often, the Lessons Learned Analysis will reveal that multiple improbable events were necessary for the accident to occur' [V]. 'Most often', about accidents, becomes 'almost certainly' about recurring retro problems.",
+      "fix": "correct: \"a recurring problem that has not yielded to a single fix is likely the product of several interacting conditions\""
+    },
+    {
+      "id": "D007",
+      "line": 26,
+      "section": "Key Concepts #8",
+      "claim": "Concept titled \"Just Culture framing\" supported by quotations from Part 1's opening and the Learning principle",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept name attached to another principle's text",
+      "evidence": "Deep 15 and 37: 'creating safety' is from Part 1's opening and 'not only normal, it's the rule!' is the Learning principle. Just Culture (deep 29-33) is trust, fairness and dignity, forward-looking accountability and restorative justice.",
+      "fix": "correct: retitle \"The Learning principle: variability is normal\" (anchor learning-principle), or add a Just Culture passage such as the forward-looking accountability quote (deep 31)"
+    },
+    {
+      "id": "D008",
+      "line": 28,
+      "section": "Key Concepts #9",
+      "claim": "\"The guide's emphasis that experiments require validation — checking whether the lesson was learned, not just whether the action was done — scales directly to Phase 0.5.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "concept attributed to the source that it does not contain",
+      "evidence": "The word 'experiment' does not occur in the converted source (grep: 0 hits) or the deep ref. The only 'validation' in the guide is the Readback, which validates the accuracy of the learning-product story with participants (deep 180), not whether an action produced a lesson.",
+      "fix": "strip the concept, or recast it as the distillation's own retro practice with no attribution to the guide"
+    },
+    {
+      "id": "D009",
+      "line": 30,
+      "section": "Key Concepts #10",
+      "claim": "\"The guide's administrative-firewall principle — without a signed commitment to no punitive actions, honest accounts will not surface\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety' [V]. Deep 43: the Esperanza example of employees refusing to talk. The guide does not say honest accounts cannot surface without it.",
+      "fix": "correct: \"The guide's administrative-firewall principle (a signed no-punitive-action commitment, because 'information is the lifeblood of safety') scales to retro as psychological safety.\""
+    },
+    {
+      "id": "D010",
+      "line": 46,
+      "section": "Questions, Phase 0.5",
+      "claim": "\"The guide's epistemic stance: learning is the precondition for improvement.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "stance attributed to the guide in words it does not use",
+      "evidence": "Deep 13: the Learning principle treats unintended outcomes as 'a valued learning opportunity and as a means to reducing uncertainty of future outcomes'. The guide does not state learning as a precondition for improvement, and says nothing about experiments.",
+      "fix": "correct: \"The guide treats outcomes as learning opportunities and a means of reducing uncertainty of future outcomes (Part 1, 'Learning').\""
+    },
+    {
+      "id": "D011",
+      "line": 95,
+      "section": "When to Use This Reference",
+      "claim": "\"An experiment is proposed without a learning criterion — the guide's validation discipline applies.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "concept attributed to the source that it does not contain",
+      "evidence": "The word 'experiment' does not occur in the converted source (grep: 0 hits) or the deep ref. The only 'validation' in the guide is the Readback, which validates the accuracy of the learning-product story with participants (deep 180), not whether an action produced a lesson.",
+      "fix": "strip"
+    },
+    {
+      "id": "D012",
+      "line": 98,
+      "section": "When to Use This Reference",
+      "claim": "\"This source fires most sharply on Phase 0.5, Phase 3, and the background of Phase 0.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "phase routing rests on a concept the source does not contain",
+      "evidence": "The word 'experiment' does not occur in the converted source (grep: 0 hits) or the deep ref. The only 'validation' in the guide is the Readback, which validates the accuracy of the learning-product story with participants (deep 180), not whether an action produced a lesson.",
+      "fix": "correct: \"This source fires most sharply on Phase 3 and the background of Phase 0.\""
+    },
+    {
+      "id": "D013",
+      "line": 104,
+      "section": "Worked Example",
+      "claim": "The Five Hows run as a single causal chain: \"How did they develop...? ... How were the acceptance criteria written? ... Why without QA input? ... Why that scheduling conflict? Because QA is split across two teams.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "tool misrepresented as a why-chain",
+      "evidence": "Deep 151: the Five Hows list is an unextracted graphic; its stated intent is to explore how decisions that seemed wrong in hindsight were valid in context, and 'don't waste time trying to cook-book the process' [V]. A linear chain of 'why' questions ending in one terminal condition is the Five Whys drill-down (open-practice-library-deep.md 272), close to the root-cause framing the guide rejects (deep 91, 227-229). The example is hypothetical, but it presents this chain as the guide's tool.",
+      "fix": "correct: frame the questions as local-rationality reconstruction at the QA engineer's decision point (what they knew, what they expected, what made relying on the acceptance criteria reasonable), and label them as the distillation's application of the Five Hows' intent"
+    },
+    {
+      "id": "D014",
+      "line": 110,
+      "section": "Worked Example",
+      "claim": "\"... and learning-validation discipline all trace to the LFUO guide (Appendix B ...; Part 9 ...; Part 7 ...; Part 1 ...)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "attribution of a concept the source does not contain",
+      "evidence": "The word 'experiment' does not occur in the converted source (grep: 0 hits) or the deep ref. The only 'validation' in the guide is the Readback, which validates the accuracy of the learning-product story with participants (deep 180), not whether an action produced a lesson.",
+      "fix": "correct: strip \"and learning-validation discipline\" and the stray [V] markers inside the citation parentheses"
+    },
+    {
+      "id": "D015",
+      "line": 121,
+      "section": "Anti-patterns",
+      "claim": "\"the citations are borrowed-through this guide's Recommended Reading\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong location for Weick and Klein",
+      "evidence": "Source Recommended Reading (5031-5170) lists Dekker, Conklin, Hollnagel, Reason and others, not Weick or Klein; deep 286-287: Weick & Sutcliffe are cited in the Glossary and Handout D, Klein in the Glossary.",
+      "fix": "correct: \"the citations are borrowed-through this guide's Recommended Reading, Glossary and handouts\""
+    },
+    {
+      "id": "D016",
+      "line": 130,
+      "section": "Integration with Other References",
+      "claim": "\"OPL's Blameless Postmortem practice is the named boundary between retro and incident review; LFUO is the methodological grounding for both\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "relationship claim not in either deep ref",
+      "evidence": "open-practice-library-deep.md 237, 314 describe Blameless Postmortem as a post-incident practice; nothing frames it as a boundary with retros. The LFUO deep ref says nothing about retrospectives, so 'grounding for both' is the distillation's claim.",
+      "fix": "correct: \"OPL's Blameless Postmortem is the software-incident practice closest to an FLA; LFUO supplies the stance (networked causality, no counterfactuals) behind it\""
+    },
+    {
+      "id": "D017",
+      "line": 131,
+      "section": "Integration with Other References",
+      "claim": "\"SSDL's feedback-thinking lens and LFUO's multiple-interacting-conditions principle are the same claim from different disciplines\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "equivalence overstated",
+      "evidence": "ssdl-systems-thinking-foundations-deep.md: feedback thinking builds causal loop diagrams of reinforcing and balancing loops (lines 3, 121, 218). LFUO's claim is that accidents come from 'rare combinations of normal performance variability and chance combinations of unlikely events' (deep 128, 163, 233). Related, not the same claim.",
+      "fix": "correct: \"SSDL's feedback-thinking lens and LFUO's networked-conditions principle both reject single-cause explanations; use SSDL for the visual model, LFUO for the epistemological framing\""
+    },
+    {
+      "id": "D018",
+      "line": 136,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"The LFUO guide names Dekker, Hollnagel, Weick, Klein, and Reason in its Recommended Reading\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong location for two authors",
+      "evidence": "As D015: Weick and Klein are not in the Recommended Reading (source 5031-5170).",
+      "fix": "correct: \"The LFUO guide names Dekker, Hollnagel and Reason in its Recommended Reading and cites Weick and Sutcliffe and Klein in its Glossary and Handout D\""
+    },
+    {
+      "id": "D019",
+      "line": 136,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Dekker's Just Culture and Field Guide to Understanding Human Error are cited verbatim [BT] (Part 10; Recommended Reading)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated: one of the two is only listed",
+      "evidence": "Deep 284: Just Culture (2007) 'is listed in Recommended Reading'; the Field Guide 'is cited verbatim in the Learning Review section'.",
+      "fix": "correct: \"Dekker's Field Guide to Understanding Human Error is cited verbatim [BT] (Part 10); his Just Culture is in the Recommended Reading\""
+    },
+    {
+      "id": "D020",
+      "line": 140,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"'Cause isn't something investigators find or discover' ... the distillation paraphrases the principle without blockquoting (correct for distillation tier)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "note contradicts the file and misstates the protocol",
+      "evidence": "Key Concept 1 (line 12) quotes the passage word for word with [V]. The projection protocol (Scope gates the verbatim register) asks for 2-5 [V] quotations in open-scope distillations, so quoting is the correct tier behaviour.",
+      "fix": "correct: \"'Cause isn't something investigators find or discover' is [V] in the deep ref and is quoted [V] in Key Concept 1.\""
+    },
+    {
+      "id": "D021",
+      "line": 140,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"the deep ref carries the full six-step structure; the distillation uses a condensed version\" (of the Five Hows)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "count wrong and availability misstated",
+      "evidence": "Deep 151: the Five Hows list 'is presented in the source as a graphic that did not extract to text'; the deep ref carries only the prose explanation. The procedure the deep ref does carry is the Lessons Learned Analysis, which has seven steps (deep 153-161). There is no six-step structure and no full Five Hows list to condense.",
+      "fix": "correct: \"The Five Hows list is an unextracted graphic in the source (deep ref, Part VI note); the deep ref carries its stated intent and the seven-step Lessons Learned Analysis. The distillation's questions apply that intent; they are not the source's list.\""
+    }
+  ],
+  "notes": "The central defect is an invented source concept: an 'experiment-review' / 'learning-validation discipline' attributed to the guide (lines 8, 28, 95, 98, 110). The source never uses the word 'experiment'. It props up the claim that LFUO fires most sharply on Phase 0.5. The Phase 0.5 questions (lines 45-46) and the box-tick rows (lines 86, 117) are graded faithful as the distillation's own applied guidance where they carry no attribution; line 46's 'guide's epistemic stance' is flagged. Second: the Five Hows is represented as known content (line 18) and run as a why-chain in the worked example (line 104), and the continuity note claims a 'six-step structure' the deep ref does not have. Cosmetic: lines 12 and 110 put [V] inside citation parentheses. Other-source checks: NHS default-to-system prior and substitution test (nhs deep 17, 7), TC 25-20 discovery-over-critique and 'does not grade' (tc deep 13-15), Barbrook-Johnson CLD, Psychology 2e FAE and actor-observer bias (psych deep 275-277) are faithful. The licence claim at line 136 is corpus meta and was not graded."
+}

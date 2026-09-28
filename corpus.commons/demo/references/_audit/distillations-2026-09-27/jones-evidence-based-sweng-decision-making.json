@@ -1,0 +1,369 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/jones-evidence-based-sweng-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-183 of 183",
+    "deep": "lines 1-317 of 317",
+    "complete": true
+  },
+  "claims_audited": 154,
+  "tally": {
+    "faithful": 119,
+    "minor_drift": 13,
+    "unsupported": 18,
+    "contradicted": 4
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "the \"rational\" overconfidence of entrepreneurs",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Not in the deep ref, which says only that overconfidence is evolutionarily stable in population simulations. The source's study is about inventors, not entrepreneurs.",
+      "evidence": "Deep 77. Source 14624-14630 (inventors more confident; return negative).",
+      "fix": "correct: the evolutionary stability of overconfidence"
+    },
+    {
+      "id": "D002",
+      "line": 14,
+      "section": "Key Concepts #1",
+      "claim": "Decisions about software development have been made in a seller's market for ~70 years",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Figure not in the deep ref and contradicted by the source, which says about 60 years.",
+      "evidence": "Deep 13 (seller's market, no duration). Source 10263: \"The last 60 years, or so, has been a sellers market\".",
+      "fix": "correct: Software development has been a seller's market for most of its history"
+    },
+    {
+      "id": "D003",
+      "line": 14,
+      "section": "Key Concepts #1",
+      "claim": "customers have low experience of pushing back",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Added claim about customers; the deep ref's seller's-market argument is about why development stayed a craft.",
+      "evidence": "Deep 13: customers paid what it takes; learning from others' mistakes 'an unaffordable luxury' [AP].",
+      "fix": "strip"
+    },
+    {
+      "id": "D004",
+      "line": 16,
+      "section": "Key Concepts #2",
+      "claim": "People ... exhibit anchoring (especially to the first number heard), and exhibit confirmation bias when collecting evidence.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'especially to the first number heard' is not in the deep ref (its anchoring finding is about the customer's offered estimate); and the flat 'exhibit ... bias' framing drops Jones's position that such patterns are often ecologically rational rather than biases.",
+      "evidence": "Deep 65: anchoring on the customer's offered estimate; 'what were once thought to be cognitive biases, are actually ecologically rational uses of cognitive resources' [V].",
+      "fix": "correct: People's estimates are shifted by the customer's offered figure (anchoring), and Jones argues that many patterns labelled biases are ecologically rational uses of cognitive resources."
+    },
+    {
+      "id": "D005",
+      "line": 18,
+      "section": "Key Concepts #3",
+      "claim": "two adjustments specific to software: (a) the discount rate must include a risk premium for software development uncertainty (Ch 3.2.2, \"Taking risk into account\")",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Ch 3.2.2 is not in the deep ref. The source presents a risk-adjusted discount rate (k = r + theta) as a general present-value technique, not a software-specific adjustment.",
+      "evidence": "Deep 91 (survival adjustment only). Source 15272-15290.",
+      "fix": "correct: Standard ROI/NPV calculations apply, with the system's survival rate factored in (Source: Ch 3.2.3, \"Incremental investments and returns\")."
+    },
+    {
+      "id": "D006",
+      "line": 22,
+      "section": "Key Concepts #5",
+      "claim": "The derivation of Black-Scholes assumes liquidity ... and historical performance data — neither holds for software development. Some researchers have applied this equation to software anyway; the text describes this as a mistake.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Source-accurate but not in the deep ref, which says only that option-pricing approaches are presented 'with explicit warnings about their inapplicability'. Content re-extracted from the source at Pass G.",
+      "evidence": "Deep 91. Source 15677-15692.",
+      "fix": "strip the detail and keep 'Black-Scholes is presented with explicit warnings about its inapplicability to software (Ch 3.2.5)', or add the preconditions to the deep ref and re-project"
+    },
+    {
+      "id": "D007",
+      "line": 26,
+      "section": "Key Concepts #7",
+      "claim": "Estimates are not predictions; they are commitments under social pressure. Software estimates are subject to ... the cost of producing the estimate, the willingness of management to penalise bad news, the path-dependency of who got to the room first",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The heading thesis and three of the five listed factors are not in the deep ref. Only anchoring, unit-of-measurement and round-number effects are supported.",
+      "evidence": "Deep 137, 145 (anchoring, round numbers, work-hours vs workdays).",
+      "fix": "correct: **Estimates are shaped by anchoring, units and round numbers.** Software estimates are shifted by the customer's number and by the unit of measurement (work-hours vs workdays give different estimates for the same project). ..."
+    },
+    {
+      "id": "D008",
+      "line": 28,
+      "section": "Key Concepts #8",
+      "claim": "When all probabilities are known, the decision is under risk and standard expected-utility theory applies. When information is incomplete ... under uncertainty ... Many real software decisions are under uncertainty, not risk.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The risk/uncertainty distinction and expected-utility framing are in the source (Ch 2.8.3, 2.8.4) but not in the deep ref, which carries only the bounded-rationality 'good enough' frame.",
+      "evidence": "Deep 77. Source 14413-14419.",
+      "fix": "correct: **Bounded rationality.** Everyday performance needs to be good enough, and investing in a (near) optimal solution may not be cost-effective [AP] (Source: Ch 2.8.3, \"Decision-making\")."
+    },
+    {
+      "id": "D009",
+      "line": 30,
+      "section": "Key Concepts #9",
+      "claim": "entrepreneurs commercialising new inventions are more confident than the general population, even though the average ROI on invention commercialisation is negative. Treat individual overconfidence as expected, not as a failure mode.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The inventor study is not in the deep ref (and the source says inventors, not entrepreneurs). 'Not as a failure mode' overreaches: the benefit is 'in some situations, averaged over a population', and the source opens by saying overconfidence can lead to hazardous decisions.",
+      "evidence": "Deep 77. Source 14624-14630.",
+      "fix": "correct: Simulations find overconfidence has benefits in some situations, averaged over a population (Ch 2.8.5); expect it, and check whether this decision is one where it is hazardous."
+    },
+    {
+      "id": "D010",
+      "line": 32,
+      "section": "Key Concepts #10",
+      "claim": "People accept less satisfaction in the short-term ... the discount rate is hyperbolic, with V/(1+kd) ... decision-makers will switch preferences as the time of reward approaches; ... make the commitment far enough in advance that the hyperbolic curve has flattened.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Formula and wording re-extracted from the source; the deep ref says only that hyperbolic, not exponential, discounting is the empirical pattern. The preference-reversal and commitment advice are attributed to Ch 2.8.6 without deep-ref backing.",
+      "evidence": "Deep 77. Source 14669-14676.",
+      "fix": "correct: Time-variable preferences follow hyperbolic rather than exponential discounting (Ch 2.8.6, \"Time discounting\")."
+    },
+    {
+      "id": "D011",
+      "line": 34,
+      "section": "Key Concepts #11",
+      "claim": "once one vendor has implemented a system, they have intimate familiarity with the system, and information asymmetry deters competing maintenance bidders. The client is at a disadvantage ...",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Source-accurate (Ch 3.4.6) but the deep ref carries only 'information asymmetry and moral hazard between client and vendor are framed using agency theory'.",
+      "evidence": "Deep 99. Source 16561-16566.",
+      "fix": "add the Ch 3.4.6 incumbent-vendor passage to the deep ref and re-project, or reduce to the deep ref's one-line agency-theory framing"
+    },
+    {
+      "id": "D012",
+      "line": 36,
+      "section": "Key Concepts #12",
+      "claim": "Goodhart quotation marked [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong marker; the deep ref marks it [BT] (Jones relaying Goodhart).",
+      "evidence": "Deep 243. Source 41870-41872.",
+      "fix": "re-mark: [BT]"
+    },
+    {
+      "id": "D013",
+      "line": 36,
+      "section": "Key Concepts #12",
+      "claim": "(Source: Ch 13.1.1, \"Cultural influences\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong section name: Ch 13.1.1 is 'Measurement uncertainty'; the source has no section called 'Cultural influences'.",
+      "evidence": "Deep 243; source 41856 '13.1.1 Measurement uncertainty'; no 'Cultural influences' in source.",
+      "fix": "correct: (Source: Ch 13.1.1, \"Measurement uncertainty\")"
+    },
+    {
+      "id": "D014",
+      "line": 40,
+      "section": "Key Concepts #14",
+      "claim": "Don't reflexively treat positive testing as cognitive bias — it's often optimal.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates: the deep ref says the strategy is adaptive under stated conditions (minority-case rule or roughly right size), not 'often optimal'.",
+      "evidence": "Deep 65 [AR].",
+      "fix": "correct: it is adaptive when the sought rule is a minority case or roughly the right size."
+    },
+    {
+      "id": "D015",
+      "line": 86,
+      "section": "Questions, Phase 4",
+      "claim": "Apply the front-page test for ethical decisions.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imported from outside the source; the Jones deep ref has no front-page test or ethical-decision frame. The distillation's own Named limits (line 181) says the book does not cover ethics.",
+      "evidence": "Deep ref: no occurrence; source: no 'front page'.",
+      "fix": "strip"
+    },
+    {
+      "id": "D016",
+      "line": 113,
+      "section": "What to Look For",
+      "claim": "the maintenance-cost ratios (5:1, 9:1) are from large-org contexts and are survival-unadjusted (Source: Ch 3.2, \"Investment decisions\")",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The 9:1 figure and 'large-org contexts' are not in the deep ref, and the citation is wrong: survivorship bias in maintenance ratios is Ch 4.2 / 4.5.2.",
+      "evidence": "Deep 129, 267, 305: snapshot ratios >5 suffer survivorship bias; survival-adjusted ~0.8 (Ch 4.2, 4.5.2).",
+      "fix": "correct: Misapplication of a folklore ratio: snapshot maintenance/development ratios above 5 suffer from survivorship bias; survival-adjusted, the ratio is closer to 0.8 (Source: Ch 4.2, \"Evolution\"; Ch 4.5.2, \"Pounding the treadmill\")"
+    },
+    {
+      "id": "D017",
+      "line": 114,
+      "section": "What to Look For",
+      "claim": "(Source: Ch 13.1.1, \"Cultural influences\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong section name (see D013).",
+      "evidence": "Source 41856.",
+      "fix": "correct: (Source: Ch 13.1.1, \"Measurement uncertainty\")"
+    },
+    {
+      "id": "D018",
+      "line": 115,
+      "section": "What to Look For",
+      "claim": "(multiples of 7 hours, 5 days) ... round numbers dominate empirical estimate distributions regardless of actual task distribution",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: the deep ref reports peaks at multiples of seven hours as evidence that round-number preferences influence estimates; '5 days' and 'regardless of actual task distribution' are not in it.",
+      "evidence": "Deep 145.",
+      "fix": "correct: Round-number preference in play: estimate data shows peaks at multiples of seven hours (the work day) and almost no six-, eight- or nine-hour estimates"
+    },
+    {
+      "id": "D019",
+      "line": 116,
+      "section": "What to Look For",
+      "claim": "Seller's-market bias — vendors have low pressure to publish failure cases (Source: Ch 1, \"Introduction\")",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributed to Ch 1 but not in the deep ref. The deep ref's Agile statement is that the rarity of measurement data means the book has little to say about agile processes.",
+      "evidence": "Deep 13, 149.",
+      "fix": "correct: Evidence gap: Jones finds measurement data for agile processes so rare that an evidence-based book 'has little to say about them' [V] (Source: Ch 5.4.3, \"The Agile approach\")"
+    },
+    {
+      "id": "D020",
+      "line": 124,
+      "section": "When to Use",
+      "claim": "An estimate is being used as if it were a prediction rather than a social commitment under pressure: the cognitive-bias and social-pressure analysis is the diagnostic frame.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Rests on Concept 7's unsupported 'commitment under social pressure' thesis; the deep ref has no social-pressure analysis of estimates.",
+      "evidence": "Deep 137-145.",
+      "fix": "correct: An estimate is being treated as precise: the anchoring, unit-of-measurement and round-number evidence is the diagnostic frame."
+    },
+    {
+      "id": "D021",
+      "line": 135,
+      "section": "Anti-patterns",
+      "claim": "maintenance-cost-vs-development claims (5:1 or 9:1)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "9:1 figure not in the deep ref (see D016).",
+      "evidence": "Deep 129.",
+      "fix": "correct: maintenance-cost-vs-development claims (5:1 or higher)"
+    },
+    {
+      "id": "D022",
+      "line": 147,
+      "section": "Worked Example",
+      "claim": "The vendor cites an internal analysis using the Grant-Sackman approach — self-selected developers, no control group.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Mischaracterises Grant-Sackman. The deep ref says the 1968 study compared time-sharing and batch processing and the 28:1 ratio confounded system and programmer differences; nothing about self-selection or no control group.",
+      "evidence": "Deep 41, 301.",
+      "fix": "correct: The vendor cites an internal comparison that, like the Grant-Sackman 28:1 reading, confounds tool and environment differences with individual developer differences."
+    },
+    {
+      "id": "D023",
+      "line": 151,
+      "section": "Worked Example",
+      "claim": "survival-adjusted ROI frame (Source: Ch 3.2, \"Investment decisions\"; Ch 3.2.2, \"Taking risk into account\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: survival adjustment is Ch 3.2.3 in the deep ref; Ch 3.2.2 is not in the deep ref.",
+      "evidence": "Deep 91.",
+      "fix": "correct: (Source: Ch 3.2.3, \"Incremental investments and returns\")"
+    },
+    {
+      "id": "D024",
+      "line": 151,
+      "section": "Worked Example",
+      "claim": "0.84^5 ≈ 0.40. The ROI calculation includes a 60% chance of early termination",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Arithmetic: 0.84^5 = 0.418, so about 0.42 and about 58% termination.",
+      "evidence": "Computation.",
+      "fix": "correct: 0.84^5 ≈ 0.42 ... a roughly 58% chance of early termination"
+    },
+    {
+      "id": "D025",
+      "line": 153,
+      "section": "Worked Example",
+      "claim": "All framework citations trace back through the deep reference.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Integrity assertion falsified by the deep ref itself: the Ch 3.2.2 citation and the Grant-Sackman method description do not trace to it.",
+      "evidence": "D022, D023.",
+      "fix": "strip, or make true by applying D022 and D023"
+    },
+    {
+      "id": "D026",
+      "line": 161,
+      "section": "Integration",
+      "claim": "Letaw operationalises Agile practices (spike, planning poker, story points) that Jones reads critically.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Letaw half is supported; 'Jones reads critically' overstates. The deep ref says the book has little to say about agile processes for lack of data, and does not discuss planning poker or story points.",
+      "evidence": "letaw-handbook-sweng-methods-deep 87-89; Jones deep 149.",
+      "fix": "correct: ... that Jones's evidence base mostly cannot assess, since measurement data for agile processes is rare."
+    },
+    {
+      "id": "D027",
+      "line": 162,
+      "section": "Integration",
+      "claim": "OpenStax Psychology 2e provides deeper treatment of the cognitive-bias literature (anchoring, overconfidence, hyperbolic discounting)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Psychology 2e deep ref covers anchoring (and confirmation, hindsight bias) but has no overconfidence or hyperbolic discounting.",
+      "evidence": "openstax-psychology-2e-deep 142-146; grep finds no 'overconfidence', 'hyperbolic', 'discount'.",
+      "fix": "correct: Provides the textbook treatment of decision biases (anchoring, confirmation, hindsight bias; Ch 7.3)"
+    },
+    {
+      "id": "D028",
+      "line": 163,
+      "section": "Integration",
+      "claim": "Barbrook-Johnson & Penn ... both are critical of folklore-based decision rules.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Barbrook-Johnson's deep ref criticises black-box modelling and misapplied systems metaphors, not folklore decision rules.",
+      "evidence": "barbrook-johnson-systems-mapping-deep 69.",
+      "fix": "correct: Jones is critical of folklore-based rules; Barbrook-Johnson of black-box models and misapplied systems metaphors."
+    },
+    {
+      "id": "D029",
+      "line": 167,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "The deep reference contains the following `[BT]` citations",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Several listed items are not [BT] in the deep ref: Grant-Sackman [AP]/[AR], Jørgensen & Sjøberg [AP], Klayman & Ha [AR]; Kahneman is absent.",
+      "evidence": "Deep 41, 65, 301.",
+      "fix": "correct: Third parties Jones cites that are not held in this corpus:"
+    },
+    {
+      "id": "D030",
+      "line": 169,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "Grant-Sackman study (Sackman, Erikson & Grant 1968)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Author list not in the deep ref (which says 'a 1968 paper'); accurate to the source bibliography, so re-extracted from source.",
+      "evidence": "Deep 41; source 53517.",
+      "fix": "correct: Grant-Sackman study (1968)"
+    },
+    {
+      "id": "D031",
+      "line": 172,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "Ericsson et al. ... underlies the student-vs-professional performance gap cited in Anti-patterns.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The student-vs-professional hours figures are Jones's Ch 13.2.1 claim; the deep ref does not link them to Ericsson's deliberate-practice work (Ch 2.5.2).",
+      "evidence": "Deep 73, 241, 258.",
+      "fix": "strip the second sentence"
+    },
+    {
+      "id": "D032",
+      "line": 176,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "Brealey & Myers ... Cited for corporate finance framing applied to software investment decisions.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref records Brealey & Myers only as recommended further reading.",
+      "evidence": "Deep 291 [BT] (Ch 1.6, 'Further reading').",
+      "fix": "correct: Named as recommended further reading (Ch 1.6)."
+    },
+    {
+      "id": "D033",
+      "line": 177,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "Kahneman, Thinking Fast and Slow — Implicit through the cognitive-bias treatment; ... underlying the bounded-rationality framing.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Invented lineage: Kahneman appears in neither the deep ref nor the converted source, and is listed under 'the deep reference contains the following [BT] citations'.",
+      "evidence": "Deep ref and source: no 'Kahneman'.",
+      "fix": "strip"
+    },
+    {
+      "id": "D034",
+      "line": 181,
+      "section": "Citation notes, Named limits",
+      "claim": "The book does not cover: specific technology choices (Python vs Java, AWS vs Azure); detailed Agile vs Waterfall comparative analysis ...; ethics and security; accessibility.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Scope exclusions not in the deep ref. 'Security' is contradicted: the deep ref covers vulnerability exploitation (NVD 2.6%) and COTS fault-cost asymmetry in Ch 6.2; it also covers programming-language evidence (Ch 4.6.1, 7.3.6).",
+      "evidence": "Deep 163, 125, 306.",
+      "fix": "correct: Coverage follows the available public data rather than topic importance; Jones calls the result 'a very patchy discussion' [V] (Read me 1st), with little to say about agile processes for lack of measurement data (Ch 5.4.3)."
+    },
+    {
+      "id": "D035",
+      "line": 183,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "Key `[V]` passages that this distillation paraphrases — including the seller's-market framing (Ch 1, \"Introduction\"), the story-processor framing ..., the Goodhart's Law citation (Ch 13.1.1, \"Cultural influences\") ...",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Misstates the deep ref's markers: seller's-market framing is [AP] and Goodhart is [BT] in the deep ref; the story-processor and Goodhart lines are quoted, not paraphrased; section name wrong.",
+      "evidence": "Deep 13 ([AP]), 243 ([BT]), 77 ([V]).",
+      "fix": "correct: The story-processor line (Ch 2.6) is carried as [V]; the Goodhart's Law line (Ch 13.1.1, \"Measurement uncertainty\") is [BT]; the seller's-market framing (Ch 1) is [AP] in the deep ref and is paraphrased here."
+    }
+  ],
+  "notes": "Pattern: much of this distillation was drafted from the converted source rather than the deep ref (Black-Scholes preconditions, risk vs uncertainty, hyperbolic formula, inventor overconfidence, Ch 3.4.6 incumbent-vendor asymmetry, Ch 3.2.2 risk premium). Most of that content is source-accurate but untraceable through the deep ref; the fixes offer either stripping or adding the passages to the deep ref and re-projecting. Deep-ref issue surfaced (cycling): deep 91 says Black-Scholes and real options are both 'presented with explicit warnings about their inapplicability', but source 15622-15640 presents real options analysis as most applicable when uncertainty is high; only Black-Scholes is called a mistake. Concept 4's 'Apply real-options analysis instead' matches the source and is graded faithful; the deep ref sentence should be corrected. Several Phase 2-6 questions (opportunity cost, commitment vs option-talk, escrow clauses, bad outcome vs bad decision) are generic decision guidance with no Jones grounding; they are not attributed to Jones so they are graded faithful as applied guidance, but they are generic projection. Line 151's 'maintenance-cost claim flagged as folklore-supported' refers to a claim the scenario never introduces. Integration rows for OB (six-step process, barriers, Rest's ethical model) and Principles of Finance (NPV, IRR, capital budgeting) check out."
+}

@@ -1,0 +1,106 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/mcdp1-warfighting-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-186 of 186",
+    "deep": "lines 1-242 of 242",
+    "complete": true,
+    "source_spot_reads": "converted source mcdp1-warfighting.md lines 420-529, 640-699, 1760-1849, 2005-2030, 2310-2579, 2750-2835, 3143-3160, 3190-3857, 4270-4325, 60-80; every [V] in the distillation checked against the deep ref, and every load-bearing one against the source",
+    "integration_deeps_checked": "openstax-organizational-behavior-deep.md (Ch 6.4, 6.6), tc-25-20-army-aar-deep.md (critique passages), nhs-just-culture-guide-deep.md (structure, preamble, tests), open-practice-library-deep.md (Disagree and Commit, Confidence Voting, Cynefin, time-boxing), scrum-guide-2020-deep.md (Sprint Goal)"
+  },
+  "claims_audited": 177,
+  "tally": {"faithful": 168, "minor_drift": 9, "unsupported": 0, "contradicted": 0},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 9,
+      "section": "Decision-Making Relevance",
+      "claim": "It names two modes, intuitive at lower levels and in fluid situations, analytical at higher levels and in deliberate planning",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened: 'or' made 'and'; the source makes analytical decisionmaking more likely at higher levels OR in deliberate planning, not only where both hold",
+      "evidence": "Source 3561-3582: intuitive 'will likely be the case at lower levels and in fluid, uncertain situations'; analytical 'will more likely be the case at higher levels or in deliber- ate planning situations.' Deep L145 compresses this to 'analytical (higher levels, deliberate planning)', which is ambiguous.",
+      "fix": "correct: replace 'analytical at higher levels and in deliberate planning' with 'analytical at higher levels or in deliberate planning'"
+    },
+    {
+      "id": "D002",
+      "line": 19,
+      "section": "Key Concepts, 2 (Two modes, one discipline)",
+      "claim": "Decisionmaking may be intuitive (likely at lower levels and in fluid situations) or analytical (more likely at higher levels and in deliberate planning)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened: same 'or' to 'and' conflation as D001, in the concept anchor a runtime lookup lands on",
+      "evidence": "Source 3561-3582 (see D001); deep L145.",
+      "fix": "correct: replace '(more likely at higher levels and in deliberate planning)' with '(more likely at higher levels or in deliberate planning situations)'"
+    },
+    {
+      "id": "D003",
+      "line": 75,
+      "section": "Questions, Phase 3 (Fit the mode to the moment)",
+      "claim": "Is this a fluid situation for an intuitive call by the people closest to it, or a deliberate-planning situation for an analytical one at a higher level?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise loosened: the question ties deliberate planning to a higher level, the same and/or conflation as D001-D002; the source treats level and situation type as separate conditions",
+      "evidence": "Source 3561-3582; deep L145.",
+      "fix": "correct: 'Is this a fluid situation for an intuitive call, as is likely at lower levels, or a deliberate-planning or higher-level decision for an analytical one?'"
+    },
+    {
+      "id": "D004",
+      "line": 29,
+      "section": "Key Concepts, 5 (Decisions belong where the situation is seen best)",
+      "claim": "The reason given: \"a competent subordinate commander who is at the point of decision will naturally better appreciate the true situation than a senior commander some distance removed\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-framed: presents the source's supplementary reason ('Further, ...') as the reason, and drops the 'first and foremost' reason (tempo, coping with uncertainty, disorder and fluidity), which is the one that ties decentralisation to the time-competitive frame of Concept 1",
+      "evidence": "Source 3206-3232: 'First and foremost, in order to generate the tempo of operations we desire and to best cope with the uncertainty, disorder, and fluidity of combat, command and control must be decentralized. ... Further, a competent subordinate commander ...'. Deep L41 carries the full 'in order to generate the tempo' sentence; deep L135 labels the point-of-decision sentence 'The rationale'.",
+      "fix": "correct: replace 'The reason given:' with 'The first reasons given are tempo and coping with the uncertainty, disorder and fluidity of combat; a further one:'"
+    },
+    {
+      "id": "D005",
+      "line": 35,
+      "section": "Key Concepts, 8 (Main effort)",
+      "claim": "The harmonising question every subordinate must ask is \"How can I best support the main effort?\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened framing: the source ties the question to the moment of decision ('Faced with a decision, we ask ourselves'), the exact hook a decision-making projection wants, and states no 'every subordinate must'; the quoted words are exact, the frame around them is the deep ref's gloss",
+      "evidence": "Source 3800-3803: 'Like the commander's intent, the main effort becomes a harmonizing force for subordinate initiative. Faced with a decision, we ask ourselves: How can I best support the main effort?' Deep L151 carries the same 'every subordinate must ask' gloss and omits 'Faced with a decision'.",
+      "fix": "cycle-to-deep: 'Like the commander's intent, the main effort becomes a harmonizing force for subordinate initiative. Faced with a decision, we ask ourselves: How can I best support the main effort?' (source 3800-3803; also correct the deep L151 gloss); then correct: 'The main effort becomes a harmonising force for subordinate initiative: \"Faced with a decision, we ask ourselves: How can I best support the main effort?\" [V]'"
+    },
+    {
+      "id": "D006",
+      "line": 58,
+      "section": "Questions, Phase 1 (State the purpose first)",
+      "claim": "Have we established what we want to accomplish, why, and how, in that order, before debating options?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise loosened: 'in that order' adds a sequencing rule the source does not state; it lists the three and calls establishing them 'the first requirement'",
+      "evidence": "Source 3407-3411: 'before anything else, we must conceive how we intend to win. The first requirement is to establish what we want to accomplish, why, and how.' Deep L143 the same.",
+      "fix": "correct: 'Have we established what we want to accomplish, why, and how, before debating options?'"
+    },
+    {
+      "id": "D007",
+      "line": 117,
+      "section": "What to Look For (corridor objections row)",
+      "claim": "Dissent withheld before the decision, and ready compliance in its place (Ch 3, \"Professionalism\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened: the source condemns ready compliance 'for the purpose of personal advancement' (the yes-man); the diagnosis drops the motive and so attributes to the doctrine a rejection of ready compliance in general. Concept 9 (L41) keeps the motive correctly",
+      "evidence": "Source 2443-2446: 'Ready compli- ance for the purpose of personal advance- ment — the behavior of \"yes-men\" — will not be tolerated.' Deep L113 the same.",
+      "fix": "correct: replace 'Dissent withheld before the decision, and ready compliance in its place (Ch 3, \"Professionalism\")' with 'Dissent withheld before the decision, when the doctrine makes an honest professional opinion a duty until the decision is stated (Ch 3, \"Professionalism\")'"
+    },
+    {
+      "id": "D008",
+      "line": 139,
+      "section": "Worked Example, Framing",
+      "claim": "the storm decides how long the roads stay open, so the decision is time-competitive in the sense Ch 4 describes",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attribution stretched: Ch 4's time-competitive sense is competition with an opposing will ('whoever can make and implement decisions consistently faster'); the sentence has just granted there is no opposing will, then credits Ch 4 with the non-competitive sense. The pace-setter extension is the distillation's own reading (L13), not Ch 4's",
+      "evidence": "Source 3518-3546: 'Since war is a conflict between opposing wills, we cannot make decisions in a vacuum ... whoever can make and implement decisions consistently faster gains a tremendous, often decisive advantage. Decisionmaking in execution thus becomes a time-competitive process'. Deep L145.",
+      "fix": "correct: replace 'so the decision is time-competitive in the sense Ch 4 describes, and it is not' with 'so, on this distillation's pace-setter reading, time is the critical factor Ch 4 names, and this is not'"
+    },
+    {
+      "id": "D009",
+      "line": 171,
+      "section": "Integration with Other References (NHS row)",
+      "claim": "the NHS guide runs any action or omission through the same five tests ... the fairness test for an individual after harm (NHS)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened: the NHS guide says staff actions should not automatically be examined with it; it is used once an investigation raises a concern about an individual action, one action or omission at a time, and the tests are gated so not every action reaches all five. Its trigger is a patient safety incident, not necessarily harm",
+      "evidence": "nhs-just-culture-guide-deep.md L13 ('only one action (or failure to act) is taken through the tree at a time'), L34 ('should not automatically be examined using the guide; the guide is useful when \"the investigation of an incident begins to suggest a concern about an individual action\"'), L42 (tests gated in sequence). The five tests and the 'rarely appropriate' line are faithful (L7, L15).",
+      "fix": "correct: replace 'the NHS guide runs any action or omission through the same five tests' with 'the NHS guide takes an action or an omission, one at a time, through the same sequence of five tests once an investigation raises a concern about an individual'; replace 'after harm (NHS)' with 'after a patient safety incident (NHS)'"
+    }
+  ],
+  "notes": "Vflag check (repair/vflags/mcdp1-warfighting.json, three entries for this file): all three FAITHFUL. L29 'command and control must be decentralized. That is, ...' matches source 3209-3230 word for word; the mechanical miss is page furniture ('77 / Warfighting / MCDPl') between 'must' and 'be decentralized'. L33 'Control the bridge in order to prevent the enemy from escaping across the river' matches source 3738-3755; page furniture ('89 / Warfighting / MCDPl') splits 'prevent' from 'the enemy'. L43 'we should deal severely with errors of inaction or timidity. We will not accept lack of orders as justification for inaction' matches source 2405-2423; page furniture ('57 / Warfighting / MCDPl') splits 'inaction' from 'or timidity'. No changed words in any of the three. Other quotation checks: every [V] in the file is present in the deep ref and matches the converted source allowing for line-wrap hyphenation, page furniture and quote-mark normalisation; the Patton line is correctly [BT] and does close the Decisionmaking section in the body text (source 3601-3603, note 7); Boyd's cycle is correctly placed at Notes 18 of Ch 2 as a note on tempo (source 1775, 4288-4319). The evidence-marker note at L186 is accurate: the four passages it names as OCR-garbled and therefore paraphrased do carry garbles in the source ('hy a single decisionmaker' 684-685, 'must he accom- plished' 3625, 'should he brief' 3759, 'ohjectives' 3198). The scope is open and the file carries four blockquotes plus inline [V] fragments, within the protocol's register. Integration rows for OpenStax OB (groupthink, counters, escalation of commitment at Ch 6.4/6.6), TC 25-20 (critique as one viewpoint focusing only on what is wrong), Open Practice Library (Disagree and Commit without consensus, agreed review point per hypothesis, Cynefin response patterns; 'time-boxed' is supported by the OPL deep's L99 library-level claim) and the Scrum Guide (Sprint Goal as single objective with flexibility, scope negotiated without affecting the goal) all match their deep refs; the distillation-reading labels on the OB escalation link, the OPL Cynefin link and the Scrum parallel are present. All sibling decision-making distillations named in 'When to Use' exist. The worked example's figures (60 stores, 20 stores slipping, 52 of 60 with stock) are explicitly scenario outcomes, not presented as the doctrine's findings. Deep-ref follow-ups: deep L151 carries the 'every subordinate must ask' gloss behind D005 and omits 'Faced with a decision'; deep L145's 'analytical (higher levels, deliberate planning)' is the ambiguous compression behind D001-D003 and would be clearer as 'higher levels or deliberate planning'. Claim count is an itemised estimate across prose sentences, quoted fragments, table rows, bullets and worked-example steps."
+}

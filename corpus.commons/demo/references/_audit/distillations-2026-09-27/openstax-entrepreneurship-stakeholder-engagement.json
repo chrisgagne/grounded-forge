@@ -1,0 +1,399 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-entrepreneurship-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-230 of 230",
+    "deep": "lines 1-497 of 497",
+    "complete": true
+  },
+  "claims_audited": 131,
+  "tally": {
+    "faithful": 93,
+    "minor_drift": 38,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "E001",
+      "line": 10,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "the social entrepreneurship and B-corp canvases (Ch 3.2, Ch 11.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "There is no B-corp canvas. Ch 11.2's social canvases are the Social Business Model Canvas and the social lean canvas; B-corps are a certification (Ch 3.2, Ch 13.2).",
+      "evidence": "Deep 97 (B-corps as certification), 311 (Social Business Model Canvas; social lean canvas).",
+      "fix": "correct: the social canvases (Social Business Model Canvas, social lean canvas; Ch 11.2) and B-corp certification (Ch 3.2, Ch 13.2)"
+    },
+    {
+      "id": "E002",
+      "line": 18,
+      "section": "Key Concepts 3 (Customer empathy map)",
+      "claim": "Portrays a target customer's pains, gains, and jobs-to-be-done as a design-ideation tool.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Definition attached to the wrong tool. Pains, gains and jobs to be done are the value proposition canvas's customer profile; the source's empathy map explores the target customer's problems and needs through what they need to do, see, say, do, hear and think.",
+      "evidence": "Deep 311 (empathy map as design-ideation companion to the BMC). Converted source 23178-23196 (empathy map definition and question list), 23291-23292 (pains, gains, jobs = value proposition canvas).",
+      "fix": "correct: Portrays a target customer (the most promising candidate from the customer segments) to explore that person's problems and needs: what they need to do, see, say, do, hear, and think. A design-ideation companion to the Business Model Canvas. (Source: Ch 11.2) | cycle-to-deep: the Ch 11.2 empathy-map definition"
+    },
+    {
+      "id": "E003",
+      "line": 20,
+      "section": "Key Concepts 4 (Value proposition canvas)",
+      "claim": "Pulls customer segment and value proposition out of the Business Model Canvas for in-depth fit analysis.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source-supported, but the deep ref describes the canvas only as 'a plug-in complementing the BMC'.",
+      "evidence": "Deep 311. Converted source 23287-23292.",
+      "fix": "cycle-to-deep: 'The value proposition canvas is a new tool that pulls out the customer segment and value proposition blocks of the business model canvas, and encourages more in-depth exploration of those blocks to achieve a good fit between the two. The value proposition canvas tool looks at customer pains, gains and jobs to be done on the customer side and painkillers, gain creators, and products and services on the value proposition side.' (Ch 11.2)"
+    },
+    {
+      "id": "E004",
+      "line": 22,
+      "section": "Key Concepts 5 (Social entrepreneurship)",
+      "claim": "— building economically viable organisations to advance the cause.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source-supported gloss not carried by the deep ref.",
+      "evidence": "Deep 97. Converted source 5858-5860 ('... maintain an economically viable organization').",
+      "fix": "cycle-to-deep: the remainder of the Ch 3.2 social-entrepreneurship definition sentence"
+    },
+    {
+      "id": "E005",
+      "line": 24,
+      "section": "Key Concepts 6 (B-corporation certification)",
+      "claim": "A formal certification by B Lab that audits compliance with social-and-environmental performance, public-transparency, and accountability standards. (Source: Ch 3.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cite: the B Lab standards detail is Ch 13.2 in the deep ref; Ch 3.2 carries the certification count.",
+      "evidence": "Deep 97 (Ch 3.2: ~3,000 certified B-corps), 351 (Ch 13.2: B Lab standards).",
+      "fix": "correct: (Source: Ch 3.2; Ch 13.2)"
+    },
+    {
+      "id": "E006",
+      "line": 28,
+      "section": "Key Concepts 8 (Audience-tailored pitch matrix)",
+      "claim": "Different audiences (friends and family, elevator-pitch competitions, investors, employees, trade groups, grant-making agencies) ... (Source: Ch 7.3, Table 7.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Table 7.3 has five audiences; trade groups and grant-making agencies are not among them and pitch-competition judges are missing. The deep ref does not carry Table 7.3.",
+      "evidence": "Converted source 13399-13414.",
+      "fix": "correct: Different audiences (friends and family, elevator-pitch competitions, pitch-competition judges, early investors, employees) require different pitch lengths, approaches, and asks. (Source: Ch 7.3, Table 7.3) | cycle-to-deep: Table 7.3 rows"
+    },
+    {
+      "id": "E007",
+      "line": 30,
+      "section": "Key Concepts 9 (Founders' agreement)",
+      "claim": "Pre-launch document covering compensation, vesting, contributions, performance evaluation, dispute resolution, and a buyback clause.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Vesting, performance evaluation and dispute resolution are source-supported but not in the deep ref.",
+      "evidence": "Deep 387. Converted source 32608 (vesting plan), 32624 (evaluation period), 32667 (buyback clause 'should also include a dispute resolution process').",
+      "fix": "cycle-to-deep: the Ch 15.1 founders'-agreement question list and the buyback clause's dispute-resolution requirement"
+    },
+    {
+      "id": "E008",
+      "line": 32,
+      "section": "Key Concepts 10 (Code of conduct)",
+      "claim": "Formal statement aligning organisational behaviour with values; can be principle-based or rule-based.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The principle-based vs. rule-based distinction is in the source's Ch 15.1 but not the deep ref, which names the code of conduct only.",
+      "evidence": "Deep 387. Converted source 32736-32738.",
+      "fix": "cycle-to-deep: the Ch 15.1 code-of-conduct examples and the principle-based vs. rule-based contrast"
+    },
+    {
+      "id": "E009",
+      "line": 34,
+      "section": "Key Concepts 11 (Networking groups)",
+      "claim": "Differ on membership barriers and signal commitment level.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Signal commitment level' is source-supported (hybrid groups' low barriers separate serious members) but not in the deep ref.",
+      "evidence": "Deep 325. Converted source 25551-25555, 25562 (Table 12.1).",
+      "fix": "cycle-to-deep: Table 12.1 and the hybrid-group 'low barriers ... to distinguish between participants who are serious' sentence (Ch 12.1)"
+    },
+    {
+      "id": "E010",
+      "line": 46,
+      "section": "Key Concepts 17 (Customer service and brand advocacy)",
+      "claim": "Loyal customers passing on the word; the chapter treats brand advocates as a stakeholder category to recruit and reward. (Source: Ch 8.4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Brand advocacy is in the source's Ch 8.4 but absent from the deep ref's Ch 8.4 coverage (brand, brand strategy, Method case).",
+      "evidence": "Deep 225. Converted source 17107-17114 ('A brand advocate is someone who is a fan of your products and passes on the word to others'; referrals, reviews, discounts and promotional codes).",
+      "fix": "cycle-to-deep: Ch 8.4 'Promotion through Brand Advocacy' definition and tactics"
+    },
+    {
+      "id": "E011",
+      "line": 61,
+      "section": "Questions, Phase 1 (Distinguish primary from secondary)",
+      "claim": "Distinguish primary from secondary | Whose support is required for the venture to exist, and whose support shapes its long-term sustainability? (Ch 3.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The primary/secondary stakeholder taxonomy is not in the deep ref or source; Ch 3.1 draws only the shareholder/stakeholder line.",
+      "evidence": "Deep 83. Converted source: 'primary stakeholder' / 'secondary stakeholder' 0 hits.",
+      "fix": "correct: Prioritise stakeholders | Whose support is required for the venture to exist, and whose support shapes its long-term sustainability? (applied; Ch 3.1 distinguishes shareholders from the wider stakeholder group)"
+    },
+    {
+      "id": "E012",
+      "line": 71,
+      "section": "Questions, Phase 2 (Validate value proposition)",
+      "claim": "Does our value proposition relieve a real pain or create a real gain? (Ch 11.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Pain relievers and gain creators are source-supported (value proposition canvas) but not in the deep ref.",
+      "evidence": "Deep 311. Converted source 23119-23121, 23291-23292.",
+      "fix": "cycle-to-deep: see E003"
+    },
+    {
+      "id": "E013",
+      "line": 80,
+      "section": "Questions, Phase 3 (Align founders pre-launch)",
+      "claim": "Have we agreed on vision, compensation, vesting, dispute resolution, and exit terms? (Ch 15.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as E007.",
+      "evidence": "Deep 387. Converted source 32608, 32667.",
+      "fix": "cycle-to-deep: see E007"
+    },
+    {
+      "id": "E014",
+      "line": 82,
+      "section": "Questions, Phase 3 (Codify culture)",
+      "claim": "is it principle-based or rule-based for our context? (Ch 15.1, Ch 3.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as E008.",
+      "evidence": "Deep 387. Converted source 32736-32738.",
+      "fix": "cycle-to-deep: see E008"
+    },
+    {
+      "id": "E015",
+      "line": 83,
+      "section": "Questions, Phase 3 (Engage employees on values)",
+      "claim": "Do millennial and Gen-Z hires see their values in ours? (60 per cent will accept 15 per cent less pay for value alignment, Ch 3.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Extends the statistic: the source's figure is for millennial workers only; Gen-Z is not covered.",
+      "evidence": "Deep 101 ('approximately 60 percent of millennial workers would agree to work for 15 percent less money'). Converted source 6341.",
+      "fix": "correct: Do our hires see their values in ours? (About 60 per cent of millennial workers would accept 15 per cent less pay to work for a company whose values match theirs, Ch 3.3)"
+    },
+    {
+      "id": "E016",
+      "line": 90,
+      "section": "Questions, Phase 4 (Match the pitch to the audience)",
+      "claim": "Friends and family, angels, VCs, trade groups, and grant agencies need different pitch lengths and asks. (Ch 7.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Trade groups and grant agencies are not Table 7.3 audiences; the table does not split angels from VCs.",
+      "evidence": "Converted source 13399-13414.",
+      "fix": "correct: Friends and family, pitch-competition judges, early investors, and employees need different pitch lengths and asks. Which audience is this? (Ch 7.3, Table 7.3)"
+    },
+    {
+      "id": "E017",
+      "line": 92,
+      "section": "Questions, Phase 4 (Set investor expectations)",
+      "claim": "Have we made clear whether we are building a lifestyle venture or pursuing harvest? (Ch 15.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The lifestyle-vs-harvest clash (and the angel investor's say in it) is in the source but not the deep ref.",
+      "evidence": "Deep 387. Converted source 32592-32596.",
+      "fix": "cycle-to-deep: the Ch 15.1 lifestyle-business vs. harvest passage, including 'An angel investor will also have a strong opinion on the vision for the venture'"
+    },
+    {
+      "id": "E018",
+      "line": 93,
+      "section": "Questions, Phase 4 (Choose investor fit)",
+      "claim": "Does this angel investor have industry knowledge and network that complement what we lack? (Ch 15.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Angel-investor fit (industry knowledge, distribution system, personal network) is in Ch 15.3 of the source but not in the deep ref's Ch 15.3 coverage (Delphi, Nominal Group, Klein).",
+      "evidence": "Deep 401. Converted source 33281-33294 ('importance in selecting an angel investor with knowledge of the industry, the distribution system ...'; 'access to this person's knowledge and personal network').",
+      "fix": "cycle-to-deep: the Ch 15.3 angel-investor knowledge-transfer passage"
+    },
+    {
+      "id": "E019",
+      "line": 102,
+      "section": "Questions, Phase 5 (Manage resource dependencies)",
+      "claim": "what RDT-style mitigation (joint venture, vertical integration, supplier diversification) reduces that risk? (Ch 14.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supplier diversification is not an RDT mechanism in the deep ref, which lists mergers, vertical integration, joint ventures and joint political activity (forming networks among same-industry actors).",
+      "evidence": "Deep 379.",
+      "fix": "correct: what RDT-style mitigation (merger, vertical integration, joint venture, joint political activity) reduces that dependence? (Ch 14.3)"
+    },
+    {
+      "id": "E020",
+      "line": 112,
+      "section": "Questions, Phase 6 (Manage public perception during a mistake)",
+      "claim": "Do we have a \"Tylenol-style\" admit-and-fix protocol, or a \"GM ignition switch-style\" deny-and-delay pattern? (Ch 3.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The GM ignition-switch contrast is in the source's Ch 3.3 but the deep ref names only the Tylenol case.",
+      "evidence": "Deep 103. Converted source 6955-6962 (GM knew in 2001, took over twelve years and 100+ deaths to admit), 7197-7202 ('If You Make a Mistake': Tylenol and Target handled quickly; GM, Volkswagen, Wells Fargo not handled correctly).",
+      "fix": "cycle-to-deep: the Ch 3.3 'If You Make a Mistake' summary sentence and the GM ignition-switch case"
+    },
+    {
+      "id": "E021",
+      "line": 120,
+      "section": "Questions, Phase 7 (Choose post-harvest role)",
+      "claim": "After exit, am I best suited as serial entrepreneur, mentor, consultant, or champion? (Ch 15.4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Serial entrepreneur as a post-exit path is in Ch 15.4 of the source but not in the deep ref.",
+      "evidence": "Deep 405. Converted source 33524-33526.",
+      "fix": "cycle-to-deep: Ch 15.4 post-exit options"
+    },
+    {
+      "id": "E022",
+      "line": 121,
+      "section": "Questions, Phase 7 (Avoid mentor conflicts)",
+      "claim": "Have I clarified confidentiality, conflicts of interest, and compensation with the venture I am mentoring? (Ch 15.4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conflicts of interest (developing a rejected idea), non-compete covenants and the case for mentor compensation are in the source; the deep ref carries only advice liability and confidentiality.",
+      "evidence": "Deep 405. Converted source 33560-33575.",
+      "fix": "cycle-to-deep: the three Ch 15.4 mentor risks (detrimental advice, perceived direction, confidentiality and non-compete / conflict of interest) and the compensation-and-contract suggestion"
+    },
+    {
+      "id": "E023",
+      "line": 130,
+      "section": "What to Look For (values and code of conduct mismatch)",
+      "claim": "Diagnosis: weak ethics culture, predicted to produce repeat misconduct (Ch 15.2).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref carries only the strong-culture one-time figure; the inverse (frequency rises as ethics culture declines) is in the source but not the deep ref.",
+      "evidence": "Deep 397. Converted source 33114-33116 ('frequency of misconduct reflects the strength of the company's ethics culture ... frequency of unethical acts rose as the culture of ethics declined').",
+      "fix": "cycle-to-deep: the Ch 15.2 sentence on misconduct frequency rising as ethics culture declines"
+    },
+    {
+      "id": "E024",
+      "line": 132,
+      "section": "What to Look For (pitch one-size-fits-all)",
+      "claim": "same deck used for F&F, angel investor, and trade-association talk ... prepare three pitch variants — emotional/relational for F&F, market-and-margin for investors, ecosystem-impact for trade groups",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Trade groups and the 'ecosystem-impact' and 'market-and-margin' shapes are not in Table 7.3; only the emotional/relational F&F pitch is.",
+      "evidence": "Converted source 13399-13414.",
+      "fix": "correct: prepare variants per Table 7.3 audience: emotional and relational for F&F, a formal presentation with a specific capital ask for early investors, inform-and-inspire for employees (Ch 7.3)"
+    },
+    {
+      "id": "E025",
+      "line": 134,
+      "section": "What to Look For (angel brings money but no knowledge)",
+      "claim": "Diagnosis: missed investor-fit assessment (Ch 15.3). Follow-up: prefer angels with industry knowledge over higher-cheque alternatives without",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as E018: source-supported, not in the deep ref.",
+      "evidence": "Deep 401. Converted source 33281-33294.",
+      "fix": "cycle-to-deep: see E018"
+    },
+    {
+      "id": "E026",
+      "line": 136,
+      "section": "What to Look For (single-party dependence)",
+      "claim": "Signal: more than 30 per cent of revenue or supply concentrated in one party. ... Follow-up: identify diversification options, joint-venture options, or vertical-integration plays per RDT.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The 30 per cent threshold has no source; diversification is not an RDT mechanism in the deep ref.",
+      "evidence": "Deep 379.",
+      "fix": "correct: Signal: a large share of revenue or supply concentrated in one party (set the threshold locally). ... Follow-up: consider the RDT options (merger, vertical integration, joint venture, joint political activity)."
+    },
+    {
+      "id": "E027",
+      "line": 144,
+      "section": "What to Look For (deflecting blame)",
+      "claim": "Diagnosis: GM-ignition-switch pattern (Ch 3.3, \"If You Make a Mistake\"). Follow-up: adopt the J&J Tylenol response template — admit, communicate, take immediate action, root-cause analyse, prevent recurrence.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "GM and the four-part response are source-supported but not in the deep ref (Tylenol only). The source's summary is 'admit ..., pay the price, fix and uproot the problem, and systematically prevent the repeat'; 'communicate' is not in it.",
+      "evidence": "Deep 103. Converted source 7197-7202.",
+      "fix": "correct: Follow-up: take the approach the source summarises after the Tylenol case — admit the mistake, pay the price, fix and uproot the problem, and systematically prevent a repeat (Ch 3.3). | cycle-to-deep: see E020"
+    },
+    {
+      "id": "E028",
+      "line": 168,
+      "section": "Worked Example, step 3",
+      "claim": "Use the customer empathy map for subscribers (Ch 11.2). Pains: ... Gains: ... Jobs-to-be-done: ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Applies the value proposition canvas's customer-profile categories under the empathy-map label (see E002).",
+      "evidence": "Converted source 23178-23196, 23291-23292.",
+      "fix": "correct: Use the value proposition canvas's customer profile for subscribers (Ch 11.2). Pains: ... Gains: ... Jobs to be done: ..."
+    },
+    {
+      "id": "E029",
+      "line": 172,
+      "section": "Worked Example, step 5",
+      "claim": "the agreement covers ... how supplier farmers are paid if the cooperative dissolves, and what the buyback path looks like for F&F investors at three-year and five-year marks.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's buyback clause covers team members who exit before the next financing round or harvest, not investors. The dissolution contingency is source-supported but not in the deep ref.",
+      "evidence": "Deep 387. Converted source 32636-32645 (dissolution questions), 32663-32666 (buyback clause for team members).",
+      "fix": "correct: ... how assets are handled and liabilities (including farmer payments) are paid if the cooperative dissolves, and what the buyback clause provides if a key team member exits (Ch 15.1). | cycle-to-deep: the Ch 15.1 dissolution-contingency questions"
+    },
+    {
+      "id": "E030",
+      "line": 174,
+      "section": "Worked Example, step 6",
+      "claim": "Plan resource-dependence mitigation (Ch 14.3). Ten farmer suppliers spread harvest risk; no single farmer should exceed 20 per cent of weekly volume.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes supplier diversification to the cited RDT framework, which (per the deep ref) mitigates dependence by forming networks: mergers, vertical integration, joint ventures, joint political activity.",
+      "evidence": "Deep 379.",
+      "fix": "correct: Plan dependence mitigation. Spreading volume across ten farmers is operator practice; the source's RDT model (Ch 14.3) would add options such as a joint venture or joint purchasing arrangement with farmer suppliers."
+    },
+    {
+      "id": "E031",
+      "line": 180,
+      "section": "Worked Example, closing paragraph",
+      "claim": "The stakeholder-universe mapping (Ch 3.1), pitch differentiation by audience (Ch 7.3), customer empathy map (Ch 11.2), Four Lenses Strategic Framework (Ch 2.4), founders' agreement and code of conduct (Ch 15.1), resource-dependence mitigation (Ch 14.3), regulatory engagement (Ch 14.1), and CSR-disclosure cadence (Ch 3.2) are all `[AP]`-marked passages in the deep ref.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "False: the deep ref has only nine [AP] markers, none on these passages (Ch 3.1 stakeholders and Ch 2.4 Four Lenses are [V]; the rest are unmarked). Several of the example's details are source-only (see cycle-to-deep findings).",
+      "evidence": "Deep [AP] markers at lines 13, 15, 31, 43, 63, 71, 91, 187, 369 only. Deep 77 (Four Lenses [V]), 83 (stakeholders [V]).",
+      "fix": "correct: The framework citations trace to the deep reference, where the stakeholder definitions (Ch 3.1) and Four Lenses framework (Ch 2.4) are [V] and the rest are unmarked paraphrase."
+    },
+    {
+      "id": "E032",
+      "line": 196,
+      "section": "Anti-patterns (Crisis-response by deflection)",
+      "claim": "GM-ignition-switch-style pattern of denying problems until forced to admit them, producing far worse outcomes than the J&J Tylenol pattern of admit-and-fix (Ch 3.3).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as E020: GM is source-supported but not in the deep ref.",
+      "evidence": "Deep 103. Converted source 6955-6962, 7197-7202.",
+      "fix": "cycle-to-deep: see E020"
+    },
+    {
+      "id": "E033",
+      "line": 198,
+      "section": "Anti-patterns (Treating mentors as free advice)",
+      "claim": "Failing to clarify confidentiality, conflicts of interest, and compensation, leading to soured relationships and IP risk (Ch 15.4).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as E022.",
+      "evidence": "Deep 405. Converted source 33560-33575.",
+      "fix": "cycle-to-deep: see E022"
+    },
+    {
+      "id": "E034",
+      "line": 204,
+      "section": "Integration with Other References (Freeman row)",
+      "claim": "The OpenStax stakeholder-vs.-shareholder distinction in Ch 3.1 echoes Freeman's stakeholder-theory framing without citing it directly",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Freeman is not in this deep ref or source and not held as a primary reference; the comparison is only verifiable through openstax-principles-management, which carries Freeman's stakeholder theory, so the row should route there.",
+      "evidence": "Converted source: 'Freeman' 0 hits. openstax-principles-management-deep 263 (stakeholder theory [V, citing Freeman]).",
+      "fix": "correct: `openstax-principles-management` | Carries Freeman's stakeholder theory ('corporations should treat all their constituencies fairly'); this text's Ch 3.1 shareholder/stakeholder distinction and Business Roundtable statement are the entrepreneurial, operational form."
+    },
+    {
+      "id": "E035",
+      "line": 205,
+      "section": "Integration with Other References (Christensen row)",
+      "claim": "Used to anchor customer-empathy mapping in Ch 11.2",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source ties jobs-to-be-done to the value proposition canvas and to Christensen's definition of a value proposition, not to the empathy map.",
+      "evidence": "Deep 303 (JTBD, Ch 11.1). Converted source 23119-23125.",
+      "fix": "correct: Jobs-to-be-done (Ch 11.1) feeds the value proposition canvas and the value-proposition definition in Ch 11.2; treats the customer as a stakeholder with social, emotional, and functional dimensions."
+    },
+    {
+      "id": "E036",
+      "line": 209,
+      "section": "Integration with Other References (Ethics Resource Center row)",
+      "claim": "Cited in Ch 15.2 for the link between weak ethics culture and repeat misconduct",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as E023: source-supported, not in the deep ref.",
+      "evidence": "Deep 397. Converted source 33114-33116.",
+      "fix": "cycle-to-deep: see E023"
+    },
+    {
+      "id": "E037",
+      "line": 226,
+      "section": "Citation and Source-Integrity Notes (Named limits)",
+      "claim": "(a popular axiom it traces to the 1989 film *Field of Dreams*)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source-supported detail not in the deep ref.",
+      "evidence": "Deep 483. Converted source 22621.",
+      "fix": "cycle-to-deep: 'In the 1989 film Field of Dreams, Kevin Costner plays an Iowa farmer who hears a voice that tells him, \"If you build it, they will come\"' (Ch 11.1)"
+    },
+    {
+      "id": "E038",
+      "line": 230,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity)",
+      "claim": "uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (32 `[BT]` markers)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count is off by one: the deep ref carries 31 [BT] markers.",
+      "evidence": "grep -o '[BT]' on openstax-entrepreneurship-deep.md: 31.",
+      "fix": "correct: (31 `[BT]` markers)"
+    }
+  ],
+  "notes": "All six [V] quotations (KC1 x2, KC5, KC16, KC18 x2) match the converted source word for word. No UNSUPPORTED or CONTRADICTED claims; 24 of the 38 MINOR-DRIFT findings are wholly or partly cycle-to-deep (the source supports the claim; the deep ref does not carry it), concentrated in Ch 15.1 (founders' agreement, code of conduct, lifestyle vs. harvest), Ch 15.3-15.4 (angel fit, mentor risks), Ch 3.3 (GM vs. Tylenol) and Ch 11.2 (value proposition canvas, empathy map). The Integration table names no corpus reference: all six rows are borrowed-through authors or bodies (Freeman, Christensen, Granovetter, Pfeffer and Salancik, B Lab, Ethics Resource Center), while openstax-principles-management (Freeman's stakeholder theory), openstax-business-ethics (stakeholder prioritisation, social contract, CSR) and openstax-principles-marketing are held and relevant. Recurring passing mentions graded FAITHFUL because the named cycle-to-deep covers them: 'dispute resolution by gut feel' at line 128 (E007). The worked example carries no verbatim blockquote even though the stakeholder definitions it turns on are [V] in the deep ref."
+}

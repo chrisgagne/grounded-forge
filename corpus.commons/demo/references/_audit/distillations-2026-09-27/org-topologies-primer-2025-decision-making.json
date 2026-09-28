@@ -1,0 +1,199 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/org-topologies-primer-2025-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-167 of 167",
+    "deep": "lines 1-299 of 299",
+    "complete": true
+  },
+  "claims_audited": 108,
+  "tally": {
+    "faithful": 90,
+    "minor_drift": 15,
+    "unsupported": 3,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "The three guiding questions for strategic AI adoption are explicit decision aids for where to invest AI effort given limited resources of money, time, and attention.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The 'limited resources of money, time, and attention' framing is in the converted source but not in the deep reference, which carries only the three questions.",
+      "evidence": "Converted source 1179-1182 (p. 20): 'Obviously, “adopt AI everywhere you can” will be the general guidance, but given the limited resources of money, time, and attention, in strategic org design with OT we recommend that you ask and answer these questions'. Deep 164-168 carry the questions only.",
+      "fix": "cycle-to-deep: add before deep 164: \"Obviously, 'adopt AI everywhere you can' will be the general guidance, but given the limited resources of money, time, and attention, in strategic org design with OT we recommend that you ask and answer these questions\" [V] (p. 20, \"Strategic AI Adoption\")"
+    },
+    {
+      "id": "D002",
+      "line": 14,
+      "section": "Decision-Making Relevance",
+      "claim": "\"Companies may also choose different org designs for different parts of the company. ... each requiring its own goal and design.\" This rejects whole-org single-design decisions and validates per-business-area design decisions",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] passage copied without its marker. The gloss also overstates: the Primer permits different designs for different parts ('may also choose'); it does not reject a single whole-org design, and it says OT works 'at the level of the entire organization or parts'.",
+      "evidence": "Deep 146 (p. 18) carries the passage as [V]; wording 'Companies may also choose'. Converted source 137-141 (p. 3): 'Org Topologies works at the level of the entire organization or parts'.",
+      "fix": "re-mark: [V]; correct: This permits per-business-area design decisions tied to per-business-area objectives, rather than assuming one design must bind the whole organisation."
+    },
+    {
+      "id": "D003",
+      "line": 26,
+      "section": "Key Concepts, 3",
+      "claim": "Choosing a topology is a deliberate decision to accept its failure mode: ... Adaptive's tolerance of high-uncertainty work.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Recasts the Adaptive Topology's stated purpose (fast delivery of uncertain results) as a failure mode. The Primer names failure modes for Resource (dependencies, narrow specialisation) and Delivery (feature bloat) but none for Adaptive.",
+      "evidence": "Deep 104 and 112-113 (pp. 13-14): Adaptive use case 'Fast delivery of uncertain results, to seek, change, discover, and adapt'; goal 'Maximizing outcome, innovation'. No Adaptive failure mode in deep 1-299; the nearest caution is that complete archetypes 'can become independently operating silos. Whether that's a virtue or vice depends' (deep 69, p. 8).",
+      "fix": "correct: Choosing a topology is a deliberate decision to accept its trade-off: Resource's narrow-specialist coordination cost, Delivery's \"feature bloat\", and for Adaptive the Primer's general caution that complete units 'can become independently operating silos' (p. 8)."
+    },
+    {
+      "id": "D004",
+      "line": 36,
+      "section": "Key Concepts, 8",
+      "claim": "Don't decide \"adopt AI everywhere\"; ... The decision is about *where*, given limited money, time, and attention.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The 'adopt AI everywhere' contrast and the money/time/attention constraint come from the converted source, not the deep reference.",
+      "evidence": "Converted source 1179-1182 and 1212-1213 (pp. 20-21). Deep 164-168 carry the three questions; deep 284 glosses 'explicit attention to bottlenecks'.",
+      "fix": "cycle-to-deep: same passage as D001"
+    },
+    {
+      "id": "D005",
+      "line": 58,
+      "section": "Questions, Phase 1, 'Surface the implicit org goal'",
+      "claim": "Often the implicit goal is utilisation by default.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Frequency claim with no deep-ref backing. The converted source says the resource-unit perspective is 'often implicit', which supports a softer version; the deep reference does not carry that sentence.",
+      "evidence": "Converted source 450-453 (p. 8): individuals viewed as 'resource units' ... 'This perspective—often implicit—can be made explicit and visual with Org Topologies mapping.' Deep 67 omits the 'often implicit' sentence. Deep 138: mismatch 'is common because people don't see and understand there's a mismatch'.",
+      "fix": "cycle-to-deep: add to deep 67: \"This perspective—often implicit—can be made explicit and visual with Org Topologies mapping.\" [V] (p. 8, \"Incomplete versus Complete Archetypes\"); correct: The Primer notes that treating people as 'resource units' is often implicit (p. 8); check whether utilisation is the unstated goal."
+    },
+    {
+      "id": "D006",
+      "line": 70,
+      "section": "Questions, Phase 2, 'Surface the topology-specific failure mode'",
+      "claim": "If toward Adaptive: high-uncertainty tolerance and the difficulty of inter-archetype overlap.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Primer presents overlapping work scope as the enabler of the Adaptive Topology, not a difficulty, and names no Adaptive failure mode.",
+      "evidence": "Deep 41 (p. 7): overlapping scope motivates units 'to learn to co-own and work as one super unit'; deep 82 (p. 9): Driving archetypes deliver jointly 'thanks to an overlapping, shared scope of work'; deep 104 (p. 13): 'Synchronicity of work' as an emergent quality.",
+      "fix": "correct: If toward Adaptive: the cost of learning to co-own an overlapping scope of work, and the Primer's general caution that complete units can become independently operating silos (p. 8)."
+    },
+    {
+      "id": "D007",
+      "line": 90,
+      "section": "Questions, Phase 4, 'Run the named-failure-mode check'",
+      "claim": "(Resource: coordination tax; Delivery: feature bloat; Adaptive: high-variance outcomes.)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Named-failure-mode' implies the Primer names one for each topology; it names none for Adaptive. 'High-variance outcomes' recasts 'uncertain results' (the Adaptive use case) as a failure.",
+      "evidence": "Deep 112 (p. 14) 'Fast delivery of uncertain results'; deep 104 (p. 13) Adaptive promotes 'long-term business resilience'.",
+      "fix": "correct: (Resource: coordination tax; Delivery: feature bloat; Adaptive: no failure mode named by the Primer; weigh the silo caution for complete units, p. 8.)"
+    },
+    {
+      "id": "D008",
+      "line": 93,
+      "section": "Questions, Phase 4, 'Test AI investment ROI'",
+      "claim": "Generic adoption is named as inferior to targeted bottleneck investment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The contrast is in the converted source's pet-supply walk-through but not in the deep reference.",
+      "evidence": "Converted source 1212-1213 (p. 21): 'Focus time, money, and management attention on AIs, especially on that big bottleneck, over a generic “adopt AI.”' Deep 170 omits the middle of the walk-through.",
+      "fix": "cycle-to-deep: add to deep 170: \"The R&D department has mostly TASKS-1 individuals, and the target is CAPS-3 teams. On investigation, it's a lack of front-end design and coding skilled people. Focus time, money, and management attention on AIs, especially on that big bottleneck, over a generic 'adopt AI.'\" [V] (p. 21, \"Strategic AI Adoption\")"
+    },
+    {
+      "id": "D009",
+      "line": 100,
+      "section": "Questions, Phase 5, 'Declare the target topology'",
+      "claim": "(e.g. \"move pp. R&D from CAPS-1 + TASKS-1 to CAPS-3 teams\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Garbled text ('pp.'), and if the example means the Primer's pet-supply R&D department, the source says it has 'mostly TASKS-1 individuals', not CAPS-1 + TASKS-1.",
+      "evidence": "Converted source 1210-1211 (p. 21): 'The R&D department has mostly TASKS-1 individuals, and the target is CAPS-3 teams.' Not in deep (see D008).",
+      "fix": "correct: (e.g. \"move R&D from mostly TASKS-1 individuals to CAPS-3 teams\", as in the Primer's pet-supply example, p. 21)"
+    },
+    {
+      "id": "D010",
+      "line": 114,
+      "section": "Questions, Phase 6, 'Test for new bottlenecks'",
+      "claim": "AI-driven elevation often dissolves expertise constraints and surfaces coordination ones.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "First half is backed by the Primer's 'expertise vanishing' claim; 'surfaces coordination ones' and the 'often' frequency are not in the deep. The Primer's named new consequence of AI is human monitoring responsibility.",
+      "evidence": "Deep 160 (p. 20): 'Specialization and expertise are vanishing as limited resources'; deep 168: monitoring 'implies new responsibilities and processes'.",
+      "fix": "correct: AI-driven elevation dissolves expertise constraints (p. 20); check what it adds instead, such as the human monitoring responsibility the Primer predicts."
+    },
+    {
+      "id": "D011",
+      "line": 115,
+      "section": "Questions, Phase 6, 'Test for mode drift back to Resource'",
+      "claim": "Drift toward utilisation-as-default is common.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Unsourced frequency claim about regression after elevation; the Primer does not discuss drift back.",
+      "evidence": "Deep 148-154 (ELEVATE): incremental change, periodic re-mapping; no drift or regression claim anywhere in deep 1-299.",
+      "fix": "correct: Has the organisation drifted back toward Resource Topology under pressure for predictability? Periodic re-mapping (p. 19) is how to see it."
+    },
+    {
+      "id": "D012",
+      "line": 137,
+      "section": "Anti-Patterns, 10",
+      "claim": "Implicit in the Primer's framing: Resource is the cultural default (\"'resource managers' (or project managers) are responsible for planning and monitoring resource allocation and utilization\"), so any elevation must be defended against drift back.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hedged inference ('implicit') that the Primer does not state; the supporting quote describes who runs the Resource Topology, not that it is a default. The verbatim fragment carries no [V] marker.",
+      "evidence": "Deep 100 (p. 11): quote present as [V], about resource managers. Converted source 453 (p. 8) 'often implicit' is the nearest support and is not in the deep (see D005).",
+      "fix": "correct: **Drift back to Resource Topology under predictability pressure.** The Primer notes the resource-unit view is often implicit (p. 8) and ends ELEVATE with periodic re-mapping (p. 19); re-map to catch drift back. re-mark: [V] on the quoted fragment"
+    },
+    {
+      "id": "D013",
+      "line": 141,
+      "section": "Worked Examples, pet-supply",
+      "claim": "R&D is the focus of org development; the bottleneck is front-end design and coding skill. AI investment is targeted at front-end agents specifically (not generic AI adoption).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "These steps of the walk-through are in the converted source but not in the deep reference. The source also names Product Management alongside R&D as the focus.",
+      "evidence": "Converted source 1205-1213 (p. 21): 'The Product Management and R&D departments, so focus on AI investment there.' ... 'a lack of front-end design and coding skilled people' ... 'over a generic “adopt AI.”'. Deep 170 skips from the setup to the monitoring answer.",
+      "fix": "cycle-to-deep: add the three question-answers from source 1205-1213 to deep 170 as [V] (p. 21); correct: Product Management and R&D are the focus of org development"
+    },
+    {
+      "id": "D014",
+      "line": 143,
+      "section": "Worked Examples, running MADE example",
+      "claim": "Design step (worked) targets Delivery topology with cross-functional end-to-end teams. Elevation step (worked) restructures the Doing archetypes into two cross-functional end-to-end teams, moving from Resource to Delivery.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported by the converted source (pp. 18-19) but absent from the deep reference, which stops the running example at ASSESS.",
+      "evidence": "Converted source 1066-1069 (p. 18): 'If flow is the goal, the Delivery Topology becomes a suitable choice.' Source 1146-1149 (p. 19): 'the separate Doing Archetypes have been restructured into two cross-functional, end-to-end teams, elevating the organization from the Resource to the Delivery Topology.' Deep 140-154 carry neither.",
+      "fix": "cycle-to-deep: add both sentences to deep (3) DESIGN and (4) ELEVATE as [V] (pp. 18-19)"
+    },
+    {
+      "id": "D015",
+      "line": 147,
+      "section": "Worked Examples, SAFe and Rendanheyi",
+      "claim": "RDHY is mapped as elevating thousands of micro-enterprises (Driving archetypes) that interact with users directly.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds a map placement ('Driving archetypes') that neither the deep ref nor the source text states.",
+      "evidence": "Deep 194 (p. 22): 'The OT map demonstrates how RDHY elevates its thousands of micro-enterprises (MEs) that directly interact with users, and optimizing for autonomy and customer-focused value creation'. Converted source 1355-1363 same; no archetype named.",
+      "fix": "strip: \"(Driving archetypes)\""
+    },
+    {
+      "id": "D016",
+      "line": 151,
+      "section": "Integration, Scrum Guide",
+      "claim": "the empiricism / inspection-and-adaptation chain that underpins OT's \"periodic re-mapping\" [V] discipline",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Asserts a lineage (Scrum empiricism underpins OT re-mapping) the Primer does not claim. The Primer's only Scrum link is the Definition-of-Done mapping of the horizontal axis.",
+      "evidence": "Deep 27 and 233 (p. 6): Scrum connection = DoD completeness only. Deep 154 (p. 19): re-mapping as 'a learning loop of feedback and adapting', no Scrum attribution.",
+      "fix": "correct: the empiricism / inspection-and-adaptation chain that parallels OT's \"periodic re-mapping\" [V] discipline"
+    },
+    {
+      "id": "D017",
+      "line": 157,
+      "section": "Integration, OpenStax Principles of Management",
+      "claim": "For the org-structure decision content the Primer treats as background (Mintzberg's structures, contingency factors, the six common structure types)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "PoM's deep ref has no Mintzberg structural configurations (Mintzberg appears only for managerial roles), and the Primer does not treat any of this as background; it does not mention it.",
+      "evidence": "openstax-principles-management-deep 29-37, 780 (Mintzberg = roles); 158-162 (contingency school); 185-195 (six structure types). Org Topologies deep 1-299: no reference to Mintzberg, contingency theory or structure types.",
+      "fix": "correct: For conventional org-structure content the Primer does not cover (the mechanistic-organic continuum, contingency theory, the six common structure types)"
+    },
+    {
+      "id": "D018",
+      "line": 159,
+      "section": "Integration, OpenStax Organizational Behavior",
+      "claim": "see openstax-organizational-behavior-decision-making.md on programmed vs non-programmed decisions and the psychology of resistance — OT's psychology-of-change framing has its grounding in this body of work.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The OB deep ref carries no 'psychology of resistance' to change, and the Primer cites no grounding for its psychology-of-change stance; the lineage claim is invented.",
+      "evidence": "openstax-organizational-behavior-deep 177-179 (programmed vs non-programmed, present); 529-536 (four change models incl. top-down vs bottom-up); 'resist' appears only for power (368, 402). Org Topologies deep 17, 187: psychology of change asserted without citation.",
+      "fix": "correct: see openstax-organizational-behavior-decision-making.md on the four change models (Ch 16.3), where the top-down versus bottom-up mechanism covers the same ground as OT's own-not-rent stance from the textbook side."
+    }
+  ],
+  "notes": "Structure deviates from the projection template: no 'What to Look For' or 'When to Use This Reference' sections; 'Worked Examples (from the source)' and 'Anti-Patterns and Failure Modes' headings renamed; no blockquoted [V] passages; Citation notes lack borrowed-through gaps and evidence-marker continuity. All inline [V] fragments match the deep ref and converted source; line 105 truncates the p. 19 re-mapping sentence ('...complete a learning loop.') without an ellipsis, words otherwise exact. Recurring root cause across D001, D004, D008, D013, D014: the deep reference drops the middle of two worked examples (pet-supply walk-through p. 21; DESIGN and ELEVATE outcomes of the running MADE example pp. 18-19) and the p. 20 money/time/attention preamble, so distillations re-extracted them from the source."
+}

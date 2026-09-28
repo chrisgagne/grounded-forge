@@ -1,0 +1,479 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol1-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-217 of 217",
+    "deep": "lines 1-778 of 778",
+    "complete": true
+  },
+  "claims_audited": 219,
+  "tally": {
+    "faithful": 173,
+    "minor_drift": 20,
+    "unsupported": 25,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "FASB ASU 2014-09 (Topic 606), the five-step revenue-recognition model (Source: OpenStax, Accounting Vol 1, Ch 9.1), is the canonical SaaS revenue-recognition framework.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "software-industry claim attached to a source citation; source disclaims the depth",
+      "evidence": "Deep 274-284 gives the five steps and the principle-based replacement; neither deep nor source mentions SaaS or software revenue. Source 23749-23750 (Ch 9.1): 'a detailed look at each of these five requirements is too involved for an introductory course'.",
+      "fix": "correct: FASB ASU 2014-09 (Topic 606), the five-step revenue-recognition model (Ch 9.1), is the principle-based framework that governs when contract revenue is recognised, including for software contracts. The book introduces the five steps only; it calls a detailed treatment 'too involved for an introductory course'."
+    },
+    {
+      "id": "D002",
+      "line": 12,
+      "section": "Software-Business Relevance",
+      "claim": "SOX 302 ... and SOX 404 ... make security, reliability, and change-management investment a personally-certified line. Investment in audit-trail integrity, segregation of duties, and access controls is no longer a discretionary engineering preference; it is a financial-statement-attestation requirement.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "scope of SOX attestation widened beyond internal control over financial reporting",
+      "evidence": "Deep 239-240: Section 404 covers annual audits of internal control effectiveness; Section 302 certifies the internal control report and fair statement of financial condition. Source 21796-21797: 404 covers 'all internal controls that have an impact on the financial reporting of the organization'. Nothing extends certification to reliability or change-management investment generally.",
+      "fix": "correct: SOX 302 and 404 make internal controls that bear on financial reporting a personally certified line; where audit trails, segregation of duties and access controls touch financial reporting, they are an attestation requirement, not an engineering preference."
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Software-Business Relevance",
+      "claim": "Modern SOX compliance has expanded into cybersecurity disclosure (Source: Ch 8.7), so a software business's data-breach posture is now a SOX-attested concern.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated: 'allow application to IT' becomes 'SOX-attested'",
+      "evidence": "Deep 270: SOX compliance 'has expanded beyond financial reporting to information technology activities, with significant growth in cybersecurity disclosures' [AP]. Source 22651-22663: cybersecurity is one of three conditions 'increasingly affecting compliance'; guidelines 'now allow application to information technology (IT) activities'.",
+      "fix": "correct: Cybersecurity is one of the conditions increasingly affecting SOX compliance, and SOX guidelines now allow application to IT activities (Ch 8.7), so data-breach posture is moving into SOX scope."
+    },
+    {
+      "id": "D004",
+      "line": 14,
+      "section": "Software-Business Relevance",
+      "claim": "The US GAAP probable threshold (~80%) versus IFRS's definition of probable, \"more likely than not\" [BT] (~50%)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practitioner rule of thumb stated as the standard's threshold",
+      "evidence": "Deep 432: 'often interpreted at ~80% likelihood'. Source 32025-32028 (Ch 12.3): 'often assessed as an 80% likelihood by practitioners'; IFRS 'typically assessed at 50% by practitioners'.",
+      "fix": "correct: US GAAP 'probable', which practitioners often assess at about 80%, versus IFRS's \"more likely than not\" [BT], typically assessed at about 50%"
+    },
+    {
+      "id": "D005",
+      "line": 16,
+      "section": "Software-Business Relevance",
+      "claim": "choosing and managing auditors ... as a going-concern integrity question",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "defined GAAP term misapplied",
+      "evidence": "Deep 93: the going concern assumption is that 'a business will continue to operate in the foreseeable future' [V]. Deep 229 presents Andersen/Enron as an independence failure, not a going-concern case. Same misuse at lines 104, 146, 173.",
+      "fix": "correct: choosing and managing auditors ... as an auditor-independence question"
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Software-Business Relevance",
+      "claim": "the same line lives in every software business that builds proprietary software with engineering payroll as a candidate for internal-use-software capitalisation.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside accounting framework (internal-use software) imported",
+      "evidence": "Deep has no internal-use-software capitalisation; deep 364 lists software only as 'sometimes' an intangible. Source mentions 'internal-use software' once, as a line in Apple's PP&E (28739), with no capitalisation criteria.",
+      "fix": "correct: the same capitalise-versus-expense line runs through any software business that builds its own software (Ch 11.2)."
+    },
+    {
+      "id": "D007",
+      "line": 28,
+      "section": "Key Concepts #4",
+      "claim": "For software businesses, internal-use-software capitalisation (engineering payroll as a long-term asset rather than operating expense) is a routine accounting choice with material income-statement consequences.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside accounting framework imported into Key Concepts",
+      "evidence": "As D006: no internal-use-software capitalisation in deep or source.",
+      "fix": "strip"
+    },
+    {
+      "id": "D008",
+      "line": 30,
+      "section": "Key Concepts #5",
+      "claim": "The text takes a sharp position that management teams \"typically fail to invest either time or attention ... salvage values.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker wrong: borrowed words marked [V] and presented as the text's own position",
+      "evidence": "Source 29630-29637 (Ch 11.3): quoted from Howard B. Levy, 'Depreciable Asset Lives,' The CPA Journal (2016), footnote 7; deep 378 marks [V, citing The CPA Journal]. The text's own position: 'This failure is not an ethical approach'.",
+      "fix": "re-mark: [BT]; correct: The text quotes The CPA Journal that management teams \"typically fail to invest ... salvage values\" [BT], and calls the failure not an ethical approach."
+    },
+    {
+      "id": "D009",
+      "line": 32,
+      "section": "Key Concepts #6",
+      "claim": "US GAAP probable threshold is around 80%",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practitioner rule of thumb stated as the standard's threshold",
+      "evidence": "As D004 (deep 432; source 32025-32028).",
+      "fix": "correct: Practitioners often assess US GAAP 'probable' at around 80%"
+    },
+    {
+      "id": "D010",
+      "line": 40,
+      "section": "Key Concepts #10",
+      "claim": "Equifax's 2017 breach affecting over 143 million people anchors the scope: data breaches ... now sit inside SOX-attested control coverage. (Source: Ch 8.7)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited; Equifax used for a point the source does not make",
+      "evidence": "Deep 704: Equifax is Ch 8.2 [AP]. Source 21578-21583 (Ch 8.2) uses Equifax to show internal controls protect customer data, not SOX scope. SOX-IT link is 'now allow application' (source 22662).",
+      "fix": "correct: Equifax's 2017 breach (over 143 million people) is the text's example of internal controls protecting customer data (Ch 8.2); separately, SOX guidelines now allow application to IT activities (Ch 8.7)."
+    },
+    {
+      "id": "D011",
+      "line": 44,
+      "section": "Key Concepts #12",
+      "claim": "For SaaS businesses billing annually in advance, deferred revenue is typically the largest current liability on the balance sheet.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "industry generalisation not in deep or source",
+      "evidence": "Deep 407 defines unearned revenue; deep 720-721 give Amazon's $4.8B and $99 Prime. No claim about relative size among current liabilities.",
+      "fix": "strip"
+    },
+    {
+      "id": "D012",
+      "line": 48,
+      "section": "Key Concepts #14",
+      "claim": "earnings manipulation ignores GAAP rules to alter earnings significantly and shades into fraud ... The text's position is that auditors are the discipline",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "hedges dropped; auditors' acceptance check upgraded to 'the discipline'",
+      "evidence": "Deep 307 [V]: manipulation 'typically ignores GAAP rules'; 'Carried to an extreme, manipulation can lead to fraudulent behavior'; changes 'would need to be considered acceptable by the company's outside auditors'. Deep 309: ratio and trend analysis are the analyst's tools.",
+      "fix": "correct: earnings manipulation typically ignores GAAP rules to alter earnings significantly and, carried to an extreme, can lead to fraud ... The text notes such changes must be accepted by outside auditors in the annual audit, and names ratio and trend analysis as the analyst's tools"
+    },
+    {
+      "id": "D013",
+      "line": 57,
+      "section": "Questions Phase 1",
+      "claim": "Standalone selling prices, residual method, expected value — each allocation choice affects the income statement.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Topic 606 allocation methods not in deep or source",
+      "evidence": "Deep 280 gives step 4 only. Source has no 'standalone', 'residual method' or allocation-method discussion; source 23749-23750 declines the detail as 'too involved for an introductory course'.",
+      "fix": "correct: If multiple performance obligations are bundled, how is the transaction price allocated across them (step 4)? The allocation shapes when revenue lands."
+    },
+    {
+      "id": "D014",
+      "line": 58,
+      "section": "Questions Phase 1",
+      "claim": "Subscription access is typically recognised over the service period; one-time implementation is recognised at completion (or over time if the criteria are met)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "partly source-supported but not in deep; over-time criteria from outside the source",
+      "evidence": "Source 31098-31100 (Ch 12.1): Prime's $99 'is amortized over the twelve-month period of the service agreement'; source 24850-24851 (Ch 9.5) on multi-year subscriptions. Deep 720-721 carries only the figures. No over-time recognition criteria in source.",
+      "fix": "correct: strip '(or over time if the criteria are met)'. cycle-to-deep: add source 31097-31100 (Amazon AWS and Prime advance payments transferred to revenue over the contract term) to Part XII"
+    },
+    {
+      "id": "D015",
+      "line": 60,
+      "section": "Questions Phase 1",
+      "claim": "Engineering payroll spent in advance of contracted delivery sits in either capitalised internal-use software or current expense",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "question rests on internal-use-software framework not in source",
+      "evidence": "As D006.",
+      "fix": "strip the row, or correct: Where engineering effort builds a long-term asset, capitalise-versus-expense (Ch 11.2) decides whether its cost lands this period or across the asset's life."
+    },
+    {
+      "id": "D016",
+      "line": 61,
+      "section": "Questions Phase 1",
+      "claim": "If building, internal-use-software capitalisation criteria apply.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "question rests on internal-use-software framework not in source",
+      "evidence": "As D006. The 'buy' half is supported: deep 364 lists licences and 'sometimes software' as intangibles.",
+      "fix": "correct: If building, the capitalise-versus-expense line of Ch 11.2 applies."
+    },
+    {
+      "id": "D017",
+      "line": 67,
+      "section": "Questions Phase 2",
+      "claim": "Does this engineering effort meet the capitalisation criteria (extending useful life of an existing asset, building new internal-use software past the preliminary project stage)?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside capitalisation criteria (ASC 350-40 stages) presented as the criteria",
+      "evidence": "'preliminary project' returns no source hits. Deep 368: capitalise 'all of the costs necessary to place the asset into service'; later improvements that extend useful life or increase capacity are capitalised.",
+      "fix": "correct: Does this engineering effort meet the capitalisation criteria (a cost necessary to place a long-term asset into service, or an improvement that extends an existing asset's useful life or capacity)?"
+    },
+    {
+      "id": "D018",
+      "line": 67,
+      "section": "Questions Phase 2",
+      "claim": "WorldCom's $11B fraud was substantially this line crossed.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "figure not in deep or source",
+      "evidence": "Deep 394 and source 29064-29075 (Ch 11.2) give no dollar figure for WorldCom; '11 billion' returns no source hits.",
+      "fix": "correct: WorldCom's fraud was mainly this line crossed (Ch 11.2)."
+    },
+    {
+      "id": "D019",
+      "line": 70,
+      "section": "Questions Phase 2",
+      "claim": "does the analysis lean toward recognising potential losses (the conservatism principle) rather than uncertain gains? Reliability spend prevents costs that would otherwise materialise; the matching principle and conservatism together support the investment.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "reporting principles misapplied to investment appraisal",
+      "evidence": "Deep 91: conservatism governs how uncertain estimates are recorded in financial statements; deep 87: matching governs when expenses are recognised. Neither is presented as a basis for investment decisions.",
+      "fix": "strip"
+    },
+    {
+      "id": "D020",
+      "line": 78,
+      "section": "Questions Phase 3",
+      "claim": "How much of engineering payroll is operating expense (R&D, maintenance, customer-support engineering) versus capitalised (internal-use software past the preliminary project stage)?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "question rests on outside capitalisation framework",
+      "evidence": "As D017: no preliminary-project stage or internal-use-software criteria in deep or source.",
+      "fix": "correct: How much of engineering payroll is operating expense versus a cost necessary to place a long-term asset into service (Ch 11.3)?"
+    },
+    {
+      "id": "D021",
+      "line": 90,
+      "section": "Questions Phase 4",
+      "claim": "Insufficient documentation transfers personal liability to executives.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mechanism misstated: liability already sits with executives",
+      "evidence": "Deep 240: Section 302 'makes the CEO and CFO personally responsible for financial reporting as well as internal control structure' [AP]. Responsibility is theirs regardless of documentation.",
+      "fix": "correct: Under SOX 302 the CEO and CFO are personally responsible for the certification; thin documentation leaves them certifying what they cannot support."
+    },
+    {
+      "id": "D022",
+      "line": 91,
+      "section": "Questions Phase 4",
+      "claim": "Inconsistent application requires disclosure under full-disclosure.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "rule in source but not in deep; tied to the wrong principle",
+      "evidence": "Deep has no consistency principle. Source 26917-26923 (Ch 10.1): methods applied repeatedly 'to accomplish the generally accepted accounting principle of consistency'; a change 'requires disclosure in the company's notes'.",
+      "fix": "correct: A change in method is allowed where it more accurately reflects results, but requires note disclosure (consistency principle, Ch 10.1). cycle-to-deep: add source 26917-26923 to Part X"
+    },
+    {
+      "id": "D023",
+      "line": 103,
+      "section": "Questions Phase 5",
+      "claim": "Modern SOX compliance covers cybersecurity disclosures; suppressed or incomplete disclosure compounds rather than reduces exposure.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "overstated scope plus consequence claim not in deep",
+      "evidence": "Deep 270 and source 22651-22663: cybersecurity disclosures have grown and SOX guidelines 'now allow application' to IT. Nothing on suppressed disclosure compounding exposure.",
+      "fix": "correct: SOX guidelines now allow application to IT activities, and cybersecurity disclosures have grown significantly (Ch 8.7)."
+    },
+    {
+      "id": "D024",
+      "line": 104,
+      "section": "Questions Phase 5",
+      "claim": "The Arthur Andersen / Enron pattern is the going-concern case.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "defined GAAP term misapplied",
+      "evidence": "As D005 (deep 93, 229).",
+      "fix": "correct: The Arthur Andersen / Enron pattern is the independence case."
+    },
+    {
+      "id": "D025",
+      "line": 116,
+      "section": "Questions Phase 6",
+      "claim": "Are going-concern issues, material contingencies, and significant subsequent events disclosed in management discussion or in footnotes? The full-disclosure principle's operational mechanism is the management-discussion-and-analysis section.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "mechanism not in deep or source",
+      "evidence": "Deep 89: full disclosure is reported 'in footnotes or addenda'. Source 6236: 'disclosures are usually recorded in footnotes on the statements, or in addenda'. No MD&A or subsequent-events passage in source.",
+      "fix": "correct: Are material contingencies disclosed? The full-disclosure principle is carried out in footnotes or addenda to the statements (Ch 3.1)."
+    },
+    {
+      "id": "D026",
+      "line": 120,
+      "section": "What to Look For",
+      "claim": "test whether the capitalised costs meet the criteria of \"necessary to place the asset into service\" [V] past the preliminary project stage",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside criterion attached to a verbatim source phrase",
+      "evidence": "The [V] fragment is verbatim (source 29210). 'past the preliminary project stage' has no source or deep basis.",
+      "fix": "correct: test whether the capitalised costs are \"necessary to place the asset into service\" [V] (Ch 11.3), not merely engineering effort during the period"
+    },
+    {
+      "id": "D027",
+      "line": 122,
+      "section": "What to Look For",
+      "claim": "Diagnosis: Topic 606 (Source: Ch 9.1) misapplication — possible cookie-jar/bill-and-hold pattern (Source: Ch 4.1, Ch 8.7).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong fraud pattern named",
+      "evidence": "Deep 129: BMS cookie-jar = channel stuffing and improper revenue recognition on wholesaler sales; deep 262: bill-and-hold = income recognised before title transfers with inventory still at the seller. Recognising a service bundle at signing matches early revenue recognition / improper cutoff (source 22542; deep 263).",
+      "fix": "correct: possible early-revenue-recognition or improper-cutoff pattern (Ch 8.7)"
+    },
+    {
+      "id": "D028",
+      "line": 126,
+      "section": "What to Look For",
+      "claim": "under SOX, certain non-audit services are prohibited",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "strengthened: 'limit' becomes 'prohibited'",
+      "evidence": "Deep 236; source 21765: SOX requires the auditor to 'Limit nonaudit services, such as consulting'.",
+      "fix": "correct: under SOX, the auditor must limit non-audit services such as consulting"
+    },
+    {
+      "id": "D029",
+      "line": 130,
+      "section": "What to Look For",
+      "claim": "the deferred-revenue balance flatters the balance sheet but the income statement will catch up as the bookings-to-billings ratio is the leading indicator",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "metric and mechanism not in deep or source",
+      "evidence": "'bookings' returns no source hits. Deep 407 classifies unearned revenue as a current liability; nothing supports it flattering the balance sheet or a bookings-to-billings indicator.",
+      "fix": "strip the pattern"
+    },
+    {
+      "id": "D030",
+      "line": 132,
+      "section": "What to Look For",
+      "claim": "self-disclosed restatement preserves long-term trust; forced restatement compounds the trust loss",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "trust-dynamics claim not in deep or source",
+      "evidence": "Deep has no restatement passage. Source 37694-37700 (Ch 14.4) defines restatement as correcting prior-period errors; source 37723-37728 reports fewer restatements since SOX. Nothing on voluntary versus forced restatement and trust.",
+      "fix": "correct: Diagnosis: a known prior-period error left uncorrected; restatement corrects prior statements to what they would have been without the error (Ch 14.4). cycle-to-deep: add source 37694-37700"
+    },
+    {
+      "id": "D031",
+      "line": 141,
+      "section": "When to Use This Reference",
+      "claim": "(internal-use software past the preliminary project stage, infrastructure upgrades, capitalised configuration of acquired software)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside capitalisation framework in a situational gate",
+      "evidence": "As D017.",
+      "fix": "correct: (software built for internal use, infrastructure upgrades, configuration of acquired software)"
+    },
+    {
+      "id": "D032",
+      "line": 146,
+      "section": "When to Use This Reference",
+      "claim": "(the Arthur Andersen / Enron pattern is the going-concern case)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "defined GAAP term misapplied",
+      "evidence": "As D005.",
+      "fix": "correct: (the Arthur Andersen / Enron pattern is the independence case)"
+    },
+    {
+      "id": "D033",
+      "line": 155,
+      "section": "Worked Example",
+      "claim": "subscription access (a stand-ready obligation over 24 months) ... They reallocate the transaction price using standalone selling prices ... (Source: OpenStax, Accounting Vol 1, Ch 9.1)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Topic 606 mechanics from outside the source attributed to Ch 9.1",
+      "evidence": "No 'stand-ready' or 'standalone' in source or deep; source 23749-23750 declines the five steps' detail. Only the five-step list (deep 278-282) traces.",
+      "fix": "correct: keep the five steps with the Ch 9.1 citation; mark the stand-ready and standalone-selling-price reasoning as the scenario's own, not the source's (e.g. 'Beyond what the book covers, the controller allocates using standalone selling prices...')"
+    },
+    {
+      "id": "D034",
+      "line": 155,
+      "section": "Worked Example",
+      "claim": "$800K subscription, $200K implementation, $200K professional services ... implementation is bundled 'no charge' ... $80K at implementation completion, $200K at professional-services completion, and $920K rateably across 24 months",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "worked-example arithmetic internally inconsistent",
+      "evidence": "A $200K implementation line cannot also be 'no charge'. The reallocation moves $120K from implementation to subscription but leaves professional services untouched at $200K, which a relative standalone-selling-price allocation would not do.",
+      "fix": "correct: make the contract $1.0M ($800K subscription, $200K professional services, implementation at no charge) and show a proportional reallocation across all three obligations"
+    },
+    {
+      "id": "D035",
+      "line": 157,
+      "section": "Worked Example",
+      "claim": "The source draws the relevant line: capitalised costs include \"all costs necessary to place the asset into service\" past the preliminary project stage ... the project crossed into the application development stage in month 4 ... (Source: Ch 11.2, Ch 11.3)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside capitalisation stages attributed to the source; quotation not verbatim",
+      "evidence": "Source 29208-29210 (Ch 11.3): 'we determine all of the costs necessary to place the asset into service'. No preliminary-project or application-development stage in source or deep.",
+      "fix": "correct: The source draws the relevant line: capitalised costs are \"all of the costs necessary to place the asset into service\" [V] (Ch 11.3); routine maintenance is expensed; improvements extending useful life or capacity are capitalised. Present the month-4 stage boundary as the scenario's own policy judgement."
+    },
+    {
+      "id": "D036",
+      "line": 159,
+      "section": "Worked Example",
+      "claim": "The source's rule: \"Under US GAAP, the company must journalise the low end of the estimable range *and* disclose the range in a footnote.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation presented as the source's words is not verbatim",
+      "evidence": "Source 32037-32038 (Ch 12.3, IFRS Connection): 'Under US GAAP, the low end of the range would be accrued, and the range disclosed.' Deep 432 carries it as [AP].",
+      "fix": "correct: The source's rule: \"Under US GAAP, the low end of the range would be accrued, and the range disclosed\" [V] (Ch 12.3)."
+    },
+    {
+      "id": "D037",
+      "line": 159,
+      "section": "Worked Example",
+      "claim": "The CFO's logic is the front-page test the source names",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "distillation's heuristic attributed to the source",
+      "evidence": "'front page' / 'front-page' return no hits in deep or source.",
+      "fix": "correct: The CFO's logic is a front-page test"
+    },
+    {
+      "id": "D038",
+      "line": 167,
+      "section": "Anti-patterns",
+      "claim": "The capitalisation criterion is narrow (internal-use software past the preliminary project stage, with the cost necessary to place the asset into service) ... creates a long write-down liability when the assumption breaks.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outside capitalisation stage presented as the criterion; consequence not in deep",
+      "evidence": "As D017. No 'write-down liability' consequence in deep.",
+      "fix": "correct: The capitalisation criterion is the cost necessary to place the asset into service, or an improvement that extends useful life or capacity (Ch 11.2-11.3); 'engineering effort during the period' is neither. Aggressive capitalisation flatters near-term earnings."
+    },
+    {
+      "id": "D039",
+      "line": 171,
+      "section": "Anti-patterns",
+      "claim": "Concealing or downplaying weakness compounds penalty rather than mitigating it.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "legal-consequence claim not in deep",
+      "evidence": "Deep 240-241 give 302 personal responsibility and penalty maxima only.",
+      "fix": "strip"
+    },
+    {
+      "id": "D040",
+      "line": 173,
+      "section": "Anti-patterns",
+      "claim": "The Arthur Andersen / Enron pattern (Source: Ch 8.2) is the going-concern case. SOX limits prohibited non-audit services",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "defined GAAP term misapplied; garbled SOX rule",
+      "evidence": "As D005; deep 236: SOX requires limiting non-audit services such as consulting.",
+      "fix": "correct: The Arthur Andersen / Enron pattern (Ch 8.2) is the independence case. SOX limits non-audit services such as consulting"
+    },
+    {
+      "id": "D041",
+      "line": 177,
+      "section": "Anti-patterns",
+      "claim": "Modern SOX has expanded into cybersecurity disclosures (Source: Ch 8.7); the Equifax 2017 breach (143M+ people) anchors the scale. Data-breach disclosure that lags behind the regulatory or stakeholder expectation compounds the original incident.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "consequence claim not in deep; Equifax mis-cited",
+      "evidence": "Deep 270 (Ch 8.7) on cybersecurity disclosures; Equifax is Ch 8.2 (deep 704) and illustrates internal controls protecting data. Nothing on lagging disclosure compounding an incident.",
+      "fix": "correct: SOX guidelines now allow application to IT, and cybersecurity disclosures have grown (Ch 8.7); the Equifax 2017 breach (over 143 million people) is the text's example of internal controls protecting customer data (Ch 8.2)."
+    },
+    {
+      "id": "D042",
+      "line": 183,
+      "section": "Anti-patterns",
+      "claim": "\"It's allowed\" is not the same as \"it represents the underlying economics\" (Source: Ch 3.1 full-disclosure principle). The front-page test catches what technical compliance permits but stakeholders find indefensible.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "distillation's own maxim attributed to a source section",
+      "evidence": "Deep 89: full disclosure requires reporting business activities that could affect the statements; no passage contrasts technical compliance with underlying economics. No front-page test in source.",
+      "fix": "correct: drop the Ch 3.1 citation and present it as the distillation's own heuristic, or strip"
+    },
+    {
+      "id": "D043",
+      "line": 191,
+      "section": "Integration with Other References",
+      "claim": "OpenStax, Principles of Marketing: Pricing strategies, customer journey, service-profit chain.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept name not in the other source's deep ref",
+      "evidence": "openstax-principles-marketing-deep.md: pricing strategies (357) and service-profit chain (291) present; 'journey' returns no hits. The analogue is the five-stage consumer decision process (114).",
+      "fix": "correct: Pricing strategies, the consumer decision process, service-profit chain."
+    },
+    {
+      "id": "D044",
+      "line": 192,
+      "section": "Integration with Other References",
+      "claim": "The front-page test appears in both.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "cross-source claim false for both sources",
+      "evidence": "No front-page, newspaper, headline or publicity test in this deep, its source, or openstax-business-ethics-deep.md.",
+      "fix": "strip"
+    },
+    {
+      "id": "D045",
+      "line": 212,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Enron, WorldCom, Arthur Andersen, Waste Management, Bristol-Myers Squibb — the post-SOX fraud cases (Ch 8.2, Ch 8.3, Ch 9.4, Ch 11.3) ... Flagged [BT].",
+      "grade": "CONTRADICTED",
+      "failure_mode": "chronology reversed; chapters and markers wrong",
+      "evidence": "Deep 229: SOX (2002) 'was passed in response' to Enron; deep 129: BMS 2000-2001. These are pre-SOX cases. BMS is Ch 4.1 and WorldCom Ch 11.2 (deep 129, 394); deep does not flag the cases [BT] (BMS [V], Enron [V citing Linder], Waste Management [AP citing SEC]).",
+      "fix": "correct: Enron, WorldCom, Arthur Andersen, Waste Management, Bristol-Myers Squibb — the pre-SOX fraud cases (Ch 4.1, Ch 8.2, Ch 8.7, Ch 11.2, Ch 11.3) that anchor the internal-control argument. The cases are described through the volume's exposition, citing press and SEC sources; the primary case records are not in the corpus."
+    },
+    {
+      "id": "D046",
+      "line": 216,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The deep reference carries ... with [V] markers (... the SOX executive-attestation structure; ... the 'accounting is the language of business' adage, which the volume relays as a traditional saying [BT] ...). ... The earnings-management boundary is represented as an [AP] author position ..., not as a [V] verified finding, consistent with the deep ref's evidence classification.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "markers misreported against the deep",
+      "evidence": "Deep 233 and 240 carry the SOX attestation structure as [AP]; deep 13 marks the adage [V]; deep 307 marks the earnings-management distinction [V]. The distillation body never marks the boundary [AP].",
+      "fix": "correct: The deep reference carries [V] markers on the FASB element definitions, the earnings-management-versus-manipulation distinction, the Enron figures and the segregation-of-duties prescription; the SOX 302/404 structure is [AP]. This distillation paraphrases them; no verbatim blockquotes appear here."
+    }
+  ],
+  "notes": "Drift concentrates in one root cause: the distillation imports US software-accounting practice from outside the source (ASC 350-40 internal-use-software capitalisation with preliminary-project and application-development stages; ASC 606 standalone-selling-price allocation, residual method, stand-ready obligations; bookings-to-billings; MD&A as the disclosure mechanism) and in several places attaches Ch 9.1 or Ch 11.x citations to it. The source never discusses software or SaaS revenue, and says the five-step model's detail is 'too involved for an introductory course' (source 23749-23750); that limit belongs in Named limits and in the deep ref. 'Going-concern' is misused four times (lines 16, 104, 146, 173) to mean auditor-independence failure. Faithful core: COSO components and six internal-control elements, SOX 302/404 content, penalties and retention, fraud triangle, burn rate, contingent-liability matrix and range rule, audit-committee and rotation facts, Waste Management $1.7B, Enron $40B. Integration rows for Accounting Vol 2, Principles of Finance, Business Law, Principles of Management, Jones and Letaw check out against their deep refs; Marketing's 'customer journey' and the Business Ethics front-page claim do not."
+}

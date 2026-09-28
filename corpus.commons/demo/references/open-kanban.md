@@ -28,7 +28,7 @@ The four practices translate values into action.
 
 1. **Visualize the workflow.** Grounded in the invisibility of knowledge work — "the output of your effort is much smaller than the effort involved, and the bulk of that effort cannot be easily seen." Kanban boards are the canonical instance, but visualisation extends to dashboards, performance metrics, and other *information radiators* (Cockburn's term, cited).
 2. **Lead using a team approach.** "Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value." Team-based leadership is required; structural change in roles or titles is not.
-3. **Reduce the Batch Size of your Efforts.** One of Open Kanban's signature contrarian positions: WIP-limiting is treated as a *consequence* of batch-size reduction, and not the other way around. "Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts.'" Donald G. Reinertsen (*Principles of Product Development Flow*) is cited as the canonical explanation. The how-to: reduce the complexity and quantity of items at each stage of the value chain (in software: simpler stories, fewer concurrent items per SDLC stage).
+3. **Reduce the Batch Size of your Efforts.** One of Open Kanban's signature contrarian positions: WIP-limiting is treated as a *consequence* of batch-size reduction, and not the other way around. "Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts.'" Donald G. Reinertsen (*Principles of Product Development Flow*) is cited as "one of the best explanations". The how-to: reduce the complexity and quantity of items at each stage of the value chain (in software: simpler stories, fewer concurrent items per SDLC stage).
 4. **Learn and improve continuously.** Learning is named as upstream of improvement: "Learning is the key concept before continuous improvement can ever happen!" Multiple implementation forms are offered without prescription — Retrospectives, Strategy Meetings, Kaizen Groups (Wikipedia-cited). The methodology models the practice itself: "Open Kanban further supports learning by listening to the community and updating itself."
 
 ## The Open Kanban Movement (derivative methods)
@@ -77,7 +77,7 @@ The corpus's existing references that share intellectual territory:
 
 - *Schwaber & Sutherland, The Scrum Guide* — Open Kanban's *Learn and improve continuously* practice is the conceptual sibling of Scrum's Sprint Retrospective; the survey-cited claim ("frequently used as an alternative to Scrum") makes Open Kanban / Scrum a directly comparable pair.
 - *Letaw, Handbook of Software Engineering Methods* — Letaw covers Scrum-flavoured Agile; Open Kanban is the Kanban-flavoured Agile complement.
-- *Jones, Evidence-based Software Engineering* — Jones reads Agile and Kanban critically; Open Kanban's empirical claims (multitasking research; batch-size effect on flow) are the kind of evidence Jones would interrogate.
+- *Jones, Evidence-based Software Engineering* — Jones says the rarity of measurement data for agile processes leaves his evidence-based book little to say about them; Open Kanban's empirical claims (multitasking research; batch-size effect on flow) are the kind of evidence Jones would interrogate.
 
 ## Corpus-Role Caveat (operator context, not from source)
 
@@ -93,7 +93,7 @@ This note is the operator's gap-triage framing, not a claim from the source. Ope
 6. **Knowledge work needs CC, not source-code licences.** "Both [LGPL v3 and MIT] are designed for sharing of computer source code. Creative Commons on the other hand is appropriate for knowledge work that deals with writing, and media creation." The licence choice is treated as a methodological commitment, not boilerplate.
 7. **Open Kanban as substrate, not as one method among many.** "Open Kanban is the heart of all those Kanban methods. Our license allows them to be free or commercial." The architecture is kernel-plus-extensions; "Open Kanban Methods" is a deliberate term for the derivative class.
 8. **Communication and Collaboration are one value, not two.** "One value does not work without the other that is the reason we decided to group them together." A deliberate packaging choice.
-9. **Sustainable pace / Muri is part of respect.** The Lean *Muri* (overburden) is mapped directly onto Agile's sustainable pace, both placed inside the Respect-for-people value.
+9. **Sustainable pace / Muri is part of respect.** Agile's sustainable pace is paired directly with Lean's *Muri*, both placed inside the Respect-for-people value.
 10. **A push to align Kanban with proprietary interpretations.** "However with growth also came a push to align Kanban (the Agile and Lean method with over four decades of history) with some proprietary ideas and interpretations of what Kanban is." Open Kanban frames itself against this push without naming individual proprietors.
 
 <!-- Verified: ~45 substantive claims traced to deep ref. No task-application guidance (tier-separated). -->

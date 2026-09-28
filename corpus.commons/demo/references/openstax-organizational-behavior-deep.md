@@ -48,7 +48,7 @@ Performance is largely a function of ability and motivation, drawing on an early
 
 ### Six personality traits relevant to work behaviour
 
-The text identifies six work-relevant traits: self-esteem, locus of control, introversion-extroversion, authoritarianism, dogmatism, and dependability [AP] (Ch 2.4, "Personality and Work Behavior"). Internals (those with internal locus of control) "exhibit greater work motivation, have stronger expectations that effort will lead to actual high job performance, perform better on tasks requiring learning or problem-solving, typically receive higher salaries and salary increases, and exhibit less job-related anxiety than externals" [V] (Ch 2.4, "Locus of Control"). Authoritarians perform better under rigid supervision; non-authoritarians perform better under participative supervision (Ch 2.4, "Authoritarianism and Dogmatism"). Dogmatic managers "tend to make decisions quickly, based on only limited information and with a high degree of confidence in the correctness of their decisions" [V] (Ch 2.4, "Dogmatism").
+The text identifies six work-relevant traits: self-esteem, locus of control, introversion-extroversion, authoritarianism, dogmatism, and dependability [AP] (Ch 2.4, "Personality and Work Behavior"). Internals (those with internal locus of control) "(1) exhibit greater work motivation, (2) have stronger expectations that effort will lead to actual high job performance, (3) perform better on tasks requiring learning or problem-solving, (4) typically receive higher salaries and salary increases, and (5) exhibit less job-related anxiety than externals" [V] (Ch 2.4, "Locus of Control"). Authoritarians perform better under rigid supervision; non-authoritarians perform better under participative supervision (Ch 2.4, "Authoritarianism and Dogmatism"). Dogmatic managers "tend to make decisions quickly, based on only limited information and with a high degree of confidence in the correctness of their decisions" [V] (Ch 2.4, "Dogmatism").
 
 ### Argyris's basic incongruity thesis
 
@@ -78,7 +78,7 @@ The text identifies *stereotyping*, *selective perception*, and *perceptual defe
 
 Attribution theory (Heider, Kelley) explains how individuals interpret events as caused by stable internal or external factors [BT] (Ch 3.3). Kelley's three factors — consensus, consistency, distinctiveness — combine to produce internal or external attribution: low consensus, high consistency, low distinctiveness yields internal attribution (skill); high consensus, high consistency, high distinctiveness yields external attribution (luck or task ease) (Ch 3.3, "Internal and External Causes of Behavior").
 
-Two attribution biases are central to the OB analysis. The *fundamental attribution error* is "a tendency to underestimate the effects of external or situational causes of behavior and to overestimate the effects of internal or personal causes" [V] (Ch 3.3, "Attributional Bias"). The *self-serving bias* is the tendency to attribute success to one's own actions and failure to others (Ch 3.3, "Attributional Bias").
+Two attribution biases are central to the OB analysis. The *fundamental attribution error* is "a tendency to underestimate the effects of external or situational causes of behavior and to overestimate the effects of internal or personal causes" [V] (Ch 3.3, "Attributional Bias"). The text draws the consequence: "Hence, when a major problem occurs within a certain department, we tend to blame people rather than events or situations" [V] (Ch 3.3, "Attributional Bias"). The *self-serving bias* is the tendency to attribute success to one's own actions and failure to others (Ch 3.3, "Attributional Bias"). "These two biases in interpreting how we see the events around us help us understand why employees looking at the same event often see substantially different things" [V] (Ch 3.3, "Attributional Bias").
 
 ### Attitudes, formation, and cognitive consistency
 
@@ -90,7 +90,7 @@ An *attitude* is "a predisposition to respond in a favorable or unfavorable way 
 
 *Job satisfaction* is "a pleasurable or positive emotional state resulting from the appraisal of one's job or job experience" and is best understood in terms of discrepancy between expectations and outcomes [V] (Ch 3.5, "Job Satisfaction"). Five dimensions structure the rating literature: work itself, pay, promotional opportunities, supervision, and coworkers (Ch 3.5, "Dimensions of Job Satisfaction"). The Minnesota Satisfaction Questionnaire (MSQ) is presented as the dominant instrument (Ch 3.5, "Measurement of Job Satisfaction").
 
-*Organisational commitment* is characterised by "a strong belief in and acceptance of the organization's goals and values, a willingness to exert considerable effort on behalf of the organization, and a strong desire to maintain membership in the organization" [V] (Ch 3.5, "Job Involvement and Organizational Commitment").
+*Organisational commitment* is characterised by "(1) a strong belief in and acceptance of the organization's goals and values, (2) a willingness to exert considerable effort on behalf of the organization, and (3) a strong desire to maintain membership in the organization" [V] (Ch 3.5, "Job Involvement and Organizational Commitment").
 
 ## Part IV: Learning and reinforcement (Ch 4)
 
@@ -109,7 +109,7 @@ Four reinforcement strategies are catalogued (Ch 4.2, "Strategies for Behavioral
 - **Extinction**: undesired behaviour declines as a result of a lack of positive reinforcement.
 - **Punishment**: the administration of unpleasant consequences for undesired behaviour.
 
-The text takes a clear position: "positive reinforcement combined with extinction is the most suitable way to bring about desired behavior" because punishment alienates and avoidance learning emphasises the negative [AR] (Ch 4.2). Punishment works best "when it is administered in an impersonal way and as soon as possible after the transgression" and when it "fits the crime" in severity, is given in private, and is explained (Ch 4.2, "Punishment").
+On which strategy is most effective, the text relays the answer of "Advocates of behavioral change strategies, such as Skinner": "positive reinforcement combined with extinction is the most suitable way to bring about desired behavior" [V; relayed from Skinner and other advocates, BT] (Ch 4.2, "Strategies for Behavioral Change"). The reasons given: punishment "often does not provide information to the individual about how or in which direction to change" [V] and may cause the individual to become alienated from the work situation; avoidance learning "tends to emphasize the negative" [V]. The text keeps the conclusion hedged: "A positive approach to reinforcement is believed by some to be the most effective tool management has to bring about favorable changes in organizations" [V] (Ch 4.2). Punishment can have positive work outcomes, "especially if it is administered in an impersonal way and as soon as possible after the transgression" [V], and to be effective it should "fit the crime" in severity, be given in private, and be explained (Ch 4.2, "Punishment").
 
 ### Reinforcement schedules
 
@@ -118,11 +118,11 @@ Four partial schedules are documented (Ch 4.2, "Schedules of Reinforcement", Tab
 | Schedule | Performance impact when applied | Effect when terminated | Example |
 |---|---|---|---|
 | Fixed interval | Average and irregular | Quick extinction | Weekly paycheque |
-| Fixed ratio | High and stable | Quick extinction | Piece-rate pay |
-| Variable interval | Moderately high and stable | Slow extinction | Random monthly review and reward |
+| Fixed ratio | Very high and stable, reached quickly | Quick extinction | Piece-rate pay |
+| Variable interval | Moderately high and stable | Slow extinction | Monthly appraisal and reward at random times each month |
 | Variable ratio | Very high | Slow extinction | Sales bonus tied to selling X accounts where X varies around a mean |
 
-The text concludes that "the performance-contingent (or ratio) reward schedules generally lead to better performance than the time-contingent (or interval) schedules, regardless of whether such schedules are fixed or variable" [V] (Ch 4.2, paraphrasing Hamner).
+The fixed-interval schedule "generally does not result in high or sustained levels of performance because employees know that marginal performance usually leads to the same level of reward as high performance" [V] (Ch 4.2, "Schedules of Reinforcement"). The text concludes that "the performance-contingent (or ratio) reward schedules generally lead to better performance than the time-contingent (or interval) schedules, regardless of whether such schedules are fixed or variable" [V] (Ch 4.2, paraphrasing Hamner). Ch 7.3 returns to the schedules and ranks them: variable ratio superior once a behaviour has been learned, fixed interval least effective (see Part VII, "Process theories").
 
 ### Behaviour modification and behavioural self-management
 
@@ -168,9 +168,13 @@ Highly structured interviews with 15 specific characteristics (job analysis, sam
 
 ## Part VI: Perception and managerial decision-making (Ch 6)
 
+### Decision-making and stakeholders
+
+*Decision-making* is "the action or process of thinking through possible options and selecting one" [V] (Ch 6.1, "Overview of Managerial Decision-Making"). The quality of managers' decisions affects the effectiveness of the organisation and its stakeholders: "Stakeholders are all the individuals or groups that are affected by an organization (such as customers, employees, shareholders, etc.)" [V] (Ch 6.1).
+
 ### Two-system processing of decisions
 
-The brain processes decisions through two systems: the *reflective system* (logical, analytical, deliberate, methodical, prefrontal cortex) and the *reactive system* (quick, impulsive, intuitive, basal ganglia and amygdala) [BT, citing neuropsychology research] (Ch 6.2, "How the Brain Processes Information to Make Decisions"). The text argues that "the brain can only use one system at a time for processing information" [V, citing Darlow and Sloman] (Ch 6.2). Strong emotions pull decision-making toward the reactive route; novel and complex situations call for the reflective route.
+The brain processes decisions through two systems: the *reflective system* (logical, analytical, deliberate, methodical, prefrontal cortex) and the *reactive system* (quick, impulsive, intuitive, basal ganglia and amygdala) [BT, citing neuropsychology research] (Ch 6.2, "How the Brain Processes Information to Make Decisions"). The text argues that "the brain can only use one system at a time for processing information" [V, citing Darlow and Sloman] (Ch 6.2). The quick, intuitive route "can be lifesaving" [V], and experienced managers can often decide very quickly "because experience or expertise has taught them what to do in a given situation" [V] (Ch 6.2, "Reactive Decision-Making"). Strong emotions pull decision-making toward the reactive route; novel and complex situations call for the reflective route.
 
 *Emotional intelligence* — the ability to recognise, understand, and manage one's own emotions and others' — supports the toggle between systems and contributes to effective decision-making (Ch 6.2, "The Role of Emotions").
 
@@ -189,17 +193,21 @@ The chapter catalogues six barriers (Ch 6.4):
 5. *Personal biases*: the "similar to me" preference, *confirmation bias* (paying attention to information that confirms existing beliefs).
 6. *Conflict*: decision-makers avoid conflict even when avoidance is harmful.
 
-Conflict has two forms in this analysis: *process conflict* (about the best way to do something) "can actually lead to improved performance" [V], while *relationship conflict* is generally harmful and pushes participants into the reactive system (Ch 6.4, "Conflict").
+The text's conflict example is a manager who must correct a habitually late employee: the conversation will be uncomfortable, but if the behaviour is not corrected it continues, others may start copying it, and some employees may become frustrated enough to leave (Ch 6.4, "Conflict").
+
+Conflict has two forms in this analysis: *process conflict* (about the best way to do something) "can actually lead to improved performance" [V], while *relationship conflict* "is conflict between individuals that is more personal and involves attacks on a person rather than an idea" [V]. Relationship conflict is generally harmful, in part "because feeling personally attacked will cause an individual to revert to the reactive system of the brain" [V]; managers giving feedback should keep it "focused on behaviors and activities (how things are done) rather than on the individual" [V] (Ch 6.4, "Conflict").
 
 ### Improving decision quality
 
-The chapter recommends *evidence-based decision-making* — systematically collecting the best available evidence rather than relying on intuition (Ch 6.5). *Critical thinking* requires recognising logical fallacies; the text catalogues seven (non sequitur, false cause, ad hominem, genetic fallacy, appeal to tradition, bandwagon approach, appeal to emotion) (Ch 6.5, Table 6.2).
+The chapter works through the six steps for non-programmed decisions (Ch 6.5, "Techniques for Making Better Nonprogrammed Decisions"). At Step 2: "Often a manager only spends enough time on Step 2 to generate two alternatives and then quickly moves to Step 3 in order to make a quick decision" [V]; "Generating many possible options will increase the likelihood of reaching a good decision" [V] (Ch 6.5, "Step 2: Generating Multiple Alternatives"). Talking to other people and being creative help generate options. *Creativity* is "the generation of new or original ideas; it requires the use of imagination and the ability to step back from traditional ways of doing things and seeing the world" [V]; it is a skill that can be developed, and "Being creative requires letting your mind wander and combining existing knowledge from past experiences in novel ways" [V] (Ch 6.5, "Be creative").
 
-Rest's four-component ethical decision-making model is presented [BT]: moral sensitivity, moral judgment, moral motivation/intention, moral character/action (Ch 6.5, "Are there ethical implications?"). "A failure at any point in the chain can lead to unethical actions" [V] (Ch 6.5).
+At Step 3 the chapter recommends *evidence-based decision-making*: managers "should systematically collect the best evidence available to help them make effective decisions" [V], relying on data and information rather than intuition. The evidence may include the decision maker's own expertise and external evidence such as other stakeholders, contextual factors, and potential costs and benefits; the approach can be "particularly beneficial for new managers or for experienced managers who are starting something new" [V] (Ch 6.5, "Do you have the best-quality data and evidence?"). *Critical thinking* "is a disciplined process of evaluating the quality of information, especially data collected from other sources and arguments made by other people, to determine whether the source should be trusted or whether the argument is valid" [V] (Ch 6.5, "Are you thinking critically about the options?"). It requires recognising logical fallacies; the text catalogues seven (non sequitur, false cause, ad hominem, genetic fallacy, appeal to tradition, bandwagon approach, appeal to emotion) (Ch 6.5, Table 6.2).
+
+Rest's four-component ethical decision-making model is presented [BT]: moral sensitivity (recognising that the issue has a moral component), moral judgment (determining which actions are right versus wrong), moral motivation/intention (deciding to do the right thing), and moral character/action (actually doing what is right) (Ch 6.5, "Are there ethical implications?"). "A failure at any point in the chain can lead to unethical actions" [V] (Ch 6.5). Moral judgment means considering whether the alternatives are right or wrong, "whether or not they will cause harm, and if so, how much and to whom" [V]; for it the text offers a front-page test: "think about how you would feel if that decision ended up on the front page of a major newspaper. If you would feel guilty or ashamed, don’t do it!" [V] (Ch 6.5, "Are there ethical implications?").
 
 ### Group decision-making, groupthink, and devil's advocate
 
-Group decisions reduce bias and produce more options when groups are diverse and members feel free to speak [AP] (Ch 6.6, "Advantages of Group Decisions"). *Groupthink* "occurs when group members choose not to voice their concerns or objections because they would rather keep the peace and not annoy or antagonize others" [V] (Ch 6.6, "Disadvantages of Group Decisions"). *Suppression of dissent* by powerful members produces the same effect.
+Group decisions reduce bias and produce more options when groups are diverse and members feel free to speak [AP] (Ch 6.6, "Advantages of Group Decisions"). *Groupthink* "occurs when group members choose not to voice their concerns or objections because they would rather keep the peace and not annoy or antagonize others" [V] (Ch 6.6, "Disadvantages of Group Decisions"). The text names two causes: "Sometimes groupthink occurs because the group has a positive team spirit and camaraderie, and individual group members don’t want that to change by introducing conflict" [V], and "It can also occur because past successes have made the team complacent" [V] (Ch 6.6). *Suppression of dissent* by powerful members produces the same effect.
 
 Counter-measures: diverse membership, encouraging everyone to speak, assigning a *devil's advocate* to systematically critique proposed solutions, and finding common ground when conflict becomes excessive (Ch 6.6, "How to Form a Quality Group").
 
@@ -221,13 +229,13 @@ Five content theories are presented [BT] (Ch 7.2):
 
 ### Self-determination theory
 
-Self-determination theory (SDT) distinguishes *intrinsic motivation* (performing an activity for its inherent satisfaction) from *extrinsic motivation* (performing for a valued outcome). The signature SDT claim — "as the level of extrinsic rewards increases, the amount of intrinsic motivation decreases" [V] — has direct managerial implications (Ch 7.2, "Self-Determination Theory"). Tasks are intrinsically motivating when they satisfy needs for competence, autonomy, and relatedness.
+Self-determination theory (SDT), cited to Ryan and Deci (2000) [BT], distinguishes *intrinsic motivation* (performing an activity for its inherent satisfaction) from *extrinsic motivation* (performing for a valued outcome). The signature SDT claim — "as the level of extrinsic rewards increases, the amount of intrinsic motivation decreases" [V] — has direct managerial implications (Ch 7.2, "Self-Determination Theory"). Tasks are intrinsically motivating when they satisfy at least one of three higher-order needs: competence, autonomy, and relatedness. For jobs that are uninteresting by nature, SDT would make performance contingent on extrinsic rewards; for interesting jobs, it would create more opportunities to satisfy competence, autonomy and relatedness rather than focus only on raising extrinsic rewards [AP] (Ch 7.2, "Self-Determination Theory").
 
 ### Process theories
 
 Four process theories are presented (Ch 7.3):
 
-- **Operant conditioning theory**: as covered in Ch 4 — reward-contingent behaviour, with positive reinforcement, negative reinforcement, avoidance learning, nonreinforcement, and punishment.
+- **Operant conditioning theory**: as covered in Ch 4 — reward-contingent behaviour, with positive reinforcement, negative reinforcement, avoidance learning, nonreinforcement, and punishment. Punishment "does not tell them what they should do" and "works best when reinforcement is also used" [V] (Ch 7.3, "Operant Conditioning Theory"). On schedules, behaviours learned under continuous reinforcement "are quickly extinguished" [V] once the reinforcement stops, and Ch 7.3 ranks the four partial schedules: "Which type of reinforcement schedule is best? In general, continuous reinforcement is best while employees are learning their jobs or new duties. After that, variable-ratio reinforcement schedules are superior. In most situations the fixed-interval schedule produces the least effective results, with fixed ratio and variable interval falling in between the two extremes. But remember that effective behaviors must be reinforced with some type of schedule, or they may become extinguished." [V] (Ch 7.3, "Schedules of Reinforcement").
 - **Equity theory** (Adams): motivation depends on the comparison of one's outcome-input ratio against a *referent other*. Underreward inequity produces dissatisfaction and a range of restorative behaviours: alter own inputs or outcomes, alter referent's inputs or outcomes, distort perceptions, change referent, or leave the situation [BT] (Ch 7.3, "Reducing Underreward Inequity"). Two human tendencies amplify perceived inequity: people overrate their own performance, and people overrate others' outcomes (Ch 7.3, "The Basic Equity Model").
 - **Goal theory** (Locke): difficult, specific, accepted goals produce better performance than easy or vague goals. *Goal commitment* is the degree of dedication to achieving a goal; participation in goal setting tends to increase commitment [BT] (Ch 7.3, "Goal Theory"). The text catalogues hazards: goal conflict, narrow goals neglecting other duties, unethical use to set impossible goals, and over-emphasis on quantifiable measures.
 - **Expectancy theory** (Vroom, Lawler): motivation = E1 (effort-performance expectancy) × E2 (performance-outcome expectancy) × valence. The integrative claim: "to maximize motivation, organizations must make outcomes contingent on performance" [V] (Ch 7.3, "Implications of Expectancy Theory"). *Self-efficacy* (Bandura) influences E1 strongly — "high self-efficacy employees believe that they are likely to succeed at most or all of their job duties" [AP] (Ch 7.3).
@@ -291,17 +299,17 @@ Group size effects on group dynamics (Ch 9.2, Table 9.2): smaller groups have hi
 
 Work group norms have five characteristics: they summarise and simplify group influence; they apply only to behaviour, not to thoughts; they develop only for behaviours the group considers important; they develop gradually; and they may not apply to all members [AP] (Ch 9.2, "Characteristics of Work Group Norms"). Group norms serve four functions: facilitating group survival, simplifying expected behaviours, avoiding embarrassing situations, and identifying the group to others (Ch 9.2, "Functions of Work Group Norms").
 
-The Asch conformity experiment is presented as a classic finding: in over a third of trials, subjects denied the evidence of their own senses to agree with a unanimous (confederate) group [BT] (Ch 9.2, "Conformity and Deviance"). Conformity is influenced by personality (lower in high-self-identity individuals), stimulus ambiguity, and group characteristics (pressure, identification, prior success).
+The Asch conformity experiment is presented as a classic finding [BT]: "In over one-third of the trials in the experiment, the naive subject denied the evidence of his own senses and agreed with the answers given by the unknown confederates" [V] (Ch 9.2, "Conformity and Deviance"). Conformity is influenced by personality (lower in high-self-identity individuals), stimulus ambiguity, and group characteristics (pressure, identification, prior success).
 
 Status systems serve four purposes: motivation, identification, dignification, and stabilisation [AP] (Ch 9.2, "Status Systems"). *Status incongruence* — when high status on one dimension contradicts characteristics or context — produces interpersonal hostility.
 
-Group cohesiveness has seven determinants — homogeneity, maturity, size, frequency of interaction, clear group goals, competition or external threat, and prior success — and consequences include maintenance of membership, group power over members, participation and loyalty, and satisfaction. Cohesiveness's relationship with productivity is moderated by acceptance of organisational goals: "high performance is most likely to result when highly cohesive teams accept the goals of the organization" [V, paraphrased] (Ch 9.2, "Consequences of Group Cohesiveness").
+Group cohesiveness has seven determinants — homogeneity, maturity, size, frequency of interaction, clear group goals, competition or external threat, and prior success — and consequences include maintenance of membership, group power over members, participation and loyalty, and satisfaction. Cohesiveness's relationship with productivity is moderated by acceptance of organisational goals: "high performance is most likely to result when highly cohesive teams accept the goals of the organization" [V] (Ch 9.2, "Consequences of Group Cohesiveness").
 
 ### Intergroup behaviour: Hackman's effectiveness model
 
 Group effectiveness is determined by group effort, group knowledge and skill, and task performance strategies — the *intermediate criteria* — themselves shaped by environmental context, design factors, and interpersonal processes [BT, Hackman's model] (Ch 9.3, "What Is Work Group Effectiveness?").
 
-Intergroup performance depends on three interaction requirements: *interdependence* (pooled, sequential, reciprocal), *information flow* (driven by task uncertainty), and *integration* (collaboration despite different goals and time orientations) [AP] (Ch 9.4, "Determinants of Intergroup Performance"). Five techniques manage intergroup coordination: rules and procedures, member exchange, linking roles, task forces, and decoupling (Ch 9.4, "Managing Intergroup Behavior and Performance").
+Intergroup performance depends on three interaction requirements: *interdependence* (pooled, sequential, reciprocal), *information flow* (driven by task uncertainty), and *integration* (collaboration despite different goals and time orientations) [AP] (Ch 9.4, "Determinants of Intergroup Performance"). The amount of interaction required is set by the extent and nature of the groups' interdependence. *Pooled* interdependence: groups are largely independent of one another, though each contributes to and is supported by the larger organisation. *Sequential*: the outputs of one group become the inputs of another. *Reciprocal*: two or more groups depend on one another for inputs, "thereby requiring a high degree of interaction" [V] (Ch 9.4, "Interdependence Requirements"). Five techniques manage intergroup coordination: rules and procedures, member exchange, linking roles, task forces, and decoupling (Ch 9.4, "Managing Intergroup Behavior and Performance"). Decoupling is for closely related groups that "simply don’t work together effectively" [V]: it separates them "physically or administratively" so that the organisation's required tasks are fulfilled while interaction between the groups is minimised (Ch 9.4, "Decoupling").
 
 ## Part X: Teams (Ch 10)
 
@@ -323,7 +331,7 @@ Linda Hill's framing — managing a team means managing paradox [BT] (Ch 10.3, "
 
 Lencioni's *Five Dysfunctions* model is presented as the framework for thinking about team trust and conflict: absence of trust sets the tone for fear of conflict, and a team that does not air its opinions through debate cannot commit to decisions — the text presents the first three dysfunctions [BT] (Ch 10.4, "Opportunities and Challenges to Team Building"). *Mining* and *real-time permission* are techniques to surface conflict productively.
 
-Diverse teams outperform homogeneous teams on decision-making, problem-solving, and innovation according to multiple cited studies (McKinsey 2015 — top quartile for ethnic diversity 35 per cent more likely to have above-mean returns; BCG-TUM study — diversity in management correlates with innovation revenue when women exceed 20 per cent of management positions) [BT] (Ch 10.5, "Team Diversity"). The mechanism is that diverse team membership "alters the behaviour of a group's social majority in ways that lead to improved and more accurate group thinking" [V] (Ch 10.5).
+Diverse teams outperform homogeneous teams on decision-making, problem-solving, and innovation according to multiple cited studies (McKinsey 2015 — top quartile for ethnic diversity 35 per cent more likely to have above-mean returns; BCG-TUM study — diversity in management correlates with innovation revenue when women exceed 20 per cent of management positions) [BT] (Ch 10.5, "Team Diversity"). A cited study found that people from diverse backgrounds "might actually alter the behavior of a group's social majority in ways that lead to improved and more accurate group thinking" [BT] (Ch 10.5).
 
 Multicultural teams face four common conflict sources: direct versus indirect communication, accent and fluency differences, differing attitudes toward hierarchy, and conflicting decision-making norms [BT] (Ch 10.6, "Multicultural Teams"). Four interventions: adaptation, structural intervention, managerial intervention (last resort), and exit (very last resort). Cultural intelligence is presented through the head-body-heart framework (cognitive, physical, emotional/motivational) (Ch 10.6).
 
@@ -331,7 +339,7 @@ Multicultural teams face four common conflict sources: direct versus indirect co
 
 ### The communication model and feedback types
 
-The basic model — communicator encodes a message, receiver decodes it — names *encoding* (translating ideas into symbols), *decoding* (interpreting), and *noise* (factors distorting clarity) (Ch 11.1, "The Process of Managerial Communication"). Three feedback types are catalogued: informational (non-evaluative), corrective (challenging), and reinforcing (confirming) [AP] (Ch 11.1, "Feedback").
+The basic model — communicator encodes a message, receiver decodes it — names *encoding* (translating ideas into symbols), *decoding* (interpreting), and *noise* (factors distorting clarity) (Ch 11.1, "The Process of Managerial Communication"). Decoding "is also influenced by the receiver's previous experiences and frame of reference at the time of receiving the message" [V] (Ch 11.1, "Encoding and Decoding"), and noise "can occur at any point along the model" [V], decoding included (Ch 11.1, "Noise"). Three feedback types are catalogued: informational (non-evaluative), corrective (challenging), and reinforcing (confirming) [AP] (Ch 11.1, "Feedback").
 
 ### Mintzberg's three managerial role clusters
 
@@ -339,7 +347,7 @@ Three role clusters from Mintzberg's seminal study [BT] (Ch 11.3, "The Roles Man
 
 - *Interpersonal*: figurehead, leader, liaison.
 - *Informational*: monitor, disseminator, spokesperson.
-- *Decisional*: entrepreneur, disturbance/crisis handler, resource allocator, negotiator.
+- *Decisional*: entrepreneur, disturbance/crisis handler, resource allocator, negotiator. Where the entrepreneur initiates change, the disturbance or crisis handler role "depicts managers who must involuntarily react to conditions" [V] (Ch 11.3, "The Roles Managers Play").
 
 Stewart's 1967 finding (and Guest's 1956 corroboration) that managers spend 47 per cent of their time with peers, 41 per cent within their unit, and only 12 per cent with superiors anchors the importance of liaison [BT] (Ch 11.3, "Interpersonal Roles").
 
@@ -365,7 +373,7 @@ Leaders emerge from the dynamics of need, expertise, and idiosyncrasy credits in
 - *Expert power*: people believe the holder has and shares needed expertise.
 - *Legitimate power*: people believe the holder has the right to influence and ought to be obeyed.
 
-Different power types produce different responses (Exhibit 12.5): reward power elicits measured response and tit-for-tat thinking; coercive power produces alienation and resistance; referent power produces identification; rationality, expertise, and moralistic appeal produce commitment and internalisation. Research suggests rationality is the most effective influence tactic for follower commitment, motivation, performance, satisfaction, and group effectiveness [BT] (Ch 12.3).
+Different power types produce different responses (Exhibit 12.5): reward power elicits measured response and tit-for-tat thinking; coercive power produces alienation and resistance; referent power produces identification; rationality, expertise, and moralistic appeal produce commitment and internalisation. Research suggests rationality is the most effective influence tactic for follower commitment, motivation, performance, satisfaction, and group effectiveness [BT] (Ch 12.3). "Reward and legitimate power (that is, relying on one’s position to influence others) produce inconsistent results" [V], and "Leaders who rely solely on their legitimate power and authority seldom generate the influence necessary to help their organization and its members succeed" [V] (Ch 12.3, "Leadership as an Exercise of Influence").
 
 ### Trait approach and the great-man theory
 
@@ -439,13 +447,13 @@ Seven antecedents of conflict: task interdependencies, status inconsistencies, j
 
 ### Five conflict-resolution modes (Thomas)
 
-The two-axis model — assertiveness × cooperativeness — yields five modes [BT] (Ch 14.2, Exhibit 14.4):
+The two-axis model — assertiveness × cooperativeness — yields five modes [BT] (Ch 14.2, Exhibit 14.4); the situations suited to each are listed in Table 14.1, adapted from Thomas (1977) (Ch 14.2, Table 14.1):
 
-- *Competing* (high assertiveness, low cooperativeness): for emergencies, unpopular but vital actions.
-- *Collaborating* (high both): when goals matter, integrative solution needed.
-- *Compromising* (medium both): when goals are important but not worth disruption.
-- *Avoiding* (low both): when issue is trivial or other priorities pressing.
-- *Accommodating* (low assertiveness, high cooperativeness): when issues matter more to others, when minimising loss when outmatched.
+- *Competing* (high assertiveness, low cooperativeness): when quick, decisive action is vital (e.g., emergencies); on important issues where unpopular actions need implementing; on issues vital to company welfare when you know you're right; against people who take advantage of noncompetitive behaviour.
+- *Collaborating* (high both): to find an integrative solution when both sets of concerns are too important to be compromised; when the objective is to learn; when merging insights from people with different perspectives; when gaining commitment by incorporating concerns into a consensus; when working through feelings that have interfered with a relationship.
+- *Compromising* (medium both): when goals are important but not worth the effort or potential disruption of more assertive modes; when opponents with equal power are committed to mutually exclusive goals; for temporary settlements to complex issues; for expedient solutions under time pressure; as a backup when collaboration or competition fails.
+- *Avoiding* (low both): when an issue is trivial or more important issues are pressing; when there is no chance of satisfying one's concerns; when potential disruption outweighs the benefits of resolution; to let people cool down; when gathering information supersedes immediate decision; when others can resolve the conflict more effectively; when issues seem tangential or symptomatic of other issues.
+- *Accommodating* (low assertiveness, high cooperativeness): when you find you are wrong; when issues are more important to others than to yourself; when building social credits for later issues; when minimising loss when outmatched and losing; when harmony and stability are especially important; when allowing subordinates to develop by learning from mistakes.
 
 The text reports an executive study finding that executives "typically described themselves as using collaboration or compromise to resolve conflict, whereas these same executives typically described their opponents as using a competitive mode almost exclusively" — a self-serving asymmetry [V] (Ch 14.2).
 
@@ -463,7 +471,7 @@ Two bargaining strategies: *distributive* (win-lose, fixed resources, short-term
 
 The *BATNA* concept ("Best Alternative To a Negotiated Agreement") from Fisher and Ury's *Getting to Yes* anchors *principled negotiation* — finding objective standards based on existing precedents [BT] (Ch 14.4, "Concluding Thoughts about Conflict and Negotiations"). "In general, the party with the more attractive BATNA gets the better of the deal. If both parties have attractive BATNAs, the best course of action may be not to reach an agreement at all" [V] (Ch 14.4).
 
-Cross-cultural negotiation differences are documented: Americans, Arabs, and Russians differ significantly in primary negotiating style (factual / affective / axiomatic), conflict response (objective facts / subjective feelings / asserted ideals), concession-making, and deadline orientation [BT] (Ch 14.4, "Cultural Differences in International Negotiations", Table 14.5).
+Cross-cultural negotiation differences are documented: Americans, Arabs, and Russians differ significantly in primary negotiating style (factual / affective / axiomatic), conflict response (objective facts / subjective feelings / asserted ideals), concession-making, and deadline orientation [BT] (Ch 14.4, "Cultural Differences in International Negotiations", Table 14.5). The comparison draws on a study of persuasion styles in North America, the Middle East, and the former Soviet Union (Glenn, Witmeyer and Stevenson, "Cultural Styles of Persuasion", 1977, per the source's endnote) [BT] (Ch 14.4).
 
 ## Part XV: External and internal organisational environments and corporate culture (Ch 15)
 
@@ -533,7 +541,7 @@ Four change models with different assumptions [BT] (Ch 16.3):
 
 - **Lewin's three-stage model**: unfreeze → change → refreeze. Best for stable contexts.
 - **Kotter's eight-step model**: establish urgency → form guiding coalition → create vision → communicate vision → remove obstacles → create small wins → consolidate improvements → anchor changes. Mechanistic, top-down, deficit-based assumptions; high-control situations.
-- **Cooperrider's Appreciative Inquiry (AI)**: 5-D cycle (define, discover, dream, design, destiny). Abundance-based, bottom-up, positive. Uses appreciative conversations to shift organisational narratives.
+- **Cooperrider's Appreciative Inquiry (AI)**: 5-D cycle (define, discover, dream, design, destiny). Abundance-based, bottom-up, positive. Uses appreciative conversations to shift organisational narratives: people "work together to co-create a positive vision of an ideal future for their organization" [V], and employees envision the changes they want to see, "then work together to design how they will make these changes a reality" [V] (Ch 16.3, "Common Change Models").
 - **Olson and Eoyang Complex Adaptive Systems (CAS)**: organisations are emergent, self-organising. Three influence levers: empower change agents, strengthen connections among people, ensure information and energy flow through connections. Self-organising structures can be altered through boundary conditions, disturbances, and connection-and-flow attention.
 
 The text argues that the perception of the organisation's state (deficit-based versus abundance-based), the mechanism of change (top-down versus bottom-up), and the mindset toward people (conventional versus appreciative) jointly shape which model fits (Ch 16.3, "Basic Assumptions about Change").
@@ -685,7 +693,7 @@ Five criteria for evaluating a theory (Kaplan): internal consistency, external c
 
 ## Connections the authors make in the text
 
-- *Bounded rationality* (Simon): cited as foundational for understanding decision limits and selective use of decision criteria [BT] (Ch 6.4, "Bounded Rationality"; Ch 13.2 quoting Simon).
+- *Bounded rationality*: presented as foundational for understanding decision limits, with no originator named (Ch 6.4, "Bounded Rationality"). Herbert Simon is cited on the selective use of decision criteria [BT] (Ch 13.2) and, with Dearborn, for the selective-perception study [BT] (Ch 3.1).
 - *Maslow's hierarchy of needs* and *McGregor's Theory X/Y*: positioned as foundational, with the text noting research does not strictly support Maslow's hierarchical sequencing [BT] (Ch 7.2; Ch 12.3).
 - *Hofstede's cultural programming* and *Kluckhohn-Strodtbeck's six cultural dimensions*: core comparative-management framing [BT] (Ch 2.7).
 - *Argyris's basic incongruity thesis*: anchors the personality-organisation conflict treatment [BT] (Ch 2.5).
@@ -716,13 +724,13 @@ Five criteria for evaluating a theory (Kaplan): internal consistency, external c
 
 ## Positions the authors explicitly frame against
 
-- *Punishment as primary reinforcer*: the text argues against, recommending positive reinforcement combined with extinction [AR] (Ch 4.2).
+- *Punishment as primary reinforcer*: the text cautions that punishment's use "must be carefully considered and implemented" [V] and relays the view of Skinner and other advocates that positive reinforcement combined with extinction is the most suitable approach [BT] (Ch 4.2).
 - *Strict Maslow hierarchical sequencing*: research does not support the strict prepotency claim [AR] (Ch 7.2, "Maslow's Hierarchy of Needs").
 - *Treating employees identically (equality) regardless of performance*: equity theory grounds the argument that *equity* (proportionality) is what employees expect, not equality [AR] (Ch 7.4).
 - *Conflict as inherently destructive*: the text argues that moderate conflict can be productive and that process conflict (about how to do something) can improve performance, in contrast to relationship conflict [AR] (Ch 6.4, Ch 14.1).
 - *Stereotyping as factual baseline*: stereotypes and similarity bias are framed as cognitive shortcuts that systematically misrepresent (and discriminate against) individuals [AR] (Ch 5.5, Ch 8.1).
 - *Forced ranking as a long-term performance management tool*: the text notes GE backed away from it after Welch retired and many companies followed because it "fostered internal competition and undermined collaboration and teamwork" [V] (Ch 17.3).
-- *Top-down change as universally appropriate*: the text contrasts conventional top-down change with bottom-up appreciative and complex-adaptive approaches, arguing that "the more complex the potential change, the greater the need to involve employees" [AP] (Ch 16.3).
+- *Top-down change as universally appropriate*: the text contrasts conventional top-down change with bottom-up appreciative and complex-adaptive approaches, arguing that "the more complex the potential change, the greater the need to involve employees" [V] (Ch 16.3).
 - *Treating culture as soft / non-strategic*: Drucker's "culture eats strategy for breakfast" is cited approvingly to frame culture as the more influential force [V] (Ch 15.5).
 
 ## Citation and source-integrity notes

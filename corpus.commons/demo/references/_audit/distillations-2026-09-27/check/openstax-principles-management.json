@@ -1,0 +1,88 @@
+{
+ "slug": "openstax-principles-management",
+ "changed_lines_checked": 159,
+ "tally": {
+  "faithful": 151,
+  "minor_drift": 5,
+  "unsupported": 2,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/openstax-principles-management-deep.md",
+   "line": 861,
+   "text": "Classical management separates \"planning\" and \"doing\"; behavioural theorists involve organisation members in drawing up the plans that affect them.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Source says classical thinking 'advocates a separation' and behavioural theorists 'suggest involving' members; the deep ref states both as what the schools do.",
+   "evidence": "Source 26334-26337: 'Classical management thinking advocates a separation of “planning” and “doing.” ... behavioral management theorists suggest involving organization members in drawing up plans that affect them.'",
+   "fix": "correct: Classical management thinking advocates separating \"planning\" and \"doing\"; behavioural management theorists suggest involving organisation members in drawing up the plans that affect them."
+  },
+  {
+   "file": "corpus.commons/demo/references/openstax-principles-management-deep.md",
+   "line": 863,
+   "text": "in the mechanistic organisation both activities tend to be lodged with management above the point where plans are carried out, and the employee is a passive player",
+   "grade": "MINOR-DRIFT",
+   "problem": "Drops both of the source's 'often' hedges.",
+   "evidence": "Source 27202-27205: 'lodged with management in the organizational hierarchy, often above the point in the organization where the plans are being carried out ... the employee is often a passive player'.",
+   "fix": "correct: in the mechanistic organisation both activities tend to be lodged with management in the hierarchy, often above the point where plans are carried out, and the employee is often a passive player"
+  },
+  {
+   "file": "corpus.commons/demo/references/openstax-principles-management.md",
+   "line": 45,
+   "text": "Porter's three generic strategies — cost leadership, differentiation, focus; combining cost leadership and differentiation can leave a firm \"stuck in the middle\".",
+   "grade": "EDIT-DEFECT",
+   "problem": "The edit replaced the closing em dash with a semicolon, leaving the first clause a verbless fragment.",
+   "evidence": "Pre-edit: 'Porter's three generic strategies — cost leadership, differentiation, focus — should not be combined'. Deep 404-410.",
+   "fix": "correct: Porter's three generic strategies are cost leadership, differentiation and focus; trying to combine cost leadership and differentiation, Porter suggests, can leave a firm \"stuck in the middle\"."
+  },
+  {
+   "file": "corpus.commons/demo/references/openstax-principles-management.md",
+   "line": 151,
+   "text": "11. **Cost leadership and differentiation should not be combined.** Trying to do both can leave a firm \"stuck in the middle\".",
+   "grade": "MINOR-DRIFT",
+   "problem": "The body was softened to 'can leave', but the bold heading still states the hardened prescription as the text's own and drops Porter; the audit's 'stuck-in-the-middle hardened' correction is only half applied on this line.",
+   "evidence": "Deep 410/1002: 'Trying to combine [cost leadership and differentiation], Porter suggests, can lead to a firm being stuck in the middle' [V]; source 12274-12275.",
+   "fix": "correct: 11. **Combining cost leadership and differentiation risks being stuck in the middle (Porter, endorsed).** Trying to do both, Porter suggests, can leave a firm \"stuck in the middle\"."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-principles-management-software-business.md",
+   "line": 230,
+   "text": "*Henry Mintzberg* — three managerial role clusters and the fragmented-manager-time findings are sourced [BT] (Ch 1.1; Ch 1.2; Ch 16.3), from *The Nature of Managerial Work* (1973) and later HBR work.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The bibliographic tail ('from The Nature of Managerial Work (1973) and later HBR work') is true of the source's endnotes but does not trace to the deep ref, which names neither work. The line came from the audit's own fix text.",
+   "evidence": "Source endnotes 28880 'Mintzberg, H. (1973). The Nature of Managerial Work', 28896 'Mintzberg, H. (1990). “The Manager’s Job: Folklore and Fact.” Harvard Business Review'. Deep 29, 35, 782: Mintzberg findings and role clusters, no titles.",
+   "fix": "correct: *Henry Mintzberg* — three managerial role clusters and the fragmented-manager-time findings are sourced [BT] (Ch 1.1; Ch 1.2; Ch 16.3)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-principles-management-stakeholder-engagement.md",
+   "line": 193,
+   "text": "R. Edward Freeman — stakeholder theory; the Exhibit 5.8 stakeholder map behind the eight questions (Ch 5.6) [BT]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Attributing the Exhibit 5.8 map to Freeman is true of the source (the exhibit caption cites Freeman 1984) but does not trace to the deep ref, which cites Freeman only for stakeholder theory and gives the eight questions as Exhibit 5.8 without a source. Alternative fix: cycle-to-deep (add 'Exhibit 5.8 Stakeholder Map is sourced to Freeman (1984)' [BT] to deep 263).",
+   "evidence": "Source 6716: 'Exhibit 5.8 Stakeholder Map Source: Freeman, R. Edward. (1984). Strategic management: A Stakeholder approach'. Deep 263: 'Stakeholder theory ... [V, citing Freeman] ... Eight stakeholder analysis questions are offered ... (Ch 5.6, Exhibit 5.8)'.",
+   "fix": "correct: R. Edward Freeman — stakeholder theory (Ch 5.6) [BT]; the eight questions come from Exhibit 5.8 (Ch 5.6)"
+  }
+ ],
+ "notes": "Coverage: full reads of the deep ref (1025 lines), light ref (156) and all five changed distillations (aar 129, decision-making 206, retro 145, software-business 243, stakeholder-engagement 212); every changed line checked against the converted source (deep/light) or the deep ref (distillations); cross-source claims checked against the OB, Psychology 2e, Liberating Structures, LFUO, Letaw, Accounting Vol 2, Business Ethics, Business Law and OPL deep refs. 17 added index rows naming this source checked against their distillations. No vflags file exists for this slug. Line counts: deep 18, light 3, aar 13, decision-making 19, retro 19, software-business 39, stakeholder-engagement 31, index rows 17. Every audit fix in the five _audit/distillations-2026-09-27 records was applied, and every cycle-to-deep addition (Table 2.3, Follett dominance cost and 'neither side is happy', mechanistic/organic endnote and Daft adaptation, Elkington, Kaptein/Becker moral entrepreneur, resource power, nAff definition, Herzberg two-stage process, Ch 17.5 Tavistock, Ch 17.8 uncertainty passage, tacit/explicit [V]) matches the source word for word with correct locators. Re-marking the Drucker and Eccles-Nohria quotations [V]->[BT] is correct and the distillations now carry [BT] consistently; relayed quotes elsewhere (Follett library window) stay [V], which the audit accepted. Removals (Nonaka-Takeuchi line, 'Key Concept 10 references expectancy/equity', 'moral entrepreneurs in leadership positions', 'durable trust through cycles') are all justified by the audit records. Two findings (software-business 230, stakeholder-engagement 193) are true of the source but missing from the deep ref; the software-business one came verbatim from the audit's own fix text, so either strip or cycle to the deep. Residual outside the diff, not graded: unchanged decision-making index rows 46 (MBO, scenario planning), 47 (six entry modes), 48 (job enrichment), 595 (MBO objectives) and the file list at 650 (scenario, MBO) route to content the decision-making distillation does not carry. Also not graded: the new Ch 17.5 paragraph (deep 861) sits under the MBO heading after Ch 17.7 content.",
+ "deferred_to_index_audit": [
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 49,
+   "text": "| **Organisational-design or restructuring decision** | Six structure types, contingency school's \"it depends\" (OpenStax Principles of Management) | `openstax-principles-management-decision-making.md` |",
+   "grade": "UNSUPPORTED",
+   "problem": "The row routes org-design decisions to the decision-making distillation for 'six structure types', which that distillation never mentions (they live in the aar and software-business distillations). Only the contingency school's 'it depends' is present (distillation line 10).",
+   "evidence": "grep of openstax-principles-management-decision-making.md: no 'structure type' content; line 10 carries 'Woodward's contingency-school \"it depends\"'; KC14 carries the four change models.",
+   "fix": "correct: | **Organisational-design or restructuring decision** | Contingency school's \"it depends\"; four change models (Lewin, Kotter, Appreciative Inquiry, Complex Adaptive Systems) (OpenStax Principles of Management) | `openstax-principles-management-decision-making.md` |"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 483,
+   "text": "| Select the management-strategy tool appropriate to the decision type | OpenStax, Principles of Management | `openstax-principles-management-decision-making.md` | A strategic decision is being made; the six decision-making tools (SWOT, PESTEL, Porter, VRIO, scenario, MBO) have different applicability depending on uncertainty and time horizon. |",
+   "grade": "UNSUPPORTED",
+   "problem": "The edit only dropped 'balanced scorecard'. The decision-making distillation carries no scenario planning and no MBO, never counts 'six decision-making tools', and says nothing about applicability by uncertainty and time horizon.",
+   "evidence": "Decision-making distillation: KC10 'SWOT ... PESTEL ... Porter's Five Forces ... VRIO ... Together they ground strategic-positioning decisions'; Phase 3 row 'have I run SWOT, PESTEL, Porter's Five Forces, and VRIO as appropriate?'; zero hits for 'scenario' or 'MBO'.",
+   "fix": "correct: | Select the management-strategy tool appropriate to the decision type | OpenStax, Principles of Management | `openstax-principles-management-decision-making.md` | A strategic decision is being made; run SWOT, PESTEL, Porter's Five Forces and VRIO as appropriate, which together ground strategic-positioning decisions. |"
+  }
+ ]
+}

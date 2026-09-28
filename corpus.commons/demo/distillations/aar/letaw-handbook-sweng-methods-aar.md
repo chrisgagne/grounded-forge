@@ -1,23 +1,23 @@
-<!-- derived-from-deep: sha256:5e90460abbba87e26d8dd84ff0987a8bafb459b4329e062ad00bf9ae3936387c -->
+<!-- derived-from-deep: sha256:414b58dd67e1f0976a2f184f2bc4592dd837a75a9d410f3991bdf4c6641b6078 -->
 # Letaw, Handbook of Software Engineering Methods, AAR Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.
 
 ## AAR Relevance
 
-The Handbook projects onto the software-incident AAR as a *practitioner toolkit*: it names methods, not theories, and each method is framed as a risk-reduction move. (Source: Letaw, *Handbook of Software Engineering Methods*, Ch 2, opening) For the AAR facilitator, three methods dominate: the RACI matrix for locating decision-rights ambiguity as a contributory factor, fist of five for surfacing latent dissent before an action is committed, and the twelve named code smells as a shared vocabulary for design-debt contributors when an incident's root theme involves code decay. A fourth cluster — the Tuckman stage map, the triple constraint, and the project priority matrix — applies when an AAR surfaces team-dynamics or project-governance contributory factors. The projection is moderate fire: most valuable at Phase 2 (contributory-factor analysis with RACI and code smells) and Phase 4 (action design with fist of five and RACI for ownership).
+The Handbook projects onto the software-incident AAR as a *practitioner toolkit*: it names methods, not theories, and its project-management chapter frames each of its methods as a risk-reduction move. (Source: Letaw, *Handbook of Software Engineering Methods*, Ch 2, opening) For the AAR facilitator, three methods dominate: the RACI matrix for locating decision-rights ambiguity as a contributory factor, fist of five for surfacing latent dissent before an action is committed, and the eleven named code smells as a shared vocabulary for design-debt contributors when an incident's root theme involves code decay. A fourth cluster — the Tuckman stage map, the triple constraint, and the project priority matrix — applies when an AAR surfaces team-dynamics or project-governance contributory factors. The projection is moderate fire: most valuable at Phase 2 (contributory-factor analysis with RACI and code smells) and Phase 4 (action design with fist of five and RACI for ownership).
 
 ## Key Concepts for AAR
 
-1. <!-- concept: raci-matrix --> **RACI matrix as decision-rights audit.** The RACI matrix defines "who is Responsible (R), Accountable (A), Consulted (C), or Informed (I)" for each task or deliverable. The risk it addresses directly: "If your team doesn't know who needs to do what (or forgets, or can plausibly deny knowing), that can increase the probability of negative events" — the example is "shipping a broken product to customers because nobody was assigned to quality assurance" [V] (Source: Letaw, *Handbook*, Ch 2.4.2, "Defining Roles and Responsibilities: RACI Matrix") During an AAR, building the RACI for the moment of failure often reveals that the R and A cells were empty or doubled.
+1. <!-- concept: raci-matrix --> **RACI matrix as decision-rights audit.** The RACI matrix is "a chart for defining who is responsible (R) and accountable (A) for a task or deliverable, and who should be consulted (C) or informed (I)" [V]. The risk it addresses directly: "If your team doesn't know who needs to do what (or forgets, or can plausibly deny knowing), that can increase the probability of a negative events and outcomes" [V] — the example is "shipping a broken product to customers because nobody was assigned to quality assurance" [V] (Source: Letaw, *Handbook*, Ch 2.4.2, "Defining Roles and Responsibilities: RACI Matrix") During an AAR, building the RACI for the moment of failure shows whether anyone held the R and A cells for the step that failed.
 
-2. <!-- concept: fist-of-five --> **Fist of five for surfacing latent dissent before action commit.** The encoding: none (strong reject / blocks consensus) through five fingers (strong accept, willing to lead). A two-or-fewer response blocks progress and opens a conversation. The method "can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment" [V] (Source: Ch 2.4.3, "Measuring and Building Consensus: Fist of Five Method") At action-design phase: run fist of five before finalising any action whose implementation will require sustained commitment.
+2. <!-- concept: fist-of-five --> **Fist of five for surfacing latent dissent before action commit.** The encoding: none (strong reject / blocks consensus) through five fingers (strong accept, willing to lead). Only a fist blocks consensus; one or two fingers are rejects whose issues need resolving now, and if anyone shows two or fewer fingers the team can stop, discuss, make changes and vote again. How much consensus is enough is the team's or its leader's call. The method "can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment" [V] (Source: Ch 2.4.3, "Measuring and Building Consensus: Fist of Five Method") At action-design phase: run fist of five before finalising any action whose implementation will require sustained commitment.
 
-3. <!-- concept: code-smells --> **Twelve named code smells as design-debt vocabulary.** Code smells are "indications that the code needs to be reorganized — a sign your software is undergoing code decay" [V] (Source: Ch 8, opening) Four families: comments (Obsolete Comment, Commented-Out Code, Redundant Comment, Long Comment); functions (Long Function, Function with Many Jobs, Function with Many Parameters); code in general (Duplicate Code, Long Lines, Inconsistent Conventions, Vague Naming). Each carries a prescription.
+3. <!-- concept: code-smells --> **Eleven named code smells as design-debt vocabulary.** Code smells are "indications that the code needs to be reorganized — a sign your software is undergoing code decay" [V] (Source: Ch 8, opening) Three families: comments (Obsolete Comment, Commented-Out Code, Redundant Comment, Long Comment); functions (Long Function, Function with Many Jobs, Function with Many Parameters); code in general (Duplicate Code, Long Lines, Inconsistent Conventions, Vague Naming). Each carries a prescription.
 
 4. <!-- concept: code-decay --> **Code decay is self-reinforcing.** "Smelly code leads to smellier code" [V] — letting code become disorganised signals to developers that disorganised code is acceptable [AP] (Source: Ch 8.1, "Why Care about Code Smells?"). If the AAR surfaces that code smells were present before the incident, the question is when the decay began and what kept normalising it.
 
-5. <!-- concept: team-building --> **Tuckman stage map for group dynamics during the AAR.** The five stages — Forming, Storming, Norming, Performing, Adjourning — describe where a team is in its development. (Source: Ch 2.4, citing Tuckman 1965, borrowed-through) Teams in Storming "resist group influence, peers, peers' ideas, and tasks" — which shapes how contributory factors naming peer decisions will land.
+5. <!-- concept: team-building --> **Tuckman stage map for group dynamics during the AAR.** The five stages — Forming, Storming, Norming, Performing, Adjourning — describe where a team is in its development. (Source: Ch 2.4, citing Tuckman 1965, borrowed-through) Teams in Storming resist group influence, their peers, their peers' ideas, and tasks [AP] [BT] — which shapes how contributory factors naming peer decisions will land.
 
 6. <!-- concept: triple-constraint --> **Triple constraint as contributory-factor frame.** Time, Cost, and Scope are the three constraints; changing one requires a corresponding change in at least one other. (Source: Ch 2.2, "Triple Constraint") When a project-level incident surfaces, the triple constraint often reveals which constraint was held fixed while another was accepted as sacrificeable.
 
@@ -39,8 +39,8 @@ The Handbook projects onto the software-incident AAR as a *practitioner toolkit*
 
 | Need | Question |
 |---|---|
-| Decision ownership is contested | Build the RACI for the decision at the moment of failure. Where were the R and A cells empty, doubled, or contested? |
-| Code was involved in the incident | Which of the twelve named code smells were present in the code that failed? How long had they been present, and what normalised their presence? |
+| Decision ownership is contested | Build the RACI for the decision at the moment of failure. Where were the R and A cells empty or contested? |
+| Code was involved in the incident | Which of the eleven named code smells were present in the code that failed? How long had they been present, and what normalised their presence? |
 | Team was newly formed or in conflict | Where is this team on the Tuckman map? If Storming, which group-resistance patterns shaped how information was shared or withheld before the incident? |
 | Project constraints were in tension | What was the implicit project priority matrix at the time of the incident — what was Constrained, Enhance, and Accepted? Did the whole team share this understanding? |
 | Architectural boundary crossed | Did the incident involve a monolith-microservices boundary? Was the architecture's failure posture matched to the incident-response plan? |
@@ -56,19 +56,19 @@ The Handbook projects onto the software-incident AAR as a *practitioner toolkit*
 
 | Need | Question |
 |---|---|
-| Action ownership is ambiguous | Build a RACI for each action before adjourning; the Accountable cell must be a named individual, not a team or role. |
-| Dissent is present but unstated | Run fist of five before committing each action. A two-or-fewer response blocks; open the conversation rather than overriding it. |
-| Action targets code quality | Which of the twelve code smells does the action address? Does the action name both the smell and the refactoring prescription, so success is testable? |
+| Action ownership is ambiguous | Build a RACI for each action before adjourning, so everyone knows who will do the work and who will approve it and make sure it gets done (Ch 2.4.2). |
+| Dissent is present but unstated | Run fist of five before committing each action. If anyone shows two or fewer fingers, stop, discuss, change the action and vote again rather than overriding the objection. |
+| Action targets code quality | Which of the eleven code smells does the action address? Does the action name both the smell and the refactoring prescription, so success is testable? |
 | Action is too large to complete before next review | Apply INVEST: is the action Small enough to fit in one iteration? Is it Testable — can someone verify it is done without ambiguity? |
 
 ## What to Look For
 
 | Signal | Diagnosis | Follow-up |
 |---|---|---|
-| An action is assigned to "the team" or "engineering" with no named individual | RACI gap: the Accountable cell is empty, the action will not happen | Require a named individual in the Accountable cell before the action is logged |
-| Code quality is named as a factor but the vocabulary stays vague ("messy", "complex") | Code-smell vocabulary is absent — the factor cannot be tracked or remediated without precision | Ask: which of the twelve named smells were present? Name each one and its prescription |
-| A fist-of-five vote is taken verbally and everyone says "fine" | Verbal simultaneous reveal is impossible — social pressure has overridden honest signals | Require written or physical simultaneous reveal before any verbal discussion |
-| The AAR is running after a team that recently went through a major restructuring | Tuckman regression: the team may have dropped from Performing to Forming or Storming | Acknowledge the regression explicitly; adjust facilitation expectations accordingly |
+| An action is assigned to "the team" or "engineering" with no named individual | RACI gap: no one holds the Accountable cell, which raises the odds the action is dropped | Fill the Accountable cell (who will approve the work and make sure it gets done) before the action is logged |
+| Code quality is named as a factor but the vocabulary stays vague ("messy", "complex") | Code-smell vocabulary is absent — the factor cannot be tracked or remediated without precision | Ask: which of the eleven named smells were present? Name each one and its prescription |
+| A fist-of-five check is taken verbally and everyone says "fine" | The method was not run: fist of five asks each person to show a level of agreement with a fist or up to five fingers (Ch 2.4.3) | Run it as the source describes, and treat any two-or-fewer as the cue to stop, discuss and re-vote |
+| The AAR is running after a team that recently went through a major restructuring | Tuckman regression: a restructured team may have dropped back to Forming or Storming (OpenStax OB, Ch 9.1, "Stages in Group Development"; stage names from Letaw Ch 2.4) | Acknowledge the regression explicitly; adjust facilitation expectations accordingly |
 | A project commitment is described as "the only option" at the time | Implicit project priority matrix was Constrained on one dimension at the expense of the others without the team explicitly agreeing | Reconstruct the implicit matrix as it was understood at the time |
 
 ## When to Use This Reference
@@ -88,9 +88,9 @@ A team is reviewing an incident where a hotfix deployment failed because no one 
 
 ## Anti-patterns This Reference Helps Avoid
 
-- Closing an AAR action item with "team responsible" or "engineering responsible" rather than a named Accountable (A) individual.
+- Closing an AAR action item with "team responsible" or "engineering responsible", so nobody knows who will do the work or who will approve it and make sure it gets done (Ch 2.4.2).
 - Naming code quality as a contributory factor without a shared vocabulary for which smells were present and how they compounded.
-- Running a fist-of-five-style check verbally, which allows social pressure to override honest signals.
+- Replacing fist of five's show of fingers with a verbal "any objections?", which loses the graded none-to-five signal the method is built on.
 - Treating team conflict during the AAR as personality friction rather than as a Tuckman-stage dynamic.
 - Framing project-level trade-offs as post-hoc surprises without reconstructing the implicit project priority matrix participants were navigating before the incident.
 - Designing actions that are not Testable or not Small — actions without a clear done-condition will not survive to next review.
@@ -100,14 +100,14 @@ A team is reviewing an incident where a hotfix deployment failed because no one 
 
 | Reference | Relationship |
 |---|---|
-| Jones Evidence-Based Software Engineering (jones-evidence-based-sweng) | Jones provides the empirical corrective for the beliefs underlying the methods this source names; when the incident involves metric targets or productivity assumptions, Jones is the companion — this source names the method, Jones names whether the belief backing it has empirical support |
-| NHS Just Culture Guide (nhs-just-culture-guide) | NHS provides the five-test decision tree for individual-vs-system accountability; this source provides the RACI that the NHS test needs as input — the Accountable cell in the RACI answers NHS Q3's "did the individual knowingly depart from an agreed protocol?" |
+| Jones Evidence-Based Software Engineering (jones-evidence-based-sweng) | When the incident involves metric targets or productivity assumptions, Jones is the companion: he treats the 28-to-1 productivity claim and Halstead/McCabe complexity metrics as folklore (Ch 1; Ch 7.1.4). Jones says his book has little to say about Agile processes for lack of measurement data (Ch 5.4.3), so it does not rule on the methods this source names |
+| NHS Just Culture Guide (nhs-just-culture-guide) | NHS provides the five-test decision tree for individual-vs-system accountability; this source provides the RACI the NHS foresight test (Q3) can use as input: a RACI built for the task shows whether agreed roles were in place (3a) before the tree asks whether anyone knowingly departed from them (3c) |
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 provides the protocol structure; this source provides the software-specific decision-rights and code-quality vocabulary for Phase 2 analysis |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The Tuckman stage model (Tuckman 1965; Tuckman & Jensen 1977) is cited borrowed-through in the source (Ch 2.4); Tuckman is not held directly in this corpus. The INVEST acronym (Wake 2003) is cited borrowed-through (Ch 3.6.1); Wake is not held directly. The Hewlett Packard Enterprise 2017 Agile-adoption survey is cited borrowed-through (Ch 1.2); the survey is not held directly. The Badawy 1995 managerial skill-mix framework is cited borrowed-through (Ch 2.3); Badawy is not held directly. The triple constraint framing (van Wyngaard et al. 2012) is cited borrowed-through (Ch 2.2); van Wyngaard is not held directly.
 
-**Named limits of the source.** The Handbook is "geared toward Agile software development" [V] by design; the author endorses Agile explicitly and the method coverage reflects that bias. The source does not address incident review methodology, just-culture sorting, or facilitation protocol. The code-smells catalogue is a named set of twelve; the author does not claim it is exhaustive, and the literature contains additional named smells outside this set. The RACI matrix is presented as a team-design tool rather than an incident-analysis tool; adaptation to post-incident RACI reconstruction is operator-applied.
+**Named limits of the source.** The Handbook is "geared toward Agile software development" [V] by design; the author endorses Agile explicitly and the method coverage reflects that bias. The source does not address incident review methodology, just-culture sorting, or facilitation protocol. The code-smells catalogue is a named set of eleven; the author says it "is not an exhaustive list" [V] and points to the references at the end of the chapter for more (Ch 8.2). The RACI matrix is presented as a team-design tool rather than an incident-analysis tool; adaptation to post-incident RACI reconstruction is operator-applied.
 
 **Evidence-marker continuity.** The RACI risk quotation is `[V]` in the deep ref; the distillation quotes it in Concept 1 with the `[V]` marker. The fist-of-five risk-reduction quotation is `[V]` in the deep ref; the distillation preserves it in Concept 2. The code-smells definition quotation is `[V]` in the deep ref; the distillation preserves it in Concept 3. The Tuckman model is `[AP]` in the deep ref with `[BT]` to Tuckman 1965; the distillation preserves the borrowed-through flag in Concept 5 and in this section.

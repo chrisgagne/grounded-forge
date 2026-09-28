@@ -1,0 +1,299 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/open-practice-library-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-221 of 221",
+    "deep": "lines 1-334 of 334",
+    "complete": true
+  },
+  "claims_audited": 180,
+  "tally": {
+    "faithful": 152,
+    "minor_drift": 22,
+    "unsupported": 4,
+    "contradicted": 2
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "\"The stakeholder frame the library carries is explicit on three points\" (stakeholders plural and structured, with primary = end user / secondary / other definitions; engagement as craft not transaction; practice as bridge to team vocabulary)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "the distillation's synthesis presented as the library's explicit frame; the primary/secondary/other definitions come from the source, not the deep ref",
+      "evidence": "Deep ref line 163 carries only 'concentric circles (Primary / Secondary / Other Stakeholders)' [AP]. Source L15154-15158 defines the three rings; no page states the three-point frame as such.",
+      "fix": "correct: 'Read across its practices, the library's stakeholder frame has three recurring features'; cycle-to-deep: add the Stakeholder Mapping (MOD) ring definitions (L15154-15158)"
+    },
+    {
+      "id": "D002",
+      "line": 16,
+      "section": "Key Concepts #1 (also Phase 0 lines 50-51)",
+      "claim": "Stakeholder Map's Round 1 prompt list in quotation marks ('people or groups that are impacted, can support, can delay if involved too late, ...'); MOD 'emphasises naming the primary stakeholder concretely'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref",
+      "evidence": "Deep ref lines 162-163 carry the Stakeholder Map definition and axes, and MOD's concentric circles, only. Source L15049-15061 (Round 1 list); L15168 (MOD: 'Be sure to narrow down this person as much as possible').",
+      "fix": "cycle-to-deep: add Stakeholder Map Rounds 1-3 and Post-follow up (L15047-15105) and the MOD primary-stakeholder instruction (L15168) [V]"
+    },
+    {
+      "id": "D003",
+      "line": 18,
+      "section": "Key Concepts #2 Stakeholders Interview",
+      "claim": "\"a one on one conversation to help better understand what stakeholders want and need from the product\" (quoted); three information areas; 'Recommended duration is 45 minutes to 1 hour'; tips",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation altered ('a' added); a maximum restated as a recommendation; detail absent from the deep ref",
+      "evidence": "Deep ref line 165 carries a one-line [AP] paraphrase only. Source L15296: 'One on one conversation to help better understand...'; L15338: 'Time of the interview: No longer than 45mins to 1 hours'; tips L15334-15342.",
+      "fix": "cycle-to-deep: add the Stakeholders Interview three areas and tips (L15296-15342); correct: 'no longer than 45 minutes to an hour'"
+    },
+    {
+      "id": "D004",
+      "line": 20,
+      "section": "Key Concepts #3 Empathy Mapping; What to Look For (line 131)",
+      "claim": "'The practice's discipline: it is run with the stakeholder present where possible, or with research data feeding into it where not'; \"A sparse empathy map indicates that more research needs to be done\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref; 'stakeholder present' loosens the source",
+      "evidence": "Deep ref line 160 carries the definition, Gray [BT] and the four senses only. Source L10846-10850 (brainstormed assumptions, or data 'directly added from interviews, observation'); L10874 (sparse-map sentence); L10882-10885 (maps 'filled in directly by users').",
+      "fix": "cycle-to-deep: add the Empathy Mapping assumptions-versus-research lines (L10846-10850) and 'A sparse empathy map indicates that more research needs to be done' [V] (L10874)"
+    },
+    {
+      "id": "D005",
+      "line": 22,
+      "section": "Key Concepts #4 Customer journey",
+      "claim": "Event Storming produces \"a common and shared language between Business & IT\" [V]; Emotional Journey maps feelings step by step as a complement to the journey map",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] passage and Emotional Journey detail absent from the deep ref",
+      "evidence": "Deep ref line 168 carries the Event Storming definition and an [AP] output list; Emotional Journey is named only. Source L11096 ('It establishes a common and shared language between Business & IT'); L10736-10749 (Emotional Journey as add-on to a User Journey Map or Service Blueprint).",
+      "fix": "cycle-to-deep: add Event Storming 'Why do it?' L11096 [V] and the Emotional Journey definition (L10736-10749)"
+    },
+    {
+      "id": "D006",
+      "line": 24,
+      "section": "Key Concepts #5 Example Mapping",
+      "claim": "\"should be used when you have the right people in the room to be able to explain business rules and example scenarios, and a technical team that can ask the right questions about those rules\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] passage absent from the deep ref",
+      "evidence": "Deep ref line 219 carries only the four-colour structure [AP]. Source L18330 matches.",
+      "fix": "cycle-to-deep: add Example Mapping 'Why do it?' L18330 [V]"
+    },
+    {
+      "id": "D007",
+      "line": 26,
+      "section": "Key Concepts #6 Inclusive facilitation",
+      "claim": "1-2-4-All anti-HiPPO quotation carried without a marker, with the source's hyphen changed to an em dash",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotation unmarked and lightly altered",
+      "evidence": "Deep ref line 90 [V]; source L20-21 ('input diversity - No more HiPPOs').",
+      "fix": "re-mark: [V]; restore ' - '"
+    },
+    {
+      "id": "D008",
+      "line": 28,
+      "section": "Key Concepts #7 Showcase; Anti-patterns (line 173)",
+      "claim": "\"Where possible avoid scripting the showcase — give stakeholders/end users the ability to play around with the new product. Showcases should be as interactive as possible, aiding the team in collecting real world feedback\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported passage absent from the deep ref; dash inserted; unmarked",
+      "evidence": "Deep ref line 231 carries the Showcase definition only. Source L21844 ('Advice') has no dash after 'showcase'.",
+      "fix": "cycle-to-deep: add Showcase 'Advice' L21844 [V]; correct: quote without the inserted dash and mark [V]"
+    },
+    {
+      "id": "D009",
+      "line": 30,
+      "section": "Key Concepts #8; What to Look For (line 139); Anti-patterns (line 175)",
+      "claim": "Per-quadrant engagement strategy is the load-bearing output; Stakeholder Map 'explicitly recommends \"periodic review during retrospectives\"' and \"periodic review during retrospectives, to see if the communication plan ... is working or needs to be refreshed\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref; the quotation rewords the source ('Periodically review')",
+      "evidence": "Deep ref line 162 carries the target outcome only. Source L15083 (per-quadrant strategy); L15101: 'Periodically review during retrospectives, to see if the communication plan and level of involvement of stakeholders is working or needs to be refreshed'.",
+      "fix": "cycle-to-deep: add Round 3 strategy (L15083) and L15101 [V]; correct: quote \"Periodically review during retrospectives, to see if...\""
+    },
+    {
+      "id": "D010",
+      "line": 32,
+      "section": "Key Concepts #9 Cross-silo engagement",
+      "claim": "5 Elements Canvas quotation 'areas of mutual interest and benefit between teams/silos...'; Collaborative Pathways and Inter-Team Agreement operationalise cross-team engagement",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref; quotation unmarked",
+      "evidence": "Deep ref line 148 names 5 Elements Canvas and its five perspectives only; Collaborative Pathways and Inter-Team Agreement are not in the deep ref. Source L9391 ('between teams/ silos').",
+      "fix": "cycle-to-deep: add the 5 Elements Canvas purpose sentence (L9391) [V] and the two cross-team practices; re-mark the quotation [V]"
+    },
+    {
+      "id": "D011",
+      "line": 34,
+      "section": "Key Concepts #10 Formal Relational Contract",
+      "claim": "FRC quotation 'Transactional (legal) contracts are still relevant...' marked [AR]; seven-step process",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practice absent from the deep ref; the [AR] marker is the distillation's own",
+      "evidence": "Deep ref never mentions Formal Relational Contract. Source L11318-11323 (quotation) and L11337-11376 (seven steps) match.",
+      "fix": "cycle-to-deep: add Formal Relational Contract (Discovery) with its 'What is it?' passage [V] [AR] and seven steps"
+    },
+    {
+      "id": "D012",
+      "line": 36,
+      "section": "Key Concepts #11 Discovery framing",
+      "claim": "Impact Mapping \"It is an excellent way to allow leadership and autonomous teams to have a conversation around strategic priorities and how they translate into the work of the team\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] passage absent from the deep ref",
+      "evidence": "Deep ref line 175 carries the definition, shopping-list contrarian and Marquet only. Source L12000 matches.",
+      "fix": "cycle-to-deep: add Impact Mapping L12000 [V]"
+    },
+    {
+      "id": "D013",
+      "line": 38,
+      "section": "Key Concepts #12 Voiceless stakeholders (also Phase 0 line 55)",
+      "claim": "Empathy Mapping, personas, MOD rings and 6 Dimensions governance 'all surface the question of whose voice is not in the room. Implicit but consistent across the library'; the MOD 'third ring' and governance dimension offered for future generations, regulators, externality-affected non-users",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "reads a theme into the library that no practice states; the MOD third ring holds stakeholders the secondary ring interacts with, not absent parties",
+      "evidence": "Deep ref lines 148, 160-163 carry no voiceless-stakeholder content. Source L15158: Other stakeholders are those 'that the secondary stakeholders interact with, such as a loan officer, actuary'.",
+      "fix": "correct: present the voiceless-stakeholder question as this distillation's addition; drop the claim that the library carries it 'consistently' and the MOD third-ring mapping"
+    },
+    {
+      "id": "D014",
+      "line": 40,
+      "section": "Key Concepts #13 Action steps",
+      "claim": "Action steps 'invites everyone to commit to taking a first step towards action… Inspired by the idea that 1000 mile journey begins with one step...' [V]; Who / What / When / With",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practice absent from the deep ref",
+      "evidence": "Deep ref never mentions Action steps. Source L17427-17430 and L17456-17462 match.",
+      "fix": "cycle-to-deep: add Action steps (Options) with L17427-17430 [V] and its Who / What / When / With card"
+    },
+    {
+      "id": "D015",
+      "line": 42,
+      "section": "Key Concepts #14 Retrospectives (also When to Use, line 150)",
+      "claim": "Retrospectives 'include external-stakeholder versions where the team retrospects with the Product Owner or other stakeholders'; retros should include 'external stakeholders (Product Owner, key users)'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated: the source lists the Product Owner (a team role) as a 4Ls participant; no retrospective practice invites key users or external stakeholders",
+      "evidence": "Source L19543 (4Ls frontmatter): 'participants: Sprint or Project Team, Product Owner'; Retrospectives (L21327-21420) names Facilitator and The Team. Deep ref line 230 carries neither.",
+      "fix": "correct: 'The 4Ls Retrospective lists the Product Owner alongside the team as participants'; drop 'external-stakeholder versions' and 'key users'; cycle-to-deep: add the 4Ls participants line"
+    },
+    {
+      "id": "D016",
+      "line": 123,
+      "section": "What to Look For; Anti-patterns (line 171)",
+      "claim": "MOD \"warns explicitly: 'We don't want generic phrases like 'customer' or 'user'.'\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported passage absent from the deep ref; unmarked",
+      "evidence": "Source L15168 matches. Deep ref line 163 does not carry it.",
+      "fix": "cycle-to-deep: add L15168 [V]; re-mark [V]"
+    },
+    {
+      "id": "D017",
+      "line": 157,
+      "section": "Worked Example (also line 167)",
+      "claim": "\"Round 2 names two individuals per group\"; line 167 'Round 2 naming'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misdescribes the practice's Round 2",
+      "evidence": "Source L15069-15073: Round 2 merges everyone's stickies, removes duplicates and agrees the groups ('especially if the majority are named people'); naming individuals is not its step.",
+      "fix": "correct: Round 2 merges the lists, removes duplicates and agrees the groups to involve"
+    },
+    {
+      "id": "D018",
+      "line": 167,
+      "section": "Worked Example",
+      "claim": "\"The stakeholder-identification practice (Round 1 brainstorm, Round 2 naming, Round 3 positioning), the Stakeholders Interview structure, the Empathy Mapping validation discipline, the Showcase interactivity advice, and the Action steps closing discipline are all [V]-marked passages in the deep reference.\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false claim about the audit record",
+      "evidence": "None of these is [V] in the deep ref: Stakeholder Map Rounds, Empathy validation, Showcase advice and Action steps are absent (D002, D004, D008, D014); Stakeholders Interview is a one-line [AP] (deep line 165).",
+      "fix": "correct: 'These practices trace to the source; their details await cycling into the deep reference.'"
+    },
+    {
+      "id": "D019",
+      "line": 172,
+      "section": "Anti-patterns",
+      "claim": "\"The Highest Paid Person's Opinion failure mode is the canonical anti-pattern across the library's facilitation practices\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "Deep ref line 311: anti-HiPPO is explicit in 1-2-4-All and implicit in the silent-generation pattern; one of ten explicit positions, not 'canonical'.",
+      "fix": "correct: The HiPPO failure mode is named in 1-2-4-All and designed against across the silent-generation facilitation practices"
+    },
+    {
+      "id": "D020",
+      "line": 190,
+      "section": "Integration: OpenStax Business Ethics",
+      "claim": "OpenStax frames stakeholder theory via \"Donaldson-Preston, Mitchell-Agle-Wood salience, Freeman\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "content attributed to the other source that its deep ref does not carry",
+      "evidence": "openstax-business-ethics-deep line 111 carries the Donaldson and Preston taxonomy; zero hits for Mitchell, Agle, salience or Freeman.",
+      "fix": "correct: (the Donaldson-Preston descriptive / instrumental / normative taxonomy)"
+    },
+    {
+      "id": "D021",
+      "line": 191,
+      "section": "Integration: OpenStax Principles of Management",
+      "claim": "\"OpenStax's eight-question stakeholder analysis\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "content attributed to the other source that its deep ref does not carry",
+      "evidence": "openstax-principles-management-deep carries stakeholder definition (line 57) and stakeholder theory citing Freeman (line 263) but no eight-question stakeholder analysis; Hofstede and GLOBE (line 290-292) are present.",
+      "fix": "correct: OpenStax's stakeholder-management treatment and Hofstede / GLOBE cross-cultural frames"
+    },
+    {
+      "id": "D022",
+      "line": 194,
+      "section": "Integration: Liberating Structures",
+      "claim": "LS provides '1-2-4-All'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept name conflated across sources",
+      "evidence": "liberating-structures-handbook-deep line 59: '1-2-4-Whole Group'.",
+      "fix": "correct: 1-2-4-Whole Group"
+    },
+    {
+      "id": "D023",
+      "line": 210,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "\"Andrei Karpathy\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "name misspelled",
+      "evidence": "Deep ref lines 132, 300; source L1849: 'Andrej Karpathy'.",
+      "fix": "correct: Andrej Karpathy"
+    },
+    {
+      "id": "D024",
+      "line": 212,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "\"Mulago Foundation — cited for Six Words criteria [BT]\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "borrowed-through citation that neither the deep ref nor the source contains",
+      "evidence": "Zero hits for 'Mulago' or 'six word' in the converted source or the deep ref.",
+      "fix": "strip"
+    },
+    {
+      "id": "D025",
+      "line": 215,
+      "section": "Citation notes, Named limits",
+      "claim": "\"Some practices are stubs; the deep reference notes where a practice page is sparse.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "false claim about the deep ref",
+      "evidence": "The deep ref never notes stub or sparse practice pages (zero hits for 'stub' or 'sparse'); it says only that body fields are 'typically 50-500 words' (line 69).",
+      "fix": "correct: Practice pages vary in length (the deep reference gives 50-500 words per body field as typical)."
+    },
+    {
+      "id": "D026",
+      "line": 216,
+      "section": "Citation notes, Named limits",
+      "claim": "The library \"routes from engagement phases to practices\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "the distillation's routing attributed to the library",
+      "evidence": "Deep ref lines 7, 15: the library is organised by Mobius phase (Foundation / Discovery / Options / Delivery), not engagement phase.",
+      "fix": "correct: The library does not present a theory of stakeholder engagement; it organises practices by Mobius phase."
+    },
+    {
+      "id": "D027",
+      "line": 221,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "Deep ref carries \"68 [V], 13 [BT], 35 [AP], 15 [AR]\"; 'The high [AP] count reflects ... which the deep ref codes as authorial-position'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "counts wrong; [AE] omitted; [AP] mis-defined",
+      "evidence": "Deep ref marker tokens (excluding backticked mentions): [V] 79, [AP] 36, [AR] 16, [AE] 3, [BT] 12 plus several '[BT to …]' forms. [AP] is author paraphrase, not 'authorial-position'.",
+      "fix": "correct: give the current counts (about 79 [V], 36 [AP], 16 [AR], 3 [AE], and [BT] in both bare and '[BT to …]' forms) and define [AP] as paraphrase"
+    },
+    {
+      "id": "D028",
+      "line": 221,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "\"The Formal Relational Contract framing is [AR]-marked\" in the deep ref; 'This distillation's Key Concepts and Questions sections draw from [V]- and [AP]-marked passages'",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false claims about the audit record",
+      "evidence": "The deep ref never mentions Formal Relational Contract; eleven Key Concepts draw on passages absent from the deep ref (D002-D016).",
+      "fix": "correct: The Formal Relational Contract [AR] marker is this distillation's; much Key Concept content traces to the source and awaits cycling into the deep ref"
+    }
+  ],
+  "notes": "Source line numbers refer to corpus.commons/demo/sources/converted/open-practice-library.md. This distillation leans hardest of the five on source content the deep ref does not carry: most Key Concepts quote or detail practices (Stakeholder Map rounds, Stakeholders Interview, Empathy Mapping, Example Mapping, Formal Relational Contract, Action steps, Showcase advice) that the deep ref names in a line or omits. Every such quotation checked matches the source, so they are graded cycle-to-deep rather than unsupported. Integration claims checked: nhs-just-culture-guide-deep (staff, patients, families lines 19, 38), lfuo-learning-review-guide-2024-deep (ten Principles and Agreements, line 119), openstax-business-ethics-deep (line 111), openstax-principles-management-deep (lines 57, 263, 290-292), scrum-guide-2020-deep, letaw-handbook-sweng-methods-deep (four elicitation methods line 111, Inclusivity Heuristics line 21, paper prototyping line 228), liberating-structures-handbook-deep (Wise Crowds line 77, Troika line 79, DADs line 83, report-outs line 71), ssdl-systems-thinking-foundations-deep. RACI 'Accountable = final say' matches source L15202."
+}

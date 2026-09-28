@@ -1,0 +1,59 @@
+{
+ "slug": "openstax-business-law",
+ "changed_lines_checked": 112,
+ "tally": {
+  "faithful": 108,
+  "minor_drift": 3,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 2
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-business-law-software-business.md",
+   "line": 166,
+   "text": "Treating regulators as adversaries by default. The FTC's recourse options include voluntary compliance through a consent order before administrative complaints or federal litigation (Ch 12.2).",
+   "grade": "MINOR-DRIFT",
+   "problem": "'before' implies an order the source does not give. The source lists the three recourse options as alternatives joined by 'or'. Line 128 of the same file gets it right ('as well as'). The wording comes from the audit's own S031 fix.",
+   "evidence": "Source 6385-6387 (Ch 12.2, 'FTC Activities'): 'it may seek several forms of recourse. These include the pursuit of voluntary compliance through a consent order, the submission and filing of administrative complaints, or the initiation of a federal action and litigation.' Deep 737-741 lists them with no order.",
+   "fix": "correct: - **Treating regulators as adversaries by default.** The FTC's recourse options include voluntary compliance through a consent order as well as administrative complaints and federal litigation (Ch 12.2)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-business-law-stakeholder-engagement.md",
+   "line": 172,
+   "text": "Treating regulators as adversaries rather than as stakeholders. The FTC's options include voluntary compliance through a consent order before administrative complaints or federal litigation (Ch 12.2).",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same 'before' ordering as software-business line 166, taken from the audit's E017 fix. The source gives no order.",
+   "evidence": "Source 6385-6387; deep 737-741 (see software-business line 166).",
+   "fix": "correct: - **Treating regulators as adversaries rather than as stakeholders.** The FTC's options include voluntary compliance through a consent order as well as administrative complaints and federal litigation (Ch 12.2)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 670,
+   "text": "- `openstax-business-law-decision-making.md`, OpenStax. ADR-tier framework, contract law, tort, employment law (Title VII, ADA, FMLA), consumer protection (FTC), securities reporting and insider trading, international law survey.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Added index line; 'ADA, FMLA' does not match the distillation it points to. The decision-making distillation never names the ADA or FMLA (grep: 0 hits). Its employment content is Title VII disparate treatment and the BFOQ/merit/seniority defences. The unchanged situation row at index line 99 ('Title VII; ADA; FMLA; at-will doctrine') has the same mismatch; 'at-will' also has 0 hits in the distillation.",
+   "evidence": "openstax-business-law-decision-making.md KC9 (line 30) and KC10 (line 32) are the only employment-law concepts; no ADA/FMLA/at-will text anywhere in the file.",
+   "fix": "correct: - `openstax-business-law-decision-making.md`, OpenStax. ADR-tier framework, contract law, tort, employment law (Title VII disparate treatment; BFOQ, merit and seniority defences), consumer protection (FTC), securities reporting and insider trading, international law survey. (Also correct row 99's column 2 to: Title VII; BFOQ, merit and seniority defences (OpenStax Business Law).)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-business-law-software-business.md",
+   "line": 126,
+   "text": "Diagnosis: claims have crossed from puffery into express warranty (Ch 8.2, \"Express and Implied Warranties\"); reasonable reliance is likely.",
+   "grade": "EDIT-DEFECT",
+   "problem": "The error the audit graded at S023 (UCC express warranty applied to a software product with no goods caveat) is still here, on a line the repair touched: it fixed only the 'UCC 8.2' cite. The repaired worked example (line 149) now carries the caveat. This diagnosis and KC8 (line 30: 'Software vendor \"marketing claims\" that cross from puffery into specific guarantees become enforceable warranties') still state it without the caveat, against the file's own KC7 (line 28), which calls software-as-goods unresolved.",
+   "evidence": "Deep 445: 'Article 2 specifically governs sales of goods ... Software licences have been treated variously as goods, mixed sales, and pure services.' Deep 496-498: warranties are part of the sales contract.",
+   "fix": "correct: Diagnosis: the claims read as specific assertions of fact rather than sales talk; if the product is treated as goods, they operate as express warranties (Ch 8.2, \"Express and Implied Warranties\") and reasonable reliance is likely. Line 30 likewise: '... cross from puffery into specific guarantees become enforceable warranties where the product is treated as goods.'"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-business-law-software-business.md",
+   "line": 103,
+   "text": "| Surface securities-fraud risk in incident comms | Are we accurately stating financial-impact estimates, or constructing puffery the SEC could read as material misrepresentation? |",
+   "grade": "EDIT-DEFECT",
+   "problem": "This line did not change. It is the same premise as audit S011 (puffery placed inside a prohibition, where the source treats puffery as lawful), which the repair fixed at lines 46 and 62 but left here. Neither the deep ref nor the source links puffery or misrepresentation to the SEC. The matching software-business index row states it as fact ('puffery the SEC could read as material misrepresentation is exposure'). Lower confidence: the line is phrased as a question.",
+   "evidence": "Deep 498 (Ch 8.2): puffery 'is lawful'. Deep 810-855 (Ch 14): no misrepresentation or puffery doctrine; insider-trading bar at deep 832.",
+   "fix": "correct: | Surface securities-fraud risk in incident comms | Are our financial-impact estimates accurate, and are insiders barred from trading on the incident as material nonpublic information (Ch 14.1)? | (update the matching SOFTWARE-BUSINESS index row to match)"
+  }
+ ],
+ "notes": "Full reads done: deep ref (955 lines), light ref (172), all three distillations (184/191/204), and every cited passage in the converted source. No vflags file exists for this slug. Changed lines graded: deep 14, light 2, decision-making 21, software-business 38, stakeholder-engagement 26, index rows naming this source's distillations 11. The tally counts 112 changed lines plus one unchanged line (software-business 103) flagged under the same-error rule. Every quotation the repair added to the deep ref is word for word in the converted source (curly vs straight apostrophes only) and carries the right locator. That covers the car dealership, mediation 'time-consuming', the Kant gloss and 'ambiguity' lines, baseball arbitration with expert arbitrators, the minor-breach example, harassment by non-employees, the Sherman 'criminal felonies' line, the Clayton 'would only be considered illegal' line, Rule 10b-5, the 10b5-1 good-faith line, insider-transaction reporting, the proxy Notice with its minimum of 40 days, and the Preface. The deep ref's cross-source integration rows check out against their deep refs: Economics 3e Coase at 183, OB bounded rationality at 696, OB procedural justice at 247, OB Ch 14 BATNA and stages at 466-472, OB TKI labels at 452-456, OB power bases at 370-372, Principles of Management Freeman at 263, Business Ethics social contract at 49 and normative stakeholder at 111-113, Letaw RACI at 73, NHS Q3 at 62-70. The deep ref has 22 standalone [BT] markers and no [AR], as the stakeholder file states. The absence claims check out: 'copyright' and 'Lanham' each have 0 hits in the converted source. Marker convention: relayed quotations were re-marked [BT], not the [V, BT] the audit prescribed (D004, D005). That matches the demo distillation convention (87 existing ' [BT]' quotations, none '[V, BT]'), so it is graded FAITHFUL. If the mechanical [V] checker skips [BT]-only quotations, those two are no longer machine-verified. Both do match the source word for word. Pre-existing, not graded: light ref line 84 attaches 'creating monopoly or substantially lessening competition' to corporate mergers only, while the source (5952) applies it to all four Clayton acts. Decision-making line 28 ('so inebriated they could not understand the nature and consequences of the agreement') matches source 3826-3827 but is more specific than deep 404 ('severe inebriation impairing understanding'); graded FAITHFUL, but cycling the source wording into deep 404 would make it traceable. Out of scope: the changed NHS stakeholder index row (another source's repair) names openstax-business-law-stakeholder-engagement.md only as a pairing."
+}

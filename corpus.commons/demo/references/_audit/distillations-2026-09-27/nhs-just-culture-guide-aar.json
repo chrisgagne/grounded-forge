@@ -1,0 +1,149 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/nhs-just-culture-guide-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-132 of 132",
+    "deep": "lines 1-184 of 184",
+    "complete": true
+  },
+  "claims_audited": 125,
+  "tally": {
+    "faithful": 112,
+    "minor_drift": 10,
+    "unsupported": 2,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 16,
+      "section": "Key Concepts #3 (Q1 deliberate harm test)",
+      "claim": "A Yes exits to Recommendation A — \"the only path that can involve police referral and suspension.\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "exclusivity claim contradicted by another recommendation",
+      "evidence": "Deep 144 [V] (Q5, 'Recommendation G'): G 'may require relevant regulatory bodies to be contacted, staff suspension and disciplinary processes'. Suspension is on the G branch too. Deep 100 supports exclusivity only for police referral (the source line 41 vs 114: police appears only in A).",
+      "fix": "correct: \"A Yes exits to Recommendation A, the only path that names referral to police.\""
+    },
+    {
+      "id": "D002",
+      "line": 16,
+      "section": "Key Concepts #3 (Q1 deliberate harm test)",
+      "claim": "Even Recommendation A closes with \"wider investigation is still needed to understand how and why patients were not protected.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quote truncated mid-sentence and closed with a period, presented as complete",
+      "evidence": "Source line 41 / deep 96 [V]: 'Wider investigation is still needed to understand how and why patients were not protected from the actions of the individual.' The distillation drops 'from the actions of the individual' without an ellipsis.",
+      "fix": "correct: \"Even Recommendation A closes with 'Wider investigation is still needed to understand how and why patients were not protected from the actions of the individual' [V] (Q1, 'Recommendation A').\""
+    },
+    {
+      "id": "D003",
+      "line": 28,
+      "section": "Key Concepts #9 (one action at a time)",
+      "claim": "\"Only one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately.\" (Source: Preamble, \"Please note\", bullet 4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation not word-for-word (elides 'can only be used to take' without ellipsis) and carries no marker",
+      "evidence": "Source line 14 / deep 30 [V]: 'The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately.'",
+      "fix": "correct: \"'The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately' [V] (Preamble, 'Please note', bullet 4)\""
+    },
+    {
+      "id": "D004",
+      "line": 30,
+      "section": "Key Concepts #10 (re-entrant)",
+      "claim": "\"The guide can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available.\" (Source: Preamble, \"Please note\", bullet 2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation alters its subject ('The guide' for 'A just culture guide') and carries no marker",
+      "evidence": "Source line 12: '**A just culture guide** can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available.' Deep 28 [V] quotes from 'can be used'.",
+      "fix": "correct: \"'A just culture guide can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available' [V] (Preamble, 'Please note', bullet 2)\""
+    },
+    {
+      "id": "D005",
+      "line": 58,
+      "section": "Questions, Phase 2: Contributory-Factor Analysis",
+      "claim": "\"What are the active failures vs latent conditions? Active failures are at the sharp end (the individual's action); latent conditions are upstream (protocols, training, supervision).\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "imports Reason's active-failure/latent-condition vocabulary, which neither this source nor any corpus deep ref carries",
+      "evidence": "Deep 165: Reason is named once in the footer; 'no specific work or concept of Reason's is cited by name' [BT]. Deep 182: further characterisation of the lineage is out of scope. grep of every corpus.commons/demo/references/*-deep.md for 'active failure' and 'latent condition': no hits. Reason is not held in reference-index.json.",
+      "fix": "correct: \"Which contributors sit in the conditions the tree tests (protocols under Q3; peer behaviour, training and supervision under Q4) rather than in the individual's action? Both belong in the analysis.\""
+    },
+    {
+      "id": "D006",
+      "line": 59,
+      "section": "Questions, Phase 2: Contributory-Factor Analysis",
+      "claim": "Substitution test: \"If yes, the locus is the conditions, not the individual.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "drops the source's hedge; states an exclusion Recommendation E does not make",
+      "evidence": "Deep 128 [V] (Q4, 'Recommendation E'): 'Action singling out the individual is unlikely to be appropriate ... These actions may include, but not be limited to, the individual.' Deep 80 [AR] keeps the same qualification.",
+      "fix": "correct: \"If yes, singling out the individual is unlikely to be appropriate; the wider actions sit mainly in the conditions and may include, but not be limited to, the individual.\""
+    },
+    {
+      "id": "D007",
+      "line": 77,
+      "section": "Questions, Phase 4: Action Design",
+      "claim": "\"Every recommendation — including A and G — pairs with a directive that 'the patient safety incident investigation should indicate the wider actions needed.' [V]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim wording attached to recommendations whose text does not carry it",
+      "evidence": "The quoted wording appears only in D, E, F, G (deep 120, 128, 136, 144). A, B, C read 'Wider investigation is still needed to understand ...' (deep 96, 104, 112). Deep 92 supports the general claim that every recommendation carries a wider-investigation directive.",
+      "fix": "correct: \"Every recommendation, including A and G, carries a wider-investigation directive: A–C say 'Wider investigation is still needed' [V]; D–G say 'the patient safety incident investigation should indicate the wider actions needed' [V]. Has that wider action been named?\""
+    },
+    {
+      "id": "D008",
+      "line": 86,
+      "section": "What to Look For, row 2",
+      "claim": "Signal: protocol cited but no one confirms it was workable and routinely used. Diagnosis: \"Q3b and Q3c are unexamined\".",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "sub-question mislabelled; 'workable' and 'in routine use' are both 3b, and 3c is knowing departure",
+      "evidence": "Deep 67 [V] 3b: 'Were the protocols/accepted practice workable and in routine use?'; deep 68 [V] 3c: 'Did the individual knowingly depart from these protocols?'",
+      "fix": "correct: \"Q3b is unexamined (workable and in routine use are both parts of 3b); Q3c, knowing departure, cannot be assumed either — the foresight test may not advance to Q4\""
+    },
+    {
+      "id": "D009",
+      "line": 121,
+      "section": "Integration with Other References (LFUO)",
+      "claim": "\"LFUO provides the reckless-and-willful threshold (the FLA termination criterion); NHS provides the five-test tree for all cases below that threshold; the two define the full Phase 3 just-culture sorting protocol together\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "integration papers over a structural difference between the two sources",
+      "evidence": "LFUO deep 188-192 confirms the reckless-and-willful threshold as the FLA termination criterion. But LFUO deep 67 [V] requires 'a solid firewall between the FLA and any potential administrative actions', and deep 192 [V] says FLAs are for 'good people, doing what they thought made sense'. NHS's Q1 already handles intent itself (deep 48-50), and its G branch routes below-threshold cases to management action (deep 144). The two are not one sorting protocol.",
+      "fix": "correct: \"LFUO supplies the reckless-and-willful threshold at which an FLA terminates and hands off to an administrative or law-enforcement investigation, and a firewall between the learning review and administrative action; NHS supplies the five-test tree for the separate management conversation about an individual action. Keep the two processes apart as LFUO's firewall requires.\""
+    },
+    {
+      "id": "D010",
+      "line": 122,
+      "section": "Integration with Other References (TC 25-20)",
+      "claim": "\"TC 25-20 frames just-culture sorting as evaluating performance against the standard rather than the person against a verdict\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attributes a just-culture framing to a source that does not use it",
+      "evidence": "TC 25-20 deep: no 'just culture', 'blame' or 'individual accountability' hits. Deep 185 [V]: soldiers 'compare their performance against the standard'; deep 253 [V]: the AAR 'is not a critique' and 'does not grade success or failure'.",
+      "fix": "correct: \"TC 25-20 frames the AAR as comparing unit performance against the standard, not a critique and not grading success or failure; it does not address the individual-accountability question, which the NHS tree handles\""
+    },
+    {
+      "id": "D011",
+      "line": 123,
+      "section": "Integration with Other References (OpenStax OB)",
+      "claim": "\"OB names the fundamental attribution error and actor-observer bias\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept mis-cited to the wrong corpus source",
+      "evidence": "OB deep 81: fundamental attribution error [V] and self-serving bias (Ch 3.3). 'actor-observer' has no hit in the OB deep ref; it appears only in openstax-psychology-2e-deep.md.",
+      "fix": "correct: \"OB names the fundamental attribution error and the self-serving bias (Ch 3.3, 'Attributional Bias')\""
+    },
+    {
+      "id": "D012",
+      "line": 128,
+      "section": "Citation and Source-Integrity Notes (borrowed-through gaps)",
+      "claim": "\"James Reason's work (Managing the Risks of Organizational Accidents, The Human Contribution) is not held directly in this corpus.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "names specific works the source does not cite (training-data import)",
+      "evidence": "Deep 165: 'no specific work or concept of Reason's is cited by name'. Source line 122 names only 'the work of Professor James Reason'.",
+      "fix": "correct: \"James Reason's work is not held directly in this corpus; the source names no specific work of his.\""
+    },
+    {
+      "id": "D013",
+      "line": 130,
+      "section": "Citation and Source-Integrity Notes (named limits)",
+      "claim": "Its terminology (\"patient safety incident\", \"occupational health pathway\") is healthcare-specific",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quoted source term the source does not use",
+      "evidence": "Source line 63 / deep 112 [V]: 'which is likely to include occupational health referral'. 'pathway' does not occur in the source.",
+      "fix": "correct: (\"patient safety incident\", \"occupational health referral\")"
+    }
+  ],
+  "notes": "Converted source (122 lines) read in full to check quotations. Other deep refs checked for integration rows: lfuo-learning-review-guide-2024, tc-25-20-army-aar, openstax-organizational-behavior, openstax-psychology-2e, liberating-structures-handbook (Levels-of-Accountability ladder and 'above the line' confirmed, deep 131-133). The Reason/NPSA footer attribution is marked [V] where the deep ref marks it [BT]; the words are verbatim and the borrowed-through status is carried in prose each time, so it is graded FAITHFUL. The worked example (look-alike packaging, 3b No -> Recommendation D) routes correctly and presents no outcome as the source's finding. 'The corpus's only explicit decision aid for this call' (line 94) is consistent with the AAR task spec, which routes the individual-vs-system call to this source alone."
+}

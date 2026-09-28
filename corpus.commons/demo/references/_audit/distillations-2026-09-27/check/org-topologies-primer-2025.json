@@ -1,0 +1,86 @@
+{
+ "slug": "org-topologies-primer-2025",
+ "changed_lines_checked": 129,
+ "tally": {
+  "faithful": 121,
+  "minor_drift": 6,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 2
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/org-topologies-primer-2025-deep.md",
+   "line": 250,
+   "text": "warn that when \"organizations apply such frameworks without understanding the implications\" the consequences are root-cause neglect, lack of ownership, \"cargo-cult\" mentality, and \"Religious Wars\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "Paraphrase drops the source's hedge: the source says this 'can lead to consequences', the deep ref says 'the consequences are'.",
+   "evidence": "converted L1297-1298: \"Unfortunately, organizations apply such frameworks without understanding the implications, which can lead to consequences:\"",
+   "fix": "correct: warn that when \"organizations apply such frameworks without understanding the implications,\" this \"can lead to consequences\": root-cause neglect, lack of ownership, \"cargo-cult\" mentality, and \"Religious Wars\""
+  },
+  {
+   "file": "corpus.commons/demo/references/org-topologies-primer-2025-deep.md",
+   "line": 255,
+   "text": "The page closes: \"Real change happens when everyone in the organization understands their role ...\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "The quotation is verbatim, but it closes the 'Hidden Complexities of Org Change' section, not the page: p. 4 continues with 'What's new in the 2025 Edition', which the deep ref itself cites to p. 4 at L295.",
+   "evidence": "converted L203-205 (quote), then L207-221 'What's new in the 2025 Edition', then 'Page 4' marker L223",
+   "fix": "correct: The section closes:"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/org-topologies-primer-2025-aar.md",
+   "line": 84,
+   "text": "The Primer speaks only to structure; it takes no position on individual culpability.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Second half is right (no treatment of culpability in the deep ref); 'speaks only to structure' overstates it: the deep ref's second load-bearing claim is the psychology-of-change discipline (people must own, not rent, their change), and org design includes policies, processes and rewards.",
+   "evidence": "deep L17 (psychology of change, p. 3 and p. 1); deep L124 (org design = structures, policies, processes, rewards)",
+   "fix": "correct: The Primer takes no position on individual culpability."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/org-topologies-primer-2025-aar.md",
+   "line": 120,
+   "text": "Both reject blame-first remediation: the Blameless Postmortem asks what \"we personally and as an organization can do to prevent it\" [BT], and OT frames the structural answer as Elevating-Kata experiments.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The OPL half is faithful (quote verbatim, [BT] matches OPL deep L240). 'Both reject blame-first remediation' attributes a stance on blame to OT that the deep ref does not carry, and it contradicts the repaired anti-pattern 2 in the same file (L84: the Primer takes no position on individual culpability).",
+   "evidence": "open-practice-library-deep L240 [BT]; OPL converted L19797; OT deep ref has no treatment of blame (audit D009)",
+   "fix": "correct: They fit together: the Blameless Postmortem asks what \"we personally and as an organization can do to prevent it\" [BT], and OT frames the structural part of that answer as Elevating-Kata experiments."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/org-topologies-primer-2025-decision-making.md",
+   "line": 157,
+   "text": "For conventional org-structure content the Primer does not cover (the mechanistic-organic continuum, contingency theory, the six common structure types), see `openstax-principles-management-decision-making.md`.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The pointer sends the reader to a distillation that carries none of the listed content: openstax-principles-management-decision-making.md has no mechanistic-organic continuum, no six structure types and no contingency theory (0 hits). In the PoM deep ref, 'contingency theory' is Fiedler's leadership theory (Ch 13.6), not org structure. The mechanistic-organic and six-structure material lives in PoM deep Ch 4.3 and in the PoM AAR distillation, which does not ship with the decision app.",
+   "evidence": "openstax-principles-management-deep L185-189 (Ch 4.3 structures), L646 (contingency = Fiedler leadership); openstax-principles-management-decision-making.md L18 (programmed vs non-programmed), L20/L52 (six-step process), L42 (four change models); grep for organic/structure type/divisional = 0",
+   "fix": "correct: For conventional management decision content the Primer does not cover (programmed versus non-programmed decisions, the six-step decision process, the four change models), see `openstax-principles-management-decision-making.md`. OT is at the *strategic-design-stance* level; OpenStax PoM is at the *general-management* level."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/org-topologies-primer-2025-retro.md",
+   "line": 160,
+   "text": "The Primer's own borrowed-through references are Toyota (kata, p. 19), Scrum's Definition of Done (p. 6), systems thinking (p. 16), and the framework list on p. 22 [BT].",
+   "grade": "MINOR-DRIFT",
+   "problem": "Reads as the complete list but omits one [BT] the deep ref carries: the outcome-over-output 'well-known management principle' (p. 8). The rest of the paragraph (Open Kanban borrowing from Deming and Goldratt; the Primer cites neither Open Kanban nor LS) is faithful.",
+   "evidence": "org-topologies-primer-2025-deep L246: Outcome-over-output principle ... [V] (p. 8) [BT]; L27, L154, L239, L195 carry the four listed [BT]s; open-kanban-deep L52",
+   "fix": "correct: The Primer's own borrowed-through references are Toyota (kata, p. 19), Scrum's Definition of Done (p. 6), the \"well-known management principle\" of outcomes over outputs (p. 8), systems thinking (p. 16), and the framework list on p. 22 [BT]."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/org-topologies-primer-2025-stakeholder-engagement.md",
+   "line": 10,
+   "text": "is positioned as a deliberately framework-agnostic discourse \u2014 \"without resorting to 'agile' or other framework-specific jargon\" [V] \u2014 that \"bringing together specialists from different backgrounds and facilitating open, unambiguous discussions about the current situation and the next steps.\" [V]",
+   "grade": "EDIT-DEFECT",
+   "problem": "Broken sentence in a changed line: 'that \"bringing together ...\"' has no verb. Pre-existing; the repair added the [V] marker to this sentence but left the grammar. Quotes themselves are verbatim.",
+   "evidence": "converted L284-288: \"...without resorting to 'agile' or other framework-specific jargon. This makes it easier to see things as they are, bringing together specialists from different backgrounds and facilitating open, unambiguous discussions about the current situation and the next steps.\"",
+   "fix": "correct: \u2014 one the Primer says makes it easier to see things as they are, \"bringing together specialists from different backgrounds and facilitating open, unambiguous discussions about the current situation and the next steps.\" [V]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md",
+   "line": 519,
+   "text": "| Diagnose framework-adoption conflict as a disengagement failure mode, not a comprehension problem | ... | `org-topologies-primer-2025-stakeholder-engagement.md` | ... the Primer names this as a psychological dynamic ... and notes that training alone leaves fundamental behaviours unchanged. ...",
+   "grade": "EDIT-DEFECT",
+   "problem": "Same error still present: the repair removed 'not a comprehension problem' from the distillation (audit D008: it sits badly with the quoted 'lack of enthusiastic understanding'), and updated this row's last column, but the Need column still carries it, so the row no longer matches the distillation (L32).",
+   "evidence": "stakeholder distillation L32 (repaired); audit org-topologies-primer-2025-stakeholder-engagement.json D008; converted L1301: 'Lack of enthusiastic understanding and support for the change'",
+   "fix": "correct: | Diagnose framework-adoption conflict as a disengagement failure mode |"
+  }
+ ],
+ "notes": "Scope: git diff HEAD for the deep ref (13 changed lines), light ref (1; stamp ignored), five distillations (AAR 16, decision-making 16, retro 18, software-business 18 plus one removed row, stakeholder-engagement 19) and 28 added index rows naming this source's distillations. Full reads: converted source L1-1582 (the whole Primer), deep ref L1-304, light ref L1-88, all five distillations in full; the five audit records read in full. The repair implements the audit fixes closely and adds six verbatim passages to the deep ref (p. 8 'often implicit', p. 11 Directing/Delivery sentences, p. 18 DESIGN outcome, p. 19 ELEVATE outcome, p. 20 AI preamble, p. 21 question-answers, p. 4 layering and closing sentences, extended p. 1 and p. 3 blockquotes); every one is word for word in the converted source (zero-width spaces and column interleave aside) with the right page and section. Removals (Adaptive-variance pattern, 'named drift/regression pattern', Conway's Law rows, LeSS/FAST/Spotify placements, Mike Rother, Mintzberg) are all backed by audit findings and absent from the source. Cross-source claims checked against deep refs: LFUO (Part 6 site visits; Learning Review contents), PoM (Ch 4.3), OPL (Blameless Postmortem [BT] quote verbatim, OPL converted L19797; Event Storming, Impact Mapping, Stakeholder Map), OB (Appreciative Inquiry Ch 16.3, present in both OB distillations), LS ('Where do you have freedom to act? What's in your 15%?' verbatim; ownership-vs-buy-in), Field Guide (six segments, based on Derby and Larsen), Open Kanban (Deming and Goldratt), FLO, NHS, Jones: all faithful except the PoM pointer at decision-making L157. vflags (12 entries) all graded FAITHFUL: decision-making L48, L92, L131; software-business L36, L38, L79, L138, L140; stakeholder L8 (x3), L22. Each MISS is an extraction artefact in the two- and three-column pages (pp. 1, 3, 14, 22): column interleave, zero-width spaces after em dashes, U+2011 non-breaking hyphens in 'micro-enterprises' and 'customer-focused'. Words are exact once lines are joined in reading order. Truncated excerpts (L92/L131 'won't fully accept them.'; SB L36 dropping the leading 'But') change no word inside the passage. Outside the changed lines, not graded: decision-making L105 still truncates the p. 19 re-mapping sentence without an ellipsis (audit note, unrepaired, words exact)."
+}

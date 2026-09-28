@@ -1,0 +1,48 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/open-kanban-software-business.md",
+  "findings": {
+    "D001": {"action": "applied", "note": "'an integral part of Open Kanban' quoted with [V] (source line 84)."},
+    "D002": {"action": "applied", "note": "Stripped at lines 14 and 28; 'queue physics' also dropped from the pricing trigger script (120) and When to Use (146)."},
+    "D003": {"action": "applied", "note": ""},
+    "D004": {"action": "applied", "note": "'Constraint stage' recurrences fixed at 120, 183, 229, 235, 241 (lens rows now say 'tightest stage', matching the CTO lens's own line 226)."},
+    "D005": {"action": "applied", "note": "Need label and question also reworded from 'batch-size constraints' / 'the constraint' to 'batch size' / 'the problem'."},
+    "D006": {"action": "applied", "note": "Recurrences at 124 and 149 fixed."},
+    "D007": {"action": "applied", "note": ""},
+    "D008": {"action": "applied", "note": "Recurrence at 184 fixed."},
+    "D009": {"action": "applied", "note": "Also line 156: Jones now described as general empirical critique with no flow apparatus."},
+    "D010": {"action": "applied", "note": ""},
+    "D011": {"action": "applied", "note": "Recurrences at 155, 157, 185, 214, 215 fixed; header now labelled as an operator note."},
+    "D012": {"action": "applied", "note": "Recurrences at 147 and 191 fixed."},
+    "D013": {"action": "applied", "note": "Muri-as-overburden / 'refused operating state' fixed at 10, 18, 34, 66, 67, 70, 81, 102, 112, 121, 122, 130, 169, 178, 209, 229."},
+    "D014": {"action": "applied", "note": "[V] added at lines 24 and 167."},
+    "D015": {"action": "applied", "note": ""},
+    "D016": {"action": "applied", "note": "Throughput wording fixed at 32, 72, 95, 111, 114, 124, 128, 132, 138, 171, 177, 181."},
+    "D017": {"action": "revised", "note": "Audit's rewrite of the answer kept; the question itself now asks 'resource hours (how busy people are)' instead of 'utilisation-based capacity'. Recurrences at 68, 111, 113, 121, 128, 145, 173, 177, 235 fixed; line 128 now cites the 'not just as resources' passage with [V] (source line 100)."},
+    "D018": {"action": "applied", "note": "Recurrences at 91, 92, 134, 182 fixed."},
+    "D019": {"action": "applied", "note": "'Kanban starts where you are' carries [V]."},
+    "D020": {"action": "applied", "note": ""},
+    "D021": {"action": "revised", "note": "Audit's sentence kept and the existing Scrum sentence retained; recurrences at 123, 193, 194 reworded to 'no prescribed cadence' / 'not working to Sprints'."},
+    "D022": {"action": "applied", "note": ""},
+    "D023": {"action": "applied", "note": ""},
+    "D024": {"action": "applied", "note": "Line 94 recurrence also fixed (Hurtado's practice, Cockburn's term)."},
+    "D025": {"action": "applied", "note": "Recurrence at 180 fixed."},
+    "D026": {"action": "rejected", "note": "Auditor's grep missed it: jones-evidence-based-sweng-deep line 99 (committed HEAD too) says 'Information asymmetry and moral hazard between client and vendor are framed using agency theory (Ch 3.4.6-3.4.7)'. Lines 83 and 160 stand."},
+    "D027": {"action": "applied", "note": ""},
+    "D028": {"action": "rejected", "note": "OPL deep ref carries Blameless Postmortem (lines 32, 237, 314) as well as Retrospectives; the auditor's grep missed it."},
+    "D029": {"action": "applied", "note": ""},
+    "D030": {"action": "applied", "note": ""},
+    "D031": {"action": "applied", "note": ""},
+    "D032": {"action": "revised", "note": "Audit fix applied and the unsupported 'slack as a feature; capacity as flow not utilisation' gloss dropped from the same sentence; line 244 'the framework's actual move is to supply the A-substrate' -> 'the lens's move'."}
+  },
+  "extra_fixes": [
+    "Line 10: 'where flow economics actually land' -> 'where flow is decided'; 'externalise overburden' -> 'externalise overwork'.",
+    "Line 14: 'capacity planning that begins with utilisation targets' -> 'begins with aggregate headcount' (utilis grep; distillation's own contrast).",
+    "Line 161: 'Route to openstax-principles-management (Mintzberg)' for organisational structure -> '(six organisational structure types, Exhibit 4.6)'; the Principles of Management deep ref (line 189) gives the structure types as the textbook's own Exhibit 4.6, and credits Mintzberg only with the managerial roles (DEEP-REF-FIXES cross-file correction for that source).",
+    "Line 192: 'Mintzberg's organisational structures, PDCA, and the management roles framework' -> 'The six organisational structure types (Exhibit 4.6), PDCA, and Mintzberg's managerial roles' (same).",
+    "Line 196 (NHS integration): 'post-event protection that makes the courage move safe' -> NHS steers managers away from singling out the staff member involved (same cross-source error as decision-making D024 and stakeholder D014).",
+    "Line 173 (worked example memo): 'Names the constraint' -> 'Names the problem'."
+  ],
+  "for_chris": [
+    "The software-business task spec still routes 'agency theory in vendor-client relations' and 'agency theory and moral hazard' to Jones; the Jones deep ref supports this (line 99), so the audit's D026 was wrong and nothing changed."
+  ]
+}

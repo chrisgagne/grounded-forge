@@ -1,0 +1,68 @@
+{
+ "slug": "openstax-accounting-vol2",
+ "changed_lines_checked": 115,
+ "tally": {
+  "faithful": 113,
+  "minor_drift": 2,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 4
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/openstax-accounting-vol2-decision-making.md",
+   "line": 205,
+   "text": "The Ford Pinto material is paraphrased; the deep ref carries its quotations unmarked.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The same repair added a [V] to the deep ref's Pinto passage (\"caused a significant hit to Ford's reputation\" [V], deep line 106), so the deep ref no longer carries all its Pinto quotations unmarked.",
+   "evidence": "deep ref line 106: ...the decision \"caused a significant hit to Ford's reputation\" [V], and litigation costs \"were higher than the original cost of including the rubber bladder component\" (Ch 10.6 ...); source 23198-23200.",
+   "fix": "correct: The Ford Pinto material is paraphrased; in the deep ref only the reputational-cost clause is marked `[V]`, and its other Pinto quotations are unmarked."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol2-software-business.md",
+   "line": 188,
+   "text": "So before signing, CloudForge works through the qualitative factors the volume lists for Thermal Mugs: whether PageDash meets its quality requirements, whether $480K is a teaser rate, its dependence on the vendor for quality, timely delivery and cost control, and how hard it would be to bring the work back in-house (Ch 10.3, \"Final Analysis of the Decision\"; Table 10.2).",
+   "grade": "MINOR-DRIFT",
+   "problem": "The last item (difficulty of bringing work back in-house) is not in the volume's Thermal Mugs list; it comes from the general outsourcing table (Table 10.2). The citation names Table 10.2, but the sentence attributes all four items to the Thermal list.",
+   "evidence": "deep ref line 94 (Thermal qualitative factors: quality, teaser rate, quantity, reputation, displacing workers; dependence on Plato for quality, timely delivery, cost control) vs deep ref line 96 (Table 10.2: 'the difficulty of bringing production back in-house'); source 22646-22675 and 22692.",
+   "fix": "correct: So before signing, CloudForge works through the qualitative factors the volume lists for Thermal Mugs (whether PageDash meets its quality requirements, whether $480K is a teaser rate, its dependence on the vendor for quality, timely delivery and cost control) and, from the volume's outsourcing table, how hard it would be to bring the work back in-house (Ch 10.3, \"Final Analysis of the Decision\"; Table 10.2)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol2-software-business.md",
+   "line": 18,
+   "text": "For build-vs-buy, the prior engineering investment in an existing in-house system is sunk and irrelevant; only the *avoidable* in-house cost going forward (engineering hours plus avoidable hosting plus avoidable on-call) compares to the vendor cost.",
+   "grade": "EDIT-DEFECT",
+   "problem": "Same error the repair fixed in Decision 1 (audit D013) is still present in an unchanged line: the build-vs-buy comparison is limited to avoidable cost and leaves out the opportunity cost of capacity a buy frees. Applied to CloudForge this rule gives $200K vs $480K, build, the verdict the repair corrected. It also contradicts the paragraph's own preceding sentence (opportunity costs are typically relevant).",
+   "evidence": "deep ref line 83 (opportunity cost, Ch 10.1 'Opportunity Costs'); deep ref line 94 (buying 'likely means that Thermal has excess production capacity that can now be applied to making other products' [V], Ch 10.3); distillation line 178 (relevant build cost = $200K hosting + $400K opportunity cost).",
+   "fix": "correct: For build-vs-buy, the prior engineering investment in an existing in-house system is sunk and irrelevant; the *avoidable* in-house cost going forward (engineering hours plus avoidable hosting plus avoidable on-call), plus the opportunity cost of any capacity a buy would free, compares to the vendor cost."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol2-software-business.md",
+   "line": 55,
+   "text": "Use only avoidable internal cost in the comparison; ignore allocated platform overhead that would remain.",
+   "grade": "EDIT-DEFECT",
+   "problem": "Unchanged line carrying the same omission as line 18: 'only avoidable internal cost' excludes the opportunity cost on which the repaired Decision 1 verdict turns.",
+   "evidence": "as line 18.",
+   "fix": "correct: Use avoidable internal cost, plus the opportunity cost of any capacity a buy would free, in the comparison; ignore allocated platform overhead that would remain."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol2-software-business.md",
+   "line": 115,
+   "text": "Compare avoidable internal cost against the vendor price.",
+   "grade": "EDIT-DEFECT",
+   "problem": "Unchanged runtime teach-in-the-moment script for build-vs-buy carries the same omission; an operator following it on the CloudForge numbers reaches the contradicted 'build' verdict.",
+   "evidence": "as line 18.",
+   "fix": "correct: Compare avoidable internal cost, plus the opportunity cost of any capacity the buy frees, against the vendor price."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol2-software-business.md",
+   "line": 200,
+   "text": "The in-house cost in a build-vs-buy comparison should include only what's *actually* released by the buy decision (Ch 10.3).",
+   "grade": "EDIT-DEFECT",
+   "problem": "Unchanged anti-pattern line with the same omission (read literally, the two reassigned engineers are not released, so their opportunity cost drops out).",
+   "evidence": "as line 18.",
+   "fix": "correct: The in-house cost in a build-vs-buy comparison should include only what's *actually* released by the buy decision, plus the opportunity cost of capacity the buy frees (Ch 10.1; Ch 10.3)."
+  }
+ ],
+ "notes": "COMPLETE. Full reads: deep ref diff (26 changed/added lines) and light ref (1) checked against sources/converted; decision-making (20 changed + 1 removal), software-business (37 changed), stakeholder-engagement (25 changed + 4 removals) each read in full; 1 changed index row (SOFTWARE-BUSINESS-DISTILLATION-INDEX.md:607) matches distillation line 94. Every added [V]/[BT] quotation in the deep ref and distillations is verbatim in the converted source (ignoring line breaks); locators checked against source headings (Gearhead instalments at Ch 9.2/10.1/11.4/12.4 confirmed; 'Fundamentals of Standard Costs' locator for the variance-interaction passage is correct, source 17603 precedes 'Manufacturing Cost Variances' at 17618). All removals are justified by the audit record: decision-making process-vs-outcome row (D008 strip); stakeholder greenwashing question, verification question, greenwashing anti-pattern (D017 strip) and materiality-assessment row (D033 strip). Cross-corpus claims verified against open-kanban, openstax-principles-finance, -management, -organizational-behavior, -business-ethics, -entrepreneurship, -introduction-business, jones and letaw deep refs; source greps confirm Goldratt, JIT/TQM/LSS/kaizen appear only in Ch 1 and real options nowhere. No edit traces found; the audited residues (unfavourable-price/favourable-quantity, 'IMA eight-step', Schneidermann, 'Build, not buy', greenwashing, [AE]) are gone from all three distillations. Software-business Decision 1 (build-or-buy) arithmetic verified: $1.2M = 5 x $200K + $200K hosting; conventional gap $720K; 3 unreleasable engineers ($600K) irrelevant; relevant build = $200K hosting + $400K opportunity cost of the 2 reassignable engineers = $600K vs $480K licence; buy saves $120K; dropping the opportunity cost gives $200K vs $480K (build), as the text says. Verdict 'buy, if those checks hold' follows the volume's outsourcing rule, quoted [V]. Valuing the opportunity cost at loaded cost is stated as CloudForge's own assumption, not attributed to the volume. Decision 3 corrected IRR ~17% is right (5-yr annuity factor 3.2 reached at ~16.99%); NPV ~$0.6M and PI 1.13 right. Decision-making NPV $432,600 / $32,600 / PI 1.08 right (120,000 x 3.605). The four EDIT-DEFECT findings are unchanged software-business lines that still state the build-vs-buy rule as avoidable cost only, the omission the repair fixed in Decision 1; the same pattern appears for contractor decisions at lines 78 and 125 (less clear-cut, not flagged) and in the unchanged index row SOFTWARE-BUSINESS-DISTILLATION-INDEX.md:69, which should follow any change to line 55. Software-business line 282 says the deep ref carries 'the Ford Pinto framing' as unmarked quotation; true of the cost-benefit framing quote, so left FAITHFUL (the new [V] sits on the reputation clause). No vflags file exists for this slug."
+}

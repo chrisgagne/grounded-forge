@@ -1,0 +1,399 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/openstax-introduction-business-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-188 of 188",
+    "deep": "lines 1-908 of 908",
+    "complete": true
+  },
+  "claims_audited": 140,
+  "tally": {
+    "faithful": 102,
+    "minor_drift": 22,
+    "unsupported": 13,
+    "contradicted": 3
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "anchoring the five-step decision process (recognise, gather information, select, implement, gather feedback) as the systematic approach for non-programmed cases",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Restricts the five-step process to non-programmed decisions. The source says the five steps apply to both kinds.",
+      "evidence": "Deep 250: 'Five steps for both programmed and non-programmed decisions (Ch 6.6, Exhibit 6.7)'. Source 16451: 'Whether a decision is programmed or nonprogrammed, managers typically follow five steps in the decision making process'.",
+      "fix": "correct: anchoring the five-step decision process (recognise, gather information, select, implement, gather feedback), which the text says managers follow whether a decision is programmed or non-programmed."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "Ch 17 applies the same six-step planning framework to career decisions.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'the same' implies the six-step planning process is used elsewhere in the book. It appears only in Ch 17.3, and nothing earlier in the distillation introduces it.",
+      "evidence": "Deep 740-749: the six-step planning process (set goal, acquire knowledge, compare alternatives, choose strategy, make commitment, stay flexible) is given once, Ch 17.3. Source 47483-47540 frames it for personal, educational and career goals.",
+      "fix": "correct: and Ch 17.3 sets out a six-step planning process (set a goal, acquire knowledge, compare alternatives, choose a strategy, make a commitment, stay flexible) for personal and career goals."
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Decision-Making Relevance",
+      "claim": "This distillation consolidates these threads: ... how to surface and challenge biases",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Promises bias-surfacing content the source does not carry. The distillation's own Named Limits (line 186) says the five-step process 'is presented without the bias-mitigation and debiasing protocols'. The bias material that follows (groupthink, escalation, sunk cost) is imported from sibling sources.",
+      "evidence": "Deep ref carries no cognitive-bias content; grep of the converted source finds no 'sunk cost', 'escalation of commitment', 'bounded rationality'; 'groupthink' appears once (source 24340) as a Japanese cultural belief, not a decision bias. Only 'analysis paralysis' (deep 258) is present.",
+      "fix": "correct: how to recognise decision type and choose the right process, how to avoid getting stuck at a stage (analysis paralysis), how to evaluate alternatives systematically when stakes are high, and how to handle crisis-mode decisions when contingency planning is incomplete."
+    },
+    {
+      "id": "D004",
+      "line": 16,
+      "section": "Key Concepts 1 (Programmed vs non-programmed)",
+      "claim": "Non-programmed decisions ... require systematic processing. The five-step process applies to non-programmed decisions",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Same restriction as line 8. 'require systematic processing' is also not in the source, which says only that the manager 'rarely has a precedent to follow'. 'ordering supplies' is not a source example (the source's is hiring).",
+      "evidence": "Deep 246, 250; source 16367-16372 (programmed: hiring, standard recruitment procedures), 16425-16427 (non-programmed: unique, complex, rarely a precedent), 16451 (five steps whether programmed or nonprogrammed).",
+      "fix": "correct: Programmed decisions respond to routine situations that recur across the organisation and are handled by standard procedures (the text's example is recruitment and selection). Non-programmed decisions answer infrequent, unforeseen or unusual problems and opportunities; they are unique and complex and the manager rarely has a precedent. The text says managers typically follow the same five steps for both: recognise/define the problem; gather information; select alternatives; act; gather feedback. (Source: OpenStax, Introduction to Business, Ch 6.6, \"Managerial Decision Making\")"
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts 3 (Five-step process)",
+      "claim": "Used across the book for any non-trivial decision",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The process is presented once, in Ch 6.6, and the source applies it to routine (programmed) decisions as well, so 'non-trivial' narrows it and 'across the book' is unsupported. The [V] quotation itself is word-for-word (source 16470); it runs four words past the deep ref's copy at deep 258.",
+      "evidence": "Deep 250: 'Five steps for both programmed and non-programmed decisions (Ch 6.6, Exhibit 6.7)'. Source 16451.",
+      "fix": "correct: Presented in Ch 6.6 as the steps managers typically follow for both programmed and non-programmed decisions:"
+    },
+    {
+      "id": "D006",
+      "line": 22,
+      "section": "Key Concepts 4 (Planning horizons)",
+      "claim": "Choosing the right planning horizon is the first decision before structuring any other decision.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "A sequencing principle the source does not state, placed before a source citation so it reads as the source's.",
+      "evidence": "Deep 207-216 gives the four planning types, their horizons and levels; no claim about which decision comes first.",
+      "fix": "strip"
+    },
+    {
+      "id": "D007",
+      "line": 24,
+      "section": "Key Concepts 5 (Environmental forces)",
+      "claim": "Six environmental forces require continuous scanning ... The source argues that managerial control is bounded by these external conditions: \"managers are primarily adapters to, rather than agents of, change\" [V] (Ch 1.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conflates two lists. The six forces (cultural/social, demographic, economic, technological, political/legal, competitive) are the Ch 11.2 marketing-environment list; the 'adapters' quotation belongs to Ch 1.2's seven sub-environments, which add 'global'. 'these external conditions' ties the Ch 1.2 quote to the Ch 11.2 list. The quotation itself is word-for-word (source 1568). 'to identify opportunities and threats' is in the source (29755-29757) but not the deep ref.",
+      "evidence": "Deep 35: seven sub-environments incl. global (Ch 1.2, Exhibit 1.4) and the 'adapters' quote. Deep 503: marketers gather data on six environmental forces; environmental scanning (Ch 11.2). Source 29754-29757: 'The goal in gathering the environmental data is to identify current and future market opportunities and threats.'",
+      "fix": "correct: The source's business environment has seven sub-environments (economic, political and legal, demographic, social, competitive, global, technological), and it argues managerial control over them is limited: \"managers are primarily adapters to, rather than agents of, change\" [V] (Ch 1.2). Ch 11.2 names six forces marketers scan (cultural/social, demographic, economic, technological, political/legal, competitive); environmental scanning is the team-based process of continually collecting and evaluating that information. | cycle-to-deep: add to deep 503 'The goal in gathering the environmental data is to identify current and future market opportunities and threats' (Ch 11.2)."
+    },
+    {
+      "id": "D008",
+      "line": 26,
+      "section": "Key Concepts 6 (Ethical tests)",
+      "claim": "The feelings test: after deciding, does the discomfort or unease pass? ... Both tests surface conflicts of interest and ethical violations the rational analysis may miss.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The feelings test asks how the decision makes you feel (does discomfort persist, e.g. loss of sleep or appetite), not whether it passes. The source ties conflict-of-interest spotting to the newspaper test only; the feelings test is 'a future guide in resolving ethical dilemmas'. 'the rational analysis may miss' is added: the source runs the two tests after three legal/code/personal-philosophy checks.",
+      "evidence": "Deep 87: feelings test (do I sleep well or feel discomfort?), newspaper test. Source 5334-5343 (feelings test: 'How does it make me feel?'; discomfort 'in a loss of sleep or appetite'), 5345-5351 ('This test is helpful in spotting and resolving potential conflicts of interest'), 5325-5330 (the three prior questions).",
+      "fix": "correct: The feelings test: 'How does it make me feel?'. Discomfort that lingers after the decision (lost sleep or appetite) is a signal of conscience. The newspaper or social-media test: how would an objective reporter describe the decision on the front page? The text says this test helps spot and resolve potential conflicts of interest. Both come after checking legality, the company code of ethics and one's own ethical philosophy. (Source: Ch 2.2, \"Making the Right Decision\") | cycle-to-deep: add to deep 87 the conflict-of-interest sentence (source 5351)."
+    },
+    {
+      "id": "D009",
+      "line": 28,
+      "section": "Key Concepts 7 (CSR pyramid); also lines 108, 128, 186",
+      "claim": "Carroll's pyramid of CSR for stakeholder-affecting decisions. (repeated as 'Carroll's pyramid' at 108, 128 and 186)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Wrong attribution. The source presents the pyramid with no theorist; 'Carroll' is training-data knowledge. Also 'Decisions stack from foundation upward' misstates what stacks: the source's pyramid stacks responsibilities.",
+      "evidence": "Deep 879: 'Pyramid of corporate social responsibility ... the typology is presented in source without a theorist attribution (Ch 2.3) [AP]'. Converted source: the only 'Carroll' is a Bloomberg reporter in the endnotes (line 50299).",
+      "fix": "correct: **The pyramid of corporate social responsibility for stakeholder-affecting decisions.** Four responsibilities stack from the foundation upward: economic (without profit, the others don't matter), legal (obey the law), ethical (do what is right, just and fair), philanthropic (be a good corporate citizen). (Source: Ch 2.3, Exhibit 2.4). At 108, 128 and 186 replace 'Carroll's pyramid' with 'the CSR pyramid'."
+    },
+    {
+      "id": "D010",
+      "line": 30,
+      "section": "Key Concepts 8 (Make-or-buy)",
+      "claim": "Make-or-buy decision criteria. Quantity needed ...; secrecy of design ...; supplier reliability and quality ...; competitive advantage at stake (favours make).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Splits one criterion into two. In the source competitive advantage is the reason for secrecy ('special design features that need to be kept secret to protect a competitive advantage'), not a separate fourth test. The same four-way split carries into Questions (line 68) and the worked example (line 132).",
+      "evidence": "Deep 453: 'The make-or-buy decision turns on quantity, secrecy needs, and supplier reliability/quality.' Source 27063-27078.",
+      "fix": "correct: Make-or-buy decision criteria. Quantity needed (a part used in only one of many products is often cheaper to buy); secrecy (design features that must be kept secret to protect a competitive advantage favour making); whether outside suppliers can deliver high quality reliably. (Source: Ch 10.4, \"Make or Buy?\")"
+    },
+    {
+      "id": "D011",
+      "line": 32,
+      "section": "Key Concepts 9 (Mechanistic vs organic)",
+      "claim": "Five competitive forces shape choice between mechanistic and organic structure. ... The structure decision ... shapes the speed and quality of subsequent decisions.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong count and wrong label: the body lists three factors (strategy, size, environment), which is what the source names ('among others'); none are 'competitive forces'. 'speed' has source support (decentralisation brings 'quicker decision-making'); 'quality' does not.",
+      "evidence": "Deep 312: choice depends on strategy, size, external environment. Source 18943-18947: 'based on factors such as the firm's overall strategy, the size of the organization, and the stability of its external environment, among others.' Source 18833-18835 (decentralisation: quicker decision-making).",
+      "fix": "correct: **Factors shaping the choice between mechanistic and organic structure.** Strategy (innovation favours organic; cost-control favours mechanistic), size (larger firms tend mechanistic), and the stability of the external environment (complex/unstable favours organic), among others. The structure decision shapes how quickly and where decisions get made. (Source: Ch 7.6)"
+    },
+    {
+      "id": "D012",
+      "line": 34,
+      "section": "Key Concepts 10 (Expectancy theory)",
+      "claim": "The decision to make outcomes contingent on performance is the practical implication.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "This source states no practical implication for expectancy theory. The 'outcomes contingent on performance' claim is carried verbatim by the sibling OpenStax Principles of Management and Organizational Behavior deep refs, not this one.",
+      "evidence": "Deep 391: definition, three relationships, valence; no implication. Source 24568-24590: same. openstax-principles-management-deep 686 / openstax-organizational-behavior-deep 233: 'to maximize motivation, organizations must make outcomes contingent on performance' [V].",
+      "fix": "correct: A practical implication (developed in OpenStax Principles of Management, Ch 14.3, not in this source) is to make outcomes contingent on performance."
+    },
+    {
+      "id": "D013",
+      "line": 36,
+      "section": "Key Concepts 11 (Equity theory)",
+      "claim": "Equity theory and procedural justice in distribution decisions ... The decision-design implication is that process matters as much as outcome — procedural justice can sustain commitment even when distributive outcomes disappoint. (Source: Ch 9.6)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Procedural justice and distributive justice are not in this source; the claim is cited to Ch 9.6 as if it were. The source's implication is narrower: managers can understand employees' perceptions of fairness and take steps to reduce concerns about inequity. (Organisational-justice material lives in OpenStax Principles of Management Ch 14.4.)",
+      "evidence": "Deep 392: equity theory, referent comparison, six responses; no justice typology. Source 24601-24656 (incl. 24654: 'Managers can use equity theory to improve worker satisfaction ... take steps to reduce concerns about inequity'). grep 'procedural justice' in source: 0 hits. openstax-principles-management-deep 682 carries procedural justice.",
+      "fix": "correct: **Equity theory in distribution decisions.** ... Perceived inequity triggers restorative behaviours: changed work habits, asking for a raise, distorted perceptions of self or others, reframing, or leaving. The text's implication for managers: understand employees' perceptions of fairness and take steps to reduce concerns about inequity. (Source: Ch 9.6, \"Equity Theory\")"
+    },
+    {
+      "id": "D014",
+      "line": 46,
+      "section": "Questions, Phase 1 (Identify the decision type)",
+      "claim": "Programmed decisions can use existing procedures; non-programmed ones warrant the five-step process.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Same restriction as lines 8 and 16; the source applies the five steps to both kinds.",
+      "evidence": "Deep 250; source 16451.",
+      "fix": "correct: Programmed decisions can lean on standard procedures; non-programmed ones have little precedent. Either way, the text's five steps apply."
+    },
+    {
+      "id": "D015",
+      "line": 78,
+      "section": "Questions, Phase 4 (Test for groupthink)",
+      "claim": "Is the decision being endorsed by consensus that may suppress dissent?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Applied guidance built on a concept this source does not treat as a decision hazard (its one use of 'groupthink' is about Japanese management culture). The concept is carried by OpenStax Principles of Management.",
+      "evidence": "Source 24340 (only occurrence). openstax-principles-management-deep 103-109 (groupthink, suppression of dissent, devil's advocate).",
+      "fix": "correct: keep the question but tag it '(see OpenStax Principles of Management, Ch 2.6)' so it is not read as this source's guidance."
+    },
+    {
+      "id": "D016",
+      "line": 97,
+      "section": "Questions, Phase 6 (Be willing to reverse)",
+      "claim": "Or am I escalating commitment to defend the prior choice?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Escalation of commitment is not in this source; it is carried by OpenStax Principles of Management and Organizational Behavior.",
+      "evidence": "grep 'escalation of commitment' in source: 0 hits. openstax-principles-management-deep 78.",
+      "fix": "correct: If new information shows the decision was wrong, am I able to reverse course? (Step 5 of the text's process is gathering feedback on the chosen plan's effectiveness.) Tag escalation of commitment to OpenStax Principles of Management, Ch 2.4."
+    },
+    {
+      "id": "D017",
+      "line": 105,
+      "section": "What to Look For (Reward decisions provoke complaints)",
+      "claim": "Follow-up: examine procedural justice; communicate the basis for differential rewards.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'procedural justice' is imported. 'communicate the basis' is loosely supported by the source's advice to understand perceptions of fairness and reduce concerns about inequity.",
+      "evidence": "Source 24654-24656. Deep 392. No 'procedural justice' in the source.",
+      "fix": "correct: Follow-up: find out how employees perceive fairness and which referent they compare against; take steps to reduce concerns about inequity (Ch 9.6)."
+    },
+    {
+      "id": "D018",
+      "line": 107,
+      "section": "What to Look For (Manager defends a wrong decision)",
+      "claim": "Diagnosis: escalation of commitment; sunk-cost fallacy.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Neither concept is in this source or its deep ref; presented as a diagnosis this reference supplies.",
+      "evidence": "grep 'escalation of commitment', 'sunk cost' in source: 0 hits (the one 'escalation' at 12052 is about foreign investment). Carried by openstax-principles-management-deep 78 and openstax-economics-3e-deep.",
+      "fix": "strip, or move the pattern to the Integration table under OpenStax Principles of Management (Ch 2.4) with this source's contribution limited to step 5 (gather feedback on effectiveness)."
+    },
+    {
+      "id": "D019",
+      "line": 109,
+      "section": "What to Look For (Cross-cultural commitment)",
+      "claim": "Diagnosis: cultural variation in motivation drivers (e.g., English-speaking individualism vs Northern European collectivism).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'collectivism' mischaracterises the source's Northern European profile (less interest in getting ahead, emphasis on job accomplishment, jobs must not interfere with personal lives). It also contradicts the distillation's own line 70 ('Northern European personal-life priorities').",
+      "evidence": "Deep 398. Source 24775-24777: Northern Europeans 'have less interest in getting ahead ... place more emphasis on job accomplishment ... have more concern for people and less for the organization as a whole (it is important that their jobs not interfere with their personal lives)'.",
+      "fix": "correct: (e.g., English-speaking countries' emphasis on individual achievement vs Northern European emphasis on job accomplishment and protecting personal life)"
+    },
+    {
+      "id": "D020",
+      "line": 140,
+      "section": "Worked Example (summary)",
+      "claim": "expectancy theory (employees' perception of fair treatment), and the discipline of precommitting to monitoring metrics so the manager doesn't escalate commitment beyond evidence",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attaches equity theory's definition to expectancy theory; neither theory is used in the example as written. 'escalate commitment' imports a concept this source lacks.",
+      "evidence": "Deep 391 (expectancy = belief the act will have an outcome and value of that outcome) vs deep 392 (equity = perceptions of fair treatment).",
+      "fix": "correct: This worked example illustrates the five-step process (including step 5, gathering feedback), the risk-return trade-off, the make-or-buy frame, both ethical tests, and precommitting to monitoring criteria so the decision can be reversed on evidence."
+    },
+    {
+      "id": "D021",
+      "line": 144,
+      "section": "Anti-patterns",
+      "claim": "Treating non-programmed decisions as programmed. Skipping the five-step process for novel decisions produces poor outcomes and prevents learning.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rests on the premise that the five-step process is only for novel decisions (source: both kinds). 'produces poor outcomes and prevents learning' is not in the source; the source's warning is about getting stuck at a stage.",
+      "evidence": "Deep 250, 258. Source 16451, 16470.",
+      "fix": "correct: **Treating a novel situation as routine.** Applying standard procedures where there is no precedent (the text's non-programmed case) skips the information-gathering and evaluation steps the situation needs."
+    },
+    {
+      "id": "D022",
+      "line": 145,
+      "section": "Anti-patterns",
+      "claim": "Defending sunk-cost decisions. Escalation of commitment leads managers to throw more good resources after bad.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Listed as an anti-pattern this reference helps avoid; the source has no sunk-cost or escalation content.",
+      "evidence": "grep 'sunk cost', 'escalation of commitment' in source: 0 hits.",
+      "fix": "strip"
+    },
+    {
+      "id": "D023",
+      "line": 146,
+      "section": "Anti-patterns",
+      "claim": "Premature consensus in groups. Groupthink produces unchallenged decisions that look good in the room and bad in the world.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Listed as an anti-pattern this reference helps avoid; the source does not treat groupthink as a group decision hazard.",
+      "evidence": "Source 24340 is the only 'groupthink' (Japanese cultural beliefs 'are passé'). Carried by openstax-principles-management-deep 103-109.",
+      "fix": "strip"
+    },
+    {
+      "id": "D024",
+      "line": 147,
+      "section": "Anti-patterns",
+      "claim": "Conflict-avoidance leading to compounding problems. Avoiding necessary process conflict prevents productive exploration of options.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "'process conflict' is OpenStax Organizational Behavior vocabulary; this source has no process/relationship-conflict distinction.",
+      "evidence": "grep 'process conflict' in source: 0 hits. This source's conflict material: K-I-N-D technique (deep 736), grievances (deep 371).",
+      "fix": "strip"
+    },
+    {
+      "id": "D025",
+      "line": 150,
+      "section": "Anti-patterns",
+      "claim": "Decentralisation without skills or training. Pushing authority down without ensuring competence can produce costly mistakes.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported by the converted source but not carried by the deep ref (deep 304-306 lists only when decentralisation suits).",
+      "evidence": "Source 18836-18838: 'If lower-level personnel don't have the necessary skills and training to perform effectively, they may make costly mistakes.'",
+      "fix": "cycle-to-deep: add to deep 306 (Ch 7.5): 'But decentralization can also be risky. If lower-level personnel don't have the necessary skills and training to perform effectively, they may make costly mistakes.'"
+    },
+    {
+      "id": "D026",
+      "line": 151,
+      "section": "Anti-patterns",
+      "claim": "When >80% of US GDP is services, cost-only competitive advantage erodes; decisions to cut service quality are rarely sustainable.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong causal link. The source says cost advantage erodes because competitors adopt the same technology or suppliers, not because of the services share of GDP. 'rarely sustainable' is added.",
+      "evidence": "Deep 509 (cost advantage erodes as competitors adopt same technology), 511 (>80% of GDP services; service differentiation), 893. Source 29935-29946.",
+      "fix": "correct: **Cost-cutting that erodes service differentiation.** The text warns that cost advantages 'are subject to continual erosion' as competitors adopt the same technology or suppliers, while differentiation, including service, lasts longer; with services over 80% of U.S. GDP, cutting service quality trades a durable advantage for a fragile one."
+    },
+    {
+      "id": "D027",
+      "line": 152,
+      "section": "Anti-patterns",
+      "claim": "Ignoring the equity-theory dimension of pay decisions. Reward structures that ignore procedural justice predict disengagement.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Procedural justice is not in the source; the predicted outcome is not stated either. The source's equity responses are six named choices, including exerting less effort and leaving.",
+      "evidence": "Deep 392. Source 24640-24652.",
+      "fix": "correct: Ignoring the equity-theory dimension of pay decisions. Employees who perceive inequity may exert less effort, ask for a raise, distort perceptions, or leave (Ch 9.6)."
+    },
+    {
+      "id": "D028",
+      "line": 159,
+      "section": "Integration (Bounded rationality row)",
+      "claim": "Bounded rationality (Simon) | The OpenStax-Intro-Business text presents systematic decision-making partly as a remedy for bounded rationality.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "This source never mentions bounded rationality or Simon. The row also names a concept, not a corpus reference.",
+      "evidence": "grep 'bounded rationality' in source: 0 hits. Carried by openstax-principles-management-deep 77 and openstax-organizational-behavior-deep 185, 688.",
+      "fix": "correct: OpenStax Principles of Management (Ch 2.4) / Organizational Behavior (Ch 6.4) | Those sources develop bounded rationality (Simon); this source offers the procedural side, the five-step process (Ch 6.6), with no account of cognitive limits. Use them together for why decisions fall short and how to structure them."
+    },
+    {
+      "id": "D029",
+      "line": 160,
+      "section": "Integration (Carroll row)",
+      "claim": "Carroll's pyramid of CSR | Carroll's framework is the source's primary CSR construct",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source names no theorist for the pyramid; the row also names no other corpus reference.",
+      "evidence": "Deep 879.",
+      "fix": "correct: OpenStax Business Ethics | Pair this source's CSR pyramid (Ch 2.3: economic, legal, ethical, philanthropic) with the ethics text's fuller treatment for stakeholder-affecting decisions. (Or strip the row.)"
+    },
+    {
+      "id": "D030",
+      "line": 161,
+      "section": "Integration (Expectancy row)",
+      "claim": "Expectancy theory (Vroom-Lawler)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Theorist names are not in this source (deep: 'no theorist named'); they come from sibling sources. The row names a concept, not a corpus reference.",
+      "evidence": "Deep 871. openstax-principles-management-deep 686, 953; openstax-organizational-behavior-deep 233, 695.",
+      "fix": "correct: OpenStax Principles of Management / Organizational Behavior (expectancy theory, Vroom and Lawler) | This source defines expectancy theory without naming a theorist (Ch 9.6); the sibling texts add the attribution and the implication that outcomes should be contingent on performance."
+    },
+    {
+      "id": "D031",
+      "line": 162,
+      "section": "Integration (Equity row)",
+      "claim": "Equity theory (Adams)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adams is not named in this source; the sibling sources carry the attribution.",
+      "evidence": "Deep 872. openstax-organizational-behavior-deep 231; openstax-principles-management-deep 682.",
+      "fix": "correct: OpenStax Principles of Management / Organizational Behavior (equity theory, Adams) | ..."
+    },
+    {
+      "id": "D032",
+      "line": 163,
+      "section": "Integration (Goal-setting row)",
+      "claim": "Goal-setting theory (Locke) | Specific, difficult, accepted goals shape what decisions feel salient and which alternatives feel preferable.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Locke is not named in this source, and the claim about salience of decisions and preference among alternatives is not in it: the source says goals clarify what must be accomplished and how much effort is needed, and that specific, difficult (accepted) goals and feedback raise performance.",
+      "evidence": "Deep 393, 873 ('no theorist named'). Source 24677-24690.",
+      "fix": "correct: Goal-setting theory (Ch 9.6) | Specific goals outperform 'do your best'; difficult goals outperform easy ones when accepted; feedback enhances performance. Use it when setting the success criteria a decision will be monitored against."
+    },
+    {
+      "id": "D033",
+      "line": 164,
+      "section": "Integration (Risk-return row)",
+      "claim": "The financial-management chapter (Ch 16) develops the risk-return trade-off as a foundational decision principle that extends beyond financial decisions to any choice where loss probability and gain magnitude can be characterised.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Ch 16 frames the trade-off for financial managers' investment and financing decisions; it does not extend it beyond finance. The general business risk-profit link is Ch 1.1.",
+      "evidence": "Deep 674; source 44268-44276 ('Financial managers consider many risk and return factors when making investment and financing decisions'). Deep 27 (Ch 1.1): greater risks support greater potential profit or loss.",
+      "fix": "correct: Ch 16.1 states the risk-return trade-off for financial decisions ('The higher the risk, the greater the return that is required' [V]); Ch 1.1 makes the broader point that greater business risk carries greater potential profit or loss."
+    },
+    {
+      "id": "D034",
+      "line": 173,
+      "section": "Citation notes (Maslow entry)",
+      "claim": "Key Concept 10 (expectancy theory) references motivational context that overlaps with Maslow.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Key Concept 10 does not mention Maslow or needs hierarchy; the cross-reference is false.",
+      "evidence": "Distillation line 34.",
+      "fix": "strip the sentence"
+    },
+    {
+      "id": "D035",
+      "line": 177,
+      "section": "Citation notes (Vroom / Lawler entry)",
+      "claim": "Victor Vroom / Lawler, expectancy theory ... (Ch 9.6) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The entry says the deep ref contains this [BT] citation; the deep ref marks expectancy theory [AP] and says no theorist is named.",
+      "evidence": "Deep 871: 'Expectancy theory ... named in source as a motivation theory but no theorist named (Ch 9.6) [AP]'.",
+      "fix": "correct: Expectancy theory (Ch 9.6): the source names no theorist [AP]; the Vroom/Lawler attribution is carried by OpenStax Principles of Management (Ch 14.3) [BT]."
+    },
+    {
+      "id": "D036",
+      "line": 178,
+      "section": "Citation notes (Adams entry)",
+      "claim": "J. Stacy Adams, equity theory ... (Ch 9.6) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as the line-177 finding: the deep ref marks equity theory [AP], no theorist named.",
+      "evidence": "Deep 872.",
+      "fix": "correct: Equity theory (Ch 9.6): the source names no theorist [AP]; the Adams attribution is carried by OpenStax Organizational Behavior (Ch 7.3) [BT]."
+    },
+    {
+      "id": "D037",
+      "line": 179,
+      "section": "Citation notes (Carroll entry)",
+      "claim": "Archie Carroll, CSR pyramid — economic, legal, ethical, and philanthropic responsibility levels underlying Key Concept 7 (Ch 2.3) [BT]",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Lists a borrowed-through author the source never names; no corpus deep ref carries Carroll for CSR either.",
+      "evidence": "Deep 879 (no theorist attribution, [AP]). Source: no 'Carroll' outside one endnote reporter byline (50299).",
+      "fix": "strip"
+    },
+    {
+      "id": "D038",
+      "line": 188,
+      "section": "Citation notes (Evidence-marker continuity)",
+      "claim": "Key Concepts draw on `[AP]` (author's positions) ... Motivation theories (Maslow, McGregor, Herzberg, Vroom, Adams) are `[BT]` — the source endorses and explains them but does not originate them.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[AP] is author paraphrase, not 'author's positions'. Vroom and Adams are not named in the source (deep marks expectancy and equity [AP]). The source does not endorse Maslow: it says research has not verified the hierarchy.",
+      "evidence": "Deep 871-872; deep 887 ('Research has not verified these principles in any strict sense' [V]).",
+      "fix": "correct: Key Concepts draw on [AP] (paraphrase) and [AE] (examples). Maslow, McGregor, Ouchi and Herzberg are [BT] (the source relays them; it flags Maslow's hierarchy as unverified by research); expectancy, equity and goal-setting theories are presented without a named theorist [AP]."
+    }
+  ],
+  "notes": "Three systemic problems. (1) The five-step decision process is restricted to non-programmed decisions in four places (8, 16, 46, 144); the source (16451) says managers follow it whether a decision is programmed or not. (2) Sibling-source imports: groupthink, escalation of commitment, sunk cost, bounded rationality (Simon), procedural justice, process conflict, the Vroom/Lawler and Adams attributions, and 'make outcomes contingent on performance' all come from OpenStax Principles of Management / Organizational Behavior, not this source. (3) 'Carroll's pyramid' is a training-data attribution; the deep ref says the source names no theorist. Structurally, the Integration table (157-167) names concepts, not other corpus references: no row points to a corpus source, so it fails the protocol's 'integration table as stub' check; the fixes above route rows to real corpus refs. Worked-example figures ($600,000, 30%, 25%, 4.0/3.7) are scenario-internal and not presented as source findings, so they pass. All [V] quotations checked word-for-word against the converted source: risk-return (44274), get-stuck (16470), adapters (1568), expectancy (24570-24572). The get-stuck quotation runs four words past the deep ref's copy but is exact in the source. Claim count is approximate (about 140 discrete claims across prose, list items, table rows and citation notes); the Carroll finding D009 covers four lines (28, 108, 128, 186)."
+}

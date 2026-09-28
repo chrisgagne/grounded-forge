@@ -1,0 +1,149 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/nhs-just-culture-guide-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-240 of 240",
+    "deep": "lines 1-184 of 184",
+    "complete": true
+  },
+  "claims_audited": 195,
+  "tally": {
+    "faithful": 182,
+    "minor_drift": 9,
+    "unsupported": 3,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 197,
+      "section": "Citation and Source-Integrity Notes (borrowed-through gaps)",
+      "claim": "\"Professor James Reason's work on human error and patient safety — specifically his distinction between person-centred and system-centred approaches to error — is cited as the intellectual foundation of the guide\" (Source: ... Preamble and title block)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "asserts the source cites a specific Reason concept; the deep ref states it cites none. Also mis-locates the attribution",
+      "evidence": "Deep 165: 'Reason is named once, in the source's footer; no specific work or concept of Reason's is cited by name' [BT]. Deep 182: further characterisation of the lineage 'is outside the scope ... because it is not stated in the source'. Source line 122: the attribution is in the footer ('Attribution and provenance'), not the preamble.",
+      "fix": "correct: \"First, the poster's footer names 'the work of Professor James Reason' as a basis for the guide; no specific work or concept of Reason's is cited, and his publications are not held in this corpus.\" and change the citation to (Source: Footer)"
+    },
+    {
+      "id": "D002",
+      "line": 12,
+      "section": "Software-Business Relevance",
+      "claim": "Q1 is \"the rare path where police, regulatory bodies (DPA, GDPR enforcement, sectoral regulators), and disciplinary processes are on the table.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "implies exclusivity for actions that also appear on the G branch",
+      "evidence": "Deep 144 [V] (Q5, 'Recommendation G'): 'may require relevant regulatory bodies to be contacted, staff suspension and disciplinary processes'. Only police referral is unique to Recommendation A (deep 96).",
+      "fix": "correct: \"the rare path where police referral is on the table, alongside regulatory bodies (DPA, GDPR enforcement, sectoral regulators) and disciplinary processes, which the residual G branch can also reach\""
+    },
+    {
+      "id": "D003",
+      "line": 32,
+      "section": "Key Concepts #7 (and lines 14, 26, 28, 66, 207)",
+      "claim": "\"In software-business terms, the residual after all system filters is rare; most software incidents route to Recommendation D or E.\" Same register: line 14 'the most common software-incident failure mode'; line 26 'In software the most common positive findings are mental-health load, on-call exhaustion, and burnout'; line 28 'are the routine pattern'; line 66 'The vast majority of software incidents clear this filter at No'; line 207 'the dominant outcomes for software incidents'.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "frequency and outcome claims about software incidents presented as fact, with no source in the corpus",
+      "evidence": "Deep 152: 'The source carries no quantitative claims — no incidence rates, no outcome statistics'. No other deep ref consulted carries software-incident distributions; the distillation's own line 199 says the software mapping is 'a distillation-level analogy-transfer'.",
+      "fix": "correct: recast each as the operator's expectation, e.g. line 32 \"In software-business terms the operator should expect the residual to be rare and most cases to exit at D or E (a distillation-level expectation, not a source finding).\"; strip 'most common', 'routine pattern', 'vast majority' and 'dominant' where no expectation framing is added"
+    },
+    {
+      "id": "D004",
+      "line": 30,
+      "section": "Key Concepts #6 (Q4 substitution) and line 12",
+      "claim": "\"The substitution test anchors blameless post-mortem practice\" / Q4 \"maps to the would-another-engineer-have-done-the-same test that anchors blameless post-mortem practice\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "claims a relationship between the substitution test and blameless post-mortem practice that no corpus deep ref carries",
+      "evidence": "NHS deep 72-80 describes the substitution test without reference to post-mortems. OPL deep 237 and 314 describe Blameless Postmortem ('Our job is not to point fingers at an unlucky engineer ...') with no substitution test.",
+      "fix": "correct: \"The substitution test's question sits close to the blameless-postmortem stance the Open Practice Library describes ('Our job is not to point fingers at an unlucky engineer', OPL, Practice 'Blameless Postmortem') — a distillation-level parallel.\""
+    },
+    {
+      "id": "D005",
+      "line": 118,
+      "section": "Phase 3 cross-axis note",
+      "claim": "\"The just-culture default-to-system prior, combined with the wider-investigation parallel, is the structural mechanism by which an engineering organisation builds (or destroys) the psychological safety that surfaces near-misses, dissent, and bad-news signals.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "causal mechanism attributed to the source's framework that the source does not state",
+      "evidence": "The NHS deep ref contains no reference to psychological safety, near-misses, dissent or bad-news signals. Its closest claim is the dual purpose, 'protecting staff from unfair targeting' [V] (deep 19, 38). The task spec (tasks/software-business.md line 56) names this source for 'psychological-safety + authority-gradient' as routing, which is not a source claim.",
+      "fix": "correct: \"The just-culture default-to-system prior, with its stated aim of 'protecting staff from unfair targeting' [V], bears on how an engineering organisation responds when something goes wrong; its link to psychological safety is a distillation-level reading, not a claim the source makes.\""
+    },
+    {
+      "id": "D006",
+      "line": 118,
+      "section": "Phase 3 cross-axis note (and line 144)",
+      "claim": "Route the rest through openstax-organizational-behavior and openstax-principles-management distillations, \"which carry the broader psychological-safety and Theory-X-vs-Theory-Y treatments\"; line 144 routes 'general psychological-safety design' to the same two sources.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attributes a psychological-safety treatment to sources whose deep refs do not carry one",
+      "evidence": "Theory X/Y is supported (OB deep 392, 689; PoM deep 622, 948). 'psychological safety' has no hit in either deep ref; among demo deep refs it appears only in open-practice-library-deep.md (line 110).",
+      "fix": "correct: \"... which carry the broader Theory-X-vs-Theory-Y treatment; for psychological-safety practices, see open-practice-library\" (apply the same change at line 144)"
+    },
+    {
+      "id": "D007",
+      "line": 129,
+      "section": "What to Look For, row 6 (and Anti-patterns line 175)",
+      "claim": "HR escalation opening before the tree is walked means \"HR is replacing the just-culture decision\"; follow-up: \"Pause the HR escalation until the tree has been walked\".",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "inverts a one-way caveat and ranks the guide ahead of HR, against the source's 'in conjunction with'",
+      "evidence": "Source line 13 / deep 29 [V]: the guide 'does not replace HR advice and should be used in conjunction with organisational policy.' The caveat is that the guide does not replace HR; it gives no precedence over HR. Line 175 itself says HR runs 'alongside, not instead of' the decision, which conflicts with 'pause'.",
+      "fix": "correct: follow-up \"Run the tree alongside the HR process, not after it; the guide does not replace HR advice and should be used in conjunction with organisational policy (Preamble, 'Please note', bullet 3)\"; apply the same at line 175"
+    },
+    {
+      "id": "D008",
+      "line": 171,
+      "section": "Anti-patterns: Skipping Q2 on impaired engineers (and lines 12, 126)",
+      "claim": "\"the source's frame treats workload-induced impairment as a Q2 condition for the response\"; line 12: Q2's response is \"occupational-health and substance-abuse-at-work pathways, not sanction\"; line 126: \"the response is occupational-health, not procedural tightening\".",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attributes the distillation's analogy (burnout/exhaustion as ill health) to the source, and adds exclusions the recommendations do not make",
+      "evidence": "Deep 56-58 [V]: Q2 asks about 'indications of substance abuse', 'physical ill health', 'mental ill health'; workload or fatigue is not named. Deep 104 [V] B: 'Follow organisational substance abuse at work guidance' (no statement that this excludes sanction). Deep 112 [V] C pairs organisational health guidance with a wider investigation, which can include procedural change.",
+      "fix": "correct (line 171): \"Follow-up: route back to Q2 if the workload has produced indications of physical or mental ill health (the distillation's reading of Q2); pair it with the source's system question: could the health issue have been recognised and addressed earlier?\"; strip 'not sanction' (line 12) and 'not procedural tightening' (line 126)"
+    },
+    {
+      "id": "D009",
+      "line": 157,
+      "section": "Worked Example (Q3 foresight)",
+      "claim": "The CTO marks 3b as No because \"the protocol was honoured in letter but not in the safety property it was meant to provide.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "worked example misapplies sub-question 3b; the scenario's facts fit 3c",
+      "evidence": "Deep 67 [V] 3b: 'Were the protocols/accepted practice workable and in routine use?' In the scenario the review policy was workable and in routine use and the engineer complied with it, so 3b is Yes; deep 68 [V] 3c ('Did the individual knowingly depart from these protocols?') is the No. The routing to Recommendation D is still correct.",
+      "fix": "correct: \"3b (workable and in routine use — yes, as written). 3c (did the engineer knowingly depart? — no: the change had the senior review the policy required; the policy simply did not require reviewer independence). 3c is No; the tree routes to Recommendation D.\""
+    },
+    {
+      "id": "D010",
+      "line": 189,
+      "section": "Integration with Other References (TC 25-20)",
+      "claim": "\"The Army AAR carries the blameless review facilitation discipline. Use TC 25-20 to facilitate the blameless post-mortem\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "imported label; TC 25-20's deep ref does not frame the AAR as blameless",
+      "evidence": "No 'blame' or 'blameless' hit in tc-25-20-army-aar-deep.md. Its frame is 'not a critique' and 'does not grade success or failure' [V] (deep 253), and discovery by participants (deep 25, 35).",
+      "fix": "correct: \"The Army AAR carries the not-a-critique, discovery-by-participants facilitation discipline ('does not grade success or failure' [V]). Use TC 25-20 to facilitate the post-incident review ...\""
+    },
+    {
+      "id": "D011",
+      "line": 192,
+      "section": "Integration with Other References (OpenStax Business Ethics)",
+      "claim": "\"the just-culture wider-investigation parallel is an ethical-maximum response — the individual response is the minimum, the system response is the maximum\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "forced mapping of Business Ethics' terms onto the individual/system split",
+      "evidence": "Business Ethics deep 107 [V]: ethical maximum is 'the strongest action a company can choose to behave ethically in a given situation'; ethical minimum is 'the least a company might do'. Neither deep ref equates an individual-directed response with the ethical minimum.",
+      "fix": "correct: \"OpenStax distinguishes the moral minimum, ethical minimum and ethical maximum (Ch 3.1, Ch 4); pairing any individual response with a wider system investigation reads as going beyond the minimum (a distillation-level reading).\""
+    },
+    {
+      "id": "D012",
+      "line": 201,
+      "section": "Citation and Source-Integrity Notes (evidence-marker continuity)",
+      "claim": "\"the deep reference classifies its claims as [V] (verbatim from the poster's text) or [AR] (the distillation team's paraphrase of the poster's reasoning)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker definition wrong and marker set incomplete",
+      "evidence": "docs/architecture/ingestion-protocol.md line 31: [AR] = author argument. The deep ref also uses [AP] (4 occurrences, e.g. deep 17, 28) and [BT] (deep 165-166).",
+      "fix": "correct: \"the deep reference classifies its claims as [V] (verbatim), [AP] (author paraphrase), [AR] (author argument: the poster's reasoning as reconstructed at ingestion) and [BT] (the footer lineage)\""
+    },
+    {
+      "id": "D013",
+      "line": 227,
+      "section": "Through the business-executive-stakeholder lens (and line 217)",
+      "claim": "\"trips the lens's acknowledgment-as-analysis-absorption flag\"; line 217: the just-culture frame is, \"in the stakeholder's vocabulary, appearing-to-be-soft-on-accountability\".",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "names lens-spec vocabulary the lens spec does not contain",
+      "evidence": "lenses/business-executive-stakeholder.md line 147: over-deployed warmth 'absorbs the operational analysis' (no named flag); line 98: system-failure framing is 'true on content, wrong on register'. Neither phrase appears in the lens spec.",
+      "fix": "correct (line 227): \"... trips the lens's warning that over-deployed warmth absorbs the operational analysis\"; correct (line 217): \"The just-culture frame, led with, reads to this stakeholder as the right content in the wrong register\""
+    }
+  ],
+  "notes": "Tree mechanics, sub-questions, recommendation wording and all [V] quotations (incl. the D–G wider-investigation quote at line 14, correctly limited to D–G) check against the deep ref and converted source. Task-spec references (Phase 5 triggers; Phase 3 cross-axis row) match tasks/software-business.md lines 56, 75, 78. CTO lens claims (constraint as operational mechanism, opportunity-first, AI-native, one decision in 90 seconds) match lenses/cto.md; pm-bounded-by-ba-role skip is consistent with that lens's authority-gap focus. Integration rows checked: LFUO (supported), OB (programmed/non-programmed, escalation of commitment, Rest's model — supported), Business Law (Title VII, ADA, FMLA, at-will — supported; 'workplace torts' is looser than the deep ref's general tort chapter but not graded), TC 25-20 (D010), Business Ethics (D011). The software mapping of each test is flagged in-file as analogy-transfer (line 199) and is graded as applied guidance except where it asserts frequencies (D003) or attributes the mapping to the source (D008)."
+}

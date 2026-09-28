@@ -1,0 +1,68 @@
+{
+ "slug": "openstax-psychology-2e",
+ "changed_lines_checked": 113,
+ "tally": {
+  "faithful": 107,
+  "minor_drift": 5,
+  "unsupported": 1,
+  "contradicted": 0,
+  "edit_defect": 0
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/openstax-psychology-2e-deep.md",
+   "line": 128,
+   "text": "The variable-ratio schedule's resistance to extinction is one of the reasons the text gives for gambling being so addictive.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Inverts the source's causal structure. The source gives the variable-ratio schedule (people keep trying because they never know when the next win comes) as one reason gambling is so addictive AND so resistant to extinction; it does not give resistance to extinction as the reason for addictiveness.",
+   "evidence": "converted L11476-11479: 'Because the reinforcement schedule in most types of gambling has a variable ratio schedule, people keep trying and hoping that the next time they will win big. This is one of the reasons that gambling is so addictive—and so resistant to extinction.'",
+   "fix": "correct: The text gives the variable-ratio schedule of most gambling as one of the reasons gambling is so addictive and so resistant to extinction."
+  },
+  {
+   "file": "corpus.commons/demo/references/openstax-psychology-2e-deep.md",
+   "line": 43,
+   "text": "WEIRD stands for western, educated, industrialised, rich, and democratic; the differences between WEIRD and other societies show up in perception, cooperation, and moral reasoning [AP] (Ch 1.2, \"Multicultural and Cross-Cultural Psychology\").",
+   "grade": "MINOR-DRIFT",
+   "problem": "The differences in perception, cooperation and moral reasoning are Henrich, Heine and Norenzayan's findings relayed by the text, so the marker should be [BT], not [AP]. The [V] quotation in the preceding sentence is verbatim and the locator is correct.",
+   "evidence": "converted L1361-1364: 'Henrich, Heine, and Norenzayan found that there are many differences between people in the WEIRD group and people in less industrialized, less urban, and nonWestern societies. These differences occur in a variety of areas, including perception, cooperation, and moral reasoning.'",
+   "fix": "re-mark: [BT]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/openstax-psychology-2e-aar.md",
+   "line": 12,
+   "text": "LFUO's procedural responses (interview as soon as possible, Handout C; avoid counterfactual arguments such as \"but we should have known...\", Part 9) are the direct counters.",
+   "grade": "MINOR-DRIFT",
+   "problem": "The example utterance 'but we should have known...' now sits inside the LFUO attribution with a Part 9 locator, so it reads as LFUO's own example. LFUO's Part 9 example is 'If this person had done X, then the outcome would have been Y...'; 'we should have known' is closer to hindsight than to LFUO's counterfactual example.",
+   "evidence": "lfuo-learning-review-guide-2024-deep.md L205: 'FLA teams must guard against making counterfactual arguments such as: \\'If this person had done X, then the outcome would have been Y and the accident would not have occurred.\\'' [V] (Part 9, \"Avoid Counterfactual Arguments\"). Handout C (deep L257) supports 'interview as soon as possible'.",
+   "fix": "correct: LFUO's procedural responses (interview as soon as possible, Handout C; avoid counterfactual arguments such as \"If this person had done X, then the outcome would have been Y\", Part 9) are the direct counters."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/openstax-psychology-2e-retro.md",
+   "line": 36,
+   "text": "In retros: a close-knit team whose lead states a view early is the most exposed.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Superlative not supported. The source names three causes of groupthink (high cohesion, a directive leader who makes their opinions known, isolation from other viewpoints); a team with two of them is more exposed, not 'the most' exposed. The audit's own suggested wording was 'more prone'.",
+   "evidence": "converted L23760-23764: 'When the group is highly cohesive ... If the group leader is directive and makes his opinions known ... If the group is isolated from hearing alternative or new viewpoints, groupthink may be more likely.' Deep ref L303.",
+   "fix": "correct: In retros: a close-knit team whose lead states a view early carries two of the causes the source names and is more exposed."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 103,
+   "text": "| **Social-influence or conformity risk in a group decision** | Asch conformity; Milgram obedience; Zimbardo prison study, with the source's design and replication caveats (OpenStax Psychology 2e) | `openstax-psychology-2e-decision-making.md` |",
+   "grade": "UNSUPPORTED",
+   "problem": "The row routes to Zimbardo content that the decision-making distillation does not carry: 'Zimbardo', 'Stanford' and 'prison' occur nowhere in openstax-psychology-2e-decision-making.md. The repair rewrote the row's Zimbardo phrase instead of removing it. The distillation covers Asch and Milgram (Key Concept 7) and groupthink (Key Concept 8).",
+   "evidence": "grep -c -i zimbardo decision-making/openstax-psychology-2e-decision-making.md -> 0; Key Concepts 7-8 at L41-43.",
+   "fix": "correct: | **Social-influence or conformity risk in a group decision** | Asch conformity; Milgram obedience; groupthink (OpenStax Psychology 2e) | `openstax-psychology-2e-decision-making.md` |"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md",
+   "line": 71,
+   "text": "| **Social-influence or groupthink risk in a stakeholder group** | Asch conformity; Milgram obedience; Zimbardo prison study, with the source's design and replication caveats (OpenStax Psychology 2e) | `openstax-psychology-2e-stakeholder-engagement.md` |",
+   "grade": "MINOR-DRIFT",
+   "problem": "The stakeholder-engagement distillation mentions Zimbardo only in the borrowed-through list (L180) and a replication caveat in Named limits (L194). It carries no design caveat and no applied Zimbardo content, so the row promises more than the file holds. The row's own title names groupthink, which the distillation does cover (Key Concept 8).",
+   "evidence": "stakeholder-engagement distillation L180 ('Philip Zimbardo — Stanford Prison Experiment (Ch 12.2) [BT]') and L194 ('Zimbardo's findings have not been fully replicated'); no other Zimbardo mention.",
+   "fix": "correct: | **Social-influence or groupthink risk in a stakeholder group** | Asch conformity; Milgram obedience; groupthink (OpenStax Psychology 2e) | `openstax-psychology-2e-stakeholder-engagement.md` |"
+  }
+ ],
+ "notes": "COMPLETE. Every changed file was read in full: deep ref 514 lines, light ref 112, aar 136, decision-making 204, retro 156, stakeholder-engagement 199. Changed lines by file: deep 22 (2 MINOR-DRIFT), light 1, aar 16 (1 MINOR-DRIFT), decision-making 21, retro 21 (1 MINOR-DRIFT), stakeholder-engagement 30, index rows 2 (1 UNSUPPORTED, 1 MINOR-DRIFT). LICENCE: the source is CC BY-NC-SA 4.0 (converted L19-22: noncommercial use only; 'Any adaptations must be shared under the same type of license'). The stakeholder-engagement distillation's wrong 'Licensed CC BY 4.0; derivative works permitted' is now 'Licensed CC BY-NC-SA 4.0; derivatives must be non-commercial and carry the same licence' (L197): FAITHFUL. Every other licence statement across the six files (deep L5 and L510, light L6, all four distillation headers, retro L154) reads CC BY-NC-SA 4.0 and none carries a CC BY 4.0 remnant. RETRO SCHEDULE RANKING (retro L32 and the deep ref): the [V] quotation 'Among the reinforcement schedules, variable ratio is the most productive and the most resistant to extinction. Fixed interval is the least productive and the easiest to extinguish' is word for word at converted L11483-11484 in Ch 6.3 'Reinforcement Schedules' (heading L11364). It is now [V] in the deep ref (L128), and the deep thesis (L19) and light ref (L31) paraphrase it correctly. The table cells used at retro L32 ('moderate response rate with significant pauses', 'High and steady') match Table 6.3 (converted L11402-11405). The earlier CONTRADICTED misreading (inconsistent follow-through as a variable-ratio pattern; the review as the mechanism that makes follow-through durable) is gone from retro L32, L52, L100, L109 and L133, and the 'variable-ratio' mentions left in decision-making (L57, L127, L137) describe persistent behaviour, which fits the source. Retro L32's mapping of a review held every retro to fixed interval is the distillation's own inference, hedged as 'closest to'. It attributes only the ranking to the source, so it is graded FAITHFUL. Optional softening: 'the review alone will not make follow-through durable' could read 'on the source's ranking, the review alone is a weak basis for durable follow-through'. VFLAGS: all 6 are pre_existing and all FAITHFUL. aar L16, decision-making L18 and retro L16 (anchoring): the only difference is line-break hyphenation 'problem-<br>solving' at converted L12964. aar L18, decision-making L19 and retro L18 (confirmation): the only difference is OCR ligature loss 'confrms' at converted L12965. CROSS-REFERENCES CONFIRMED against the other deep refs: LFUO Handout C and Part 9 (deep L205, L257); TC 25-20 Ch 1 and Ch 4 (deep L15, L134, L143); Scrum Guide Transparency (deep L37); Field Guide (deep L225, L231); OB Ch 3.3, 4.2, 6.4, 7.2, 7.3, 10.6 (deep L81, L114-125, L189-190, L230, L240, L336); FLO (deep L73, L251-253). Every removal is justified by the audit records. PRE-EXISTING, NOT SCORED: deep ref L365 glosses Greenberg's theft finding as 'retaliation'. The source frames unfair treatment as a trigger for workplace violence (converted L26931, L26944), but never uses the word. The new distillation lines that say 'reduces retaliation' trace to that deep line. At converted L23716, 'Burger (2009) partially replicated this study' has an ambiguous antecedent, since it follows the Martin and Bull midwife study. The deep ref reads it as Milgram, which the next sentence supports."
+}

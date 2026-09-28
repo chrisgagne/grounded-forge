@@ -1,0 +1,48 @@
+{
+ "task": "software-business",
+ "sources": [
+  "jones-evidence-based-sweng",
+  "liberating-structures-handbook",
+  "openstax-principles-management",
+  "openstax-accounting-vol1",
+  "openstax-introduction-business",
+  "barbrook-johnson-systems-mapping",
+  "openstax-principles-marketing",
+  "nist-ssdf-1-1"
+ ],
+ "rows_checked": 252,
+ "rows_ok": 247,
+ "edits": [
+  {
+   "file": "corpus.commons/demo/distillations/software-business/SOFTWARE-BUSINESS-DISTILLATION-INDEX.md",
+   "old": "| Simple Rules audit of process | Liberating Structures Handbook | `liberating-structures-handbook-software-business.md` | Code-review, deployment-approval, change-management, or incident-response rules need testing for \"would anything happen if removed?\" |",
+   "new": "| Simple Rules audit of process | Liberating Structures Handbook | `liberating-structures-handbook-software-business.md` | Code-review, deployment-approval, change-management, or incident-response rules need testing with \"What would happen if you left that rule out?\" |",
+   "why": "Row quoted \"would anything happen if removed?\", which is not in the distillation; the distillation's quoted test is \"What would happen if you left that rule out?\" (line 88; also line 46)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/SOFTWARE-BUSINESS-DISTILLATION-INDEX.md",
+   "old": "| Diagnose the motivation gap | OpenStax Introduction Business | `openstax-introduction-business-software-business.md` | Adequate-rather-than-best work may rest in missing motivating factors (Herzberg), broken expectancy links, equity-ratio comparisons, or vague goals (goal-setting theory); poor hygiene factors drive dissatisfaction and exits. |",
+   "new": "| Diagnose the motivation gap | OpenStax Introduction Business | `openstax-introduction-business-software-business.md` | Adequate-rather-than-best work may rest in missing motivating factors (Herzberg), broken expectancy links, equity-ratio comparisons, or vague goals (goal-setting theory); poor hygiene factors may drive dissatisfaction and exits. |",
+   "why": "Row asserted poor hygiene factors \"drive dissatisfaction and exits\"; the distillation only asks whether workers are \"dissatisfied or leaving because hygiene factors (policy, supervision, working conditions) are poor?\" (line 78), so the hedge is restored."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/SOFTWARE-BUSINESS-DISTILLATION-INDEX.md",
+   "old": "| Use Theory of Change to discipline the board memo | Barbrook-Johnson Systems Mapping | `barbrook-johnson-systems-mapping-software-business.md` | The ToC structure (inputs → activities → outputs → outcomes → impacts) catches missing intermediary steps in \"what we're investing in / doing / changes downstream / business outcome.\" |",
+   "new": "| Use Theory of Change to discipline the board memo | Barbrook-Johnson Systems Mapping | `barbrook-johnson-systems-mapping-software-business.md` | The ToC structure (inputs → activities → outputs → outcomes → impacts) is the structured way to write \"what we're investing in / what we're doing / what changes immediately / what changes downstream / what the business outcome is\"; the \"fill the gaps backward\" pattern catches the missing intermediary steps. |",
+   "why": "Row put quotation marks around a compressed string (\"what we're investing in / doing / changes downstream / business outcome.\") that is not in the distillation; the distillation quotes \"what we're investing in / what we're doing / what changes immediately / what changes downstream / what the business outcome is\" and credits the \"fill the gaps backward\" pattern with catching missing steps (line 115)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/SOFTWARE-BUSINESS-DISTILLATION-INDEX.md",
+   "old": "| Frame customer-experience board memo via RATER | OpenStax Principles Marketing | `openstax-principles-marketing-software-business.md` | RATER (Reliability, Assurance, Tangibles, Empathy, Responsiveness) needs metrics for each dimension; reliability is 3× more important than tangibles. |",
+   "new": "| Frame customer-experience board memo via RATER | OpenStax Principles Marketing | `openstax-principles-marketing-software-business.md` | RATER (Reliability, Assurance, Tangibles, Empathy, Responsiveness) needs metrics for each dimension; reliability is 3× more important than equipment or uniforms. |",
+   "why": "Row said reliability is 3× more important \"than tangibles\" (the whole RATER dimension); the distillation says 3× more important \"than equipment or uniforms\" (lines 34, 91), matching the source's \"latest equipment or flashy uniforms\"."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/SOFTWARE-BUSINESS-DISTILLATION-INDEX.md",
+   "old": "| Prioritise secure-development work against delivery cost and feasibility | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Security investment must be tailored to risk, cost, applicability and automatability; a blanket checklist is obscuring the decision. |",
+   "new": "| Prioritise secure-development work against delivery cost and feasibility | NIST SSDF v1.1 | `nist-ssdf-1-1-software-business.md` | Security investment should be tailored to risk, cost, feasibility, applicability and automatability; a blanket checklist is obscuring the decision. |",
+   "why": "Row hardened the guidance to \"must be tailored\" and dropped feasibility; the distillation presents risk, cost, feasibility, applicability and automatability as the recommended basis for choosing implementation depth, and SSDF as \"not ... a checklist\" (lines 13, 21, 106)."
+  }
+ ],
+ "notes": "Complete. Sources in batch order checked: jones-evidence-based-sweng 38 (34 table rows + 4 summary lines: 820 cross-axis note, jones clause only; 846, 847, 851 trigger extensions), liberating-structures-handbook 36, openstax-principles-management 46, openstax-accounting-vol1 34, openstax-introduction-business 30, barbrook-johnson-systems-mapping 27, openstax-principles-marketing 27, nist-ssdf-1-1 14. All 5 edits are wording corrections (misquotes, hardened hedges, an over-generalised comparison); no row promised content its distillation lacks, so no re-pointing or deletion was needed. Row 784 was checked against sources/converted/openstax-principles-marketing.md:22851-22852 (\"three times more important to customers than the latest equipment or flashy uniforms\"). Observation, not an edit: the index's Trigger-extensions list credits jones with Bass diffusion, CLV and productivity-differential extensions (content present in the distillation), while the distillation's own 'Trigger extensions surfaced' table names three different ones (measurement-system design, methodology defence, board-paper folklore) that the index does not list."
+}

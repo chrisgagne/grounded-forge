@@ -1,0 +1,219 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/barbrook-johnson-systems-mapping-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-217 of 217",
+    "deep": "lines 1-367 of 367",
+    "complete": true
+  },
+  "claims_audited": 150,
+  "tally": {
+    "faithful": 130,
+    "minor_drift": 14,
+    "unsupported": 5,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 12,
+      "section": "Decision-Making Relevance",
+      "claim": "'The book is honest about the limits — none of these methods predict in the strict sense; they clarify implications of stated assumptions.'",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Presents one side of a debate the authors explicitly decline to join as the book's position. The authors take a pluralist stance: prediction is 'not beyond the reach of methods like System Dynamics, but it is certainly very difficult'; they also say they do not dismiss forecasting from validated models",
+      "evidence": "Deep 225 (Ch 8, 'What Is System Dynamics?': 'purpose drives the model. If our purpose is to predict ... it is not beyond the reach of methods like System Dynamics'), 355; deep 15 says value is 'not primarily' forecasting, not 'never'",
+      "fix": "correct: The book is candid about limits: prediction is not the primary value of systems mapping, and even where a method is designed for it (System Dynamics) the authors call it 'certainly very difficult, and success may well be fleeting' [V] (Ch 8, 'What Is System Dynamics?')"
+    },
+    {
+      "id": "D002",
+      "line": 26,
+      "section": "Key Concepts #3",
+      "claim": "'The position on the spectrum is a primary decision input. Methods at the qualitative end are best at orientation and surfacing perspectives; methods at the quantitative end are best at extrapolating' (Ch 1; Ch 11, Tables 11.1-11.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Over-generalised: the book's primary choice frame is the appropriateness triangle, not spectrum position; the deep ref does not report Tables 11.1-11.2 content that would support the qualitative-orientation / quantitative-extrapolation split (PSM, a mid-spectrum method, is also listed for extrapolation via causal pathways)",
+      "evidence": "Deep 65 (extrapolation: SD, BBN, FCM, PSM), 75 (chapter order), 283-289",
+      "fix": "correct: The chapters run from most qualitative to most quantitative; spectrum position is one input to the appropriateness triangle (Ch 1, 'What's in the Rest of This Book?'; Ch 11)"
+    },
+    {
+      "id": "D003",
+      "line": 28,
+      "section": "Key Concepts #4",
+      "claim": "'The first four are essentially process-value; only the fifth is extrapolation-value.'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Distillation's own categorisation, contrary to the source: the authors say each use can draw value 'from the process of mapping, from just the end product, or both'; 'communicate' explicitly includes the end product and 'synthesise' includes returning to information through map structure",
+      "evidence": "Deep 59-65; source 1188-1190, 1234-1238",
+      "fix": "strip the sentence; replace with: Each use can come from the process, the end product, or both (Ch 1, 'How Can Systems Mapping Be Useful?')"
+    },
+    {
+      "id": "D004",
+      "line": 30,
+      "section": "Key Concepts #5",
+      "claim": "\"Be clear about whether you want value from the process, outputs, or both, of a mapping process.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim author text (a Ch 12 take-home heading) in quotation marks with no [V] marker",
+      "evidence": "Source 8680-8682; deep 301 carries it as a heading",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D005",
+      "line": 34,
+      "section": "Key Concepts #7",
+      "claim": "'A factor that is both influential and controllable is a system lever ... A factor that is influential and vulnerable to change is a vulnerability'; stakeholder-suggested starting points are 'important, vulnerable, controllable'",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Deep-ref gap (source-true): the lever/vulnerability typology is in Ch 5 but absent from the deep ref, which the distillation then builds on (lines 112, 150, 163). Minor loosening too: the source's stakeholder-suggested starting points are important factors, suggested/current interventions, and vulnerable factors; controllability is collected factor information, and 'vulnerability' also covers factors 'controlled by an external actor'",
+      "evidence": "Deep 139, 145; source 3437-3440, 3490-3498",
+      "fix": "keep; add the system-lever / vulnerability passage (Ch 5, 'What Is Participatory Systems Mapping?') to the deep ref; correct stakeholder-suggested to 'important, current or suggested interventions, vulnerable'"
+    },
+    {
+      "id": "D006",
+      "line": 36,
+      "section": "Key Concepts #8",
+      "claim": "'The reverse-engineering pattern surfaces missing intermediary steps that forward-only construction tends to gloss.'",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Rationale not given by the deep ref or the source; reads as the authors' explanation",
+      "evidence": "Deep 103; source 2308-2314 (the recommendation is given without this rationale)",
+      "fix": "strip, or mark as the distillation's reading rather than the authors'"
+    },
+    {
+      "id": "D007",
+      "line": 40,
+      "section": "Key Concepts #10",
+      "claim": "Definitions of all eight archetypes (e.g. 'Drifting goals — goals erode in response to system stress'; 'growth and under-investment — capacity does not scale with demand'; 'shifting the burden — symptomatic fixes that obscure root causes') attributed to Ch 4",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Smuggled definitions: the source and deep ref list only the eight names; every gloss comes from outside the deep ref (training knowledge of Kim/Senge), yet the citation note (line 203) calls them a paraphrase of the book's rendering",
+      "evidence": "Deep 121, 324; source 2926-2932 (names only)",
+      "fix": "strip the glosses and keep the eight names; for definitions of fixes that fail, success to the successful, shifting the burden, drifting goals and limits to growth, point to SSDL Brief 1.07"
+    },
+    {
+      "id": "D008",
+      "line": 77,
+      "section": "Questions, Phase 2",
+      "claim": "Often stakeholders are \"surprised just how much they gain\" from the process",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim author words without [V] marker",
+      "evidence": "Source 8686-8690; deep 301 [V]",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D009",
+      "line": 78,
+      "section": "Questions, Phase 2",
+      "claim": "'Single-workshop designs over-emphasise product; multi-touchpoint designs with discussion time produce process value.'",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Applied guidance resting on a premise the source does not state",
+      "evidence": "Deep 301 (process value), 71 (half-day headwind), 279 ('shorter but more sessions' is advice for online workshops only)",
+      "fix": "correct: If process value is paramount, is there enough discussion time built in for participants to reflect and generate understanding together?"
+    },
+    {
+      "id": "D010",
+      "line": 113,
+      "section": "Questions, Phase 6",
+      "claim": "\"Two-three steps upstream/downstream\" of a candidate intervention",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation marks on non-verbatim text; the source rule is 'one, two, or three steps upstream or downstream'",
+      "evidence": "Deep 141; source 3450-3451",
+      "fix": "correct: One, two or three steps upstream or downstream (unquoted)"
+    },
+    {
+      "id": "D011",
+      "line": 127,
+      "section": "Questions, Phase 7",
+      "claim": "\"Pressures to create a relatively simple ToC diagram\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation marks on non-verbatim text",
+      "evidence": "Source 2404-2405: 'an endless list of pressures which push you towards creating a relatively simple ToC diagram'; deep 105 [V]: 'the multiple pressures to create a narrow or overly simple ToC'",
+      "fix": "correct: \"the multiple pressures to create a narrow or overly simple ToC\" [V]"
+    },
+    {
+      "id": "D012",
+      "line": 137,
+      "section": "What to Look For",
+      "claim": "Follow-up: 'allocate half of design resources to communication'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Heuristic distorted: the source says spend half of your total time or resources on design and communication of the final map, not half of the design budget on communication",
+      "evidence": "Deep 125, 321; source 3053-3063",
+      "fix": "correct: allocate half of your time or resources to design and communication of the map (Ch 4, \"Commons Issues and 'Tricks of the Trade'\")"
+    },
+    {
+      "id": "D013",
+      "line": 139,
+      "section": "What to Look For",
+      "claim": "Signal 'FCM dynamic analysis results reported as ... forecast'; diagnosis includes 'threshold-function choice can reverse results'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conflates the two FCM analysis schools: threshold/squashing functions belong to the causal approach; the dynamical approach needs no threshold function",
+      "evidence": "Deep 165-167, 171 ('It is crucial therefore to do extensive sensitivity analysis when using a causal approach')",
+      "fix": "correct: ...not prediction; in the causal approach, threshold-function choice can reverse results"
+    },
+    {
+      "id": "D014",
+      "line": 161,
+      "section": "Worked Example",
+      "claim": "'System Dynamics is formally quantitative and suited to dynamical sub-problems with available data — but the team has no time-series data'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Worked example presents data availability as an SD requirement; the source says SD models need not have data and the book warns (Key Concept 2) that data-availability constraints are often overstated. SD's cited weaknesses are time demand and difficulty including soft factors without prior quantitative work",
+      "evidence": "Deep 229, 241, 291; source 6130-6138",
+      "fix": "correct: System Dynamics suits dynamical sub-problems but 'requires a relatively large amount of time to conduct compared to other methods' (Ch 8, 'What Is System Dynamics Good and Bad At?'), and the purpose here is intervention scanning and communication, not dynamics"
+    },
+    {
+      "id": "D015",
+      "line": 163,
+      "section": "Worked Example",
+      "claim": "'a two-steps-upstream submap from the readmission rate outcome factor reveals three high-centrality bridging factors'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conflates the two starting-point modes: centrality and bridging are network-analysis measures used to pick system-suggested starting points, not properties an upstream submap reveals",
+      "evidence": "Deep 139-141; source 3440-3456",
+      "fix": "correct: a two-steps-upstream submap from 'readmission rate' shows its immediate drivers; network measures flag three of them as high-centrality or bridging factors"
+    },
+    {
+      "id": "D016",
+      "line": 189,
+      "section": "Integration with Other References",
+      "claim": "OpenStax OB 'provides individual and group decision dynamics that the book deliberately does not cover'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Deliberately' overclaims: the book's stated exclusions are other mapping methods and schools of practice (PAR, design thinking, permaculture); it says nothing about excluding decision psychology",
+      "evidence": "Deep 13, 53-55; openstax-organizational-behavior-deep 7 (decision-making is covered there)",
+      "fix": "correct: ...decision dynamics that this book does not address"
+    },
+    {
+      "id": "D017",
+      "line": 200,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Meadows' \"interconnected set of elements\" [V] formulation is 'quoted in Key Concept 4'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong internal cross-reference: Key Concept 4 is the five-uses framework; the distillation never quotes Meadows",
+      "evidence": "Distillation line 28; deep 27",
+      "fix": "correct: Cited for the purpose-including definition of a system; not quoted in this distillation"
+    },
+    {
+      "id": "D018",
+      "line": 203,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "'The distillation's list of archetypes is paraphrased from the book's rendering of Kim.'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Continuity note is wrong: the book renders only names; the definitions in Key Concept 10 are not from the book (see D007)",
+      "evidence": "Deep 121; source 2926-2932",
+      "fix": "correct: The book lists the eight archetype names only; this distillation gives no definitions (after D007 fix)"
+    },
+    {
+      "id": "D019",
+      "line": 215,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "'The book explicitly excludes formal decision-theory frameworks (expected utility, multi-attribute utility, decision trees...), cost-benefit analysis, agent-based modelling, behavioural decision-making, decision-making under deep uncertainty ..., and real-time operational decision-making. All seven methods support deliberative analysis, not real-time choice.'",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Invented exclusion list attributed to the book as explicit. The deep ref's stated exclusions are other systems-mapping methods (Table 1.2, body not in the converted text) and schools of practice; none of the listed decision-theory items appear. Also contradicts the distillation's own line 18 ('Where the guide is silent ...')",
+      "evidence": "Deep 13, 53-55; source 1029-1037; no match for 'expected utility' in the source",
+      "fix": "correct: The book scopes itself to seven causal, participatory mapping methods and excludes other mapping methods (Table 1.2) and broad schools of practice (participatory action research, design thinking, permaculture). It does not address formal decision theory; that silence is this distillation's observation, not the book's exclusion"
+    },
+    {
+      "id": "D020",
+      "line": 217,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Evidence-marker continuity: the appropriateness definition, horrendogram framing, FCM over-interpretation warning and participatory-steering stance are '[V] passages that this distillation paraphrases'; 'quotations marked [V] ... match the source word for word'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Note is inaccurate: those four passages are quoted [V] (lines 22, 50, 117, 58), not paraphrased; and several verbatim quotations carry no marker (lines 30, 77) while two quoted phrases are not verbatim (lines 113, 127)",
+      "evidence": "Distillation lines 22, 30, 50, 58, 77, 113, 117, 127",
+      "fix": "correct: rewrite the note after the D004, D008, D010, D011 fixes to list what is quoted [V] and what is paraphrased"
+    }
+  ],
+  "notes": "Grading rule for source-true content: where the deep ref holds the core claim and the distillation adds source-verified detail or verbatim wording, graded FAITHFUL (e.g. line 32 'tangents' clause, source 8724-8727; line 52 enumeration of ToC simplification pressures, source 2404-2411; line 103 [V] 'a composite that no stakeholder has described', source 6922). Where the core claim is absent from the deep ref, graded UNSUPPORTED as a deep-ref gap even when source-true (the system-lever / vulnerability typology, line 34, source 3490-3498): fix by extending the deep ref (projection-protocol 'Cycling'), not by stripping. Soft-factor example 'Attractiveness of the Maldives' (line 48) is source-verified at 6141-6143. Integration rows for Principles of Management, LFUO (Systems Thinking principle, Network of Influences), SSDL and Liberating Structures check out. Worked example carries no verbatim blockquote. Most serious: D001 (inverts the authors' pluralist prediction stance), the eight archetype definitions from outside the source, and the invented 'explicit exclusions' list at line 215."
+}

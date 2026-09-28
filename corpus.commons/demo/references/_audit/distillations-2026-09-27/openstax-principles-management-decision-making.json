@@ -1,0 +1,200 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/openstax-principles-management-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-205 of 205", "deep": "lines 1-1024 of 1024", "complete": true},
+  "claims_audited": 145,
+  "tally": {"faithful": 126, "minor_drift": 15, "unsupported": 3, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 32,
+      "section": "Key Concepts, 9",
+      "claim": "Dominance (one party dictates terms — short-term resolution, long-term cost) ... Integration is the strongest decision-making outcome when stakes are high and the relationship is ongoing.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Two additions beyond the deep ref. The dominance cost is in the source (social costs, a disaffected workforce) but not in the deep ref. The condition 'when stakes are high and the relationship is ongoing' is in neither; the source ranks integration above dominance and compromise without that condition.",
+      "evidence": "Deep 156: dominance, compromise, integration defined; no cost or ranking. Source 3802-3811: dominance 'very few situations in life allow this to be possible and ... for many companies, this approach is impossible without incurring social costs in terms of a disaffected workforce'; compromise 'neither side is happy'; integration gives 'a solution that was satisfactory to both'.",
+      "fix": "correct: Dominance (one party dictates terms; rarely possible, and for many companies it carries social costs in a disaffected workforce), compromise (neither side gets what it really wants, so neither is happy), and integration (both parties state preferences and reach a creative agreement that satisfies both). Integration is the outcome Follett favours. | cycle-to-deep: add to deep 156 'Dominance is rarely possible and, for many companies, \"impossible without incurring social costs in terms of a disaffected workforce\" [V]; in a compromise \"neither side is happy\" [V] (Ch 3.6).'"
+    },
+    {
+      "id": "D002",
+      "line": 30,
+      "section": "Key Concepts, 8",
+      "claim": "Suppression of dissent occurs when one member dominates. The devil's advocate role mitigates both.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Extends the devil's advocate remedy to suppression of dissent. The deep ref and source give the devil's advocate as a counter to groupthink only.",
+      "evidence": "Deep 109: devil's advocate 'in order to discourage groupthink and encourage deep thought' [V]. Source (Ch 2.6, 'How to Form a Quality Group'): 'assign a member to play the devil's advocate in order to reduce groupthink'.",
+      "fix": "correct: Suppression of dissent occurs when one member dominates. Diverse membership and encouraging everyone to speak counter both; the devil's advocate role counters groupthink."
+    },
+    {
+      "id": "D003",
+      "line": 38,
+      "section": "Key Concepts, 12",
+      "claim": "Goal planning produces higher performance when the conditions support it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds a condition the source does not give. The deep ref and source state that goal planning outperforms domain planning, unconditionally.",
+      "evidence": "Deep 829: 'Goal planning produces higher performance than domain planning' [BT] (Ch 17.2). Source 25946-25947: 'Research suggests that goal planning results in higher levels of performance than does domain planning alone.'",
+      "fix": "correct: Research cited by the text finds goal planning produces higher performance than domain planning alone; domain planning is the fallback when goals cannot be set or agreed."
+    },
+    {
+      "id": "D004",
+      "line": 42,
+      "section": "Key Concepts, 14",
+      "claim": "Three change models for organisational decisions. Lewin ..., Kotter ..., Cooperrider's Appreciative Inquiry ..., Olson-Eoyang Complex Adaptive Systems ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Miscount: the heading says three models and the entry lists four, matching the deep ref's four.",
+      "evidence": "Deep 485: 'Four change methodology models with different assumptions [BT] (Ch 10.3)'.",
+      "fix": "correct: **Four change models for organisational decisions.**"
+    },
+    {
+      "id": "D005",
+      "line": 44,
+      "section": "Key Concepts, 15",
+      "claim": "Porter's position: trying to combine cost leadership and differentiation produces firms that excel at neither.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens the source's hedge: 'can lead to a firm being stuck in the middle' becomes a flat 'produces firms that excel at neither'.",
+      "evidence": "Deep 410: 'Trying to combine [cost leadership and differentiation], Porter suggests, can lead to a firm being stuck in the middle' [V] (Ch 8.6). Source 12275 matches.",
+      "fix": "correct: Porter's position: trying to combine cost leadership and differentiation 'can lead to a firm being stuck in the middle' [V]."
+    },
+    {
+      "id": "D006",
+      "line": 73,
+      "section": "Questions, Phase 3",
+      "claim": "Have I generated three to five real alternatives, not just one or two?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Invented count. The source's step 2 is 'generate multiple alternatives'; no number is given.",
+      "evidence": "Deep 69: '(2) generate multiple alternatives'. Source 1684, 2001: 'Generate multiple alternatives'. No 'three to five' guidance in the source's decision chapter.",
+      "fix": "correct: Have I generated multiple real alternatives (step 2 of the six-step process), not just one?"
+    },
+    {
+      "id": "D007",
+      "line": 108,
+      "section": "Questions, Phase 6",
+      "claim": "Capture phronesis lessons — practical wisdom for the next decision of this type.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Imports a term the source does not use. 'Practical wisdom' appears in the deep ref only as one element of virtue ethics; the evaluation step it maps to is the six-step process's step 6.",
+      "evidence": "'phronesis' appears in neither the deep ref nor the converted source. Deep 235: virtue ethics includes 'practical wisdom'. Deep 69: step 6 'evaluate its effectiveness'.",
+      "fix": "correct: | Capture lessons | What does this decision teach me for the next decision of this type (step 6, evaluate; Ch 2.3)? |"
+    },
+    {
+      "id": "D008",
+      "line": 116,
+      "section": "What to Look For",
+      "claim": "Follow-up: pause and run the appropriate strategic-analysis tools; the decision quality will improve materially.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Promises an effect the source does not report. The source argues strategic success requires systematic analysis; it does not claim running the tools materially improves decision quality.",
+      "evidence": "Deep 21: 'strategic success requires systematic external and internal analysis'. Deep 366: SWOT 'may overlook key issues'. No outcome data on tool use.",
+      "fix": "correct: Follow-up: pause and run the appropriate strategic-analysis tools before committing."
+    },
+    {
+      "id": "D009",
+      "line": 158,
+      "section": "Anti-patterns",
+      "claim": "the dominance approach (Follett) wins the moment but loses the relationship.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported in spirit by the source (dominance carries social costs in a disaffected workforce) but not carried by the deep ref; 'wins the moment' is the distillation's gloss.",
+      "evidence": "Deep 156: no cost of dominance given. Source 3802-3804: dominance is 'impossible without incurring social costs in terms of a disaffected workforce'.",
+      "fix": "correct: the dominance approach (Follett) is rarely possible and costs a disaffected workforce. | cycle-to-deep: see D001"
+    },
+    {
+      "id": "D010",
+      "line": 162,
+      "section": "Anti-patterns",
+      "claim": "Stuck in the middle. Trying to combine cost leadership and differentiation produces firms that excel at neither.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same hardening as D005.",
+      "evidence": "Deep 410: 'can lead to a firm being stuck in the middle' [V].",
+      "fix": "correct: Trying to combine cost leadership and differentiation can leave a firm stuck in the middle (Porter, Ch 8.6)."
+    },
+    {
+      "id": "D011",
+      "line": 163,
+      "section": "Anti-patterns",
+      "claim": "Forcing specific-goal planning into a domain-planning situation produces brittle plans and demoralised teams.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The situations suited to domain planning are supported; the stated consequence (brittle plans, demoralised teams) is in neither the deep ref nor the source, which reports goal planning outperforming domain planning.",
+      "evidence": "Deep 825: domain planning suits flexibility needs, goal disagreement, unstable environments, start-up or transition. Deep 829: goal planning produces higher performance. No consequence of misapplied goal planning given.",
+      "fix": "correct: **Goal planning when goals cannot yet be set.** Where people cannot agree on goals, the environment is unstable, or the organisation is starting up, the text points to domain or hybrid planning (Ch 17.2)."
+    },
+    {
+      "id": "D012",
+      "line": 174,
+      "section": "Integration with Other References",
+      "claim": "Follett's three paths ... and Thomas's five modes (competing, collaborating, compromising, avoiding, accommodating) provide the choice apparatus...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Thomas's five modes are not in this source's deep ref; they are held by OpenStax Organizational Behavior (Ch 14.2). The row names no corpus reference, so the reader cannot tell where Thomas comes from.",
+      "evidence": "No 'Thomas' conflict modes in openstax-principles-management-deep 1-1024 (only Ely-Thomas diversity, deep 582). openstax-organizational-behavior-deep 440-446: 'Five conflict-resolution modes (Thomas)' [BT] (Ch 14.2, Exhibit 14.4).",
+      "fix": "correct: | OpenStax Organizational Behavior (Ch 14.2), conflict modes | Follett's three paths (dominance, compromise, integration; this source, Ch 3.6) pair with OB's Thomas five modes (competing, collaborating, compromising, avoiding, accommodating) to give the choice apparatus for handling disagreement within decisions. |"
+    },
+    {
+      "id": "D013",
+      "line": 175,
+      "section": "Integration with Other References",
+      "claim": "the AI 5-D cycle offers a bottom-up alternative to top-down systematic decision-making and produces stronger commitment when the situation is abundance-framed.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Claims a demonstrated effect of Appreciative Inquiry (stronger commitment) that the deep ref does not report.",
+      "evidence": "Deep 489: AI is 'abundance-based, bottom-up, positive; uses appreciative conversations to shift dominant narratives'. Deep 492: model choice depends on deficit/abundance, top-down/bottom-up, conventional/appreciative mindset. No commitment outcome.",
+      "fix": "correct: For organisation-wide decisions involving change, the AI 5-D cycle offers a bottom-up, abundance-based alternative to top-down change; the text ties the choice to whether the organisation is in deficit or abundance (Ch 10.3)."
+    },
+    {
+      "id": "D014",
+      "line": 176,
+      "section": "Integration with Other References",
+      "claim": "Strategic analysis (Porter, Barney VRIO, SWOT, PESTEL)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes VRIO to Barney. The deep ref gives VRIO without an originator; the source presents VRIO in Ch 8.5 without citing Barney and cites Barney (1991) only in Ch 12.3 for the resource-based view of diversity.",
+      "evidence": "Deep 391: VRIO [BT], no author. Deep 567: resource-based view (Ch 12.3). Source 12069-12071: VRIO introduced with no attribution; Barney endnote 104 is anchored at source 17722 (Ch 12.3).",
+      "fix": "correct: Strategic analysis (Porter's Five Forces and generic strategies, VRIO, SWOT, PESTEL)"
+    },
+    {
+      "id": "D015",
+      "line": 188,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Jay Barney, VRIO framework — value, rarity, imitability, organisation (Ch 8.5) [BT].",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same misattribution as D014, stated as a borrowed-through chain the deep ref does not carry.",
+      "evidence": "As D014.",
+      "fix": "correct: *VRIO framework* — value, rarity, imitation, organisation (Ch 8.5) [BT]; the source gives no originator. Key Concept 10 traces here."
+    },
+    {
+      "id": "D016",
+      "line": 193,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "J. Stacy Adams, equity theory ... Key Concept 10 references expectancy/equity pairing.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "False cross-reference: Key Concept 10 is the strategic frameworks entry (SWOT, PESTEL, Five Forces, VRIO) and mentions neither expectancy nor equity. No Key Concept covers equity theory.",
+      "evidence": "Distillation line 34 (Key Concept 10). Deep 682: equity theory (Adams) [BT].",
+      "fix": "correct: *J. Stacy Adams, equity theory* — outcome-input ratio comparisons and restorative behaviours (Ch 14.3) [BT]."
+    },
+    {
+      "id": "D017",
+      "line": 203,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "Strategic-analysis tools (SWOT, PESTEL, Five Forces, VRIO) are introduced without the strategic-planning context needed to apply them well in practice.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "A limit the source does not flag, and one the deep ref partly contradicts: Ch 9 sets the tools inside the strategic management cycle, and Ch 17 covers planning.",
+      "evidence": "Deep 414-448: Ch 9 strategic management process (vision/mission, strategic analysis, objectives, formulation, implementation, measurement). Deep 807-861: Ch 17 planning.",
+      "fix": "correct: Strategic-analysis tools (SWOT, PESTEL, Five Forces, VRIO) are introduced at textbook depth, with one worked example each; practitioners applying them to a live strategy need more than the survey treatment."
+    },
+    {
+      "id": "D018",
+      "line": 203,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The ethical decision-making section covers Rest's model and seven ethical principles but does not develop case-level ethical analysis.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The deep ref carries case-level ethical analysis in Ch 5: the Wells Fargo case (values analysis, outcomes, lessons) and the Levi Strauss/Bangladesh negotiated-values case.",
+      "evidence": "Deep 225: Wells Fargo terminal/instrumental values, '5,300 employees were fired' [V], three lessons. Deep 269: Levi Strauss/Bangladesh child-labour case and negotiated resolution [AE] (Ch 5.7).",
+      "fix": "correct: The ethical decision-making material covers Rest's model, seven ethical principles, and two worked cases (Wells Fargo, Ch 5.2; Levi Strauss in Bangladesh, Ch 5.7); it stays at survey depth."
+    },
+    {
+      "id": "D019",
+      "line": 205,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "Key Concepts are `[AP]` (the source's stated positions) or `[AE]` (examples drawn from the source).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Inaccurate: no Key Concept carries [AP] or [AE]; Key Concepts 1, 3, 7 and 8 carry [V] quotations. [AP] is also glossed as 'stated positions' rather than paraphrase.",
+      "evidence": "Distillation 16, 20, 28, 30: [V] quotations; no [AP]/[AE] markers anywhere in the file.",
+      "fix": "correct: Key Concepts 1, 3, 7 and 8 carry [V] quotations copied from the deep ref; the rest paraphrase with section citations."
+    }
+  ],
+  "notes": "All five [V] quotations (lines 16, 20 x2, 28, 30) and the 'stuck in the middle' [V] fragment (line 88) match the converted source word for word. Unmarked quoted phrases (lines 26, 89, 113, 141, 143) are the distillation's own wording. OB integration row (line 170) checked against openstax-organizational-behavior-deep 169-204: FAITHFUL. Structural note, not graded: of nine Integration rows only one (OB) names a corpus reference; the other eight are concept rows (bounded rationality, Locke, Vroom, AI, Greenleaf/Freeman, PDCA) that restate this source's own content, which the protocol flags as 'integration table as stub'. The 'similar to me' bias applied to options (line 74) is supported by the source's 'preference for the familiar' (source 1782-1792), graded FAITHFUL. Bounded rationality 'without naming an originator' (line 185) confirmed: the source's Ch 2.4 passage names no one."
+}

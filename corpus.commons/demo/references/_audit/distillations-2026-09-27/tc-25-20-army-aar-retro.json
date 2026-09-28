@@ -1,0 +1,189 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/tc-25-20-army-aar-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-147 of 147",
+    "deep": "lines 1-269 of 269",
+    "complete": true
+  },
+  "claims_audited": 111,
+  "tally": {
+    "faithful": 94,
+    "minor_drift": 15,
+    "unsupported": 1,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Retro Relevance",
+      "claim": "[The AAR] places the benefit entirely in what happens after the review (also line 8: 'the benefit lives in applying results, not in running the review').",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: the TC says the 'real benefits' come from applying results, but it also credits the discussion itself (participants learn and remember more; immediate feedback is a significant strength of informal AARs).",
+      "evidence": "Deep 183 (source 1123-1124): 'The real benefits of AARs come from taking the results and applying them to future training.' Deep 15 (source 134-136): participants 'learn and remember more than they would from a critique alone'. Deep 48: 'Providing immediate feedback while the training is still fresh in soldiers' minds is a significant strength of informal AARs'.",
+      "fix": "correct: [The AAR] places its real benefit in applying the results to what comes next, not in the meeting alone."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Retro Relevance",
+      "claim": "Retros routinely violate all three.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Empirical claim about retrospective practice with no source in the deep ref or elsewhere in the corpus cited.",
+      "evidence": "Deep ref is about Army AARs only and carries no data on retrospectives (deep 269: no statistical claims, no studies).",
+      "fix": "strip"
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Retro Relevance",
+      "claim": "The TC also supplies the formal logic for the experiment-review phase: when last retro's experiments were not done ... the correct response is review-without-punishment, not blame.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Applied mapping presented as the TC's principle. The TC's rule for undone follow-up is that retraining must still happen and any delay must be made clear to the soldiers; it says nothing about punishment.",
+      "evidence": "Deep 183 (source 1129-1131): 'Leaders should not delay or reschedule retraining except when absolutely necessary. If the leader delays retraining, he must be sure the soldiers understand that they did not perform the task to standard and that retraining will occur later.' Deep 189: 'The unit must retrain on the tasks which they did not perform to standard'.",
+      "fix": "correct: The TC's retraining rules transfer to the experiment-review phase: undone follow-up still has to happen, and if it is deferred, the team must know it was not done and when it will be. The no-blame stance comes from the TC's rule that the AAR does not grade."
+    },
+    {
+      "id": "D004",
+      "line": 14,
+      "section": "Key Concepts #1 (discovery-over-critique)",
+      "claim": "\"Soldiers discover for themselves what happened, why it happened, and how to sustain strengths and improve on weaknesses\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quoted TC text altered ('enables soldiers to discover' becomes 'Soldiers discover') and carried without a marker.",
+      "evidence": "Deep 25 (source Ch 1 definition): 'a professional discussion of an event, focused on performance standards, that enables soldiers to discover for themselves what happened, why it happened, and how to sustain strengths and improve on weaknesses' [V].",
+      "fix": "correct: An AAR \"enables soldiers to discover for themselves what happened, why it happened, and how to sustain strengths and improve on weaknesses\" [V] (Ch 1, \"Definition and Purpose\")."
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts #4 (open-ended-questions)",
+      "claim": "\"He should not ask yes or no questions, but encourage participation and guide discussion by using open-ended and leading questions. An open-ended question has no specific answer ...\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker missing: TC words in quotation marks without [V].",
+      "evidence": "Deep 134 carries it as [V]; source 898-901 matches word for word ('openended' in the source is a conversion artefact).",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D006",
+      "line": 22,
+      "section": "Key Concepts #5 (train-to-weakness)",
+      "claim": "When allocating retro experiment capacity ... the default is known weakness. Known strengths warrant investment only with a reason.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: omits the TC's own qualifier that sustaining proficiency on tasks already at standard remains important; the TC ranks priorities rather than requiring a reason to sustain.",
+      "evidence": "Deep 256 (source 1058-1061): 'Although it is important to sustain proficiency on tasks whose standards the unit has met, it is more important to train to standard on new or deficient mission-essential tasks.'",
+      "fix": "correct: When allocating retro experiment capacity, put known weaknesses first; the TC still names sustaining what already meets the standard as important, just less so (Ch 4, \"Tasks to Sustain/Improve\")."
+    },
+    {
+      "id": "D007",
+      "line": 26,
+      "section": "Key Concepts #7 (delayed-follow-up)",
+      "claim": "When retraining is deferred, \"soldiers must understand that they did not perform the task to standard and that retraining will occur later\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quoted TC text altered (source: 'he must be sure the soldiers understand') and carried without a marker.",
+      "evidence": "Deep 183 (source 1130-1131): 'If the leader delays retraining, he must be sure the soldiers understand that they did not perform the task to standard and that retraining will occur later' [V].",
+      "fix": "correct: \"If the leader delays retraining, he must be sure the soldiers understand that they did not perform the task to standard and that retraining will occur later\" [V] (Ch 5, \"Benefits\")."
+    },
+    {
+      "id": "D008",
+      "line": 36,
+      "section": "Key Concepts #12 (t-p-u-assessment)",
+      "claim": "Scaled to retro: rate each prior experiment Trained (the team can now do this), Practiced (partial progress), or Untrained (the experiment did not move the needle).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Category meanings are the distillation's own and shift the object: the TC applies T-P-U to unit proficiency on tasks, and neither the deep ref nor the source defines the three categories. 'Untrained' becomes 'the experiment did not happen / did not move the needle' here and in the worked example (line 112) and Phase 0.5 (line 46).",
+      "evidence": "Deep 183 (source 1126-1128): leaders 'conduct a trained-practiced-untrained (T-P-U) assessment and develop a future-training concept'. Source 1502 (glossary) gives only the expansion; no category definitions anywhere in the source.",
+      "fix": "correct: Scaled to retro (the distillation's own mapping; the TC names the three categories but does not define them): for each capability the last experiment targeted, is the team now able to do it to its own standard (Trained), partly able (Practiced), or not yet able (Untrained)?"
+    },
+    {
+      "id": "D009",
+      "line": 60,
+      "section": "Questions, Phase 2: Data Gathering",
+      "claim": "Are we surfacing weaknesses, not just strengths? The TC's direct instruction: train to weakness, not to strength.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: 'train to weakness' is a rule for allocating training, not for what to surface in discussion. The TC's instruction on surfacing both sides is in Ch 4, 'Summary of Recent Events'.",
+      "evidence": "Deep 143: 'the AAR leader must ensure specific issues are revealed, both positive and negative in nature. Skillful guidance of the discussion will ensure the AAR does not gloss over mistakes or unit weaknesses' [V] (Ch 4, \"Summary of Recent Events\"). Deep 169: train to weakness concerns retraining focus.",
+      "fix": "correct: The TC's instruction: the leader \"must ensure specific issues are revealed, both positive and negative in nature\" and that the AAR \"does not gloss over mistakes or unit weaknesses\" [V] (Ch 4, \"Summary of Recent Events\")."
+    },
+    {
+      "id": "D010",
+      "line": 116,
+      "section": "Worked Example, Phase 4",
+      "claim": "the team proposes two experiments: refining the checklist (already strong) and adding the latency budget (known weak) ... The team drops the checklist experiment this Sprint",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Misapplied rule: two paragraphs earlier the checklist was rated Practiced (not yet shown to work), which is not a known strength; the TC puts new or deficient tasks first and still values sustainment, so dropping a not-yet-proven item on train-to-weakness grounds is not what the rule says.",
+      "evidence": "Deep 256 (source 1054-1061): focus training on tasks 'which need improvement rather than training to known strengths'; 'it is important to sustain proficiency on tasks whose standards the unit has met'. Distillation line 112: 'the checklist is Practiced — they ran it but have not yet confirmed it reduces handoff confusion'.",
+      "fix": "correct: In Phase 4, the team proposes two experiments: extending the checklist to a third handoff (its basic use is already working) and adding the latency budget (known weak, not attempted). The facilitator surfaces the TC's allocation rule ... The team puts the latency budget first with a named owner and a date, and keeps checking the checklist's effect at the next experiment review."
+    },
+    {
+      "id": "D011",
+      "line": 135,
+      "section": "Integration, Approach Perfect Field Guide",
+      "claim": "The Field Guide's 5-segment Derby-Larsen retro structure is the host methodology",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong: the Field Guide's sample retrospective agenda, based on Derby and Larsen, has six named segments.",
+      "evidence": "APFG deep 216: 'Six named segments totalling 90 minutes' (Set the stage; Gather data; read and deduplicate; vote; per-topic insights and actions; Wrap up); APFG deep 242, 328: the agenda is based on Derby and Larsen's book [BT].",
+      "fix": "correct: The Field Guide's six-segment sample retrospective agenda (based on Derby and Larsen) is the host methodology"
+    },
+    {
+      "id": "D012",
+      "line": 136,
+      "section": "Integration, Liberating Structures Handbook",
+      "claim": "LS engagement-equity moves (1-2-4-All, TRIZ)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Name drift and loose classification: this handbook calls the structure '1-2-4-Whole Group'; TRIZ in the handbook is a stop-doing analysis structure, not an equity move.",
+      "evidence": "LS deep 59, 194: '1-2-4-Whole Group' (source 1135). LS deep 93: TRIZ's single move is to design a system that makes it impossible to achieve the desired result, then find what the group already does that resembles it.",
+      "fix": "correct: LS structures that give everyone a turn (1-2-4-Whole Group, One Minute of Silence, Impromptu Speed Networking)"
+    },
+    {
+      "id": "D013",
+      "line": 138,
+      "section": "Integration, FLO Facilitation Guide",
+      "claim": "FLO tracks who is contributing",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Misdescribes the FLO tracking matrix: it counts the facilitator's responses to each participant so attention is spread fairly, not who contributes.",
+      "evidence": "FLO deep 247: 'Every time you respond to a participant, make a mark in a column next to their name. Over time, you can use this matrix to try to spread out your forum post responses to participants' [V].",
+      "fix": "correct: FLO tracks how evenly the facilitator responds to each participant"
+    },
+    {
+      "id": "D014",
+      "line": 143,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "TC 25-20's bibliography cites FM 25-100 ... and FM 25-101 ... as the doctrine this TC supplements and expands [BT] (Preface; References).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The TC supplements and expands FM 25-101 only; FM 25-100 is cited as parent training doctrine (the retraining-scheduling requirement).",
+      "evidence": "Deep 245-246 (source 72-73): 'It supplements and expands the guidance in Field Manual (FM) 25-101' [V]; FM 25-100 cited for training planning and retraining scheduling [BT].",
+      "fix": "correct: TC 25-20's References cite FM 25-100 (Training the Force, 1988) and FM 25-101 (Battle Focused Training, 1990); the TC states that it supplements and expands FM 25-101 [BT] (Preface; References)."
+    },
+    {
+      "id": "D015",
+      "line": 143,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "No other external authorities are invoked",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Incomplete list presented as complete: the deep ref's Connections section also lists ARTEP mission training plans and soldier's manuals, and the Combat Training Centers as the source of Appendix A.",
+      "evidence": "Deep 247 (AMTPs and soldier's manuals [BT]); deep 249 (CTCs [BT]).",
+      "fix": "correct: ARTEP mission training plans and soldier's manuals (the task standards) and Combat Training Center practice (Appendix A) are also cited by name [BT]; no other external authorities are invoked."
+    },
+    {
+      "id": "D016",
+      "line": 145,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "TC 25-20 addresses unit training in a military context; all worked examples are platoon-through-battalion scenarios.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Two narrowings: the TC also covers the AAR in combat (Ch 5), and its worked examples include squad and crew level (the pinecones squad AAR; SGT Johnson's Bradley crew).",
+      "evidence": "Deep 13 (source 66-67): feedback 'in training and in combat' [V]; deep 199: 'The After-Action Review in Combat'. Deep 46: squad-leader pinecones example; deep 136-140: SGT Johnson's Bradley.",
+      "fix": "correct: TC 25-20 addresses military unit training and, in Ch 5, combat; its worked examples run from squad and crew to battalion."
+    },
+    {
+      "id": "D017",
+      "line": 145,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The TC does not address psychological safety by name, safety checks, experiment hypothesis design, or engagement-equity facilitation.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The TC does give engagement-equity facilitation moves, and this distillation relies on them (Key Concept 10, What-to-Look-For row 4, Anti-pattern 8).",
+      "evidence": "Deep 126 (source 849-850): 'The AAR leader should make a concerted effort to draw in and include soldiers who seem reluctant to participate' [V]. Deep 221: horseshoe seating 'allows the maximum number of soldiers to have front row seats'; seniors to the rear so soldiers 'feel that their comments are valued as much as those of senior leaders' [V].",
+      "fix": "correct: The TC does not use the terms psychological safety or engagement equity, and it offers no retro-style safety check or experiment hypothesis design. It does give engagement moves: drawing in reluctant participants and seating senior leaders to the flanks and rear."
+    }
+  ],
+  "notes": "15 quoted strings were checked against the converted source with whitespace normalisation. All [V]-marked quotations match word for word (the SGT Johnson contrast drops the addressee and recapitalises, acceptable). Three quoted TC passages carry no marker; two of them are altered (D004, D007) and one is word-for-word (D005). The line-147 marker note repeats the altered 'soldiers discover for themselves' wording; the underlying deep-ref passage is [V], so that claim was graded faithful and the fix sits at D004. This distillation avoids the two-levels-above and fratricide-time-budget errors found in the AAR and decision-making siblings. The T-P-U remapping (D008) is the most consequential drift for runtime use: the TC does not define the three categories, and the distillation's definitions shift them from task proficiency to 'was the experiment done'. The worked example is hypothetical and presents no outcome as the TC's finding ('four additional items surface' is scenario detail); its virtual-seating translation to individual written input is labelled as an application and was left as applied guidance. SSDL archetype names (fixes that fail, shifting the burden), OPL practice names (Retrospectives, Design of Experiments) and FLO's engagement-equity matrix all exist in their deep refs."
+}

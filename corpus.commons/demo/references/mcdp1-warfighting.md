@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:50489086ded47e34060d2f50fa1657b49f655a5b32abbce00473930a9c58bcf4 -->
+<!-- derived-from-deep: sha256:009e0f5e8bba952551202d8f43f8843d2cf6b3a9f908a705121f21e96e903f47 -->
 ---
 title: "MCDP 1: Warfighting"
 author: "U.S. Marine Corps (Krulak, Charles C., Commandant)"
@@ -11,9 +11,9 @@ slug: mcdp1-warfighting
 
 # MCDP 1: Warfighting (U.S. Marine Corps, 1997)
 
-A short doctrinal pamphlet (~100 pages; Foreword + Preface + 4 chapters + Notes) that is the authoritative statement of U.S. Marine Corps warfighting philosophy. MCDP-1 supersedes the 1989 *Fleet Marine Force Manual 1* (FMFM-1, also titled *Warfighting*) under General Alfred M. Gray's commandancy, when the Marine Corps made the doctrinal pivot from attrition warfare to maneuver warfare. The 1997 revision under General Charles C. Krulak refined and expanded the philosophy without altering its essential message.
+A short doctrinal pamphlet (~100 pages; Foreword + Preface + 4 chapters + Notes) that states U.S. Marine Corps warfighting philosophy and calls itself the authoritative basis for how the Marine Corps fights and prepares to fight. MCDP-1 supersedes *Fleet Marine Force Manual 1* (FMFM-1, also titled *Warfighting*), first published in 1989; in the Preface, General A. M. Gray, 29th Commandant, describes that first edition as setting out his philosophy on warfighting. The 1997 revision under Commandant General C. C. Krulak refines and expands the philosophy while keeping the original's spirit, style, and essential message.
 
-The intellectual lineage is well-established: John Boyd (whose *Patterns of Conflict* lecture supplied the OODA loop, named explicitly in Ch 2 Notes); William S. Lind (*Maneuver Warfare Handbook*, 1985, cited at Notes 11 of Ch 4 for *reconnaissance pull* / *command push*); Mike Wyly (Marine Corps tactics teacher at the Amphibious Warfare School at Quantico); G.I. Wilson (Marine Corps officer who acted as Boyd's liaison). Clausewitz's *On War* and Sun Tzu's *Art of War* are the explicit philosophical companions throughout.
+The Notes credit John Boyd with the OODA loop (Notes 18 of Ch 2) and with implicit communication as a command tool (Notes 5 of Ch 4), and cite William S. Lind's *Maneuver Warfare Handbook* (1985) for *reconnaissance pull* and *command push* (Notes 11 of Ch 4). Clausewitz's *On War* is the most-cited work (15 notes); the Notes call it and Sun Tzu's *Art of War* essential reading for Marine officers.
 
 US Government public-domain publication. Distribute freely.
 
@@ -21,46 +21,25 @@ US Government public-domain publication. Distribute freely.
 
 4 chapters:
 
-- **Ch 1 The Nature of War.** Friction, uncertainty, fluidity, disorder, complexity, and danger as constitutive features of war. The human dimension (will, morale, cohesion). Violence and lethality. The difference between *war* and *warfare*. War as *Zweikampf* — a violent struggle between two hostile, independent, irreconcilable wills. The classical reductive metaphysics is wrong about war.
-- **Ch 2 The Theory of War.** War as art and science. Styles of warfare — attrition vs maneuver (with the lexical move of renaming the strategic attrition concept as *erosion* so that *attrition* can be reserved for the tactical critique). Friction. Centers of gravity and critical vulnerabilities (Clausewitz). Surfaces and gaps. Combined arms (posing the enemy not with a problem but with a dilemma). Tempo and momentum. The OODA loop (credited to Boyd).
-- **Ch 3 Preparing for War.** Doctrine is a way of thinking, not a checklist. Leadership. Training. Education (mental development of officers). Equipment and weapons as means, not ends. Force structure.
-- **Ch 4 The Conduct of War.** Strategic / operational / tactical levels. Campaigning. The operational design — commander's intent, focus of effort / *Schwerpunkt*, main effort, supporting effort, exploitation. Orders (the form: mission, execution, supporting elements). Decisionmaking under uncertainty. Mission tactics — *Auftragstaktik* — commanders tell subordinates *what* and *why*, never *how*. Intent must be understood two levels up.
+- **Ch 1 The Nature of War.** War as *Zweikampf*: a violent struggle between two hostile, independent, irreconcilable wills. Friction, uncertainty (including nonlinearity), fluidity, disorder, and complexity as inherent attributes of war that can be operated within but never eliminated. The human dimension (will, fear, courage, cohesion). Violence and danger. Physical, moral, and mental forces, with the moral and mental exerting the greater influence. The evolution of war. War as a dynamic of human competition that science and art alone do not explain.
+- **Ch 2 The Theory of War.** War must serve policy; strategies of annihilation / incapacitation and of erosion (the strategic sense of attrition renamed *erosion* so that *attrition* can name the tactical style). The spectrum of conflict and the levels of war (strategic, operational, tactical). Initiative and response; offense, defense, and the culminating point. Styles of warfare: attrition vs maneuver. Combat power; speed (tempo) and focus; surprise and boldness. Centers of gravity and critical vulnerabilities. Creating and exploiting opportunity. The OODA loop, credited to Boyd, appears in the note on tempo.
+- **Ch 3 Preparing for War.** Concept-based force planning. Organization in Marine air-ground task forces (MAGTFs). Doctrine as authoritative but not prescriptive: general guidance that requires judgment in application. Professionalism: boldness and initiative, leniency for errors of overboldness and severity for errors of inaction or timidity, trust, honest dissent before a decision and full support after it. Training, including free-play exercises and critiques held immediately after training that focus on why actions were taken. Professional military education. Personnel management. Equipping.
+- **Ch 4 The Conduct of War.** The challenge. Maneuver warfare: shattering the enemy's cohesion rather than destroying him component by component. Orienting on the enemy. Philosophy of command: decentralized, human-centred, implicit communication, command from the front, coping with disorder. Shaping the action. Decisionmaking as a time-competitive process. Mission tactics: the senior assigns the mission and its intent without specifying how, prescribing method only to the degree coordination requires. Commander's intent: the intent predominates over the task; the burden of understanding falls on senior and subordinate alike, and subordinates should understand the intent at least two levels up. Main effort. Surfaces and gaps (reconnaissance pull). Combined arms (posing the enemy a dilemma, not just a problem).
 
 ## What it argues against
 
 - **Attrition warfare** as the default approach to combat.
 - **Centralized control** as the universal command style.
-- **Doctrine-as-checklist** — *doctrine is a way of thinking, not a script*.
-- **The technology-determines-outcome fallacy** — equipment is *a means, not an end*.
-- **The detailed-order tradition** — orders should be Mission Orders: brief, intent-focused, leaving execution to the subordinate.
-- **War as a science reducible to formulae** — *"no degree of technological development or scientific calculation will diminish the human dimension in war."*
-- **The zero-defects mentality** — the document explicitly directs leniency on overbold errors and severity on errors of inaction.
-- **Excessive risk-aversion** in operational planning.
+- **Doctrine-as-checklist**: doctrine sets forth general guidance that requires judgment in application; while authoritative, it is not prescriptive.
+- **The technology-determines-outcome fallacy**: better equipment is not the cure for all ills, and advanced information technology tempts commanders to keep precise, positive control over subordinates.
+- **The detailed-order tradition**: the senior prescribes the method of execution only to the degree essential for coordination and intervenes only by exception.
+- **War as a science reducible to formulae** — *"No degree of technological development or scientific calculation will diminish the human dimension in war."* [V]
+- **Excessive risk-aversion and the zero-defects mentality**: leniency on errors from overboldness, severity on errors of inaction or timidity, and no licence for acting stupidly or recklessly.
+- **The romanticisation of war.**
 
-## Why read it
+## Connections the document makes
 
-For practitioners in any high-tempo, high-uncertainty, decentralised-execution environment — military, SRE / incident command, emergency response, crisis management, startup operations, agile / lean development — MCDP-1 is the most concentrated statement of the underlying philosophy. The four chapters are a complete short course in maneuver warfare doctrine and the cognitive discipline (OODA, commander's intent, *Schwerpunkt*, mission tactics) it requires.
-
-For coaches and consultants working with leaders in distributed-execution contexts: the *commander's intent* / *Auftragstaktik* / *mission orders* triad is the operational vocabulary. Marquet's *intent-based leadership* (in business) is direct application; agile / DevOps / SRE *commander's intent* in incident command runs through the same lineage.
-
-For AARBuddy specifically: MCDP-1 is the doctrinal anchor for the Boyd / OODA / maneuver-warfare thread. Pairs with the Coram biography (slug 081) and links to the safety-science cluster through tempo / decision-under-uncertainty / human-dimension claims. The *focus of effort* discipline is operationally what Goldratt teaches as identify-the-constraint.
-
-## Where this fits in this corpus
-
-Adjacent refs:
-
-- **Coram *Boyd*** (slug 081) — the biographical / intellectual source. Boyd's *Patterns of Conflict* lecture is the lineage; MCDP-1 is the doctrinal application.
-- **Snook *Friendly Fire*** (slug 080) — the 1994 Black Hawk shootdown happened in an organisation operating under (and partly diverging from) the maneuver-warfare / mission-orders philosophy. Snook's *differentiation-without-integration* and *fallacy of social redundancy* diagnoses are partial diagnoses of departures from MCDP-1 discipline.
-- **Cook *How Complex Systems Fail*** (slug 076) — Point 17 (*people continuously create safety*) is the resilience-engineering version of MCDP-1's claim that the human dimension is constitutive of combat.
-- **Joint Cognitive Systems** (slug 06z) — cognitive-systems-engineering reading of high-tempo work.
-- **Marquet *Leadership*** (slug 04l) — *intent-based leadership* in business is direct application of *Auftragstaktik / commander's intent*.
-- **Marquet *Leadership Language*** (slug 06s) — the language discipline operationalises commander's intent.
-- **Klein naturalistic decisions** (slug 046) — Klein's *recognition-primed decision* is the empirical psychology of how decision actually happens under MCDP-1's high-tempo conditions.
-- **Snowden Cynefin** (slug 061) — Complex / Chaotic domains map closely onto MCDP-1's framing of war.
-- **Juarrero *Dynamics in Action*** (slug 077) — the philosophical foundation under MCDP-1's view of war as fluid / dynamical / context-sensitive.
-- **Beck *XP Explained*** (slug 071); **Humble & Farley *Continuous Delivery*** (slug 072); **Ries *Lean Startup*** (slug 074) — the agile / lean cluster's emphasis on tempo / adaptation has the same Boyd-lineage roots.
-- **Goldratt *Constraints*** (slug 039), *It's Not Luck* (slug 03a), *The Choice* (slug 038) — focusing-step thinking parallels MCDP-1's *Schwerpunkt* / main-effort discipline.
-- **Hollnagel resilience / Safety-II** (slugs 03i-03l); **Dekker drift** (slug 02g).
+Clausewitz (*On War*, 15 notes); Sun Tzu (*The Art of War*); John Boyd (the OODA loop; implicit communication); William S. Lind (*Maneuver Warfare Handbook*); Liddell Hart; Vandegrift; Beyerchen (a "see also" in the note on Clausewitz's duel image); Sajer; S. L. A. Marshall; Churchill; Delbrück; Luttwak; Seeckt; Earl H. Ellis; Field Manual 100-5 (1939); Slim; Patton; Gelernter (*topsight*); Joint Pub 1-02 for formal definitions; Napoleon's moral-to-material ratio via Tsouras.
 
 ## Source-integrity note
 
@@ -68,4 +47,4 @@ Full coverage of all 4 chapters plus Foreword, Preface, and Notes back matter. I
 
 Scope = **open**. US Government public-domain doctrinal publication. PCN 142 000006 00. Distribute freely.
 
-**Authorship.** Signed by General Charles C. Krulak (31st Commandant of the Marine Corps, 1995-1999). The 1989 FMFM-1 predecessor was signed by General Alfred M. Gray (29th Commandant, 1987-1991), who ordered the original publication and is widely credited as the commandant who made the doctrinal pivot to maneuver warfare. Lineage of intellectual authors (uncredited in the document, well-established in the historical record): John Boyd, Mike Wyly, William S. Lind, G.I. Wilson.
+**Authorship.** Signed by General C. C. Krulak, Commandant of the Marine Corps (Foreword, 20 June 1997), and General A. M. Gray (Ret.), 29th Commandant of the Marine Corps (Preface). The document credits no individual drafters.

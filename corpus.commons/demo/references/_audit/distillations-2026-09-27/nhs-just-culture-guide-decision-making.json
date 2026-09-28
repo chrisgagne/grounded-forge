@@ -1,0 +1,69 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/nhs-just-culture-guide-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-172 of 172",
+    "deep": "lines 1-184 of 184",
+    "complete": true
+  },
+  "claims_audited": 153,
+  "tally": {
+    "faithful": 148,
+    "minor_drift": 4,
+    "unsupported": 1,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 28,
+      "section": "Key Concepts #6 (substitution filter)",
+      "claim": "Concept anchor `<!-- concept: foresight-test -->` on the Q4 substitution entry (the same anchor already heads Concept 5, the foresight test).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept anchor names the wrong concept; the concept-index will route 'foresight-test' lookups to the substitution entry and 'substitution-test' lookups nowhere in this file",
+      "evidence": "Deep 72-80: Q4 is the substitution test, distinct from Q3 foresight (deep 62-70). Sibling distillations (aar line 22, software-business line 30) anchor this concept as `substitution-test`.",
+      "fix": "correct: `<!-- concept: substitution-test -->`"
+    },
+    {
+      "id": "D002",
+      "line": 118,
+      "section": "What to Look For, row 3",
+      "claim": "Signal: \"Q4 is being treated as requiring all three sub-questions to be No\"; diagnosis: disjunction misread.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "signal states the correct reading as the misreading; the follow-up in the same row then asks to confirm all three are No, which is what the source requires to proceed",
+      "evidence": "Deep 80: 'Yes to any of 4a, 4b, or 4c routes to Recommendation E; No to all three routes to Q5.' Requiring all three No to proceed is the source's rule; the misread is requiring all three Yes before routing to E.",
+      "fix": "correct: Signal: \"Q4 is being treated as requiring all three sub-questions to be Yes before routing away from the individual\""
+    },
+    {
+      "id": "D003",
+      "line": 157,
+      "section": "Integration with Other References (LFUO)",
+      "claim": "LFUO provides the broader framework \"that the NHS guide's per-individual decision fits within. Use NHS for the individual-action filter; use LFUO for the organisational learning framework that surrounds it.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "nests the individual-action decision inside a framework that explicitly walls itself off from administrative action",
+      "evidence": "LFUO deep 7 and 53 confirm the four tools (AAR, RLS, FLA, Learning Review). LFUO deep 67 [V]: 'It is critical to maintain a solid firewall between the FLA and any potential administrative actions that may be taken against the employee'; excluded actions include 'any type of disciplinary actions and other adverse actions such as forced retraining'. The NHS G branch can route to individual training and disciplinary processes (NHS deep 144).",
+      "fix": "correct: \"LFUO provides the multi-tool learning framework (AAR, RLS, FLA, Learning Review) and keeps a firewall between its learning reviews and any administrative action. Use LFUO for the organisational learning; use NHS for the separate management conversation about an individual action, kept apart from the learning review as LFUO requires.\""
+    },
+    {
+      "id": "D004",
+      "line": 160,
+      "section": "Integration with Other References (OpenStax Business Ethics)",
+      "claim": "\"OpenStax, Business Ethics (Ch 7) | OB frames moral minimum, ethical minimum, and ethical maximum. The NHS guide's wider-investigation directive on every branch is the ethical-maximum response; the individual response is the minimum.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong source label ('OB'), wrong chapter, and a forced mapping onto Business Ethics' terms",
+      "evidence": "Business Ethics deep 107: ethical maximum/minimum at Ch 3.1 ('Ethical Responsibilities Often Extend Beyond Legal Requirements'); deep 146: moral minimum at Ch 4 ('Key Terms'). Not Ch 7. Ethical minimum is 'the least a company might do' in a situation; nothing in either deep ref equates the individual response with it.",
+      "fix": "correct: \"OpenStax, Business Ethics (Ch 3.1, Ch 4) | Business Ethics distinguishes the moral minimum, ethical minimum and ethical maximum. Read the NHS guide's pairing of any individual response with a wider investigation as going beyond the minimum response to an incident (a distillation-level reading).\""
+    },
+    {
+      "id": "D005",
+      "line": 167,
+      "section": "Citation and Source-Integrity Notes (borrowed-through gaps)",
+      "claim": "Reason: \"the guide draws on Reason's work implicitly throughout its system-default prior.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "characterises the borrowed-through lineage beyond what the source states",
+      "evidence": "Deep 165: 'no specific work or concept of Reason's is cited by name'. Deep 182: 'any further characterisation of either lineage is outside the scope of this deep reference because it is not stated in the source.'",
+      "fix": "strip: end the bullet at \"No specific concept or work is cited by name in the source body.\""
+    }
+  ],
+  "notes": "The tree mechanics, routing, sub-question wording, counts (5 tests, 11 sub-questions, 7 end-states) and all [V] quotations check against the deep ref and the converted source. Concept 7's [V] quote adds italics ('*may not*') with no note of added emphasis; the words are verbatim, so it is not graded. Concepts 13 and the relevance paragraph's generalisation of the five tests are flagged in-file as distillation-level synthesis. Integration rows checked against other deep refs: OB (bounded rationality and escalation of commitment Ch 6.4, Rest's model Ch 6.5 — supported), Liberating Structures (Wise Crowds, DADs, After Action Debrief 'What, So What, Now What' — supported), Principles of Management (Deming/PDCA cycle Ch 17.2 — supported), Business Ethics (see D004), LFUO (see D003). The worked example (pharmacist, 3c No -> Recommendation D, separate trip for the senior colleague's action) routes correctly."
+}

@@ -1,0 +1,229 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/org-topologies-primer-2025-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-167 of 167",
+    "deep": "lines 1-299 of 299",
+    "complete": true
+  },
+  "claims_audited": 114,
+  "tally": {
+    "faithful": 93,
+    "minor_drift": 13,
+    "unsupported": 8,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Software-Business Relevance",
+      "claim": "a strategic-org-design framework whose worked examples and framework mappings are predominantly drawn from software organisations",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the software share. Most of the Primer's named examples are non-software (costume department, surgical team, special forces, sous-chef, insurance claims, movie producer, diner, Haier), and the 2025 Edition explicitly broadens applicability to service organisations.",
+      "evidence": "Deep 253-268 (named-case list); deep 290 (p. 4): 'broaden applicability from product development to service organizations'. Converted source 18-20 (p. 1): 'OT applies to Farms and Pharma. Software and Services. Consulting and Construction.'",
+      "fix": "correct: a strategic-org-design framework with several software worked examples (the Software Feature Team, the running MADE example, the pet-supply e-commerce example, the SAFe mapping) alongside non-software ones"
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Software-Business Relevance",
+      "claim": "SAFe, LeSS, and Team Topologies are mapped to OT topology regions.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Only SAFe (and RDHY) are mapped in the Primer. LeSS and Team Topologies are listed among 'more framework mappings examples' with a pointer to the website; no mapping is given.",
+      "evidence": "Deep 191-194 (p. 22): list of frameworks 'that can be mapped onto the OT grid'; two mappings illustrated (SAFe, RDHY). Converted source 1321-1330: 'More framework mappings examples: ... Learn more: orgtopologies.com/framework-mapping'.",
+      "fix": "correct: SAFe is mapped onto the OT grid; LeSS, Team Topologies and others are listed as mappable, with the mappings held on the OT website."
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "*\"no guarantee... that the output effectively solves the real problem or creates outcomes people care about. Products and services with 'feature bloat' are a common consequence.\"*",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] passage carried without its marker.",
+      "evidence": "Deep 102 and 219 (p. 12, \"Delivery Topology\") [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D004",
+      "line": 12,
+      "section": "Software-Business Relevance",
+      "claim": "a counter to the most common software-business failure: choosing an engineering framework (SAFe, LeSS, Scrum-at-scale variants) as the business strategy",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Frequency claim ('most common') not in the source. The Primer calls framework thinking the consulting pitch and the easy path of following the crowd, without ranking it.",
+      "evidence": "Deep 181 (p. 22): 'This is the pitch from consulting companies big and small, and naturally, it seems easier to follow the crowd'.",
+      "fix": "correct: a counter to a familiar software-business failure, which the Primer calls 'the pitch from consulting companies big and small': choosing an engineering framework as the business strategy"
+    },
+    {
+      "id": "D005",
+      "line": 14,
+      "section": "Software-Business Relevance",
+      "claim": "The pet-supply worked example walks an AI build-vs-buy-vs-integrate decision at the architecture-team-cost-customer intersection.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to the Primer's example a build/buy/integrate and architecture decision it does not contain. The example walks where to focus AI investment, the dominant constraint, and human monitoring.",
+      "evidence": "Deep 170 (p. 21) and converted source 1199-1219: objective, org goal, target (Delivery, CAPS-3), focus departments, front-end skills bottleneck, AI agents that design and code front ends, monitoring by existing specialists. No build/buy/integrate or architecture content.",
+      "fix": "correct: The pet-supply worked example walks the three questions end to end: where to focus AI investment, which constraint AI should target, and who monitors the agents."
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Software-Business Relevance",
+      "claim": "Rendanheyi as elevating thousands of MEs to Driving archetypes",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds a map placement ('to Driving archetypes') that neither the deep ref nor the source text states.",
+      "evidence": "Deep 194 (p. 22): 'The OT map demonstrates how RDHY elevates its thousands of micro-enterprises (MEs) that directly interact with users'.",
+      "fix": "correct: Rendanheyi as elevating thousands of micro-enterprises that interact directly with users"
+    },
+    {
+      "id": "D007",
+      "line": 38,
+      "section": "Key Concepts, 8",
+      "claim": "Rendanheyi is a software-business reference for what an Adaptive-Topology-at-scale looks like",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer does not call RDHY an Adaptive Topology, and Haier is not a software business; the Primer calls RDHY 'an innovative management philosophy'.",
+      "evidence": "Deep 194 (p. 22): RDHY 'an innovative management philosophy ... aiming to align every employee's efforts directly with customer (or user) value creation'; 'elevates its thousands of micro-enterprises'.",
+      "fix": "correct: Rendanheyi is the Primer's example of an organisation elevating thousands of user-facing units at scale, useful when senior leadership asks \"can we get there from here\"."
+    },
+    {
+      "id": "D008",
+      "line": 44,
+      "section": "Key Concepts, 11",
+      "claim": "bottleneck is front-end skill; AI investment targeted at front-end agents ... This is the canonical worked example for a software business deciding *which* AI capability to build/buy/integrate.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The bottleneck and targeting steps are in the converted source but not in the deep reference; 'build/buy/integrate' is not in the example (see D005).",
+      "evidence": "Converted source 1208-1213 (p. 21): 'a lack of front-end design and coding skilled people. Focus time, money, and management attention on AIs, especially on that big bottleneck'. Deep 170 omits these steps.",
+      "fix": "cycle-to-deep: add source 1205-1213 (the three question-answers) to deep 170 as [V] (p. 21); correct: This is the Primer's worked example for a software business deciding *where* to aim AI investment."
+    },
+    {
+      "id": "D009",
+      "line": 68,
+      "section": "Questions, Phase 2, 'Decide framework as downstream-tool'",
+      "claim": "SAFe lands mostly at TASKS and CAPS; LeSS lands at CAPS-3 / PART-2; FAST Agile lands at Adaptive; Spotify model varies.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Only the SAFe placement is in the Primer. The LeSS, FAST Agile and Spotify placements are stated as fact with no source.",
+      "evidence": "Deep 191-193 (p. 22): SAFe mapping given; LeSS, FAST Agile, Spotify only listed as frameworks 'that can be mapped'. Converted source 1321-1334: list plus website pointer.",
+      "fix": "correct: Given the target topology, which framework's practices help us elevate? The Primer maps SAFe mostly to TASKS and CAPS (p. 22); map any other candidate the same way before choosing. The framework is the means, not the end."
+    },
+    {
+      "id": "D010",
+      "line": 79,
+      "section": "Questions, Phase 3, 'Surface Conway's-Law alignment'",
+      "claim": "The OT mapping is essentially a Conway's-Law analysis: the software architecture will reflect the team boundaries.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Characterises OT mapping as a Conway's-Law analysis. Conway's Law appears nowhere in the Primer, its deep ref, or the Letaw deep ref; OT maps units by skills and work mandate.",
+      "evidence": "No 'Conway' in deep 1-299, converted source 1-1582, or letaw-handbook-sweng-methods-deep (grep). Deep 128 (p. 16): MAP = map units on archetypes, their inputs, outputs and dependencies.",
+      "fix": "strip"
+    },
+    {
+      "id": "D011",
+      "line": 80,
+      "section": "Questions, Phase 3, 'Test the PMO / Resource-Topology drift'",
+      "claim": "\"The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as 'resources,'\" — this is the named drift pattern.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Primer names no drift pattern; the quoted sentence describes how the Resource Topology works, not a drift. The quote is re-extracted from the source (not in the deep) and unmarked. The PMO link itself is supported (p. 14).",
+      "evidence": "Converted source 618-619 (p. 11) holds the sentence; deep 100 omits it. Deep 112 (p. 14): Resource use case 'PMO resource management of specialists'. No drift content in deep 1-299.",
+      "fix": "correct: As the company grows, does the PMO function reassert Resource-Topology framing? The Primer's Resource Topology is the 'PMO resource management of specialists' case (p. 14). cycle-to-deep: add the p. 11 'Directing Archetypes ... matching skill demand with skill supply' sentence to deep 100 as [V]"
+    },
+    {
+      "id": "D012",
+      "line": 99,
+      "section": "Questions, Phase 5, 'Acknowledge the topology's named failure mode'",
+      "claim": "(Resource: coordination; Delivery: feature bloat; Adaptive: high-variance outcomes)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer names no failure mode for the Adaptive Topology; 'high-variance outcomes' recasts its stated use case ('fast delivery of uncertain results') as a failure.",
+      "evidence": "Deep 104, 112-113 (pp. 13-14).",
+      "fix": "correct: (Resource: coordination; Delivery: feature bloat; Adaptive: no failure mode named by the Primer)"
+    },
+    {
+      "id": "D013",
+      "line": 109,
+      "section": "Questions, Phase 6, 'Surface emerging bottlenecks'",
+      "claim": "AI-driven elevation often surfaces coordination and prioritisation bottlenecks.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Empirical generalisation not in the source. The Primer's stated new consequence of AI is human monitoring responsibility.",
+      "evidence": "Deep 160-168 (p. 20): expertise vanishing; bottleneck targeting; 'monitoring will become an important responsibility for human workers'. No coordination or prioritisation claim.",
+      "fix": "strip: second sentence"
+    },
+    {
+      "id": "D014",
+      "line": 121,
+      "section": "Anti-Patterns, 4",
+      "claim": "forcing one design on all is named as a missed-fit pattern. (p. 18)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer permits different designs for different parts of the company; it does not name single-design as a pattern.",
+      "evidence": "Deep 146 (p. 18): 'Companies may also choose different org designs for different parts of the company'.",
+      "fix": "correct: forcing one design on all ignores the Primer's point that different parts of a company may need their own goal and design. (p. 18)"
+    },
+    {
+      "id": "D015",
+      "line": 133,
+      "section": "Anti-Patterns, 10",
+      "claim": "Common in publicly-traded software businesses where utilisation reporting reasserts Resource-Topology framing. The named drift pattern that must be defended against. (p. 11)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Neither the frequency claim nor the 'named drift pattern' is in the Primer, and the p. 11 citation carries no such content.",
+      "evidence": "Deep 100 (p. 11): Resource Topology description and fit; no drift, public-company or utilisation-reporting content anywhere in deep 1-299.",
+      "fix": "correct: **Drift back to Resource Topology under quarterly-predictability pressure.** Utilisation reporting can pull an elevated organisation back toward Resource-Topology framing; periodic re-mapping (p. 19) is how to see it."
+    },
+    {
+      "id": "D016",
+      "line": 137,
+      "section": "Worked Examples, pet-supply",
+      "claim": "AI investment focus: R&D (the elevation area). Bottleneck: front-end design and coding skill.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "These steps are in the converted source but not the deep reference; the source names Product Management and R&D as the focus, not R&D alone.",
+      "evidence": "Converted source 1205-1211 (p. 21): 'The Product Management and R&D departments, so focus on AI investment there.' ... 'a lack of front-end design and coding skilled people'. Deep 170 omits both.",
+      "fix": "cycle-to-deep: same passage as D008; correct: AI investment focus: Product Management and R&D"
+    },
+    {
+      "id": "D017",
+      "line": 141,
+      "section": "Worked Examples, Rendanheyi",
+      "claim": "A reference for what Adaptive-at-scale looks like in practice",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer does not classify RDHY as an Adaptive Topology; it says the map shows RDHY elevating its micro-enterprises.",
+      "evidence": "Deep 194 (p. 22).",
+      "fix": "correct: A reference for elevation at scale in practice"
+    },
+    {
+      "id": "D018",
+      "line": 143,
+      "section": "Worked Examples, Uber/Uber Eats",
+      "claim": "A software-business reference for divergent-design accommodation: same company, different product lines, different topologies.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Re-purposes the Primer's Partial-Business example. The Primer uses Uber Ride vs Uber Eats to illustrate a vertical level (separate profit centres), and elsewhere as scopes for an Adaptive Team-of-Teams; it never says the two hold different topologies.",
+      "evidence": "Deep 47 (p. 7): 'two separate profit centers within a single company' as Partial-Business Focus. Deep 104 (p. 13): Adaptive Team-of-Teams 'across the entire business (\"Uber\") or a partial business domain (\"Uber Eats\")'.",
+      "fix": "correct: Two separate profit centres within one company, each a Partial-Business unit with cross-team collaboration inside it (p. 7). Pair it with the p. 18 point that divisions may carry their own goal and design."
+    },
+    {
+      "id": "D019",
+      "line": 145,
+      "section": "Worked Examples, running MADE example",
+      "claim": "Designed target: Delivery Topology with cross-functional end-to-end teams. Elevated: Doing archetypes restructured into two cross-functional end-to-end teams.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported by the converted source but absent from the deep reference, which stops the running example at ASSESS.",
+      "evidence": "Converted source 1068-1069 (p. 18) and 1146-1149 (p. 19). Deep 140-154 carry neither sentence.",
+      "fix": "cycle-to-deep: add \"If flow is the goal, the Delivery Topology becomes a suitable choice.\" [V] (p. 18) and \"In the example mapping on the right, the separate Doing Archetypes have been restructured into two cross-functional, end-to-end teams, elevating the organization from the Resource to the Delivery Topology.\" [V] (p. 19)"
+    },
+    {
+      "id": "D020",
+      "line": 153,
+      "section": "Integration, Jones",
+      "claim": "Jones provides the empirical software-economics base (intangible-product pricing, AI-integration cost modelling, agency-theory analysis, Bass diffusion) ... Where OT names the topology choice, Jones prices it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Jones's deep ref has intangible products, pricing, agency theory and Bass diffusion, but no AI-integration cost modelling; and Jones does not price topology choices.",
+      "evidence": "jones-evidence-based-sweng-deep 85-87 (intangible goods), 99 (agency theory, Ch 3.4.6-3.4.7), 101-103 (pricing, Bass diffusion). No AI content (grep for AI/artificial finds none relevant).",
+      "fix": "correct: Jones provides the empirical software-economics base (intangible-product economics, pricing, agency-theory analysis, Bass diffusion) that complements OT's strategic-design framework."
+    },
+    {
+      "id": "D021",
+      "line": 155,
+      "section": "Integration, Letaw",
+      "claim": "Conway's Law connects them: the architecture choice and the topology choice are two views of the same decision.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Conway's Law is in neither the Letaw deep ref nor the Primer; the bridge is invented.",
+      "evidence": "No 'Conway' in letaw-handbook-sweng-methods-deep, org-topologies-primer-2025-deep, or the converted Primer (grep).",
+      "fix": "strip: the Conway's Law sentence"
+    }
+  ],
+  "notes": "Structure deviates from the projection template: no 'What to Look For' or 'When to Use This Reference' sections; renamed Anti-Patterns and Worked Examples headings; no blockquoted [V] passages; Citation notes lack borrowed-through gaps and evidence-marker continuity. Inline [V] quotations all match the deep ref and converted source (DoD mapping, transaction/switching costs, Resource learning, Feature Factory, Adaptive merge, synchronicity, chain-of-fit passage, SAFe mapping, RDHY fragment, AI insight and three questions, divergent designs, output/outcome, CAPS-2 ecosystem sentence, incremental elevation, single-team, local optimisation); several truncate a sentence and close with a period without an ellipsis. The file's strongest drift is toward software-industry colour the Primer does not supply (Conway's Law, LeSS/FAST/Spotify placements, build-vs-buy)."
+}

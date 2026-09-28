@@ -1,0 +1,40 @@
+{"distillation": "corpus.commons/demo/distillations/software-business/openstax-accounting-vol2-software-business.md",
+ "findings": {
+  "D001": {"action": "applied", "note": "cited Ch 1.1; Ch 1.2 (source 1071-1072 is Ch 1.1)"},
+  "D002": {"action": "applied", "note": ""},
+  "D003": {"action": "applied", "note": ""},
+  "D004": {"action": "revised", "note": "audit's software-capitalisation analogy is outside the source; stated the Big Three inventory mechanism per deep and kept only the contribution-view lesson (Ch 6.5)"},
+  "D005": {"action": "applied", "note": ""},
+  "D006": {"action": "applied", "note": "cycle-to-deep only ('usually 12 months or fewer' [V] now in deep Ch 10.1); the five twelve-month mentions stand"},
+  "D007": {"action": "applied", "note": "also fixed recurrences in the trigger row, the What-to-Look-For pattern and the When-to-Use line"},
+  "D008": {"action": "applied", "note": "cycle-to-deep of Ch 9.4 market-based-at-capacity and opportunity-cost sentences, then corrected"},
+  "D009": {"action": "applied", "note": "line 130 'IMA eight-step' corrected too"},
+  "D010": {"action": "applied", "note": ""},
+  "D011": {"action": "applied", "note": ""},
+  "D012": {"action": "applied", "note": ""},
+  "D013": {"action": "revised", "note": "PRIORITY. Verdict changed from build to buy: 3 unreleasable engineers are unavoidable and drop out; hosting $200K avoidable; 2 reassigned engineers are a $400K opportunity cost of building (Ch 10.1); $600K vs $480K, buy saves $120K. Added Ch 10.3 lesson and outsourcing decision rule as [V] blockquotes (cycled into deep) and the source's qualitative checks; dropped the audit's 'unless the 3 engineers...' clause since their cost is irrelevant"},
+  "D014": {"action": "revised", "note": "both self-paraphrases in quotation marks removed; relevance rule paraphrased with Ch 10.1 subsection citations; Thermal Mugs point paraphrased and backed by the Ch 10.3 [V] blockquote"},
+  "D015": {"action": "applied", "note": ""},
+  "D016": {"action": "applied", "note": "recomputed: required factor 3.200 lies between 16% (3.274) and 17% (3.199), so IRR ~17%"},
+  "D017": {"action": "applied", "note": "took the paraphrase option (Ch 12.1; Ch 12.4)"},
+  "D018": {"action": "applied", "note": "quotation marks dropped; heuristic reworded as the distillation's working questions"},
+  "D019": {"action": "revised", "note": "audit's 'or capitalised' dropped (outside source); rest applied"},
+  "D020": {"action": "applied", "note": ""},
+  "D021": {"action": "applied", "note": ""},
+  "D022": {"action": "applied", "note": "verified against jones deep 15, 35-41, 135, 171"},
+  "D023": {"action": "applied", "note": "verified against letaw deep 189-203"},
+  "D024": {"action": "applied", "note": "verified against open-kanban deep 27, 52, 72-79, 131"},
+  "D025": {"action": "applied", "note": "verified against principles-management deep 29-37, 191-193"},
+  "D026": {"action": "applied", "note": "verified against business-ethics deep 31-33, 111-120"},
+  "D027": {"action": "applied", "note": ""},
+  "D028": {"action": "revised", "note": "rewritten to match the current deep markers and to count the two new [V] blockquotes"}
+ },
+ "extra_fixes": [
+  "When-to-Use line: 'CVP / break-even analysis applied to incident cost' -> break-even analysis borrowed from CVP (D007 recurrence)",
+  "Decision 1 'Conventional reading' now states the $720K gap so the corrected $120K reads against it",
+  "Deep ref Ch 10.3: the misquoted word 'critical' (not in the source) replaced by the section's own lesson sentence [V]; qualitative factors and outsourcing rule added [V]"
+ ],
+ "for_chris": [
+  "What-to-Look-For pattern 'A build-vs-buy decision rests on allocated platform overhead' still says 'the build option often becomes more attractive' once allocated overhead is removed. True for unavoidable overhead, but it omits the opportunity cost of capacity a buy frees (the trap Decision 1 fell into). Not flagged by the audit; left as is. Consider adding 'and count the opportunity cost of capacity the buy would free'.",
+  "Derived copies (apps/software-business, okf/software-business, okf/matrix, output/okf-viz/matrix-viz.html, chroma) still show the old 'Build, not buy' verdict until the build is rerun."
+ ]}

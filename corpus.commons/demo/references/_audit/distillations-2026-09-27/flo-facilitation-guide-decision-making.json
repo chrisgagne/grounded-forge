@@ -1,0 +1,170 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/flo-facilitation-guide-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-194 of 194", "deep": "lines 1-422 of 422", "complete": true},
+  "claims_audited": 196,
+  "tally": {"faithful": 180, "minor_drift": 13, "unsupported": 2, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "\"(e) the facilitator-stance calibration decisions (heavy-handed → balanced presence → light hand, calibrated to course type and phase)\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "position the source rejects presented as one of the Guide's calibrated stances",
+      "evidence": "Deep 399 lists heavy-handed direction under 'Positions the text explicitly frames against': 'I try to let them know what they are supposed to be doing, but I try not to be too heavy-handed in how to do it' [V] (Ch 4, video transcript). The Guide's early-course stance is 'high presence' as 'community builder and a guide' (deep 17, 75), not heavy-handedness. 'light hand' is also the deep ref's heading word, not the source's (see D006).",
+      "fix": "correct: \"(e) the facilitator-stance calibration decisions (high presence early → pulling back later → a lighter stance in MicroCourses, calibrated to course type and phase)\""
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance (also Questions lines 63 and 95)",
+      "claim": "\"Each course chapter carries a Facilitator Task List organising work into pre-course, during-course, and post-course phases\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "count overstated (three of four course chapters)",
+      "evidence": "Deep 7 lists a Facilitator Task List for Ch 4, 5 and 6 only; Ch 7 (MicroCourses) is described by its Activity Packet and Peer Feedback Rubric. Source contents (lines 96, 105, 113) list task lists for Fundamentals, Design and Synchronous only. Deep 23 says only that 'The course chapters organise facilitator work into pre-course, during-course, and post-course phases'. Lines 63 ('Each course chapter's task list leads with pre-course tasks') and 95 ('Each course chapter's pre-course task list') repeat the overcount.",
+      "fix": "correct: \"The Fundamentals, Design and Synchronous chapters each carry a Facilitator Task List organising work into pre-course, during-course, and post-course phases\""
+    },
+    {
+      "id": "D003",
+      "line": 14,
+      "section": "Key Concepts (1), also Questions line 50",
+      "claim": "The sage-to-guide shift \"is positioned as the foundational method decision for any learning engagement ... treating one as a substitute for the other is a category error\"; line 50: \"The Guide's method-choice rule is foundational.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "historical account recast as a universal method-choice rule attributed to the Guide",
+      "evidence": "Deep 31-33: Ch 1 narrates a pedagogical shift driven by adult learning theory, with the explicit hedge 'While teaching methods will still vary depending on the subject, level of learning or intended outcomes, the focus is generally on helping learners understand course content through questioning and suggestions' [V]. The Guide does not position it as 'the foundational method decision for any learning engagement' or call substitution a 'category error'.",
+      "fix": "correct: \"Ch 1 traces the move from 'sage on the stage' [V] to 'guide on the side' [V], noting that 'teaching methods will still vary depending on the subject, level of learning or intended outcomes' [V]. This distillation treats the facilitate-or-transmit question as the first design decision.\""
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts (3), also Relevance line 8 item (c)",
+      "claim": "\"The Guide treats the mix as a design choice with named criteria ... The Guide cites Hrastinski (2008), whose article it describes as covering 'when, why and how' [BT] to use each mode\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated (no criteria named by the Guide); quotation re-extracted from source rather than copied from the deep ref",
+      "evidence": "Deep 331: the Guide 'treats the synchronous/asynchronous mix as a design choice, not as a default' and 'cites Hrastinski (2008) and Yamagata-Lynch (2014) on when and why to choose each' [BT]. The Guide names no criteria of its own; it points to two bibliography entries. 'when, why and how' is word for word at source 6958 but is not in the deep ref.",
+      "fix": "correct: \"The Guide treats the mix as a design choice, not a default, and points to Hrastinski (2008) and Yamagata-Lynch (2014) on when and why to choose each mode [BT] (App 1).\""
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts (4)",
+      "claim": "\"The Guide's evidence is that without active encouragement, participants default to the lighter track ('their natural inclination might be to play it safe' [V])\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "hedged remark promoted to evidence of a default behaviour",
+      "evidence": "Deep 237: 'part of our role as course facilitators is to encourage participants to take a risk and choose the potentially harder track of Practicing Facilitator, when their natural inclination might be to play it safe' [V]. 'might be' is a hedge about inclination; the Guide reports no evidence that participants default to the lighter track.",
+      "fix": "correct: \"The Guide expects that a participant's 'natural inclination might be to play it safe on the Reviewing Participants track' [V], so the facilitator's job includes encouraging risk-taking onto the harder track\""
+    },
+    {
+      "id": "D006",
+      "line": 22,
+      "section": "Key Concepts (5), also Questions line 82",
+      "claim": "\"In FLO MicroCourses, the facilitator stance is 'light hand'\"; line 82: \"peer-review phases 'light hand'\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "deep-ref heading word placed in quotation marks as the source's words",
+      "evidence": "'light hand' does not occur in the converted source. It is the deep ref's own heading ('Facilitator stance — light hand, balance, judgment', deep 281); the Guide's words are 'This is an area that requires balance and judgment' (deep 283). The following [V] list quote is word for word (list numbering removed).",
+      "fix": "correct: \"In FLO MicroCourses, the facilitator stance is lighter and 'requires balance and judgment' [V]:\"; line 82: \"peer-review phases a lighter stance\""
+    },
+    {
+      "id": "D007",
+      "line": 36,
+      "section": "Key Concepts (12), also Questions line 60",
+      "claim": "\"Synchronous 10–20 with two facilitators\"; line 60: \"Synchronous 10–20\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "figure loosened (upper bound and facilitator condition changed)",
+      "evidence": "Deep 237 and 350: 'FLO Synchronous works well with 10 or more participants and can accommodate participant numbers into the 20s, most likely with two facilitators' [V]. The upper bound is 'into the 20s', not 20, and two facilitators is tied to the larger class size, not the whole range. Line 62 states this correctly.",
+      "fix": "correct: \"Synchronous 10 or more, into the 20s most likely with two facilitators\""
+    },
+    {
+      "id": "D008",
+      "line": 53,
+      "section": "Questions, Phase 1",
+      "claim": "\"FLO Fundamentals/Design/Synchronous 'require a lot of commitment'\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered quotation (unmarked) and narrowed attribution",
+      "evidence": "Deep 251 / source 5602: 'FLO courses requires a lot of commitment and participation in order to be effective' [V] (Ch 6). The quoted words change 'requires' to 'require' and the subject from 'FLO courses' (general) to three named courses. The MicroCourse exception is supported (deep 269).",
+      "fix": "correct: \"FLO courses 'requires a lot of commitment and participation in order to be effective' [V] (Ch 6); MicroCourses are the explicit exception\""
+    },
+    {
+      "id": "D009",
+      "line": 97,
+      "section": "Questions, Phase 5",
+      "claim": "\"'Closing the course: An important facilitator role is to draw the course to a close and celebrate learning, connections and accomplishments.' The closing structure (synchronous celebration, asynchronous bulletin board, mind map, video) is a pre-decided move\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation re-extracted from source and left unmarked; options list goes beyond the deep ref",
+      "evidence": "The sentence is word for word at source 4549 (Ch 5, Week 4) but is not in the deep ref, and carries no marker. Deep 213 carries only 'close the course (synchronous celebration if possible)' [AP]; deep 75 'host a final wrap-up to celebrate achievements' [AP]. Bulletin board, mind map and video options appear in the source (4509, 4551, 2874) but not in the deep ref.",
+      "fix": "correct: \"Closing is a facilitator role: 'close the course (synchronous celebration if possible)' (Ch 5, 'Week 4: Showcase designs') with a final Looking Back/Looking Forward activity. The closing structure is a pre-decided move, not an improvised end.\""
+    },
+    {
+      "id": "D010",
+      "line": 108,
+      "section": "Questions, Phase 6",
+      "claim": "\"The Guide's after-the-course tasks include 'Make notes of things that you'd like to enhance or change for next time – especially while it's fresh in your memory!' [V]\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "[V] quote not in the deep ref (re-extracted from source at Pass G)",
+      "evidence": "Word for word at source 5925 (Ch 6, 'Read course feedback forms and reflect on own facilitation'), so the claim is true, but the deep ref does not carry it. Deep 243 has only 'read course feedback forms; debrief with co-facilitators' [AP] (Ch 6, 'After the course').",
+      "fix": "correct: \"The Guide's after-the-course tasks include reading course feedback forms and debriefing with co-facilitators (Ch 6, 'After the course').\" (or add the passage to the deep ref first, then copy it)"
+    },
+    {
+      "id": "D011",
+      "line": 115,
+      "section": "What to Look For",
+      "claim": "\"Developmental-default is not landing — self-assessment is the signal, not a substitute for facilitator withdrawal (Source: Ch 3, 'Roles and functions of FLO facilitators')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "diagnosis attributed to a section that does not make it",
+      "evidence": "Deep 77 (Ch 3, 'Roles and functions'): facilitators 'provide frequent and constructive (formative) feedback' but 'encourage participants to use the self-assessment rubrics and reflective practices embedded in each course to monitor and celebrate their own achievements' [V]. Ch 3 says nothing about self-assessment as a signal for, or substitute for, facilitator withdrawal.",
+      "fix": "correct: \"Developmental default may not be landing: the Guide wants participants to use the rubrics 'to monitor and celebrate their own achievements' (Ch 3, 'Roles and functions of FLO facilitators'); reading continued dependence on the facilitator as a fading problem is this distillation's diagnosis\""
+    },
+    {
+      "id": "D012",
+      "line": 132,
+      "section": "When to Use This Reference, also Anti-patterns line 162",
+      "claim": "\"the Guide provides multiple options (synchronous celebration, asynchronous bulletin board, Looking Back/Looking Forward, co-facilitator debrief)\"; line 162: \"synchronous celebration, asynchronous bulletin board, mind map, or final forum post\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "options listed that the deep ref does not carry",
+      "evidence": "Deep holds synchronous celebration (213), Looking Back/Looking Forward (213), co-facilitator debrief (243, 309) and closing Open Forum post (243). 'Asynchronous bulletin board' and 'mind map' are source-true (4551, 2874) but absent from the deep ref.",
+      "fix": "correct: \"(synchronous celebration, closing forum post, Looking Back/Looking Forward, co-facilitator debrief)\"; line 162 likewise"
+    },
+    {
+      "id": "D013",
+      "line": 153,
+      "section": "Anti-patterns",
+      "claim": "\"Grading by default when the engagement is developmental, then being surprised when candour drops.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "causal premise the source does not give",
+      "evidence": "Deep 178 and 407: the Guide's reason for the no-grade default is that the course 'is designed to be developmental'. It does not link grading to candour; the trust/honest-feedback passage (deep 21, 132) is about privacy rules, not grading.",
+      "fix": "correct: \"Grading by default when the engagement is developmental, when the Guide's default is self-assessment and grading is the opt-in.\""
+    },
+    {
+      "id": "D014",
+      "line": 170,
+      "section": "Integration with Other References",
+      "claim": "\"Liberating Structures supplies the specific within-session microstructures (1-2-4-All, TRIZ, What/So What/Now What)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong structure name for the corpus source cited",
+      "evidence": "Liberating Structures Handbook deep 7 and 59 name the structure '1-2-4-Whole Group'; '1-2-4-All' is the FLO Guide's name (source 5734). TRIZ and 'After Action Debrief: What, So What, Now What?' are in the handbook (deep 7).",
+      "fix": "correct: \"(1-2-4-Whole Group, TRIZ, What/So What/Now What)\""
+    },
+    {
+      "id": "D015",
+      "line": 171,
+      "section": "Integration with Other References",
+      "claim": "\"OB's group decision-making and team dynamics chapters (Chs 13–14)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited chapters in another source",
+      "evidence": "openstax-organizational-behavior-deep: Ch 13 is Power and politics (line 398), Ch 14 is Conflict and negotiation (line 430). Group decision-making is Ch 6 ('Group decision-making, groupthink, and devil's advocate', line 200); groups and teams are Ch 9 and Ch 10 (lines 274, 306).",
+      "fix": "correct: \"OB's group decision-making section (Ch 6) and group and team chapters (Chs 9–10)\""
+    },
+    {
+      "id": "D016",
+      "line": 179,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"The distillation's framing of facilitation as distinct from content transmission draws on the Guide's use of this model [Community of Inquiry].\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "lineage attached to the wrong cited framework",
+      "evidence": "The facilitation-versus-direct-teaching framing is Ch 1, 'What is facilitation in an educational context?', grounded in adult learning theory, social constructivism and humanist approaches (deep 31-33). The Community of Inquiry citation is a separate section (Ch 1, 'Facilitating learning online', deep 37) about facilitating social and cognitive interaction online.",
+      "fix": "correct: \"The Guide uses this model to frame facilitation of social and cognitive interaction online (Ch 1, 'Facilitating learning online'); the facilitate-versus-transmit framing comes from Ch 1's account of adult learning theory, not from this model.\""
+    }
+  ],
+  "notes": "Counting: claims_audited counts distinct assertions (Relevance items a-i and the pre-course frame, each Key Concept's source claim and decision rule, each question row's factual premise and its question, each What-to-Look-For row, When-to-Use bullets, worked-example steps, anti-pattern bullets, integration rows, and each borrowed-through / limits / continuity item). faithful = claims_audited - findings; a finding covering the same error on two lines counts once. Quote check: every quoted span was compared mechanically against the deep ref and the converted source (normalising quotes, dashes, emphasis), then mismatches were read by hand. All [V] spans match the source word for word. [V] spans not in the deep ref: line 18 'when, why and how' (D004) and line 108 (D010); unmarked source text at line 97 (D009). Figures checked against deep 337-367: class sizes (14–20, 10+ active, D007 for Synchronous), facilitator time (15–25, ~15, ~15, ≥5) and participant time (6–12, 6–8, 6–8, ~5) all match. Other deep refs opened (targeted reads, not end-to-end): openstax-organizational-behavior-deep (chapter headings), liberating-structures-handbook-deep (structure list, 1-2-4-Whole Group, TRIZ, What/So What/Now What), approach-perfect-field-guide-scrum-events-deep (Retrospective agenda 212-232: Prime Directive, decisions/actions, wrap-up — the Field Guide row checks out), lfuo-learning-review-guide-2024-deep (title/publisher; non-punitive posture) and nhs-just-culture-guide-deep (default-to-individual-blame frame, line 172) — the NHS/LFUO row's 'blameless' characterisation is fair to those sources; its reading of the FLIF as a version of that posture is the distillation's synthesis. Non-graded observations: (1) provenance stamp matches the current deep ref (sha256 98fa9141...); (2) the Worked Example carries no [V] blockquote from the deep ref; (3) the worked example mixes Fundamentals structure (participant teams, FLIF) with a FLO Design Week-3 move ('studio feedback on a struggling design') inside one hypothetical course, which is coherent as operator design but cites Ch 5 for a course that has no studio; (4) several anti-pattern consequence clauses ('group dynamics suffer', 'participants disengage', 'consumes more facilitator time than budgeted') are operator-supplied consequences not in the source; only the grading-candour one (D013) is graded because it is the load-bearing reason for its anti-pattern; (5) 'complementarity, not seniority' (lines 38, 62, 118, 161) is the distillation's gloss on Robin Leung's [AE] reflection; the Guide never mentions seniority."
+}

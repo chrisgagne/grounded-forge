@@ -1,0 +1,369 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/lfuo-learning-review-guide-2024-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-147 of 147",
+    "deep": "lines 1-323 of 323",
+    "complete": true
+  },
+  "claims_audited": 122,
+  "tally": {
+    "faithful": 87,
+    "minor_drift": 31,
+    "unsupported": 1,
+    "contradicted": 3
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "After-Action Review Relevance",
+      "claim": "\"the most complete HOP-tradition learning-review framework in the demo corpus\" ... \"Dekker, Hollnagel, Weick, Klein, and Reason — the full HOP canon\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "imported framing label and corpus superlative",
+      "evidence": "Neither the deep ref nor the source uses 'HOP' / 'Human and Organizational Performance' (grep of converted source: no hits). Deep 284-292 supports only that the guide cites these authors approvingly. No deep ref ranks LFUO against other corpus sources.",
+      "fix": "correct: \"The LFUO 2024 guide is a full learning-review framework built on Dekker, Hollnagel, Weick and Sutcliffe, Klein and Reason (all cited borrowed-through).\" Strip 'HOP-tradition', 'most complete ... in the demo corpus', and 'the full HOP canon'."
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "After-Action Review Relevance",
+      "claim": "the administrative-firewall commitment is \"the structural safety mechanism without which honest accounts will not surface\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: firewall is 'critical'; 'Information is the lifeblood of safety. We must cherish it and protect it' [V]. Deep 43: after Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical; it does not state that no honest account can surface without it.",
+      "fix": "correct: \"the administrative-firewall commitment, which the guide calls critical to protecting information, 'the lifeblood of safety' [V] (Part 3, 'Administrative assurance of no punitive actions')\""
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Key Concepts #1",
+      "claim": "\"Scale by learning opportunity, not outcome severity.\" cited to (Part 2, \"The tools\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited section",
+      "evidence": "The severity-vs-learning-opportunity argument is Part 3, 'Starting the process' (deep 61); Part 2 'The tools' (deep 47-57) describes the four tools only.",
+      "fix": "correct: move the sentence's citation to (Part 3, \"Starting the process\")"
+    },
+    {
+      "id": "D004",
+      "line": 14,
+      "section": "Key Concepts #2",
+      "claim": "\"The natural tendency is to base the size and complexity of the review team upon the severity of the outcome. ... This tendency may pretermit stellar learning opportunities\" — quoted with no evidence marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 61 carries this passage as [V]; source 862-869 matches word for word (lowercase 'the natural tendency'). Per the protocol, quoted text without a marker reads as the distillation's own wording.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D005",
+      "line": 14,
+      "section": "Key Concepts #2",
+      "claim": "\"The tree-cutting near-miss is the guide's worked example\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "event mischaracterised",
+      "evidence": "Deep 61: 'a tree-cutting accident in which a firefighter was knocked unconscious by a glancing blow and released the same day'. Source 872-874: 'an FLA was done on a tree-cutting accident in which a firefighter was hit by a glancing blow'. It was an injury accident with a minor outcome, not a near-miss.",
+      "fix": "correct: \"The guide's illustration is a tree-cutting accident in which a firefighter was knocked unconscious and released the same day: a two-inch difference in tree fall would have been a fatality\""
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Key Concepts #3",
+      "claim": "\"Without an explicit written no-punitive-action commitment from the Delegating Official, honest accounts will not surface.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Same basis as D002 (deep 43, 67). The guide requires the signed delegation and calls the firewall critical; the categorical 'will not surface' is the distillation's.",
+      "fix": "correct: \"The guide requires this commitment in the signed delegation of authority; its Esperanza example shows employees refusing to talk when they did not expect fair treatment (Appendix A).\""
+    },
+    {
+      "id": "D007",
+      "line": 18,
+      "section": "Key Concepts #4",
+      "claim": "\"All three are intertwined; weakening one weakens the others.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "added causal dynamic",
+      "evidence": "Source 439-441: the learning 'lens is formed where the three foundational principles all intertwine'. Deep 13: 'three intertwined foundational principles'. Neither says weakening one weakens the others.",
+      "fix": "correct: \"The three intertwine; the guide's learning lens forms where they meet.\""
+    },
+    {
+      "id": "D008",
+      "line": 22,
+      "section": "Key Concepts #6",
+      "claim": "Counterfactual-arguments passage quoted with no evidence marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 184 carries it [V] (Part 9, 'Avoid Counterfactual Arguments'). The Evidence-marker note (line 147) says the distillation 'quotes it directly', but no marker travels with it.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D009",
+      "line": 26,
+      "section": "Key Concepts #8",
+      "claim": "\"the beliefs, perceptions, expectations, and paradigms held before the experience that in hindsight turned out wrong, inaccurate, misleading, or deceptive\" in quotation marks",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "paraphrase presented in quotation marks",
+      "evidence": "Deep 158 gives step 4 as the deep ref's own paraphrase (no marker). Source 2413-2421 reads: 'Beliefs - Perceptions - Expectations - Paradigms that were held before the experience that in hindsight the characters now know were either wrong, inaccurate, misleading, or deceptive.' The quoted wording is the deep ref's paraphrase, not the guide's.",
+      "fix": "correct: remove the quotation marks: The procedure surfaces the beliefs, perceptions, expectations and paradigms held before the experience that in hindsight turned out wrong, inaccurate, misleading or deceptive (Part 7, \"A Process for conducting a Lessons Learned Analysis\", step 4)."
+    },
+    {
+      "id": "D010",
+      "line": 30,
+      "section": "Key Concepts #10",
+      "claim": "Deflection-question quotation with no evidence marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 113 carries 'be prepared with a few deflection questions to mentally \\'walk the person away\\' from these vivid memories they are sharing with you' as [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D011",
+      "line": 30,
+      "section": "Key Concepts #10",
+      "claim": "\"Redirect to something they know well and are comfortable talking about before returning to the difficult passage.\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "adds a step the source warns against",
+      "evidence": "Deep 113 describes deflection only as walking the person away. Source 1928-1930: 'don't deliberately take the interview into deeper recall experiences (leave that to the mental health professionals)'; source 1971-1973: deflection 'helps pull their recall memory away from the site of the tragedy'. Nothing instructs a return; the source says not to take the interview back into deep recall.",
+      "fix": "correct: \"Redirect to something that went right or something they know well and are comfortable talking about (Part 6, 'Interviews'). Do not steer the interview back into the vivid recall; the guide leaves that to mental health professionals.\""
+    },
+    {
+      "id": "D012",
+      "line": 32,
+      "section": "Key Concepts #11",
+      "claim": "\"Single-cause anchoring is not just bad epistemics — it is empirically wrong for complex-system events.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "hedge dropped, claim hardened",
+      "evidence": "Deep 163: 'Most often, the Lessons Learned Analysis will reveal that multiple improbable events were necessary' [V]. 'Most often' is not 'empirically wrong' in every case; the guide reports no empirical base for the sentence.",
+      "fix": "correct: \"Single-cause anchoring misses what the guide says the analysis most often finds: several improbable events had to combine.\""
+    },
+    {
+      "id": "D013",
+      "line": 56,
+      "section": "Questions, Phase 1",
+      "claim": "\"Interview as soon as possible; 'memories change, perspectives shift as time progresses' (Part 5, 'Should the affected people take Notes?')\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered quotation, missing marker, blended citations",
+      "evidence": "Source 1174-1175 / deep 75: 'memories change; perspectives shift as time progresses' [V] (semicolon, not comma). The 'interview as soon as possible' instruction is Handout C (deep 213; source 4561), not the Part 5 note-taking section.",
+      "fix": "correct: Interview as soon as possible (Handout C, \"FLA 'Watch outs'\"); \"memories change; perspectives shift as time progresses\" [V] (Part 5, \"Should the affected people take Notes?\")."
+    },
+    {
+      "id": "D014",
+      "line": 57,
+      "section": "Questions, Phase 1",
+      "claim": "\"'Don't see this as somebody being right and somebody being wrong' [V] — diversity of narrative is a source of resilience in complex systems.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "borrowed-through claim presented unattributed; [V] quote uncited",
+      "evidence": "Deep 169: the resilience line is Dekker, Cilliers & Hofmeyr 2011 quoted by the guide [V] [BT] ('Diversity of narrative can be seen as an enormous source of resilience in complex system'). The distillation drops the attribution. The [V] quote carries no section citation.",
+      "fix": "correct: \"'Don't see this as somebody being right and somebody being wrong' [V] (Part 8, 'Different Perspectives'). The guide quotes Dekker, Cilliers and Hofmeyr: diversity of narrative is a source of resilience in complex systems [BT].\""
+    },
+    {
+      "id": "D015",
+      "line": 58,
+      "section": "Questions, Phase 1",
+      "claim": "\"return to the difficult memory once they are steadier\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "adds a step the source warns against",
+      "evidence": "As D011: source 1928-1930 says not to deliberately take the interview into deeper recall experiences and to leave that to mental health professionals; deep 113 gives deflection as walking the person away only.",
+      "fix": "correct: \"Apply the deflection-question protocol: ask about something that went right or something they know well. Make sure they know how to reach mental health professionals.\""
+    },
+    {
+      "id": "D016",
+      "line": 66,
+      "section": "Questions, Phase 2",
+      "claim": "\"The Lessons Learned Analysis almost always reveals that multiple improbable events were necessary.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "frequency intensified",
+      "evidence": "Deep 163 / source 2333: 'Most often, the Lessons Learned Analysis will reveal ...' [V].",
+      "fix": "correct: \"The Lessons Learned Analysis most often reveals that multiple improbable events were necessary.\""
+    },
+    {
+      "id": "D017",
+      "line": 74,
+      "section": "Questions, Phase 3",
+      "claim": "\"This threshold is high and bright.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "unsupported characterisation",
+      "evidence": "Deep 190-192 gives the definition and says such a discovery is 'highly unlikely'; nothing characterises the line as bright (clear-cut).",
+      "fix": "correct: \"The guide expects this to be highly unlikely (Part 9).\""
+    },
+    {
+      "id": "D018",
+      "line": 83,
+      "section": "Questions, Phase 4",
+      "claim": "\"'Recommendations, when implemented, add complexity to the workplace, which has the paradoxical effect of increasing risk.' [V]\" followed by \"or will it add variance?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered [V] quotation drops the hedge 'Often'",
+      "evidence": "Source 1671-1673 / deep 95: 'Often recommendations, when implemented, add complexity to the workplace, which has the paradoxical effect of increasing risk.' Dropping 'Often' turns a hedged claim into an unconditional one inside a word-for-word marker. 'Add variance' is not the guide's term; the guide says 'increasing risk'.",
+      "fix": "correct: \"'Often recommendations, when implemented, add complexity to the workplace, which has the paradoxical effect of increasing risk' [V] (Part 5, 'Recommendations vs Lessons Learned'). Is the action a barrier suited to a simple or complicated failure, or will it add complexity?\""
+    },
+    {
+      "id": "D019",
+      "line": 84,
+      "section": "Questions, Phase 4",
+      "claim": "\"SAP entries must designate who is responsible for completing the recommendation(s) and be consulted before committing resources.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "garbled: wrong party consulted",
+      "evidence": "Deep 204: 'The SAP will designate who is responsible ... Those responsible for the completion of an action item listed on the SAP should be consulted prior to committing any resource' [V]. The people responsible are consulted, not the SAP entries.",
+      "fix": "correct: \"The SAP designates who is responsible for each recommendation, and those people are consulted before any resource is committed (Part 11, 'Recommendations').\""
+    },
+    {
+      "id": "D020",
+      "line": 92,
+      "section": "Questions, Phase 5",
+      "claim": "\"The guide's Recommended Reading names Dekker, Hollnagel, Weick, Klein, Reason, Conklin\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong location for two authors",
+      "evidence": "Source 5031-5170 (Recommended Reading) lists Dekker, Conklin, Hollnagel (ETTO), Reason, Kahneman, Roese & Vohs and others, but not Weick or Klein. Deep 286-287: Weick & Sutcliffe are cited in the Glossary and Handout D; Klein in the Glossary.",
+      "fix": "correct: \"The guide cites Dekker, Hollnagel, Reason and Conklin in its Recommended Reading, and Weick and Sutcliffe and Klein in its Glossary and Handout D, none of whom the demo holds directly.\""
+    },
+    {
+      "id": "D021",
+      "line": 101,
+      "section": "What to Look For",
+      "claim": "Follow-up: \"return to the difficult passage after a settling period\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "adds a step the source warns against",
+      "evidence": "As D011: source 1928-1930 and 1971-1973.",
+      "fix": "correct: \"Apply the deflection-question protocol: redirect to a comfortable domain and do not steer back into the vivid recall; point them to mental health support.\""
+    },
+    {
+      "id": "D022",
+      "line": 107,
+      "section": "When to Use This Reference",
+      "claim": "\"the four-tool ladder is the corpus's only explicit routing decision tree\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "corpus-comparative claim with no basis",
+      "evidence": "The deep ref presents four tools (deep 47-57) and Part 3 decision-support questions (deep 63), not a decision tree. The corpus holds the NHS Just Culture Guide, whose deep ref (nhs-just-culture-guide-deep.md 7) describes a five-test decision tree.",
+      "fix": "correct: \"The scoping decision needs a principled way to choose between AAR, RLS, FLA and Learning Review: the guide names the four tools and gives the Delegating Official's questions for choosing.\""
+    },
+    {
+      "id": "D023",
+      "line": 113,
+      "section": "When to Use This Reference",
+      "claim": "\"This is the primary methodology reference for the AAR axis. Most other sources in this axis complement LFUO; LFUO is the backbone.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "unsupported corpus positioning",
+      "evidence": "The deep ref treats the AAR as one of four tools whose learning stays local (deep 49); the guide's method is the FLA and Learning Review. The distillation's own integration table (line 136) names TC 25-20 as the canonical AAR protocol. No deep ref supports ranking LFUO as the axis backbone.",
+      "fix": "correct: \"Reach for LFUO for the learning-review stance (networked causality, local rationality, administrative firewall) and for events that outgrow a local AAR; pair it with TC 25-20 for the AAR protocol itself.\""
+    },
+    {
+      "id": "D024",
+      "line": 117,
+      "section": "Worked Example",
+      "claim": "\"The facilitator applies the four-tool ladder (Source: ... Part 2, 'The tools'): the learning opportunity is high (near-fatality pattern) despite the minor outcome\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited section",
+      "evidence": "The learning-opportunity-over-severity reasoning is Part 3, 'Starting the process' (deep 61), not Part 2.",
+      "fix": "correct: cite (Part 2, \"The tools\"; Part 3, \"Starting the process\")"
+    },
+    {
+      "id": "D025",
+      "line": 117,
+      "section": "Worked Example",
+      "claim": "\"The facilitator reads the Ten Principles and Agreements aloud before the group dialogue opens (Part 6).\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "instruction attributed to the source in a stronger form",
+      "evidence": "Source 2111-2112: 'Make sure to take a few minutes to explain the FLA process and discuss the principles and agreements above.' The guide says explain and discuss; reading aloud is the distillation's move. The deep ref does not carry the agenda instruction.",
+      "fix": "correct: \"The facilitator explains the FLA process and discusses the Ten Principles and Agreements before the dialogue opens (Part 6, 'Agenda for the Dialogue Session').\""
+    },
+    {
+      "id": "D026",
+      "line": 121,
+      "section": "Anti-patterns",
+      "claim": "\"'pretermitting stellar learning opportunities'\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered wording inside quotation marks, no marker",
+      "evidence": "Deep 61 / source 868-869: 'This tendency may pretermit stellar learning opportunities' [V].",
+      "fix": "correct: Scaling the review team to outcome severity rather than learning opportunity, a tendency that \"may pretermit stellar learning opportunities\" [V] (Part 3, \"Starting the process\")."
+    },
+    {
+      "id": "D027",
+      "line": 127,
+      "section": "Anti-patterns",
+      "claim": "\"Allowing judgment language into accounts — 'accountabilism' as the slang for the pattern that claims to learn but punishes.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept misplaced",
+      "evidence": "Deep 29: accountabilism is when 'an investigation or review effort claims the intent is to learn from participants sharing their accounts but then punishes via judgmental language, requiring training or other organizational actions which punish' [V]. The judgmental language is the review's, not language in participants' accounts.",
+      "fix": "correct: \"Letting the review punish through judgmental language or required training while claiming to learn from accounts ('accountabilism', Glossary).\""
+    },
+    {
+      "id": "D028",
+      "line": 128,
+      "section": "Anti-patterns",
+      "claim": "\"Proceeding without a signed administrative-firewall commitment; honest accounts will not surface without it.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "As D002/D006 (deep 43, 67).",
+      "fix": "correct: \"Proceeding without a signed administrative-firewall commitment; the guide calls the firewall critical, and its Esperanza example shows employees refusing to talk.\""
+    },
+    {
+      "id": "D029",
+      "line": 130,
+      "section": "Anti-patterns",
+      "claim": "\"the citations are borrowed-through this guide's Recommended Reading\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong location for Weick and Klein",
+      "evidence": "As D020: Weick and Klein are not in the Recommended Reading (source 5031-5170); they are cited in the Glossary and Handout D (deep 286-287).",
+      "fix": "correct: \"the citations are borrowed-through this guide's Recommended Reading, Glossary and footnotes\""
+    },
+    {
+      "id": "D030",
+      "line": 139,
+      "section": "Integration with Other References",
+      "claim": "Barbrook-Johnson \"provides the shared-model artefact (CLD, Rich Picture) that makes the network visible\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "other-source claim loosened",
+      "evidence": "barbrook-johnson-systems-mapping-deep.md 31: 'All except one of the methods in this book always have a network of nodes and edges ... the exception being Rich Pictures'; deep 41: Rich Pictures are free-form drawing. A Rich Picture does not make a network visible.",
+      "fix": "correct: \"Barbrook-Johnson provides shared-model artefacts: a CLD makes the network of conditions visible; a Rich Picture captures the situation more freely\""
+    },
+    {
+      "id": "D031",
+      "line": 143,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Dekker's Just Culture, Field Guide and \"the Dekker & Breakey paper on restorative justice are all cited in Recommended Reading and at key points in the body\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong location for one work",
+      "evidence": "Source Recommended Reading (5031-5170) lists Dekker's Just Culture (2007), 'Just Culture: Who gets to draw the line?' and the Field Guide, not the Dekker & Breakey 2016 paper. Deep 33, 284: Breakey is the Glossary's restorative-justice footnote 14.",
+      "fix": "correct: \"Dekker's Just Culture and The Field Guide to Understanding Human Error are in the Recommended Reading; the Dekker & Breakey paper is cited in the Glossary's restorative-justice entry\""
+    },
+    {
+      "id": "D032",
+      "line": 147,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"The networked-causality definition is paraphrased from the source's Glossary; the deep ref carries it as [V] in context.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note contradicts the file",
+      "evidence": "Line 8 of this distillation quotes the definition word for word with [V].",
+      "fix": "correct: \"The networked-causality definition is quoted [V] from the Glossary, as in the deep ref.\""
+    },
+    {
+      "id": "D033",
+      "line": 147,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"the distillation quotes it directly in Concept 6\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note claims a marker the file lacks",
+      "evidence": "Concept 6 (line 22) quotes the counterfactual passage with no [V] marker (see D008).",
+      "fix": "correct: add [V] at line 22, then the note stands"
+    },
+    {
+      "id": "D034",
+      "line": 147,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"the distillation quotes it in Concept 2\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note claims a marker the file lacks",
+      "evidence": "Concept 2 (line 14) quotes the severity passage with no [V] marker (see D004).",
+      "fix": "correct: add [V] at line 14, then the note stands"
+    },
+    {
+      "id": "D035",
+      "line": 147,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"the distillation preserves the borrowed-through status in this section and in the Anti-patterns section\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note overstates",
+      "evidence": "Line 57 carries the Dekker, Cilliers & Hofmeyr resilience claim with no [BT] or attribution (see D014).",
+      "fix": "correct: fix line 57, then the note stands"
+    }
+  ],
+  "notes": "Most serious: the deflection-question guidance tells the interviewer to return to the difficult memory (lines 30, 58, 101); the source says not to take the interview back into deep recall and to leave that to mental health professionals (source 1928-1930). The deep ref omits that sentence, which is how the drift got in; the deep ref's Part 6 'Interviews' paragraph would benefit from carrying it. Three [V] quotations lack markers (Concepts 2, 6, 10), and the Evidence-marker note claims continuity it does not have. The [V] at line 83 drops the hedge 'Often'. Worked example is hypothetical and makes no source-finding claims, but it is internally inconsistent: locate marks 'two metres' off vs 'a two-foot difference in dig position'. The Five Hows list itself is a non-extracted graphic (deep 151); the distillation correctly avoids enumerating it. Other-source checks: TC 25-20 four steps (tc deep 19), NHS five-test decision tree (nhs deep 7), Psychology 2e hindsight bias / reconstructive memory / conformity (psych deep 15, 17, 146, 289) are faithful; Barbrook-Johnson Rich Pictures drift noted. The licence claim at line 143 ('their works are not openly licensed') is corpus meta, not a source claim, and was not graded."
+}

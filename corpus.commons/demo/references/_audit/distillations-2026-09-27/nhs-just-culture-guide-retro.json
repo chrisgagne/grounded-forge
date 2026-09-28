@@ -1,0 +1,99 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/nhs-just-culture-guide-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-118 of 118",
+    "deep": "lines 1-184 of 184",
+    "complete": true
+  },
+  "claims_audited": 98,
+  "tally": {
+    "faithful": 90,
+    "minor_drift": 7,
+    "unsupported": 1,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 72,
+      "section": "When to Use This Reference",
+      "claim": "\"action singling out an individual is rarely appropriate — most issues have deeper causes\" is this source's most portable claim (Preamble, \"Purpose and use\"). Also line 81 (Worked Example): the lead \"reads the NHS prior aloud: 'Most issues have deeper causes — singling out an individual is rarely the right response.'\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation altered: 'patient safety issues' generalised to 'issues' inside quotation marks and attributed to the source",
+      "evidence": "Source line 20 / deep 34 [V]: 'Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action.'",
+      "fix": "correct (line 72): \"'Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action' [V] (Preamble, 'Purpose and use'); in retro, the facilitator applies it by analogy to team issues.\" correct (line 81): \"The lead reads the NHS prior aloud, 'Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action' [V], and adds: 'the same logic applies to our deploys. Let's look at the conditions.'\""
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Retrospective Relevance",
+      "claim": "The guide provides the structural vocabulary for why blame-language redirection \"is the correct epistemic move given that most problems have deeper, systemic causes.\" (Similar at line 49: \"In retro: most team-performance issues also have deeper causes\"; line 66: \"the same applies here\".)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's domain-bounded premise ('most patient safety issues') generalised to all problems and presented as the guide's argument",
+      "evidence": "Deep 15 and 34 [V]: the claim is scoped to 'most patient safety issues'. The deep ref makes no claim about problems in general or team-performance issues.",
+      "fix": "correct: \"... it is the move the guide argues for in patient safety, where 'most patient safety issues have deeper causes and require wider action' [V]; the retro applies it by analogy.\""
+    },
+    {
+      "id": "D003",
+      "line": 24,
+      "section": "Key Concepts #7 (dual purpose)",
+      "claim": "Heading: \"Protecting staff from unfair targeting AND protecting the system from individual-focus.\" Also line 98 (\"the guide's dual purpose protects both staff and system\") and line 118 (\"The dual-purpose claim (protecting staff AND protecting the system) is [V] in the deep ref; the distillation carries both sides of the dual purpose precisely\").",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "second half of the dual purpose restated as protecting 'the system' where the source says protecting patients; the continuity note then calls it precise",
+      "evidence": "Source line 24 / deep 19, 38 [V]: 'As well as protecting staff from unfair targeting, using the guide helps protect patients by removing the tendency to treat wider patient safety issues as individual issues.' The concept body (line 24) quotes this correctly; the heading and lines 98 and 118 do not.",
+      "fix": "correct: heading \"Protecting staff from unfair targeting AND protecting patients by removing individual-focus\"; line 98 \"the guide's dual purpose protects both staff and patients\"; line 118 \"(protecting staff AND protecting patients)\""
+    },
+    {
+      "id": "D004",
+      "line": 47,
+      "section": "Questions, Phase 3: Insight / Cause Analysis",
+      "claim": "\"apply the foresight-test questions: Was there a workable agreed process the individual knowingly departed from? Would peers have behaved differently in the same context?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "the second question is the substitution test (Q4), labelled as the foresight test (Q3)",
+      "evidence": "Deep 66-68 [V]: Q3 asks about agreed protocols, workability and routine use, and knowing departure. Deep 76 [V]: the peer question is Q4 4a.",
+      "fix": "correct: \"apply the foresight-test question (Q3): was there a workable agreed process the individual knowingly departed from? Then the substitution-test question (Q4): would peers have behaved the same way in the same context?\""
+    },
+    {
+      "id": "D005",
+      "line": 85,
+      "section": "Worked Example",
+      "claim": "\"The foresight test (Q3) routes to Recommendation D ... The substitution test follows: 'Would other team members in the same context ... have done the same thing?' Three people say yes.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "tree mechanics misstated: after Q3 exits to Recommendation D the tree ends; Q4 is reached only on Yes to all three Q3 sub-questions",
+      "evidence": "Deep 70: 'Yes to all three routes to Q4; No to any of 3a, 3b, or 3c routes to Recommendation D.' Deep 42: at each test the answer routes 'either to a recommendation that exits the tree or to the next test'. The distillation's own line 18 frames Q3/Q4 as conversational prompts in retro, which is defensible, but the example presents Q4 as the next step of the walk.",
+      "fix": "correct: \"The foresight test (Q3) alone would exit the tree at Recommendation D ... The facilitator also asks the substitution question as a conversation prompt, outside the formal tree: ...\""
+    },
+    {
+      "id": "D006",
+      "line": 97,
+      "section": "Anti-patterns This Reference Helps Avoid",
+      "claim": "\"This single question often reorients a blame-focused conversation.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "efficacy claim the source does not make",
+      "evidence": "Deep 150-152: 'The source carries no quantitative claims — no incidence rates, no outcome statistics'. Nothing in the deep ref reports the substitution question's effect on conversations.",
+      "fix": "strip: delete the sentence"
+    },
+    {
+      "id": "D007",
+      "line": 109,
+      "section": "Integration with Other References (TC 25-20)",
+      "claim": "\"Both sources oppose grading and individual blame as the review's default\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attributes an anti-blame position to TC 25-20 that its deep ref does not carry",
+      "evidence": "TC 25-20 deep 253 [V]: the AAR 'is not a critique' and 'does not grade success or failure'; deep 35 [V]: critique focuses 'only on what is wrong'. No 'blame' hit anywhere in the TC 25-20 deep ref.",
+      "fix": "correct: \"TC 25-20 opposes grading and critique ('does not grade success or failure' [V]); the NHS guide opposes defaulting to the individual; the TC supplies the discovery-over-critique frame, the NHS guide the individual-vs-system diagnostic\""
+    },
+    {
+      "id": "D008",
+      "line": 110,
+      "section": "Integration with Other References (OpenStax OB)",
+      "claim": "\"OB's attribution-bias vocabulary (fundamental attribution error, actor-observer bias)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept mis-cited to the wrong corpus source",
+      "evidence": "OB deep 81: fundamental attribution error [V] and self-serving bias (Ch 3.3). 'actor-observer' is absent from the OB deep ref and appears only in openstax-psychology-2e-deep.md.",
+      "fix": "correct: \"OB's attribution-bias vocabulary (fundamental attribution error, self-serving bias)\""
+    }
+  ],
+  "notes": "All [V]-marked quotations match the converted source except where D001 notes the altered wording. The Reason/NPSA attribution is carried as '[V] (Footer) [BT]' (line 114), matching the deep ref. Integration rows checked: LFUO (Five Hows, deep 145-160; networked causality, deep 17 — supported), Approach Perfect Field Guide (Kerth's Prime Directive, deep 218-223 — supported), Psychology 2e (fundamental attribution error, deep 273-277 — supported), Open Practice Library (Blameless Postmortem, deep 237 — supported), TC 25-20 (D007), OB (D008). The 'Frame to bring' one-liner 'singling out an individual is rarely appropriate' [V] is a verbatim substring and is faithful; the problem is only the 'most issues' variant."
+}

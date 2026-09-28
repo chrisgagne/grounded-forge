@@ -1,0 +1,113 @@
+{
+ "slug": "open-practice-library",
+ "changed_lines_checked": 174,
+ "tally": {
+  "faithful": 167,
+  "minor_drift": 8,
+  "unsupported": 2,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/open-practice-library-deep.md",
+   "line": 128,
+   "text": "where they carry tags at all, the tag is mostly `methods` (Pair Programming adds `culture`; Container and Defence in Depth carry no tags) (practice frontmatter)",
+   "grade": "MINOR-DRIFT",
+   "problem": "The parenthetical reads as the complete list of exceptions but is not. Within the sub-cluster it describes, Ping-Pong Programming, Mob Programming and ADR carry `culture` only, C4 Architecture carries `insight`, `culture`, `learn`, Wheel-of-Misfortune carries `learn`, `culture`, `methods`, and Emerging Architecture and Fire Drills also carry no tags. 'Mostly methods' itself holds (11 of 15 tagged pages).",
+   "evidence": "source metadata lines: Ping-Pong Programming (5789) tags: `culture`; Mob Programming (4623) tags: `culture`; ADR (213) tags: `culture`; C4 Architecture (656) tags: `insight`, `culture`, `learn`; Wheel-of-Misfortune (9223) tags: `learn`, `culture`, `methods`; Emerging Architecture (1654) and Fire Drills (2076) carry no tags field",
+   "fix": "correct: where they carry tags at all, the tag is mostly `methods`; the pairing, mobbing, C4, ADR and Wheel-of-Misfortune pages also or instead carry `culture`, and Container, Defence in Depth, Emerging Architecture and Fire Drills carry no tags (practice frontmatter)"
+  },
+  {
+   "file": "corpus.commons/demo/references/open-practice-library-deep.md",
+   "line": 217,
+   "text": "A framework that \"categorizes situations into five domains: Clear, Complicated, Complex, Chaotic, Confused/Aporetic\" [AP]",
+   "grade": "MINOR-DRIFT",
+   "problem": "Pre-existing, on a changed line: quotation marks around a compressed list that is not verbatim (the source lists each domain with its description on separate bullets). Quotation marks with [AP] read as a quotation.",
+   "evidence": "source 17726-17739: 'The Cynefin Framework is a sense-making model that categorizes situations into five domains: * **Clear**: Cause-and-effect ... * **Confused/Aporetic**: ...'",
+   "fix": "correct: A framework that categorizes situations into five domains (Clear, Complicated, Complex, Chaotic, Confused/Aporetic) [AP]"
+  },
+  {
+   "file": "corpus.commons/demo/references/open-practice-library-deep.md",
+   "line": 326,
+   "text": "\"A computer can never be held accountable, therefore a computer must never make a management decision\" [BT] (Practice \"Human in the loop\", \"Why do it?\") [BT to a 1979 IBM internal training slide]",
+   "grade": "EDIT-DEFECT",
+   "problem": "The [V]->[BT] swap left a doubled marker: [BT] then [BT to ...] on the same quotation.",
+   "evidence": "source 2821: 'As a widely cited [IBM internal training slide from 1979](...) put it: *\"A computer can never be held accountable, therefore a computer must never make a management decision.\"*'",
+   "fix": "correct: \"A computer can never be held accountable, therefore a computer must never make a management decision\" [BT to a 1979 IBM internal training slide] (Practice \"Human in the loop\", \"Why do it?\")"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/open-practice-library-aar.md",
+   "line": 26,
+   "text": "\"1-2-4-All is a way for every member of a large group to participate and generate ideas together.\" [V] ... (Source: Practice \"1-2-4-All\", \"Why do it?\")",
+   "grade": "MINOR-DRIFT",
+   "problem": "Locator incomplete: the first quotation is from 'What is it?' but only 'Why do it?' is cited. The repair added the missing 'What is it?' locator on the parallel lines 14 and 18 but not here.",
+   "evidence": "deep ref line 90: (Practice \"1-2-4-All\", \"What is it?\") for the first quote, (\"Why do it?\") for the HiPPO quote; source 1-2-4-All 'What is it?' section",
+   "fix": "correct: (Source: Practice \"1-2-4-All\", \"What is it?\", \"Why do it?\")"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/open-practice-library-aar.md",
+   "line": 133,
+   "text": "its Blameless Postmortem offers a brief meeting structure that follows the incident's timeline but no reconstruction protocol",
+   "grade": "UNSUPPORTED",
+   "problem": "True to the source, but the deep ref does not carry it: the deep ref's Blameless Postmortem entry (line 240) has only the definition, the unnamed-speaker quotation and the two foundations; nothing on the meeting following the timeline. The audit fix (D014) was applied to the distillation without cycling to the deep ref.",
+   "evidence": "source 19826 ('How to do it?'): 'Meeting course should be structured in a way that follows the timeline of the incident . Participants go through each item, starting with how the incident was identified, what actions have been taken etc.'; deep ref line 240 silent on it",
+   "fix": "correct (deep ref line 240, append): The meeting then walks the incident in order: \"Meeting course should be structured in a way that follows the timeline of the incident\" [V] (Practice \"Blameless Postmortem\", \"How to do it?\")."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/open-practice-library-aar.md",
+   "line": 57,
+   "text": "Five Whys: \"Keep asking 'why' until you find the real reason\" — and redirect to process failure rather than resource shortage.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error class the repair fixed on lines 14, 18 and 26 (unmarked verbatim quotation), still present on an unchanged line: the quotation drops 'You' and recapitalises, and carries no marker.",
+   "evidence": "source 2148-2149 / deep ref line 96: 'You keep asking \"why\" until you find the real reason' [V]",
+   "fix": "correct: Five Whys: \"You keep asking 'why' until you find the real reason\" [V] — and redirect to process failure rather than resource shortage."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/open-practice-library-decision-making.md",
+   "line": 20,
+   "text": "*Design of Experiments* is offered as the alternative to placing bets on ROI or investment analysis: it is \"the practice we use to ...\" [V]",
+   "grade": "UNSUPPORTED",
+   "problem": "The ROI/investment-analysis framing is true to the source but is not in the deep ref (line 215 carries only the definition, the design fields, the contrarian and the prioritisation pairing). The audit fix D005 asked only for the [V] quotation; the repair added the framing without cycling it to the deep ref.",
+   "evidence": "source 17852-17857 ('What is it?'): 'In traditional approaches one will place the bets based on some form of ROI analysis or investments analysis ... The Design of Experiments is an alternative to this approach'; deep ref line 215 silent on it",
+   "fix": "correct: *Design of Experiments* is \"the practice we use to turn ideas, hypothesis and/or assumptions into concrete well defined set of experiments which can be carried out in order to validate those ideas, hypothesis and assumptions\" [V] (Source: Practice \"Design of Experiments\", \"What is it?\"). (Or cycle to deep: add to deep ref line 215 'The practice presents itself as \"an alternative to\" placing bets \"based on some form of ROI analysis or investments analysis\" [V] (Practice \"Design of Experiments\", \"What is it?\").')"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/open-practice-library-decision-making.md",
+   "line": 124,
+   "text": "HiPPO (Highest Paid Person's Opinion) pattern — \"No more HiPPOs!\" is the explicit OPL framing.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error class the repair fixed on lines 26, 35 and 146 (unmarked quotation), still present on an unchanged line; the quotation also drops the parenthetical without an ellipsis.",
+   "evidence": "source 1-2-4-All 'Why do it?' / deep ref line 90: 'No more HiPPOs (Highest Paid Person's Opinion)!' [V]",
+   "fix": "correct: HiPPO pattern — \"No more HiPPOs (Highest Paid Person's Opinion)!\" [V] is the explicit OPL framing."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/open-practice-library-retro.md",
+   "line": 73,
+   "text": "Five Whys: \"Keep asking 'why' until you find the real reason\" — redirect from resources to process failure.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error class the repair fixed on lines 14, 16, 18, 28 and 34 (unmarked verbatim quotation), still present on an unchanged line: the quotation drops 'You', recapitalises, and carries no marker.",
+   "evidence": "source 2148-2149 / deep ref line 96: 'You keep asking \"why\" until you find the real reason' [V]",
+   "fix": "correct: Five Whys: \"You keep asking 'why' until you find the real reason\" [V] — redirect from resources to process failure."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/open-practice-library-software-business.md",
+   "line": 212,
+   "text": "The practice lists the team, stakeholders and product owners as participants and names no author (Source: Practice \"Architectural Decision Records (ADR)\", frontmatter)",
+   "grade": "MINOR-DRIFT",
+   "problem": "Cited to the frontmatter, 'names no author' reads as a statement about the page, but the ADR frontmatter does carry an authors field (InfoSec812). The deep ref (line 125) scopes the point correctly: the page names no author 'for the record', i.e. it does not say who writes an ADR.",
+   "evidence": "source 213: 'authors: InfoSec812; participants: The Team, Stakeholders, Product Owners.'; deep ref line 125: 'the page names no author for the record'",
+   "fix": "correct: The practice lists the team, stakeholders and product owners as participants (Source: Practice \"Architectural Decision Records (ADR)\", frontmatter) and does not say who writes the record;"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/open-practice-library-stakeholder-engagement.md",
+   "line": 16,
+   "text": "preceded by a brainstorming round considering \"people or groups that are impacted, can support, can delay if involved too late, are decision makers, are in the operations of the new process/tool when deployed, have been involved with a similar project in the past\" (Source: Practice \"Stakeholder Map\", \"Round 1\")",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error class the repair fixed on lines 18, 26, 28, 32 and 34 (unmarked quotation), still present on an unchanged line: the source's six numbered list items are lowercased and run together into one sentence inside quotation marks, with no marker. The deep ref (line 163) now carries the items individually as [V].",
+   "evidence": "source 15049-15061: 'Consider people or groups that > 1. Are impacted > 2. Can support > 3. Can delay if involved too late > 4. Are decision makers > 5. Are in the operations of the new process/tool when deployed > 6. Have been involved with a similar project in the past'",
+   "fix": "correct: preceded by a brainstorming round that considers people or groups that are impacted, can support, can delay if involved too late, are decision makers, are in the operations of the new process/tool when deployed, or have been involved with a similar project in the past (Source: Practice \"Stakeholder Map\", \"How to do it?\", \"Round 1\")"
+  }
+ ],
+ "notes": "Complete. Read in full: deep ref (340 lines), light ref (stamp-only change), all five distillations, and every cited source passage (converted source searched with /usr/bin/grep -F, practice pages read in context). Changed lines checked: deep ref 41, aar 18, decision-making 27, retro 24, software-business 33, stakeholder-engagement 27, index rows 4 (retro x2, stakeholder-engagement x2; all FAITHFUL with the right column counts). 7 of the 174 changed lines are non-FAITHFUL; the tally also counts 4 findings on unchanged lines where an error class the repair fixed elsewhere survives (aar 57, decision-making 124, retro 73, stakeholder-engagement 16). Every audit finding in the five _audit/distillations-2026-09-27 records was addressed (aar D001-D017, decision-making D001-D032, retro D001-D019, software-business D001-D031, stakeholder-engagement D001-D028). vflags: both MISS items are FAITHFUL. retro line 18 (Five Whys): the source wraps 'Taiichi Ohno' in a markdown link (source 2149-2150). software-business line 36 (Evals): the source has a markdown link around 'Test Automation' and a converter artefact that renders the dash before 'giving you confidence' as a bullet (source 1822-1828); no word differs. Other mechanical MISSes in the deep ref were also FAITHFUL: zero-width no-break spaces inside words ($100 Prioritisation 'When'/'Prioritising', Stakeholder Mapping 'The'), markdown links (Design of Experiments, Emotional Journey), and the source's own typo 'asan'. Removals justified: 'Schwaber & Sutherland' (deep ref, software-business) and 'Mulago Foundation' (stakeholder-engagement) do not occur in the converted source; Test Automation and TDD moved from the Delivery row to Foundation match their mobiusTag. Integration claims checked against other deep refs: liberating-structures-handbook (1-2-4-Whole Group, groups of 4-6), scrum-guide-2020 (five events, Sprint as container), approach-perfect-field-guide (six segments, 90 minutes), open-kanban (batch size, WIP as consequence), openstax-business-ethics (Donaldson-Preston taxonomy), openstax-principles-management (stakeholder management, Hofstede, GLOBE), tc-25-20 (US Army); all FAITHFUL. Dependency: stakeholder-engagement line 220 gives the deep ref's marker counts (149 [V], 46 [AP], 16 [AR], 3 [AE], 14 bare [BT], 20 [BT to ...]); these match now, but fixing the doubled [BT] at deep ref line 326 makes the bare [BT] count 13."
+}

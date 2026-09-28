@@ -1,0 +1,279 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/openstax-economics-3e-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-188 of 188",
+    "deep": "lines 1-582 of 582",
+    "complete": true
+  },
+  "claims_audited": 122,
+  "tally": {
+    "faithful": 96,
+    "minor_drift": 25,
+    "unsupported": 1,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "The text supplies a vocabulary ... expected value, discounted present value ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept not carried by deep ref",
+      "evidence": "Deep ref has no expected-value or present-discounted-value content (PDV appears only in the Structure line 7 listing of Appendix C). Converted source defines PDV at App C (lines 50697-50710) and Ch 17.2 (24276-24282); insurance premiums priced on probability of events (22917).",
+      "fix": "cycle-to-deep: add App C PDV definition ('the amount you should be willing to pay in the present for a stream of expected future payments') and Ch 16.2 premium-pricing-on-probability passage to the deep ref"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "small changes matter more than averages",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened paraphrase",
+      "evidence": "Deep 53: marginal analysis, choices incremental not all-or-nothing. Source 2617-2620 contrasts marginal change with total costs and total benefits, not averages.",
+      "fix": "correct: changes at the margin matter more than totals"
+    },
+    {
+      "id": "D003",
+      "line": 18,
+      "section": "Key Concepts #2 Opportunity cost",
+      "claim": "The cost of any choice is the value of the next-best foregone alternative, not the cash outlay.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated; source says cash price may not capture full opportunity cost, not that cash is excluded",
+      "evidence": "Deep 47-49: opportunity cost extends beyond monetary cost; college has out-of-pocket costs plus lost earnings. Source 2560: 'sometimes the price as measured in dollars may not accurately capture the true opportunity cost'.",
+      "fix": "correct: The cost of any choice is the value of the next-best foregone alternative, which the cash outlay alone may not capture."
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts #2 Opportunity cost",
+      "claim": "Time spent waiting in a longer security queue has an opportunity cost that may exceed the security benefit",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "comparison misstated",
+      "evidence": "Deep 49: $3bn/yr sky marshals vs ~$8bn/yr opportunity cost of passenger waiting time. Source 2590: waiting time is 'the single biggest cost of greater airline security'. The source compares waiting cost with direct spending, not with the security benefit.",
+      "fix": "correct: Time spent waiting in longer security queues can cost more than the direct spending on security (about $8bn a year against $3bn for sky marshals)"
+    },
+    {
+      "id": "D005",
+      "line": 22,
+      "section": "Key Concepts #4 Sunk costs",
+      "claim": "Firms and individuals systematically violate this.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "Deep 57: 'many firms find it hard to abandon failing products'. Source 2685-2687: 'dealing with sunk costs can be frustrating... Many firms, for example, find it hard to give up on a new product that is doing poorly'.",
+      "fix": "correct: People and firms often find this hard; many firms struggle to drop a failing product because of what they spent launching it."
+    },
+    {
+      "id": "D006",
+      "line": 24,
+      "section": "Key Concepts #5 Diminishing marginal utility",
+      "claim": "the marginal value of the tenth unit is rarely ten times the marginal value of the first",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept misstated (garbled implication)",
+      "evidence": "Deep 55: marginal utility from each additional unit declines. The implication should concern total value of ten units, not the tenth unit's marginal value. Source 2640: DMU 'explains why people and societies rarely make all-or-nothing choices'.",
+      "fix": "correct: the total value of ten units is rarely ten times the value of the first, because each added unit is worth less than the one before"
+    },
+    {
+      "id": "D007",
+      "line": 26,
+      "section": "Key Concepts #6 Budget constraint and PPF",
+      "claim": "movement in any direction has a cost in some other dimension",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overgeneralised",
+      "evidence": "Deep 61-63: the PPF shows productively efficient combinations; productive efficiency means more of one good requires less of another. Movement from an interior (inefficient) point toward the frontier carries no such cost.",
+      "fix": "correct: movement along the frontier has a cost in some other dimension"
+    },
+    {
+      "id": "D008",
+      "line": 32,
+      "section": "Key Concepts #9 Elasticity and tax incidence",
+      "claim": "If your demand is inelastic, sellers can pass cost increases on to you. If your supply is inelastic..., buyers can extract price reductions. Elasticity is therefore a power asymmetry indicator.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "deep carries tax incidence only; 'power asymmetry indicator' is the distillation's framing under a source citation",
+      "evidence": "Deep 111: tax incidence falls on the more inelastic side. Source 7475-7477 (Ch 5.3) supports cost pass-through with inelastic demand; nothing supports 'buyers can extract price reductions' or a power framing.",
+      "fix": "correct: If demand is inelastic, sellers can pass cost increases (including taxes) on to buyers; if supply is more inelastic than demand, sellers bear most of a tax. Strip 'power asymmetry indicator'. cycle-to-deep: Ch 5.3 'Elasticity also reveals whether firms can pass higher costs that they incur on to consumers.'"
+    },
+    {
+      "id": "D009",
+      "line": 36,
+      "section": "Key Concepts #11 Profit-maximisation rules",
+      "claim": "MR = MC for monopoly, monopolistic competition, and oligopoly",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "oligopoly rule not in deep or source; citation omits Ch 10.2",
+      "evidence": "Deep 153 (monopoly MR=MC), 159 (monopolistic competition MR=MC), 161 (oligopoly outcome depends on whether firms compete or collude; cartel acts as monopoly). Source Ch 10.2 (14421-14530) states no MR=MC rule for oligopoly.",
+      "fix": "correct: MR = MC for monopoly and monopolistic competition; oligopoly outcomes depend on whether firms collude (acting as a monopoly) or compete (Ch 10.2)"
+    },
+    {
+      "id": "D010",
+      "line": 38,
+      "section": "Key Concepts #12 Expected value, risk, asymmetric information",
+      "claim": "expected value (probability-weighted outcome) is the calculation; risk-adjustment depends on risk preferences",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept not in deep; 'risk preferences' not in source",
+      "evidence": "Deep 239: premiums equal expected payouts plus costs; no expected-value decision rule. Source 22917: premiums priced 'based on the probability of certain events occurring among a pool of people'. No source passage on risk preferences or risk aversion (grep 'averse', 'risk preference' empty).",
+      "fix": "correct: Insurers price premiums on the probability of events across a pool (expected payouts). Strip 'risk-adjustment depends on risk preferences'."
+    },
+    {
+      "id": "D011",
+      "line": 42,
+      "section": "Key Concepts #14 Time-inconsistency and intertemporal choice",
+      "claim": "PDV translates future costs and benefits; discount rates encode time preference; behavioural research finds people systematically too impatient relative to long-run-rational discounting; pre-commitment is the standard mitigation (Ch 17, App C)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "deep carries none of this; behavioural sentence loosens the source's self-control material",
+      "evidence": "Deep has no PDV content. Source App C (50697-50710) and Ch 17.2 (24276-24282) define PDV using an interest rate (no 'time preference'). Source Ch 6.3 (9042-9052) describes lack of self-control (locks on fridges, overpaying taxes to force saving, procrastination on retirement enrolment, nudges), not discounting.",
+      "fix": "cycle-to-deep: App C PDV definition. correct: 'People often lack self-control and pay to constrain their future choices; nudges such as automatic enrolment help (Ch 6.3).' Strip 'time preference' and 'long-run-rational discounting'."
+    },
+    {
+      "id": "D012",
+      "line": 44,
+      "section": "Key Concepts #15",
+      "claim": "Three macroeconomic goals and the policy-tool trilemma",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "coined concept name not in source; collides with the open-economy 'trilemma'",
+      "evidence": "Deep 279: three macroeconomic goals. 'Trilemma' does not appear in the source.",
+      "fix": "correct: Three macroeconomic goals and the tradeoffs among them"
+    },
+    {
+      "id": "D013",
+      "line": 85,
+      "section": "Questions, Phase 4",
+      "claim": "Use expected value when probabilities matter... Have I adjusted for my risk tolerance separately from the calculation?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise not in deep; risk tolerance not in source",
+      "evidence": "As D010. Source 22917 supports probability-based pricing only.",
+      "fix": "cycle-to-deep (Ch 16.2 premium pricing); strip the risk-tolerance clause"
+    },
+    {
+      "id": "D014",
+      "line": 86,
+      "section": "Questions, Phase 4",
+      "claim": "Converted future costs and benefits to PDV at an appropriate discount rate? rational long-run preferences or short-run impatience?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise not in deep",
+      "evidence": "As D011: PDV only in source App C / Ch 17.2; impatience framing not in source.",
+      "fix": "cycle-to-deep: App C PDV; correct 'short-run impatience' to 'lack of self-control'"
+    },
+    {
+      "id": "D015",
+      "line": 102,
+      "section": "Questions, Phase 6",
+      "claim": "Distinguish bad outcome from bad decision... Don't punish a sound expected-value calculation for a single unlucky draw",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise not in deep; source supports only loosely",
+      "evidence": "Deep carries nothing on luck vs choice. Source 22950-22952 (Ch 16.2): 'adverse events occur out of a combination of people's characteristics and choices that make the risks higher or lower and then the good or bad luck of what actually happens.'",
+      "fix": "cycle-to-deep: Ch 16.2 'good or bad luck' passage; drop 'expected-value calculation' wording unless D010 is cycled"
+    },
+    {
+      "id": "D016",
+      "line": 127,
+      "section": "When to Use This Reference",
+      "claim": "A behavioural-bias risk (loss aversion, mental accounting, present bias)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong concept name",
+      "evidence": "Deep 123: loss aversion, mental accounting, lack of self-control, failure of fungibility. 'Present bias' is not in the source.",
+      "fix": "correct: present bias -> lack of self-control"
+    },
+    {
+      "id": "D017",
+      "line": 133,
+      "section": "Worked Example",
+      "claim": "Framework applications throughout the worked example (opportunity cost, sunk-cost test, marginal analysis, comparative advantage)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "uncited; no verbatim blockquote",
+      "evidence": "Projection protocol requires each substantive framework claim in the example to cite chapter and section, and a [V] blockquote where the source's words carry the turn. The example cites nothing; the sunk-cost turn rests on the deep's audited [V] 'the lesson of sunk costs is to forget...' (deep 57).",
+      "fix": "correct: add (Ch 2.1, \"Sunk Costs\"), (Ch 2.1), (Ch 2.2, \"The PPF and Comparative Advantage\") citations and a [V] blockquote of the sunk-cost lesson copied from deep 57"
+    },
+    {
+      "id": "D018",
+      "line": 145,
+      "section": "Worked Example, Reviewing",
+      "claim": "Do not punish a sound decision for an unlucky draw; do not reward sunk-cost defence for a lucky one.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise not in deep",
+      "evidence": "As D015.",
+      "fix": "cycle-to-deep: Ch 16.2 'good or bad luck' passage"
+    },
+    {
+      "id": "D019",
+      "line": 158,
+      "section": "Anti-patterns",
+      "claim": "Overconfidence in narrow rationality... assume away loss aversion, present bias, and mental accounting",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong concept name",
+      "evidence": "Deep 123 names lack of self-control, not present bias.",
+      "fix": "correct: present bias -> lack of self-control"
+    },
+    {
+      "id": "D020",
+      "line": 159,
+      "section": "Anti-patterns",
+      "claim": "Conflating bad outcome with bad decision (as an anti-pattern this reference helps avoid)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise not in deep",
+      "evidence": "As D015; source Ch 16.2 22950-22952 only.",
+      "fix": "cycle-to-deep: Ch 16.2 'good or bad luck' passage, or strip"
+    },
+    {
+      "id": "D021",
+      "line": 168,
+      "section": "Integration",
+      "claim": "Bounded rationality (Simon): real decision-makers ... satisfice rather than optimise, and use heuristics",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "claim about another corpus source not in its deep ref; row does not name the corpus reference",
+      "evidence": "OB deep 185 and 688 carry bounded rationality (Simon, BT) and 179/187 carry heuristics; 'satisfic' absent from OB deep. OB converted source 8527 defines satisficing.",
+      "fix": "correct: name the row 'OpenStax Organizational Behavior, Ch 6.4 (bounded rationality, citing Simon)'. cycle-to-deep (OB deep): Ch 6.3 satisficing definition"
+    },
+    {
+      "id": "D022",
+      "line": 170,
+      "section": "Integration",
+      "claim": "Public-choice theory (Buchanan, Tullock; Downs)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "names authors the source does not cite",
+      "evidence": "Buchanan and Tullock appear in neither source nor deep. Source 25402 labels Ch 18 topic 'public choice'; deep 267 carries Downs.",
+      "fix": "correct: Public-choice theory (Downs, via Ch 18). cycle-to-deep: Ch 18 intro 'public choice, a subtopic of microeconomics'"
+    },
+    {
+      "id": "D023",
+      "line": 179,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "Kahneman and Tversky — cited for loss aversion, mental accounting, and behavioural anomalies (Ch 6.3)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misattribution",
+      "evidence": "Deep 123 and 534: K&T cited for loss aversion only. Source 9035-9037: loss aversion 'according to the economists Daniel Kahneman and Amos Tversky'; mental accounting (9056) is attributed to behavioural economists generally.",
+      "fix": "correct: cited for loss aversion (Ch 6.3; also Ch 16.1)"
+    },
+    {
+      "id": "D024",
+      "line": 184,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "David Ricardo — cited for comparative advantage and trade theory (Ch 2.2, Ch 33) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited chapter",
+      "evidence": "Deep 528: Ch 33.1. Ricardo first appears in the source at 44135 (Ch 31.3) and 46186 (Ch 33.1); not in Ch 2.2 (2936-2981).",
+      "fix": "correct: (Ch 33.1)"
+    },
+    {
+      "id": "D025",
+      "line": 188,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "cost-per-protected-job figures for textiles, sugar, and dairy ... are [BT]-marked in the deep ref",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misdescribes deep-ref markers",
+      "evidence": "Deep 476 carries the figures unmarked; deep key-statistics table 515-516 marks sugar and textiles [V]; dairy is not in the table. Source 47862-47891 attributes them to the Federal Reserve Bank of Dallas.",
+      "fix": "correct: cost-per-job figures are carried in the deep ref as [V] table values (Table 34.2, compiled by the Federal Reserve Bank of Dallas); the cigarette elasticity is [BT]"
+    },
+    {
+      "id": "D026",
+      "line": 172,
+      "section": "Integration",
+      "claim": "Coase / property rights: Ch 12 covers the Coase theorem. ... well-defined property rights and low transaction costs may permit private negotiation; for high transaction-cost cases, regulatory or market-based interventions are needed.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "inherited deep-ref defect: the deep ref's Coase statement is not in the source",
+      "evidence": "Deep 181 says Coase (1960) argued that with clear property rights and low transaction costs parties can negotiate efficient outcomes regardless of which party holds the rights. The source's Coase passage (Ch 12.3, 'Better-Defined Property Rights', lines 16841-16859) has no transaction costs, negotiation, 'regardless of which party' or 1960: it says that once a property right is clearly defined, the responsible party 'will seek out and pay for the least costly method of reducing the risk', and 'The property right determines whether the farmer or the railroad pays the bills.' The source uses 'transaction costs' only in finance contexts (37984, 24729, 47592).",
+      "fix": "deep-fix: replace deep 181's Coase sentence with the source's property-rights account. Then correct: 'Ch 12.3 presents Coase's property-rights approach: until property rights are clearly defined the parties may squabble and nothing is done; once they are, the responsible party finds the least costly way to reduce the harm.'"
+    }
+  ],
+  "notes": "Figures (protection cost per job $199K/$826K/$685K; loss aversion 2.25; Ch 3.3 four-step process) all check against deep and source. All [V] quotations match the converted source word for word; the Ch 1.1 'time- everyone' hyphen is rendered as an em dash, punctuation only. The Coase row (D026) is graded against the source because the deep ref's own Coase-theorem sentence (deep 181) has no source support. Integration rows for OpenStax OB (reflective/reactive, six barriers, six-step process) and Business Ethics (utilitarian, deontological, virtue, justice) match those deep refs. Structural: no verbatim blockquotes anywhere (inline [V] only), and Key Concepts runs to 15 items against the protocol's 8-12. Named-limits paragraph is the distillation's assessment rather than author-flagged limits, but no source passage contradicts it. Most drift clusters around expected value, PDV and present bias: concepts the source holds (Ch 16.2, Ch 17.2, App C, Ch 6.3) but the deep ref does not, so the fix is mainly cycle-to-deep."
+}

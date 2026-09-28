@@ -1,0 +1,220 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/letaw-handbook-sweng-methods-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-113 of 113",
+    "deep": "lines 1-392 of 392 (corpus.commons/demo/references/letaw-handbook-sweng-methods-deep.md)",
+    "complete": true,
+    "other": "projection-protocol.md read in full (139 lines). Converted source checked at the passages behind every quotation and contested claim: Tuckman stages 993-1017; ground rules 1020-1073; RACI 1075-1182; fist of five 1184-1219; HPE survey 630-657; Ch 8 code smells in full 3600-4019; design for failure 2935-2945. nhs-just-culture-guide-deep.md checked for the five-test tree and Q3 wording (lines 7-70); jones-evidence-based-sweng-deep.md thesis (lines 1-20) checked for the integration row."
+  },
+  "claims_audited": 96,
+  "tally": {
+    "faithful": 76,
+    "minor_drift": 11,
+    "unsupported": 3,
+    "contradicted": 6
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "The Handbook ... names methods, not theories, and each method is framed as a risk-reduction move. (Source: Ch 2, opening)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Chapter-level framing generalised to the whole book",
+      "evidence": "Deep ref line 19: 'Chapter 2 frames each of its methods as a way to manage the probability of negative project outcomes (other chapters frame their methods around requirements, communication, architecture, usability, and maintainability)'. The deep ref explicitly limits the risk framing to Ch 2.",
+      "fix": "correct: The Handbook projects onto the software-incident AAR as a *practitioner toolkit*: it names methods, not theories, and its project-management chapter frames each of its methods as a risk-reduction move. (Source: Letaw, *Handbook of Software Engineering Methods*, Ch 2, opening)"
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "the twelve named code smells as a shared vocabulary for design-debt contributors",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321 enumerate 4 comment smells + 3 function smells + 4 general-code smells = 11. Converted source 8.6 Summary (lines ~3990-4018) lists the same 11.",
+      "fix": "correct: the eleven named code smells"
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Key Concepts #1",
+      "claim": "The RACI matrix defines \"who is Responsible (R), Accountable (A), Consulted (C), or Informed (I)\" ... \"If your team doesn't know who needs to do what (or forgets, or can plausibly deny knowing), that can increase the probability of negative events\" ... [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotations under a [V] marker are not word for word",
+      "evidence": "Deep ref line 73 / source 1078-1079: 'a chart for defining who is responsible (R) and accountable (A) for a task or deliverable, and who should be consulted (C) or informed (I)'. The distillation's first quote is a reworded list. Source 1180-1181: 'that can increase the probability of a negative events and outcomes' — the distillation drops 'a' and cuts 'and outcomes' inside the quote marks without an ellipsis.",
+      "fix": "correct: The RACI matrix is \"a chart for defining who is responsible (R) and accountable (A) for a task or deliverable, and who should be consulted (C) or informed (I)\" [V]. The risk it addresses directly: \"If your team doesn't know who needs to do what (or forgets, or can plausibly deny knowing), that can increase the probability of a negative events and outcomes\" [V]"
+    },
+    {
+      "id": "D004",
+      "line": 12,
+      "section": "Key Concepts #1",
+      "claim": "During an AAR, building the RACI for the moment of failure often reveals that the R and A cells were empty or doubled.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Unsourced frequency claim; 'doubled' presented as a defect the source does not treat as one",
+      "evidence": "No frequency claim in the deep ref. The source's own example matrix (lines 1082-1165) assigns two Accountables to one task (Requirements specification: Frontend Lead A/I and Backend Lead A/I; Implementation: Frontend Lead A and Backend Lead A) and notes 'One person might have multiple roles' (1167). The source does not treat multiple As as a failure.",
+      "fix": "correct: During an AAR, building the RACI for the moment of failure shows whether anyone held the R and A cells for the step that failed."
+    },
+    {
+      "id": "D005",
+      "line": 14,
+      "section": "Key Concepts #2",
+      "claim": "A two-or-fewer response blocks progress and opens a conversation.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rule hardened; only a fist 'blocks' in the source; rule not in the deep ref (re-extracted or inferred)",
+      "evidence": "Deep ref line 75 encoding: only 'None — Strong reject, blocks consensus'; One = 'major issues need resolving now'; Two = 'minor issues need resolving now'. The two-or-fewer rule is not in the deep ref. Source 1206-1208: 'If anyone suggests rejecting ... by holding up two or fewer fingers, the team can stop, discuss, make changes, and vote again until there's sufficient consensus. It's up to the team or its leader to decide how much consensus is needed.' The distillation's own worked example (line 87) says two fingers is 'not a block', so the file contradicts itself.",
+      "fix": "correct: A fist blocks consensus; one or two fingers are rejects whose issues 'need resolving now', so the team can stop, discuss, change the proposal and vote again. (Cycle-to-deep: add the source's two-or-fewer stop-and-revote rule, Ch 2.4.3, to the deep ref.)"
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Key Concepts #3",
+      "claim": "Twelve named code smells as design-debt vocabulary ... Four families: comments (...); functions (...); code in general (...)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Counts wrong: 11 smells in 3 families; the line itself lists 11 names in 3 families",
+      "evidence": "Deep ref lines 297-321: comments (4), functions (3), code in general (4). Source Ch 8 opening 'Types of codes smells we'll cover': comments, functions, general code — three types.",
+      "fix": "correct: **Eleven named code smells as design-debt vocabulary.** ... Three families: comments (...); functions (...); code in general (...)."
+    },
+    {
+      "id": "D007",
+      "line": 20,
+      "section": "Key Concepts #5",
+      "claim": "Teams in Storming \"resist group influence, peers, peers' ideas, and tasks\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Deep ref's [AP] paraphrase set in quotation marks as if verbatim",
+      "evidence": "Deep ref line 67 gives the Storming description as paraphrase, marked [AP] [BT]. Source 1003: 'Team members resist group influence, their peers, their peers' ideas, and tasks.'",
+      "fix": "correct: Teams in Storming resist group influence, their peers, their peers' ideas, and tasks [AP] [BT]"
+    },
+    {
+      "id": "D008",
+      "line": 43,
+      "section": "Questions — Phase 2",
+      "claim": "Which of the twelve named code smells were present in the code that failed?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong (premise embedded in question)",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: Which of the eleven named code smells were present in the code that failed?"
+    },
+    {
+      "id": "D009",
+      "line": 59,
+      "section": "Questions — Phase 4",
+      "claim": "Build a RACI for each action before adjourning; the Accountable cell must be a named individual, not a team or role.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Applied rule rests on a single-named-Accountable premise the source does not give",
+      "evidence": "Deep ref line 73 defines A as 'Who will approve the work and make sure it gets done' with no single-person or no-role rule. The source's own example (1082-1165) fills the A cells with roles (Frontend Lead, Backend Lead, Team Lead) and puts two As on one task. Same premise drives line 68 and anti-pattern line 91.",
+      "fix": "correct: Build a RACI for each action before adjourning, so everyone knows who will do the work and who will approve it and make sure it gets done (Ch 2.4.2). (If the facilitator wants a one-named-owner rule, mark it as the facilitator's practice, not Letaw's.)"
+    },
+    {
+      "id": "D010",
+      "line": 60,
+      "section": "Questions — Phase 4",
+      "claim": "Run fist of five before committing each action. A two-or-fewer response blocks; open the conversation rather than overriding it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same hardening as D005",
+      "evidence": "Source 1196-1208: only None 'Blocks consensus'; on two or fewer 'the team can stop, discuss, make changes, and vote again'; the needed level of consensus is the team's call.",
+      "fix": "correct: Run fist of five before committing each action. If anyone shows two or fewer fingers, stop, discuss, change the action and vote again rather than overriding the objection."
+    },
+    {
+      "id": "D011",
+      "line": 61,
+      "section": "Questions — Phase 4",
+      "claim": "Which of the twelve code smells does the action address?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: Which of the eleven code smells does the action address?"
+    },
+    {
+      "id": "D012",
+      "line": 68,
+      "section": "What to Look For",
+      "claim": "RACI gap: the Accountable cell is empty, the action will not happen",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source's probabilistic risk claim restated as certainty",
+      "evidence": "Deep ref line 73: an unclear who-does-what 'can increase the probability of a negative events and outcomes'.",
+      "fix": "correct: RACI gap: no one holds the Accountable cell, which raises the odds the action is dropped"
+    },
+    {
+      "id": "D013",
+      "line": 69,
+      "section": "What to Look For",
+      "claim": "Ask: which of the twelve named smells were present?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: Ask: which of the eleven named smells were present?"
+    },
+    {
+      "id": "D014",
+      "line": 70,
+      "section": "What to Look For",
+      "claim": "A fist-of-five vote is taken verbally ... | Verbal simultaneous reveal is impossible — social pressure has overridden honest signals | Require written or physical simultaneous reveal",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imports planning poker's simultaneous-reveal mechanism and a social-pressure causal claim into fist of five",
+      "evidence": "Deep ref line 75 and source 1190-1193: each person holds up a fist or up to five fingers; nothing about simultaneous reveal, written votes or social pressure. Simultaneous reveal belongs to planning poker (deep ref line 89, Ch 2.5.5).",
+      "fix": "correct: A fist-of-five check is taken verbally and everyone says \"fine\" | The method was not run: fist of five asks each person to show a level of agreement with a fist or up to five fingers (Ch 2.4.3) | Run it as the source describes, and treat any two-or-fewer as the cue to stop, discuss and re-vote"
+    },
+    {
+      "id": "D015",
+      "line": 71,
+      "section": "What to Look For",
+      "claim": "Tuckman regression: the team may have dropped from Performing to Forming or Storming",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Premise (stage regression) not in Letaw; it is in OpenStax OB, uncited here",
+      "evidence": "Letaw deep ref line 67 lists the five stages only; source 993-1017 has no regression claim ('Consider where each [method] might fit in to these stages (there's not just one answer)'). openstax-organizational-behavior-deep.md line 284: 'groups can regress to earlier stages when membership changes or scope changes' (Ch 9.1).",
+      "fix": "correct: Tuckman regression: a restructured team may have dropped back to Forming or Storming (OpenStax OB, Ch 9.1, 'Stages in Group Development'; stage names from Letaw Ch 2.4)"
+    },
+    {
+      "id": "D016",
+      "line": 93,
+      "section": "Anti-patterns",
+      "claim": "Running a fist-of-five-style check verbally, which allows social pressure to override honest signals.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same imported social-pressure premise as D014",
+      "evidence": "Source 1190-1219 and deep ref line 75: no discussion of social pressure or verbal voting.",
+      "fix": "correct: Replacing fist of five's show of fingers with a verbal \"any objections?\", which loses the graded 0-5 signal the method is built on."
+    },
+    {
+      "id": "D017",
+      "line": 104,
+      "section": "Integration with Other References",
+      "claim": "the Accountable cell in the RACI answers NHS Q3's \"did the individual knowingly depart from an agreed protocol?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Cross-source quote not verbatim, and the mapping lands on the wrong sub-question",
+      "evidence": "nhs-just-culture-guide-deep.md line 68: 3c is 'Did the individual knowingly depart from these protocols?'; 3a asks whether 'agreed protocols/accepted practice' exist. Letaw's A cell ('Who will approve the work and make sure it gets done', deep ref line 73) says who owned the task, which bears on 3a (was there agreed practice and ownership), not on whether someone knowingly departed (3c). The five-test description itself matches the NHS deep ref (line 7).",
+      "fix": "correct: this source provides the RACI the NHS foresight test (Q3) can use as input: a RACI built for the task shows whether agreed roles were in place (3a) before the tree asks whether anyone knowingly departed from them (3c)"
+    },
+    {
+      "id": "D018",
+      "line": 111,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The code-smells catalogue is a named set of twelve; the author does not claim it is exhaustive, and the literature contains additional named smells outside this set.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong; 'literature contains additional smells' is not in the deep ref",
+      "evidence": "Deep ref lines 297-321: 11 smells. Source 8.2 (after line ~3700): 'This is not an exhaustive list. You can find more advice in the references at the end of the chapter.' The deep ref carries neither sentence.",
+      "fix": "correct: The code-smells catalogue is a named set of eleven; the author says it 'is not an exhaustive list' and points to the chapter references (Fowler & Beck 2019; Shvets n.d.) for more. (Cycle-to-deep: add the not-exhaustive sentence, Ch 8.2.)"
+    },
+    {
+      "id": "D019",
+      "line": 113,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The RACI risk quotation is [V] in the deep ref; the distillation quotes it in Concept 1 with the [V] marker.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Continuity note certifies a quotation that was altered (see D003) and says nothing about the quoted [AP] Storming paraphrase (D007)",
+      "evidence": "See D003 and D007.",
+      "fix": "correct after D003 and D007 are applied; no separate wording change needed"
+    },
+    {
+      "id": "D020",
+      "line": 103,
+      "section": "Integration with Other References",
+      "claim": "Jones provides the empirical corrective for the beliefs underlying the methods this source names ... this source names the method, Jones names whether the belief backing it has empirical support",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Cross-source relationship overstated beyond what Jones's deep ref covers",
+      "evidence": "jones-evidence-based-sweng-deep.md line 149: 'The rarity of measurement data for any of the agile processes means this evidence-based book has little to say about them' [V]. Jones's deep ref has nothing on RACI, fist of five, INVEST or code smells. The row's narrower scoping ('when the incident involves metric targets or productivity assumptions') is supported: Jones treats the 28-to-1 productivity claim and Halstead/McCabe metrics as folklore (deep ref line 17).",
+      "fix": "correct: When the incident involves metric targets or productivity assumptions, Jones is the companion: he treats the 28-to-1 productivity claim and Halstead/McCabe complexity metrics as folklore (Ch 1; Ch 7.1.4). Jones says his book has little to say about Agile processes for lack of measurement data, so it does not rule on the methods this source names."
+    }
+  ],
+  "notes": "Main defect is the code-smell count: 'twelve' in six places, and 'four families' in Concept 3, where deep ref and source both give eleven smells in three families. The fist-of-five threshold is internally inconsistent (Concept 2 and Phase 4 say two-or-fewer 'blocks'; the worked example says two fingers is 'not a block'); the source reserves 'blocks consensus' for a fist and makes stop-and-revote on two-or-fewer optional. Two applied-guidance rows rest on premises from elsewhere: simultaneous reveal and social pressure (planning poker, not fist of five; UNSUPPORTED) and Tuckman regression (in OpenStax OB Ch 9.1, uncited here; MINOR-DRIFT). The single-named-Accountable rule clashes with the source's own example RACI, which assigns roles and two As per task. Integration rows: TC 25-20 and the NHS five-test structure match their deep refs; the NHS row maps RACI to the wrong Q3 sub-question (D017); the Jones row overstates Jones's reach, since Jones says he has little to say about Agile processes (D020). Grading convention: a claim the source supports but the deep ref lacks is graded MINOR-DRIFT with a cycle-to-deep fix; UNSUPPORTED is kept for claims neither the deep ref nor the source supports. Worked example is hypothetical, presents no outcome as the source's finding, and its fist-of-five reading (two fingers not a block) is the one that matches the source. No verbatim blockquotes in the worked example; the protocol asks for them only where the source's words carry the example."
+}

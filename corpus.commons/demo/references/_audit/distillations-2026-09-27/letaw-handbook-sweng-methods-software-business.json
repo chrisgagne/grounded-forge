@@ -1,0 +1,239 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/letaw-handbook-sweng-methods-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-254 of 254",
+    "deep": "lines 1-392 of 392 (corpus.commons/demo/references/letaw-handbook-sweng-methods-deep.md)",
+    "complete": true,
+    "other": "projection-protocol.md read in full. Converted source checked at: MSM Ch 2.3; Tuckman; RACI; fist of five; priority matrix Ch 2.5.2; estimation Ch 2.5.5; quality attributes Ch 3.5.1; elicitation Ch 3.4 ('bad for them'); TOCS Ch 5.5; Ch 8 in full; searches for 'Conway' and 'coordinat' (no hits). Other deep refs checked by targeted search: jones-evidence-based-sweng (real options, technical debt, cone of uncertainty, information asymmetry, KLOC, survival), openstax-accounting-vol2, openstax-principles-management (Mintzberg, six structures, PESTEL, five forces, Tannenbaum, generic strategies), openstax-principles-marketing, openstax-business-law, openstax-business-ethics (plus its converted source for 'Agle', 'salience', 'duty of care'), open-kanban, liberating-structures-handbook (plus converted source for 'disagree'), barbrook-johnson-systems-mapping, ssdl-systems-thinking-foundations, openstax-organizational-behavior (Ch 6.4 conflict), approach-perfect-field-guide-scrum-events; references/ directory listing for held sources."
+  },
+  "claims_audited": 220,
+  "tally": {"faithful": 188, "minor_drift": 9, "unsupported": 9, "contradicted": 14},
+  "findings": [
+    {
+      "id": "D001", "line": 8, "section": "Software-Business Relevance",
+      "claim": "every artefact (the project priority matrix, RACI, INVEST, the six-comparison monolith-vs-microservice grid, the twelve named code smells)",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 4 comment + 3 function + 4 general-code smells = 11; source 8.6 Summary lists the same 11. Concept 12 (line 38) itself names 11.",
+      "fix": "correct: the eleven named code smells"
+    },
+    {
+      "id": "D002", "line": 10, "section": "Software-Business Relevance",
+      "claim": "RACI is the decision-rights primitive that prevents the most common engineering-governance failure (the canonical \"shipped a broken product because nobody was assigned to QA\")",
+      "grade": "MINOR-DRIFT", "failure_mode": "Source's example turned into 'the most common' failure; paraphrase set in quotation marks (recurs at lines 80, 200, 232)",
+      "evidence": "Deep ref line 73: the example given is 'shipping a broken product to customers because nobody was assigned to quality assurance' — an illustration, with no frequency claim. Lines 20 and 133 carry the exact wording with [V].",
+      "fix": "correct: RACI is the decision-rights primitive; Letaw's example of the failure it prevents is \"shipping a broken product to customers because nobody was assigned to quality assurance\" [V] (Ch 2.4.2)"
+    },
+    {
+      "id": "D003", "line": 10, "section": "Software-Business Relevance",
+      "claim": "Microservices vs monolith is a Conway's-Law-shaped architecture decision with direct downstream consequences for team structure",
+      "grade": "UNSUPPORTED", "failure_mode": "Concept not in the source or deep ref smuggled into the projection",
+      "evidence": "No 'Conway' in the deep ref or converted source. The deep ref ties microservices to business capabilities and per-service tech stacks (line 205) and notes services may be 'built by different teams' (line 211), but makes no architecture-mirrors-organisation claim.",
+      "fix": "correct: Microservices vs monolith is an architecture decision with direct downstream consequences for deploy cadence, customer-side configurability, and platform-modernisation cost"
+    },
+    {
+      "id": "D004", "line": 18, "section": "Key Concepts #2",
+      "claim": "Decided once with the business stakeholder at project start, the matrix becomes the referent when scope-creep or deadline pressure inevitably arrives.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true but hardened ('decided once' vs 'ideally ... referenced throughout the project as needed')",
+      "evidence": "Deep ref line 81 has the definitions and NIH example only. Source Ch 2.5.2: 'Ideally, the project priority matrix would be defined before the project starts (with the client) and referenced throughout the project as needed.'",
+      "fix": "correct: Ideally set with the client before the project starts and referenced throughout as needed (Ch 2.5.2), the matrix becomes the referent when scope-creep or deadline pressure arrives. Plus cycle-to-deep."
+    },
+    {
+      "id": "D005", "line": 22, "section": "Key Concepts #4",
+      "claim": "Two-or-fewer triggers explicit discussion before commitment.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true but hardened ('can' → 'triggers')",
+      "evidence": "Deep ref line 75: encoding only. Source Ch 2.4.3: on two or fewer 'the team can stop, discuss, make changes, and vote again until there's sufficient consensus'.",
+      "fix": "correct: If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again. Plus cycle-to-deep."
+    },
+    {
+      "id": "D006", "line": 24, "section": "Key Concepts #5",
+      "claim": "**Story-point estimation as commitment artefact, not prediction.** ... Either way the estimate is an artefact of the decision to commit, not a forecast. ... understanding its commitment-shape (versus its prediction-shape) is what stops it from becoming a serial overpromise pattern. (Source: Ch 2.5.5)",
+      "grade": "CONTRADICTED", "failure_mode": "Position the source does not hold, attributed to Ch 2.5.5; drives five later rows (68, 136, 175, 206)",
+      "evidence": "Deep ref line 87: ideal days = 'a number of days you think it'd take to complete the task'; teams make initial velocity estimates 'and adjust based on accuracy'. Source Ch 2.5.5 opens: estimation is 'figuring out ahead of time how long a task is likely to take'.",
+      "fix": "correct: **Story points and ideal days as calibrated estimates.** Story points compare task size to other tasks; ideal days estimate the days a task would take with no other tasks or distractions. Teams set an initial velocity and adjust it as they see how accurate their estimates were (Ch 2.5.5). For software-business commitments, that calibration loop is what keeps an estimate from becoming a serial overpromise."
+    },
+    {
+      "id": "D007", "line": 30, "section": "Key Concepts #8",
+      "claim": "Microservices as Conway's-Law-shaped team-and-capability decision ... each microservice can have its own tech stack and team boundary; decentralised governance means flexibility ... but increases coordination cost across teams. Conway's Law operates through this section even when not named: the architecture and the org chart will mirror each other.",
+      "grade": "UNSUPPORTED", "failure_mode": "Smuggled concept with its own concept anchor (conways-law), plus a coordination-cost claim the source does not make",
+      "evidence": "No 'Conway' or 'coordinat' in source or deep ref. Deep ref line 205: 'each microservice can have its own tech stack (including its own database)'; line 209: decentralised governance means services 'need only be compatible at their interfaces', while a monolith team 'might only need to maintain a small set of technologies'. The anchor would route runtime Conway's-Law lookups to a source that never mentions it.",
+      "fix": "correct: retitle **Microservices organised around business capabilities**; keep the two [V] quotes and 'each microservice can have its own tech stack (including its own database)'; replace the coordination and Conway sentences with: decentralised governance leaves each service free in how it is implemented, while a monolith team might only need to maintain a small set of technologies (Ch 5.2.5). Drop the conways-law anchor."
+    },
+    {
+      "id": "D008", "line": 34, "section": "Key Concepts #10",
+      "claim": "Tuckman gives the model for why a new engineering team will not produce its eventual velocity for some weeks regardless of headcount — and therefore why a hiring decision made under commercial pressure needs a lead-time budget.",
+      "grade": "UNSUPPORTED", "failure_mode": "Timing, velocity and headcount claims attributed to the Tuckman model as the source reports it",
+      "evidence": "Deep ref line 67 lists the five stages with no durations or productivity claims. Source 993-1017 adds only 'Consider where each [method] might fit in to these stages (there's not just one answer).'",
+      "fix": "correct: For software-business work, Tuckman's stages remind a leader that a newly formed team passes through Forming and Storming before it performs; plan for that when a commitment rests on a new team. (Label any lead-time estimate as the operator's, not Letaw's.)"
+    },
+    {
+      "id": "D009", "line": 38, "section": "Key Concepts #12",
+      "claim": "**Twelve named code smells with refactoring prescriptions.**",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong; the line lists 11 names",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: **Eleven named code smells with refactoring prescriptions.**"
+    },
+    {
+      "id": "D010", "line": 40, "section": "Key Concepts #13",
+      "claim": "(2) \"smelly code leads to smellier code\" [V] — defect accumulation accelerates over time",
+      "grade": "MINOR-DRIFT", "failure_mode": "Author's reason re-glossed: Letaw's mechanism is normalisation, not defect accumulation",
+      "evidence": "Deep ref line 291 / source Ch 8.1: 'letting code become disorganised signals to yourself and others that disorganised code is acceptable'; the CSS !important workaround is the example. No defect-rate claim.",
+      "fix": "correct: (2) \"smelly code leads to smellier code\" [V] — messy code tells everyone that messy code is acceptable, so the mess compounds"
+    },
+    {
+      "id": "D011", "line": 68, "section": "Questions — Phase 2",
+      "claim": "are we treating the estimate as a prediction or as a commitment-artefact?",
+      "grade": "CONTRADICTED", "failure_mode": "Embedded premise from D006",
+      "evidence": "See D006: Letaw defines estimation as predicting how long a task is likely to take and calibrates velocity on accuracy.",
+      "fix": "correct: When we estimate this work in story points or ideal days, are we feeding the actuals back to adjust our velocity? Have we run planning poker (private → reveal → discuss → re-estimate until convergence)?"
+    },
+    {
+      "id": "D012", "line": 101, "section": "Questions — Phase 5",
+      "claim": "A requirements gap is the most common source of compliance failures discovered late.",
+      "grade": "UNSUPPORTED", "failure_mode": "Empirical frequency claim with no source",
+      "evidence": "Deep ref Part III (lines 97-142) gives the eight good-requirement attributes (Ch 3.3) and why requirements matter (Ch 3.2); no compliance-failure statistics.",
+      "fix": "strip"
+    },
+    {
+      "id": "D013", "line": 111, "section": "Questions — Phase 6",
+      "claim": "are we using the twelve named code smells",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: the eleven named code smells"
+    },
+    {
+      "id": "D014", "line": 136, "section": "What to Look For",
+      "claim": "The team has lost the distinction between estimate-as-commitment-artefact and estimate-as-forecast. Under pressure to be \"right,\" the estimates will inflate ..., velocity will drop",
+      "grade": "CONTRADICTED", "failure_mode": "Diagnosis built on the D006 premise; the signal (line 135) treats estimates-as-predictions as the fault",
+      "evidence": "See D006. The follow-up's 'track velocity over time as the calibration signal' (line 137) does match the source; the commitment-artefact framing does not.",
+      "fix": "correct: Signal: variances against estimates are being treated as performance failures. Diagnosis: estimates are predictions to be calibrated (Ch 2.5.5); treating misses as failures invites padding and hides the calibration signal."
+    },
+    {
+      "id": "D015", "line": 140, "section": "What to Look For",
+      "claim": "A new engineering hire ... is not producing the expected delivery in the first month. Diagnosis: The hiring decision likely did not budget for Tuckman's Forming and Storming stages. ... (Ch 2.4)",
+      "grade": "UNSUPPORTED", "failure_mode": "Team-development stages applied to an individual hire's ramp-up and given a timeline the source does not give",
+      "evidence": "Deep ref line 67: Tuckman describes team development stages; nothing on individual onboarding, durations or delivery rates.",
+      "fix": "correct: Signal: a newly formed team is not yet delivering. Diagnosis: the team may still be Forming or Storming (Ch 2.4); the commitment assumed a Performing team."
+    },
+    {
+      "id": "D016", "line": 146, "section": "When to Use This Reference",
+      "claim": "the twelve named code smells plus Letaw's three reasons",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: the eleven named code smells"
+    },
+    {
+      "id": "D017", "line": 161, "section": "When NOT to use this reference",
+      "claim": "Business-ethics framings of the technical-commercial intersection (stakeholder theory, Mitchell-Agle-Wood salience, duty of care) — route to openstax-business-ethics.",
+      "grade": "UNSUPPORTED", "failure_mode": "Routes to another source for frameworks it does not hold",
+      "evidence": "openstax-business-ethics-deep.md: no 'Mitchell', 'Agle', 'salience' or 'duty of care'; it covers stakeholder definition and prioritisation (line 7, 17). The converted ethics source has no 'Agle'/'salience' and one 'duty of care' (fiduciary duties, line 5393).",
+      "fix": "correct: Business-ethics framings of the technical-commercial intersection (stakeholder identification and prioritisation, ethical frameworks) — route to openstax-business-ethics."
+    },
+    {
+      "id": "D018", "line": 173, "section": "Worked Example",
+      "claim": "(b) accelerating smell — the third-party scoring vendor has flagged the 11-parameter entry-point as a candidate for breakage in their next major release",
+      "grade": "MINOR-DRIFT", "failure_mode": "Framework reason misapplied: Letaw's second reason is normalisation, not external breakage risk",
+      "evidence": "Deep ref line 291: reason (2) is that disorganised code 'signals to yourself and others that disorganised code is acceptable'. The example's own fact (four parameters added last sprint to an already-long entry-point) would illustrate that reason.",
+      "fix": "correct: (b) accelerating smell — the decisioning entry-point gained four parameters in the last sprint alone; once the code is messy, each change adds to the mess (Ch 8.1)"
+    },
+    {
+      "id": "D019", "line": 175, "section": "Worked Example",
+      "claim": "Scope is *Constrained* (the 12 specific code smells named in the inventory ...); ... Time is *Accepted* (the 8-week estimate is a story-point-derived commitment-artefact, not a forecast — variance will be reported weekly)",
+      "grade": "CONTRADICTED", "failure_mode": "Estimate framing contradicts Ch 2.5.5 (D006); '12 specific code smells' does not match the inventory the example itself gave (four smell types, 52 instances)",
+      "evidence": "See D006. Line 171's inventory names Long Function, Duplicate Code, Function with Many Parameters and Vague Naming.",
+      "fix": "correct: Scope is *Constrained* (the four smell types and 52 instances named in the inventory, no scope creep into the rest of the service); ... Time is *Accepted* (the 8-week story-point estimate is a forecast the team will calibrate, with variance reported weekly)"
+    },
+    {
+      "id": "D020", "line": 179, "section": "Worked Example",
+      "claim": "The Letaw artefacts that did the work: the twelve code smells ...; with them, the same underlying engineering case has a board-side reception.",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong; closing line also presents the hypothetical board approval as the artefacts' demonstrated effect",
+      "evidence": "Deep ref lines 297-321: 11 smells. The deep ref reports no outcome of using these methods with a board.",
+      "fix": "correct: The Letaw artefacts in play: the eleven code smells (...), Letaw's three reasons (...), the project priority matrix (...). In this scenario they turn the request into countable items and a named trade-off."
+    },
+    {
+      "id": "D021", "line": 206, "section": "Anti-patterns",
+      "claim": "Communicate that estimates are commitment-artefacts (the conversation is the value, not the number). (Ch 2.5.5)",
+      "grade": "CONTRADICTED", "failure_mode": "D006 premise plus an unsourced 'conversation is the value' claim, both cited to Ch 2.5.5",
+      "evidence": "See D006. Deep ref line 89 / source: in planning poker 'differences open a discussion' and the team repeats 'until estimates become sufficiently consistent'; the discussion serves a better number.",
+      "fix": "correct: Restore estimation as a team conversation via planning poker, where differences in estimates open the discussion. Communicate that estimates are forecasts the team calibrates. Track velocity over time as a calibration signal, not a performance metric. (Ch 2.5.5)"
+    },
+    {
+      "id": "D022", "line": 211, "section": "Anti-patterns",
+      "claim": "Acknowledge Tuckman's stages as the normal model for new team productivity. Budget the lead time in future hiring decisions. Use the existing team's Forming-Storming history as the calibration data for how long the next team will take. (Ch 2.4)",
+      "grade": "UNSUPPORTED", "failure_mode": "Same productivity/timing premise as D008, cited to Ch 2.4",
+      "evidence": "See D008.",
+      "fix": "correct: Treat Forming and Storming as normal stages of team development (Ch 2.4) and plan for them when a commitment rests on a new team. Label any lead-time estimate as the operator's."
+    },
+    {
+      "id": "D023", "line": 222, "section": "Integration with Other References",
+      "claim": "Letaw's twelve named code smells operate at a different grain",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: Letaw's eleven named code smells"
+    },
+    {
+      "id": "D024", "line": 222, "section": "Integration with Other References",
+      "claim": "Jones rejects the \"technical debt\" metaphor as a financial concept (Ch 3.2.5) and prefers real-options framing",
+      "grade": "MINOR-DRIFT", "failure_mode": "Cross-source position loosened; conflicts with this file's own line 157 ('real-options critique')",
+      "evidence": "jones-evidence-based-sweng-deep.md line 91: Jones rejects 'technical debt' ('this is incorrect, there is no debt ...' [V]) and says minimum-investment-now 'has the form of an American call option' [V], but presents option-pricing approaches 'with explicit warnings about their inapplicability'.",
+      "fix": "correct: Jones rejects the \"technical debt\" metaphor (Ch 3.2.5): deferring investment 'has the form of an American call option', though he warns that option-pricing methods are hard to apply in practice"
+    },
+    {
+      "id": "D025", "line": 224, "section": "Integration with Other References",
+      "claim": "openstax-principles-management — Provides Mintzberg's organisational structures (six structures)",
+      "grade": "MINOR-DRIFT", "failure_mode": "Cross-source misattribution",
+      "evidence": "openstax-principles-management-deep.md lines 185-196: six structure types (functional, divisional, geographic, matrix, networked team, virtual) along the mechanistic-organic continuum (Ch 4.3, Exhibit 4.6), not attributed to Mintzberg. Mintzberg appears for managerial work and roles (lines 15-37). PESTEL, five forces and Tannenbaum-Schmidt are present.",
+      "fix": "correct: Provides six organisational structure types on the mechanistic-organic continuum (Ch 4.3), Mintzberg's managerial roles, strategic-environment-scan frames (PESTEL, five forces), and Tannenbaum-Schmidt for delegation."
+    },
+    {
+      "id": "D026", "line": 227, "section": "Integration with Other References",
+      "claim": "openstax-business-ethics — Provides stakeholder theory, Mitchell-Agle-Wood salience, duty-of-care framings. ... Letaw's \"stakeholders might want what's bad for them or others\" [V] footnote",
+      "grade": "UNSUPPORTED", "failure_mode": "Attributes to the ethics source a framework it does not hold; Letaw's bullet mislabelled a footnote",
+      "evidence": "See D017 for the ethics deep ref and source. Letaw: 'Stakeholders might want what's bad for them or others' is a bolded bullet in Ch 3.4 (source line 1830), not a footnote.",
+      "fix": "correct: Provides stakeholder identification and prioritisation and the ethical frameworks behind them. ... Letaw's \"Stakeholders might want what's bad for them or others\" [V] (Ch 3.4) connects directly to business ethics' stakeholder frame."
+    },
+    {
+      "id": "D027", "line": 229, "section": "Integration with Other References",
+      "claim": "Kanban is the flow-economics counterpart. ... Kanban's flow-over-utilisation framing complements Letaw's story-point capacity.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Cross-source framing not in the other deep ref",
+      "evidence": "open-kanban-deep.md covers visualising flow and limiting WIP (lines 60-70) and cites Reinertsen's flow book borrowed-through (line 72); no 'utilisation' anywhere.",
+      "fix": "correct: Kanban is the flow counterpart: Open Kanban's visualise-the-flow and limit-WIP practices complement Letaw's story-point capacity."
+    },
+    {
+      "id": "D028", "line": 230, "section": "Integration with Other References",
+      "claim": "Liberating Structures' 1-2-4-All and Disagree-and-Commit",
+      "grade": "UNSUPPORTED", "failure_mode": "Names a structure the LS source does not contain",
+      "evidence": "liberating-structures-handbook-deep.md and the converted LS source have no 'disagree'. The deep ref names the structure '1-2-4-Whole Group' (line 59).",
+      "fix": "correct: Liberating Structures' 1-2-4-Whole Group"
+    },
+    {
+      "id": "D029", "line": 241, "section": "Citation and Source-Integrity Notes",
+      "claim": "Letaw's Handbook builds on several foundational sources this corpus does not hold as primary references. — Schwaber and Sutherland, The Scrum Guide 2020 ...",
+      "grade": "CONTRADICTED", "failure_mode": "Held source listed as not held",
+      "evidence": "corpus.commons/demo/references/ contains scrum-guide-2020.md and its deep ref; this file's own line 228 routes to `scrum-guide-2020`.",
+      "fix": "correct: move to a separate note: *Schwaber and Sutherland, The Scrum Guide 2020* — cited in Ch 1.2.2 for Scrum team, events and artifacts; held in this corpus as `scrum-guide-2020`. Flagged [BT] in the deep ref."
+    },
+    {
+      "id": "D030", "line": 250, "section": "Citation and Source-Integrity Notes",
+      "claim": "Microsoft Inclusivity Heuristics — the source for Ch 7's Inclusivity Heuristics framework. Flagged [BT].",
+      "grade": "CONTRADICTED", "failure_mode": "Wrong originator",
+      "evidence": "Deep ref line 248: the heuristics were 'developed by human-computer interaction researchers at Oregon State University as part of the GenderMag Project' (Burnett et al., 2016, 2021); Microsoft is cited only for the definition of inclusive design (deep ref lines 248, 366-367).",
+      "fix": "correct: *Burnett et al. (2016, 2021), GenderMag Project (Oregon State University)* — source of Ch 7's Inclusivity Heuristics and five cognitive facets; *Microsoft Inclusive Design* — source of the inclusive-design definition. Both flagged [BT]."
+    },
+    {
+      "id": "D031", "line": 252, "section": "Citation and Source-Integrity Notes",
+      "claim": "Letaw is explicit that the book is method-level rather than theory-level or economics-level: it does not price software work in financial terms and does not carry empirical findings about software-engineering productivity, fault patterns, or estimation accuracy.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Distillation's scope reading presented as the author's explicit statement",
+      "evidence": "Deep ref records Letaw's methods framing and curation stance (lines 13-15, 378) but no statement excluding theory or economics. The book does carry empirical figures (HPE survey, CHAOS failure rates; deep ref lines 17, 31), though none on productivity, faults or estimation accuracy.",
+      "fix": "correct: The book is method-level: it introduces 'a portable set of software engineering methods' (Introduction), does not price software work in financial terms, and carries no empirical findings on productivity, fault patterns or estimation accuracy (its data points are an adoption survey and CHAOS failure rates)."
+    },
+    {
+      "id": "D032", "line": 254, "section": "Citation and Source-Integrity Notes",
+      "claim": "the deep reference carries ... [V] markers (... the twelve code-smell names ...). ... No verbatim blockquotes appear here; all Key Concepts section text paraphrases [V]-marked content from the deep ref.",
+      "grade": "CONTRADICTED", "failure_mode": "Count wrong; continuity note misdescribes the file, whose Key Concepts carry many inline [V] quotations",
+      "evidence": "Deep ref lines 297-321: 11 smells. Key Concepts lines 20, 26, 30, 32, 36, 38, 40, 42, 44, 48 carry inline [V] quotations (spike definition, RACI example, business capability, TOCS deploy limit, MSM, refactoring, three reasons, requirement examples, constraints, elicitation factors).",
+      "fix": "correct: ... the eleven code-smell names ... No blockquotes appear here; the Key Concepts carry short inline [V] quotations copied from the deep ref, and the rest paraphrases."
+    }
+  ],
+  "notes": "Grading convention: a claim the source supports but the deep ref lacks is graded MINOR-DRIFT with a cycle-to-deep fix (D004, D005); UNSUPPORTED is kept for claims neither the deep ref nor the source supports. Three systemic defects: (1) 'twelve' code smells in seven places (plus '12 specific code smells' in the worked example), where source and deep ref give eleven; (2) the estimate-as-commitment-artefact-not-forecast stance, attributed to Ch 2.5.5, contradicts Letaw's definition of estimation and runs through Concept 5, a Phase 2 question, What to Look For, the worked example and an anti-pattern; (3) imported frames the source never uses: Conway's Law (with its own concept anchor, so a runtime Conway lookup lands here), Tuckman as a productivity-timeline model for hiring, and several integration rows crediting other sources with frameworks they do not hold (Mitchell-Agle-Wood in business ethics, Disagree-and-Commit in Liberating Structures, Mintzberg's six structures in Principles of Management). The borrowed-through list credits Microsoft with the Inclusivity Heuristics (GenderMag/OSU) and lists the held Scrum Guide as not held. Structure: the file adds a non-template section, 'When NOT to use this reference (route elsewhere)'; its Jones, accounting, principles-management, marketing and field-guide routings check out, the business-ethics one does not (D017). Verified word for word: RACI example, spike definition, 'organized around business capabilities', business-capability definition, TOCS deploy limit, MSM project-manager quote, refactoring definition, the three Ch 8.1 reason quotes, both requirement examples, 'can be converted to a scale', 'must only be stored on US servers', the constraints-vs-quality-attributes sentence, the five elicitation factors, 'one month or less', 'UML diagrams are for communicating with humans — not computers', 'geared toward Agile software development'."
+}

@@ -1,0 +1,255 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/letaw-handbook-sweng-methods-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-130 of 130",
+    "deep": "lines 1-392 of 392 (corpus.commons/demo/references/letaw-handbook-sweng-methods-deep.md)",
+    "complete": true,
+    "other": "projection-protocol.md read in full. Converted source checked at: Introduction 'Software Engineering Is Not Black and White' 326-332; Tuckman 993-1017; ground rules 1020-1073; RACI 1075-1182; fist of five 1184-1219; Eisenhower and planning poker Ch 2.5.3-2.5.5; personas Ch 7.2-7.3; Ch 8 in full. Other deep refs checked by targeted search: jones-evidence-based-sweng (Jørgensen-Sjøberg, Aranda, Goodhart), open-practice-library (Design of Experiments), openstax-organizational-behavior (Tuckman), liberating-structures-handbook (planning poker, simultaneous reveal, 1-2-4), openstax-psychology-2e (anchoring, conformity), approach-perfect-field-guide-scrum-events (one-or-two improvements)."
+  },
+  "claims_audited": 118,
+  "tally": {"faithful": 94, "minor_drift": 12, "unsupported": 5, "contradicted": 7},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "Letaw frames each of his project-management methods as a risk-reduction move [AP] (Ch 2, opening)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Author misgendered",
+      "evidence": "Deep ref line 13: 'The definition of software engineering she adopts'. The scoping to Ch 2's project-management methods is correct (deep ref line 19).",
+      "fix": "correct: Letaw frames each of her project-management methods as a risk-reduction move [AP] (Ch 2, opening)"
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "A second cluster — the twelve code smells, the Inclusivity Heuristics, planning poker",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong; contradicts this file's own Concept 5 ('Eleven')",
+      "evidence": "Deep ref lines 297-321: 4 + 3 + 4 = 11 smells. Distillation line 20 correctly says 'Eleven named code smells ... Three families'.",
+      "fix": "correct: the eleven code smells"
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Key Concepts #1",
+      "claim": "A two-or-fewer response blocks and opens a conversation.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rule hardened; only a fist 'blocks' in the source; rule absent from the deep ref",
+      "evidence": "Deep ref line 75: only 'None — Strong reject, blocks consensus'; One and Two are rejects whose issues 'need resolving now'. Source Ch 2.4.3: on two or fewer 'the team can stop, discuss, make changes, and vote again until there's sufficient consensus. It's up to the team or its leader to decide how much consensus is needed.' The worked example (line 98) treats a two as opening a conversation, not a block.",
+      "fix": "correct: If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again; how much consensus is enough is the team's or leader's call. Plus cycle-to-deep for the two-or-fewer rule."
+    },
+    {
+      "id": "D004",
+      "line": 14,
+      "section": "Key Concepts #2",
+      "claim": "When a retro experiment lands in a cell with no named Accountable individual — \"team responsible,\" \"engineering to investigate\" — it will not survive to the next experiment-review phase.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source's probabilistic risk claim restated as certainty",
+      "evidence": "Deep ref line 73: not knowing who does what 'can increase the probability of a negative events and outcomes'.",
+      "fix": "correct: When a retro experiment has no one in the Accountable cell ... it is more likely to be dropped before the next experiment review."
+    },
+    {
+      "id": "D005",
+      "line": 18,
+      "section": "Key Concepts #4",
+      "claim": "Applied to retro voting: simultaneous reveal breaks the HiPPO-driven cascade that anchors group estimates to the most senior voice's number (the Jørgensen-Sjøberg finding, referenced in Jones's distillation).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Cross-source finding misdescribed and cited to a distillation; efficacy claim in no deep ref",
+      "evidence": "jones-evidence-based-sweng-deep.md line 65: Jørgensen and Sjøberg found estimates 'strongly shifted by the customer's offered estimate' [AP] (Ch 2.2.1): a customer anchor, not a senior voice in a group. Line 145: Aranda found anchoring from middle-manager statements (Ch 5.3). Neither the Jones nor the Letaw deep ref says simultaneous reveal breaks anchoring; Letaw's deep ref (line 89) describes planning poker's private pick and reveal without an anchoring rationale. 'HiPPO' appears in neither.",
+      "fix": "correct: Applied to retro voting: the private pick before the reveal keeps an early or senior voice from setting the number others adjust to. Jones reports anchoring in estimates: Jørgensen and Sjøberg found estimates strongly shifted by the customer's offered estimate (Jones, Ch 2.2.1), and Aranda found large anchoring from middle-manager statements (Jones, Ch 5.3)."
+    },
+    {
+      "id": "D006",
+      "line": 26,
+      "section": "Key Concepts #8",
+      "claim": "A retro on a Storming team will surface resistance patterns — members resist peers' ideas, the facilitator's structure, and any action that requires trusting a teammate.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Storming description extended beyond the source and stated as a prediction",
+      "evidence": "Deep ref line 67 / source 1003: 'Team members resist group influence, their peers, their peers' ideas, and tasks.' 'The facilitator's structure' and 'any action that requires trusting a teammate' are not in either.",
+      "fix": "correct: On a Storming team, members resist group influence, their peers, their peers' ideas, and tasks [AP] (Ch 2.4); expect that resistance to show up in the retro."
+    },
+    {
+      "id": "D007",
+      "line": 30,
+      "section": "Key Concepts #10",
+      "claim": "Performative agreement is worse than no ground rules — it suppresses honest data without replacing it with anything.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source's claim overstated into a comparative it does not make",
+      "evidence": "Deep ref line 71: rules that feel silly, phony and so on 'could invalidate your team's efforts toward creating the ground rules'. No comparison with having no ground rules.",
+      "fix": "correct: Rules the team experiences as performative can invalidate the effort that went into them (Ch 2.4.1), and a retro that runs on them loses honest data."
+    },
+    {
+      "id": "D008",
+      "line": 32,
+      "section": "Key Concepts #11",
+      "claim": "**Software development is not black and white.** \"Right answers can be hard to find and may not be reproducible in different contexts\" [AP]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Near-verbatim quotation marked [AP]; heading renamed",
+      "evidence": "Source 329-331, heading 'Software Engineering Is Not Black and White': '“Right” answers can be hard to find and may not be reproducible in different contexts.' The distillation's string is word for word apart from the dropped scare quotes on 'Right'.",
+      "fix": "re-mark: [V], quoted as: \"'Right' answers can be hard to find and may not be reproducible in different contexts\" [V]; retitle **Software engineering is not black and white.**"
+    },
+    {
+      "id": "D009",
+      "line": 43,
+      "section": "Questions — Phase 2",
+      "claim": "Which of the twelve named code smells are present",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells; distillation line 20 says eleven.",
+      "fix": "correct: Which of the eleven named code smells are present"
+    },
+    {
+      "id": "D010",
+      "line": 59,
+      "section": "Questions — Phase 4",
+      "claim": "Build a RACI: name the Accountable individual — not a team, not a role, a person — before the retro closes.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Applied rule rests on a single-named-Accountable premise the source does not give",
+      "evidence": "Deep ref line 73 defines A as 'Who will approve the work and make sure it gets done' with no one-person or no-role rule. The source's example matrix (Ch 2.4.2) fills A cells with roles (Frontend Lead, Backend Lead) and gives one task two As.",
+      "fix": "correct: Build a RACI so the team knows who will do the experiment and who will approve it and make sure it gets done (Ch 2.4.2). If the facilitator wants a one-named-owner rule, label it as the facilitator's practice, not Letaw's."
+    },
+    {
+      "id": "D011",
+      "line": 60,
+      "section": "Questions — Phase 4",
+      "claim": "Run fist of five with simultaneous reveal. A two-or-fewer response blocks; open the conversation before committing.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same hardening as D003",
+      "evidence": "See D003.",
+      "fix": "correct: Run fist of five. If anyone shows two or fewer fingers, stop, discuss, change the experiment and vote again before committing."
+    },
+    {
+      "id": "D012",
+      "line": 75,
+      "section": "What to Look For",
+      "claim": "Run fist of five with simultaneous reveal; a two-or-fewer response blocks",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same hardening as D003",
+      "evidence": "See D003.",
+      "fix": "correct: Run fist of five; anyone at two or fewer fingers is the cue to stop, discuss and re-vote"
+    },
+    {
+      "id": "D013",
+      "line": 76,
+      "section": "What to Look For",
+      "claim": "which of the twelve apply to the code the team finds hardest to work with?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: which of the eleven apply"
+    },
+    {
+      "id": "D014",
+      "line": 86,
+      "section": "When to Use This Reference",
+      "claim": "the twelve named code smells provide specific vocabulary",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: the eleven named code smells"
+    },
+    {
+      "id": "D015",
+      "line": 94,
+      "section": "Worked Example",
+      "claim": "The lead asks the team to name which of the twelve code smells are present",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: which of the eleven code smells"
+    },
+    {
+      "id": "D016",
+      "line": 98,
+      "section": "Worked Example",
+      "claim": "two items are not-urgent and not-important — they go to a visible \"later\" list",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Eisenhower quadrant misapplied: Delete items are eliminated; 'later' is the Decide treatment",
+      "evidence": "Deep ref line 83: Delete (not urgent, not important) = 'Doesn't need to be done correctly or any time soon. Can be eliminated'; Decide (not urgent, important) = 'Needs to be done correctly but not immediately'. The file's own Phase 4 row (line 58) and What to Look For (line 80) say to delete them.",
+      "fix": "correct: two items are not-urgent and not-important, so they land in Delete and come off the board"
+    },
+    {
+      "id": "D017",
+      "line": 100,
+      "section": "Worked Example",
+      "claim": "The twelve code smells, RACI, INVEST, fist of five, Eisenhower matrix, and Tuckman stage framing all trace to Letaw",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: The eleven code smells, ..."
+    },
+    {
+      "id": "D018",
+      "line": 104,
+      "section": "Anti-patterns",
+      "claim": "the RACI's Accountable cell must name an individual before the retro closes.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same single-named-Accountable premise as D010",
+      "evidence": "See D010.",
+      "fix": "correct: Committing experiments with \"team responsible\" in the owner field, so nobody knows who will do the work or who will make sure it gets done (Ch 2.4.2)."
+    },
+    {
+      "id": "D019",
+      "line": 105,
+      "section": "Anti-patterns",
+      "claim": "Running a verbal show-of-hands before fist of five; sequential reveal allows social pressure to cascade, suppressing the honest signal the method is designed to surface.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Design purpose attributed to fist of five that the source does not give; social-pressure premise not in the Letaw deep ref",
+      "evidence": "Deep ref line 75 and source Ch 2.4.3: fist of five checks and builds consensus and reduces risk by 'bringing problems to light' and 'increasing team motivation, ownership, and investment'. Nothing on reveal order or social pressure. (Conformity evidence exists in openstax-psychology-2e-deep.md line 291, Asch, but is not cited here.)",
+      "fix": "correct: Replacing fist of five with a verbal \"any objections?\", which loses the graded 0-5 signal the method uses to bring problems to light (Ch 2.4.3); Psychology 2e's conformity findings (Asch, Ch 12) explain why a public, sequential vote suppresses dissent."
+    },
+    {
+      "id": "D020",
+      "line": 106,
+      "section": "Anti-patterns",
+      "claim": "without specifying which of the twelve code smells are present",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Count wrong",
+      "evidence": "Deep ref lines 297-321: 11 smells.",
+      "fix": "correct: which of the eleven code smells"
+    },
+    {
+      "id": "D021",
+      "line": 121,
+      "section": "Integration with Other References",
+      "claim": "LS's simultaneous-reveal planning-poker discipline is the same epistemic move as Letaw's fist-of-five simultaneous reveal; both counteract anchor cascade",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to Liberating Structures a practice its deep ref does not contain, and to Letaw's fist of five a mechanism the source does not describe",
+      "evidence": "liberating-structures-handbook-deep.md has no 'planning poker' or 'simultaneous'. Planning poker belongs to Letaw (deep ref line 89, citing Cohn). Letaw's fist of five (deep ref line 75) has no simultaneous-reveal step. The nearest LS analogue is 1-2-4-Whole Group, which opens with individual reflection (LS deep ref line 59).",
+      "fix": "correct: Liberating Structures Handbook | LS's 1-2-4-Whole Group opens with individual reflection before pairs and groups, the same think-alone-first move as Letaw's planning poker (private card, then reveal, Ch 2.5.5)"
+    },
+    {
+      "id": "D022",
+      "line": 126,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Tuckman's model is cited as Tuckman (1965) and Jensen (1977) [BT] (Ch 2.4). ... None of Cohn, Wake, Tuckman, Jensen, or van Wyngaard are held",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Co-authored citation split into a Jensen-only work (also at line 26)",
+      "evidence": "Deep ref line 67 and source 995-996: 'Tuckman, 1965; Tuckman & Jensen, 1977' (also Stuart, 2014).",
+      "fix": "correct: Tuckman's model is cited as Tuckman (1965) and Tuckman & Jensen (1977) [BT] (Ch 2.4)."
+    },
+    {
+      "id": "D023",
+      "line": 128,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "it names its scope as portable methods, not team coaching, facilitation, or retrospective structure.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Distillation's exclusions presented as the author's own scope statement",
+      "evidence": "Deep ref line 13 records the 'portable set of software engineering methods' aim; it records no stated exclusion of coaching, facilitation or retrospectives. The book does define the Sprint Retrospective event ('to plan ways to increase quality and effectiveness . . . inspects how the last Sprint went', deep ref line 43).",
+      "fix": "correct: it names its scope as a portable set of software engineering methods; it defines the Sprint Retrospective as a Scrum event (Ch 1.2.2) but gives no retrospective structure or facilitation guidance."
+    },
+    {
+      "id": "D024",
+      "line": 130,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "RACI definitions (Responsible, Accountable, Consulted, Informed) are [V] in the deep ref; the distillation uses these precisely.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Continuity note overstates fidelity",
+      "evidence": "Concept 2 (line 14) paraphrases under [AP] and glosses Accountable as 'who approves and owns the outcome'; deep ref line 73: 'Who will approve the work and make sure it gets done.'",
+      "fix": "correct: RACI definitions are [V] in the deep ref; the distillation paraphrases them under [AP]."
+    }
+  ],
+  "notes": "Grading convention: a claim the source supports but the deep ref lacks is graded MINOR-DRIFT with a cycle-to-deep fix; UNSUPPORTED is kept for claims neither the deep ref nor the source supports. The file contradicts itself on the code-smell count: Concept 5 correctly says eleven in three families, but 'twelve' appears seven other times. Fist of five is repeatedly given a 'simultaneous reveal' step and an anti-anchoring rationale that belong to planning poker (and, in the integration table, to Liberating Structures, whose deep ref has neither); Concept 4 misdescribes Jones's Jørgensen-Sjøberg finding (customer anchor, not senior voice) and cites Jones's distillation instead of its deep ref. The worked example is hypothetical and claims no result as the source's finding; its one framework slip is sending Delete-quadrant items to a 'later' list. Verified word for word: the fist-of-five risk quote, both ground-rules quotes, 'Smelly code leads to smellier code', and 'geared toward Agile software development'. Integration rows for the Field Guide (one-or-two improvements), OPL (Design of Experiments: Hypothesis/Pass fields), Jones (Goodhart's law, deep ref line 243), OB (Tuckman) and Psychology 2e (anchoring, conformity) match their deep refs."
+}

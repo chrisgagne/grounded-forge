@@ -1,0 +1,229 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/org-topologies-primer-2025-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-143 of 143",
+    "deep": "lines 1-299 of 299",
+    "complete": true
+  },
+  "claims_audited": 98,
+  "tally": {
+    "faithful": 77,
+    "minor_drift": 18,
+    "unsupported": 3,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "The Primer is unusual among org-design texts in treating the *engagement* of the people affected by change as load-bearing",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Comparative claim about other org-design texts that the source does not make; the Primer contrasts itself only with canned consulting solutions and framework thinking.",
+      "evidence": "Deep 17 and 246 (p. 3): 'the market is full of canned change “solutions.” OT offers a custom path by inviting you and your people to create your change'. No comparison with org-design texts.",
+      "fix": "correct: The Primer treats the *engagement* of the people affected by change as load-bearing, not as downstream rollout work, and sets this against canned change 'solutions' (p. 3)."
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "\"an underappreciated factor behind failed change\": \"people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work. As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Both quotations are verbatim but carry no [V] marker; the second sentence ('As a result, ...') is in the converted source but not in the deep reference.",
+      "evidence": "Deep 207 (p. 3) [V] ends at 'make them work.' Converted source 169-178 (p. 3) continues 'As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities.'",
+      "fix": "cycle-to-deep: extend the deep 207 blockquote with \"As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities.\" [V] (p. 3, \"Management Summary\"); then re-mark: [V] on both quotations"
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "\"without resorting to 'agile' or other framework-specific jargon\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] fragment carried without its marker (the following fragment in the same sentence is marked).",
+      "evidence": "Deep 59 and 213 (p. 5, \"Language of Org Design\") [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D004",
+      "line": 10,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "Second, the MADE method's MAP step is explicitly an engagement activity: \"going to the hands-on workplace to understand how the units work\" [V] — not a back-office mapping exercise.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Explicitly an engagement activity' overstates the p. 16 text, which is about going and seeing how units work. The Primer's closest explicit statement ('engaging for people to map, assess, design, and elevate', p. 1) is in the converted source but not the deep reference.",
+      "evidence": "Deep 128 (p. 16): MAP 'requires practicing systems thinking, learning the Org Topologies language, and going to the hands-on workplace'. Converted source 11-14 (p. 1): 'It's human-centric because OT is based on the psychology of change ... And because it's easy, visual, and engaging for people to map, assess, design, and elevate their org structures.' Deep 204 stops before 'And because'.",
+      "fix": "cycle-to-deep: extend the deep 204 cover blockquote with \"And because it's easy, visual, and engaging for people to map, assess, design, and elevate their org structures.\" [V] (p. 1, \"Cover\"); correct: Second, the Primer calls OT 'engaging for people to map, assess, design, and elevate' (p. 1), and its MAP step means \"going to the hands-on workplace to understand how the units work\" [V], not a back-office exercise."
+    },
+    {
+      "id": "D005",
+      "line": 14,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "\"True organizational impact requires alignment across all levels ... Real change happens when everyone in the organization understands their role in the transformation and sees how improved organizational design can make their work more effective and meaningful at the global organizational level.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Unmarked verbatim quotation; the 'Real change happens ...' sentence is in the converted source but not in the deep reference.",
+      "evidence": "Deep 250 (p. 4) [V] ends at 'how teams collaborate daily'. Converted source 203-205 (p. 4) holds the 'Real change happens' sentence.",
+      "fix": "cycle-to-deep: extend deep 250 with \"Real change happens when everyone in the organization understands their role in the transformation and sees how improved organizational design can make their work more effective and meaningful at the global organizational level.\" [V] (p. 4, \"The Hidden Complexities of Org Change\"); then re-mark: [V]"
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "\"What archetypes are part of your target, and what are the major bottlenecks?\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marked [V] but not word for word: the question is cut mid-clause and closed with a question mark the author did not place there.",
+      "evidence": "Deep 167 (p. 20): \"What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption?\" [V].",
+      "fix": "correct: \"What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption?\" [V]"
+    },
+    {
+      "id": "D007",
+      "line": 28,
+      "section": "Key Concepts, 4",
+      "claim": "\"Org Topologies makes it easy for people to see, understand, and then get change going. Having this kind of mismatch is common because people don't see and understand there's a mismatch!\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The two sentences are swapped inside one quotation, and the quotation carries no marker.",
+      "evidence": "Deep 138 (p. 17) and converted source 999-1002: 'Having this kind of mismatch is common because people don't see and understand there's a mismatch! Org Topologies makes it easy for people to see, understand, and then get change going.'",
+      "fix": "correct: \"Having this kind of mismatch is common because people don't see and understand there's a mismatch! Org Topologies makes it easy for people to see, understand, and then get change going.\" [V]"
+    },
+    {
+      "id": "D008",
+      "line": 32,
+      "section": "Key Concepts, 6",
+      "claim": "The Primer is explicit that this is a *psychological* phenomenon, not a comprehension problem; more training will not fix it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Not a comprehension problem' sits badly with the quoted text, which names 'lack of enthusiastic understanding'. 'More training will not fix it' is backed by a p. 4 sentence in the converted source that the deep reference does not carry.",
+      "evidence": "Deep 186 (p. 22): 'Lack of enthusiastic understanding and support for the change ... Don't underestimate this psychological dynamic!' Converted source 193-194 (p. 4): 'people learn new terminology and attend training sessions, but fundamental behaviors remain unchanged.'",
+      "fix": "cycle-to-deep: add to deep Part VII or 250: \"people learn new terminology and attend training sessions, but fundamental behaviors remain unchanged.\" [V] (p. 4, \"The Hidden Complexities of Org Change\"); correct: The Primer is explicit that this is a *psychological* dynamic; it also notes that training alone leaves fundamental behaviours unchanged (p. 4)."
+    },
+    {
+      "id": "D009",
+      "line": 40,
+      "section": "Key Concepts, 10",
+      "claim": "\"the Directing Archetypes in the upper left quadrant treat the Doing Archetypes as 'resources,' matching skill demand with skill supply.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation re-extracted from the source; the deep reference does not carry it. Unmarked.",
+      "evidence": "Converted source 618-620 (p. 11); deep 100 omits the sentence.",
+      "fix": "cycle-to-deep: add to deep 'Resource Topology' paragraph: \"The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as 'resources,' matching skill demand with skill supply.\" [V] (p. 11); then re-mark: [V]"
+    },
+    {
+      "id": "D010",
+      "line": 42,
+      "section": "Key Concepts, 11",
+      "claim": "A change initiative that engages only one team while leaving its surroundings untouched is named as a failure pattern: the team becomes the visible exception rather than the elevation example.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Single-team focus is named by the Primer, but the stated consequence ('visible exception rather than the elevation example') is the distillation's, attached to the Primer by the colon.",
+      "evidence": "Deep 250 (p. 4): 'Many change initiatives focus too narrowly on individual teams while missing the bigger picture. A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged.'",
+      "fix": "correct: A change initiative that engages only one team while leaving its surroundings untouched is what the Primer warns against: it misses the bigger picture. In engagement terms, the team can end up the visible exception rather than the elevation example."
+    },
+    {
+      "id": "D011",
+      "line": 44,
+      "section": "Key Concepts, 12",
+      "claim": "are framed as questions to ask and answer with stakeholders — not as decisions handed down.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer recommends that 'you' (the leader doing strategic org design) ask and answer the questions; it does not frame them as questions to work through with stakeholders.",
+      "evidence": "Converted source 1179-1182 (p. 20): 'in strategic org design with OT we recommend that you ask and answer these questions'. Deep 164: 'The authors offer three guiding questions'.",
+      "fix": "correct: are questions the Primer recommends leaders 'ask and answer'; asking them with the affected stakeholders is the engagement move this distillation adds."
+    },
+    {
+      "id": "D012",
+      "line": 72,
+      "section": "Questions, Phase 2, 'Plan for periodic re-mapping with stakeholders'",
+      "claim": "(\"periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim [V] fragment carried without its marker (the same fragment is marked on line 135).",
+      "evidence": "Deep 154 (p. 19) [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D013",
+      "line": 81,
+      "section": "Questions, Phase 3, 'Acknowledge the topology's named failure mode'",
+      "claim": "(Resource: coordination cost; Delivery: feature bloat; Adaptive: high-variance outcomes)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer names no failure mode for the Adaptive Topology; 'high-variance outcomes' recasts its stated use case ('fast delivery of uncertain results') as a failure.",
+      "evidence": "Deep 104, 112-113 (pp. 13-14).",
+      "fix": "correct: (Resource: coordination cost; Delivery: feature bloat; Adaptive: no failure mode named by the Primer)"
+    },
+    {
+      "id": "D014",
+      "line": 101,
+      "section": "Anti-Patterns, 3",
+      "claim": "The high-performing team becomes the visible exception rather than the elevation example, and other teams disengage. (p. 4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Cites p. 4 for consequences p. 4 does not state (visible exception, other teams disengaging).",
+      "evidence": "Deep 250 (p. 4): single high-performing team cannot deliver its full potential in an unchanged surround.",
+      "fix": "correct: A single high-performing team can't deliver its full potential while its surroundings stay unchanged (p. 4); in engagement terms, other teams may read it as an exception rather than an example."
+    },
+    {
+      "id": "D015",
+      "line": 105,
+      "section": "Anti-Patterns, 5",
+      "claim": "When ASSESS-step mismatch is delivered as a leadership conclusion rather than co-seen with stakeholders, \"people don't see and understand there's a mismatch.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Re-purposes the quotation. In the Primer the sentence explains why mismatches are common, not what happens when a mismatch is announced.",
+      "evidence": "Deep 138 (p. 17): 'Having this kind of mismatch is common because people don't see and understand there's a mismatch! Org Topologies makes it easy for people to see, understand, and then get change going.'",
+      "fix": "correct: The Primer says mismatches persist because \"people don't see and understand there's a mismatch\" [V] (p. 17); a mismatch announced as a leadership conclusion leaves that unchanged."
+    },
+    {
+      "id": "D016",
+      "line": 119,
+      "section": "Worked Examples, pet-supply",
+      "claim": "(\"The small number of existing front-end designers and developers joining the new CAPS-3 teams will be trained in agent monitoring and take on that responsibility\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] passage carried without its marker.",
+      "evidence": "Deep 170 (p. 21) [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D017",
+      "line": 127,
+      "section": "Integration, NHS Just Culture Guide",
+      "claim": "the NHS guide's \"action singling out an individual is rarely appropriate\" pairs with OT's \"people have to own – not rent – their change\" [V] — both reject the individual-blame engagement failure mode in favour of system-level engagement.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to OT a rejection of individual blame. The Primer says nothing about blame or individual culpability; own-not-rent is about ownership of change ideas.",
+      "evidence": "nhs-just-culture-guide-deep 15 (NHS quote correct). Org Topologies deep 1-299: no blame or culpability content; deep 17 and 204: own-not-rent concerns ownership of change.",
+      "fix": "correct: Both favour system-level over individual-level fixes: the NHS guide says action singling out an individual 'is rarely appropriate', and OT locates performance in org design and insists people 'own – not rent – their change' [V]."
+    },
+    {
+      "id": "D018",
+      "line": 129,
+      "section": "Integration, Liberating Structures",
+      "claim": "the same engagement-discipline frame as the Liberating Structures stance against the \"five conventional structures\" that suppress inclusion",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The LS deep ref carries no 'five conventional structures'. The handbook's load-bearing contrast is ownership versus buy-in, which would support the pairing directly.",
+      "evidence": "liberating-structures-handbook-deep: no 'conventional structures' (grep finds only 'conventional panel', line 63); deep 17 and 25: 'Ownership versus Buy-in'.",
+      "fix": "correct: the same engagement-discipline frame as the Liberating Structures handbook's ownership-versus-buy-in distinction (\"Ownership ... means that you have participated in its development\")"
+    },
+    {
+      "id": "D019",
+      "line": 131,
+      "section": "Integration, FLO Facilitation Guide",
+      "claim": "the FLO discipline of pure-question facilitation (where the facilitator does not advise)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Misdescribes FLO: its working definition is facilitation 'through questioning and suggestions', not pure questioning; the shared ground is 'not the sage on the stage'.",
+      "evidence": "flo-facilitation-guide-deep 13 (Ch 1): helping learners 'understand course content through questioning and suggestions ... rather than acting as the “sage on the stage”'.",
+      "fix": "correct: the FLO discipline of facilitating through questioning and suggestions rather than acting as 'the sage on the stage'"
+    },
+    {
+      "id": "D020",
+      "line": 133,
+      "section": "Integration, Open Practice Library",
+      "claim": "Many of the Open Practice Library's discovery-and-delivery practices (event storming, value-stream mapping, impact mapping)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Value-stream mapping is not in the OPL deep ref; Event Storming and Impact Mapping are.",
+      "evidence": "open-practice-library-deep 168 (Event Storming), 30 (Impact Mapping); no 'value stream' anywhere in the deep (grep).",
+      "fix": "correct: (event storming, impact mapping, stakeholder map)"
+    },
+    {
+      "id": "D021",
+      "line": 137,
+      "section": "Integration, OpenStax Organizational Behavior",
+      "claim": "see openstax-organizational-behavior-stakeholder-engagement.md on resistance to change, the role of voice, and the conditions for ownership.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The OB deep ref carries none of these topics as described: no resistance to change, no conditions for ownership; 'voice' appears only in the groupthink definition.",
+      "evidence": "openstax-organizational-behavior-deep: 'resist' only for power (368, 402); no 'ownership'; 'voice' at 202 (groupthink). Change content is the four change models, 529-536.",
+      "fix": "correct: see openstax-organizational-behavior-stakeholder-engagement.md on the four change models (Ch 16.3) and their top-down versus bottom-up assumptions."
+    }
+  ],
+  "notes": "Structure deviates from the projection template: no 'What to Look For' or 'When to Use This Reference' sections; renamed Anti-Patterns and Worked Examples headings; no blockquoted [V] passages; Citation notes lack borrowed-through gaps and evidence-marker continuity. Nine verbatim quotations carry no [V] marker while others do. Marked [V] quotations otherwise match the deep ref and converted source (cover, own-not-rent, p. 3 extra-mile, p. 5 specialists fragment, p. 16 MAP, p. 27 co-creation, p. 22 framework consequences, p. 4 alignment, p. 19 Katas and perfection journey, p. 18 divergent designs, p. 9 car metaphor, p. 20 AI questions 1 and 3 and monitoring). APFG pairing checked: Sprint Review elicits stakeholder feedback, retro is team self-reflection (approach-perfect-field-guide-scrum-events-deep 160, 195)."
+}

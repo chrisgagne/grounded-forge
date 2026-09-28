@@ -1,0 +1,329 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/liberating-structures-handbook-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-164 of 164",
+    "deep": "lines 1-279 of 279",
+    "complete": true
+  },
+  "claims_audited": 152,
+  "tally": {
+    "faithful": 121,
+    "minor_drift": 23,
+    "unsupported": 5,
+    "contradicted": 3
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "The buy-in framing \"names the most common retro failure: the lead announces actions the team did not design...\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "frequency ranking added to a supported mechanism",
+      "evidence": "Deep ref line 17 supports the mechanism (someone else decides, you are convinced to implement; \"lukewarm, pallid implementation and mediocre results\"). Nothing in the deep ref ranks it as the most common failure of anything; line 14 of the distillation names a different 'most common retro failure'.",
+      "fix": "correct: names a common retro failure: ..."
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "\"Most of the structures named in the retro.md task spec come directly from this handbook: ... and the Levels of Accountability ladder.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "claim about the task spec does not match it",
+      "evidence": "corpus.commons/demo/tasks/retro.md lines 10 and 115 list 1-2-4-All, Troika, Wise Crowds, What/So What/Now What, 15% Solutions, DADs, 25-to-10, Mini Constellations, TRIZ, Wicked Questions, Simple Rules, Six Words; the Levels of Accountability ladder is not named there.",
+      "fix": "correct: drop the Levels of Accountability ladder from the task-spec list (keep it as a structure this distillation adds)"
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Key Concepts / 1-2-4-All",
+      "claim": "\"The explicit anti-HiPPO design: by the time the whole-group round happens...\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "explicitness attributed to the handbook",
+      "evidence": "Deep ref line 59 and source lines 1135-1188 give the stages and \"More than six is too big to give everyone a chance to talk\"; the handbook never mentions HiPPOs or rank. The explicit anti-HiPPO framing belongs to the Open Practice Library (OPL deep ref lines 90, 311).",
+      "fix": "correct: The anti-HiPPO effect of the design: ..."
+    },
+    {
+      "id": "D004",
+      "line": 12,
+      "section": "Key Concepts / 1-2-4-All",
+      "claim": "\"Three rounds are usually good\" for Impromptu Speed Networking, \"the warm-up version\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "separate structure described as a version of 1-2-4; verbatim quote unmarked",
+      "evidence": "Deep ref lines 57-59: Impromptu Speed Networking is its own structure that 1-2-4 \"can be done on its own or combined with\"; source line 1101: Three \"rounds\" are usually good.",
+      "fix": "correct: Impromptu Speed Networking, a separate energising opener the handbook says 1-2-4 can be combined with (\"Three 'rounds' are usually good\" [V])"
+    },
+    {
+      "id": "D005",
+      "line": 14,
+      "section": "Key Concepts / After Action Debrief",
+      "claim": "\"the most common retro failure is jumping directly to Now-What (experiments) before What (data) and So-What (pattern) have been answered\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "empirical failure-frequency claim not in deep ref",
+      "evidence": "Deep ref line 113 says only that the questions are asked \"in the following order\"; source lines 1723-1725 give no rationale or failure mode.",
+      "fix": "correct: The sequence discipline matters for retros: the handbook asks the questions \"in the following order\", so hold What and So-What before Now-What."
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Key Concepts / Troika Consulting",
+      "claim": "\"The handbook's suggested framing questions: 'What's the question you most need to answer in order to move forward? What's the biggest obstacle...'\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quote unmarked and silently elided",
+      "evidence": "Source lines 1581-1584: \"What's the question you most need to answer in order to move forward? How can you get that question answered?\" — the second question is dropped without ellipsis. Deep ref line 79 carries the questions as [V].",
+      "fix": "correct: restore \"How can you get that question answered?\" or mark the omission with an ellipsis; re-mark: [V]"
+    },
+    {
+      "id": "D007",
+      "line": 16,
+      "section": "Key Concepts / Troika Consulting",
+      "claim": "\"three parallel peer-consultation rounds run in 30 minutes and each produces an owned next step\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "rounds misdescribed as parallel; output overstated",
+      "evidence": "Deep ref line 79 / source lines 1585-1590: rounds of 10 minutes taken in turn (\"Switch roles so that each member of the troika has a turn\"); partners discuss \"how they might handle the challenge and what possibilities might contribute to moving forward\". No owned next step is guaranteed.",
+      "fix": "correct: three sequential 10-minute rounds (30 minutes per troika), each giving the focal person partners' ideas on moving forward"
+    },
+    {
+      "id": "D008",
+      "line": 18,
+      "section": "Key Concepts / Discovery & Action Dialogues",
+      "claim": "\"Six-question protocol\"; full sequence quoted without marker and without \"(or supporting desired behavior)\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "count wrong (the quote itself lists seven); verbatim quote unmarked and trimmed",
+      "evidence": "Deep ref line 83 and source lines 1271-1277 list seven questions.",
+      "fix": "correct: Seven-question protocol; restore \"(or supporting desired behavior)\"; re-mark: [V]"
+    },
+    {
+      "id": "D009",
+      "line": 18,
+      "section": "Key Concepts / Discovery & Action Dialogues",
+      "claim": "\"The handbook frames this as the owned-experiment move: the last two questions produce named owners and named next steps ... rather than a collective intention that disperses when the meeting ends.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "distillation's framing attributed to the handbook",
+      "evidence": "Deep ref line 83: DAD purposes include \"Identify volunteers among this group to experiment with solutions and ideas\"; the handbook says nothing about the last two questions or about intentions dispersing.",
+      "fix": "correct: One of the handbook's stated DAD purposes is to \"Identify volunteers among this group to experiment with solutions and ideas\" [V]; the closing questions put names and next steps on the record inside the conversation."
+    },
+    {
+      "id": "D010",
+      "line": 20,
+      "section": "Key Concepts / 15% Solutions",
+      "claim": "15-percent sentence marked [V] followed by \"Gareth Morgan borrowed-through.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attribution diverges from deep ref",
+      "evidence": "Deep ref line 101 marks the 15-percent sentence [V] (handbook) and attaches [BT — Gareth Morgan] only to the separate \"The challenge rests...\" quotation (source lines 1418-1429).",
+      "fix": "correct: The handbook separately quotes Gareth Morgan on \"15-percent initiatives\" [BT]."
+    },
+    {
+      "id": "D011",
+      "line": 22,
+      "section": "Key Concepts / Mini Constellations",
+      "claim": "\"Place an object on the floor...\" and \"this way of giving the instruction invites them to take the 'role'...\" (no markers)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotes unmarked",
+      "evidence": "Deep ref line 99 carries both as [V]; source lines 1803-1812.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D012",
+      "line": 26,
+      "section": "Key Concepts / Wise Crowds",
+      "claim": "Heading \"Wise Crowds (5-6 person consulting team)\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "group size assigned to the wrong unit",
+      "evidence": "Deep ref line 77: \"Groups of 5–6 ... with one 'client' and the rest as a 'consulting team'\" (source lines 836-837); the consulting team is 4-5.",
+      "fix": "correct: Wise Crowds (groups of 5-6: one client, the rest a consulting team)"
+    },
+    {
+      "id": "D013",
+      "line": 26,
+      "section": "Key Concepts / Wise Crowds",
+      "claim": "\"questions, paraphrases, metaphors, examples, musings\" in quotation marks; the job rule quoted without marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "compressed list presented as source wording; verbatim rule unmarked",
+      "evidence": "Deep ref line 77 gives the list unquoted; source lines 852-856 word it differently. The job rule is verbatim at source lines 856-857.",
+      "fix": "correct: drop quotation marks from the list; re-mark the job rule [V]"
+    },
+    {
+      "id": "D014",
+      "line": 28,
+      "section": "Key Concepts / Levels of Accountability",
+      "claim": "Diagnostic question \"What do we need to do to work 'above the line?'\" (no marker; also lines 70, 104)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quote unmarked",
+      "evidence": "Deep ref line 133 carries it as [V]; source line 1919.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D015",
+      "line": 32,
+      "section": "Key Concepts / Wicked Questions",
+      "claim": "Wicked-question definition quoted without a marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quote unmarked",
+      "evidence": "Deep ref line 89 carries it as [V]; source lines 1372-1375.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D016",
+      "line": 34,
+      "section": "Key Concepts / Q Storming",
+      "claim": "\"What's the question you still need to answer for yourself to get to a significantly new place?\" [V] cited (Source: \"Q Storming\"); \"courageous and provocative questions...\" unmarked",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited section; second verbatim quote unmarked",
+      "evidence": "Deep ref line 67 places the quoted prompt in Take 10 (Minutes); deep ref line 91 lists the Q Storming prompts (e.g. \"What's the question that, if you could answer, would make it possible for you to move forward or get unstuck?\").",
+      "fix": "correct: use a Q Storming prompt — \"What's the question that, if you could answer, would make it possible for you to move forward or get unstuck?\" [V] — or cite the current one to \"Take 10 (Minutes)\"; re-mark the brainstorm phrase [V]"
+    },
+    {
+      "id": "D017",
+      "line": 54,
+      "section": "Questions / Phase 0.5",
+      "claim": "\"is the unresolved tension actually a paradox rather than a solvable problem?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates the source's definition",
+      "evidence": "Deep ref line 89: wicked questions \"do not have obvious answers\" and open up options; source lines 1368-1369: used \"to find creative alternatives for stubborn problems\". Not framed as unsolvable.",
+      "fix": "correct: is the unresolved tension a paradox with no obvious answer?"
+    },
+    {
+      "id": "D018",
+      "line": 78,
+      "section": "Questions / Phase 3",
+      "claim": "\"Name it rather than treating it as a solvable problem.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates the source's definition",
+      "evidence": "As D017.",
+      "fix": "correct: Name it and use it to open up options rather than reaching for an obvious answer."
+    },
+    {
+      "id": "D019",
+      "line": 87,
+      "section": "Questions / Phase 4",
+      "claim": "\"Wise Crowds: consulting team of 5–6\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "group size misassigned",
+      "evidence": "Deep ref line 77: groups of 5-6 including one client.",
+      "fix": "correct: Wise Crowds: groups of 5-6 (one client, the rest consulting)"
+    },
+    {
+      "id": "D020",
+      "line": 106,
+      "section": "What to Look For",
+      "claim": "\"the tension is a paradox, not a solvable problem\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates the source's definition",
+      "evidence": "As D017.",
+      "fix": "correct: the tension may be a paradox with no obvious answer"
+    },
+    {
+      "id": "D021",
+      "line": 142,
+      "section": "Anti-patterns",
+      "claim": "\"The retro surfaces a genuine systemic paradox but treats it as a solvable problem — solved by naming it as a Wicked Question.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates the source's definition",
+      "evidence": "As D017.",
+      "fix": "correct: ... but reaches for an obvious answer — solved by naming it as a Wicked Question and opening up options."
+    },
+    {
+      "id": "D022",
+      "line": 143,
+      "section": "Anti-patterns",
+      "claim": "\"solved by Troika Consulting and Discovery & Action Dialogues producing one owned commitment per focal person\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "output overstated; DADs have no focal person",
+      "evidence": "Deep ref line 79: Troika partners discuss possibilities for moving forward; no commitment output is stated. Deep ref line 83: DADs are group conversations ending in \"Who will do what when next?\".",
+      "fix": "correct: solved by Troika Consulting giving each focal person peer input on moving forward, and Discovery & Action Dialogues closing on \"Who will do what when next?\" [V]"
+    },
+    {
+      "id": "D023",
+      "line": 151,
+      "section": "Integration / Approach Perfect Field Guide",
+      "claim": "\"The Field Guide supplies the agenda container (five-segment Derby-Larsen structure)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "count differs from the other source's deep ref",
+      "evidence": "approach-perfect-field-guide-scrum-events-deep line 216: \"Six named segments totalling 90 minutes\"; line 242: the agenda is \"based on\" Derby and Larsen's book [BT].",
+      "fix": "correct: The Field Guide supplies the agenda container (a six-segment, 90-minute agenda based on Derby and Larsen)"
+    },
+    {
+      "id": "D024",
+      "line": 152,
+      "section": "Integration / Open Practice Library",
+      "claim": "\"OPL carries 1-2-4-All and references it from the Liberating Structures collection\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "claim about another source absent from its deep ref",
+      "evidence": "open-practice-library-deep lines 90, 258, 311 carry 1-2-4-All with explicit anti-HiPPO framing; 'Liberating' does not occur anywhere in that deep ref. Note: the OPL converted source itself does link 1-2-4-All to liberatingstructures.com (open-practice-library.md line 14248) and credits Lipmanowicz and McCandless for Purpose to Practice (line 14199), so the claim is true of the source; the gap is in the OPL deep ref, which is the audit baseline.",
+      "fix": "correct: OPL carries 1-2-4-All with an explicit anti-HiPPO framing; the two sources are complementary on anti-HiPPO structure (or add the LS attribution to the OPL deep ref, then keep the provenance clause)"
+    },
+    {
+      "id": "D025",
+      "line": 153,
+      "section": "Integration / Org Topologies Primer",
+      "claim": "\"OT's 15%-Solution-vs-structural-escalation distinction uses 15% Solutions (from this source)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "a sibling distillation's synthesis attributed to the other source",
+      "evidence": "org-topologies-primer-2025-deep contains no mention of 15% Solutions, locus of control or escalation; the distinction is authored in distillations/retro/org-topologies-primer-2025-retro.md lines 10, 22. The Primer does carry the single-team-inside-unchanged-surround warning.",
+      "fix": "correct: OT's warning that a single team cannot deliver inside an unchanged surround marks the edge of 15% Solutions: use this source's 15% move for what the team controls and OT's topology language for what needs structural change"
+    },
+    {
+      "id": "D026",
+      "line": 155,
+      "section": "Integration / OpenStax OB",
+      "claim": "\"OB's ownership-vs-buy-in and groupthink analysis\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "concept attributed to another source absent from its deep ref",
+      "evidence": "openstax-organizational-behavior-deep has no 'buy-in' or 'ownership' match; groupthink is at line 202 (Ch 6.6). Ownership-vs-buy-in is this handbook's concept.",
+      "fix": "correct: OB's groupthink and suppression-of-dissent analysis (Ch 6.6) provides the diagnostic vocabulary ..."
+    },
+    {
+      "id": "D027",
+      "line": 156,
+      "section": "Integration / FLO Facilitation Guide",
+      "claim": "\"FLO's scaffolding-and-fading arc complements LS's modelling-as-through-line\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "the other source's concept assigned to this source",
+      "evidence": "flo-facilitation-guide-deep line 15 and section 'Modelling as the through-line' (line 313) make modelling FLO's through-line; the handbook deep ref has no modelling concept.",
+      "fix": "correct: FLO's scaffolding-and-fading arc and modelling through-line complement LS's structures for handing the conversation to the group; both address how the facilitator's presence shapes the team's ownership"
+    },
+    {
+      "id": "D028",
+      "line": 160,
+      "section": "Citation notes / Borrowed-through",
+      "claim": "\"The handbook cites Gareth Morgan for the 15-percent-control framing [BT]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attribution diverges from deep ref",
+      "evidence": "Deep ref line 101: the 15-percent-control sentence is the handbook's [V]; Morgan is quoted on \"15-percent initiatives\" that snowball.",
+      "fix": "correct: The handbook quotes Gareth Morgan (The Globe and Mail) on \"15-percent initiatives\" [BT]"
+    },
+    {
+      "id": "D029",
+      "line": 164,
+      "section": "Citation notes / Evidence-marker continuity",
+      "claim": "\"buy-in is the exact opposite... of ownership\" given as the deep ref's [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "editorial insertion presented as source words",
+      "evidence": "Source line 262: \"Buy-in is the exact opposite .\" — 'of ownership' is the deep ref's bracketed insertion \"[of ownership]\" (deep ref line 250), not elided source text.",
+      "fix": "correct: (\"Buy-in is the exact opposite [of ownership]\")"
+    },
+    {
+      "id": "D030",
+      "line": 164,
+      "section": "Citation notes / Evidence-marker continuity",
+      "claim": "\"the distillation carries the question verbatim in the worked example\" (TRIZ)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note misdescribes the distillation",
+      "evidence": "The worked example (line 128) adapts the question (\"would make it 100% certain this dependency never gets managed\"); the verbatim [V] passage is in Key Concepts item 10 (line 30).",
+      "fix": "correct: the distillation carries the question verbatim in Key Concepts item 10 and adapts it in the worked example"
+    },
+    {
+      "id": "D031",
+      "line": 164,
+      "section": "Citation notes / Evidence-marker continuity",
+      "claim": "\"15% Solutions' 'most people have about 15-percent control' claim attributes to Gareth Morgan [BT] and is [V] in the deep ref\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misreports the deep ref's marker",
+      "evidence": "Deep ref line 101: the sentence is [V] (handbook); [BT — Gareth Morgan] attaches to the separate 'challenge rests' quotation.",
+      "fix": "correct: the 15-percent-control sentence is [V] (handbook) in the deep ref; the separate Gareth Morgan quotation is [BT]"
+    }
+  ],
+  "notes": "Counting: claims_audited counts distinct assertions (relevance sentences, concept sub-claims, table cells, What-to-Look-For diagnosis/follow-up, When-to-Use bullets, worked-example steps, anti-patterns, integration rows, integrity-note items); faithful = claims_audited - findings. Every quoted span was checked mechanically against the deep ref and the converted source (curly/straight quotes normalised) and mismatches read by hand. All [V] quotes are present in the deep ref and match the source word for word except D029. Unmarked verbatim quotes: lines 12, 16, 18, 22, 26, 28, 32, 34 (plus the above-the-line question in table cells at 70 and 104, rolled into D014). The distillation uses the name '1-2-4-All' throughout; the handbook's name is '1-2-4-Whole Group' (cited correctly in source tags), noted rather than graded. The Kerth Prime Directive pairing (line 28) traces to approach-perfect-field-guide-scrum-events-deep lines 218-223 and was graded FAITHFUL. Other deep refs checked: approach-perfect-field-guide-scrum-events-deep (retro agenda, lines 210-244), open-practice-library-deep (1-2-4-All, HiPPO, 'Liberating'), org-topologies-primer-2025-deep (15%, locus, escalation: no matches), ssdl-systems-thinking-foundations-deep (archetypes), barbrook-johnson-systems-mapping-deep (header), openstax-organizational-behavior-deep (buy-in/ownership: no matches; groupthink line 202), flo-facilitation-guide-deep (scaffolding-and-fading line 17/73; modelling through-line lines 15, 313). Task spec corpus.commons/demo/tasks/retro.md was checked for the structures list in line 8."
+}

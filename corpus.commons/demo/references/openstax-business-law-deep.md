@@ -52,7 +52,7 @@ Future-of-relationship considerations shape goal selection: "when a business neg
 
 The Thomas-Kilmann Conflict Mode Instrument (TKI) "is a questionnaire that provides a systematic framework for categorizing five broad negotiation styles. It is closely associated with work done by conflict resolution experts Dean Pruitt and Jeffrey Rubin" [V, BT] (Ch 2.1, "Negotiation Style"). The five styles, framed by level of self-interest:
 
-1. **Forcing** — high self-concern, low concern for the other; competitive; prone to zero-sum thinking; "often undermines the party's long-term success" (Ch 2.1).
+1. **Forcing** — high self-concern, low concern for the other; competitive; prone to zero-sum thinking; "often undermines the party's long-term success" [V] (Ch 2.1). The illustration is a car dealership that gives each customer as little as possible for a trade-in: a customer who feels she did not receive a fair trade-in value "may leave negative reviews and will not refer her friends and family to that dealership and will not return to it when the time comes to buy another car" [V] (Ch 2.1, "Negotiation Style").
 2. **Collaborating** — high concern for both; "seeks to maximum the gain for both"; recognises mutual interests "create greater value and synergies" (Ch 2.1).
 3. **Compromising** — moderate concern for both; parties "find certain points that are more important to one versus the other" (Ch 2.1).
 4. **Avoiding** — low concern for both; the party "will often try to avoid negotiation completely" (Ch 2.1).
@@ -66,7 +66,7 @@ Negotiations sit under federal and state laws, prominently the **Federal Arbitra
 
 ### Mediation: solution-focused, future-oriented
 
-A **mediator** is "someone who has been trained in conflict resolution, though often, he or she does not have any expertise in the subject matter that is being disputed" [V] (Ch 2.2, "Court or Agency-Connected Mediation"). Mediation is "distinguished by its focus on solutions. Instead of focusing on discoveries, testimonies, and expert witnesses to assess what has happened in the past, it is future-oriented. Mediators focus on discovering ways to solve the dispute in a way that will appease both parties" [V] (Ch 2.2).
+A **mediator** is "someone who has been trained in conflict resolution, though often, he or she does not have any expertise in the subject matter that is being disputed" [V] (Ch 2.2, "Court or Agency-Connected Mediation"). It is often used "because it can help disagreeing parties avoid the time-consuming and expensive procedures involved in court litigation" [V] (Ch 2.2, "Court or Agency-Connected Mediation"). Mediation is "distinguished by its focus on solutions. Instead of focusing on discoveries, testimonies, and expert witnesses to assess what has happened in the past, it is future-oriented. Mediators focus on discovering ways to solve the dispute in a way that will appease both parties" [V] (Ch 2.2).
 
 The Chevron internal mediation programme is the named cost-savings example: one dispute was resolved at $25,000, "far less than the estimated $700,000 it would have incurred through the use of outside legal services" and the "estimated $2.5 million" of going to court [AE] (Ch 2.2, "Court or Agency-Connected Mediation").
 
@@ -85,7 +85,7 @@ Citing nolo.com, six steps are named (Ch 2.2, "Steps of Mediation"):
 
 ### Ethical framing: consequentialist vs deontological
 
-Mediators face ethical decisions framed by two competing positions. **Consequentialist ethics** (also called situational ethics) "is a way of looking at difficult decisions by considering their implications" [V] (Ch 2.2, "Ethical Issues"). **Deontologist ethics** "bases its decision on whether the action itself is right or wrong, regardless of its consequences" [V] (Ch 2.2). Kant's **categorical imperative** is quoted: "Act only according to that maxim whereby you can, at the same time, will that it should become a universal law" [V, BT] (Ch 2.2). The text observes: "In real life, it is very difficult to adopt a 100% deontological viewpoint for dispute resolution" (Ch 2.2).
+Mediators face ethical decisions framed by two competing positions. **Consequentialist ethics** (also called situational ethics) "is a way of looking at difficult decisions by considering their implications" [V] (Ch 2.2, "Ethical Issues"). **Deontologist ethics** "bases its decision on whether the action itself is right or wrong, regardless of its consequences" [V] (Ch 2.2). Kant's **categorical imperative** is quoted: "Act only according to that maxim whereby you can, at the same time, will that it should become a universal law" [V, BT] (Ch 2.2). The text glosses it: "one's action should be considered in light of what would happen if everyone were to engage in the same action" [V] (Ch 2.2). The text observes: "In real life, it is very difficult to adopt a 100% deontological viewpoint for dispute resolution" [V]. Often a dispute has arisen "because of some ambiguity inherent in the situation" [V]; "In these cases, mediators must apply their best judgment to help the disagreeing parties see one another's viewpoints and to guide them toward a mutually amicable solution" [V] (Ch 2.2, "Ethical Issues").
 
 ### E-mediation and canine-assisted mediation
 
@@ -111,7 +111,7 @@ Forced-arbitration clauses are flagged as a stakeholder-fairness concern: "consu
 
 ### Baseball arbitration
 
-Baseball arbitration is presented as a structural fix for arbitrators lacking subject-matter expertise: "each party would submit a lease renewal figure to an arbitrator… the arbitrator chooses one offer or the other, without modification. This type of arbitration incentivizes both parties to be fair in their dealings with one another because to do otherwise would be to their own detriment" [V] (Ch 2.3, "Arbitration Procedures").
+Baseball arbitration is presented as part of a structural fix for an arbitrator who lacks subject-matter expertise and may resolve a lease dispute by "splitting the difference": the building owner could write a lease that stipulates "that the parties use binding baseball arbitration and use subject matter experts as arbitrators" [V]. In baseball arbitration, "each party would submit a lease renewal figure to an arbitrator… the arbitrator chooses one offer or the other, without modification. This type of arbitration incentivizes both parties to be fair in their dealings with one another because to do otherwise would be to their own detriment" [V] (Ch 2.3, "Arbitration Procedures").
 
 ### Arbitration awards: bare-bones, reasoned, and enforcement
 
@@ -405,7 +405,7 @@ If satisfied, the court awards "reliance damages to restore the aggrieved party 
 
 ### Material vs minor breach
 
-"When something substantially different from what was expected under the terms of the contract is delivered, the breach will be considered material" [V] (Ch 7.3, "Material vs. Minor Breach"). Material breach gives the non-breaching party "the right to all remedies for breach of the entire contract" and discharge of obligations. Minor breach (e.g., late delivery without "time of the essence") still requires performance, with damages possible.
+"When something substantially different from what was expected under the terms of the contract is delivered, the breach will be considered material" [V] (Ch 7.3, "Material vs. Minor Breach"). Material breach gives the non-breaching party "the right to all remedies for breach of the entire contract" and discharge of obligations. Minor breach still requires performance, with damages possible. The example is late delivery "under a contract that does not specify a firm delivery date and that doesn't state that time is of the essence" [V], where "a reasonably short delay would likely only be considered a minor breach of the contract" [V] (Ch 7.3, "Material vs. Minor Breach").
 
 Court considerations for materiality: benefit received by non-breaching party, adequacy of compensation, extent of performance by breaching party, hardship to breaching party, negligence or intent of breaching party, possibility of completion (Ch 7.3).
 
@@ -625,7 +625,7 @@ Two recognised types (Ch 9.3):
 - **Quid pro quo** — manager makes a sexual demand perceived as a condition of employment.
 - **Hostile work environment** — actions creating a hostile work environment; the text does not further specify the conduct.
 
-*Oncale v. Sundowner Offshore Services Inc.* (1997) established same-sex sexual harassment as actionable. The **Pregnancy Discrimination Act** (1987) expanded sex discrimination to include pregnancy, childbirth, and related medical conditions (Ch 9.3).
+*Oncale v. Sundowner Offshore Services Inc.* (1997) established same-sex sexual harassment as actionable. "In some limited circumstances, employers may also be liable for harassment of employees by non-employees, e.g., customers. The employer is liable if it does nothing to prevent and remedy harassment targeted at one of its employees" [V] (Ch 9.3, "Civil Rights Act of 1964 – Title VII"). The **Pregnancy Discrimination Act** (1987) expanded sex discrimination to include pregnancy, childbirth, and related medical conditions (Ch 9.3).
 
 ### Three Title VII defences (Table 9.5)
 
@@ -688,14 +688,14 @@ The **rule of reason** distinguishes (Ch 11.1, "Rule of Reason"):
 
 (Ch 11.2, "Antitrust Laws"):
 
-- **Sherman Antitrust Act (1890)** — first antitrust law. A criminal statute; prohibits unreasonable restraints. Violations may include "agreements with competitors to set prices." Penalties up to $100 million for corporations, $1 million for individuals, up to 10 years in prison; if gain or loss exceeds $100 million, fine may be doubled (Ch 11.2). Limitation: "did not provide clear and specific language, which left the courts to make decisions on a case-by-case basis, without any consistent precedent" (Ch 11.2).
+- **Sherman Antitrust Act (1890)** — first antitrust law. A criminal statute; prohibits unreasonable restraints. Violations may include "agreements with competitors to set prices." "Mergers or other actions that would create agreements to fix prices or bids or allocate customers are considered criminal felonies" [V, BT, citing United States Department of Justice] (Ch 11.2, "The Sherman Antitrust Act"). Penalties up to $100 million for corporations, $1 million for individuals, up to 10 years in prison; if gain or loss exceeds $100 million, fine may be doubled (Ch 11.2). Limitation: "did not provide clear and specific language, which left the courts to make decisions on a case-by-case basis, without any consistent precedent" (Ch 11.2).
 - **Clayton Act (1914)** — civil statute; focuses on unfair mergers and acquisitions. Four illegal acts (Ch 11.2):
   1. **Price discrimination** — same product sold to different buyers at different prices.
   2. **Exclusive dealing contracts** — buyers required to purchase only from one business.
   3. **Corporate mergers** — acquisition of competing companies.
   4. **Interlocking directorates** — boards with common members across competitors.
 
-  Acts are illegal "only when they create monopolies or substantially lessen competition" [V, BT, citing West] (Ch 11.2). Unions excluded ("Congress did not wish to treat human labor as a commodity"). 1976 amendment requires advance notification and authorisation for larger mergers; victims can sue for "triple damages" (Ch 11.2).
+  The four acts "would only be considered illegal when they create monopolies or substantially lessen competition" [V, BT, citing West] (Ch 11.2). Unions excluded ("Congress did not wish to treat human labor as a commodity"). 1976 amendment requires advance notification and authorisation for larger mergers; victims can sue for "triple damages" (Ch 11.2).
 - **Federal Trade Commission Act (1914)** — focuses on "unfair methods of competition and deceptive acts or practices that impact commerce" [V, BT, citing West]. "All acts that violate the Sherman Act also violate the FTC Act" (Ch 11.2). Two named remedies: **divestiture** (forces giving up operating functions) and **dissolution** (terminates a partnership's right to exist) (Ch 11.2).
 
 ### Four antitrust exemptions
@@ -829,17 +829,17 @@ Section 12 requires registration of certain securities; required information inc
 
 ### Insider trading: definition and the Martha Stewart case
 
-Insider trading per the SEC: "buying or selling a security, in breach of a fiduciary duty or other relationship of trust and confidence, on the basis of material, nonpublic information about the security" [V, BT] (Ch 14.1, "Insider Trading"). "Material nonpublic information" is "information of any kind that would impact the market price of securities that has not been disclosed to the public" [V] (Ch 14.1).
+Insider trading per the SEC: "buying or selling a security, in breach of a fiduciary duty or other relationship of trust and confidence, on the basis of material, nonpublic information about the security" [V, BT] (Ch 14.1, "Insider Trading"). Section 10(b) and Rule 10b-5 of the Securities Exchange Act of 1934 prohibit "the purchase or sale of securities on the basis of" **material nonpublic information** [V], meaning "information of any kind that would impact the market price of securities that has not been disclosed to the public" [V] (Ch 14.1, "Insider Trading").
 
 The Martha Stewart / ImClone case (2003) is the named exemplar: Stewart sold shares before a 16% drop, avoiding "a $45,673 loss." Stephen M. Cutler, SEC Director of Enforcement, is quoted: "It is fundamentally unfair for someone to have an edge on the market just because she has a stockbroker who is willing to break the rules and give her an illegal tip. It's worse still when the individual engaging in the insider trading is the Chairman and CEO of a public company" [V, BT] (Ch 14.1).
 
 ### Pre-arranged trading and safe harbour
 
-SEC Rule 10b5-1 permits executives to transact securities under pre-arranged plans on predetermined dates and pre-set amounts; **safe harbour** is "exemption from insider trading charges for compliant pre-arranged equity trades" [V] (Ch 14.1, "Insider Trading").
+Insider trading is not always illegal, but "disclosure alone is not enough to make trading on the basis of insider information legally acceptable" [V]. SEC Rule 10b5-1 permits executives at public companies to transact securities "so long as it is arranged in good faith beforehand to take place on certain predetermined future dates and involves pre-set amounts" [V]; **safe harbour** is "exemption from insider trading charges for compliant pre-arranged equity trades" [V] (Ch 14.1, "Insider Trading").
 
 ### Schedule 13D and corporate insiders
 
-The 1968 Williams Act amended the Securities Exchange Act so investors could have "advance warning of possible corporate takeovers." Becoming a **beneficial owner** of more than 5% of a company's stock requires filing a Schedule 13D within 10 days. "A beneficial owner is anyone with 'voting and investment power over their shares.'" Qualified **institutional investors** (insurance companies, state employee benefits plans, investment companies) report at year-end (Ch 14.1, "Schedule 13D"). **Corporate insiders** are officers, directors, and beneficial owners with more than 10% of a class of securities under Section 12 (Ch 14.1, "Insider Transactions").
+The 1968 Williams Act amended the Securities Exchange Act so investors could have "advance warning of possible corporate takeovers." Becoming a **beneficial owner** of more than 5% of a company's stock requires filing a Schedule 13D within 10 days. "A beneficial owner is anyone with 'voting and investment power over their shares.'" Qualified **institutional investors** (insurance companies, state employee benefits plans, investment companies) report at year-end (Ch 14.1, "Schedule 13D"). **Corporate insiders** are officers, directors, and beneficial owners with more than 10% of a class of securities under Section 12 (Ch 14.1, "Insider Transactions"). "Corporate insiders must file a statement of ownership with the SEC to be in compliance" [V], and in 2002 the SEC "implemented new rules that shortened the time period to report insider transactions" [V]. "Companies that do not implement and enforce compliance procedures can become liable for the actions of their employees who fail to follow the law" [V] (Ch 14.1, "Insider Transactions").
 
 ### Four required filings
 
@@ -848,7 +848,7 @@ The 1968 Williams Act amended the Securities Exchange Act so investors could hav
 - **Form 10-K** — annual report; **audited** financial statements (reviewed by independent CPAs against GAAP). Must disclose financial condition, market risks, internal controls, legal proceedings, defaults. Annual reports may include **management discussion** of operations and economy (Berkshire Hathaway / Buffett-Munger named).
 - **Form 10-Q** — quarterly **unaudited** statements; less expensive but with less independent assurance.
 - **Form 8-K** — for events such as officer changes, mergers, bankruptcy declarations; filed within four business days.
-- **Proxy statements** — required to inform shareholders for stockholder meetings; sent at least 40 days before meetings (mailed or via "Notice of Internet Availability of Proxy Materials").
+- **Proxy statements** — required so shareholders can vote on issues decided at a stockholder meeting; some companies mail them, while others send a "Notice of Internet Availability of Proxy Materials" to shareholders "a minimum of 40 days before the shareholders' meeting" [V].
 
 ### Blue sky laws
 
@@ -894,7 +894,7 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 | Schedule 13D filing threshold | more than 5% beneficial ownership; within 10 days | [V] (Ch 14.1, "Schedule 13D") |
 | Corporate insider threshold | more than 10% of class of securities | [V] (Ch 14.1, "Insider Transactions") |
 | Form 8-K filing window | 4 business days | [V] (Ch 14.1, "Reporting Requirements") |
-| Proxy statement notice window | 40+ days | [V] (Ch 14.1) |
+| Notice of Internet Availability of Proxy Materials | at least 40 days before the meeting | [V] (Ch 14.1) |
 | JOBS Act crowdfunding cap | $1,070,000 / 12 months | [V] (Ch 14.2, "The SEC") |
 | Martha Stewart / ImClone avoided loss | $45,673 | [V] (Ch 14.1, "Insider Trading") |
 | ImClone share-price drop | 16% | [V] (Ch 14.1) |
@@ -950,6 +950,6 @@ The PDF was converted with pymupdf4llm 0.2.9. Page anchors did not survive the c
 
 Coverage is partial in the sense documented in the frontmatter: chapter introductions and all numbered substantive sections (1.1 through 14.2) are included; **Assessment Questions**, **Endnotes**, the **Answer Key**, and **Index** are excluded. No substantive content is silently dropped — the excluded sections are pedagogical scaffolding and back-matter, not exposition.
 
-The book is brief by design. The Preface explicitly states it is "designed to meet the scope and sequence requirements of courses on Business Law or the Legal Environment of Business" with "concepts… presented in a streamlined manner" and "may need to be supplemented with additional content, cases, or related materials." This deep ref is faithful to that streamlined framing; readers wanting case-law depth or doctrinal commentary should consult the cited primary sources directly.
+The book is brief by design. The Preface describes it as "a brief introductory textbook designed to meet the scope and sequence requirements of courses on Business Law or the Legal Environment of Business" with "concepts… presented in a streamlined manner" and "may need to be supplemented with additional content, cases, or related materials." This deep ref is faithful to that streamlined framing; readers wanting case-law depth or doctrinal commentary should consult the cited primary sources directly.
 
 The author roster (lead author Mirande Valbrune is an employment lawyer; contributors span business, employment-law, and education programmes) shapes the book's tone and emphasis: practical, US-centric, weighted toward employment and contract material. The book reads as a survey of doctrine rather than as an argued thesis. The "Author's thesis" section above synthesises organising claims that the text develops cumulatively rather than naming as a thesis.

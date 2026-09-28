@@ -24,7 +24,7 @@ A fifth thread running through every brief: *system dynamics is not the right to
 
 ## Coverage note on field-agnosticism and worked examples
 
-Every brief uses K-12 education-equity worked examples (educational disparities and tracking, exclusionary school discipline, teacher burnout, school social-work limits, parent-teacher trust, mental-health waitlists). The series' *About the Series* footer states explicitly that the series "focuses on introducing core concepts of systems thinking and system dynamics as they relate to issues of education equity. This series draws from community-based modeling work with educators and students over the last ten years" [V] (Brief 1.02, "+ ABOUT THE SERIES"; identical text in every brief).
+Every brief uses K-12 education-equity worked examples (educational disparities and tracking, exclusionary school discipline, teacher burnout, school social-work limits, parent-teacher trust, mental-health waitlists). The series' *About the Series* footer states explicitly that the series "focuses on introducing core concepts of systems thinking and system dynamics as they relate to issues of education equity. This series draws from community-based modeling work with educators and students over the last ten years" [V] (Brief 1.02, "+ ABOUT THE SERIES"; the same footer appears in every brief, with "educational equity" in Briefs 1.05 and 1.06).
 
 The deep reference treats the briefs as carrying *field-agnostic concept prose* — definitions, principles, structural explanations of systems thinking — together with *education-equity worked examples* that illustrate the concepts. The concept prose is the authors' claim; the worked examples are the authors' applied case material, supporting the claim but not defining it. This distinction is the load-bearing call that allowed the five included briefs into the present ingest while excluding 1.01 and 1.04 (where, per the operator's pre-ingest assessment, the education frame is structural to the concept's operational meaning rather than illustrative of it). Throughout this deep reference, education-example content is preserved where the source presented it; distillations downstream (Pass G) translate the concepts into the task's working vocabulary and reconstruct worked examples in that vocabulary.
 
@@ -82,7 +82,7 @@ The brief opens its concept section by invoking "the famous parable of the blind
 
 ### Group model building (GMB)
 
-The brief introduces *Group Model Building* as the named participatory method: "Group model building (GMB) is a process for bringing people together to develop a model of the system, to create shared insights and common language, and to build consensus for implementing change. While such processes may incite difficult conversations and disagreement, they can help us to build a more complete picture of systems and, ultimately, create shared mental models for change. To build equitable and sustainable solutions to complex problems, we must uncover the whole 'elephant,' which requires amplifying the perspectives and voices of groups with differing vantage points" [V] (Brief 1.03, "+ CONCEPT"). Hovmand (2014), *Community based system dynamics*, appears in the brief's Sources list [BT] (Brief 1.03, "+ SOURCES").
+The brief introduces *Group Model Building* as the named participatory method: "Group model building (GMB) is a process for bringing people together to develop a model of the system, to create shared insights and common language, and to build consensus for implementing change. While such processes may incite difficult conversations and disagreement, ... they can help us to build a more complete picture of systems and, ultimately, create shared mental models for change. To build equitable and sustainable solutions to complex problems, we must uncover the whole 'elephant,' which requires amplifying the perspectives and voices of groups with differing vantage points" [V] (Brief 1.03, "+ CONCEPT"). Hovmand (2014), *Community based system dynamics*, appears in the brief's Sources list [BT] (Brief 1.03, "+ SOURCES").
 
 ### The stickiness of mental models
 
@@ -199,7 +199,7 @@ The fourth caution closes the loop back to Brief 1.03 (*Mental Models*) — the 
 
 ### Getting started: three practice sequences
 
-The brief offers three named practice sequences (*See accumulations around you*, *Practice Diagramming*, *Share Out*) with explicit verbs (*Explore*, *Consider*, *Reflect*, *Draw*, *Brainstorm*, *Share*) [V] (Brief 1.06, "+ GETTING STARTED"). The third sequence's prompt — "How do you see this concept fitting into your teaching/facilitation/management/leadership?" — repeats the cross-domain framing from Brief 1.05.
+The brief offers three named practice sequences (*See accumulations around you*, *Practice Diagramming*, *Share Out*) with explicit verbs (*Explore*, *Consider*, *Reflect*, *Draw*, *Brainstorm*, *Share*) [V] (Brief 1.06, "+ GETTING STARTED"). The first sequence carries the stock-and-flow prompts: "Consider: What are the inflows to that accumulation? What are the outflows?" and "Reflect: How is the current level of this stock (bathtub) the product of the whole history of inflows and outflows?" [V] (Brief 1.06, "+ GETTING STARTED"). The third sequence closes by asking how the reader sees the concept fitting into their teaching, facilitation, management or leadership [AP] (Brief 1.06, "+ GETTING STARTED"; the converted markdown reads "eaching"), which repeats the cross-domain framing from Brief 1.05.
 
 ### Acknowledgements: Emma's ice-chomping example
 
@@ -219,7 +219,7 @@ The brief's stated purpose is "to describe how education stakeholders can use sy
 
 ### How many archetypes exist
 
-The brief is explicit that the canonical list is not fixed: "There is no definitive list of system archetypes; there is a broad list of eight to twelve core archetypes, but some even argue that four archetypes can explain all the other archetypes" [V] (Brief 1.07, "+ CONCEPT"). The brief selects five "from the great resource 'Systems archetypes I: Diagnosing systemic issues and designing high-leverage interventions'" by Kim (1993) [V] [BT] (Brief 1.07, "+ CONCEPT"; Brief 1.07, "+ SOURCES" reference 4).
+The brief is explicit that the list is not fixed: "There is no definitive list of system archetypes; there is a broad list of eight to twelve core archetypes, but some even argue that four archetypes can explain all the other archetypes" [V] (Brief 1.07, "+ CONCEPT"). The brief selects five "from the great resource 'Systems archetypes I: Diagnosing systemic issues and designing high-leverage interventions'" by Kim (1993) [V] [BT] (Brief 1.07, "+ CONCEPT"; Brief 1.07, "+ SOURCES" reference 4).
 
 ### Archetype 1: Fixes that fail
 

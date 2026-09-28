@@ -4,9 +4,9 @@
 
 ## Stakeholder-Engagement Relevance
 
-*Principles of Marketing* is, at one level, a stakeholder-engagement primer. The text uses the phrase "interested parties" — explicitly chosen as a synonym for "stakeholders" (Ch 1.1) — and partitions them into *internal* (employees, owners, managers, investors, shareholders) and *external* (customers, creditors, suppliers, distributors, society) categories that map cleanly onto stakeholder taxonomies. Across all 19 chapters, the book treats engagement as multidirectional: customers (B2C and B2B); employees as internal customers (Ch 11.2 service-profit chain; Ch 13.5 internal marketing); suppliers and channel intermediaries (Ch 17 distribution); the public, regulators, communities, and the media (Ch 14.4 public relations; Ch 13.5 federal regulators); special-attention populations (Ch 8 multicultural and sociodemographic groups; Ch 5.7 children, the elderly, low-income consumers); and — in the closing chapter — the planet itself, treated as a stakeholder via the ESG framework (Ch 19).
+*Principles of Marketing* is, at one level, a stakeholder-engagement primer. The text uses the phrase "interested parties", which it notes are called "stakeholders" in business writing (Ch 1.1), and partitions them into *internal* (employees, owners, managers, investors, shareholders) and *external* (customers, creditors, suppliers, distributors, society) categories that map cleanly onto stakeholder taxonomies. Across all 19 chapters, the book treats engagement as multidirectional: customers (B2C and B2B); employees as internal customers (Ch 11.2 service-profit chain; Ch 1.1 internal marketing); suppliers and channel intermediaries (Ch 17 distribution); the public, regulators, communities, and the media (Ch 14.4 public relations; Ch 13.5 federal regulators); special-attention populations (Ch 8 multicultural and sociodemographic groups; Ch 5.7 children, the elderly, low-income consumers); and, in the closing chapter, the environment as one of three sustainability pillars alongside social and economic/governance (Ch 19).
 
-The book is also strongly *engagement-centric* rather than transaction-centric. Customer-relationship management (Ch 1.6) is presented not as a transaction-tracker but as a two-way street that "allows customers to define and consequently shape offerings in terms of their requirements." [V] The Service Marketing Triangle (Ch 11.2) names three legs of engagement explicitly: external (making promises), internal (enabling promises through employees), interactive (keeping promises in the service encounter). The Gap Model (Ch 11.3) catalogues the five places engagement breaks down. And the seven-step personal-selling process (Ch 15.3) is a direct, named template for relationship-building (with "follow-up" — the post-sale relationship-management step — explicitly called out as where the "real work begins").
+The book is also strongly *engagement-centric* rather than transaction-centric. Customer-relationship management (Ch 1.6) is presented not as a transaction-tracker but as a two-way street that "allows customers to define and consequently shape offerings in terms of their requirements." [V] The Service Marketing Triangle (Ch 11.2) names three legs of engagement explicitly: external (making promises), internal (enabling promises through employees), interactive (keeping promises in the service encounter). The Gap Model (Ch 11.3) catalogues the five places engagement breaks down. And the seven-step personal-selling process (Ch 15.3) is a direct, named template for relationship-building (with "follow-up" — the post-sale relationship-management step — explicitly called out as where the "real work begins" [V]).
 
 The book is most useful for *commercial* stakeholder engagement — engagement instrumented in service of value creation and exchange. It is less directly useful for stakeholder engagement that is purely civic or governance-focused (board engagement, regulatory rulemaking participation, corporate citizenship beyond the marketing function). For internal-organisational stakeholder engagement (employee engagement *as workforce engagement*, not as service-delivery enabler), pair this reference with an organisational-behaviour text.
 
@@ -16,9 +16,9 @@ The exchange process — the structural definition of a stakeholder transaction 
 
 Customer relationship management — the two-way engagement infrastructure — is "the means through which companies track, manage, and analyze customer interactions" [V] (Ch 1.6, "The Impact of CRM").
 
-The Kotler definition the book adopts for stakeholder-aware sustainability: "an organization should meet the needs of its present consumers without compromising the ability of future generations to fulfill their own needs" [V] (Ch 19.1, "Environmental Sustainability").
+The Kotler definition the book adopts for stakeholder-aware sustainability: "an organization should meet the needs of its present consumers without compromising the ability of future generations to fulfill their own needs" [BT] (Ch 19.1, "Environmental Sustainability").
 
-Costco's stakeholder-balance formulation, cited approvingly: "Sustainability to us is remaining a profitable business while doing the right thing" [V] (Ch 19.2).
+Costco's stakeholder-balance formulation, cited approvingly: "Sustainability to us is remaining a profitable business while doing the right thing" [BT] (Ch 19.2).
 
 A marketing channel — the multi-party engagement system through intermediaries — is "a system of people, organizations, and activities that work together to make goods and services available to consumers to purchase" [V] (Ch 17.1, "Marketing Channels Defined").
 
@@ -26,7 +26,7 @@ A marketing channel — the multi-party engagement system through intermediaries
 
 1.  **Internal and external interested parties.** The text's foundational distinction: internal (employees, owners, managers, investors) and external (customers, creditors, suppliers, distributors, society) — both sets must be engaged. (Source: OpenStax, *Principles of Marketing*, Ch 1.1, "How Marketing Benefits the Organization, Its Interested Parties, and Society")
 2.  **The microenvironment as engagement landscape.** Five external parties to engage with directly: suppliers, market intermediaries, customers, competitors, the general public. (Source: Ch 1.3, "Components of the Microenvironment")
-3.  **Internal marketing.** Promoting the objectives, products, and services of a company to *its own employees* — recognising employees as the first stakeholder group. (Source: Ch 1.1; Ch 13.5)
+3.  **Internal marketing.** Promoting the objectives, products, and services of a company to its internal constituents, particularly employees. (Source: Ch 1.1; Ch 11.2)
 4.  **The exchange process.** Engagement is a value-for-value exchange — buyer, seller, desired object, value — with both parties' interests honoured. (Source: Ch 1.5)
 5.  **CRM as two-way communication.** "It's a two-way street that allows customers to define and consequently shape offerings in terms of their requirements." [V] (Source: Ch 1.6, "The Role of CRM in Building Customer Equity")
 6.  **The service-profit chain.** Internal service quality → employee satisfaction → loyalty/productivity → external value proposition → customer satisfaction → customer loyalty → profit. The chain is broken if any link fails. (Source: Ch 11.2)
@@ -37,8 +37,8 @@ A marketing channel — the multi-party engagement system through intermediaries
 11.  **Public relations.** Unpaid, earned-media engagement with the press, public officials, communities. PR is the most credible promotional form. (Source: Ch 14.4)
 12.  **Multicultural and sociodemographic engagement.** Diversity marketing as a *culturally-responsive* engagement strategy — acknowledging differences and validating individuals' importance. (Source: Ch 8.2)
 13.  **The 5A customer journey.** Aware, Appeal, Ask, Act, Advocacy — engagement deepens at each stage. (Source: Ch 13.4)
-14.  **Stakeholder approach to sustainability.** "Sustainable marketing takes a 'stakeholder approach' and considers customers, shareholders, employees, vendors, interest groups, media, and the general public." (Source: Ch 19.2)
-15.  **Three pillars / ESG.** Environmental, social, economic/governance — the three groups of stakeholders sustainability serves. (Source: Ch 19.1)
+14.  **Stakeholder approach to sustainability.** "Sustainable marketing takes a “stakeholder approach” and considers customers, shareholders, employees, vendors, interest groups, media, and the general public." [V] (Source: Ch 19.2)
+15.  **Three pillars / ESG.** Environmental, social, economic/governance — the three dimensions sustainable marketing is measured against. (Source: Ch 19.1)
 16.  **Authentic vs inauthentic engagement.** The Walmart Juneteenth ice cream backlash exemplifies inauthentic engagement; Bombas's give-with-purchase model exemplifies authentic. (Source: Ch 19.5)
 
 ## Questions to Ask During Stakeholder Engagement
@@ -92,7 +92,7 @@ A marketing channel — the multi-party engagement system through intermediaries
 |---|---|
 | Aware stage | How are first-time prospects becoming aware of us — paid search, paid social, content, PR, word-of-mouth from advocates? |
 | Appeal stage | What's our value-proposition for this segment — and is it tested in concept research before we commit to it? |
-| Ask stage | How easy is it for a prospect to ask us a question — chatbot, contact form, phone, in-app message? Are we responsive within the 30–60-minute window consumers expect? |
+| Ask stage | How easy is it for a prospect to ask us a question — chatbot, contact form, phone, in-app message? Are we answering fast enough? (The source cites research that 42 per cent of consumers expect an email reply within 60 minutes and 32 per cent within 30, Ch 1.7.) |
 | Act stage | Have we removed friction from the actual purchase — pricing transparent, options clear, channels convenient, post-sale support visible? |
 | Advocacy stage | Do we have a follow-up programme that turns satisfied customers into referrers — loyalty programmes, review prompts, ambassador programmes, social-media celebration of customer stories? |
 | Customer feedback | Are we collecting CSAT, CES, complaint data, and verbatims — and is feedback flowing back into product, pricing, channel, and promotion decisions? |
@@ -114,7 +114,7 @@ A marketing channel — the multi-party engagement system through intermediaries
 |---|---|
 | Public relations | Are we using press relations, public affairs, lobbying (transparently and ethically), events, digital/social media to maintain a positive public image? |
 | Crisis preparedness | Do we have a crisis communication plan tested against the Tylenol-1982 standard — direct, transparent, costly when needed? |
-| Compliance | Are we meeting FTC, FCC, FDA, CAN-SPAM Act, GDPR, FCPA, and other regulatory requirements — and going beyond minimum compliance into ESG-aligned operations? |
+| Compliance | Are we meeting FTC, FCC, FDA, CAN-SPAM Act, FCPA, and other regulatory requirements — and going beyond minimum compliance into ESG-aligned operations? |
 | Community engagement | Are we sponsoring or hosting events that serve the community and reinforce shared values? |
 | Diversity engagement | Are our marketing efforts inclusive of multicultural and sociodemographic groups, with cultural responsiveness as a baseline standard? |
 | Sustainability commitments | Do we have measurable environmental commitments (emissions, recycling, sustainable packaging, sustainable sourcing) and report on them annually? |
@@ -168,7 +168,7 @@ Use the Service Marketing Triangle (Ch 11.2): make explicit promises in external
 
 Use buying-centre mapping (Ch 4.2) for the small-business segment: build named-account plans that engage broker, HR, finance, owner, and employees with fit-for-role messaging.
 
-Use multicultural-marketing principles (Ch 8.4): in markets with significant Hispanic populations, deliver Spanish-language member services (acculturation-spectrum: most second-generation members will be bicultural; first-generation more likely to need Spanish primary). Engage with Black and Asian community organisations as part of a cultural-responsiveness strategy. Avoid stereotypes (the Burger King Texican Whopper failure mode).
+Use multicultural-marketing principles (Ch 8.4): in markets with significant Hispanic populations, deliver Spanish-language member services (acculturation spectrum: members born in the US to immigrant parents are more likely to be acculturated than not; unacculturated Hispanic members are more likely to respond to Spanish-language outreach, Ch 8.4). Engage with Black and Asian community organisations as part of a cultural-responsiveness strategy. Avoid stereotypes (the Burger King Texican Whopper failure mode, Ch 8.3).
 
 Use IMC (Ch 13.3): align messages across employer-direct sales, broker-channel, direct-mail, digital, PR. The same value proposition — "predictable benefits, local service, competitive pricing" — appears with the same supporting evidence everywhere.
 
@@ -178,7 +178,7 @@ Use ESG-stakeholder principles (Ch 19.2): engage state regulators with transpare
 
 Crisis preparedness (Ch 14.4): pre-build a communication plan for a possible IT-outage or claim-processing failure during expansion. Tylenol-style: transparent, direct, costly when needed.
 
-The scenario is operator-authored; all framework citations trace through `references/openstax-principles-marketing-deep.md`. The stakeholder-mapping frame (Ch 1.1, Ch 1.3, Ch 4.2), service-profit chain (Ch 11.2), Service Marketing Triangle (Ch 11.2), buying-centre mapping (Ch 4.2), multicultural-marketing principles (Ch 8.4), IMC (Ch 13.3), 5A customer journey (Ch 13.4), and ESG-stakeholder principles (Ch 19.2) are all `[AP]`-marked passages in the deep ref. No verbatim source blockquotes appear in this distillation.
+The scenario is operator-authored; all framework citations trace through `references/openstax-principles-marketing-deep.md`. The stakeholder-mapping frame (Ch 1.1, Ch 1.3, Ch 4.2), service-profit chain (Ch 11.2), Service Marketing Triangle (Ch 11.2), buying-centre mapping (Ch 4.2), multicultural-marketing principles (Ch 8.4), IMC (Ch 13.3), 5A customer journey (Ch 13.4), and ESG-stakeholder principles (Ch 19.2) trace to the deep ref (mostly unmarked summary passages; the ESG definition is carried with its source quotation). The worked example itself quotes no source text.
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -186,7 +186,8 @@ The scenario is operator-authored; all framework citations trace through `refere
 - *Engaging stakeholders symmetrically* — assuming each group needs the same channels, message, and frequency.
 - *Asymmetric promises* — making promises in advertising and breaking them in interactive service encounters (Gap 4 communication-gap pattern).
 - *Bolted-on diversity engagement* — campaigns that don't reflect the operations.
-- *PR-crisis denial* — defending the indefensible (Toyota acceleration; Pepsi Kendall Jenner; Nivea "White Is Purity").
+- *PR-crisis denial* — defending the indefensible (Toyota's unintended-acceleration cover-up and $1.2 billion fine, Ch 2.5).
+- *Culturally insensitive campaigns that reach the public* — Nivea's "White Is Purity" campaign (Ch 7.1); PepsiCo's Kendall Jenner commercial, withdrawn after heavy backlash (Ch 8.2).
 - *Ignoring the buying centre* — selling only to the buyer in B2B without engaging influencers, gatekeepers, deciders, users.
 - *Letting channel conflict fester* — assuming intermediaries will tolerate worse terms because they have nowhere else to go.
 - *Selective inclusion in research* — research that only samples the easiest-to-reach, then claims to represent the whole market.
@@ -197,13 +198,13 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 | Reference | Connection |
 |---|---|
-| Stewart Black et al., *Organizational Behavior* (OpenStax) | The service-profit chain is parallel to the OB literature on engagement, with Argyris's basic-incongruity thesis lurking beneath the *internal service quality* link. |
+| Stewart Black et al., *Organizational Behavior* (OpenStax) | The service-profit chain's employee-satisfaction link parallels OB's treatment of job satisfaction and organisational commitment (Ch 3.5), with Argyris's basic-incongruity thesis (Ch 2.5) beneath the *internal service quality* link. |
 | Hofstede's cultural dimensions | Imported directly for international and multicultural stakeholder engagement (Ch 5.3, Ch 8.3). |
 | Maslow's hierarchy | Anchors psychological-needs analysis in stakeholder communication (Ch 3.2). |
-| Edward T. Hall's cultural iceberg | Used directly in multicultural marketing (Ch 8.3) — half of cultural meaning is below the waterline. |
-| Stakeholder theory (R. Edward Freeman) | Not cited explicitly but operationally adopted in Ch 19.2 — sustainable marketing's stakeholder approach. |
+| Edward T. Hall's cultural iceberg | Used directly in multicultural marketing (Ch 8.3) — most of culture, like 90 per cent of an iceberg's mass, sits below the waterline. |
+| Stakeholder theory (Freeman; held via *Principles of Management*, Ch 5.6) | This source does not cite it; its stakeholder approach (Ch 19.2) lists stakeholder groups without theory. Principles of Management supplies the theory and eight stakeholder-analysis questions. |
 | Service-quality literature (Parasuraman/Zeithaml/Berry) | RATER framework imported for service-encounter engagement evaluation (Ch 11.3). |
-| Ries & Trout, *Positioning* | Cited verbatim — the conceptual backbone of how to position engagement in stakeholders' minds (Ch 5.6). |
+| Ries & Trout, *Positioning* | Cited once, verbatim, for the positioning thesis (Ch 5.6): positioning works on what is already in the customer's mind. Extending it to non-customer stakeholders is this distillation's inference. |
 
 ## Citation and Source-Integrity Notes
 
@@ -212,7 +213,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - AMA (American Marketing Association) — marketing and marketing-research definitions (Chs 1.1, 6.1) [BT]
 - Geert Hofstede — cultural dimensions (Chs 5.3, 8.3; the text presents four dimensions in Ch 5.3 and six in Ch 8.3, reflecting Hofstede's evolving framework) [BT]
 - Parasuraman, Zeithaml, and Berry — RATER service-quality dimensions (Ch 11.3) [BT]
-- Ries and Trout — *Positioning*; conceptual backbone of stakeholder positioning (Ch 5.6) [BT]
+- Ries and Trout — *Positioning*; quoted once for the positioning thesis (Ch 5.6) [BT]
 - Edward T. Hall — cultural iceberg metaphor (Ch 8.3) [BT]
 - Tony Hsieh / Zappos — *Delivering Happiness*; service-culture exemplar (Ch 1.3, Ch 11.2) [BT]
 - Transparency International — Corruption Perceptions Index (Ch 4.5, Ch 7.2) [BT]
@@ -225,4 +226,4 @@ The scenario is operator-authored; all framework citations trace through `refere
 - The source holds a clear normative position (sustainable/stakeholder marketing displacing shareholder-only and production-concept eras); practitioners should note this as the text's stance.
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `references/openstax-principles-marketing-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (21 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The health-insurance scenario is operator-authored. The Burger King, Toyota, Pepsi, Nivea, and Walmart anti-pattern examples are `[AE]` in the deep ref (author examples). The product-driven and shareholder-only critiques are `[AR]`. Where the source cites external authors (Kotler, Hofstede, Parasuraman et al., Ries-Trout), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.
+**Evidence-marker continuity.** The deep reference at `references/openstax-principles-marketing-deep.md` uses `[V]`, `[AP]` and `[BT]` markers inline. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word, and the Kotler and Costco quotations, which the source relays and which are marked `[BT]`; its other substantive claims are `[AP]`-class relative to the deep ref. The health-insurance scenario is operator-authored. The Toyota (Ch 2.5), Nivea (Ch 7.1), PepsiCo (Ch 8.2), Burger King Texican Whopper (Ch 8.3) and Walmart (Ch 19.5) anti-pattern examples are all recorded in the deep ref. The product-driven and shareholder-only critiques are unmarked summary in the deep ref's "Positions the text explicitly frames against". Where the source cites external authors (Kotler, Hofstede, Parasuraman et al., Ries-Trout), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.

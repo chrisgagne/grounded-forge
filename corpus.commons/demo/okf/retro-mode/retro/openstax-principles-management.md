@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:37:52+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # OpenStax Principles of Management, Retro Distillation
 
@@ -26,11 +26,11 @@ Principles of Management projects onto the retro axis as a diagnostic substrate,
 
 1.  **PDCA / Deming-Shewhart cycle** — Plan → Do → Check → Act → return to Plan; the retro occupies the Check step and feeds Act (Ch 17.2, "Planning, Implementation, and Controlling"). Without a named Act step, the retro is Check without consequence.
 
-2.  **Tuckman's team-development stages** — forming (polite, surface similarities), storming (leadership contest, sides chosen), norming (working together, ground rules), performing (self-directed, congruence) (Ch 15.2, "Team Development Over Time"). Adding members or changing scope can regress the team. Storming retros produce contested data and blame language; performing retros surface root causes more readily.
+2.  **Tuckman's team-development stages** — forming (polite, surface similarities), storming (leadership contest, sides chosen), norming (working together, ground rules), performing (self-directed, congruence) (Ch 15.2, "Team Development Over Time"). Adding members or changing scope can regress the team. A storming team (members vying for leadership, choosing sides) may give contested data; read that as the stage, not as pathology.
 
 3.  **Herzberg's motivator-hygiene theory** — hygiene factors (pay, conditions, supervision, security) prevent dissatisfaction but do not motivate; motivators (achievement, recognition, work itself, growth) drive engagement (Ch 14.2, "Herzberg's Motivator-Hygiene Theory"). When a team cannot engage with retro content, hygiene-factor dissatisfaction may be crowding out motivational capacity. Address hygiene before expecting motivators to fire.
 
-4.  **Maslow's hierarchy and ERG theory** — Maslow's five levels (physiological, safety, social, esteem, self-actualisation) with ERG's frustration-regression addition: when growth needs are blocked, attention regresses to relatedness (Ch 14.2). A team locked in safety-need concerns (job security, psychological safety) cannot self-actualise into continuous improvement.
+4.  **Maslow's hierarchy and ERG theory** — Maslow's five levels (physiological, safety, social, esteem, self-actualisation) with ERG's frustration-regression addition: when growth needs are blocked, attention regresses to relatedness (Ch 14.2). Research does not support Maslow's fixed sequence, though there is some evidence people meet lower-order needs first (Ch 14.2); a team preoccupied with job security may have less attention to spare for continuous improvement.
 
 5.  **McClelland's nAch / nAff / nPow** — achievement-oriented individuals want feedback and moderate-risk tasks; social-power seekers influence others toward group goals; affiliation-seekers prioritise relationships (Ch 14.2). High-nAch individuals drive retro experiment design; high-nAff individuals may resist experiments that threaten team cohesion; high-nPow individuals may own experiments that expand their influence.
 
@@ -44,9 +44,9 @@ Principles of Management projects onto the retro axis as a diagnostic substrate,
 
 10.  **Four change-management models** — Lewin (unfreeze / change / refreeze, stable contexts), Kotter (urgency-driven, top-down, deficit-based), Cooperrider Appreciative Inquiry (abundance-based, bottom-up), Olson-Eoyang CAS (empower agents, strengthen connections, ensure flow) (Ch 10.3). The retro is most naturally an AI-type intervention: it asks the question the source says is commonly used in the discover phase, "who are we when we are at our best?" [BT], before asking "what could be?" The choice of change model shapes whether the experiment is experienced as imposed or discovered.
 
-11.  **Goal theory (Locke)** — specific, difficult, accepted, committed-to goals produce better performance; participation in goal-setting increases commitment (Ch 14.3, "Goal Theory"). Retro experiments with vague success criteria do not produce Locke-compliant commitment. "Be more collaborative" is not a goal; "pair-review every PR before merge for the next two weeks" is.
+11.  **Goal theory (Locke)** — specific, difficult, accepted, committed-to goals produce better performance; participation in goal-setting tends to increase commitment (Ch 14.3, "Goal Theory"). Retro experiments with vague success criteria do not produce Locke-compliant commitment. "Be more collaborative" is not a goal; "pair-review every PR before merge for the next two weeks" is.
 
-12.  **Linda Hill on managing as paradox** — individual and collective goals; support and confrontation; performance and learning; authority and discretion; boundary management (Ch 15.3, "Things to Consider When Managing Teams"). When a lead engineer is struggling to hold the facilitation role, the paradox framing names why: they are being asked to hold authority and discretion in tension simultaneously.
+12.  **Linda Hill on managing as paradox** — individual and collective goals; support and confrontation; performance and learning; authority and discretion; the manager-team-individual triangle (Ch 15.3, "Things to Consider When Managing Teams"). Hill's frame also makes boundary management a core responsibility. When a lead engineer is struggling to hold the facilitation role, the paradox framing names why: they are being asked to hold authority and discretion in tension simultaneously.
 
 ## Questions to Ask During Retro
 
@@ -74,7 +74,7 @@ Principles of Management projects onto the retro axis as a diagnostic substrate,
 
 | Need | Question |
 |---|---|
-| Name the conflict type driving the recurring pattern | Is the recurring issue a process conflict (best-way disagreement — potentially productive) or a relationship conflict (personal — harmful and to be addressed separately)? Follett's framework names the resolution path for each. |
+| Name the conflict type driving the recurring pattern | Is the recurring issue a process conflict (best-way disagreement, potentially productive) or a relationship conflict (personal, to be quelled; Ch 2.4)? For a process disagreement, Follett's integration path (Ch 3.6) is the design target. |
 | Test whether the Five Dysfunctions explain the pattern | Is the recurring problem rooted in absence of trust (dysfunction 1)? Fear of conflict (dysfunction 2)? Lack of commitment to past experiments (dysfunction 3)? Avoidance of accountability (dysfunction 4)? Naming the dysfunction locates the lever. |
 
 ### Phase 4: Experiment design
@@ -82,7 +82,7 @@ Principles of Management projects onto the retro axis as a diagnostic substrate,
 | Need | Question |
 |---|---|
 | Design for SDT autonomy | Did the team choose this experiment, or was it assigned? If assigned, what modifications give the team enough autonomy to generate intrinsic motivation for follow-through? |
-| Apply Locke's goal criteria | Is the experiment specific? Measurable? Accepted by the team as their own? Will they commit to it? A Locke-compliant experiment has all four. A vague one fails at least one. |
+| Apply Locke's goal criteria | Is the experiment specific and stretching? Accepted by the team as their own? Will they commit to it (Locke, Ch 14.3)? Is it measurable and time-bound (SMART, Ch 9.5)? A vague one fails at least one. |
 | Choose the change model | Is this experiment a small stable-context change (Lewin fits), an abundance-based cultural experiment (AI fits), or a self-organising team behaviour that needs boundary conditions shifted (CAS fits)? |
 
 ### Phase 5: Close
@@ -100,8 +100,8 @@ Principles of Management projects onto the retro axis as a diagnostic substrate,
 | An experiment is assigned rather than chosen | SDT autonomy not satisfied; follow-through will be low | Involve the team in designing the experiment before naming an owner |
 | Fast consensus in Phase 4 but no one seems energised | Groupthink or fear-of-conflict dysfunction | Assign a devil's-advocate view; run fist of five before committing |
 | Team says "nothing we can do" | ERG frustration-regression or safety-need response | Diagnose which: is the team blocked on growth needs (ERG), or unsafe enough to not engage? |
-| Experiment is vague ("be more collaborative") | Fails Locke's goal criteria — not specific, not measurable | Reformulate: what specific behaviour, by whom, by when, with what evidence it happened? |
-| Lead engineer is visibly uncomfortable in the facilitation role | Managing-as-paradox tension: individual identity vs collective role | Name the tension explicitly; validate the difficulty |
+| Experiment is vague ("be more collaborative") | Fails Locke's goal criteria (not specific) and SMART's (not measurable) | Reformulate: what specific behaviour, by whom, by when, with what evidence it happened? |
+| Lead engineer is visibly uncomfortable in the facilitation role | Managing-as-paradox tension: holding authority while leaving the team discretion (Hill, Ch 15.3) | Name the tension explicitly; validate the difficulty |
 
 ## When to Use This Reference
 
@@ -110,7 +110,7 @@ Reach for this distillation when:
 - The Lencioni Five Dysfunctions are a useful shorthand for the team's recurring pattern — absence of trust, fear of conflict, lack of commitment, avoidance of accountability, inattention to results.
 - An experiment needs to meet Locke's goal criteria before it is committed.
 - The change-management model for the experiment needs to be named: is this a Lewin stable-context change, an AI abundance-based intervention, or a CAS emergent-pattern move?
-- The lead engineer is struggling with the facilitation-vs-team-member paradox.
+- The lead engineer is struggling to hold authority while leaving the team discretion (Hill's managing-as-paradox).
 
 This source is the management-theory substrate for the diagnostic vocabulary. Pair with OB for the team-dynamics layer and with the Field Guide for the protocol structure.
 
@@ -124,9 +124,9 @@ Phase 2: written-first only. The lead collects stickies without discussion. The 
 
 Phase 3: the lead applies Follett's integration path. The two perspectives are not "right vs wrong" — they are two stated needs. The lead asks: what would have to be true for both to be addressed in the same experiment? The team reaches a small integration: a technical-decision log that is shared with the PM. Neither preference is surrendered.
 
-Phase 4: the experiment is stated specifically: "We will document major technical decisions in a shared log, linked from the relevant story, within one Sprint." Specific, measurable, accepted. The team owns it.
+Phase 4: the experiment is stated specifically: "We will document major technical decisions in a shared log, linked from the relevant story, within one Sprint." Specific and accepted (Locke), measurable and time-bound (SMART). The team owns it.
 
-The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal criteria, and managing-as-paradox framing all trace to Principles of Management (Ch 15.2, "Team Development Over Time"; Ch 3.6, "Follett and Conflict Resolution" [V]; Ch 14.2, "Self-Determination Theory"; Ch 14.3, "Goal Theory"; Ch 15.3, "Things to Consider When Managing Teams" [V]).
+The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal criteria and SMART test trace to Principles of Management (Ch 15.2, "Team Development Over Time"; Ch 3.6, "Follett and Conflict Resolution"; Ch 14.2, "Self-Determination Theory"; Ch 14.3, "Goal Theory"; Ch 9.5, "Planning Firm Actions to Implement Strategies").
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -136,27 +136,27 @@ The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal cr
 - Accepting fast consensus at experiment-design as genuine alignment; groupthink and the fear-of-conflict dysfunction produce the same surface signal.
 - Framing the helpless team as a character problem ("they just don't care") when it is an ERG frustration-regression or a safety-need response to an unsafe environment.
 - Designing a Kotter-urgency-style intervention for a retro context, which is naturally abundance-based; urgency framing triggers resistance in teams that do not feel they are in crisis.
-- Leaving the retro without a Locke-compliant experiment: specific, measurable, accepted, committed-to. Vague experiments are non-commitments dressed as improvements.
-- Missing the managing-as-paradox burden on the lead engineer: they are simultaneously the team member (individual identity) and the facilitator (collective role); naming the tension validates the difficulty rather than leaving them to absorb it silently.
+- Leaving the retro without an experiment that is specific, stretching, accepted and committed-to (Locke) and measurable (SMART). Vague experiments are non-commitments dressed as improvements.
+- Missing the managing-as-paradox burden on the lead engineer: as facilitator they must hold authority while leaving the team discretion (Hill, Ch 15.3); naming the tension validates the difficulty rather than leaving them to absorb it silently.
 
 ## Integration with Other References
 
 | Reference | Relationship |
 |---|---|
 | OpenStax Organizational Behavior | OB carries the same motivational and group-dynamics frameworks at a team-level practitioner register; Management carries them at the management-theory level; use OB for the retro-room diagnosis and Management for the coaching-context framing |
-| OpenStax Psychology 2e | Psychology 2e supplies the cognitive-science grounding for groupthink and the Lencioni dysfunctions; Management applies these at the team-management level |
-| Liberating Structures Handbook | LS's facilitation moves (1-2-4-All, Mini Constellations, Troika Consulting) are the operational responses to the Storming-stage and groupthink patterns Management diagnoses |
+| OpenStax Psychology 2e | Psychology 2e supplies the social-psychology grounding for groupthink (Janis's symptoms and preventatives, Ch 12.4); Management applies it at the team-management level |
+| Liberating Structures Handbook | LS's facilitation moves (1-2-4-Whole Group, Mini Constellations, Troika Consulting) are the operational responses to the Storming-stage and groupthink patterns Management diagnoses |
 | Approach Perfect Field Guide | The Field Guide supplies the PDCA Check step (the retro); Management frames the PDCA cycle and names the requirement for an Act step |
-| FLO Facilitation Guide | FLO's scaffolding-and-fading arc and Anxious-Annie pattern are the facilitation-craft complement to Management's coach-lead distinction and managing-as-paradox framing |
-| LFUO Learning Review Guide | LFUO's learning-validation discipline is the application of Management's PDCA Act step — the retro must produce an Act, not just a Check |
+| FLO Facilitation Guide | FLO's scaffolding-and-fading arc and Anxious-Annie pattern are the facilitation-craft complement to Management's managing-as-paradox framing (Hill, Ch 15.3) |
+| LFUO Learning Review Guide | LFUO separates learning (the FLA, lessons without recommendations, validated by Readback) from action (the Learning Review, whose Board turns recommendations into a Safety Action Plan); use Management's PDCA Act step to decide which a retro finding needs |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** PDCA traces to Deming-Shewhart; the source attributes it as such [BT] (Ch 17.2). Tuckman's model is cited as Tuckman (1965) and Jensen (1977) [BT] (Ch 15.2). Lencioni's Five Dysfunctions is cited [BT] (Ch 15.4). Follett's conflict-resolution framework is cited as the source of the integration-path concept [BT] (Ch 3.6). The four change models (Lewin, Kotter, Cooperrider AI, Olson-Eoyang CAS) are named with their originators [BT] (Ch 10.3). Goal theory traces to Locke [BT] (Ch 14.3). Linda Hill's managing-as-paradox framing is cited [BT] (Ch 15.3). None of these are held directly in this corpus.
+**Borrowed-through gaps.** PDCA traces to Deming-Shewhart; the source attributes it as such [BT] (Ch 17.2). Tuckman's model is cited as Tuckman (1965), with adjourning added in 1977 [BT] (Ch 15.2). Lencioni's Five Dysfunctions is cited [BT] (Ch 15.4). Follett's conflict-resolution framework is cited as the source of the integration-path concept [BT] (Ch 3.6). The four change models (Lewin, Kotter, Cooperrider AI, Olson-Eoyang CAS) are named with their originators [BT] (Ch 10.3). Goal theory traces to Locke [BT] (Ch 14.3). Linda Hill's managing-as-paradox framing is cited [BT] (Ch 15.3). None of these are held directly in this corpus.
 
 **Named limits of the source.** Principles of Management is an OpenStax introductory textbook covering the full breadth of management theory. Its retro projection focuses on PDCA, Tuckman, motivational frameworks, conflict-resolution, change models, and goal theory. The source's content on strategic planning, managerial roles, diversity management, and environmental scanning does not fire in a team retro context. The CC BY-NC-SA 4.0 licence means this distillation inherits the non-commercial and ShareAlike obligations.
 
-**Evidence-marker continuity.** PDCA's role as the Check-without-Act failure mode is `[AP]` in the deep ref (author's interpretation of the model); the distillation carries this as the retro's structural risk. Tuckman's Storming stage is `[AP]` in the deep ref (textbook summary of Tuckman's research); the distillation applies it as a diagnostic without claiming certainty about the team's actual stage. Lencioni's Five Dysfunctions are `[BT]` in the deep ref (cited from Lencioni's book); the distillation applies the dysfunction chain as a diagnostic ladder. Goal theory's criteria (specific, difficult, accepted, committed-to) are `[BT]` in the deep ref (cited from Locke); the distillation applies them as the Locke-compliant experiment standard.
+**Evidence-marker continuity.** The Deming/Shewhart cycle is `[BT]` in the deep ref; the Check-without-Act failure mode is this distillation's application of it. Tuckman's stages are `[BT]` in the deep ref; the distillation applies them as a diagnostic without claiming certainty about the team's actual stage. Lencioni's Five Dysfunctions are `[BT]` in the deep ref (cited from Lencioni's book); the distillation applies the dysfunction chain as a diagnostic ladder. Goal theory's criteria (specific, difficult, accepted, committed-to) are `[BT]` in the deep ref (cited from Locke); the distillation applies them as the Locke-compliant experiment standard.
 
 ## Related concepts
 

@@ -2,20 +2,6 @@
 
 One concept file per source, projected onto the `aar` task axis. Each row maps a situation to the concept files that apply. Bundle root: [index.md](../index.md).
 
-## Quick start by incident type
-
-- Small in-team event, want fast learning → [tc-25-20-army-aar](tc-25-20-army-aar.md)
-- Cross-functional production incident → [tc-25-20-army-aar](tc-25-20-army-aar.md), [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md), [nhs-just-culture-guide](nhs-just-culture-guide.md)
-- Customer-impact event, blame language anticipated → [nhs-just-culture-guide](nhs-just-culture-guide.md), [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md), [tc-25-20-army-aar](tc-25-20-army-aar.md)
-- Near-miss, no harm but learning opportunity → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md), [tc-25-20-army-aar](tc-25-20-army-aar.md)
-- Software incident with engineering-organisation contributory factors → [tc-25-20-army-aar](tc-25-20-army-aar.md), [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md), [jones-evidence-based-sweng](jones-evidence-based-sweng.md), [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
-- Recurring incident pattern (drift) → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md), [barbrook-johnson-systems-mapping](barbrook-johnson-systems-mapping.md), [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
-- Just-culture call (individual vs system) → [nhs-just-culture-guide](nhs-just-culture-guide.md), [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
-- AAR that surfaces org-design questions → [openstax-principles-management](openstax-principles-management.md), [openstax-business-ethics](openstax-business-ethics.md)
-- AAR surfaces org structure as a named contributory factor (team-archetype mismatch, topology drag) → [org-topologies-primer-2025](org-topologies-primer-2025.md)
-- AAR action requires structural escalation to leadership → [org-topologies-primer-2025](org-topologies-primer-2025.md), [openstax-principles-management](openstax-principles-management.md)
-- Project-completion review, not an incident → [tc-25-20-army-aar](tc-25-20-army-aar.md), [open-practice-library](open-practice-library.md), [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
-
 ## Phase 0: Scoping (which tool, what time-budget, what attendance)
 
 - Select the right learning tool for the event → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
@@ -27,7 +13,9 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Set the climate and spirit as operational concern → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Identify the fratricide-equivalent topics → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Establish the Ten Principles and Agreements → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
-- Scope as cross-functional rather than team-internal → [tc-25-20-army-aar](tc-25-20-army-aar.md)
+- Scope as cross-functional rather than team-internal → [scrum-guide-2020](scrum-guide-2020.md)
+- Surface the senior's stance on mistakes before accounts begin → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Hold the review while memory is fresh, successes included → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 1: Timeline and local-rationality reconstruction
 
@@ -43,6 +31,8 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Build a shared model of the system the team can hold → [barbrook-johnson-systems-mapping](barbrook-johnson-systems-mapping.md)
 - Distinguish facilitative from transmissive question framing → [flo-facilitation-guide](flo-facilitation-guide.md)
 - Recognise hindsight bias contaminating the analysis → [openstax-psychology-2e](openstax-psychology-2e.md)
+- Put the reasons and the intent on the timeline → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Weigh accounts by where each person stood → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 2: Contributory-factor analysis
 
@@ -54,18 +44,20 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Map the feedback loops producing the pattern → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Generate a CLD or other systems-map artefact for contributory factors → [barbrook-johnson-systems-mapping](barbrook-johnson-systems-mapping.md)
 - Surface accumulated history shaping the current state → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
-- Apply Five Whys with surprise-as-progress-signal → [open-practice-library](open-practice-library.md)
-- Distinguish active failures from latent conditions → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- Apply Five Whys with surprise-as-progress-signal → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
+- Separate the individual's action from the conditions the tree tests → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Read software-incident contributory factors against empirical patterns → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
 - Locate decision-rights ambiguity as contributory factor → [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
 - Identify code-smell-shaped design-debt contributors → [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
 - Detect Goodhart's-Law-shaped contributory factor → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
-- Locate the system constraint (Goldratt-borrowed-through) → [open-kanban](open-kanban.md)
+- Hold the whole system in view (Deming + Goldratt borrowed-through) → [open-kanban](open-kanban.md)
 - Name an org-structure contributory factor with archetype precision → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Identify topology-mismatch as a recurring contributory-factor pattern → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Name the local-optimisation amplifier among contributory factors → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Identify single-team-island structure as a contributory factor source → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test whether Resource-Topology framing of frontline staff contributed → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Widen a single cause to many forces and self-made friction → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Show that waiting carried risk too → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 3: Just-culture sorting
 
@@ -77,6 +69,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Terminate the learning analysis on culpability grounds → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Select the recommendation end-state from the just-culture tree → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Communicate the just-culture decision to stakeholders → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- Name which kind of error is on the table → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Read the just-culture call against organisational behaviour substrate → [openstax-organizational-behavior](openstax-organizational-behavior.md)
 
 ## Phase 4: Action design
@@ -93,12 +86,13 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Frame ethical exposure surfaced by the AAR → [openstax-business-ethics](openstax-business-ethics.md)
 - Avoid AI overconfidence in proposed actions → [open-practice-library](open-practice-library.md)
 - Frame the action through Establish Shared Principles → [open-practice-library](open-practice-library.md)
-- Constrain actions to the one constraint → [open-kanban](open-kanban.md)
-- Decide retraining-allocation for software-incident root themes → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
+- Limit the number of actions → [open-kanban](open-kanban.md)
+- Decide improvement-investment allocation for software-incident root themes → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
 - Frame structural-remediation actions as Elevating-Kata experiments → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Frame escalation of org-design contributory factors to leadership → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Use named-archetype vocabulary in escalation memos to non-engineering leadership → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Defend against single-element structural fixes in action design → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Test actions for added control and equipment-only fixes → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 5: Learning-loop closure
 
@@ -107,6 +101,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Lock in the next-action commitment before the review ends → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Mark delayed retraining as visible and timed → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Revise SOPs surfaced by the review → [tc-25-20-army-aar](tc-25-20-army-aar.md)
+- Keep room for judgement in a revised SOP → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Open the response zone for the helpless team → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Confirm learning as precondition for continuous improvement → [open-kanban](open-kanban.md)
 - Frame the AAR as discovery, not critique → [tc-25-20-army-aar](tc-25-20-army-aar.md)
@@ -122,7 +117,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md)
 - [Liberating Structures Handbook](liberating-structures-handbook.md)
-- [U.S. Marine Corps, MCDP-1 Warfighting](mcdp1-warfighting.md)
+- [U.S. Marine Corps, MCDP 1: Warfighting](mcdp1-warfighting.md)
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md)
 - [Open Kanban](open-kanban.md)
 - [Open Practice Library](open-practice-library.md)

@@ -6,7 +6,7 @@
 
 OpenStax's Organizational Behavior dedicates an entire chapter (Ch 6, "Perception and Managerial Decision Making") to decision-making, treating it as a core managerial activity that ranges from small daily choices to strategic organisational moves. The text grounds decision-making in dual-system cognitive theory — a reflective system (logical, analytical, deliberate) and a reactive system (quick, impulsive, intuitive) — and argues that effective managers learn which system to engage in which context.
 
-Beyond Ch 6, the book frames decision-making as a recurring component of broader organisational processes: motivation theory addresses how employees decide whether to exert effort (Ch 7); equity theory addresses how employees decide whether outcomes are fair and what restorative actions to take (Ch 7-8); leadership theories examine the decision authority and style of leaders (Ch 12); the conflict-resolution chapter distinguishes five decision-making modes for handling disagreements (Ch 14); and the change-management chapter contrasts top-down (deficit-based, mechanistic) and bottom-up (appreciative, emergent) approaches to making organisation-wide change decisions (Ch 16).
+Beyond Ch 6, the book frames decision-making as a recurring component of broader organisational processes: motivation theory addresses how employees decide whether to exert effort (Ch 7); equity theory addresses how employees decide whether outcomes are fair and what restorative actions to take (Ch 7-8); leadership theories examine the decision authority and style of leaders (Ch 12); the conflict chapter distinguishes Thomas's five conflict-resolution modes (Ch 14.2), and choosing among them is itself a decision; and the change-management chapter contrasts top-down (deficit-based, mechanistic) and bottom-up (appreciative, emergent) approaches to making organisation-wide change decisions (Ch 16).
 
 This distillation consolidates these threads into a working pattern: how to recognise when a decision needs to be made; how to choose between programmed and non-programmed processes; how to surface biases and barriers; how to use group decision-making well; and how to recognise when the type of decision matters more than the technique used to make it.
 
@@ -28,9 +28,9 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 8.  **Groupthink and suppression of dissent.** Group decisions can incorporate diverse perspectives and reduce bias, but only when membership is genuinely diverse and members feel free to speak. Groupthink "occurs when group members choose not to voice their concerns or objections because they would rather keep the peace and not annoy or antagonize others" [V] (Ch 6.6, "Disadvantages of Group Decisions"); suppression of dissent occurs when one member dominates. The devil's advocate role (intentionally taking the critic position) is one mitigation. (Source: Ch 6.6)
 
-9.  **Bounded rationality and the cognitive-complexity trait.** The text presents bounded rationality as foundational: managers cannot fully grasp all alternatives or implications. High-cognitive-complexity managers cope better — they seek more information, integrate discrepant data, consider more solutions, and use more complex strategies. Cognitive complexity is partly trait, partly cultivable through structured habits. (Source: Ch 2.2 and Ch 6.4)
+9.  **Bounded rationality and the cognitive-complexity trait.** The text presents bounded rationality as foundational: managers cannot fully grasp all alternatives or implications. High-cognitive-complexity managers cope better — they seek more information, integrate discrepant data, consider more solutions, and use more complex strategies. (Source: Ch 2.2 and Ch 6.4)
 
-10.  **Equity in decision outcomes.** Equity theory (Adams) predicts that when employees compare their outcome-input ratio to a referent other's and find inequity, they will engage in restorative behaviours. The implication for decision-making is that the *process* matters as much as the outcome — procedural justice can sustain commitment even when distributive outcomes disappoint. (Source: Ch 7.3 and Ch 7.4)
+10.  **Equity in decision outcomes.** Equity theory (Adams) predicts that when employees compare their outcome-input ratio to a referent other's and find inequity, they will engage in restorative behaviours. The implication for decision-making is that people judge both the outcome (distributive justice) and the process used to reach it (procedural justice); layoffs based on seniority are seen as fairer than layoffs based on supervisors' opinions (Ch 7.4). (Source: Ch 7.3 and Ch 7.4)
 
 ## Questions to Ask During Decision-Making
 
@@ -51,13 +51,13 @@ This distillation consolidates these threads into a working pattern: how to reco
 | Clarify what is and is not being decided | What is the decision actually about? What is in scope and what is out? |
 | Identify stakeholders affected | Who has standing in this decision? Who is affected by the outcome but lacks voice? |
 | Identify time and resource constraints | How long can I take? What resources can I draw on? Is the time pressure real or self-imposed? |
-| Identify ethical constraints | Are there decisions I should not make even if they appear optimal on other criteria? Where are the deontological lines? |
+| Identify ethical constraints | Are there decisions I should not make even if they appear optimal on other criteria? Where are the lines I will not cross? |
 
 ### Phase 3: Exploring (Generating alternatives)
 
 | Need | Question |
 |---|---|
-| Generate enough options | Have I generated three to five real alternatives, not just one or two? The text observes that managers often stop at two and pick the better. |
+| Generate enough options | Have I generated many real alternatives, not just two? The text observes that managers often generate two and move straight to analysis. |
 | Avoid similarity bias | Am I generating options that resemble what I already prefer? Have I deliberately considered options outside my comfort zone? |
 | Engage diverse perspectives | Have I sought out colleagues whose backgrounds, experiences, or thinking styles differ from mine? Diverse input alters majority cognition for the better. |
 | Test for confirmation bias | What evidence would change my preferred view, and am I actively seeking it? |
@@ -127,49 +127,49 @@ Implementation: the conversation happens; milestones are agreed; weekly meetings
 
 Monitoring: at 90 days, evidence is reviewed. The director commits in advance to act on what the evidence shows, regardless of how uncomfortable that action will be — a precommitment against escalation of commitment.
 
-This worked example illustrates several key concepts in the source: dual-system processing, the six-step process, similarity bias, confirmation bias, escalation precommitment, and the productive use of process conflict (the milestone conversation) without descent into relationship conflict.
+This worked example illustrates several key concepts in the source: dual-system processing, the six-step process, similarity bias, confirmation bias, escalation of commitment (countered here by the example's own precommitment device), and the productive use of process conflict (the milestone conversation) without descent into relationship conflict.
 
 ## Anti-patterns This Reference Helps Avoid
 
 - **Snap judgement on novel problems.** The reactive system is treating a non-programmed decision as if it were programmed; the cost is poor outcome and inability to learn.
 - **Defending a sunk-cost decision.** Escalation of commitment leads to throwing more good resources after bad.
 - **Premature consensus in groups.** Groupthink produces unchallenged decisions that look good in the room and bad in the world.
-- **Conflict-avoidance leading to compounding problems.** Avoiding process conflict prevents productive exploration; avoiding relationship conflict allows poor performance to continue.
+- **Conflict-avoidance leading to compounding problems.** Avoiding process conflict prevents productive exploration; avoiding a necessary corrective conversation lets poor performance continue (Ch 6.4). Keep that conversation on behaviours so it does not become relationship conflict.
 - **Outcome-only judgement.** Judging a decision purely by its outcome conflates good luck with good process and discourages learning.
 - **Treating ethical questions as compliance questions.** Reduced moral sensitivity produces decisions that are technically legal but deeply harmful to stakeholders without voice.
-- **Reward systems disconnected from decision quality.** Equity theory predicts disengagement when the link between effort, performance, and reward is unclear; expectancy theory predicts the same. Decisions about reward design are themselves high-stakes decisions.
+- **Reward systems disconnected from decision quality.** Expectancy theory predicts weaker motivation when the link between effort, performance and reward is unclear; equity theory adds that people who see their outcome-input ratio as unfair against a referent act to restore balance, including by leaving (Ch 7.3). Decisions about reward design are themselves high-stakes decisions.
 
 ## Integration with Other References
 
 | Reference | Connection |
 |---|---|
-| Bounded rationality (Simon) | The OpenStax text treats bounded rationality as foundational. Practitioners working in decision-making contexts should treat Simon's framing as the explanation for why the six-step process and evidence-based methods exist. |
-| Cognitive dissonance (Festinger) | The text invokes cognitive consistency in the attitudes chapter (Ch 3.4); the implication for decision-making is that decisions inconsistent with one's beliefs produce tension that managers can either resolve through behaviour change or attitude change — and that escalation of commitment is one of those resolutions. |
-| Goal-setting theory (Locke) | Goal theory and decision-making are paired: difficult, specific, accepted goals shape what decisions get made and which alternatives feel salient. |
+| Bounded rationality | The OpenStax text treats bounded rationality as foundational. The text sets the six-step process and evidence-based methods against the barriers of Ch 6.4, bounded rationality first among them. |
+| Cognitive dissonance (Festinger) | The text invokes cognitive consistency in the attitudes chapter (Ch 3.4); the implication for decision-making is that decisions inconsistent with one's beliefs produce tension that managers can either resolve through behaviour change or attitude change. |
+| Goal-setting theory (Locke) | Goal theory (Ch 7.3): difficult, specific, accepted goals improve performance, but narrow or over-quantified goals can crowd out other duties, a hazard to weigh when a decision sets targets. |
 | Expectancy theory (Vroom) | Decision-making about effort exertion follows expectancy logic. Practitioners working on motivation should pair the OpenStax decision-making framework with expectancy analysis. |
 | Conflict-resolution modes (Thomas) | The five Thomas modes (competing, collaborating, compromising, avoiding, accommodating) are themselves decision-making frames for how to handle disagreement; the choice of mode is itself a decision. |
-| Appreciative Inquiry (Cooperrider) | For organisation-wide decisions involving change, the AI 5-D cycle (define, discover, dream, design, destiny) offers a bottom-up alternative to top-down systematic decision-making and may produce stronger commitment to the resulting decision. |
+| Appreciative Inquiry (Cooperrider) | For organisation-wide decisions involving change, the AI 5-D cycle (define, discover, dream, design, destiny) offers a bottom-up alternative that has employees co-create the vision and design the actions (Ch 16.3). |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
-- *Herbert Simon, bounded rationality* — cited as foundational for understanding decision limits and selective use of decision criteria (Ch 6.4) [BT]. Key Concept 9 traces here.
+- *Herbert Simon* — cited on the selective use of decision criteria (Ch 13.2) [BT]; the Ch 6.4 treatment of bounded rationality names no originator. Key Concept 9 traces to Ch 6.4.
 - *James Rest, four-component ethical decision-making model* — moral sensitivity, moral judgment, moral motivation, moral character/action (Ch 6.5) [BT]. Key Concept 7 traces here.
 - *J. Stacy Adams, equity theory* — outcome-input ratio comparisons and restorative behaviours (Ch 7.3) [BT]. Key Concept 10 traces here.
 - *Victor Vroom, expectancy theory* — cited in the context of motivation and decision-making (Ch 7) [BT].
 - *Edwin Locke, goal theory* — difficult, specific, accepted goals; goal commitment (Ch 7.3) [BT].
-- *Leon Festinger, cognitive dissonance* — mentioned in Ch 3.4 without explicit naming; cited in the deep ref as influencing escalation-of-commitment analysis [BT].
-- *Thomas-Kilmann conflict modes* — the two-axis (assertiveness × cooperativeness) five-mode model (Ch 14.2) [BT]. Integration table reference to Thomas traces here.
+- *Leon Festinger, cognitive dissonance* — mentioned in Ch 3.4 without explicit naming [BT].
+- *Kenneth Thomas's conflict-resolution modes* — the two-axis (assertiveness × cooperativeness) five-mode model (Ch 14.2) [BT]. Integration table reference to Thomas traces here.
 - *Roger Fisher and William Ury, Getting to Yes / BATNA* — principled negotiation anchors the conflict-resolution chapter (Ch 14.4) [BT].
 - *David Cooperrider, Appreciative Inquiry* — bottom-up emergent change alternative to deficit-based change (Ch 16.3) [BT]. Integration table reference traces here.
 - *Patrick Lencioni, Five Dysfunctions* — trust-conflict-commitment chain (the first three dysfunctions) for team decisions (Ch 10.4) [BT].
 - *Kurt Lewin, change model* and *John Kotter, eight-step model* — change management frameworks presented in Ch 16.3 [BT].
 - *Taylor Cox and Stacy Blake* — six competitive advantages from valuing diversity (Ch 5.3) [BT].
 - *Henry Mintzberg, managerial roles* — interpersonal, informational, decisional roles including the Entrepreneur and Disturbance Handler roles relevant to decision-making (Ch 11.3) [BT].
-- *Chris Argyris, basic incongruity thesis* — organisation-vs-maturity conflict underlying participatory management arguments (Ch 2.5) [BT].
+- *Chris Argyris, basic incongruity thesis* — organisation-vs-maturity conflict, strongest in highly structured, mechanised lower-level jobs (Ch 2.5) [BT].
 - *Fiedler's contingency theory of leadership* — LPC scoring and situational favourability (Ch 12.6) [BT].
 
-**Named limits of the source.** The text is an introductory OB survey; it provides orientation to all major decision-making concepts but not the depth of specialist sources on any single topic. Cognitive-bias coverage concentrates on the six barriers; behavioural-economics depth (prospect theory, dual-process experiments) is not developed. The ethical decision-making section (Rest's model) is brief. The cross-cultural negotiation section draws on decades-old American/Arab/Russian typologies (Table 14.5) that should be treated as directional rather than current.
+**Named limits of the source.** The text is an introductory OB survey; it provides orientation to all major decision-making concepts but not the depth of specialist sources on any single topic. Cognitive-bias coverage concentrates on the six barriers; behavioural-economics depth (prospect theory, dual-process experiments) is not developed. The ethical decision-making section (Rest's model) is brief. The cross-cultural negotiation section draws on decades-old American/Arab/Russian typologies (Table 14.5, from Glenn, Witmeyer and Stevenson, 1977) that should be treated as directional rather than current.
 
-**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-organizational-behavior-deep.md`). Key Concepts 1–10 are `[AP]` or `[AE]` drawn from the source. Most underlying theories (Adams, Vroom, Locke, Simon, Rest, Thomas, Cooperrider) are `[BT]` — the source endorses and explains them but does not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-organizational-behavior-deep.md`). Key Concepts 1–10 paraphrase the deep ref's [AP], [AR] and [BT] passages; the only in-file markers are the four [V] quotations. Most underlying theories (Adams, Vroom, Locke, Rest, Thomas, Cooperrider) are `[BT]` — the source endorses and explains them but does not originate them.

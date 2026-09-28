@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:43:28+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Stakeholder-Engagement Distillation
 
@@ -20,35 +20,35 @@ generated:
 
 ## Stakeholder-Engagement Relevance
 
-*Systems Mapping* is profoundly a book about stakeholder engagement, even though it is presented as a methods book about causal models. Five of the seven methods covered (Rich Pictures, Theory of Change, CLDs in their participatory variant, Participatory Systems Mapping, Fuzzy Cognitive Mapping) are *fundamentally* participatory practices. Bayesian Belief Networks and System Dynamics have participatory variants that are common practice. Chapter 5 — Participatory Systems Mapping — and Chapter 10 — Running Systems Mapping Workshops — together constitute one of the most practical stakeholder-engagement runbooks in the broader systems-mapping literature. Chapter 9's defence of participatory mapping in data-poor contexts is one of the most carefully argued positions in the book.
+*Systems Mapping* is profoundly a book about stakeholder engagement, even though it is presented as a methods book about causal models. Four of the seven methods covered (Rich Pictures, Theory of Change, Participatory Systems Mapping, Fuzzy Cognitive Mapping) are routinely participatory practices. CLDs, Bayesian Belief Networks and System Dynamics can be run participatively; for System Dynamics this is common. Chapter 5 — Participatory Systems Mapping — and Chapter 10 — Running Systems Mapping Workshops — together constitute one of the most practical stakeholder-engagement runbooks in the broader systems-mapping literature. Chapter 9's defence of participatory mapping in data-poor contexts is one of the most carefully argued positions in the book.
 
 The book contributes four distinct things to stakeholder engagement:
 
 1. **A philosophy of participatory work with complex adaptive systems.** Maps as *boundary objects* (Star & Griesemer 1989) and researchers as *interested amateurs* (Dennett 2014; Johnson 2015) are the framing concepts. The default position is that "we cannot force or control the complex adaptive systems we live in and make up, but we can work with them to steer and nurture the change we want." [V]
 
-2. **A practical runbook for designing and running stakeholder-engagement workshops.** Chapter 10's planning / venue / facilitation / recording / common-issues / online-workshops structure is a working checklist; the authors explicitly say "use this chapter like a checklist in your planning" [V]. The advice is grounded in their own experience and is unusually concrete (e.g., "30- to 60-minute chunks" for full-day workshops, "transcription takes 5–6× the recording length", "the trick is in having the confidence to move between steps openly and with purpose, but to do so in a systematic way" [V]).
+2. **A practical runbook for designing and running stakeholder-engagement workshops.** Chapter 10's planning / venue / facilitation / recording / common-issues / online-workshops structure is a working checklist; the authors explicitly say "use this chapter like a checklist in your planning" [V]. The advice is grounded in their own experience and is unusually concrete (e.g., for a full day, "planning in thirty- or sixty-minute chunks is sufficient" [V]; transcription "can easily take five or six times the length of the recording" [V]).
 
 3. **A multi-modal stakeholder-engagement model across the seven methods.** Each method chapter discusses how the method works in participatory mode, what facilitation moves matter, what common stakeholder issues arise, and what the tradeoffs are between participation and conceptual rigour. Across the seven methods, the engagement designs vary from highly free-form (Rich Pictures) through tightly structured (BBN) to simulation-and-feedback iteration (System Dynamics).
 
-4. **A discipline against engagement anti-patterns.** Stakeholder-engagement work is full of failure modes — research fatigue, power dynamics, dominant individuals, scepticism about the method, drawing-is-childish, fixator-burnout — and the book names them explicitly with concrete responses.
+4. **A discipline against engagement anti-patterns.** Stakeholder-engagement work is full of failure modes — research fatigue, power dynamics, dominant individuals, scepticism about the method, drawing-is-childish, facilitator burnout — and the book names them explicitly with concrete responses.
 
-The distillation projects these contributions onto a working pattern. Where the book is silent — for instance, on formal stakeholder-mapping (who to include) — the silence is acknowledged.
+The distillation projects these contributions onto a working pattern. Where the book is silent — for instance, on formal stakeholder weighting (how much influence each group gets) — the silence is acknowledged.
 
 ## Key Concepts for Stakeholder Engagement
 
-1.  **Maps as boundary objects.** "The maps become 'boundary objects' (see Star & Griesemer, 1989) around which stakeholders and researchers can learn." [V] A boundary object is a thing different stakeholders can engage with from their own perspectives without losing their identity — it absorbs different interpretations without collapsing into any one. The map's role is to be that absorbing surface for stakeholder dialogue. (Source: Ch 9, "Defending the Use of a Participatory Process to Build and Use Your Map")
+1.  **Maps as boundary objects.** "The maps become 'boundary objects' (see Star & Griesemer, 1989) around which stakeholders and researchers can learn." [V] The book does not define the term further; it describes what such a map does: it can "help build consensus and capacity to make decisions around an issue, but also to find the places where disagreements are" [V], and "preserve ideas and represent both sides, if they are not to be resolved" [V]. The map is a shared object stakeholders learn around. (Source: Ch 9, "Defending the Use of a Participatory Process to Build and Use Your Map")
 
 2.  **Researchers as interested amateurs.** "Maps, and the researchers working on them, become 'interested amateurs' (Dennett, 2014; Johnson, 2015) in the system at hand; actors or objects that can be critiqued and improved by participants without the need to offend other stakeholders and their opinions." [V] The researcher's deliberate non-expert stance is what makes critique safe for stakeholders to direct *at the map* rather than *at each other*. (Source: Ch 9, "Defending the Use of a Participatory Process to Build and Use Your Map")
 
 3.  **The "give away power" facilitation move.** "It is easy as a facilitator to feel responsibility for every moment of a workshop, and to try to control things too tightly. We recommended erring on the side of giving away power and responsibility to participants. Ask them to draw instead of you, ask them to ask questions of others, and critique the map as it emerges." [V] This is the load-bearing facilitation principle across all the participatory methods. The Rich Pictures variant is more extreme — "leave the room entirely during the drawing stage" [V]. (Source: Ch 10, "Facilitating Discussion"; Ch 2, "Common Issues and 'Tricks of the Trade'")
 
-4.  **Stakeholder-selection criteria for participatory systems mapping.** PSM's Ch 5 stakeholder-choice principle: "consider who affects or is affected by the system; who has on-the-ground knowledge and who has a strategic overview; who is often overlooked; are there provocateurs who could usefully be invited to challenge established narrative?" The process can be narrowed "by reducing diversity of stakeholders, but with a cost to system representation." [V] (Source: Ch 5, "How Do You Do Participatory Systems Mapping?")
+4.  **Stakeholder-selection criteria for participatory systems mapping.** PSM's Ch 5 stakeholder-choice principle: "consider who affects or is affected by the system; who has on-the-ground knowledge and who has a strategic overview; who is often overlooked; are there provocateurs who could usefully be invited to challenge established narrative?" [V] The process can be narrowed "by reducing diversity of stakeholders, but with a cost to system representation." [V] (Source: Ch 5, "How Do You Do Participatory Systems Mapping?")
 
-5.  **The default-to-mixed-group principle.** "You should begin mapping in groups to produce at least the first full version of a map. This is to ensure that the benefits of collective model building are achieved. The ideal is that a mixed group with representatives of all stakeholder communities is present for this workshop. When this is not possible, sequential workshops can be run which build on maps step by step." [V] Mixed groups produce better maps but also reveal more disagreement; sequential workshops are an acceptable second-best when mixed groups are infeasible. (Source: Ch 5, "How Do You Do Participatory Systems Mapping?")
+5.  **The default-to-mixed-group principle.** "You should begin mapping in groups to produce at least the first full version of a map. This is to ensure that the benefits of collective model building are achieved. The ideal is that a mixed group with representatives of all stakeholder communities is present for this workshop. When this is not possible, sequential workshops can be run which build on maps step by step." [V] Mixed groups secure the benefits of collective model building; sequential workshops are the fallback when mixed groups are infeasible. (Source: Ch 5, "How Do You Do Participatory Systems Mapping?")
 
 6.  **The "positive/negative" normative-vs-mathematical confusion.** "The most fundamental and most common confusion people have about the 'rules of the game' for building a PSM map is what 'positive' and (especially) 'negative' connections are. Sometimes people think of connections in a normative way, so a positive connection thus means 'this factor is good for that factor'" [V]. The facilitator's primary task is to clarify the mathematical meaning (move-together vs move-inversely) without making stakeholders feel patronised. The diagnostic prompt: "OK, so that is because as X increases Y tends to go down?" [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'"; Ch 6, "How Do You Do Fuzzy Cognitive Mapping?"; Ch 10, "Common Issues")
 
-7.  **The five-question explainability test.** "Be prepared to explain how the mapping method you are using works in two or three different ways. Think about how you would describe it to a ten-year-old child. If you can't do this, then you probably can't explain it clearly to diverse sets of stakeholders." [V] (Source: Ch 10, "Common Issues")
+7.  **The two-or-three-ways explanation test.** "Be prepared to explain how the mapping method you are using works in two or three different ways. Think about how you would describe it to a ten-year-old child. If you can't do this, then you probably can't explain it clearly to diverse sets of stakeholders." [V] (Source: Ch 10, "Common Issues")
 
 8.  **The "rules of the game" [V] front-loading principle.** "It is well worth spending an extra ten minutes at the start of workshop explaining the definitions of nodes and edges clearly, rather than discovering two hours in that people were misusing them." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
 
@@ -60,7 +60,7 @@ The distillation projects these contributions onto a working pattern. Where the 
 
 12.  **Stakeholder time pressure.** "Now, if you are lucky, you get a half day of people's time, and since the pandemic, you may only have people's attendance virtually. This puts more pressure on these methods, and this means we need to be better prepared and more efficient at using them." [V] The acknowledgement that stakeholder availability is shrinking shapes the choice of method and the design of the engagement. (Source: Ch 1, "Why Think About Systems Mapping Now?")
 
-13.  **The Theory of Change "process is just as much as the product" framing.** "Cultivate an understanding with clients and stakeholders that the value of ToC diagrams, and the wider approach, is just as much in the process of developing and using it with a wide group of people, as it is with the product of the diagram itself." Without this framing, stakeholders default to product-focus and miss the engagement value. (Source: Ch 3, "Common Issues and 'Tricks of the Trade'")
+13.  **The Theory of Change "process is just as much as the product" framing.** "Cultivate an understanding with clients and stakeholders that the value of ToC diagrams, and the wider approach, is just as much in the process of developing and using it with a wide group of people, as it is with the product of the diagram itself." [V] Without this framing, stakeholders default to product-focus and miss the engagement value. (Source: Ch 3, "Common Issues and 'Tricks of the Trade'")
 
 14.  **The "make workshops fun" principle.** "ToC diagram categories and their very applied nature can make it feel like a bureaucratic, technical, and dry process to build them. Workshops with stakeholders work best when they are energised, relaxed, and having fun." [V] Concrete moves: keep informal, keep people on their feet, avoid setting "the 'rules of the game' too tightly" [V], don't pester on definitions. (Source: Ch 3, "Common Issues and 'Tricks of the Trade'")
 
@@ -72,15 +72,15 @@ The distillation projects these contributions onto a working pattern. Where the 
 
 18.  **Severe disagreement handling.** "Severe enough that it could lead to some stakeholders refusing to attend workshops, attending but not contributing or bringing a negative energy, or to heated arguments between individuals. If difference of opinion is very wide, and thus relations between stakeholders are poor, you may want to think about running separate workshops for them. Unless your role is specifically on reconciliation, we would avoid putting the extra burden on your workshop of playing this role as well as mapping." [V] The map can "preserve two or more views of an issue" [V] — disagreement does not have to be resolved before mapping. (Source: Ch 10, "Common Issues")
 
-19.  **Disengagement pre-emption.** "Setting some gentle ground rules can help. For example, if people have their laptops with them and start to do other work on them, it can save a lot of effort later to ask them politely to not use their laptops during the workshop. ... The trick is not to shame people who are disengaged, but to pre-empt potential reasons for them becoming disengaged, or to gently bring them back in. Creating an engaging environment, for example, asking people to stand rather than sit and having the whole table covered with mapping materials without room for laptops is often helpful." (Source: Ch 10, "Common Issues")
+19.  **Disengagement pre-emption.** "Setting some gentle ground rules can help. For example, if people have their laptops with them and start to do other work on them, it can save a lot of effort later to ask them politely to not use their laptops during the workshop. ... The trick is not to shame people who are disengaged, but to pre-empt potential reasons for them becoming disengaged, or to gently bring them back in. Creating an engaging environment, for example, asking people to stand rather than sit and having the whole table covered with mapping materials without room for laptops is often helpful." [V] (Source: Ch 10, "Common Issues")
 
 20.  **Online-workshop adaptations.** Attendance is easier online; interaction and discussion are far harder ("Without body language cues, and with the short delay between speaking and hearing, fast-paced discussion between three or more people is almost impossible" [V]); shorter and more sessions work better than long single sessions; consider follow-up small-group or one-to-one calls; use chat function carefully; use breakout rooms for discussion-heavy parts; increase facilitator-to-participant ratio; "build in a 'tech-ice-breaker' session at the start of a first workshop in which people get to use the software in an introductory activity" [V]; burnout is more likely but subtle. (Source: Ch 10, "Running Online Workshops")
 
 21.  **The two-interviewer interview structure isn't here — but other interview wisdom is.** Note: the book does not develop interview-as-a-method in depth. Where it touches interview practice (Ch 6, FCM construction via interviews; Ch 9, qualitative data from interviews) the warning is the same: combining interview-derived maps from different stakeholders can produce "a composite that no stakeholder has described or had the chance to react to and comment on. This is not necessarily a problem, but is an important point to reflect on; is this map valid, does it reflect the mental models of our participants?" [V] (Source: Ch 9, "Using Qualitative Data to Build Your Map")
 
-22.  **The capture-and-record discipline.** "Take some fieldnotes... so that you have a record. It is often impractical to record discussions with an audio recording device, and it may inhibit participants from speaking freely. More likely to be of value would be asking participants to take some notes, or have some observers take notes." Photos of the map throughout the process are non-negotiable for digitisation. Transcription "can easily take five or six times the length of the recording when there are multiple people involved" [V] — a budget warning. (Source: Ch 2, "How Do You Do Rich Pictures?"; Ch 10, "Capturing and Recording Workshops")
+22.  **The capture-and-record discipline.** "Ideally, some fieldnotes should be made of the discussions, so that you have a record. It is often impractical to record discussions with an audio recording device, and it may inhibit participants from speaking freely. More likely to be of value would be asking participants to take some notes, or have some observers take notes." [V] Photos of the map at the end "will be vital to help you digitise" [V]. Transcription "can easily take five or six times the length of the recording when there are multiple people involved" [V] — a budget warning. (Source: Ch 2, "How Do You Do Rich Pictures?"; Ch 10, "Capturing and Recording Workshops")
 
-23.  **Post-workshop engagement design.** "It is important to take advantage of the energy and raised interest a workshop will often generate. As well as processing notes and photos, and starting the process of digitising maps, you should contact participants to thank them for their time, explain what will happen next, and invite them for bilateral conversations should they want them. We have found that participants are often interested in following up one-to-one, and these can be some of the most useful spaces to develop ideas for analysis and use of maps." (Source: Ch 10, "Post-workshop")
+23.  **Post-workshop engagement design.** "However, it is also important to take advantage of the energy and raised interest a workshop will often generate. As well as processing notes and photos, and starting the process of digitising maps, you should contact participants to thank them for their time, explain what will happen next, and invite them for bilateral conversations should they want them. We have found that participants are often interested in following up one-to-one, and these can be some of the most useful spaces to develop ideas for analysis and use of maps." [V] (Source: Ch 10, "Post-workshop")
 
 24.  **Stakeholder ownership of the map (PSM specific).** "The maps are intended to be 'owned' by the stakeholders who create them, rather than researchers. They should capture all the complexity important to stakeholders and should use annotations and labels to represent any different beliefs." [V] Ownership is the engagement design principle — participants are not contributors to a researcher's map but co-creators of a shared map. (Source: Ch 5, "What Is Participatory Systems Mapping?")
 
@@ -105,10 +105,10 @@ The distillation projects these contributions onto a working pattern. Where the 
 
 | Need | Question |
 |---|---|
-| How much stakeholder time can I get? | Match the method to the time. Rich Pictures and CLDs work in 30 min – 2 hr; PSM benefits from longer or multiple sessions; System Dynamics participatory work is time-intensive. |
-| Should this be one workshop or many? | Multi-touchpoint engagements produce process value and ownership; single workshops favour focused product. |
+| How much stakeholder time can I get? | Match the method to the time. Rich Pictures work in 30 min – 2 hr; PSM benefits from longer or multiple sessions; System Dynamics participatory work is time-intensive. |
+| Should this be one workshop or many? | PSM is iterative and "may never feel finished" [V] (Ch 5); online, "shorter but more sessions" [V] can work well (Ch 10, "Running Online Workshops"). |
 | Where should the workshop happen? | Go to them, not them to you. Pick the nicest accessible room; check tables, walls, light. |
-| What facilitation pair will work? | One active facilitator + one observer/note-taker is the baseline. More than 4–5 facilitators dilutes the workshop. |
+| What facilitation pair will work? | One active facilitator + one observer/note-taker is the baseline. Four or five people whom participants perceive as facilitators already muddles the workshop. |
 | What will I use to capture discussion? | Dedicated note-taker by default; audio recording costs more than it gives back in most cases (transcription burden); photos of the map throughout. |
 | Will this be in person or online? | Online requires shorter sessions, more facilitators, tech-icebreaker session, careful software choice. Burnout is subtle but real. |
 
@@ -138,7 +138,7 @@ The distillation projects these contributions onto a working pattern. Where the 
 |---|---|
 | One stakeholder is dominating — how do I handle it? | Position yourself as outsider; justify your request through the method ("the method says we need to hear from X group too"); plan separate workshops if foreseeable. |
 | Stakeholders disagree severely — how do I handle it? | Use the map to bring assumptions to the surface; preserve multiple views in the map rather than forcing resolution; consider separate workshops if relations are very poor. |
-| Stakeholders confuse the method — how do I handle it? | Patient re-explanation; diagnostic prompts ("OK, so that means..."); avoid positioning yourself as expert and them as lay. |
+| Stakeholders confuse the method — how do I handle it? | Patient re-explanation; diagnostic prompts ("OK, so that is because as X increases Y tends to go down?" [V]); avoid positioning yourself as expert and them as lay. |
 | Stakeholders disengage — how do I handle it? | Pre-empt: ground rules, engaging environment, no-laptop suggestion. Gently bring back rather than shame. |
 | I'm burning out as facilitator — how do I handle it? | Normalise it; take time away from the project; talk to your team; trust the process. |
 
@@ -146,7 +146,7 @@ The distillation projects these contributions onto a working pattern. Where the 
 
 | Need | Question |
 |---|---|
-| Have I written up the notes within 24 hours? | Beyond 24 hours, nuance erodes rapidly. |
+| Have I written up the notes within 24 hours? | Beyond 24 hours, it becomes increasingly difficult to remember the nuances of the discussions (Ch 10, "Capturing and Recording Workshops"). |
 | Have I taken advantage of the post-workshop energy? | Thank participants; explain what comes next; invite bilateral one-to-ones. |
 | Have I planned the iteration? | Map is rarely finished after one workshop; design the next touchpoint. |
 | Have I treated participants as map owners? | Co-creators, not contributors to a researcher's map. Share back what was produced; invite refinement. |
@@ -157,19 +157,19 @@ The distillation projects these contributions onto a working pattern. Where the 
 | Need | Question |
 |---|---|
 | Is the map going to a different audience than those who built it? | Visual literacy varies; complexity that energised builders can paralyse readers. |
-| Have I tuned complexity to the audience? | "Tune the complexity of a map to the visual literacy of your audience"; start small, build up; layer or filter for audiences with less context. |
-| Have I allocated half my resources to communication? | Specifically for CLDs and other visually-driven methods, the authors recommend half of resources on design and dissemination. |
+| Have I tuned complexity to the audience? | "Tune the complexity of a map to the visual literacy of your audience" [V]; start small, build up; layer or filter for audiences with less context. |
+| Have I allocated half my resources to communication? | Specifically for CLDs and other visually-driven methods, the authors recommend half of resources on design and communication. |
 | Have I avoided the horrendogram failure mode? | Single-display unfiltered complexity is not communication; it is paralysis. Layer, stage, simplify for communication while keeping a "real" version. |
 | Have I avoided the Theory of Change "narrowness pressure" trap? | Keep the rich version even when producing a simpler one for slide-deck communication. |
 
 ## What to Look For
 
 - **Method chosen before engagement purpose is clear.** If the team reached for a CLD or PSM out of habit rather than fit, the engagement will underserve the stakeholder group. The guide's method-selection chapter (Ch 11) prompts: what do stakeholders need to *do* with the map? Decide on a method together, communicate it, and explain it early.
-- **Researcher-ownership of the map rather than stakeholder co-creation.** When participants see themselves as contributors to someone else's map, ownership and buy-in are low; when they see themselves as co-creators, the map serves as a boundary object that absorbs disagreement.
+- **Researcher-ownership of the map rather than stakeholder co-creation.** When participants see themselves as contributors to someone else's map, ownership and buy-in are low; when they see themselves as co-creators, the map serves as a boundary object around which disagreements can be located and worked through.
 - **One or two voices dominating the mapping session.** Power asymmetries are often visible in the room before they are named; a facilitator who doesn't structure for equity (separate workshops, rotating lead, "give away power" moves) will produce a map that reflects the most powerful voice.
 - **Assumptions never surfaced.** The best prompt in the guide is "could you explain that a bit more please?" [V] If the mapping session ends without significant explanation and disagreement, assumptions were not surfaced.
-- **Post-workshop silence.** Stakeholder energy is highest right after a workshop; if no thank-you contact, no follow-up communication, and no one-to-one offers happen within 24–48 hours, the energy dissipates and the research-fatigue risk is realised.
-- **Complexity not tuned for the communication audience.** A map that energised builders can paralyse readers; the guide is explicit that half the resources should go to design and dissemination for visually complex maps.
+- **Post-workshop silence.** A workshop often generates energy and raised interest; if no thank-you contact or one-to-one offer follows soon after the workshop, the energy it generated is lost and the research-fatigue risk grows.
+- **Complexity not tuned for the communication audience.** A map that energised builders can paralyse readers; the guide is explicit that half the resources should go to design and communication for visually complex maps.
 - **Positive/negative confusion unaddressed.** If stakeholders are using "positive connection" normatively (this is a good relationship) rather than mathematically (these move together), the map's structure will be wrong and no post-hoc analysis will correct it.
 
 ## When to Use This Reference
@@ -178,7 +178,7 @@ The distillation projects these contributions onto a working pattern. Where the 
 - Multi-stakeholder settings where different groups hold different views of how the system works — systems mapping is a tool for surfacing and making those differences productive rather than suppressing them.
 - Engagement where the process itself is as valuable as the output — ToC, PSM, and Rich Pictures all produce relational and political value alongside the map.
 - When participants need to learn together as well as decide together; the participatory mapping process is a learning intervention as well as an analysis tool.
-- When power asymmetries among stakeholder groups are significant enough to warrant a boundary object — a thing all groups can critique from their own perspective without the critique becoming interpersonal.
+- When power asymmetries among stakeholder groups are significant enough to warrant a boundary object — a map all groups can critique and improve without the critique becoming interpersonal (the book's "interested amateur" framing, Ch 9).
 - When the engagement will continue across multiple sessions (PSM, System Dynamics group model building) rather than a single event.
 - When the question is not "what should we decide?" but "what does the system look like from different vantage points?" — Rich Pictures and participatory CLDs are especially suited.
 
@@ -190,7 +190,7 @@ A regional public-health authority is trying to understand why take-up of a subs
 
 **Method selection.** The team chooses Participatory Systems Mapping for the first two sessions (the causal structure of the problem is contested; ownership of the map is important). Rich Pictures are used as an icebreaker in each session to surface what each group sees as the full system before the structured PSM work begins.
 
-**Rules of the game.** The facilitator takes ten extra minutes at the start of each session to clarify the PSM positive/negative distinction — "positive" means factors move together, not that the relationship is good — and uses the diagnostic prompt "OK, so as X increases, Y tends to go down?" when confusion recurs (Ch 5, "Common Issues").
+**Rules of the game.** The facilitator takes ten extra minutes at the start of each session to clarify the PSM positive/negative distinction — "positive" means factors move together, not that the relationship is good — and uses the diagnostic prompt "OK, so that is because as X increases Y tends to go down?" [V] when confusion recurs (Ch 5, "Common Issues and 'Tricks of the Trade'"; Ch 10, "Common Issues").
 
 **Give away power.** The facilitator asks participants to draw rather than drawing for them; the "could you explain that a bit more please?" [V] prompt surfaces assumptions that would have been invisible in a presentation format. The lead facilitator is joined by a note-taker whose role is to capture discussion, not just map nodes.
 
@@ -198,7 +198,7 @@ A regional public-health authority is trying to understand why take-up of a subs
 
 **Post-workshop.** Within 24 hours, participants receive a thank-you message, a summary of what the map shows, and an invitation for one-to-one follow-up. Three community health workers take up the offer; their follow-up conversations surface a structural barrier (transport to dental appointments) that was not named in the group setting.
 
-The scenario is operator-authored; all framework citations trace through `references/barbrook-johnson-systems-mapping-deep.md`. The stakeholder-selection criteria (Ch 5, "How Do You Do Participatory Systems Mapping?"), the boundary-object framing (Ch 9), the "give away power" principle (Ch 10), the positive/negative-connection clarification protocol (Ch 5, Ch 10), post-workshop engagement design (Ch 10, "Post-workshop"), and the map-as-preservable-of-disagreement design (Ch 10, "Common Issues") are all `[AP]`- or `[V]`-marked passages in the deep ref. No verbatim source blockquotes appear in this distillation.
+The scenario is operator-authored; all framework citations trace through `references/barbrook-johnson-systems-mapping-deep.md`. The stakeholder-selection criteria (Ch 5, "How Do You Do Participatory Systems Mapping?"), the boundary-object framing (Ch 9), the "give away power" principle (Ch 10, "Facilitating Discussion"), the positive/negative-connection clarification and diagnostic prompt (Ch 5, "Common Issues and 'Tricks of the Trade'"; Ch 10, "Common Issues"), post-workshop engagement design (Ch 10, "Post-workshop"), and preserving two or more views in one map (Ch 10, "Common Issues") each trace to a `[V]`-marked passage in the deep ref. No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns this distillation helps avoid
 
@@ -209,7 +209,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - **Front-loading method explanation as a long monologue** — clarify rules progressively through diagnostic prompts during the workshop.
 - **Defaulting to expert position as facilitator** — "you are not the expert, the stakeholders are" [V] is the default stance; the move is to be an "interested amateur" with the map as boundary object.
 - **Producing horrendograms for stakeholder communication** — unfiltered complexity paralyses; layered, staged, audience-tuned presentation guides.
-- **Skipping post-workshop one-to-ones** — "participants are often interested in following up one-to-one, and these can be some of the most useful spaces".
+- **Skipping post-workshop one-to-ones** — "participants are often interested in following up one-to-one, and these can be some of the most useful spaces to develop ideas for analysis and use of maps" [V].
 - **Audio-recording workshops without budgeting for transcription** — five to six times the recording length is a real budget hit and the recording itself can inhibit honest discussion.
 - **Ignoring research fatigue** — pre-empt by being honest about what value participants will get and design engagement that gives back, not just extracts.
 - **Trying to be both fully participatory and fully conceptually rigorous** — name the trade and choose; manage stakeholder expectations on the trade-off.
@@ -221,13 +221,12 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 | Reference | Connection |
 |---|---|
-| FLO Facilitation Guide (this corpus) | Provides the broader facilitation craft that the Ch 10 runbook presupposes but does not fully develop: contracting, energy management, intervention selection, co-facilitation. Pair FLO for facilitation philosophy; Barbrook-Johnson for systems-mapping specifics. |
+| FLO Facilitation Guide (this corpus) | Supplies online facilitation craft (scaffolding-then-fading presence, community norms, co-facilitation as mentorship), relevant to Ch 10's online-workshop guidance. Pair FLO for online facilitation; Barbrook-Johnson for systems-mapping specifics. |
 | Liberating Structures Handbook (this corpus) | Liberating Structures provides a repertoire of participation designs that can be embedded in the opening, closing, and discussion phases of mapping workshops. The "give away power" principle and the Rich Pictures icebreaker pattern both have Liberating Structures equivalents. |
-| LFUO Learning Review Guide 2024 (this corpus) | For stakeholder engagement in incident-analysis contexts with restorative-justice obligations; PSM maps have been used to surface causal structure in incident reviews, where the boundary-object framing is especially important for participants with different professional standings. |
+| LFUO Learning Review Guide 2024 (this corpus) | For stakeholder engagement in incident-analysis contexts with restorative-justice obligations; LFUO's Network of Influences map plays a similar boundary-object role in Learning Reviews, and this source's PSM guidance can inform how that map is built with participants. |
 | NHS Just Culture Guide (this corpus) | For stakeholder engagement when the question is whether to single out an individual; the "researcher-as-interested-amateur" stance and the map-as-critique-surface principle apply to just-culture conversations as well as systems-mapping sessions. |
 | OpenStax *Organizational Behavior* (this corpus) | Individual and group dynamics — power bases, resource dependence, in-group/out-group effects, groupthink — operate within mapping workshops; OB names the dynamics; Barbrook-Johnson provides the structural responses (separate workshops, give-away-power, "ask them to draw themselves first" [V]). |
-| Mitchell, Agle, and Wood stakeholder salience model | The guide provides selection principles ("who affects or is affected" [V], "who is often overlooked" [V]) but not a weighted stakeholder-mapping method; the Mitchell-Agle-Wood salience model (power, legitimacy, urgency) is a complement for the "who to include with what weight" question the guide does not answer. |
-| Ostrom's design principles for common-pool resources | For PSM work on resource-governance questions (water, land, shared digital infrastructure), Ostrom's eight design principles map onto the causal structure of effective governance; PSM can surface whether each principle is present in the system stakeholders describe. |
+| OpenStax *Business Ethics* (this corpus) | The guide provides selection principles ("who affects or is affected" [V], "who is often overlooked" [V]) but not a weighted stakeholder-mapping method; Business Ethics' three-column stakeholder prioritisation (Ch 1.2) and Grunig-Hunt linkage categories (Ch 3.2) are a complement for the "who to include with what weight" question the guide does not answer. |
 
 ## Citation and Source-Integrity Notes
 
@@ -236,20 +235,19 @@ The scenario is operator-authored; all framework citations trace through `refere
 - Dennett (2014) and Johnson (2015) — "interested amateur" framing (Ch 9) [BT]
 - Pearl (1988); Neapolitan (1989); Fenton and Neil (2018) — Bayesian Belief Network lineage (Ch 7) [BT]
 - Kosko (1986); Axelrod (1976); Özesmi and Özesmi (2004) — Fuzzy Cognitive Mapping lineage (Ch 6) [BT]
-- Ostrom — local common-pool resource governance; referenced in the participatory-mapping / governance context [BT]
 - Voinov et al. (2016, 2018) — participatory modelling frameworks (Ch 9) [BT]
 - Prell et al. (2007); Hurlbert and Gupta (2015) — stakeholder involvement in natural resource management [BT]
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:
-- Formal stakeholder mapping (who to include with what weight) is not a method the book develops; it provides selection principles but points to wider stakeholder-theory literature for the prioritisation question.
-- Interview methodology in depth is outside scope; the book points to wider qualitative methods literature when interviews are mentioned as a data source.
+- Formal stakeholder mapping (who to include with what weight) is not a method the book develops; it provides selection principles (Ch 5) but no weighting method.
+- Interview methodology in depth is outside scope; Ch 9 covers building maps from interview data and points to supporting software.
 - Conflict resolution and reconciliation are explicitly out of scope: "Unless your role is specifically on reconciliation, we would avoid putting the extra burden on your workshop of playing this role as well as mapping." [V]
 - Stakeholder engagement in regulated or contractual settings (confidential investigations, accident investigations with legal implications) is not addressed; the advice assumes goodwill across the table.
 - Cross-cultural engagement is not developed despite the book's international examples.
 - The participation vs conceptual rigour trade-off is named and left open; practitioners must choose and communicate their choice to stakeholders.
 - Licensed CC BY 4.0 (Open Access); unrestricted with attribution.
 
-**Evidence-marker continuity.** The deep reference at `references/barbrook-johnson-systems-mapping-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (21 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; Key Concepts drawn from the source's "Common Issues and 'Tricks of the Trade'" sections are `[V]` in the deep ref (verbatim from source). The boundary-object and interested-amateur framings are `[BT]` (Star-Griesemer and Dennett/Johnson respectively, cited in the source). The dental-care programme scenario in the Worked Example is operator-authored. The authors' positions against "black-box" modelling, the horrendogram failure mode, and the validation-as-quantitative-truth view are `[AR]` in the deep ref.
+**Evidence-marker continuity.** The deep reference at `references/barbrook-johnson-systems-mapping-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (22 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; every Key Concept quotation, including those drawn from the source's "Common Issues and 'Tricks of the Trade'" and Ch 10 workshop sections, is carried as `[V]` in the deep ref. The boundary-object and interested-amateur framings are `[BT]` (Star-Griesemer and Dennett/Johnson respectively, cited in the source). The dental-care programme scenario in the Worked Example is operator-authored. The authors' positions against "black-box" modelling, the horrendogram failure mode, and the validation-as-quantitative-truth view are `[V]` in the deep ref.
 
 ## Related concepts
 

@@ -101,7 +101,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Backlog Item drafting from customer's perspective → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Backlog Refinement with SMEs and stakeholders → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Stakeholder voice at the Daily Scrum via Parking Lot → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
-- Calibrated forecasts for stakeholders (three named forms) → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
+- Forecasts for stakeholders (three example shapes) → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Distributed-team engagement design → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Informal Sprint engagement: connect and celebrate; snacks; appreciations → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Org-change initiative at risk of framework-adoption-as-rollout → [org-topologies-primer-2025](org-topologies-primer-2025.md)
@@ -137,7 +137,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Upward-correction culture missing — lower-rank issues are not being surfaced → [open-kanban](open-kanban.md)
 - Cross-functional engagement around flow of work → [open-kanban](open-kanban.md)
 - Team-based leadership without role restructuring → [open-kanban](open-kanban.md)
-- People being framed as resources rather than constitutive parts of the system → [open-kanban](open-kanban.md)
+- People being framed only as resources rather than as full rounded individuals → [open-kanban](open-kanban.md)
 - Sustainable-pace concern in stakeholder commitments → [open-kanban](open-kanban.md)
 - Communication without Collaboration (or vice versa) failure mode → [open-kanban](open-kanban.md)
 - Field-level / community-of-practice engagement model needed → [open-kanban](open-kanban.md)
@@ -191,6 +191,9 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Symptomatic engagement is locking in the failure → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Stakeholder engagement scaling beyond capacity → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Facilitator's own positioning needs auditing → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
+- Decisions keep being reopened, or nobody disagrees with the senior person → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Delegating engagement work: give purpose, not a script → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Engaging a party whose aims oppose yours → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 1: Mapping
 
@@ -200,7 +203,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Apply the eight-question stakeholder analysis → [openstax-principles-management](openstax-principles-management.md)
 - Surface stakeholders without voice via TBL framing → [openstax-principles-management](openstax-principles-management.md)
 - Reject pure shareholder framing → [openstax-principles-management](openstax-principles-management.md)
-- Identify the six financial-reporting stakeholder categories → [openstax-accounting-vol1](openstax-accounting-vol1.md)
+- Identify the five financial-reporting stakeholder categories and the implicit parties → [openstax-accounting-vol1](openstax-accounting-vol1.md)
 - Map by information need to specific financial statements → [openstax-accounting-vol1](openstax-accounting-vol1.md)
 - Identify the audit committee's structural role → [openstax-accounting-vol1](openstax-accounting-vol1.md)
 - Identify externally-affected parties → [openstax-economics-3e](openstax-economics-3e.md)
@@ -208,13 +211,13 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Identify the kind of good at issue → [openstax-economics-3e](openstax-economics-3e.md)
 - Map information asymmetries → [openstax-economics-3e](openstax-economics-3e.md)
 - Identify voiceless stakeholders → [openstax-economics-3e](openstax-economics-3e.md)
-- Apply Donaldson-Preston stakeholder-salience framing → [openstax-business-ethics](openstax-business-ethics.md)
+- Apply Donaldson-Preston three-approach framing → [openstax-business-ethics](openstax-business-ethics.md)
 - Map stakeholder moral standing explicitly → [openstax-business-ethics](openstax-business-ethics.md)
 - Map the B2B buying centre → [openstax-principles-marketing](openstax-principles-marketing.md)
 - Map the consumer journey touchpoints → [openstax-principles-marketing](openstax-principles-marketing.md)
 - Identify the financial stakeholder categories → [openstax-principles-finance](openstax-principles-finance.md)
 - Identify legal standing in a dispute → [openstax-business-law](openstax-business-law.md)
-- Surface attachment and social-support network → [openstax-psychology-2e](openstax-psychology-2e.md)
+- Surface the social-support network → [openstax-psychology-2e](openstax-psychology-2e.md)
 - Identify stakeholders algorithmically from network data → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
 - Map information-asymmetry structure in vendor-client engagement → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
 - Identify the full software-project stakeholder set → [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
@@ -231,7 +234,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Map community-of-practice focus-group composition (Learning Review) → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Identify roles whose voices must be present at any scale → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Map the OPFOR-equivalent stakeholder → [tc-25-20-army-aar](tc-25-20-army-aar.md)
-- Identify the two-echelons-above independent evaluator → [tc-25-20-army-aar](tc-25-20-army-aar.md)
+- Identify who should evaluate → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Match attendance scale to engagement scale → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Apply the per-event participant tier model → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Curate the Sprint Review invitation list deliberately → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
@@ -263,6 +266,8 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Identify all affected archetype groups before mapping an org-change stakeholder set → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Identify policy owners adjacent to the change (HR, Finance, reward) → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test whether "people-as-resources" framing is suppressing voice in the stakeholder set → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Orient on a party whose aims oppose yours → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Find whose intent governs, one and two levels up → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 2: Framing the question
 
@@ -270,7 +275,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Choose conflict-resolution mode → [openstax-organizational-behavior](openstax-organizational-behavior.md)
 - Choose bargaining frame → [openstax-organizational-behavior](openstax-organizational-behavior.md)
 - Choose ethical lens for engagement → [openstax-principles-management](openstax-principles-management.md)
-- Apply Rest's moral-sensitivity check → [openstax-principles-management](openstax-principles-management.md)
+- Surface the ethical implications → [openstax-principles-management](openstax-principles-management.md)
 - Apply news-test for engagement design → [openstax-principles-management](openstax-principles-management.md)
 - Apply the full-disclosure principle → [openstax-accounting-vol1](openstax-accounting-vol1.md)
 - Apply the conservatism bias to disclosure framing → [openstax-accounting-vol1](openstax-accounting-vol1.md)
@@ -325,6 +330,8 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Test whether the engagement actually warrants systems-mapping ceremony → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Frame an org-change engagement as co-creation vs rollout → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Choose the vocabulary for cross-discipline org-change engagement → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- State the intent, not only the task → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Name the main effort among your own workstreams → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 3: Convening
 
@@ -369,7 +376,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Pre-circulate Backlog Refinement items → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Use the Parking Lot for stakeholder concerns → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Capture Backlog Items as customer-perspective outcomes → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
-- Offer calibrated forecasts to stakeholders → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
+- Offer forecasts to stakeholders → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Open with a structure that gets everyone speaking early → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Use One Minute of Silence before any substantive question → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Replace panels with Celebrity Interviews → [liberating-structures-handbook](liberating-structures-handbook.md)
@@ -413,6 +420,8 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Run the MAP step in the hands-on workplace, not in the back office → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Make the mismatch visible to stakeholders together, not announced to them → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Frame proposed changes as Elevating Katas — named experiments, not directives → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Put the key decision-holders in direct contact → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Let peers coordinate laterally within a shared intent → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 4: Surfacing conflict
 
@@ -449,7 +458,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Engage participants in the output-format decision → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Capture in voice-preserving modes → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Sequence the closing as What/So What/Now What → [liberating-structures-handbook](liberating-structures-handbook.md)
-- Test for Muri (overburden) as a hidden conflict driver → [open-kanban](open-kanban.md)
+- Test for overwork as a hidden conflict driver → [open-kanban](open-kanban.md)
 - Test for push-vs-pull as a hidden conflict structure → [open-kanban](open-kanban.md)
 - Apply the holistic / systemic lens to inter-stage conflict → [open-kanban](open-kanban.md)
 - Calibrate presence to phase → [flo-facilitation-guide](flo-facilitation-guide.md)
@@ -465,20 +474,21 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Treat unexpected stakeholder response as a loop, not a personality → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Host difficult conversations rather than smooth them away → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Use CLDs as engagement structures, not as expert outputs → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
-- Diagnose framework-adoption conflict as a disengagement failure mode, not a comprehension problem → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Diagnose framework-adoption conflict as a disengagement failure mode → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Name the target topology's failure mode honestly when surfacing design disagreement → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Draw out honest dissent before the decision is stated → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 5: Reaching agreement
 
 - Apply BATNA analysis → [openstax-organizational-behavior](openstax-organizational-behavior.md)
 - Test cross-cultural agreement understanding → [openstax-organizational-behavior](openstax-organizational-behavior.md)
-- Test against greenwashing → [openstax-principles-management](openstax-principles-management.md)
+- Test against CSR as PR → [openstax-principles-management](openstax-principles-management.md)
 - Reject ethical relativism defence → [openstax-principles-management](openstax-principles-management.md)
 - Apply triple-bottom-line accounting → [openstax-principles-management](openstax-principles-management.md)
 - Determine restatement scope and timing → [openstax-accounting-vol1](openstax-accounting-vol1.md)
 - Frame disclosure for each stakeholder category → [openstax-accounting-vol1](openstax-accounting-vol1.md)
 - Honour consistency through method-change disclosure → [openstax-accounting-vol1](openstax-accounting-vol1.md)
-- Apply Pareto / compensation tests → [openstax-economics-3e](openstax-economics-3e.md)
+- Test winners and losers → [openstax-economics-3e](openstax-economics-3e.md)
 - Internalise externalities in the agreement → [openstax-economics-3e](openstax-economics-3e.md)
 - Address marginal-incentive structure → [openstax-economics-3e](openstax-economics-3e.md)
 - Build credible commitment → [openstax-economics-3e](openstax-economics-3e.md)
@@ -499,7 +509,6 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Update the Product Backlog as the ratification of stakeholder voice → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Apply the PO's final-ordering decision rule → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Capture retrospective improvements as decisions or actions → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
-- Communicate the Sprint Goal to stakeholders → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Confirm the agreement is sustainable → [open-kanban](open-kanban.md)
 - Make agreements visible → [open-kanban](open-kanban.md)
 - Anchor agreement to value, not to negotiation outcome → [open-kanban](open-kanban.md)
@@ -509,6 +518,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Schedule co-facilitator debrief → [flo-facilitation-guide](flo-facilitation-guide.md)
 - Anchor org-change agreement on the chain-of-fit (business goal → topology → frameworks as tools) → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Accommodate divergent designs for divergent stakeholder groups → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Frame a delegated agreement as a two-way contract → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 6: Ratifying
 
@@ -529,7 +539,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Communicate to non-attending stakeholders deliberately → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Revise the convening agreement when the engagement surfaced a problem with it → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Update the board after the engagement → [open-kanban](open-kanban.md)
-- Translate stakeholder asks to backlog items at the right batch size → [open-kanban](open-kanban.md)
+- Translate stakeholder asks to backlog items small enough to pull → [open-kanban](open-kanban.md)
 - Capture upward-correction moments explicitly → [open-kanban](open-kanban.md)
 - Close session with action commitments → [open-practice-library](open-practice-library.md)
 - Record decisions transparently → [open-practice-library](open-practice-library.md)
@@ -537,6 +547,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Communicate that the engagement is an iteration, not the answer → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Ratify Elevating Katas as stakeholder-owned experiments with named hypotheses and end-states → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Close the multi-level engagement loop: confirm all levels are represented in the ratified commitments → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Turn dissent into support once the decision is stated → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 7: Post-engagement
 
@@ -551,7 +562,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Test for regulatory capture → [openstax-economics-3e](openstax-economics-3e.md)
 - Sustain Mintzberg liaison role (management frame) → [openstax-principles-management](openstax-principles-management.md)
 - Build the Plan-Do-Check-Act cycle → [openstax-principles-management](openstax-principles-management.md)
-- Monitor CLV and service quality against 5A journey → [openstax-principles-marketing](openstax-principles-marketing.md)
+- Monitor service quality against 5A journey → [openstax-principles-marketing](openstax-principles-marketing.md)
 - Monitor legal compliance post-engagement → [openstax-business-law](openstax-business-law.md)
 - Track stress and wellbeing in sustained engagements → [openstax-psychology-2e](openstax-psychology-2e.md)
 - Use Sprint Review for client engagement → [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
@@ -566,7 +577,6 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Make Product-Goal progress visible → [scrum-guide-2020](scrum-guide-2020.md)
 - Sustain restorative-justice engagement after the FLA closes → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Sustain liaisons for ongoing employee and family support → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
-- Improve the FLA process via team AAR → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Audit the follow-up → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Audit the SOP-equivalent revision → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Audit the relationship → [tc-25-20-army-aar](tc-25-20-army-aar.md)
@@ -582,7 +592,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Apply 15% Solutions across implementers → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Run Appreciative Interviews on the engagement's after-life → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Audit the Levels of Accountability ladder → [liberating-structures-handbook](liberating-structures-handbook.md)
-- Continue DADs over time → [liberating-structures-handbook](liberating-structures-handbook.md)
+- Lock named next steps when energy fades → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Run a What/So What/Now What as the closing → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Use Take 10 (Minutes) as a closing reflection → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Use a Conversation Café Final Round → [liberating-structures-handbook](liberating-structures-handbook.md)
@@ -607,6 +617,8 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Re-surface mental models periodically → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Use periodic re-mapping as the recurring stakeholder-engagement rhythm → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Watch for drift back to Resource-Topology framing and low-voice patterns → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Hold a critique soon after, open to all hands → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Weigh inaction as a failure too → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## All concept files (27)
 
@@ -617,7 +629,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)
 - [LFUO 2024](lfuo-learning-review-guide-2024.md)
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md)
-- [U.S. Marine Corps, MCDP-1 Warfighting](mcdp1-warfighting.md)
+- [U.S. Marine Corps, MCDP 1: Warfighting](mcdp1-warfighting.md)
 - [NHS Just Culture Guide](nhs-just-culture-guide.md)
 - [Hurtado, Open Kanban](open-kanban.md)
 - [Open Practice Library](open-practice-library.md)

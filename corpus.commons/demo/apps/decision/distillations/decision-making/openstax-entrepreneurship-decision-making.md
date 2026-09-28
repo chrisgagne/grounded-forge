@@ -4,17 +4,17 @@
 
 ## Decision-Making Relevance
 
-The OpenStax *Entrepreneurship* text is, at the operational level, a sequence of decisions an entrepreneur must make: whether to start, what to start, how to validate, how to fund, what structure to choose, when to pivot, when to harvest, and what role to play after. The book's organising premise that "an entrepreneur is someone who identifies and acts on an idea or problem" [V] (Ch 1.1) makes the act of decision the constitutive feature of entrepreneurship rather than a peripheral concern.
+The OpenStax *Entrepreneurship* text is, at the operational level, a sequence of decisions an entrepreneur must make: whether to start, what to start, how to validate, how to fund, what structure to choose, when to pivot, when to harvest, and what role to play after. The book's organising premise that "an entrepreneur is someone who identifies and acts on an idea or problem that no one else has identified or acted on" [V] (Ch 1.1) makes the act of decision the constitutive feature of entrepreneurship rather than a peripheral concern.
 
-The text is particularly strong on iterative decision-making under uncertainty (build-measure-learn, MVP-driven validation, ten pivot strategies), on group decision techniques (Delphi method, Nominal Group), on decision biases (overconfidence, optimism, escalation of commitment, planning fallacy, status quo bias, hindsight bias), and on the structural decisions that shape risk allocation (entity selection, founders' agreements, IP strategy). It is less strong on individual cognitive bias mitigation in single high-stakes decisions; for that the text leans on Klein's intuition framing rather than developing its own protocol.
+The text is particularly strong on iterative decision-making under uncertainty (build-measure-learn, MVP-driven validation, ten pivot strategies), on group decision techniques (Delphi method, Nominal Group), on decision biases (overconfidence, optimism, escalation of commitment, planning fallacy, status quo bias, hindsight bias), and on the structural decisions that shape risk allocation (entity selection, founders' agreements, IP strategy). It is less strong on debiasing single high-stakes decisions: its countermeasure is fail-safe points set in the business plan before launch (Ch 15.2), and it cites Klein only for the gut-feel moment that can follow structured advice-sorting (Ch 15.3).
 
 For decision-making practitioners working on early-stage ventures, the text is the canonical first-pass reference. For practitioners in mature organisations, the disruption framework (Christensen) and the resource-dependence framework (Pfeffer and Salancik) extend further than the lean-startup material.
 
 ## Key Concepts for Decision-Making
 
-1.  **Build-measure-learn loop.** Lean startup is "a methodology entrepreneurs use to help them innovate by continuously testing their products and getting feedback from customers in real time" [V] (Ch 10.1, "Lean Startup"). Continuous iteration of prototype, customer feedback, and revision until product-market fit is achieved. (Source: OpenStax, *Entrepreneurship*, Ch 10.1, "Lean Startup")
+1.  **Build-measure-learn loop.** Lean startup is "a methodology entrepreneurs use to help them innovate by continuously testing their products and getting feedback from customers in real time" [V] (Ch 10.1, "Lean Startup"). Continuous iteration of prototype, customer feedback, and revision until the prototype is good enough for general release. (Source: OpenStax, *Entrepreneurship*, Ch 10.1, "Lean Startup")
 
-2.  **Minimum viable product (MVP).** The bare-minimum prototype required to elicit useful customer feedback; can be a video, sketch, or basic landing page. (Source: Ch 10.1)
+2.  **Minimum viable product (MVP).** The bare-minimum prototype required to elicit useful customer feedback; can be a sketch, a video, an explanation of how the product might look, or a basic version of the product. (Source: Ch 10.1)
 
 3.  **Innovation accounting.** Replaces traditional revenue/profit metrics with assumption-validation metrics during the early venture stages. (Source: Ch 10.1)
 
@@ -36,7 +36,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 12.  **Eight-step lean problem-solving process.** Clarify, analyse (*genchi genbutsu*), set targets, identify root causes, develop countermeasures, implement, monitor, standardise. (Source: Ch 6.4, Table 6.1)
 
-13.  **Delphi method.** Iterative anonymous questionnaires sent to a diverse group, narrowed across rounds until convergence on a final option set. (Source: Ch 15.3)
+13.  **Delphi method.** Iterative questionnaires sent to a diverse group of people at different locations; the questions are refined as responses come in, then participants rank the options, which are narrowed to two or three top choices. (Source: Ch 15.3)
 
 14.  **Nominal Group technique.** In-person silent-write, share-and-discuss, vote rounds. (Source: Ch 15.3)
 
@@ -56,7 +56,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 22.  **Entity selection.** The for-profit/nonprofit decision and the C/S/B/LLC/LLP/LLLP/sole-proprietorship decision shape risk, taxation, and capital-access. (Source: Ch 13)
 
-23.  **"Begin with the end in mind." [V]** Treat the eventual harvest or exit as a design constraint from day one. (Source: Ch 15.1)
+23.  **"Begin with the end in mind." [BT]** Treat the eventual harvest or exit as a design constraint from day one. (Source: Ch 15.1)
 
 ## Questions to Ask During Decision-Making
 
@@ -68,7 +68,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 | Frame the problem | Does this idea solve a real customer problem, or am I building what I want to build? (Ch 11.1, Ch 6.2) |
 | Position vs. competition | Where do my competitors not overlap, and is that gap valuable? (Ch 5.3, three-circles) |
 | Scale the market | What is my TAM, and what realistic SAM can I serve? (Ch 8.2) |
-| Understand the customer | What are the customer's pains, gains, and jobs-to-be-done? (Ch 11.2, customer empathy map) |
+| Understand the customer | What are the customer's pains, gains, and jobs-to-be-done? (Ch 11.2, customer empathy map and value proposition canvas; Ch 11.1) |
 | Stress-test desirability/feasibility/viability | How desirable is the product? How feasible is making it? Will it remain viable? (Ch 11.2) |
 
 ### Phase 2: Validation and lean iteration
@@ -101,13 +101,13 @@ For decision-making practitioners working on early-stage ventures, the text is t
 | Choose pitch tactics by audience | Different audiences (investors, employees, F&F, trade associations) need different pitch lengths and asks. Which audience am I addressing? (Ch 7.3) |
 | Manage the cap table | How do equity decisions today affect future financing rounds and the eventual harvest? (Ch 9.1, Ch 13) |
 | Assess external pressure | What political, economic, sociocultural, and technological forces are likely to change my resource access? (Ch 14.2, PEST) |
-| Mitigate risk | Avoid, reduce, transfer, or accept — which strategy fits each major risk? (Ch 13.7) |
+| Mitigate risk | Have I identified and assessed each major risk, and which protection abates it — a limited-liability structure, financial planning, or insurance? (Ch 13.7) |
 
 ### Phase 5: Pivot, scale, or exit
 
 | Need | Question |
 |---|---|
-| Diagnose decline signals | Are sales waning, costs rising, or both? Is this a maturity-phase pause or a decline? (Ch 10.5) |
+| Diagnose decline signals | Are sales leveling off (maturity) or waning (decline)? (Ch 10.5) |
 | Match pivot type to symptom | Which of Ries's ten pivots addresses the specific symptom I am observing? (Ch 10.1) |
 | Time the harvest | Is the venture at peak value relative to acquirer interest, or should we hold? (Ch 2.2, Ch 15.1) |
 | Plan the post-harvest role | After exit, do I want to be a serial entrepreneur, mentor, consultant, or champion? (Ch 15.4) |
@@ -116,9 +116,9 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 | Need | Question |
 |---|---|
-| When to use Delphi | The decision benefits from anonymous independent input from a geographically diverse expert group. (Ch 15.3) |
-| When to use Nominal Group | The decision benefits from in-person discussion with structured silent-write rounds to suppress dominant voices. (Ch 15.3) |
-| When to trust intuition | After structured analysis, do I have a clear gut signal that conflicts with the analysis, and is that signal informed by deep experience? (Ch 15.3, citing Klein) |
+| When to use Delphi | The decision benefits from written input, over several questionnaire rounds, from a diverse group of people at different locations, such as the advisory group. (Ch 15.3) |
+| When to use Nominal Group | The decision benefits from in-person discussion in which everyone first writes a response privately, then all input is shared, discussed, and narrowed over repeated rounds before a vote. (Ch 15.3) |
+| When to trust intuition | After working through the structured tools and pausing, do I have a gut sense of the right decision, even one outside the advice I received, and have I communicated it to the team? (Ch 15.3, citing Klein) |
 
 ## What to Look For
 
@@ -136,7 +136,7 @@ For decision-making practitioners working on early-stage ventures, the text is t
 
 - **Pattern: the company is incurring liability that the entity structure does not insulate against.** Signal: personal assets are commingled with business assets, formalities are skipped. Diagnosis: piercing-the-corporate-veil exposure (Ch 13.2). Follow-up: separate bank accounts, hold required meetings, document minutes, sign documents in the entity name.
 
-- **Pattern: a competitor disrupts the market with a simpler, cheaper offering.** Signal: incumbent revenue is shifting to a new entrant whose product looks "worse" to existing customers. Diagnosis: disruptive innovation (Ch 1.3, Ch 4.2, citing Christensen). Follow-up: do not optimise for existing customers; consider whether a separate organisational unit could compete with the disruptor on its terms.
+- **Pattern: a competitor disrupts the market with a simpler, cheaper offering.** Signal: incumbent revenue is shifting to a new entrant whose product looks "worse" to existing customers. Diagnosis: disruptive innovation (Ch 4.2; Ch 11.1, citing Christensen). Follow-up: ask whether the entrant's edge is a different business model; the source says incumbents usually fail to capitalise on a disruption because commercialising it needs a business model different from their current one (Ch 11.1, citing Christensen).
 
 - **Pattern: the team consistently overestimates how fast plans will execute.** Signal: every milestone slips. Diagnosis: planning fallacy (Ch 15.2). Follow-up: estimate using a base-rate approach (how long do similar tasks take in our industry?) rather than top-down ambition.
 
@@ -162,7 +162,7 @@ Using the framework:
 2. *Apply the build-measure-learn loop (Ch 10.1).* The previous eighteen months were a single long build cycle without measure or learn. The next thirty days should be a measurement cycle: structured interviews with the six pilot clinics asking why they have not converted, what feature they would pay for, and what the substitute is.
 3. *Check fail-safe points (Ch 15.2).* The original plan projected ten paying customers by month twelve. The founder is at month eighteen with zero paying customers. This crosses any reasonable fail-safe threshold and forces a structured pivot decision rather than a Series A pitch.
 4. *Match symptom to pivot type (Ch 10.1, Table 10.2).* The most likely pivots given the symptom are customer-segment (different clinics may pay), customer-need (different problem may be more painful), or zoom-in (a single feature of the current tool may be paid-worthy on its own).
-5. *Reassess runway (Ch 9.4, Ch 10.5).* Five months is enough for one focused pivot cycle, not for two. The founder should commit to one pivot hypothesis, set a thirty-day measurement window, and pre-commit to closing the venture if the hypothesis fails.
+5. *Reassess runway (Ch 9.4, Ch 10.1).* Five months is enough for one focused pivot cycle, not for two. The founder should commit to one pivot hypothesis, set a thirty-day measurement window, and pre-commit to closing the venture if the hypothesis fails.
 
 The structured walk through these steps surfaces that the founder's intended next action (Series A pitch) is the wrong action for the current state. The framework's contribution is to redirect attention from "raise more capital to extend the runway" to "use the remaining runway for the validation work that should have happened in months one through six".
 
@@ -173,29 +173,28 @@ The structured walk through these steps surfaces that the founder's intended nex
 - **Founder hubris.** Persisting with a failing direction because the founder is invested in being right. The framework requires fail-safe points and structured group decision techniques (Ch 15.2, Ch 15.3).
 - **Skipping entity-structure decisions.** Operating as an informal partnership and creating contingent personal liability. The framework requires explicit entity selection and a founders' agreement (Ch 13, Ch 15.1).
 - **Treating business plan as static.** Writing a thirty-page plan and never revising it. The framework treats business plans as living documents revised against milestone reality (Ch 11.4, Ch 10.4).
-- **Confusing innovation with invention.** Pursuing patent strategy when iteration speed matters more. The framework distinguishes innovation from invention and recommends build-first-patent-later for fast-moving fields (Ch 4.2, Ch 7.4).
+- **Confusing innovation with invention.** Pursuing patent strategy when iteration speed matters more. The framework distinguishes innovation from invention and suggests building first and seeking patents later for intellectual property in highly competitive fields (Ch 4.2, Ch 7.4).
 
 ## Integration with Other References
 
 | Reference | Connection |
 |---|---|
-| Christensen, *The Innovator's Dilemma* | The OpenStax text adopts Christensen's disruptive-innovation framework directly and uses it to motivate the lean-startup recommendation (Ch 1.3, Ch 4.2). |
+| Christensen, *The Innovator's Dilemma* | The OpenStax text adopts Christensen's disruptive-innovation framework (Ch 1.3, Ch 4.2, Ch 11.1) and jobs-to-be-done theory (Ch 11.1) [BT]; Christensen is not held in this corpus. |
 | Ries, *The Lean Startup* | Build-measure-learn, MVP, pivot, and innovation accounting come directly from Ries; the OpenStax text condenses the framework (Ch 10.1). |
-| Drucker, *Innovation and Entrepreneurship* | Drucker's seven sources of innovation are reproduced and used to structure opportunity-recognition (Ch 4.2). |
-| Osterwalder and Pigneur, *Business Model Generation* | The Business Model Canvas is reproduced and treated as the primary design tool for pre-launch ventures (Ch 11.2). |
-| Kahneman / behavioural economics literature | The cognitive-biases framework in Ch 15.2 (overconfidence, planning fallacy, hindsight) overlaps with Kahneman's *Thinking, Fast and Slow*; OpenStax uses Cossette's entrepreneurship-specific review as the entry point. |
+| Drucker, *Innovation and Entrepreneurship* | Drucker's seven sources of innovation are reproduced as a catalogue of where innovation comes from (Ch 4.2, Table 4.3). |
+| Osterwalder and Pigneur, *Business Model Generation* | The Business Model Canvas is reproduced as one of three focal canvases, alongside the Lean Canvas and the Social Business Model Canvas (Ch 11.2). |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Eric Ries, The Lean Startup (2011)* — build-measure-learn, MVP, pivot strategies, and innovation accounting are drawn entirely from Ries (Ch 4.2; Ch 10.1) [BT]. Key Concepts 1–4 trace here.
-- *Clayton Christensen, The Innovator's Dilemma (1997) and Competing Against Luck (2016)* — disruptive innovation and jobs-to-be-done (Ch 1.3; Ch 4.2; Ch 11.1) [BT]. Key Concept 10 and Anti-pattern "competitor disrupts the market" trace here.
+- *Clayton Christensen, The Innovator's Dilemma (1997) and Competing Against Luck (2016)* — disruptive innovation and jobs-to-be-done (Ch 1.3; Ch 4.2; Ch 11.1) [BT]. The What to Look For pattern "a competitor disrupts the market" traces here.
 - *Peter Drucker, Innovation and Entrepreneurship (1986)* — the seven sources of innovation and opportunity-recognition framing (Ch 4.2; Ch 5.2) [BT].
-- *Alexander Osterwalder and Yves Pigneur, Business Model Generation* — the Business Model Canvas is reproduced as the primary design tool for pre-launch ventures (Ch 11.2) [BT].
+- *Alexander Osterwalder and Yves Pigneur, Business Model Generation* — the Business Model Canvas and value proposition canvas (Ch 11.2) [BT].
 - *Steve Blank* — problem-solution-fit framework and customer-development methodology (Ch 11.1) [BT].
 - *Ash Maurya, Running Lean and Scaling Lean* — Lean Canvas and value-proposition formula (Ch 11.1; Ch 11.2) [BT].
-- *Mark Granovetter* — strength-of-weak-ties research supporting team-diversity guidance (Ch 6.1) [BT].
+- *Mark Granovetter* — strength-of-weak-ties research on networking: weak ties bridge into other functional areas; strong ties yield fewer new opportunities (Ch 6.1) [BT].
 - *Michael Kirton, KAI Inventory* — adaptive-vs.-innovative problem-solving distinction (Ch 6.1) [BT]. Key Concept 10 traces here.
 - *Gary Klein, The Power of Intuition* — intuition framing in group decision-making (Ch 15.3) [BT].
 - *Pierre Cossette* — cognitive-bias review specific to entrepreneurs (Ch 15.2) [BT]. Key Concept 15 traces here.
@@ -206,6 +205,6 @@ The structured walk through these steps surfaces that the founder's intended nex
 - *Henry Chesbrough* — open-innovation definition (Ch 4.1) [BT].
 - *Everett Rogers, Diffusion of Innovations (5th ed., 2010)* — adoption-curve categories and diffusion chasm (Ch 4.2) [BT].
 
-**Named limits of the source.** The text is an introductory survey aimed at aspiring entrepreneurs, not an executive strategy reference. Its cognitive-bias coverage leans on Cossette's entrepreneurship review rather than Kahneman's primary work; practitioners wanting deeper bias-debiasing protocols should supplement with behavioural-economics sources. The book's financing content covers seed and early-stage structures well but does not address growth-equity or late-stage deal mechanics in depth.
+**Named limits of the source.** The text is an introductory survey aimed at aspiring entrepreneurs, not an executive strategy reference. Its cognitive-bias coverage rests on Cossette's review of research on entrepreneurs; practitioners wanting deeper debiasing protocols should supplement with behavioural-economics sources. The book's financing content covers seed and early-stage structures well but does not address growth-equity or late-stage deal mechanics in depth.
 
-**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-entrepreneurship-deep.md`). Key Concepts 1–23 are `[AP]` (author's position) or `[AE]` (author's example) drawn from OpenStax. The disruptive-innovation and lean-startup material is structurally `[BT]` — the source endorses these frameworks but does not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-entrepreneurship-deep.md`). Key Concepts 1, 4, 5, 9 and 16 carry `[V]` quotations copied from the deep reference, and Key Concept 23 quotes a maxim the source relays (`[BT]`); the rest paraphrase OpenStax (`[AP]`). The disruptive-innovation and lean-startup material is structurally `[BT]` — the source endorses these frameworks but does not originate them.

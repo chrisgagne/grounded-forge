@@ -10,29 +10,29 @@ The distillation is therefore narrower than the corresponding OpenStax distillat
 
 ## Key Concepts for Stakeholder-Engagement
 
-1.  **Stakeholders identified through network analysis.** Lim's RALIC study at UCL used PageRank applied to the stakeholder-network graph (built from snowball sampling and project documentation) to rank 85 stakeholders by salience; the resulting rankings correlated strongly with the project's ground-truth ranking. This is a defensible quantitative method when the stakeholder set is large or unclear. (Source: Jones, *Evidence-based Software Engineering*, Ch 5.4.5, "Discovering functionality needed for acceptance")
+1.  **Stakeholders identified through network analysis.** Lim's RALIC study at UCL built stakeholder lists by snowball sampling (an Open list of 127 names) and from project documentation (a Closed list of 76 names), and applied PageRank to the resulting stakeholder network; the rankings correlated strongly with the project's ground-truth ranking of 85 stakeholders. This is a defensible quantitative method when the stakeholder set is large or unclear. (Source: Jones, *Evidence-based Software Engineering*, Ch 5.4.5, "Discovering functionality needed for acceptance")
 
-2.  **Stakeholder salience as the prioritisation metric.** Salience is "the degree to which managers give priority to competing stakeholder claims" [V] (Mitchell-Agle-Wood). It can be measured by network-position metrics (PageRank), by reciprocal salience (each stakeholder rates the others), or by the directness of stakeholders' role in the system being built. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
+2.  **Stakeholder salience as the prioritisation metric.** Salience is "the degree to which managers give priority to competing stakeholder claims" [BT] (Ch 5.4.5, citing Mitchell, Agle and Wood). Lim combined stakeholders' salience ratings of each other using social-network metrics; PageRank had one of the strongest correlations with the ground truth. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
 
-3.  **Requirements prioritisation by fixed-budget allocation.** Regnell et al. asked stakeholders to allocate a fixed budget (100,000 units) across a list of requirements. The variance in the assigned values, computed by leaving each stakeholder out one at a time, reveals the dependence of the priority ranking on individual stakeholders. (Source: Ch 5.4.5, "Discovering functionality needed for acceptance")
+3.  **Requirements prioritisation by fixed-budget allocation.** Regnell et al. asked stakeholders to allocate a fixed budget (100,000 units) across a list of requirements. The variance in the assigned values, computed by leaving each stakeholder out one at a time, reveals the dependence of the priority ranking on individual stakeholders. (Source: Ch 2.8.3, "Decision-making"; Ch 5.4.5, "Discovering functionality needed for acceptance")
 
-4.  **Information asymmetry between client and vendor.** Vendors bidding to win an implementation contract have less information than they would have after the system existed; once a vendor has built the system, they have intimate familiarity with it, and information asymmetry deters competing maintenance bidders. Mechanisms that reduce information asymmetry include: requiring source-code escrow, public APIs that allow third-party alternatives, transparent change-control procedures, and contractual provisions for documentation deliverables. (Source: Ch 3.4.6, "Information asymmetry")
+4.  **Information asymmetry between client and vendor.** Vendors bidding to implement a new system cannot claim any knowledge of a system that does not yet exist; once a vendor has built it, that vendor can claim intimate familiarity with it, and "This information asymmetry may deter other vendors from bidding, and places the customer at a disadvantage in any negotiation with the established vendor" [V]. (Source: Ch 3.4.6, "Information asymmetry") Mechanisms that could reduce the asymmetry are this distillation's suggestions, not Jones's: requiring source-code escrow, public APIs that allow third-party alternatives, transparent change-control procedures, and contractual provisions for documentation deliverables.
 
-5.  **Moral hazard in client-vendor relationships.** Moral hazard occurs when information asymmetry exists and the more-informed party has some control over unobserved attributes. In software, this includes developers making implementation decisions on the basis of personal enjoyment or career incentives rather than the client's interest. Agency theory deals with the conflict of interests between those paying for work and those being paid. (Source: Ch 3.4.7, "Moral hazard")
+5.  **Moral hazard in client-vendor relationships.** Moral hazard occurs when information asymmetry exists and the more-informed party has some control over unobserved attributes. In software, it can apply to developers "basing their choice on the enjoyment they expect to experience, rather than the likely best technical solution" [V]. Agency theory deals with the conflict of interests between those paying for work to be done and those being paid to do it. (Source: Ch 3.4.7, "Moral hazard")
 
-6.  **Contract type and management overhead.** Fixed-price contracts involve a slightly greater percentage of management time than time-and-materials contracts (Ahonen et al. study of 117 projects). Standard form contracts almost universally favour the software company that wrote them. The choice of contract type shapes the stakeholder relationship throughout the project. (Source: Ch 5.2.1, "Contracts")
+6.  **Contract type and management overhead.** Time-and-materials contracts involved 25% less management time than fixed-price contracts (Ahonen et al., 117 projects). Standard form contracts almost universally favour the software company that wrote them. The choice of contract type shapes the stakeholder relationship throughout the project. (Source: Ch 5.2.1, "Contracts")
 
-7.  **Bidding dynamics shape the post-contract relationship.** Bidding decisions are driven by factors with little or no connection to technical aspects: keeping staff busy, bidding the maximum the client will pay, bidding low to recoup losses during maintenance, getting a foot in the door with small projects. The signing of a contract is the start of cost negotiation, not the end. (Source: Ch 5.2, "Pitching for projects")
+7.  **Bidding dynamics shape the post-contract relationship.** Bidding decisions are driven by factors with little or no connection to technical aspects: keeping staff busy, bidding the maximum the client will pay, bidding low to recoup losses during maintenance, getting a foot in the door with small projects. "The signing of a contract signals the start of development work, not the end of client cost negotiation" [V]. (Source: Ch 5.2, "Pitching for projects")
 
-8.  **Stakeholder culture is path-dependent.** Cultures develop through social learning, conformist transmission, and reciprocity. Stable cultures within a company persist beyond the people who established them. Cross-cultural stakeholder engagement involves navigating these path-dependent cultural differences. (Source: Ch 3.4.4, "Social learning"; Ch 4.4.2, "Culture")
+8.  **Stakeholder culture is path-dependent.** Group conventions spread through social learning and *conformist transmission*, the propensity to preferentially adopt the cultural traits that are most frequent in the population; in Centola et al.'s study, a committed subgroup of at least 25% of a group was able to switch its established naming convention. Cross-cultural stakeholder engagement involves navigating these path-dependent cultural differences. (Source: Ch 3.4.4, "Social learning"; Ch 4.4.2, "Culture")
 
-9.  **Cultural intelligence is not just cognitive.** Engagement across cultural boundaries requires attention to embodied cultural patterns: spatial metaphors for time differ between English (horizontal) and Chinese (vertical) speakers; metaphors for political position differ across cultures. These shape what stakeholders attend to and how they reason. (Source: Ch 4.4.2, "Culture")
+9.  **Cultural intelligence is not just cognitive.** Engagement across cultural boundaries requires attention to embodied cultural patterns: spatial metaphors for time differ between English (horizontal) and Chinese (vertical) speakers. These shape what stakeholders attend to and how they reason. (Source: Ch 4.4.2, "Culture")
 
-10.  **Cooperation requires reciprocity, transitivity, and reputation.** Cooperation through direct reciprocity is stable when the probability of repeat interaction Pi meets c/b < Pi (where c is the cost of cooperation and b is the mutual benefit). Cooperation through indirect reciprocity (reputation-based) is stable when the probability of knowing a member's reputation, Pk, meets c/b < Pk. These conditions explain why long-running stakeholder relationships sustain cooperation while one-off interactions tend to defect. (Source: Ch 3.4.8, "Group survival")
+10.  **Cooperation rests on reciprocity and reputation.** Cooperation through direct reciprocity is only stable when the probability of interacting again with a previously encountered member, Pi, meets c/b < Pi (where c is the cost of cooperation and b the benefit received). Cooperation through indirect reciprocity (reputation-based) is only stable when the probability of knowing a member's reputation, Pk, meets c/b < Pk. (Source: Ch 3.4.8, "Group survival") Read for stakeholder work: one-off interactions give cooperation little to stand on, while long-running relationships and visible reputations can.
 
-11.  **Free-riders need to be detected and managed.** Groups face threats from social loafing (member effort decreases as group size increases) and from members exploiting the group's benefits without contributing. Punishment of free-riders is costly to the punisher but stabilises cooperation. (Source: Ch 3.4.8, "Group survival"; Ch 3.4.9, "Group problem solving")
+11.  **Free-riders need to be detected and managed.** Groups face threats from social loafing (member effort decreases as group size increases) and from members taking the benefits of membership without making appropriate contributions. Social pressure may not be enough to stop free-riding, and group members have been found willing to punish, at a cost to themselves, members who fail to follow group norms. (Source: Ch 3.4.8, "Group survival"; Ch 3.4.9, "Group problem solving")
 
-12.  **Estimates given by professionals are anchored on the customer's number.** Jørgensen and Sjøberg showed that professionals' estimates are strongly shifted by the customer's offered estimate. When engaging stakeholders during estimation, the order in which information is exchanged matters. (Source: Ch 5.3, "Resource estimation")
+12.  **Estimates given by professionals are anchored on the customer's number.** Jørgensen and Sjøberg showed that professionals' estimates are strongly shifted by the customer's offered estimate. When engaging stakeholders during estimation, the order in which information is exchanged matters. (Source: Ch 2.2.1, "Built-in behaviors")
 
 ## Questions to Ask During Stakeholder Engagement
 
@@ -58,25 +58,24 @@ The distillation is therefore narrower than the corresponding OpenStax distillat
 
 | Need | Question |
 |---|---|
-| What is the right scale of group? | Brainstorming groups consistently underperform individuals on idea generation, per Jones (Ch 3.4.9). Social loafing scales with group size. If the goal is idea generation, use individuals first and combine later. |
+| What is the right scale of group? | Brainstorming groups consistently underperform individuals on ideas generated per person, per Jones (Ch 3.4.9). Social loafing scales with group size. If the goal is idea generation, use individuals first and combine later. |
 | What is the right cultural register? | Cultural intelligence requires cognitive and embodied adaptation. Be deliberate about communication-style differences across the group. |
-| What is the speaking order? | The Asch conformity result shows that group decisions are biased by the order of speakers. Use private input collection before group discussion. |
+| What is the speaking order? | In Asch's conformity study the actual subject answered after hearing most of the group, and in 27% of groups agreed with a clearly wrong majority between eight and twelve times (Ch 2.8.3). Use private input collection before group discussion. |
 | How will free-riders be detected? | If the group is large enough for social loafing, design the engagement so individual contributions are visible. |
 
 ### Phase 4: Surfacing conflict (welcoming productive disagreement)
 
 | Need | Question |
 |---|---|
-| Distinguish process conflict from relationship conflict | Process conflict (about how to do the work) is generally productive; relationship conflict (interpersonal animosity) is harmful regardless of intensity. |
 | Reduce anchoring on the customer's first number | When estimating, separate the elicitation of stakeholder priorities from the customer's existing number; otherwise the priorities will be shifted by the anchor. |
-| Watch for moral hazard | Is a stakeholder making decisions on the basis of personal enjoyment, career incentives, or revenge — rather than on the basis of stated project interests? |
+| Watch for moral hazard | Is a party with more information making decisions on grounds the others cannot observe (e.g., what they enjoy building) rather than the best technical solution? |
 
 ### Phase 5: Reaching agreement
 
 | Need | Question |
 |---|---|
 | Use fixed-budget allocation for requirements prioritisation | Each stakeholder allocates a fixed unit budget across the requirements; the variance reveals which priorities depend on which individuals. |
-| Pre-commit against future scope creep | The signing of a contract is the start of cost negotiation; design the agreement to make scope-change costs visible and traceable. |
+| Pre-commit against future scope creep | Signing the contract does not end cost negotiation; design the agreement to make scope-change costs visible and traceable. |
 | Build credible commitment | Without enforcement, reputation, or repeated interaction, agreements unravel under future pressure. Design for repeated interaction or reputational reasons to honour the agreement. |
 | Address voiceless stakeholders structurally | Future users, dependent systems, environment — all need credible proxy representation if their interests are to be reflected in the agreement. |
 
@@ -91,16 +90,16 @@ The distillation is therefore narrower than the corresponding OpenStax distillat
 
 | Need | Question |
 |---|---|
-| Sustain the long-running relationship through repeated interaction | Cooperation through direct reciprocity is stable when the probability of repeat interaction meets the cost/benefit threshold. Sustain the relationship by maintaining repeat-interaction dynamics. |
+| Sustain the long-running relationship through repeated interaction | Cooperation through direct reciprocity is only stable when the probability of repeat interaction meets the cost/benefit threshold. Sustain the relationship by maintaining repeat-interaction dynamics. |
 | Track free-rider dynamics over time | Social loafing increases with group size; in long-running stakeholder relationships, watch for member effort to drop as the group scales. |
 | Re-check the information-asymmetry structure | Has the vendor accumulated enough familiarity with the system to deter competing alternatives? If so, what mitigation is available (source code review, third-party audit, document deliverables)? |
 
 ## What to Look For
 
-- **Loudest stakeholders treated as most salient.** Network-position analysis would often identify quieter stakeholders as more structurally central. Signal: engagement is shaped by the most vocal parties. Diagnosis: the salience mapping relied on who spoke up, not on who is structurally connected. Follow-up: run a snowball-sampling pass to find the overlooked.
+- **Loudest stakeholders treated as most salient.** Network-position analysis may identify stakeholders the vocal parties overlook. Signal: engagement is shaped by the most vocal parties. Diagnosis: the salience mapping relied on who spoke up, not on who is structurally connected. Follow-up: run a snowball-sampling pass to find the overlooked.
 - **Customer's first number anchoring the engagement.** Estimates and priorities align suspiciously closely with the customer's opening position. Signal: the team's estimates cluster near what the customer said first. Diagnosis: anchoring is operating. Follow-up: separate elicitation of team priorities from the customer's stated number before combining.
 - **Information asymmetry hardening post-contract.** The implementing vendor becomes the sole party with intimate system knowledge, making alternative providers non-viable. Signal: renewal discussions produce no credible alternative bids. Diagnosis: the contract lacked information-asymmetry mitigation provisions. Follow-up: design escrow, documentation deliverables, and public API requirements into the next agreement.
-- **Social loafing scaling with group size.** In large stakeholder groups, individual effort drops and free-rider dynamics emerge. Signal: in groups above 6–8, some participants are visibly less engaged than in smaller settings. Diagnosis: group size has exceeded the threshold where individual accountability is natural. Follow-up: design individual-contribution visibility into the engagement structure.
+- **Social loafing scaling with group size.** In large stakeholder groups, individual effort drops and free-rider dynamics emerge. Signal: in larger groups, some participants are visibly less engaged than in smaller settings. Diagnosis: group size has exceeded the threshold where individual accountability is natural. Follow-up: design individual-contribution visibility into the engagement structure.
 
 ## When to Use This Reference
 
@@ -119,11 +118,11 @@ A mid-size digital-agency is contracted to build a compliance-management platfor
 
 **Fixed-budget allocation.** The compliance team, IT group, and the two newly-included corporate-customer officers each allocate 100,000 units across 18 candidate requirements. The leave-one-out variance analysis shows that three requirements' priority rankings are almost entirely driven by the IT group; without IT input, those three requirements would not appear in the top 10. This is flagged: the IT group's priorities may not reflect end-user value. (Source: Ch 5.4.5)
 
-**Information-asymmetry mitigation.** The contract is a time-and-materials arrangement. The agency recommends adding three provisions: source-code escrow, a public API on the compliance-data layer, and a documentation deliverable at each sprint boundary. The client initially resists; the agency explains that without these, the client's maintenance-renewal conversations will have no credible competitive alternative. The provisions are added. (Source: Ch 3.4.6, "Information asymmetry")
+**Information-asymmetry mitigation.** The contract is a time-and-materials arrangement. The agency recommends adding three provisions of its own devising: source-code escrow, a public API on the compliance-data layer, and a documentation deliverable at each sprint boundary. The client initially resists; the agency explains that without these, the client's maintenance-renewal conversations will have no credible competitive alternative, because the implementing vendor's familiarity with the system may deter other bidders (Source: Ch 3.4.6, "Information asymmetry"). The provisions are added.
 
-**Anchoring guard.** During sprint-5 scope discussion, the client mentions their expectation that a new integration feature will cost "around 40 hours." The agency separates the estimation session from the client's opening statement, producing independent estimates before disclosing the client's figure. The independent estimate is 110 hours. The gap is surfaced and resolved before any commitment. (Source: Ch 5.3, "Resource estimation")
+**Anchoring guard.** During sprint-5 scope discussion, the client mentions their expectation that a new integration feature will cost "around 40 hours." The agency separates the estimation session from the client's opening statement, producing independent estimates before disclosing the client's figure. The independent estimate is 110 hours. The gap is surfaced and resolved before any commitment. (Source: Ch 2.2.1, "Built-in behaviors"; Ch 5.3, "Resource estimation")
 
-The scenario is operator-authored; all framework citations trace through `references/jones-evidence-based-sweng-deep.md`. Stakeholder-network analysis via PageRank (Ch 5.4.5), fixed-budget allocation (Ch 5.4.5), information-asymmetry structure (Ch 3.4.6), anchoring on the customer's number (Ch 5.3), and cooperation-threshold conditions (Ch 3.4.8) are `[AP]`- or `[V]`-marked passages in the deep ref. No verbatim source blockquotes appear in this distillation.
+The scenario is operator-authored; all framework citations trace through `references/jones-evidence-based-sweng-deep.md`. Stakeholder-network analysis via PageRank and fixed-budget allocation (Ch 5.4.5), the incumbent-vendor information asymmetry (Ch 3.4.6, `[V]` in the deep ref), and anchoring on the customer's number (Ch 2.2.1, `[AP]`) are passages the deep ref carries. No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -131,7 +130,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - Allowing the customer's first number to anchor the requirements prioritisation; the resulting estimates will be shifted toward the customer's preference, not the team's best estimate.
 - Treating moral hazard as a hypothetical rather than a structural feature of long-running stakeholder relationships.
 - Using fixed-price contracts where the requirements are uncertain and information asymmetry favours the vendor; designing the agreement without the information-asymmetry mitigation mechanisms (escrow, public APIs, documentation deliverables).
-- Treating brainstorming groups as productive idea-generating mechanisms; the evidence shows individuals consistently outperform groups for idea quantity and quality.
+- Treating brainstorming groups as productive idea-generating mechanisms; the evidence shows individuals consistently outperform groups for idea quantity and quality, per person.
 - Allowing social loafing to scale silently in large stakeholder groups, without making individual contributions visible.
 - Allowing the post-contract information asymmetry to deter competing maintenance bids; the established vendor's intimate familiarity with the system becomes a moat that traps the client.
 - Generalising stakeholder-engagement practices across cultural boundaries without attending to embodied differences (time-as-space, category boundaries, communication style).
@@ -141,23 +140,22 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 | Reference | Connection |
 |---|---|
-| OpenStax *Business Ethics* (this corpus) | Normative ethical theories of stakeholder claims (utilitarianism, Kantianism, virtue ethics), Donaldson-Preston stakeholder theory, Mitchell-Agle-Wood as an ethical frame — these are outside Jones's scope. Use OpenStax Business Ethics for the normative frame; use Jones for the evidence-grounded economic analysis. |
-| OpenStax *Organizational Behavior* (this corpus) | OB's conflict-mode selection (TKI five modes), power bases, and negotiation stages are the theoretical complement to Jones's agency-theory analysis. Process conflict vs relationship conflict (Jones's framing) maps onto OB's conflict-management framework. |
+| OpenStax *Business Ethics* (this corpus) | Normative ethical theories of stakeholder claims (utilitarianism, Kantianism, virtue ethics), Donaldson-Preston stakeholder theory, stakeholder prioritisation by power and interest — these are outside Jones's scope. Use OpenStax Business Ethics for the normative frame; use Jones for the evidence-grounded economic analysis. |
+| OpenStax *Organizational Behavior* (this corpus) | OB's conflict-mode selection (Thomas's five modes, Ch 14), power bases, negotiation stages and process-vs-relationship conflict distinction (Ch 6.4) are the theoretical complement to Jones's agency-theory analysis. |
 | Letaw, *Handbook of Software Engineering Methods* (this corpus) | Letaw's requirements-elicitation methods (interviews, focus groups, lab studies, exploratory research) are how the Product Owner gathers stakeholder input; Jones's fixed-budget allocation and network-analysis methods are how that input gets prioritised and weighted. Use Letaw for elicitation; use Jones for prioritisation and structural analysis. |
 | Liberating Structures Handbook (this corpus) | The LS handbook assumes good-faith conversation with the people most affected; Jones surfaces the structural ways vendor-client engagement can be distorted by contract dynamics. Use Jones to surface the distortion; use LS to design the conversation that mitigates it. |
-| Open Practice Library (this corpus) | OPL's *Formal Relational Contract* and *Stakeholder RACI Map* are the operational counterparts to Jones's analysis of how contract type shapes the stakeholder relationship. OPL gives the practice; Jones gives the economic rationale for why it matters. |
+| Open Practice Library (this corpus) | OPL's *Stakeholder RACI Map* is the operational counterpart to Jones's analysis of how contract type shapes the stakeholder relationship. OPL gives the practice; Jones gives the economic rationale for why it matters. |
 | Scrum Guide (this corpus) | The Scrum Guide assumes good-faith Product-Owner-to-stakeholder engagement; Jones surfaces the information asymmetries and incentive structures (bidding dynamics, moral hazard) that can distort this engagement in practice. Use Jones when the question is "what structural distortions should we design against?"; use the Scrum Guide for the engagement structure itself. |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus:
-- Mitchell, Agle, and Wood — stakeholder salience model (Ch 5.4.5) [BT]
-- Lim (RALIC study at UCL) — PageRank-based stakeholder-network analysis (Ch 5.4.5) [BT]
-- Regnell et al. — fixed-budget allocation for requirements prioritisation (Ch 5.4.5) [BT]
-- Ahonen et al. — fixed-price vs time-and-materials management overhead study (Ch 5.2.1) [BT]
-- Jørgensen and Sjøberg — anchoring study on professional estimates (Ch 5.3) [BT]
-- Asch — conformity and speaking-order effects on group decisions (Ch 3.4.9) [BT]
-- Axelrod — reciprocity and cooperation theory (Ch 3.4.8) [BT]
+- Mitchell, Agle, and Wood — stakeholder salience definition (Ch 5.4.5)
+- Lim (RALIC study at UCL) — PageRank-based stakeholder-network analysis (Ch 5.4.5)
+- Regnell et al. — fixed-budget allocation for requirements prioritisation (Ch 2.8.3; Ch 5.4.5)
+- Ahonen et al. — fixed-price vs time-and-materials management overhead study (Ch 5.2.1)
+- Jørgensen and Sjøberg — anchoring study on professional estimates (Ch 2.2.1)
+- Asch — conformity to a group majority (Ch 2.8.3)
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:
 - Normative ethical theories of stakeholder claims (utilitarianism, Kantianism, virtue ethics, Donaldson-Preston stakeholder theory) are not addressed; Jones's analysis is economic, not ethical.
@@ -166,4 +164,4 @@ The scenario is operator-authored; all framework citations trace through `refere
 - The Mitchell-Agle-Wood salience model is mentioned but used as an algorithmic ranking method, not as an ethical framework.
 - Jones explicitly disclaims rigour on some of his own models: "most of these models were created by your author after seeing the data, what is sometimes known as HARKing" [V] (Ch 1, "What has been learned?").
 
-**Evidence-marker continuity.** The deep reference at `references/jones-evidence-based-sweng-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. The PageRank stakeholder-network study (Ch 5.4.5) is `[AP]`; the information-asymmetry framing (Ch 3.4.6) is `[AP]`; the anchoring study on professionals' estimates (Ch 5.3) is `[AP]`; the borrowed-through citation chain (Mitchell-Agle-Wood, Regnell, Jørgensen-Sjøberg, Asch, Axelrod) is `[BT]`. Jones's contrarian positions (HARKing disclaimer, evidence-based research as "essentially a blank slate") are `[AR]`. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word.
+**Evidence-marker continuity.** The deep reference at `references/jones-evidence-based-sweng-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. The PageRank stakeholder-network study and fixed-budget allocation (Ch 5.4.5) are unmarked paraphrase in the deep ref; the salience definition is `[BT]` (Jones citing Mitchell, Agle and Wood); the information-asymmetry and moral-hazard passages (Ch 3.4.6–3.4.7) are `[V]`; the anchoring study on professionals' estimates (Ch 2.2.1), the Ahonen study (Ch 5.2.1) and the Asch study (Ch 2.8.3) are `[AP]`; the cooperation thresholds (Ch 3.4.8) are unmarked paraphrase. The HARKing disclaimer is `[V]`, and "essentially a blank slate" is `[V]` in the thesis and `[AR]` in the positions list. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word.

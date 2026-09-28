@@ -12,7 +12,7 @@ sources:
     resource: https://openpracticelibrary.com/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:37:52+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # Open Practice Library, AAR Distillation
 
@@ -26,19 +26,19 @@ The Open Practice Library projects onto the AAR axis through its reliability and
 
 1.  **Blameless Postmortem.** "Blameless Postmortem is a post-incident practice assessing an incident or other types of outages, its timeline, environment conditions, and all possible factors that lead an incident to happen." [V] Two foundations the practice names explicitly: "Availability of the information regarding the incident" [V] and "Psychological safety of all participants that promotes speaking up openly." [V] The load-bearing quote, which the page sets in quotation marks without naming its speaker: "Our job is not to point fingers at an unlucky engineer that applied a wrong configuration file, our job is to figure out why he picked the wrong one and what we personally and as an organization can do to prevent it in the future." [BT] (Source: Open Practice Library, Practice "Blameless Postmortem", "What is it?", "How to do it?")
 
-2.  **Five Whys.** "The 'Five Whys' is a way to figure out what causes a problem. You keep asking 'why' until you find the real reason." The practice carries its own anti-pattern warning: "we should ask why the process failed instead of just asking why. It's important to look for a process that's not working well or not there at all. Sometimes people will say the problem is not enough time, money, or resources. But we can't control those things." (Source: Practice "Five Whys (5 Whys)", "Why do it?")
+2.  **Five Whys.** "The 'Five Whys' is a way to figure out what causes a problem. You keep asking 'why' until you find the real reason." [V] The practice carries its own anti-pattern warning: "It's important to look for a process that's not working well or not there at all. Sometimes people will say the problem is not enough time, money, or resources. But we can't control those things. So, we should ask why the process failed instead of just asking why." [V] (Source: Practice "Five Whys (5 Whys)", "What is it?", "Why do it?")
 
-3.  **Backcasting / Pre-mortem.** "Premortem is an analytical / thought experiment technique… The method originates from Gary Klein (HBR article) and was made popular by the Nobel prize winner Daniel Kahneman in his book 'Thinking Fast and Slow.'" The technique: imagine the project has failed and reconstruct the reasons. In an AAR context this is a *proactive AAR* — convened before the event to surface the most likely contributory factors in advance. Lineage: Klein, Kahneman borrowed-through. (Source: Practice "Backcasting / Pre-mortem", "What is it?")
+3.  **Backcasting / Pre-mortem.** "Premortem is an analytical / thought experiment technique… The method originates from Gary Klein (HBR article) and was made popular by the Nobel price winner Daniel Kahneman in his book 'Thinking Fast and Slow'." [V] [BT] The technique: imagine the project has failed and reconstruct the reasons. In an AAR context this is a *proactive AAR* — convened before the event to surface the most likely contributory factors in advance. Lineage: Klein, Kahneman borrowed-through. (Source: Practice "Backcasting / Pre-mortem", "What is it?")
 
-4.  **Establish Shared Principles.** "Organizations that have done the work to articulate 'why they exist and what they believe' then need to clearly explain the 'how they will act' they will work before they move to the 'what they will do.'" The practice's strongest claim: "Blindly following practices are not encouraged, establish a set of shared principles and you can weather the storms that beat at your door… Copying just the practices of successful organizations will not get us the same result if we do not also adopt the values and principles that originated these practices." [V] (Source: Practice "Establish Shared Principles", "Why do it?")
+4.  **Establish Shared Principles.** "Organizations that have done the work to articulate 'why they exist and what they believe' then need to clearly explain the 'how they will act' they will work before they move to the 'what they will do.'" [V] The practice's strongest claim: "Blindly following practices are not encouraged, establish a set of shared principles and you can weather the storms that beat at your door… Copying just the practices of successful organizations will not get us the same result if we do not also adopt the values and principles that originated these practices." [V] (Source: Practice "Establish Shared Principles", "What is it?", "Why do it?")
 
-5.  **Disagree and Commit.** "An approach to enable teams to transition from thinking to doing, whilst ensuring the team are committed to the execution." [V] The contrarian: "There is a common misconception that collaboration eventually requires consensus; it does not." [V] Two pre-conditions: "everybody must have a meaningful choice, and there must be an agreed review point." (Source: Practice "Disagree and Commit", "What is it?", "Why do it?")
+5.  **Disagree and Commit.** "An approach to enable teams to transition from thinking to doing, whilst ensuring the team are committed to the execution." [V] The contrarian: "There is a common misconception that collaboration eventually requires consensus; it does not." [V] Two pre-conditions: "Firstly, everybody in the team needs a choice; a decision they can make ... Secondly, for each hypothesis created during the Options period of the Mobius loop, there needs to be an agreed review point and the tests that will be run/ evidence the team is looking for in order to make their decision as to how to continue when they reach the review point." [V] (Source: Practice "Disagree and Commit", "What is it?", "Why do it?", "How to do it?")
 
 6.  **Design of Experiments.** "The Design of Experiments is the practice we use to turn ideas, hypothesis and/or assumptions into concrete well defined set of experiments which can be carried out in order to validate those ideas, hypothesis and assumptions, i.e. provide us with valuable learning." [V] Minimum design fields: Hypothesis / Current Condition / Target Condition / Obstacles / Pass criteria / Measures / Learning. The practice's contrarian: "Successful experiments are not experiments that have proven our assumption as correct. Successful experiments are those that provide valid and reliable data which shows a statistically significant conclusion." [V] (Source: Practice "Design of Experiments", "What is it?", "How to do it?")
 
 7.  **Psychological Safety.** The library treats psychological safety as a named practice, not a background assumption. "It gives everyone the opportunity to speak up and be heard. This prompts the behaviour and gives permission for each person to share their own insights, establishing a good foundation for psychological safety." [V] (Source: Practice "Check-ins", "Why do it?")
 
-8.  **1-2-4-All.** "1-2-4-All is a way for every member of a large group to participate and generate ideas together." [V] Anti-HiPPO framing: "All voices are heard, incorporating 'silent' conversations and expanding input diversity - No more HiPPOs (Highest Paid Person's Opinion)!" (Source: Practice "1-2-4-All", "Why do it?")
+8.  **1-2-4-All.** "1-2-4-All is a way for every member of a large group to participate and generate ideas together." [V] Anti-HiPPO framing: "All voices are heard, incorporating 'silent' conversations and expanding input diversity - No more HiPPOs (Highest Paid Person's Opinion)!" [V] (Source: Practice "1-2-4-All", "What is it?", "Why do it?")
 
 9.  **Impact-Effort Prioritisation Matrix and RICE.** Two-axis 2×2 (high/low impact × high/low effort) and RICE (score Reach, Impact, Confidence and Effort, then multiply the four scores together). Used at Phase 4 (action design) when the AAR has surfaced more potential actions than the team can pursue. (Source: Practice "Impact-Effort Prioritisation Matrix"; Practice "The RICE Scoring Model", "How to do it?")
 
@@ -62,23 +62,23 @@ The Open Practice Library projects onto the AAR axis through its reliability and
 
 | Need | Question |
 |---|---|
-| Getting every voice into the timeline | 1-2-4-All: individuals write what they observed; pairs compare accounts; groups of 4–6 surface the divergences; whole group integrates. No HiPPO anchoring before the small-group round. |
+| Getting every voice into the timeline | 1-2-4-All: individuals write what they observed; pairs compare accounts; foursomes surface the divergences; whole group integrates. No HiPPO anchoring before the small-group round. |
 | Confirming information availability | Blameless Postmortem foundation one: Is information about the incident available to all participants? If not, who holds it and how do we get it into the room? |
 
 ### Phase 2 — Contributory-factor analysis
 
 | Need | Question |
 |---|---|
-| Drilling below the obvious | Five Whys: "Keep asking 'why' until you find the real reason" — and redirect to process failure rather than resource shortage. |
+| Drilling below the obvious | Five Whys: "You keep asking 'why' until you find the real reason" [V] — and redirect to process failure rather than resource shortage. |
 | When an AI system is a contributor | Evals: What confidence did the AI system's outputs actually carry, and was that confidence communicated to the operator? Human-in-the-Loop: Where were the human review gates, and were they bypassed? |
-| Surfacing systemic factors | Blameless Postmortem: "why did he pick the wrong one and what we personally and as an organization can do to prevent it in the future" — the question is systemic, not individual. |
+| Surfacing systemic factors | Blameless Postmortem: "our job is to figure out why he picked the wrong one and what we personally and as an organization can do to prevent it in the future" [BT] — the question is systemic, not individual. |
 
 ### Phase 3 — Just-culture sorting
 
 | Need | Question |
 |---|---|
-| Redirecting blame to the system | Blameless Postmortem: "Our job is not to point fingers." [V] Paired with NHS just-culture decision tree for the formal locus decision. |
-| Naming dissent before proceeding | Disagree and Commit precondition: does everybody have a meaningful choice in whether to proceed, or are we coercing consensus on the individual-vs-system call? |
+| Redirecting blame to the system | Blameless Postmortem: "Our job is not to point fingers at an unlucky engineer ..." [BT] Paired with NHS just-culture decision tree for the formal locus decision. |
+| Naming dissent before proceeding | Disagree and Commit precondition: does everybody have a choice, a decision they can make, in whether to proceed, or are we coercing consensus on the individual-vs-system call? |
 
 ### Phase 4 — Action design
 
@@ -86,7 +86,7 @@ The Open Practice Library projects onto the AAR axis through its reliability and
 |---|---|
 | Designing actions as experiments | Design of Experiments: Hypothesis / Current Condition / Target Condition / Obstacles / Pass criteria / Measures / Learning — for each action item, can it be structured as a testable experiment? |
 | Prioritising when there are too many actions | Impact-Effort matrix: where does each action land on impact × effort? RICE when a quantified comparison is needed. |
-| Closing on commitment without coercing consensus | Disagree and Commit: "everybody must have a meaningful choice, and there must be an agreed review point." |
+| Closing on commitment without coercing consensus | Disagree and Commit: "everybody in the team needs a choice; a decision they can make" [V], and "there needs to be an agreed review point" [V] with the tests or evidence that will decide how to continue. |
 
 ### Phase 5 — Learning-loop closure
 
@@ -103,7 +103,7 @@ The Open Practice Library projects onto the AAR axis through its reliability and
 | Five Whys reaches "not enough time / money / resources" and stops | The Five Whys anti-pattern — the practice's own warning | Redirect: "We can't control those things — ask why the process failed to accommodate the resource constraint" |
 | The action list has seven items with no prioritisation | Too many concurrent improvement items — the team will not finish any of them | Apply Impact-Effort matrix or RICE before adjourning |
 | An AI system contributed to the incident but the analysis treats it as a black box | Evals and HITL disciplines are absent — the AI's confidence and human oversight gates are not examined | Ask: what confidence did the AI's outputs carry, and where were the human review gates? |
-| The team agrees on an action but one member remains silent | Disagree and Commit's pre-condition unmet — meaningful choice was not available to everyone | Apply Disagree and Commit: ask the silent member directly; confirm the agreed review point |
+| The team agrees on an action but one member remains silent | Disagree and Commit's pre-condition unmet — not everyone had a choice, a decision they could make | Apply Disagree and Commit: ask the silent member directly; confirm the agreed review point |
 
 ## When to Use This Reference
 
@@ -118,14 +118,14 @@ This source is most valuable as a facilitation-layer and action-design-layer com
 
 ## Worked Example
 
-A team reviews an incident where an AI-assisted code review tool flagged a critical security vulnerability as low-severity, and the human reviewer accepted the flag without further investigation. The facilitator applies the Evals and Human-in-the-Loop frames in Phase 2. (Source: Open Practice Library, Practice "Evals", "What is it?"; Practice "Human in the loop", "What is it?".) Evals: what confidence level did the AI tool report for its severity rating? Was that confidence communicated to the reviewer, or was only the final severity label shown? Human-in-the-Loop: where was the human review gate? Was the gate a HITL (human reviews before action), HOTL (human monitors but doesn't approve), or HIC (human in command of the overall process but not individual decisions)? The investigation reveals the tool was operating as HOTL with no confidence communication. In Phase 4, the team designs two experiments using Design of Experiments fields: Hypothesis — "displaying the AI confidence score alongside the severity label will reduce reviewer acceptance of low-confidence flags by 50%"; Current Condition — confidence score not displayed; Target Condition — confidence score displayed in review UI; Pass Criteria — zero low-confidence flags accepted without manual investigation over 30 days. The Wheel-of-Misfortune exercise (Practice "Wheel-of-Misfortune") is scheduled for the next sprint to rehearse the revised review process on the incident's actual postmortem.
+A team reviews an incident where an AI-assisted code review tool flagged a critical security vulnerability as low-severity, and the human reviewer accepted the flag without further investigation. The facilitator applies the Evals and Human-in-the-Loop frames in Phase 2. (Source: Open Practice Library, Practice "Evals", "What is it?"; Practice "Human in the loop", "What is it?".) Evals: what confidence level did the AI tool report for its severity rating? Was that confidence communicated to the reviewer, or was only the final severity label shown? Human-in-the-Loop: where was the human review gate? Was the gate a HITL (a human approves or rejects every decision before action), HOTL (the system runs autonomously while a human monitors and can intervene), or HIC (a human sets the goals, constraints and boundaries, and can override or shut the system down)? The investigation reveals the tool was operating as HOTL with no confidence communication. In Phase 4, the team designs two experiments using Design of Experiments fields: Hypothesis — "displaying the AI confidence score alongside the severity label will reduce reviewer acceptance of low-confidence flags by 50%"; Current Condition — confidence score not displayed; Target Condition — confidence score displayed in review UI; Pass Criteria — zero low-confidence flags accepted without manual investigation over 30 days. The Wheel-of-Misfortune exercise (Practice "Wheel-of-Misfortune") is scheduled for the next sprint to rehearse the revised review process on the incident's actual postmortem.
 
 ## Anti-patterns This Reference Helps Avoid
 
 - Treating the Blameless Postmortem as a name rather than a practice — running a postmortem that blames the individual who made the triggering action, without asking why they made it.
 - Closing Phase 2 on resource shortage ("not enough time, money, or people") rather than process failure — the Five Whys anti-pattern warning addresses this directly.
 - Designing actions as vague commitments rather than structured experiments with pass criteria and learning fields.
-- Coercing consensus on action ownership rather than using Disagree and Commit's two pre-conditions (meaningful choice + agreed review point).
+- Coercing consensus on action ownership rather than using Disagree and Commit's two pre-conditions (a choice for everybody + an agreed review point).
 - Copying the Blameless Postmortem practice from another organisation without adopting the psychological safety and information-availability principles that make it work.
 - Missing AI-related contributory factors because the facilitator does not have named practices for AI overconfidence (Evals) and silent AI delegation (Human-in-the-Loop).
 - Prioritising actions by gut feel when the action list is too long — solvable by Impact-Effort matrix or RICE before the room clears.
@@ -139,15 +139,15 @@ A team reviews an incident where an AI-assisted code review tool flagged a criti
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 provides the four-step AAR protocol; this source's Blameless Postmortem is the software-team variant of the same epistemological discipline |
 | LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO provides the networked-causality methodology and administrative-firewall; this source's Establish Shared Principles and psychological safety practices are the facilitation-layer pre-conditions that make LFUO's principles real |
 | NHS Just Culture Guide (nhs-just-culture-guide) | NHS provides the formal just-culture decision tree; this source's Blameless Postmortem sets the default-to-system posture before the NHS tree is applied |
-| Liberating Structures Handbook (liberating-structures-handbook) | Both sources carry the 1-2-4-All structure; use the LS Handbook for the full catalogue of LS patterns, use OPL for the software-incident and AI-incident practices |
+| Liberating Structures Handbook (liberating-structures-handbook) | Both sources carry the 1-2-4 scaling structure (OPL's 1-2-4-All with foursomes, which the library links to Liberating Structures; the LS Handbook's 1-2-4-Whole Group with small groups of 4-6); use the LS Handbook for the full catalogue of LS patterns, use OPL for the software-incident and AI-incident practices |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Backcasting / Pre-mortem practice cites Gary Klein (HBR article) and Daniel Kahneman (*Thinking Fast and Slow*) borrowed-through as the method's originators; neither is held directly in the demo corpus. The Evals practice cites Andrej Karpathy's "march of nines" confidence-threshold framing borrowed-through; Karpathy is not held directly. The Human-in-the-Loop practice references a 1979 IBM framing ("A computer can never be held accountable, therefore a computer must never make a management decision" [BT]) borrowed-through. The Liberating Structures Handbook is held directly in this corpus.
+**Borrowed-through gaps.** The Backcasting / Pre-mortem practice cites Gary Klein (HBR article) as the method's originator and Daniel Kahneman (*Thinking Fast and Slow*) as its populariser, borrowed-through; neither is held directly in the demo corpus. The Evals practice cites Andrej Karpathy's "march of nines" confidence-threshold framing borrowed-through; Karpathy is not held directly. The Human-in-the-Loop practice references a 1979 IBM framing ("A computer can never be held accountable, therefore a computer must never make a management decision" [BT]) borrowed-through. The Liberating Structures Handbook is held directly in this corpus.
 
-**Named limits of the source.** The Open Practice Library is a community-curated catalogue, not an authored text — individual practices vary in depth, evidential support, and editorial consistency. The library cloned for this corpus is a snapshot as of May 2026; the live library continues to evolve. The library does not address just-culture methodology, timeline reconstruction protocol, or formal learning-review design; those are carried by LFUO, TC 25-20, and NHS in this corpus.
+**Named limits of the source.** The Open Practice Library is a community-curated catalogue, not an authored text — individual practices vary in depth, evidential support, and editorial consistency. The library cloned for this corpus is a snapshot as of May 2026; the live library continues to evolve. The library does not address just-culture decision methodology or formal learning-review design; its Blameless Postmortem offers a brief meeting structure that follows the incident's timeline but no reconstruction protocol. Those are carried by LFUO, TC 25-20, and NHS in this corpus.
 
-**Evidence-marker continuity.** The Blameless Postmortem load-bearing quotation is `[V]` in the deep ref; the distillation quotes it directly in Concept 1. The Five Whys anti-pattern warning is `[V]` in the deep ref; the distillation quotes it in Concept 2. The Evals distinction ("tests give certainty; evals give confidence") is `[V]` in the deep ref with `[BT]` to Karpathy; the distillation preserves the borrowed-through flag in Concept 10 and in this section. The Disagree and Commit pre-conditions are `[V]` in the deep ref; the distillation preserves them in Concept 5.
+**Evidence-marker continuity.** The Blameless Postmortem load-bearing quotation is `[BT]` in the deep ref, because the page sets it in quotation marks without naming a speaker; the distillation carries the same marker in Concept 1 and wherever it quotes the sentence. The Five Whys anti-pattern warning is `[V]` in the deep ref; the distillation quotes it in Concept 2. The Evals distinction ("tests give certainty; evals give confidence") is `[V]` `[AR]` in the deep ref; the separate "march of nines" framing is `[BT]` to Karpathy, and the distillation preserves that borrowed-through flag in Concept 10 and in this section. The Disagree and Commit pre-conditions are `[V]` in the deep ref (Practice "Disagree and Commit", "How to do it?"); the distillation quotes them in Concept 5 and Phase 4.
 
 ## Related concepts
 

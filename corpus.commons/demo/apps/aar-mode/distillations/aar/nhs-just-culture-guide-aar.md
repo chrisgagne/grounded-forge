@@ -12,7 +12,7 @@ The NHS Just Culture Guide is a single-page five-test decision tree for resolvin
 
 2.  **Five sequential tests, gated.** Q1 deliberate harm → Q2 health → Q3 foresight → Q4 substitution → Q5 mitigating circumstances. Each test gates the next; only one action or omission is taken through the tree at a time; multiple actions in one incident must be evaluated separately. (Source: Preamble, "Please note", bullet 4)
 
-3.  **Q1 deliberate harm test.** Single question: "Was there any intention to cause harm?" [V] (Source: Q1) A Yes exits to Recommendation A — the only path that can involve police referral and suspension. Even Recommendation A closes with "wider investigation is still needed to understand how and why patients were not protected." [V] A No proceeds to Q2.
+3.  **Q1 deliberate harm test.** Single question: "Was there any intention to cause harm?" [V] (Source: Q1) A Yes exits to Recommendation A, the only path that names referral to police. Even Recommendation A closes with "Wider investigation is still needed to understand how and why patients were not protected from the actions of the individual" [V] (Source: Q1, "Recommendation A"). A No proceeds to Q2.
 
 4.  **Q2 health test.** Three sub-questions: substance abuse, physical ill health, mental ill health. A Yes to any sub-question exits to Recommendation B or C (occupational-health or substance-abuse-at-work pathways), both paired with backward-looking system questions — could the health issue have been recognised and addressed earlier? A No to all three proceeds to Q3.
 
@@ -24,9 +24,9 @@ The NHS Just Culture Guide is a single-page five-test decision tree for resolvin
 
 8.  **Recommendation G — the narrow residual for management action.** Only reached after clearing all five gates. Lists a graduated set of responses: "individual training, performance management, competency assessments, changes to role or increased supervision" [V] before reaching for suspension and disciplinary processes. Still paired with the wider-investigation obligation. (Source: Q5, "Recommendation G")
 
-9.  **One action at a time, evaluated separately.** "Only one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately." (Source: Preamble, "Please note", bullet 4) An incident involving several actions is multiple trips through the tree, not one.
+9.  **One action at a time, evaluated separately.** "The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately" [V] (Source: Preamble, "Please note", bullet 4). An incident involving several actions is multiple trips through the tree, not one.
 
-10.  **Re-entrant: revisit as investigation produces new facts.** "The guide can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available." (Source: Preamble, "Please note", bullet 2) The tree is not a once-only assessment; facts change and the path may change with them.
+10.  **Re-entrant: revisit as investigation produces new facts.** "A just culture guide can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available" [V] (Source: Preamble, "Please note", bullet 2). The tree is not a once-only assessment; facts change and the path may change with them.
 
 11.  **Communication tool, not just decision aid.** The guide is positioned for use by all parties — managers, staff, patients, families — to explain the approach. "An important part of a just culture is being able to explain the approach that will be taken if an incident occurs." [V] (Source: Preamble, "Purpose and use") The guide can be shared with the team before the conversation begins.
 
@@ -54,8 +54,8 @@ The NHS Just Culture Guide is a single-page five-test decision tree for resolvin
 
 | Need | Question |
 |---|---|
-| What are the active failures vs latent conditions? | Active failures are at the sharp end (the individual's action); latent conditions are upstream (protocols, training, supervision). Both belong in the analysis. |
-| Does the substitution test apply here? | Would peers in the same circumstances — with comparable experience and qualifications — have behaved in the same way? If yes, the locus is the conditions, not the individual. |
+| Where do the contributors sit: in the individual's action or in the conditions? | Which contributors sit in the conditions the tree tests (protocols under Q3; peer behaviour, training and supervision under Q4) rather than in the individual's action? Both belong in the analysis. |
+| Does the substitution test apply here? | Would peers in the same circumstances — with comparable experience and qualifications — have behaved in the same way? If yes, singling out the individual is unlikely to be appropriate; the wider actions sit mainly in the conditions and may include, but not be limited to, the individual. |
 | Was training missed or supervision absent? | These are structural contributors that the substitution test surfaces explicitly: missed training (Q4b) and absent supervision (Q4c) both route to Recommendation E: singling out the individual is unlikely to be appropriate, though wider actions may include the individual. |
 
 ### Phase 3: Just-Culture Sorting
@@ -73,7 +73,7 @@ The NHS Just Culture Guide is a single-page five-test decision tree for resolvin
 | Need | Question |
 |---|---|
 | What recommendation end-state has the tree produced? | Seven end-states (A through G); name the specific recommendation and its operational guidance. |
-| Does the recommendation name a wider-investigation obligation? | Every recommendation — including A and G — pairs with a directive that "the patient safety incident investigation should indicate the wider actions needed." [V] Has that wider action been named? |
+| Does the recommendation name a wider-investigation obligation? | Every recommendation, including A and G, carries a wider-investigation directive: A–C say "Wider investigation is still needed" [V]; D–G say "the patient safety incident investigation should indicate the wider actions needed" [V]. Has that wider action been named? |
 | Is the individual response, if any, graduated? | Recommendation G lists training, performance management, competency assessment, role change, and increased supervision before suspension and disciplinary processes. Is the response calibrated to the least-invasive appropriate level? |
 | Has the response been explained to all parties? | The guide's dual purpose: "protecting staff from unfair targeting" [V] and protecting patients "by removing the tendency to treat wider patient safety issues as individual issues." [V] Has both been communicated? |
 
@@ -82,7 +82,7 @@ The NHS Just Culture Guide is a single-page five-test decision tree for resolvin
 | Signal | Diagnosis | Follow-up |
 |---|---|---|
 | The group moves from timeline to individual accountability without running the five-test tree | Default-to-individual failure — the tree's structural bias toward system locus was bypassed | Pause; establish the default-to-system prior; run the tree from Q1 |
-| A protocol is cited as the standard but no one confirms it was workable and routinely used | Q3b and Q3c are unexamined — the foresight test may not advance to Q4 | Establish: was the protocol workable? Was it actually in routine use? Both must be true before Q3 advances |
+| A protocol is cited as the standard but no one confirms it was workable and routinely used | Q3b is unexamined (workable and in routine use are both parts of 3b); Q3c, knowing departure, cannot be assumed either — the foresight test may not advance to Q4 | Establish: was the protocol workable? Was it actually in routine use? Both must be true before Q3 advances |
 | The group runs all five individuals in an incident through the tree together | Multiple trips have been collapsed into one — the tree must be run separately for each action or omission | Restart: "We're going to run one action at a time through the guide." |
 | The group treats Recommendation G as the expected outcome | G is the narrow residual, not the default — treating it as expected inverts the guide's bias | Restate the default-to-system prior before the tree is run |
 | New investigation facts emerge after the tree has been run | The path may have changed — the guide is re-entrant | Re-run the affected test with the new facts; the result may shift |
@@ -117,15 +117,15 @@ A hospital team reviews a medication incident in which a nurse administered the 
 
 | Reference | Relationship |
 |---|---|
-| LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO provides the reckless-and-willful threshold (the FLA termination criterion); NHS provides the five-test tree for all cases below that threshold; the two define the full Phase 3 just-culture sorting protocol together |
-| TC 25-20 (tc-25-20-army-aar) | TC 25-20 frames just-culture sorting as evaluating performance against the standard rather than the person against a verdict; the NHS tree is the operational mechanism for making that evaluation when individual accountability is in question |
-| OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the fundamental attribution error and actor-observer bias that drive individual blame before the system locus is examined; the NHS tree is the structural antidote to those biases |
+| LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO supplies the reckless-and-willful threshold at which an FLA terminates and hands off to an administrative or law-enforcement investigation, and a firewall between the FLA and any potential administrative action against the employee; NHS supplies the five-test tree for the separate management conversation about an individual action. Keep the two processes apart as LFUO's firewall requires |
+| TC 25-20 (tc-25-20-army-aar) | TC 25-20 frames the AAR as comparing unit performance against the standard, not a critique and not grading success or failure; it does not address the individual-accountability question, which the NHS tree handles |
+| OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the fundamental attribution error and the self-serving bias (Ch 3.3, "Attributional Bias") that drive individual blame before the system locus is examined; the NHS tree is the structural antidote to those biases |
 | Liberating Structures Handbook (liberating-structures-handbook) | LS's Levels of Accountability ladder is the facilitation redirect for below-the-line conversations before the formal NHS tree is applied; the ladder diagnoses the conversation's posture, the tree handles the formal locus decision |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The guide attributes its lineage to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree." [V] James Reason's work (*Managing the Risks of Organizational Accidents*, *The Human Contribution*) is not held directly in this corpus. The NPSA Incident Decision Tree is not held directly. Both are carried borrowed-through via this guide's footer attribution. Any further characterisation of Reason's theory or the NPSA IDT's structure would be outside the scope of this reference because neither is stated in sufficient detail in the source.
+**Borrowed-through gaps.** The guide attributes its lineage to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree." [V] James Reason's work is not held directly in this corpus; the source names no specific work of his. The NPSA Incident Decision Tree is not held directly. Both are carried borrowed-through via this guide's footer attribution. Any further characterisation of Reason's theory or the NPSA IDT's structure would be outside the scope of this reference because neither is stated in sufficient detail in the source.
 
-**Named limits of the source.** The guide is a single-page A3 poster designed for National Health Service contexts in the UK. Its terminology ("patient safety incident", "occupational health pathway") is healthcare-specific; adaptation to non-healthcare contexts is operator-applied. The guide does not address incident investigation methodology, timeline reconstruction, or contributory-factor analysis — it takes investigation facts as inputs and applies the decision tree. The guide cannot be run without prior investigation work; using it to substitute for investigation is the named anti-pattern.
+**Named limits of the source.** The guide is a single-page A3 poster designed for National Health Service contexts in the UK. Its terminology ("patient safety incident", "occupational health referral") is healthcare-specific; adaptation to non-healthcare contexts is operator-applied. The guide does not address incident investigation methodology, timeline reconstruction, or contributory-factor analysis — it takes investigation facts as inputs and applies the decision tree. The guide cannot be run without prior investigation work; using it to substitute for investigation is the named anti-pattern.
 
 **Evidence-marker continuity.** The default-to-system prior quotation is `[V]` in the deep ref; the distillation quotes it directly in Concept 1 and in Phase 0 questions. Recommendation D is `[V]` in the deep ref; the distillation quotes it in Concept 5 and in the Worked Example. Recommendation G is `[V]` in the deep ref; the distillation quotes its graduated response list in Concept 8. The borrowed-through attribution to Reason and NPSA is `[BT]` in the deep ref; the distillation preserves that status in the source-line note and in this section.

@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:37:52+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # FLO Facilitation Guide, Retro Distillation
 
@@ -20,11 +20,11 @@ generated:
 
 ## Retro Relevance
 
-The FLO Facilitation Guide is craft knowledge for the facilitator who is coaching a lead engineer through a retro on Teams, Meet, or Zoom — the precise scenario this task axis serves. FLO is online facilitation; most retros are online; the match is direct. Its load-bearing contributions are: the scaffolding-and-fading arc (high presence in Phase 0 to build the climate, lighter once the team is running its own conversation); the Anxious-Annie facilitator-anxiety pattern (the coach who is anxious about the lead's silence or the team's slow start will intervene too early and collapse the space); Vegas-rules privacy as a non-negotiable trust foundation; engagement-equity tracking so quieter participants are not systematically unheard across the retro's phases; the no-pressuring-tone discipline for a context where participation is adult and voluntary; modelling-as-through-line (the lead and coach both model the retrospective practices they want the team to adopt); and counsel-out as a named option when a participant is clearly not in a position to engage safely.
+The FLO Facilitation Guide is craft knowledge for the facilitator who is coaching a lead engineer through a retro on Teams, Meet, or Zoom — the precise scenario this task axis serves. FLO is online facilitation; when a retro is run on Teams, Meet or Zoom, the match is direct. Its load-bearing contributions are: the scaffolding-and-fading arc (high presence in Phase 0 to build the climate, lighter once the team is running its own conversation); the Anxious-Annie facilitator-anxiety pattern (the coach who is anxious about the lead's silence or the team's slow start will intervene too early and collapse the space); agreed privacy rules (the Guide suggests Vegas rules) as the trust foundation; engagement-equity tracking so quieter participants are not systematically unheard across the retro's phases; the no-pressuring-tone discipline for a context where participation is adult and voluntary; modelling-as-through-line (the lead and coach both model the retrospective practices they want the team to adopt); and counsel-out as a named option when a participant is deeply struggling (the Guide's example is an overwhelming schedule) and now may not be the right time.
 
 ## Key Concepts for Retro
 
-1.  **Facilitative vs transmissive question framing.** A transmissive question delivers the facilitator's conclusion through the question; a facilitative question opens the participant's account (Ch 1, "What is facilitation in an educational context?"). For retros: the coach coaching the lead must consistently model facilitative questions. "What would the team say is the one thing that slowed us down?" opens the team's account. "Don't you think the deployment process is the issue?" transmits the lead's conclusion as a question.
+1.  **Facilitative vs direct teaching.** Ch 1 frames facilitation as helping learners understand course content "through questioning and suggestions" [V] rather than acting as the "sage on the stage" [V] (Ch 1, "What is facilitation in an educational context?"). Applied to retro questions, this distillation separates questions that carry the lead's conclusion (transmissive) from questions that open the team's account (facilitative). For retros: the coach coaching the lead must consistently model facilitative questions. "What would the team say is the one thing that slowed us down?" opens the team's account. "Don't you think the deployment process is the issue?" transmits the lead's conclusion as a question.
 
 2.  **Scaffolding-and-fading arc — calibrate presence to phase.** "During the first week of each course, facilitator presence is high" [V] (community builder and guide); as participants own the work, facilitators "step back and encourage learning through the use of different questioning strategies… They participate in discussions but don't lead" [V] (Ch 3, "Roles and functions of FLO facilitators"). For retros: Phase 0 (setup) and Phase 1 (priming) need the coach and lead visibly present and setting the container. Phase 2 (data gathering) and Phase 3 (insight) should be largely participant-owned, with the lead asking not answering.
 
@@ -38,7 +38,7 @@ The FLO Facilitation Guide is craft knowledge for the facilitator who is coachin
 
 7.  **Recording as consent, not default.** "If you plan on recording your synchronous sessions, confirm that this is OK with the session participants before you hit the record button" [V] (Ch 4, "Privacy and Confidentiality"). For retros: default is no recording. If the team wants to record for asynchronous review, every participant agrees explicitly.
 
-8.  **Modelling-as-through-line.** FLO facilitators "model positive professional presence" and "model reflective practice as an online facilitator" [V] (Ch 3, "Developing FLO facilitation skills"). For retros: the lead models curiosity ("I don't know yet what the one constraint is — let's find out together"), the coach models transparent facilitation ("I'm going to ask this question to open space for the team, not because I think I know the answer").
+8.  **Modelling-as-through-line.** FLO facilitators "Model a positive and professional presence throughout the course" and "model reflective practice as an online facilitator" [V] (Ch 3, "Developing FLO facilitation skills"). For retros: the lead models curiosity ("I don't know yet what the one constraint is — let's find out together"), the coach models transparent facilitation ("I'm going to ask this question to open space for the team, not because I think I know the answer").
 
 9.  **Co-facilitation on complementarity criteria.** "I had a more technical background and my co-facilitator had more of the facilitation background… we complemented one another very well" [V] [AE] (Ch 7, "Two heads are better than one"). For retros where a coach is supporting a lead: the coach brings facilitation craft and process awareness; the lead brings team context and domain knowledge. Neither tries to do both.
 
@@ -100,14 +100,14 @@ The FLO Facilitation Guide is craft knowledge for the facilitator who is coachin
 | Lead fills a 5-second silence with a prompt | Anxious-Annie pattern — anxiety about the silence, not about the team | Name it to the lead before the retro: "if silence opens, let it breathe for ten seconds" |
 | Same participants speaking in every phase | Equity-tracking gap; quieter voices are not being prompted | Activate the engagement-equity matrix: who has not contributed in the last twenty minutes? |
 | A question from the lead contains the answer | Transmissive framing; the team will produce that answer, not their real data | Coach the lead to reframe: "What do you all see as the main thing driving this?" |
-| Participant goes very quiet mid-retro | Possible counsel-out signal — person may be overwhelmed or unsafe | Facilitate private contact after the retro; do not press in public |
+| Participant goes very quiet mid-retro | Possible counsel-out signal — person may be deeply struggling (the Guide's example is an overwhelming schedule) | Facilitate private contact after the retro; do not press in public |
 | Coach steps in to answer a domain question | Role-boundary collapse; the lead's credibility is being undermined | Coach should use back-channel to prompt the lead, not speak directly |
 | Every sticky on the board receives feedback | Thoroughness-driven facilitation; team ownership is being crowded out | Name the one or two load-bearing stickies; leave the rest unaddressed |
 
 ## When to Use This Reference
 
 Reach for this distillation when:
-- The coach is preparing a lead engineer for a virtual retro — the scaffolding-and-fading arc, Anxious-Annie pattern, and equity-tracking matrix are all specific to the coaching-a-lead scenario.
+- The coach is preparing a lead engineer for a virtual retro — the scaffolding-and-fading arc, Anxious-Annie pattern, and equity-tracking matrix all transfer to the coaching-a-lead scenario.
 - The virtual retro format requires explicit design choices (written-first vs verbal, camera-off options, recording consent).
 - Low participation equity is suspected — the engagement-equity tracking matrix is this source's most operationally useful artefact.
 - A participant may be deeply struggling and the question is whether to press them through the retro or offer a private conversation.
@@ -119,13 +119,13 @@ Prefer the Approach Perfect Field Guide for the retro's protocol structure. Pref
 
 A coach is supporting a lead engineer running her third retro on a distributed team. The team spans three time zones; three members use English as a second language. Phase 0: the coach confirms Vegas rules verbally and in chat. The lead reads the Prime Directive. Safety check: one person scores 2 — the coach notes this privately; the lead acknowledges the score and asks what would make it safer before the session goes into content.
 
-Phase 2: the lead asks everyone to write positives and deltas in chat before speaking. The coach tracks the matrix: after twelve minutes, two names have not contributed at all. The coach sends the lead a private message: "You haven't heard from Priya or Marcus yet." The lead prompts by name: "Priya — what's your read on the deployment issues this Sprint?"
+Phase 2: the lead asks everyone to write positives and deltas in chat before speaking. The coach keeps a contribution log adapted from the Guide's tracking matrix (which in the Guide logs the facilitator's own responses): after twelve minutes, two names have not contributed at all. The coach sends the lead a private message: "You haven't heard from Priya or Marcus yet." The lead prompts by name: "Priya — what's your read on the deployment issues this Sprint?"
 
 Phase 3: the lead asks "Don't you think the CI pipeline is the issue?" The coach recognises this as a transmissive question. Back-channel to the lead: "That question has your answer in it — try: 'What does the group see as the main driver here?'" The lead rephrases. The team's answer is different from the lead's prior view.
 
 Phase 5: the coach coaches the lead's close: "End with the commitment read-back, then leave a moment for the team to debrief without us." The lead reads back owners and dates, then signs off. The coach and lead debrief separately.
 
-The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, transmissive-question coaching, and counsel-out principle trace to the FLO Guide (Ch 3, "Roles and functions of FLO facilitators"; Ch 4, "Example of reflective post" [V]; Ch 6, "One idea to help you track interactions" [V]; Ch 4, "Privacy and Confidentiality"; Ch 6, "Be in touch with participants" [V]).
+The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, Vegas rules and counsel-out principle trace to the FLO Guide (Ch 3, "Roles and functions of FLO facilitators"; Ch 4, "Example of reflective post"; Ch 6, "One idea to help you track interactions"; Ch 4, "Privacy and Confidentiality"; Ch 6, "Be in touch with participants"). The transmissive-question coaching is this distillation's application of Ch 1.
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -144,19 +144,19 @@ The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, t
 | Reference | Relationship |
 |---|---|
 | Approach Perfect Field Guide | The Field Guide supplies the agenda and protocol structure; FLO supplies the craft layer for coaching a lead through that structure in a virtual context |
-| Liberating Structures Handbook | LS's 1-2-4-All and Discovery & Action Dialogues are the specific Phase 2 and Phase 4 moves that FLO's engagement-equity and written-first principles support; the two sources work in tandem |
-| OpenStax Psychology 2e | Psychology 2e explains the cognitive mechanisms (conformity, normative social influence, anchoring) that FLO's written-first and equity-tracking practices are designed to counteract |
+| Liberating Structures Handbook | LS's 1-2-4-Whole Group and Discovery & Action Dialogues are specific Phase 2 and Phase 4 moves that serve FLO's engagement-equity aim; written-first input is this distillation's addition; the two sources work in tandem |
+| OpenStax Psychology 2e | Psychology 2e explains the mechanisms (conformity, normative social influence, anchoring) that this distillation's written-first input and FLO's equity tracking can help counter |
 | OpenStax Organizational Behavior | OB's conformity and groupthink diagnostic vocabulary complements FLO's facilitator-facing craft guidance |
 | Scrum Guide 2020 | The Scrum Guide names the Sprint Retrospective as a team-owned event; FLO's modelling-as-through-line and no-pressuring-tone discipline operationalise the safety conditions that make team ownership real |
 | TC 25-20 Army AAR | TC 25-20's climate-as-operational-concern framing and FLO's Vegas-rules trust-foundation share the same premise: without psychological safety, honest data does not surface |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The FLO Guide cites the Community of Inquiry model (Vaughan et al. 2013) as the framing for online learning facilitation [BT] (Ch 1, "Facilitating learning online"). The Institute of Cultural Affairs – UK is cited for the facilitator definition [BT] (Ch 1, "The definition"). Universal Design for Learning (CAST 2018) is cited for the accessibility framework [BT] (Ch 3, "Accessible design, inclusive facilitation"). The International Association of Facilitators (IAF) Core Competencies are cited as inspiration for the skill list [BT] (Ch 3, "Developing FLO facilitation skills"). Liberating Structures is cited for the 1-2-4-All example [BT] (Ch 6, "Week 2"). None of these are held directly in this corpus as primary references.
+**Borrowed-through gaps.** The FLO Guide cites the Community of Inquiry model (Vaughan et al. 2013) as the framing for online learning facilitation [BT] (Ch 1, "Facilitating learning online"). The Institute of Cultural Affairs – UK is cited for the facilitator definition [BT] (Ch 1, "The definition"). Universal Design for Learning (CAST 2018) is cited for the accessibility framework [BT] (Ch 3, "Accessible design, inclusive facilitation"). The International Association of Facilitators (IAF) Core Competencies are cited as inspiration for the skill list [BT] (Ch 3, "Developing FLO facilitation skills"). Liberating Structures is cited for the 1-2-4-All example [BT] (Ch 6, "Week 2"); the corpus holds the Liberating Structures Handbook, but the Guide cites liberatingstructures.com rather than the handbook's text. None of the others are held in this corpus.
 
 **Named limits of the source.** The FLO Guide is written for the BCcampus family of online professional-learning courses — it addresses facilitator development in that context. Its retro applicability is an application by analogy: the scaffolding-and-fading arc, Vegas rules, and equity-tracking matrix all transfer cleanly; the specific course-content framing (five-week Fundamentals course, LMS technologies, BCcampus tooling) does not. The Guide does not address team retros, Scrum, or agile delivery directly — those mappings are projections in this distillation.
 
-**Evidence-marker continuity.** The scaffolding-and-fading arc is `[V]` in the deep ref; this distillation paraphrases the arc as a phase-calibration principle (correct). The Anxious-Annie pattern is `[V]` and `[AE]` in the deep ref (the reflective-post worked example); the distillation carries the pattern as a diagnostic without the verbatim anecdote (correct for distillation tier). Engagement-equity tracking is `[V]` in the deep ref; the distillation operationalises it as a named practice with a specific prompt. Vegas rules, recording consent, and counsel-out are all `[V]` in the deep ref and are carried forward accurately.
+**Evidence-marker continuity.** The scaffolding-and-fading arc is quoted `[V]` from the deep ref in Concept 2; the Anxious-Annie resolution is quoted `[V]` `[AE]` in Concept 3 (the full anecdote stays in the deep ref). Engagement-equity tracking is `[V]` in the deep ref; the distillation operationalises it as a named practice with a specific prompt. Vegas rules, recording consent, and counsel-out are all `[V]` in the deep ref and are carried forward accurately.
 
 ## Related concepts
 

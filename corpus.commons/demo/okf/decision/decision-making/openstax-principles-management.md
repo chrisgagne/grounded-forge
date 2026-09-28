@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:43:28+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # OpenStax Principles of Management, Decision-Making Distillation
 
@@ -42,21 +42,21 @@ Where Organizational Behavior contributes the cognitive process, Principles of M
 
 7.  **Maximising shareholder wealth is rejected as decision criterion.** The text takes an explicit position: "Maximizing shareholder wealth is often a short-sighted decision … because it can harm the organization's financial viability in the future. … More importantly, increasing the wealth of shareholders is not an acceptable reason for causing harm to others" [V] (Ch 2.1, "What's the Right (Ethical) Answer?"). (Source: Ch 2.1)
 
-8.  **Groupthink and devil's advocate.** Group decisions improve quality with diverse membership and free expression of dissent. Groupthink "occurs when group members choose not to voice their concerns or objections because they would rather keep the peace and not annoy or antagonize others. Sometimes groupthink occurs because the group has a positive team spirit and camaraderie, and individual group members don't want that to change by introducing conflict" [V] (Ch 2.6, "Disadvantages of Group Decisions"). Suppression of dissent occurs when one member dominates. The devil's advocate role mitigates both. (Source: Ch 2.6)
+8.  **Groupthink and devil's advocate.** Group decisions improve quality with diverse membership and free expression of dissent. Groupthink "occurs when group members choose not to voice their concerns or objections because they would rather keep the peace and not annoy or antagonize others. Sometimes groupthink occurs because the group has a positive team spirit and camaraderie, and individual group members don't want that to change by introducing conflict" [V] (Ch 2.6, "Disadvantages of Group Decisions"). Suppression of dissent occurs when one member dominates. Encouraging everyone to speak up prevents suppression of dissent; the devil's advocate role reduces groupthink. (Source: Ch 2.6, Table 2.3)
 
-9.  **Follett's three conflict-resolution paths.** Dominance (one party dictates terms — short-term resolution, long-term cost), compromise (neither party fully gets what they want), and integration (both parties state preferences and reach a creative agreement that satisfies both). Integration is the strongest decision-making outcome when stakes are high and the relationship is ongoing. (Source: Ch 3.6, "Follett and Conflict Resolution")
+9.  **Follett's three conflict-resolution paths.** Dominance (one party dictates terms; rarely possible, and for many companies it carries social costs in a disaffected workforce), compromise (neither side gets exactly everything it wants, so neither is happy), and integration (both parties state preferences and reach a creative agreement that satisfies both). Integration is the one path of the three that leaves both sides satisfied. (Source: Ch 3.6, "Follett and Conflict Resolution")
 
 10.  **Strategic decision frameworks: SWOT, PESTEL, Five Forces, VRIO.** SWOT identifies strengths, weaknesses, opportunities, threats. PESTEL examines political, economic, sociocultural, technological, environmental, legal forces. Porter's Five Forces evaluate industry rivalry, threat of new entrants, threat of substitutes, supplier power, buyer power. VRIO evaluates resources by value, rarity, imitability, organisation. Together they ground strategic-positioning decisions. (Source: Ch 8)
 
 11.  **The strategic management cycle.** Vision and mission → strategic analysis → strategic objectives → strategy formulation → implementation → measurement and evaluation. Activities run simultaneously rather than strictly sequentially. (Source: Ch 9.1)
 
-12.  **Goal vs domain vs hybrid planning.** Goal planning specifies goals and action statements; domain/directional planning identifies a domain and moves toward it without specifying outcomes (suits flexibility, goal disagreement, unstable environments, startups). Hybrid planning starts in domain mode and transitions to goal mode as learning accumulates. Goal planning produces higher performance when the conditions support it. (Source: Ch 17.2)
+12.  **Goal vs domain vs hybrid planning.** Goal planning specifies goals and action statements; domain/directional planning identifies a domain and moves toward it without specifying outcomes (suits flexibility, goal disagreement, unstable environments, startups). Hybrid planning starts in domain mode and transitions to goal mode as learning accumulates. Research cited by the text finds goal planning produces higher performance than domain planning alone; domain planning suits situations where goals cannot yet be set or agreed. (Source: Ch 17.2)
 
 13.  **Drucker's eight-area goal framework.** Market standing, innovation, productivity, profitability, physical and financial resources, manager performance and development, employee performance and attitude, public responsibility. Decisions should be evaluated for their effect across all eight, not just financial outcomes. (Source: Ch 17.4)
 
-14.  **Three change models for organisational decisions.** Lewin (unfreeze-change-refreeze, stable contexts), Kotter (eight-step, mechanistic, top-down, deficit-based), Cooperrider's Appreciative Inquiry (5-D cycle, abundance-based, bottom-up), Olson-Eoyang Complex Adaptive Systems (emergent, self-organising). The text argues choice depends on whether the organisation is in deficit or abundance, whether change is top-down or bottom-up, and whether the mindset is conventional or appreciative. (Source: Ch 10.3)
+14.  **Four change models for organisational decisions.** Lewin (unfreeze-change-refreeze, stable contexts), Kotter (eight-step, mechanistic, top-down, deficit-based), Cooperrider's Appreciative Inquiry (5-D cycle, abundance-based, bottom-up), Olson-Eoyang Complex Adaptive Systems (emergent, self-organising). The text argues choice depends on whether the organisation is in deficit or abundance, whether change is top-down or bottom-up, and whether the mindset is conventional or appreciative. (Source: Ch 10.3)
 
-15.  **Stuck in the middle.** Porter's position: trying to combine cost leadership and differentiation produces firms that excel at neither. Strategic decisions should commit to one generic strategy. The text reproduces this position favourably. (Source: Ch 8.6)
+15.  **Stuck in the middle.** Porter's position: trying to combine cost leadership and differentiation "can lead to a firm being stuck in the middle" [V]. Strategic decisions should commit to one generic strategy. The text reproduces this position favourably. (Source: Ch 8.6)
 
 ## Questions to Ask During Decision-Making
 
@@ -85,12 +85,12 @@ Where Organizational Behavior contributes the cognitive process, Principles of M
 
 | Need | Question |
 |---|---|
-| Generate enough options | Have I generated three to five real alternatives, not just one or two? |
+| Generate enough options | Have I generated multiple real alternatives (step 2 of the six-step process), not just one? |
 | Avoid similarity bias | Am I generating options that resemble what I already prefer? |
 | Engage diverse perspectives | Have I sought out colleagues whose backgrounds, experiences, or thinking styles differ from mine? Diverse input reduces bias and groupthink. |
 | Test for confirmation bias | What evidence would change my preferred view, and am I actively seeking it? |
 | Apply strategic-analysis tools | If this is a strategic decision: have I run SWOT, PESTEL, Porter's Five Forces, and VRIO as appropriate? Or am I deciding without environmental and resource analysis? |
-| Apply ethical principles | Which lens fits — utilitarianism (greatest good for greatest number), universalism (duty), rights, justice, virtue ethics, common good? Where does ethical relativism end and the single standard begin? |
+| Apply ethical principles | Which lens fits — utilitarianism (greatest good for greatest number), universalism (duty), rights, justice, virtue ethics, common good? Where do the limits the text sets on ethical relativism (blind spots, enabling abuses; Ch 5.3) apply? |
 
 ### Phase 4: Deciding (Analysing and selecting)
 
@@ -120,7 +120,7 @@ Where Organizational Behavior contributes the cognitive process, Principles of M
 | Distinguish bad luck from bad decision | A bad outcome may follow a sound process if uncertainty was high; a good outcome may follow a poor process. Which case is this? |
 | Be willing to reverse | If new information indicates the decision was wrong, am I able to reverse course, or escalating commitment to defend the prior choice? |
 | Apply the Deming cycle | Plan → Do → Check → Act → Plan again. Has the learning from this decision fed back into the next one? |
-| Capture phronesis lessons | What does this decision-process teach me — practical wisdom for the next decision of this type? |
+| Capture lessons | What does this decision teach me for the next decision of this type (step 6, evaluate; Ch 2.3)? |
 
 ## What to Look For
 
@@ -128,7 +128,7 @@ Where Organizational Behavior contributes the cognitive process, Principles of M
 - **Pattern: A decision is being defended after evidence has shifted against it.** Signal: investments increase as outcomes worsen; criticism is dismissed. Diagnosis: escalation of commitment. Follow-up: re-evaluate freshly; treat sunk costs as sunk; ask "what would I do if I had not made the prior choice?"
 - **Pattern: Heated debate without naming the binding constraint.** Signal: arguments escalate but stakeholders cannot agree what the dispute is actually about. Diagnosis: relationship conflict has overtaken process conflict. Follow-up: pause; reframe to process conflict; surface what each party actually disagrees about.
 - **Pattern: A group reaches consensus too quickly.** Signal: a meaningful decision is endorsed without challenge; concerns are shared privately afterward. Diagnosis: groupthink or suppression of dissent. Follow-up: assign a devil's advocate; structure dissenting opinions explicitly.
-- **Pattern: A strategic decision is being made without environmental analysis.** Signal: the team commits to a strategy without examining external forces or internal capability. Diagnosis: SWOT, PESTEL, Five Forces, or VRIO has not been applied. Follow-up: pause and run the appropriate strategic-analysis tools; the decision quality will improve materially.
+- **Pattern: A strategic decision is being made without environmental analysis.** Signal: the team commits to a strategy without examining external forces or internal capability. Diagnosis: SWOT, PESTEL, Five Forces, or VRIO has not been applied. Follow-up: pause and run the appropriate strategic-analysis tools before committing.
 - **Pattern: A firm is trying to be both cost leader and differentiator.** Signal: cost-cutting initiatives running alongside premium-positioning campaigns. Diagnosis: stuck-in-the-middle risk. Follow-up: choose a generic strategy and commit; or explicitly segment the business so different units run different strategies.
 - **Pattern: The decision is framed only in shareholder-wealth terms.** Signal: discussion focuses on financial impact; non-financial stakeholders are invisible. Diagnosis: the rejected criterion is operating implicitly. Follow-up: surface stakeholders without voice; apply Drucker's eight-area framework; test against the news-test.
 - **Pattern: Goals are vague, but the team is trying to plan as if they are clear.** Signal: planning sessions produce non-actionable statements. Diagnosis: the situation calls for domain or hybrid planning rather than goal planning. Follow-up: name the domain; identify direction; let the goals emerge as learning accumulates.
@@ -170,12 +170,12 @@ This worked example illustrates several key concepts in the source: dual-system 
 - **Snap judgement on novel problems.** The reactive system is treating a non-programmed decision as if it were programmed; the cost is poor outcome and inability to learn.
 - **Defending a sunk-cost decision.** Escalation of commitment leads to throwing more good resources after bad.
 - **Premature consensus in groups.** Groupthink produces unchallenged decisions that look good in the room and bad in the world.
-- **Conflict-avoidance leading to compounding problems.** Avoiding process conflict prevents productive exploration; the dominance approach (Follett) wins the moment but loses the relationship.
+- **Conflict-avoidance leading to compounding problems.** Avoiding process conflict prevents productive exploration; the dominance approach (Follett) is rarely possible and, for many companies, carries social costs in a disaffected workforce.
 - **Outcome-only judgement.** Judging a decision purely by its outcome conflates good luck with good process and discourages learning.
 - **Treating ethical questions as compliance questions.** Reduced moral sensitivity produces decisions that are technically legal but harmful to stakeholders without voice.
 - **Pure shareholder-wealth framing.** The text rejects this as a primary decision criterion; harm to other stakeholders cannot be justified on shareholder-return grounds.
-- **Stuck in the middle.** Trying to combine cost leadership and differentiation produces firms that excel at neither.
-- **Goal planning when goals are not actually clear.** Forcing specific-goal planning into a domain-planning situation produces brittle plans and demoralised teams.
+- **Stuck in the middle.** Trying to combine cost leadership and differentiation can leave a firm stuck in the middle (Porter, Ch 8.6).
+- **Goal planning when goals are not actually clear.** Where people cannot agree on goals, the environment is unstable, or the organisation is starting up, the text points to domain or hybrid planning (Ch 17.2).
 - **Wrong change model for the context.** Imposing Kotter's deficit-based mechanism on a situation that requires bottom-up emergence (or vice versa) produces resistance and failed change.
 
 ## Integration with Other References
@@ -186,9 +186,9 @@ This worked example illustrates several key concepts in the source: dual-system 
 | Bounded rationality | The text treats bounded rationality as foundational. Practitioners working in decision-making contexts should treat this framing as the explanation for why the six-step process and evidence-based methods exist. |
 | Goal-setting theory (Locke) | Goal theory and decision-making are paired: difficult, specific, accepted goals shape what decisions get made and which alternatives feel salient. The text endorses goal theory as one of the strongest in OB. |
 | Expectancy theory (Vroom) | Decision-making about effort exertion follows expectancy logic. Practitioners working on motivation should pair the text's decision-making framework with expectancy analysis. |
-| Conflict-resolution (Follett, Thomas) | Follett's three paths (dominance, compromise, integration) and Thomas's five modes (competing, collaborating, compromising, avoiding, accommodating) provide the choice apparatus for handling disagreement within decisions. |
-| Appreciative Inquiry (Cooperrider) | For organisation-wide decisions involving change, the AI 5-D cycle offers a bottom-up alternative to top-down systematic decision-making and produces stronger commitment when the situation is abundance-framed. |
-| Strategic analysis (Porter, Barney VRIO, SWOT, PESTEL) | The strategic-decision tools are explicit in this text. Pair them with bounded-rationality and dual-system framings: strategic analysis structures the evidence-gathering that the reflective system relies on. |
+| OpenStax Organizational Behavior (Ch 14.2), conflict modes | Follett's three paths (dominance, compromise, integration; this source, Ch 3.6) pair with OB's Thomas five modes (competing, collaborating, compromising, avoiding, accommodating) to give the choice apparatus for handling disagreement within decisions. |
+| Appreciative Inquiry (Cooperrider) | For organisation-wide decisions involving change, the AI 5-D cycle offers a bottom-up, abundance-based alternative to top-down change; the text ties the choice to whether the organisation is in deficit or abundance (Ch 10.3). |
+| Strategic analysis (Porter's Five Forces and generic strategies, VRIO, SWOT, PESTEL) | The strategic-decision tools are explicit in this text. Pair them with bounded-rationality and dual-system framings: strategic analysis structures the evidence-gathering that the reflective system relies on. |
 | Servant leadership (Greenleaf) and stakeholder theory (Freeman) | The text's rejection of shareholder-primacy implies a stakeholder-pluralist framing for decisions. Pair with Greenleaf for the leadership style and Freeman for the stakeholder analytical apparatus. |
 | Deming-Shewhart cycle (PDCA) | The text builds the Plan-Do-Check-Act cycle into planning and controlling. Decisions are not one-off events but iterative learning loops. |
 
@@ -200,12 +200,12 @@ This worked example illustrates several key concepts in the source: dual-system 
 - *Bounded rationality* — foundational for decision limits (Ch 2.4) [BT]; the source explains the concept without naming an originator. Key Concept 3 and Integration table trace here.
 - *Mary Parker Follett, three conflict-resolution paths* — dominance, compromise, integration (Ch 3.6) [BT]. Key Concept 9 traces here.
 - *Michael Porter, Five Forces and generic strategies* — industry analysis and stuck-in-the-middle position (Ch 8.4, Ch 8.6) [BT]. Key Concepts 10 and 15 trace here.
-- *Jay Barney, VRIO framework* — value, rarity, imitability, organisation (Ch 8.5) [BT]. Key Concept 10 traces here.
+- *VRIO framework* — value, rarity, imitation, organisation (Ch 8.5) [BT]; the source gives no originator. Key Concept 10 traces here.
 - *Kurt Lewin, change model* — unfreeze-change-refreeze (Ch 10.3) [BT]. Key Concept 14 traces here.
 - *John Kotter, eight-step change model* — mechanistic top-down deficit-based change (Ch 10.3) [BT]. Key Concept 14 traces here.
 - *David Cooperrider, Appreciative Inquiry 5-D cycle* — abundance-based bottom-up change (Ch 10.3) [BT]. Key Concept 14 and Integration table trace here.
 - *Edwin Locke, goal theory* — difficult, specific, accepted goals; goal commitment (Ch 14.3) [BT].
-- *J. Stacy Adams, equity theory* — outcome-input ratio comparisons and restorative behaviours (Ch 14.3) [BT]. Key Concept 10 references expectancy/equity pairing.
+- *J. Stacy Adams, equity theory* — outcome-input ratio comparisons and restorative behaviours (Ch 14.3) [BT].
 - *Victor Vroom, expectancy theory* — effort-performance-outcome-needs links (Ch 14.3) [BT].
 - *Patrick Lencioni, Five Dysfunctions* — trust-conflict-commitment-accountability-results model (Ch 15.4) [BT].
 - *Geert Hofstede, cultural dimensions* — power distance, uncertainty avoidance, individualism-collectivism, masculinity-femininity from IBM survey (Ch 6.2) [BT].
@@ -215,9 +215,9 @@ This worked example illustrates several key concepts in the source: dual-system 
 - *Fred Fiedler, contingency theory of leadership* — LPC score and situational favourability (Ch 13.6) [BT].
 - *Tuckman's stages of group development* — forming, storming, norming, performing, adjourning (Ch 15.2) [BT].
 
-**Named limits of the source.** The book is an introductory management survey; it develops a wide range of decision-making frameworks but rarely at depth. Strategic-analysis tools (SWOT, PESTEL, Five Forces, VRIO) are introduced without the strategic-planning context needed to apply them well in practice — that requires supplementing with strategy-specialist sources. The ethical decision-making section covers Rest's model and seven ethical principles but does not develop case-level ethical analysis; practitioners facing hard ethical choices need more than a survey treatment.
+**Named limits of the source.** The book is an introductory management survey; it develops a wide range of decision-making frameworks but rarely at depth. Strategic-analysis tools (SWOT, PESTEL, Five Forces, VRIO) are introduced at textbook depth with brief examples; practitioners applying them to a live strategy need more than the survey treatment. The ethical decision-making material covers Rest's model, seven ethical principles, and two worked cases (Wells Fargo, Ch 5.2; Levi Strauss in Bangladesh, Ch 5.7); it stays at survey depth, and practitioners facing hard ethical choices need more than a survey treatment.
 
-**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-management-deep.md`). Key Concepts are `[AP]` (the source's stated positions) or `[AE]` (examples drawn from the source). The foundational frameworks cited here — bounded rationality, Follett's conflict paths, Porter's generic strategies, Rest's ethical model, Drucker's goal framework, Lewin/Kotter/AI change models — are all `[BT]`; the source endorses and explains them but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-management-deep.md`). Key Concepts 1, 3, 7, 8 and 15 carry `[V]` quotations copied from the deep ref; the rest paraphrase with section citations. The foundational frameworks cited here — bounded rationality, Follett's conflict paths, Porter's generic strategies, Rest's ethical model, Drucker's goal framework, Lewin/Kotter/AI change models — are all `[BT]`; the source endorses and explains them but did not originate them.
 
 ## Related concepts
 

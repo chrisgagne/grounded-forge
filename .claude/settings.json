@@ -28,6 +28,17 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/fetch-voice-skills.sh\"",
+            "timeout": 60
+          }
+        ]
+      }
     ]
   }
 }

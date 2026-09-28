@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-managerial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:43:28+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # OpenStax Principles of Accounting Volume 2, Decision-Making Distillation
 
@@ -36,11 +36,11 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 3.  **Relevant cost and revenue.** A cost or revenue is relevant if it differs between the alternatives under consideration. Sunk costs (already incurred), unavoidable costs (committed regardless of choice), and future costs that do not differ between alternatives are all irrelevant. Avoidable costs and opportunity costs are typically relevant. The discipline of identifying relevance is the load-bearing skill of short-term decision-making. (Source: Ch 10.1, "Identify Relevant Information for Decision-Making")
 
-4.  **Short-term versus long-term decision frames.** Short-term decisions (typically twelve months or less) are operational and ignore the time value of money — relevant cost analysis is sufficient. Long-term decisions involve large outlays, long horizons, and the time value of money — payback and ARR are screens, NPV and IRR are substantive evaluation tools. Mixing the frames produces poor decisions in both directions. (Source: Ch 10.1, Table 10.1; Ch 11.1)
+4.  **Short-term versus long-term decision frames.** Short-term decisions (typically twelve months or less) are operational and ignore the time value of money — relevant cost analysis is sufficient. Long-term decisions involve large outlays, long horizons, and the time value of money — payback and ARR are screens, NPV and IRR are substantive evaluation tools. Mixing the frames produces poor decisions in both directions. (Source: Ch 10.1, "Identify Relevant Information for Decision-Making"; Ch 11.1)
 
 5.  **Five canonical short-term decision categories.** Special orders (one-off requests at non-standard prices), make-or-buy (outsourcing decisions), keep-or-discontinue (segment or product elimination), sell-or-process-further (decisions at split-off points), and constrained-resource allocation (deciding what to produce when capacity is binding). Each has a distinctive analytical pattern but shares the relevant-cost discipline. (Source: Ch 10.2-10.6)
 
-6.  **The contribution-margin approach for keep-or-discontinue.** Allocated common fixed costs can make a contributing segment appear unprofitable. The contribution-margin approach isolates avoidable costs and contribution toward fixed costs, avoiding the misleading allocation effects. The volume's prescription: do not eliminate a segment that contributes positively to fixed costs unless the released resources will produce more elsewhere. (Source: Ch 10.4, "Final Analysis of the Decision")
+6.  **The contribution-margin approach for keep-or-discontinue.** Allocated common fixed costs can make a contributing segment appear unprofitable. The contribution-margin approach isolates avoidable costs and contribution toward fixed costs, avoiding the misleading allocation effects. The volume's conclusion: an apparent loss driven by allocated common costs does not show the segment is unprofitable; a segment with positive contribution toward fixed costs is contributing to overall profit. (Source: Ch 10.4, "Final Analysis of the Decision")
 
 7.  **Constraint-aware ranking.** When a resource constrains production, rank products by contribution margin per unit of the constraining resource — not by unit contribution margin. The highest-margin product may not be the highest contribution-per-machine-hour product. (Source: Ch 10.6, "Fundamentals of How to Make Decisions When Resources are Constrained")
 
@@ -54,7 +54,7 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 12.  **Ethical analysis is inseparable from financial analysis.** Decisions that look profitable on quantitative criteria can produce ethical, reputational, and long-term financial disasters. The Ford Pinto case is the volume's central illustration. The IMA's four ethical standards (competence, confidentiality, integrity, credibility) and the eight-step ethics framework (recognise, establish facts, recognise competing values, determine alternatives, evaluate, recognise consequences, decide and act, evaluate the decision) anchor the analysis. (Source: Ch 1.4, "Business Ethics" and "Ethics Legislation"; Ch 10.6, "Ethical Considerations: When to Include a Lifesaving Option")
 
-13.  **Variance analysis as feedback for in-period decisions.** Standard-cost variances (price/rate, quantity/time for materials, labour, overhead) provide signals about where actual operations deviate from expectations. Both favourable and unfavourable variances warrant explanation: favourable variances may be sustainable improvements or unsustainable shortcuts; unfavourable variances may be one-time events or systemic problems. (Source: Ch 8.5, "Describe How Companies Use Variance Analysis")
+13.  **Variance analysis as feedback for in-period decisions.** Standard-cost variances (price/rate, quantity/time for materials, labour, overhead) provide signals about where actual operations deviate from expectations. Both favourable and unfavourable variances warrant explanation: favourable variances may or may not be sustainable; unfavourable variances may point to a problem area or be a one-time occurrence. (Source: Ch 8.5, "Describe How Companies Use Variance Analysis")
 
 14.  **The balanced scorecard as decision-evaluation framework.** Pure financial-measure evaluation lags, gameable, and biased toward short-term decisions. Quantitative-plus-qualitative measurement across financial, internal-process, customer, and learning-and-growth perspectives produces more durable evaluation and aligns manager decisions with corporate strategy. (Source: Ch 12.4, "Describe the Balanced Scorecard and Explain How It Is Used")
 
@@ -99,7 +99,7 @@ This distillation consolidates these threads into a working pattern: how to reco
 | Need | Question |
 |---|---|
 | Effect on customers | Does this decision affect existing customer relationships? Special orders priced below standard may anger existing customers. Outsourced quality variation may damage reputation. |
-| Effect on employees | Does this decision affect morale, retention, or capability? Outsourcing displaces employees; constraint shortcuts may overload them. |
+| Effect on employees | Does this decision affect morale, retention, or capability? Outsourcing may displace employees or hamper morale; constraint shortcuts may overload them. |
 | Effect on suppliers | Does this decision affect long-term supplier relationships? A make-decision may strand a supplier; a buy-decision may build over-dependence. |
 | Effect on reputation | If this decision were on the front page tomorrow, would I feel proud or guilty? The Ford Pinto case is the volume's reminder that purely-quantitative analysis can produce ethical disasters. |
 | Effect on long-term capability | Does this decision build or erode organisational capability? Outsourcing transfers expertise out of the company; insourcing builds it in. |
@@ -109,16 +109,15 @@ This distillation consolidates these threads into a working pattern: how to reco
 | Need | Question |
 |---|---|
 | Apply both quantitative and qualitative analysis | Which alternative is preferred on quantitative criteria? Which on qualitative? Where they disagree, what is the basis for choosing? |
-| Test the ethical dimension | Does the decision pass the eight-step ethics framework: recognised, fact-established, value-congruent, alternatives-considered, evaluated, consequence-aware, decided-and-acted, monitored? |
+| Test the ethical dimension | Has the decision been worked through the eight-step outline: issue and those involved recognised, facts established, competing values recognised, alternatives determined, each evaluated against those values, consequences recognised, decision made and acted on, decision evaluated? |
 | Make the decision explicit | What exactly is being decided, by whom, by when? Document the decision so it can be evaluated later. |
-| Plan for variance | What signals would indicate this decision was wrong? What is the response if those signals appear? Pre-commit against escalation of commitment. |
+| Plan for variance | What signals would indicate this decision was wrong? What is the response if those signals appear? Pre-commit to judging the decision on future costs and revenues, not on what has already been spent (sunk costs, Ch 10.1). |
 
 ### Phase 6: Evaluating (After the decision plays out)
 
 | Need | Question |
 |---|---|
 | Compare actual to expected | Did the decision produce the expected results? What variances appeared and why? |
-| Distinguish process from outcome | A bad outcome may follow a sound process if uncertainty was high; a good outcome may follow a poor process. Was the decision well-made even if the result disappoints? |
 | Test for managing-to-the-variance | Did the decision meet the variance threshold at the cost of long-term value? Was the standard set with budget slack to make the variance look good? |
 | Capture learnings | What does this decision teach me about the next decision of this type? About my own decision habits? |
 
@@ -130,11 +129,11 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 - **Pattern: Sunk costs being defended.** Signal: arguments include "we already spent X on this." Diagnosis: sunk-cost fallacy. Follow-up: reframe the question as "what is the best decision from here forward?" and ignore prior outlays.
 
-- **Pattern: A constraint-binding production environment with single-margin ranking.** Signal: products are ranked by unit contribution margin and the highest-margin items prioritised, but the bottleneck remains. Diagnosis: ranking is wrong — constraint-aware ranking uses contribution margin per unit of the constraint. Follow-up: recompute the ranking; expect the priority order to change.
+- **Pattern: A constraint-binding production environment with single-margin ranking.** Signal: products competing for a constrained resource are ranked by unit contribution margin. Diagnosis: ranking is wrong — constraint-aware ranking uses contribution margin per unit of the constraint. Follow-up: recompute the ranking per unit of the constraint; the priority order may change.
 
 - **Pattern: Capital decisions evaluated by payback only.** Signal: long-horizon investments approved on short payback periods without NPV analysis. Diagnosis: payback ignores time value of money and post-payback cash flows; it is a screen, not a substantive evaluation. Follow-up: compute NPV at the required rate of return.
 
-- **Pattern: A standard-cost variance outside the threshold being investigated.** Signal: large unfavourable materials price variance combined with favourable quantity variance. Diagnosis: probable purchase of substandard materials — the price savings is offset by quality consequences in production. Follow-up: investigate the supplier; check the quality of incoming materials.
+- **Pattern: A standard-cost variance outside the threshold being investigated.** Signal: favourable materials price variance combined with unfavourable materials quantity variance, possibly with an unfavourable labour efficiency variance. Diagnosis: possible purchase of lower-grade material; the price saving is offset by more material and labour time used in production. Follow-up: investigate the supplier; check the quality of incoming materials.
 
 - **Pattern: Income rises as production rises while sales remain flat.** Signal: under absorption costing, increased production lowers per-unit fixed-cost allocation and increases reported income. Diagnosis: possible income manipulation through overproduction; the additional inventory is unsold and consumes working capital. Follow-up: evaluate decisions using variable-costing-based reports; tie manager incentives to sales-and-cash measures, not absorption-based income.
 
@@ -167,7 +166,7 @@ A regional manufacturer of professional-grade kitchen equipment, MidCap Foodserv
 
 **Decision 3 (keep-or-discontinue).** MidCap's commercial-coffee-equipment division shows an apparent operating loss after allocated common costs. Sales were $2.4M, variable costs $1.6M, segment-specific fixed costs $200K, and allocated common costs $1.0M, yielding a reported $400K loss. Analysis using the contribution-margin approach: contribution margin is $800K ($2.4M - $1.6M); avoidable fixed costs are $200K segment-specific (the allocated $1.0M would be reallocated to other segments if this one closed). The segment contributes $600K to common costs ($800K CM - $200K avoidable fixed). Eliminating the segment would not eliminate the $1.0M of common costs; it would simply reallocate them to remaining segments and forgo the $600K contribution. Decision: keep the segment, but investigate the underlying revenue and cost trends to understand why contribution has weakened.
 
-**Decision 4 (capital investment).** A new automated welding system would cost $400,000 with a 5-year life, expected to generate $120,000 annual cash savings. MidCap's required rate of return is 12 per cent. Payback period: 3.33 years (initial $400K / annual $120K) — passes the 5-year screen. ARR: $120,000 average annual cash savings less $80,000 depreciation ($400K / 5 years) gives $40,000 incremental income, divided by $400,000 initial investment gives 10 per cent ARR — fails the 12 per cent hurdle. NPV at 12 per cent: present value of $120,000 annuity over 5 years at 12 per cent is $432,560 (using the present-value annuity factor of 3.605); NPV is $432,560 - $400,000 = $32,560 — passes (positive). IRR: approximately 15 per cent (between the 14 per cent factor of 3.433 and the 16 per cent factor of 3.274). Decision: accept the project. ARR's failure reflects its accounting-income basis (depreciation effects); NPV and IRR show the project creates value. Cross-check with profitability index: PV of cash flows divided by initial investment is 432,560 / 400,000 = 1.08, exceeding 1.0.
+**Decision 4 (capital investment).** A new automated welding system would cost $400,000 with a 5-year life, expected to generate $120,000 annual cash savings. MidCap's required rate of return is 12 per cent. Payback period: 3.33 years (initial $400K / annual $120K) — passes the 5-year screen. ARR: $120,000 average annual cash savings less $80,000 depreciation ($400K / 5 years) gives $40,000 incremental income, divided by $400,000 initial investment gives 10 per cent ARR — fails the 12 per cent hurdle. NPV at 12 per cent: present value of $120,000 annuity over 5 years at 12 per cent is $432,600 (using the present-value annuity factor of 3.605); NPV is $432,600 - $400,000 = $32,600 — passes (positive). IRR: approximately 15 per cent (between the 14 per cent factor of 3.433 and the 16 per cent factor of 3.274). Decision: accept the project. ARR's failure reflects its accounting-income basis (depreciation effects); NPV and IRR show the project creates value. Cross-check with profitability index: PV of cash flows divided by initial investment is 432,600 / 400,000 = 1.08, exceeding 1.0.
 
 **Decision 5 (constrained-resource allocation).** A bottleneck welding station has 4,000 hours of capacity per quarter. Three products use the station at different rates and contribute different unit margins:
 - Product A: 1.0 hour per unit, contribution margin $80 per unit, $80 per hour at the constraint.
@@ -195,31 +194,30 @@ These five decisions illustrate the volume's central decision-making patterns: r
 
 | Reference | Connection |
 |---|---|
-| Theory of Constraints (Goldratt) | The volume's constraint analysis (Ch 10.6) and lean-practices framing (Ch 1.5) draw directly on Goldratt's bottleneck identification and five focusing steps. Practitioners working on throughput problems should pair the volume's contribution-margin-per-constraint approach with Goldratt's broader systems-thinking framework. |
-| Lean operations (Toyota Motor Corporation) | Just-in-time, kaizen, and Lean Six Sigma are introduced in Ch 1.5 as cost-reduction frameworks; their integration with managerial accounting comes through standard-costing variances (Ch 8) and continuous-improvement budgeting (Ch 7). |
-| Net present value and capital budgeting (corporate finance) | The volume develops NPV and IRR (Ch 11) consistent with corporate-finance treatment but at an introductory level. Practitioners should pair this with weighted-average-cost-of-capital analysis (Ch 12.3) and risk-adjusted required-rates-of-return frameworks. |
-| Balanced scorecard (Kaplan and Norton) | The volume's Ch 12.4 develops the four-perspective BSC. Practitioners should pair it with Kaplan and Norton's strategy-map work to align strategic objectives with measurement. |
-| Stakeholder theory (Freeman; volume references) | Ch 13 frames sustainability reporting as stakeholder-theory accountability. The volume's treatment of stakeholder users in Ch 13.2 connects to wider stakeholder-engagement frameworks. |
-| Activity-based costing literature (Cooper and Kaplan) | Ch 6's ABC framework is the textbook treatment; practitioners should pair with the more detailed Cooper-and-Kaplan treatment for complex cost-pool design. |
-| Ethical decision-making frameworks (Rest's four-component model; IMA Statement) | Ch 1.4 develops an eight-step ethics framework rooted in the IMA Statement of Ethical Professional Practice. Practitioners should pair with Rest's moral-sensitivity-judgment-motivation-action model for a more thorough ethical analysis. |
-| Cost-volume-profit and break-even analysis | Ch 3's CVP development is consistent with broader managerial-economics treatment. Practitioners should pair with sensitivity analysis tools and Monte Carlo methods for uncertainty handling. |
+| Open Kanban (open-kanban) | The volume presents Goldratt's Theory of Constraints and its five focusing steps as a lean practice (Ch 1.5); Ch 10.6 separately ranks products by contribution margin per unit of the constrained resource and treats elevating the constraint as an option. Open Kanban cites Goldratt, with Deming, as grounding for a holistic, systemic approach to change. |
+| Lean operations (Toyota Motor Corporation) | Just-in-time, TQM, Lean Six Sigma, kaizen and TOC are introduced in Ch 1.5 as lean practices that strive to eliminate waste; the volume does not return to them by name in later chapters. |
+| OpenStax Principles of Finance (openstax-principles-finance) | This volume's NPV, IRR and profitability index (Ch 11) and its WACC worked example (Ch 12.3) pair with Principles of Finance's fuller treatment of NPV and IRR (Ch 16), WACC (Ch 17.3), and scenario and sensitivity analysis (Ch 18.5). |
+| Balanced scorecard (Kaplan and Norton) | The volume's Ch 12.4 develops the four-perspective BSC and cascades it to corporate, divisional and individual levels (Scrumptious Sweets). Kaplan and Norton are borrowed-through; no Kaplan-Norton source is held in the corpus. |
+| Stakeholder theory (OpenStax Principles of Management, Ch 5.6, citing Freeman) | Ch 13.2 frames a company's accountability to a wider group of users as an element of stakeholder theory; its user-by-user treatment of stakeholders connects to Principles of Management's stakeholder-management material. |
+| Rest's four-component model (OpenStax Organizational Behavior Ch 6.5; Principles of Management Ch 2.5) | Ch 1.4 gives an eight-step outline for examining ethical issues alongside the IMA's four standards (competence, confidentiality, integrity, credibility). Pair with Rest's moral sensitivity, judgment, motivation and action as those references carry it. |
+| Cost-volume-profit and break-even analysis | Ch 3.3's sensitivity analysis (effect on break-even of changes in price, units, variable cost, fixed cost) is the volume's own uncertainty tool; OpenStax Principles of Finance adds scenario and sensitivity analysis for forecasts (Ch 18.5). |
 | Triple bottom line and integrated reporting | Ch 13 develops the People-Planet-Profit framing and the IIRC's six-capitals model. Practitioners working on sustainability decisions should pair with the GRI, SASB, and IIRC reporting frameworks for stakeholder communication. |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
-- *Eliyahu Goldratt, Theory of Constraints* — cited approvingly as a five-step continuous-improvement tool (Ch 1.5) [BT]. The constraint-aware ranking in Key Concept 7 traces to Goldratt's throughput logic as carried by the text.
+- *Eliyahu Goldratt, Theory of Constraints* — cited approvingly as a five-step continuous-improvement tool (Ch 1.5) [BT]. The volume attributes TOC and its five focusing steps to Goldratt in Ch 1.5 only; Key Concept 7's ranking rule is the volume's own Ch 10.6 treatment.
 - *Robert Kaplan and David Norton* — cited as developers of the balanced scorecard (Ch 12.4) [BT]. Key Concept 14 paraphrases the book's treatment.
-- *Art Schneidermann / Analog Devices* — cited as the earlier BSC origin (Ch 12.4) [BT].
+- *Art Schneiderman / Analog Devices* — cited as the earlier BSC origin (Ch 12.4) [BT].
 - *Chris Argyris* — cited for double-loop learning (Ch 9.1) [BT].
 - *John Elkington* — cited for the triple bottom line, "first proposed in 1997" [V] (Ch 13.1) [BT].
 - *Toyota Motor Corporation* — cited as origin of just-in-time and lean practices (Ch 1.5) [BT].
 - *Ford Pinto case* — cited as the central ethical caution in Ch 10.6; not held as a primary reference.
 
-**Named limits of the source.** The book covers managerial (internal) accounting. It does not cover: financial accounting for external reporting (that is Vol 1's scope); IFRS (not addressed); real-options theory for capital budgeting (mentioned in passing but not developed); transfer pricing beyond introductory framing; or detailed tax accounting. The ethics framework (Ch 1.4) is the IMA's eight-step model; it is not a substitute for a full ethics treatment such as OpenStax *Business Ethics*.
+**Named limits of the source.** The book covers managerial (internal) accounting. It does not cover: financial accounting for external reporting (that is Vol 1's scope); IFRS (not addressed); real-options theory for capital budgeting (not addressed); transfer pricing beyond introductory framing; or detailed tax accounting. The eight-step outline for examining ethical issues (Ch 1.4) is the volume's own, given alongside the IMA's four standards; it is not a substitute for a full ethics treatment such as OpenStax *Business Ethics* (openstax-business-ethics).
 
-**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-accounting-vol2-deep.md`). Key Concept citations use `(Source: Ch N, "Section name")` anchors aligned with the deep ref's `[V]` extracts. The Ford Pinto anti-pattern and the sunk-cost refrain ("sunk costs have no bearing on future events and are not relevant in decision-making") are `[V]`-marked in the deep ref and cited verbatim there; this distillation paraphrases them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-accounting-vol2-deep.md`). Key Concept citations use `(Source: Ch N, "Section name")` anchors aligned with the deep ref's `[V]` extracts. The sunk-cost refrain is quoted `[V]` under Anti-patterns (deep ref Ch 10.1, "Sunk Costs"). The Ford Pinto material is paraphrased; in the deep ref only the reputational-cost clause is marked `[V]`, and its other Pinto quotations are unmarked.
 
 ## Related concepts
 

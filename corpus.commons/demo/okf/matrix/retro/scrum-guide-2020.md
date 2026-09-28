@@ -12,7 +12,7 @@ sources:
     resource: https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:37:52+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # Schwaber & Sutherland, The Scrum Guide 2020 — Retro Distillation
 
@@ -20,15 +20,15 @@ generated:
 
 ## Retro Relevance
 
-The Scrum Guide gives the Sprint Retrospective a precise structural role: it is Adaptation made concrete. The Guide's three empirical pillars — Transparency, Inspection, Adaptation — form a causal chain, and the retro is the designated Adaptation event of the Sprint cycle. A retro that produces no committed experiment has not completed its function: "Inspection without adaptation is considered pointless. Scrum events are designed to provoke change." [V] (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Inspection")
+The Scrum Guide gives the Sprint Retrospective a precise structural role: its purpose is "to plan ways to increase quality and effectiveness" [V]. The Guide's three empirical pillars — Transparency, Inspection, Adaptation — form a causal chain, and the retro is the Sprint's inspect-and-adapt event for the team's own way of working. A retro that produces no committed experiment has not completed its function: "Inspection without adaptation is considered pointless. Scrum events are designed to provoke change." [V] (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Inspection")
 
-The Guide's retro-specific content is focused rather than comprehensive: it names five inspection domains (individuals, interactions, processes, tools, Definition of Done), specifies the output discipline (most impactful improvements addressed as soon as possible, added to the Sprint Backlog), and roots everything in the Transparency → Inspection → Adaptation causal chain. The framework-immutability claim also scales directly to retro discipline: running a partial retro — one that skips data gathering, or skips the close, or produces no owned experiment — is not a retro. It is a debrief. Debriefs have their place; confusing them with retros produces false confidence that the loop has closed.
+The Guide's retro-specific content is focused rather than comprehensive: it names five inspection domains (individuals, interactions, processes, tools, Definition of Done), specifies the output discipline (most impactful improvements addressed as soon as possible; they "may even be added to the Sprint Backlog for the next Sprint" [V]), and roots everything in the Transparency → Inspection → Adaptation causal chain. By analogy with the Guide's immutability claim, a retro that skips data gathering, skips the close, or produces no owned experiment is a partial retro: a debrief. (Data gathering and the close come from the Field Guide's sample agenda, based on Derby and Larsen; the Guide itself leaves retro structure open.) Debriefs have their place; confusing them with retros produces false confidence that the loop has closed.
 
-This is primarily a Phase 0 (setup), Phase 4 (experiment design), and Phase 5 (close) reference. Phase 0 because the Guide's Transparency condition must hold before the rest of the chain is worth running. Phase 4 because the Guide's most-impactful-first and Sprint-Backlog-registration disciplines are the experiment-output rules. Phase 5 because the chain closes only when a specific, committed, owned experiment exists.
+This is primarily a Phase 0 (setup), Phase 4 (experiment design), and Phase 5 (close) reference. Phase 0 because the Guide's Transparency condition must hold before the rest of the chain is worth running. Phase 4 because the Guide's most-impactful-first rule, and its allowance for adding improvements to the Sprint Backlog, are the experiment-output rules. Phase 5 because the chain closes only when a specific, committed, owned experiment exists.
 
 ## Key Concepts for Retro
 
-1.  **The retro IS the Adaptation pillar made concrete.** The Sprint Retrospective is the designated Adaptation event of the Sprint cycle. "Inspection without adaptation is considered pointless. Scrum events are designed to provoke change." [V] A retro that produces no committed experiment has not completed its function. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Inspection")
+1.  **The retro is where the team adapts its own way of working.** The Sprint Retrospective is one of the four inspect-and-adapt events inside the Sprint, the one aimed at quality and effectiveness. "Inspection without adaptation is considered pointless. Scrum events are designed to provoke change." [V] A retro that produces no committed experiment has not completed its function. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Inspection")
 
 2.  **Five inspection domains — all in scope.** "The Scrum Team inspects how the last Sprint went with regards to individuals, interactions, processes, tools, and their Definition of Done." [V] The facilitator's job is to hold all five frames; defaulting to processes only leaves four domains unexamined. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "Sprint Retrospective")
 
@@ -36,7 +36,7 @@ This is primarily a Phase 0 (setup), Phase 4 (experiment design), and Phase 5 (c
 
 4.  **Most impactful improvements, addressed as soon as possible.** "The Scrum Team identifies the most helpful changes to improve its effectiveness. The most impactful improvements are addressed as soon as possible. They may even be added to the Sprint Backlog for the next Sprint." [V] Not the easiest, not the most popular — the most impactful. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "Sprint Retrospective")
 
-5.  **Sprint Backlog registration as the commitment mechanism.** Adding the improvement to the Sprint Backlog is the Guide's named mechanism for making the commitment visible and trackable. "We'll try to" is not a Backlog Item. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "Sprint Retrospective")
+5.  **Sprint Backlog registration as a commitment mechanism.** The Guide allows improvements to be added to the Sprint Backlog for the next Sprint; doing so puts the change inside "a highly visible, real-time picture of the work" [V] the Developers inspect daily. "We'll try to" is not a Backlog Item. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "Sprint Retrospective"; Scrum Artifacts, "Sprint Backlog")
 
 6.  **Transparency → Inspection → Adaptation as a causal chain.** "Transparency enables inspection. Inspection without transparency is misleading and wasteful." [V] If psychological safety is low, the Transparency step breaks and the whole chain fails. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Theory, "Transparency"; "Inspection")
 
@@ -46,11 +46,11 @@ This is primarily a Phase 0 (setup), Phase 4 (experiment design), and Phase 5 (c
 
 9.  **Definition of Done as a retro-inspection domain.** "The Definition of Done is a formal description of the state of the Increment when it meets the quality measures required for the product." [V] The DoD is one of the five retro-inspection domains. If the DoD was not honoured during the Sprint, the retro should surface why — as a process question, not a blame question. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Artifacts, "Increment", "Commitment: Definition of Done")
 
-10.  **Framework immutability — partial retro is not a retro.** "While implementing only parts of Scrum is possible, the result is not Scrum. Scrum exists only in its entirety." [V] A retro that skips data gathering, or closes without a commitment, is a debrief — not a retro. (Source: Schwaber & Sutherland, *The Scrum Guide*, End Note)
+10.  **Framework immutability, by analogy.** "While implementing only parts of Scrum is possible, the result is not Scrum. Scrum exists only in its entirety." [V] The Guide's rule is that partial Scrum is not Scrum; applied to the retro's own facilitation structure, a retro that skips data gathering or closes without a commitment is a debrief. (Source: Schwaber & Sutherland, *The Scrum Guide*, End Note)
 
 11.  **Empiricism over forecast tools.** "Only what has already happened may be used for forward-looking decision making." [V] For Phase 4 experiment design: work from what this Sprint actually produced, not from what a prior Sprint's forecast said it would produce. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "The Sprint")
 
-12.  **Timebox discipline.** "The Sprint Retrospective concludes the Sprint. It is timeboxed to a maximum of three hours for a one-month Sprint. For shorter Sprints, the event is usually shorter." Position: after the Sprint Review, before the next Sprint Planning. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "Sprint Retrospective")
+12.  **Timebox discipline.** "The Sprint Retrospective concludes the Sprint. It is timeboxed to a maximum of three hours for a one-month Sprint. For shorter Sprints, the event is usually shorter." [V] Position: after the Sprint Review, before the next Sprint Planning. (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, "Sprint Retrospective")
 
 ## Questions to Ask During Retro
 
@@ -87,7 +87,7 @@ This is primarily a Phase 0 (setup), Phase 4 (experiment design), and Phase 5 (c
 
 | Need | Question | Source-tag |
 |---|---|---|
-| Adaptation confirmed | Has at least one specific improvement been committed, registered in the Sprint Backlog, and owned? If not, the retro has produced inspection without adaptation — pointless. | Scrum Theory, "Inspection" |
+| Adaptation confirmed | Has at least one specific improvement been committed (ideally added to the Sprint Backlog, which the Guide allows)? If no change is committed, the retro has produced inspection without adaptation. | Scrum Theory, "Inspection" |
 
 ## What to Look For
 
@@ -108,7 +108,7 @@ Reach for this distillation when:
 - An improvement from a prior retro was never added to the Sprint Backlog and has effectively disappeared.
 - The team selects the easiest or most popular improvement rather than the most impactful one.
 - Low psychological safety is being treated as background noise rather than as a Transparency failure that breaks the chain.
-- There is confusion between a debrief (valuable, but incomplete) and a retro (the designated Adaptation event).
+- There is confusion between a debrief (valuable, but incomplete) and a retro (the Sprint's inspect-and-adapt event for the team's way of working).
 
 The Scrum Guide does not carry facilitation methodology, experiment design discipline, psychological safety techniques, or systems-thinking diagnostics. For facilitation moves, reach for the Field Guide; for experiment design, the Open Practice Library; for recurring-pattern diagnosis, SSDL systems archetypes.
 
@@ -124,13 +124,13 @@ Applying the Guide's disciplines: in the next session, two moves. First, address
 
 ## Anti-patterns This Reference Helps Avoid
 
-1. **Treating the retro as a status debrief.** The retro is the designated Adaptation event of the Sprint cycle — not a recap session. If it produces no adaptation, it has not run.
+1. **Treating the retro as a status debrief.** The retro's purpose is "to plan ways to increase quality and effectiveness" [V], not to recap. If it produces no adaptation, it has not done its job.
 
 2. **Producing improvements with no Sprint Backlog registration.** "We'll try to do better" is not a Backlog Item. Without registration, the commitment is invisible and the inspection chain has no artefact to inspect next Sprint.
 
 3. **Defaulting the inspection scope to processes only.** Individuals, interactions, tools, and the Definition of Done are all first-class retro-inspection domains. Ignoring four of five leaves the team's blind spots intact.
 
-4. **Selecting the easiest or most popular improvement.** The Guide is explicit: the most impactful improvements are addressed as soon as possible, not the most comfortable ones.
+4. **Selecting the easiest or most popular improvement.** The Guide is explicit that "The most impactful improvements are addressed as soon as possible" [V]; picking the comfortable one instead is the anti-pattern.
 
 5. **Treating low psychological safety as background noise.** Transparency is the first pillar. If the team cannot speak honestly, inspection is misleading and the chain fails from the start.
 
@@ -142,8 +142,8 @@ Applying the Guide's disciplines: in the next session, two moves. First, address
 
 | Reference | Relationship |
 |---|---|
-| Approach Perfect Field Guide to Scrum Events | The Field Guide's 5-segment Derby-Larsen retro structure is the host methodology; the Scrum Guide provides the why behind each segment and the quality gate (Adaptation must result) |
-| TC 25-20, *A Leader's Guide to After-Action Reviews* | TC 25-20's discovery-over-critique frame and open-ended question discipline operationalise the Scrum Guide's Transparency pillar; both insist the session is not a grading exercise |
+| Approach Perfect Field Guide to Scrum Events | The Field Guide's six-segment sample agenda (derived from Derby and Larsen) is the host methodology; the Scrum Guide provides the why behind each segment and the quality gate (Adaptation must result) |
+| TC 25-20, *A Leader's Guide to After-Action Reviews* | TC 25-20's discovery-over-critique frame and open-ended question discipline operationalise the Scrum Guide's Transparency pillar; TC 25-20 holds that an AAR does not grade success or failure, while the Scrum Guide is silent on grading |
 | SSDL Systems Thinking Foundations | SSDL's system-archetypes brief addresses Phase 3 insight for recurring problems; the Scrum Guide's chain provides the structural context (why Adaptation must follow Inspection) |
 | Open Practice Library | OPL's Retrospective and Design of Experiments practices are the facilitation complement; the Scrum Guide supplies the framework rules OPL operates within |
 | Open Kanban | Open Kanban's Kaizen discipline and the Scrum Guide's Adaptation pillar are parallel commitments to continuous improvement; Open Kanban's Holistic-Systemic value adds the systems scope the Guide leaves to practitioners |
@@ -151,11 +151,11 @@ Applying the Guide's disciplines: in the next session, two moves. First, address
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Scrum Guide does not cite Agile, the Agile Manifesto, Schwaber's or Sutherland's earlier writings, or the broader iterative-development literature in its body [BT]. The empirical-pillars framing (Transparency, Inspection, Adaptation) draws on Schwaber and Sutherland's prior work but those works are not cited in the Guide itself. The flat-epistemic-authority claim ("no sub-teams or hierarchies" [V]) echoes sociocratic and self-organisation traditions, none of which the Guide names [BT]. The Derby-Larsen retrospective methodology that the Field Guide operationalises is not referenced in the Scrum Guide; the Guide says the retro "inspects" without specifying how.
+**Borrowed-through gaps.** The Scrum Guide does not cite Agile, the Agile Manifesto, Schwaber's or Sutherland's earlier writings, or the broader iterative-development literature in its body. The empirical-pillars framing (Transparency, Inspection, Adaptation) draws on Schwaber and Sutherland's prior work (the Guide "documents Scrum as developed, evolved, and sustained for 30-plus years by Jeff Sutherland and Ken Schwaber" [V], End Note, "Scrum Guide History"), but those works are not cited in the Guide itself. The Derby-Larsen retrospective methodology that the Field Guide operationalises is not referenced in the Scrum Guide; the Guide says the retro "inspects" without specifying how.
 
-**Named limits of the source.** The Guide specifies the Sprint Retrospective's purpose, scope, output discipline, timebox, and position within the Sprint — but does not specify facilitation technique, question form, psychological safety method, data-gathering structure, or experiment design discipline. It is a framework definition, not a facilitation guide. The Guide also does not address what to do when adaptation authority is absent (when the team has identified the needed change but lacks the power to make it); this is a real retro scenario left outside the Guide's scope. The Guide's scope note is explicit: "Rather than provide people with detailed instructions, the rules of Scrum guide their relationships and interactions." [V] (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Definition)
+**Named limits of the source.** The Guide specifies the Sprint Retrospective's purpose, scope, output discipline, timebox, and position within the Sprint — but does not specify facilitation technique, question form, psychological safety method, data-gathering structure, or experiment design discipline. It is a framework definition, not a facilitation guide. The Guide gives no retro-specific escalation procedure when the team has identified a needed change but lacks the power to make it; it assigns the problem to the Scrum Master, who serves the team by "Causing the removal of impediments to the Scrum Team's progress" [V]. The Guide's scope note is explicit: "Rather than provide people with detailed instructions, the rules of Scrum guide their relationships and interactions." [V] (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Definition)
 
-**Evidence-marker continuity.** The three-pillar causal chain ("Transparency enables inspection... Inspection without adaptation is considered pointless") is `[V]` in the deep ref (Scrum Theory, "Transparency"; "Inspection"); the distillation carries it as the foundational retro rationale. The five inspection domains, the most-impactful-improvements output rule, and the Sprint Backlog registration mechanism are all `[V]` in the deep ref (Scrum Events, "Sprint Retrospective"); the distillation applies them as Phase 2, Phase 3, and Phase 4 discipline respectively. The framework-immutability claim ("the Scrum framework, as outlined herein, is immutable") is `[V]` in the deep ref (End Note); the distillation translates it to the partial-retro anti-pattern. No claims in this distillation go beyond what the deep ref carries as `[V]` or `[AP]`; there are no `[AE]` inferences introduced here.
+**Evidence-marker continuity.** The three-pillar causal chain ("Transparency enables inspection... Inspection without adaptation is considered pointless") is `[V]` in the deep ref (Scrum Theory, "Transparency"; "Inspection"); the distillation carries it as the foundational retro rationale. The five inspection domains, the most-impactful-improvements output rule, and the allowance for adding improvements to the Sprint Backlog are all `[V]` in the deep ref (Scrum Events, "Sprint Retrospective"); the distillation applies them as Phase 2, Phase 3, and Phase 4 discipline respectively. The framework-immutability claim ("the Scrum framework, as outlined herein, is immutable") is `[V]` in the deep ref (End Note); the distillation translates it to the partial-retro anti-pattern. No claims in this distillation go beyond what the deep ref carries as `[V]` or `[AP]`; there are no `[AE]` inferences introduced here.
 
 ## Related concepts
 

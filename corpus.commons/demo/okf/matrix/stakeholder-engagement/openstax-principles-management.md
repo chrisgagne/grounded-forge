@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-27T13:37:52+13:00
+  at: 2026-09-28T15:12:32+13:00
 ---
 # OpenStax Principles of Management, Stakeholder-Engagement Distillation
 
@@ -28,7 +28,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 ## Key Concepts for Stakeholder Engagement
 
-1.  **Stakeholders defined.** "Any group or individual who can affect or is affected by an organization's strategies, major transactions, and activities. Stakeholders include employees, suppliers, customers, shareholders, the government, media, and others." [V] The list expands by context. (Source: OpenStax, *Principles of Management*, Ch 5.6)
+1.  **Stakeholders defined.** A stakeholder is "any group or individual who can affect or is affected by an organization's strategies, major transactions, and activities. Stakeholders include employees, suppliers, customers, shareholders, the government, media, and others." [V] The list expands by context. (Source: OpenStax, *Principles of Management*, Ch 5.6)
 
 2.  **Eight stakeholder-analysis questions.** The text offers eight questions for stakeholder analysis: who are the stakeholders, what are their stakes, what do supporters/resisters stand to gain/lose, what types of power do they have, what strategies retain support and win over resistance. The framework structures stakeholder mapping. (Source: Ch 5.6, Exhibit 5.8)
 
@@ -50,19 +50,19 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 11.  **Leader-Member Exchange (LMX).** Leadership as a set of dyadic relationships of varying quality. High-quality exchange relationships produce in-group members with higher performance, commitment, and satisfaction; low-quality produces out-group dynamics. Stakeholder engagement carries the same dyadic logic: each stakeholder relationship has its own quality trajectory. (Source: Ch 13.2)
 
-12.  **Mintzberg's liaison role.** Managers spend most of their time with peers across organisational boundaries (Stewart's 47 per cent finding). The liaison role establishes and maintains connections that produce the information and trust needed for stakeholder work. (Source: Ch 1.2 and Ch 16.3)
+12.  **Mintzberg's liaison role.** Managers spend more time with peers than with anyone else (47 per cent in Stewart's study, against 12 per cent with superiors). The liaison role establishes and maintains connections that produce the information and trust needed for stakeholder work. (Source: Ch 1.2 and Ch 16.3)
 
-13.  **Follett's three conflict-resolution paths.** Dominance (one party dictates terms), compromise (neither fully gets what they want), integration (both parties state preferences and reach a creative agreement). Integration is the strongest stakeholder-engagement outcome where stakes are high and relationships are ongoing. (Source: Ch 3.6)
+13.  **Follett's three conflict-resolution paths.** Dominance (one party dictates terms), compromise (neither fully gets what they want), integration (both parties state preferences and reach a creative agreement). Integration is the one path of the three that satisfies both sides; dominance is rarely possible and carries social costs, and compromise leaves neither side happy. (Source: Ch 3.6)
 
 14.  **Open systems and external alignment.** Organisations are open systems exchanging resources with their environment through feedback loops (Katz and Kahn). Stakeholder engagement is the human side of those resource exchanges; closed-system thinking misses the resource flows that determine viability. (Source: Ch 4.4)
 
-15.  **FCPA and UN Global Compact frameworks.** The Foreign Corrupt Practices Act prohibits American firms from accepting/offering bribes to foreign officials. The UN Global Compact's ten principles guide international firms in less-developed countries. These frameworks ground cross-border stakeholder engagement under the single ethical standard. (Source: Ch 5.7)
+15.  **FCPA and UN Global Compact frameworks.** The Foreign Corrupt Practices Act prohibits American firms from accepting/offering bribes to foreign officials. The UN Global Compact's ten principles guide international firms in less-developed countries. These frameworks set floors for cross-border stakeholder engagement; the Levi Strauss case (Ch 5.7) shows negotiating between the firm's norms and local norms above that floor. (Source: Ch 5.7)
 
-16.  **Brown-Trevino moral entrepreneur.** A moral entrepreneur creates or enforces a new ethical norm (the source credits Kaptein and Becker with this definition), and Brown and Trevino found that people exposed to one are more likely to become one. The related concept, Brown and Trevino's ethical leadership, is defined as "the demonstration of normatively appropriate conduct through personal actions and interpersonal relationships, and the promotion of such conduct to followers through two-way communication, reinforcement, and decision-making" [BT]. Stakeholder engagement at scale requires moral entrepreneurs in leadership positions. (Source: Ch 5.8)
+16.  **Moral entrepreneur (Kaptein) and ethical leadership (Brown and Trevino).** A moral entrepreneur creates or enforces a new ethical norm (the source credits Kaptein and Becker with this definition), and Brown and Trevino found that people exposed to one are more likely to become one. The related concept, Brown and Trevino's ethical leadership, is defined as "the demonstration of normatively appropriate conduct through personal actions and interpersonal relationships, and the promotion of such conduct to followers through two-way communication, reinforcement, and decision-making" [BT]. (Source: Ch 5.8)
 
 17.  **Servant leadership and stewardship.** Servant leadership (Greenleaf): "selflessly working with followers to achieve shared goals that improve collective, rather than individual, welfare" [V]. Stewardship: empowering followers to make decisions and gain control over their work. Both anchor a stakeholder-pluralist leadership style. (Source: Ch 5.4)
 
-18.  **Control-oriented vs involvement-oriented planning.** Control-oriented approaches emphasise top-down direction and tight monitoring; involvement-oriented approaches emphasise participatory goal-setting and self-managing work groups (Tavistock Institute, sociotechnical model). Many organisations (John Lewis Partnership, Volvo, Motorola) have had successful experiences with employee involvement. (Source: Ch 17.8)
+18.  **Control-oriented vs involvement-oriented planning.** Control-oriented approaches emphasise top-down direction and tight monitoring; involvement-oriented approaches emphasise participatory goal-setting and self-managing work groups (Tavistock Institute, sociotechnical model). Many organisations (John Lewis Partnership, Volvo, Motorola) have had successful experiences with employee involvement. (Source: Ch 17.5, Ch 17.8)
 
 ## Questions to Ask During Stakeholder Engagement
 
@@ -80,10 +80,10 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 | Need | Question |
 |---|---|
-| Apply the appropriate ethical lens | Is this an aggregate-consequences (utilitarian) decision, a duty-based (universalism / rights / justice) decision, or a character-based (virtue ethics, common good) decision? Different lenses produce different engagement strategies. |
+| Apply the appropriate ethical lens | Which principle frames it: consequences (utilitarianism), duty (universalism), entitlements (rights), fair procedure and compensation (justice), character (virtue ethics), the wider community (common good), or local norms (relativism, with its limits)? Different lenses produce different engagement strategies. |
 | Apply the news-test | If the engagement and its outcome were on the front page of a major newspaper tomorrow, would I feel guilty or proud? |
 | Determine the question shape | Is this a ratification (decision largely made; stakeholder consent needed)? A consultation (input shapes a decision still open)? A genuine co-design (no decision pre-made)? Be honest about the framing. |
-| Choose the conflict-resolution path | Given the stakes, time, power balance, and relationship importance, is this a Follett dominance, compromise, or integration situation? Integration is strongest for ongoing high-stakes relationships. |
+| Choose the conflict-resolution path | Given the stakes, time, power balance, and relationship importance, is this a Follett dominance, compromise, or integration situation? Integration is the one path of the three that satisfies both sides. |
 | Choose control-oriented vs involvement-oriented | Is the engagement appropriate for top-down control, or does the situation warrant participatory involvement? The more complex the change, the greater the need for involvement. |
 | Surface ethical implications | Whose interests would be harmed by the most expedient outcome? Are we accounting for stakeholders without voice? |
 
@@ -105,14 +105,14 @@ This distillation synthesises these threads into a working pattern: how to map s
 | Distinguish process from relationship conflict | Is this disagreement about substance (productive) or about parties (corrosive)? Surface productive process conflict; quell relationship conflict. |
 | Apply Follett integration | Is integration achievable — both parties stating preferences, reaching a creative agreement that satisfies both? Or is dominance / compromise the realistic option for this case? |
 | Apply intervention modes | If multicultural conflict, is adaptation appropriate (work with or around differences)? Structural intervention (reorganise to reduce friction)? Managerial intervention (decide without team)? Exit (last resort)? |
-| Match power-base to influence | Reward and coercive power produce compliance and alienation; rationality, expertise, and moralistic appeal produce commitment. Are we using the influence path that fits the relationship's future? |
-| Test for fairness | Are we applying procedural justice? Even when distributive outcomes disappoint, fair process sustains commitment. |
+| Match power-base to influence | Coercive power tends to alienate; reward power produces measured, tit-for-tat responses; rationality, expertise, and moralistic appeal produce commitment. Are we using the influence path that fits the relationship's future? |
+| Test for fairness | Are we applying procedural justice? People judge the fairness of the process used to reach an outcome as well as the outcome itself (procedural vs distributive justice, Ch 14.4). |
 
 ### Phase 5: Reaching Agreement (Closing the engagement)
 
 | Need | Question |
 |---|---|
-| Test agreement understanding | Do all parties understand the same agreement? Cultural differences shape contract interpretation: a signed contract is the end in some cultures and the beginning in others. |
+| Test agreement understanding | Do all parties understand the same agreement? Cultural differences can hide divergent readings: the Suntory-Jim Beam case shows one side assuming individual authority where the other decided by consensus (Ch 6.4). |
 | Document obligations and accountabilities | Who is responsible for what, by when? Are accountability structures clear? |
 | Address ratification before closing | Has the agreement been ratified by parties whose acceptance is needed for execution? |
 | Provide for change | What happens if circumstances change? Are exit provisions and revision procedures defined? |
@@ -125,7 +125,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 | Sustain liaison | Are we maintaining the connections that produced the engagement, or letting them lapse until the next negotiation? |
 | Detect drift | Are stakeholder positions, resources, or contingencies shifting in ways that require re-engagement? |
 | Build durable trust | Are we building trust through follow-through on commitments, or eroding it through inattention? |
-| Engage the moral-entrepreneur role | Is leadership modelling the ethical standards externally claimed? Tone-at-the-top failures degrade engagement faster than any tactical mistake. |
+| Engage the moral-entrepreneur role | Is leadership modelling the ethical standards externally claimed? Tone at the top sets the ethical climate (Ch 4.5, Ch 5.4); leadership behaviour that contradicts stated values undercuts the engagement. |
 | Capture learnings | What did the engagement teach us about this stakeholder, this issue type, our own engagement habits? |
 
 ## What to Look For
@@ -133,13 +133,13 @@ This distillation synthesises these threads into a working pattern: how to map s
 - **Pattern: A stakeholder list grows at every meeting.** Signal: each session reveals new stakeholders who should have been included. Diagnosis: incomplete initial mapping; missing latent stakeholders; the eight-question framework was not applied. Follow-up: pause to remap; surface stakeholders without voice systematically.
 - **Pattern: Late-stage objections threaten an apparently closed agreement.** Signal: a stakeholder who appeared satisfied raises new concerns at ratification. Diagnosis: the engagement was treated as ratification when it was actually consultation; or a stakeholder with standing was inadequately represented. Follow-up: revisit the framing; identify what was missed; re-engage rather than override.
 - **Pattern: Conflict has descended into personal attack.** Signal: arguments about people rather than issues. Diagnosis: process conflict has shifted into relationship conflict; participants are in reactive-system processing. Follow-up: pause; reframe to substantive disagreements; consider third-party consultation.
-- **Pattern: Same agreement, different expectations across cultures.** Signal: parties believe they have agreed but the implementation reveals divergent understandings. Diagnosis: cultural differences in what an agreement means (contract-as-end versus contract-as-beginning, individual-vs-consensus authority). Follow-up: explicitly verify shared understanding; document expectations in concrete terms; build in checkpoints.
+- **Pattern: Same agreement, different expectations across cultures.** Signal: parties believe they have agreed but the implementation reveals divergent understandings. Diagnosis: cultural differences in who holds decision authority (individual vs consensus; the cultural paradox, Ch 6.4). Follow-up: explicitly verify shared understanding; document expectations in concrete terms; build in checkpoints.
 - **Pattern: The engagement is framed only in shareholder-wealth terms.** Signal: discussion focuses on financial impact; non-financial stakeholders are invisible or treated as costs. Diagnosis: shareholder-primacy framing has crept in despite the text's rejection. Follow-up: surface the triple bottom line; apply Drucker's eight-area framework; test against the news-test.
 - **Pattern: Engagement happens only when there is a problem.** Signal: stakeholder relationships are reactive, episodic, transactional. Diagnosis: liaison-role investment is inadequate; trust is being depleted rather than accumulated. Follow-up: build sustained engagement habits independent of immediate need.
-- **Pattern: Influence attempts produce compliance and alienation rather than commitment.** Signal: stakeholders go along but resentfully. Diagnosis: coercive or pure-reward power being used where referent, expert, or rational influence would have produced commitment. Follow-up: shift to influence based on rationality, expertise, or trust; rebuild relationships before next engagement.
+- **Pattern: Influence attempts produce compliance and alienation rather than commitment.** Signal: stakeholders go along but resentfully. Diagnosis: coercive power (alienation) or reward power (measured, transactional responses) being used where rationality, expertise, or moralistic appeal would have produced commitment. Follow-up: shift to influence based on rationality, expertise, or trust; rebuild relationships before next engagement.
 - **Pattern: Cross-cultural stakeholder engagement runs through pure rationality and a single cultural frame.** Signal: well-argued cases fail to land; engagement feels off in ways the team cannot diagnose. Diagnosis: cultural intelligence is operating only in the head, not the body or heart; or the dominant cultural frame is being unconsciously imposed. Follow-up: develop body and heart sources of cultural intelligence; use diverse facilitators; engage local cultural expertise.
-- **Pattern: A relativism defence is being used for ethically-questionable conduct.** Signal: "It's how things work here" justifying behaviour the firm's standards prohibit. Diagnosis: ethical relativism has been used to evade the single standard and the FCPA / UN Global Compact frameworks. Follow-up: surface the single ethical standard; apply the FCPA / UN Global Compact frameworks; reject the relativism defence explicitly.
-- **Pattern: Stakeholder coalitions form to oppose an initiative.** Signal: coalition emerges with shared interests opposing the proposal. Diagnosis: stakeholders have aggregated their power as counterpower; resource dependencies have triggered. Follow-up: engage the coalition's actual interests; consider whether the proposal needs revision rather than harder push; integration framing (Follett) is more durable than dominance.
+- **Pattern: A relativism defence is being used for ethically-questionable conduct.** Signal: "It's how things work here" justifying behaviour the firm's standards prohibit. Diagnosis: ethical relativism is being stretched past the limits the text names (blind spots, enabling abuses; Ch 5.3) and past FCPA / UN Global Compact obligations (Ch 5.7). Follow-up: name those limits; apply the FCPA / UN Global Compact frameworks.
+- **Pattern: Stakeholder coalitions form to oppose an initiative.** Signal: coalition emerges with shared interests opposing the proposal. Diagnosis: stakeholders have pooled their power (see OB Ch 13.3 on resource dependence for the mechanics). Follow-up: engage the coalition's actual interests; consider whether the proposal needs revision rather than harder push; integration framing (Follett) seeks an agreement that satisfies both sides, where dominance carries social costs.
 
 ## When to Use This Reference
 
@@ -156,7 +156,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 A multinational consumer-goods firm is planning to close a manufacturing plant in a developing country and shift production to a regional hub in another country. Stakeholders include: plant employees, the local community, the host government, regional governments, suppliers, customers, shareholders, the press, NGO observers, and global supply-chain partners. Each holds different power bases, faces different consequences, and operates within a different cultural frame.
 
-Mapping: applying the eight-question framework. Plant employees hold expert and referent power (skills, community attachment); the local community holds legitimate and referent power; the host government holds legitimate and coercive power (regulatory, tax); the regional government holds reward power (incentives for the new hub); suppliers hold expert and resource power; customers hold reward power; the press holds reward and coercive power (reputational); NGOs hold expert and referent power. Latent stakeholders: families of workers, local schools and businesses dependent on plant employment, and future generations affected by environmental cleanup.
+Mapping: applying the eight-question framework. Plant employees hold expert and referent power (skills, community attachment); the local community holds legitimate and referent power; the host government holds legitimate and coercive power (regulatory, tax); the regional government holds reward power (incentives for the new hub); suppliers hold expert and resource power (the text's extension of expert power to needed resources); customers hold reward power; the press holds reward and coercive power (reputational); NGOs hold expert and referent power. Latent stakeholders: families of workers, local schools and businesses dependent on plant employment, and future generations affected by environmental cleanup.
 
 Framing: the closure decision is final, but the *how* of closure is open — timing, severance, transition support, environmental remediation, supplier transition, customer continuity. The CEO is honest about the framing (consultation about the how, not co-design of the whether). The CEO applies the seven ethical principles: utilitarian framing alone (greatest good for most) fails because it under-weights local stakeholders; universalism (duty) and rights framings demand explicit treatment of worker dignity and community continuity; virtue ethics asks what the firm's "best self" would do. The CEO commits to the news-test: would this plant closure be on the front page in a way that produces pride or shame?
 
@@ -170,7 +170,7 @@ Closing: agreements include explicit milestones, communication checkpoints, envi
 
 Sustaining: post-closure, the firm sustains liaison with the local community, the host government, and former workers' associations. Trust is being built for future engagements rather than depleted in this one. The firm's stakeholder-management practices feed back into broader CSR reporting and the triple-bottom-line accounting.
 
-This worked example illustrates several key concepts in the source: the eight-question stakeholder analysis, the seven ethical principles, the rejection of pure shareholder framing, the four cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, the Plan-Do-Check-Act cycle, and the sustained-liaison principle. The scenario is operator-authored; all framework citations trace through `references/openstax-principles-management-deep.md`. The eight-question stakeholder framework, the seven ethical principles (Ch 5), the four Hofstede/GLOBE cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, and the news-test framing are all `[AP]`-marked passages in the deep ref. No verbatim source blockquotes appear in this distillation.
+This worked example illustrates several key concepts in the source: the eight-question stakeholder analysis, the seven ethical principles, the rejection of pure shareholder framing, the four cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, the Plan-Do-Check-Act cycle, and the sustained-liaison principle. The scenario is operator-authored; all framework citations trace through `references/openstax-principles-management-deep.md`. The seven ethical principles, Hofstede, GLOBE and Follett are [BT] in the deep ref; head-body-heart cultural intelligence is [V]; the news test's "If you would feel guilty or ashamed, don't do it!" is [V]; the eight-question framework is unmarked paraphrase of Exhibit 5.8. No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -180,9 +180,9 @@ This worked example illustrates several key concepts in the source: the eight-qu
 - **Ethical relativism as defence for prohibited conduct.** "It's how things work here" cannot override the firm's ethical standards or the FCPA / UN Global Compact frameworks.
 - **Coercive power as default influence.** It produces compliance and alienation, not commitment; subsequent engagement is harder.
 - **Closed-system thinking about stakeholder relationships.** Treating engagement as transactional rather than as a continuing exchange of resources misses the ongoing nature of organisational viability.
-- **Dominance framing where integration is achievable.** Winning the moment can lose the relationship; integration (Follett) takes longer but produces durable agreements.
-- **Tone-at-the-top failures.** Leadership behaviour that contradicts stated stakeholder values degrades engagement faster than tactical missteps.
-- **Treating CSR as PR.** Greenwashing claims without substantive practice change destroys stakeholder trust when discovered.
+- **Dominance framing where integration is achievable.** Dominance is rarely possible and carries social costs; integration (Follett) finds an agreement that satisfies both.
+- **Tone-at-the-top failures.** Leadership behaviour that contradicts stated stakeholder values undercuts the engagement; tone at the top sets the ethical climate (Ch 5.4).
+- **Treating CSR as PR.** CSR claims without practice change are a form of organisational dishonesty, whose costs (tarnished reputation, lower productivity) "greatly outweigh any short-term gains" [BT] (Cialdini et al., Ch 5.4).
 - **Avoiding necessary process conflict.** Avoiding conflict appears to maintain relationships in the short term but allows substantive disagreements to fester.
 
 ## Integration with Other References
@@ -192,29 +192,29 @@ This worked example illustrates several key concepts in the source: the eight-qu
 | OpenStax, Organizational Behavior (Ch 6, Ch 9, Ch 10, Ch 11, Ch 12, Ch 13, Ch 14) | The two books treat stakeholder engagement with strong overlap. Pair them: OpenStax OB anchors the political mechanics (power bases, resource dependence, strategic contingencies, BATNA); Principles of Management adds the explicit ethical lenses, the eight-question stakeholder framework, the rejection of shareholder-primacy, and the change-model lens. Where both apply, use both rather than choose. |
 | Stakeholder theory (Freeman) | The text reproduces Freeman's stakeholder theory directly; the eight-question analysis structures Freeman's framework into actionable questions. |
 | Triple bottom line (Elkington) | The TBL framing (people, planet, profit) anchors stakeholder analysis beyond financial-only thinking. |
-| Servant leadership (Greenleaf) and stewardship | The text endorses servant leadership as the ethical leadership style. Pair with the leadership chapter (Ch 13) for the LMX dyadic-relationship lens. |
+| Servant leadership (Greenleaf) and stewardship | The text presents servant leadership and stewardship among its ethical-leadership styles (Ch 5.4). Pair with the leadership chapter (Ch 13) for the LMX dyadic-relationship lens. |
 | Hofstede and GLOBE cultural dimensions | The text reproduces Hofstede's four dimensions and adds GLOBE's two (performance, humane orientation). Cross-cultural stakeholder engagement requires attention to all six. |
 | Cultural intelligence (head, body, heart) | The text develops cultural intelligence with these three sources. Pair with the four conflict-source / four-intervention framework for multicultural engagement. |
-| Conflict resolution (Follett, Thomas) | Follett's three paths (dominance, compromise, integration) and Thomas's five modes provide the choice apparatus for stakeholder conflict. Integration is preferred for high-stakes ongoing relationships. |
-| Appreciative Inquiry (Cooperrider) | For stakeholder engagement at scale, especially for organisation-wide change, AI offers a bottom-up alternative producing stronger commitment than top-down ratification. |
+| Conflict resolution (Follett here; Thomas in OB Ch 14.2 and Business Law Ch 2.1) | Follett's three paths (dominance, compromise, integration) pair with the Thomas modes held by OB and Business Law to give the choice apparatus for stakeholder conflict. |
+| Appreciative Inquiry (Cooperrider) | For stakeholder engagement at scale, especially for organisation-wide change, AI offers a bottom-up, abundance-based alternative to top-down ratification (Ch 10.3). |
 | Mintzberg's managerial roles | The liaison role is central to sustained engagement; the informational roles structure the data flows that engagement requires. |
-| FCPA and UN Global Compact frameworks | Cross-border stakeholder engagement under the single ethical standard. Pair with the seven ethical principles and the rejection of ethical relativism. |
+| FCPA and UN Global Compact frameworks | Cross-border ethics floors. Pair with the seven ethical principles, including the limits the text sets on ethical relativism (Ch 5.3), and the Levi Strauss negotiated-values case (Ch 5.7). |
 | Open systems (Katz and Kahn) | Stakeholder engagement is the human side of the resource exchanges that constitute the organisation as an open system. Closed-system thinking misses this. |
-| Brown-Trevino moral entrepreneur | Sustained ethical-stakeholder engagement at scale requires moral entrepreneurs in leadership positions who model the standards in their own behaviour. |
+| Moral entrepreneur (Kaptein) and ethical leadership (Brown and Trevino) | Names the leadership role that creates or enforces new ethical norms (Kaptein, Becker) and the conduct ethical leaders demonstrate and promote (Brown and Trevino) (Ch 5.8). |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
-- R. Edward Freeman — stakeholder theory; eight-question framework (Ch 2.4) [BT]
-- Mary Parker Follett — integration vs dominance vs compromise (Ch 2.4) [BT]
+- R. Edward Freeman — stakeholder theory (Ch 5.6) [BT]; the eight questions come from Exhibit 5.8 (Ch 5.6)
+- Mary Parker Follett — integration vs dominance vs compromise (Ch 3.6) [BT]
 - Hofstede — power distance, individualism/collectivism, uncertainty avoidance, masculinity/femininity dimensions (Ch 6) [BT]
 - GLOBE research programme — performance orientation, humane orientation (additional to Hofstede) (Ch 6) [BT]
 - Robert Greenleaf — servant leadership (Ch 5.4) [BT]
-- Brown and Trevino — moral entrepreneur (Ch 5.8) [BT]
+- Kaptein and Becker — moral entrepreneur; Brown and Trevino — ethical leadership and the exposure finding (Ch 5.8) [BT]
 - Cooperrider — Appreciative Inquiry (Ch 10) [BT]
 - McKinsey 7-S model (Ch 4.4) [BT]
 - FCPA, UN Global Compact — cross-border ethics frameworks (Ch 5.7) [BT]
-- Katz and Kahn — open systems (Ch 1) [BT]
+- Katz and Kahn — open systems (Ch 3.7; Ch 4.4) [BT]
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:
 - The source is a US-context management textbook; international chapters note cultural differences but require primary sources for specific country contexts.
@@ -223,7 +223,7 @@ This worked example illustrates several key concepts in the source: the eight-qu
 - The text holds strong positions (against shareholder-primacy, against pure-rationality models, against conflict avoidance); practitioners should note these as the text's normative commitments, not universal consensus.
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `references/openstax-principles-management-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (108 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The plant-closure scenario is operator-authored. The shareholder-primacy critique and conflict-avoidance critique are `[AR]`. The forced-ranking/GE finding is `[V]` in the deep ref; "culture eats strategy for breakfast" is Drucker's line as the source relays it, so it is `[BT]`. Where the source cites external authors (Freeman, Follett, Hofstede, GLOBE, Greenleaf), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.
+**Evidence-marker continuity.** The deep reference at `references/openstax-principles-management-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The plant-closure scenario is operator-authored. The shareholder-primacy critique is `[V]` in the deep ref (Ch 2.1) and quoted `[V]` here; the conflict-avoidance critique is `[AR]` (Ch 2.4) with a supporting `[V]` passage (Ch 15.4). The forced-ranking/GE finding is `[V]` in the deep ref; "culture eats strategy for breakfast" is Drucker's line as the source relays it, so it is `[BT]`. Where the source cites external authors (Freeman, Follett, Hofstede, GLOBE, Greenleaf), the `[BT]` marker travels with the citation; this distillation names those dependencies in the Borrowed-through section above.
 
 ## Related concepts
 

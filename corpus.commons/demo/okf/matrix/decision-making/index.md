@@ -83,10 +83,11 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Identify true root cause → [open-practice-library](open-practice-library.md)
 - Classify domain complexity → [open-practice-library](open-practice-library.md)
 - Diagnose complex-problem characteristics → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
-- Apply the broken-ankle test → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
+- Apply Raney's broken-ankle caution → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Surface the room's mental models before deciding → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
-- Test whether the environment is stable or fluid → [mcdp1-warfighting](mcdp1-warfighting.md)
-- Frame your tempo relative to the situation's → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Treat the decision method as guidance, not procedure → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Set the decision clock → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Accept the information gap → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 2: Bounding
 
@@ -139,7 +140,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Vet a tool before adoption → [flo-facilitation-guide](flo-facilitation-guide.md)
 - Identify the stock vs the flow → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Account for accumulated history → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
-- Set decision rights by intent-sharing → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Set decision rights by intent → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 3: Exploring
 
@@ -154,8 +155,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Test for behavioural anomalies → [openstax-economics-3e](openstax-economics-3e.md)
 - Surface elasticity → [openstax-economics-3e](openstax-economics-3e.md)
 - Generate capital-structure alternatives → [openstax-principles-finance](openstax-principles-finance.md)
-- Enumerate the four IP options → [openstax-entrepreneurship](openstax-entrepreneurship.md)
-- Apply the nine business-model-canvas building blocks → [openstax-entrepreneurship](openstax-entrepreneurship.md)
+- Apply the business-model canvases → [openstax-entrepreneurship](openstax-entrepreneurship.md)
 - Run the STP sequence on alternatives → [openstax-principles-marketing](openstax-principles-marketing.md)
 - Generate the full competitor-positioning map → [openstax-principles-marketing](openstax-principles-marketing.md)
 - Apply differential analysis to the managerial-accounting decision → [openstax-accounting-vol2](openstax-accounting-vol2.md)
@@ -191,7 +191,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Probe symptom-vs-cause framing via 5 Whys → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Generate batch-reduction alternatives → [open-kanban](open-kanban.md)
 - Generate de-multitasking alternatives → [open-kanban](open-kanban.md)
-- Apply the Theory-of-Constraints question → [open-kanban](open-kanban.md)
+- Surface the system-level view → [open-kanban](open-kanban.md)
 - Frame option as value-add or as waste-elimination → [open-kanban](open-kanban.md)
 - Consider a two-track design for varied stretch → [flo-facilitation-guide](flo-facilitation-guide.md)
 - Choose a participatory structure → [flo-facilitation-guide](flo-facilitation-guide.md)
@@ -209,7 +209,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Map the feedback loops producing the pattern → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Test the situation against system archetypes → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Audit my own and the team's mental-model partiality → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
-- Search gaps, not surfaces → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Get honest opinions before the decision → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Look for gaps, not surfaces → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 4: Deciding
 
@@ -222,7 +223,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Apply marginal-analysis test → [openstax-economics-3e](openstax-economics-3e.md)
 - Use the right profit-maximisation rule → [openstax-economics-3e](openstax-economics-3e.md)
 - Translate across time → [openstax-economics-3e](openstax-economics-3e.md)
-- Apply expected value with risk adjustment → [openstax-economics-3e](openstax-economics-3e.md)
+- Weigh outcomes by their probability → [openstax-economics-3e](openstax-economics-3e.md)
 - Watch for free-rider trap → [openstax-economics-3e](openstax-economics-3e.md)
 - Apply NPV / IRR decision rule → [openstax-principles-finance](openstax-principles-finance.md)
 - Apply the single ethical standard → [openstax-business-ethics](openstax-business-ethics.md)
@@ -230,7 +231,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Apply the entrepreneurial pivot criteria → [openstax-entrepreneurship](openstax-entrepreneurship.md)
 - Apply contract-formation tests → [openstax-business-law](openstax-business-law.md)
 - Choose ADR mode → [openstax-business-law](openstax-business-law.md)
-- Apply the psychological research quality filter → [openstax-psychology-2e](openstax-psychology-2e.md)
+- Apply the psychological research quality filter → [jones-evidence-based-sweng](jones-evidence-based-sweng.md)
 - Apply the positioning decision framework → [openstax-principles-marketing](openstax-principles-marketing.md)
 - Run the keep-or-drop or make-or-buy analysis → [openstax-accounting-vol2](openstax-accounting-vol2.md)
 - Run fist of five before commitment → [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
@@ -275,8 +276,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Test strategic alignment of the chosen topology → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Name the topology-specific failure mode you are accepting → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test for co-creator vs recipient framing of the org-change → [org-topologies-primer-2025](org-topologies-primer-2025.md)
-- Filter the choice through the main effort → [mcdp1-warfighting](mcdp1-warfighting.md)
-- Check the inaction asymmetry before defaulting to wait → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Name the main effort → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Price the wait → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 5: Ratifying
 
@@ -299,7 +300,6 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Schedule the next inspection point → [scrum-guide-2020](scrum-guide-2020.md)
 - Preserve the wider-investigation obligation alongside the individual response → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Couple the just-culture decision to organisational HR and incident reporting policies → [nhs-just-culture-guide](nhs-just-culture-guide.md)
-- Ratify the learning product with affected participants (readback) → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Lock the Safety Action Plan with owners and deadlines (Learning Review only) → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Lock the next-action commitment before closing the review → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Revise SOPs surfaced as broken → [tc-25-20-army-aar](tc-25-20-army-aar.md)
@@ -320,7 +320,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Declare the target topology and archetype set in OT vocabulary → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Frame adopted frameworks as elevation tools, not the decision itself → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Commit to incremental elevation and name the first experiments → [org-topologies-primer-2025](org-topologies-primer-2025.md)
-- Ratify intent, not instructions → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Close the dissent window → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Hand over task and intent → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## Phase 6: Monitoring
 
@@ -345,10 +346,9 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Adapt the Sprint Backlog when conditions change → [scrum-guide-2020](scrum-guide-2020.md)
 - Inspect outcomes at the Sprint Review → [scrum-guide-2020](scrum-guide-2020.md)
 - Improve the process at the Sprint Retrospective → [scrum-guide-2020](scrum-guide-2020.md)
-- Consider Sprint cancellation only if Sprint Goal obsolete → [scrum-guide-2020](scrum-guide-2020.md)
+- Consider Sprint cancellation when the Sprint Goal becomes obsolete → [scrum-guide-2020](scrum-guide-2020.md)
 - Watch for partial-implementation drift → [scrum-guide-2020](scrum-guide-2020.md)
 - Re-enter the just-culture tree when new facts surface → [nhs-just-culture-guide](nhs-just-culture-guide.md)
-- Run the FLA team's own After-Action Review → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Detect drift on a Safety Action Plan → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Verify the retraining decision actually happened → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Verify the SOP revision has been implemented → [tc-25-20-army-aar](tc-25-20-army-aar.md)
@@ -356,7 +356,6 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Watch for mature-team delivery range → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Don't demonstrate undone work → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Run the meta-retrospective → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
-- Watch for partial-implementation drift → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Run What/So What/Now What as a recurring debrief → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Check the half-life of the decision → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Use Appreciative Interviews on the success cases → [liberating-structures-handbook](liberating-structures-handbook.md)
@@ -374,7 +373,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Re-MAP the organisation against the target archetypes → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test for drift back toward Resource Topology under predictability pressure → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Surface new bottlenecks after elevation → [org-topologies-primer-2025](org-topologies-primer-2025.md)
-- Test whether the framework is still developing judgment → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Sort errors of boldness from errors of inaction → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Hold a critique that asks why → [mcdp1-warfighting](mcdp1-warfighting.md)
 
 ## All concept files (27)
 
@@ -385,7 +385,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)
 - [LFUO 2024](lfuo-learning-review-guide-2024.md)
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md)
-- [U.S. Marine Corps, MCDP-1 Warfighting](mcdp1-warfighting.md)
+- [U.S. Marine Corps, MCDP 1: Warfighting](mcdp1-warfighting.md)
 - [NHS Just Culture Guide](nhs-just-culture-guide.md)
 - [Hurtado, Open Kanban](open-kanban.md)
 - [Open Practice Library](open-practice-library.md)

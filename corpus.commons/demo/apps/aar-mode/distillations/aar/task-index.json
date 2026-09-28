@@ -6,96 +6,6 @@
   "source_file": "corpus.commons/demo/distillations/aar/AAR-DISTILLATION-INDEX.md",
   "sections": [
     {
-      "section": "Quick start by incident type",
-      "columns": [
-        "situation",
-        "ids"
-      ],
-      "rows": [
-        [
-          "**Small in-team event, want fast learning**",
-          [
-            "00o"
-          ]
-        ],
-        [
-          "**Cross-functional production incident**",
-          [
-            "00o",
-            "005",
-            "007"
-          ]
-        ],
-        [
-          "**Customer-impact event, blame language anticipated**",
-          [
-            "007",
-            "005",
-            "00o"
-          ]
-        ],
-        [
-          "**Near-miss, no harm but learning opportunity**",
-          [
-            "005",
-            "00o"
-          ]
-        ],
-        [
-          "**Software incident with engineering-organisation contributory factors**",
-          [
-            "00o",
-            "005",
-            "003",
-            "004"
-          ]
-        ],
-        [
-          "**Recurring incident pattern (drift)**",
-          [
-            "00n",
-            "001",
-            "005"
-          ]
-        ],
-        [
-          "**Just-culture call (individual vs system)**",
-          [
-            "007",
-            "005"
-          ]
-        ],
-        [
-          "**AAR that surfaces org-design questions**",
-          [
-            "00j",
-            "00c"
-          ]
-        ],
-        [
-          "**AAR surfaces org structure as a named contributory factor (team-archetype mismatch, topology drag)**",
-          [
-            "00p"
-          ]
-        ],
-        [
-          "**AAR action requires structural escalation to leadership**",
-          [
-            "00p",
-            "00j"
-          ]
-        ],
-        [
-          "**Project-completion review, not an incident**",
-          [
-            "00o",
-            "009",
-            "000"
-          ]
-        ]
-      ]
-    },
-    {
       "section": "Phase 0: Scoping (which tool, what time-budget, what attendance)",
       "columns": [
         "need",
@@ -111,17 +21,17 @@
         [
           "Choose informal AAR for small in-team learning",
           "00o",
-          "A platoon-equivalent event; the 15-minute on-the-spot AAR with pencil and paper is often better than a formal review."
+          "A platoon-level-and-below event; an on-the-spot informal AAR uses the same format as a formal one with minimal resources and gives immediate feedback while the training is fresh."
         ],
         [
           "Choose formal AAR for high-stakes cross-functional incident",
           "00o",
-          "Formal-AAR 6-8 week lead time; two-echelons-above evaluator rule; experience-over-rank OC selection."
+          "Formal-AAR 6-8 week lead time; two-levels-above rule for external evaluations; experience-over-rank OC selection."
         ],
         [
           "Convene without administrative-action contamination",
           "005",
-          "Without an explicit no-punitive-action commitment in the delegation of authority, honest accounts will not surface. The administrative firewall is non-negotiable."
+          "The guide requires an explicit no-punitive-action commitment in the signed delegation of authority and calls the firewall critical: information is the lifeblood of safety."
         ],
         [
           "Hold the default-to-system posture before the conversation begins",
@@ -131,7 +41,7 @@
         [
           "Budget time honestly for the depth required",
           "00o",
-          "The TC's *no rushing, no waste* discipline: 30-45 min platoon, 1 hr company, 2 hr battalion-and-above. Match duration to depth."
+          "The TC's planning allowances: 30-45 min platoon, 1 hr company, 2 hr battalion-and-above. Match duration to depth."
         ],
         [
           "Set the climate and spirit as operational concern",
@@ -141,17 +51,27 @@
         [
           "Identify the fratricide-equivalent topics",
           "00o",
-          "What events in your domain are severity-overrides-time-budget topics, named in advance not after the fact?"
+          "What events in your domain must always be discussed in detail, in a review held as soon as possible after they happen? Name them in advance, not after the fact."
         ],
         [
           "Establish the Ten Principles and Agreements",
           "005",
-          "Group-dialogue agreements as the precondition for honest accounts in any tool from the ladder."
+          "Group-dialogue agreements as the precondition for honest accounts; explain the FLA process and discuss all ten before the dialogue opens."
         ],
         [
           "Scope as cross-functional rather than team-internal",
-          "00o",
-          "The AAR is the cross-functional, event-triggered learning conversation; team-internal iterative learning routes to [[retro]] instead."
+          "00m",
+          "Scrum's Sprint Retrospective inspects the team's own way of working, sprint by sprint; the AAR is its event-triggered, cross-functional counterpart, so team-internal iterative learning routes to [[retro]] instead."
+        ],
+        [
+          "Surface the senior's stance on mistakes before accounts begin",
+          "00q",
+          "Operator asks how to convene without administrative-action contamination: MCDP 1 ties candour to the senior's tolerance (\"a subordinate's willingness to admit mistakes depends on the commander's willingness to tolerate them\"); pair with LFUO's no-punitive-action assurance for the procedure."
+        ],
+        [
+          "Hold the review while memory is fresh, successes included",
+          "00q",
+          "Operator describes time pressure tempting them to skip: MCDP 1 holds critiques \"immediately after completing training, before memory of the events has faded\", after success as well as failure."
         ]
       ]
     },
@@ -176,7 +96,7 @@
         [
           "Build the timeline through the Five Hows",
           "005",
-          "Structured decision-reconstruction tool inside the Lessons Learned Analysis. \"Use those that are helpful and don't waste time trying to cook-book the process.\""
+          "Structured decision-reconstruction tool inside the Lessons Learned Analysis: for each key decision, explore how and why choices that seemed wrong in hindsight \"were actually valid or at least legitimate in context at the time\"; consensus is not the goal."
         ],
         [
           "Treat divergent accounts as evidence, not problem",
@@ -186,7 +106,7 @@
         [
           "Apply the deflection-question protocol for emotional recall",
           "005",
-          "Interview as soon as possible; deflect to perception rather than performance; keep participants focused on their own perspective."
+          "Do not take the interview deeper into traumatic recall (the guide leaves that to mental health professionals); if the participant goes there anyway, deflect to something that went right or that they know well, and make sure they know how to reach mental health support."
         ],
         [
           "Interview before hindsight contaminates accounts",
@@ -196,7 +116,7 @@
         [
           "Surface attribution and perception biases in participant accounts",
           "00h",
-          "Reach for the OB framing on perception (bottom-up vs top-down), fundamental attribution error, actor-observer bias."
+          "Reach for the OB framing on perception (perceptual selectivity, functional background), fundamental attribution error, self-serving bias."
         ],
         [
           "Use open-ended questions, not yes/no",
@@ -206,22 +126,32 @@
         [
           "Surface mental-model diversity in the room",
           "00n",
-          "Each participant holds a partial-but-valid model; surface partial models *before* discussing options."
+          "Each participant holds a partial-but-valid model; surface each vantage point separately *before* integrating the accounts."
         ],
         [
           "Build a shared model of the system the team can hold",
           "001",
-          "When the system is too complex for one head — Rich Pictures, CLD, or Theory of Change diagram as a boundary object for collective sense-making."
+          "When accounts compete and the group needs a shared picture — Rich Pictures first for low-overhead collective externalisation, then a CLD once the group is ready to negotiate causal links; the map is a boundary object the group argues with instead of with each other."
         ],
         [
           "Distinguish facilitative from transmissive question framing",
           "002",
-          "The first question for any learning engagement: is the learning in the content (transmissive) or in the conversation (facilitative)?"
+          "Ch 1's shift from direct to facilitative teaching, applied to AAR questions: does the question carry the facilitator's conclusion, or open the participant's account?"
         ],
         [
           "Recognise hindsight bias contaminating the analysis",
           "00l",
           "Hindsight bias, availability heuristic, anchoring — the perception and memory frame for facilitator vocabulary."
+        ],
+        [
+          "Put the reasons and the intent on the timeline",
+          "00q",
+          "Operator describes building a timeline: for each action, record what the person was trying to achieve and why the move made sense; MCDP 1's critique focuses \"not so much on the actions we took as on why we took those actions and why they brought the results they did\"."
+        ],
+        [
+          "Weigh accounts by where each person stood",
+          "00q",
+          "Operator describes participant accounts diverging: all hands contribute; a competent person at the point of decision better appreciates the true situation than a senior some distance away; everyone acted on incomplete, inaccurate or contradictory information."
         ]
       ]
     },
@@ -241,12 +171,12 @@
         [
           "Refuse counterfactual reasoning",
           "005",
-          "\"If they had done X, then Y would have happened\" is the forbidden move; learn why people did what they actually did."
+          "\"If this person had done X, then the outcome would have been Y and the accident would not have occurred\" is the forbidden move; learn why people did what they actually did."
         ],
         [
           "Apply contributory-factors-not-the-cause framing",
           "00o",
-          "\"What happened, why did it happen, what to do about it, what to carry forward\" — never *the* cause. Plural."
+          "TC 25-20 takes no position on single versus multiple causes; its discussion techniques (chronological, BOS across phases) let several contributing actions surface. Ask what else contributed besides the first explanation offered."
         ],
         [
           "Look for multiple improbable events",
@@ -261,27 +191,27 @@
         [
           "Map the feedback loops producing the pattern",
           "00n",
-          "Replace the X-causes-Y frame with a structural read: what reinforcing and balancing loops produce the pattern? CLD is a hypothesis to iterate."
+          "Replace the X-causes-Y frame with a structural read: what feedback structure kept the problem in place, and which loop would bring it back if the named cause were fixed? The CLD is a hypothesis to revise."
         ],
         [
           "Generate a CLD or other systems-map artefact for contributory factors",
           "001",
-          "When the contributory factors form a directed cyclic graph; PSM submap analysis surfaces leverage points."
+          "When the contributory factors form feedback loops (a CLD is less useful where loops are absent or unimportant); PSM submap analysis focuses a large map on particular questions or issues."
         ],
         [
           "Surface accumulated history shaping the current state",
           "00n",
-          "The blank-slate failure mode — treating a current state as if it has no history; \"meeting that [team] as an accumulation of their history\"."
+          "Ignoring accumulated history is the failure mode: the incident surfaced from accumulated stocks (trust, fatigue, degraded margin), not from nowhere."
         ],
         [
           "Apply Five Whys with surprise-as-progress-signal",
-          "009",
-          "At an AAR: ask \"why\" five times; if you're rarely surprised, you may not be digging deep enough."
+          "000",
+          "At an AAR, check 5-Whys depth by surprise: \"If you're rarely surprised by your root causes, you may not be digging deep enough.\""
         ],
         [
-          "Distinguish active failures from latent conditions",
+          "Separate the individual's action from the conditions the tree tests",
           "007",
-          "Reason-lineage borrowed-through: active failures are at the sharp end; latent conditions are organisational; both belong in the analysis."
+          "Contributors sit either in the individual's action or in the conditions the tree tests (protocols under Q3; peer behaviour, training and supervision under Q4); both belong in the analysis."
         ],
         [
           "Read software-incident contributory factors against empirical patterns",
@@ -291,12 +221,12 @@
         [
           "Locate decision-rights ambiguity as contributory factor",
           "004",
-          "RACI matrix surfacing the gap between *who decided* and *who should have*."
+          "RACI matrix built for the moment of failure: did anyone hold the Responsible and Accountable cells for the step that failed, or were they empty or contested?"
         ],
         [
           "Identify code-smell-shaped design-debt contributors",
           "004",
-          "Twelve named code smells with refactoring prescriptions; the smell vocabulary lets the team name what kept compounding."
+          "Eleven named code smells with refactoring prescriptions; the smell vocabulary lets the team name what kept compounding."
         ],
         [
           "Detect Goodhart's-Law-shaped contributory factor",
@@ -304,19 +234,19 @@
           "A metric was being treated as a target and collapsed under control pressure; the measurement itself contributed."
         ],
         [
-          "Locate the system constraint (Goldratt-borrowed-through)",
+          "Hold the whole system in view (Deming + Goldratt borrowed-through)",
           "008",
           "\"No single part of a system can ever bring overall improvement\"; Holistic / Systemic value gives the substrate for system-level contributory factors."
         ],
         [
           "Name an org-structure contributory factor with archetype precision",
           "00p",
-          "The LLA has surfaced that a team-archetype mismatch (e.g. CAPS-2 team asked to deliver CAPS-3 outcomes) was among the multiple improbable events; OT gives the naming vocabulary that \"siloed\" and \"communication breakdown\" lack."
+          "The LLA has surfaced that a team-archetype mismatch (e.g. CAPS-2 team asked to deliver CAPS-3 outcomes) was among the multiple improbable events; OT gives the naming vocabulary that \"the team was siloed\" and \"communication broke down\" lack."
         ],
         [
           "Identify topology-mismatch as a recurring contributory-factor pattern",
           "00p",
-          "The incident shows a pattern of Resource-Topology drag (utilisation-optimised structure forced to do discovery work), Delivery-Topology absent-outcome-validation, or Adaptive-Topology variance absorbed as incident."
+          "The incident shows a pattern of Resource-Topology drag (utilisation-optimised structure asked for discovery or speed) or Delivery-Topology absent-outcome-validation."
         ],
         [
           "Name the local-optimisation amplifier among contributory factors",
@@ -326,12 +256,22 @@
         [
           "Identify single-team-island structure as a contributory factor source",
           "00p",
-          "A previously-fixed team produced repeat failure inside an unchanged surrounding system; OT names this as the structural source — the island intervention left the surround's contributory factors untouched."
+          "A previously-fixed team keeps failing inside an unchanged surrounding system; the Primer's warning applies — fixing the team alone leaves the surround's structures, processes and contributory factors untouched."
         ],
         [
           "Test whether Resource-Topology framing of frontline staff contributed",
           "00p",
           "Frontline staff were being treated as fungible resources (rotated, denied voice in design, denied end-to-end accountability); the Resource-framing is a named structural contributory factor, not a leadership-style critique."
+        ],
+        [
+          "Widen a single cause to many forces and self-made friction",
+          "00q",
+          "Operator describes a single-cause analysis: MCDP 1 treats each episode as \"the unique product of myriad moral, mental, and physical forces\"; prompt for self-induced friction (unclear goal, poor coordination, unclear or complicated plans, complex task organisation or command relationships, complicated technology)."
+        ],
+        [
+          "Show that waiting carried risk too",
+          "00q",
+          "Operator describes counterfactual creeping in: where the counterfactual assumes waiting was safe, MCDP 1's \"Risk is equally common to action and inaction\" answers it; LFUO carries the rule against counterfactuals itself."
         ]
       ]
     },
@@ -356,7 +296,7 @@
         [
           "Apply the substitution test as peer-and-supervision probe",
           "007",
-          "Would peers in same circumstances have behaved similarly; was training missed; was supervision absent? Any Yes routes to system locus."
+          "Would peers in same circumstances have behaved similarly; was training missed; was supervision absent? Any Yes routes to Recommendation E: singling out the individual is unlikely to be appropriate, and wider actions may include, but not be limited to, the individual."
         ],
         [
           "Decompose a multi-action incident into one-action evaluations",
@@ -366,12 +306,12 @@
         [
           "Test the reckless-and-willful threshold",
           "005",
-          "The criminal-act threshold (intentional, unjustifiable, foreknowledge of likely serious harm); high and bright; below it FLA continues, at/above it terminates."
+          "The FLA termination threshold (conduct that is intentional, unjustifiable, and done with foreknowledge that it was likely to result in serious harm, death or injury); the guide expects it to be highly unlikely; below it FLA continues, at/above it terminates."
         ],
         [
           "Terminate the learning analysis on culpability grounds",
           "005",
-          "If the reckless-and-willful threshold is met, team-leader writes a memo to the Delegating Official terminating the analysis without disclosing details."
+          "If the reckless-and-willful threshold is met, the FLA terminates and interview notes go to the lead facilitator for confidential and secure storage."
         ],
         [
           "Select the recommendation end-state from the just-culture tree",
@@ -381,12 +321,17 @@
         [
           "Communicate the just-culture decision to stakeholders",
           "007",
-          "The guide is both decision aid and communication tool; differentiation by circumstances, not by outcome."
+          "The guide is both decision aid and communication tool, shared with all parties in advance; its dual purpose is protecting staff from unfair targeting and protecting patients by not treating wider patient safety issues as individual issues."
+        ],
+        [
+          "Name which kind of error is on the table",
+          "00q",
+          "Operator surfaces an individual-vs-system call: MCDP 1 separates overbold errors (dealt with leniently), errors of inaction or timidity (dealt with severely) and stupid or reckless acts (no licence); use it to bring waits into scope, and route the individual-action decision to the NHS tree."
         ],
         [
           "Read the just-culture call against organisational behaviour substrate",
           "00h",
-          "Attribution biases (fundamental attribution error, actor-observer bias) systematically push toward individual-blame in observers; surface this before deciding."
+          "The fundamental attribution error pushes observers toward blaming the individual rather than the situation, and self-serving bias leads each function to attribute the failure to adjacent teams; surface both before deciding."
         ]
       ]
     },
@@ -406,7 +351,7 @@
         [
           "Hold the FLA / Learning Review boundary on recommendations",
           "005",
-          "Recommendations require Learning Review with focus groups, academic SMEs, Learning Review Board, Safety Action Plan; cannot be added to an FLA after the fact."
+          "Recommendations require Learning Review with focus groups, optional academic SMEs, Learning Review Board, Safety Action Plan; an FLA cannot produce them."
         ],
         [
           "Treat critical capabilities as stop-rules, not gradients",
@@ -416,7 +361,7 @@
         [
           "Allocate retraining resources to weakness, not strength",
           "00o",
-          "Default allocation rule for finite development resource is known weakness, not known strength. Deviation requires a reason."
+          "Put training priority on new or deficient tasks; the TC still names sustaining proficiency on tasks already at standard as important, just less so."
         ],
         [
           "Surface ownership ambiguity before adjourning",
@@ -431,27 +376,27 @@
         [
           "Surface latent dissent before commit",
           "004",
-          "Fist of five six-level voting before commit — *two or fewer fingers blocks*; surfaces latent dissent the meeting tone is suppressing."
+          "Fist of five six-level voting before commit — *two or fewer fingers is the cue to stop, discuss and re-vote*; surfaces latent dissent the meeting tone is suppressing."
         ],
         [
           "Frame escalation to leadership when contributors are above team authority",
           "00j",
-          "Mintzberg's six structures + organisational-design primitives; name the right interlocutor for the structural change being requested."
+          "The six structure types + organisational-design primitives; name the right interlocutor for the structural change being requested."
         ],
         [
           "Frame the action's stakeholder-prioritisation",
           "00c",
-          "Mitchell-Agle-Wood stakeholder prioritisation when actions cross multiple stakeholder interests; Donaldson-Preston three approaches."
+          "Grunig-Hunt categories with power × interest and exigency prioritisation (Ch 3.2, Ch 3.3) when actions cross multiple stakeholder interests; Donaldson-Preston three approaches."
         ],
         [
           "Frame ethical exposure surfaced by the AAR",
           "00c",
-          "When the AAR has surfaced duty-of-care, employee-rights, or whistleblower-protection questions, the ethical substrate names them."
+          "When the AAR has surfaced safety-obligation, whistleblower-protection, or known-but-unreported-problem questions, the ethical substrate names them."
         ],
         [
           "Avoid AI overconfidence in proposed actions",
           "009",
-          "Open Practice Library's Evals practice (against AI overconfidence) and Human-in-the-Loop (against silent AI delegation) are the action-discipline cues."
+          "When an AI system contributed: Evals (against AI overconfidence) and Human-in-the-Loop (against silent AI delegation) name what the actions must address, the confidence the AI's outputs carried and where the human review gates sat; Design of Experiments makes each action a testable experiment."
         ],
         [
           "Frame the action through Establish Shared Principles",
@@ -459,19 +404,19 @@
           "Against copy-without-principles: the action is grounded in the underlying principle, not just the surface practice."
         ],
         [
-          "Constrain actions to the one constraint",
+          "Limit the number of actions",
           "008",
-          "Holistic / Systemic value (Goldratt borrowed-through): find the one constraint; local optimisation is not system improvement."
+          "Reduce the Batch Size practice: focus and limit the number of things in progress; commit to few actions and finish them."
         ],
         [
-          "Decide retraining-allocation for software-incident root themes",
+          "Decide improvement-investment allocation for software-incident root themes",
           "003",
-          "Survival-adjusted ROI applied to retraining decisions; the survival rate of the system shapes the retraining horizon."
+          "Survival-adjusted break-even applied to code or architecture improvements meant to cut future maintenance cost; the survival rate of the system shapes the investment horizon."
         ],
         [
           "Frame structural-remediation actions as Elevating-Kata experiments",
           "00p",
-          "Structural actions are framed as \"thoughtful experiments with named hypotheses and checkpoints\", not pronouncements; pairs with LFUO Learning-Review-required-for-recommendations constraint for structural changes."
+          "Structural actions are framed as \"thoughtful experiments\" with named hypotheses and checkpoints, not pronouncements; pairs with LFUO Learning-Review-required-for-recommendations constraint for structural changes."
         ],
         [
           "Frame escalation of org-design contributory factors to leadership",
@@ -487,6 +432,11 @@
           "Defend against single-element structural fixes in action design",
           "00p",
           "A proposed remediation that changes only one org-design element (a role, a policy, a committee) without systems-fit carries the local-optimisation warning: \"flow can get worse.\" The action needs to address systems-fit."
+        ],
+        [
+          "Test actions for added control and equipment-only fixes",
+          "00q",
+          "Operator describes drafting actions: \"Better equipment is not the cure for all ills\"; information technology tempts toward precise, positive control; people oversupervised in routine work cannot be expected to show initiative in the field."
         ]
       ]
     },
@@ -501,7 +451,7 @@
         [
           "Close with What/So What/Now What sequenced debrief",
           "006",
-          "Three-question sequence (Center for Creative Leadership lineage; explicitly named *After Action Debrief* in the handbook); refuses jumping to Now-What before What and So-What."
+          "Three-question sequence (included in many Center for Creative Leadership programs, borrowed-through; explicitly named *After Action Debrief* in the handbook); refuses jumping to Now-What before What and So-What."
         ],
         [
           "Apply TC 25-20 closing-comments rule",
@@ -511,12 +461,12 @@
         [
           "Lock in the next-action commitment before the review ends",
           "00o",
-          "The benefits live in follow-up; an AAR without a clear retraining commitment has not produced its benefit."
+          "The real benefits live in follow-up; an AAR without a clear retraining commitment leaves them unrealised."
         ],
         [
           "Mark delayed retraining as visible and timed",
           "00o",
-          "If the next action is deferred, the deferral must be visible and timed, not silent."
+          "If retraining is deferred, the people involved must understand the task was not performed to standard and that retraining will occur; keep the deferral timed and communicated, not silent."
         ],
         [
           "Revise SOPs surfaced by the review",
@@ -524,19 +474,24 @@
           "If the AAR has surfaced SOP problems, the SOP must be revised and the change implemented during the next iteration."
         ],
         [
+          "Keep room for judgement in a revised SOP",
+          "00q",
+          "Operator describes the AAR surfacing SOP problems: MCDP 1 lists standing operating procedures as one means of fighting despite uncertainty, alongside simple, flexible plans, contingency planning and fostering initiative; write the purpose into the revised step."
+        ],
+        [
           "Open the response zone for the helpless team",
           "006",
-          "15% Solutions reframes locus-of-control: *\"Where do you have freedom to act? What's in your 15%?\"* (Gareth Morgan borrowed-through)."
+          "15% Solutions reframes locus-of-control: *\"Where do you have freedom to act? What's in your 15%?\"* (the handbook's own question; it separately quotes Gareth Morgan on \"15-percent initiatives\", borrowed-through)."
         ],
         [
           "Confirm learning as precondition for continuous improvement",
           "008",
-          "\"Learning is the key concept before continuous improvement can ever happen!\"; AAR is the named learning form, not the improvement itself."
+          "\"Learning is the key concept before continuous improvement can ever happen!\"; the source offers Retrospectives, Strategy Meetings or Kaizen Groups as optional forms and the AAR is one such form; an action list without shared learning has not produced its benefit."
         ],
         [
           "Frame the AAR as discovery, not critique",
           "00o",
-          "AAR vs critique is a decision rule about how to construct evaluation evidence; participants discover what happened."
+          "A critique transmits one viewpoint and stifles learning; the AAR aggregates and tests views across all participants, who discover for themselves what happened."
         ],
         [
           "Address force protection (safety) at every AAR",
@@ -546,7 +501,7 @@
         [
           "Schedule OT re-mapping to test whether structural recommendations took hold",
           "00p",
-          "\"Periodic re-mapping is an easy and fast way to complete a learning loop of feedback and adapting\" — did the topology actually shift, or did the structural change stall at announcement? Tie re-mapping to a calendar date and a participant list."
+          "\"Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop of feedback and adapting\" — did the topology actually shift, or did the structural change stall at announcement? Tie re-mapping to a calendar date and a participant list."
         ],
         [
           "Cross-link to the iterative team-internal cadence",

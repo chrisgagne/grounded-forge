@@ -1,0 +1,359 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/openstax-introduction-business-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-187 of 187",
+    "deep": "lines 1-908 of 908",
+    "complete": true
+  },
+  "claims_audited": 158,
+  "tally": {
+    "faithful": 124,
+    "minor_drift": 25,
+    "unsupported": 5,
+    "contradicted": 4
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Relevance; also KC2 (16, incl. concept anchor), Questions 55, WTLF 113, When-to-Use 132, Worked Example 149, Anti-patterns 156",
+      "claim": "Carroll's four-component CSR pyramid for ethics decisions affecting users (Ch 2.3)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Wrong attribution, repeated seven times: the source presents the pyramid with no theorist. The concept anchor at line 16 (`carroll-csr-pyramid`) pushes the misattribution into the concept index.",
+      "evidence": "Deep 879: 'Pyramid of corporate social responsibility ... presented in source without a theorist attribution (Ch 2.3) [AP]'. Converted source: the only 'Carroll' is a reporter byline in the endnotes (50299).",
+      "fix": "correct: replace 'Carroll's (four-component CSR) pyramid' with 'the four-component CSR pyramid' at 8, 16, 55, 113, 132, 149, 156; change the line-16 anchor to `<!-- concept: corporate-social-responsibility -->` (the slug the decision-making distillation uses)."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "the operations chapter (Ch 10) is the corpus's only structured treatment of the make-or-buy decision as a procurement primitive",
+      "grade": "CONTRADICTED",
+      "failure_mode": "OpenStax Accounting Vol 2 carries a structured make-or-buy analysis (avoidable-cost comparison with a worked example). The distillation's own Integration row (line 172) says so.",
+      "evidence": "openstax-accounting-vol2-deep 17, 279-281 ('Make-or-buy decisions ... compares the avoidable cost of producing internally to the cost of purchasing externally').",
+      "fix": "correct: the operations chapter (Ch 10.4) gives the qualitative make-or-buy criteria (quantity, secrecy, supplier reliability and quality); OpenStax Accounting Vol 2 (Ch 10.3) gives the relevant-cost arithmetic."
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Software-Business Relevance; also Questions 88, Named Limits 185",
+      "claim": "The IT chapter (Ch 13) is the corpus's only treatment of MIS / ERP / VPN / ASP / e-commerce as line items in a business survey",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "VPN and ASP are in the converted source's Ch 13 but not in the deep ref, which lists networks (LAN, WAN, internet, intranets, extranets), MIS, technology planning, protection and trends. The deep ref places ERP under Ch 10.4.",
+      "evidence": "Deep 607 (Ch 13 coverage), 455 (ERP, Ch 10.4). Source 36513 and 36737 (VPNs), 36787-36793 (ASPs, 'also ... software-as-a-service'), 36412 (ERP in Ch 13).",
+      "fix": "cycle-to-deep: add to deep 607 'Several forms of WANs—intranets, virtual private networks (VPN), and extranets—use internet technology' and the ASP passage ('Companies subscribe, usually on a monthly basis, to an ASP ... Other names for ASPs include on-demand software, hosted applications, and software-as-a-service') (Ch 13.2)."
+    },
+    {
+      "id": "D004",
+      "line": 16,
+      "section": "Key Concepts 2 (CSR pyramid)",
+      "claim": "For a software company, the irresponsible-but-legal category is where most data-handling, AI-deployment, and dark-pattern decisions sit.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "An empirical claim ('most') with no basis in the source or deep ref, sitting under a source citation.",
+      "evidence": "Deep 91: the three categories, with legal-and-responsible 'the vast majority'; nothing on software or data handling.",
+      "fix": "correct: For a software company, data-handling, AI-deployment and dark-pattern decisions are candidates for the irresponsible-but-legal category and should be tested against it."
+    },
+    {
+      "id": "D005",
+      "line": 18,
+      "section": "Key Concepts 3 (Stakeholder groups)",
+      "claim": "Each group has distinct engagement modalities and indicators of trust.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source sets out the business's distinct responsibilities to each group; 'engagement modalities' and 'indicators of trust' are not in it.",
+      "evidence": "Deep 95-100: responsibilities to employees, customers, society, investors.",
+      "fix": "correct: The source sets out the business's distinct responsibilities to each group (jobs and a safe, fair workplace; delivering what is promised; jobs, taxes and environmental care; economic return)."
+    },
+    {
+      "id": "D006",
+      "line": 26,
+      "section": "Key Concepts 7 (Gantt, CPM, PERT); also Questions 66",
+      "claim": "the CPM-vs-PERT choice turns on whether the activity-time variance is large enough to warrant the three-estimate discipline",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported by the converted source (CPM assumes task times are known with certainty; PERT's three estimates handle uncertainty) but not carried by the deep ref.",
+      "evidence": "Source 27554-27560: 'CPM assumes that the amount of time needed to finish a task is known with certainty ... In contrast, PERT assigns three time estimates for each activity'. Deep 463 lacks the certainty contrast.",
+      "fix": "cycle-to-deep: add to deep 463 'CPM assumes that the amount of time needed to finish a task is known with certainty; therefore, the CPM diagram shows only one number for the time needed to complete each activity' (Ch 10.5)."
+    },
+    {
+      "id": "D007",
+      "line": 32,
+      "section": "Key Concepts 10 (Risk-return)",
+      "claim": "Risk-return trade-off as universal financial principle. ... The principle extends beyond financial management to any software-business decision where loss probability and gain magnitude can be characterised ... (Source: Ch 16.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source calls it 'a basic principle in finance' and 'widely accepted', not universal, and applies it to financial managers' investment and financing decisions. The extension beyond finance is the distillation's own but is cited to Ch 16.1.",
+      "evidence": "Deep 674; source 44272-44276.",
+      "fix": "correct: **Risk-return trade-off.** 'A basic principle in finance' (Ch 16.1): \"The higher the risk, the greater the return that is required\" [V]. ... Applied here (the distillation's extension, not the source's) to feature investment, reliability spend, security hardening and technical-debt remediation."
+    },
+    {
+      "id": "D008",
+      "line": 38,
+      "section": "Key Concepts 13 (Sources of law)",
+      "claim": "Four primary sources ... (Source: App A, \"Contract Law\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited section: the four sources of law are in 'The Main Sources of Law'; only the contract elements come from 'Contract Law'.",
+      "evidence": "Deep 779 (App A, 'The Main Sources of Law'), 787 (App A, 'Contract Law').",
+      "fix": "correct: (Source: App A, \"The Main Sources of Law\"; \"Contract Law\")"
+    },
+    {
+      "id": "D009",
+      "line": 40,
+      "section": "Key Concepts 14 (IP); also Questions 97",
+      "claim": "For a software-business, the copyright regime governs source code by default; the patent regime governs software-implemented inventions (with jurisdictional variation) ... (97: copyright (life-plus-70 for printed/digital work))",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's copyright covers printed materials, works of art, photographs and movies; it says nothing about software or digital works. The software mappings are the distillation's legal extension, presented under the source citation.",
+      "evidence": "Deep 795. Source 49550-49556.",
+      "fix": "correct: mark the software mapping as the distillation's application ('Applied to software (not in the source): ...'); at 97 replace 'printed/digital work' with 'printed materials, art, photographs, movies'."
+    },
+    {
+      "id": "D010",
+      "line": 42,
+      "section": "Key Concepts 15 (Strict product liability); also WTLF 120, When-to-Use 129, Worked Example 149, Anti-patterns 162",
+      "claim": "For software, strict-liability exposure rises in regulated domains (medical, financial, transport) and is a load-bearing consideration for any product-launch decision touching consumer safety.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source never applies strict liability to software. Its doctrine covers personal injury or property damage from defective products or packaging; whether and how it reaches software is a legal premise the source does not supply. The same premise carries the What-to-Look-For pattern, a When-to-Use gate, a worked-example step and an anti-pattern.",
+      "evidence": "Deep 799. Source 49661-49665: 'A manufacturer or seller is liable for any personal injury or property damage caused by defective products or packaging—even if all possible care was used'.",
+      "fix": "correct: The source's strict-liability doctrine covers personal injury or property damage caused by defective products, even if all possible care was taken (App A). Whether it reaches a software product is a question for OpenStax Business Law or counsel; this source does not address software."
+    },
+    {
+      "id": "D011",
+      "line": 44,
+      "section": "Key Concepts 16 (Five-step process)",
+      "claim": "Five-step decision-making process for non-programmed decisions.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The source says managers follow the five steps whether a decision is programmed or non-programmed.",
+      "evidence": "Deep 250; source 16451: 'Whether a decision is programmed or nonprogrammed, managers typically follow five steps in the decision making process'.",
+      "fix": "correct: **Five-step decision-making process** (for programmed and non-programmed decisions alike)."
+    },
+    {
+      "id": "D012",
+      "line": 74,
+      "section": "Questions, Phase 3 (Choose departmentalization)",
+      "claim": "Most large organisations combine",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quantifier raised: the source says 'many'.",
+      "evidence": "Deep 278; source 18144: 'Many large organizations use several types of departmentalization.'",
+      "fix": "correct: Many large organisations combine several types"
+    },
+    {
+      "id": "D013",
+      "line": 78,
+      "section": "Questions, Phase 3 (Diagnose the motivation gap)",
+      "claim": "Are workers underperforming because hygiene factors (policy, supervision, working conditions) are absent (Herzberg)?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Inverts the source's account of Herzberg. Hygiene factors prevent dissatisfaction but 'could not serve as a source of satisfaction or motivation'; good working conditions 'won't make them work harder'. For performance the source points to motivating factors (achievement, recognition, the work itself, responsibility); lacking them, workers do 'an adequate job, rather than their best'. The question omits motivators.",
+      "evidence": "Deep 390. Source 24476-24486.",
+      "fix": "correct: Are workers doing adequate rather than best work because motivating factors (achievement, recognition, the work itself, responsibility) are missing (Herzberg)? Are they dissatisfied or leaving because hygiene factors (policy, supervision, working conditions) are poor?"
+    },
+    {
+      "id": "D014",
+      "line": 94,
+      "section": "Questions, Phase 5 (Four CSR levels)",
+      "claim": "The collapse is the most common ethics failure mode.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Frequency claim with no basis in the source or deep ref.",
+      "evidence": "Deep 89-91: pyramid and three categories; no frequency data.",
+      "fix": "strip"
+    },
+    {
+      "id": "D015",
+      "line": 96,
+      "section": "Questions, Phase 5 (Product-liability surface)",
+      "claim": "Is this a product whose defect could cause physical or financial harm to users? Strict liability applies even when all possible care was taken",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Widens the doctrine: the source's strict liability covers personal injury or property damage, not financial harm. (The software premise is covered by the line-42 finding.)",
+      "evidence": "Source 49661-49665.",
+      "fix": "correct: Is this a product whose defect could cause personal injury or property damage? Under strict liability (App A) the manufacturer or seller is liable even when all possible care was taken."
+    },
+    {
+      "id": "D016",
+      "line": 106,
+      "section": "Questions, Phase 6 (Leadership-styles continuum)",
+      "claim": "Autocratic in crisis with clear authority; participative when the team is mature; free-rein when expectations are clear and feedback channels work.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Autocratic in crisis' is not the source's case for the autocratic style; it gives the military ('by necessity') and newly hired employees who have not yet learned the job. Participative or free-rein then suits 'established' employees; free-rein works with highly motivated, experienced personnel.",
+      "evidence": "Deep 228-232. Source 15948-15951 (military), 16150-16159 (situational leadership: new hires respond to authoritative leadership until established), 16031 table (free-rein works well with highly motivated, experienced, educated personnel).",
+      "fix": "correct: Authoritative for people still learning the job; participative or free-rein once they are established; free-rein only when expectations are clear and feedback flows (Ch 6.4)."
+    },
+    {
+      "id": "D017",
+      "line": 107,
+      "section": "Questions, Phase 6 (IMC)",
+      "claim": "Inconsistent multi-channel messaging is the standard stakeholder-confusion source.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source says disjointed promotion led many companies to adopt IMC; 'the standard stakeholder-confusion source' is an unsupported generalisation.",
+      "evidence": "Source 34142-34146: 'This disjointed approach to promotion has propelled many companies to adopt the concept of integrated marketing communications (IMC).' Deep 588.",
+      "fix": "correct: The source presents IMC as the answer to disjointed promotion, which led many companies to adopt it (Ch 12.5)."
+    },
+    {
+      "id": "D018",
+      "line": 112,
+      "section": "What to Look For (tech vs business framing)",
+      "claim": "Diagnosis: the seven-environment scan has been compressed; the four omitted forces are where the next surprise will come from.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong: omitting all but competitive and technological leaves five forces, as line 155 says. 'where the next surprise will come from' is a prediction the source does not make.",
+      "evidence": "Deep 35: seven sub-environments.",
+      "fix": "correct: Diagnosis: the seven-environment scan has been compressed to two; the five omitted environments (economic, political and legal, demographic, social, global) go unwatched."
+    },
+    {
+      "id": "D019",
+      "line": 114,
+      "section": "What to Look For (Make-or-buy skipped); also Questions 64, Worked Example 143, Anti-patterns 157",
+      "claim": "the four make-or-buy criteria (quantity, secrecy, reliability, competitive-advantage)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source gives three considerations, with competitive advantage as the reason for secrecy, not a separate test. The distillation's own Key Concept 5 (line 22) lists three.",
+      "evidence": "Deep 453: 'quantity, secrecy needs, and supplier reliability/quality'. Source 27063-27078 ('special design features that need to be kept secret to protect a competitive advantage').",
+      "fix": "correct: the three make-or-buy considerations (quantity, secrecy to protect a competitive advantage, supplier reliability and quality); apply the same at 64, 143 and 157."
+    },
+    {
+      "id": "D020",
+      "line": 141,
+      "section": "Worked Example, Phase 1",
+      "claim": "The source's argument is that \"external environmental conditions are generally beyond the control of management and change constantly\"; managers are \"primarily adapters to, rather than agents of, change.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The first quotation is not word-for-word: it drops 'that affect a business' with no ellipsis. The second is exact.",
+      "evidence": "Source 1535-1536: 'the external environmental conditions that affect a business are generally beyond the control of management and change constantly.' Deep 35 quotes only 'generally beyond the control of management and change constantly'.",
+      "fix": "correct: The source's argument is that external conditions are \"generally beyond the control of management and change constantly\" [V]; managers are \"primarily adapters to, rather than agents of, change\" [V]."
+    },
+    {
+      "id": "D021",
+      "line": 143,
+      "section": "Worked Example, Phase 2",
+      "claim": "PERT assigns \"three time estimates per activity (optimistic, most probable, pessimistic) to anticipate delays.\" (Source: Ch 10.5, \"Scheduling\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Presented in quotation marks as the source's words but it is the deep ref's paraphrase (deep 463), not a [V] passage. The source reads 'PERT assigns three time estimates for each activity: an optimistic time for completion, the most probable time, and a pessimistic time. These estimates allow managers to anticipate delays'.",
+      "evidence": "Deep 463 (unmarked paraphrase). Source 27558-27560.",
+      "fix": "correct: PERT assigns three time estimates to each activity (optimistic, most probable, pessimistic) so managers can anticipate delays. (Source: Ch 10.5, \"Scheduling: When Do We Do It?\")"
+    },
+    {
+      "id": "D022",
+      "line": 147,
+      "section": "Worked Example, Phase 4",
+      "claim": "The source frames TQM as \"a commitment to constantly seek better ways of doing things\" [V] ... (Source: Ch 10.6, \"Quality Management and Lean Manufacturing\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The quoted words define continuous improvement, which TQM 'focuses on', not TQM itself (Key Concept 9 at line 30 gets this right). The cited section name does not exist; Ch 10.6 is 'Looking for a Better Way: Improving Production and Operations'. The Six Sigma [V] phrase is exact (source 27654).",
+      "evidence": "Source 27631: 'TQM focuses on continuous improvement, a commitment to constantly seek better ways of doing things'. Deep 467. Source headings 27577, 27592, 27735.",
+      "fix": "correct: The source says TQM focuses on continuous improvement, \"a commitment to constantly seek better ways of doing things\" [V] ... (Source: Ch 10.6, \"Looking for a Better Way: Improving Production and Operations\")"
+    },
+    {
+      "id": "D023",
+      "line": 151,
+      "section": "Worked Example, Phase 6",
+      "claim": "IMC \"coordinates traditional advertising, personal selling, sales promotion, public relations, social media, e-commerce so the customer receives a consistent unified message across channels.\" ... (Source: Ch 12.5, \"Promotion Strategy\"; Ch 14.7, \"Ratio Analysis\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Presented as a quotation but it is the distillation's own Key Concept 17 wording. The source's definition differs. 'Ratio Analysis' is not a section name; Ch 14.7 is 'Analyzing Financial Statements'.",
+      "evidence": "Source 34143-34146: 'IMC involves carefully coordinating all promotional activities—traditional advertising (including direct marketing), sales promotion, personal selling, public relations, social media and e commerce, packaging, and other forms of promotion—to produce a consistent, unified message that is customer focused.' Source 40179 (14.7 heading).",
+      "fix": "correct: IMC coordinates all promotional activities (advertising, sales promotion, personal selling, public relations, social media and e-commerce, packaging) to produce a consistent, unified, customer-focused message. (Source: Ch 12.5, \"Integrated Marketing Communications\"; Ch 14.7, \"Analyzing Financial Statements\")"
+    },
+    {
+      "id": "D024",
+      "line": 159,
+      "section": "Anti-patterns (JIT)",
+      "claim": "ignores the JIT-vulnerability tradition documented across the operations chapter",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: JIT vulnerability is one passage in Ch 10.6, which also says a properly run JIT system 'can greatly reduce inventory-holding costs'.",
+      "evidence": "Deep 469. Source 27752-27772.",
+      "fix": "correct: ignores the vulnerability the operations chapter flags: JIT depends on close vendor coordination, and supply disruptions can halt it (Ch 10.6)"
+    },
+    {
+      "id": "D025",
+      "line": 163,
+      "section": "Anti-patterns (Free-rein)",
+      "claim": "a common failure mode when scaling early-stage teams that operated informally",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The first sentence is supported; the frequency claim about early-stage teams is not in the source.",
+      "evidence": "Deep 230, 891. Source 16131-16143.",
+      "fix": "strip the clause after 'rather than autonomy'"
+    },
+    {
+      "id": "D026",
+      "line": 164,
+      "section": "Anti-patterns (Matrix); also Citation notes 183",
+      "claim": "The text's Unilever-moved-back-to-product example ... (183: 'Unilever moved-back-to-product structure example ... (Source: ... deep reference, Part II)')",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'moved back' implies Unilever had a product structure before the matrix; the source says only that it used to have a matrix and 'today' uses product departmentalization. The line-183 pointer to deep Part II is wrong; Unilever is in Part VII.",
+      "evidence": "Deep 284, 894. Source 18687-18698.",
+      "fix": "correct: The text's Unilever example (matrix abandoned for product departmentalization because employees were unsure whose decisions took precedence) ... ; at 183, 'deep reference, Part VII'."
+    },
+    {
+      "id": "D027",
+      "line": 170,
+      "section": "Integration (Principles of Management)",
+      "claim": "Principles of Management goes deeper on strategic-analysis frameworks (SWOT, PESTEL, Five Forces, VRIO, Mintzberg's structures, ...)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The PoM deep ref carries Mintzberg's managerial roles, not structures. The other named frameworks are present.",
+      "evidence": "openstax-principles-management-deep 33-37, 780-782, 951 (Mintzberg's role clusters); SWOT/PESTEL/Five Forces/VRIO/Drucker eight-area/change models present (e.g. 483-488, 849).",
+      "fix": "correct: Mintzberg's managerial roles"
+    },
+    {
+      "id": "D028",
+      "line": 173,
+      "section": "Integration (Business Ethics)",
+      "claim": "Business Ethics carries the ethics-theory depth (utilitarianism, deontology, virtue ethics, normative-stakeholder theory, duty of care).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'duty of care' is not in the Business Ethics deep ref; the other items are.",
+      "evidence": "grep 'duty of care' in openstax-business-ethics-deep: 0 hits; utilitarianism, deontology, virtue ethics, normative stakeholder present.",
+      "fix": "correct: (utilitarianism, deontology, virtue ethics, normative stakeholder theory)"
+    },
+    {
+      "id": "D029",
+      "line": 177,
+      "section": "Integration (Organizational Behavior)",
+      "claim": "Organizational Behavior carries the depth on ... conflict-resolution (positions vs interests), psychological safety",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The OB deep ref carries Thomas's five conflict-resolution modes and negotiation, not a positions-vs-interests frame, and has no psychological-safety content.",
+      "evidence": "openstax-organizational-behavior-deep 430-445 (conflict and negotiation; Thomas's five modes). grep 'psychological safety': 0 hits; 'interests': 0 hits.",
+      "fix": "correct: conflict resolution (Thomas's five modes) and negotiation, and motivation-theory application"
+    },
+    {
+      "id": "D030",
+      "line": 178,
+      "section": "Integration (Jones); also Relevance line 10",
+      "claim": "`jones-evidence-based-sweng` (pending ingest) | Jones will carry ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Stale status: Jones is ingested (deep ref present). The content named (post-1980 evidence collapse, bi-exponential fault reports, agency theory in client-vendor relations, cognitive capitalism) matches the Jones deep ref. Line 10's 'Letaw's handbook will carry ... Jones's empirical findings will carry' has the same stale future tense.",
+      "evidence": "jones-evidence-based-sweng-deep 35-37 (post-1980 evidence collapse), 165-167 (bi-exponential), 99 (agency theory, Ch 3.4.6-3.4.7), Ch 3 cognitive capitalism.",
+      "fix": "correct: `jones-evidence-based-sweng` | Jones carries ... (drop '(pending ingest)' and put the verbs in present tense here and at line 10)."
+    },
+    {
+      "id": "D031",
+      "line": 179,
+      "section": "Integration (Letaw)",
+      "claim": "`letaw-handbook-sweng-methods` (pending ingest) | Letaw will carry the software-engineering methods discipline (RACI, decision rights, triple-constraint, microservices-as-Conway's-Law boundary, Tuckman team stages).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Stale status (Letaw is ingested). 'decision rights' and 'Conway's Law' are not in the Letaw deep ref; RACI, triple constraint, microservices and Tuckman are.",
+      "evidence": "letaw-handbook-sweng-methods-deep 73 (RACI), 189-197 (monolith vs microservices); grep 'Conway', 'decision rights': 0 hits; 'triple constraint', 'Tuckman' present.",
+      "fix": "correct: `letaw-handbook-sweng-methods` | Letaw carries the software-engineering methods discipline (RACI, triple constraint, monolith-vs-microservice architecture, Tuckman team stages)."
+    },
+    {
+      "id": "D032",
+      "line": 183,
+      "section": "Citation notes (Borrowed-through gaps)",
+      "claim": "Carroll's four-component CSR pyramid is attributed to Carroll (1991) in the deep reference but the underlying Carroll paper is not held; the pyramid is cited as the source's summary of Carroll's framework [AP].",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The deep ref says the opposite: the pyramid is presented 'without a theorist attribution'. No 'Carroll (1991)' appears in the deep ref or the source.",
+      "evidence": "Deep 879. Source: no Carroll outside one endnote byline (50299).",
+      "fix": "strip"
+    },
+    {
+      "id": "D033",
+      "line": 183,
+      "section": "Citation notes (Borrowed-through gaps)",
+      "claim": "The Kellogg School of Management CSR-benefit research and the Cone Communications millennial-engagement data cited in the ethics chapters are [BT] in the deep reference.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Neither the deep ref nor the converted source mentions Kellogg School or Cone Communications (source 'Kellogg' hits are the cereal brand and a lawsuit).",
+      "evidence": "grep deep ref: no 'Kellogg', no 'Cone'. Source: 'Kellogg' only at 7728, 8302, 35732 (brand); 'Cone Communications' 0 hits.",
+      "fix": "strip"
+    },
+    {
+      "id": "D034",
+      "line": 187,
+      "section": "Citation notes (Evidence-marker continuity)",
+      "claim": "The seven-environment wheel, make-or-buy criteria, CPM/PERT distinction, MRP/MRP-II/ERP hierarchy, TQM/DMAIC framing, four-ratio category structure, strict-liability doctrine, and Carroll's pyramid are all [AP] in the deep reference",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Only the seven sub-environments (deep 35) and the pyramid (deep 879) carry [AP]; make-or-buy, CPM/PERT, MRP/ERP, ratios and strict liability are unmarked in the deep ref, and TQM's continuous-improvement definition is [V]. 'Carroll's' repeats the misattribution.",
+      "evidence": "Deep 35, 453, 455, 463, 467, 639-646, 799, 879.",
+      "fix": "correct: The seven-environment wheel and the CSR pyramid are [AP] in the deep reference; the make-or-buy, CPM/PERT, MRP/ERP, ratio and strict-liability material is unmarked paraphrase there, and the continuous-improvement definition is [V]."
+    }
+  ],
+  "notes": "Most serious: (1) the Carroll misattribution runs through seven lines and a concept anchor, and the citation notes claim the deep ref attributes the pyramid to 'Carroll (1991)', which the deep ref explicitly denies; (2) the Herzberg question inverts the source (hygiene factors do not drive performance); (3) the five-step process is again restricted to non-programmed decisions; (4) 'the corpus's only structured treatment of make-or-buy' is contradicted by Accounting Vol 2 and by this distillation's own line 172. Software applications of strict liability and copyright are the distillation's legal extensions and are not flagged as such. Integration rows were checked against each sibling deep ref: principles-marketing, accounting-vol2, business-law, entrepreneurship and principles-finance rows hold; PoM, Business Ethics, OB, Jones and Letaw rows each carry one or two items the sibling deep ref lacks, and the Jones and Letaw rows are stale ('pending ingest'). [V] quotations checked against the converted source: 'generally beyond the control of management and change constantly' (1536), 'adapters' (1568), continuous improvement (27631), 'higher the risk' (44274), promotion definition (33930), 'get stuck at any stage' (16470), Six Sigma 3.4 (27654) all exact; the Ch 1.2 quote at 141 is elided without an ellipsis. The auditing definition at line 36 is exact but comes from the Ch 14 Key Terms glossary (source 40692-40702), not Ch 14.2 'Public Accountants': the deep ref (619) carries the same mis-cite, and Key Terms is a section the deep ref's coverage note excludes. Deep-ref marker note: the Brigham Young classification (deep 77) is marked [AP], but the source relays BYU researchers ('Researchers from Brigham Young University tell us', source 4897), so [BT] fits better; the distillation's [BT] at 183 is the better marker. The worked example's figures (22% of ARR, six months, three-year SLA) are scenario-internal. Claim count is approximate (about 158 discrete claims); grouped findings cover repeated lines as listed in each finding's section field."
+}

@@ -1,0 +1,339 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/open-practice-library-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-202 of 202",
+    "deep": "lines 1-334 of 334",
+    "complete": true
+  },
+  "claims_audited": 158,
+  "tally": {
+    "faithful": 126,
+    "minor_drift": 25,
+    "unsupported": 3,
+    "contradicted": 4
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "\"The decision frame the library carries is unusually explicit on three points. First, the decision-making problem is usually a prioritisation problem, not a single yes/no choice — most of the practices targeted at 'decisions' are picking which thing to do next from a list\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "the distillation's inference from the catalogue presented as the library's explicit position; the 'most' count is unverified",
+      "evidence": "No practice or collection-level text in the deep ref (or source) states this; the deep ref's Options part (lines 192-219) lists ideation, prioritisation and experimentation/decision-framing sub-clusters side by side, and Part VII (lines 309-320) lists the library's explicit positions without it.",
+      "fix": "correct: Read as a catalogue, many of the library's decision practices are prioritisation tools (Dot Voting, $100 Prioritisation, MoSCoW, Impact-Effort, RICE, WSJF) that pick what to do next from a list; this is the distillation's reading, not a position the library states."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "\"Third, decision-making decoupled from experimentation is dangerous; the library repeatedly couples decision practices with experiment-design practices\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'dangerous' and 'explicit' overstate; the coupling is in the source but not the deep ref",
+      "evidence": "Deep ref carries no D&C/DoE coupling. Source: Disagree and Commit L18032 'Key to solving complex problems is both collaboration and the need to adopt an experimental approach'; Design of Experiments L17931 couples experiments with the Effort-Impact and How-Now-Wow matrices. No page calls uncoupled decisions 'dangerous'.",
+      "fix": "cycle-to-deep: add D&C 'Key to solving complex problems is both collaboration and the need to adopt an experimental approach. We 'disagree and commit' in order to reduce the barrier between thinking/ designing the experiment, and committing to executing the experiment' [V] and DoE's pairing with prioritisation matrices (L17931); correct: 'Third, several practices couple decisions to experiments (Disagree and Commit, Design of Experiments)'"
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts #1 Decision framing",
+      "claim": "Five Whys warning is \"aimed at the failure mode of stopping at controllable resources rather than systemic processes\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "inverts the source's reasoning",
+      "evidence": "Deep ref line 96 / source L2180: 'Sometimes people will say the problem is not enough time, money, or resources. But we can't control those things. So, we should ask why the process failed' — resources are what the team cannot control.",
+      "fix": "correct: aimed at the failure mode of stopping at time, money or resources, which the team cannot control, rather than at the process that failed"
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts #2 Cynefin",
+      "claim": "Domain glosses: Clear (best practices apply), Complicated (expert analysis surfaces multiple right answers), Complex (cause-and-effect visible only retrospectively; experiment to learn), Chaotic (act first to stabilise), Confused/Aporetic (gather more information)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "glosses come from the source, not the deep ref",
+      "evidence": "Deep ref line 215 carries only the five domain names and response patterns. Source L17730-17740 carries the glosses ('Multiple right answers exist', 'only apparent retrospectively', 'Immediate action is required to stabilize', 'requiring more information').",
+      "fix": "cycle-to-deep: add the source's five domain descriptions (Practice 'Cynefin Framework', 'What is it?', L17730-17740) to the deep ref's Cynefin entry; cite 'What is it?' alongside 'How to do it?'"
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts #3 Design of Experiments",
+      "claim": "DoE reframes a 'decision' as \"a set of well-defined experiments that can be carried out in order to validate ideas, hypothesis and assumptions\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation altered and unmarked; 'reframes a decision' loosens the source (DoE is offered as the alternative to ROI-based bet-placing)",
+      "evidence": "Deep ref line 213 / source L17861: 'turn ideas, hypothesis and/or assumptions into concrete well defined set of experiments which can be carried out in order to validate those ideas, hypothesis and assumptions' [V]; source L17852-17858 frames DoE against ROI/investment analysis.",
+      "fix": "correct: Design of Experiments is \"the practice we use to turn ideas, hypothesis and/or assumptions into concrete well defined set of experiments which can be carried out in order to validate those ideas, hypothesis and assumptions\" [V]"
+    },
+    {
+      "id": "D006",
+      "line": 22,
+      "section": "Key Concepts #4 Premortem",
+      "claim": "\"The practice is explicitly framed as an antidote to groupthink and blind spots in planning.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "supported by the source but not carried in the deep ref",
+      "evidence": "Deep ref line 155 has no benefits list. Source L10036-10039 ('Why do it?'): 'Eliminates groupthink'; 'Overcomes blind spots - as planning far ahead tends to introduce risks of overlooking details'.",
+      "fix": "cycle-to-deep: add the Pre-mortem 'Why do it?' benefits ('Eliminates groupthink'; 'Overcomes blind spots - as planning far ahead tends to introduce risks of overlooking details') [V] to the deep ref"
+    },
+    {
+      "id": "D007",
+      "line": 22,
+      "section": "Key Concepts #4 Start At The End",
+      "claim": "Start At The End is \"the positive twin\" of the pre-mortem: describe success first, then enumerate the assumptions that must hold",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'positive twin' misses that the practice also imagines failure; describe-success step not in the deep ref",
+      "evidence": "Deep ref line 176 carries only 'identify a set of assumptions which must be tested in order achieve a long term goal'. Source L15368-15375: describe what success looks like (default 12 months), 'Then, the exercise asks participants to imagine all the ways their project can fail' and enumerates assumptions.",
+      "fix": "cycle-to-deep: add Start At The End's success-then-failure sequence (L15368-15375); correct: 'Start At The End pairs a success description with a failure brainstorm to list the assumptions to test early'"
+    },
+    {
+      "id": "D008",
+      "line": 26,
+      "section": "Key Concepts #5 $100 Prioritisation",
+      "claim": "\"Prioritising is hard. This is a method that helps everyone be heard, but also navigates you towards consensus in an equitable way\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation unmarked; it matches the source but not the deep ref, whose [V] version is itself misquoted",
+      "evidence": "Source L17381-17382: 'Prioritising is hard. This is a method that helps everyone be heard...'. Deep ref line 203 gives \"It's a method that helps everyone be heard...\" [V] — not word for word.",
+      "fix": "re-mark: [V]; deep-ref fix: line 203 should read \"Prioritising is hard. This is a method that helps everyone be heard, but also navigates you towards consensus in an equitable way\""
+    },
+    {
+      "id": "D009",
+      "line": 32,
+      "section": "Key Concepts #5 WSJF",
+      "claim": "WSJF: \"cost-of-delay-divided-by-job-size formula\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "supported by the source but not carried in the deep ref",
+      "evidence": "Deep ref line 208 names WSJF only. Source L19425: 'WSJF = Cost of Delay ÷ Job Size'; Cost of Delay = BV + TC + RR/OE (L19419); attributed to Reinertsen (L19428).",
+      "fix": "cycle-to-deep: add 'WSJF = Cost of Delay ÷ Job Size' [V] with the Cost of Delay formula and the Reinertsen [BT] attribution to the deep ref's WSJF entry"
+    },
+    {
+      "id": "D010",
+      "line": 33,
+      "section": "Key Concepts #5 Priority Sliders; Phase 3 table (line 93)",
+      "claim": "Priority Sliders = \"forced-allocation across multiple dimensions\"; question \"Where does each option sit on each priority slider?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mechanism misdescribed: sliders rank dimensions, then options are judged against the top-ranked dimension; nothing is force-allocated",
+      "evidence": "Deep ref line 136 names the practice only. Source L5960-5967: 'A slider for each dimension where groups of people collaborative slide the relative importance'; L5986: options 'can be evaluated in the context of each priority starting from the highest ranking priority'.",
+      "fix": "cycle-to-deep: add the Priority Sliders mechanism (L5960-5986); correct: 'Priority Sliders: rank the relative importance of a few dimensions, then judge options against the top-ranked dimension first' and question 'Which option scores best on our highest-ranked slider?'"
+    },
+    {
+      "id": "D011",
+      "line": 35,
+      "section": "Key Concepts #6; Anti-patterns (line 146)",
+      "claim": "1-2-4-All anti-HiPPO quotation (line 35) and Impact Mapping 'shopping list of features' quotation (line 146) carry no marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotations unmarked",
+      "evidence": "Deep ref line 90 carries the 1-2-4-All sentence [V]; line 313 carries the Impact Mapping sentence [V].",
+      "fix": "re-mark: [V] on both"
+    },
+    {
+      "id": "D012",
+      "line": 39,
+      "section": "Key Concepts #8 Disagree and Commit (also lines 109, 120, 127, 168)",
+      "claim": "Compliance 'generally results in the bare minimum and a lack of engagement'; \"The two pre-conditions: everybody must have a meaningful choice, and there must be an agreed review point\"; review point 'an agreed review point.' [V] (line 127); worked example cites 'What is it?' for the review point (line 168)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "supported by the source but absent from the deep ref; 'meaningful' added; review point cited to the wrong section",
+      "evidence": "Deep ref lines 217/312 carry only the definition, the consensus contrarian and 'frames commitment as intrinsic and compliance as the failure mode'. Source L18040 'Compliance on the other hand, generally results in the bare minimum and a lack of engagement'; L18044-18049 ('How to do it?') 'everybody in the team needs a choice; a decision they can make ... there needs to be an agreed review point and the tests that will be run/ evidence the team is looking for'.",
+      "fix": "cycle-to-deep: add the D&C 'How to do it?' pre-conditions (L18044-18049) and the compliance sentence (L18040) [V] to the deep ref; correct: drop 'meaningful'; cite 'How to do it?' for the review point"
+    },
+    {
+      "id": "D013",
+      "line": 41,
+      "section": "Key Concepts #9 ADR",
+      "claim": "ADRs support a quick reference to past decisions, stakeholder communication of reasoning, and open transparent communication; 'the decision is not finished when the meeting ends; it is finished when the rationale is in version control'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported detail absent from the deep ref; version-control finish line is the distillation's rhetoric attributed to the library",
+      "evidence": "Deep ref line 124 names ADR only. Source L283-285 ('Why do it?'): quick reference, share thinking with stakeholders, open and transparent communication; L223: 'It should be as easy as possible to a) write down the decisions and b) to version the decisions.'",
+      "fix": "cycle-to-deep: add ADR 'Why do it?' (L283-285) and 'write down the decisions and ... version the decisions' (L223) [V]; correct: 'The library treats decision-recording as itself a practice and asks that decisions be easy to write down and to version.'"
+    },
+    {
+      "id": "D014",
+      "line": 43,
+      "section": "Key Concepts #10 Open Decision Framework",
+      "claim": "\"The framework's value for decision-making is structural — it surfaces stakeholders, decision rights, and the path from input to commitment, all visibly.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "not in the deep ref; 'decision rights' is not in the source",
+      "evidence": "Deep ref lines 137, 274, 302 name ODF, its Red Hat People Team origin, and its Start With Why reference only. Source L5165: 'identify and engage stakeholders, manage competing needs and priorities, communicate tradeoffs'; L5186-5196: four phases (Ideation; Planning and research; Design, development, and testing; Launch). No decision-rights content.",
+      "fix": "cycle-to-deep: add ODF's four phases (L5186-5196) and stakeholder-engagement aim (L5165); correct: 'it makes stakeholder engagement and the path from ideation to launch visible'"
+    },
+    {
+      "id": "D015",
+      "line": 45,
+      "section": "Key Concepts #11 Theory of Constraints",
+      "claim": "ToC 'frames decision-making in resource-constrained settings: optimise the constraint, not the non-constraints' (cited 'What is it?')",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref; main support sits in 'Why do it?'",
+      "evidence": "Deep ref line 134 names the practice only. Source L8577 (single bottleneck limits throughput), L8588 ('Any improvements made anywhere besides the bottleneck are an illusion'), L8600 (identifying constraints lets teams 'decide where to focus optimisation work').",
+      "fix": "cycle-to-deep: add the ToC single-bottleneck claim and 'Any improvements made anywhere besides the bottleneck are an illusion' [V] with Goldratt [BT]; cite 'What is it?', 'Why do it?'"
+    },
+    {
+      "id": "D016",
+      "line": 59,
+      "section": "Questions, Phase 0 'Test the trigger'",
+      "claim": "\"Is the time/effort proportionate to the consequences? Does the decision need a structured session at all?\" mapped to Theory of Constraints",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practice mapped to a question it does not address",
+      "evidence": "Source ToC (L8561-8620) is about finding and relieving the process bottleneck; nothing on decision-effort proportionality. Deep ref carries nothing either.",
+      "fix": "correct: attribute the row to 'library-level judgement' only, or recast it as a ToC question: 'Is this decision about the binding constraint, or about a non-constraint?'"
+    },
+    {
+      "id": "D017",
+      "line": 77,
+      "section": "Questions, Phase 2",
+      "claim": "Crazy 8s: \"What are 8 sketched options in 8 minutes?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported detail absent from the deep ref",
+      "evidence": "Deep ref line 185 names Crazy 8s only. Source L10459: 'challenges people to sketch eight distinct ideas in eight minutes'.",
+      "fix": "cycle-to-deep: add 'a fast sketching exercise that challenges people to sketch eight distinct ideas in eight minutes' [V] (Practice 'Crazy 8s', 'What is it?')"
+    },
+    {
+      "id": "D018",
+      "line": 100,
+      "section": "Questions, Phase 4",
+      "claim": "*Confidence Voting*, \"Learn and gain consensus\" [V] mode; 0/1/2 fingers asked for bottom-line reasons",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported [V] label absent from the deep ref",
+      "evidence": "Deep ref line 93 carries only the 0 and 5 finger meanings. Source L1096: 'Goal: Learn and gain consensus — If you have some 0s, 1s, or 2s, ask for reasons ... Then call another vote.'",
+      "fix": "cycle-to-deep: add the three Confidence Voting goals (Check-in; Learn and gain consensus; Vote and move forward, L1087-1105) to the deep ref"
+    },
+    {
+      "id": "D019",
+      "line": 101,
+      "section": "Questions, Phase 4",
+      "claim": "\"Have we addressed the dissent enough to re-vote?\" labelled *Confidence Voting*, \"Vote and move forward\" [V] mode",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-vote is assigned to the wrong mode",
+      "evidence": "Source L1096: re-voting after hearing reasons is the 'Learn and gain consensus' goal; L1105: 'Vote and move forward' is winner-take-all fists vs fingers, with no re-vote. Deep ref carries neither.",
+      "fix": "correct: label the re-vote row 'Learn and gain consensus'; if a 'Vote and move forward' row is wanted: 'Do fists or fingers win, and will we commit to the result?'"
+    },
+    {
+      "id": "D020",
+      "line": 107,
+      "section": "Questions, Phase 5; What to Look For (line 128)",
+      "claim": "Action steps: first step each person commits to, with whom, by when; 'require a named owner, named next step, and a deadline'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practice absent from the deep ref",
+      "evidence": "Deep ref never mentions Action steps. Source L17414-17466: Who / What / When / With card, read aloud, cluster with Affinity Mapping.",
+      "fix": "cycle-to-deep: add Action steps (Options) to the deep ref with its Who / What / When / With card (L17456-17462) [V]"
+    },
+    {
+      "id": "D021",
+      "line": 125,
+      "section": "What to Look For; Anti-patterns (line 144)",
+      "claim": "\"If there is disagreement within the team, consensus is generally achieved through coercion.\" [V] and the longer coercion passage [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] passage matches the source but is not in the deep ref",
+      "evidence": "Source L18037 matches word for word. Deep ref lines 217/312 stop at 'a very high cost to the team dynamic'.",
+      "fix": "cycle-to-deep: extend the deep ref's Disagree and Commit quotation through '...suppress dissent and push for consensus. The issue with this is that it results in compliance rather than commitment' [V]"
+    },
+    {
+      "id": "D022",
+      "line": 126,
+      "section": "What to Look For",
+      "claim": "\"most OPL decision practices are prioritisation tools, not binary-choice tools\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "count claim unverified; rests on the premise of D001",
+      "evidence": "No count in the deep ref; the Options phase also carries Cynefin, SWOT, Disagree and Commit, Dissent Cards (deep lines 211-219).",
+      "fix": "correct: many OPL decision practices are prioritisation tools"
+    },
+    {
+      "id": "D023",
+      "line": 143,
+      "section": "Anti-patterns",
+      "claim": "\"The library treats the HiPPO failure mode as the canonical anti-pattern\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "Deep ref line 311 lists anti-HiPPO as one of ten explicit positions, stated in 1-2-4-All and implicit in the silent-generation pattern; nothing makes it 'canonical'.",
+      "fix": "correct: The library names the HiPPO failure mode explicitly in 1-2-4-All, and the silent-generation pattern across many facilitation practices works against it"
+    },
+    {
+      "id": "D024",
+      "line": 145,
+      "section": "Anti-patterns",
+      "claim": "Analysis paralysis is named in Disagree and Commit; 'The cure is short timeboxes and explicit review points'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref",
+      "evidence": "Deep ref D&C entries carry nothing on analysis paralysis. Source L18029-18032 names 'analysis paralysis'; L18053 its driver; L18056 'ensure that the periods of delivery are not too long'.",
+      "fix": "cycle-to-deep: add D&C's analysis-paralysis framing and the 'periods of delivery are not too long' tip (L18053-18056) [V]; wording can stay"
+    },
+    {
+      "id": "D025",
+      "line": 158,
+      "section": "Worked Example",
+      "claim": "Cynefin places the decision in \"the Complicated domain — expert analysis is needed, but a single right answer exists\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "domain definition inverted (and contradicts the distillation's own line 18)",
+      "evidence": "Source L17732: Complicated — 'Multiple right answers exist. Expert analysis and good practices are necessary.'",
+      "fix": "correct: the Complicated domain — expert analysis is needed, and more than one right answer may exist"
+    },
+    {
+      "id": "D026",
+      "line": 158,
+      "section": "Worked Example",
+      "claim": "\"They note it is a prioritisation problem, not a yes/no choice (Source: Practice 'Disagree and Commit', 'Why do it?')\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "claim cited to a section that does not carry it",
+      "evidence": "D&C 'Why do it?' (source L18029-18040; deep lines 217/312) covers analysis paralysis, consensus and commitment; nothing about prioritisation vs yes/no. No deep-ref passage supports it (see D001).",
+      "fix": "strip the citation; present it as the team's own framing"
+    },
+    {
+      "id": "D027",
+      "line": 172,
+      "section": "Worked Example",
+      "claim": "\"All framework citations trace through the deep reference.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overclaim: several citations trace only to the source",
+      "evidence": "The Cynefin domain gloss, the D&C review point and the ADR 'Why do it?' are not in the deep ref (see D004, D012, D013).",
+      "fix": "correct: 'Framework citations trace to the source; the Cynefin, Disagree and Commit review-point and ADR details await cycling into the deep reference.'"
+    },
+    {
+      "id": "D028",
+      "line": 182,
+      "section": "Integration: Scrum Guide 2020",
+      "claim": "\"OPL's Scrum practice and the canonical Scrum Guide diverge on event count (OPL counts five events including the Sprint; the Guide counts the Sprint as a container with four nested events)\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "divergence claimed where the Guide also counts five events",
+      "evidence": "scrum-guide-2020-deep line 39: 'Scrum provides cadence in the form of its five events' [V]; line 35: 'four formal events ... within a containing event, the Sprint' [V]. OPL deep line 227: five events with the Sprint included. Both counts agree.",
+      "fix": "correct: OPL's Scrum practice and the Scrum Guide agree on five events with the Sprint included; the Guide frames the Sprint as the container for the other four."
+    },
+    {
+      "id": "D029",
+      "line": 189,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "Ohno cited in Five Whys 'Why do it?'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong section",
+      "evidence": "Source L2148-2150 / deep ref line 96: the Ohno attribution is in 'What is it?'.",
+      "fix": "correct: (Practice 'Five Whys (5 Whys)', 'What is it?')"
+    },
+    {
+      "id": "D030",
+      "line": 191,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "\"David J. Anderson / Kanban — cited as the origin of the Theory of Constraints connection in several workflow-management practices [BT]\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "fabricated borrowed-through citation; the source names Goldratt for ToC",
+      "evidence": "No 'David J. Anderson' anywhere in the source (only a contributor handle 'eranderson921', L9023) or the deep ref. Source L8571: 'Eliyahu Goldratt first described the Theory Of Constraints (ToC) in his 1984 book, \"The Goal\"'.",
+      "fix": "correct: Eliyahu Goldratt, The Goal (1984) — cited as the originator of the Theory of Constraints (Practice 'The Theory of Constraints', 'What is it?') [BT]; cycle-to-deep: add Goldratt to the deep ref's borrowed-through list"
+    },
+    {
+      "id": "D031",
+      "line": 193,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "Jean Tabaka \"cited as the originator of Confidence Voting's 0–5 finger scale\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "originator vs populariser",
+      "evidence": "Source L1119: 'This technique was popularized by Jean Tabaka'. Distillation line 37 correctly says 'popularised'.",
+      "fix": "correct: cited as the populariser of Confidence Voting"
+    },
+    {
+      "id": "D032",
+      "line": 202,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "\"This distillation paraphrases except for quotations marked [V] ... Key Concept citations ... map directly to the deep ref's [V] extracts. The anti-patterns section derives from explicit OPL body text formulations (marked [V] in the deep ref)\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false claims about the audit record",
+      "evidence": "Unmarked verbatim quotations at lines 20, 26, 35, 146; Key Concepts 2, 8, 9, 10, 11 cite passages absent from the deep ref; the anti-patterns' coercion passage (line 144) is not in the deep ref (D021).",
+      "fix": "correct: state that some quotations are unmarked pending re-marking and that several Key Concept and anti-pattern passages trace to the source but await cycling into the deep ref"
+    }
+  ],
+  "notes": "Source line numbers refer to corpus.commons/demo/sources/converted/open-practice-library.md. Deep-ref fix surfaced: deep line 203 misquotes $100 Prioritisation as \"It's a method...\"; source reads \"Prioritising is hard. This is a method...\". The distillation leans on many practices the deep ref names without content (Cynefin glosses, WSJF, Priority Sliders, ADR, ODF, ToC, Crazy 8s, Action steps, Confidence Voting goals); each is source-supported except where noted, so most findings are cycle-to-deep. Integration claims checked: nhs-just-culture-guide-deep (lines 15, 172), lfuo-learning-review-guide-2024-deep (three principles, line 7), openstax-principles-management-deep (programmed/non-programmed line 65-69, six-step line 69, Deming cycle line 833, Rest line 90), openstax-organizational-behavior-deep (escalation line 186, groupthink line 202), jones-evidence-based-sweng-deep (folklore line 15), scrum-guide-2020-deep (lines 35, 39, 100). RICE multiply-all-four matches the source."
+}

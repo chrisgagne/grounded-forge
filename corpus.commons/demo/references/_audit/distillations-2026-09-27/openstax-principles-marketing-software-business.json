@@ -1,0 +1,229 @@
+{
+ "distillation": "corpus.commons/demo/distillations/software-business/openstax-principles-marketing-software-business.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-215 of 215",
+  "deep": "lines 1-577 of 577",
+  "complete": true
+ },
+ "claims_audited": 128,
+ "tally": {
+  "faithful": 102,
+  "minor_drift": 20,
+  "unsupported": 5,
+  "contradicted": 1
+ },
+ "findings": [
+  {
+   "id": "S001",
+   "line": 10,
+   "section": "Software-Business Relevance",
+   "claim": "What this source contributes that no other reference in the corpus does: a structured way to price an offering, a structured way to forecast customer-lifetime-value as a business decision, a stage-gated process for product development ..., and a structured framework for diagnosing where customer-experience promises break down",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Uniqueness claim contradicted by other corpus deep refs: Jones covers product/service pricing and a CLV calculation, and Introduction to Business covers skimming and penetration pricing. Only the service-quality diagnostics (Gap Model, RATER) are unique to this source.",
+   "evidence": "jones-evidence-based-sweng-deep 103: pricing models (price dead zone, Ch 3.6.2), Bass diffusion, 'customer lifetime value (CLV) calculation under regular maintenance payments (Ch 3.6.4)'. openstax-introduction-business-deep 542-544: pricing strategies, penetration pricing, price skimming (Ch 11.9). grep RATER/SERVQUAL/gap model across deep refs: only this source.",
+   "fix": "correct: What this source adds to the corpus's other pricing and CLV treatments (Introduction to Business Ch 11.9 names skimming and penetration; Jones Ch 3.6 covers pricing models and CLV under maintenance payments): a fuller pricing procedure (Five Cs, seven objectives, five-step process), a worked multi-segment CLV table, a nine-stage product-development process, and the corpus's only service-quality diagnostics (Gap Model, RATER)."
+  },
+  {
+   "id": "S002",
+   "line": 14,
+   "section": "Verbatim anchors",
+   "claim": "(OpenStax, *Principles of Marketing*, Ch 1.1, \"Step 3: Deliver High Customer Value\" [V])",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Stray [V] on the section title inside the citation. The quotation's own [V] is already present. Commit 572b1ba removed this pattern elsewhere.",
+   "evidence": "Quotation matches source 1312 word for word; the second [V] marks a section name, not a quotation.",
+   "fix": "correct: [V] (OpenStax, *Principles of Marketing*, Ch 1.1, \"Step 3: Deliver High Customer Value\")"
+  },
+  {
+   "id": "S003",
+   "line": 18,
+   "section": "Verbatim anchors",
+   "claim": "Advertising — the largest single line item in most software-business GTM budgets",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "An empirical claim about software GTM budgets with no basis in the deep ref or the source.",
+   "evidence": "Deep 391-399 (Ch 14): advertising definition, Super Bowl cost, budget approaches; nothing on software budgets or advertising's share of them.",
+   "fix": "correct: Advertising is \"paid communication messages that identify a brand or organization and is intended to reach a large number of recipients\" [V] (Ch 14.1, \"Advertising and its Importance\")."
+  },
+  {
+   "id": "S004",
+   "line": 29,
+   "section": "Key Concepts 6 (CAC + retention)",
+   "claim": "Marketing KPIs cluster around the CLV-CAC engine: Average Revenue per Customer, customer retention rates, CSAT, CES. (Source: Ch 2.4, \"Marketing Metrics Explained\")",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mis-cited: CES is a Ch 6.3 research-quantification measure, not one of the Ch 2.4 KPIs.",
+   "evidence": "Deep 82 (Ch 2.4 KPIs): ARPC, CAC, retention, CSAT, resolution rate/time, CLV; no CES. Deep 188: CES under Ch 6.3 'Methods of Quantifying Marketing Research'. Source 12803-12816 (Ch 6.3) is the only CES treatment.",
+   "fix": "correct: ... Average Revenue per Customer, customer retention rates, CSAT (Ch 2.4, \"Marketing Metrics Explained\"); customer effort score (Ch 6.3)."
+  },
+  {
+   "id": "S005",
+   "line": 44,
+   "section": "Questions, Phase 1 (Frame the pricing decision)",
+   "claim": "customer-driven (auction/usage-based)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Equates usage-based pricing with the source's customer-driven objective, which the source defines as a focus on what the customer is willing to pay (eBay auction).",
+   "evidence": "Deep 349: customer-driven (eBay auction model). Source Table 12.1 (24183): 'Customer driven | Focus on what the customer is willing to pay'.",
+   "fix": "correct: customer-driven (what the customer is willing to pay; eBay's auction model)"
+  },
+  {
+   "id": "S006",
+   "line": 56,
+   "section": "Questions, Phase 2 (Test new-product-launch viability)",
+   "claim": "Without these, failure rate runs 35–49% (PDMA) to 95% (Christensen estimate).",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Recasts general base rates as the failure rate for launches that lack the five success factors. The source gives no such conditional.",
+   "evidence": "Deep 321: 'Christensen-attributed estimate: ~30,000 new products launched per year, 95 per cent fail [BT]; PDMA found failure rates 35 per cent (health care) to 49 per cent (consumer goods)' (Ch 10.4); no link to the success factors.",
+   "fix": "correct: Base rates the source reports: PDMA failure rates of 35 per cent (health care) to 49 per cent (consumer goods), and a Christensen-attributed estimate that 95 per cent of ~30,000 launches a year fail (Ch 10.4)."
+  },
+  {
+   "id": "S007",
+   "line": 67,
+   "section": "Questions, Phase 3 (Test the empowerment level); also line 206 (Borrowed-through, Hsieh)",
+   "claim": "Can frontline support staff deviate from the script ... (the Zappos call-centre model)? (Source: Ch 11.2, \"Empowerment\") / the Zappos frontline-empowerment model and the Zappos call-centre examples are cited [BT] (Ch 11.2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports it, but the deep ref doesn't carry it, and the citation points to a section that does not exist. The no-script call-centre policy is in Ch 1.3; Ch 11.2 has a general 'Employee Satisfaction' passage on empowering employees.",
+   "evidence": "Deep 545: Hsieh cited approvingly (Ch 1.3; Ch 11.2) [BT], no empowerment content. Source 1771-1774 (Ch 1.3): 'call-center employees are empowered to do \"whatever it takes\" ... don't use scripts'. Source 22437-22450 (Ch 11.2 'Employee Satisfaction'): policies 'that empower employees'; Hsieh 'encouraged his employees to go above and beyond'. No 'Empowerment' heading in the source.",
+   "fix": "cycle-to-deep: add to deep Ch 1.3 and Ch 11.2: Zappos call-centre employees 'are empowered to do \"whatever it takes\" to make the customer happy', with no scripts and no call time limits (Ch 1.3); employee satisfaction 'is often the direct result of company policies and support services that empower employees' (Ch 11.2). correct citations: (Source: Ch 1.3; Ch 11.2, \"Employee Satisfaction\")"
+  },
+  {
+   "id": "S008",
+   "line": 101,
+   "section": "What to Look For; also lines 75, 131, 147",
+   "claim": "NPD Stage 5 skipped — the Maxwell-House failure mode (Ch 10.2).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The example is attached to the wrong failure. The source uses Maxwell House under Stage 6 (product development) to show a concept found commercially infeasible during development, not a skipped business analysis. The source's narrative has products entering Stage 6 only after passing business analysis.",
+   "evidence": "Deep 313: Maxwell House (Ch 10.2, 'Stage 6: Product Development'). Source 20550-20561: 'If our breakfast drink mix has passed the business analysis test, it will now move into the product development stage ... sometimes the company realizes in this stage that the product concept simply can't be translated into a commercially feasible product. For example ... Maxwell House ...'",
+   "fix": "correct (all four lines): drop 'the Maxwell House failure mode' as a Stage-5 example. Where a warning is wanted, use: 'Maxwell House found at Stage 6 that its target blend was too expensive to produce, and the cheaper substitute flopped (Ch 10.2); a business analysis that prices the build honestly surfaces that earlier.'"
+  },
+  {
+   "id": "S009",
+   "line": 92,
+   "section": "Questions, Phase 6 (Diagnose where CX is breaking)",
+   "claim": "customer (the customer's expectation has drifted)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Narrows the customer gap to a shift in the customer's expectation. The source defines it as the difference between expectation and perception of the experience.",
+   "evidence": "Deep 295: 'customer gap (expectation vs perception of experience)'. Source 22805: 'The customer gap is the difference between the customer's expectations of the service or experience and ...'",
+   "fix": "correct: customer (what the customer expected and how they perceived the experience have come apart)"
+  },
+  {
+   "id": "S010",
+   "line": 129,
+   "section": "Worked Example (CLV)",
+   "claim": "Modelling at $299/user/month with 15% incremental gross margin and a 4-year retention assumption shows ~$120K CLV at 10-seat average",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The worked arithmetic does not reproduce. $299 x 10 seats x 12 months = $35,880/yr; at 15% margin over 4 years that is ~$21.5K, not ~$120K. ~$120K needs about an 85% margin. The Pro-segment figure ($14K x 4.2 − $3.2K = $55.6K) checks against the source's formula.",
+   "evidence": "Source 5124-5160 (Table 2.1 solutions): CLV = annual profit x years retained − CAC (e.g. $10,000 x 12 − $750 = $119,250).",
+   "fix": "correct: Modelling at $299/user/month with an 85% gross margin and a 4-year retention assumption shows ~$120K CLV at a 10-seat average"
+  },
+  {
+   "id": "S011",
+   "line": 131,
+   "section": "Worked Example (NPD)",
+   "claim": "the team is at Stage 3 (concept development and testing ...). Stage 5 (business analysis) is the next gate",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Skips Stage 4. After concept development and testing, the source's next stage is market strategy development.",
+   "evidence": "Deep 311: stages 3 concept development and testing, 4 market strategy development, 5 business analysis.",
+   "fix": "correct: Stage 4 (market strategy development) and Stage 5 (business analysis) are the next gates"
+  },
+  {
+   "id": "S012",
+   "line": 148,
+   "section": "Anti-patterns",
+   "claim": "SaaS gross margin compression follows in the second year.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "The timing is made up. The premise (variable costs rise with units) has support, but nothing in the source supports 'in the second year'.",
+   "evidence": "Deep 337: variable costs change with units produced (Ch 12.1). No timing claim anywhere in deep or source.",
+   "fix": "correct: Gross margin compresses as usage grows, because inference is a variable cost (Ch 12.1)."
+  },
+  {
+   "id": "S013",
+   "line": 190,
+   "section": "Integration (jones-evidence-based-sweng row)",
+   "claim": "Resource estimation under uncertainty, KLOC mythology, and the cone of uncertainty supply the engineering-cost side of the pricing decision",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Reads as if Jones offers the cone of uncertainty as an estimation input; Jones calls it 'at best useless', a plotting artefact. 'KLOC mythology' is not a Jones concept: his named folklore metrics are Halstead and McCabe. The row also leaves out Jones's own pricing and CLV material (Ch 3.6).",
+   "evidence": "jones deep 153, 303: cone of uncertainty 'at best useless' [V] (Ch 5.4.4). jones deep 197: Halstead/McCabe folklore metrics. jones deep 141: estimation models vary widely (Mohanty). jones deep 103: pricing models and CLV (Ch 3.6).",
+   "fix": "correct: Jones's estimation evidence (12 models giving widely varying estimates, Ch 5.3.1; the cone of uncertainty dismissed as a plotting artefact, Ch 5.4.4) and his software-specific pricing and CLV treatment (Ch 3.6) supply the engineering-cost side of the pricing decision the marketing source frames."
+  },
+  {
+   "id": "S014",
+   "line": 192,
+   "section": "Integration (openstax-organizational-behavior row)",
+   "claim": "The service-profit chain's internal service quality → employee satisfaction link is the OB literature on engagement applied through the service lens.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The OB deep ref has no engagement literature. Its match is job satisfaction and organisational commitment. And neither deep ref says the service-profit chain draws on OB.",
+   "evidence": "OB deep 89-91: job satisfaction 'a pleasurable or positive emotional state resulting from the appraisal of one's job or job experience' [V] (Ch 3.5), and organisational commitment; 'engagement' appears only incidentally (OB deep 554, 740).",
+   "fix": "correct: OB's treatment of job satisfaction (Ch 3.5) and organisational commitment gives depth on the chain's employee-satisfaction link. Pair when the customer-experience problem traces back to how employees experience their jobs."
+  },
+  {
+   "id": "S015",
+   "line": 193,
+   "section": "Integration (openstax-business-ethics row)",
+   "claim": "The stakeholder approach to sustainability (Ch 19.2) is operationally adopted from stakeholder theory",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "A lineage claim the marketing deep ref does not make. The marketing text names a 'stakeholder approach' without citing stakeholder theory. The Business Ethics facts check out.",
+   "evidence": "Marketing deep 493: 'Sustainable marketing takes a stakeholder approach', with a list of groups and no theory cited. Business ethics deep 111: Donaldson and Preston taxonomy [BT] (Ch 3.2); deep 442-450: AI (Ch 10); deep 132, 158: externalities.",
+   "fix": "correct: The source's 'stakeholder approach' to sustainable marketing (Ch 19.2) names stakeholder groups without theory; Business Ethics supplies stakeholder theory (Donaldson and Preston's descriptive, instrumental and normative taxonomy, Ch 3.2) plus the AI-ethics (Ch 10) and externalised-cost framings."
+  },
+  {
+   "id": "S016",
+   "line": 196,
+   "section": "Integration (scrum-guide-2020 / AP field guide row)",
+   "claim": "map onto Scrum sprint-review and beta-cohort patterns",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Neither Scrum reference contains 'beta cohorts'. The Sprint Review part checks out.",
+   "evidence": "scrum-guide-2020-deep 149-151: Sprint Review inspects the outcome with key stakeholders and may adjust the Product Backlog. grep 'beta' in both Scrum deep refs: no hits.",
+   "fix": "correct: The NPD test-marketing stage (Ch 10.2) parallels the Sprint Review, where the Scrum Team presents results to key stakeholders and the Product Backlog may be adjusted (Scrum Guide 2020). Pair when sequencing customer-discovery work against sprint cadence."
+  },
+  {
+   "id": "S017",
+   "line": 202,
+   "section": "Citation notes, Borrowed-through (ZPB)",
+   "claim": "the RATER framework ... and the Gap Model of service quality are sourced [BT] (Ch 11.3)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source attributes only RATER to Zeithaml, Parasuraman and Berry. It presents the Gap Model as 'first proposed in 1985' with no named authors, and the deep ref records no attribution for it.",
+   "evidence": "Source 22826: ZPB named for the RATER model. Source 22699-22700: Gap Model 'first proposed in 1985', no authors named. Deep 295 (Gap Model, no attribution); deep 544 (ZPB: RATER only).",
+   "fix": "correct: *Valarie Zeithaml, A. Parasuraman, and Leonard Berry, Delivering Quality Service* — the RATER framework is sourced [BT] (Ch 11.3). The Gap Model is presented as 'first proposed in 1985', without named authors. This text is the corpus's only treatment of both frameworks."
+  },
+  {
+   "id": "S018",
+   "line": 207,
+   "section": "Citation notes, Borrowed-through (Kotler and Keller)",
+   "claim": "Philip Kotler and Kevin Lane Keller — the 5A customer journey framework (Aware, Appeal, Ask, Act, Advocacy) is attributed to this tradition [BT] (Ch 13.4)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "The source attributes the 5A framework to no one. Kotler appears only for the sustainable-marketing definition (Ch 19.1), and Keller only for the brand-equity pyramid (Ch 9.5).",
+   "evidence": "Source 26366-26379 (Ch 13.4): 5A framework introduced with no attribution; Figure 13.10 credited to OpenStax. grep 'Kotler' in the source: only 37655 (Ch 19.1). Deep 379 (no attribution), 540 (Keller: brand-equity pyramid), 548 (Kotler: sustainable-marketing definition).",
+   "fix": "strip"
+  },
+  {
+   "id": "S019",
+   "line": 211,
+   "section": "Citation notes, Borrowed-through (misc.)",
+   "claim": "Irina Simmons (consumer-income interview) ... cited [BT] in various chapters",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Cross-source contamination. Irina Simmons appears in the Principles of Finance deep ref, not in this source or its deep ref.",
+   "evidence": "grep 'Irina' / 'Simmons' in the marketing source and deep: no hits. openstax-principles-finance-deep 343: 'an interview with Irina Simmons (former chief risk officer and treasurer of EMC Corporation)'. Rebecca Henderson (deep 541) and HBR (deep 202) do check out.",
+   "fix": "correct: Rebecca Henderson (shared-value orientation, Ch 19.3) and Harvard Business Review's global-competitiveness criteria (Ch 7.2) — cited [BT]; neither held as a primary reference."
+  },
+  {
+   "id": "S020",
+   "line": 215,
+   "section": "Citation notes, Evidence-marker continuity",
+   "claim": "The RATER framework and Gap Model are [BT] in the deep reference ... The CLV formula and the five-success-factor list are [V]-marked content in Ch 2.4 and Ch 10.4",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Misreports the deep ref's markers. The Gap Model carries no marker. The CLV passage is [AP]. The success-factor list is unmarked; only its statistics carry [V].",
+   "evidence": "Deep 295 (Gap Model: no marker); deep 297, 544 (RATER: [BT] at 544); deep 82 (CLV: [AP]); deep 317 (success factors: [V] only on 5x, 31-to-75 per cent, 2.3x).",
+   "fix": "correct: RATER is [BT] in the deep reference (Zeithaml, Parasuraman, Berry); the Gap Model carries no author attribution. The CLV passage is [AP]; the success-factor statistics (5x, ~31 to 75 per cent, 2.3x) are [V]."
+  },
+  {
+   "id": "S021",
+   "line": 204,
+   "section": "Citation notes, Borrowed-through (Rogers)",
+   "claim": "Everett Rogers ... the five adopter categories ... and the two-step personal-influence model are cited [BT] (Ch 10.5)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Credits the two-step model to Rogers. The source presents it as what 'marketers now recognize', unattributed, and credits Rogers with the adopter categories only.",
+   "evidence": "Source 21186-21188: 'It was first thought that diffusion was a one-step process ... Marketers now recognize that it is a two-step process'. Source 21196-21200: Rogers credited with diffusion of innovation (1962) and the five adopter categories.",
+   "fix": "correct: *Everett Rogers, Diffusion of Innovations* — the five adopter categories (innovators through laggards) are credited to his 1962 theory [BT] (Ch 10.5). The two-step personal-influence model is presented without attribution."
+  }
+ ],
+ "notes": "derived-from-deep sha256 matches the current deep ref. All four [V] quotations match the converted source word for word after normalisation (1312, 1302, 27427, 22433). The Iceberg-of-Ignorance quotation (line 20) is accurate, but it was re-extracted from the source: the deep ref (291) carries it only as a paraphrase, which the protocol forbids. Multi-line findings count each line as a claim: S007 (67, 206), S008 (75, 101, 131, 147), S020 (two claims on 215). Checked and faithful: the CLV formula (line 28) reproduces the Table 2.1 solutions (source 5124-5160); NPD stage numbering on line 74; Tylenol 'faced the issue head-on'; accounting-vol2 row (relevant cost, cost classification, make-or-buy, break-even: acct deep 15-17, 102-104, 279-281); principles-management row (PESTEL, Porter's Five Forces, mechanistic/organic design); principles-finance row and the discount-rate limit (finance deep 563-567); letaw row (SDLC/process models); Gap Model and RATER are unique to this source. Line 205 marks PDMA [BT] where the deep ref has [V]; the source relays PDMA research, so [BT] fits the marker contract better, and it is not graded. The three lens sections (cto, business-executive-stakeholder, pm-bounded-by-ba-role) use vocabulary that traces to the lens specs in corpus.commons/demo/lenses/, and their source references check out. Section labels in several Key Concept citations are near-miss paraphrases of real headings ('The Five Cs of Pricing' vs 'The Five Critical Cs of Pricing'; 'The RATER Framework' vs 'The RATER Model'); these are not graded, except the non-existent 'Empowerment' (S007)."
+}

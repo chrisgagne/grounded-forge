@@ -50,7 +50,7 @@ The text emphasises that opportunity cost extends beyond monetary cost: time, fo
 
 ### Marginal analysis, diminishing marginal utility, and sunk costs
 
-**Marginal analysis** examines "the benefits and costs of choosing a little more or a little less of a good" [V] (Ch 2.1). The text takes a strong position: "Marginal analysis is used throughout economics" — most real-world choices are not all-or-nothing but incremental [AR] (Ch 2.1).
+**Marginal analysis** examines "the benefits and costs of choosing a little more or a little less of a good" [V] (Ch 2.1). People compare costs and benefits, "but often we look at total costs and total benefits, when the optimal choice necessitates comparing how costs and benefits change from one option to another" [V] (Ch 2.1, "Marginal Decision-Making and Diminishing Marginal Utility"). The text takes a strong position: "Marginal analysis is used throughout economics" — most real-world choices are not all-or-nothing but incremental [AR] (Ch 2.1).
 
 **Utility** is the satisfaction or value goods and services provide. The **law of diminishing marginal utility** holds that "as a person receives more of a good, the additional (or marginal) utility from each additional unit of the good declines" [V] (Ch 2.1).
 
@@ -108,7 +108,9 @@ Categories: **elastic** (|ε| > 1), **unitary** (|ε| = 1), **inelastic** (|ε| 
 
 Demand for necessities (housing 0.12, electricity 0.20, gasoline 0.35) tends to be inelastic; demand for substitutable items (restaurant meals 2.27, premium cable 1.77) tends to be elastic [V] (Ch 5.3, Table 5.2).
 
-**Tax incidence** depends on relative elasticities: "if demand is more inelastic than supply, consumers bear most of the tax burden, and if supply is more inelastic than demand, sellers bear most of the tax burden" [V] (Ch 5.3). Cigarettes are inelastic (~0.3); a 10% price increase reduces adult smoking by ~3%, so cigarette taxes are absorbed mostly by consumers [BT] (Ch 5.3).
+"Elasticity also reveals whether firms can pass higher costs that they incur on to consumers" [V] (Ch 5.3, "Can Businesses Pass Costs on to Consumers?"). When a cost increase shifts supply to the left and demand is inelastic, firms can largely pass the increase on as higher prices with little fall in quantity; when demand is elastic, the same shift mainly lowers the quantity sold (Ch 5.3, Figure 5.9).
+
+**Tax incidence** is how a tax burden is divided between consumers and producers: "Typically, the tax incidence, or burden, falls both on the consumers and producers of the taxed good" [V] (Ch 5.3, "Elasticity and Tax Incidence"). Which side bears most of it depends on relative elasticities: "if demand is more inelastic than supply, consumers bear most of the tax burden, and if supply is more inelastic than demand, sellers bear most of the tax burden" [V] (Ch 5.3). Cigarettes are inelastic (~0.3); a 10% price increase reduces adult smoking by ~3%, so cigarette taxes are absorbed mostly by consumers [BT] (Ch 5.3).
 
 Elasticities are typically lower in the short run and higher in the long run (Ch 5.3). **Income elasticity of demand** distinguishes normal goods (positive) from inferior goods (negative) (Ch 5.4). **Cross-price elasticity of demand** distinguishes substitutes (positive) from complements (negative) (Ch 5.4). **Wage elasticity of labour supply** describes the response of hours worked to wage changes; **elasticity of savings** describes the response of savings to interest rates (Ch 5.4).
 
@@ -120,7 +122,7 @@ The text addresses a measurement objection: "the key assumption is not that an o
 
 A change in income shifts the budget constraint outward; the consumer typically buys more of all normal goods (Ch 6.2, "How Changes in Income Affect Consumer Choices"). A change in price rotates the budget constraint and produces a **substitution effect** ("consumers have an incentive to consume less of the good with a relatively higher price and more of the good with a relatively lower price" [V]) and an **income effect** ("a higher price means... the buying power of income has been reduced" [V]) (Ch 6.2).
 
-**Behavioural economics** challenges the strict rationality assumption. Kahneman and Tversky (1979) documented **loss aversion**: "a $1 loss pains us 2.25 times more than a $1 gain helps us" [V] (Ch 6.3). Other anomalies include mental accounting, lack of self-control (people pay to constrain their own future choices), and the failure of fungibility — people treat money differently depending on its source (Ch 6.3).
+**Behavioural economics** challenges the strict rationality assumption. Kahneman and Tversky (1979) documented **loss aversion**: "a $1 loss pains us 2.25 times more than a $1 gain helps us" [V] (Ch 6.3). Other anomalies include mental accounting, lack of self-control (people pay to constrain their own future choices), and the failure of fungibility — people treat money differently depending on its source (Ch 6.3). On self-control, people buy cigarettes by the pack rather than the cheaper carton to keep usage down, buy locks for their refrigerators, and overpay on taxes to force themselves to save: "we protect ourselves from our worst temptations but pay a price to do so" [V] (Ch 6.3). Behavioural economists respond with "nudges" toward more rational behaviour rather than mandatory regulation; for example, up to 20 percent of new employees do not enrol in retirement savings plans immediately, because of procrastination or feeling overwhelmed by the choices, so some companies now enrol employees automatically unless they opt out (Ch 6.3).
 
 ## Part VII: Production, costs, and industry structure (Ch 7)
 
@@ -170,7 +172,7 @@ A **merger** combines two firms; an **acquisition** is a purchase. **Antitrust l
 
 For **natural monopolies** (where economies of scale are large relative to market demand), splitting up wastes scale economies and competitive entry is impractical. Regulation options: cost-plus regulation (covers cost plus normal profit but reduces incentive to control costs); price cap regulation (sets price ceiling for several years, allowing firms to retain savings if costs fall — a stronger incentive for efficiency) (Ch 11.3).
 
-The U.S. underwent significant deregulation from the late 1970s onward (airlines, trucking, banking, natural gas, electricity), generally improving consumer outcomes (Ch 11.4). **Regulatory capture** — where the regulated industry captures the regulator — provides a theoretical reason why regulation can serve incumbent interests rather than consumers (Ch 11.4). Sarbanes-Oxley (2002) and Dodd-Frank (2010) responded to corporate accounting scandals and the financial crisis, respectively.
+The U.S. underwent significant deregulation from the late 1970s onward (airlines, trucking, banking, natural gas, electricity), generally improving consumer outcomes (Ch 11.4). **Regulatory capture** — where the regulated firms "end up playing a large role in setting the regulations that they will follow" [V] — provides a reason why regulation can serve incumbent interests rather than consumers. When the airline industry was regulated, it suggested appointees to the regulatory board, sent lobbyists to argue with the board, provided most of the information on which the board made decisions, and offered well-paid jobs to at least some of the people leaving the board. The result of regulatory capture is that price regulation can often become a way for existing competitors to work together to reduce output, keep prices high, and limit competition (Ch 11.4, "Doubts about Regulation of Prices and Quantities"). Sarbanes-Oxley (2002) and Dodd-Frank (2010) responded to corporate accounting scandals and the financial crisis, respectively.
 
 ## Part XII: Environmental protection and negative externalities (Ch 12)
 
@@ -178,7 +180,7 @@ An **externality** (or spillover) is "a market exchange that affects a third par
 
 **Command-and-control regulation** imposes specific pollution limits or required technologies. It has been highly successful in the U.S. (Clean Air Act 1970, Clean Water Act 1972) but has three weaknesses: no incentive to reduce pollution beyond the limit; inflexibility (same standard for all polluters); and political vulnerability to loopholes (Ch 12.2).
 
-**Market-oriented environmental tools** address these weaknesses. **Pollution charges** (taxes per unit of emissions) give firms incentive to find the cheapest abatement methods. **Marketable permits** (cap-and-trade) allocate a total allowable amount of pollution and let firms trade permits, so reduction occurs where it is cheapest. **Better-defined property rights** internalise externalities — Coase (1960) argued that with clear property rights and low transaction costs, parties can negotiate efficient outcomes regardless of which party has the rights (Ch 12.3).
+**Market-oriented environmental tools** address these weaknesses. **Pollution charges** (taxes per unit of emissions) give firms incentive to find the cheapest abatement methods. **Marketable permits** (cap-and-trade) allocate a total allowable amount of pollution and let firms trade permits, so reduction occurs where it is cheapest. **Better-defined property rights** are the third tool. Ronald Coase illustrated an externality with a railroad whose locomotive sparks set a neighbouring farmer's field ablaze, and pointed out that the issue cannot be resolved until property rights are clearly defined [BT]. If neither party has a property right, "the two sides may squabble endlessly, doing nothing"; if either the farmer or the railroad has a well-defined legal responsibility, "that party will seek out and pay for the least costly method of reducing the risk" [V] (Ch 12.3, "Better-Defined Property Rights"). The property right determines who pays. The tools suit different situations: marketable permits work best when a few dozen or a few hundred parties are highly interested in trading, while pollution charges typically suit cases where millions of users emit small amounts of pollution and have no strong interest in trading (Ch 12.3, "Applying Market-Oriented Environmental Tools").
 
 The text estimates that benefits of U.S. environmental regulation have substantially exceeded costs — one study found Clean Air Act benefits 44 times costs from 1970-1990 [BT] (Ch 12.4). The EPA values a statistical life at about $7.4 million (2006 dollars) for cost-benefit analyses (Ch 12.4).
 
@@ -194,7 +196,7 @@ A **public good** has two defining features: **nonexcludable** ("it is costly or
 
 The text relates this to the prisoner's-dilemma structure: rational individual behaviour produces collective failure (Ch 13.3). Government provision financed by taxation is the standard solution; some public goods can be provided through advertising-supported private provision (e.g. broadcast radio); in some cases social pressure or collective action can overcome free-riding (Ch 13.3).
 
-**Common resources** (rivalrous but nonexcludable) are subject to the "tragedy of the commons" (Hardin 1968 [BT]) — overharvesting because no individual bears the cost of depletion (Ch 13.3). Marketable permits, harvest limits, and licences are policy tools. Elinor Ostrom (Nobel laureate) demonstrated that local communities can sometimes self-govern common resources without external regulation [BT] (Ch 13.3, "non-tragedy of the commons").
+**Common resources** (rivalrous but nonexcludable) are subject to the "tragedy of the commons" (Hardin 1968 [BT]) — overharvesting because no individual bears the cost of depletion (Ch 13.3). Marketable permits, harvest limits, and licences are policy tools. Elinor Ostrom (Nobel laureate) demonstrated that local communities can sometimes self-govern common resources without external regulation [BT] (Ch 13.3, "non-tragedy of the commons"). She challenged the notion that people avoid depleting common resources only when regulatory laws and property rights force them to: farmers working shared land could communicate and cooperate to preserve the fields over time, and a resource is better managed without external influence when those who benefit most from it are in close proximity to it [BT] (Ch 13.3, "Common Resources and the 'Tragedy of the Commons'").
 
 ## Part XIV: Labour markets and income (Ch 14)
 
@@ -232,17 +234,17 @@ Government policies to reduce inequality: redistribution through progressive tax
 
 ## Part XVI: Information, risk, and insurance (Ch 16)
 
-Many transactions involve **imperfect information** and **asymmetric information** — situations where one party has better information than the other (Ch 16.1). The "lemons" problem: in used-car markets, buyers cannot tell good cars from bad, so sellers of good cars are driven out by adverse selection (Ch 16.1).
+Many transactions involve **imperfect information** and **asymmetric information** — situations where one party has better information than the other (Ch 16.1). In the used-car ("lemon") example, the sellers likely know more about a car's problems than the buyer and have an incentive to hide them; even so, prices still reflect information, since dealers with a trustworthy reputation to uphold charge more and cheaper cars carry more risk (Ch 16.1, "'Lemons' and Other Examples of Imperfect Information"). Imperfect information can discourage both buyers and sellers from participating: sellers of high-quality or medium-quality goods "may be reluctant to participate" because buyers who cannot determine quality "are likely to be unwilling to pay a higher price for such goods", and when the problem is severe "markets may become extremely thin" [V] (Ch 16.1, "How Imperfect Information Can Affect Equilibrium Price and Quantity").
 
 Mechanisms to reduce information asymmetry: money-back guarantees, warranties, service contracts, reputation, brand names, occupational licences, cosigners, collateral (Ch 16.1).
 
-**Insurance** spreads risk: members pay premiums, and those who suffer covered losses receive payments. Premiums must equal expected payouts plus administrative costs plus profit. **Risk groups** of similar probability share the same premium (actuarial fairness) (Ch 16.2).
+**Insurance** spreads risk: members pay premiums, and those who suffer covered losses receive payments. The insurance company "prices these premiums based on the probability of certain events occurring among a pool of people" [V] (Ch 16.2). Adverse events occur "out of a combination of people’s characteristics and choices that make the risks higher or lower and then the good or bad luck of what actually happens" [V] (Ch 16.2). Premiums must equal expected payouts plus administrative costs plus profit. **Risk groups** of similar probability share the same premium: when an insurer charges each group "according to its expected losses", so that premiums equal what an average member of the group collects, the insurance is "actuarially fair" [V] (Ch 16.2, "Risk Groups and Actuarial Fairness").
 
 Two information problems plague insurance markets:
 
 **Moral hazard** — "people engage in riskier behaviour with insurance than they would if they did not have insurance" [V] (Ch 16.2). Mitigation: deductibles, copayments, coinsurance — all of which require the insured to bear part of the loss. Health Maintenance Organisations (HMOs) shift moral hazard from patients to providers by paying providers a fixed amount per enrolled person (Ch 16.2).
 
-**Adverse selection** — high-risk individuals are more likely to seek insurance, while low-risk individuals avoid it. Insurers respond by raising prices, which drives out more low-risk customers, in a death spiral (Ch 16.2). Mitigation: group insurance through employers (mixes risks), mandates that everyone buy insurance, and government provision.
+**Adverse selection** — high-risk individuals are more likely to seek insurance, while low-risk individuals avoid it. Insurers respond by raising prices, which drives out more low-risk customers; the text uses this example to show how adverse selection "can strangle an insurance market" [V] (Ch 16.2). Mitigation: group insurance through employers (mixes risks), mandates that everyone buy insurance, and government provision.
 
 The U.S. healthcare system is unusually expensive ($10,948 per person in 2020 versus ~$5,000-7,000 in other high-income countries) but produces worse outcomes (life expectancy lower than peer countries) (Ch 16.2, Table 16.2). The Affordable Care Act (2010) used an individual mandate (penalty since eliminated), insurance exchanges, and an employer mandate to expand coverage. Coverage rose from ~80% to ~91% of the under-65 population.
 
@@ -252,7 +254,7 @@ Firms raise financial capital from four sources: early-stage investors (founders
 
 Households supply financial capital through bank accounts (checking, savings, CDs), bonds (corporate, municipal, Treasury), stocks, mutual funds, and tangible assets (housing, gold, collectibles) (Ch 17.2). Each is evaluated on three dimensions: **expected rate of return**, **risk**, and **liquidity** — and there is generally a tradeoff: higher returns come with higher risk and/or lower liquidity.
 
-The **bond yield** depends on the bond's face value, coupon rate, market interest rates, and time to maturity. When market rates rise, existing bonds with lower coupons trade below face value; when market rates fall, existing higher-coupon bonds trade above face. The text explicitly works through the calculation: "yield, or total return, means interest payments, plus capital gains" [V] (Ch 17.2).
+The **bond yield** depends on the bond's face value, coupon rate, market interest rates, and time to maturity. When market rates rise, existing bonds with lower coupons trade below face value; when market rates fall, existing higher-coupon bonds trade above face. The text explicitly works through the calculation: "yield, or total return, means interest payments, plus capital gains" [V] (Ch 17.2). A bondholder locked into a lower rate when market rates rise bears an opportunity cost; to place a **present discounted value** on a future payment, decide what you would need in the present to equal that amount in the future, a calculation that requires an interest rate (Ch 17.2, "Bonds"; developed in Appendix C).
 
 Stocks have averaged about 7% real return historically, but with substantial volatility (the S&P 500 fell 38% in 2008 and rebounded; the average decade-by-decade returns have varied from -1% in 2000-09 to over 18% in the 1990s [V] — Ch 17.2, Table 17.2). **Mutual funds**, especially **index funds**, allow diversification at low cost. Diversification reduces risk by averaging out idiosyncratic shocks.
 
@@ -261,6 +263,8 @@ Housing has been a major store of household wealth ($23.6 trillion in U.S. home 
 The **random walk theory** of stock prices: future price changes are unpredictable because all known information is already reflected in current prices. Most actively managed mutual funds underperform the market average over time (Ch 17.3). The reliable path to wealth: education plus early saving plus the power of compound interest.
 
 ## Part XVIII: Public economy (Ch 18)
+
+The chapter opens with Mancur Olson's *The Logic of Collective Action* (1965), which challenged the idea that in a democracy the majority view will prevail and launched the modern study of public economy [BT], "sometimes referred to as public choice, a subtopic of microeconomics" [V] (Ch 18, "Introduction to Public Economy").
 
 Democratic governments may not always pursue the public interest. The text identifies several reasons:
 
@@ -488,6 +492,10 @@ Trade policy is enacted through the **WTO** (founded 1995, building on GATT 1947
 
 The text's overall position: gains from trade are real and significant; protectionism's distributional effects are real but better addressed through retraining, safety nets, and adjustment assistance than through import barriers.
 
+## Appendix C: Present discounted value
+
+**Present discounted value (PDV)** is "the amount you should be willing to pay in the present for a stream of expected future payments" [V] (App C, "Present Discounted Value"). The calculation requires an interest rate: at 10%, a payment of $110 a year from now has a PDV of $100 (App C). The rate an investor applies reflects the return on other available investments, "which is the opportunity cost of investing financial capital", plus a risk premium when the investment looks especially risky; and expected profits are "a best guess, not a hard piece of data" [V] (App C, "Applying Present Discounted Value to a Stock"). PDV sets the prices of stocks and bonds, and it applies outside finance: a business weighing a physical capital investment, or a government weighing highway safety features, compares present costs with the present discounted value of future benefits. "Whenever a string of costs and benefits stretches from the present into different times in the future, present discounted value becomes an indispensable tool of analysis" [V] (App C, "Other Applications").
+
 ## Key statistics (with provenance)
 
 | Metric | Value | Source |
@@ -542,7 +550,7 @@ The text's overall position: gains from trade are real and significant; protecti
 - **Garret Hardin** (Science 1968) — "tragedy of the commons" framing (Ch 13.3) [BT].
 - **A.W. Phillips** (London School of Economics, 1950s) — Phillips curve (Ch 25.3) [BT].
 - **Milton Friedman** — quoted (1967 speech) summing up the neoclassical view of the long-run Phillips curve: a temporary but no permanent inflation-unemployment tradeoff (Ch 25) [V].
-- **Ronald Coase** (Nobel 1991) — externalities, property rights, transaction costs (Ch 12.3) [BT].
+- **Ronald Coase** (Nobel 1991) — externalities and property rights, illustrated by railroad sparks and a farmer's field (Ch 12.3) [BT].
 - **Simon Kuznets** (Nobel laureate) — invented GDP measurement during the 1930s Great Depression (Ch 19 intro) [V].
 - **Robert E. Lucas Jr.** (Nobel 1995) — quoted on the importance of growth (Ch 20 intro) [V].
 - **Esther Duflo, Abhijit Banerjee, Michael Kremer** (Nobel 2019) — experimental methods to understand poverty (Ch 1.1) [V].

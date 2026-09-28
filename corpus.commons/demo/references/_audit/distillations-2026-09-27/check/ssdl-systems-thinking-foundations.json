@@ -1,0 +1,77 @@
+{
+ "slug": "ssdl-systems-thinking-foundations",
+ "changed_lines_checked": 128,
+ "tally": {
+  "faithful": 123,
+  "minor_drift": 4,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 3
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/aar/ssdl-systems-thinking-foundations-aar.md",
+   "line": 24,
+   "text": "...which come from our unique vantage point and lived experiences\" [V] (Source: Brief 1.05, \"+ CONSIDERATIONS\") A CLD built during an AAR is a working theory of the contributory structure, not a settled causal account.",
+   "grade": "EDIT-DEFECT",
+   "problem": "The re-quoted CLD passage ends with no terminal punctuation, so the sentence runs straight into 'A CLD built during an AAR...'. The quotation itself is faithful (the source text continues past 'lived experiences' across a page break, so no period belongs inside the quote); the prose is left unterminated. The stakeholder-engagement repair of the same quote (line 44) closes it correctly with '[V].'",
+   "evidence": "Source 675-677: 'Remember, a CLD is a hypothesis– there is not one single “right” answer to the variables that are included or the relationships that exist between them. The model we produce is informed by each of our individual mental models, which come from our unique vantage point and lived experiences' (resumes at 684 after PAGE THREE: 'it with others so it can be refined...'). Audit aar D005.",
+   "fix": "correct: lived experiences\" [V] (Source: Brief 1.05, \"+ CONSIDERATIONS\"). A CLD built during an AAR is a working theory of the contributory structure, not a settled causal account."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/ssdl-systems-thinking-foundations-retro.md",
+   "line": 28,
+   "text": "...which come from our unique vantage point and lived experiences\" [V] A CLD drawn during Phase 3 is a shared working theory.",
+   "grade": "EDIT-DEFECT",
+   "problem": "Same as aar line 24: the quote ends with no terminal punctuation and the sentence runs into 'A CLD drawn during Phase 3'.",
+   "evidence": "Source 675-677 as for aar line 24. Audit retro D005.",
+   "fix": "correct: lived experiences\" [V]. A CLD drawn during Phase 3 is a shared working theory."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/ssdl-systems-thinking-foundations-decision-making.md",
+   "line": 28,
+   "text": "A decision is operating in complex territory if the situation exhibits *dynamic* components ..., or *accumulation/history dependence* in the state being decided upon. (Source: Brief 1.02, \"+(Some) Characteristics of complex problems\") Applied heuristic (this distillation's, not the brief's): any one of the five is a signal; ...",
+   "grade": "MINOR-DRIFT",
+   "problem": "Partial repair. Audit D003's flagged claim included this opening conditional as well as the 'any one ... is a signal' sentence. The repair moved and labelled the second sentence but left the same any-one test ('operating in complex territory if the situation exhibits ... or ...') in front of the Brief 1.02 citation. The brief lists '(some)' characteristics of complex problems and gives no test that one of them makes a situation complex. The aar and retro repairs rewrote the same sentence correctly.",
+   "evidence": "Source 61-70 ('share (some) characteristics of complex problems'; '+(Some) Characteristics of complex problems in education'). Deep 35: 'offers five characteristics (with education examples)'. aar line 12 / retro line 16 as repaired: 'Brief 1.02 lists five characteristics of complex problems, framed as *some* characteristics rather than a complete list'.",
+   "fix": "correct: Brief 1.02 lists five characteristics of complex problems, framed as *some* characteristics rather than a complete list: *dynamic* components (the variables themselves change over time), *multiple stakeholders with conflicting goals and interlinked decisions*, *time delays between action and result*, *unintended consequences from prior interventions*, and *accumulation/history dependence* in the state being decided upon. (Source: Brief 1.02, \"+(Some) Characteristics of complex problems\")"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/ssdl-systems-thinking-foundations-software-business.md",
+   "line": 28,
+   "text": "A software-business decision is operating in complex territory if the situation exhibits *dynamic* components (...), ... or *accumulation/history dependence* (...). (Source: Brief 1.02, \"+(Some) Characteristics of complex problems\") Applied heuristic (this distillation's, not the brief's): any one of the five is a signal; ...",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same partial repair as decision-making line 28 (audit software-business D002): the labelled heuristic sentence now follows the citation, but the opening sentence still states the any-one test before the Brief 1.02 citation.",
+   "evidence": "Source 61-70; deep 35 (as for decision-making line 28).",
+   "fix": "correct: replace 'A software-business decision is operating in complex territory if the situation exhibits' with 'Brief 1.02 lists five characteristics of complex problems, framed as *some* characteristics rather than a complete list; in software-business terms:' and change ', or *accumulation/history dependence*' to ', and *accumulation/history dependence*'."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/ssdl-systems-thinking-foundations-software-business.md",
+   "line": 232,
+   "text": "The B-vocabulary opportunity-surface (the stakeholder's occasional Paradigm-B language) can echo the stakeholder's own occasional B-vocabulary (per the lens: \"build it into the system\", \"system not people\") in opening acknowledgment, without claiming the stakeholder operates from those values.",
+   "grade": "EDIT-DEFECT",
+   "problem": "Audit fix D021 was spliced in word for word and left a circular sentence: a subject glossed as 'the stakeholder's occasional Paradigm-B language' now 'can echo the stakeholder's own occasional B-vocabulary'. The attribution is now correct (the phrases come from the lens, not SSDL), but the sentence no longer says who echoes what.",
+   "evidence": "lenses/business-executive-stakeholder.md 23: 'phrases from the stakeholder's own occasional Paradigm-B language (\"build it into the system,\" \"system not people,\" ...) that the artefact can echo in opening acknowledgment or framing without claiming the stakeholder operates from those values.'",
+   "fix": "correct: In opening acknowledgment, the artefact can echo the stakeholder's own occasional Paradigm-B vocabulary (per the lens: \"build it into the system\", \"system not people\"), without claiming the stakeholder operates from those values."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/ssdl-systems-thinking-foundations-decision-making.md",
+   "line": 221,
+   "text": "cited in Brief 1.05 as the source for the claim that the \"feedback lens helps us think through why interventions may have undesirable results\" [BT].",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line; residual of the error class the repair fixed elsewhere in this file (verbatim quotation without [V]). The rewritten continuity note at line 232 now says 'This distillation paraphrases except for quotations marked [V]', which this quotation contradicts. The audit record did not list it.",
+   "evidence": "Source 666: 'feedback lens helps us think through why interventions may have undesirable results even in situations where we are highly motivated and have the right technical knowledge.1'",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/ssdl-systems-thinking-foundations-decision-making.md",
+   "line": 222,
+   "text": "empirical evidence that \"even students with strong mathematical training make persistent mistakes understanding even simple dynamic systems that include accumulations\" [BT].",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line; same residual as line 221: a verbatim quotation marked [BT] only, while the repaired line 22 carries the same quotation as [V] [BT] and line 232 claims every quotation is [V]-marked.",
+   "evidence": "Source 930-932: 'Studies show that even students with strong mathematical training make persistent mistakes understanding even simple dynamic systems that include accumulations.'",
+   "fix": "re-mark: [V] [BT]"
+  }
+ ],
+ "notes": "Coverage: converted source read in full (lines 1-1545); deep ref read in full (1-395); every changed distillation read in full (aar 1-127, decision-making 1-232, retro 1-144, software-business 1-260, stakeholder-engagement 1-217). Audit records for all five tasks read for their non-FAITHFUL findings and notes. Changed lines checked: 128 = deep 4, light 2, aar 12, decision-making 22, retro 20, software-business 32, stakeholder-engagement 21, index rows 15 (aar 1, decision-making 4, software-business 3, stakeholder-engagement 7). Stamp lines ignored. Tally covers those 128 plus the 2 unchanged residual lines (decision-making 221, 222): 130 graded, 123 FAITHFUL. Deep ref: all four edits verified against the source: the footer note ('educational equity' in 1.05 at 739-740 and 1.06 at 1028; 'education equity' in 1.02, 1.03, 1.07); the GMB quote's ellipsis drops the stray 'the' at 364-365; the Getting Started prompts (955-959) are word for word, and the [AP] 'eaching' note (982) is a legitimate conversion note, not an edit trace; 'canonical list' -> 'list'. Light ref edits (the list is not fixed; 'Core archetype count') FAITHFUL. Every audit fix across the five records (aar D001-D013, decision-making D001-D022, retro D001-D014, software-business D001-D026, stakeholder-engagement D001-D018) was applied; no removal lacked audit justification. New cross-source claims verified: Barbrook-Johnson deep 121/330 (Kim 2000's eight incl. tragedy of the commons, Ch 4); Principles of Management deep 189-196 (six structure types, Ch 4.3); Field Guide deep 216/242 (six-segment Derby-Larsen-based retro agenda); business-executive-stakeholder lens 23/62 (the B-vocabulary phrases). The claim that none of Senge, Meadows, Sterman or Kim is held in the demo corpus checks out (no such deep refs among the 28). vflags (5, all new): decision-making 50 FAITHFUL (the ellipsis stands for the elided sentence 'Accumulations occur naturally...'; 'once2' at 932 is a footnote number); decision-making 68, decision-making 117, software-business 66, stakeholder-engagement 58 all FAITHFUL (the 'eight to twelve core ... archetypes' sentence is split at 1129-1137 by the page footer 'Specific contributions for each author...'). Index rows: all 15 added rows match the distillations they point to; the 'Voice and exposure correlate' row text (removed from decision-making as UNSUPPORTED) is gone from the stakeholder-engagement index too. Low-priority, pre-existing, not graded: quoted phrases that are not word for word and carry no [V] ('bring mental models into the light of day' at software-business 250 and stakeholder-engagement 199; 'looks formal and mathematical' at stakeholder-engagement 157, source 'look'); 'into the light of day' marked [BT] only at aar 123 and decision-making 223 (a phrase the brief itself quotes from Meadows); concept-anchor IDs 'canonical-archetype-list' (software-business 66) and 'tragedy-of-the-commons' (stakeholder-engagement 58) keep the old labels as machine keys; the aar file keeps 'broken-ankle test' at 89 and 108, now disclosed at lines 8 and 34 as the distillation's own label, which the audit accepted."
+}

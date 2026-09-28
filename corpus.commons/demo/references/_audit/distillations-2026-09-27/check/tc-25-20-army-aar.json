@@ -1,0 +1,68 @@
+{
+ "slug": "tc-25-20-army-aar",
+ "changed_lines_checked": 140,
+ "tally": {
+  "faithful": 134,
+  "minor_drift": 5,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/tc-25-20-army-aar-deep.md",
+   "line": 167,
+   "text": "Leader skills, not soldier skills, get their own session: \"Often it is best to discuss leader skills in a separate meeting or AAR specifically for that purpose. ...\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "The added lead-in turns the TC's hedge ('Often it is best') into a rule ('get their own session'), and the TC never says soldier skills should stay in the unit AAR. The verbatim quote that follows is correct.",
+   "evidence": "Source 1044-1047: '(Often it is best to discuss leader skills in a separate meeting or AAR specifically for that purpose. This allows for a candid discussion of leadership issues without wasting unit AAR time best spent on reviewing the entire training exercise.)'",
+   "fix": "correct: Leader skills are often best discussed in a separate session:"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/tc-25-20-army-aar-aar.md",
+   "line": 8,
+   "text": "The AAR is not a critique, does not grade, and produces its benefit only when follow-up action happens.",
+   "grade": "MINOR-DRIFT",
+   "problem": "This changed paragraph still carries the overstatement that the retro audit flagged (D001) and the retro repair fixed ('real benefit ... not in the meeting alone'). The TC says the REAL benefits come from applying results. It also credits the discussion itself: participants learn and remember more, and immediate feedback is a significant strength of informal AARs.",
+   "evidence": "Deep 183 / source 1123-1124: 'The real benefits of AARs come from taking the results and applying them to future training' [V]. Deep 15 / source 134-135: 'they learn and remember more than they would from a critique alone'. Deep 48 / source 249-251: 'Providing immediate feedback while the training is still fresh in soldiers' minds is a significant strength of informal AARs'.",
+   "fix": "correct: The AAR is not a critique, does not grade, and produces its real benefit when the results are applied to future training."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/tc-25-20-army-aar-aar.md",
+   "line": 160,
+   "text": "The distillation's direct quotations are all TC wording and carry `[V]`.",
+   "grade": "MINOR-DRIFT",
+   "problem": "This does not hold for the file as it stands. Line 60 quotes TC wording (fragments of the SGT Johnson contrast) with no marker.",
+   "evidence": "Line 60: 'Is each question inviting narrative (\"what happened when\u2026\") or inviting self-defence (\"why didn't you\u2026\")?' Source 906, 911: 'SGT Johnson, what happened when your Bradley crested the hill?' / 'SGT Johnson, why didn't you engage the enemy tanks to your front?'",
+   "fix": "correct (line 60): Is each question inviting narrative (\"what happened when\u2026\" [V]) or inviting self-defence (\"why didn't you\u2026\" [V]) (Ch 4, \"Summary of Recent Events\")?"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/tc-25-20-army-aar-stakeholder-engagement.md",
+   "line": 206,
+   "text": "...carries 133 [V] markers (on 82 lines), 5 [BT] markers, 1 [AP] marker, and 0 [AR] markers. ... The two [AP] markers are the thesis-level paraphrase of the leader's facilitation techniques (Ch 4, \"Introduction and Rules\") and the training-aid bottom line (Ch 2, \"Choosing Training Aids\").",
+   "grade": "EDIT-DEFECT",
+   "problem": "The paragraph contradicts itself. The count was updated to '1 [AP] marker' because the deep-ref repair re-marked the training-aid bottom line [AP] -> [V], but the next sentence still says 'The two [AP] markers' and still lists the training-aid bottom line as one of them. The counts themselves are right: the current deep ref has 133 [V] on 82 lines, 5 [BT], 1 [AP] (line 17), 0 [AR].",
+   "evidence": "Deep ref line 80 now reads: \"The bottom line is to only use a training aid if it makes the AAR better\" [V] (Ch 2, \"Choosing Training Aids\"). grep -o '[AP]' on the deep ref = 1 (line 17 only).",
+   "fix": "correct: The one [AP] marker is the thesis-level paraphrase of the leader's facilitation techniques (Ch 4, \"Introduction and Rules\")."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/AAR-DISTILLATION-INDEX.md",
+   "line": 60,
+   "text": "| Choose informal AAR for small in-team learning | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | A platoon-level-and-below event; an on-the-spot informal AAR with few if any training aids gives immediate feedback while the event is fresh, and its teaching points can feed a later formal review. |",
+   "grade": "MINOR-DRIFT",
+   "problem": "The row does not match the distillation it points to. The aar distillation never says that informal-AAR teaching points feed a later formal review. The claim is true of the source (deep 46) and appears in the decision-making distillation (line 72), but a reader routed to tc-25-20-army-aar-aar.md will not find it.",
+   "evidence": "aar distillation: line 48 (on-the-spot, platoon level and below, immediate feedback while fresh) and line 16 (minimal resources, pinecones); no 'feed'/'teaching points ... formal' passage. Source 236-238 supports the claim itself.",
+   "fix": "correct: A platoon-level-and-below event; an on-the-spot informal AAR with few if any training aids gives immediate feedback while the event is fresh. (Or add the feed-upward point to the aar distillation.)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 0,
+   "text": "| Apply the two-echelons-above evaluator rule | ... | `tc-25-20-army-aar-decision-making.md` | An external evaluation is needed; the TC assigns it to the headquarters two levels above and gives no rationale for the distance. For internal reviews, leaders one level up evaluate, provided no one evaluates their own duties and tasks. |",
+   "grade": "MINOR-DRIFT",
+   "problem": "The row drops the condition the distillation keeps (line 28: 'when dedicated OCs are unavailable'). That makes one-level-up evaluation sound like the rule for all internal reviews. In the TC, the unit plans and conducts its own internal evaluations, and chain-of-command evaluation is the fallback when OCs would have duties that detract from observing.",
+   "evidence": "Source 320: 'The unit undergoing the evaluation plans, resources, and conducts internal evaluations.' Source 391-393: 'Observers should not have duties which would detract from their OC duties. If this is not possible, leaders in the chain of command should evaluate subordinate units and conduct the AARs.' DM distillation line 28 carries the condition.",
+   "fix": "correct: An external evaluation is needed; the TC assigns it to the headquarters two levels above and gives no rationale for the distance. Internal evaluations are the unit's own; when dedicated OCs are unavailable, leaders one level up evaluate, avoiding their own duties and tasks."
+  }
+ ],
+ "notes": "COMPLETE. Coverage: converted source read in full (1567 lines); deep ref (269), light ref (111), and the aar (160), retro (147), decision-making (183) and stakeholder-engagement (206) distillations each read in full; the four audit JSONs read for removal justification. Changed lines by file: deep 9 (8 F, 1 MD), light 5 (all F), aar 25 (23 F, 2 MD), retro 20 (all F), decision-making 28 (all F), stakeholder-engagement 32 (31 F, 1 ED), index rows added 21 (19 F, 2 MD). Stamp lines ignored; all stamps match the current deep-ref sha256 (b722d6f2...). The DM index finding has line 0 because only diff text was used; it is the 'Apply the two-echelons-above evaluator rule' row.\n\nFocus areas asked for. Two-levels rule: fixed correctly in all four distillations. The rule now covers external evaluations only, the TC gives no rationale, and one-level-up chain-of-command evaluation is shown as the fallback, with source 320-324 and 391-406 checked. The only residue is the DM index row above. A small hardening appears in DM line 28 and SE line 34: 'provided no one evaluates their own duties' where the TC says 'If possible, they should avoid'. It is optional to soften. Informal AAR timing: the invented '15-minute' figure is gone everywhere (grep confirms). The replacements match the source: on the spot, immediate feedback while fresh, platoon level and below, few if any aids (source 209-251). 60-minute allowance: the aar worked example now plans 60 minutes, which matches the source's '1 hour for company-level AARs' (456). Seven-part sequence: aar line 109 matches Figure 4-1 (source 801-842, seven steps). Train to weakness: the sustain qualifier (source 1055-1061) is now carried in the deep ref, the light ref and all three distillations that use the rule, and the retro worked example keeps the checklist going rather than dropping it.\n\nvflags (2, both decision-making, not pre-existing). Line 24 and line 110 are both FAITHFUL. The words match source 1067-1082 word for word; the checker missed them because of italic markup, the ellipses, and a page footer ('20', 'TC 25-20') that splits 'identify critical trends or issues' from 'and reinforce teaching points'.\n\nRemovals. The DM Phase 4 row 'Distinguish bad luck from bad decision' was removed as audit D011 (strip) directs. Index rows dropping 'canonical primary source ... derivatives trace back' match audit D028/D001. No unjustified removals.\n\nOther-source claims checked against their deep refs, all supported: LFUO FLA/Learning Review and recommendations, administrative firewall, and interview cautions after a tragedy; OPL Blameless Postmortem (incidents and outages), retro variants (4Ls, Rose Thorn Bud, PMI) and psychological-safety cluster; Psychology 2e Ch 8.3 misinformation/leading questions and Schacter; SSDL feedback thinking/CLDs; Scrum 2020 'most impactful improvements ... as soon as possible'; NHS prior and Q1-Q5 and the communication tool for staff, patients and families; Field Guide six-segment agenda based on Derby and Larsen; LS One Minute of Silence, 1-2-4-Whole Group, Impromptu Speed Networking and TRIZ; FLO tracking matrix; Open Kanban visualisation and information radiator; OB Ch 6.6 groupthink/suppression of dissent and Ch 9.\n\nResidual, ungraded (unchanged lines, not flagged by the audits). (1) The 'no benefit without follow-up' wording survives in unchanged lines: aar 14, 84; retro 24, 82; DM 36, 88; SE 100, 117. It is softer than the 'only' flagged at aar 8, but the same family; worth a sweep if the aar-8 fix is taken. (2) aar lines 112 and 140 still frame fratricide-equivalents as topics 'squeezed by time budget'. They no longer claim the TC overrides time budgets, so they were left alone. (3) aar line 160 wraps a live [BT] marker in backticks (`[BT]`), which a mechanical marker counter may skip. (4) The unchanged software-business index skip-note (SOFTWARE-BUSINESS-DISTILLATION-INDEX.md line 828) still calls TC 25-20 'the canonical AAR primary source', the claim the repair removed elsewhere. (5) aar line 149 names '(Blameless Postmortem)' twice in one cell; this is redundant but not broken."
+}

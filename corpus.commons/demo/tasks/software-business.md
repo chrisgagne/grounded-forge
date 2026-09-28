@@ -32,11 +32,11 @@ Software-business work is the set of decisions and practices at the intersection
 
 | Trigger (what the practitioner notices) | Response (what the corpus surfaces) |
 |---|---|
-| Operator names a pricing decision tied to engineering effort | Cost-classification primitives (`openstax-accounting-vol2`), pricing strategies (`openstax-principles-marketing`), capacity-vs-flow framing (`open-kanban`, `jones-evidence-based-sweng` on resource estimation) |
+| Operator names a pricing decision tied to engineering effort | Cost-classification primitives (`openstax-accounting-vol2`), pricing strategies (`openstax-principles-marketing`), batch-size reduction and the whole-system view (`open-kanban`), resource estimation (`jones-evidence-based-sweng`) |
 | Operator frames a build-vs-buy decision | Make-or-buy relevant-cost analysis (`openstax-accounting-vol2`), agency theory in vendor-client relations (`jones-evidence-based-sweng`), microservices boundary case (`letaw-handbook-sweng-methods`) |
 | Operator names market entry or product-portfolio decision | Five-forces and PESTEL (`openstax-principles-management`), entrepreneurship pivot framework (`openstax-entrepreneurship`), product-economics in the cognitive-capitalism chapter (`jones-evidence-based-sweng`) |
 | Operator describes an AI-integration decision (productisation, build/buy, vendor selection) | Cognitive-capitalism + agency-theory framing (`jones-evidence-based-sweng`), externalised-cost frame (architecture's `llm-epistemology.md` plus `openstax-business-ethics`) |
-| Operator names a competitive-response decision with engineering implications | Strategy-environment-scan framing (`openstax-principles-management`), Conway's-Law-shaped team-structure question (`letaw-handbook-sweng-methods`) |
+| Operator names a competitive-response decision with engineering implications | Strategy-environment-scan framing (`openstax-principles-management`), team-communication and microservices trade-offs (`letaw-handbook-sweng-methods`) |
 
 **Phase 2, Product and engineering economics** (technical-debt servicing, capacity planning, ROI on engineering investment, reliability-as-business-decision)
 
@@ -45,17 +45,17 @@ Software-business work is the set of decisions and practices at the intersection
 | Operator names technical-debt remediation against revenue work | Relevant-cost discipline (`openstax-accounting-vol2`), Jones on the post-1980 evidence collapse and KLOC-power-law mythology (`jones-evidence-based-sweng`) |
 | Operator describes a reliability investment against a commercial milestone | Jones on the bi-exponential fault-report pattern and reliability statistics, CVP + breakeven framing (`openstax-accounting-vol2`) |
 | Operator names a capacity-planning decision (hiring, contractor mix, team size) | Resource estimation under uncertainty and the cone of uncertainty as artefact (`jones-evidence-based-sweng`), triple-constraint discipline (`letaw-handbook-sweng-methods`) |
-| Operator describes a roadmap-capacity mismatch | Velocity / capacity-adjusted velocity formula (`approach-perfect-field-guide-scrum-events`), flow economics over utilisation (`open-kanban`) |
+| Operator describes a roadmap-capacity mismatch | Velocity / capacity-adjusted velocity formula (`approach-perfect-field-guide-scrum-events`), batch-size reduction, of which limiting WIP is a consequence (`open-kanban`) |
 | Operator names a "speed vs quality" tension | Jones on the survival-adjusted maintenance-to-development ratio, Goldratt theory of constraints (`openstax-accounting-vol2`), Sprint Goal discipline (`scrum-guide-2020`) |
 
 **Phase 3, Team and capability building** (hiring, structure, levelling, culture, succession)
 
 | Trigger | Response |
 |---|---|
-| Operator names a hiring or role-structure decision for software work | Organisational-design primitives (`openstax-principles-management`, six structures from Mintzberg), Tuckman team-stage map (`letaw-handbook-sweng-methods`) |
-| Operator describes an engineering-management culture decision | Organisational-behaviour individual-and-group level (`openstax-organizational-behavior`), psychological-safety + authority-gradient (`nhs-just-culture-guide` cross-axis) |
-| Operator names a levelling, performance, or compensation decision | Motivation frameworks (Maslow, Herzberg, SDT) at `openstax-principles-management`, `openstax-organizational-behavior`; Pink-style autonomy/mastery/purpose contrast |
-| Operator describes a succession or knowledge-transfer concern | Tacit-knowledge / Nonaka-Takeuchi (`openstax-principles-management` Ch 18.6, the corpus's only substantive treatment), Jones on cognitive-capitalism |
+| Operator names a hiring or role-structure decision for software work | Organisational-design primitives (`openstax-principles-management`, six structure types, Exhibit 4.6), Tuckman team-stage map (`letaw-handbook-sweng-methods`) |
+| Operator describes an engineering-management culture decision | Organisational-behaviour individual-and-group level (`openstax-organizational-behavior`), fair treatment of staff after an incident (`nhs-just-culture-guide` cross-axis) |
+| Operator names a levelling, performance, or compensation decision | Motivation frameworks (Maslow, Herzberg, SDT) at `openstax-principles-management`, `openstax-organizational-behavior` |
+| Operator describes a succession or knowledge-transfer concern | Explicit and tacit knowledge (`openstax-principles-management` Ch 18.6), Jones on cognitive-capitalism |
 | Operator names a contractor / vendor / hybrid-team decision | Agency theory and moral hazard in vendor-client relations (`jones-evidence-based-sweng`), Letaw on RACI and decision rights |
 
 **Phase 4, Operations and process** (delivery cadence, governance, decision rights, change management)
@@ -73,7 +73,7 @@ Software-business work is the set of decisions and practices at the intersection
 | Trigger | Response |
 |---|---|
 | Operator names an incident-response or post-incident-learning concern | NHS Just Culture decision aid (`nhs-just-culture-guide`), TC 25-20 AAR (`tc-25-20-army-aar`), LFUO Learning Review (`lfuo-learning-review-guide-2024`) |
-| Operator describes a legal exposure (contract, IP, employment, consumer-protection) | OpenStax Business Law primitives (`openstax-business-law`), Business Ethics duty-of-care chapters (`openstax-business-ethics`) |
+| Operator describes a legal exposure (contract, IP, employment, consumer-protection) | OpenStax Business Law primitives (`openstax-business-law`), Business Ethics on employee rights, whistleblowing and bribery (`openstax-business-ethics`) |
 | Operator names a compliance investment with engineering cost | Cost-as-decision-relative (`openstax-accounting-vol2`), Jones on quality-cost statistics |
 | Operator describes a security or reliability event with PR + customer dimensions | NHS Just Culture default-to-system framing (`nhs-just-culture-guide`), TC 25-20 spirit-and-climate (`tc-25-20-army-aar`), Business Ethics social-contract argument |
 | Operator names an AI-ethics or extractive-cost question | Business Ethics normative-stakeholder frame (`openstax-business-ethics`), architectural framing in `docs/architecture/llm-epistemology.md` |
@@ -84,7 +84,7 @@ Software-business work is the set of decisions and practices at the intersection
 |---|---|
 | Operator names a board-paper or exec-memo concern with technical content | Grunig-Hunt linkage model (`openstax-business-ethics`), Mitchell-Agle-Wood stakeholder prioritisation, plus the `business-executive-stakeholder` lens |
 | Operator describes a fundraising or investor-update need | OpenStax Principles of Finance primitives (`openstax-principles-finance`), entrepreneurship funding-ladder (`openstax-entrepreneurship`) |
-| Operator names a cross-function negotiation (engineering vs product vs sales) | TKI five negotiation modes (`openstax-business-law`), positions-vs-interests framing (`openstax-organizational-behavior` Ch 6) |
+| Operator names a cross-function negotiation (engineering vs product vs sales) | TKI five negotiation modes (`openstax-business-law`), Thomas's conflict process model and conflict-handling modes (`openstax-organizational-behavior` Ch 14) |
 | Operator describes a customer-communication concern with technical content | Service-profit chain + Gap Model / RATER (`openstax-principles-marketing`), 5A customer journey |
 | Operator names a CTO-to-board translation problem | The `cto` lens fires; Mintzberg's roles (`openstax-principles-management`), `business-executive-stakeholder` lens cross-cuts |
 
@@ -116,7 +116,7 @@ None for v0.2.x. The software-business axis ships without practitioner-role agen
 
 ## 6. Success criteria
 
-In 3-6 months, a founder, CTO, engineering manager, or technical product leader using the deployed `software-business` app should be able to ask a question that turns on the technical-commercial intersection (a board memo, a build-vs-buy decision record, an incident write-up, a hire spec) and get back a source-grounded answer that names specific frameworks from the corpus (Jones on the post-1980 evidence collapse, Mintzberg's organisational structures, Goldratt's theory of constraints, the NHS Just Culture decision tree, Conway's Law as applied through Letaw), cites them through the deep references, and produces a deliverable in the shape the practitioner asked for. The falsifier: an LLM-judge eval comparing software-business app answers against (a) the same model running raw on the same question and (b) the decision-making app's answer where decision-making is the wrong axis, showing the software-business app citing software-specific empirical findings the other two methods do not surface. Bar: 60% of test queries with software-specific Jones / Letaw / Conway citations in the software-business answer that do not appear in the matched-decision-making baseline.
+In 3-6 months, a founder, CTO, engineering manager, or technical product leader using the deployed `software-business` app should be able to ask a question that turns on the technical-commercial intersection (a board memo, a build-vs-buy decision record, an incident write-up, a hire spec) and get back a source-grounded answer that names specific frameworks from the corpus (Jones on the post-1980 evidence collapse, the six organisational structure types, Goldratt's theory of constraints, the NHS Just Culture decision tree), cites them through the deep references, and produces a deliverable in the shape the practitioner asked for. The falsifier: an LLM-judge eval comparing software-business app answers against (a) the same model running raw on the same question and (b) the decision-making app's answer where decision-making is the wrong axis, showing the software-business app citing software-specific empirical findings the other two methods do not surface. Bar: 60% of test queries with software-specific Jones / Letaw citations in the software-business answer that do not appear in the matched-decision-making baseline.
 
 ## Discipline
 
@@ -132,5 +132,5 @@ In 3-6 months, a founder, CTO, engineering manager, or technical product leader 
 
 - Christensen, *Competing Against Luck* (2016): JTBD framing.
 - Jones, *Evidence-Based Software Engineering*: the empirical anchor for the software-specific claims this axis is built to surface.
-- Conway, "How Do Committees Invent?" (1968): the team-structure-vs-product-structure mapping that runs underneath the team-and-capability-building phase, surfaced through Letaw's microservices and design chapters.
+- Conway, "How Do Committees Invent?" (1968): the team-structure-vs-product-structure mapping behind the team-and-capability-building phase. No corpus source carries it, so distillations do not cite it.
 - Goldratt, *The Goal*: constraint thinking that runs underneath the product-and-engineering-economics phase, surfaced through OpenStax Accounting Vol 2's Theory of Constraints chapter.

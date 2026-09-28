@@ -1,0 +1,439 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/lfuo-learning-review-guide-2024-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-228 of 228",
+    "deep": "lines 1-323 of 323",
+    "complete": true
+  },
+  "claims_audited": 172,
+  "tally": {
+    "faithful": 130,
+    "minor_drift": 34,
+    "unsupported": 7,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 12,
+      "section": "Software-Business Relevance",
+      "claim": "RLS described as a \"one-page shareable lesson\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source (absent from deep ref) and narrowed",
+      "evidence": "Deep 51: 'a simple learning product' only. Source 719-720: 'usually takes the form of a one or two-page narrative document'.",
+      "fix": "correct: \"RLS (a simple, shareable learning product)\""
+    },
+    {
+      "id": "D002",
+      "line": 12,
+      "section": "Software-Business Relevance",
+      "claim": "\"The ladder is a triage scheme: a sev-3 caught-in-staging dev-team retro is an AAR; a sev-1 customer-impact incident across multiple services is an FLA; a security breach with regulatory and board dimensions is a Learning Review (Source: LFUO Part 2, 'The tools').\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "applied mapping rests on the selection criterion the source rejects, cited to the source",
+      "evidence": "Deep 61: the guide warns against basing review size on outcome severity ('This tendency may pretermit stellar learning opportunities' [V]). Deep 55: what makes a Learning Review is that 'the delegating authority ... has requested recommendations' [V], not regulatory or board dimensions. A severity ladder (sev-3 / sev-1 / breach) cited to Part 2 inverts both. The distillation's own Key Concept 1 says the opposite.",
+      "fix": "correct: \"The ladder is a triage scheme by learning scope: dev-team-only learning is an AAR; a lesson worth sharing is an RLS; learning the broader organisation needs, without recommendations, is an FLA; when leadership wants vetted recommendations, it is a Learning Review (Part 2, 'The tools'; Part 3, 'Starting the process').\""
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Software-Business Relevance",
+      "claim": "\"Recommendations on a single data point, without vetting through communities of practice, are framed as a decision-making error that may 'add complexity ...' [V]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "position relabelled; two separate claims fused",
+      "evidence": "Deep 97: 'We argue against providing recommendations on the basis of a single data point' [V]. Deep 95: the complexity passage is about recommendations in general. The guide does not call single-data-point recommendations a decision-making error, and does not tie the complexity effect to them.",
+      "fix": "correct: \"The guide argues against recommendations on a single data point [V], and warns that recommendations in general 'often ... add complexity to the workplace, which has the paradoxical effect of increasing risk' [V] (Part 5, 'Recommendations vs Lessons Learned').\""
+    },
+    {
+      "id": "D004",
+      "line": 22,
+      "section": "Key Concepts #1",
+      "claim": "\"a high-severity outage with little learning yield can deserve only an AAR\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's one-way argument inverted",
+      "evidence": "Deep 61: the guide's argument runs one way: sizing the review to outcome severity 'may pretermit stellar learning opportunities' [V], so minor outcomes can deserve full learning. It never says a severe event can deserve only an AAR; the AAR's learning 'does not affect the organization as a whole' (deep 49).",
+      "fix": "strip"
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Key Concepts #3",
+      "claim": "\"Without this commitment in writing, the engineering team's account of what actually happened will not surface — engineers will either go silent or curate, and the post-mortem will read as the official cover story\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety. We must cherish it and protect it' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical; it does not say accounts cannot be honest without it, nor predict 'cover stories'.",
+      "fix": "correct: \"The guide calls the firewall critical because information 'is the lifeblood of safety'; its Esperanza example shows people refusing to talk when they do not expect fair treatment (Appendix A).\""
+    },
+    {
+      "id": "D006",
+      "line": 28,
+      "section": "Key Concepts #4",
+      "claim": "\"The Lessons Learned Analysis reveals that 'multiple improbable events were necessary for the accident to occur' [V] — the same is true of distributed-system incidents\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "hedge dropped from the quoted sentence; finding transferred to software as fact",
+      "evidence": "Deep 163 / source 2333: 'Most often, the Lessons Learned Analysis will reveal that multiple improbable events were necessary for the accident to occur' [V]. The guide says nothing about software incidents.",
+      "fix": "correct: \"'Most often, the Lessons Learned Analysis will reveal that multiple improbable events were necessary for the accident to occur' [V]; expect the same shape in distributed-system incidents\""
+    },
+    {
+      "id": "D007",
+      "line": 36,
+      "section": "Key Concepts #8",
+      "claim": "\"Recognition-Primed Decision Making is the default operating pattern, not deliberation\" ... \"the on-call engineer did not deliberate between multiple options at 3am\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "glossary definition generalised into a universal claim",
+      "evidence": "Deep 274: the Glossary defines RPD, citing Klein [V][BT]; it is not called the default pattern. Nearest support is Principle 7 (deep 127): 'Almost all human actions and decisions are intuitive responses to circumstances largely based on past experiences' [V].",
+      "fix": "correct: \"The Glossary defines Recognition Primed Decision Making (citing Klein) [BT]; Principle 7 holds that almost all actions and decisions are intuitive responses based on past experience [V]. Ask why the first option seemed right.\""
+    },
+    {
+      "id": "D008",
+      "line": 36,
+      "section": "Key Concepts #8",
+      "claim": "RPD definition quoted as [V] only while attributed to Klein",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker incomplete",
+      "evidence": "Deep 274 carries it [V] [BT] (Glossary, citing Gary Klein).",
+      "fix": "re-mark: [V] [BT]"
+    },
+    {
+      "id": "D009",
+      "line": 38,
+      "section": "Key Concepts #9",
+      "claim": "ETTO passage attributed to Hollnagel and marked [V] only",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker incomplete",
+      "evidence": "Deep 270 carries the Glossary ETTO entry [V] [BT] (quoting Hollnagel).",
+      "fix": "re-mark: [V] [BT]"
+    },
+    {
+      "id": "D010",
+      "line": 42,
+      "section": "Key Concepts #11",
+      "claim": "Storytelling passage (\"Cognitive scientists have shown ... distortion of the facts within our minds\") quoted with no evidence marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 167 carries the passage [V] (Part 8, 'Why FLA Storytelling?').",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D011",
+      "line": 44,
+      "section": "Key Concepts #12",
+      "claim": "\"Recommendations on a single data point that bypass community-of-practice vetting are likely to fail in implementation\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "predicted outcome not in the source",
+      "evidence": "Deep 97: the guide argues against single-data-point recommendations and requires vetting; deep 204: consulting those responsible is 'designed to avoid unnecessary requests for extensions'. No claim that unvetted recommendations are likely to fail.",
+      "fix": "correct: \"The guide argues against recommendations on a single data point and requires community-of-practice vetting for any it carries forward.\""
+    },
+    {
+      "id": "D012",
+      "line": 48,
+      "section": "Key Concepts #14",
+      "claim": "\"the parallel threshold is malicious action (intentional sabotage, intentional data exfiltration, intentional security policy violation)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "applied threshold loosened below the source's",
+      "evidence": "Deep 192: the threshold is conduct that is 'intentional, unjustifiable, and occurred with the foreknowledge that the conduct was likely to result in serious harm, death, or injury' [V]. An intentional policy violation without foreknowledge of likely serious harm falls below it; the guide treats shortcuts as part of the human condition (deep 37).",
+      "fix": "correct: \"(intentional sabotage, intentional data exfiltration, or any intentional act done knowing serious harm was likely)\""
+    },
+    {
+      "id": "D013",
+      "line": 66,
+      "section": "Questions, Phase 5b",
+      "claim": "\"Without this, the engineer's account will be the official cover story, not the actual reconstruction.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety. We must cherish it and protect it' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical; it does not say accounts cannot be honest without it, nor predict 'cover stories'.",
+      "fix": "correct: \"The guide calls this firewall critical to protecting honest accounts.\""
+    },
+    {
+      "id": "D014",
+      "line": 91,
+      "section": "Questions, Phase 5d",
+      "claim": "\"Sometimes that's the answer; often the issue is work-system design\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'sometimes' hardened to 'often'",
+      "evidence": "Deep 313: 'When \\'we just need more training\\' comes up… Try to dig deeper. Sometimes, that is the answer, but sometimes it's not. If you don't have on your PPE because you can't do your job properly and wear it, it's a bigger issue than training' [V]. 'Sometimes it's not' becomes 'often'.",
+      "fix": "correct: \"Sometimes that's the answer, and sometimes it's not; if the work can't be done the way the training teaches, it's a bigger issue than training.\""
+    },
+    {
+      "id": "D015",
+      "line": 98,
+      "section": "Questions, Phase 5e",
+      "claim": "\"Recommendations imposed without CoP vetting are likely to fail in implementation.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "predicted outcome not in the source",
+      "evidence": "As D011 (deep 97, 202, 204).",
+      "fix": "correct: \"The guide requires CoP vetting so recommendations reflect how work is actually done.\""
+    },
+    {
+      "id": "D016",
+      "line": 100,
+      "section": "Questions, Phase 5e",
+      "claim": "\"Diffuse accountability ('the platform team will improve the alerting') produces no movement.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "conflicts with the source's owner rule",
+      "evidence": "Source 3417-3420: the Safety Action Plan 'assigns each to a person or body to be responsible for carrying it out, and provides a deadline'. The guide accepts a body as owner; deep 204 says the SAP designates who is responsible. 'Produces no movement' has no source.",
+      "fix": "strip the sentence"
+    },
+    {
+      "id": "D017",
+      "line": 101,
+      "section": "Questions, Phase 5e",
+      "claim": "\"'Safety is in the entire system.' [V]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source, not copied from the deep ref; no citation",
+      "evidence": "Source 3801-3802 (Appendix B): 'However, safety is in the entire system.' Word-for-word true, but absent from the deep ref, which carries the following sharp-end/blunt-end sentence (deep 231).",
+      "fix": "correct: quote the deep ref's audited sharp-end/blunt-end passage [V] (Appendix B, 'A Deeper Dive into Causal Factors')"
+    },
+    {
+      "id": "D018",
+      "line": 109,
+      "section": "Questions, Phase 5f",
+      "claim": "\"If yes, a confidential administrative or legal investigation is the right tool, not a post-mortem.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source (absent from deep ref); 'should consider' hardened",
+      "evidence": "Source 3833-3838 (Appendix C): 'the Delegating Official should consider a confidential administrative investigation. An FLA investigation is inappropriate under the threat of a criminal or civil action.' Not in the deep ref.",
+      "fix": "correct: \"If yes, the guide says to consider a confidential administrative investigation instead; an FLA is inappropriate under threat of criminal or civil action (Appendix C).\" Add the passage to the deep ref."
+    },
+    {
+      "id": "D019",
+      "line": 110,
+      "section": "Questions, Phase 5f",
+      "claim": "memo \"recommending administrative or legal investigation, without disclosing post-mortem details\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "procedural detail added",
+      "evidence": "Source 2924-2926: the memo states 'that the FLA has been terminated and that there may be cause to initiate an administrative or law enforcement investigation'. 'Without disclosing details' is not stated (deep 190).",
+      "fix": "correct: strip \"without disclosing post-mortem details\""
+    },
+    {
+      "id": "D020",
+      "line": 116,
+      "section": "Runtime triggers",
+      "claim": "script: \"an outage with little learning yield can deserve only an AAR\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's one-way argument inverted",
+      "evidence": "Deep 61: the guide's argument runs one way: sizing the review to outcome severity 'may pretermit stellar learning opportunities' [V], so minor outcomes can deserve full learning. It never says a severe event can deserve only an AAR; the AAR's learning 'does not affect the organization as a whole' (deep 49).",
+      "fix": "correct: end the script at \"a near-miss can deserve an FLA.\""
+    },
+    {
+      "id": "D021",
+      "line": 123,
+      "section": "Trigger extensions",
+      "claim": "\"LFUO's two-inch case argues explicitly that near-misses are legitimate FLA scope.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong passage; event mischaracterised",
+      "evidence": "Deep 61: the two-inch case is an injury accident (firefighter knocked unconscious) used to argue that minor outcomes deserve learning. Near-miss scope is argued in Part 3, 'Learning beyond accidents' (deep 65): these tools 'have been used successfully to learn from ... close call/near-miss events' [V].",
+      "fix": "correct: \"LFUO's 'Learning beyond accidents' section names close calls and near-misses as legitimate scope (Part 3).\""
+    },
+    {
+      "id": "D022",
+      "line": 150,
+      "section": "What to Look For",
+      "claim": "\"Training as the default response is the wrong answer most of the time.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's 'sometimes' hardened to 'most of the time'",
+      "evidence": "Deep 313: 'When \\'we just need more training\\' comes up… Try to dig deeper. Sometimes, that is the answer, but sometimes it's not. If you don't have on your PPE because you can't do your job properly and wear it, it's a bigger issue than training' [V]. 'Sometimes it's not' becomes 'often'.",
+      "fix": "correct: \"Training as the default response is often not the answer.\" or strip"
+    },
+    {
+      "id": "D023",
+      "line": 150,
+      "section": "What to Look For",
+      "claim": "\"'When 'we just need more training' comes up… Try to dig deeper. Sometimes, that is the answer, but sometimes it's not'\" with no marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 313 carries it [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D024",
+      "line": 168,
+      "section": "When to Use This Reference",
+      "claim": "NHS guide as \"the individual accountability decision tree (was this human error, at-risk behaviour, or reckless behaviour?)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "nhs-just-culture-guide-deep.md 7, 13: the NHS guide's tree is five tests (deliberate harm, health, foresight, substitution, mitigating circumstances). 'Human error / at-risk behaviour / reckless behaviour' is a different taxonomy (David Marx's); neither 'at-risk' nor 'reckless' occurs in the NHS deep ref.",
+      "fix": "correct: \"(deliberate harm, health, foresight, substitution and mitigating-circumstances tests)\""
+    },
+    {
+      "id": "D025",
+      "line": 180,
+      "section": "Worked Example",
+      "claim": "\"An FLA is a scalable process used to make sense of an unintended outcome and develop lessons learned for the broader organization without recommendations.\" with no marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 53 carries it [V] (Part 2, 'The tools').",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D026",
+      "line": 182,
+      "section": "Worked Example",
+      "claim": "\"Without this commitment in writing, Engineer A's account will be the official cover story, not the actual reconstruction.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute, stated alongside the guide's words",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety. We must cherish it and protect it' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical; it does not say accounts cannot be honest without it, nor predict 'cover stories'.",
+      "fix": "correct: \"The guide treats this commitment as critical to honest accounts.\""
+    },
+    {
+      "id": "D027",
+      "line": 190,
+      "section": "Worked Example",
+      "claim": "\"'Cognitive scientists have shown that humans make sense of, and remember, 'facts' by attaching them to narratives that give them context and a sensory or emotional association.'\" with no marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered quotation (silent elision) and missing marker",
+      "evidence": "Deep 167: '...by attaching them to narratives (i.e., stories) that give them context...' [V]. The parenthesis is dropped without an ellipsis.",
+      "fix": "correct: restore \"(i.e., stories)\" and re-mark: [V]"
+    },
+    {
+      "id": "D028",
+      "line": 194,
+      "section": "Anti-patterns",
+      "claim": "\"an outage with little learning yield can deserve only an AAR\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source's one-way argument inverted",
+      "evidence": "Deep 61: the guide's argument runs one way: sizing the review to outcome severity 'may pretermit stellar learning opportunities' [V], so minor outcomes can deserve full learning. It never says a severe event can deserve only an AAR; the AAR's learning 'does not affect the organization as a whole' (deep 49).",
+      "fix": "strip"
+    },
+    {
+      "id": "D029",
+      "line": 199,
+      "section": "Anti-patterns",
+      "claim": "\"Often the issue is work-system design ... and training is the wrong intervention.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'sometimes' hardened to 'often'",
+      "evidence": "Deep 313: 'When \\'we just need more training\\' comes up… Try to dig deeper. Sometimes, that is the answer, but sometimes it's not. If you don't have on your PPE because you can't do your job properly and wear it, it's a bigger issue than training' [V]. 'Sometimes it's not' becomes 'often'.",
+      "fix": "correct: \"Sometimes the issue is work-system design (...), and then training is the wrong intervention.\""
+    },
+    {
+      "id": "D030",
+      "line": 201,
+      "section": "Anti-patterns",
+      "claim": "\"The administrative firewall is non-negotiable; without it, engineering accounts will be cover stories rather than reconstructions.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety. We must cherish it and protect it' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical; it does not say accounts cannot be honest without it, nor predict 'cover stories'.",
+      "fix": "correct: \"The administrative firewall is critical; the guide ties honest accounts to it.\""
+    },
+    {
+      "id": "D031",
+      "line": 203,
+      "section": "Anti-patterns",
+      "claim": "\"Diffusing recommendation accountability across 'the platform team' or 'the engineering org.' Each Safety Action Plan item needs a named owner and a deadline; diffuse accountability produces no movement.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "conflicts with the source's owner rule",
+      "evidence": "Source 3417-3420: the Safety Action Plan 'assigns each to a person or body to be responsible for carrying it out, and provides a deadline'. The guide accepts a body as owner; deep 204 says the SAP designates who is responsible. 'Produces no movement' has no source.",
+      "fix": "correct: \"Leaving Safety Action Plan items without an owner (a person or body) and a deadline.\""
+    },
+    {
+      "id": "D032",
+      "line": 204,
+      "section": "Anti-patterns",
+      "claim": "\"Diversity of narrative is resilience\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "borrowed-through claim presented unattributed",
+      "evidence": "Deep 169: the guide quotes Dekker, Cilliers & Hofmeyr 2011 [V][BT]: 'Diversity of narrative can be seen as an enormous source of resilience in complex system'.",
+      "fix": "correct: \"Diversity of narrative is a source of resilience (Dekker, Cilliers and Hofmeyr, quoted in Part 8) [BT]\""
+    },
+    {
+      "id": "D033",
+      "line": 205,
+      "section": "Anti-patterns",
+      "claim": "\"senior engineers default to curating their accounts under the same pressures\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "behavioural claim with no source basis",
+      "evidence": "The deep ref says nothing about seniority and account curation. Deep 83 notes team-leader selection should weigh ability to extricate from the incident; nothing on senior participants curating.",
+      "fix": "correct: \"The firewall applies uniformly, whatever the engineer's seniority.\""
+    },
+    {
+      "id": "D034",
+      "line": 206,
+      "section": "Anti-patterns",
+      "claim": "\"Investigation vocabulary triggers defensive accounting; sensemaking vocabulary invites honest reconstruction.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise absent from deep ref and hardened from the source",
+      "evidence": "The deep ref makes no claim about vocabulary effects. The nearest source passage (1755-1759, Part 6 'Setting the stage') says participants tend to worry 'that this time the 'investigators' are out to get them' and that explaining the process puts them at ease. The source itself calls the FLA a 'safety investigation' (deep 190) and an 'FLA investigation' (source 3838), so vocabulary alone is not its point.",
+      "fix": "correct: \"Skipping the frank discussion of the no-punitive-action delegation; after an incident people tend to worry the 'investigators' are out to get them (Part 6, 'Setting the stage').\""
+    },
+    {
+      "id": "D035",
+      "line": 212,
+      "section": "Integration with Other References",
+      "claim": "NHS \"individual-accountability decision aid (was this an error, at-risk behaviour, or reckless behaviour?)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "nhs-just-culture-guide-deep.md 7, 13: the NHS guide's tree is five tests (deliberate harm, health, foresight, substitution, mitigating circumstances). 'Human error / at-risk behaviour / reckless behaviour' is a different taxonomy (David Marx's); neither 'at-risk' nor 'reckless' occurs in the NHS deep ref.",
+      "fix": "correct: \"(five sequential tests: deliberate harm, health, foresight, substitution, mitigating circumstances)\""
+    },
+    {
+      "id": "D036",
+      "line": 214,
+      "section": "Integration with Other References",
+      "claim": "Jones provides \"multi-improbable-events as the modal failure shape\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "jones-evidence-based-sweng-deep.md: 'improbable' does not occur; Ch 6 covers reliability and the bi-exponential duplicate-fault pattern (lines 155-167). Nothing presents multiple improbable events as the modal failure shape.",
+      "fix": "correct: strip \"multi-improbable-events as the modal failure shape;\""
+    },
+    {
+      "id": "D037",
+      "line": 215,
+      "section": "Integration with Other References",
+      "claim": "\"Letaw's RACI and decision-rights chapters carry the remediation method\"; Letaw carries \"decision-rights ambiguities ... design-review gaps\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "other-source claim loosened",
+      "evidence": "letaw-handbook-sweng-methods-deep.md 73: RACI matrix (Ch 2.4.2) and Ch 5 monolith vs microservices (line 189) are present; 'decision rights' and 'design review' do not occur.",
+      "fix": "correct: \"Letaw's RACI section (Ch 2.4.2) and monolith-versus-microservices chapter (Ch 5) carry the remediation method\""
+    },
+    {
+      "id": "D038",
+      "line": 216,
+      "section": "Integration with Other References",
+      "claim": "OpenStax Business Ethics carries \"Mitchell-Agle-Wood salience\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "openstax-business-ethics-deep.md: no Mitchell, Agle, Wood or salience model. Its stakeholder prioritisation uses a power × interest matrix and 'exigency' (line 126); the social contract is present (line 47).",
+      "fix": "correct: \"(stakeholder prioritisation by power × interest and exigency, Ch 3.3; the social-contract argument)\""
+    },
+    {
+      "id": "D039",
+      "line": 217,
+      "section": "Integration with Other References",
+      "claim": "OpenStax Management carries \"single-loop / double-loop / deutero-learning; sense-making theory; HRO theory at depth\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "other-source claim does not match its deep ref",
+      "evidence": "openstax-principles-management-deep.md: none of single-loop, double-loop, deutero, sensemaking/sense-making, high reliability, HRO or Weick occurs.",
+      "fix": "strip the row, or replace with a relationship the Management deep ref supports (e.g. its dual-system decision-making claim, line 17)"
+    },
+    {
+      "id": "D040",
+      "line": 218,
+      "section": "Integration with Other References",
+      "claim": "Finance and Accounting Vol 2 \"carry the reliability-investment-as-financial-decision framing\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "other-source claim overstated",
+      "evidence": "openstax-principles-finance-deep.md carries capital budgeting and cash-flow valuation (lines 7, 19) but nothing on reliability investment. The use case (cost-benefit of remediation) is reasonable; the framing is the distillation's.",
+      "fix": "correct: \"These carry the capital-budgeting and cost-benefit tools to apply when the Safety Action Plan needs remediation investments costed.\""
+    },
+    {
+      "id": "D041",
+      "line": 224,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Dekker & Breakey 2016 \"is cited as the academic source for just culture in Appendix A\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong location and wrong concept",
+      "evidence": "Deep 33, 284: Dekker & Breakey is the footnote to the Glossary's restorative-justice entry (footnote 14), not Appendix A, and grounds restorative justice specifically.",
+      "fix": "correct: \"is cited as the academic source for the Glossary's restorative-justice definition (footnote 14)\""
+    },
+    {
+      "id": "D042",
+      "line": 224,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Appendix B's networked-causality framing draws on accident-analysis literature including Hollnagel's CREAM model [BT]\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "named work absent from deep ref and source",
+      "evidence": "Neither the deep ref nor the converted source mentions CREAM (grep hit only 'scream'). Deep 233, 285: Appendix B cites Hollnagel 2008, Resilience Engineering Perspectives Vol 1 (footnote 11), for 'unexpected combinations of normal performance variability'.",
+      "fix": "correct: \"Appendix B cites Hollnagel's 'Safety Management – Looking Back or Looking Forward' (Resilience Engineering Perspectives, 2008) [BT] for the normal-performance-variability framing\""
+    }
+  ],
+  "notes": "The most serious error is the severity triage at line 12 (sev-3 → AAR, sev-1 → FLA, breach → Learning Review), cited to Part 2. It inverts the guide's central selection argument and contradicts the distillation's own Key Concept 1. The inverse claim 'an outage with little learning yield can deserve only an AAR' repeats three times (lines 22, 116, 194). Integration rows attribute content to other corpus sources their deep refs do not hold: NHS 'error / at-risk / reckless' (Marx's taxonomy, not the NHS tests), Jones 'multi-improbable-events', Business Ethics 'Mitchell-Agle-Wood', Management 'double-loop / sensemaking / HRO'. The citation notes invent a Hollnagel CREAM citation. Recurring drift: the firewall-or-cover-story absolute (lines 26, 66, 182, 201) and 'often' for the source's 'sometimes' on training (lines 91, 150, 199). Faithful and worth noting: the deflection-question row (line 69) matches the source (walk away, no return), unlike the AAR sibling. The worked example is hypothetical and presents no outcome as the source's finding; its SAP owners are all named people, which is fine, but the anti-pattern against team-level owners conflicts with the source's 'person or body'. Cosmetic: line 132 puts [V] inside the citation parentheses. Siblings checked: the decision-making and stakeholder-engagement distillations do carry what lines 219-220 say they do."
+}

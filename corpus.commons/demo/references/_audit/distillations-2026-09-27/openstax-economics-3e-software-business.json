@@ -1,0 +1,359 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/openstax-economics-3e-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-186 of 186",
+    "deep": "lines 1-582 of 582",
+    "complete": true
+  },
+  "claims_audited": 147,
+  "tally": {
+    "faithful": 113,
+    "minor_drift": 25,
+    "unsupported": 6,
+    "contradicted": 3
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Software-Business Relevance",
+      "claim": "the public-choice realism that explains why regulators, boards, and special-interest stakeholders behave as they do (Ch 18)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "scope extended beyond source; mis-cited chapter",
+      "evidence": "Deep 265-275 (Ch 18): voters, special interests, pork-barrel, voting cycles. Regulatory capture is Ch 11.4 (deep 173). Boards appear nowhere in the source.",
+      "fix": "correct: the public-choice realism about voters and special interests (Ch 18) and regulatory capture (Ch 11.4)"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "the adverse-selection dynamic predicts the trustworthy will exit the market",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated; wrong concept label for Ch 16.1",
+      "evidence": "Deep 235 says sellers of good cars are 'driven out by adverse selection', but the source's Ch 16.1 is milder and does not use 'adverse selection' (the term appears only in Ch 16.2 insurance and Ch 21 wage cuts): 'Sellers of high-quality or medium-quality goods may be reluctant to participate' and 'markets may become extremely thin' (22671-22679). The source also says prices still reflect information and reputable dealers charge more (22634-22648).",
+      "fix": "correct: imperfect information can make sellers of higher-quality goods reluctant to take part and leave markets thin. Deep-fix deep 235 to match."
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts #1 Opportunity cost",
+      "claim": "The cost of any engineering choice is the value of the next-best foregone alternative, not the cash outlay.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "Deep 47-49; source 2560: dollar price 'may not accurately capture the true opportunity cost'. The source counts out-of-pocket costs alongside opportunity cost (college example, 2569-2572).",
+      "fix": "correct: ...next-best foregone alternative, which the cash outlay alone may not capture"
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts #2 Sunk costs",
+      "claim": "Firms systematically defend failing software products on the basis of prior investment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated and domain-shifted",
+      "evidence": "Deep 57; source 2685-2687: 'Many firms, for example, find it hard to give up on a new product that is doing poorly because they spent so much money in creating and launching the product.' Not software-specific; not 'systematically'.",
+      "fix": "correct: Many firms find it hard to drop a failing product because of what they spent launching it."
+    },
+    {
+      "id": "D005",
+      "line": 24,
+      "section": "Key Concepts #5 Elasticity and tax incidence",
+      "claim": "Elasticity and tax incidence as power-asymmetry indicators; if demand is inelastic you can pass through cost increases",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "distillation framing under a source citation; pass-through not carried by deep",
+      "evidence": "Deep 111 carries tax incidence only. Source 7475-7477 (Ch 5.3) supports cost pass-through when demand is inelastic; 'power asymmetry' framing is not in source.",
+      "fix": "correct: drop 'power-asymmetry indicators'. cycle-to-deep: Ch 5.3 'Elasticity also reveals whether firms can pass higher costs that they incur on to consumers.'"
+    },
+    {
+      "id": "D006",
+      "line": 24,
+      "section": "Key Concepts #5 Elasticity and tax incidence",
+      "claim": "the legal target is rarely the economic bearer",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "Source 7517-7518: 'Typically, the tax incidence, or burden, falls both on the consumers and producers of the taxed good'; the burden falls most on the more inelastic side (deep 111), which may be the legal target.",
+      "fix": "correct: the legal target is not necessarily the main economic bearer; the burden falls most on the less elastic side"
+    },
+    {
+      "id": "D007",
+      "line": 26,
+      "section": "Key Concepts #6 Behavioural anomalies",
+      "claim": "pre-commitment mechanisms (annual prepayment, locked-in seat counts) systematically win against month-to-month even when annualised cost is identical",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "empirical claim with no source backing, cited to Ch 6.3",
+      "evidence": "Deep 123: people pay to constrain their own future choices. Source 9042-9052: cigarettes by the pack, fridge locks, overpaying taxes to force saving, auto-enrolment nudges. Nothing on prepayment or subscription terms, and nothing on commitment devices 'winning'.",
+      "fix": "strip, or correct: 'Because people pay to constrain their own future choices (Ch 6.3), some customers may value commitment options such as annual prepayment; test this rather than assume it.'"
+    },
+    {
+      "id": "D008",
+      "line": 30,
+      "section": "Key Concepts #8 Monopolistic competition",
+      "claim": "defensible differentiation (brand, switching costs, network effects, location, intangible reputation) is the only thing that protects margin in the long run",
+      "grade": "CONTRADICTED",
+      "failure_mode": "reverses the source's long-run result; adds concepts absent from source",
+      "evidence": "Deep 159: free entry drives long-run economic profit to zero in monopolistic competition. Source 14220-14222: 'although a monopolistically competitive firm may earn positive economic profits in the short term, the process of new entry will drive down economic profits to zero in the long run'; 14309: firms 'seek short-term profits by providing differentiated products'. 'Switching costs' and 'network effects' do not appear in the source. Lasting profit needs barriers to entry (Ch 9.1, deep 151). (If 'margin' meant only the P > MC markup, the sentence would be loosely supportable, but after the zero-profit sentence it reads as long-run profit protection.)",
+      "fix": "correct: In the source's model, differentiation earns profit only in the short run; entry drives long-run economic profit to zero. Lasting profit requires barriers to entry (Ch 9.1), which moves the firm toward monopoly or oligopoly."
+    },
+    {
+      "id": "D009",
+      "line": 32,
+      "section": "Key Concepts #9 Information asymmetry",
+      "claim": "buyers who cannot tell good cars from bad pay the average price, sellers of good cars exit, the market unwinds",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated (Akerlof unravelling not in source); inherits deep 235 wording",
+      "evidence": "Source 22668-22679 (Ch 16.1, 'How Imperfect Information Can Affect Equilibrium Price and Quantity'): buyers unwilling to pay a higher price; high-quality sellers 'may be reluctant to participate'; markets 'may become extremely thin'. No unravelling.",
+      "fix": "correct: buyers who cannot judge quality will not pay more for it, so sellers of better goods may hold back and the market can become thin (Ch 16.1)"
+    },
+    {
+      "id": "D010",
+      "line": 36,
+      "section": "Key Concepts #11 Externalities",
+      "claim": "A negative externality is a market exchange that affects a third party.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "general definition attached to the narrower concept",
+      "evidence": "Deep 177: an externality is 'a market exchange that affects a third party who is outside or \"external\" to the exchange'; a negative externality is one where social cost exceeds private cost.",
+      "fix": "correct: An externality is a market exchange that affects a third party outside the exchange; a negative externality imposes costs on that party."
+    },
+    {
+      "id": "D011",
+      "line": 36,
+      "section": "Key Concepts #11 Externalities",
+      "claim": "With clear property rights and low transaction costs, parties can negotiate efficiently regardless of who has the rights (Coase). With many parties, ambiguous causation, and high transaction costs, regulatory or market-based responses (pollution charges, cap-and-trade, mandatory disclosure) are required.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "inherited deep-ref defect plus added items",
+      "evidence": "Deep 181 carries this Coase-theorem wording, but the source's Coase passage (Ch 12.3, 'Better-Defined Property Rights', 16841-16859) has no transaction costs, negotiation or 'regardless of who has the rights': once a property right is defined, the responsible party 'will seek out and pay for the least costly method of reducing the risk'. 'Ambiguous causation' and 'mandatory disclosure' are in neither deep nor source's environmental tools (deep 181: charges, marketable permits, property rights).",
+      "fix": "deep-fix deep 181. correct: 'Coase showed that until property rights are clearly defined the parties may squabble and nothing is done; once they are, the responsible party finds the least costly fix. Pollution charges and marketable permits are the other market-oriented tools (Ch 12.3).'"
+    },
+    {
+      "id": "D012",
+      "line": 38,
+      "section": "Key Concepts #12 Public goods",
+      "claim": "Ostrom-style local self-governance with monitoring and graduated sanctions",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "concepts attributed to Ostrom that the source does not give",
+      "evidence": "Deep 197: local communities can sometimes self-govern common resources. Source 18634-18641: farmers 'could communicate and cooperate'; resources near their beneficiaries are 'better managed without external influence'. 'Monitoring' and 'sanctions' do not appear.",
+      "fix": "correct: Ostrom-style local self-governance, where those who benefit communicate and cooperate to manage the resource"
+    },
+    {
+      "id": "D013",
+      "line": 40,
+      "section": "Key Concepts #13 Public-choice realism",
+      "claim": "Rational ignorance: voters (and board members, and customers) lack incentive to become well-informed",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mechanism extended where its premise fails",
+      "evidence": "Deep 267: rational ignorance rests on a single vote being unlikely to decide the outcome. Source 25481-25486 notes a single vote may matter in very small electorates. A board member's vote is often decisive, so the premise does not carry to boards.",
+      "fix": "correct: drop 'board members'; if kept, frame as an analogy for large dispersed groups (e.g. many small customers), not boards"
+    },
+    {
+      "id": "D014",
+      "line": 54,
+      "section": "Questions, Phase 1",
+      "claim": "Surface partner-roadmap externalities: what externality from the partner's roadmap will we absorb? Is the partner internalising any of this externality, or are we bearing it without compensation?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "concept misapplied against its definition",
+      "evidence": "Deep 177: an externality affects 'a third party who is outside or \"external\" to the exchange'. The buying firm is a party to the vendor exchange, so roadmap changes it absorbs are contract/counterparty risk, not an externality.",
+      "fix": "correct: 'Surface partner-roadmap risk: what costs from the partner's roadmap decisions (feature drift, price change, deprecation) will we absorb, and which contract terms move that risk back to the partner?' Reserve 'externality' for effects on third parties outside the deal."
+    },
+    {
+      "id": "D015",
+      "line": 72,
+      "section": "Questions, Phase 3",
+      "claim": "bilateral-monopoly (a single highly-specialised candidate with significant bargaining power)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "definition loosened; omits the monopsony side",
+      "evidence": "Deep 209; source 19912-19915: bilateral monopoly is when 'a union meets a monopsony', market power on both sides.",
+      "fix": "correct: bilateral monopoly (market power on both sides: a sole or dominant employer facing a seller of labour with its own market power)"
+    },
+    {
+      "id": "D016",
+      "line": 89,
+      "section": "Questions, Phase 5",
+      "claim": "Apply the Coase theorem ... Are transaction costs low enough to permit negotiation, or are regulatory or market-based interventions (charges, permits, mandatory disclosure) needed?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "inherited deep-ref defect",
+      "evidence": "As D011: source Ch 12.3 Coase passage has no transaction costs or negotiation; 'mandatory disclosure' not among the source's tools.",
+      "fix": "correct: 'Are property rights clearly assigned, so the responsible party has reason to find the least costly fix? If not, are pollution-charge or permit-style tools needed?'"
+    },
+    {
+      "id": "D017",
+      "line": 91,
+      "section": "Questions, Phase 5",
+      "claim": "The party legally targeted by a compliance cost is rarely the economic bearer. ... on suppliers (via input cost), on employees (via wage)?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "As D006: source 7517 says incidence typically falls on both sides.",
+      "fix": "correct: 'is not necessarily the main economic bearer'"
+    },
+    {
+      "id": "D018",
+      "line": 98,
+      "section": "Questions, Phase 6",
+      "claim": "Loss-framing produces 2.25x the perceived weight",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loss-aversion ratio restated as a framing-effect size",
+      "evidence": "Deep 123; source 9035-9037: 'a $1 loss pains us 2.25 times more than a $1 gain helps us'. The figure compares losses with gains, not a loss frame with a gain frame for the same change.",
+      "fix": "correct: Losses weigh about 2.25 times as much as equal gains (Ch 6.3), so a change framed as a loss is likely to weigh more"
+    },
+    {
+      "id": "D019",
+      "line": 100,
+      "section": "Questions, Phase 6",
+      "claim": "Recurring, services, expansion, gross-of-discount, net-of-refund revenue are 'fictional categories'... 'They are the same money.' Surface the fungibility failure.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "premise not in source; misapplies fungibility",
+      "evidence": "Deep 123 and source 9056-9066: fungibility failure is individuals treating the same dollar differently by mental category (found $25 vs earned $25). Nothing in the source treats revenue classification as mental accounting; the source's own expected-return and PDV logic (Ch 17.2, App C) treats differences in future payment streams as real.",
+      "fix": "strip"
+    },
+    {
+      "id": "D020",
+      "line": 101,
+      "section": "Questions, Phase 6",
+      "claim": "Board members are rationally ignorant of detail and motivated by reputational and fiduciary concerns.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mechanism extended where its premise fails; motives not in source",
+      "evidence": "As D013.",
+      "fix": "correct: drop 'rationally ignorant' and the motive claim; keep the memo guidance as the distillation's own advice"
+    },
+    {
+      "id": "D021",
+      "line": 116,
+      "section": "What to Look For",
+      "claim": "The legal target is rarely the bearer.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated",
+      "evidence": "As D006.",
+      "fix": "correct: The legal target is not necessarily the main bearer."
+    },
+    {
+      "id": "D022",
+      "line": 129,
+      "section": "When to Use This Reference",
+      "claim": "partner-roadmap externality",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept mislabel",
+      "evidence": "As D014: deep 177 limits externalities to third parties outside the exchange.",
+      "fix": "correct: partner-roadmap risk"
+    },
+    {
+      "id": "D023",
+      "line": 143,
+      "section": "Worked Example",
+      "claim": "The adverse-selection dynamic predicts that ... the trustworthy exit and \"the market unwinds\" (Source: Ch 16.1, \"The Problem of Imperfect Information and Adverse Selection\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quoted phrase not in source; section title wrong; overstated",
+      "evidence": "'unwinds' does not appear in the source's Ch 16.1. The section is titled 'The Problem of Imperfect Information and Asymmetric Information' (22546). Source 22671-22679: high-quality sellers 'may be reluctant to participate'; markets 'may become extremely thin'.",
+      "fix": "correct: 'When buyers cannot tell good from bad, sellers of better goods may hold back and the market can become thin; mechanisms to reduce the risk of imperfect information are the response.' (Ch 16.1, \"The Problem of Imperfect Information and Asymmetric Information\")"
+    },
+    {
+      "id": "D024",
+      "line": 147,
+      "section": "Worked Example, Phase 5",
+      "claim": "The vendor option introduces a partner-roadmap externality ... The contract is the internalisation mechanism; the firm should price the externality into the negotiation",
+      "grade": "CONTRADICTED",
+      "failure_mode": "concept misapplied against its definition; load-bearing for the recommendation",
+      "evidence": "Deep 177: an externality affects a third party outside the exchange. The firm is the vendor's contracting party, so this is contract risk to be priced, not an externality.",
+      "fix": "correct: reframe as counterparty/roadmap risk handled in the contract (escrow, exit assistance, price caps); drop the externality and Coase framing from this step"
+    },
+    {
+      "id": "D025",
+      "line": 147,
+      "section": "Worked Example, Phase 5",
+      "claim": "The Coase theorem frames the fix: with \"clear property rights and low transaction costs, parties can negotiate efficiently.\" (Source: Ch 12.1, \"Externalities\")",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "quoted wording not in source; inherited deep-ref defect; mis-cited section",
+      "evidence": "The quoted string is not in the converted source. Coase appears in Ch 12.3 'Better-Defined Property Rights' (16841-16859), not in Ch 12.1's 'Externalities' subsection, and that passage has no transaction costs or negotiation. Deep 181 carries the textbook Coase-theorem paraphrase (unmarked), not a quotable passage.",
+      "fix": "strip"
+    },
+    {
+      "id": "D026",
+      "line": 151,
+      "section": "Worked Example, Recommendation",
+      "claim": "contract terms designed to internalise the partner-roadmap externality",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept mislabel",
+      "evidence": "As D014/D024.",
+      "fix": "correct: contract terms that move partner-roadmap risk back to the vendor"
+    },
+    {
+      "id": "D027",
+      "line": 162,
+      "section": "Anti-patterns",
+      "claim": "Treating boards and regulators as ... rather than as rationally-ignorant rational-economic actors",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mechanism extended where its premise fails",
+      "evidence": "As D013; regulators are covered by regulatory capture (deep 173), not rational ignorance.",
+      "fix": "correct: Treating regulators as immune to capture (Ch 11.4) and voters or dispersed groups as fully informed (Ch 18.1)"
+    },
+    {
+      "id": "D028",
+      "line": 170,
+      "section": "Integration",
+      "claim": "Jones supplies ... KLOC-power-law mythology",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "garbled label for another source's content",
+      "evidence": "Jones deep 175, 195-197: Halstead and McCabe 'folklore metrics' scale with KLOC (Halstead ∝ KLOC^1.1, McCabe ∝ KLOC^0.8); the power law in Jones deep 73 is the power law of learning. No 'KLOC power law' myth is described.",
+      "fix": "correct: folklore metrics (Halstead, McCabe) that add little beyond lines of code"
+    },
+    {
+      "id": "D029",
+      "line": 174,
+      "section": "Integration",
+      "claim": "Business Ethics supplies ... voiceless stakeholders",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "claim about another source not in its deep ref",
+      "evidence": "'voiceless' is absent from openstax-business-ethics-deep.md; the Business Ethics converted source has it at line 4219 ('Many stakeholder claims are indirect, or \"voiceless\"').",
+      "fix": "cycle-to-deep (business-ethics deep): Ch 3 passage on indirect or 'voiceless' stakeholder claims"
+    },
+    {
+      "id": "D030",
+      "line": 178,
+      "section": "Integration",
+      "claim": "Economics supplies ... moral hazard in agency relationships",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates this source's coverage",
+      "evidence": "Econ deep 243 covers moral hazard in insurance (and HMOs); no principal-agent or agency material in deep or source (grep 'principal-agent', 'agency' empty in this sense).",
+      "fix": "correct: moral hazard in insurance-like arrangements"
+    },
+    {
+      "id": "D031",
+      "line": 182,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "Kahneman and Tversky (1979) and their loss-aversion findings are [BT] in the deep ref",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misdescribes deep-ref marker",
+      "evidence": "Deep 123 marks the 2.25x sentence [V]; deep 534 lists K&T with [V].",
+      "fix": "correct: the loss-aversion sentence is [V] in the deep ref (the source's words relaying K&T); the underlying 1979 paper is not held in the corpus"
+    },
+    {
+      "id": "D032",
+      "line": 182,
+      "section": "Citation notes, Borrowed-through",
+      "claim": "(Source: ... deep reference, Parts V–IX, XVI)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited parts",
+      "evidence": "The Great Leap Forward example and minimum-wage figure sit in deep Part IV (lines 97, 101); the six-tenths rule in Part VII; K&T in Part VI.",
+      "fix": "correct: Parts IV, VI, VII"
+    },
+    {
+      "id": "D033",
+      "line": 186,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "The lemons-problem mechanism is presented ... ([AR]-class reasoning) ..., consistent with how the deep ref marks it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misdescribes deep-ref marker",
+      "evidence": "Deep 235 carries the lemons mechanism with no evidence marker.",
+      "fix": "correct: drop 'consistent with how the deep ref marks it'"
+    },
+    {
+      "id": "D034",
+      "line": 186,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "The Kahneman-Tversky 2.25x loss-aversion figure is [BT] in the deep ref; the distillation presents it ... not as the source's own [V] claim.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misdescribes deep marker and contradicts the distillation's own usage",
+      "evidence": "Deep 123 marks it [V]; the worked example (line 149) quotes it with [V]; source 9035-9037 matches word for word.",
+      "fix": "correct: The 2.25x sentence is [V] in the deep ref (the source's words, relaying Kahneman and Tversky) and is quoted as [V] in the worked example."
+    }
+  ],
+  "notes": "All four [V] quotations in the worked example match the converted source word for word (sunk-cost lesson 2681-2683; comparative advantage 2966; law of increasing opportunity cost 2834-2836; loss aversion 9035-9036). Sky-marshal figures, break-even/shutdown rules, derived demand and the other deep-ref integration claims (Jones post-1980 collapse, bi-exponential, agency theory; Accounting Vol 2 CVP/TOC/make-or-buy; Management five forces/PESTEL/six structures; Marketing 5A journey/segmentation; Law; Entrepreneurship; Finance PDV/capital structure) check out. Two deep-ref defects surfaced and are passed through here: deep 181 states the textbook Coase theorem (transaction costs, negotiation), which the source's Ch 12.3 passage does not contain; deep 235 states Akerlof-style 'driven out by adverse selection', which the source's Ch 16.1 puts more mildly and without that term. The Coase items are graded UNSUPPORTED against the source; the lemons items MINOR-DRIFT because the source supports the gist. The most serious findings are the monopolistic-competition claim that differentiation protects long-run margin (reverses Ch 10.1) and the 'partner-roadmap externality' framing, which applies externality to a party inside the exchange and carries the worked example's recommendation. Key Concepts runs to 14 items against the protocol's 8-12."
+}

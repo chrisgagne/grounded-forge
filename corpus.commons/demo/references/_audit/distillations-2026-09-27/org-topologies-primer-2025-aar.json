@@ -1,0 +1,169 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/org-topologies-primer-2025-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-127 of 127",
+    "deep": "lines 1-299 of 299",
+    "complete": true
+  },
+  "claims_audited": 84,
+  "tally": {
+    "faithful": 69,
+    "minor_drift": 9,
+    "unsupported": 6,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 22,
+      "section": "Key Concepts, 2",
+      "claim": "the Primer names three predictable mismatch patterns ... Adaptive-Topology variance: the team was asked to deliver predictable output (Delivery work) inside an Adaptive Topology, and the high-variance tolerance accommodated the variance that became the incident. (pp. 11-13)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to the Primer a three-pattern mismatch typology it does not give. The Primer shows one mismatch (Resource Topology vs a speed strategy, p. 17). The 'Adaptive-Topology variance' pattern has no basis at all: the Primer never says the Adaptive Topology tolerates variance or is a hazard for predictable delivery.",
+      "evidence": "Deep 104-106: Adaptive Topology goal is adaptiveness and customer delight, fit for 'organizations where growth and learning are crucial'; no variance-tolerance claim. Deep 138: the only mismatch the Primer works through is Resource Topology vs 'the goal of speed'. Deep 102: Delivery 'no guarantee ... real problem' / 'feature bloat' supports the bloat pattern. Nothing in deep 1-299 names 'drag', 'bloat', 'variance' as a set of mismatch patterns.",
+      "fix": "correct: **Topology mismatch as a recurring contributory-factor pattern.** The Primer's ASSESS step tests whether the current topology's goal fits the strategy (p. 17); its worked mismatch is a utilisation-optimised Resource Topology asked for speed. Two mismatch shapes follow from the topology pages: *Resource-Topology drag* (discovery or speed asked of a utilisation-optimised structure) and *Delivery-Topology bloat* (outcome asked of an output-optimised structure, where the Primer warns of 'feature bloat'). (pp. 11-12, 17)"
+    },
+    {
+      "id": "D002",
+      "line": 53,
+      "section": "Questions, Phase 2, 'Locate the topology mismatch'",
+      "claim": "... or an Adaptive-Topology variance pattern (high-variance structure absorbing variance that became incident)?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Question rests on the invented Adaptive-variance premise from Key Concept 2; the Primer does not describe the Adaptive Topology as a high-variance structure.",
+      "evidence": "Deep 104-106, 112-115: Adaptive = adaptiveness, outcome, innovation, low dependencies; no variance or incident-risk claim.",
+      "fix": "correct: Is this a Resource-Topology drag pattern (utilisation-optimised structure asked for speed or discovery) or a Delivery-Topology bloat pattern (output-optimised structure missing outcome validation)?"
+    },
+    {
+      "id": "D003",
+      "line": 26,
+      "section": "Key Concepts, 4",
+      "claim": "When an AAR shows that a previously-fixed team was the source of repeat failure inside an unchanged surround, the Primer names this as the structural source",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quote is faithful, but the gloss attributes to the Primer a diagnosis of repeat failure. The Primer says a single team cannot reach its full potential in an unchanged surround; it says nothing about repeat failures.",
+      "evidence": "Deep 250 (p. 4): 'A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged. True organizational impact requires alignment across all levels'.",
+      "fix": "correct: When an AAR shows that a previously-fixed team keeps failing inside an unchanged surround, the Primer's warning applies: fixing the team alone leaves the surrounding structures and processes, and their contributory factors, untouched."
+    },
+    {
+      "id": "D004",
+      "line": 56,
+      "section": "Questions, Phase 2, 'Test for single-team-island contributors'",
+      "claim": "Repeated failures inside such islands have a named structural source.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same overreach as D003: the Primer names single-team focus as missing the bigger picture, not as the named source of repeated failures.",
+      "evidence": "Deep 250 (p. 4).",
+      "fix": "correct: Was the team a previously-fixed island in an unchanged surround? The Primer warns that a single team cannot deliver its full potential while surrounding structures and processes stay the same."
+    },
+    {
+      "id": "D005",
+      "line": 28,
+      "section": "Key Concepts, 5",
+      "claim": "\"The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as 'resources,' matching skill demand with skill supply.\" (p. 11, \"Resource Topology\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Load-bearing quotation that the deep reference does not carry (re-extracted from source); it is verbatim in the converted source, but carries no [V] marker, so it reads as the distillation's own wording.",
+      "evidence": "Converted source 618-620: 'The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as “resources,” matching skill demand with skill supply.' Deep 100 (Resource Topology) omits this sentence.",
+      "fix": "cycle-to-deep: add to deep 'Resource Topology' paragraph: \"The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as 'resources,' matching skill demand with skill supply. The Delivery Archetypes do not participate in high-level discovery due to 'efficiency' justifications.\" [V] (p. 11, \"Resource Topology\"); then re-mark: [V]"
+    },
+    {
+      "id": "D006",
+      "line": 38,
+      "section": "Key Concepts, 10",
+      "claim": "\"Notice that there is no guarantee in this topology that the output effectively solves the real problem or creates outcomes people care about. Products and services with 'feature bloat' are a common consequence.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] passage copied without its marker.",
+      "evidence": "Deep 102 and 219 carry this passage as [V] (p. 12, \"Delivery Topology\").",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D007",
+      "line": 32,
+      "section": "Key Concepts, 7",
+      "claim": "This is the same evidence-gathering discipline LFUO calls for in Lessons Learned Analysis",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cites the LFUO part. LFUO's go-and-see evidence gathering is its site visits, interviews and group dialogue (Part 6); the Lessons Learned Analysis (Part 7) is the Five-Hows sensemaking of key decisions.",
+      "evidence": "lfuo-learning-review-guide-2024-deep 99-107 (Part 6, site visits, interviews, group dialogue); 145-163 (Part 7, LLA and the Five Hows).",
+      "fix": "correct: This is the same go-and-see discipline LFUO calls for in its site visits and interviews (Part 6)"
+    },
+    {
+      "id": "D008",
+      "line": 76,
+      "section": "Questions, Phase 5, 'Test for drift back to original framing'",
+      "claim": "Drift back to Resource-Topology framing is the named regression pattern.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Asserts a 'named regression pattern' the Primer does not name. The Primer does not discuss regression after elevation.",
+      "evidence": "Deep 148-154 (ELEVATE): incremental elevation and periodic re-mapping; no regression pattern. No 'regression' or 'drift back' anywhere in deep 1-299.",
+      "fix": "correct: Is the language of \"resources\" or \"headcount allocation\" creeping back? Re-mapping (p. 19) is how to see whether the structure has slid back toward a Resource Topology."
+    },
+    {
+      "id": "D009",
+      "line": 84,
+      "section": "Anti-Patterns, 2",
+      "claim": "The Primer's stance is *both* — system as default, individual when the five-test applies.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to the Primer a position on individual culpability and the NHS five-test. The Primer says nothing about individual accountability or just culture.",
+      "evidence": "Deep 1-299: no treatment of individual culpability, blame, or just culture. The five-test belongs to nhs-just-culture-guide-deep 40-42.",
+      "fix": "correct: The Primer speaks only to structure; it takes no position on individual culpability. Keep the NHS five-test for that sort, so the Primer's system focus does not collapse it."
+    },
+    {
+      "id": "D010",
+      "line": 90,
+      "section": "Anti-Patterns, 5",
+      "claim": "AAR-driven structural recommendations should usually be scoped to the team and its immediate surround, not the whole organisation ... Whole-org recommendations from an AAR are usually disproportionate.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Premise not from the source and in tension with it: the Primer warns that change focused narrowly on individual teams misses the bigger picture and that impact 'requires alignment across all levels'. Only the divergent-designs point is Primer-backed.",
+      "evidence": "Deep 250 (p. 4, single-team focus warning); deep 146 and 154 (pp. 18-19, different designs and development vectors for different parts) support the divergent-design sentence only.",
+      "fix": "correct: **Whole-org structural change as the default AAR action.** Match the scope of the structural recommendation to where the mismatch sits. The Primer allows different designs and development vectors for different parts of the organisation (pp. 18-19), and it also warns that a team-only fix fails in an unchanged surround (p. 4); scope accordingly."
+    },
+    {
+      "id": "D011",
+      "line": 92,
+      "section": "Anti-Patterns, 6",
+      "claim": "LFUO is explicit that recommendations require a Learning Review with focus groups, academic SMEs, Safety Action Plan ... they cannot be added to an FLA after the fact.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Presents academic SMEs as required; LFUO makes them optional. 'Cannot be added to an FLA after the fact' is not in the LFUO deep ref.",
+      "evidence": "lfuo-learning-review-guide-2024-deep 55: LR adds focus groups '(and, as an option, academic or professional subject-matter experts)' and a Learning Review Board producing a Safety Action Plan; deep 17: technical-fix suggestions 'may occasionally be appropriate in an FLA'.",
+      "fix": "correct: LFUO is explicit that formal recommendations belong in a Learning Review (community-of-practice focus groups, optionally academic SMEs, a Learning Review Board and a Safety Action Plan), not an FLA. Structural recommendations are exactly this kind."
+    },
+    {
+      "id": "D012",
+      "line": 100,
+      "section": "Worked Examples, running MADE example",
+      "claim": "A software organisation has experienced a string of late deliveries ... The DESIGN step proposes Delivery Topology with cross-functional end-to-end teams. The ELEVATE step ... restructures the Doing archetypes into two cross-functional end-to-end teams.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The DESIGN and ELEVATE outcomes are in the converted source but not in the deep reference. The 'string of late deliveries' incident is invented but sits under a heading that says 'from the source'; the Primer's example is a strategy mismatch (a wish to release faster), not late deliveries.",
+      "evidence": "Converted source 1068-1069 (p. 18): 'If flow is the goal, the Delivery Topology becomes a suitable choice.' Source 1146-1149 (p. 19): 'the separate Doing Archetypes have been restructured into two cross-functional, end-to-end teams, elevating the organization from the Resource to the Delivery Topology.' Deep 140-154 carry neither sentence. Deep 136-138: example is Resource Topology vs a strategy 'to outpace competitors by being faster'.",
+      "fix": "cycle-to-deep: add to deep (3) DESIGN: \"After identifying the desired org goal(s), the next step is to explore organizational designs that align with the strategy. If flow is the goal, the Delivery Topology becomes a suitable choice.\" [V] (p. 18); add to deep (4) ELEVATE: \"In the example mapping on the right, the separate Doing Archetypes have been restructured into two cross-functional, end-to-end teams, elevating the organization from the Resource to the Delivery Topology.\" [V] (p. 19). In the distillation, label the late-deliveries framing as a hypothetical overlay."
+    },
+    {
+      "id": "D013",
+      "line": 102,
+      "section": "Worked Examples, pet-supply",
+      "claim": "A pet-supply e-commerce business has experienced an AI-integration incident ... the front-end AI agents were deployed inside a Resource-Topology framing (skill-pool replacement) without the structural change to CAPS-3 teams",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Invented incident placed under a heading that reads 'from the source'. In the Primer the AI agents are part of the move to CAPS-3 teams with monitoring built in; they are not deployed into a Resource Topology.",
+      "evidence": "Deep 170 (p. 21): Resource topology company targets 'a Delivery topology with CAPS-3 teams'; AI agents design and code front ends; existing designers and developers 'joining the new CAPS-3 teams will be trained in agent monitoring'. No incident.",
+      "fix": "correct: open the bullet with 'Hypothetical overlay on the Primer's pet-supply example (pp. 20-21):' and keep the Primer's own design (CAPS-3 teams, specialists trained as agent monitors) as the prevention pattern."
+    },
+    {
+      "id": "D014",
+      "line": 118,
+      "section": "Integration, OpenStax Principles of Management",
+      "claim": "org-design implications at the Mintzberg / six-structures level, OpenStax PoM is the catalogue",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "PoM's deep ref carries Mintzberg only for managerial roles and time use, not for structure. The structure catalogue there is the mechanistic-organic continuum and six structure types.",
+      "evidence": "openstax-principles-management-deep 29-37, 780-782 (Mintzberg = role clusters, contact counts); 185-195 (mechanistic-organic, six structural types, Ch 4.3).",
+      "fix": "correct: org-design implications at the mechanistic-organic / six-structures level (Ch 4.3)"
+    },
+    {
+      "id": "D015",
+      "line": 120,
+      "section": "Integration, Open Practice Library",
+      "claim": "Both reject pronouncement-style remediation in favour of experimentation.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The OPL Blameless Postmortem entry says nothing about experimentation or pronouncement-style remediation; the claim about the other source is not in its deep ref.",
+      "evidence": "open-practice-library-deep 237: Blameless Postmortem = post-incident assessment; 'Our job is not to point fingers...'; two foundations (information availability, psychological safety). No experiment framing.",
+      "fix": "correct: Both reject blame-first remediation: the Blameless Postmortem asks what 'we personally and as an organization can do to prevent it', and OT frames the structural answer as Elevating-Kata experiments."
+    }
+  ],
+  "notes": "Structure deviates from the projection template: no 'What to Look For' or 'When to Use This Reference' sections; headings renamed ('Anti-Patterns and Failure Modes', 'Worked Examples (from the source, projected onto AAR)', 'Integration with Other AAR References'); no blockquoted [V] passages, and the Citation notes lack the borrowed-through-gaps and evidence-marker-continuity sub-elements. Inline [V] fragments that are present all match the deep ref and the converted source (p. 16 local-optimisation, p. 16 MAP, p. 19 Katas, p. 19 re-mapping, p. 20 monitoring, p. 10 senior-management fragment, p. 4 single-team). Cross-source claims checked against LFUO, NHS, TC 25-20, SSDL, Barbrook-Johnson, OpenStax PoM and OPL deep refs; LFUO quotes, NHS five tests, TC 25-20 'real benefits' and SSDL archetype names are correct."
+}

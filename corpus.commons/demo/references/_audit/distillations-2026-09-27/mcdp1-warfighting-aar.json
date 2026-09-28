@@ -1,0 +1,160 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/mcdp1-warfighting-aar.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-40 of 40", "deep": "lines 1-254 of 254", "complete": true},
+  "claims_audited": 29,
+  "tally": {"faithful": 14, "minor_drift": 12, "unsupported": 2, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 20,
+      "section": "AAR Relevance, thread 2 (Commander's intent and mission tactics)",
+      "claim": "If the sharp-end practitioner did not know the intent two levels up, that gap is the senior leader's responsibility, not the practitioner's compliance failure.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Assigns the burden of understanding intent wholly to the senior; the source places it on both, and the deep ref's mission-tactics contract obliges the subordinate to act in conformity with intent.",
+      "evidence": "Source 3761-3766 (Ch 4, \"Commander's intent\"): \"The burden of understanding falls on senior and subordinate alike. The seniors must make their purposes perfectly clear ... Subordinates must have a clear understanding of what their commander expects. Further, they should understand the intent of the commander at least two levels up.\" Deep 142: \"The senior is obligated to provide the guidance ... The subordinate is obligated to act in conformity with the intent of the senior.\"",
+      "fix": "correct: MCDP-1 says the burden of understanding intent \"falls on senior and subordinate alike\" (Ch 4, \"Commander's intent\"): seniors must make their purpose clear, and subordinates should understand the intent of the commander at least two levels up. If the practitioner did not know the intent two levels up, the AAR asks both halves: was the intent stated clearly, and did the practitioner seek it?"
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "MCDP-1 is the doctrinal context every Marine AAR is conducted within; it supplies the philosophy the AAR is trying to develop and assess.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Neither deep ref says anything about Marine AAR practice or about AARs assessing MCDP-1 philosophy; TC 25-20 is an Army circular whose parent doctrine is FM 25-100/25-101, so the pairing implies a doctrinal hierarchy no reference states.",
+      "evidence": "Deep 113: \"the source itself never names the AAR, and the parallel is this reference's cross-corpus observation.\" TC 25-20 deep 245-246: parent doctrine FM 25-100 and FM 25-101 (Army); TC deep 124 assesses against training objectives and the Army standard.",
+      "fix": "correct: MCDP-1 never names the AAR. It is the Marine Corps' statement of warfighting philosophy (commander's intent, mission tactics, main effort, tempo, doctrine as a way of thinking), and an AAR run in an organisation that holds that philosophy can use it as the frame for judging what people were trying to do."
+    },
+    {
+      "id": "D003",
+      "line": 38,
+      "section": "Connections to other corpus sources",
+      "claim": "Read TC 25-20 for the AAR mechanics; read MCDP-1 for the doctrinal context the mechanics operate within.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Claims TC 25-20's mechanics operate within MCDP-1's doctrine; the TC deep ref places the TC under Army training doctrine (FM 25-101), not USMC MCDP-1.",
+      "evidence": "TC 25-20 deep 246: \"It supplements and expands the guidance in Field Manual (FM) 25-101\" [V] (Preface); deep 245 FM 25-100 as parent training doctrine. MCDP-1 deep has no mention of TC 25-20 beyond the cross-corpus parallel at 113.",
+      "fix": "correct: TC 25-20 (slug 00o) is the procedural companion: read it for the AAR mechanics (an Army circular under FM 25-101). Read MCDP-1 for a command philosophy that shapes what an AAR should ask about intent, initiative and critique; its Ch 3 \"Training\" critique passage parallels the TC's AAR."
+    },
+    {
+      "id": "D004",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "MCDP-1 does not describe AAR practice directly — that is the work of TC 25-20.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Understates the source: MCDP-1 Ch 3 \"Training\" prescribes post-event critiques (critical self-analysis even after success, tolerance of admitted mistakes, focus on why), which the deep ref flags as the AAR parallel. The distillation omits this passage entirely, the single most AAR-relevant content in the source.",
+      "evidence": "Deep 113: \"critical self-analysis, even after success, is essential to improvement ... a subordinate's willingness to admit mistakes depends on the commander's willingness to tolerate them ... our critiques should focus not so much on the actions we took as on why we took those actions and why they brought the results they did\" [V] (Ch 3, \"Training\"); \"parallels the After-Action Review formalised in TC 25-20.\"",
+      "fix": "correct: MCDP-1 never names the AAR, but Ch 3 \"Training\" prescribes the critique: \"critical self-analysis, even after success, is essential to improvement\" and \"our critiques should focus not so much on the actions we took as on why we took those actions and why they brought the results they did\" [V] (Ch 3, \"Training\"). TC 25-20 (slug 00o) supplies the procedure."
+    },
+    {
+      "id": "D005",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "TC 25-20 supplies the procedure (Plan / Prepare / Conduct / Follow-Up; the four standard questions).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The four-step process is in the TC deep ref; 'the four standard questions' is not. The TC deep ref gives a definition (what happened, why, how to sustain and improve) and the Figure 4-1 sequence, not a four-question set.",
+      "evidence": "TC 25-20 deep 19 and 52 (four steps, [V]); deep 25 definition \"what happened, why it happened, and how to sustain strengths and improve on weaknesses\"; deep 124 Figure 4-1 sequence. No four-question formula anywhere in the TC deep ref.",
+      "fix": "correct: TC 25-20 supplies the procedure (Planning / Preparing / Conducting / Following up) and the AAR's aim of discovering \"what happened, why it happened, and how to sustain strengths and improve on weaknesses\" (TC 25-20, Ch 1)."
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "AAR Relevance, thread 1",
+      "claim": "The four standard AAR questions (What was planned? What actually happened? Why did it happen that way? What can we do better?)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conventional AAR formula presented as standard; not in the MCDP-1 deep ref and not enumerated in the TC 25-20 deep ref.",
+      "evidence": "As D005: TC 25-20 deep 25 and 124 carry the elements but not this four-question list.",
+      "fix": "correct: The AAR's core inquiry (what was supposed to happen, what happened, why, and how to sustain and improve; TC 25-20, Ch 1 and Figure 4-1) is framed differently when the practitioner's thinking is the unit of analysis rather than procedural compliance."
+    },
+    {
+      "id": "D007",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "MCDP-1 supplies the philosophy (commander's intent, mission tactics, Schwerpunkt, OODA, ...).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes a term to MCDP-1 that the source does not use. MCDP-1's term is 'main effort'; 'Schwerpunkt' appears only in the deep ref's vocabulary heading and its [AR] note on the German tradition.",
+      "evidence": "Deep 146: \"[AR — ... names it the focus of effort / Schwerpunkt in the German tradition.]\"; deep 166 vocabulary heading. Source: no occurrence of 'Schwerpunkt' (grep of converted text returns nothing).",
+      "fix": "correct: replace 'Schwerpunkt' with 'main effort'."
+    },
+    {
+      "id": "D008",
+      "line": 20,
+      "section": "AAR Relevance, thread 2",
+      "claim": "MCDP-1 names the disciplinary requirement: intent must be understood two levels up.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens 'should understand ... at least two levels up' to 'must be understood two levels up'.",
+      "evidence": "Deep 144: \"[Subordinates] should understand the intent of the commander at least two levels up.\" [V]; source 3765-3766.",
+      "fix": "correct: MCDP-1 states that subordinates \"should understand the intent of the commander at least two levels up\" [V] (Ch 4, \"Commander's intent\")."
+    },
+    {
+      "id": "D009",
+      "line": 22,
+      "section": "AAR Relevance, thread 2",
+      "claim": "If they did not know the intent, the AAR's action item lives at the leadership level.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Follows from the D001 premise; the source's shared burden puts the action item at both levels.",
+      "evidence": "Source 3761-3766 (shared burden); deep 142 (two-sided contract).",
+      "fix": "correct: If they did not know the intent, the AAR's action items sit at both levels: how the intent was stated, and how the team sought it."
+    },
+    {
+      "id": "D010",
+      "line": 26,
+      "section": "AAR Relevance, thread 3 (OODA)",
+      "claim": "The doctrinal claim: \"the side that completes the cycle faster, or that operates in a way the adversary cannot orient to, wins.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation marks around the deep ref's own thesis heading, presented as the doctrine's words. 'Or that operates in a way the adversary cannot orient to' is not in the source, and 'wins' overstates 'gains an advantage'.",
+      "evidence": "Deep 43 heading is deep-ref wording; the [V] passage (Notes 18 of Ch 2): \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle. His enemy's reactions become increasingly slower by comparison and therefore less effective until, finally, he is overcome by events.\" Source has no 'orient to'.",
+      "fix": "correct: The doctrinal claim: \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle\" [V] (Notes 18 of Ch 2)."
+    },
+    {
+      "id": "D011",
+      "line": 28,
+      "section": "AAR Relevance, thread 3 (OODA)",
+      "claim": "Where the team operated inside the threat's loop, the incident was contained; where the threat was inside the team's loop, the incident escalated.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "States a determinate outcome (contained / escalated) as if it followed from the doctrine; the source claims a cumulative advantage for the faster cycle, not a containment result. 'Inside the loop' is not the source's term.",
+      "evidence": "Deep 43 (Notes 18 of Ch 2): advantage increases with each cycle; enemy \"overcome by events.\" No incident or containment claim.",
+      "fix": "correct: Ask whether the team was acting before the situation re-formed around its last move, or always reacting to a situation that had already changed. MCDP-1's claim is that the faster cycle \"gains an advantage that increases with each cycle\" [V] (Notes 18 of Ch 2); use it as a hypothesis about escalation, not a verdict."
+    },
+    {
+      "id": "D012",
+      "line": 32,
+      "section": "AAR Cautions",
+      "claim": "MCDP-1 directly rejects the zero-defects mentality: \"severity on errors of inaction, leniency on overbold errors.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Paraphrase in quotation marks read as the source's words.",
+      "evidence": "Deep 109 [V] (Ch 3, \"Professionalism\"): \"errors by junior leaders stemming from overboldness are a necessary part of learning. We should deal with such errors leniently; there must be no 'zero defects' mentality ... we should deal severely with errors of inaction or timidity.\"",
+      "fix": "correct: MCDP-1 directly rejects the zero-defects mentality: errors from overboldness \"are a necessary part of learning. We should deal with such errors leniently; there must be no 'zero defects' mentality\" while \"we should deal severely with errors of inaction or timidity\" [V] (Ch 3, \"Professionalism\")."
+    },
+    {
+      "id": "D013",
+      "line": 32,
+      "section": "AAR Cautions",
+      "claim": "AARs that punish errors of commission while tolerating errors of omission produce inaction — which is the failure mode the doctrine is most concerned with.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The mechanism is supported (threat of punishment stifles boldness and initiative), but 'the failure mode the doctrine is most concerned with' is a superlative the deep ref does not make. The source also limits the leniency: it gives no 'free license to act stupidly or recklessly'.",
+      "evidence": "Deep 188: \"Abolishing 'zero defects' means that we do not stifle boldness or initiative through the threat of punishment\" [V]; source 2400-2401: \"Nor does it give subordinates free license to act stupidly or recklessly.\"",
+      "fix": "correct: AARs that punish errors of commission while tolerating errors of omission stifle boldness and initiative \"through the threat of punishment\" (Ch 3, \"Professionalism\"), and MCDP-1 says to deal severely with inaction. Leniency does not extend to reckless acts."
+    },
+    {
+      "id": "D014",
+      "line": 34,
+      "section": "AAR Cautions",
+      "claim": "The pamphlet's rejection of single-cause explanation is implicit but consistent; AARs that converge on a single root cause are operating against the doctrinal frame.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Distillation-level inference presented as the pamphlet's position without an [AR] marker or citation. The multi-causal premise is supported, but the source's nonlinearity point (minor incidents can have decisive effects) cuts against a blanket rule.",
+      "evidence": "Deep 33 [V] (Ch 1, \"Conclusion\"): \"Each episode is the unique product of myriad moral, mental, and physical forces\"; deep 63 (Ch 1, \"Complexity\"): war emerges from collective behaviour; deep 57: \"Minor incidents or actions can have decisive effects.\" No root-cause discussion.",
+      "fix": "re-mark: [AR]; correct: MCDP-1 treats each episode as \"the unique product of myriad moral, mental, and physical forces\" [V] (Ch 1, \"Conclusion\"). [AR] An AAR that converges on a single root cause sits awkwardly with that frame."
+    },
+    {
+      "id": "D015",
+      "line": 39,
+      "section": "Connections to other corpus sources",
+      "claim": "Scrum Guide / Field Guide (slugs 00m, 000) apply the same intent-and-mission-tactics philosophy to sprint cadence and event facilitation.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "States an analogy as identity. Neither deep ref mentions intent, mission tactics or MCDP-1; the structural parallel is Sprint Goal (why) plus self-managing Developers deciding how.",
+      "evidence": "Scrum Guide deep 60 (self-managing: \"decide who does what, when, and how\"), 129 (\"No one else tells them how\"), 198 (Sprint Goal gives \"flexibility in terms of the exact work needed\"). Field Guide deep 46 (Sprint Goal preserved while scope changes). No mission-tactics lineage stated.",
+      "fix": "correct: The Scrum Guide and Field Guide (slugs 00m, 000) have a parallel structure: the Sprint Goal states the why and the self-managing Developers decide the how, much as intent and mission tactics split purpose from method."
+    }
+  ],
+  "notes": "Hash in the derived-from-deep header matches the current deep ref (50489086...). The distillation does not follow the nine-section projection template: no Key Concepts, no phase tables of questions, no What to Look For with signal/diagnosis/follow-up, no Worked Example, no Integration table, no Citation and Source-Integrity Notes. Only two [V] quotes, both verified against source 2332-2342. The biggest content gap is the omission of the Ch 3 'Training' critique passage (deep 113), the source's closest content to AAR practice; see D004. D001 is the load-bearing error: the distillation's main AAR application for intent rests on a one-sided reading the source explicitly rules out."
+}

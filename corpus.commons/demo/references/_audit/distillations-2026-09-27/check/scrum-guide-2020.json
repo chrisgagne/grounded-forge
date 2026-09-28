@@ -1,0 +1,41 @@
+{
+ "slug": "scrum-guide-2020",
+ "changed_lines_checked": 109,
+ "tally": {
+  "faithful": 106,
+  "minor_drift": 2,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/scrum-guide-2020-decision-making.md",
+   "line": 44,
+   "text": "(Pairing openness with transparency, or courage with adaptation, is this distillation's reading.)",
+   "grade": "EDIT-DEFECT",
+   "problem": "Orphaned disclaimer. The repair removed the value-to-pillar pairings from Key Concept 13 (audit D010) but kept a parenthetical that disclaims those pairings. The distillation no longer pairs openness with transparency or courage with adaptation anywhere ('openness' occurs only on L44), so the note points at text that is gone. The audit's own fix text carried the parenthetical and the repairer copied it in.",
+   "evidence": "L44: 'The Guide treats these as conditions for empiricism: when they are embodied, \"the empirical Scrum pillars of transparency, inspection, and adaptation come to life building trust\" [V]. (Pairing openness with transparency, or courage with adaptation, is this distillation's reading.) (\"Scrum Values\")'",
+   "fix": "correct: delete '(Pairing openness with transparency, or courage with adaptation, is this distillation's reading.) ' so the line ends '... building trust\" [V]. (\"Scrum Values\")'"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/scrum-guide-2020-retro.md",
+   "line": 8,
+   "text": "The Scrum Guide gives the Sprint Retrospective a precise structural role: it is Adaptation made concrete.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error as audit D001/D004/D009/D010 still present in a line the repair edited. The repair fixed the second sentence ('the Sprint's inspect-and-adapt event for the team's own way of working') but left the opening sentence attributing to the Guide a one-pillar role for the Retrospective. It now also sits against KC1 (L16), which correctly says the Retro is one of four inspect-and-adapt events.",
+   "evidence": "Source L171-173: 'Scrum combines four formal events for inspection and adaptation within a containing event, the Sprint.' Source L370-371: 'Each event in Scrum is a formal opportunity to inspect and adapt Scrum artifacts.' Source L506: 'The purpose of the Sprint Retrospective is to plan ways to increase quality and effectiveness.' Deep ref L35, L100, L157.",
+   "fix": "correct: The Scrum Guide gives the Sprint Retrospective a precise structural role: its purpose is \"to plan ways to increase quality and effectiveness\" [V]."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/scrum-guide-2020-retro.md",
+   "line": 24,
+   "text": "doing so puts the change inside \"a highly visible, real-time picture of the work\" [V] the Developers inspect daily. ... (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, \"Sprint Retrospective\")",
+   "grade": "MINOR-DRIFT",
+   "problem": "Wrong locator for the newly added [V] quotation. The quote is verbatim (source L578-579) but comes from Scrum Artifacts, 'Sprint Backlog' (deep ref L196), not the Sprint Retrospective section, which is the only locator the Key Concept gives.",
+   "evidence": "Source L578-581: 'The Sprint Backlog is a plan by and for the Developers. It is a highly visible, real-time picture of the work that the Developers plan to accomplish ... It should have enough detail that they can inspect their progress in the Daily Scrum.' Deep ref L196: [V] (Scrum Artifacts, \"Sprint Backlog\").",
+   "fix": "correct: (Source: Schwaber & Sutherland, *The Scrum Guide*, Scrum Events, \"Sprint Retrospective\"; Scrum Artifacts, \"Sprint Backlog\")"
+  }
+ ],
+ "notes": "COMPLETE. Full reads: converted source (681 lines), deep ref (269), light ref (94), aar (122), decision-making (182), retro (143), software-business (343), stakeholder-engagement (193); the five audit JSONs; the other-source deep-ref passages cited by changed integration rows. Changed lines by file: deep ref 1 (L244, two new [V] quotes, both verbatim at source L656-661; FAITHFUL); light ref 2 (L27 SM event wording, L87 cancellation ground; FAITHFUL); aar 10 FAITHFUL; decision-making 24 (23 FAITHFUL, 1 EDIT-DEFECT at L44); retro 16 (14 FAITHFUL, 2 MINOR-DRIFT at L8 and L24); software-business 32 FAITHFUL; stakeholder-engagement 14 FAITHFUL; index rows 10 added lines (decision-making 5, retro 1, software-business 3, stakeholder-engagement 1), all match their distillations. Removals, all backed by the audit record: aar anti-pattern on outcome vs process (D009 strip); decision-making single-owner rationale sentence (D008 strip); retro [BT] on the citation-absence sentence (D014) and the sociocracy sentence (D016 strip). Other-source claims checked: AP field guide (Kerth Prime Directive L218/L242; six-segment agenda with Gather data and Wrap up, L216-232); Jones (Ch 5.4.3 agile-data line L155; no Scrum; Mitchell-Agle-Wood salience Ch 5.4.5 L159; estimation and Part VI reliability); OB (Ch 6 decision material L181-210; encoding-decoding model L342; five modes Ch 14.2 Exhibit 14.4 L450; BATNA Ch 14.4 L472); Business Ethics (Donaldson-Preston Ch 3.2 L113; Grunig-Hunt Ch 3.2 L117; power x interest with exigency Ch 3.3 L130); PoM (six structure types Ch 4.3 L189-196; Greenleaf Ch 5.4 L247); Open Kanban (WIP as consequence of batch size L74-79; titles/roles L152; holistic and learn-continuously L50/L83); TC 25-20 (does not grade L254; combat operations L199); Liberating Structures (1-2-4-Whole Group L59). All hold. Deep-ref marker count in stakeholder L193 ('127 [V] across 102 lines') verified by grep. vflag: software-business L87 'shorter Sprints can be employed ... smaller time frame' [V] is FAITHFUL: source L400-406 has the same words with the page number '7' between 'learning' and 'cycles' and a capital 'Shorter' (sentence-initial in the source, lowercased mid-sentence here). The decision-making L44 defect was carried in by the audit's own D010 fix text."
+}

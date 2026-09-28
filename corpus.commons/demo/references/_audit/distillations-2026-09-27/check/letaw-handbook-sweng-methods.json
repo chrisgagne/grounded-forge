@@ -1,0 +1,59 @@
+{
+ "slug": "letaw-handbook-sweng-methods",
+ "changed_lines_checked": 153,
+ "tally": {
+  "faithful": 149,
+  "minor_drift": 3,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 2
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/aar/letaw-handbook-sweng-methods-aar.md",
+   "line": 104,
+   "text": "a RACI built for the task shows whether agreed roles and practice were in place (3a) before the tree asks whether anyone knowingly departed from them (3c)",
+   "grade": "MINOR-DRIFT",
+   "problem": "The repair widened the audit's fix ('agreed roles') to 'agreed roles and practice'. A RACI records who is responsible, accountable, consulted and informed; it does not show whether an accepted practice or protocol existed, which is what NHS 3a asks.",
+   "evidence": "Letaw deep ref L73: RACI is 'a chart for defining who is responsible (R) and accountable (A) for a task or deliverable, and who should be consulted (C) or informed (I)'. NHS deep ref L66: 3a 'Are there agreed protocols/accepted practice in place that apply to the action/omission in question?'. Audit D017 fix: 'shows whether agreed roles were in place (3a)'.",
+   "fix": "correct: a RACI built for the task shows whether agreed roles were in place (3a) before the tree asks whether anyone knowingly departed from them (3c)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/letaw-handbook-sweng-methods-retro.md",
+   "line": 75,
+   "text": "| Team agrees quickly on an experiment | Sequential reveal may have anchored the vote | Run fist of five; anyone at two or fewer fingers is the cue to stop, discuss and re-vote |",
+   "grade": "EDIT-DEFECT",
+   "problem": "The repair (audit D012) removed 'with simultaneous reveal' from the follow-up but left the diagnosis, which still ties fist of five to a reveal-order/anchoring rationale the source does not give it (audit notes: simultaneous reveal and anti-anchoring belong to planning poker). The row is now incoherent: the follow-up no longer addresses the diagnosed cause.",
+   "evidence": "Deep ref L75 / source 1190-1215: fist of five = each person holds up a fist or up to five fingers; on two or fewer the team can stop, discuss, make changes and vote again; nothing on reveal order or anchoring. Simultaneous reveal is planning poker (deep ref L89).",
+   "fix": "correct: | Team agrees quickly on an experiment | Quick agreement can hide dissent nobody has voiced | Run fist of five; anyone at two or fewer fingers is the cue to stop, discuss and re-vote |"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/letaw-handbook-sweng-methods-retro.md",
+   "line": 74,
+   "text": "| Experiment has \"team responsible\" as owner | RACI's Accountable cell is empty; no individual owns the outcome | Name one person as Accountable before the retro closes |",
+   "grade": "EDIT-DEFECT",
+   "problem": "Unchanged line carrying the same single-named-Accountable premise the repair removed from L59 and L104 (audit D010/D018, graded UNSUPPORTED). Letaw gives no one-person rule for the A cell; her own example fills A cells with roles and puts two As on one task.",
+   "evidence": "Deep ref L73: Accountable = 'Who will approve the work and make sure it gets done.' Source 1082-1167: example matrix uses roles (Frontend Lead, Backend Lead, Team Lead) in A cells; 'One person might have multiple roles.'",
+   "fix": "correct: | Experiment has \"team responsible\" as owner | RACI gap: nobody knows who will approve the work and make sure it gets done, which raises the odds the experiment is dropped | Fill the Accountable cell before the retro closes |"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/letaw-handbook-sweng-methods-software-business.md",
+   "line": 30,
+   "text": "a business capability defined, in Michell's words, as \"the potential of a business resource (or groups of resources) to produce customer value\" [BT]",
+   "grade": "MINOR-DRIFT",
+   "problem": "The Michell definition is a verbatim quotation from the source but carries only [BT]; the deep ref marks it [V] [BT]. The quoted words themselves match the source.",
+   "evidence": "Source 2876-2878: 'Michell's (2011) integrated definition of a business capability fits what we're talking about: “the poten­tial of a business resource (or groups of resources) to produce customer value by acting on their environment ...”'. Deep ref L205: '... (Michell, 2011) (Ch 5.2.3) [V] [BT]'.",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/letaw-handbook-sweng-methods-stakeholder-engagement.md",
+   "line": 8,
+   "text": "which Letaw quotes Microsoft as defining as a methodology that \"draws on the full range of human diversity\" [BT]",
+   "grade": "MINOR-DRIFT",
+   "problem": "The audit fix (D002) asked for [V] [BT]; the repair dropped [V]. The quoted words are verbatim in the source, so the quotation needs [V] alongside [BT].",
+   "evidence": "Deep ref L248: 'a methodology . . . that enables and draws on the full range of human diversity ... (Microsoft)' (Ch 7, opening) [V] [BT]. Audit D002 fix: '... \"draws on the full range of human diversity\" [V] [BT]'.",
+   "fix": "re-mark: [V] [BT]"
+  }
+ ],
+ "notes": "All changed lines checked; every changed file read in full once. Coverage: deep ref (14 changed lines) and light ref (1) checked against the converted source, all FAITHFUL; aar 19 (1 MINOR-DRIFT); decision-making 22 (all FAITHFUL); retro 23 (1 EDIT-DEFECT); software-business 48 (1 MINOR-DRIFT); stakeholder-engagement 16 (1 MINOR-DRIFT); 10 changed index rows naming this source's distillations (AAR, DECISION-MAKING, RETRO, SOFTWARE-BUSINESS indexes), all match their distillations. Tally includes one residual EDIT-DEFECT on an unchanged line (retro L74, same single-named-Accountable premise the repair removed elsewhere), so tally sums to 154 against 153 changed lines. No vflags file exists for this slug. Every [V] quotation added in the changed lines was found word for word in the converted source (differences only in soft line-break hyphens and curly vs straight apostrophes). Two MINOR-DRIFTs share one pattern: the repair marked a verbatim Ch 5/Ch 7 borrowed quotation [BT] only, dropping [V] (software-business L30, stakeholder-engagement L8). Removals checked and justified by the audit records: Conway's Law framing and anchor, 'most common source of compliance failures', heuristic-evaluation rationale, deep-ref marker counts, Scrum Guide moved out of the not-held list, Mitchell-Agle-Wood and Disagree-and-Commit misattributions. Audit D011 (stakeholder-engagement L34, 'Definition of Done negotiated with the client') was not rewritten; that is correct: source 2104-2105 says the done-condition 'is negotiated with the client and added to the user story as acceptance criteria', and the repair added that sentence to deep ref L134, so the audit's premise was wrong. Optional polish, not graded: retro L30 now says the ground-rules invalidation point twice in consecutive sentences; stakeholder-engagement L161 (unchanged) has 'later surface' for 'later surfaces'."
+}

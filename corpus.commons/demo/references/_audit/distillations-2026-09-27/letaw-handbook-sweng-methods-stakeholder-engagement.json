@@ -1,0 +1,162 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/letaw-handbook-sweng-methods-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-201 of 201",
+    "deep": "lines 1-392 of 392 (corpus.commons/demo/references/letaw-handbook-sweng-methods-deep.md; sha256 matches the distillation's derived-from-deep header)",
+    "complete": true,
+    "other": "projection-protocol.md read in full. Converted source checked at: HPE survey Ch 1.2; Tuckman and ground rules Ch 2.4-2.4.1; fist of five Ch 2.4.3; priority matrix Ch 2.5.2; requirements elicitation Ch 3.4 (1765-1800); user stories Ch 3.6.1; heuristic evaluation Ch 7.1 (3288-3295); personas Ch 7.2. Evidence markers in the deep ref counted mechanically. Other deep refs checked by targeted search: openstax-organizational-behavior (chapter map, Ch 9-14 topics), openstax-business-ethics (plus converted source) for Mitchell-Agle-Wood, openstax-principles-marketing (chapter map, buying centre, RATER, 5A), openstax-principles-management (Mintzberg roles, servant leadership, Tannenbaum-Schmidt chapters), openstax-business-law (chapter map, ADR), open-practice-library (Stakeholders Interview, Empathy Mapping, Stakeholder RACI Map)."
+  },
+  "claims_audited": 156,
+  "tally": {"faithful": 135, "minor_drift": 17, "unsupported": 3, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001", "line": 8, "section": "Stakeholder-Engagement Relevance",
+      "claim": "the engagement of *clients* via the project priority matrix decided \"before the project starts, with the client.\"",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true but quoted in altered form",
+      "evidence": "Deep ref line 81 lacks it. Source Ch 2.5.2: 'Ideally, the project priority matrix would be defined before the project starts (with the client) and referenced throughout the project as needed.'",
+      "fix": "correct: via the project priority matrix, which ideally \"would be defined before the project starts (with the client)\" [V] (Ch 2.5.2). Plus cycle-to-deep."
+    },
+    {
+      "id": "D002", "line": 8, "section": "Stakeholder-Engagement Relevance",
+      "claim": "Chapter 7 ... reframes stakeholder engagement as inclusive design: building technology that \"draws on the full range of human diversity\" [V]",
+      "grade": "MINOR-DRIFT", "failure_mode": "Borrowed words marked as the author's own ([BT] dropped)",
+      "evidence": "Deep ref line 248: inclusive design is 'a methodology . . . that enables and draws on the full range of human diversity' quoted from Microsoft, marked [V] [BT].",
+      "fix": "re-mark: [V] [BT] and attribute: practising inclusive design, which Letaw quotes Microsoft as defining as a methodology that \"draws on the full range of human diversity\" [V] [BT]"
+    },
+    {
+      "id": "D003", "line": 10, "section": "Stakeholder-Engagement Relevance",
+      "claim": "A unifying theme runs through these threads: each engagement method is presented as *risk mitigation*. ... The Inclusivity Heuristics reduce the risk of designing software that excludes the diversity of real users.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Ch 2 framing generalised to Ch 3, 6 and 7 methods",
+      "evidence": "Deep ref line 19: Ch 2 frames its methods around negative-outcome probability; 'other chapters frame their methods around requirements, communication, architecture, usability, and maintainability'. Ch 6.3 does cite cost reduction (deep ref line 242); the deep ref gives no risk framing for the Inclusivity Heuristics.",
+      "fix": "correct: A unifying theme runs through the team-facing threads: Ch 2 presents each project-management method as *risk mitigation*, and the requirements and prototyping chapters argue in the same key (requirements keep developers in sync and stop stakeholder drift, Ch 3.2; paper prototyping catches UI flaws before they are built, Ch 6.3). The Inclusivity Heuristics are framed as design for a diversity of users (Ch 7)."
+    },
+    {
+      "id": "D004", "line": 16, "section": "Key Concepts #1",
+      "claim": "Stakeholders include clients, managers, users, governments, developers of integrated software, the development team, and yourself. Requirements can come from any stakeholder. (Source: Ch 3.4)",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true (cycle-to-deep)",
+      "evidence": "Deep ref line 111 has the elicitation methods, not the stakeholder list. Source 1770-1772: 'Requirements can come from any stakeholder, including clients, managers, users, governments, developers of software to be integrated with yours, the development team, and yourself.'",
+      "fix": "cycle-to-deep: add the Ch 3.4 stakeholder sentence to the deep ref; wording can stay (retitle 'Stakeholders enumerated', since Letaw lists rather than defines)."
+    },
+    {
+      "id": "D005", "line": 18, "section": "Key Concepts #2",
+      "claim": "Team-stakeholder engagement methods fit different stages: ground rules emerge in Forming and Norming; RACI is most useful in Norming and Performing; fist of five reduces Storming-into-paralysis risk. (Source: Ch 2.4 ...)",
+      "grade": "MINOR-DRIFT", "failure_mode": "Distillation's own stage mapping cited to a chapter that leaves the mapping open",
+      "evidence": "Source Ch 2.4 (1015-1017): 'Consider where each might fit in to these stages (there's not just one answer).' Ground rules forming and revising over time is source-true (Ch 2.4.1: 'might already exist when a team forms, others might develop as the team becomes normalized'); the RACI and fist-of-five stage assignments are not in source or deep ref.",
+      "fix": "correct: Letaw leaves it to the reader to place each method in a stage ('there's not just one answer', Ch 2.4). One reading: ground rules can exist at forming and develop as the team normalises (Ch 2.4.1); RACI and fist of five can be placed wherever role ambiguity or unvoiced dissent shows up."
+    },
+    {
+      "id": "D006", "line": 20, "section": "Key Concepts #3",
+      "claim": "rules feeling \"silly, phony, too aspirational, too inflexible, or too authoritative\" invalidate the effort. ... the criterion of \"meaningful and authentic\" is invariant.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Source hedges hardened ('could invalidate' → 'invalidate'; 'ideally' → 'invariant'); 'meaningful and authentic' absent from deep ref",
+      "evidence": "Deep ref line 71: 'that could invalidate your team's efforts'. Source Ch 2.4.1: the questions and answers 'will vary ... Whatever those questions and answers are, ideally they will feel meaningful and authentic.'",
+      "fix": "correct: rules that feel \"silly, phony, too aspirational, too inflexible, or too authoritative\" [V] could invalidate the effort. Eight diagnostic questions are offered as starting points; whatever the rules, ideally they feel meaningful and authentic. Plus cycle-to-deep."
+    },
+    {
+      "id": "D007", "line": 24, "section": "Key Concepts #5",
+      "claim": "Two-or-fewer triggers discussion; the team or its leader decides how much consensus is required.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true (cycle-to-deep)",
+      "evidence": "Deep ref line 75 has the encoding only. Source Ch 2.4.3: on two or fewer 'the team can stop, discuss, make changes, and vote again until there's sufficient consensus. It's up to the team or its leader to decide how much consensus is needed.'",
+      "fix": "cycle-to-deep; optionally soften 'triggers' to 'is the cue for the team to stop, discuss and re-vote'."
+    },
+    {
+      "id": "D008", "line": 26, "section": "Key Concepts #6",
+      "claim": "Ideally defined before the project starts, with the client, and referenced throughout.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true and accurately worded (cycle-to-deep)",
+      "evidence": "Source Ch 2.5.2 sentence as in D001; deep ref line 81 lacks it.",
+      "fix": "cycle-to-deep; wording can stay."
+    },
+    {
+      "id": "D009", "line": 30, "section": "Key Concepts #8",
+      "claim": "exploratory research (immersing oneself in the world of relevant people and products — fly-on-the-wall observations, ethnographic methods)",
+      "grade": "MINOR-DRIFT", "failure_mode": "Example added that neither source nor deep ref gives",
+      "evidence": "Deep ref line 111 / source 1793-1797: exploratory research = 'Multiple methods of immersing oneself within the world of relevant people and products, with the purpose of gaining knowledge and developing empathy for stakeholders', with a fly-on-the-wall example. No 'ethnograph' in the source.",
+      "fix": "correct: exploratory research (immersing oneself in the world of relevant people and products to gain knowledge and empathy — e.g., fly-on-the-wall observation)"
+    },
+    {
+      "id": "D010", "line": 32, "section": "Key Concepts #9",
+      "claim": "Stakeholders may originate user stories; clients guide prioritisation; conversation about each user story extracts details that get added back to the card.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true (cycle-to-deep)",
+      "evidence": "Deep ref lines 125-134 lack it. Source Ch 3.6.1: 'Anyone on the team—or any project stakeholder—might come up with user stories. ... Clients can guide you on setting priorities for user stories. This conversation is also a good time to get more details about the user stories, which should be added to the card.'",
+      "fix": "cycle-to-deep; wording can stay."
+    },
+    {
+      "id": "D011", "line": 34, "section": "Key Concepts #10",
+      "claim": "**Definition of Done negotiated with the client.** ... The DoD is a stakeholder-engagement artefact: it is the boundary between \"developer says done\" and \"client agrees it is done.\" (Source: Ch 3.6.1)",
+      "grade": "MINOR-DRIFT", "failure_mode": "Client negotiation of the DoD added to the source's definition under its citation",
+      "evidence": "Deep ref line 134: acceptance criteria establish the DoD, 'what must be true about the functionality specified by the user story for the user story to be considered done'. The source's client conversation (Ch 3.6.1) covers priorities and story details, not the DoD.",
+      "fix": "correct: **Definition of Done as a shared boundary.** Acceptance criteria say what must be true for the user story to be considered done (Ch 3.6.1), often in given-when-then form (Ch 3.6). Negotiating them with the client, so 'done' means the same thing to both sides, is the stakeholder-engagement use."
+    },
+    {
+      "id": "D012", "line": 40, "section": "Key Concepts #13",
+      "claim": "The independence reduces individual-evaluator bias; the combination surfaces issues no single evaluator would catch. (Source: Ch 7.1, citing Nielsen & Molich 1990 [BT])",
+      "grade": "UNSUPPORTED", "failure_mode": "Rationale attributed to the source that neither source nor deep ref gives",
+      "evidence": "Deep ref line 262 / source 3291-3294: 'multiple evaluators independently check whether a technology design follows the heuristics. They make note of any issues and compare results. The output is a combined set of usability issues.' No rationale stated.",
+      "fix": "strip the rationale sentence, or mark it as the distillation's inference outside the citation."
+    },
+    {
+      "id": "D013", "line": 44, "section": "Key Concepts #15",
+      "claim": "54% of Agile adopters cite \"enhanced collaboration between teams that don't usually work together\"",
+      "grade": "MINOR-DRIFT", "failure_mode": "Quotation marks around altered wording",
+      "evidence": "Source Ch 1.2: '54%: Enhances collaboration between teams that don't usually work together.' (403 organisations that primarily adopted Agile). Figure and rank ('highest of the five') are correct.",
+      "fix": "correct: 54% of respondents from organisations that primarily adopted Agile agreed Agile \"Enhances collaboration between teams that don't usually work together\" [V]"
+    },
+    {
+      "id": "D014", "line": 158, "section": "Anti-patterns",
+      "claim": "ground rules that feel \"silly, phony, too aspirational, too inflexible, or too authoritative\" fail; the criterion of \"meaningful and authentic\" is invariant.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Same hardening as D006",
+      "evidence": "See D006.",
+      "fix": "correct: ground rules that feel \"silly, phony, too aspirational, too inflexible, or too authoritative\" [V] can invalidate the team's effort; ideally they feel meaningful and authentic."
+    },
+    {
+      "id": "D015", "line": 162, "section": "Anti-patterns",
+      "claim": "Running heuristic evaluation with a single evaluator — individual-evaluator bias is the failure mode; the multi-evaluator-then-combine discipline is what makes heuristic evaluation useful.",
+      "grade": "UNSUPPORTED", "failure_mode": "Same unsourced rationale as D012",
+      "evidence": "See D012. The source defines heuristic evaluation as multi-evaluator but says nothing about why.",
+      "fix": "correct: Running heuristic evaluation with a single evaluator — the method as Letaw describes it uses multiple evaluators who check independently and then combine their issues (Ch 7.1)."
+    },
+    {
+      "id": "D016", "line": 172, "section": "Integration with Other References",
+      "claim": "OpenStax Business Ethics (Ch 3) | The Mitchell-Agle-Wood salience model (power, legitimacy, urgency) provides the stakeholder-mapping theory Letaw's Handbook lacks.",
+      "grade": "UNSUPPORTED", "failure_mode": "Attributes to another source a model it does not contain",
+      "evidence": "openstax-business-ethics-deep.md has no 'Mitchell', 'Agle' or 'salience'; the converted ethics source has no 'Agle' or 'salience' either. The ethics deep ref does cover identifying, categorising and prioritising stakeholder claims (line 17, Ch 3).",
+      "fix": "correct: OpenStax Business Ethics (Ch 3) | Its treatment of identifying, categorising and prioritising stakeholder claims provides the stakeholder-mapping step Letaw's Handbook lacks. Combine: use Business Ethics to decide whom to engage; use Letaw's methods to engage them."
+    },
+    {
+      "id": "D017", "line": 173, "section": "Integration with Other References",
+      "claim": "OpenStax Principles of Marketing (Chs 3, 11) | Consumer buying behaviour, B2B buying centre, Gap Model of Service Quality, RATER dimensions, 5A customer journey.",
+      "grade": "MINOR-DRIFT", "failure_mode": "Chapter citation incomplete",
+      "evidence": "openstax-principles-marketing-deep.md: consumer buying behaviour Ch 3 (line 88), B2B buying behaviour Ch 4 (line 118), Gap Model/RATER Ch 11, 5A framework Ch 13.4 (line 379).",
+      "fix": "correct: OpenStax *Principles of Marketing* (Chs 3, 4, 11, 13)"
+    },
+    {
+      "id": "D018", "line": 174, "section": "Integration with Other References",
+      "claim": "OpenStax Principles of Management (Chs 13, 14, 15) | Mintzberg's managerial roles (interpersonal, informational, decisional) ...; servant leadership and the Tannenbaum-Schmidt continuum",
+      "grade": "MINOR-DRIFT", "failure_mode": "Chapter citation mostly wrong",
+      "evidence": "openstax-principles-management-deep.md: Mintzberg's roles appear in Ch 1 (line 37) and Ch 16 (line 782); servant leadership sits in Part V, Ch 5 (line 247); Tannenbaum-Schmidt is Ch 13.3 (line 622). Nothing cited from Ch 14 or 15.",
+      "fix": "correct: OpenStax *Principles of Management* (Chs 1, 5, 13, 16)"
+    },
+    {
+      "id": "D019", "line": 175, "section": "Integration with Other References",
+      "claim": "OpenStax Business Law (Ch 2, ADR-tier framework; Ch 5–9, contract law)",
+      "grade": "MINOR-DRIFT", "failure_mode": "Chapter range wrong",
+      "evidence": "openstax-business-law-deep.md: Ch 2 ADR (line 43) is right; contract law is Ch 7 and Ch 8 (lines 372, 422). Ch 5 is criminal liability, Ch 6 torts, Ch 9 employment law.",
+      "fix": "correct: (Ch 2, ADR-tier framework; Chs 7–8, contract law and sales contracts)"
+    },
+    {
+      "id": "D020", "line": 196, "section": "Citation and Source-Integrity Notes",
+      "claim": "Cross-cultural stakeholder engagement is addressed only in passing (ground rules will vary by culture, Ch 2.4.1).",
+      "grade": "MINOR-DRIFT", "failure_mode": "Absent from deep ref; source-true (cycle-to-deep)",
+      "evidence": "Source Ch 2.4.1: 'The questions your team asks, and the answers, will vary depending on the individuals on the team and on context (e.g., culture).' Deep ref line 71 lacks it.",
+      "fix": "cycle-to-deep; wording can stay."
+    },
+    {
+      "id": "D021", "line": 201, "section": "Citation and Source-Integrity Notes",
+      "claim": "The deep reference ... uses [V], [AP], [AR], [AE], and [BT] markers throughout (111 [V], 57 [BT], 11 [AP], 1 [AR]).",
+      "grade": "CONTRADICTED", "failure_mode": "Counts wrong against the deep ref this file was derived from (hash matches)",
+      "evidence": "Mechanical count of the current deep ref (sha256 5e90460a..., same as this file's derived-from-deep header): 166 [V], 63 [BT], 14 [AP], 1 [AR], 8 [AE].",
+      "fix": "correct: (166 [V], 63 [BT], 14 [AP], 8 [AE], 1 [AR]) — or drop the counts."
+    }
+  ],
+  "notes": "Grading convention: a claim the source supports but the deep ref lacks is graded MINOR-DRIFT with a cycle-to-deep fix (D001, D004, D006-D008, D010, D020); UNSUPPORTED is kept for claims neither the deep ref nor the source supports. This is the cleanest of the five Letaw distillations: no code-smell count error, no estimation inversion, and the fist-of-five rule matches the source (two-or-fewer is the cue to discuss; the team sets the consensus bar). Its drift is mostly source-true material the deep ref never captured (a cycle-to-deep batch would clear seven findings) plus hardened hedges ('could invalidate' → 'invalidate'; 'ideally' → 'invariant'). The substantive errors are in the integration table: Business Ethics is credited with the Mitchell-Agle-Wood salience model, which appears in neither its deep ref nor its source, and three rows cite wrong chapters. The heuristic-evaluation rationale (independence reduces bias) is the distillation's, placed under Letaw's citation. The worked example is labelled operator-authored; its 94% adoption figure is scenario data, not presented as a source finding, and its framework citations are correctly described as [V] in the deep ref. Verified word for word: user-story template, RACI example, ground-rules list; OPL practice names and OB chapter topics match their deep refs."
+}

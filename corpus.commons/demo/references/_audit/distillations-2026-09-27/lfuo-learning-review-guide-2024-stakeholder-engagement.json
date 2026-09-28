@@ -1,0 +1,479 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/lfuo-learning-review-guide-2024-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-249 of 249",
+    "deep": "lines 1-323 of 323",
+    "complete": true
+  },
+  "claims_audited": 169,
+  "tally": {
+    "faithful": 123,
+    "minor_drift": 42,
+    "unsupported": 3,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 24,
+      "section": "Key Concepts #1",
+      "claim": "\"Without it, sharp-end stakeholders will not give accurate accounts — they will either go silent or curate.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute; 'curate' added",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical and cites one case of refusal; it does not say honest accounts are impossible without it.",
+      "fix": "correct: \"Without it, people may refuse to talk, as they did in the Esperanza investigation (Appendix A).\""
+    },
+    {
+      "id": "D002",
+      "line": 24,
+      "section": "Key Concepts #1",
+      "claim": "\"Stakeholder engagement in the wake of accidents is impossible without explicit administrative-firewall commitments.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical and cites one case of refusal; it does not say honest accounts are impossible without it.",
+      "fix": "correct: \"The guide treats explicit administrative-firewall commitments as critical to engagement after accidents.\""
+    },
+    {
+      "id": "D003",
+      "line": 28,
+      "section": "Key Concepts #3",
+      "claim": "\"Without this commitment in writing in the delegation of authority, the engagement will not produce honest accounts.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical and cites one case of refusal; it does not say honest accounts are impossible without it.",
+      "fix": "correct: \"The guide requires the commitment in the signed delegation of authority.\""
+    },
+    {
+      "id": "D004",
+      "line": 32,
+      "section": "Key Concepts #5",
+      "claim": "\"Provide employees with a trusted liaison who can explain the FLA process and who will be available to support employees until the FLA is completed.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 1144-1145 matches. Deep 73 carries only a paraphrase ('a trusted employee point of contact who can explain the process'); the protocol requires [V] quotations to be copied from the deep ref's audited passages.",
+      "fix": "correct: paraphrase with citation, or add the sentence to the deep ref as [V] first"
+    },
+    {
+      "id": "D005",
+      "line": 34,
+      "section": "Key Concepts #6",
+      "claim": "\"After a serious accident, employees are often emotionally harmed, and relationships can be strained or broken... It allows all parties to discuss how they have been affected and collaboratively decide how they want to proceed.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] extended past the deep ref's audited passage",
+      "evidence": "Deep 33 carries the first two sentences [V]. The spliced sentence ('It allows all parties ...') is at source 551-554 but is not in the deep ref.",
+      "fix": "correct: quote only the deep ref's passage ('After a serious accident ... restore victims to wholeness') [V], or add the Part 1 restorative-justice sentences to the deep ref"
+    },
+    {
+      "id": "D006",
+      "line": 34,
+      "section": "Key Concepts #6",
+      "claim": "\"The Restorative Justice Checklist (Appendix F) is the operational tool.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "tool named without its content; absent from deep ref",
+      "evidence": "Source 555-559 names Appendix F as the tool, but the checklist itself did not extract (source 4097-4102 shows only page numbers). The deep ref never mentions Appendix F's content. The distillation cannot say what the checklist contains.",
+      "fix": "correct: \"The guide points to a Restorative Justice Checklist (Appendix F); its content is a graphic that did not extract, so consult the PDF.\""
+    },
+    {
+      "id": "D007",
+      "line": 36,
+      "section": "Key Concepts #7",
+      "claim": "\"Without explicit framing, participants often worry that 'this time the investigators are out to get them.'\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quoted phrase not in deep ref and unmarked; source's framing altered",
+      "evidence": "Source 1755-1757: 'there is also a tendency after an incident for participants to worry that this time the \\'investigators\\' are out to get them. A frank discussion of the delegation can be useful ...'. The worry is a post-incident tendency, not a result of missing framing. The deep ref (deep 105) does not carry the sentence.",
+      "fix": "correct: \"After an incident, participants tend to worry that 'this time the \\'investigators\\' are out to get them' (Part 6, 'Setting the stage'); a frank discussion of the delegation helps.\" Add the sentence to the deep ref as [V]."
+    },
+    {
+      "id": "D008",
+      "line": 40,
+      "section": "Key Concepts #9",
+      "claim": "Two-interviewer guidance quoted as two [V] passages",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Deep 111 paraphrases the guidance and carries only the fragment 'with appropriate caution and understanding' [V]. The full sentences quoted here are not in the deep ref.",
+      "fix": "correct: paraphrase with citation keeping only the deep ref's [V] fragment, or add the passage to the deep ref first"
+    },
+    {
+      "id": "D009",
+      "line": 48,
+      "section": "Key Concepts #13",
+      "claim": "Points-of-departure definition quoted with no marker; cited also to (Part 7, \"The Lessons Learned Analysis\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]; extra citation wrong",
+      "evidence": "Deep 139 carries the passage [V] (Part 6, 'Suggestions to FLA Facilitator for the Group Dialogue Session'). Part 7 does not contain it.",
+      "fix": "re-mark: [V]; drop the Part 7 citation"
+    },
+    {
+      "id": "D010",
+      "line": 52,
+      "section": "Key Concepts #15",
+      "claim": "Readback passage (\"All of the key individuals ... Remember this is their story, not yours.\") quoted [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 2692-2696 matches. Deep 180 paraphrases the Readback and carries only 'Remember this is their story, not yours' [V].",
+      "fix": "correct: paraphrase the Readback with citation and keep only 'Remember this is their story, not yours' [V]"
+    },
+    {
+      "id": "D011",
+      "line": 54,
+      "section": "Key Concepts #16",
+      "claim": "\"The 'Morning Briefing' pattern — leaders of each investigation team present themselves jointly to interviewees — is the named introduction modality.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 1642-1646 describes the Morning Briefing. The deep ref's concurrent-investigations summary (deep 87) omits it.",
+      "fix": "correct: keep, and add the Morning Briefing sentence to the deep ref's Part 5 section"
+    },
+    {
+      "id": "D012",
+      "line": 56,
+      "section": "Key Concepts #17",
+      "claim": "Focus-group membership list quoted [V] (\"line officers, engine crewmembers, ... timber markers\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source: true to source, absent from deep ref; 'e.g.' dropped",
+      "evidence": "Source 3155-3157: '(e.g. line officers, engine crewmembers, hotshots, helitack crewmembers, wildland fire module crewmembers, sawyers, trail crew members, timber markers)'. Deep 202 lists them without quotation marks or marker.",
+      "fix": "correct: drop the quotation marks and [V]; present as examples (Part 10)"
+    },
+    {
+      "id": "D013",
+      "line": 56,
+      "section": "Key Concepts #17",
+      "claim": "Purpose quote cited to (Part 10, \"An overview of the process\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited section",
+      "evidence": "Deep 202 cites 'concentrate on understanding the applicability of conditions to the actual (real) world of how work is accomplished' [V] to Part 10, '2. Preparing to Hold the First Focus Group' (source 3323-3338).",
+      "fix": "correct: cite (Part 10, \"2. Preparing to Hold the First Focus Group\")"
+    },
+    {
+      "id": "D014",
+      "line": 58,
+      "section": "Key Concepts #18",
+      "claim": "LRB composition \"a broad range of experience and diverse backgrounds\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 3396 matches. The deep ref's LRB coverage (deep 202-204) does not carry it.",
+      "fix": "correct: paraphrase with citation, or add the sentence to the deep ref"
+    },
+    {
+      "id": "D015",
+      "line": 62,
+      "section": "Key Concepts #20",
+      "claim": "\"Storytelling is widely recognized by educators as the most effective tool for experiential teaching and leading cultural change within an organization.\" with no marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V]",
+      "evidence": "Deep 19 carries it [V] (Part 8, 'Why FLA Storytelling?').",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D016",
+      "line": 64,
+      "section": "Key Concepts #21",
+      "claim": "Heading \"Brief peer participation is non-negotiable\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "garbled heading changes the meaning",
+      "evidence": "Deep 259: Appendix E flags peer participation as CRITICAL; nothing about brief participation. 'Brief' reads as a stray word that implies short participation.",
+      "fix": "correct: \"Peer participation is non-negotiable.\""
+    },
+    {
+      "id": "D017",
+      "line": 64,
+      "section": "Key Concepts #21",
+      "claim": "Peer-participation passage quoted with no marker; last sentence (\"Don't try to save money or minimize the footprint of the team by cutting these positions.\") not in deep ref",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation missing [V] and extended past the deep ref",
+      "evidence": "Deep 259 carries the first two sentences [V]; source 4088-4091 adds the third.",
+      "fix": "correct: quote the deep ref's two sentences with [V]; paraphrase the third with citation"
+    },
+    {
+      "id": "D018",
+      "line": 73,
+      "section": "Questions, Phase 1",
+      "claim": "\"presence in the group dialogue is a tradeoff. Strong supervisors may suppress the voices of those with different perspectives.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source sentence moved to another context; source's rule softened",
+      "evidence": "Source 2719-2723: 'strong supervisors may suppress the voices' is said of bringing everyone together for Readback story validation. For the group dialogue, the rule is 'As a general rule, supervisors should not be present unless they were directly involved in the event' (source Part 6, 'Participants'). Neither passage is in the deep ref.",
+      "fix": "correct: \"Interview them: their perspective on risk matters. As a general rule, supervisors should not be present in the group dialogue unless they were directly involved (Part 6, 'Participants').\""
+    },
+    {
+      "id": "D019",
+      "line": 76,
+      "section": "Questions, Phase 1",
+      "claim": "\"The team leader is the single point of contact.\" (for concurrent investigations)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 1637-1639: 'Interaction directly between the FLA team and OSHA, agency law enforcement, or any other investigative authority should be limited to the FLA team leader.' Deep 87 omits it.",
+      "fix": "correct: keep, and add the sentence to the deep ref's 'Cooperation with Other Investigations' coverage"
+    },
+    {
+      "id": "D020",
+      "line": 88,
+      "section": "Questions, Phase 2",
+      "claim": "Dissemination question: \"Appendix C asks this as a yes-or-no precondition; if no, the FLA process should be dropped.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "consequence borrowed from a different Appendix C question; absent from deep ref",
+      "evidence": "Source 3860-3864: for dissemination, 'The answer to this question must be \\'Yes.\\''. The 'FLA process should be dropped' consequence belongs to the next question, 'committed to learning rather than punishing?' (source 3874-3878). Neither is in the deep ref.",
+      "fix": "correct: \"Appendix C says the answer must be yes.\""
+    },
+    {
+      "id": "D021",
+      "line": 97,
+      "section": "Questions, Phase 3",
+      "claim": "\"The FLA facilitator should remind interviewers to collect quotes for use in the learning product.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 1901-1903: 'The FLA facilitator should also remind the interviewers to collect quotes from the interviewees.' Not in the deep ref.",
+      "fix": "correct: keep, and add the sentence to the deep ref's Interviews section"
+    },
+    {
+      "id": "D022",
+      "line": 98,
+      "section": "Questions, Phase 3",
+      "claim": "\"Hindsight bias, fundamental attribution error, anchoring on first impressions — all need explicit team conversation (Handout C is the watch-out list).\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "bias attributed to a list whose content did not extract",
+      "evidence": "Deep 213, 319: Handout C's list of 'four biases plus a way of thinking' is a graphic that did not extract; the prose names hindsight bias, and the FAE is named in Part 3. 'Anchoring' occurs nowhere in the source in this sense (grep: only storytelling 'anchors').",
+      "fix": "correct: \"Hindsight bias (Handout C) and the fundamental attribution error (Part 3) need explicit team conversation; Handout C's full watch-out list is a graphic in the PDF.\""
+    },
+    {
+      "id": "D023",
+      "line": 105,
+      "section": "Questions, Phase 4",
+      "claim": "\"Have the Ten Principles and Agreements been read aloud and agreed?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "instruction strengthened",
+      "evidence": "Source 2111-2112: 'Make sure to take a few minutes to explain the FLA process and discuss the principles and agreements above.' The deep ref (deep 119) does not carry the agenda instruction.",
+      "fix": "correct: \"Have the Ten Principles and Agreements been explained and discussed?\""
+    },
+    {
+      "id": "D024",
+      "line": 106,
+      "section": "Questions, Phase 4",
+      "claim": "\"Field > engine bay > saw shop > picnic tables > available conference room.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "invented ranking",
+      "evidence": "Deep 136: 'The best location is almost always the field where the incident occurred'; otherwise 'don't just accept the \\'available conference room.\\''. Deep 107: engine barn, saw shop, tac shed and picnic tables are examples of comfortable settings, not a ranked order.",
+      "fix": "correct: \"The field where the incident occurred is almost always best; otherwise, wherever the workers involved feel most comfortable, not the available conference room.\""
+    },
+    {
+      "id": "D025",
+      "line": 107,
+      "section": "Questions, Phase 4",
+      "claim": "\"As a general rule, supervisors should not be present unless they were directly involved in the event.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source: true to source, absent from deep ref",
+      "evidence": "True to source (Part 6, 'Participants'); the deep ref has no Participants coverage.",
+      "fix": "correct: keep, and add the Participants guidance to the deep ref"
+    },
+    {
+      "id": "D026",
+      "line": 127,
+      "section": "Questions, Phase 6",
+      "claim": "\"Even controversial comments belong in the learning product if captured appropriately in context.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source: true to source, absent from deep ref; slightly hardened",
+      "evidence": "Source 2697-2699: 'Even emotional or controversial comments can be powerful points of learning—providing they are captured appropriately in the context in which they were offered.' Not in the deep ref.",
+      "fix": "correct: \"Even emotional or controversial comments can be powerful points of learning if captured in context (Part 8).\""
+    },
+    {
+      "id": "D027",
+      "line": 135,
+      "section": "Questions, Phase 7",
+      "claim": "Academic SMEs engaged \"to provide an outside perspective on organisational operations and to ensure recommendations are consistent with current research\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "two source passages conflated",
+      "evidence": "Source 3162-3165: outside perspectives such as academics 'may provide unique subject matter for recommendations that lead to outside-the-box innovations'. Source 3609-3613: circulation through the community of practice and the Risk Management Council should ensure recommendations 'are consistent with existing research'. Deep 55, 202 say only that academic SMEs are optional.",
+      "fix": "correct: \"Where appropriate, to bring an outside perspective that can lead to outside-the-box recommendations (Part 10).\""
+    },
+    {
+      "id": "D028",
+      "line": 137,
+      "section": "Questions, Phase 7",
+      "claim": "\"Each recommendation needs a named owner and a deadline. The Delegating Official is responsible for follow-up.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "owner rule narrowed; follow-up duty re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 3415-3420: the SAP 'that the Delegating Official takes ownership of and is responsible for following up on' assigns each recommendation 'to a person or body'. Deep 204 says only that the SAP designates who is responsible.",
+      "fix": "correct: \"Each recommendation needs an owner (a person or body) and a deadline; the Delegating Official owns the plan and its follow-up (Part 10).\" Add the sentence to the deep ref."
+    },
+    {
+      "id": "D029",
+      "line": 143,
+      "section": "Questions, Phase 8",
+      "claim": "\"Who has been harmed, and what do they need? The Restorative Justice Checklist (Appendix F) is the operational tool.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "questions and tool content not in source text",
+      "evidence": "The checklist's content did not extract (source 4097-4102); the deep ref does not describe it. The harm/needs questions come from outside the source.",
+      "fix": "correct: \"The guide points to Appendix F's Restorative Justice Checklist (a graphic in the PDF) for this step.\""
+    },
+    {
+      "id": "D030",
+      "line": 144,
+      "section": "Questions, Phase 8",
+      "claim": "\"Whose obligation is it to meet those needs? The organisation's obligation, not the individual's.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "claim not in deep ref or source",
+      "evidence": "Deep 33 and source 544-556 say restorative justice 'aims to repair trust and relationships' and 'seeks to restore victims to wholeness'; nothing assigns the obligation to the organisation rather than the individual.",
+      "fix": "correct: strip the obligation claim; keep \"Restorative justice aims to repair trust and relationships damaged after an incident (Part 1).\""
+    },
+    {
+      "id": "D031",
+      "line": 145,
+      "section": "Questions, Phase 8",
+      "claim": "Restorative justice \"allows all parties to discuss how they have been affected and collaboratively decide how they want to proceed.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] re-extracted from source: true to source, absent from deep ref",
+      "evidence": "Source 551-554 matches; the deep ref (deep 33) stops before this sentence.",
+      "fix": "correct: add the sentence to the deep ref as [V], then the quotation stands"
+    },
+    {
+      "id": "D032",
+      "line": 180,
+      "section": "When to Use This Reference",
+      "claim": "\"recommendations that come from a small investigation team without CoP endorsement are likely to fail in implementation\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "predicted outcome not in the source",
+      "evidence": "Deep 97, 202: the guide requires community-of-practice vetting so recommendations fit how work is actually done; it does not predict failure without it.",
+      "fix": "correct: \"Community-of-practice vetting is needed so recommendations fit how work is actually accomplished.\""
+    },
+    {
+      "id": "D033",
+      "line": 198,
+      "section": "Worked Example",
+      "claim": "\"the liaison roles (Part 5) ... are all [V]-marked passages in the deep reference\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker status misstated",
+      "evidence": "Deep 73 and 254 carry the liaison roles as paraphrase and list, with no [V].",
+      "fix": "correct: \"the liaison roles (Part 5) are paraphrased in the deep reference; the others are [V]-marked\""
+    },
+    {
+      "id": "D034",
+      "line": 202,
+      "section": "Anti-patterns",
+      "claim": "\"Without the no-punitive-action assurance in writing, honest accounts will not surface.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated as an absolute",
+      "evidence": "Deep 67: the firewall is 'critical'; 'Information is the lifeblood of safety' [V]. Deep 43: after the Thirtymile/Cramer prosecutions, employees 'refused to talk' to the Esperanza investigators [V]. The guide argues the firewall is critical and cites one case of refusal; it does not say honest accounts are impossible without it.",
+      "fix": "correct: \"The guide treats the written no-punitive-action assurance as critical to honest accounts.\""
+    },
+    {
+      "id": "D035",
+      "line": 205,
+      "section": "Anti-patterns",
+      "claim": "\"Strong supervisors suppress voices with different perspectives.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "hedge dropped; sentence moved from its context",
+      "evidence": "Source 2721-2722: 'strong supervisors may suppress the voices of those who have different perspectives', said of group Readback. Not in the deep ref.",
+      "fix": "correct: \"The guide's rule: supervisors should not be present unless they were directly involved (Part 6, 'Participants').\""
+    },
+    {
+      "id": "D036",
+      "line": 208,
+      "section": "Anti-patterns",
+      "claim": "\"Diversity of narrative is resilience\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "borrowed-through claim presented unattributed",
+      "evidence": "Deep 169: Dekker, Cilliers & Hofmeyr 2011, quoted by the guide [V][BT]. Key Concept 14 attributes it correctly; this line drops the attribution.",
+      "fix": "correct: \"Diversity of narrative is a source of resilience (Dekker, Cilliers and Hofmeyr) [BT]\""
+    },
+    {
+      "id": "D037",
+      "line": 210,
+      "section": "Anti-patterns",
+      "claim": "\"team leader is the single point of contact\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "re-extracted from source: true to source, absent from deep ref",
+      "evidence": "As D019 (source 1637-1639).",
+      "fix": "correct: keep, and add the sentence to the deep ref"
+    },
+    {
+      "id": "D038",
+      "line": 214,
+      "section": "Anti-patterns",
+      "claim": "\"Liaisons are the trust bridge; without them, sharp-end stakeholders default to anxiety and silence.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "predicted outcome not in the source",
+      "evidence": "Deep 73: liaisons are trusted points of contact who explain the process. Source 1146-1147: 'Employees will have questions and concerns about what is happening.' Nothing predicts silence without liaisons.",
+      "fix": "correct: \"Liaisons explain the process and support employees until the FLA is complete; without them, questions and concerns go unanswered.\""
+    },
+    {
+      "id": "D039",
+      "line": 222,
+      "section": "Integration with Other References",
+      "claim": "Liberating Structures primitives \"What/So What/Now What, Wise Crowds, 1-2-4-All\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "other-source structure misnamed",
+      "evidence": "liberating-structures-handbook-deep.md 59, 194: this handbook calls it '1-2-4-Whole Group'; 'What, So What, Now What' (line 113) and Wise Crowds are present.",
+      "fix": "correct: \"1-2-4-Whole Group\""
+    },
+    {
+      "id": "D040",
+      "line": 233,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "J. T. Reason \"cited for error typology [BT]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "use of the citation invented",
+      "evidence": "Deep 292: Reason's two books are in the Recommended Reading; the deep ref records no use of them for an error typology.",
+      "fix": "correct: \"listed in Recommended Reading [BT]\""
+    },
+    {
+      "id": "D041",
+      "line": 234,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Weick and Sutcliffe \"cited for situational awareness and sensemaking framing [BT]\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "use of the citation misstated",
+      "evidence": "Deep 217, 272, 286: Weick and Sutcliffe are cited for the five HRO principles (Glossary) that structure Handout D's HRO-style questions.",
+      "fix": "correct: \"cited for the five HRO principles (Glossary) and Handout D's HRO-style dialogue questions [BT]\""
+    },
+    {
+      "id": "D042",
+      "line": 235,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Kahneman \"cited for System 1 / System 2 intuitive-action framing underlying the Ten Principles [BT]\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "use of the citation invented",
+      "evidence": "Deep 241, 288: Kahneman's Thinking Fast and Slow is in the Recommended Reading and is the vehicle for the Paul Slovic risk-as-construct quotation in Handout A. The deep ref links him to neither System 1/System 2 nor the Ten Principles.",
+      "fix": "correct: \"Daniel Kahneman, Thinking Fast and Slow (2011): in Recommended Reading and the vehicle for the Slovic risk-as-construct quotation in Handout A [BT]\""
+    },
+    {
+      "id": "D043",
+      "line": 244,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Stakeholder engagement under adversarial conditions (active litigation, media pressure) is explicitly routed away from the FLA\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "litigation part re-extracted from source: true to source, absent from deep ref; media pressure unsupported",
+      "evidence": "Source 3833-3838 (Appendix C): under likely litigation the DO 'should consider a confidential administrative investigation'. Nothing routes media pressure away from the FLA; Appendix C instead requires public dissemination (source 3860-3864).",
+      "fix": "correct: strip \"media pressure\"; add the Appendix C litigation question to the deep ref"
+    },
+    {
+      "id": "D044",
+      "line": 249,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Deep ref marker counts \"(103 [V], 21 [BT], 2 [AP], 2 [AR])\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "counts wrong",
+      "evidence": "grep -o of the deep ref: 148 [V], 37 [BT], 5 [AP], 3 [AR], 4 [AE].",
+      "fix": "correct: \"(148 [V], 37 [BT], 5 [AP], 3 [AR], 4 [AE])\" or drop the counts"
+    },
+    {
+      "id": "D045",
+      "line": 249,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"This distillation paraphrases except for quotations marked [V], which match the source word for word\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note overstates",
+      "evidence": "Quoted passages at lines 36, 48, 62 and 64 carry no marker.",
+      "fix": "correct: fix D007, D009, D015, D017, then the note stands"
+    },
+    {
+      "id": "D046",
+      "line": 249,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"Key Concepts drawn from the source's Part 1, Part 3, Part 5, Part 6, Part 8, Part 9, Part 10, and Appendices are [V] in the deep ref (verbatim from source)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note overstates",
+      "evidence": "Several [V] quotations in the Key Concepts are not in the deep ref at all (lines 32, 34, 40, 52, 56, 58; see D004, D005, D008, D010, D012, D014); they were re-extracted from the source.",
+      "fix": "correct: \"Most Key Concept quotations are copied from the deep ref's [V] passages; those at Key Concepts 5, 6, 9, 15, 17 and 18 were taken from the source and should be added to the deep ref\""
+    }
+  ],
+  "notes": "This distillation re-extracted heavily from the source rather than copying from the deep ref: seven [V] quotations (liaison, restorative-justice second sentence, two-interviewer, full Readback, focus-group list, LRB composition, and the peers passage's last sentence) are true to the source but absent from the deep ref. They are graded MINOR-DRIFT, and the continuity note's claim that they are [V] in the deep ref is wrong. The better fix is to extend the deep ref's Part 5, Part 6 (Participants, Agenda), Part 8, Part 10-11 and Appendix C coverage, which this and the decision-making and software-business distillations all lean on. Real errors: the 'anchoring' bias attributed to Handout C's unextracted list (line 98); the restorative-justice obligation claim (line 144); Kahneman misattributed as the System 1/2 source for the Ten Principles (line 235); wrong marker counts (line 249). The deflection-question guidance (lines 42, 96, 206) matches the source. The worked example is operator-authored, labelled as such, and presents no outcome as the source's finding. Other-source checks: NHS decision tree, TC 25-20 horseshoe seating (tc deep 221), SSDL mental models / feedback / accumulations, OB groupthink (ob deep 200-202) and Barbrook-Johnson boundary objects (bj deep 255) are faithful."
+}

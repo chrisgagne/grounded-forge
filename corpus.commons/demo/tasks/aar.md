@@ -113,8 +113,9 @@ All Pass-G-applicable demo distillations in `distillations/aar/` are candidates;
 - `liberating-structures-handbook`: What/So What/Now What three-question sequence (Center for Creative Leadership lineage; explicitly named *After Action Debrief* in the handbook); Discovery & Action Dialogues six-question protocol; Wicked Questions; TRIZ inversion; 15% Solutions for locus-of-control reframe.
 - `open-practice-library`: Blameless Postmortem practice with information-availability + psychological-safety foundations; Pre-mortem / Backcasting; Five Whys.
 - `flo-facilitation-guide`: facilitative-vs-transmissive question framing; *Anxious-Annie* facilitator-anxiety pattern; Vegas-rules privacy framing; engagement-equity tracking.
-- `openstax-principles-management`: PDCA cycle, organisational-design primitives (Mintzberg, six structures) when AAR conclusions surface structural questions, change-management primitives.
+- `openstax-principles-management`: PDCA cycle, organisational-design primitives (six structure types) when AAR conclusions surface structural questions, change-management primitives.
 - `openstax-psychology-2e`: hindsight bias, perception, memory, social-influence (Asch, Milgram, Zimbardo) for the facilitator's diagnostic vocabulary.
+- `mcdp1-warfighting`: the Ch 3 critique discipline (held after success as well as failure, soon after the event, open to every rank, asking why actions were taken rather than what was done); no zero-defects mentality, with leniency for overbold errors and severity for inaction, bounded by the recklessness limit; intent understood at least two levels up. The source never names the AAR; its word is *critique*.
 
 **Moderate fire (software-incident specificity):**
 
@@ -126,7 +127,7 @@ All Pass-G-applicable demo distillations in `distillations/aar/` are candidates;
 
 **Light fire (specific contexts):**
 
-- `openstax-business-ethics`: accountability frames, duty-of-care chapters, when an AAR surfaces ethical exposure.
+- `openstax-business-ethics`: accountability frames and the chapters on employee rights and whistleblowing, when an AAR surfaces ethical exposure.
 
 **Pass G likely skip (no AAR-relevant content):**
 

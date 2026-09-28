@@ -1,0 +1,364 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/tc-25-20-army-aar-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-206 of 206",
+    "deep": "lines 1-269 of 269",
+    "complete": true
+  },
+  "claims_audited": 141,
+  "tally": {"faithful": 106, "minor_drift": 26, "unsupported": 5, "contradicted": 4},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 34,
+      "section": "Key Concepts #11 (evaluator-independence)",
+      "claim": "Engagement-design principle for independent evaluators: the immediate next echelon is too close to evaluate without conflict of interest; two echelons up has enough distance to assess honestly and enough proximity to understand the conditions.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Invented rationale attributed to the TC's two-levels rule; the premise that one-echelon-up evaluation is too close contradicts the TC's own chain-of-command evaluation guidance.",
+      "evidence": "Deep 62 (source 320-324): the unit 'plans, resources, and conducts internal evaluations'; only external evaluations are conducted by 'the headquarters two levels above the unit being evaluated'. No rationale given. Deep 68 (source 388-400): when OCs cannot be freed, 'leaders in the chain of command should evaluate subordinate units and conduct the AARs' (company commanders evaluate platoons, one level up); the objectivity caution is only that they 'avoid evaluating their own duties and tasks'.",
+      "fix": "correct: External evaluations are conducted by the headquarters \"two levels above the unit being evaluated\" [V] (Ch 2, \"The After-Action Review Plan\"); the TC gives no rationale for the distance. Internal evaluations are the unit's own, and when dedicated OCs are unavailable, leaders one level up in the chain of command evaluate subordinate units, provided they avoid evaluating their own duties and tasks (Ch 2, \"Selecting and Training Observers and Controllers\"). Engagement-design use: route a formal external assessment to a level well above the group; for routine review, make sure no one assesses their own work."
+    },
+    {
+      "id": "D002",
+      "line": 60,
+      "section": "Questions, Phase 1: Mapping",
+      "claim": "If the engagement needs independent assessment, the immediate next level is too close. Who is two echelons above the unit being engaged-with?",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Same unsupported premise as D001, restated as a question premise.",
+      "evidence": "Deep 62 and 68 as in D001: the TC uses one-level-up chain-of-command evaluation and reserves the two-levels rule for external evaluations, with no 'too close' reasoning.",
+      "fix": "correct: If the engagement needs a formal external assessment, the TC's pattern is that the headquarters two levels above conducts it (Ch 2, \"The After-Action Review Plan\"). Who plays that role here? For routine reviews, the next level up can lead, as long as no one evaluates their own duties and tasks."
+    },
+    {
+      "id": "D003",
+      "line": 178,
+      "section": "Anti-patterns",
+      "claim": "Picking an immediate-next-echelon evaluator when independence requires two echelons of distance.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Anti-pattern rests on the D001 premise; the TC prescribes next-echelon evaluation when OCs are unavailable.",
+      "evidence": "Deep 68 (source 391-400): 'leaders in the chain of command should evaluate subordinate units and conduct the AARs'; the stated risk is self-evaluation: 'It is hard to be objective about your own performance'.",
+      "fix": "correct: Letting someone evaluate their own duties and tasks (\"It is hard to be objective about your own performance\", Ch 2, \"Selecting and Training Observers and Controllers\"), or running a formal external evaluation through the group's own chain instead of a level well above it."
+    },
+    {
+      "id": "D004",
+      "line": 206,
+      "section": "Citation and Source-Integrity Notes: Evidence-marker continuity",
+      "claim": "The absence of [AR] markers is informative: this source does not argue for its positions; it states them as doctrine. Practitioners drawing on the TC should supply their own reasoning for why a principle applies in their context, since the TC itself does not.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Mischaracterises the source; the deep ref says the TC argues on epistemic grounds and records stated rationales for most rules (and the distillation's own Key Concept 1 quotes one).",
+      "evidence": "Deep 15: 'The TC contrasts AARs with critiques on epistemic grounds'; deep 33: 'The TC argues that critiques produce inferior learning because they collapse perspectives'. Rationales in deep 134 (open-ended questions 'much less likely to put him on the defensive'), 221 (horseshoe 'allows soldiers ... to feel that their comments are valued'), 167 (separate leader AAR 'without fear of airing dirty laundry'), 171 (statistics grading 'stifles discussion'), 74 ('Soldiers will receive better feedback ... if the AAR is not rushed'), 68 (objectivity).",
+      "fix": "correct: The zero [AR] count reflects that the TC does not work through competing arguments. It does give short rationales for most of its rules: critiques give one viewpoint and stifle candour; open-ended questions are less likely to put people on the defensive; horseshoe seating lets soldiers feel their comments are valued; an unhurried AAR gives better feedback. These rationales are operational assertions, not tested findings."
+    },
+    {
+      "id": "D005",
+      "line": 206,
+      "section": "Citation and Source-Integrity Notes: Evidence-marker continuity",
+      "claim": "The tc-25-20-army-aar deep reference carries 82 [V] markers.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong: 82 is the number of lines carrying [V], not the number of markers.",
+      "evidence": "Deep ref (sha256 898a9d7d..., matches the distillation's derived-from-deep hash): grep -o '\\[V\\]' = 127 occurrences; grep -c = 82 lines. [BT] 5, [AP] 2, [AR] 0 are correct.",
+      "fix": "correct: 127 [V] markers (on 82 lines)"
+    },
+    {
+      "id": "D006",
+      "line": 206,
+      "section": "Citation and Source-Integrity Notes: Evidence-marker continuity",
+      "claim": "The two [AP] markers flag the facilitator's craft principles stated as direct guidance rather than demonstrated outcomes.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Only one of the two [AP] markers is about facilitator craft.",
+      "evidence": "Deep 17: [AP] on the facilitator techniques (Ch 4, 'Introduction and Rules'). Deep 80: [AP] on 'only use a training aid if it makes the AAR better' (Ch 2, 'Choosing Training Aids').",
+      "fix": "correct: The two [AP] markers are the thesis-level paraphrase of the leader's facilitation techniques (Ch 4, \"Introduction and Rules\") and the training-aid bottom line (Ch 2, \"Choosing Training Aids\")."
+    },
+    {
+      "id": "D007",
+      "line": 78,
+      "section": "Questions, Phase 3: Convening",
+      "claim": "The TC's three opening rules — dynamic, candid, professional discussion focused on standards; not a critique; does not grade — are stated at the start of every AAR.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Enumeration wrong (four, not three); drops the rule most relevant to stakeholder engagement.",
+      "evidence": "Deep 119-121 ('The TC specifies four things the introduction should establish'); source 783-795 lists four thoughts, the second being 'Everyone can, and should, participate if they have an insight, observation, or question which will help the unit identify and correct deficiencies or maintain strengths.'",
+      "fix": "correct: The TC's four opening thoughts — a dynamic, candid, professional discussion focused on the standard; everyone can, and should, participate; not a critique (no one has all the information or answers); does not grade — belong in the leader's introduction (Ch 4, \"Introduction and Rules\"), not left assumed."
+    },
+    {
+      "id": "D008",
+      "line": 24,
+      "section": "Key Concepts #6 (opfor-perspective)",
+      "claim": "Quoted: \"... During formal AARs, the OPFOR commander briefs his plan and intent to set the stage for a discussion of what happened and why\" (Ch 3, ...), no marker.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation altered (leader -> commander) and presented without an evidence marker.",
+      "evidence": "Source 715-718 and deep 107: 'During formal AARs, the OPFOR leader briefs his plan and intent'. Deep 107 marks the passage [V].",
+      "fix": "correct: replace 'OPFOR commander' with 'OPFOR leader' inside the quotation; re-mark: [V]"
+    },
+    {
+      "id": "D009",
+      "line": 20,
+      "section": "Key Concepts #4 (open-ended-questions)",
+      "claim": "\"He should not ask yes or no questions ... much less likely to put him on the defensive\" (Ch 4, \"Summary of Recent Events\") carried without a marker.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Author's words carried as unmarked quotation; protocol reads unmarked quoted text as the distillation's own wording.",
+      "evidence": "Deep 134 carries the passage as [V]; source 899-902 matches (converter renders 'openended').",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D010",
+      "line": 30,
+      "section": "Key Concepts #9 (leader-facilitation)",
+      "claim": "\"Enter the discussion only when necessary; Reinforce the fact that it is permissible to disagree; ...\" (Ch 4, \"Introduction and Rules\") carried without a marker.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Author's words carried as unmarked quotation.",
+      "evidence": "Deep 126 carries the list as [V]; source 853ff bullets match.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D011",
+      "line": 26,
+      "section": "Key Concepts #7 (aar-attendance)",
+      "claim": "The attendance rule ... explicitly names the roles whose voices must be present at large scale.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: a fallback minimum ('may be the only participants') recast as a must-attend list.",
+      "evidence": "Deep 76 / source 475-485: 'Normally, only key players attend. At times, however, the more participants present, the better the feedback'; at company or higher, when everyone cannot attend, key players 'may be the only participants'.",
+      "fix": "correct: ... and names the key players (friendly and OPFOR commanders, unit leaders, FIST chief, RTO) who may be the only participants when full attendance is impractical at company level and above."
+    },
+    {
+      "id": "D012",
+      "line": 59,
+      "section": "Questions, Phase 1: Mapping",
+      "claim": "The TC names FIST chief, RTO, friendly and OPFOR commanders, unit leaders as required at company-and-above scale.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same loosening as D011 ('required').",
+      "evidence": "Deep 76 / source 480-485: 'may be the only participants'.",
+      "fix": "correct: The TC names friendly and OPFOR commanders, unit leaders, the FIST chief and the RTO as the key players who may be the only participants when everyone cannot attend at company level and above."
+    },
+    {
+      "id": "D013",
+      "line": 8,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "(g) the who-attends discipline that differentiates squad/platoon (everyone) from company-and-above (key players only).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conditional rule stated as absolute.",
+      "evidence": "Deep 76: at company or higher 'it may not be practical to have everyone attend'; key players 'may be the only participants'; 'the more participants present, the better the feedback'.",
+      "fix": "correct: company-and-above (key players only when full attendance is impractical)"
+    },
+    {
+      "id": "D014",
+      "line": 32,
+      "section": "Key Concepts #10 (experience-over-rank)",
+      "claim": "Convening rule: the person who facilitates the engagement should have the experience to recognise what matters, not just the rank to convene.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Drops the rank floor the rule sits inside; experience is the tie-breaker, not the default.",
+      "evidence": "Deep 66 / source 383-388: with external OCs, 'trainers must ensure that OCs are at least equal in rank to the leader of the unit they will evaluate. If trainers must choose between experience and understanding of current TTPs or rank, they should go with experience.'",
+      "fix": "correct: add before the convening rule: The TC's default is that external OCs be at least equal in rank to the leader of the unit they evaluate; experience wins only when trainers must choose between the two."
+    },
+    {
+      "id": "D015",
+      "line": 183,
+      "section": "Anti-patterns",
+      "claim": "Sending the convening commitment up to formal AAR scale when an informal AAR (pinecones-and-a-squad-leader equivalent — fifteen minutes, on the spot, with whatever's at hand) would have produced more honest discussion.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Invented figure (fifteen minutes) and invented benefit (more honest discussion).",
+      "evidence": "No fifteen-minute figure in deep ref or source (grep: only 30-45 min platoon, 1 h company, 2 h battalion+, deep 74). Deep 48: informal AARs' strength is 'fewer training resources and few, if any, training aids' and 'immediate feedback while the training is still fresh in soldiers' minds'.",
+      "fix": "correct: Defaulting to a formal, resource-heavy review when an informal one (the TC's squad leader with pinecones: on the spot, with few if any training aids) would give immediate feedback while the event is still fresh (Ch 1, \"Informal\")."
+    },
+    {
+      "id": "D016",
+      "line": 38,
+      "section": "Key Concepts #13 (separate-leader-aar)",
+      "claim": "Soldier/leader skills in a separate AAR ... Leader-skills discussion in front of subordinates and outsiders suppresses candour.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds 'subordinates' to the TC's reason; heading moves soldier skills into the separate AAR too.",
+      "evidence": "Deep 167 / source 1041-1049: soldier and leader skills are identified in the unit discussion; only leader skills are 'often best' discussed separately, to avoid 'wasting unit AAR time' and, with a unit-member leader, to avoid 'airing dirty laundry in front of outsiders'. No mention of subordinates.",
+      "fix": "correct: heading 'Leader skills in a separate AAR'; closing sentence: Leader-skills discussion belongs in its own meeting, led by a member of the unit, so it neither eats the unit review's time nor airs dirty laundry in front of outsiders."
+    },
+    {
+      "id": "D017",
+      "line": 48,
+      "section": "Key Concepts #18 (mandatory-deep-topics)",
+      "claim": "Engagement-design principle: certain severity levels override normal time-budget discipline ... events whose discussion takes priority regardless of how long it takes.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: the TC mandates detailed, prompt discussion with set points, not an override of time budgets.",
+      "evidence": "Deep 159: fratricide 'will be discussed in detail'; leader must identify cause and develop SOPs/TTPs; 'As soon as possible after the event, an AAR should be held' with four named discussion points. Nothing on time budgets.",
+      "fix": "correct: Engagement-design principle: some events are always discussed in detail, promptly and in their own review, against a set list of points (how and why it happened; how parties were identified; which controls were in place and how well they worked; how the risk assessment addressed it). Identify your equivalents in advance."
+    },
+    {
+      "id": "D018",
+      "line": 69,
+      "section": "Questions, Phase 2: Framing the question",
+      "claim": "What are the events whose discussion overrides normal time budget regardless of how much else needs covering?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Question premise carries the D017 loosening.",
+      "evidence": "Deep 159 as in D017.",
+      "fix": "correct: What are the events that must always be discussed in detail, and promptly, in their own review? Identify them in advance."
+    },
+    {
+      "id": "D019",
+      "line": 121,
+      "section": "Questions, Phase 7: Post-engagement",
+      "claim": "... our list of severity-overrides-time-budget topics for future engagements.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Question premise carries the D017 loosening.",
+      "evidence": "Deep 159 as in D017.",
+      "fix": "correct: ... our list of always-discussed-in-detail topics for future engagements."
+    },
+    {
+      "id": "D020",
+      "line": 173,
+      "section": "Anti-patterns",
+      "claim": "Seating senior leaders front and centre, then expecting junior voices to speak freely.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Over-broad: the TC seats the unit's own leaders front and centre and gives key leaders seats up front; only higher-echelon leaders go to the flanks and rear.",
+      "evidence": "Deep 221 / source 1302-1312: unit leader (platoon leader and platoon sergeant) 'front and center'; 'Higher echelon leaders and commanders ... to the flanks and rear'. Deep 78: 'key leaders should have seats up front'.",
+      "fix": "correct: Seating higher-echelon leaders (those above the group under review) front and centre, then expecting junior voices to speak freely."
+    },
+    {
+      "id": "D021",
+      "line": 204,
+      "section": "Citation and Source-Integrity Notes: Named limits",
+      "claim": "It asserts operational claims — ... that open-ended questions produce better recall than yes/no questions ... — on the basis of CTC practitioner experience.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Claim attached to the wrong concept (recall belongs to chronological ordering and to AAR-vs-critique); CTC basis generalised from Appendix A to the whole TC.",
+      "evidence": "Deep 134: open-ended questions are 'much less likely to put him on the defensive' and 'more effective in finding out what happened'. Recall: deep 151 (chronological order: 'better able to recall') and deep 15 (AAR vs critique: 'learn and remember more'). CTC attribution only for App A (deep 203, 249).",
+      "fix": "correct: '... that open-ended questions are less likely to put people on the defensive and more effective in finding out what happened ...'; and 'Appendix A attributes its techniques to CTC observer-controller experience; the rest is stated as doctrine with no stated evidence base.'"
+    },
+    {
+      "id": "D022",
+      "line": 164,
+      "section": "Worked Example",
+      "claim": "The delivery manager owns the project, which puts her in the same position as the commander evaluating her own command — the TC's advice is that it is hard to be objective about your own performance.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-frames the TC's caution: commanders evaluating subordinate units is sanctioned; the caution is against evaluating one's own duties and tasks.",
+      "evidence": "Deep 68 / source 391-400: chain-of-command leaders 'should evaluate subordinate units'; 'If possible, they should avoid evaluating their own duties and tasks. (It is hard to be objective about your own performance ...)'.",
+      "fix": "correct: The delivery manager owns the project, which puts her in the position the TC warns against: evaluating her own duties and tasks (\"It is hard to be objective about your own performance\", Ch 2, \"Selecting and Training Observers and Controllers\")."
+    },
+    {
+      "id": "D023",
+      "line": 164,
+      "section": "Worked Example",
+      "claim": "Framework claims across lines 164-166 (facilitator objectivity, written convening agreement, horseshoe placement, no-grade opening, open-ended questioning, OPFOR input, closing and leaving) carry no chapter/section citations and no verbatim passage.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Uncited: the projection protocol requires each substantive framework claim in the worked example to cite the source by chapter and section.",
+      "evidence": "Projection protocol, Worked Example rule; supporting deep ref passages exist at 68, 58/60, 221, 121, 134, 107, 177.",
+      "fix": "correct: add citations (Ch 2, \"Selecting and Training Observers and Controllers\"); (Ch 2, \"The After-Action Review Plan\"); (App A, \"Organization of the AAR Site\"); (Ch 4, \"Introduction and Rules\"); (Ch 4, \"Summary of Recent Events\"); (Ch 3, \"Collect Observations from Other Observers and Controllers\"); (Ch 4, \"Closing Comments\")"
+    },
+    {
+      "id": "D024",
+      "line": 166,
+      "section": "Worked Example",
+      "claim": "When the OPFOR perspective is missing, the facilitator asks directly: \"What was the customer support team hearing from users in the first week?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Concept mislabelled: a supporting team is the TC's adjacent/support-unit input, not the OPFOR (the opposing side's plan and intent).",
+      "evidence": "Deep 107: OC input 'may come from subordinate units, combat support (CS) and combat service support (CSS) units, or adjacent units'; separately, OPFOR input is 'the enemy's perspective'.",
+      "fix": "correct: When the users' side of the story is missing, the facilitator asks the team closest to them: \"What was the customer support team hearing from users in the first week?\" (the TC's input from supporting and adjacent units, Ch 3)."
+    },
+    {
+      "id": "D025",
+      "line": 127,
+      "section": "What to Look For: yes/no drift",
+      "claim": "The TC's contrast between \"SGT Johnson, what happened when your Bradley crested the hill?\" and \"SGT Johnson, why didn't you engage the enemy tanks to your front?\" captures the difference exactly [between open-ended and yes/no questions].",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The TC's counter-example is a why-didn't-you question, not a yes/no question; its contrast is narrative versus defensive.",
+      "evidence": "Deep 134-143: the example follows 'Open-ended questions are also much less likely to put him on the defensive'; deep 143: 'The first form invites narrative; the second form invites self-defence.'",
+      "fix": "correct: The TC's contrast between ... shows the closely related failure: a question that puts the person on the defensive instead of inviting narrative (Ch 4, \"Summary of Recent Events\")."
+    },
+    {
+      "id": "D026",
+      "line": 184,
+      "section": "Anti-patterns",
+      "claim": "Recording the engagement with elaborate gadgetry when a notebook would produce more useful notes.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: 'would do' becomes 'more useful'; the TC also accepts a small tape recorder.",
+      "evidence": "Deep 99: any reliable system; 'The OC could also use a small portable tape recorder, but he should not get carried away with gadgets when a pencil and paper would do.'",
+      "fix": "correct: Getting carried away with recording gadgets when a notebook would do."
+    },
+    {
+      "id": "D027",
+      "line": 101,
+      "section": "Questions, Phase 5: Reaching agreement",
+      "claim": "An engagement that produces only a deficit list creates resentment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Premise swapped: the TC's stated cost of a what-is-wrong-only climate is lost candour and learning, not resentment.",
+      "evidence": "Deep 15/35: 'The climate of the critique, focusing only on what is wrong, prevents candid discussion of training events and stifles learning and team building.'",
+      "fix": "correct: An engagement that dwells only on what went wrong prevents candid discussion and stifles learning and team building (Ch 1, \"Definition and Purpose\")."
+    },
+    {
+      "id": "D028",
+      "line": 8,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "TC 25-20 is the canonical primary source for the after-action review (AAR) methodology.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Status claim absent from the deep ref, and in tension with the TC's self-description as a supplement.",
+      "evidence": "Deep 246: 'It supplements and expands the guidance in Field Manual (FM) 25-101' [V] (Preface); FM 25-101 Appendix G carries additional AAR detail [BT].",
+      "fix": "correct: TC 25-20 is the US Army's 1993 leader's guide to planning, preparing, and conducting AARs, supplementing FM 25-101 (Preface)."
+    },
+    {
+      "id": "D029",
+      "line": 8,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "(d) the OPFOR perspective requirement that includes the adversary's view as part of the engagement.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: OPFOR input is optional ('may') in general and a set sequence element only in formal AARs.",
+      "evidence": "Deep 107: 'The leader may also receive input from OPFOR leaders, players, and OCs. The enemy's perspective is often useful ... During formal AARs, the OPFOR leader briefs his plan and intent'. Deep 124/130: OPFOR commander's mission/intent in the Figure 4-1 sequence, 'In a formal AAR'.",
+      "fix": "correct: (d) the OPFOR input that brings the adversary's view into the review, a set step in formal AARs"
+    },
+    {
+      "id": "D030",
+      "line": 147,
+      "section": "What to Look For: OPFOR-perspective absence",
+      "claim": "The friendly-force perspective alone will systematically miss explanations for why the engagement went the way it did.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: 'often useful' becomes 'will systematically miss'.",
+      "evidence": "Deep 107: 'The enemy's perspective is often useful in identifying why a unit was or was not successful.'",
+      "fix": "correct: The friendly-force perspective alone will often miss why the engagement went the way it did."
+    },
+    {
+      "id": "D031",
+      "line": 191,
+      "section": "Integration: Liberating Structures Handbook",
+      "claim": "LS structures like 1-2-4-All and TRIZ ... offer concrete microstructures for the surfacing-conflict phase where TC 25-20 gives principle without specifying format.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Concept name wrong for this handbook; understates the TC, which does specify discussion formats.",
+      "evidence": "LS deep 7, 59, 194: the handbook names the structure '1-2-4-Whole Group'. TC deep 145-163: three discussion-organisation techniques plus the Figure 4-1 sequence.",
+      "fix": "correct: LS structures such as 1-2-4-Whole Group and TRIZ are compatible with the TC's open-ended question discipline; they offer finer-grained microstructures for the surfacing-conflict phase than the TC's three discussion-organisation techniques."
+    },
+    {
+      "id": "D032",
+      "line": 192,
+      "section": "Integration: LFUO Learning Review Guide 2024",
+      "claim": "LFUO's local-rationality ... framing; where TC 25-20 says \"find out what happened\" ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Phrase in quotation marks attributed to the TC is not its wording; 'local rationality' is not LFUO's label (substance supported).",
+      "evidence": "TC source 902 / deep 134: 'This is more effective in finding out what happened.' LFUO deep 178, 184: decisions 'made sense at the time'; no 'local rationality' term in the LFUO deep ref.",
+      "fix": "correct: LFUO's sensemaking stance (how actions \"made sense at the time\") and systems-thinking framing deepen the TC's discovery-not-transmission principle; where TC 25-20 aims at finding out what happened (Ch 4), LFUO provides the investigative stance for understanding why actions made sense from inside the situation."
+    },
+    {
+      "id": "D033",
+      "line": 193,
+      "section": "Integration: NHS Just Culture Guide",
+      "claim": "Both distinguish between events that call for learning and events that call for accountability, and both argue that conflating the two produces less of each.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Claim about TC 25-20 absent from its deep ref; 'conflating produces less of each' in neither deep ref.",
+      "evidence": "TC deep 15, 253-254: every AAR 'does not grade success or failure'; no learning-versus-accountability routing. NHS deep 13-15: a five-test tree for whether individual action is appropriate; 'action singling out an individual is rarely appropriate'.",
+      "fix": "correct: The TC keeps grading out of the AAR itself (\"An AAR does not grade success or failure\"); the NHS guide supplies what the TC lacks, a separate, structured route (Q1-Q5) for deciding when action directed at an individual is appropriate, with wider system action the default."
+    },
+    {
+      "id": "D034",
+      "line": 194,
+      "section": "Integration: Open Kanban",
+      "claim": "Open Kanban's information-radiator and flow-visualisation tools translate the TC's training-aid discipline into knowledge-work settings; both treat visible state as a stakeholder-engagement input, not a management surveillance tool.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Shared position invented for both sources; Open Kanban names manager status-visibility as a benefit.",
+      "evidence": "TC deep 80, 213-215: training aids are discussion aids for the AAR ('should directly support discussion of the training and promote learning'); nothing on surveillance. Open Kanban deep 62: 'If you are a manager you can easily see at any moment what is the status of things'.",
+      "fix": "correct: Open Kanban's boards and information radiators make knowledge work visible (\"Open Kanban Practices\"); in a review, they can serve as the TC's training aid, the shared picture that lets everyone relate key events to what happened (Ch 2, \"Choosing Training Aids\")."
+    },
+    {
+      "id": "D035",
+      "line": 198,
+      "section": "Integration: OpenStax Organizational Behavior",
+      "claim": "OB's research on psychological safety, group dynamics, and communication patterns provides empirical grounding for the TC's operational claims about climate, rank, and voice — converting doctrine into evidence-backed design principles.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Psychological safety is not in the OB deep ref; 'evidence-backed' overclaims what OB tests about the TC's techniques.",
+      "evidence": "OB deep ref: no occurrence of 'psychological safety' or 'safety' beyond Maslow (218). Supported neighbours: groupthink and 'suppression of dissent by powerful members' (202, Ch 6.6); group dynamics (290, Ch 9.2).",
+      "fix": "correct: OB's treatment of group decision-making (groupthink; suppression of dissent by powerful members, Ch 6.6) and group dynamics (Ch 9) gives a research-textbook frame for the TC's doctrine on rank and voice; it does not test the TC's specific techniques."
+    }
+  ],
+  "notes": "Coverage: distillation (206 lines) and deep ref (269 lines) read end to end; distillation's derived-from-deep hash matches the current deep ref. Every quotation was machine-checked against sources/converted/tc-25-20-army-aar.md (whitespace-normalised); all [V] quotations are verbatim except D008. Other sources' deep refs (LS, LFUO, NHS, Open Kanban, Scrum Guide 2020, OPL, SSDL, OpenStax OB) were checked by targeted search for the specific claims, not read end to end; Scrum, OPL and SSDL rows found supported. Process observations graded FAITHFUL but worth fixing: (1) four [V] quotations extend beyond the deep ref's audited [V] spans and were evidently re-extracted from source (line 26 'it may not be practical ... In this case,'; line 36 'The trainer should make soldiers attending the AAR as comfortable as possible'; line 38 'Often it is best to discuss leader skills in a separate meeting or AAR specifically for that purpose'; line 42 'The AAR plan specifies who must attend each AAR'); all are verbatim in source (475, 480-485, 504, 1044-1046) but break the copy-from-deep-ref rule. (2) Roughly 25 inline [V] quotations, well above the protocol's 2-5 load-bearing passages. (3) Several [V] quotations carry no section citation (lines 56, 91, 137, 142) or chapter only (68, 101); Key Concept 17 (line 46) is uncited. (4) 18 Key Concepts against the template's 8-12. (5) The horseshoe quotation (line 22) elides the platoon example; the source's 'This allows' refers to that example's positioning, but meaning is preserved. Most serious pattern: the two-echelon 'independence' rationale (D001-D003) is repeated in three sections and contradicts the TC's own chain-of-command evaluation rule."
+}

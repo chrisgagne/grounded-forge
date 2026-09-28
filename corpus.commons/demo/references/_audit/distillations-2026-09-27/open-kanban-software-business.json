@@ -1,0 +1,339 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/open-kanban-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-244 of 244",
+    "deep": "lines 1-176 of 176",
+    "complete": true
+  },
+  "claims_audited": 184,
+  "tally": {
+    "faithful": 152,
+    "minor_drift": 22,
+    "unsupported": 9,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 80,
+      "section": "Questions, Phase 3 (Test a culture-decision against the five values)",
+      "claim": "Open Kanban's values are the immutable layer; an intervention that requires violating a value is the wrong intervention.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Calls the values immutable. The source grants the freedom to 'study, question, and change Open Kanban as you wish', expects 'future contributions and revisions', and says Open Kanban updates itself by listening to the community.",
+      "evidence": "Deep 13 (four freedoms) [V]; deep 164 ('future contributions and revisions') [V]; deep 87 ('updating itself') [V]; deep 23 (values are 'an integral part', not immutable).",
+      "fix": "correct: Open Kanban's values are 'an integral part of Open Kanban'; an intervention that cuts against one should name the conflict."
+    },
+    {
+      "id": "D002",
+      "line": 14,
+      "section": "Software-Business Relevance, Thread one",
+      "claim": "the same Reinertsen lineage that the software-business task spec names for Phase 2 queue physics",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The software-business task spec does not name Reinertsen or queue physics. Recurs in Concept 3 (line 28).",
+      "evidence": "tasks/software-business.md: grep 'Reinertsen', 'queue', 'physics' no hits; Phase 2 (line 41) and triggers (35, 48) name 'capacity-vs-flow framing' and 'flow economics over utilisation' for open-kanban, not Reinertsen.",
+      "fix": "strip (lines 14 and 28)"
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Software-Business Relevance, Thread two",
+      "claim": "resists the most common failure pattern in software-engineering operating reviews: declaring a local stage faster while overall lead time has not moved or has worsened.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Frequency claim ('the most common failure pattern') with no source.",
+      "evidence": "Deep 52 gives only the holistic principle; no reference to operating reviews or failure frequency.",
+      "fix": "correct: resists a familiar failure in operating reviews: declaring one stage faster while overall lead time has not moved."
+    },
+    {
+      "id": "D004",
+      "line": 60,
+      "section": "Questions, Phase 1 (Anchor competitive-response reasoning)",
+      "claim": "or to reduce batch size at the constraint stage (raise the system's throughput)? Open Kanban's lineage (Goldratt + Deming) names the second move as the actual improvement.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to Open Kanban's cited lineage a specific move (reduce batch at the constraint stage to raise throughput) that neither the source nor its Deming/Goldratt citation contains. The 'constraint stage' frame recurs at 120 ('batch-size at the constraint stage as the lever (Source: ... Reduce the Batch Size)'), 183 and 79.",
+      "evidence": "Deep 1-176 and source 1-210: 'constraint' occurs only inside the name 'Theory of Constraints'; no constraint stage, throughput, utilisation, headcount or hiring anywhere. Deep 52: Deming and Goldratt cited only for 'no single part of a system can ever bring overall improvement'.",
+      "fix": "correct: or to reduce batch size so the team focuses and finishes faster? Open Kanban's batch-size practice favours the second; its holistic value asks whether the whole system improves."
+    },
+    {
+      "id": "D005",
+      "line": 79,
+      "section": "Questions, Phase 3 (Frame a hiring decision)",
+      "claim": "Open Kanban's framing puts batch-size reduction at the constraint stage upstream of headcount expansion",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source never discusses hiring or headcount.",
+      "evidence": "Deep 1-176 and source 1-210: 'constraint' occurs only inside the name 'Theory of Constraints'; no constraint stage, throughput, utilisation, headcount or hiring anywhere.",
+      "fix": "correct: Open Kanban does not address hiring; its batch-size practice suggests asking first whether fewer concurrent items would do what more people are meant to do."
+    },
+    {
+      "id": "D006",
+      "line": 90,
+      "section": "Questions, Phase 4 (Design a change-management approach)",
+      "claim": "Open Kanban's \"starts where you are\" [V] framing — no new titles, no role redefinition — is the lowest-friction adoption pattern in the corpus.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Corpus-wide superlative with no basis; no deep ref compares adoption friction across sources. Recurs at 124 and 149 ('the framework with the lowest change-management cost in the corpus').",
+      "evidence": "Deep 66, 152: 'starts where you are, and does not need to modify any titles or roles' [V]. No cross-corpus comparison.",
+      "fix": "correct: Open Kanban's \"starts where you are\" [V] framing asks for no new titles or role redefinition, which keeps adoption friction low."
+    },
+    {
+      "id": "D007",
+      "line": 113,
+      "section": "Questions, Phase 6 (Anchor an exec-memo argument against a utilisation-target)",
+      "claim": "Open Kanban's batch-size-and-flow framing, with the Reinertsen citation, is the corpus's most concise primary-source argument for flow over utilisation",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source makes no argument about utilisation; 'flow over utilisation' is seeded by the task spec, not the source. The superlative is also unsupported.",
+      "evidence": "Deep 1-176 and source 1-210: 'constraint' occurs only inside the name 'Theory of Constraints'; no constraint stage, throughput, utilisation, headcount or hiring anywhere. tasks/software-business.md 48 assigns 'flow economics over utilisation (open-kanban)' in its seed table.",
+      "fix": "correct: Open Kanban's batch-size practice, with its Reinertsen citation, is a short primary-source argument for focusing and limiting work in progress; it does not address utilisation directly."
+    },
+    {
+      "id": "D008",
+      "line": 122,
+      "section": "Runtime triggers, speed vs quality",
+      "claim": "Open Kanban refuses the framing that speed requires quality cost or that quality requires speed cost. ... *Muri* (overburden) is named as the failure pattern that disguises itself as either.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source says nothing about a speed-quality trade-off. Recurs at 184 ('the framework refuses both horns of the binary').",
+      "evidence": "Deep 1-176: no speed/quality discussion; deep 37 defines value as 'working, good quality code' [V] without a trade-off.",
+      "fix": "correct: Open Kanban does not address the speed-quality trade-off directly; its batch-size practice (focus, fewer things in progress) and its warning against exhausting the team are the levers it offers."
+    },
+    {
+      "id": "D009",
+      "line": 189,
+      "section": "Integration, Jones",
+      "claim": "Jones brings empirical critique of software-engineering claims, including some Kanban claims. Hurtado names Reinertsen as the empirical anchor for the batch-size-to-flow relationship",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Jones deep ref never mentions Kanban. Hurtado calls Reinertsen 'one of the best explanations', not an empirical anchor. Line 156 similarly routes to Jones 'for empirical critique of flow claims', which the Jones deep ref does not cover.",
+      "evidence": "jones-evidence-based-sweng-deep: grep 'kanban' no hits; no flow/queue content. Open Kanban deep 72: 'one of the best explanations of this fact has been given by Donald G. Reinertsen' [V].",
+      "fix": "correct: Jones brings empirical critique of software-engineering claims generally. Hurtado cites Reinertsen as 'one of the best explanations' of why focus speeds delivery; Jones is the route to asking what the evidence says."
+    },
+    {
+      "id": "D010",
+      "line": 228,
+      "section": "Through the CTO lens",
+      "claim": "The AI-native angle: the framework treats AI integration as work that goes through the same per-stage discipline.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The source says nothing about AI; the distillation's own note (line 216) says the AI extension 'is a distillation-level inference, not a source claim'.",
+      "evidence": "Deep 1-176: no AI content. Distillation line 216.",
+      "fix": "correct: The AI-native angle (a distillation-level inference): AI integration work can go through the same per-stage batch discipline."
+    },
+    {
+      "id": "D011",
+      "line": 6,
+      "section": "Authoritativeness caveat",
+      "claim": "the canonical contemporary primary sources (Anderson's *Kanban: Successful Evolutionary Change*, Burrows's *Kanban from the Inside*, Reinertsen's *Principles of Product Development Flow*) are non-redistributable ... (Source: deep reference, \"Corpus-role caveat\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Cites the deep ref's caveat for author names and titles it does not contain; Reinertsen is cited by Hurtado for batch size, not presented as a Kanban primary source. Recurs at 155, 157 ('Anderson's tradition'), 185, 214, 215.",
+      "evidence": "Deep 164: 'Other widely-recognised Kanban primary sources publish under non-redistributable licences (Lean Kanban University, commercial publishers, or all-rights-reserved imprints)'. Deep 72, 133: Reinertsen [BT] for batch size.",
+      "fix": "correct: other widely recognised Kanban primary sources (Lean Kanban University material, commercial publishers) are non-redistributable and therefore not in this corpus. (Source: deep reference, \"Corpus-role caveat\")"
+    },
+    {
+      "id": "D012",
+      "line": 16,
+      "section": "Software-Business Relevance, Thread two",
+      "claim": "Open Kanban brings it [Theory of Constraints] to the team-level decision shape.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Open Kanban names TOC in one sentence; it does not carry TOC into team-level decisions. Recurs at 147 ('the team-level operational form') and 191 ('the team-level operational form of the same lineage').",
+      "evidence": "Deep 52, 70, 131 (TOC cited [BT] only).",
+      "fix": "correct: Open Kanban cites TOC by name for its holistic value without developing it."
+    },
+    {
+      "id": "D013",
+      "line": 18,
+      "section": "Software-Business Relevance, Thread three",
+      "claim": "The Respect-for-people value is paired explicitly with Lean's *Muri* (overburden) ... commitments which require *Muri* are commitments the framework refuses to call success",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Outside-knowledge gloss: the source pairs Muri with Agile's sustainable pace and never translates it as overburden; the recurring phrase '*Muri* as a refused operating state' inverts the source's usage. Recurs at 34, 66, 67, 81 ('names *Muri* as a refused operating state'), 102, 112, 121, 130, 169, 178, 209 ('overburden framing'), 218, 229.",
+      "evidence": "Deep 29: 'Respect for people also aligns with sustainable pace in Agile, or Muri 無理 in Lean' [V]; deep 154. grep 'overburden' in deep ref and source: no hits.",
+      "fix": "correct: The Respect-for-people value pairs Agile's sustainable pace with Lean's *Muri*, and warns that an exhausted team is 'the perfect recipe for disaster' [V]. (Elsewhere say 'overwork' or 'exhaustion' in place of '*Muri* (overburden)' and 'refused operating state'.)"
+    },
+    {
+      "id": "D014",
+      "line": 24,
+      "section": "Key Concepts, 1",
+      "claim": "\"Limiting WIP is a consequence ... 'Reduce the Batch Size of your Efforts'\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim quotation without a [V] marker; same at line 167 (second quotation in the Worked Example).",
+      "evidence": "Deep 76-78 blockquote; deep 150 [V]. Source line 118.",
+      "fix": "re-mark: [V] (lines 24, 167)"
+    },
+    {
+      "id": "D015",
+      "line": 26,
+      "section": "Key Concepts, 2",
+      "claim": "The decision is forward-looking and per-stage, not aggregate",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Forward-looking' is a rationale the source does not give for its batch-size position.",
+      "evidence": "Deep 74-81: no forward/backward framing.",
+      "fix": "correct: The decision is per-stage, not aggregate"
+    },
+    {
+      "id": "D016",
+      "line": 32,
+      "section": "Key Concepts, 5",
+      "claim": "improvements that raise local-stage efficiency without raising overall throughput do not count as improvements.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Imports TOC 'throughput' vocabulary and hardens the holistic claim. Recurs at 72 ('Apply the constraint test'), 95, 124 ('systemic-throughput frame'), 132, 181.",
+      "evidence": "Deep 52: 'no single part of a system can ever bring overall improvement ... An understanding of the whole is fundamental' [V]. 'Throughput' absent from deep ref.",
+      "fix": "correct: improving one part of the system does not by itself bring overall improvement; judge the change against the whole."
+    },
+    {
+      "id": "D017",
+      "line": 57,
+      "section": "Questions, Phase 1 (Test a pricing decision)",
+      "claim": "Open Kanban's holistic-systemic value refuses the local-utilisation framing; the systemic frame is throughput.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes a flow-over-utilisation stance to the source, which never mentions utilisation. The nearest support is the holistic value's 'people, not just as resources' (which bears on line 128). The stance is seeded by the task spec. Recurs at 68, 111, 121, 128, 145, 173, 177, 235.",
+      "evidence": "Deep 1-176 and source 1-210: 'constraint' occurs only inside the name 'Theory of Constraints'; no constraint stage, throughput, utilisation, headcount or hiring anywhere. Deep 52: 'the key part of the system is people, not just as resources' [V]. tasks/software-business.md 48.",
+      "fix": "correct: Open Kanban's holistic value asks whether the whole system improves and treats people as more than resources; set the price against what the system delivers, not against how busy people are."
+    },
+    {
+      "id": "D018",
+      "line": 36,
+      "section": "Key Concepts, 7",
+      "claim": "The decision about *what to work on next* sits with the team member who will do the work, not with an upstream dispatcher.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardened: the source says respect enables delegation and demand-pull; it never names push or dispatch. Recurs at 91, 92 ('The framework names the pattern and asks the team to switch'), 134, 182.",
+      "evidence": "Deep 27 [V]. No push/dispatch language in deep 1-176.",
+      "fix": "correct: Respect lets the person doing the work pull the next item; the push-versus-pull contrast is this distillation's reading."
+    },
+    {
+      "id": "D019",
+      "line": 40,
+      "section": "Key Concepts, 9",
+      "claim": "the methodology does not require the reorganisation that other frameworks impose as a precondition",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Comparative claim about other frameworks that the deep ref does not make.",
+      "evidence": "Deep 66, 152: 'does not need to modify any titles or roles' [V]; no comparison with other frameworks.",
+      "fix": "correct: the methodology does not require reorganisation ('Kanban starts where you are'), which lowers the change-management cost of adoption."
+    },
+    {
+      "id": "D020",
+      "line": 44,
+      "section": "Key Concepts, 11",
+      "claim": "Derivative methods (Kanban Ace, Scrumban, Kanban for Teams, Kanban Thinking) extend the kernel.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Only Kanban Ace is described as an extension built on Open Kanban; the other three are independent methods the source shares ideas with and invites.",
+      "evidence": "Deep 93 (Kanban Ace 'based on Open Kanban') [V]; deep 95 ('We already share many key ideas with ... We extend an open invitation to them') [V].",
+      "fix": "correct: Extensions such as Hurtado's own Kanban Ace build on the kernel; Scrumban, Kanban for Teams and Kanban Thinking are fellow-traveller methods the source invites to join."
+    },
+    {
+      "id": "D021",
+      "line": 89,
+      "section": "Questions, Phase 4 (Choose between Scrum, Kanban, and a hybrid)",
+      "claim": "Use Open Kanban when the work arrives with unpredictable cadence or when fixed-length Sprints feel forced",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Open Kanban says nothing about cadence or arrival patterns. Recurs at 123 ('continuous-flow alternative'; 'deliberately leaves cadence ... to local context'), 193, 194.",
+      "evidence": "Deep 1-176: no cadence or arrival-pattern claim. The only Scrum reference is the VersionOne survey sentence (deep 138).",
+      "fix": "correct: Open Kanban prescribes no cadence; teams that find fixed-length Sprints a poor fit may find its values-and-practices kernel enough."
+    },
+    {
+      "id": "D022",
+      "line": 103,
+      "section": "Questions, Phase 5 (Frame a reliability-vs-PR incident)",
+      "claim": "The PR conversation often defaults to individual accountability; the framework names this as a local-optimisation failure mode.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Open Kanban does not discuss individual accountability or name it a local-optimisation failure.",
+      "evidence": "Deep 52 (holistic value); no accountability discussion in deep 1-176.",
+      "fix": "correct: The PR conversation often defaults to individual accountability; the holistic value points the analysis at the system instead."
+    },
+    {
+      "id": "D023",
+      "line": 103,
+      "section": "Questions, Phase 5 (Frame a reliability-vs-PR incident)",
+      "claim": "For the post-event design that protects the person who surfaces the issue, route to `nhs-just-culture-guide`.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The NHS guide evaluates staff involved in a patient safety incident; it is not about protecting the person who raises an issue.",
+      "evidence": "nhs-just-culture-guide-deep 17 [V]: 'whether a staff member involved in a patient safety incident requires specific individual support or intervention'.",
+      "fix": "correct: For deciding how to treat the people involved in the incident, route to `nhs-just-culture-guide`."
+    },
+    {
+      "id": "D024",
+      "line": 110,
+      "section": "Questions, Phase 6 (Translate engineering operating status)",
+      "claim": "Cockburn's framing — extending visualisation to \"dashboards, performance metrics or other information radiators\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes Hurtado's sentence to Cockburn; the source links only the term 'information radiators' to Cockburn. Similar at 94.",
+      "evidence": "Deep 62: 'Visualizing the workflow is not limited to Kanban boards; one can also use ... information radiators' [V]; 'Alistair Cockburn's term information radiators is cited with an external link' [BT].",
+      "fix": "correct: Hurtado's framing, using Cockburn's term, extends visualisation to \"dashboards, performance metrics or other information radiators\" [V]"
+    },
+    {
+      "id": "D025",
+      "line": 140,
+      "section": "What to Look For, WIP-limit policy adopted as the lever",
+      "claim": "The team may see local improvements but the underlying flow constraint is unaddressed.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Omits the source's own qualifier that 'doing either will result in improvements in efficiency and productivity', and adds a 'flow constraint' the source does not name. Recurs at 180 ('verify WIP-limit improvements as confirmation rather than cause').",
+      "evidence": "Deep 76-78: 'Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around. However doing either will result in improvements in efficiency and productivity' [V].",
+      "fix": "correct: The source says limiting WIP also improves efficiency, but treats it as the consequence; the lever it asks for is smaller, simpler items."
+    },
+    {
+      "id": "D026",
+      "line": 160,
+      "section": "When this distillation is not the right reach",
+      "claim": "The question is primarily about *agency theory, moral hazard, or vendor-client information asymmetry*. Route to `jones-evidence-based-sweng`.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Jones's deep ref covers vendor-customer cost asymmetry and bidding, but not agency theory or moral hazard. Same at 83 ('For the moral-hazard analysis directly, route to Jones').",
+      "evidence": "jones-evidence-based-sweng-deep 133-137 (bidding), 161-163 (risk asymmetry, vendor vs customer). grep 'moral hazard', 'agency': no hits.",
+      "fix": "correct: The question is primarily about vendor-client cost and risk asymmetry or bidding. Route to `jones-evidence-based-sweng`."
+    },
+    {
+      "id": "D027",
+      "line": 191,
+      "section": "Integration, OpenStax Accounting Vol 2",
+      "claim": "(Ch 1 Theory of Constraints; Ch 11 relevant-cost analysis)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Chapter mis-cite: relevant-cost (make-or-buy, special orders, constraint ranking) is Ch 10; Ch 11 is capital budgeting.",
+      "evidence": "openstax-accounting-vol2-deep 279-295 (make-or-buy Ch 10.3; constraint ranking Ch 10.6); 299 'Part XI: Capital budgeting decisions (Ch 11)'.",
+      "fix": "correct: (Ch 1.5 Theory of Constraints; Ch 10 relevant-cost analysis)"
+    },
+    {
+      "id": "D028",
+      "line": 195,
+      "section": "Integration, Open Practice Library",
+      "claim": "Open Practice Library practices (blameless postmortems, retros, etc.)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Retrospectives are in the OPL deep ref; blameless postmortems are not.",
+      "evidence": "open-practice-library-deep 32 (Retrospectives); grep 'blameless', 'postmortem': no hits.",
+      "fix": "correct: Open Practice Library practices (Retrospectives and others)"
+    },
+    {
+      "id": "D029",
+      "line": 198,
+      "section": "Integration, LFUO",
+      "claim": "LFUO's Just-Culture-Systems-Thinking-Learning principles share lineage with Open Kanban's Deming-grounded Holistic / Systemic value.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "LFUO's three principles are right; the LFUO deep ref does not cite Deming, so the shared-lineage claim is unsupported.",
+      "evidence": "lfuo-learning-review-guide-2024-deep 7; grep 'Deming' no hits.",
+      "fix": "correct: LFUO's Systems Thinking and Learning principles parallel Open Kanban's Holistic / Systemic value and Learning practice."
+    },
+    {
+      "id": "D030",
+      "line": 218,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "All verbatim quotations in the Key Concepts and Worked Example sections are carried from the deep ref with [V] markers intact. Normative framework claims ... (*Muri* as a refused operating state) are paraphrases of [V]-marked content",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Self-audit inaccurate: Concept 1 (line 24) and the second Worked Example quotation (line 167) lack [V]; '*Muri* as a refused operating state' paraphrases no [V] content.",
+      "evidence": "Distillation lines 24, 167. Deep 29, 154 (Muri paired with sustainable pace).",
+      "fix": "correct: re-mark lines 24 and 167 with [V], and drop '*Muri* as a refused operating state' from the list of paraphrased positions."
+    },
+    {
+      "id": "D031",
+      "line": 222,
+      "section": "Through the CTO lens",
+      "claim": "it names per-stage batch-size reduction as the lever, with owner (the team at each stage), capability gap (multitasking is named as not working), and repeatable gate (the board makes per-stage batch visible).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Lens reading attributed to the framework: the source names no owner per stage and no gate; the board is described as making work and status visible, not as a batch gate.",
+      "evidence": "Deep 60-62 (board shows 'how work items move from stage to the next'; managers see status) [V]; deep 70-81 (batch size). No owner or gate.",
+      "fix": "correct: it names per-stage batch-size reduction as the lever; through the CTO lens, the owner is the team at each stage and the board is the gate."
+    },
+    {
+      "id": "D032",
+      "line": 235,
+      "section": "Through the business-executive-stakeholder lens",
+      "claim": "the framework supplies the B-move with A-shaped substrate: a per-stage batch-size number (legible KPI), a named accountable owner ..., a timeboxed first step ..., measurable success criteria (lead time, throughput).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source supplies none of these (no KPI, owner, timebox or metrics); they are the lens's requirements. 'Slack as a feature' in the same sentence is also not in the source.",
+      "evidence": "Deep 1-176: no metrics, owners or timeboxes; the source is a values-and-practices kernel (deep 17, 151).",
+      "fix": "correct: through this lens, the artefact supplies the A-shaped substrate the framework leaves open: a per-stage batch-size number, a named owner, a timeboxed first step, and measurable success criteria."
+    }
+  ],
+  "notes": "All [V] quotations match the converted source (bracketed insertions '[are]' at line 38 and '[LGPL v3, MIT]' at line 46 are editorial). Recurring drift is folded into single findings with the other lines listed: Muri-as-overburden / 'refused operating state' (14 lines), flow-over-utilisation stance (9 lines), throughput vocabulary (6 lines), constraint-stage lever (4 lines), pull/push hardening (5 lines), Anderson/Burrows names (6 lines). Root cause for the utilisation framing: the software-business task spec's seed table (tasks/software-business.md 35, 48) assigns 'capacity-vs-flow framing' and 'flow economics over utilisation' to open-kanban, and the distillation filled those cells without deep-ref support. Integration rows verified: Letaw (planning poker, story points, INVEST, DoD, RACI, Tuckman), Accounting Vol 2 five TOC steps (deep 53), Principles of Management (SWOT, PESTEL, Porter, VRIO, Mintzberg, PDCA), AP Field Guide capacity-adjusted velocity (deep 95), OPL four phases, TC 25-20, Christensen JTBD anchor in the task spec (133). Lens sections were audited only for claims about the source; lens vocabulary (Paradigm A/B) was not graded."
+}

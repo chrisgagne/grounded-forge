@@ -1,0 +1,259 @@
+{
+ "distillation": "corpus.commons/demo/distillations/decision-making/openstax-business-ethics-decision-making.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-188 of 188",
+  "deep": "lines 1-660 of 660",
+  "complete": true
+ },
+ "claims_audited": 147,
+ "tally": {
+  "faithful": 123,
+  "minor_drift": 22,
+  "unsupported": 0,
+  "contradicted": 2
+ },
+ "findings": [
+  {
+   "id": "D001",
+   "line": 8,
+   "section": "Decision-Making Relevance",
+   "claim": "most chapters end with a practical decision context (compliance versus accommodation; legal minimum versus ethical maximum; short-term profit versus long-term goodwill)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Placement wrong and not in the deep ref: the source's 'What Would You Do?' and 'Cases from the Real World' features sit throughout chapters, not at their ends; the three parenthetical contexts are the distillation's characterisation.",
+   "evidence": "Deep ref carries no description of the feature boxes. Source 370-384 (Preface: 'Throughout Business Ethics, you will find features...'; 'What Would You Do? This feature presents brief, fact-based scenarios in which students are challenged to put themselves into the shoes of ranking executives and balance a host of interests').",
+   "fix": "cycle-to-deep: add to the Structure line: the Preface's 'What Would You Do?' feature \"presents brief, fact-based scenarios in which students are challenged to put themselves into the shoes of ranking executives and balance a host of interests—some conflicting—as they make decisions for their businesses\" [V] (Preface); then correct: its 'What Would You Do?' features set practical decision scenarios throughout the chapters."
+  },
+  {
+   "id": "D002",
+   "line": 10,
+   "section": "Decision-Making Relevance",
+   "claim": "Second, the *moral minimum* (legal compliance) is rarely sufficient",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Copies a deep-ref error. The source defines the moral minimum as honouring obligations to all stakeholders, and calls legal compliance the ethical minimum; the distillation's own Key Concept 4 and What-to-Look-For pattern 1 draw that distinction correctly, so line 10 contradicts them.",
+   "evidence": "Deep 19 ('the moral minimum — legal compliance — is rarely sufficient') vs deep 146 (moral minimum = honouring obligations to all stakeholders). Source 5343-5345 (moral minimum); source 3870 ('An ethical minimum, or the least a company might do that complies with the law').",
+   "fix": "correct: Second, legal compliance (the ethical minimum) is rarely sufficient; ethical maximums protect long-term profitability and reputation more reliably. Also cycle-to-deep: fix deep line 19 to read 'the ethical minimum — legal compliance — is rarely sufficient'."
+  },
+  {
+   "id": "D003",
+   "line": 18,
+   "section": "Key Concepts #2",
+   "claim": "\"tacit knowledge acquired from experience that enables people to make prudent judgments ... guided by values and morals\" [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: these are Nonaka and Takeuchi's words quoted by the source (the distillation's own note at line 180 lists phronesis as [BT]).",
+   "evidence": "Source 897-900 ('The authors conclude that \"...Practical wisdom is tacit knowledge acquired from experience...\"'); deep 35 (citing Nonaka and Takeuchi).",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D004",
+   "line": 20,
+   "section": "Key Concepts #3",
+   "claim": "The single-standard reasoning protects against hypocrisy, builds reputation, and reduces decision overhead.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's Ch 1.3 argument (inconsistency harms reputation; stakeholders recognise hypocrisy; a single standard makes consistent behaviour easier), none of which the deep ref carries.",
+   "evidence": "Deep 51-57 (no benefits listed). Source 1275-1276 ('lack a consistent ethical core, which can harm our reputation'); 1342-1345 ('Stakeholders recognize such hypocrisy'); 1270 ('a single ethical standard makes behaving consistently easier'); 1318-1324.",
+   "fix": "cycle-to-deep: add to the Ch 1.3 paragraph: inconsistent standards mean our conduct \"lack[s] a consistent ethical core, which can harm our reputation and that of the business\" and \"Stakeholders recognize such hypocrisy and rightly hold it against the business's leaders\" [V] (Ch 1.3, \"Multiple versus Single Ethical Standards\"); then correct: The source argues a single standard guards against visible hypocrisy, protects reputation, and makes consistent behaviour easier."
+  },
+  {
+   "id": "D005",
+   "line": 22,
+   "section": "Key Concepts #4",
+   "claim": "*Ethical minimum* is the least a company might do that complies with the law.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Definition taken from the source's in-text Samsung passage; the deep ref carries only the key-term definition ('the least a company might do to claim it holds an ethically positive position').",
+   "evidence": "Deep 107. Source 3870 ('An ethical minimum, or the least a company might do that complies with the law, would have been to offer the warning and nothing more').",
+   "fix": "cycle-to-deep: add to deep 107: \"An ethical minimum, or the least a company might do that complies with the law, would have been to offer the warning and nothing more\" [V] (Ch 3.1, \"Ethical Responsibilities Often Extend Beyond Legal Requirements\")."
+  },
+  {
+   "id": "D006",
+   "line": 24,
+   "section": "Key Concepts #5",
+   "claim": "Kant: \"Act only according to that maxim whereby you can, at the same time, will that it should become a universal law\" [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: Kant's words relayed by the source; the distillation's own note (line 179) lists Kant as [BT].",
+   "evidence": "Deep 89 and 522 ('citing Kant, categorical imperative').",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D007",
+   "line": 28,
+   "section": "Key Concepts #7",
+   "claim": "Mill's harm-principle quotation marked [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: Mill's words relayed by the source; the distillation's own note (line 178) lists Mill as [BT].",
+   "evidence": "Deep 85 and 518 ('citing Mill, On Liberty').",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D008",
+   "line": 30,
+   "section": "Key Concepts #8",
+   "claim": "goodwill, brand, employee retention, customer loyalty are slow-built and slow-eroded",
+   "grade": "CONTRADICTED",
+   "failure_mode": "The deep ref says goodwill cannot be earned in a short time, but also that negative employee actions on social media damage brands swiftly; the source adds that the companies suffered 'financial and goodwill losses' from single incidents. Slow to build, fast to lose.",
+   "evidence": "Deep 41 ('Goodwill cannot be earned in a short time'); deep 280 ('Negative employee actions on social media damage brands swiftly'). Source 10825-10827.",
+   "fix": "correct: goodwill, brand, employee commitment and customer loyalty are slow to build (Ch 1.2) and can be damaged quickly (Ch 7.2, \"Respecting the Brand\")."
+  },
+  {
+   "id": "D009",
+   "line": 34,
+   "section": "Key Concepts #10",
+   "claim": "Employees often rationalise unethical conduct as sanctioned by superiors — abdicating personal responsibility.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source but not carried by the deep ref, which says only 'Bias diminishes moral agency'; 'often' also loosens the source's 'An example of bias occurs when...'.",
+   "evidence": "Deep 204. Source 8229-8232 ('An example of bias occurs when employees engage in unethical activity because it has been sanctioned by higher-ups. They abdicate personal responsibility by assigning blame elsewhere').",
+   "fix": "cycle-to-deep: add to deep 204: \"An example of bias occurs when employees engage in unethical activity because it has been sanctioned by higher-ups. They abdicate personal responsibility by assigning blame elsewhere\" [V] (Ch 5.4, \"Normative Business Ethics\"); then correct: One bias the source names: employees acting unethically because higher-ups sanctioned it, abdicating personal responsibility."
+  },
+  {
+   "id": "D010",
+   "line": 36,
+   "section": "Key Concepts #11",
+   "claim": "\"Facilitating payments\" are a narrow exception.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source but absent from the deep ref; the source's exception is narrower than stated and bears directly on the worked example (small payments to low-level workers for routine tasks, 'but not to influence the granting of a contract').",
+   "evidence": "Deep 298 (no exception mentioned). Source 11410-11412.",
+   "fix": "cycle-to-deep: add to deep 298: An exception is made for \"facilitating or grease payments,\" small amounts of money paid to low-level government workers in an effort to speed routine tasks like processing paperwork or turning on electricity, but not to influence the granting of a contract [V] (Ch 7.4, \"Bribery and the Foreign Corrupt Practices Act\")."
+  },
+  {
+   "id": "D011",
+   "line": 44,
+   "section": "Key Concepts #15",
+   "claim": "The Bill Swanson plagiarism case illustrates the inverse: top-down ethical claims undermined by personal failure compromise organisational ethics.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Effect overstated: the deep ref reports the booklet discontinued and retirement package reduced; the source says the greatest damage was to his reputation. Neither says organisational ethics were compromised.",
+   "evidence": "Deep 472. Source 18002-18006 ('the greatest damage was to his reputation, despite an otherwise distinguished 42-year career').",
+   "fix": "correct: The Bill Swanson plagiarism case (Ch 11.3, \"Swanson's Rule #1: Don't Plagiarize\") shows the cost to a leader whose published ethical maxims proved plagiarised: the booklet was discontinued and his retirement package reduced."
+  },
+  {
+   "id": "D012",
+   "line": 75,
+   "section": "Questions, Phase 3",
+   "claim": "Is this decision preventing harm to others, or limiting choice for the actor's own good? The latter requires special justification.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Loosened: Mill says the actor's own good 'is not a sufficient warrant', not that it needs special justification.",
+   "evidence": "Deep 85 ('His own good, either physical or moral, is not a sufficient warrant').",
+   "fix": "correct: The latter, on Mill's principle, is not a sufficient warrant for exercising power over someone against their will."
+  },
+  {
+   "id": "D013",
+   "line": 92,
+   "section": "Questions, Phase 5",
+   "claim": "Stakeholders accept difficult decisions more readily when the reasoning is shared.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Stated as a general finding; the deep ref does not carry it. The source's closest support is narrower: a transparency duty to employees, with fuller understanding 'usually' giving a better working relationship, especially around layoffs.",
+   "evidence": "Deep ref: nothing on sharing reasoning. Source 8675-8681 ('A more complete understanding of all relevant information usually results in a better working relationship'); 8690-8692 (transparency in layoffs and closings).",
+   "fix": "cycle-to-deep: add to Ch 6.1: the duty of transparency to the workforce, \"A more complete understanding of all relevant information usually results in a better working relationship\" [V] (Ch 6.1); then correct: The source holds that a company owes employees transparency about significant matters that affect them, especially layoffs and closings (Ch 6.1)."
+  },
+  {
+   "id": "D014",
+   "line": 94,
+   "section": "Questions, Phase 5",
+   "claim": "The career-cost data on whistleblowers is sobering even when their action was unambiguously ethical.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source gives cases (Watkins, Krawcheck) and qualitative risks, not data on whistleblower career costs.",
+   "evidence": "Deep 312-314 (Watkins, Krawcheck cases). No career-cost statistics in the deep ref.",
+   "fix": "correct: The career costs in the source's cases (Watkins at Enron, Krawcheck at Merrill Lynch) are sobering even when the action was unambiguously ethical (Ch 7.5)."
+  },
+  {
+   "id": "D015",
+   "line": 104,
+   "section": "Questions, Phase 6",
+   "claim": "Review whether escalation of commitment is operating ... Is the sunk cost being treated as recoverable?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept not in this source's deep ref; it belongs to OpenStax Organizational Behavior (Ch 6.4, six barriers). Unattributed here, it reads as Business Ethics content.",
+   "evidence": "Business Ethics deep: no escalation of commitment. OB deep 186 ('Escalation of commitment: decision-makers stay committed to poor decisions even as costs mount', Ch 6.4).",
+   "fix": "correct: append '(see OpenStax Organizational Behavior, Ch 6.4, \"escalation of commitment\")' or move the row to the OB distillation."
+  },
+  {
+   "id": "D016",
+   "line": 110,
+   "section": "What to Look For",
+   "claim": "Stakeholder claims weighed by power alone ... Diagnosis: the prioritisation is descriptive without the normative lens (Donaldson and Preston).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mislabelled approach: the descriptive approach aims to model stakeholder interests accurately and balance them as fairly as possible; weighing by power alone is not what it describes. Treating stakeholders as means to outcomes is the instrumental approach.",
+   "evidence": "Deep 111 (descriptive: 'develop the most accurate model and balance interests fairly'; instrumental: connects stakeholder management to financial outcomes). Source 4004-4006.",
+   "fix": "correct: Diagnosis: stakeholders are being treated instrumentally, as means to outcomes, without the normative lens (Donaldson and Preston)."
+  },
+  {
+   "id": "D017",
+   "line": 116,
+   "section": "What to Look For",
+   "claim": "the 30% benefits saving is \"the margin between middle class and below\"",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quotation not verbatim.",
+   "evidence": "Deep 354: 'is often the margin between being in the middle class and falling below it'. Source 13247-13248.",
+   "fix": "correct: the 30 percent saving \"is often the margin between being in the middle class and falling below it\" [V] (Ch 8.4)"
+  },
+  {
+   "id": "D018",
+   "line": 136,
+   "section": "Worked Example",
+   "claim": "securing a key government contract will require a \"facilitation payment\" ... The director declines the facilitation payment (line 144)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept misapplied: on the source's terms a payment to influence the granting of a contract is not a facilitating payment at all, so the example adopts the CFO's label without naming the distinction its own Key Concept 11 raises.",
+   "evidence": "Source 11410-11412 (exception covers small payments to low-level workers for routine tasks, 'but not to influence the granting of a contract'); not in deep (see D010).",
+   "fix": "correct: add to 'Recognising the ethical dimension': The label is wrong on the source's terms: the FCPA's exception covers only small \"facilitating or grease payments\" to low-level workers to speed routine tasks, \"but not to influence the granting of a contract\" (Ch 7.4). This is a bribe. (And at line 144: 'The director declines the payment.')"
+  },
+  {
+   "id": "D019",
+   "line": 140,
+   "section": "Worked Example",
+   "claim": "the FCPA framework is built precisely to deny the cultural-relativism defence (also line 142: 'exactly the failure mode the FCPA was designed to address')",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Attributes a design purpose to the FCPA that the deep ref does not give; the deep ref carries the book's own rejection of the relativism defence and its endorsement of the FCPA position.",
+   "evidence": "Deep 15 (book rejects 'when in Rome' defence of bribery); deep 298 (FCPA prohibits bribery of foreign officials); deep 647.",
+   "fix": "correct: the book rejects the \"when in Rome\" defence of bribery and endorses the FCPA's prohibition (Ch 1.3, Ch 7.4)."
+  },
+  {
+   "id": "D020",
+   "line": 151,
+   "section": "Anti-patterns",
+   "claim": "Cultural relativism used to justify bribery, sweatshops, environmental dumping. The single-standard rule rejects this defence.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "'Environmental dumping' is not among the deep ref's relativism cases (bribery, kickbacks, sweatshops, corruption); the source does raise it (toxic waste dumped in countries that allow it). Same addition at line 124.",
+   "evidence": "Deep 15. Source 6005-6009 ('Is It Ethical to Dump Toxic Waste in Countries That Allow It?').",
+   "fix": "cycle-to-deep: add to Ch 5: the source's box \"Is It Ethical to Dump Toxic Waste in Countries That Allow It?\" asking whether a multinational should \"take advantage of another country's lack of regulation or enforcement if it saves money to do so\" [V] (Ch 5)."
+  },
+  {
+   "id": "D021",
+   "line": 159,
+   "section": "Anti-patterns",
+   "claim": "the False Claims Act and protected disclosure statutes exist precisely because internal channels often fail",
+   "grade": "CONTRADICTED",
+   "failure_mode": "The source gives a different reason for the FCA: Congress feared Civil War suppliers would cheat the government. No statute's purpose is tied to failing internal channels; the source advises trying internal channels first.",
+   "evidence": "Deep 308 (try internal channels first), deep 310 (FCA passed during the Civil War). Source 11722-11723 ('enacted in 1863, during the American Civil War, because Congress was worried that suppliers of goods to the Union Army might cheat the government').",
+   "fix": "correct: \"Whistleblowers are disloyal.\" Treating ethical dissent as betrayal; the source advises internal channels first, protects external reporting through more than twenty federal statutes, and shows what speaking up cost Watkins and Krawcheck (Ch 7.5)."
+  },
+  {
+   "id": "D022",
+   "line": 184,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "*Samsung washer recall* — cited as a paradigmatic ethical-maximum response (Ch 4.1) [BT].",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Wrong chapter and marker: the case is in Ch 3.1 (as Key Concept 4 correctly cites) and is the textbook's own example, not a borrowed-through authority.",
+   "evidence": "Deep 107 (Samsung washer recall, Ch 3.1).",
+   "fix": "correct: *Samsung washer recall* — the source's own example of an ethical-maximum response (Ch 3.1) [AE]."
+  },
+  {
+   "id": "D023",
+   "line": 188,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "The worked example's enforcement figures (BHP Billiton, GlaxoSmithKline, Telia) trace to `[BT]` passages in the deep ref",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The deep ref carries these figures unmarked as the textbook's own reporting (Ch 7.4), not as [BT].",
+   "evidence": "Deep 298 (BHP Billiton, GSK $25 million; Telia $965 million; no marker).",
+   "fix": "correct: The worked example's enforcement figures (BHP Billiton, GlaxoSmithKline, Telia) trace to the deep ref's Ch 7.4 passage and should be independently verified before use in a live compliance context."
+  },
+  {
+   "id": "D024",
+   "line": 146,
+   "section": "Worked Example",
+   "claim": "Six months later, news emerges that the competitor is under DOJ investigation ... The director files this as a phronesis lesson: ... the deontological line settled the matter and the long-term consequences vindicated it.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Invented outcome framed as the framework's payoff ('vindicated'); the deep ref reports the book's argument, not results. It also cuts against the distillation's own Phase 6 point that outcomes do not grade decisions.",
+   "evidence": "Deep 19, 484 (argument only); distillation line 101.",
+   "fix": "correct: The director files this as a phronesis lesson: the consequence-only calculation the CFO offered was incomplete, and the deontological line settled the matter whatever the outcome."
+  }
+ ],
+ "notes": "Most substance traces. Two CONTRADICTED: 'slow-eroded' goodwill (deep 280 says brand damage is swift) and the claim that whistleblower statutes exist because internal channels fail (source gives the FCA's Civil War procurement-fraud reason). Line 10 copies a deep-ref error at deep line 19 (moral minimum = legal compliance), which the source and deep 146 contradict; the deep should be fixed. Several claims lean on source passages the deep ref lacks (ethical minimum = legal compliance, facilitating-payment exception, abdicating responsibility, single-standard benefits, environmental dumping): cycle them to the deep. Third-party quotations (Kant, Mill, Nonaka-Takeuchi) carry [V] only while the distillation's own notes call them [BT]. The worked example's closing DOJ vindication is graded MINOR-DRIFT for consistency with the other distillations' invented payoffs. Integration claims about OB (reflective/reactive, six barriers, escalation of commitment, groupthink, six-step process, Rest's four components) check out against the OB deep ref."
+}

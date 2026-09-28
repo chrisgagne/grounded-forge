@@ -1,0 +1,50 @@
+{
+ "slug": "open-kanban",
+ "changed_lines_checked": 270,
+ "tally": {
+  "faithful": 268,
+  "minor_drift": 4,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 0
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/open-kanban-decision-making.md",
+   "line": 211,
+   "text": "Each verbatim quotation carries [V] and cites its section by name.",
+   "grade": "MINOR-DRIFT",
+   "problem": "New self-audit claim is false. Quotations at lines 12, 14, 16 (Relevance threads), 60, 72, 75, 76, 83, 117 (question tables), 128 (What to Look For), 196 and 200 (borrowed-through notes) carry [V] but no section locator. Only the Key Concepts, worked example and anti-patterns cite sections.",
+   "evidence": "Distillation lines 12, 14, 16, 60, 72, 75, 76, 83, 117, 128, 196, 200: [V] with no (\"Section name\") citation.",
+   "fix": "correct: Each verbatim quotation carries [V]; the Key Concepts, worked example and anti-patterns also cite the section by name."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/open-kanban-decision-making.md",
+   "line": 8,
+   "text": "team-based leadership names who decides",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line; residual of audit D014, which the repair fixed at lines 73 and 98 only. The source's team-leadership practice says teams need leaders in them; it says nothing about who decides.",
+   "evidence": "Source 111-114 / deep 66: 'Teams and team leadership are crucial to deliver value ... No need for new roles or titles, but we do have a need for working teams, with leaders in them!' [V]",
+   "fix": "correct: team-based leadership asks for working teams with leaders in them"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/open-kanban-software-business.md",
+   "line": 82,
+   "text": "if the ask is for engineers to absorb a coordination layer the org has not built, the framework names the gap.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Unchanged line; same hardening the repair removed at line 92 ('The framework names the pattern and asks the team to switch'). Open Kanban says nothing about coordination layers and names no such gap; 'the framework supports it' in the same row is likewise the distillation's judgement.",
+   "evidence": "Source 111-114 / deep 66: team-leadership practice asks only for working teams with leaders in them; source 88 / deep 27: demand-pull tied to respect.",
+   "fix": "correct: If the strategic ask is for engineers to pull work they have the context to decide on, that fits the demand-pull the source ties to respect; if the ask is for engineers to absorb a coordination layer the org has not built, Open Kanban does not cover that, so name the gap."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md",
+   "line": 711,
+   "text": "Engagement through the four practices (...; Reduce the Batch Size as engagement-quality constraint on commitments; ...)",
+   "grade": "MINOR-DRIFT",
+   "problem": "Changed index line (edited for the people-as-resources wording) still carries a pre-existing phrase the distillation it points to does not contain: open-kanban-stakeholder-engagement.md has no batch-size concept (batch size appears only in the Reinertsen [BT] note, file line 186), and the source never ties batch size to engagement.",
+   "evidence": "grep 'batch' open-kanban-stakeholder-engagement.md: only line 186 (Reinertsen borrowed-through note). Source 115-119 / deep 68-81: batch-size practice is about focus and limiting things in progress.",
+   "fix": "correct: Reduce the Batch Size of your Efforts"
+  }
+ ],
+ "notes": "Full reads: converted source (210 lines), deep ref (176, unchanged by the repair), light ref (99), all five distillations, the five audit JSONs, vflags, and every added index row naming open-kanban-. Changed lines: light ref 3, AAR 24, decision-making 51, retro 35, software-business 84, stakeholder-engagement 24, index rows 49 (total 270). Tally covers those 270 plus 2 residual findings on unchanged lines (decision-making 8, software-business 82). vflags: CROSS:tc-25-20-army-aar 'Train to weakness, not to strength' (aar 103) FAITHFUL, attributed to TC 25-20 (converted tc-25-20 1061; deep 169). CROSS:nhs-just-culture-guide 'most patient safety issues have deeper causes' (decision-making 188) FAITHFUL, attributed to NHS (converted nhs 20; deep 15/34). All new [V] quotations grep word for word in the converted source. Cross-source claims checked against: jones deep 15/41/155, openstax-introduction-business 467, openstax-psychology-2e 381, lfuo 7/23-25, scrum-guide-2020 157-161, openstax-accounting-vol2 15/513, org-topologies-primer-2025 128, open-practice-library 215, openstax-principles-management 33/189/833, openstax-business-ethics 111-117. The repair correctly left audit D026 (software-business 83, 160: Jones on agency theory/moral hazard) and D028 (195: OPL blameless postmortems) unapplied; both were auditor errors (jones deep 99/103; open-practice-library deep 240). Requested term check: no attribution of utilisation, throughput, a constraint stage or overburden to the source remains in the light ref, the five distillations, the open-kanban index rows, or the task-index.json rows for ID 008. 'Overburden' appears nowhere. 'Utilisation' appears only where the text says the source does not address it (software-business 68, 113, 145) or as the name of the operator's claim pattern (128, 177). 'Throughput' appears only in lists of metrics the source does not carry (software-business 156, 213). 'Constraint' survives only in the title Theory of Constraints, the pointer to OpenStax Accounting Vol 2 (decision-making 84), 'sustainable pace is a hard constraint' usage, and the CTO-lens sections. Not graded, for the caller: software-business 226, 229, 241 (CTO and executive lens readings) keep 'the tightest stage', which is a constraint stage by another name; it is framed as the lens's reading (lenses/cto.md uses 'constraint' as its own term; line 216 labels lens extensions as distillation inference), not attributed to Hurtado. Replace with 'at each stage' if the idea should go entirely. AAR worked example keeps scenario figures (90% capacity, 70% threshold) that are not attributed to the source. Decision-making 158 and 160 are two consecutive overlapping 'The team agrees to...' sentences. Stakeholder index row 'Test for overwork as a hidden conflict driver' routes a conflict situation to a distillation with no conflict content; it is hedged and its source claims are accurate."
+}

@@ -97,7 +97,7 @@ Seven distinct recommendations exit the tree, distributed across the five tests.
 >
 > [V] (Q1, "Recommendation A")
 
-The deliberate-harm path is the only branch the source pairs with potential police referral and regulatory body contact. Even so, the recommendation closes with "wider investigation is still needed to understand how and why patients were not protected from the actions of the individual" — the system question is not extinguished by the finding of deliberate harm [AR].
+The deliberate-harm path is the only branch the source pairs with potential police referral; regulatory body contact, suspension and disciplinary processes also appear under Recommendation G. Even so, the recommendation closes with "wider investigation is still needed to understand how and why patients were not protected from the actions of the individual" — the system question is not extinguished by the finding of deliberate harm [AR].
 
 ### Recommendation B: substance-abuse response (exits from Q2 Yes to 2a)
 
@@ -137,7 +137,7 @@ Recommendations D and E are *textually identical*; they differ in their gating t
 >
 > [V] (Q5, "Recommendation F")
 
-The shift from "is unlikely to be appropriate" (D and E) to "may not be appropriate" (F) is a softer formulation: the case has cleared the prior filters, so the question is open and turns on the degree of mitigation. The recommendation routes the operator to "senior HR advice on what degree of mitigation applies" [V] [AR].
+The shift from "is unlikely to be appropriate" (D and E) to "may not be appropriate" (F) is a softer formulation: the case has cleared the prior filters, so the question is open and turns on the degree of mitigation. The recommendation routes the operator to organisational guidance, "which is likely to include senior HR advice on what degree of mitigation applies" [V] [AR].
 
 ### Recommendation G: management action plus wider investigation (exits from Q5 No)
 

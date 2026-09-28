@@ -1,0 +1,250 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/openstax-psychology-2e-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-157 of 157",
+    "deep": "lines 1-506 of 506 (corpus.commons/demo/references/openstax-psychology-2e-deep.md)",
+    "complete": true,
+    "other": "projection-protocol.md read in full (139 lines). Converted source checked at the passages behind every quotation and contested claim (Table 7.3 and prose 12930-12975; Table 6.3 and VR prose 11380-11485; overjustification 18605-18640; Table 8.1 15220-15235; FAE 22750-22760; self-serving bias 22911-22940; Asch 23550-23600; groupthink 23722-23810). The other deep refs in the integration table (Field Guide, OB, Liberating Structures, LFUO, Principles of Management, FLO) and the OB retro distillation were checked by targeted search for the specific claims, not read end to end."
+  },
+  "claims_audited": 120,
+  "tally": {
+    "faithful": 97,
+    "minor_drift": 14,
+    "unsupported": 4,
+    "contradicted": 5
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "Situational factors shape behaviour more than participants assume (fundamental attribution error, Milgram, Zimbardo).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Qualification dropped: Zimbardo cited as plain evidence for situational power",
+      "evidence": "Deep ref line 281: the Stanford Prison Experiment 'demonstrated the power of role assignment but has been criticised on ethical grounds and for design flaws including explicit guidance to guards; subsequent attempts have not fully replicated the original findings (Ch 12.2)'. The distillation lists Zimbardo alongside FAE and Milgram with no caveat.",
+      "fix": "correct: why situational factors shape behaviour more than participants assume (fundamental attribution error, Milgram; the source also reports Zimbardo's prison study but flags its design flaws and failed replications, Ch 12.2)"
+    },
+    {
+      "id": "D002",
+      "line": 22,
+      "section": "Key Concepts #6",
+      "claim": "Self-serving bias attributes success to the team's skill and failure to outside factors (Ch 12.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Definition loosened from individual to team level",
+      "evidence": "Deep ref line 277: 'Self-serving bias attributes our successes to disposition and our failures to situation, protecting self-esteem.' The team-level version is not in the deep ref. The source does extend it to fans explaining their team's wins and losses (converted source 22932-22940, Grove et al. 1991), so this is a cycle-to-deep candidate rather than an invention.",
+      "fix": "correct: Self-serving bias attributes our successes to disposition and our failures to situation, protecting self-esteem (Ch 12.1)."
+    },
+    {
+      "id": "D003",
+      "line": 24,
+      "section": "Key Concepts #7",
+      "claim": "Schacter's seven sins include \"bias: current beliefs reshape memories\" (Ch 8.3, Table 8.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Deep-ref paraphrase put in quotation marks with no marker, so it reads as source wording",
+      "evidence": "Deep ref line 183 paraphrases: '*bias* (current beliefs reshape memories)'. Source Table 8.1 (converted line 15230) reads 'Bias | Distortion | Memories distorted by current belief system | Align memories to current beliefs'. The quoted string is not the source's wording.",
+      "fix": "correct: Schacter's seven sins include bias, in which current beliefs reshape memories [AP] (Ch 8.3, Table 8.1)."
+    },
+    {
+      "id": "D004",
+      "line": 30,
+      "section": "Key Concepts #10",
+      "claim": "Intrinsic motivation \"is diminished when extrinsic motivation is given\" [V] (Ch 10.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] quote re-pulled from the source, not taken from the deep ref (Pass G re-extraction)",
+      "evidence": "The words match the converted source at lines 18617-18618 exactly, so the marker fits the source. But the deep ref (line 226) carries the overjustification effect only as [AP] paraphrase, with no audited [V] passage. Per projection-protocol 'Citation discipline', the verbatim register is copied from the deep ref, never re-pulled from the source.",
+      "fix": "correct: The overjustification effect: extrinsic rewards can erode intrinsic motivation [AP] (Ch 10.1). (Or cycle the sentence into the deep ref as an audited [V] passage first, then keep it.)"
+    },
+    {
+      "id": "D005",
+      "line": 30,
+      "section": "Key Concepts #10",
+      "claim": "A team that has been velocity-tracked, OKR-graded, and management-reviewed for every metric may have had its intrinsic motivation crowded out; recurring retro themes about quality and technical debt may be overjustification-effect presentations.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Premise stretched from rewards to measurement, source caveats dropped, and it conflicts with the distillation's own lines 101/134",
+      "evidence": "Deep ref line 226: the overjustification effect concerns extrinsic *rewards* or reinforcement, with caveats: tangible rewards undermine more than verbal praise, expected rewards more than surprise ones, and culture matters. The source adds that verbal praise may *increase* intrinsic motivation (converted 18630-18634). Tracking, grading and review are measurement, not rewards. Separately, this line says quality and tech-debt themes are the signal, while lines 101 and 134 say metric and velocity themes are the signal.",
+      "fix": "correct: In retros: where craft work (quality, refactoring, tooling) has been tied to tangible, expected rewards, the source's overjustification effect predicts the team may do less of it once the reward stops; the source notes verbal praise does not carry the same risk (Ch 10.1)."
+    },
+    {
+      "id": "D006",
+      "line": 32,
+      "section": "Key Concepts #11",
+      "claim": "The team norm of completing retro experiments is reinforced on a variable-ratio schedule (sometimes done, sometimes not); the Phase 0.5 experiment review is the scheduled reinforcement that makes follow-through norms durable: the schedule itself is the intervention.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Concept misapplied, and the conclusion runs against the source's own ranking of schedules",
+      "evidence": "Deep ref lines 117-124 (Table 6.3): a schedule describes when reinforcement follows a response. Variable ratio (reinforcement after an unpredictable number of responses) gives 'Highest and steady response, most resistant to extinction'. Fixed interval (reinforcement after a predictable time) gives 'Moderate response with significant pauses after reinforcement'. So 'sometimes done, sometimes not' describes an inconsistent response, not a VR schedule; VR would predict high, steady follow-through. A review held at every retro is reinforcement at a predictable interval. The source says outright (converted 11482-11483): 'variable ratio is the most productive and the most resistant to extinction. Fixed interval is the least productive and the easiest to extinguish.' The claim that a fixed review cadence makes the norm durable is the reverse of the source.",
+      "fix": "correct: In retros: whether an experiment gets done is the response; the reinforcement is whatever follows doing it. Inconsistent follow-through is not a variable-ratio signature, since variable-ratio reinforcement produces the highest, steadiest responding. A review at every retro is reinforcement on a predictable schedule, and the source's table gives fixed-interval reinforcement 'moderate response with significant pauses after reinforcement' (Ch 6.3, Table 6.3). Use Phase 0.5 to find out what follows follow-through, not as the mechanism that makes it durable."
+    },
+    {
+      "id": "D007",
+      "line": 52,
+      "section": "Questions, Phase 0.5",
+      "claim": "Need: 'Variable-ratio reinforcement pattern (sometimes done, sometimes not)'.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Inconsistent behaviour mislabelled as a variable-ratio schedule (same error as D006)",
+      "evidence": "Deep ref lines 117-124: VR is a reinforcement schedule, and it yields 'Highest and steady response'. It does not describe intermittent performance of the behaviour itself. Source 11482-11483 as in D006.",
+      "fix": "correct: Need cell -> 'Inconsistent follow-through on experiments (sometimes done, sometimes not)'; keep the question."
+    },
+    {
+      "id": "D008",
+      "line": 100,
+      "section": "What to Look For",
+      "claim": "Recurring retro experiments go undone -> Diagnosis: 'Variable-ratio reinforcement is maintaining inconsistent follow-through — not character'; Follow-up: name the reinforcement schedule (Ch 6.3, Table 6.3).",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Diagnosis rests on the inverted reading of Table 6.3",
+      "evidence": "Deep ref line 122: VR gives 'Highest and steady response, most resistant to extinction', the opposite of inconsistent follow-through. Source 11482-11483: VR is 'the most productive'.",
+      "fix": "correct: Diagnosis -> 'Follow-through depends on what happens after an experiment is done, not on character: look at what, if anything, reinforces completing one'; Follow-up -> 'Ask what followed the last completed experiment; redesign Phase 0.5 as a structured commitment review, not a guilt check (Ch 6.3; the source favours reinforcement over punishment)'."
+    },
+    {
+      "id": "D009",
+      "line": 109,
+      "section": "When to Use This Reference",
+      "claim": "When the team's recurring failure to do retro experiments is treated as a motivation problem, 'the reinforcement-schedule framing is the more accurate diagnosis'.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Rests on the D006 misreading of reinforcement schedules",
+      "evidence": "Deep ref lines 117-124; source 11482-11483 (see D006).",
+      "fix": "correct: The team's recurring failure to do retro experiments is being treated as a character problem — the source's operant-conditioning frame (behaviour shaped by its consequences; reinforcement favoured over punishment) redirects attention to what follows follow-through (Ch 6.3)."
+    },
+    {
+      "id": "D010",
+      "line": 133,
+      "section": "Anti-patterns",
+      "claim": "Treating a team's recurring failure to complete retro experiments as a motivation problem rather than recognising the variable-ratio reinforcement schedule maintaining the norm.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Rests on the D006 misreading of reinforcement schedules",
+      "evidence": "Deep ref line 122: VR produces the highest, steadiest, most extinction-resistant responding, so it cannot be the mechanism behind low or erratic completion.",
+      "fix": "correct: Treating a team's recurring failure to complete retro experiments as a character problem rather than asking what consequences follow completing one (Ch 6.3)."
+    },
+    {
+      "id": "D011",
+      "line": 36,
+      "section": "Key Concepts #13",
+      "claim": "High-performing teams under deadline pressure are especially susceptible to groupthink.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Susceptibility claim found in neither the deep ref nor the source",
+      "evidence": "Deep ref line 295 gives groupthink's definition, symptoms and preventatives, but no antecedent conditions. The source (converted 23760-23764) names high cohesion, a directive leader who makes their opinions known, and isolation from other viewpoints. It does not mention high performance or deadline pressure.",
+      "fix": "strip (or cycle the source's named causes into the deep ref first, then: 'Highly cohesive teams, and teams whose lead states a view early, are more prone to it (Ch 12.4)')."
+    },
+    {
+      "id": "D012",
+      "line": 36,
+      "section": "Key Concepts #13",
+      "claim": "Preventatives: leaders withhold initial positions, private written accounts before discussion, explicit invitation of minority views.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Source's preventatives list altered: one item added that is not in the source, two items dropped",
+      "evidence": "Deep ref line 295: 'Preventatives include external opinions, private voting, leaders withholding initial positions, and contingency planning [AP] (Ch 12.4)'. 'Explicit invitation of minority views' is not in the deep ref or the source list (converted 23790-23793). 'Private written accounts' loosens 'private voting'.",
+      "fix": "correct: Preventatives the source names include seeking outside opinions, voting in private, leaders withholding their positions, and contingency planning (Ch 12.4); in a retro, private written input before discussion is the private-vote analogue."
+    },
+    {
+      "id": "D013",
+      "line": 99,
+      "section": "What to Look For",
+      "claim": "Recurring theme 'we just need to communicate better' -> Diagnosis: 'Confirmation bias is filtering data toward the simplest available narrative' (Ch 7.3, Table 7.3).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Concept misapplied: confirmation bias is about prior beliefs, not simplicity",
+      "evidence": "Deep ref line 145: confirmation bias 'focuses on information that confirms existing beliefs'. Pulling toward the simplest narrative is not the source's definition. The same 'communicate better' example is filed under hindsight bias at line 12.",
+      "fix": "correct: Diagnosis -> 'Confirmation bias: the team already believes the problem is communication, so it reads the board for stickies that confirm that and passes over the rest'."
+    },
+    {
+      "id": "D014",
+      "line": 101,
+      "section": "What to Look For",
+      "claim": "Signal: retro themes almost entirely about metrics, velocity and delivery targets -> Diagnosis: 'Overjustification effect: extrinsic metrics have crowded out intrinsic motivation for craft' (Ch 10.1).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Signal-to-diagnosis link invented; stated as fact",
+      "evidence": "Deep ref line 226: the overjustification effect means an activity once enjoyed for its own sake is reclassified as work when extrinsic reinforcement is added; the source adds that people then do less of it without the reinforcement (converted 18610-18612). Nothing in the deep ref ties it to what a team talks about. Line 30 of the distillation names the opposite signal (quality and tech-debt themes).",
+      "fix": "correct: Signal -> 'Craft work the team once did unprompted (refactoring, tests, tooling) now happens only when it is tracked or rewarded'; Diagnosis -> 'Possible overjustification effect: extrinsic reinforcement has reclassified the activity as work (Ch 10.1)'."
+    },
+    {
+      "id": "D015",
+      "line": 134,
+      "section": "Anti-patterns",
+      "claim": "A team whose craft motivation has been crowded out by external metrics will produce retro data about metrics, not about the work.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Invented consequence stated as certain; contradicts line 30",
+      "evidence": "Deep ref line 226 (see D014); no support for any effect on retro data content.",
+      "fix": "correct: Missing the overjustification effect: craft work the team once did for its own sake can become 'work' once it is tied to extrinsic rewards, and drop off when the rewards stop (Ch 10.1)."
+    },
+    {
+      "id": "D016",
+      "line": 137,
+      "section": "Anti-patterns",
+      "claim": "Treating functional-group divergence in the team's account of the sprint as inconsistency or dishonesty rather than as partial perception shaped by different roles.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Borrowed from another source (OB's Dearborn and Simon functional-role perception) with no anchor in this deep ref",
+      "evidence": "No passage in the Psychology 2e deep ref covers role- or function-shaped perception of shared events. The nearest are perceptual hypotheses shaped by 'personality, experience, and expectation' (line 101) and role schemata as assumptions about others (line 134); neither is used in this distillation. The same idea is concept #3 in openstax-organizational-behavior-retro.md line 16, sourced to OB deep ref line 71 (Dearborn and Simon, Ch 3.1).",
+      "fix": "strip"
+    },
+    {
+      "id": "D017",
+      "line": 122,
+      "section": "Worked Example",
+      "claim": "Facilitator asks what conditions 'made late criteria the product manager's local rational move?' (Ch 12.1, 'Fundamental Attribution Error').",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "LFUO's local-rationality vocabulary cited to Psychology 2e",
+      "evidence": "Deep ref lines 275 and 476 support shifting from dispositional to situational explanation. 'Local rationality' does not appear in the Psychology 2e deep ref; it is the LFUO Learning Review Guide's sensemaking frame (lfuo-learning-review-guide-2024-deep.md lines 178, 184, 192).",
+      "fix": "correct: \"what were the conditions — workload, access, information — that the product manager was working under when the criteria arrived late?\" (Ch 12.1, \"Fundamental Attribution Error\")"
+    },
+    {
+      "id": "D018",
+      "line": 144,
+      "section": "Integration with Other References",
+      "claim": "The Field Guide supplies the retro structure; Psychology 2e supplies the rationale for written-first, leader-withholds-view, and one experiment at a time.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Two practices credited to the Field Guide that its deep ref does not carry as stated",
+      "evidence": "approach-perfect-field-guide-scrum-events-deep.md: written-first is supported (line 225, each member writes stickies individually). Line 231 says 'one or two improvement items', not one. Leader-withholds-view is absent: line 199 has the Product Owner and Scrum Master 'participate as peers', which is not the same practice. Leader-withholding comes from Psychology 2e's groupthink preventatives (deep ref line 295), not from the Field Guide.",
+      "fix": "correct: The Field Guide supplies the retro structure (individual written stickies, positives/deltas/insights, one or two improvement items per Sprint); Psychology 2e supplies the rationale for writing privately first (private responses reduce conformity, Ch 12.4) and for the lead holding their view (a groupthink preventative, Ch 12.4)"
+    },
+    {
+      "id": "D019",
+      "line": 145,
+      "section": "Integration with Other References",
+      "claim": "OB covers attribution bias, group dynamics, and motivation at the team-system level; Psychology 2e covers the same patterns at the individual cognitive level — layered, not redundant.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Relationship to OB misstated",
+      "evidence": "openstax-organizational-behavior-deep.md treats attribution at the individual-perception level (Ch 3.3, lines 77-81, defining FAE and self-serving bias itself). It also carries reinforcement schedules (Ch 4, line 114) and the SDT claim that extrinsic rewards reduce intrinsic motivation (line 224). Psychology 2e covers group-level phenomena too (conformity, groupthink, Ch 12.4). The two overlap heavily; the team-system versus individual split does not hold.",
+      "fix": "correct: OB covers the same attribution biases (FAE, self-serving bias, Ch 3.3), reinforcement schedules (Ch 4) and the extrinsic-reward/intrinsic-motivation trade-off (SDT, Ch 7.2) in a workplace frame; Psychology 2e carries the experimental findings behind them (Asch; Ross, Amabile and Steinmetz). Overlapping coverage: use OB for workplace framing, Psychology 2e for the evidence"
+    },
+    {
+      "id": "D020",
+      "line": 149,
+      "section": "Integration with Other References",
+      "claim": "FLO's engagement-equity and scaffolding-and-fading discipline applies when stress load, conformity, or overjustification is present; Psychology 2e names the cognitive conditions FLO's facilitation design is responding to.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Design rationale attributed to FLO that its deep ref does not state",
+      "evidence": "flo-facilitation-guide-deep.md line 247: engagement-equity tracking exists so the facilitator spreads responses and 'each participant feel[s] heard'. Line 17: scaffolding-then-fading follows learners' growing familiarity with the course. Neither is framed as a response to stress, conformity or overjustification.",
+      "fix": "correct: FLO's engagement-equity tracking (spreading facilitator attention so each participant feels heard) and its scaffolding-and-fading arc can counter the uneven participation that Psychology 2e's conformity findings predict; the link is this distillation's synthesis, not FLO's stated rationale"
+    },
+    {
+      "id": "D021",
+      "line": 157,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The overjustification effect claim is [V] in the deep ref (Ch 10.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Deep ref's marker misreported",
+      "evidence": "Deep ref line 226 marks the overjustification effect [AP]. The deep ref has no [V] passage for it (see D004).",
+      "fix": "correct: The overjustification effect is [AP] in the deep ref (Ch 10.1); the inline quotation in concept #10 was taken from the source, not the deep ref, and should be re-marked [AP] or cycled into the deep ref."
+    },
+    {
+      "id": "D022",
+      "line": 157,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The variable-ratio schedule claim is [V] in the deep ref (Ch 6.3, Table 6.3); the distillation applies it to the Phase 0.5 reinforcement argument.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Contradicts the distillation's own [AP] marking in concept #11 and endorses a contradicted application",
+      "evidence": "Concept #11 marks the claim [AP], matching deep ref line 19 [AP]. The deep ref marks Table 6.3 [V] (line 124), but that table is not the source's wording: source line 11406 gives VR as 'High and steady response rate', and line 11403 differs from the deep ref's fixed-interval row. The Phase 0.5 application is contradicted (D006).",
+      "fix": "correct: The variable-ratio claim is carried at [AP] (deep ref Ch 6.3 thesis paraphrase; the deep ref's Table 6.3 is marked [V] but is not verbatim with the source and should be re-audited)."
+    },
+    {
+      "id": "D023",
+      "line": 155,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Content not reflected in this distillation includes 'health psychology'.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Named-limits statement conflicts with the distillation's own use of Ch 14",
+      "evidence": "The same paragraph says the projection draws on Ch 14, and concept #12 and the worked example cite Ch 14.1 (GAS). Deep ref line 363: Ch 14 is 'Stress, lifestyle, and health', which is health psychology.",
+      "fix": "correct: replace 'industrial-organisational psychology, and health psychology' with 'industrial-organisational psychology, and the health-psychology material beyond the stress response (Ch 14.2-14.5)'"
+    }
+  ],
+  "notes": "Hash check: the distillation's derived-from-deep sha256 (631f9928...) matches the current deep ref, so the distillation is built from the current deep ref. Most serious issue: the reinforcement-schedule thread (D006-D010, D022) misreads Table 6.3 in five places. It treats inconsistent behaviour as a variable-ratio schedule and claims a fixed Phase 0.5 review cadence makes follow-through durable, when the source ranks fixed-interval reinforcement least productive and easiest to extinguish (converted 11482-11483). Fix it as one unit. Second thread: the overjustification material (D004, D005, D014, D015, D021) contradicts itself about the signal (quality/tech-debt themes at line 30 vs metric themes at lines 101 and 134), stretches 'rewards' to 'metrics', drops the source's praise caveat, and carries a [V] quote re-pulled from the source. D016 (functional-group perception) is carried over from the OB retro distillation, and D017 cites LFUO's local-rationality vocabulary to Psychology 2e: two cases of neighbouring sources' concepts landing here. Faithful but worth knowing: the [V] definitions for anchoring, confirmation, hindsight and availability match Table 7.3 word for word (the converter dropped the 'fi' ligature in 'confirms', so 'confrms' in the converted file is an extraction artefact). The FAE [V] quote is exact apart from an ellipsis for '—or attributions—' and a capital P. Asch 76% and 'dissenter drops conformity to near zero' match the source (23558, 23578) and fit [BT]. 'Vivid or recent' (concept #2): 'recent experience' is in the source (12953-12954); 'vivid' is gloss. The Liberating Structures row's '1-2-4-All' is the handbook's '1-2-4-Whole Group', and the corpus concept-index canonicalises it as 1-2-4-all, so no finding. Structural (not graded as claims): the distillation has no verbatim blockquotes; the protocol calls for 2-5 on an open-nc source, and the worked example quotes nothing. The concept #5 anchor 'fundamental-attribution-error' and the #13 groupthink anchor are both aliases of the concept-index slug 'cognitive-biases'; the #13 anchor already uses it, #5 does not. Upstream deep-ref issues, not charged to the distillation: (1) deep ref Table 6.3 (lines 117-124) is marked [V] but is not the source's wording: the source's VR result is 'High and steady response rate', not 'Highest and steady response, most resistant to extinction', and the fixed-interval example differs. (2) The deep ref marks the Asch 76% as [BT] in the body (line 291) and [V] in Key statistics (line 443). (3) The source's line that fixed interval is 'the least productive and the easiest to extinguish' (converted 11483) is missing from the deep ref and is the fact that settles D006. (4) The groupthink causes (cohesion, directive leader, isolation; converted 23760-23764) are missing from the deep ref. Claim count basis: header 1; relevance 7; key concepts 41; question rows 16; What-to-Look-For rows 7; When-to-Use 6; worked example 7; anti-patterns 9; integration rows 6; citation notes 20."
+}

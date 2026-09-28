@@ -1,0 +1,219 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/open-kanban-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-148 of 148",
+    "deep": "lines 1-176 of 176",
+    "complete": true
+  },
+  "claims_audited": 91,
+  "tally": {
+    "faithful": 71,
+    "minor_drift": 13,
+    "unsupported": 7,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "The Holistic or Systemic Approach to Change value — citing Deming and Goldratt explicitly — is the demo corpus's open-licence carrier of the *find-the-one-constraint* discipline",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Assigns TOC's find-the-constraint discipline to a value whose text says only that no single part of a system can bring overall improvement. The corpus's fuller TOC material (five focusing steps) is in OpenStax Accounting Vol 2.",
+      "evidence": "Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere. openstax-accounting-vol2-deep 53: 'identify the system constraint; decide how best to exploit it; subordinate everything else; elevate the constraint; repeat'.",
+      "fix": "correct: The Holistic or Systemic Approach to Change value, citing Deming and Goldratt by name, asks for a whole-system reading:"
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "the constraint focus beats the long list every time.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Constraint focus is not in the source, and 'every time' is an absolute the source does not make.",
+      "evidence": "Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere. Deep 72: 'Keeping the team focused helps them finish what they start faster' [V].",
+      "fix": "correct: focus beats the long list: keeping the team focused helps it finish what it starts faster."
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts, 3",
+      "claim": "Reduce the Batch Size — one-constraint focus for experiment design. ... For Phase 4: pick the one constraint this Sprint revealed.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Relabels the batch-size practice as a one-constraint discipline. The practice asks the team to focus and limit the number and complexity of things in progress. Same import at line 12 ('touch the constraint at the level it actually lives in') and line 18 ('the smallest thing that would move the constraint').",
+      "evidence": "Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere. Deep 70-81: batch size = 'focus and limit the number of things we do'; 'Reduce the complexity and the quantity of things you do at any stage of the value chain' [V].",
+      "fix": "correct: **Reduce the Batch Size — focus the experiment list.** [keep quote] For Phase 4: commit to the fewest experiments the team can finish. One experiment owned and finished is worth five started and carried over."
+    },
+    {
+      "id": "D004",
+      "line": 73,
+      "section": "Questions, Phase 4 (One constraint)",
+      "claim": "Of all the insights surfaced, which one — if addressed — would most move the system? That is the constraint. Act on that one.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Question row built on a constraint premise the source does not supply. The same frame recurs at 53 ('Frame the retro around constraint-finding'), 88 ('the constraint is mis-identified'), 100, 112 ('the one-constraint question') and 125.",
+      "evidence": "Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere.",
+      "fix": "correct: Need 'Few experiments' | 'Of all the insights surfaced, which one or two can the team act on and finish? Leave the others on a visible backlog, not on a commitment list.'"
+    },
+    {
+      "id": "D005",
+      "line": 118,
+      "section": "Worked Example",
+      "claim": "The batch-size discipline, one-constraint focus, Muri naming, learning-upstream principle, and systemic-vs-local distinction all trace to Open Kanban (\"Open Kanban Practices\"; \"Open Kanban Values\").",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Provenance claim is false for two of five items: 'one-constraint focus' is not in the source, and the 'Muri naming' as overburden is not the source's usage (it pairs Muri with sustainable pace).",
+      "evidence": "Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere. Deep 29, 154: Muri is 'the Lean parallel to Agile's sustainable pace'.",
+      "fix": "correct: The batch-size discipline, the exhaustion warning under Respect for People, the learning-upstream principle and the whole-system reading trace to Open Kanban (\"Open Kanban Practices\"; \"Open Kanban Values\"); the one-constraint framing is this distillation's."
+    },
+    {
+      "id": "D006",
+      "line": 148,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "The Muri / overburden gloss is `[V]` in the deep ref; the distillation applies the term precisely as the experiment-design discipline for sustainable capacity.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "False provenance: neither the deep ref nor the source contains the word 'overburden'. The [V] passage pairs Muri with Agile's sustainable pace.",
+      "evidence": "Deep 29: 'Respect for people also aligns with sustainable pace in Agile, or Muri 無理 in Lean' [V]; deep 154. grep 'overburden' in deep ref and converted source: no hits.",
+      "fix": "correct: The Muri / sustainable-pace passage is `[V]` in the deep ref; the source pairs Muri with sustainable pace and names exhaustion as the failure. 'Overburden' is this distillation's gloss."
+    },
+    {
+      "id": "D007",
+      "line": 136,
+      "section": "Integration, Org Topologies row",
+      "claim": "Open Kanban's Holistic-Systemic value ... is the named rationale for the OT escalation move when the constraint is above team level",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Org Topologies deep ref has no 'escalation move', and neither source names the other.",
+      "evidence": "org-topologies-primer-2025-deep: grep 'escalat' no hits; 'Open Kanban' no hits.",
+      "fix": "correct: Open Kanban's Holistic-Systemic value (\"no single part of a system can ever bring overall improvement\" [V]) pairs with Org Topologies' mapping of units to archetypes: when the fix lies outside the team, OT gives the language for where it lies."
+    },
+    {
+      "id": "D008",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "Open Kanban's retro projection is strongest on three axes.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count mismatch: the paragraph then names four (Holistic value, Learn and Improve practice, Reduce the Batch Size practice, Respect for People value).",
+      "evidence": "Distillation line 8.",
+      "fix": "correct: Open Kanban's retro projection is strongest on four axes."
+    },
+    {
+      "id": "D009",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "The Respect for People value (with its explicit *Muri* / overburden gloss)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source has no overburden gloss; it pairs Muri with sustainable pace. Recurs at 20 ('overburden (*Muri*) by design'), 40, 90 ('Muri is built into the design'), 99 ('the Muri naming is the specific vocabulary this source provides') and 124.",
+      "evidence": "Deep 29 [V]; deep 154. 'overburden' absent from deep ref and source.",
+      "fix": "correct: The Respect for People value (which pairs Agile's sustainable pace with Lean's *Muri* and warns that 'An exhausted developer, manager or team are the perfect recipe for disaster')"
+    },
+    {
+      "id": "D010",
+      "line": 22,
+      "section": "Key Concepts, 6",
+      "claim": "\"When a manager, VP, or person in authority makes a mistake ...\" [V] (\"Open Kanban Values\") Attributed to Kent Beck (borrowed-through).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Misattribution of the quoted sentence: the manager/VP illustration is Hurtado's; the source credits Beck only with noticing that 'in order to improve or even correct mistakes we need courage'.",
+      "evidence": "Deep 33: 'like Kent Beck noticed in order to improve or even correct mistakes we need courage. When a manager, VP ... it takes courage for him to tell us about it' [V]; Beck credited for 'the courage framing' [BT]. Source line 91.",
+      "fix": "correct: The source credits Kent Beck (borrowed-through) with the idea that improving or correcting mistakes takes courage; the manager/VP illustration is Hurtado's."
+    },
+    {
+      "id": "D011",
+      "line": 28,
+      "section": "Key Concepts, 9",
+      "claim": "Waste includes rework, waiting, over-processing, and work that was started and not finished.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Outside-knowledge enumeration (Lean's waste types) presented as the concept's content; the source defines Muda only as 'anything that does not add value to your process or flow'. Recurs at 59.",
+      "evidence": "Deep 41-42: 'Muda 無駄 represents anything that does not add value to your process or flow' [V]. No waste types listed.",
+      "fix": "correct: Waste, in the source's definition, is 'anything that does not add value to your process or flow'."
+    },
+    {
+      "id": "D012",
+      "line": 32,
+      "section": "Key Concepts, 11",
+      "claim": "No single part of a system brings overall improvement — escalation discipline. ... Escalate or redesign.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Labels the holistic value an 'escalation discipline'; the source says nothing about escalation. Line 47 uses the quote as warrant to 'escalate to leadership rather than retry at team level'; line 46 likewise.",
+      "evidence": "Deep 52: 'no single part of a system can ever bring overall improvement ... An understanding of the whole is fundamental to arrive at steady, successful change' [V]. No escalation language in deep 1-176.",
+      "fix": "correct: **No single part of a system brings overall improvement.** [keep quote] For Phase 0.5: if the same experiment has run three retros without effect, the cause may lie outside the part of the system the team controls; widen the view before retrying."
+    },
+    {
+      "id": "D013",
+      "line": 89,
+      "section": "What to Look For, row 2",
+      "claim": "the long list will produce zero follow-through",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: the source says focus helps teams finish faster, not that a long list yields nothing. The follow-up ('Apply the one-constraint question') repeats the imported constraint frame.",
+      "evidence": "Deep 72: 'Keeping the team focused helps them finish what they start faster' [V].",
+      "fix": "correct: Batch-size discipline hasn't fired; a long list spreads the team's effort | Ask which one or two experiments the team can finish"
+    },
+    {
+      "id": "D014",
+      "line": 98,
+      "section": "When to Use This Reference",
+      "claim": "The experiment-design phase needs the one-constraint discipline: batch-size reduction and systemic-locus thinking are this source's core contributions.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The two named contributions are right; the 'one-constraint discipline' label is not in the source.",
+      "evidence": "Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere.",
+      "fix": "correct: The experiment-design phase needs focus: batch-size reduction and whole-system thinking are this source's core contributions."
+    },
+    {
+      "id": "D015",
+      "line": 137,
+      "section": "Integration, Liberating Structures row",
+      "claim": "Open Kanban's one-constraint discipline is what makes the 15% tractable",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "LS half checks out (15% Solutions); Open Kanban has no one-constraint discipline.",
+      "evidence": "liberating-structures-handbook-deep 101 [V]. Deep 1-176 and source 1-210: the word 'constraint' occurs only inside the name 'Theory of Constraints'; TOC is cited [BT] for the holistic claim (deep 52) and as one link in the multitasking evidence (deep 70). No constraint-finding step anywhere.",
+      "fix": "correct: Open Kanban's batch-size practice keeps the 15% list short enough to finish"
+    },
+    {
+      "id": "D016",
+      "line": 139,
+      "section": "Integration, Open Practice Library row",
+      "claim": "OPL's Design of Experiments formalises the hypothesis that Open Kanban's learning-before-improvement principle demands",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "OPL's Design of Experiments is right; Open Kanban's learning principle does not demand a hypothesis.",
+      "evidence": "open-practice-library-deep 213 (Design of Experiments turns hypotheses into experiments) [V]. Open Kanban deep 87: 'Learning is the key concept before continuous improvement can ever happen!' [V]; no hypothesis requirement.",
+      "fix": "correct: OPL's Design of Experiments gives the retro a way to turn what the team learned into a testable experiment, the step after Open Kanban's learning-before-improvement principle"
+    },
+    {
+      "id": "D017",
+      "line": 140,
+      "section": "Integration, Scrum Guide row",
+      "claim": "The Scrum Guide's Sprint Retrospective is named in Open Kanban as one implementation of Learn and Improve Continuously",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Open Kanban names 'Retrospectives' generically; it never names Scrum's Sprint Retrospective.",
+      "evidence": "Deep 85: 'you could have Retrospectives, Strategy Meetings or even Kaizen Groups' [V]. Scrum appears in the source only in the VersionOne survey sentence (deep 138).",
+      "fix": "correct: Open Kanban names Retrospectives (generically) as one way to implement Learn and Improve Continuously; the Scrum Guide's Sprint Retrospective is one such event."
+    },
+    {
+      "id": "D018",
+      "line": 146,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The source explicitly describes itself as an open-source collaboration, not a definitive Kanban specification.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source calls itself 'not a full or complete' method and a kernel; it does not call itself non-definitive. It claims to correspond to 'what most people ... think of when they refer to Kanban itself'. The non-authority framing is the operator's caveat.",
+      "evidence": "Deep 17, 151 [V]; deep 15 [V]; deep 160-164 (operator-supplied caveat).",
+      "fix": "correct: The source describes itself as an open-source collaboration and a kernel, \"not a full or complete Agile or Lean method\" [V]."
+    },
+    {
+      "id": "D019",
+      "line": 146,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "Open Kanban's holistic-systemic claim is the accessible proxy for that lineage in this corpus.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the source's role: it states the Deming/Goldratt position in one sentence without developing it, and the corpus holds fuller secondary accounts (TOC five steps in OpenStax Accounting Vol 2; Deming/PDCA in OpenStax Principles of Management; TQM in Introduction to Business).",
+      "evidence": "Open Kanban deep 52. openstax-accounting-vol2-deep 53, 501; openstax-principles-management-deep 831-833; openstax-introduction-business-deep 467.",
+      "fix": "correct: Open Kanban states the Deming/Goldratt whole-system position in one sentence; fuller secondary accounts are in OpenStax Accounting Vol 2 (TOC) and Principles of Management (Deming cycle)."
+    },
+    {
+      "id": "D020",
+      "line": 148,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "The WIP-limiting-as-consequence claim is `[V]` in the deep ref; the distillation paraphrases it as the batch-size-reduction framing (correct).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Self-audit inaccurate: the distillation quotes the passage verbatim with [V] (line 18), it does not paraphrase it.",
+      "evidence": "Distillation line 18.",
+      "fix": "correct: The WIP-limiting-as-consequence claim is `[V]` in the deep ref and is quoted with `[V]` in Concept 4."
+    }
+  ],
+  "notes": "All [V] quotations check word for word against the converted source (Concept 7 capitalises 'There' mid-sentence; Concept 9 elides with '...'). The distillation's spine is an imported Theory of Constraints 'one-constraint' discipline (Relevance, Concepts 1/3/4, Phases 1 and 4, What to Look For, When to Use, Worked Example, LS row) that the source does not contain; 'constraint' appears in the source only inside the name 'Theory of Constraints'. Second recurring drift: Muri glossed as overburden, which the Citation notes then wrongly certify as [V]. The header's operator note (redistributable Kanban slot) drops the deep ref's 'operator-supplied' label but omits the 'minor author' judgement; graded FAITHFUL here. Integration rows verified: AP Field Guide one-or-two improvements (deep 231, 356), LS 15% Solutions (deep 101), SSDL archetypes, OPL Design of Experiments (deep 213). The line 146 statement that the source does not address retrospective facilitation or experiment design is accurate and useful."
+}

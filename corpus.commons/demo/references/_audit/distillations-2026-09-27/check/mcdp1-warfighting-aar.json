@@ -1,0 +1,89 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/mcdp1-warfighting-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-200 of 200",
+    "deep": "lines 1-242 of 242",
+    "complete": true
+  },
+  "claims_audited": 162,
+  "tally": {"faithful": 155, "minor_drift": 7, "unsupported": 0, "contradicted": 0},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 13,
+      "section": "After-Action Review Relevance",
+      "claim": "Its one passage on reviewing an event after the fact is the critique paragraph in Ch 3.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Exclusivity claim ('one passage') that the converted source supports but the deep reference does not carry.",
+      "evidence": "Deep ref line 115 quotes the critique paragraph and says 'The document's word for this review is critique; it does not use the term after-action review', but never says it is the only such passage. Converted source: 'critique' occurs only at lines 2554-2565 and 'after-action' / 'after action' never occurs; the other 'lessons' hits (2381 military history, 2469 lessons of combat) are not reviews of one's own event.",
+      "fix": "cycle-to-deep: source lines 2554-2567 (Ch 3, 'Training'); add to the deep ref's Ch 3 'Training' synthesis that the critique paragraph is the document's only treatment of reviewing an event after the fact."
+    },
+    {
+      "id": "D002",
+      "line": 145,
+      "section": "Worked Example (Phase 3)",
+      "claim": "The facilitator names the source's three kinds (Ch 3, \"Professionalism\").",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Projection's framing attributed to the source. MCDP 1 names two kinds of error (overbold errors, dealt with leniently; errors of inaction or timidity, dealt with severely) and puts a limit on the leniency (no licence to act stupidly or recklessly). It does not set out 'stupid or reckless action' as a third kind of error, and it prescribes no treatment for it.",
+      "evidence": "Deep ref line 111: leniency for overbold errors, severity for errors of inaction or timidity; 'The leniency has limits: ... Nor does it give subordinates free license to act stupidly or recklessly.' Deep ref line 193 same. Source lines 2392-2405 and 2422-2425.",
+      "fix": "correct: The facilitator names the source's two kinds of error and the limit it puts on leniency (Ch 3, \"Professionalism\")."
+    },
+    {
+      "id": "D003",
+      "line": 168,
+      "section": "Integration with Other References (NHS row)",
+      "claim": "Its three-way distinction (overboldness; inaction or timidity; stupid or reckless action) is a prompt for which acts and failures to act enter the review.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as D002: a three-way taxonomy attributed to MCDP 1, where the source gives a two-way pairing plus a limit on leniency.",
+      "evidence": "Deep ref lines 111 and 193 (the pairing, and 'The leniency has limits' / 'The leniency is bounded').",
+      "fix": "correct: Its pairing (leniency for overboldness; severity for inaction or timidity), with the limit on that leniency (no licence to act stupidly or recklessly), is a prompt for which acts and failures to act enter the review;"
+    },
+    {
+      "id": "D004",
+      "line": 175,
+      "section": "Citation and Source-Integrity Notes (Named limits)",
+      "claim": "Its review content is one paragraph, set in training rather than operations.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as D001: the count ('one paragraph') holds against the converted source but is not carried by the deep reference.",
+      "evidence": "Deep ref line 115 carries the paragraph and its training setting, not the count. Converted source: critique appears only at lines 2554-2567.",
+      "fix": "cycle-to-deep: source lines 2554-2567 (same deep-ref addition as D001)."
+    },
+    {
+      "id": "D005",
+      "line": 177,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity)",
+      "claim": "the burden-of-understanding passage (Ch 4, \"Commander's intent\"; source lines 3764-3768)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited line range: the blockquote ends one line later.",
+      "evidence": "Converted source 3764 'A clear expression and understanding of intent is essential to' ... 3768 'dinates must have a clear understanding of what their' / 3769 'commander expects. Further, ...'. The blockquote at line 141 ends 'what their commander expects.', so it runs 3764-3769. The other three ranges check: 2554-2567, 2395-2401, 3713-3715.",
+      "fix": "correct: the burden-of-understanding passage (Ch 4, \"Commander's intent\"; source lines 3764-3769)"
+    },
+    {
+      "id": "D006",
+      "line": 177,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity)",
+      "claim": "The distillation paraphrases, rather than quotes, the source's \"yes-men\" sentence and the purpose of commander's intent",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The note contradicts the file: Concept 7 (line 35) quotes a clause of the purpose-of-intent sentence as [V].",
+      "evidence": "Line 35: \"to depart from the original plan when the unforeseen occurs\" [V]. That clause is part of the purpose sentence at source lines 3685-3689 / deep ref line 149 ('The purpose of providing intent is to allow subordinates to exercise judgment and initiative — to depart from the original plan when the unforeseen occurs — in a way that is consistent with higher commanders' aims.').",
+      "fix": "correct: The distillation paraphrases, rather than quotes, the source's \"yes-men\" sentence, and quotes only the \"to depart from the original plan\" clause of the purpose-of-intent sentence, to keep the verbatim register to the passages the projection turns on."
+    },
+    {
+      "id": "D007",
+      "line": 186,
+      "section": "Runtime triggers this source addresses (accounts diverging)",
+      "claim": "Ch 4 \"Philosophy of command\": the person at the point of decision sees the situation better than a senior some distance away",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: drops the source's qualifier 'competent' (and 'subordinate commander'), so any person at the point of decision is said to see better. Line 65 keeps the qualifier.",
+      "evidence": "Deep ref line 135 / source line 3231: 'a competent subordinate commander who is at the point of decision will naturally better appreciate the true situation than a senior commander some distance removed.'",
+      "fix": "correct: Ch 4 \"Philosophy of command\": a competent subordinate at the point of decision better appreciates the true situation than a senior some distance removed"
+    }
+  ],
+  "vflag_review": [
+    {"line": 31, "quote": "we should deal severely with errors of inaction or timidity. We will not accept lack of orders as justification for inaction", "grade": "FAITHFUL", "evidence": "Source 2405 'the other hand, we should deal severely with errors of inaction' + page break (page number 57, running heads 'Warfighting' / 'MCDPl') + 2422-2423 'or timidity. We will not accept lack of orders as justification / for inaction;'. Words unchanged; the checker missed because the running heads interrupt the sentence."},
+    {"line": 43, "quote": "emerges from the collective behavior of all the individual parts in the system interacting locally in response to local conditions and incomplete information", "grade": "FAITHFUL", "evidence": "Source 661-663 '... but emerges from the / collective behavior of all the individual parts in the system / interacting locally in response to local conditions and' + page break (page 12, 'MCDPl', 'The Nature of War') + 679 'incomplete information.' Words unchanged."},
+    {"line": 145, "quote": "we should deal severely with errors of inaction or timidity", "grade": "FAITHFUL", "evidence": "Same passage as line 31 (source 2405 + 2422 across a page break). Words unchanged."}
+  ],
+  "notes": "Scope open; four [V] blockquotes (lines 11, 27, 135, 141) and 58 inline [V] fragments were checked mechanically against sources/converted/mcdp1-warfighting.md after straightening quotes, removing line-end hyphenation and collapsing whitespace: 59 match exactly, and the 3 that miss (lines 31, 43, 145, the three vflag entries) are page-break running heads interrupting otherwise unchanged text. No quotation carries an OCR garble or a changed word. Every inline fragment is also carried by the deep ref (Foreword 17; Ch 1 at 33/35/55/57/63; Ch 3 at 111/113/115/121/190/193; Ch 4 at 135/141/149). The zero-defects blockquote is stitched from deep-ref quotes at lines 111 and 193, which are contiguous in the source (2395-2401); the note at line 177 discloses the double- vs single-quote difference. Section attributions checked against source headings (Friction 350, Uncertainty 424, Complexity 643, Ch 1 Conclusion 949, Professionalism 2349, Training 2463, Equipping 2730, Philosophy of command 3202, Commander's intent 3682): all correct. Derived-from-deep sha256 matches the current deep ref. Integration rows checked against the other deep refs: TC 25-20 (lines 7, 48, 124, 130, 246, 253: procedure chapters, review of objectives and intent, 'not a critique', critique = one viewpoint / only what is wrong, immediate feedback while fresh as an informal-AAR strength, supplements FM 25-101), LFUO 2024 (lines 53, 67, 98, 205, 213: firewall in Part 3, no-punitive assurance in the delegation, 'only useful when it learns why people did what they actually did', counterfactual guard in Part 9, reckless-and-willful threshold), NHS (lines 7, 15, 30: five tests, one action or failure to act at a time, 'rarely appropriate' prior in the Preamble), OPL (lines 126, 240: two Blameless Postmortem foundations verbatim, Wheel-of-Misfortune on past postmortems): all faithful. The worked example is labelled operator-authored and presents no outcome as the source's finding. Line 82 ('The source treats the three differently') and line 189 were left FAITHFUL: they describe the treatment accurately without calling it the source's taxonomy; D002/D003 are the lines that do. Claims count covers prose, concept entries, table rows, worked-example source claims, anti-patterns, integration rows, notes and trigger rows; the 62 quotations are checked within those claims, not counted separately."
+}

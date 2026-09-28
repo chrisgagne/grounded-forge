@@ -1,0 +1,65 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/mcdp1-warfighting-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-200 of 200",
+    "deep": "lines 1-242 of 242",
+    "complete": true,
+    "also_read": "converted source mcdp1-warfighting.md lines 70-80 (Foreword), 360-400 (Ch 1 Friction), 2338-2346 (Ch 3 Doctrine), 2380-2450 (Ch 3 Professionalism), 2540-2570 (Ch 3 Training), 3580-3590 (Ch 4 Decisionmaking), 3700-3830 (Ch 4 Commander's intent, Main effort); deep refs of tc-25-20-army-aar, approach-perfect-field-guide-scrum-events, nhs-just-culture-guide, lfuo-learning-review-guide-2024, open-practice-library, letaw-handbook-sweng-methods, liberating-structures-handbook, flo-facilitation-guide (targeted greps); converted sources of those seven for each integration-row quotation; tasks/retro.md for trigger names and the blameless-by-default claim"
+  },
+  "claims_audited": 159,
+  "tally": {"faithful": 154, "minor_drift": 5, "unsupported": 0, "contradicted": 0},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 153,
+      "section": "Anti-patterns This Reference Helps Avoid",
+      "claim": "in a blameless retro the lead ... lets LFUO's counterfactual rule keep the question on what people actually knew",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "loosened gloss of another source's rule",
+      "evidence": "LFUO deep line 205: the rule is that the FLA learns 'why people did what they actually did (why it made sense to them at the time), rather than why they did not do something that — in hindsight — others might think they should have' [V] (Part 9, 'Avoid Counterfactual Arguments'). The LFUO deep does not frame the rule as being about what people knew (no 'knew' anywhere in the deep). The distillation's own Integration row (line 167) states the rule correctly.",
+      "fix": "correct: lets LFUO's counterfactual rule keep the question on why the call made sense to people at the time"
+    },
+    {
+      "id": "D002",
+      "line": 165,
+      "section": "Integration with Other References",
+      "claim": "The Field Guide's rule, \"It's better to have one or two improvement items for the next Sprint than to have too much to change at once\" [V], sets the number",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "cross-source [V] quotation carries no section citation (every other integration-row quotation is cited)",
+      "evidence": "Field Guide deep line 356: quotation is [V] at (Sprint Retrospective, 'Sample 1½-Hour Sprint Retrospective Agenda'); wording matches the converted source (grep hits for both halves). Only the MCDP 1 side of the row is cited.",
+      "fix": "correct: insert '(Field Guide, Sprint Retrospective, \"Sample 1½-Hour Sprint Retrospective Agenda\")' after the [V] marker"
+    },
+    {
+      "id": "D003",
+      "line": 20,
+      "section": "Key Concepts for Retrospective",
+      "claim": "MCDP 1's word for this practice is critique; it does not use the terms after-action review or retrospective.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported claim not carried by the deep reference",
+      "evidence": "Deep line 115 carries only 'it does not use the term after-action review'. The 'retrospective' absence is true in the converted source (grep -i 'retro': 0 hits; 'after-action', 'after action', 'AAR': 0 hits), but the deep does not state it.",
+      "fix": "cycle-to-deep: deep line 115, extend to 'it does not use the terms after-action review or retrospective'"
+    },
+    {
+      "id": "D004",
+      "line": 176,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "[MCDP 1] never uses the words retrospective or after-action review, and says nothing about software teams.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported claims not carried by the deep reference",
+      "evidence": "Same as D003 for 'retrospective'; 'software' also has 0 hits in the converted source (grep -i). The deep carries only the after-action-review absence (line 115).",
+      "fix": "cycle-to-deep: deep line 115 (or Source-integrity notes), add that the document uses neither 'retrospective' nor 'after-action review' and does not address software work"
+    },
+    {
+      "id": "D005",
+      "line": 178,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The zero-defects blockquote joins two deep-ref [V] excerpts that are adjacent in the source (Ch 3, \"Professionalism\").",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "provenance count off by one",
+      "evidence": "The blockquote draws on three deep-ref [V] fragments: deep line 111 ('We should deal with such errors leniently; there must be no \"zero defects\" mentality . . .'), deep line 193 ('Abolishing \"zero defects\" means that we do not stifle boldness or initiative through the threat of punishment'), and deep line 111 ('It does not mean that commanders do not counsel ... recklessly'). The substantive claim holds: the blockquote is contiguous source text (converted lines 2395-2401) and every word sits inside a deep-ref [V].",
+      "fix": "correct: The zero-defects blockquote joins three overlapping deep-ref [V] excerpts that are contiguous in the source (Ch 3, \"Professionalism\")."
+    }
+  ],
+  "notes": "vflags check: repair/vflags/mcdp1-warfighting.json holds 10 entries, none for distillations/retro/mcdp1-warfighting-retro.md (all are aar, decision-making or stakeholder-engagement files), so there were no retro vflags to grade. Every MCDP 1 [V] quotation in the file (Foreword; Ch 1 Friction; Ch 3 Doctrine, Professionalism, Training; Ch 4 Decisionmaking, Commander's intent, Main effort) was checked against the converted source and matches word for word once line-break hyphens are joined; each one also appears as [V] in the deep ref. The four blockquotes (critique, zero defects, honest dissent, main effort) are contiguous source text. The line 178 claim that no quoted passage carries an OCR garble holds: nearby garbles ('should he brief', 'where', the', 'tmst ... hy ... ahilities') all fall outside the quoted spans, and the trust clause is correctly downgraded to [AP] for exactly that reason. The page-break reasons given for the 'or timidity' split (source pages 57/58) and the 'in order to' example (pages 89/90) check out. The integration-row quotations (TC 25-20 x3, Field Guide x2, NHS, LFUO, OPL, Letaw, LS) match their own deep refs with the right markers (Prime Directive correctly [BT] to Kerth) and appear in their converted sources, some across line wraps; LFUO's unspaced em dashes are normalised. All eight runtime-trigger names match tasks/retro.md field 2a verbatim, and 'the retro axis is blameless by default' is backed by retro.md line 44. The tried-vs-not-started mapping of the doctrine's overboldness/inaction pairing is the distillation's analogy, and the distillation says so (lines 31, 33, 176); the worked example's safety-score outcome is explicitly disclaimed (line 146). No UNSUPPORTED or CONTRADICTED claims. The claim count is an enumeration of discrete assertions: prose sentences, quotations, table rows, worked-example steps, integration rows, integrity-note statements."
+}

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a8f2adb8f4461da8287f1222f0911c1f4cd76489cc7ac395fbcaefe4de447629 -->
+<!-- derived-from-deep: sha256:3ce94d54a8fde4de59e43729faca331d9c17379e5fcb399133342886497c1dbe -->
 # OpenStax, Principles of Marketing, Decision-Making Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -9,7 +9,7 @@ Marketing decision-making sits at the intersection of customer value creation an
 
 The book is also strong on the decision-environment side: the five-step strategic planning process (vision → mission → gap → SMART goals → monitor), the BCG matrix and SWOT for portfolio choice, the 12-element marketing plan, the four growth strategies (penetration, product development, market development, diversification), and the seven pricing objectives all give a marketer concrete templates for structuring decision deliberation. Equally useful: explicit metrics and KPIs at every stage (CSAT, CAC, CES, CLV, ROAS, CTR, CPC, conversion rate, gross margin, market share, percentage of on-time shipments).
 
-The text is most useful for *commercial* decisions involving customer acquisition, retention, and lifetime value optimisation. It is less useful — and explicitly silent — on internal organisational decisions like restructuring, headcount, or governance design (which are organisational-behaviour or strategy-of-the-firm domains).
+The text is most useful for *commercial* decisions involving customer acquisition, retention, and lifetime value optimisation. It is less useful for internal organisational decisions such as restructuring or governance design (organisational-behaviour or strategy-of-the-firm domains); it touches them mainly through the 5Ms (Ch 1.3), sales-force structure and compensation (Ch 15.2, 15.4) and internal marketing (Ch 1.1, 11.2).
 
 ## Verbatim anchors from the source
 
@@ -19,9 +19,9 @@ Strategy is defined verbatim as "the plans, actions, objectives, and goals that 
 
 The marketing mix — the lever set every commercial decision-maker is setting — is "commonly referred to as the tactics a company can use to promote its products or services in the market in order to influence consumers to buy" [V] (Ch 1.2, "Marketing Mix Defined").
 
-Positioning — drawing on Ries and Trout — is "not to create something new and different, but to manipulate what's already up there in the mind" [V] (Ch 5.6, "Product Positioning Defined").
+Positioning — drawing on Ries and Trout — is "not to create something new and different, but to manipulate what's already up there in the mind" [BT] (Ch 5.6, "Product Positioning Defined").
 
-Ted Levitt's needs-based segmentation principle: "People don't want to buy a quarter-inch drill; they want a quarter-inch hole" [V] (Ch 5.2, "Methods of Segmenting B2B Markets").
+Ted Levitt's needs-based segmentation principle: "People don't want to buy a quarter-inch drill; they want a quarter-inch hole" [BT] (Ch 5.2, "Methods of Segmenting B2B Markets").
 
 ## Key Concepts for Decision-Making
 
@@ -51,12 +51,12 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 
 | Need | Question |
 |---|---|
-| Identify the decision domain | Is this a *strategy* decision (vision/mission/gap), a *marketing-mix* decision (product/price/place/promotion), a *customer-journey* decision (segmentation/targeting/positioning), or a *channel/operations* decision (distribution/logistics)? |
+| Identify the decision domain | Is this a *strategy* decision (vision/mission/gap), a *marketing-mix* decision (product/price/place/promotion), a *customer-focus* decision (segmentation/targeting/positioning), or a *channel/operations* decision (distribution/logistics)? |
 | Test the decision is the right size | What's the *scope* — single product, product line, product mix, business unit, corporate? |
 | Surface the constraints | What are our 5Ms — minds, minutes, machinery, materials, money? |
 | Surface external pressure | What does the PESTLE scan reveal about the political, economic, social, technological, legal, environmental forces shaping the decision? |
 | Test the time horizon | Is this a *goal* (3–5 year) or *objective* (1 year or less) decision? |
-| Test goal quality | If this is a goal decision, can we state it as SMART — specific, measurable, attainable, realistic, time-bound? |
+| Test goal quality | Can we state each goal and objective as SMART — specific, measurable, attainable, realistic/relevant, time-bound? |
 
 ### Phase 2: Choose the customer focus
 
@@ -67,7 +67,7 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 | Choose target-market strategy | Are we going undifferentiated/mass, differentiated/segmented, concentrated/niche, or micromarketing? |
 | Define positioning | Are we positioning by attribute, benefit, or value — and is value the most defensible (linked to consumer beliefs)? |
 | Test positioning | Where does our offering sit on the perceptual map relative to competitors on the determinant attributes customers actually use? |
-| Build the buyer persona | Do we have a named persona with age, interests, media usage, finances, brand affinities, and core motivations? |
+| Build the buyer persona | Do we have a named persona with age, interests, media usage, finances and brand affinities? |
 
 ### Phase 3: Decide on the marketing mix
 
@@ -82,7 +82,7 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 | Place/distribution decision: channel | Direct or indirect? If indirect, are vertical, horizontal, multichannel, or omnichannel arrangements indicated by the buyer requirements? |
 | Promotion decision: mix | Which of the six promotion-mix elements (advertising, sales promotion, personal selling, PR, direct, digital) carry the message — and are they integrated (IMC)? |
 | Promotion decision: appeal | Rational, emotional, or moral appeal — and is the choice consistent with the segment's psychology? |
-| Promotion decision: budget | Objective-and-task (best practice), top-down, percent-of-sales, affordable, or competitive parity? |
+| Promotion decision: budget | Objective-and-task (which the source rates perhaps the best method but the least used, Ch 13.4, while warning it can lead to overspending, Ch 14.2), top-down, percent-of-sales, affordable, or competitive parity? |
 
 ### Phase 4: New-product or innovation decisions
 
@@ -113,14 +113,14 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 | Choose advertising metrics | Brand recognition, brand awareness, impressions, conversion rate, ROAS — for ad campaigns. |
 | Choose digital metrics | Traffic, traffic by source, conversions, bounce rate, CTR, CPC, CPA — for online campaigns. |
 | Build the dashboard | Have we configured the marketing dashboard so problems surface early? |
-| Test for misuse | Are we measuring leading indicators or only lagging ones? |
+| Test KPI quality | Is each metric tied to a business objective, with a target and a time frame (the source's test for a KPI, Ch 2.4)? |
 
 ### Phase 7: Sustainability and ethics review
 
 | Need | Question |
 |---|---|
 | ESG check | Does the decision pass the three pillars — environmental impact, social impact (including diversity), economic/governance? |
-| Stakeholder check | Does it work for customers, employees, suppliers, intermediaries, regulators, communities — not just shareholders? |
+| Stakeholder check | Does it work for the stakeholders the source names (customers, shareholders, employees, vendors, interest groups, media, the general public), not customers alone? |
 | Authenticity check | Does it integrate with the company's organic purpose, or is it bolted-on (Walmart Juneteenth ice cream as cautionary)? |
 | Ethics by domain | Pricing — are we avoiding price fixing, predatory pricing, monopoly gouging? Targeting — are we avoiding ethnic profiling, marketing-to-children abuses, exploitative low-income targeting? Research — are we avoiding sugging and breaches of confidentiality? Promotion — are we avoiding selective truth-telling, false comparisons, advertising harmful products? |
 
@@ -140,7 +140,7 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 - *Strategic-planning workshops* setting vision, mission, goals.
 - *Product-launch decision gates* (NPD nine-stage process).
 - *Pricing-policy review* before a launch, repositioning, or competitor response.
-- *Segmentation and targeting refresh* — typically every 18–36 months, more frequent in fast-moving categories.
+- *Segmentation and targeting refresh.*
 - *Channel-redesign decisions* — when shifting from indirect to direct, adding e-commerce, or rationalising intermediaries.
 - *Promotion-mix audit* — when ROAS, CPA, or brand-engagement metrics decline.
 - *Sustainability-strategy formulation* — integrating ESG into operations.
@@ -150,7 +150,7 @@ Ted Levitt's needs-based segmentation principle: "People don't want to buy a qua
 
 A regional cookware brand with a single hero product line is considering its next move. Annual sales growth has slowed from 12 per cent to 4 per cent over three years. The CEO wants growth; the CFO wants margin protection.
 
-Apply the four generic growth strategies (Ch 2.2): four options visible — penetration (more of the same line in the same markets, via heavier promotion or distribution intensity), product development (new product types to existing customers), market development (existing line into new geographies or channels), diversification (new products into new markets — highest risk).
+Apply the four generic growth strategies (Ch 2.2): four options visible — penetration (more of the same line in the same markets, via heavier promotion or distribution intensity), product development (new product types to existing customers), market development (existing line into new geographies or channels), diversification (new products into new markets).
 
 Apply gap analysis (Ch 2.1): current state is 4 per cent growth. Desired state is 10 per cent growth. The gap is 6 percentage points, sustained.
 
@@ -162,18 +162,18 @@ Apply Five Cs of pricing: customers signal willingness to pay for quality and du
 
 Apply STP: existing segment is *cooking enthusiasts 35–55*; potential segment is *first-time home owners 25–35* who want quality but cannot pay enthusiast prices.
 
-Apply NPD nine-stage: a stretching-down product line variant (per Tesla Model 3 logic) for the first-time-home-owner segment can be tested at stages 4 (concept testing) and 7 (test marketing) before commercialisation.
+Apply NPD nine-stage: a stretching-down product line variant (per Tesla Model 3 logic) for the first-time-home-owner segment can be tested at stages 3 (concept development and testing) and 7 (test-marketing) before commercialisation.
 
-Apply IMC: the launch will need email + content marketing + social commerce (Instagram, TikTok per Ch 16.2) to reach the under-35 segment, integrated with traditional in-store promotion at the existing retailers.
+Apply IMC: the launch will need email + content marketing + social media (Instagram and TikTok, among the most popular platforms under 30, Ch 16.2) and social commerce (Ch 18.4) to reach the under-35 segment, integrated with traditional in-store promotion at the existing retailers.
 
-Decision: stretch-down product development to a new segment is the highest-expected-value option — combines two of the four growth strategies (product development primary, market development secondary). Risk-mitigated by phased NPD stage gates and segment-specific positioning that protects the premium brand.
+Decision: a stretch-down variant for a new segment is the highest-expected-value option. In the source's growth matrix it is not product development, which serves existing markets; it sits between market development (new market segments for the company's products; the source's own Harley-Davidson illustration counts a new motorcycle built for China as market development) and concentric diversification (similar products added to the existing business) (Ch 2.2). Risk-mitigated by phased NPD stage gates and segment-specific positioning that protects the premium brand.
 
 ## Anti-patterns This Reference Helps Avoid
 
 - *"Build it and they will come"* — product-driven thinking that ignores Step 1 of the marketing process (understand marketplace and customers).
 - *Imitating competitors' growth strategy* without checking it against your own gap analysis and 5Ms.
 - *Pricing for revenue maximisation only*, ignoring customer value perception (price-value equation).
-- *One-size-fits-all positioning* in a multicultural marketplace — the "Burger King Texican Whopper" failure mode.
+- *Targeting a multicultural segment from surface culture only* — Burger King's "Texican Whopper" campaign failed because the marketers lacked an understanding of the intangible aspects of Mexican culture (Ch 8.3).
 - *Ad spending that's not integrated* — running a brand campaign on TV while sales promotion offers conflicting messages on the same product.
 - *Over-emphasising acquisition and under-investing in retention* — CAC inflation without CLV growth.
 - *Authentic-purpose marketing as advertising tactic* — the Walmart Juneteenth pattern.
@@ -183,12 +183,12 @@ Decision: stretch-down product development to a new segment is the highest-expec
 
 | Reference | Connection |
 |---|---|
-| Stewart Black et al., *Organizational Behavior* (OpenStax) | The internal-environment 5Ms map closely to OB's individual/group/organisational levels; Argyris's basic-incongruity thesis provides depth on the *minds* element. |
-| Goldratt's Theory of Constraints | The five-step marketing process can be re-read as constraint-finding; the gap analysis is structurally similar to TOC's gap identification. |
+| Stewart Black et al., *Organizational Behavior* (OpenStax) | The 5Ms' *minds* element (staffing) is where OB's individual-, group- and organisation-level analysis applies; Argyris's basic-incongruity thesis (OB Ch 2.5) adds depth on how traditional organisations conflict with adults' developmental needs. |
+| Goldratt's Theory of Constraints (held via *Principles of Accounting Vol 2*, Ch 1.5; not cited by this source) | The gap analysis's third question, what is stopping us from getting there (Ch 2.1), is where TOC's first focusing step (identify the system constraint) can sharpen the answer. |
 | Hofstede's cultural dimensions | The text uses Hofstede directly for international segmentation (Ch 5.3) and multicultural marketing (Ch 8.3). |
 | Maslow's hierarchy | Directly anchors the psychological-factors discussion in consumer behaviour (Ch 3.2). |
 | Levitt's "Marketing Myopia" | Cited approvingly twice — informs the customer-driven thesis. |
-| Ries & Trout, *Positioning* | Cited verbatim — the conceptual backbone of Ch 5.6. |
+| Ries & Trout, *Positioning* | Cited once, verbatim, for the positioning thesis (positioning works on what is already in the customer's mind, Ch 5.6). |
 | Rogers, *Diffusion of Innovations* | The five adopter categories (Ch 10.5) are Rogers's framework imported directly. |
 
 ## Citation and Source-Integrity Notes
@@ -199,13 +199,13 @@ Decision: stretch-down product development to a new segment is the highest-expec
 - *Geert Hofstede, cultural dimensions* — cited as "particularly useful" for cross-cultural segmentation and international marketing analysis (Ch 5.3; Ch 8.3) [BT]. Integration table notes this relationship.
 - *Everett Rogers, Diffusion of Innovations (1962)* — five-adopter-category framework (innovators, early adopters, early/late majority, laggards) imported directly as Key Concept and NPD guidance (Ch 10.5) [BT].
 - *Theodore Levitt, "Marketing Myopia"* — cited approvingly twice as foundation for the customer-driven thesis (Ch 1.4; Ch 5.2) [BT]. Integration table notes this relationship.
-- *Al Ries and Jack Trout, Positioning* — conceptual backbone of positioning and STP treatment (Ch 5.6) [BT]. Integration table notes this relationship.
+- *Al Ries and Jack Trout, Positioning* — quoted once for the positioning thesis (Ch 5.6); the source relays their words [BT]. Integration table notes this relationship.
 - *Clayton Christensen* — cited for the estimate that ~30,000 new products are launched per year and ~95 per cent fail (Ch 10.4) [BT].
 - *Kevin Lane Keller, brand-equity pyramid* — cited approvingly for brand architecture (Ch 9.5) [BT].
 - *Zeithaml, Parasuraman, Berry, Delivering Quality Service* — RATER framework for service quality (Ch 11.3) [BT].
 - *Edward T. Hall, cultural iceberg metaphor* — tangible/intangible culture distinction used in cross-cultural marketing (Ch 8.3) [BT].
 - *Christopher Lovelock* — four-category service taxonomy (Ch 11.1) [BT].
 
-**Named limits of the source.** The text is an introductory marketing survey; it covers the commercial decision space — customer acquisition, segmentation, pricing, promotion, distribution — with breadth but limited depth on any single domain. Pricing theory (especially game-theoretic competitive pricing and price-discrimination mechanics) is introduced without full treatment. The sustainability chapter (Ch 19) covers ESG orientation but does not develop full ESG-reporting or life-cycle analysis methods. The book is explicitly silent on internal organisational decisions.
+**Named limits of the source.** The text is an introductory marketing survey; it covers the commercial decision space — customer acquisition, segmentation, pricing, promotion, distribution — with breadth but limited depth on any single domain. Pricing is covered at survey depth (objectives, Five Cs, elasticity, new-product strategies, tactics, ethics); competitive-pricing theory is outside its scope, and price discrimination appears only as an ethics topic (Ch 12.6). The sustainability chapter (Ch 19) covers ESG orientation but does not develop full ESG-reporting or life-cycle analysis methods. The book does not treat internal organisational decisions (restructuring, governance design) beyond the 5Ms, sales-force structure and internal marketing.
 
-**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-marketing-deep.md`). Key Concepts are `[AP]` (the source's stated positions on marketing method) or `[AE]` (worked examples drawn from the source). The foundational frameworks imported from other authors — Maslow, Hofstede, Rogers, Levitt, Ries/Trout — are all `[BT]`; the source endorses and applies them but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-principles-marketing-deep.md`). Key Concepts carry no inline markers; they paraphrase the source's frameworks. The Ries & Trout and Levitt quotations are words the source relays (`[BT]`); Maslow, Hofstede and Rogers are `[BT]` frameworks the source applies but did not originate.

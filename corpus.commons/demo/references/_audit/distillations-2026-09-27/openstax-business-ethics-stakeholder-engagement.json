@@ -1,0 +1,349 @@
+{
+ "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-business-ethics-stakeholder-engagement.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-210 of 210",
+  "deep": "lines 1-660 of 660",
+  "complete": true
+ },
+ "claims_audited": 170,
+ "tally": {
+  "faithful": 137,
+  "minor_drift": 27,
+  "unsupported": 3,
+  "contradicted": 3
+ },
+ "findings": [
+  {
+   "id": "D001",
+   "line": 8,
+   "section": "Stakeholder-Engagement Relevance",
+   "claim": "Chapter 11 closes with the lead author's stakeholder credo: \"all stakeholders are significant\".",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Wrong location and non-verbatim quote: the credo is Appendix C; Ch 11 closes on 'The purpose of business is relationships...'.",
+   "evidence": "Deep 488 (App C: 'While not all stakeholders are equal in significance, they nonetheless all are significant.' [V]); deep 478 (Ch 11.4 closing statement).",
+   "fix": "correct: Appendix C closes with the lead author's stakeholder credo: \"While not all stakeholders are equal in significance, they nonetheless all are significant\" [V]."
+  },
+  {
+   "id": "D002",
+   "line": 14,
+   "section": "Key Concepts #1",
+   "claim": "The book stresses that stakeholders may play multiple roles (an employee is also a customer, a community member, perhaps a stockholder). (cited Ch 1.1, Ch 3.1)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's Ch 1.2 stakeholder-spreadsheet passage, which the deep ref summarises without the multiple-roles point; cited to the wrong sections.",
+   "evidence": "Deep 39 (three-column spreadsheet, Ch 1.2). Source 1094-1098 ('Some individuals and groups play more than one role. For instance, some employees may be stockholders, some members of the community may be suppliers, and the government may be a customer of the firm').",
+   "fix": "cycle-to-deep: add source 1095-1097 to deep 39 as [V] (Ch 1.2, \"Stockholders, Stakeholders, and Goodwill\"); then correct the citation to Ch 1.2."
+  },
+  {
+   "id": "D003",
+   "line": 16,
+   "section": "Key Concepts #2",
+   "claim": "\"the interests of all stakeholders … of intrinsic value\" [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: Donaldson and Preston's words quoted by the source.",
+   "evidence": "Source 4011-4013; deep 526 (citing Donaldson and Preston).",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D004",
+   "line": 20,
+   "section": "Key Concepts #4",
+   "claim": "(Source: Ch 3.2, \"Grunig and Hunt's Theory\")",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mis-cited section: no such section; the deep ref cites the four publics to Ch 3.2, 'The Chicago Tylenol Murders'.",
+   "evidence": "Deep 122; source grep finds no 'Grunig and Hunt's Theory'.",
+   "fix": "correct: (Source: Ch 3.2, \"The Chicago Tylenol Murders\")"
+  },
+  {
+   "id": "D005",
+   "line": 22,
+   "section": "Key Concepts #5",
+   "claim": "low-power-low-interest = monitor only; high-power-low-interest = keep satisfied; low-power-high-interest = communicate / inform but their priority is low unless exigency rises",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Quadrant prescriptions (a standard power-interest grid from outside the source) presented as the book's; the deep ref carries only the high-high key-stakeholder rule, and the source text only a low-low and a low-power-high-interest farmer example.",
+   "evidence": "Deep 126. Source 4340-4362 (key stakeholder; farmer examples; no monitor/keep-satisfied/inform labels).",
+   "fix": "correct: Power × interest matrix — high-power-high-interest = key stakeholder, whose priority rises if a problem arises. *Exigency* (urgency of a stakeholder claim) combines with inherent priority. (Source: Ch 3.3, \"Stakeholder Prioritization\")"
+  },
+  {
+   "id": "D006",
+   "line": 24,
+   "section": "Key Concepts #6",
+   "claim": "gather and analyse data on concerns through surveys, focus groups, social-media monitoring, product-usage data; ... reidentify periodically ... The text frames this as standard practice",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Detail supported by the source but not by the deep ref (which lists the five steps only); 'standard practice' overstates the source's 'Some tools are available to help'.",
+   "evidence": "Deep 128. Source 4380-4400.",
+   "fix": "cycle-to-deep: add the MITRE detail from source 4386-4400 to deep 128; then correct: 'The text offers this as one available tool and stresses closing the loop.'"
+  },
+  {
+   "id": "D007",
+   "line": 34,
+   "section": "Key Concepts #11",
+   "claim": "pay equity (Equal Pay Act, Bostock)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Misattribution: Bostock concerns discrimination based on sexual orientation and gender identity (Ch 8.3), not pay equity.",
+   "evidence": "Deep 338 (Bostock v. Clayton County, 'sex' includes sexual orientation and gender identity); deep 230 (Equal Pay Act).",
+   "fix": "correct: pay equity (Equal Pay Act), protection from discrimination on sexual orientation and gender identity (Bostock)"
+  },
+  {
+   "id": "D008",
+   "line": 36,
+   "section": "Key Concepts #12",
+   "claim": "Howard Ross: \"Diversity is being invited to the party; inclusion is being asked to dance.\" [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: Ross's words relayed by the source; deep marks [V] [BT].",
+   "evidence": "Deep 320, 530.",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D009",
+   "line": 36,
+   "section": "Key Concepts #12",
+   "claim": "McKinsey's diversity-dividend research links top-quartile diversity to top-quartile financial performance.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Finding misstated: top-quartile firms were 15% (gender) and 35% (ethnic) more likely to post above-median returns; the board-diversity study compared top and bottom quartiles on return on equity.",
+   "evidence": "Deep 322.",
+   "fix": "correct: McKinsey found companies in the top 25% for gender diversity 15% more likely, and for racial/ethnic diversity 35% more likely, to post above-median financial returns [V] [BT] (Ch 8.1)."
+  },
+  {
+   "id": "D010",
+   "line": 40,
+   "section": "Key Concepts #14",
+   "claim": "The Equifax data-breach response (executive stock sales weeks before public announcement)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's Ch 1.2 case box; the deep ref lists Equifax only as a scandal exemplar.",
+   "evidence": "Deep 632. Source 1198-1203 (executives sold nearly $2 million of stock after learning of the hack in late July, 'weeks before it was publicly announced on September 7, 2017').",
+   "fix": "cycle-to-deep: add source 1198-1203 to the deep's Ch 1.2 section (\"The Equifax Data Breach\")."
+  },
+  {
+   "id": "D011",
+   "line": 42,
+   "section": "Key Concepts #15",
+   "claim": "The text frames whistleblowing as \"a steward of the public interest\" [V] when motives are appropriate.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Verbatim re-extracted from the source (not in the deep ref), and loosened: the source says the responsible employee becomes a steward of the public interest even when not acting wholly altruistically.",
+   "evidence": "Deep 308-310 (no such phrase). Source 11708-11711 ('Even when whistleblowers are not acting completely altruistically, their revelations may still be true... Thus, in such situations, the responsible employee becomes a steward of the public interest').",
+   "fix": "cycle-to-deep: add source 11708-11711 to deep 308 as [V] (Ch 7.5); then correct: The text says the responsible employee who reports becomes \"a steward of the public interest\" [V], even when motives are not wholly altruistic."
+  },
+  {
+   "id": "D012",
+   "line": 44,
+   "section": "Key Concepts #16",
+   "claim": "The 1-1-1 model and integrated philanthropy (Salesforce / Benioff). Donating 1% of equity, 1% of employee time, and 1% of products",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's Appendix B profile, which the deep ref does not summarise (it notes only that App B profiles ten leaders).",
+   "evidence": "Deep 7. Source 18815-18852 ('\"1-1-1 model.\" This is a company program that donates 1% of equity, 1% of employee time, and 1% of products').",
+   "fix": "cycle-to-deep: add an App B line for Marc Benioff's 1-1-1 model (source 18851-18852)."
+  },
+  {
+   "id": "D013",
+   "line": 65,
+   "section": "Questions, Phase 2",
+   "claim": "The book is explicit that ethical engagement requires that low-power-high-interest stakeholders not be ignored.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The deep ref does not carry this; the source's nearest statement is economic and general: 'no organization can blithely ignore any stakeholder without potentially debilitating economic consequences'.",
+   "evidence": "Deep 126. Source 4364-4367.",
+   "fix": "cycle-to-deep: add source 4365-4367 to deep 126 as [V] (Ch 3.3); then correct: The book warns that no organisation can ignore any stakeholder without potentially debilitating economic consequences (Ch 3.3); the normative approach adds the ethical reason (Ch 3.2)."
+  },
+  {
+   "id": "D014",
+   "line": 79,
+   "section": "Questions, Phase 3",
+   "claim": "Citizens United gave corporations free-speech rights to spend without limit on political advocacy.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overstated: the deep ref reports the ruling struck down laws preventing corporations from using general treasury funds for political advertising.",
+   "evidence": "Deep 168; deep 150.",
+   "fix": "correct: Citizens United held that laws barring corporations from using general treasury funds for political advertising violated the First Amendment (Ch 4.3)."
+  },
+  {
+   "id": "D015",
+   "line": 90,
+   "section": "Questions, Phase 4",
+   "claim": "Volkswagen and Wells Fargo discovered the engagement landscape after the EPA / regulators announced",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Wells Fargo appears in the source only as a bank that raised wages and a building name; no Wells Fargo scandal is in the source or deep ref. The source says of VW only 'When the fraud was discovered'.",
+   "evidence": "Deep 350 (Wells Fargo raised wages to $15/hr). Source 5864, 18082 (other Wells Fargo mentions); source 4194-4196 (VW).",
+   "fix": "correct: Volkswagen's cover-up turned once-loyal stakeholders into 'an aware and active public' when the fraud was discovered (Ch 3.2); ethical engagement gets ahead of this by surfacing concerns proactively."
+  },
+  {
+   "id": "D016",
+   "line": 107,
+   "section": "Questions, Phase 6",
+   "claim": "cultures that permit bribery, sweatshop labour, environmental dumping, or corruption? The text takes a strong position: the same standard applies.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "'Environmental dumping' is supported by the source's Ch 5 box on dumping toxic waste in countries that allow it, which the deep ref does not carry.",
+   "evidence": "Deep 15. Source 6005-6009.",
+   "fix": "cycle-to-deep: add the Ch 5 box \"Is It Ethical to Dump Toxic Waste in Countries That Allow It?\" to the deep ref."
+  },
+  {
+   "id": "D017",
+   "line": 114,
+   "section": "What to Look For",
+   "claim": "Diagnosis (in source vocabulary): stakeholder identification is descriptive without normative testing",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mislabelled approach: the descriptive approach aims at the most accurate model of stakeholder interests; a habitual distribution list fails descriptive accuracy too.",
+   "evidence": "Deep 111 (descriptive: develop the most accurate model and balance interests fairly).",
+   "fix": "correct: Diagnosis: stakeholder identification is neither accurate (descriptive) nor normatively tested"
+  },
+  {
+   "id": "D018",
+   "line": 117,
+   "section": "What to Look For",
+   "claim": "the firm has missed the latent-public window when communication could have been guided",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source, not carried by the deep ref.",
+   "evidence": "Source 4133-4136 ('If an organization is aware of a problem and the public is not, the organization has an opportunity to communicate and guide the public'); deep 122 carries definitions only.",
+   "fix": "cycle-to-deep: add source 4133-4136 to deep 122 as [V] (Ch 3.2)."
+  },
+  {
+   "id": "D019",
+   "line": 142,
+   "section": "Worked Example",
+   "claim": "Diffused: community organisations, local press, regulators",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Misclassification: the source's enabling stakeholders include government regulators.",
+   "evidence": "Deep 117 (enabling: stockholders, legislatures, government regulators, boards).",
+   "fix": "correct: Enabling: shareholders, board, lenders, regulators ... Diffused: community organisations, local press"
+  },
+  {
+   "id": "D020",
+   "line": 154,
+   "section": "Worked Example",
+   "claim": "The CEO presents both options to the board, framing them as \"ethical-minimum\" (close all five) versus \"ethical-maximum\" (the hybrid).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept misapplied: the ethical maximum is 'the strongest action a company can choose'; a hybrid that still closes three stores is not it (keeping all five open is stronger), and closing all five is not necessarily the least the law allows.",
+   "evidence": "Deep 107 (ethical maximum; ethical minimum).",
+   "fix": "correct: framing them as a point on the spectrum between the ethical minimum and the ethical maximum: the hybrid sits well above closure-only without reaching the strongest available action (keeping all five open)."
+  },
+  {
+   "id": "D021",
+   "line": 156,
+   "section": "Worked Example",
+   "claim": "Eighteen months later: store sales ... recovering; ... goodwill ... registered measurably ... The CFO concedes that the long-term financial outcome is comparable to the closure-only option",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Invented outcome presented as the framework's payoff; the deep ref reports the book's argument about goodwill, not results of this kind. Unmarked as hypothetical.",
+   "evidence": "Deep 13, 19, 41 (argument only).",
+   "fix": "correct: prefix 'Hypothetically,' and drop the CFO concession, or strip the paragraph."
+  },
+  {
+   "id": "D022",
+   "line": 158,
+   "section": "Worked Example",
+   "claim": "The enabling/functional/diffused stakeholder taxonomy (Ch 3.2), the moral-minimum / ethical-maximum distinction (Ch 1.4), the triple-bottom-line framing (Ch 3.4), the utilitarian / deontological / Rawlsian ethical analysis (Ch 2.1, App C), and the \"tone at the top\" [BT] concept (a term the source presents as already current, Ch 5.4) are `[AP]`-marked passages in the deep ref.",
+   "grade": "CONTRADICTED",
+   "failure_mode": "False audit trail. There is no Ch 1.4 (moral minimum is Ch 4.1; ethical min/max is Ch 3.1, both [V]); utilitarianism, deontology and Rawls are Ch 2.4, 2.5, 2.6 (Ch 2.1 is Aristotle); tone at the top is Ch 11.3, not 5.4; the triple bottom line is [V]; the Grunig-Hunt taxonomy is [BT] with [V] quotations. None of these is '[AP]-marked' as stated.",
+   "evidence": "Deep 19, 107, 146 ([V]); deep 83-99 (Ch 2.4-2.6); deep 21 and source 17973 (tone at the top, Ch 11.3); deep 132 (TBL [V]); deep 115-120.",
+   "fix": "correct: The scenario is operator-authored. Framework citations: Grunig-Hunt taxonomy (Ch 3.2) [BT]; ethical minimum/maximum (Ch 3.1) and moral minimum (Ch 4.1) [V]; triple bottom line (Ch 3.4) [V]; utilitarian, deontological and Rawlsian analysis (Ch 2.4-2.6, App C); tone at the top (Ch 11.3)."
+  },
+  {
+   "id": "D023",
+   "line": 181,
+   "section": "Integration",
+   "claim": "Universal Declaration of Human Rights (UN) — Anchors absolute values across cultures.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's Ch 5 discussion, which the deep ref does not carry (it mentions only the UN Global Compact). Same at line 198.",
+   "evidence": "Deep 186 (UN Global Compact only). Source 7942, 8005 (UDHR as 'a useful' reference in the absolute-values discussion).",
+   "fix": "cycle-to-deep: add the source's Ch 5 references to the UN Universal Declaration of Human Rights (source 7942-7944, 8005-8006) to the deep's 'Universal values' section."
+  },
+  {
+   "id": "D024",
+   "line": 187,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "Aristotle, Confucius, Plato — virtue ethics and eudaimonia foundations (Chs 1.1, 2.1) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Confucius is Ch 2.2-2.3; Plato is not in the deep ref (the source mentions him only as Aristotle's teacher).",
+   "evidence": "Deep 71-79 (Confucius, Ch 2.2-2.3); source 1643, 1676.",
+   "fix": "correct: Aristotle (Ch 1.1, 2.1) and Confucius (Ch 2.2-2.3) — virtue ethics foundations [BT]"
+  },
+  {
+   "id": "D025",
+   "line": 188,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "Immanuel Kant — categorical imperative and deontological ethics (Ch 2.3, App C) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Wrong chapter: Kant is Ch 2.5 (and App A); Ch 2.3 is 'East Meets West'.",
+   "evidence": "Deep 87-91, 603.",
+   "fix": "correct: (Ch 2.5, App A, App C)"
+  },
+  {
+   "id": "D026",
+   "line": 189,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "John Stuart Mill and Jeremy Bentham — utilitarian ethics (Ch 2.1, App C) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Wrong chapter: Bentham and Mill are Ch 2.4 (and App A); App C mentions neither.",
+   "evidence": "Deep 81-85, 602.",
+   "fix": "correct: (Ch 2.4, App A)"
+  },
+  {
+   "id": "D027",
+   "line": 190,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "John Rawls — veil of ignorance and justice as fairness (Ch 2.4, App C) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Wrong chapter: Rawls is Ch 2.6 (and App A).",
+   "evidence": "Deep 93-99, 604.",
+   "fix": "correct: (Ch 2.6, App A)"
+  },
+  {
+   "id": "D028",
+   "line": 191,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "Freeman (stakeholder theory) — foundational stakeholder-theory treatment (Ch 3.2) [BT]",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Freeman is not cited for stakeholder theory in the source body or the deep ref; he appears only as series editor in endnote bibliography entries. Line 210 repeats him as a [BT] author.",
+   "evidence": "Deep ref: no Freeman. Source 3459, 8572, 8578 (endnotes: 'The Ruffin Series in Business Ethics, ed. R. Edward Freeman').",
+   "fix": "strip"
+  },
+  {
+   "id": "D029",
+   "line": 196,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "Garrett Hardin — tragedy of the commons (Ch 3.3) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Wrong chapter: tragedy of the commons is Ch 4.2 (Lloyd and Hardin).",
+   "evidence": "Deep 152, 611.",
+   "fix": "correct: Garrett Hardin and William Forster Lloyd — tragedy of the commons (Ch 4.2) [BT]"
+  },
+  {
+   "id": "D030",
+   "line": 198,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "Universal Declaration of Human Rights (UN) — absolute values anchor (Ch 5) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Source-supported, deep-absent (see D023).",
+   "evidence": "Deep 186; source 7942, 8005.",
+   "fix": "cycle-to-deep: as D023."
+  },
+  {
+   "id": "D031",
+   "line": 210,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "(101 `[BT]` markers)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Count wrong.",
+   "evidence": "grep of the deep ref: 106 '[BT]' tokens (107 counting the malformed '[V] BT]' at deep 184).",
+   "fix": "correct: (106 `[BT]` markers)"
+  },
+  {
+   "id": "D032",
+   "line": 210,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "The enabling/functional/diffused taxonomy (Ch 3.2), moral-minimum/ethical-maximum distinction (Ch 1.4), triple-bottom-line framing (Ch 3.4), and tone-at-the-top concept (Ch 5.4) are `[AP]` in the deep ref.",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Same false audit trail as D022: no Ch 1.4; tone at the top is Ch 11.3; these passages are [V] or [BT], not [AP].",
+   "evidence": "Deep 19, 107, 115-120, 132, 146; deep 21; source 17973.",
+   "fix": "correct: The Grunig-Hunt taxonomy (Ch 3.2) is [BT] with [V] quotations; ethical minimum/maximum (Ch 3.1), moral minimum (Ch 4.1) and the triple bottom line (Ch 3.4) are [V]; tone at the top is Ch 11.3."
+  },
+  {
+   "id": "D033",
+   "line": 210,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "the J&J Tylenol reference (Ch 13.1), Bhopal (Ch 3.1), and Nestlé cases are `[AE]` (author examples)",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Fabricated provenance: the book has eleven chapters (no Ch 13.1; Tylenol is Ch 3.2); Bhopal appears nowhere in the source; Nestlé appears only as a customer of Rise Products (Ch 11.4), with no case. None of these is an [AE] passage in the deep ref, and the distillation does not use Bhopal or Nestlé.",
+   "evidence": "Deep 7 (eleven chapters), deep 122 (Tylenol, Ch 3.2). Source grep: 'Bhopal' absent; 'Nestlé' only at 18164.",
+   "fix": "correct: the J&J Tylenol (Ch 3.2), Samsung washer recall (Ch 3.1) and Volkswagen (Ch 3.2) cases are author examples"
+  }
+ ],
+ "notes": "The body is mostly sound: Ch 3's taxonomies, CSR, special stakeholders, employee rights, accommodation and cross-cultural material trace. Many body claims draw on source passages the deep ref lacks (multiple roles, MITRE detail, Equifax, 'steward of the public interest', Benioff 1-1-1, UDHR, environmental dumping, latent-public window): cycle them to the deep. The integrity tail is the problem: the worked-example provenance note (line 158) and the evidence-marker paragraph (line 210) cite non-existent chapters (1.4, 13.1), a wrong chapter for tone at the top (5.4 for 11.3), wrong markers ([AP] for [V]/[BT]), and cases absent from the source (Bhopal, Nestlé); the borrowed-through list mis-chapters Kant, Mill/Bentham, Rawls and Hardin and adds Freeman, who is not cited in the body. Training-data leakage: power-interest quadrant prescriptions (KC5) and a Wells Fargo scandal (Phase 4)."
+}

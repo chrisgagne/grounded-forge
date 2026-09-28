@@ -1,0 +1,289 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/open-kanban-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-211 of 211",
+    "deep": "lines 1-176 of 176",
+    "complete": true
+  },
+  "claims_audited": 140,
+  "tally": {
+    "faithful": 113,
+    "minor_drift": 23,
+    "unsupported": 3,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 75,
+      "section": "Questions, Phase 2 (Bound by the immutable values)",
+      "claim": "Bound by the immutable values | Is the proposed move consistent with the five values ...? If a decision requires violating a value, the framework asks for a different decision.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Calls the values 'immutable'. The source's second freedom is the freedom to 'study, question, and change Open Kanban as you wish', it expects 'future contributions and revisions', and it says Open Kanban updates itself by listening to the community.",
+      "evidence": "Deep 13: 'to study, question, and change it' (four freedoms) [V]. Deep 164: initial release 'explicitly expecting \"future contributions and revisions\"' [V]. Deep 87: 'Open Kanban further supports learning by listening to the community and updating itself' [V]. Deep 23: values are 'an integral part of Open Kanban' (integral, not immutable).",
+      "fix": "correct: Bound by the five values | Is the proposed move consistent with the five values (Respect, Courage, Focus on Value, Communication and Collaboration, Holistic / Systemic Approach), which the source calls 'an integral part of Open Kanban'? If a decision cuts against a value, name the conflict before committing."
+    },
+    {
+      "id": "D002",
+      "line": 121,
+      "section": "Questions, Phase 6 (Watch for partial-implementation drift)",
+      "claim": "(the learning step is the most commonly skipped)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Empirical claim with no basis in the deep ref.",
+      "evidence": "Deep 83-87 (Learn and improve continuously): no statement about how often any practice is skipped.",
+      "fix": "strip"
+    },
+    {
+      "id": "D003",
+      "line": 182,
+      "section": "Integration, Jones row",
+      "claim": "Jones interrogates Agile and Kanban claims as largely folklore.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Jones deep ref never mentions Kanban and does not class Agile claims as folklore; its named folklore is the 28-to-1 productivity claim and the Halstead/McCabe metrics.",
+      "evidence": "jones-evidence-based-sweng-deep 15, 39-41, 195-197, 298-301 (folklore = Grant-Sackman 28:1, Halstead, McCabe). grep for 'kanban' in the Jones deep ref: no hits; 'agile' appears only at 145 (estimation data).",
+      "fix": "correct: Jones argues most software-engineering theory is folklore unsupported by data (e.g. the 28-to-1 productivity claim). Open Kanban's empirical claims (multitasking, batch size and flow) rest on hyperlinked secondary sources; use Jones's evidence discipline to judge them."
+    },
+    {
+      "id": "D004",
+      "line": 182,
+      "section": "Integration, Jones row",
+      "claim": "Reinertsen (cited by Hurtado) is one of few sources Jones treats as evidence-grounded.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Reinertsen does not appear in the Jones deep ref.",
+      "evidence": "grep -i 'Reinertsen' across all deep refs: only open-kanban-deep (72, 133).",
+      "fix": "strip"
+    },
+    {
+      "id": "D005",
+      "line": 12,
+      "section": "Decision-Making Relevance, Thread one",
+      "claim": "This is a decision-rights claim — the doer pulls; the manager does not push. The decision about what to work on next sits with the team member who will do the work, not with a dispatcher upstream.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardened: the source says respect enables delegation and demand-pull (a developer is 'able' to pull because 'we give him the ability'); it never names push, dispatch, or an exclusive decision right. Recurs at 24, 59 ('the framework would name the pattern and ask the team to switch to pull'), 64, 93, 106, 130 ('violates ... the Respect-for-people value') and 158.",
+      "evidence": "Deep 27: 'Respect for people allows for delegation and the demand-pull that is crucial to Kanban. When any developer is able to take a story from the backlog and pull it ... we give him the ability to do so, we empower him through our respect' [V]. No mention of push or dispatch anywhere in deep 1-176.",
+      "fix": "correct: This is a decision-rights claim: respect lets the person doing the work pull the next item. The source frames this as empowerment; the push-versus-pull contrast is this distillation's reading."
+    },
+    {
+      "id": "D006",
+      "line": 174,
+      "section": "Anti-patterns, Imposing work on team members",
+      "claim": "Push-based dispatch removes the decision right from the person who will do the work — a violation of the framework's authority model regardless of how the assignments are described.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated: Open Kanban has no 'authority model' and does not prohibit assignment; it ties demand-pull to respect and empowerment.",
+      "evidence": "Deep 27 (respect enables delegation and demand-pull) [V]; deep 66 (no need to change roles or titles). No authority model in deep 1-176.",
+      "fix": "correct: Push-based dispatch takes away the empowerment the Respect-for-people value ties to demand-pull."
+    },
+    {
+      "id": "D007",
+      "line": 14,
+      "section": "Decision-Making Relevance, Thread two",
+      "claim": "\"Limiting WIP is a consequence ... 'Reduce the Batch Size of your Efforts.'\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim source quotations carried without a [V] marker at lines 14, 26 (same WIP passage) and 38 (Muda passage); under the protocol, quoted text without a marker reads as the distillation's own wording.",
+      "evidence": "Deep 76-78 blockquote and deep 150 [V] (WIP passage); deep 41-42 blockquote (Muda passage). Source lines 95, 118 match.",
+      "fix": "re-mark: [V] (lines 14, 26, 38)"
+    },
+    {
+      "id": "D008",
+      "line": 14,
+      "section": "Decision-Making Relevance, Thread two",
+      "claim": "The decision is forward-looking — what to commit to next — rather than backward-looking — what to count after the fact.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supplies a rationale for the author's batch-size-over-WIP position that the source does not give, and characterises WIP limiting as after-the-fact counting. Recurs at 116.",
+      "evidence": "Deep 74-79: the source states only that limiting WIP is a consequence of batch-size reduction and that 'doing either will result in improvements in efficiency and productivity' [V]; no forward/backward framing.",
+      "fix": "strip (or mark as the distillation's reading, not the source's)"
+    },
+    {
+      "id": "D009",
+      "line": 16,
+      "section": "Decision-Making Relevance, Thread three",
+      "claim": "a decision optimising one stage at the expense of overall flow is a mistake the framework refuses to call an improvement. The improvement target is system throughput, not local efficiency.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Imports TOC vocabulary ('throughput') and hardens the claim. The source says no single part of a system can bring overall improvement and that understanding the whole is fundamental; it never names throughput or local efficiency. Recurs at 32, 61 ('unless system throughput rises'), 76, 94, 115 ('lead time, throughput'), 129, 143, 166.",
+      "evidence": "Deep 52: 'no single part of a system can ever bring overall improvement. We need to take a holistic view of the system and understand it' ... 'An understanding of the whole is fundamental to arrive at steady, successful change' [V]. 'Throughput' does not occur in the deep ref.",
+      "fix": "correct: This is a decision-quality claim: improving one part of the system does not by itself bring overall improvement; the decision has to be judged against the whole."
+    },
+    {
+      "id": "D010",
+      "line": 84,
+      "section": "Questions, Phase 3 (Surface the system-level view)",
+      "claim": "Apply the Theory-of-Constraints question: where is the system constraint, and does this decision relax it or shift it?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Applied guidance resting on TOC content this source does not carry; Open Kanban names TOC but states no constraint question. The same import appears at 129 ('Identify where the system constraint has shifted') and 166 ('shifting the constraint elsewhere'). The corpus holds the five focusing steps in OpenStax Accounting Vol 2.",
+      "evidence": "Deep 52, 70, 131: TOC cited [BT] for the holistic claim and multitasking only. openstax-accounting-vol2-deep 53: 'identify the system constraint; decide how best to exploit it; subordinate everything else; elevate the constraint; repeat'.",
+      "fix": "correct: If the decision optimises one stage, what happens at the stages downstream? (For the constraint question itself, see OpenStax Accounting Vol 2's Theory of Constraints steps.)"
+    },
+    {
+      "id": "D011",
+      "line": 44,
+      "section": "Key Concepts, 11",
+      "claim": "The decision not to restructure is itself a methodological commitment — the framework refuses to require a precondition it cannot guarantee.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes a rationale ('a precondition it cannot guarantee') the source does not give.",
+      "evidence": "Deep 66, 152: 'Kanban starts where you are, and does not need to modify any titles or roles' [V]; 'The framework asks for team-based leadership without requiring role redefinition.'",
+      "fix": "correct: The decision not to restructure is itself a methodological commitment: Kanban 'starts where you are'."
+    },
+    {
+      "id": "D012",
+      "line": 48,
+      "section": "Key Concepts, 13",
+      "claim": "The decision to leave gaps is intentional; local methods (Kanban Ace, Scrumban, Kanban for Teams, Kanban Thinking) fill them.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Only Kanban Ace is described as an Open Kanban Method extending the kernel. Scrumban, Kanban for Teams and Kanban Thinking are independent methods Open Kanban 'shares many key ideas with' and invites to join; the source does not say they fill Open Kanban's gaps.",
+      "evidence": "Deep 93: Kanban Ace 'is an Agile and Lean Method based on Open Kanban' [V]. Deep 95: 'We already share many key ideas with Alan Shalloway's Kanban for Teams, Corey Ladas Scrumban and Karl Scotland's Kanban Thinking. We extend an open invitation to them' [V].",
+      "fix": "correct: The decision to leave gaps is intentional; extensions built on the kernel (the source's example is Hurtado's own Kanban Ace) fill them. Scrumban, Kanban for Teams and Kanban Thinking are named as fellow-traveller methods the source invites to join."
+    },
+    {
+      "id": "D013",
+      "line": 62,
+      "section": "Questions, Phase 1 (Test for sustainable pace)",
+      "claim": "does it require *Muri* (overburden)?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Outside-knowledge gloss: the source pairs Muri with Agile's sustainable pace ('sustainable pace in Agile, or Muri 無理 in Lean'); it never translates Muri as overburden or calls it an anti-pattern. Recurs at 109, 117 ('*Muri* is the named anti-pattern'), 132, 170 ('*Muri* in Lean vocabulary'). Concept 6 (line 34) quotes the pairing correctly.",
+      "evidence": "Deep 29 [V]; deep 154: 'The Muri gloss is named explicitly as the Lean parallel to Agile's sustainable pace.'",
+      "fix": "correct: does it push the team past a sustainable pace? (At 109, 117, 132, 170 use 'overwork' or 'exhaustion'; the source's named failure is 'An exhausted developer, manager or team'.)"
+    },
+    {
+      "id": "D014",
+      "line": 73,
+      "section": "Questions, Phase 2 (Bound by team-based leadership)",
+      "claim": "Is the decision being made by the team, with team leadership, or is it being made above the team and handed down? Open Kanban requires the former without requiring formal restructuring.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardened: the source requires working teams with leaders in them; it says nothing about where decisions are made or against decisions handed down. Recurs at 98 ('does require team leadership to be present in the decision').",
+      "evidence": "Deep 66: 'Both are needed in Kanban: good teams and good team leadership. No need for new roles or titles, but we do have a need for working teams, with leaders in them!' [V].",
+      "fix": "correct: Is there a working team with leadership in it behind this decision? Open Kanban requires good teams and good team leadership, without new roles or titles."
+    },
+    {
+      "id": "D015",
+      "line": 104,
+      "section": "Questions, Phase 5 (Make the commitment visible)",
+      "claim": "\"Decisions on invisible work are decisions on imagined work.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The distillation's own aphorism (from line 40) set in quotation marks in a table where source quotes carry [V]; it reads as the author's words.",
+      "evidence": "Not in the source (source lines 106-110) or the deep ref (60-62).",
+      "fix": "correct: drop the quotation marks: Decisions on invisible work are decisions on imagined work."
+    },
+    {
+      "id": "D016",
+      "line": 107,
+      "section": "Questions, Phase 5 (Communicate the decision)",
+      "claim": "Open Kanban's Communication and Collaboration value treats these [the why and the what] as inseparable.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong pairing: the value treats communication and collaboration as inseparable, not a decision's reasoning and content.",
+      "evidence": "Deep 48: 'One value does not work without the other that is the reason we decided to group them together' [V] (communication and collaboration).",
+      "fix": "correct: Open Kanban's Communication and Collaboration value pairs making ourselves heard with working together; share the reasoning so the team can act on it together."
+    },
+    {
+      "id": "D017",
+      "line": 127,
+      "section": "What to Look For, row 1",
+      "claim": "A batch-size or pull-discipline problem, not a resource problem",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Diagnosis rules out a resource cause with no support in the source.",
+      "evidence": "Deep 1-176: no claim that queues at a stage are not a capacity problem.",
+      "fix": "correct: Possibly a batch-size or pull-discipline problem; check before adding resource"
+    },
+    {
+      "id": "D018",
+      "line": 148,
+      "section": "When to Use This Reference",
+      "claim": "Canonical Kanban authority works (Anderson, Burrows, Reinertsen) are not CC-licensed and do not ship with this corpus.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Anderson and Burrows are not named anywhere in the deep ref; the operator caveat speaks of Lean Kanban University and commercial publishers. Reinertsen is cited by Hurtado for batch size, not as a Kanban authority.",
+      "evidence": "Deep 164: 'Other widely-recognised Kanban primary sources publish under non-redistributable licences (Lean Kanban University, commercial publishers, or all-rights-reserved imprints)'. Deep 72, 133: Reinertsen [BT] for batch size.",
+      "fix": "correct: Other widely recognised Kanban primary sources are not openly licensed and do not ship with this corpus (operator note)."
+    },
+    {
+      "id": "D019",
+      "line": 160,
+      "section": "Worked Example",
+      "claim": "Four weeks later the team's average story completion time has dropped from three weeks to nine days. The constraint has shifted slightly to dev capacity, which is the next batch-size target.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Invented outcome figure presented as the result of applying the framework; the deep ref reports no outcome data for Open Kanban.",
+      "evidence": "Deep 1-176: no reported effect sizes or case outcomes.",
+      "fix": "correct: The team agrees to check at the next retrospective whether story completion time has fallen and where work now piles up."
+    },
+    {
+      "id": "D020",
+      "line": 168,
+      "section": "Anti-patterns, continuous improvement as slogan",
+      "claim": "A team that iterates without retrospectives, strategy meetings, or Kaizen Groups is running improvement decisions without a feedback mechanism.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Treats the three named forms as necessary; the source lists them as examples among 'many ways'.",
+      "evidence": "Deep 85: 'there are many ways a Kanban team can implement this practice, you could have Retrospectives, Strategy Meetings or even Kaizen Groups' [V]; deep 158: 'optional examples among many ways'.",
+      "fix": "correct: A team that iterates with no learning step (retrospective, strategy meeting, Kaizen Group, or another form) is making improvement decisions without a feedback mechanism."
+    },
+    {
+      "id": "D021",
+      "line": 180,
+      "section": "Integration, Scrum Guide row",
+      "claim": "differ in cadence (continuous flow vs fixed Sprint) ... Use Open Kanban when arrival patterns are unpredictable or Sprints feel forced",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes to Open Kanban a continuous-flow cadence and a fit for unpredictable arrivals; the source says nothing about cadence or arrival patterns. The Scrum side (three accountabilities, Sprint Goal) checks out.",
+      "evidence": "Open Kanban deep 1-176: no cadence or arrival-pattern claim. scrum-guide-2020-deep 66, 231: three accountabilities.",
+      "fix": "correct: Open Kanban and Scrum both ask for continuous improvement and transparency but differ in roles (no new titles vs three accountabilities) and in what they fix (batch size per stage vs a Sprint Goal per Sprint). Open Kanban prescribes no cadence."
+    },
+    {
+      "id": "D022",
+      "line": 185,
+      "section": "Integration, Introduction to Business row",
+      "claim": "Covers Deming's broader management theory (TQM, DMAIC) that Open Kanban cites for its Holistic / Systemic value.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "DMAIC belongs to Six Sigma in the Introduction to Business deep ref, not to Deming; and Open Kanban cites Deming's System of Profound Knowledge, not TQM.",
+      "evidence": "openstax-introduction-business-deep 467: TQM is 'Deming's idea'; Six Sigma 'uses DMAIC'; 880. Open Kanban deep 52, 130: System of Profound Knowledge.",
+      "fix": "correct: Covers Deming's Total Quality Management (quality as a company-wide goal, continuous improvement). Open Kanban cites a different Deming work, the System of Profound Knowledge, for its Holistic / Systemic value."
+    },
+    {
+      "id": "D023",
+      "line": 187,
+      "section": "Integration, Psychology 2e row",
+      "claim": "lands directly on stress and burnout literature (GAS, allostatic load)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "General adaptation syndrome is in the Psychology deep ref; 'allostatic load' and 'burnout' are not.",
+      "evidence": "openstax-psychology-2e-deep 373: Selye's general adaptation syndrome (alarm, resistance, exhaustion) [AP]. grep 'allostatic', 'burnout': no hits.",
+      "fix": "correct: lands on the stress literature (Selye's general adaptation syndrome, ending in a stage of exhaustion)"
+    },
+    {
+      "id": "D024",
+      "line": 188,
+      "section": "Integration, NHS Just Culture row",
+      "claim": "NHS Just Culture (default to system investigation) ... protects the person who surfaces an issue; Open Kanban's Courage value motivates them to surface it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The NHS guide evaluates staff involved in a patient safety incident; it is not about protecting the person who raises an issue.",
+      "evidence": "nhs-just-culture-guide-deep 17: the guide supports 'a conversation between managers about whether a staff member involved in a patient safety incident requires specific individual support or intervention' [V]; 'action singling out an individual is rarely appropriate' [V].",
+      "fix": "correct: NHS Just Culture steers managers away from singling out the staff member involved in an incident ('most patient safety issues have deeper causes'); Open Kanban's Courage value asks lower-rank people to name mistakes by those in authority. Use both when designing conditions for upward correction."
+    },
+    {
+      "id": "D025",
+      "line": 189,
+      "section": "Integration, LFUO row",
+      "claim": "LFUO's Just Culture / Systems Thinking / Learning principles are the same lineage Open Kanban cites for its Holistic / Systemic value (Deming)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The three LFUO principles are right, but LFUO's deep ref does not cite Deming; the shared-lineage claim is unsupported.",
+      "evidence": "lfuo-learning-review-guide-2024-deep 7 (three principles; four tools AAR, RLS, FLA, Learning Review). grep 'Deming' in LFUO deep: no hits; named lineage includes Senge (297), Maclean (294).",
+      "fix": "correct: LFUO's Systems Thinking and Learning principles parallel Open Kanban's Holistic / Systemic value and Learning practice."
+    },
+    {
+      "id": "D026",
+      "line": 209,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "It explicitly declines to prescribe WIP limits, service classes, quantitative flow metrics (cumulative flow diagrams, Little's Law, lead-time histograms), cadence or replenishment rituals, or cost-of-delay analysis.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Only the WIP-limit refusal is explicit; the other topics are simply absent from the source.",
+      "evidence": "Deep 76-79, 150: 'Open Kanban does not ask you to limit WIP' [V]. No mention of service classes, CFDs, Little's Law, cadence or cost of delay in deep 1-176.",
+      "fix": "correct: It explicitly declines to require WIP limits, and it does not cover service classes, quantitative flow metrics, cadence or replenishment rituals, or cost-of-delay analysis."
+    },
+    {
+      "id": "D027",
+      "line": 211,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "Distillation cites by section name throughout; verbatim text lives in the deep reference only.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Self-audit is false: the distillation carries some 20 verbatim [V] quotations (Relevance threads, all 14 Key Concepts, several question rows and anti-patterns), and three verbatim quotations lack their [V] marker.",
+      "evidence": "Distillation lines 12, 16, 24-50, 60, 72, 76, 83, 128, 154, 156, 164-174 ([V]); 14, 26, 38 (verbatim, no marker).",
+      "fix": "correct: The distillation copies the deep reference's [V] passages for the pull/respect coupling, the WIP-versus-batch-size passage, the multitasking claim, the Deming-Goldratt passage, the Muri/sustainable-pace passage and the learning-before-improvement passage."
+    }
+  ],
+  "notes": "Every [V] quotation checks word for word against the converted source (some end at a clause break without an ellipsis, e.g. line 12 'because we respect him.'). Recurring drift is folded into single findings with the other lines listed: pull/push decision-rights hardening (8 lines), TOC 'throughput' vocabulary (9 lines), Muri-as-overburden (5 lines). Integration rows verified: Letaw (INVEST, DoD, story points, fist of five), Accounting Vol 2 (TOC five steps, deep 53), Principles of Management (Deming/PDCA cycle, deep 833), Organizational Behavior (groupthink, escalation, Thomas conflict modes), TC 25-20 all check out. The Jones row is unsupported on both counts. Line 10 announces three threads, then line 18 adds a fourth (internal, not graded). Worked example typo 'The team leads reads' (lines 154, 156) not graded."
+}

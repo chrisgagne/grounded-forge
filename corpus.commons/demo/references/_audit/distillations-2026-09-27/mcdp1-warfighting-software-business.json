@@ -1,0 +1,210 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/mcdp1-warfighting-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-79 of 79", "deep": "lines 1-254 of 254", "complete": true},
+  "claims_audited": 50,
+  "tally": {"faithful": 30, "minor_drift": 12, "unsupported": 7, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 76,
+      "section": "Connections to other corpus sources",
+      "claim": "Jones, Evidence-Based Software Engineering (slug 003) — empirical research on what practices correlate with what outcomes; MCDP-1 is the doctrinal frame the research findings often confirm.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Misstates the other source. Jones's deep ref says the evidence base is close to empty and his own models are post-hoc; it confirms no doctrinal frame, and MCDP-1 is nowhere in it.",
+      "evidence": "Jones deep 13: \"evidence-based software engineering is essentially a blank slate\" [V]; deep 17: \"the almost non-existent evidence for current theories of software development\" [V]; \"just-so stories created from a fishing expedition\" [V].",
+      "fix": "correct: Jones, Evidence-Based Software Engineering (slug 003): the empirical check. Jones finds the evidence base for software practices thin; treat MCDP-1's transfers (tempo, main effort, mission tactics) as hypotheses his data rarely tests."
+    },
+    {
+      "id": "D002",
+      "line": 17,
+      "section": "Software / Business Relevance, thread 1 (Tempo)",
+      "claim": "Humble & Farley (Continuous Delivery): deployment frequency is the most-correlated DORA metric; shipping faster is competing on OODA tempo.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Training-data claim about a source not held in the demo corpus, and misattributed: DORA metrics are not from Continuous Delivery, and 'most-correlated' is an unsourced figure.",
+      "evidence": "No demo deep ref mentions DORA or deployment frequency; Humble & Farley appear only in the MCDP-1 deep ref's list of another corpus's slugs (deep 227).",
+      "fix": "strip"
+    },
+    {
+      "id": "D003",
+      "line": 18,
+      "section": "Software / Business Relevance, thread 1",
+      "claim": "Beck (XP): weekly cycle, quarterly cycle — the cadences are designed to outpace the requirements-change cycle.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Training-data claim about a source not held in the demo corpus; the design rationale is asserted without any reference.",
+      "evidence": "Beck appears in the MCDP-1 deep ref only at 227 (another corpus's slug 071); no demo deep ref carries XP's weekly/quarterly cycles.",
+      "fix": "strip"
+    },
+    {
+      "id": "D004",
+      "line": 19,
+      "section": "Software / Business Relevance, thread 1",
+      "claim": "Steve Blank (Customer Development): customer-development tempo determines time-to-product-market-fit.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Training-data claim; the only demo mention of Blank is his problem-solution fit in the Entrepreneurship deep ref, with no tempo claim.",
+      "evidence": "OpenStax Entrepreneurship deep 295: \"The chapter cites Steve Blank's problem-solution-fit\"; nothing on tempo or customer development.",
+      "fix": "strip"
+    },
+    {
+      "id": "D005",
+      "line": 25,
+      "section": "Software / Business Relevance, thread 2 (Main effort)",
+      "claim": "... what high-performing software companies operationalise as one big bet per quarter.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Empirical claim about high performers with no source.",
+      "evidence": "No deep ref in the corpus carries this; MCDP-1 deep 146 describes main effort only.",
+      "fix": "strip"
+    },
+    {
+      "id": "D006",
+      "line": 35,
+      "section": "Software / Business Relevance, thread 3 (Mission tactics)",
+      "claim": "Architectural runway in agile architecture (the framing within which teams make local technology decisions).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Outside concept not held in the corpus and described loosely (in SAFe it names existing technical enablement, not a decision frame); the only 'runway' in the corpus is cash runway.",
+      "evidence": "OpenStax Entrepreneurship deep 271: runway = cash on hand / monthly burn. No other demo deep ref mentions architectural runway.",
+      "fix": "strip"
+    },
+    {
+      "id": "D007",
+      "line": 52,
+      "section": "Software / Business Relevance, thread 5 (Surfaces and gaps)",
+      "claim": "Geoffrey Moore's Crossing the Chasm / Clayton Christensen's Innovator's Dilemma / Blue Ocean Strategy all operationalise versions of this.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Moore and Blue Ocean are not held in the corpus; no reference states the relationship. Christensen is held only through the Entrepreneurship deep ref's disruptive-innovation summary.",
+      "evidence": "OpenStax Entrepreneurship deep 119, 301: Christensen's disruptive innovation (entrants target overlooked segments or nonconsumers). No demo deep ref mentions Crossing the Chasm or Blue Ocean.",
+      "fix": "correct: Christensen's disruptive innovation, as summarised in OpenStax Entrepreneurship (slug 00f, Ch 11.1), is a close business analogue: entrants go where incumbents are not looking, turning nonconsumers into consumers or targeting overlooked segments."
+    },
+    {
+      "id": "D008",
+      "line": 62,
+      "section": "Software / Business Relevance, thread 6 (Severity on inaction)",
+      "claim": "This is the operational form of Edmondson's psychological safety (and connects to the resilience-engineering corollary: practitioners create safety only when permitted to act).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Edmondson is not held in the corpus; the resilience-engineering point comes from Cook, a source in another corpus. Equating severity toward inaction with psychological safety is also in tension with the corpus's own psychological-safety material (blameless, safe to speak up).",
+      "evidence": "No demo deep ref mentions Edmondson. MCDP-1 deep 221 cites Cook Point 17 as slug 076 of the AARBuddy corpus. OPL deep 101-110: psychological safety built by rituals (check-ins, blameless conversation structures).",
+      "fix": "strip"
+    },
+    {
+      "id": "D009",
+      "line": 8,
+      "section": "Software / Business Relevance",
+      "claim": "MCDP-1 is the doctrinal application of John Boyd's strategic theory — particularly the OODA loop and the concept of operating inside the adversary's decision cycle.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates Boyd's place: the deep ref names Clausewitz as the explicit philosophical companion throughout (cited 14 times) and Boyd in two notes. 'Operating inside the adversary's decision cycle' is not a phrase or concept the deep ref carries.",
+      "evidence": "Deep 15: Clausewitz \"the explicit philosophical companion throughout, cited 14 times\"; deep 43: OODA \"named once, in Notes 18 of Ch 2, but the underlying logic saturates Chs 2 and 4\"; deep 198: Boyd cited at Notes 18 of Ch 2 and Notes 5 of Ch 4.",
+      "fix": "correct: MCDP-1 is the Marine Corps' maneuver-warfare doctrine, built on Clausewitz and carrying John Boyd's tempo logic: it names the OODA loop at Notes 18 of Ch 2, and the logic runs through Chs 2 and 4."
+    },
+    {
+      "id": "D010",
+      "line": 14,
+      "section": "Software / Business Relevance, thread 1",
+      "claim": "The OODA-loop claim — the side that completes the cycle faster, or that operates in a way the adversary cannot orient to, wins.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref's thesis-heading wording stated as the doctrinal claim; 'operates in a way the adversary cannot orient to' is not in the source and 'wins' overstates.",
+      "evidence": "Deep 43 [V] (Notes 18 of Ch 2): \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle.\"",
+      "fix": "correct: The OODA-loop claim, that \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle\" [V] (Notes 18 of Ch 2), is the doctrinal statement of tempo as strategy."
+    },
+    {
+      "id": "D011",
+      "line": 16,
+      "section": "Software / Business Relevance, thread 1",
+      "claim": "Eric Ries (Lean Startup): Build-Measure-Learn cycle speed determines the rate of validated learning.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The build-measure-learn loop is held (via OpenStax Entrepreneurship); the claim that cycle speed determines the rate of validated learning is not.",
+      "evidence": "OpenStax Entrepreneurship deep 17: \"continuous validation through the build-measure-learn loop, drawn from Eric Ries's Lean Startup\"; deep 261: \"continuously testing their products and getting feedback from customers in real time.\"",
+      "fix": "correct: Eric Ries (Lean Startup, via OpenStax Entrepreneurship, slug 00f): continuous testing and customer feedback through the build-measure-learn loop."
+    },
+    {
+      "id": "D012",
+      "line": 23,
+      "section": "Software / Business Relevance, thread 2",
+      "claim": "Main effort / Schwerpunkt (Ch 4); 'your Schwerpunkt discipline is missing' (line 27).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's term is 'main effort'; 'Schwerpunkt' comes from the deep ref's [AR] note.",
+      "evidence": "Deep 146 [AR]; source: no occurrence of 'Schwerpunkt'.",
+      "fix": "correct: replace 'Schwerpunkt' with 'main effort' at lines 23, 27 and 66."
+    },
+    {
+      "id": "D013",
+      "line": 25,
+      "section": "Software / Business Relevance, thread 2",
+      "claim": "The discipline of one main effort is the doctrinal version of what Goldratt teaches (Theory of Constraints: identify the constraint, exploit it, subordinate everything else to it).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Traces to the deep ref's own connection, which it marks [AR]; the distillation drops the marker and presents the equivalence as fact. Goldratt is not held as a primary in this corpus (Open Kanban cites him only for the holistic-system value).",
+      "evidence": "Deep 146: \"[AR — Goldratt's Theory of Constraints names this as identifying the one constraint to act on ...]\"; Open Kanban deep 52, 131: Goldratt [BT] for holistic view.",
+      "fix": "re-mark: [AR]; correct: [AR] The one-main-effort discipline parallels Goldratt's Theory of Constraints (identify the constraint; subordinate everything else to it). Goldratt is not held in this corpus; Open Kanban (slug 008) cites him for the holistic-system view."
+    },
+    {
+      "id": "D014",
+      "line": 34,
+      "section": "Software / Business Relevance, thread 3",
+      "claim": "The OKR system (Objectives = intent; Key Results = measurable execution within intent).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mapping conflicts with the corpus's own OKR definition: the Open Practice Library defines the Objective as 'the what' and the Key Result as 'the how', whereas MCDP-1's intent is the why.",
+      "evidence": "OPL deep 174 [V]: \"The Objective - The what. The Key Result - The how\"; MCDP-1 deep 144 [V]: \"The task denotes what is to be done ... the intent explains why.\"",
+      "fix": "correct: The OKR system (Open Practice Library, slug 009), with a caution: OKRs define the Objective as the what, so the intent (the why) has to be stated alongside it for the parallel to hold."
+    },
+    {
+      "id": "D015",
+      "line": 38,
+      "section": "Software / Business Relevance, thread 3",
+      "claim": "The pamphlet's disciplinary requirement — intent must be understood two levels up.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens 'should understand ... at least two levels up'.",
+      "evidence": "Deep 144 [V] (Ch 4, \"Commander's intent\").",
+      "fix": "correct: The pamphlet's guidance that subordinates \"should understand the intent of the commander at least two levels up\" [V] (Ch 4, \"Commander's intent\")."
+    },
+    {
+      "id": "D016",
+      "line": 38,
+      "section": "Software / Business Relevance, thread 3",
+      "claim": "If your team does not know the intent two levels up, the question is not can they be trusted? — it is have we communicated the intent clearly enough?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "One-sided: the source puts the burden of understanding on senior and subordinate alike.",
+      "evidence": "Source 3761-3766 (Ch 4, \"Commander's intent\"): \"The burden of understanding falls on senior and subordinate alike.\" Deep 142: the subordinate is obligated to act in conformity with the intent.",
+      "fix": "correct: If your team does not know the intent two levels up, ask both halves of MCDP-1's shared burden (Ch 4, \"Commander's intent\"): have we stated the intent clearly, and has the team sought it?"
+    },
+    {
+      "id": "D017",
+      "line": 50,
+      "section": "Software / Business Relevance, thread 5",
+      "claim": "Surfaces and gaps (Ch 2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited chapter: surfaces and gaps is Ch 4.",
+      "evidence": "Deep 148 (Ch 4, \"Surfaces and gaps\").",
+      "fix": "correct: Surfaces and gaps (Ch 4)"
+    },
+    {
+      "id": "D018",
+      "line": 60,
+      "section": "Software / Business Relevance, thread 6",
+      "claim": "The asymmetry of consequences is the structural condition for any culture of experimentation, learning, or psychological safety. Errors of commission should be tolerated; errors of omission should be the punishable failure mode.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Broadens leniency from errors of overboldness to all errors of commission and drops the source's limits (constructive criticism still applies; no licence for reckless acts). 'Psychological safety' is not in the MCDP-1 deep ref.",
+      "evidence": "Deep 109 [V] (Ch 3, \"Professionalism\"); source 2398-2401: \"constructive criticism is an important element in learning. Nor does it give subordinates free license to act stupidly or recklessly.\"",
+      "fix": "correct: The asymmetry of consequences is a structural condition for a culture of experimentation: errors that come from acting boldly (we shipped, it failed, we learned) are treated leniently as part of learning; errors of inaction or timidity are dealt with severely (Ch 3, \"Professionalism\"). Leniency is not licence for recklessness."
+    },
+    {
+      "id": "D019",
+      "line": 66,
+      "section": "Cautions for software / business translation",
+      "claim": "The OODA / Schwerpunkt / mission-tactics / surfaces-and-gaps machinery transfers; the Zweikampf framing usually does not.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref treats the clash of wills as the foundation of tempo and OODA; relative speed and surfaces/gaps presuppose an opposing will, so they cannot be cleanly split from it.",
+      "evidence": "Deep 37 [AR]: interacting wills \"is the foundation for every later move toward tempo, mission tactics, and the OODA loop\"; deep 91: \"it is relative speed that matters\"; deep 148: gaps are enemy weaknesses.",
+      "fix": "correct: Main effort and mission tactics transfer most readily. OODA tempo and surfaces-and-gaps assume an opposing will; name the competitor or market dynamic that plays that role before applying them. The pure Zweikampf framing usually does not transfer."
+    },
+    {
+      "id": "D020",
+      "line": 68,
+      "section": "Cautions for software / business translation",
+      "claim": "The doctrine's emphasis on tempo as decisive needs calibration ... Some markets reward fastest-mover; others reward last-correct-mover.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the doctrine to set up the caution: MCDP-1 calls tempo 'often the most important' weapon, stresses relative not absolute speed, and counts calculated patience as boldness. The market typology is the distillation's own unsourced judgement.",
+      "evidence": "Deep 87 [V]: \"Tempo is itself a weapon — often the most important\"; deep 91 [V]: \"it is relative speed that matters rather than absolute speed\"; deep 93 [V]: \"A nervy, calculating patience that allows the enemy to commit himself irrevocably before we strike him can also be a form of boldness.\"",
+      "fix": "correct: MCDP-1 already qualifies tempo: it is \"often the most important\" weapon, it is relative speed that matters, and \"a nervy, calculating patience\" can be boldness [V] (Ch 2). [AR] In markets dominated by network effects, switching costs or regulatory inertia, weigh that patience clause as heavily as the speed clause."
+    }
+  ],
+  "notes": "Hash matches current deep ref. The file does not follow the nine-section template and carries no [V] quotes (source is Scope: open). The main pattern is training-data leakage in the 'doctrinal version of' lists: Humble & Farley/DORA, Beck/XP, Blank, architectural runway, Moore, Blue Ocean and Edmondson are not held in the demo corpus. Several connections (Boyd lineage, Marquet, Goldratt) trace only to the MCDP-1 deep ref's 'Connections to corpus' section, which names slugs from the AARBuddy corpus rather than this one; Marquet (line 33) was graded FAITHFUL because it traces to deep 223, but that deep-ref claim ('the doctrinal lineage flows directly from MCDP 1') is itself unmarked and worth an upstream check."
+}

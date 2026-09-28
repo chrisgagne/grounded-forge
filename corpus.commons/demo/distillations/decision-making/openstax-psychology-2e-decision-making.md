@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:631f9928f2896f8d2cace0a4a7a590974b38a7bddcc71bef36fb2d72daefb808 -->
+<!-- derived-from-deep: sha256:80102ada6dceca235dd84cd2f14c1bea5e299c756285a6cfb48c12c6e0b4cac9 -->
 # OpenStax Psychology 2e, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.
@@ -22,15 +22,15 @@ The source's bias inventory — the load-bearing list for any decision-making hu
 
 Heuristics — the shortcut mode that defaults under load — are "not always the best method for making a rational decision" [V] (Ch 7.3, "Problem-Solving Strategies").
 
-Self-efficacy — the precondition for any decision to attempt difficult work — is defined as "an individual's belief in their own capability to complete a task" [V] (Ch 10.1, "Self-efficacy and Social Motives").
+Self-efficacy — which shapes whether people take on difficult work — is defined as "an individual's belief in their own capability to complete a task" [V] (Ch 10.1, "Self-efficacy and Social Motives").
 
 ## Key Concepts for Decision-Making
 
 1. <!-- concept: heuristics-vs-algorithms --> **Heuristics versus algorithms.** Algorithms produce the same result every time; heuristics are mental shortcuts that save time without guaranteeing optimality. Five conditions invoke heuristics: information overload, time pressure, low-stakes decisions, limited information, and a heuristic readily coming to mind. Recognising which mode you are in is itself a decision. (Source: OpenStax, *Psychology 2e*, Ch 7.3, "Problem-Solving Strategies")
 
-2. <!-- concept: cognitive-biases --> **The five judgement biases.** Anchoring (over-weighting the first information encountered), confirmation (favouring information that supports existing beliefs), hindsight (treating past events as obvious in retrospect), representativeness (judging by perceived similarity to a stereotype), and availability (judging frequency or probability by how readily examples come to mind). (Source: Ch 7.3, Table 7.3)
+2. <!-- concept: cognitive-biases --> **The five judgement biases.** Anchoring (fixing on one particular piece of information), confirmation (favouring information that supports existing beliefs), hindsight (treating past events as obvious in retrospect), representativeness (judging by perceived similarity to a stereotype), and availability (deciding from a readily available precedent or example that may be faulty). (Source: Ch 7.3, Table 7.3)
 
-3. <!-- concept: mental-set --> **Mental set and functional fixedness.** Mental set is persisting with a previously successful approach that no longer fits the current problem. Functional fixedness is the inability to perceive an object or strategy as usable for something other than its designed purpose. Both reduce the option space available to a decision-maker. (Source: Ch 7.3, "Pitfalls to Problem Solving")
+3. <!-- concept: mental-set --> **Mental set and functional fixedness.** Mental set is persisting with a previously successful approach that no longer fits the current problem. Functional fixedness is the inability to perceive an object as usable for something other than its designed purpose; the decision-making analogue is treating a strategy the same way. Both reduce the option space available to a decision-maker. (Source: Ch 7.3, "Pitfalls to Problem Solving")
 
 4. <!-- concept: reconstructive-memory --> **Reconstructive memory.** Memory is not a faithful recording but a reconstruction, vulnerable to Schacter's seven sins (transience, absentmindedness, blocking, misattribution, suggestibility, bias, persistence). The misinformation effect demonstrates how leading questions alter eyewitness memory. Decisions made by recalling "what happened" are decisions made on partly reconstructed evidence. (Source: Ch 8.3, "The Misinformation Effect")
 
@@ -40,17 +40,17 @@ Self-efficacy — the precondition for any decision to attempt difficult work �
 
 7. <!-- concept: conformity-obedience --> **Asch conformity and Milgram obedience.** Group pressure shifts judgement even on unambiguous tasks (76% of Asch's participants conformed at least once); authority pressure shifts behaviour even against moral judgement (65% of Milgram's participants administered maximum-voltage shocks). The presence of even one dissenter dramatically reduces conformity. The implication: solo dissent is rare and costly; structuring for dissent is a design choice. (Source: Ch 12.4)
 
-8. <!-- concept: groupthink --> **Groupthink and group polarisation.** Groups under cohesion pressure suppress critical thinking (groupthink); discussion in already-leaning groups strengthens that lean (polarisation). Groupthink symptoms include perceived invulnerability, moral certainty, self-censorship, illusion of unanimity, and out-group stereotyping. Counters: external opinions, private voting, leaders withholding initial positions, devil's advocate roles. (Source: Ch 12.4)
+8. <!-- concept: groupthink --> **Groupthink and group polarisation.** Groups under cohesion pressure suppress critical thinking (groupthink); discussion in already-leaning groups strengthens that lean (polarisation). Groupthink symptoms include perceived invulnerability, moral certainty, self-censorship, illusion of unanimity, and out-group stereotyping. Counters: external opinions, private voting, leaders withholding initial positions until all members have spoken, and contingency planning. (Source: Ch 12.4)
 
-9. <!-- concept: social-loafing --> **Social loafing and diffusion of responsibility.** Effort declines when individual contributions are pooled; smaller groups, individual evaluation, and challenging tasks counter this. The bystander effect (diffusion of responsibility) is the same mechanism applied to helping decisions. (Source: Ch 12.4 and Ch 12.6)
+9. <!-- concept: social-loafing --> **Social loafing and diffusion of responsibility.** Effort declines when individual contributions are pooled; smaller groups, individual evaluation, and challenging tasks counter this. The bystander effect (diffusion of responsibility, Ch 12.6) is a related group-size effect on helping decisions. (Source: Ch 12.4 and Ch 12.6)
 
-10. <!-- concept: yerkes-dodson --> **Yerkes-Dodson arousal-performance curve.** Optimal arousal varies by task complexity: simple tasks favour higher arousal, complex tasks favour lower. Strong emotion narrows attention and pushes processing toward heuristic, type-1 modes. High-stakes decisions made under high arousal often warrant deferral until arousal drops to a level matched to the task's complexity. (Source: Ch 10.1, "Arousal Theory")
+10. <!-- concept: yerkes-dodson --> **Yerkes-Dodson arousal-performance curve.** Optimal arousal varies by task complexity: simple tasks favour higher arousal, complex tasks favour lower. High-stakes decisions made under high arousal often warrant deferral until arousal drops to a level matched to the task's complexity. (Source: Ch 10.1, "Theories About Motivation")
 
 11. <!-- concept: two-factor-emotion --> **Schachter-Singer two-factor emotion.** Physiological arousal is interpreted in context to produce emotion; the cognitive label is essential. Decision-makers who notice arousal can re-label it (e.g., from anxiety to anticipation) and partly shape its effect. (Source: Ch 10.4)
 
 12. <!-- concept: implicit-bias --> **Implicit bias.** The dual attitudes model distinguishes explicit from implicit attitudes; implicit bias can operate even where explicit bias is absent. Decisions about people (hiring, promotion, evaluation) are vulnerable to implicit bias even when decision-makers are sincere about their conscious values. (Source: Ch 12.5)
 
-13. <!-- concept: self-efficacy --> **Self-efficacy.** Bandura's "individual's belief in their own capability to complete a task" [V] predicts goal-setting and persistence. Self-efficacy is shaped by past performance, vicarious experience, social persuasion, and physiological state. Decisions about whether to attempt difficult work are partly decisions about whether the actor believes they can succeed. (Source: Ch 10.1; Ch 11.4)
+13. <!-- concept: self-efficacy --> **Self-efficacy.** Bandura's "individual's belief in their own capability to complete a task" [V] predicts goal-setting and persistence. Self-efficacy can rest on previous success at the same or a similar task and is developed through social experience (Ch 10.1; Ch 11.4). Decisions about whether to attempt difficult work are partly decisions about whether the actor believes they can succeed. (Source: Ch 10.1; Ch 11.4)
 
 14. <!-- concept: locus-of-control --> **Locus of control.** Rotter's internal versus external orientation: internals attribute outcomes to their own actions; externals attribute outcomes to forces outside themselves. The implication for decision-making is that the same evidence may produce different responses depending on the actor's attributional habit. (Source: Ch 11.4)
 
@@ -117,15 +117,15 @@ Self-efficacy — the precondition for any decision to attempt difficult work �
 
 ## What to Look For
 
-- **Pattern: Strong confidence in a complex judgement made quickly.** Signal: rapid, certain conclusions on novel matters. Diagnosis (in source vocabulary): heuristic processing where systematic processing is warranted; possibly availability or representativeness bias. Follow-up: slow down; require explicit reasoning; identify what evidence is being ignored.
+- **Pattern: Strong confidence in a complex judgement made quickly.** Signal: rapid, certain conclusions on novel matters. Diagnosis (in source vocabulary): a heuristic used where an algorithm or deliberate problem-solving is warranted; possibly availability or representative bias. Follow-up: slow down; require explicit reasoning; identify what evidence is being ignored.
 - **Pattern: Disagreement is dismissed before it is examined.** Signal: a dissent is reframed as the dissenter's flaw rather than engaged on the merits. Diagnosis: groupthink; possibly fundamental attribution error applied to the dissenter. Follow-up: separate the merit of the argument from the personality of the arguer; structure for explicit consideration.
 - **Pattern: A decision is being defended by reciting the reasons the decision-maker had in mind, without engaging the new evidence.** Signal: arguments cycle back to original framing. Diagnosis: confirmation bias plus possibly mental set. Follow-up: ask what evidence would change the decision; if no evidence would, the decision is not being made on evidence.
 - **Pattern: The decision-maker explains other people's behaviour dispositionally and their own situationally.** Signal: "they're like that; I had no choice." Diagnosis: actor-observer bias. Follow-up: invert the framing as a check; what situational factors might explain their behaviour, and what dispositional factors might explain mine?
 - **Pattern: A retrospective narrative makes the current outcome look inevitable.** Signal: "of course this would happen." Diagnosis: hindsight bias. Follow-up: ask what would have looked plausible from inside the prior moment; was the outcome actually predictable on the evidence available?
-- **Pattern: Group consensus emerges too smoothly.** Signal: no dissent voiced; shared certainty. Diagnosis: groupthink or pluralistic ignorance. Follow-up: ask each member privately for their view; assign devil's advocate roles; revisit with explicit invitation to challenge.
+- **Pattern: Group consensus emerges too smoothly.** Signal: no dissent voiced; shared certainty. Diagnosis: groupthink (illusion of unanimity, self-censorship). Follow-up: ask each member privately for their view; assign devil's advocate roles; revisit with explicit invitation to challenge.
 - **Pattern: Decision quality declines as arousal rises.** Signal: under pressure, the decision-maker reverts to prior habits or snap judgements. Diagnosis: Yerkes-Dodson — arousal exceeds optimal for the task complexity. Follow-up: structurally lower arousal (delay, change context, sleep); reduce task complexity at decision point; pre-commit to specific responses for predictable high-arousal scenarios.
 - **Pattern: The same kind of decision keeps being made the same way despite mixed outcomes.** Signal: no change in approach across repeated cases. Diagnosis: variable-ratio reinforcement (occasional success sustains the habit); possibly mental set. Follow-up: track outcomes systematically rather than by impression; vary approach deliberately to gather comparison data.
-- **Pattern: Hiring or evaluation decisions pattern with group membership independent of merit.** Signal: outcomes correlate with demographic variables in ways that defy the conscious values stated. Diagnosis: implicit bias; the dual attitudes model. Follow-up: structured interviews; standardised criteria; blind evaluation where possible; counter-stereotypic exemplar exposure.
+- **Pattern: Hiring or evaluation decisions pattern with group membership independent of merit.** Signal: outcomes correlate with demographic variables in ways that defy the conscious values stated. Diagnosis: implicit bias; the dual attitudes model. Follow-up: structured interviews (Ch 13.2); standardised criteria; blind evaluation where possible; intergroup contact under equal status and common goals (Ch 13.3).
 
 ## When to Use This Reference
 
@@ -140,7 +140,7 @@ Self-efficacy — the precondition for any decision to attempt difficult work �
 
 A board chair must decide whether to renew a CEO contract after a year of mixed results. The financials are slightly down on the prior year; the CEO has driven a strategic pivot whose payoff is multi-year; the board members hold sharply different views.
 
-Framing: arousal is high — the chair is anxious about being seen to defend an underperforming CEO. The decision is not low stakes. The chair notes that her arousal is pushing toward a heuristic ("the numbers say no"), and decides to slow down before convening the board.
+Framing: arousal is high — the chair is anxious about being seen to defend an underperforming CEO. The decision is not low stakes. The chair notes that her arousal is higher than suits a complex decision (Yerkes-Dodson) and that time pressure is pushing her toward a heuristic ("the numbers say no"), and decides to slow down before convening the board.
 
 Bounding: the decision is not "is this CEO good"; it is "is the strategic pivot more likely to deliver in the next twelve months than the alternative of replacing the CEO." Reconstructive evidence is a concern: the chair's memory of the pivot rationale a year ago has likely been reshaped by intervening evidence. She retrieves the original board paper to anchor against the actual prior reasoning rather than her current reconstruction.
 
@@ -150,11 +150,11 @@ Deciding: in the individual conversations, the chair notices that two board memb
 
 When the board meets, the chair structures the conversation to surface dissent: each member writes their preferred option privately before discussion; a designated devil's advocate argues against the apparent consensus. The chair declines to share her own preference until others have shared theirs, to avoid anchoring.
 
-Implementing: the board lands on renewal with explicit twelve-month milestones and a quarterly check. The chair commits in advance to act on the milestone evidence at twelve months regardless of how she feels about it then — a precommitment against escalation of commitment and confirmation bias.
+Implementing: the board lands on renewal with explicit twelve-month milestones and a quarterly check. The chair commits in advance to act on the milestone evidence at twelve months regardless of how she feels about it then — a precommitment against confirmation bias (and against escalation of commitment, per OpenStax Organizational Behavior Ch 6.4).
 
 Reviewing: at twelve months, the chair runs a structured review, asking what was actually known at decision time versus what is known now. She notes that the eventual outcome was not as inevitable as the retrospective narrative makes it sound, and captures the lesson that the original anchoring on "the numbers say no" would have produced a different, plausibly worse, decision.
 
-This worked example illustrates several key concepts in the source: heuristic-versus-systematic processing, availability and anchoring biases, fundamental attribution error and actor-observer asymmetry applied to performance evaluation, group structuring against premature consensus, and hindsight management in retrospective review.
+This worked example illustrates several key concepts in the source: heuristics versus deliberate problem-solving, availability and anchoring biases, the fundamental attribution error applied selectively to performance evaluation, group structuring against premature consensus, and hindsight management in retrospective review.
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -164,24 +164,24 @@ This worked example illustrates several key concepts in the source: heuristic-ve
 - **Hindsight in retrospectives.** Treating outcomes as obvious in retrospect erodes the lesson and unfairly judges the prior decision-maker (sometimes oneself a year ago).
 - **Premature consensus in groups.** Groupthink produces unchallenged decisions that look unanimous in the room and fragile in the world.
 - **Decisions under high arousal on complex problems.** Yerkes-Dodson predicts the failure mode; the cost is reversible decisions made expensively or irreversible decisions made wrongly.
-- **Hiring or evaluation by impression alone.** Implicit bias plus the team halo effect plus actor-observer asymmetry produce decisions that pattern with demographics rather than merit.
+- **Hiring or evaluation by impression alone.** Implicit bias produces decisions that pattern with demographics rather than merit; the team halo effect and actor-observer asymmetry further skew individual evaluation.
 - **Reading retrospective accounts as faithful evidence.** Reconstructive memory means the "what happened" account is partly an inference from now-known outcomes.
 
 ## Integration with Other References
 
 | Reference | Connection |
 |---|---|
-| Bounded rationality (Simon) | OpenStax *Psychology 2e* describes the cognitive limits Simon's framework names; the heuristics inventory is a list of ways bounded-rational agents cope. |
+| Bounded rationality (via OpenStax *Organizational Behavior* Ch 6.4) | *Psychology 2e*'s heuristics inventory (Ch 7.3) details the shortcuts that OB's bounded-rationality barrier names in outline. |
 | OpenStax *Organizational Behavior* | OB's six-step decision process and six barriers pair with *Psychology 2e*'s cognitive bias inventory; OB names the procedural moves, *Psychology 2e* names the cognitive failure modes those moves are designed to counter. |
 | Cognitive dissonance (Festinger) | Festinger's framework appears in *Psychology 2e* Ch 12.3; for decisions that require an attitude shift, dissonance reduction is a predictable post-decision dynamic. |
-| Self-determination and intrinsic motivation | The overjustification effect (Ch 10.1) suggests that adding extrinsic incentives to decisions about intrinsically motivating work erodes engagement. |
-| Goal-setting (Locke and Latham) | Self-efficacy (Ch 10.1) is a precondition for difficult-goal acceptance; decisions to set ambitious goals must account for the actor's self-efficacy. |
+| Self-determination and intrinsic motivation | The overjustification effect (Ch 10.1) suggests that adding extrinsic incentives to intrinsically motivating work can erode engagement, more so for tangible and expected rewards than for praise or surprise rewards. |
+| Goal theory (Locke, via OpenStax *Organizational Behavior* Ch 7.3) | Self-efficacy (Ch 10.1; Ch 11.4) shapes whether people take on challenging goals; decisions to set ambitious goals must account for it. |
 | Heuristics and biases (Kahneman and Tversky) | OpenStax presents the canonical bias inventory in Ch 7.3 in compressed form; for deeper treatment, pair with the Kahneman-Tversky primary literature. |
-| Procedural justice (Greenberg, in Ch 13) | Decisions about people (hiring, evaluation, layoffs) carry procedural-justice consequences; fair process sustains commitment even when distributive outcomes disappoint. |
+| Procedural justice (Greenberg, in Ch 13) | Decisions about people (hiring, evaluation, layoffs) carry procedural-justice consequences; fair, explained process reduces retaliation such as theft (Greenberg's pay-explanation study, Ch 13.3). |
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
+**Borrowed-through gaps.** The following authors are cited by the source but not held as primary references in this corpus (the deep reference marks most `[BT]`; Rotter and Yerkes-Dodson sit in `[AP]` passages, Schacter and Schachter-Singer in `[AR]` or unmarked passages):
 
 - *Daniel Kahneman and Amos Tversky* — heuristics-and-biases program informs Ch 7 problem-solving content; the five bias inventory in Key Concept 2 traces here [BT].
 - *Solomon Asch, conformity studies* — 76 per cent conformity on line judgements; single-dissenter effect (Ch 12.4) [BT]. Key Concept 7 traces here.
@@ -196,9 +196,9 @@ This worked example illustrates several key concepts in the source: heuristic-ve
 - *Stanley Schachter and Jerome Singer, two-factor emotion theory* — physiological arousal + cognitive label = emotion (Ch 10.4) [BT]. Key Concept 11 traces here.
 - *Ross, Amabile, and Steinmetz, fundamental attribution error quizmaster study (1977)* — observers rated questioners as more knowledgeable despite obvious situational asymmetry (Ch 12.1) [BT]. Key Concept 5 traces here.
 - *Bibb Latané and John Darley, bystander effect* — diffusion of responsibility (Ch 12.6) [BT]. Key Concept 9 traces here.
-- *Jerrold Greenberg, procedural justice in the workplace* — pay-decision explanations reduce theft; procedural fairness predicts retaliation (Ch 13.3) [BT]. Integration table reference traces here.
+- *Greenberg (1993), procedural justice in the workplace* — pay-decision explanations reduce theft; procedural fairness predicts retaliation (Ch 13.3) [BT]. Integration table reference traces here.
 - *Petty and Cacioppo, elaboration likelihood model* — central route (logic/data) vs peripheral route (cues/celebrity) persuasion (Ch 12.3) [BT].
 
 **Named limits of the source.** The book is an introductory psychology survey; the decision-relevant content (Ch 7, Ch 8, Ch 12, Ch 10, Ch 13) is compressed relative to specialist sources. The bias inventory in Ch 7.3 compresses the Kahneman-Tversky programme into five items; practitioners needing depth should go to the primary literature. Clinical, developmental, and biological chapters are excluded from this distillation as outside the decision-making scope.
 
-**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-psychology-2e-deep.md`). Key Concepts are drawn from `[AP]` (the source's stated cognitive framework positions) or `[AE]` (worked examples and study summaries). The experimental findings and theories named above (Kahneman-Tversky, Asch, Milgram, Janis, Festinger, Loftus, Bandura, Rotter, Schacter, Yerkes-Dodson, Schachter-Singer, Latané-Darley, Greenberg) are all `[BT]` — the source endorses and explains them as established psychology but did not originate them.
+**Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-psychology-2e-deep.md`). Key Concepts draw on the deep reference's `[V]` definitions (Ch 7.3, Table 7.3; Ch 10.1), `[AP]` framework paraphrases, and `[BT]` study summaries. The experimental findings and theories named above (Kahneman-Tversky, Asch, Milgram, Janis, Festinger, Loftus, Bandura, Rotter, Schacter, Yerkes-Dodson, Schachter-Singer, Latané-Darley, Greenberg) are borrowed-through — the source endorses and explains them as established psychology but did not originate them.

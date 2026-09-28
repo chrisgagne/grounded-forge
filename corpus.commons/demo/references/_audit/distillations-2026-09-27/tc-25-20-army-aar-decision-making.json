@@ -1,0 +1,299 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/tc-25-20-army-aar-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-184 of 184",
+    "deep": "lines 1-269 of 269",
+    "complete": true
+  },
+  "claims_audited": 149,
+  "tally": {
+    "faithful": 121,
+    "minor_drift": 18,
+    "unsupported": 5,
+    "contradicted": 5
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "(f) the fratricide-as-mandatory-deep-discussion exception that overrides normal time-budget discipline",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: the TC mandates detailed discussion of every fratricide incident or near incident; it never frames this as an exception that overrides time budgets.",
+      "evidence": "Deep 159 (source 987-994): 'All incidents or near incidents of fratricide ... will be discussed in detail ... As soon as possible after the event, an AAR should be held'. No time-budget language.",
+      "fix": "correct: (f) the fratricide rule: every incident or near incident is discussed in detail, as soon as possible after the event"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "The AAR is upstream of the next plan, not part of the current operation.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The TC builds AARs into the operation: stopping points at the end of each critical phase, informal on-the-spot AARs whose ideas are put to use as training continues, and AARs integrated into combat operations.",
+      "evidence": "Deep 74 (source 449-451): 'Leaders must schedule time to conduct AARs as an integrated part of overall training. When possible, they should plan for an AAR at the end of each critical phase or major training event'. Source 235: informal AAR ideas 'can be immediately put to use as the unit continues its training'. Deep 199 (source 1203): 'By integrating training into combat operations and using tools such as AARs'.",
+      "fix": "correct: The AAR feeds the next plan; the TC schedules it at stopping points within the operation (end of each critical phase) as well as after it."
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts #2 (aar-vs-critique)",
+      "claim": "The TC argues the AAR produces stronger recall and behaviour change because participants discover what happened",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds 'behaviour change'; the TC's claim is that participants learn and remember more.",
+      "evidence": "Deep 15, 35 (source 134-136): 'they learn and remember more than they would from a critique alone'.",
+      "fix": "correct: The TC argues that participants who discover what happened learn and remember more than they would from a critique alone."
+    },
+    {
+      "id": "D004",
+      "line": 24,
+      "section": "Key Concepts #6 (metrics-use)",
+      "claim": "\"Effective feedback requires participants to measure ... Statistics and statistics-based charts should identify critical trends or issues and reinforce teaching points\" (Ch 4, \"Statistics\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker missing: TC words in quotation marks without [V].",
+      "evidence": "Deep 171 (source 1067-1077) carries the passage as [V]; the three segments match the source word for word.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D005",
+      "line": 28,
+      "section": "Key Concepts #8 (evaluator-independence)",
+      "claim": "This is a structural rule for evaluator independence: the immediate next echelon is too close; two echelons up has enough distance for honest assessment and enough proximity to understand the conditions.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Invented rationale attributed to the TC's external-evaluation rule; 'next echelon is too close' contradicts the TC's own one-level-up chain-of-command evaluation.",
+      "evidence": "Deep 62 (source 320-324): internal evaluations are the unit's own; external ones are conducted by 'the headquarters two levels above the unit being evaluated' — no rationale. Deep 68 (source 391-406): when OCs cannot be freed, 'leaders in the chain of command should evaluate subordinate units and conduct the AARs' (company commanders evaluate platoons); the only objectivity caution is to 'avoid evaluating their own duties and tasks'.",
+      "fix": "correct: The TC gives no rationale for the two-level distance, and it applies only to external evaluations. Internal evaluations are the unit's own; when dedicated OCs are unavailable, leaders one level up in the chain of command evaluate, provided no one evaluates their own duties and tasks (Ch 2, \"Selecting and Training Observers and Controllers\")."
+    },
+    {
+      "id": "D006",
+      "line": 30,
+      "section": "Key Concepts #9 (severity-override)",
+      "claim": "Fratricide overrides time-budget discipline ... The TC normally cautions against dwelling on issues unrelated to mission accomplishment, but fratricide is the explicit exception.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The TC does not frame fratricide as an exception to the dwell caution (fratricide is plainly related to mission accomplishment); 'explicit exception' and 'overrides time-budget' are the distillation's construction.",
+      "evidence": "Deep 163 (Flexibility): 'Not dwell on issues unrelated to mission accomplishment'. Deep 159: fratricide 'will be discussed in detail'; 'the leader must swiftly deal with all fratricide incidents'. No exception language.",
+      "fix": "correct: Fratricide always gets detailed discussion. \"All incidents or near incidents of fratricide ... will be discussed in detail\" [V] (Ch 4, \"Fratricide\"), with an AAR held as soon as possible after the event. Decision-makers should name their own equivalents: events that must always get a detailed review."
+    },
+    {
+      "id": "D007",
+      "line": 42,
+      "section": "Key Concepts #15 (aar-planning)",
+      "claim": "\"Reviewers must fully address all key learning points. They must not waste time on dead-end issues\" (Ch 2, \"Scheduling Stopping Points\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker missing: TC words in quotation marks without [V].",
+      "evidence": "Deep 74 carries it as [V]; source 469 ('deadend' is a conversion artefact).",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D008",
+      "line": 61,
+      "section": "Questions, Phase 2: Bounding",
+      "claim": "Who is two echelons above the unit being evaluated? If the review needs evaluator independence, the immediate next echelon is too close.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Same invented premise as D005, restated as a question premise.",
+      "evidence": "Deep 62, 68 as in D005.",
+      "fix": "correct: Is this an internal review (the unit's own leaders or OCs, with no one evaluating their own duties and tasks) or an external evaluation, which the TC assigns to the headquarters two levels above? Who plays that role here?"
+    },
+    {
+      "id": "D009",
+      "line": 72,
+      "section": "Questions, Phase 3: Exploring",
+      "claim": "The TC's pinecones-and-the-squad-leader worked example is operative: a 15-minute on-the-spot AAR with minimal aids often produces more useful retraining decisions than a fully resourced formal review.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Invented duration and an invented comparative finding attributed to the TC. The TC gives no informal-AAR duration and never ranks informal above formal; it has informal AARs feed formal ones.",
+      "evidence": "Deep 46-48: informal AARs need fewer resources; their significant strength is 'immediate feedback while the training is still fresh'; leaders collect teaching points from them 'they can use as discussion points during higher echelon formal AARs'. No duration, no comparison of decision quality.",
+      "fix": "correct: The TC's pinecones example shows an informal AAR run on the spot with almost no aids; its strength is immediate feedback while the event is fresh, and its teaching points can feed a later formal AAR (Ch 1, \"Informal\"). Is a formal review really the right scale?"
+    },
+    {
+      "id": "D010",
+      "line": 79,
+      "section": "Questions, Phase 4: Deciding",
+      "claim": "The default allocation is to known weakness, not known strength. If we are about to invest in further development of an already-proficient capability, what is our reason for deviating from the default?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Loosened: omits the TC's own qualifier that sustaining proficiency on tasks already at standard remains important; the TC ranks priorities rather than setting a default that needs justification to leave.",
+      "evidence": "Deep 256 (source 1058-1061): 'Although it is important to sustain proficiency on tasks whose standards the unit has met, it is more important to train to standard on new or deficient mission-essential tasks.'",
+      "fix": "correct: The TC puts new or deficient tasks first while still naming sustainment of met standards as important. Is the investment in an already-proficient capability sustainment, or is it crowding out a known weakness?"
+    },
+    {
+      "id": "D011",
+      "line": 80,
+      "section": "Questions, Phase 4: Deciding",
+      "claim": "The TC's framing throughout — that there are always weaknesses to improve and strengths to sustain — implies that outcome ≠ decision quality. An action that produced a poor outcome despite competent execution under uncertainty is a different case ...",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Quote repurposed: the passage supports 'the AAR does not grade', not an outcome-versus-decision-quality distinction. The TC does not discuss luck, uncertainty or decision quality.",
+      "evidence": "Deep 121 (Ch 4, \"Introduction and Rules\"): 'An AAR does not grade success or failure. There are always weaknesses to improve and strengths to sustain.' Deep 269: the TC presents doctrine with no decision-theory content.",
+      "fix": "strip"
+    },
+    {
+      "id": "D012",
+      "line": 110,
+      "section": "What to Look For, gate-task pattern",
+      "claim": "\"the unit must always retrain and perform critical gate tasks to standard before progressing.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quoted TC text altered without ellipsis ('derived from the Combined Arms Training Strategy (CATS)' dropped) and carried without a marker.",
+      "evidence": "Deep 189 (source 1156-1157): 'The unit must always retrain and perform critical gate tasks derived from the Combined Arms Training Strategy (CATS) to standard before progressing to the next level of tasks.'",
+      "fix": "correct: \"The unit must always retrain and perform critical gate tasks derived from the Combined Arms Training Strategy (CATS) to standard before progressing to the next level of tasks\" [V] (Ch 5, \"Immediate Retraining\")"
+    },
+    {
+      "id": "D013",
+      "line": 111,
+      "section": "What to Look For, statistics pattern",
+      "claim": "the TC requires that metrics \"identify critical trends or issues and reinforce teaching points.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker missing on quoted TC text.",
+      "evidence": "Deep 171 (source 1073-1077) carries it inside a [V] passage.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D014",
+      "line": 113,
+      "section": "What to Look For, severity pattern",
+      "claim": "\"all incidents or near incidents of fratricide will be discussed in detail\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quoted TC text elided without ellipsis (', whether inflicted by direct fire, indirect fire, or close air support (CAS),' dropped) and carried without a marker.",
+      "evidence": "Deep 159 (source 987-988).",
+      "fix": "correct: \"All incidents or near incidents of fratricide ... will be discussed in detail\" [V] (Ch 4, \"Fratricide\")"
+    },
+    {
+      "id": "D015",
+      "line": 113,
+      "section": "What to Look For, severity pattern",
+      "claim": "Diagnosis: the TC's explicit exception ... overrides time-budget discipline.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same construction as D006: the TC mandates detailed discussion but states no exception to time budgets.",
+      "evidence": "Deep 159, 163 as in D006.",
+      "fix": "correct: Diagnosis: the TC requires every fratricide incident or near incident to be discussed in detail; a brief mention does not meet that rule."
+    },
+    {
+      "id": "D016",
+      "line": 145,
+      "section": "Worked Example, closing",
+      "claim": "The TC's contribution is ... a set of decision rules that prevent the most common failure modes of post-event reviews — drifting into blame, allocating training resources to comfort rather than need, ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Frequency claim ('most common') and motive ('comfort') not in the TC, which offers no data on review failure rates.",
+      "evidence": "Deep 269: 'there are no statistical claims, no studies cited'. Deep 169, 256: train to weakness, stated without reference to comfort.",
+      "fix": "correct: The TC's contribution is a set of decision rules that guard against failure modes it names: drifting into critique, training to strength instead of weakness, letting fratricide-type events go without detailed discussion, and closing without applying results to future training."
+    },
+    {
+      "id": "D017",
+      "line": 155,
+      "section": "Anti-patterns",
+      "claim": "Convening a review at the immediate next echelon up when independence requires two echelons.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Rests on the D005 premise; the TC prescribes one-level-up chain-of-command evaluation when OCs are unavailable.",
+      "evidence": "Deep 68 (source 391-406): 'leaders in the chain of command should evaluate subordinate units and conduct the AARs'; the stated risk is self-evaluation: 'It is hard to be objective about your own performance'.",
+      "fix": "correct: Letting someone evaluate their own duties and tasks (\"It is hard to be objective about your own performance\", Ch 2, \"Selecting and Training Observers and Controllers\"), or running a formal external evaluation through the unit's own chain instead of the headquarters two levels above."
+    },
+    {
+      "id": "D018",
+      "line": 166,
+      "section": "Integration, NHS Just Culture Guide",
+      "claim": "TC 25-20's \"AAR does not grade\" [V] principle maps to Just Culture's \"blame-free review\" intent",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Mischaracterises the NHS guide: it is a fairness test for whether individual action is warranted, and some branches (deliberate harm, health) route to individual action. 'Blame-free review' is not its language or intent.",
+      "evidence": "NHS deep 5 (subtitle: 'Supporting consistent, constructive and fair evaluation of the actions of staff'); NHS deep 15-17: 'action singling out an individual is rarely appropriate' and the guide 'supports a conversation between managers about whether a staff member ... requires specific individual support or intervention'; NHS deep 50, 94: Q1 Yes routes to Recommendation A, the deliberate-harm response.",
+      "fix": "correct: TC 25-20's \"AAR does not grade\" [V] principle sits alongside the NHS guide's prior that \"action singling out an individual is rarely appropriate\"; where the TC keeps grading out of the review, the NHS guide supplies a separate, structured test for the rare cases where individual action is warranted."
+    },
+    {
+      "id": "D019",
+      "line": 166,
+      "section": "Integration, NHS Just Culture Guide",
+      "claim": "the NHS guide supplies the stakeholder-safety and psychological-safety framing",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "NHS deep ref carries no psychological-safety content; its framing is fairness to staff and protection of patients through a decision tree.",
+      "evidence": "NHS deep 15-40: purposes are a manager conversation about individual support or intervention, 'protecting staff from unfair targeting', and a communication tool for staff, patients and families. No psychological-safety material.",
+      "fix": "correct: the NHS guide supplies the fairness test for individual accountability and its use as a communication tool for staff, patients and families"
+    },
+    {
+      "id": "D020",
+      "line": 167,
+      "section": "Integration, Open Practice Library",
+      "claim": "OPL's retrospective practices (Sailboat, 4Ls, ROTI)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "ROTI does not appear in the OPL source; Sailboat appears only as a passing example inside the Retrospectives practice and is not carried by the deep ref.",
+      "evidence": "OPL deep 230 lists 4Ls, Rose Thorn Bud, PMI, Realtime Retrospective, Design Retro, Futurespective. OPL converted source 21342 mentions a 'sailboat retro' in passing; no 'ROTI' anywhere in the source.",
+      "fix": "correct: OPL's retrospective practices (4Ls, Rose Thorn Bud, Plus Minus Interesting)"
+    },
+    {
+      "id": "D021",
+      "line": 167,
+      "section": "Integration, Open Practice Library",
+      "claim": "[OPL's retrospective practices] are the TC's AAR translated into Agile software contexts.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Lineage asserted without support: neither deep ref says OPL's retrospectives derive from the AAR.",
+      "evidence": "OPL deep 230: retrospectives 'provide opportunities for groups to reflect, inspect and adapt their ways of working'; no reference to AARs anywhere in OPL deep.",
+      "fix": "correct: serve the same reflect-and-adapt purpose in software teams"
+    },
+    {
+      "id": "D022",
+      "line": 168,
+      "section": "Integration, OpenStax Organizational Behavior",
+      "claim": "The TC's \"AAR does not grade\" [V] and \"train to weakness not to strength\" rules",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Second quotation carried without a marker and with the comma dropped.",
+      "evidence": "Deep 169 (source 1061): 'Train to weakness, not to strength.'",
+      "fix": "correct: \"Train to weakness, not to strength\" [V]"
+    },
+    {
+      "id": "D023",
+      "line": 169,
+      "section": "Integration, Psychology 2e",
+      "claim": "Psychology 2e's treatment of reconstructive memory ... explains why the TC's chronological narrative approach works: inviting \"what happened?\" rather than \"why did you...?\" reduces the leading-question effect that degrades memory evidence.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstated fit and conflation: the Bradley contrast is the TC's open-ended-question rule, not its chronological technique; the TC's stated reason is defensiveness, and it recommends leading questions alongside open-ended ones, which the misinformation research cautions against.",
+      "evidence": "TC deep 134 (source 898-902): 'use open-ended and leading questions'; open-ended questions are 'much less likely to put him on the defensive'. TC deep 151: chronological technique aids recall by covering actions in order. Psych 2e deep 186: 'leading questions can alter eyewitness memory'.",
+      "fix": "correct: Psychology 2e's reconstructive-memory material (Ch 8.3) adds a reason the TC does not give for its open-ended questions: questions that presuppose an answer can alter what people remember. It also cautions against the leading questions the TC recommends alongside open-ended ones."
+    },
+    {
+      "id": "D024",
+      "line": 170,
+      "section": "Integration, Scrum Guide 2020",
+      "claim": "a time-boxed, cadenced post-event review that must produce a committed process-improvement action",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the Scrum Guide 2020, which has the team identify the most helpful changes and address the most impactful 'as soon as possible'; adding them to the Sprint Backlog is optional ('may').",
+      "evidence": "Scrum deep 161: 'The Scrum Team identifies the most helpful changes to improve its effectiveness. The most impactful improvements are addressed as soon as possible. They may even be added to the Sprint Backlog for the next Sprint' [V].",
+      "fix": "correct: a time-boxed, cadenced review in which the team identifies the most helpful changes and addresses the most impactful as soon as possible"
+    },
+    {
+      "id": "D025",
+      "line": 182,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The TC is a 1993 military training circular for Army unit training reviews.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Scope narrowed: the TC covers AARs in training and in combat.",
+      "evidence": "Deep 13 (source 66-67): feedback 'in training and in combat' [V] (Preface). Deep 199: Ch 5, 'The After-Action Review in Combat'.",
+      "fix": "correct: The TC is a 1993 Army training circular on AARs for unit training and, in Ch 5, combat operations."
+    },
+    {
+      "id": "D026",
+      "line": 182,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The TC does not address ... trauma-informed review practices, or the just-culture legal exposure ... — those gaps are served by the NHS Just Culture Guide and LFUO 2024 distillations.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Neither NHS nor LFUO deep ref carries trauma-informed review practice; legal exposure appears only as LFUO's administrative firewall and a glossary definition.",
+      "evidence": "NHS deep: no trauma, legal or psychological-safety content. LFUO deep 67: 'maintain a solid firewall between the FLA and any potential administrative actions'; LFUO deep 268: glossary 'Culpability'. No trauma-informed material in either.",
+      "fix": "correct: The just-culture gap is served by the NHS Just Culture Guide (fair evaluation of individual actions) and LFUO 2024 (administrative firewall between learning and discipline). Trauma-informed review practice is not held in this corpus."
+    },
+    {
+      "id": "D027",
+      "line": 184,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "This distillation paraphrases except for quotations marked [V], which match the source word for word",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Not accurate for this file: six quoted TC passages carry no marker (D004, D007, D012, D013, D014, D022), and three of those are altered.",
+      "evidence": "See D004, D007, D012, D013, D014, D022.",
+      "fix": "correct: fix the unmarked quotations per D004, D007, D012-D014 and D022; the sentence then holds."
+    },
+    {
+      "id": "D028",
+      "line": 184,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "Key Concepts are [AP] (the TC's stated rules and positions) or [V] (direct quotations).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "No [AP] marker appears anywhere in the distillation; paraphrased Key Concept claims carry citations but no marker.",
+      "evidence": "Distillation lines 14-42: markers used are [V] only.",
+      "fix": "correct: Key Concept quotations carry [V]; paraphrased claims carry a section citation without a marker."
+    }
+  ],
+  "notes": "21 quoted strings were checked against the converted source with whitespace normalisation. All [V]-marked quotations match word for word (a few with the addressee 'SGT Johnson,' dropped or initial capitalisation changed, which is acceptable). Six quoted TC passages carry no marker, and three of those are altered without ellipsis (D012, D014, D022). The two-levels-above error appears three times (D005, D008, D017) and matches the sibling stakeholder-engagement and AAR audits. The 'fratricide overrides time budget' construction recurs (D001, D006, D015); the TC's rule is detailed discussion of every incident or near incident, as soon as possible after the event. Figures (30-45 min, 1 hr, 2 hr, 6-8 weeks) are correct everywhere except the invented 15-minute informal AAR (D009). The worked example is hypothetical and presents no outcome as the TC's finding; its stop-rule and fratricide-equivalent mappings are analogies and were left as applied guidance. The OB row (six barriers, Ch 6.4, escalation of commitment, confirmation bias) matches the OB deep ref; its claim that the TC's rules are 'structural interventions' against those barriers is the distillation's own synthesis and was left as such. The file header says 'no copyleft propagation' in place of a Scope line; not graded."
+}

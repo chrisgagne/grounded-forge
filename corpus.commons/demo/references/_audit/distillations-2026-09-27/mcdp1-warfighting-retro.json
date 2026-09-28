@@ -1,0 +1,130 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/mcdp1-warfighting-retro.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-52 of 52", "deep": "lines 1-254 of 254", "complete": true},
+  "claims_audited": 36,
+  "tally": {"faithful": 24, "minor_drift": 7, "unsupported": 2, "contradicted": 3},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 24,
+      "section": "Retro Relevance, thread 3 (Commander's intent)",
+      "claim": "Senior commanders give what and why (intent), never how.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Absolute rule the source qualifies: the senior prescribes method where coordination requires it.",
+      "evidence": "Deep 186 [V] (Ch 4, \"Mission tactics\"): \"The senior prescribes the method of execution only to the degree that is essential for coordination. The senior intervenes in a subordinate's execution only by exception.\"",
+      "fix": "correct: Senior commanders give the task and the intent, and prescribe \"the method of execution only to the degree that is essential for coordination\" [V] (Ch 4, \"Mission tactics\")."
+    },
+    {
+      "id": "D002",
+      "line": 24,
+      "section": "Retro Relevance, thread 3 (Commander's intent)",
+      "claim": "If the sharp-end team does not know the intent two levels up, the senior leaders' communication is the upstream cause, not the team's compliance.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Puts the whole burden on seniors; the source says the burden of understanding intent falls on both.",
+      "evidence": "Source 3761-3766 (Ch 4, \"Commander's intent\"): \"The burden of understanding falls on senior and subordinate alike. The seniors must make their purposes perfectly clear ... Subordinates must have a clear understanding of what their commander expects.\" Deep 142: \"The subordinate is obligated to act in conformity with the intent of the senior.\"",
+      "fix": "correct: MCDP-1 says the burden of understanding intent \"falls on senior and subordinate alike\" (Ch 4, \"Commander's intent\"). If the team does not know the intent two levels up, the retro asks both: how was it stated, and how did the team seek it?"
+    },
+    {
+      "id": "D003",
+      "line": 32,
+      "section": "Retro Relevance, thread 4 (OODA loop and tempo)",
+      "claim": "If your sprint cadence is shorter than the requirements-change cadence, your sprint plan is obsolete by mid-sprint; the requirements are inside your team's OODA loop.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Direction inverted. A plan goes stale when the sprint is longer than the interval at which requirements change; the Scrum Guide deep ref says a too-long horizon invalidates the Sprint Goal, and MCDP-1's tempo logic favours the shorter cycle. 'Inside the loop' is not a source term.",
+      "evidence": "Scrum Guide deep 111 [V]: \"When a Sprint's horizon is too long the Sprint Goal may become invalid ... Shorter Sprints can be employed to generate more learning cycles\"; MCDP-1 deep 43 [V] (Notes 18 of Ch 2): the faster cycle gains the advantage.",
+      "fix": "correct: For agile teams: if your sprint is longer than the interval at which requirements change, your sprint plan goes stale mid-sprint; the situation is cycling faster than the team is."
+    },
+    {
+      "id": "D004",
+      "line": 30,
+      "section": "Retro Relevance, thread 4 (OODA loop and tempo)",
+      "claim": "Boyd's insight (via Coram's biography, where Orient is the load-bearing node): the improvements that actually matter are usually orientation improvements (better mental models, faster cultural pattern-recognition) — not just faster Observe / Decide / Act.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Cites a source not held in this corpus (Coram appears only in the deep ref's list of another corpus's slugs) and imports Boyd content MCDP-1 does not carry. MCDP-1 defines orienting only as making an estimate of the situation.",
+      "evidence": "Deep 219: Coram listed as 'slug 081, being ingested in parallel' in the AARBuddy corpus; no demo-corpus deep ref for Coram. Deep 43 [V] (Notes 18 of Ch 2) and source 4293-4294: \"he orients; that is, he makes an estimate of the situation.\" No claim of Orient's primacy.",
+      "fix": "strip"
+    },
+    {
+      "id": "D005",
+      "line": 50,
+      "section": "Connections to other corpus sources",
+      "claim": "TC 25-20 (slug 00o) — military AAR procedure that operates within MCDP-1's doctrinal frame.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "TC 25-20 is an Army circular under FM 25-101; neither deep ref places it within MCDP-1.",
+      "evidence": "TC 25-20 deep 245-246: supplements FM 25-101, parent training doctrine FM 25-100. MCDP-1 deep 113: the source never names the AAR; the parallel is the deep ref's own observation.",
+      "fix": "correct: TC 25-20 (slug 00o): the Army's AAR procedure; its practice parallels MCDP-1's Ch 3 critique discipline (review focused on why, tolerance for admitted mistakes)."
+    },
+    {
+      "id": "D006",
+      "line": 8,
+      "section": "Retro Relevance",
+      "claim": "MCDP-1 supplies the philosophy — particularly four threads that recur in team-level retros.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong: six numbered threads follow.",
+      "evidence": "Distillation headings ### 1 through ### 6 (lines 10-38).",
+      "fix": "correct: particularly six threads that recur in team-level retros."
+    },
+    {
+      "id": "D007",
+      "line": 16,
+      "section": "Retro Relevance, thread 2",
+      "claim": "The main effort / Schwerpunkt (Ch 4); 'the team's Schwerpunkt discipline is missing'.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes a term to MCDP-1 that the source does not use; 'Schwerpunkt' is the deep ref's [AR] gloss.",
+      "evidence": "Deep 146 [AR] note; deep 166 vocabulary heading. Source: no occurrence of 'Schwerpunkt'.",
+      "fix": "correct: replace 'Schwerpunkt' with 'main effort' at lines 16 and 20."
+    },
+    {
+      "id": "D008",
+      "line": 22,
+      "section": "Retro Relevance, thread 3",
+      "claim": "Commander's intent must be understood two levels up (heading; repeated at line 24).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens 'should understand ... at least two levels up'.",
+      "evidence": "Deep 144 [V] (Ch 4, \"Commander's intent\"): \"[Subordinates] should understand the intent of the commander at least two levels up.\"",
+      "fix": "correct: Commander's intent: subordinates \"should understand the intent of the commander at least two levels up\" [V] (Ch 4, \"Commander's intent\")."
+    },
+    {
+      "id": "D009",
+      "line": 26,
+      "section": "Retro Relevance, thread 3",
+      "claim": "Chronic 'we never know what management actually wants' surfaces as a leadership-level action item, not a team-level one.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Follows from the D002 premise; under the source's shared burden the action item sits at both levels.",
+      "evidence": "Source 3761-3766 (shared burden); deep 142 (two-sided contract).",
+      "fix": "correct: Chronic 'we never know what management actually wants' produces action items at both levels: leaders state intent more clearly; the team asks for it and checks its understanding."
+    },
+    {
+      "id": "D010",
+      "line": 30,
+      "section": "Retro Relevance, thread 4",
+      "claim": "The team that completes the cycle faster, or that operates in a way the adversary cannot orient to, wins.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref's thesis-heading wording stated as doctrine; 'operates in a way the adversary cannot orient to' is not in the source and 'wins' overstates.",
+      "evidence": "Deep 43 [V] (Notes 18 of Ch 2): \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle.\"",
+      "fix": "correct: Boyd argued that \"the party who consistently completes the cycle faster gains an advantage that increases with each cycle\" [V] (Notes 18 of Ch 2)."
+    },
+    {
+      "id": "D011",
+      "line": 40,
+      "section": "Retro Relevance, thread 6 (Severity on errors of inaction)",
+      "claim": "The retro move is to make the asymmetry explicit: we will be lenient on errors of commission, severe on errors of omission.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Broadens leniency from errors stemming from overboldness to all errors of commission; drops the source's limit on reckless acts.",
+      "evidence": "Deep 109 [V] (Ch 3, \"Professionalism\"): leniency for \"errors by junior leaders stemming from overboldness\"; source 2398-2401: \"constructive criticism is an important element in learning. Nor does it give subordinates free license to act stupidly or recklessly.\"",
+      "fix": "correct: we will be lenient on errors that come from acting boldly, and severe on errors of inaction or timidity (Ch 3, \"Professionalism\"); leniency is not licence for recklessness."
+    },
+    {
+      "id": "D012",
+      "line": 49,
+      "section": "Connections to other corpus sources",
+      "claim": "Liberating Structures (slug 006); Open Practice Library (slug 009) — facilitation methods that operationalise MCDP-1's doctrine-as-way-of-thinking discipline.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "States a relationship neither reference makes; the LS and OPL deep refs never mention MCDP-1, doctrine or intent. 'Operationalise' overstates a loose affinity.",
+      "evidence": "grep of liberating-structures-handbook-deep.md and open-practice-library-deep.md for MCDP / Marine / commander: no hits.",
+      "fix": "correct: Liberating Structures (slug 006); Open Practice Library (slug 009): facilitation methods for running the retro that MCDP-1 itself does not supply."
+    }
+  ],
+  "notes": "Hash matches current deep ref. The file does not follow the nine-section template and carries no [V] quotes at all, though the source is Scope: open (protocol asks for 2-5). For a retrospective projection it omits the deep ref's Ch 3 'Training' critique passage (deep 113: critical self-analysis even after success; willingness to admit mistakes depends on the commander's tolerance; critiques focus on why), which is the source's most retro-relevant content, and the honest-dissent / trust passage (deep 111)."
+}

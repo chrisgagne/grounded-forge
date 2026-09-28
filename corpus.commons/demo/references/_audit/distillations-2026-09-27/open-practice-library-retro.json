@@ -1,0 +1,209 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/open-practice-library-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-160 of 160",
+    "deep": "lines 1-334 of 334",
+    "complete": true
+  },
+  "claims_audited": 130,
+  "tally": {
+    "faithful": 111,
+    "minor_drift": 16,
+    "unsupported": 1,
+    "contradicted": 2
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 14,
+      "section": "Key Concepts #2, #3, #12",
+      "claim": "Verbatim quotations carried without a marker: Establish Shared Principles 'Organizations that have done the work...' (line 14), 1-2-4-All anti-HiPPO sentence (line 16), Dissent Cards 'It's a way to encourage...' (line 34, with 'language' recapitalised)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotations unmarked",
+      "evidence": "Deep ref line 17 ([V]), line 90 ([V] [AR]), line 218 ([V] [BT]); source L18077 (Dissent Cards) reads 'Leadership is language'.",
+      "fix": "re-mark: [V] on lines 14 and 16; [V] [BT] on line 34 and restore 'Leadership is language'"
+    },
+    {
+      "id": "D002",
+      "line": 16,
+      "section": "Key Concepts #3 1-2-4-All",
+      "claim": "\"The library explicitly recommends combining with *$100 Prioritisation* for the group variant.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "direction of the cross-practice link reversed",
+      "evidence": "Deep ref lines 21 and 271: it is $100 Prioritisation that invokes 1-2-4-All for its group variant; source L17411 ($100 'Variations': 'My preference is to use 1-2-4-All practice'). The 1-2-4-All page (L7-44) does not mention $100.",
+      "fix": "correct: The $100 Prioritisation practice recommends 1-2-4-All as the conversation structure for its group variant."
+    },
+    {
+      "id": "D003",
+      "line": 18,
+      "section": "Key Concepts #4 Five Whys",
+      "claim": "\"we should ask why the process failed instead of just asking why. It's important to look for a process ... But we can't control those things.\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation re-ordered (last sentence moved first, 'So,' dropped) without ellipsis or marker; the definition quote is from 'What is it?' though only 'Why do it?' is cited",
+      "evidence": "Deep ref line 96 / source L2180 order: 'It's important to look for a process ... But we can't control those things. So, we should ask why the process failed instead of just asking why.' [V]; definition at source L2148-2150 ('What is it?').",
+      "fix": "correct: quote in source order ending \"So, we should ask why the process failed instead of just asking why.\" [V]; cite \"What is it?\", \"Why do it?\""
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts #4 Five Whys",
+      "claim": "Five Whys is \"Referenced from inside *Retrospectives* as the primary drill-down technique.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstated ('primary')",
+      "evidence": "Deep ref line 272: 'invoked from within Retrospectives as a drill-down technique'. Source L21402: 'drill down into specific issues using techniques such as the 5 whys'.",
+      "fix": "correct: Referenced from inside Retrospectives as one drill-down technique (\"techniques such as the 5 whys\")"
+    },
+    {
+      "id": "D005",
+      "line": 22,
+      "section": "Key Concepts #6 Disagree and Commit (also lines 84, 135)",
+      "claim": "Two pre-conditions: \"everybody must have a meaningful choice, and there must be an agreed review point.\"; repeated unquoted at lines 84 and 135",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "invented wording in quotation marks; 'meaningful' added; pre-conditions absent from the deep ref; cited to 'What is it?'/'Why do it?' though they sit in 'How to do it?'",
+      "evidence": "Deep ref D&C entries (lines 217, 312) carry no pre-conditions. Source L18044-18049 ('How to do it?'): 'everybody in the team needs a choice; a decision they can make ... there needs to be an agreed review point and the tests that will be run/ evidence the team is looking for'.",
+      "fix": "cycle-to-deep: add the D&C 'How to do it?' pre-conditions (L18044-18049) [V] to the deep ref; then quote that wording (drop 'meaningful') and cite 'How to do it?'"
+    },
+    {
+      "id": "D006",
+      "line": 24,
+      "section": "Key Concepts #7 Psychological Safety",
+      "claim": "\"When the safety check returns low (1-2), the library routes to Establish Shared Principles before content — matching the retro.md task spec's Phase 0 rule.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "task-spec rule attributed to the library",
+      "evidence": "No OPL practice in the deep ref (or the source) routes from a low safety score to Establish Shared Principles; the deep ref's ESP entries (lines 17, 131, 317) and Check-ins entry (line 92) carry nothing of the kind.",
+      "fix": "correct: The retro task spec's Phase 0 rule routes a low (1-2) safety check to working agreements before content; Establish Shared Principles and Check-ins are the OPL practices that fit that move."
+    },
+    {
+      "id": "D007",
+      "line": 28,
+      "section": "Key Concepts #9 Backcasting / Pre-mortem",
+      "claim": "\"...made popular by the Nobel prize winner Daniel Kahneman...\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation silently corrected ('price' to 'prize') and unmarked",
+      "evidence": "Source L10009 and deep ref line 155 read 'Nobel price winner'; deep ref carries it [V] [BT].",
+      "fix": "correct: \"...the Nobel price [sic] winner Daniel Kahneman...\" [V]"
+    },
+    {
+      "id": "D008",
+      "line": 30,
+      "section": "Key Concepts #10 Impact-Effort and RICE",
+      "claim": "\"The library's approach: 'Where does each option land on impact × effort?' gives a visible quadrant-based triage\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "the distillation's own question set in quotation marks and attributed to the library",
+      "evidence": "The phrase is not in the source or the deep ref (deep line 204: 'Two-axis 2×2 (high/low impact × high/low effort) [AP]').",
+      "fix": "correct: The Impact-Effort matrix gives a visible quadrant-based triage (where does each option land on impact × effort?)"
+    },
+    {
+      "id": "D009",
+      "line": 50,
+      "section": "Questions, Phase 0.5",
+      "claim": "\"redesign with Design of Experiments' named-owner field\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "attributes a field the practice does not have",
+      "evidence": "Deep ref line 213 / source L17901-17913 list the minimum fields: Hypothesis, Current Condition, Target Condition, Obstacles, Pass, Measures, Learning — no owner. Owners and due dates come from the Retrospectives page (source L21352-21354, not in the deep ref).",
+      "fix": "correct: redesign with Design of Experiments' fields and name an owner and due date for each action, as the Retrospectives practice asks; cycle-to-deep: add Retrospectives 'Why do it?' 'actions agreed by the team with owners and estimated time due dates' [V]"
+    },
+    {
+      "id": "D010",
+      "line": 65,
+      "section": "Questions, Phase 2; What to Look For (line 99)",
+      "claim": "1-2-4-All: \"individual → pairs → groups of 4–6 → whole group\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "group size imported from the LS Handbook's 1-2-4-Whole Group",
+      "evidence": "Deep ref line 258 / source L41: OPL's 1-2-4-All uses foursomes; 4-6 is liberating-structures-handbook-deep line 59.",
+      "fix": "correct: individual → pairs → foursomes → whole group"
+    },
+    {
+      "id": "D011",
+      "line": 67,
+      "section": "Questions, Phase 2 (also line 75)",
+      "claim": "\"Our job is not to point fingers — our job is to figure out why.\" (line 67); \"Our job is not to point fingers at an unlucky engineer.\" [V] (line 75)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation spliced and truncated without ellipsis; line 75 closes a fragment with a full stop under [V]",
+      "evidence": "Source L19797 / deep ref line 237: 'Our job is not to point fingers at an unlucky engineer that applied a wrong configuration file, our job is to figure out why he picked the wrong one and what we personally and as an organization can do to prevent it in the future.'",
+      "fix": "correct: \"Our job is not to point fingers at an unlucky engineer ... our job is to figure out why he picked the wrong one\" with ellipsis on both lines"
+    },
+    {
+      "id": "D012",
+      "line": 74,
+      "section": "Questions, Phase 3",
+      "claim": "\"Five Whys beyond five: keep going until the structural cause emerges.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported detail absent from the deep ref",
+      "evidence": "Deep ref line 96 does not carry it. Source L2177: 'You can ask \"why\" up to five times (or more) to find the real reason'.",
+      "fix": "cycle-to-deep: add 'You can ask \"why\" up to five times (or more) to find the real reason for a problem' [V] to the deep ref's Five Whys entry"
+    },
+    {
+      "id": "D013",
+      "line": 91,
+      "section": "Questions, Phase 5",
+      "claim": "\"Named owner, named date, named pass criteria from the Design of Experiments fields\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "owner and date attributed to DoE fields; they come from the Retrospectives page, which the deep ref does not carry",
+      "evidence": "Deep ref line 213: DoE fields include Pass but no owner or date. Source L21352-21354 (Retrospectives, 'Why do it?'): 'actions agreed by the team with owners and estimated time due dates'.",
+      "fix": "correct: Named owner and due date (Retrospectives) and named pass criteria (Design of Experiments); cycle-to-deep as in D009"
+    },
+    {
+      "id": "D014",
+      "line": 102,
+      "section": "What to Look For",
+      "claim": "\"Team commits collectively but no individual owns it | Disagree-and-Commit's two pre-conditions not met | Name who specifically commits\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "diagnosis rests on a misreading: D&C's pre-conditions are individual choice and a review point, not individual ownership",
+      "evidence": "Source L18044-18049: 'everybody in the team needs a choice'; 'an agreed review point'. Ownership comes from Retrospectives (L21352-21354). Deep ref carries neither.",
+      "fix": "correct: Diagnosis 'no owner named for the action (Retrospectives asks for owners and due dates)'; keep 'set the agreed review point' as the D&C follow-up"
+    },
+    {
+      "id": "D015",
+      "line": 105,
+      "section": "What to Look For",
+      "claim": "\"Disagree and Commit's contrarian: successful experiments provide valid data, not just confirmation\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "claim attached to the wrong practice",
+      "evidence": "Deep ref lines 213 and 316: the 'Successful experiments are not experiments that have proven our assumption as correct' contrarian belongs to Design of Experiments.",
+      "fix": "correct: Design of Experiments' contrarian: successful experiments provide valid data, not just confirmation"
+    },
+    {
+      "id": "D016",
+      "line": 111,
+      "section": "When to Use This Reference",
+      "claim": "\"the library carries multiple shapes ... and the guidance is to match shape to state, not facilitator preference\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "guidance attributed to the library that it does not give",
+      "evidence": "Source L21340-21341 (Retrospectives, 'What is it?'): 'it's good to mix things up to keep things from getting stale'; L21420: 'Rotate on retrospective formats among the multiple available'. Deep ref line 230 lists the variants only.",
+      "fix": "correct: the library carries multiple shapes and advises mixing and rotating formats to keep retros from going stale; cycle-to-deep: add both sentences [V]"
+    },
+    {
+      "id": "D017",
+      "line": 147,
+      "section": "Integration: Approach Perfect Field Guide",
+      "claim": "\"The Field Guide supplies the five-segment agenda container\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "count wrong",
+      "evidence": "approach-perfect-field-guide-scrum-events-deep line 216: 'Six named segments totalling 90 minutes' for the sample Sprint Retrospective agenda.",
+      "fix": "correct: The Field Guide supplies the six-segment, 90-minute agenda container"
+    },
+    {
+      "id": "D018",
+      "line": 148,
+      "section": "Integration: Liberating Structures",
+      "claim": "\"Both sources carry the 1-2-4-All structure\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept name and shape conflated across sources",
+      "evidence": "liberating-structures-handbook-deep line 59: '1-2-4-Whole Group', small groups of 4-6; OPL deep line 90/258: '1-2-4-All', foursomes.",
+      "fix": "correct: Both sources carry the 1-2-4 scaling structure (OPL's 1-2-4-All; the LS Handbook's 1-2-4-Whole Group)"
+    },
+    {
+      "id": "D019",
+      "line": 160,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "\"The Disagree-and-Commit pre-conditions (meaningful choice + agreed review point) are [V] in the deep ref; the distillation carries both precisely.\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false claim about the audit record",
+      "evidence": "Deep ref D&C entries (lines 217, 312) carry no pre-conditions; 'meaningful choice' is in neither the deep ref nor the source (D005).",
+      "fix": "correct: The Disagree-and-Commit pre-conditions are not yet in the deep ref (cycle-to-deep pending); the distillation paraphrases them from the source's 'How to do it?'"
+    }
+  ],
+  "notes": "Source line numbers refer to corpus.commons/demo/sources/converted/open-practice-library.md. Integration claims checked: approach-perfect-field-guide-scrum-events-deep (line 216, six segments), liberating-structures-handbook-deep (1-2-4-Whole Group line 59; TRIZ line 93; Troika line 79; DADs line 83), open-kanban-deep (learning before improvement, line 87), tc-25-20-army-aar-deep (not a critique, lines 15, 31-35), scrum-guide-2020-deep, lfuo-learning-review-guide-2024-deep (Five Hows line 151, counterfactuals line 184, networked causality line 273), ssdl-systems-thinking-foundations-deep (archetypes). All hold except the APFG count and the LS naming. Worked example's 'two themes ... wouldn't have surfaced with verbal-first' is a scenario counterfactual, not attributed to the source; passed. Using Dissent Cards at close for a known dissenter stretches the random-assignment mechanic (source L18094-18100) but passed as applied guidance."
+}

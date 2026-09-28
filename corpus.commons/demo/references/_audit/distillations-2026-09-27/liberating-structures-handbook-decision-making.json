@@ -1,0 +1,459 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/liberating-structures-handbook-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-185 of 185",
+    "deep": "lines 1-279 of 279",
+    "complete": true
+  },
+  "claims_audited": 183,
+  "tally": {
+    "faithful": 139,
+    "minor_drift": 30,
+    "unsupported": 9,
+    "contradicted": 5
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "\"you have participated in [the decision's] development; that it is your choice freely made.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "altered [V] quotation (bracketed substitution narrows scope)",
+      "evidence": "Deep 17 / source 259-261: \"Ownership is when you own or share the ownership of an idea, a decision, an action plan, a choice. It means that you have participated in its development; that it is your choice freely made.\" The antecedent of 'its' is idea/decision/action plan/choice; the bracket narrows it to 'the decision' inside a word-for-word marker.",
+      "fix": "correct: \"you have participated in its development; that it is your choice freely made\" [V]"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "For complex decisions, expert-led analysis followed by buy-in fails; the distributed intelligence of the group has to participate in framing the problem itself.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "synthesis across two sections presented as the handbook's complexity claim",
+      "evidence": "Deep 107 (Agreement/Uncertainty Matrix) says only that strategies designed for simple/complicated situations 'don't work well when things are complex'. It says nothing about buy-in or about participation in problem framing. The buy-in link exists only in a separate section, deep 17: 'When it comes to solving intractable socio-technical behavioral problems in systems the notion of buy-in is just not useful – people in the system need to own the new behaviors' [V].",
+      "fix": "correct: \"Read alongside the ownership section ('When it comes to solving intractable socio-technical behavioral problems in systems the notion of buy-in is just not useful – people in the system need to own the new behaviors' [V]), the implication for complex decisions is that expert-then-buy-in is the wrong default.\""
+    },
+    {
+      "id": "D003",
+      "line": 12,
+      "section": "Decision-Making Relevance",
+      "claim": "\"The handbook is unusually explicit about this... Wise Crowds, Troika Consulting, Discovery & Action Dialogues, Just In Time Topics, and the What/So What/Now What debrief sequence are explicit structures for moving a group toward owned next-step decisions. The line the handbook draws is between surfacing tools... and committing tools... treating a surfacing tool as a decision-rule is a common error mode.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "distillation's own taxonomy attributed to the handbook; structures misdescribed",
+      "evidence": "Deep 97: the only decision caveat in the handbook is on 25-to-10. Deep 77: Wise Crowds' team 'job is not to decide' and the structure ends in free conversation, with no commitment step. Deep 123: Just In Time Topics is a self-organising agenda with no commitment step. Deep 83: DADs are the only structure with explicit commitment language (identify volunteers; 'Who will do what when next?'). The deep ref has no surfacing/committing distinction and no 'common error' claim.",
+      "fix": "correct: \"The handbook flags one structure explicitly: 25-to-10 'is not recommended to make a decision' [V]. This distillation draws a working line between surfacing tools (25-to-10, Mini Constellations) and structures that end in next-step language (DADs' 'Who will do what when next?' [V]; Now What's 'What action may help us move forward?' [V]). The line is the distillation's, not the handbook's.\""
+    },
+    {
+      "id": "D004",
+      "line": 14,
+      "section": "Decision-Making Relevance",
+      "claim": "Forum-level failure modes 'that distort decisions', including 'report-outs from breakout groups that drain the energy of any decision that might emerge'; Q-A-Q-A quote given without a marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "paraphrase shifts the object (conversation to decision); verbatim quote unmarked",
+      "evidence": "Deep 71/259: report-outs 'drains the life out of whatever conversation that took place in the small group' [V]. The handbook frames these as engagement and energy failures, not decision distortion. Deep 65: 'reinforce the \"central tendency\" versus the distributed intelligence of the group' is [V] in the deep ref but carries no marker here.",
+      "fix": "correct: \"report-outs that 'drain[] the life out of whatever conversation that took place in the small group' [V]\"; re-mark: [V] on the central-tendency quote; present the decision-distortion reading as the distillation's"
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Key Concepts 4",
+      "claim": "\"Mini Constellations similarly surface positions without producing commitment. Treating either as a decision-rule converts a perception-broadening exercise into a vote, losing the distributed-intelligence signal in the process.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "extends the 25-to-10 caveat to a structure the handbook doesn't caveat; unsupported mechanism",
+      "evidence": "Deep 99: Mini Constellations carries no decision caveat (source 1841-1842: it 'can lead to an interesting conversation about the source of the difference between how people feel and their assessment'). The deep ref has no 'losing the distributed-intelligence signal' mechanism.",
+      "fix": "correct: \"Mini Constellations carries no such caveat in the handbook, but it too surfaces positions rather than commitments (distillation's reading).\"; strip: \"losing the distributed-intelligence signal in the process\""
+    },
+    {
+      "id": "D006",
+      "line": 28,
+      "section": "Key Concepts 5",
+      "claim": "\"The client decides; the team's job is to make a wider option-space audible. This separates option-generation from option-selection structurally\"; verbatim 'Consulting Team's job' quote unmarked",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "decision role attributed to the structure; [V] quote unmarked",
+      "evidence": "Deep 77: the team's 'job is not to decide \"this is what The Client ought to do\"' [V]. Phase 3: the client opens with 'Here's what I heard that intrigued, surprised, or resonated with me' and 'the conversation can continue freely'. The handbook describes no client decision step.",
+      "fix": "re-mark: [V] on \"The Consulting Team's job is not to decide 'this is what The Client ought to do.'\"; correct: \"The client then names what 'intrigued, surprised, or resonated' [V]; any decision stays with the client (distillation's reading, since the handbook ends the structure in open conversation).\""
+    },
+    {
+      "id": "D007",
+      "line": 30,
+      "section": "Key Concepts 6",
+      "claim": "\"The structure produces an owned next-step decision per focal person, with peer accountability replacing facilitator authority.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outcome and mechanism not in deep ref",
+      "evidence": "Deep 79: partners ask honing questions, then discuss 'how they might handle the challenge and what possibilities might contribute to moving forward' [V]. No decision output, no accountability, no facilitator-authority claim. (Source 1572 and 1603 do call Troika a process for 'action planning' in which participants share 'ideas for next steps', but the deep ref does not carry this.)",
+      "fix": "strip: \"with peer accountability replacing facilitator authority\"; correct: \"The focal person leaves with peer-honed ideas about 'how they might handle the challenge and what possibilities might contribute to moving forward' [V].\""
+    },
+    {
+      "id": "D008",
+      "line": 32,
+      "section": "Key Concepts 7",
+      "claim": "\"Six-question protocol\" for DADs (the quote that follows lists seven questions, unmarked and altered)",
+      "grade": "CONTRADICTED",
+      "failure_mode": "count wrong; verbatim quote unmarked and trimmed",
+      "evidence": "Deep 83 lists seven standard DAD questions (know/think; YOU do; keeps you from; who/where overcome; other ideas '(or supporting desired behavior)'; what has to happen next; who will do what when next) [V]. Source 1282-1300 confirms seven.",
+      "fix": "correct: \"Seven-question protocol\"; re-mark: [V] and restore \"(or supporting desired behavior)\""
+    },
+    {
+      "id": "D009",
+      "line": 36,
+      "section": "Key Concepts 9",
+      "claim": "Wicked-question definition \"A question is 'wicked' if there is an embedded paradox...\" given without a marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quote unmarked",
+      "evidence": "Deep 89 carries this passage as [V]; the distillation's continuity note says unmarked quotes are its own wording.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D010",
+      "line": 38,
+      "section": "Key Concepts 10",
+      "claim": "The 15-percent sentence is marked [V] (the handbook's own words) while the entry names 'Gareth Morgan as cited source'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attribution diverges from deep ref; marker and attribution conflict",
+      "evidence": "Deep 101 attributes 'Most people have about 15-percent control...' to the handbook [V] and quotes Morgan only for 'The challenge rests in finding ways of creating transformational change incrementally... 15-percent initiatives' [V][BT]. Source 1411-1427 layout is ambiguous (the Morgan credit follows the second paragraph).",
+      "fix": "correct: \"(\\\"15% Solutions\\\"; the handbook quotes Gareth Morgan on '15-percent initiatives' [BT])\". If the operator reads the whole block as Morgan's, fix the deep ref first and then re-mark: [BT]"
+    },
+    {
+      "id": "D011",
+      "line": 42,
+      "section": "Key Concepts 12",
+      "claim": "\"The sequence forbids skipping ahead — Now-What decisions land badly when the data and pattern questions have not been answered first.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "causal outcome claim not in deep ref",
+      "evidence": "Deep 113: the handbook asks the questions 'in the following order' [V] and gives no reason and no consequence for skipping. Source 1723-1724 is the same.",
+      "fix": "correct: \"The handbook asks for the three questions 'in the following order' [V]. It gives no rationale, but the order puts data and pattern before action.\""
+    },
+    {
+      "id": "D012",
+      "line": 44,
+      "section": "Key Concepts 13",
+      "claim": "Just In Time Topics is \"surfacing decisions that fixed agendas suppress\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "premise not in deep ref",
+      "evidence": "Deep 123: participants propose topics they want to spend time on; nothing about suppressed decisions or fixed agendas.",
+      "fix": "strip: \"— surfacing decisions that fixed agendas suppress\""
+    },
+    {
+      "id": "D013",
+      "line": 46,
+      "section": "Key Concepts 14",
+      "claim": "Participatory Scenarios passage \"Many companies develop scenarios...\" given without a marker",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quote unmarked",
+      "evidence": "Deep 127/261 carries it as [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D014",
+      "line": 48,
+      "section": "Key Concepts 15",
+      "claim": "[V] quote ends \"...what the participants will experience.\"; \"if your storyboard has a whole lot of podium sessions in a row...\" unmarked",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] quote truncated without ellipsis; second quote altered and unmarked",
+      "evidence": "Deep 37 / source 415-435: '...what the participants will experience in the course of the meeting'; 'if you find your storyboard has a whole lot of podium sessions in a row, it's not going to be very engaging!' [V].",
+      "fix": "correct: \"...what the participants will experience in the course of the meeting\" [V]; \"if you find your storyboard has a whole lot of podium sessions in a row, it's not going to be very engaging!\" [V]"
+    },
+    {
+      "id": "D015",
+      "line": 50,
+      "section": "Key Concepts 16",
+      "claim": "\"Decisions made without the people most affected (a) miss critical context and (b) fail at the implementation step.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "consequences stated as the concept's content; (a) not in deep ref",
+      "evidence": "Deep 41-45: broaden conversations to include 'the people most involved' when searching for positively deviant solutions; 'Who's not here...' is 'one of the most important questions'. No consequence is stated. Only (b) has indirect support, from deep 17 (buy-in produces 'lukewarm, pallid implementation').",
+      "fix": "correct: \"Leaving out the people most involved opens the buy-in trap at implementation (see 'Ownership versus Buy-in').\"; strip (a)"
+    },
+    {
+      "id": "D016",
+      "line": 52,
+      "section": "Key Concepts 17",
+      "claim": "\"Forcing a mission, vision, or strategy to ≤8 words\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "figure loosened",
+      "evidence": "Deep 105/209: Mulago criterion 'Less than 8 words' [V] (<8, not ≤8). Source 955 is the same.",
+      "fix": "correct: \"to fewer than 8 words\""
+    },
+    {
+      "id": "D017",
+      "line": 61,
+      "section": "Questions — Phase 1",
+      "claim": "Recipe glossed as \"known method, known agreement\"; \"Methods designed for recipes/airplanes fail on child-class problems.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "claim hardened ('don't work well' to 'fail'); Stacey-axis gloss not in source",
+      "evidence": "Deep 107: the strategies 'don't work well when things are complex' [V]. Zimmerman's recipe is simply 'simple'. The handbook doesn't map recipe/airplane/child onto Stacey's agreement/certainty axes.",
+      "fix": "correct: \"Methods designed for recipes/airplanes don't work well on child-class problems\"; strip: \"known method, known agreement\" or label it as the distillation's reading"
+    },
+    {
+      "id": "D018",
+      "line": 66,
+      "section": "Questions — Phase 1",
+      "claim": "\"If your storyboard has a whole lot of podium sessions in a row, it's not going to be very engaging!\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation altered (drops 'you find') and unmarked",
+      "evidence": "Deep 37 / source 433-435: 'if you find your storyboard has a whole lot of podium sessions in a row...' [V].",
+      "fix": "correct: \"if you find your storyboard has a whole lot of podium sessions in a row, it's not going to be very engaging!\" [V]"
+    },
+    {
+      "id": "D019",
+      "line": 77,
+      "section": "Questions — Phase 2",
+      "claim": "\"compressed to ≤8 words... (Use for mission/strategy decisions; not for tactical ones.)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "figure loosened; restriction added",
+      "evidence": "Deep 105: 'Less than 8 words' [V]. The handbook calls Six Words 'especially useful' for 'missions, vision, purpose, or strategy'; it does not exclude tactical use.",
+      "fix": "correct: \"fewer than 8 words\"; strip: \"not for tactical ones\" or mark it as the distillation's advice"
+    },
+    {
+      "id": "D020",
+      "line": 84,
+      "section": "Questions — Phase 3",
+      "claim": "\"a consulting team of 5–6 talks about what might help\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "group size misassigned",
+      "evidence": "Deep 77/199 and source 836-838: 'groups of 5-6 people'; 'One person will be the \"client\" and the rest are a consulting team'. The consulting team is 4-5.",
+      "fix": "correct: \"in a group of 5–6 (one client, the rest the consulting team)\"; re-mark: [V] on the 'job is not to decide' quote"
+    },
+    {
+      "id": "D021",
+      "line": 85,
+      "section": "Questions — Phase 3",
+      "claim": "\"Produces three owned next-step decisions per troika.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "output overstated",
+      "evidence": "Deep 79: partners help 'hone and improve' ideas and discuss 'what possibilities might contribute to moving forward'. The deep ref names no decision output.",
+      "fix": "correct: \"Each focal person leaves with peer-honed ideas for moving forward.\""
+    },
+    {
+      "id": "D022",
+      "line": 86,
+      "section": "Questions — Phase 3",
+      "claim": "\"Six-question protocol that ends in 'Who will do what when next?'\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "count wrong",
+      "evidence": "Deep 83: seven DAD questions.",
+      "fix": "correct: \"Seven-question protocol\""
+    },
+    {
+      "id": "D023",
+      "line": 89,
+      "section": "Questions — Phase 3",
+      "claim": "\"'Questions are fateful!' (Diana Whitney). The question generating the option-space matters more than the options themselves.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "borrowed-through quote unmarked; extrapolation stated as fact",
+      "evidence": "Deep 91: Whitney's line is [BT]. Q-Storming lineage is Marilee G. Adams [BT]. The deep ref has no claim that the question matters more than the options.",
+      "fix": "re-mark: [BT]; strip: \"The question generating the option-space matters more than the options themselves.\""
+    },
+    {
+      "id": "D024",
+      "line": 96,
+      "section": "Questions — Phase 4",
+      "claim": "\"The handbook is explicit that LS surfaces and broadens — Wise Crowds, Troika, DADs, 25-to-10 all produce option-spaces... The final decision is made by whoever has the legitimate authority (... the implementer in DADs; the convening leader...)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "explicitness attributed to the handbook; conflicts with deep ref and with the distillation's own lines 12/98",
+      "evidence": "Deep 97: only 25-to-10 carries a not-a-decision caveat. Deep 83: DAD purposes include 'Identify volunteers among this group to experiment with solutions and ideas' and end in 'Who will do what when next?', which is a commitment step, not an option-space. The deep ref has no 'legitimate authority' or 'convening leader' content. Lines 12, 98 and 100 of this distillation treat DADs as committing tools.",
+      "fix": "correct: \"LS gives no option-selection rule. 25-to-10 is explicitly not a decision tool [V]; Wise Crowds leaves the client to name what 'intrigued, surprised, or resonated' [V]; DADs end in 'Who will do what when next?' [V]. Name who holds the decision (distillation's guidance).\""
+    },
+    {
+      "id": "D025",
+      "line": 97,
+      "section": "Questions — Phase 4",
+      "claim": "\"That phrasing is the decision-selection move — naming what landed without committing to act on everything.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "function attributed to the structure",
+      "evidence": "Deep 77: the phrase opens the re-joined conversation, which then 'can continue freely'. The handbook doesn't call it a selection or decision step.",
+      "fix": "correct: \"Treat that phrasing as the client's selection move (distillation's reading): it names what landed without committing to act on everything.\""
+    },
+    {
+      "id": "D026",
+      "line": 99,
+      "section": "Questions — Phase 4",
+      "claim": "Elided WSN quote (unmarked, no ellipses) plus \"Decisions made without the data-pattern questions land badly.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "causal outcome claim not in deep ref; quote silently elided",
+      "evidence": "Deep 113: the questions come 'in the following order' with no stated consequence. The quoted string drops 'What data stands out? What actually happened?' and others without ellipsis.",
+      "fix": "strip: \"Decisions made without the data-pattern questions land badly.\"; correct the quote with ellipses and re-mark: [V]"
+    },
+    {
+      "id": "D027",
+      "line": 101,
+      "section": "Questions — Phase 4",
+      "claim": "Ladder rung quoted as \"It has nothing to do with me\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "misquotation",
+      "evidence": "Deep 133 / source 1917: '\"This has nothing to do with me\"'.",
+      "fix": "correct: \"This has nothing to do with me\" [V]"
+    },
+    {
+      "id": "D028",
+      "line": 101,
+      "section": "Questions — Phase 4",
+      "claim": "\"Decisions made from below the line tend not to be acted on.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "outcome claim not in deep ref",
+      "evidence": "Deep 133: the page gives the ladder and one question ('What do we need to do to work \"above the line?\"'). The deep ref notes the converted text doesn't state where the line or the four labels sit. No claim about follow-through.",
+      "fix": "strip"
+    },
+    {
+      "id": "D029",
+      "line": 119,
+      "section": "Questions — Phase 6",
+      "claim": "\"What we focus on tends to get bigger. So focusing on what works rather than on what doesn't work creates the context for more progress.\" [V]; \"Pairs interview each other\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "[V] quote not in deep ref (re-extracted from source at Pass G)",
+      "evidence": "Absent from deep 81 (Appreciative Interviews) and from the rest of the deep ref. Present in source 1192-1194 (and pairing at 1197), so it is true, but it bypasses the Pass D audit chain.",
+      "fix": "strip, or add the passage to the deep ref's Appreciative Interviews entry and re-project"
+    },
+    {
+      "id": "D030",
+      "line": 129,
+      "section": "What to Look For",
+      "claim": "\"Stacey's Agreement/Uncertainty Matrix routes this case away from linear plans\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "tool credited with a routing rule the handbook doesn't state",
+      "evidence": "Deep 107: the matrix maps certainty and agreement; the handbook adds that simple/complicated strategies 'don't work well when things are complex'. Linear plans aren't named.",
+      "fix": "correct: \"the handbook warns that strategies 'designed for simple or complicated situations... don't work well when things are complex' [V] (Source: \\\"Agreement/Uncertainty Matrix\\\")\""
+    },
+    {
+      "id": "D031",
+      "line": 130,
+      "section": "What to Look For",
+      "claim": "\"This is not recommended to make a decision\" [V] (Source: \"25-to-10\"; \"Mini Constellations\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited (quote credited partly to a section that doesn't contain it)",
+      "evidence": "Deep 97: the caveat is in 25-to-10 only. Deep 99: Mini Constellations has none.",
+      "fix": "correct: (Source: \"25-to-10\")"
+    },
+    {
+      "id": "D032",
+      "line": 131,
+      "section": "What to Look For",
+      "claim": "Diagnosis: \"Now-What decisions land badly when the data and pattern questions are skipped (Source: 'After Action Debrief')\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "causal claim cited to a section that doesn't make it",
+      "evidence": "Deep 113: order stated, no consequence.",
+      "fix": "correct: \"What/So What/Now What sequencing skipped; the handbook asks for the questions 'in the following order' [V] (Source: \\\"After Action Debrief\\\")\""
+    },
+    {
+      "id": "D033",
+      "line": 132,
+      "section": "What to Look For",
+      "claim": "6-second facilitator response diagnosed as 'Central-tendency reinforcement' (Source: Q-A-Q-A pattern)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited; two sections fused",
+      "evidence": "Deep 159/268: the six-second average and 'you're the one with the answers' come from Take 20 Seconds. Deep 65: 'central tendency' belongs to Taking Questions (batching). 'Q-A-Q-A pattern' is not a section name.",
+      "fix": "correct: \"Facilitator speaking too soon 'truncate[s] that process and communicate[s], unwittingly, that you're the one with the answers' [V] (Source: \\\"Take 20 Seconds\\\"; batching from \\\"Taking Questions\\\")\""
+    },
+    {
+      "id": "D034",
+      "line": 153,
+      "section": "Worked Example",
+      "claim": "\"The DAD six-question protocol\"; final questions quoted as \"What has to happen next? Who will do what when next?\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "count wrong; quote truncated without ellipsis",
+      "evidence": "Deep 83: seven questions; the first reads 'What has to happen next to make that happen?'.",
+      "fix": "correct: \"The DAD seven-question protocol\"; \"What has to happen next to make that happen? Who will do what when next?\" [V]"
+    },
+    {
+      "id": "D035",
+      "line": 155,
+      "section": "Worked Example",
+      "claim": "\"All framework citations trace back through the deep reference.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "self-certification that doesn't hold",
+      "evidence": "The example's 'six-question protocol' contradicts deep 83, so not every framework claim traces.",
+      "fix": "strip (the audit trail belongs in Citation and Source-Integrity Notes)"
+    },
+    {
+      "id": "D036",
+      "line": 162,
+      "section": "Integration with Other References",
+      "claim": "\"The What/So What/Now What is named as one of two dialogue templates in LFUO.\" (plus 'in the same facilitation tradition as LS')",
+      "grade": "CONTRADICTED",
+      "failure_mode": "misstates another source",
+      "evidence": "LFUO deep 217: Handout D's two dialogue styles are AAR-type questions and Organizing-for-High-Reliability-type questions. 'So What/Now What' appears nowhere in the LFUO deep ref, light ref or converted source (grep). Neither deep ref places LFUO in the LS tradition.",
+      "fix": "correct: \"LFUO's Handout D offers two dialogue-question styles (AAR-type and HRO-type); What/So What/Now What is an LS-side addition, not an LFUO template.\""
+    },
+    {
+      "id": "D037",
+      "line": 163,
+      "section": "Integration with Other References",
+      "claim": "\"Use NHS for the per-incident individual-vs-system locus decision\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "unit of analysis loosened",
+      "evidence": "NHS deep 30: 'only one action (or failure to act) is taken through the guide at a time. If multiple actions are involved in an incident they must be considered separately.'",
+      "fix": "correct: \"per-action (not per-incident)\""
+    },
+    {
+      "id": "D038",
+      "line": 164,
+      "section": "Integration with Other References",
+      "claim": "OpenStax OB \"(Ch 13–14)\" as the \"group-decision-making and conflict chapters\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited chapters",
+      "evidence": "OB deep 200-204: group decision-making and groupthink are Ch 6.6. Deep 294: conformity (Asch) is Ch 9.2. Deep 398: Ch 13 is Power and Politics. Deep 430: Ch 14 is Conflict and Negotiation.",
+      "fix": "correct: \"(Ch 6.6, 9.2, 14)\""
+    },
+    {
+      "id": "D039",
+      "line": 164,
+      "section": "Integration with Other References",
+      "claim": "OB provides theory on \"communication-network effects\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "claim about another source absent from its deep ref",
+      "evidence": "OB deep 330-351 (Ch 11) covers the encoding/decoding model, feedback types, Mintzberg's roles and communication as invention. No communication-network content appears anywhere in the OB deep ref.",
+      "fix": "strip: \"communication-network effects\""
+    },
+    {
+      "id": "D040",
+      "line": 165,
+      "section": "Integration with Other References",
+      "claim": "\"Letaw's fist-of-five provides a vote-based decision rule... Use fist-of-five when a commitment vote is needed\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "characterisation loosened",
+      "evidence": "Letaw deep 75: Fist of Five is 'a method for checking and building consensus'; a fist 'blocks consensus'; it 'can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment' [V].",
+      "fix": "correct: \"Letaw's Fist of Five gives a consensus check with a blocking level (a fist 'blocks consensus') that LS does not. Use it when the team needs to test consensus on a proposal.\""
+    },
+    {
+      "id": "D041",
+      "line": 173,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Gareth Morgan: \"Source of the 15-percent-control framing quoted in Key Concept 10.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "borrowed-through attribution diverges from deep ref",
+      "evidence": "Deep 101/227: Morgan is quoted for the '15-percent initiatives' passage; the quoted '15-percent control' sentence is the handbook's [V].",
+      "fix": "correct: \"Gareth Morgan (The Globe and Mail) — not held. Quoted on '15-percent initiatives' in the 15% Solutions section.\""
+    },
+    {
+      "id": "D042",
+      "line": 180,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Diana Whitney quoted \"in Key Concept 17 context\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cross-referenced",
+      "evidence": "Key Concept 17 is Six Words; the Whitney quote appears in the Phase 3 Q Storming row (line 89). Deep 91 places it in Q Storming.",
+      "fix": "correct: \"quoted ('Questions are fateful!') in the Phase 3 Q Storming row\""
+    },
+    {
+      "id": "D043",
+      "line": 183,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "\"The handbook explicitly does not provide: strategic-decision frameworks (SWOT...), quantitative decision tools..., RACI...\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "absences presented as author-stated limits",
+      "evidence": "The deep ref records no such exclusions. The handbook's own stated limit is that it is 'a helpful reminder, not complete instructions' [V] (deep 19). The 25-to-10 caveat is the only explicit one.",
+      "fix": "correct: \"The handbook does not cover: ...\" and add its stated limit: \"a helpful reminder, not complete instructions\" [V]"
+    },
+    {
+      "id": "D044",
+      "line": 185,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Continuity note says the listed [V] passages (ownership definition, Wise Crowds scope, DAD 'six-question' protocol, WSN sequence) are paraphrased",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note misdescribes the body; repeats the count error",
+      "evidence": "The body quotes 'your choice freely made' [V] and the WSN sequence [V]. It quotes the Wise Crowds scope and the DAD questions verbatim but unmarked. DADs have seven questions (deep 83).",
+      "fix": "correct: rewrite to say which [V] passages are quoted, re-mark the unmarked verbatim quotes, and fix \"six-question\" to \"seven-question\""
+    }
+  ],
+  "notes": "Counting: claims_audited counts distinct assertions (prose sentences, list-item claims, table cells, embedded premises, worked-example steps, integration and integrity-note items). Each finding is one non-faithful line-level claim; a finding that covers two sub-claims on one line counts once, so faithful = claims_audited - findings. Quote check: every quoted span was compared mechanically against the deep ref and the converted source (normalising curly/straight and nested quotes), then mismatches were read by hand. All [V] quotes match the source word for word except D001 (bracket substitution) and D013 (truncation). Every [V] quote is present in the deep ref except line 119 (D028), which was re-extracted from the source. Several verbatim author quotes carry no marker (lines 14, 28, 32, 36, 46, 66, 84, 99), contrary to the distillation's own continuity statement. Converted source was consulted for quote checks and for the Wise Crowds, 15% Solutions, Troika, Agreement/Uncertainty Matrix, 25-to-10, After Action Debrief, Mini Constellations, Levels of Accountability, Appreciative Interviews, Storyboard and Q Storming sections. Other deep refs opened for integration claims: approach-perfect-field-guide-scrum-events-deep (thesis, Sprint Planning, Retrospective), scrum-guide-2020-deep (grep), lfuo-learning-review-guide-2024-deep (grep and Handout D; LFUO converted source grep for 'So What'), nhs-just-culture-guide-deep (lines 1-60 plus recommendations A-G), openstax-organizational-behavior-deep (headings, Ch 6.6, Ch 9.2, Ch 11), letaw-handbook-sweng-methods-deep (fist-of-five). These were targeted reads to check specific claims, not end-to-end reads. The Scrum/Field Guide row (line 161) and the NHS 'wider investigation on every branch' claim (line 163) check out: all seven NHS end-states carry a wider-investigation or wider-actions directive. Deep-ref gaps surfaced (cycling candidates, not distillation faults): the deep ref leaves out Troika's 'action planning' / 'ideas for next steps' framing (source 1572, 1603), the Agreement/Uncertainty Matrix instruction to map current work onto the diagram (source 1651), 25-to-10's 'Identify the top 10 high scores' (source 1705), and the Appreciative Interviews opener (source 1192). The 15% Solutions attribution split between handbook and Morgan is ambiguous in the source layout. Non-graded protocol observations: (1) the provenance stamp matches the current deep ref (sha256 f7d154e6...); (2) Key Concept 10 is anchored 'liberating-structures-methods', but concept-index.json already has '15-solutions'; (3) the Worked Example turns on the DAD closing questions but gives no [V] blockquote copied from the deep ref, as the projection protocol asks; (4) the borrowed-through list leaves out Marilee G. Adams (Q Storming, used at line 89), Appreciative Inquiry (line 119) and World Café (line 107), all [BT] in the deep ref; (5) the Relevance section names decision stages 'framing, exploring, deciding, committing', but the tables use six different phases (Framing, Bounding, Exploring, Deciding, Ratifying, Monitoring). Most consequential pattern: the surfacing-vs-committing taxonomy (D003, D023) is the distillation's own frame presented as the handbook's, and it contradicts itself on DADs and Troika."
+}

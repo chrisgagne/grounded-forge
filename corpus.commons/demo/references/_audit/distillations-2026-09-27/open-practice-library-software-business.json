@@ -1,0 +1,329 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/open-practice-library-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-266 of 266",
+    "deep": "lines 1-334 of 334",
+    "complete": true
+  },
+  "claims_audited": 215,
+  "tally": {
+    "faithful": 184,
+    "minor_drift": 22,
+    "unsupported": 7,
+    "contradicted": 2
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "The Foundation placement of the engineering substrate \"is the same claim Letaw and Jones make from different angles about the technical-substrate-as-precondition for any software-business decision\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "claim about other corpus sources that their deep refs do not carry",
+      "evidence": "letaw-handbook-sweng-methods-deep has no substrate-as-precondition claim (its one 'precondition' hit, line 138, concerns use cases); jones-evidence-based-sweng-deep has no continuous-integration, substrate or precondition content.",
+      "fix": "strip the Letaw/Jones clause"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Software-Business Relevance (also Key Concepts #3, line 20)",
+      "claim": "\"The library's argument: a software business with brittle safety culture cannot run a blameless postmortem, and a software business without blameless postmortems cannot learn from incidents at a rate that preserves customer trust.\"; line 20 \"The library's position: ... cannot surface the failure modes that erode customer trust.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "commercial argument attributed to the library",
+      "evidence": "Deep ref Part II Sub-cluster 2 (line 110) says only that the library treats safety as produced by named rituals and puts soft and hard practices both in Foundation. Blameless Postmortem names psychological safety as a foundation (deep line 237). Nothing in the deep ref or source ties this to customer trust or learning rate.",
+      "fix": "correct: The Blameless Postmortem names psychological safety as one of its two foundations, so a team without it cannot run the practice as designed; the link to customer trust is this distillation's software-business reading, not the library's argument."
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "Evals and Human in the loop \"are tagged as meta-practices that hold across the loop\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "the deep ref's own sub-cluster label presented as the library's tagging",
+      "evidence": "Deep ref line 84: the four Foundation sub-clusters are the reference's loose division; Evals and HITL carry mobiusTag foundation (source L1817, L2797) and tags methods / culture,methods. 'Meta-practice' is not a tag.",
+      "fix": "correct: Evals and Human in the loop carry the Foundation mobiusTag (the deep ref groups them as meta-practices)"
+    },
+    {
+      "id": "D004",
+      "line": 22,
+      "section": "Key Concepts #4 Impact Mapping (also lines 52, 130, 178)",
+      "claim": "Impact Mapping reorients toward 'behavioural change of named stakeholders that produces the business goal'; 'The map's four columns — Goal / Actors / Impacts / Deliverables'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "elements partly in the source but not the deep ref; the four-column structure is imported (the page gives no column scheme)",
+      "evidence": "Deep ref line 175 carries only the definition, the shopping-list contrarian and Marquet. Source L11979 'An inventory of human behavioral changes that must occur'; L12002 'The focus on Impacts for key actors'; L11981 'inventory of project scope'. No 'Goal / Actors / Impacts / Deliverables' columns anywhere in the practice (L11956-12090).",
+      "fix": "cycle-to-deep: add the Impact Mapping outputs list (L11977-11983) and 'The focus on Impacts for key actors translates well into outcomes' [V]; correct: 'The map links the goal, the key actors, the behavioural changes (impacts) and the scope that could deliver them'"
+    },
+    {
+      "id": "D005",
+      "line": 22,
+      "section": "Key Concepts #4, #5, #11; Anti-patterns (lines 190, 191)",
+      "claim": "Verbatim quotations without a marker: Impact Mapping 'Most planning activities...' (lines 22, 190), OKR 'Quantitative measurement of value...' (lines 24, 191), Evals definition (line 36)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotations unmarked",
+      "evidence": "Deep ref lines 313 ([V]), 315 ([V]), 132 ([V]).",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D006",
+      "line": 30,
+      "section": "Key Concepts #8 Disagree and Commit (also lines 146, 208)",
+      "claim": "\"Two pre-conditions: meaningful choice for every participant, an agreed review point.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "pre-conditions absent from the deep ref; 'meaningful' added",
+      "evidence": "Deep ref D&C entries (lines 217, 312) carry no pre-conditions. Source L18044-18049 ('How to do it?'): 'everybody in the team needs a choice; a decision they can make ... there needs to be an agreed review point'.",
+      "fix": "cycle-to-deep: add the D&C 'How to do it?' pre-conditions [V]; correct: drop 'meaningful' (every participant needs a choice)"
+    },
+    {
+      "id": "D007",
+      "line": 32,
+      "section": "Key Concepts #9 Blameless Postmortem",
+      "claim": "'Our job is not to point fingers...' quotation marked [BT] ('a quotation the page sets apart without naming its speaker')",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker departs from the deep ref's audited marker",
+      "evidence": "Deep ref lines 237/314 carry it [V] (237 adds [AR]); source L19797 sets it in quotation marks with no speaker, so [BT] fits the source; the deep ref has not been cycled.",
+      "fix": "cycle-to-deep: re-mark the deep ref's Blameless Postmortem quotation (lines 237, 314) [BT]"
+    },
+    {
+      "id": "D008",
+      "line": 40,
+      "section": "Key Concepts #13 ADR (also line 114)",
+      "claim": "ADR 'Why do it?' given in quotation marks; 'The decision is not finished when the meeting ends; it is finished when the rationale is in version control.'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref; quotation stitches three bullets and trims the last; the version-control finish line is the distillation's rhetoric",
+      "evidence": "Deep ref line 124 names ADR only. Source L283-285: 'Have a quick reference to understand what has been done in the past / Allow us to share our thinking and methods with our stakeholders / Maintain open and transparent communication inside and outside of our teams'; L223 'write down the decisions and b) to version the decisions'.",
+      "fix": "cycle-to-deep: add ADR 'Why do it?' (L283-285) and L223 [V]; correct: close the quotation with 'inside and outside of our teams' and recast the version-control line as the library's ask that decisions be easy to write down and to version"
+    },
+    {
+      "id": "D009",
+      "line": 42,
+      "section": "Key Concepts #14 Theory of Constraints (also line 64)",
+      "claim": "\"most engineering-capacity decisions fail because they invest in non-constraints\"; ToC as 'optimise the constraint, not the non-constraints'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "unsourced empirical quantifier; ToC content is in the source but not the deep ref",
+      "evidence": "Deep ref line 134 names ToC only. Source L8580-8588: improving a non-bottleneck has 'zero effect on the throughput' or adds pressure; 'Any improvements made anywhere besides the bottleneck are an illusion.' Nothing on how often capacity decisions fail.",
+      "fix": "cycle-to-deep: add the ToC 'Why do it?' passage (L8580-8588) [V] with Goldratt [BT]; correct: 'capacity invested in non-constraints does not raise throughput'"
+    },
+    {
+      "id": "D010",
+      "line": 66,
+      "section": "Questions, Phase 2",
+      "claim": "*Kanban* (\"Visualize workflow, Limit WIP, Manage flow, Make Process Policies Explicit\")",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "condensed list set in quotation marks; drops 'Feedback loops'",
+      "evidence": "Deep ref line 232 [V]: 'Visualize the workflow, Limit Work in Progress (WIP), Manage flow, Make Process Policies Explicit, Feedback loops'.",
+      "fix": "correct: (\"Visualize the workflow, Limit Work in Progress (WIP), Manage flow, Make Process Policies Explicit, Feedback loops\" [V])"
+    },
+    {
+      "id": "D011",
+      "line": 91,
+      "section": "Questions, Phases 4 and 6; Anti-patterns (line 197); lens (line 211)",
+      "claim": "Showcase as interactive, stakeholders touching the product; \"Where possible avoid scripting the showcase — give stakeholders/end users the ability to play around with the new product.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "source-supported content absent from the deep ref; dash inserted into the quotation; unmarked",
+      "evidence": "Deep ref line 231 carries only the Showcase definition. Source L21844 ('Advice'): 'Where possible avoid scripting the showcase give stakeholders/end users the ability to play around with the new product. Showcases should be as interactive as possible'.",
+      "fix": "cycle-to-deep: add the Showcase 'Advice' sentence (L21844) [V]; correct: quote it without the inserted dash and mark [V]"
+    },
+    {
+      "id": "D012",
+      "line": 102,
+      "section": "Questions, Phase 5",
+      "claim": "*Evals* (Karpathy lineage)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "lineage overstated",
+      "evidence": "Deep ref lines 132, 300: Karpathy is cited only for the 'march of nines' confidence-threshold framing; the Evals practice is not attributed to him.",
+      "fix": "correct: *Evals* (cites Karpathy's 'march of nines')"
+    },
+    {
+      "id": "D013",
+      "line": 115,
+      "section": "Questions, Phase 6",
+      "claim": "Relational contract sequence 'social contract → trust foundation → joint vision → guiding principles → terms → governance → consolidation' (Formal Relational Contract; Inter-Team Agreement; Collaborative Pathways)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practices absent from the deep ref",
+      "evidence": "Deep ref never mentions these three practices. Source L11337-11376: the seven steps of the Formal Relational Contract match the sequence given.",
+      "fix": "cycle-to-deep: add Formal Relational Contract (Discovery) and its seven steps to the deep ref; wording can stay"
+    },
+    {
+      "id": "D014",
+      "line": 116,
+      "section": "Questions, Phase 6; Anti-patterns (line 198)",
+      "claim": "Action steps: per-participant Who / What / When / With commitments; sessions that close with 'we'll synthesise and circulate' lose energy",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "practice absent from the deep ref",
+      "evidence": "Deep ref never mentions Action steps. Source L17436 ('Meetings can sometimes feel like they're all talk, and no action'), L17456-17462 (Who / What / When / With).",
+      "fix": "cycle-to-deep: add Action steps (Options) with its Who / What / When / With card [V]"
+    },
+    {
+      "id": "D015",
+      "line": 138,
+      "section": "What to Look For (AI delegation)",
+      "claim": "\"For high-stakes decisions, HITL is the default ... If the decision is genuinely low-stakes enough for HOTL or HIC, document the classification\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "HIC mischaracterised as a lower-stakes tier; risk-tier guidance absent from the deep ref",
+      "evidence": "Source L2812: HIC is for 'strategic or organizational-level governance of AI systems', not low-stakes decisions; L2831-2833: 'High-risk decisions ... require HITL. Moderate-risk tasks may use HOTL. Low-risk tasks ... may operate autonomously with periodic audits.' Deep ref line 133 names the three models only.",
+      "fix": "cycle-to-deep: add HITL Step 1 risk tiers (L2831-2833) and the three model definitions; correct: 'If the decision is moderate-risk, HOTL may fit; low-risk tasks may run autonomously with periodic audits; HIC is the governance layer over the whole system'"
+    },
+    {
+      "id": "D016",
+      "line": 158,
+      "section": "When to Use This Reference",
+      "claim": "\"The library is a catalogue of those; other corpus sources are theory.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overgeneralised claim about the corpus",
+      "evidence": "liberating-structures-handbook-deep (a catalogue of named structures with timings), approach-perfect-field-guide-scrum-events-deep (sample agendas) and tc-25-20-army-aar-deep (a procedural protocol) are practice sources, not theory.",
+      "fix": "correct: The library is the corpus's largest catalogue of those; several other sources are theory or evidence."
+    },
+    {
+      "id": "D017",
+      "line": 176,
+      "section": "Worked Example",
+      "claim": "\"Before the meeting she runs Check-ins and reaffirms the Social Contract — the two foundations the Blameless Postmortem requires\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "the practice's two foundations misidentified (the distillation gets them right at lines 32, 97, 125)",
+      "evidence": "Deep ref line 237 / source L19815-19817: the two foundations are 'Availability of the information regarding the incident' and 'Psychological safety of all participants that promotes speaking up openly'.",
+      "fix": "correct: Before the meeting she secures the incident tickets and timestamped action log (information availability) and runs Check-ins and reaffirms the Social Contract to support psychological safety, the Blameless Postmortem's two foundations"
+    },
+    {
+      "id": "D018",
+      "line": 180,
+      "section": "Worked Example",
+      "claim": "North Star Metric chosen as 'customer trust expressed as net retention'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "worked example applies the framework against its own checklist",
+      "evidence": "Deep ref line 146: the North Star checklist requires a 'leading indicator'; source L13448: 'It predicts future results, rather than reflecting past results.' Net retention reports past results.",
+      "fix": "correct: pick a leading measure of delivered value (for example, share of onboarding flows completed without human correction) and keep net retention as a lagging check"
+    },
+    {
+      "id": "D019",
+      "line": 209,
+      "section": "Through the pm-bounded-by-ba-role lens",
+      "claim": "MoSCoW, RICE and Impact-Effort cited to 'OPL deep reference, Part IV, Sub-cluster 2'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mis-cited location",
+      "evidence": "Deep ref lines 183-188 place MoSCoW and RICE in Part III (Discovery), Sub-cluster 5; only $100 and Impact-Effort sit in Part IV Sub-cluster 2 (lines 203-204).",
+      "fix": "correct: (OPL deep reference, Part III Sub-cluster 5 and Part IV Sub-cluster 2)"
+    },
+    {
+      "id": "D020",
+      "line": 212,
+      "section": "Through the pm-bounded-by-ba-role lens",
+      "claim": "\"The ADR is authored by the decision-makers (engineering leads, architects, CTO)\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "authorship rule not in the source; the practice's participant list includes Product Owners",
+      "evidence": "Deep ref line 124 names ADR only. Source L213: participants 'The Team, Stakeholders, Product Owners'; no authorship rule.",
+      "fix": "correct: The practice lists the team, stakeholders and product owners as participants and names no author; the lens flags artefacts that hand the PM sole authorship of decisions made by others"
+    },
+    {
+      "id": "D021",
+      "line": 217,
+      "section": "Through the pm-bounded-by-ba-role lens",
+      "claim": "\"a single postmortem can produce 5-15 follow-up action items\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "invented figure",
+      "evidence": "No count of postmortem action points in the deep ref or the source (Blameless Postmortem L19836 says only that an Action Point should be raised to track each remediation).",
+      "fix": "strip the figure: 'a single postmortem can produce several follow-up action points'"
+    },
+    {
+      "id": "D022",
+      "line": 220,
+      "section": "Through the pm-bounded-by-ba-role lens",
+      "claim": "OPL is friendly to the role's decision-rights envelope \"across the majority of its 266 practices\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "unverified quantifier",
+      "evidence": "No census of the 266 practices by authority profile exists in the deep ref.",
+      "fix": "correct: across most of the facilitation primitives it names"
+    },
+    {
+      "id": "D023",
+      "line": 228,
+      "section": "Integration: Scrum Guide 2020",
+      "claim": "\"The two diverge on the count of Scrum events (OPL counts five with the Sprint included; the Scrum Guide treats the Sprint as a container with four nested events)\"",
+      "grade": "CONTRADICTED",
+      "failure_mode": "divergence claimed where the Guide also counts five events",
+      "evidence": "scrum-guide-2020-deep line 39: 'Scrum provides cadence in the form of its five events' [V]; line 35: four formal events within the Sprint container. OPL deep line 227 records the five-event count without claiming divergence.",
+      "fix": "correct: The two agree on five events with the Sprint included; the Guide frames the Sprint as the container for the other four."
+    },
+    {
+      "id": "D024",
+      "line": 232,
+      "section": "Integration: Open Kanban",
+      "claim": "\"Open Kanban is the deeper treatment of flow primitives, WIP limits, and cumulative-flow diagnostics ... the flow-economic argument against utilisation\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "content attributed to Open Kanban that its deep ref does not carry",
+      "evidence": "open-kanban-deep carries WIP limits, batch-size reduction and learning-before-improvement (lines 58-87) but no cumulative-flow diagnostics and no utilisation argument (zero hits for 'cumulative flow', 'utilisation', 'utilization').",
+      "fix": "correct: Open Kanban is the deeper treatment of visualisation, WIP limits and batch-size reduction; for the batch-size argument for flow use Open Kanban"
+    },
+    {
+      "id": "D025",
+      "line": 236,
+      "section": "Integration: TC 25-20",
+      "claim": "\"TC 25-20 is the structured AAR protocol from the wildland-fire-adjacent military tradition\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mischaracterises the source's lineage",
+      "evidence": "tc-25-20-army-aar-deep lines 13-19: a US Army training circular; nothing wildland-fire. Wildland fire is the LFUO guide.",
+      "fix": "correct: TC 25-20 is the US Army's structured AAR protocol"
+    },
+    {
+      "id": "D026",
+      "line": 244,
+      "section": "Integration: OpenStax Business Ethics",
+      "claim": "OpenStax frames stakeholder theory via \"Donaldson-Preston, Mitchell-Agle-Wood salience, Freeman\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "content attributed to the other source that its deep ref does not carry",
+      "evidence": "openstax-business-ethics-deep line 111 carries the Donaldson and Preston taxonomy; zero hits for Mitchell, Agle, salience or Freeman.",
+      "fix": "correct: (Donaldson-Preston descriptive / instrumental / normative taxonomy)"
+    },
+    {
+      "id": "D027",
+      "line": 252,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "Jean Tabaka \"cited as the origin of the Confidence Voting (fist-of-five) practice\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "originator vs populariser",
+      "evidence": "Source L1119: 'This technique was popularized by Jean Tabaka'.",
+      "fix": "correct: cited as the populariser of Confidence Voting"
+    },
+    {
+      "id": "D028",
+      "line": 261,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "\"Andrei Karpathy's 'march of nines' framing\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "name misspelled",
+      "evidence": "Deep ref lines 132, 300 and source L1849: 'Andrej Karpathy'.",
+      "fix": "correct: Andrej Karpathy"
+    },
+    {
+      "id": "D029",
+      "line": 262,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "\"Schwaber and Sutherland, Scrum Guide — cited across multiple Scrum-related practices. Flagged [BT].\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "borrowed-through citation the source does not contain",
+      "evidence": "Zero hits for 'Schwaber', 'Sutherland' or 'Scrum Guide' in the converted source. The deep ref names 'Schwaber & Sutherland' only in passing in its cross-corpus discipline note (line 330), which is itself an error.",
+      "fix": "strip; deep-ref fix: remove 'Schwaber & Sutherland' from line 330"
+    },
+    {
+      "id": "D030",
+      "line": 264,
+      "section": "Citation notes, Named limits",
+      "claim": "\"Anti-pattern content in this distillation derives from explicit OPL practice-body caution statements (practice-level 'Be careful...,' 'Advice' sections, and 'What can go wrong' framings)\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overclaim: several anti-patterns derive from the deep ref's analytical observations, and no 'What can go wrong' framing exists in the source",
+      "evidence": "Zero hits for 'What can go wrong' in the source. The substrate anti-pattern (line 196) rests on the deep ref's curatorial reading (deep line 127); the HiPPO cross-function cost (line 187) is the distillation's own.",
+      "fix": "correct: Most anti-pattern content derives from explicit practice-body statements ('Be careful...', 'Advice' sections, contrarian lines); a few rest on the deep reference's curatorial readings"
+    },
+    {
+      "id": "D031",
+      "line": 266,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "\"No verbatim blockquotes appear in this distillation; Key Concepts and Questions text paraphrases [V]-marked content from the deep ref.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Key Concepts carry direct [V] quotations, not paraphrase; several quotations are unmarked (D005) and one carries [BT] against the deep ref's [V] (D007)",
+      "evidence": "Key Concepts #2, #7, #8, #9, #11, #15 quote verbatim inline.",
+      "fix": "correct: No blockquotes appear; Key Concepts quote [V] passages inline, some without a marker pending re-marking; the Blameless Postmortem quotation is re-marked [BT] pending cycling"
+    }
+  ],
+  "notes": "Source line numbers refer to corpus.commons/demo/sources/converted/open-practice-library.md. Deep-ref fixes surfaced: (1) line 330 lists 'Schwaber & Sutherland' among authors OPL practices cite; the source never cites them. (2) line 32 lists Test Automation and TDD under Delivery; both carry mobiusTag foundation (source L8390, L8451), as line 122 and this distillation correctly say. (3) line 127 says the substrate practices are 'tagged methods and culture rather than delivery', conflating tags with mobiusTag ('delivery' is not a tag value; Container and Defence in Depth carry no tags). Integration claims checked: jones (folklore line 15), letaw (RACI, triple constraint, microservices, Tuckman present), scrum-guide-2020 (lines 35, 39), approach-perfect-field-guide, open-kanban (lines 58-87), nhs-just-culture-guide, tc-25-20, lfuo (three principles line 7), openstax-principles-management (Tuckman, Hofstede, structures, motivation present), openstax-organizational-behavior (groupthink, escalation, process/relationship conflict present), openstax-business-ethics (line 111), openstax-accounting-vol2 (relevant cost, CVP, break-even, ToC, cost classification present). The lens section was audited only for its claims about the source."
+}

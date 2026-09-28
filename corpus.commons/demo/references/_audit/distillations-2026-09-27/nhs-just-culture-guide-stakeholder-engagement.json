@@ -1,0 +1,129 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/nhs-just-culture-guide-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-170 of 170",
+    "deep": "lines 1-184 of 184",
+    "complete": true
+  },
+  "claims_audited": 130,
+  "tally": {
+    "faithful": 119,
+    "minor_drift": 11,
+    "unsupported": 0,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 20,
+      "section": "Key Concepts #2 (four stakeholder audiences); also lines 8 and 170",
+      "claim": "\"The guide names four distinct audiences: managers (the primary user), staff (the audience whose treatment the guide governs), patients (the audience whose safety the guide is in service of), and families (the audience to whom the response must be explainable).\" Line 170: \"The four stakeholder-audience framing ... [is] [V]-marked.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "role differentiation among audiences added; the continuity note calls the framing verbatim",
+      "evidence": "Source line 24 / deep 19, 38 [V]: the guide 'can be used by all parties to explain how they will respond to incidents' and is 'a communication tool to help staff, patients and families understand ...'. Staff, patients and families are one audience group for the same explanation; the source assigns no separate role to families. The 'managers, staff, patients, families' list is the deep ref's unmarked gloss (deep 19), not a [V] passage.",
+      "fix": "correct: \"The guide is for use by all parties: managers hold the conversation, and it helps 'staff, patients and families understand how the appropriate response ... can and should differ according to the circumstances in which an error was made' [V].\" At line 170, drop 'The four stakeholder-audience framing' from the [V] list."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Stakeholder-Engagement Relevance",
+      "claim": "\"the source addresses how a just-culture response gets explained, to whom, and what role each stakeholder plays in the conversation.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates the source's scope",
+      "evidence": "Deep 36-38: the source positions the guide as a communication tool usable by all parties; it does not describe how the explanation is given or assign roles in a conversation. The distillation's own line 165 concedes the guide 'does not script' the staff conversation.",
+      "fix": "correct: \"the source positions the guide as something all parties can use to explain the response, and names who it helps understand it (staff, patients and families); how that explanation is held is the distillation's projection.\""
+    },
+    {
+      "id": "D003",
+      "line": 38,
+      "section": "Key Concepts #11 (HR coupling)",
+      "claim": "Recommendation F \"explicitly routes to 'senior HR advice on what degree of mitigation applies.' [V] HR is a distinct internal stakeholder whose engagement is required where individual-management action is contemplated.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "hedged source wording hardened into a requirement",
+      "evidence": "Deep 136 [V]: F says 'follow organisational guidance, which is likely to include senior HR advice on what degree of mitigation applies'. Caveat 3 (deep 29 [V]): the guide 'does not replace HR advice and should be used in conjunction with organisational policy'. Neither makes HR engagement a stated requirement.",
+      "fix": "correct: \"Recommendation F routes to organisational guidance, 'which is likely to include senior HR advice on what degree of mitigation applies' [V]; and the guide does not replace HR advice (Please note, bullet 3). HR is a distinct internal stakeholder wherever individual-directed action is contemplated.\""
+    },
+    {
+      "id": "D004",
+      "line": 42,
+      "section": "Key Concepts #13 (police and disciplinary processes)",
+      "claim": "Heading \"Police and disciplinary processes as gravest engagement\" ... \"The guide signals the gravest stakeholder engagement only on that branch.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "exclusivity bundled onto disciplinary processes, which also appear on the G branch",
+      "evidence": "Deep 144 [V] (Q5, 'Recommendation G'): 'may require relevant regulatory bodies to be contacted, staff suspension and disciplinary processes'. Only police referral is unique to A (deep 96).",
+      "fix": "correct: heading \"Police referral as gravest engagement\"; body \"Recommendation A names 'referral to police and disciplinary processes' [V]; police referral appears on no other branch, while disciplinary processes also appear under Recommendation G.\""
+    },
+    {
+      "id": "D005",
+      "line": 107,
+      "section": "What to Look For, row 3",
+      "claim": "Follow-up: Apply the guide's caveat: \"only one action (or failure to act) is taken through the guide at a time, and multiple actions in one incident must be considered separately.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "the deep ref's [AP] paraphrase presented in quotation marks as the source's caveat",
+      "evidence": "Deep 17 carries this exact wording marked [AP]. Source line 14 / deep 30 [V]: 'The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately.'",
+      "fix": "correct: Apply the guide's caveat: \"The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately\" [V] (Preamble, 'Please note', bullet 4)."
+    },
+    {
+      "id": "D006",
+      "line": 126,
+      "section": "Worked Example (and line 128)",
+      "claim": "\"Q3 routes to Recommendation D: action singling out the individual is unlikely to be appropriate; the wider investigation should focus on the protocol-revision and communication process.\" Line 128: the lead \"names which question exonerated the individual contribution, and confirms that the investigation will focus on the protocol-revision process — not on the nurse.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Recommendation D's hedge dropped; the example tells the staff member the individual is excluded, which D does not say",
+      "evidence": "Deep 120 [V] (Q3, 'Recommendation D'): '... These actions may include, but not be limited to, the individual.' Deep 124 [AR]: D 'neither prescribes nor forecloses individual-directed action'.",
+      "fix": "correct (line 126): \"Q3 routes to Recommendation D: action singling out the individual is unlikely to be appropriate; the wider actions, which may include but not be limited to the nurse, centre on the protocol-revision and communication process.\" correct (line 128): \"... names the question that routed the case away from singling her out, and confirms that the investigation centres on the protocol-revision process; any action involving her will sit inside that wider package.\""
+    },
+    {
+      "id": "D007",
+      "line": 148,
+      "section": "Integration with Other References (OpenStax OB and Business Ethics)",
+      "claim": "\"OB and Business Ethics provide the stakeholder-theory and group-dynamics framing ... Use OB for the stakeholder-mapping work that sits upstream of an incident\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "stakeholder mapping attributed to a source that does not carry it",
+      "evidence": "OB deep: group dynamics supported (line 290); 'stakeholder' appears only in the licence note (line 740); no stakeholder theory or mapping. Business Ethics deep 111 carries stakeholder theory (Donaldson and Preston). 'stakeholder map' appears among demo deep refs only in open-practice-library-deep.md.",
+      "fix": "correct: \"Business Ethics provides the stakeholder-theory framing (Ch 3.2) and OB the group-dynamics framing upstream of a specific incident response; use Open Practice Library for stakeholder-mapping practice; use this distillation for the incident-response engagement itself.\""
+    },
+    {
+      "id": "D008",
+      "line": 150,
+      "section": "Integration with Other References (LFUO)",
+      "claim": "\"Use LFUO for the engagement process around the incident; use this guide for the locus-of-accountability determination within it.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "places an individual-accountability determination inside a process that walls itself off from administrative action",
+      "evidence": "LFUO deep 67 [V]: 'It is critical to maintain a solid firewall between the FLA and any potential administrative actions that may be taken against the employee.' The other LFUO elements named (firewall, the ten 'Principles and Agreements', deflection questions, readback) are supported (deep 67, 119, 113, 180).",
+      "fix": "correct: \"Use LFUO for the learning engagement around the incident; use this guide for the separate management conversation about an individual action, kept outside the learning review as LFUO's firewall requires.\""
+    },
+    {
+      "id": "D009",
+      "line": 152,
+      "section": "Integration with Other References (SSDL)",
+      "claim": "\"SSDL's brief on system archetypes names Shifting the Burden as the trap of addressing one stakeholder group's symptoms while leaving the conditions untouched\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "archetype definition loosened with an added element",
+      "evidence": "SSDL deep 240 [V]: 'The \"shifting the burden\" archetype shows what happens when we address the symptoms of a problem with a quick-fix solution ... the quick-fix to the symptoms may actually impede our ability to invest time and energy to the fundamental solution.' No 'stakeholder group' element.",
+      "fix": "correct: \"SSDL's brief on system archetypes (Brief 1.07) names Shifting the Burden as addressing a problem's symptoms with a quick fix that impedes the fundamental solution; the NHS guide's per-branch wider investigation is a structural guard against treating the individual response as that quick fix.\""
+    },
+    {
+      "id": "D010",
+      "line": 153,
+      "section": "Integration with Other References (TC 25-20)",
+      "claim": "\"both resist the default-to-individual-blame that transmissive (critique-style) engagement produces. Use TC 25-20 for the general retrospective protocol\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attributes an individual-blame argument to TC 25-20 and mislabels it as a retrospective protocol",
+      "evidence": "TC 25-20 deep 35 [V]: a critique 'only gives one viewpoint' and, 'focusing only on what is wrong, prevents candid discussion ... and stifles learning'; deep 253 [V]: the AAR 'does not grade success or failure'. No 'blame' hit in the TC deep ref. TC 25-20 is the Army's after-action review guide (deep 13).",
+      "fix": "correct: \"The AAR's discovery-not-critique principle ('does not grade success or failure' [V]) and the NHS guide's default-to-system routing both move the review away from a single judge's verdict. Use TC 25-20 for the after-action review protocol; use the NHS guide for the individual-locus determination.\""
+    },
+    {
+      "id": "D011",
+      "line": 170,
+      "section": "Citation and Source-Integrity Notes (evidence-marker continuity)",
+      "claim": "The deep reference uses markers \"(33 [V], 3 [BT], 3 [AP], 17 [AR])\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "counts do not match the deep ref",
+      "evidence": "Count in nhs-just-culture-guide-deep.md (sha256 40ad855c..., matching this distillation's derived-from-deep header): 38 [V], 3 [BT] (one of them the notational mention at line 182), 4 [AP], 18 [AR].",
+      "fix": "correct: \"(38 [V], 2 [BT] on claims plus one notational mention, 4 [AP], 18 [AR])\" or drop the counts"
+    }
+  ],
+  "notes": "All [V] quotations are verbatim substrings of the converted source. Line 132's 'No verbatim source blockquotes appear in this distillation' is literally true (quotes are inline, not blockquoted), though the protocol expects 2-5 blockquotes for an open-scope source; not graded as a claim failure. The three explicit engagement contexts (manager-to-manager, explaining the approach, patients-and-families) trace to deep 19, 34 and 38; the fourth (manager-to-individual) is flagged in-file as implicit. Integration rows checked: Business Law (Title VII, ADA, FMLA, at-will — supported), Liberating Structures (Wise Crowds, DADs, Conversation Cafe — supported), LFUO (D008), SSDL (D009), TC 25-20 (D010), OB/Business Ethics (D007). Several findings here (D004, D006, D008, D010) repeat patterns found in the sibling distillations."
+}

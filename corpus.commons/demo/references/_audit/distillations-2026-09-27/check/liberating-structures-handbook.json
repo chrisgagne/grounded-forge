@@ -1,0 +1,86 @@
+{
+ "slug": "liberating-structures-handbook",
+ "changed_lines_checked": 203,
+ "tally": {
+  "faithful": 200,
+  "minor_drift": 3,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 0
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/aar/liberating-structures-handbook-aar.md",
+   "line": 132,
+   "text": "OB names the conformity dynamics (Ch 9.2) that 1-2-4-Whole Group and Mini Constellations can help counter by giving every voice a turn",
+   "grade": "MINOR-DRIFT",
+   "problem": "Mechanism overstated for Mini Constellations: the handbook has one person from each ring speak, not every participant, so 'giving every voice a turn' fits 1-2-4 but not Mini Constellations.",
+   "evidence": "Source lines 1817-1828: 'Starting from the participants who are farthest away, ask them to speak from the perspective of that distance ... Then ask someone from the next \"ring\" to speak until you get to someone who is the closest to the object.' Deep ref line 99. OB conformity is at OB deep ref line 302 (Ch 9.2), so that part is fine.",
+   "fix": "correct: OB names the conformity dynamics (Ch 9.2) that 1-2-4-Whole Group (every voice gets a turn) and Mini Constellations (every position in the room is heard) can help counter; use together when the facilitator needs to name what is happening in the room"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/liberating-structures-handbook-stakeholder-engagement.md",
+   "line": 203,
+   "text": "The LS handbook's What/So What/Now What (named After Action Debrief, credited to the Center for Creative Leadership) is a three-question debrief structure.",
+   "grade": "MINOR-DRIFT",
+   "problem": "'credited to' overstates the lineage. The handbook says only that the exercise is included in many CCL programs and points to ccl.org; it does not credit CCL with it. The other four distillations word this correctly.",
+   "evidence": "Source lines 1747-1749: 'What? So What? Now What? is an exercise included many of the Center for Creative Leadership's creative thinking and leadership programs. Find out more at http://www.ccl.org.' Deep ref line 113 / 233: 'Includes the What-So-What-Now-What exercise in many of its creative thinking and leadership programs [BT]'.",
+   "fix": "correct: The LS handbook's What/So What/Now What (named After Action Debrief; the handbook notes it is included in many Center for Creative Leadership programs) is a three-question debrief structure."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md",
+   "line": 644,
+   "text": "| Continue DADs over time | Heft & Pattillo, LS Handbook | `liberating-structures-handbook-stakeholder-engagement.md` | DADs are \"short, lively conversations\" that close on \"Who will do what when next?\"; re-run them as the engagement continues. |",
+   "grade": "MINOR-DRIFT",
+   "problem": "Index row does not match the distillation it points to: the distillation nowhere quotes 'short, lively conversations' and gives no advice to re-run DADs over time (its Phase 5 Sustaining table has no DAD row). The quote is true to the source and deep ref, so this is an index-to-distillation mismatch, not a source error.",
+   "evidence": "Deep ref line 83 / source line 1265: 'Engage everyone in short, lively conversations...'. Distillation: DAD appears at lines 64, 101, 111, 136, 179, 195; line 136 is the closest match ('Lock named next steps using DAD's final two questions').",
+   "fix": "correct: | Continue DADs over time | Heft & Pattillo, LS Handbook | `liberating-structures-handbook-stakeholder-engagement.md` | When engagement energy fades, DAD's final two questions (\"What has to happen next to make that happen? Who will do what when next?\") lock named next steps. |"
+  },
+  {
+   "file": "corpus.commons/demo/references/liberating-structures-handbook.md",
+   "line": 127,
+   "text": "2. **Structural change beats motivational change.** \"For things to really change, structural elements need to change, too. Otherwise change is short-lived.\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "RESIDUAL (unchanged line in a changed file, not in tally): same error the repair fixed at software-business line 8 (audit D001) and in the stakeholder index summary row (L715): the source says structure must change too; it does not rank structural over motivational change.",
+   "evidence": "Source lines 212-214: 'For things to really change, structural elements need to change, too. Otherwise change is short-lived.' Audit distillations-2026-09-27/liberating-structures-handbook-software-business.json D001.",
+   "fix": "correct: 2. **Change does not last unless structure changes too.** \"For things to really change, structural elements need to change, too. Otherwise change is short-lived.\""
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/liberating-structures-handbook-software-business.md",
+   "line": 22,
+   "text": "3. <!-- concept: structural-change-vs-motivational --> **Structural change, not motivational change, is the lever for software-business behaviour.**",
+   "grade": "MINOR-DRIFT",
+   "problem": "RESIDUAL (unchanged line, not in tally): the heading keeps the structural-over-motivational ranking the repair removed from line 8 of the same file. The body is fine ('usually has to change too'). Traces to deep ref line 13's framing 'structural rather than motivational', which is the root.",
+   "evidence": "Source lines 212-214: 'For things to really change, structural elements need to change, too. Otherwise change is short-lived.' Audit software-business D001.",
+   "fix": "correct: 3. <!-- concept: structural-change-vs-motivational --> **Change does not last unless structure changes too.**"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/liberating-structures-handbook-decision-making.md",
+   "line": 22,
+   "text": "2. <!-- concept: structural-change --> **Structural change, not motivational change, is the lever.**",
+   "grade": "MINOR-DRIFT",
+   "problem": "RESIDUAL (unchanged line, not in tally): same structural-over-motivational ranking as above. Traces to deep ref line 13 ('structural rather than motivational').",
+   "evidence": "Source lines 212-214: 'structural elements need to change, too'.",
+   "fix": "correct: 2. <!-- concept: structural-change --> **Structural change is the condition for lasting change.**"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/liberating-structures-handbook-stakeholder-engagement.md",
+   "line": 36,
+   "text": "Peter Block's [BT] framing: \"the power of small groups sitting knee-to-knee — without the mediating effect of a table. Whenever possible invite participants to move closer together to create more intimacy.\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "RESIDUAL (unchanged line, not in tally): verbatim handbook quote left without [V], the same error the repair fixed at lines 44, 46 and 52 of this file (audit D008, D009, D011). The deep ref marks it [V] [BT].",
+   "evidence": "Source lines 516-521: 'Peter Block talks about the power of small groups sitting knee / to-knee - without the mediating effect of a table. Whenever possible invite participants to move closer together to create more intimacy.' Deep ref line 53.",
+   "fix": "re-mark: [V]"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/liberating-structures-handbook-stakeholder-engagement.md",
+   "line": 121,
+   "text": "\"Are there as many nodes in the periphery as in the core? If not, how might you expand the network's periphery? What types of individuals, organizations or perspectives are missing or underrepresented?\"",
+   "grade": "MINOR-DRIFT",
+   "problem": "RESIDUAL (unchanged line, not in tally): near-verbatim source quote, unmarked, cut mid-sentence with a question mark added (the source question continues). Same error class the repair fixed at lines 44 and 52 (audit D008, D011).",
+   "evidence": "Source lines 2009-2018: '1. Are there as many nodes in the periphery as in the core? If not, how might you expand the network's periphery? 2. What types of individuals, organizations or perspectives are missing or underrepresented (gender, race/ethnicity, class, neighborhoods, etc) and how might you include these individuals to the network?' Deep ref line 129.",
+   "fix": "correct: \"Are there as many nodes in the periphery as in the core? If not, how might you expand the network's periphery? What types of individuals, organizations or perspectives are missing or underrepresented (gender, race/ethnicity, class, neighborhoods, etc) and how might you include these individuals to the network?\" [V]"
+  }
+ ],
+ "notes": "COMPLETE. Full reads: converted source lines 1-2767 of 2767; deep ref 1-279 of 279; light ref 1-141 of 141; all five distillations in full (AAR 140, decision-making 185, retro 164, software-business 226, stakeholder-engagement 237 lines). Changed lines checked (stamp lines excluded): deep ref 11, light ref 4, AAR 19, decision-making 43, retro 27, software-business 42, stakeholder-engagement 24, plus 33 added index rows naming this source (AAR 1, decision-making 13, retro 2, software-business 6, stakeholder-engagement 11) = 203. Tally covers these 203 lines only; 3 are MINOR-DRIFT (AAR 132, stakeholder 203, stakeholder index 644). Findings also list 5 RESIDUAL items on unchanged lines (light ref 127; decision-making 22; software-business 22; stakeholder 36 and 121): the same errors the repair fixed elsewhere, left in place. They are not counted in the tally. Every deep-ref addition (Unusual Suspects, Celebrity Interviews 'especially' clause, Troika, Appreciative Interviews premise and pairing, Wicked Questions use, 25-to-10 countdown/collect, Mini Constellations second round, 15% Solutions Troika pairing, A/U Matrix mapping move, Network Weaving share-and-prompts, Talking Objects) was read against the converted source and is word for word with correct section locators and [V]/[BT] markers. Light-ref edits (seven-question DAD, Morgan attribution, Talking Objects, 'don't work well') match the source. Every audit finding in the five distillations-2026-09-27 records is resolved by the repair; removals (sequence rationale, 'land badly', Harrison Owen, Sternin, Stacey Matrix, Cynefin, 2014 volume, Mitchell-Agle-Wood, Tuckman overlap, 60/40 and twelve-month outcome, roles sentence, communication networks, servant leadership) were each justified by an audit finding. Cross-source claims re-checked against the other deep refs: LFUO (Ten Principles and Agreements; Handout D AAR/HRO styles; Lessons Learned Analysis and Five Hows; deflection questions), NHS (one action at a time; wider actions), OB (Ch 6.6 groupthink and suppression of dissent; Ch 9.1 Tuckman; Ch 9.2 conformity; Ch 14), Letaw (Fist of Five 'blocks consensus'), OPL (1-2-4-All anti-HiPPO; Disagree and Commit in Options; Mobius Loop), Field Guide (six segments, 90 minutes, Derby and Larsen), Org Topologies (single high-performing team vs unchanged surround), FLO (scaffolding-and-fading; modelling through-line), Principles of Management (Mintzberg role clusters), Accounting Vol 2 (TOC Ch 1.5, CVP/break-even Ch 3, relevant cost Ch 10), Business Ethics (Donaldson-Preston Ch 3.2; power x interest Ch 3.3), Scrum Guide (Sprint plus four events): all match. vflags: both MISS items (AAR 34, retro 22: the Mini Constellations 'Place an object on the floor...' quotation) are FAITHFUL. The only difference is the source's list numeral '1.' between the two sentences, which is formatting, not a word. Mechanical check: every [V] quotation in the five distillations was normalised and searched in the converted source. All match except the two vflag items above and the editorial '[of ownership]' bracket in the AAR and retro relevance quotes (a bracketed insertion copied from the deep ref, not a changed source word). No edit traces, orphaned list items or broken table rows found. Root note for the operator: deep ref line 13 frames the thesis as 'structural rather than motivational'. That framing is the source of the residual headings at decision-making 22 and software-business 22; softening it would stop the ranking from propagating."
+}

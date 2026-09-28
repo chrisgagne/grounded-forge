@@ -1,0 +1,169 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/open-kanban-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-201 of 201",
+    "deep": "lines 1-176 of 176",
+    "complete": true
+  },
+  "claims_audited": 141,
+  "tally": {
+    "faithful": 126,
+    "minor_drift": 13,
+    "unsupported": 1,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 28,
+      "section": "Key Concepts, 5",
+      "claim": "The Holistic / Systemic value grounded in Deming and Goldratt refuses the resource-allocation framing of stakeholders; people are constitutive of the system, not inputs to it.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The source says people are part of the system 'not just as resources, but also as full rounded individuals'; the 'not just ... but also' keeps the resource view and adds to it. The distillation turns this into a refusal of the resource framing, contradicting the quotation it has just given. Recurs at 59 ('treated as inputs to a system or as constitutive parts of it?'), 138 ('puts people inside the system, not as inputs') and 162 ('Treating people as resources — Open Kanban's ... value refuses this; people constitute the system, they are not inputs to it').",
+      "evidence": "Deep 52: 'And the key part of the system is people, not just as resources, but also as full rounded individuals who make the system work' [V] ('Open Kanban Values'). Source line 100.",
+      "fix": "correct: The Holistic / Systemic value asks that people be seen not only as resources but as full rounded individuals who make the system work. (At 162: 'Treating people only as resources — Open Kanban's value asks that they also be seen as full rounded individuals who make the system work.')"
+    },
+    {
+      "id": "D002",
+      "line": 173,
+      "section": "Integration, OpenStax Business Ethics (Ch 3)",
+      "claim": "The Mitchell-Agle-Wood salience model (power, legitimacy, urgency) provides the stakeholder-mapping theory Open Kanban lacks.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Business Ethics deep ref's Ch 3 uses the Donaldson-Preston taxonomy and the Grunig-Hunt linkage model; the Mitchell-Agle-Wood salience model is absent from it and from every deep ref in the corpus.",
+      "evidence": "openstax-business-ethics-deep 101-117 (Ch 3: Donaldson and Preston descriptive/instrumental/normative [BT]; Grunig-Hunt four stakeholder categories [BT]). grep 'salience', 'Agle' across all deep refs: no stakeholder-model hits.",
+      "fix": "correct: OpenStax Business Ethics Ch 3 (stakeholder definition and prioritisation: Donaldson-Preston's descriptive/instrumental/normative taxonomy and Grunig-Hunt's four stakeholder categories) provides the stakeholder-mapping theory Open Kanban lacks."
+    },
+    {
+      "id": "D003",
+      "line": 10,
+      "section": "Stakeholder-Engagement Relevance, Team-internal engagement",
+      "claim": "names *people* as \"the key part of the system\" [V] — not as resources but as \"full rounded individuals who make the system work.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The unquoted connective 'not as resources but as' drops the source's 'just ... also', turning 'not just as resources, but also as' into a rejection of the resource view.",
+      "evidence": "Deep 52 [V]; source line 100: 'not just as resources, but also as full rounded individuals'.",
+      "fix": "correct: names *people* as \"the key part of the system\" [V], \"not just as resources, but also as full rounded individuals who make the system work\" [V]."
+    },
+    {
+      "id": "D004",
+      "line": 12,
+      "section": "Stakeholder-Engagement Relevance, Cross-functional engagement",
+      "claim": "The information radiator ... is the engagement-enabling artefact: it makes the work visible to anyone who walks past.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Outside gloss (Cockburn's own definition); the source says 'signs and diagrams that the team can see in their work environment'. Recurs at 34 ('Any stakeholder who walks past sees the work') and 125.",
+      "evidence": "Deep 62: 'one can also use signs and diagrams that the team can see in their work environment, like dashboards, performance metrics or other information radiators' [V].",
+      "fix": "correct: it puts the work where the team can see it in their work environment; placed where stakeholders pass, it serves them too."
+    },
+    {
+      "id": "D005",
+      "line": 14,
+      "section": "Stakeholder-Engagement Relevance, Cross-organisational engagement",
+      "claim": "Open Kanban's \"Movement\" framing — modelled on the Free Software Movement's four freedoms",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Misnamed lineage: the source says it is 'inspired by the Open Source movement goal to give software users and developers the four essential freedoms of free software'.",
+      "evidence": "Deep 13, 142; source line 35.",
+      "fix": "correct: Open Kanban's \"Movement\" framing — inspired by the open-source movement's goal of the four essential freedoms of free software"
+    },
+    {
+      "id": "D006",
+      "line": 16,
+      "section": "Stakeholder-Engagement Relevance, fourth thread",
+      "claim": "The framework deliberately refuses to require a precondition (formal restructuring) it cannot guarantee.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supplies a rationale the source does not give.",
+      "evidence": "Deep 66, 152: 'Kanban starts where you are, and does not need to modify any titles or roles' [V]; no reason given.",
+      "fix": "correct: The framework does not require formal restructuring: Kanban 'starts where you are'."
+    },
+    {
+      "id": "D007",
+      "line": 30,
+      "section": "Key Concepts, 6",
+      "claim": "*Muri* (overburden) destroys engagement; sustainable pace protects it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Outside-knowledge gloss: the source pairs Muri with Agile's sustainable pace and never translates it as overburden. Recurs at 68, 99, 141, 161 ('*Muri* (overburden) ... is the named failure mode').",
+      "evidence": "Deep 29: 'Respect for people also aligns with sustainable pace in Agile, or Muri 無理 in Lean' [V]; deep 154. 'overburden' absent from deep ref and source.",
+      "fix": "correct: Exhaustion destroys engagement; the sustainable pace the source pairs with Lean's *Muri* protects it."
+    },
+    {
+      "id": "D008",
+      "line": 42,
+      "section": "Key Concepts, 12",
+      "claim": "\"We only ask you that you: Give us credit; Contribute your best ideas back to Open Kanban root repository.\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim quotation without [V]; same at line 59 ('People... [are] not just as resources, but also as full rounded individuals who make the system work.').",
+      "evidence": "Deep 108 [V]; deep 52 [V].",
+      "fix": "re-mark: [V] (lines 42, 59)"
+    },
+    {
+      "id": "D009",
+      "line": 76,
+      "section": "Questions, Phase 3 (Use the Kanban board as conversation anchor)",
+      "claim": "Open Kanban's collaboration claim is that the board is the artefact that organises the conversation.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the source: the board 'makes it easier to collaborate in a team setting' and 'provides transparency'; the source does not say it organises conversations.",
+      "evidence": "Deep 62 [V].",
+      "fix": "correct: Open Kanban's claim is that the board makes it easier to collaborate and gives everyone transparency about the work."
+    },
+    {
+      "id": "D010",
+      "line": 79,
+      "section": "Questions, Phase 3 (Treat the manager as collaborator)",
+      "claim": "\"Manager you can easily see at any moment what is the status of things, and if you are a team member you can see your impact on the overall work.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation marked [V] is not word for word: the source reads 'If you are a manager you can easily see ...'; 'Manager you can easily see' is not in the source.",
+      "evidence": "Deep 62; source line 109: 'If you are a manager you can easily see at any moment what is the status of things'.",
+      "fix": "correct: \"If you are a manager you can easily see at any moment what is the status of things, and if you are a team member you can see your impact on the overall work.\" [V]"
+    },
+    {
+      "id": "D011",
+      "line": 129,
+      "section": "What to Look For, repeated retrospective ideas",
+      "claim": "The fourth practice — Learn and improve continuously — requires the same pull discipline as the first three.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes a requirement the source does not state; pull is tied to the Respect value, not to the first three practices.",
+      "evidence": "Deep 27 (demand-pull under Respect for people); deep 56-87 (four practices; none states pull discipline for the fourth).",
+      "fix": "correct: Treat improvement ideas like any other work: put them on the board and pull them."
+    },
+    {
+      "id": "D012",
+      "line": 163,
+      "section": "Anti-patterns, Engagement without a learning close",
+      "claim": "An engagement cycle that closes without a Retrospective, Strategy Meeting, or Kaizen Group has not closed its learning loop.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Treats three named forms as necessary; the source lists them as examples among 'many ways'.",
+      "evidence": "Deep 85 [V]; deep 158 ('optional examples among many ways').",
+      "fix": "correct: An engagement cycle that closes with no learning step (a Retrospective, Strategy Meeting, Kaizen Group, or another form) has not closed its learning loop."
+    },
+    {
+      "id": "D013",
+      "line": 165,
+      "section": "Anti-patterns, CC BY 3.0 licence as an excuse",
+      "claim": "treating the licence permissiveness as permission to extract without contributing is the named failure mode.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source names no such failure mode; it asks for contribution back and the licence permits keeping forks private.",
+      "evidence": "Deep 108: 'We only ask you that you: Give us credit; Contribute your best ideas back' [V]; 'contribute back is named as a request, not a licence requirement ... a fork-and-keep-private outcome is permitted'.",
+      "fix": "correct: the licence permits using without contributing back, but the source asks for contribution back; extracting without contributing runs against its stated preference."
+    },
+    {
+      "id": "D014",
+      "line": 175,
+      "section": "Integration, NHS Just Culture and LFUO",
+      "claim": "Open Kanban motivates the person to surface an issue; Just Culture and LFUO protect them when they do.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The NHS guide evaluates staff involved in a patient safety incident, not people who raise issues; LFUO's Just Culture principle concerns the response to unintended outcomes. Neither deep ref frames itself as protecting the person who surfaces an issue.",
+      "evidence": "nhs-just-culture-guide-deep 17 [V] ('whether a staff member involved in a patient safety incident requires specific individual support or intervention'); lfuo-learning-review-guide-2024-deep 7, 15 (Just Culture as a response to unintended outcomes).",
+      "fix": "correct: Open Kanban asks lower-rank people to name mistakes by those in authority; NHS Just Culture and LFUO steer the response to incidents away from blaming individuals. Use both layers when designing conditions for upward correction."
+    },
+    {
+      "id": "D015",
+      "line": 201,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "uses `[V]`, `[AR]`, and `[BT]` markers throughout (48 `[V]`, 23 `[BT]`, 2 `[AR]`). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong and self-audit inaccurate: the deep ref carries 66 [V], 23 [BT], 2 [AR] and 1 [AP]; the [V] quotation at line 79 is not word for word, and two verbatim quotations (42, 59) lack [V].",
+      "evidence": "grep counts on open-kanban-deep.md: [V] 66, [BT] 23, [AR] 2, [AP] 1. Distillation lines 42, 59, 79.",
+      "fix": "correct: uses `[V]`, `[AP]`, `[AR]` and `[BT]` markers (66 `[V]`, 23 `[BT]`, 2 `[AR]`, 1 `[AP]`). [Fix lines 42, 59, 79 so every verbatim quotation carries [V] and matches the source.]"
+    }
+  ],
+  "notes": "The cleanest of the five open-kanban distillations: it carries no imported constraint/throughput frame, and it flags its own limits well (line 8 says the source does not name stakeholder engagement; lines 193-198 list what it does not develop). Apart from line 79, all [V] quotations match the converted source (line 24 inserts a [BT] marker inside the quotation; line 32 inserts '[are]'). The line 153 statement 'No verbatim source blockquotes appear' is literally true (inline quotations, no '>' blockquotes). Integration rows verified: Letaw (Tuckman, fist of five, RACI, ground rules, elicitation, paper prototyping, Inclusivity Heuristics), OB Chs 9-14 topics, TC 25-20 horseshoe seating and rank-consciousness passage (deep 221), SSDL feedback and accumulations briefs. The Worked Example's 'Courage value fires' when an analyst flags a regulation conflict stretches the source's upward-correction sense but is scenario, not graded."
+}

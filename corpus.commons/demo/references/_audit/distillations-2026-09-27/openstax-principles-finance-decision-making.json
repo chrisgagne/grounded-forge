@@ -1,0 +1,189 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/openstax-principles-finance-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-194 of 194",
+    "deep": "lines 1-847 of 847",
+    "complete": true
+  },
+  "claims_audited": 148,
+  "tally": {
+    "faithful": 126,
+    "minor_drift": 15,
+    "unsupported": 6,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "the book treats financial work as a structured decision toolkit organised around three primary domains — working capital management, capital budgeting, and capital structure",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Conflates two triads. The book's three primary areas of finance are business finance, investments, and financial markets and institutions; working capital, capital budgeting and capital structure are the three focal areas within business finance.",
+      "evidence": "Deep 13 and 27: three primary domestic areas = business finance, investments, financial markets and institutions [V] (Ch 1.1, 'Basic Areas in Finance'); within business finance managers focus on working capital management, capital budgeting, capital structure [AP] (Ch 1.1, 'Business Finance').",
+      "fix": "correct: the book treats business finance as a structured decision toolkit whose three focal areas are working capital management, capital budgeting, and capital structure (Ch 1.1, \"Business Finance\") — plus the supporting decisions in valuation, forecasting, and risk management."
+    },
+    {
+      "id": "D002",
+      "line": 22,
+      "section": "Key Concepts 4",
+      "claim": "The five capital-budgeting methods and when to use each ... Payback, discounted payback, NPV, IRR, MIRR, and PI",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count mismatch: heading says five, the list names six methods (and Ch 16 covers six).",
+      "evidence": "Deep 559-585: payback (16.1), NPV (16.2), IRR (16.3), PI, discounted payback, MIRR (16.4) = six.",
+      "fix": "correct: **The six capital-budgeting methods and when to use each.**"
+    },
+    {
+      "id": "D003",
+      "line": 26,
+      "section": "Key Concepts 6",
+      "claim": "Roughly 12 stocks suffice for a reasonably diversified portfolio. ... (Source: Ch 15.3, \"CAPM Equation\"; Ch 17.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: the dozen-stocks claim is Ch 15.2 ('Portfolio Size and Risk'), not 15.3 or 17.2. The source also hedges it ('There is not an exact number that all financial managers agree on').",
+      "evidence": "Deep 531 (Ch 15.2, 'Portfolio Size and Risk', Statman [BT]); deep 797 ('no exact number agreed'). Source 25870-25877: 'There is not an exact number that all financial managers agree on ... approximately a dozen stocks.'",
+      "fix": "correct: Roughly a dozen stocks give the average investor a reasonably diversified portfolio, though the text notes no exact number is agreed (Ch 15.2, \"Portfolio Size and Risk\")."
+    },
+    {
+      "id": "D004",
+      "line": 28,
+      "section": "Key Concepts 7",
+      "claim": "The interest tax shield ... lowers WACC ... but financial distress costs grow with leverage. Trade-off theory weighs these. (Source: Ch 17.3, \"Calculating the WACC\"; Ch 17.4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: financial distress and trade-off theory are Ch 17.5, which the citation omits. (\"Calculating the WACC\" abbreviates the 17.3 section title \"Calculating the Weighted Average Cost of Capital\"; the deep ref cites its subsection \"WACC Equation\".)",
+      "evidence": "Deep 627 (Ch 17.3, \"WACC Equation\"); deep 643 (Ch 17.5, \"Debt and Financial Distress\", \"Trade-Off Theory\"). Source 28703 section running head \"17.3 • Calculating the Weighted Average Cost of Capital\".",
+      "fix": "correct: (Source: Ch 17.3, \"WACC Equation\"; Ch 17.4, \"The Impact of Taxes\"; Ch 17.5, \"Trade-Off Theory\")"
+    },
+    {
+      "id": "D005",
+      "line": 30,
+      "section": "Key Concepts 8",
+      "claim": "**Three forms of risk.** Default risk, inflation risk, diversifiable risk, non-diversifiable risk, and political risk ...; transaction, translation, and economic exposures ...; Bond risks add credit, liquidity, duration, call, reinvestment, and term.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Enumeration label wrong: the entry lists fourteen named risks in three families, not three forms.",
+      "evidence": "Deep 31-37 (five components of investment risk, Ch 1.1), 153-157 (three exchange-rate exposures, Ch 3.5/20.3), 379-388 (bond risks, Ch 10.4).",
+      "fix": "correct: **Risk types, in three families.**"
+    },
+    {
+      "id": "D006",
+      "line": 32,
+      "section": "Key Concepts 9 (also Anti-patterns line 164)",
+      "claim": "Many tools (futures, options, swaps) can be used either way. The financial manager's role is to hedge — to use these tools as risk-management rather than profit-seeking instruments.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Converted source supports the dual-use point but the deep ref does not carry it; and 'the financial manager's role is to hedge' hardens the chapter's stated focus into a role norm. Line 164 ('Many derivatives can be used either way') rests on the same passage.",
+      "evidence": "Deep 734 carries only the hedging/speculating definitions. Source 33123-33124: 'Certain strategies are commonly used by firms to hedge risk ... Many of these same strategies can be used by economic players who wish to speculate.' Source 33137-33139: 'In this chapter, however, the focus is on the perspective of a financial manager using these strategies to manage risk.'",
+      "fix": "cycle-to-deep: add to Ch 20.1 'Risk and Firm Value': 'Many of these same strategies can be used by economic players who wish to speculate' [V]; 'the focus is on the perspective of a financial manager using these strategies to manage risk' [V]. Then correct line 32: The same strategies firms use to hedge can be used to speculate; the chapter takes the financial manager's perspective of using them to manage risk."
+    },
+    {
+      "id": "D007",
+      "line": 36,
+      "section": "Key Concepts 11",
+      "claim": "Working capital management is decision-rich on the AR (credit policy), inventory (reorder points), and AP (payment terms) sides.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Reorder points' is not in the deep ref or the source; the inventory tools the text names are EOQ and JIT.",
+      "evidence": "Deep 721-728 (Ch 19.5: purchasing/carrying/ordering/stockout costs; JIT and EOQ). grep 'reorder' in converted source: no hits.",
+      "fix": "correct: ... inventory (EOQ, JIT, the four inventory cost components) ..."
+    },
+    {
+      "id": "D008",
+      "line": 70,
+      "section": "Questions, Phase 3 (also Worked Example line 149)",
+      "claim": "Does the project carry real options — staged investment, abandonment, expansion? These are not captured in straight NPV but can be valuable.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Premise imported from outside the source: the deep ref and the converted source never discuss real options or say NPV misses flexibility value. The distillation's own Named Limits (line 192) concedes the book does not cover real options. Line 149 repeats the premise as the CFO's reasoning.",
+      "evidence": "grep 'real option' and 'abandon' in the converted source: no hits. Deep 563-600 (Ch 16) treats NPV with no flexibility-value caveat; its only honesty note is that projected cash flows are estimates (deep 600).",
+      "fix": "correct: line 70 → 'Test whether the cash-flow estimates hold | How far could actual cash flows deviate from projections? The text warns a positive-NPV project \"may end up being a bad project ... if the future is much different from what it projected\" (Ch 16.5, \"Capital Budgeting Challenges\").' Line 149: strip, or label as an extension beyond this source."
+    },
+    {
+      "id": "D009",
+      "line": 79,
+      "section": "Questions, Phase 4",
+      "claim": "Why are they conflicting (typically scale or timing differences)?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref names scale and IRR's reinvestment-rate assumption as the causes; 'timing' is not in it.",
+      "evidence": "Deep 573-577 (Ch 16.3 disadvantages: multiple IRRs, reinvestment rate, scale); deep 833 (Ch 16.5: IRR ignores scale and assumes reinvestment at the IRR).",
+      "fix": "correct: Why are they conflicting (the text names scale and IRR's reinvestment-rate assumption)?"
+    },
+    {
+      "id": "D010",
+      "line": 116,
+      "section": "What to Look For (also lines 100, 162)",
+      "claim": "Diagnosis: escalation of commitment; sunk costs are sunk. / Sunk costs are sunk. / Defending a sunk-cost decision. Escalation of commitment leads to throwing good money after bad.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Smuggled concept. Neither escalation of commitment nor sunk-cost reasoning appears in the Finance deep ref; the converted source mentions 'sunk costs' only as a multiple-choice distractor in excluded end-of-chapter material. The concept belongs to Organizational Behavior (Ch 6.4).",
+      "evidence": "grep 'escalation' in Finance source: no hits; 'sunk' only at source 30998 (MCQ option). OB deep 186: 'Escalation of commitment: decision-makers stay committed to poor decisions even as costs mount' (Ch 6.4).",
+      "fix": "correct: keep the pattern but attribute the diagnosis: 'Diagnosis: escalation of commitment, one of the six decision barriers in OpenStax Organizational Behavior (Ch 6.4). From this source, the relevant point is that a positive-NPV project can turn bad if the future differs from projections (Ch 16.5, \"Capital Budgeting Challenges\").' Strip 'Sunk costs are sunk' at line 100; re-attribute line 162 to OB."
+    },
+    {
+      "id": "D011",
+      "line": 120,
+      "section": "What to Look For",
+      "claim": "Pattern: An option is being exercised because the strike is favourable, ignoring premium. ... favourable strike does not always mean profitable exercise. Follow-up: compute net payoff including premium before exercising.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The source's worked examples have the holder exercise whenever spot beats strike, even when the net payoff after premium is negative, because the premium is already paid. The pattern flags that correct behaviour as an error and advises using the premium in the exercise decision.",
+      "evidence": "Deep 766-767: holder profits above strike + premium (profit threshold only, not an exercise rule). Source 33659-33661: at a spot between strike and strike + premium 'the company will choose to exercise the option ... the company will be 25 KWN worse off than if it had never purchased the call option.' Source 33754-33758 (put): 'If the spot rate is between ... the company will exercise the option ... the payoff is INR -2.'",
+      "fix": "correct: Pattern: the premium is being treated as part of the exercise decision. Signal: a holder declines to exercise a call with spot above strike because spot has not cleared strike + premium. Diagnosis: the premium is already paid; in the text's examples the holder exercises whenever spot is above strike (below, for a put), even where the net payoff is still negative (Ch 20.3). Follow-up: decide exercise on spot versus strike; judge the hedge's overall value on net payoff including the premium."
+    },
+    {
+      "id": "D012",
+      "line": 143,
+      "section": "Worked Example",
+      "claim": "For Alternative A, NPV at 12 per cent is approximately $383,000 (positive, accept on standalone basis); IRR is roughly 21 per cent.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Internal arithmetic error in the hypothetical (not presented as a source finding). The stated cash flows give NPV ≈ $340,434 at 12 per cent and IRR ≈ 20.4 per cent. Downstream 'Alternative B ... about $280,000' is consistent (≈ $271,392 if benefits shift two years).",
+      "evidence": "Recomputed: -850,000 + 180,000×3 (yrs 1-3) + 220,000×4 (yrs 4-7) + 260,000×3 (yrs 8-10) discounted at 12% = 340,434; IRR = 20.37%.",
+      "fix": "correct: For Alternative A, NPV at 12 per cent is approximately $340,000 (positive, accept on standalone basis); IRR is roughly 20 per cent."
+    },
+    {
+      "id": "D013",
+      "line": 163,
+      "section": "Anti-patterns",
+      "claim": "Bond prices fall as rates rise; existing bonds are revalued daily.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The 'revalued daily' clause is not in the deep ref or the source; the source says only that secondary-market prices change as rates change.",
+      "evidence": "Deep 365 (Ch 10.1, inverse relationship [V]). Source 1990: 'prices do change in the secondary market as interest rates change.' No 'daily' revaluation of bonds anywhere in the source.",
+      "fix": "correct: Bond prices fall as rates rise; existing bonds' secondary-market prices move with rates."
+    },
+    {
+      "id": "D014",
+      "line": 173,
+      "section": "Integration with Other References (also line 176)",
+      "claim": "Cost-volume-profit analysis | Used in operations and managerial accounting to identify the breakeven volume ... / Strategic planning | Capital budgeting decisions are operational implementations of strategy ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rows name a topic but no corpus reference, so the relationship cannot be routed. Both topics are held in the corpus.",
+      "evidence": "openstax-accounting-vol2-deep 94-110 (Ch 3 CVP, break-even point). openstax-principles-management-deep 442 (strategic planning).",
+      "fix": "correct: name the references: 'OpenStax, Principles of Accounting Vol 2 — CVP analysis (Ch 3)' and 'OpenStax, Principles of Management — strategic planning'."
+    },
+    {
+      "id": "D015",
+      "line": 174,
+      "section": "Integration with Other References",
+      "claim": "The Finance book mentions option-like features (mortgage prepayment, convertible bonds, callable bonds) ...",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mortgage prepayment is in the converted source but not in the deep ref (convertible bonds and call risk are).",
+      "evidence": "Deep 361, 651 (convertible bonds), 386 (call risk). Source 13609-13612 (Ch 8.3): 'The ability to prepay long-term debts such as this is clearly worth negotiating initially.'",
+      "fix": "cycle-to-deep: add to Ch 8.3 loan amortisation: 'The ability to prepay long-term debts such as this is clearly worth negotiating initially' [V]."
+    },
+    {
+      "id": "D016",
+      "line": 186,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "Buffett's dividend-policy view as \"almost a last resort\" [V] (Ch 12.1, Ch 12.4) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited chapter: the dividend quote is Ch 11.2 (Limitations of DDMs); Ch 12.4 carries the Graham/Buffett profile; Ch 12.1 carries neither.",
+      "evidence": "Deep 415 and 810 (Buffett dividend view, Ch 11.2); deep 810-811 (Graham, Ch 12.4). Source 18534 sits in Ch 11.",
+      "fix": "correct: Buffett's dividend-policy view as \"almost a last resort\" (Ch 11.2); Graham's value-investing method in the Buffett profile (Ch 12.4) [BT]."
+    },
+    {
+      "id": "D017",
+      "line": 192,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "Qualitative and behavioural dimensions of financial decision-making (cognitive biases in capital allocation, overconfidence in forecasts) are acknowledged but not developed",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Acknowledged' overstates: the source has no discussion of cognitive bias or overconfidence. The nearest material is the forecasting-ethics note on subjectivity and pressure.",
+      "evidence": "grep ' bias', 'behavioral', 'overconfidence', 'psycholog' in converted source: no hits. Deep 659 (Ch 18.1): 'there can be tremendous pressure on management ... There is a great deal of subjectivity ...' [V].",
+      "fix": "correct: Behavioural dimensions (cognitive biases in capital allocation, overconfidence in forecasts) are absent; the closest the text comes is its warning that forecasting carries 'a great deal of subjectivity' under management pressure (Ch 18.1)."
+    }
+  ],
+  "notes": "All three [V] quotations (line 8 opening claim, line 20 Simmons, line 22 NPV definition) check word for word against the converted source (847-848, 15057-15059, 26890). Integration rows against OB deep verified: dual-system processing, biases, groupthink, Rest's moral sensitivity (OB deep 170-204) and the six barriers list (OB deep 183-189) match exactly; Simon/bounded rationality is OB deep 688 [BT]. Named-limit absences (real options, credit derivatives, securitisation, private equity) confirmed by grep of the converted source. Protocol deviations, not graded: the distillation carries no verbatim blockquotes (open-nc sources expect 2-5), and the Worked Example cites no chapter or section for any framework step. The phase-4 'news-test' question (line 82) is applied guidance not attributed to the author; graded FAITHFUL. Deep-ref note for the auditor of record: deep 531 attributes the dozen-stocks threshold to Statman [BT], but the source (25870-25877) gives Statman only the falling-standard-deviation finding and states the dozen as the authors' own view."
+}

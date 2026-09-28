@@ -1,0 +1,113 @@
+{
+ "slug": "openstax-organizational-behavior",
+ "changed_lines_checked": 169,
+ "tally": {
+  "faithful": 158,
+  "minor_drift": 7,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 4
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/openstax-organizational-behavior.md",
+   "line": 25,
+   "text": "Continuous reinforcement is best while a job is being learned; after that variable-ratio schedules are superior and fixed-interval schedules produce the least effective results.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same hedge loss as deep 125, in a standalone summary with no verbatim nearby: 'In most situations' is dropped, so the fixed-interval ranking reads as absolute.",
+   "evidence": "source 10398-10400 (Ch 7.3, 'Schedules of Reinforcement'): 'In general, continuous reinforcement is best ... In most situations the fixed-interval schedule produces the least effective results'",
+   "fix": "correct: In general, continuous reinforcement is best while a job is being learned; after that variable-ratio schedules are superior, and in most situations fixed-interval schedules produce the least effective results."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/openstax-organizational-behavior-retro.md",
+   "line": 14,
+   "text": "(Actor-observer bias is held in the corpus by OpenStax Psychology 2e, Ch 12.1, not by this source.)",
+   "grade": "EDIT-DEFECT",
+   "problem": "Removal trace: the sentence exists only to explain the removed actor-observer claim. The claim about Psychology 2e is true (psychology-2e deep 285, Ch 12.1), but a reader of the self-serving-bias concept would not miss it, and the Integration table's Psychology 2e row already routes attribution-bias grounding there.",
+   "evidence": "openstax-psychology-2e-deep.md 285 carries actor-observer bias (Ch 12.1); retro line 134 already names Psychology 2e for attribution bias.",
+   "fix": "strip"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/retro/openstax-organizational-behavior-retro.md",
+   "line": 34,
+   "text": "The retro's experiment review is a regular checkpoint, but by the text's account a fixed-interval schedule alone gives the least effective results and quick extinction (Ch 4.2, Table 4.2; Ch 7.3); recognition tied to completed actions (a ratio basis) holds action-completion norms better, since \"the performance-contingent (or ratio) reward schedules generally lead to better performance than the time-contingent (or interval) schedules\" [V] (Ch 4.2).",
+   "grade": "MINOR-DRIFT",
+   "problem": "'holds action-completion norms better' is set against fixed-interval 'quick extinction', so it reads as extinction resistance. Table 4.2 gives fixed ratio quick extinction too; only the variable schedules give slow extinction. The Hamner [V] backs better performance, not durability. Also 'least effective results' drops the source's 'In most situations' (the hedged [V] sits earlier in the same paragraph).",
+   "evidence": "source 5297-5300 (Table 4.2): Fixed ratio 'Leads quickly to very high and stable performance' | 'Quick extinction of behavior'; Variable interval and Variable ratio 'Slow extinction of behavior'. Source 5369-5370: ratio schedules 'generally lead to better performance'. Source 10400: 'In most situations the fixed-interval schedule produces the least effective results'.",
+   "fix": "correct: The retro's experiment review is a regular checkpoint, but by the text's account a fixed-interval schedule alone gives quick extinction (Ch 4.2, Table 4.2) and in most situations the least effective results (Ch 7.3); recognition tied to completed actions (a ratio basis) lifts follow-through, since \"the performance-contingent (or ratio) reward schedules generally lead to better performance than the time-contingent (or interval) schedules\" [V] (Ch 4.2), and only the variable schedules give slow extinction (Ch 4.2, Table 4.2)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/openstax-organizational-behavior-aar.md",
+   "line": 14,
+   "text": "Both accounts are partial until those questions are answered. (Actor-observer bias is held in the corpus by OpenStax Psychology 2e, Ch 12.1, not by this source.)",
+   "grade": "EDIT-DEFECT",
+   "problem": "Two leftovers from rewriting the actor-observer concept as Kelley's internal/external attribution: 'Both accounts' has no referent now (it pointed at the removed actor vs observer accounts), and the parenthetical is a removal trace. The Kelley content itself is faithful (deep 79; source 3886-3915).",
+   "evidence": "Pre-repair text: 'the person closest to the incident attributes their choices to the situation...; the observer room attributes those same choices to the person's character. Both accounts are partial.' Current concept names no two accounts.",
+   "fix": "correct: Neither the internal nor the external reading is settled until those questions are answered. (and strip the Actor-observer parenthetical)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/openstax-organizational-behavior-aar.md",
+   "line": 34,
+   "text": "decoding is shaped by each receiver's experience and frame of reference, and noise can enter at any point (Ch 11.1)",
+   "grade": "MINOR-DRIFT",
+   "problem": "Source-supported but absent from the deep ref: deep Part XI ('The communication model and feedback types') names encoding, decoding and noise only, with nothing on what shapes decoding or where noise enters.",
+   "evidence": "source 16332-16333 (Ch 11.1, 'Encoding and Decoding'): 'Decoding is also influenced by the receiver's previous experiences and frame of reference at the time of receiving the message.' source 16351 ('Noise'): 'Noise can occur at any point along the model shown in Exhibit 11.2, including the decoding process.' Deep line 342 carries neither.",
+   "fix": "cycle-to-deep: add to deep line 342: decoding 'is also influenced by the receiver's previous experiences and frame of reference at the time of receiving the message' [V] (Ch 11.1, \"Encoding and Decoding\"), and noise 'can occur at any point along the model' [V] (Ch 11.1, \"Noise\")."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/openstax-organizational-behavior-decision-making.md",
+   "line": 55,
+   "text": "Are there decisions I should not make even if they appear optimal on other criteria? Where are the lines I will not cross, however good the option looks on other criteria?",
+   "grade": "EDIT-DEFECT",
+   "problem": "The replacement for 'deontological lines' repeats the first sentence's point ('on other criteria' twice), so the cell says the same thing twice.",
+   "evidence": "Audit D008 fix supplied the second sentence; the first sentence was left in place.",
+   "fix": "correct: Are there decisions I should not make even if they appear optimal on other criteria? Where are the lines I will not cross?"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/openstax-organizational-behavior-decision-making.md",
+   "line": 152,
+   "text": "offers a bottom-up alternative that has employees co-create the vision and design the actions (Ch 16.3)",
+   "grade": "MINOR-DRIFT",
+   "problem": "Source-supported but absent from the deep ref: deep Part XVI gives AI as the 5-D cycle, abundance-based, bottom-up, using appreciative conversations to shift narratives; nothing on employees co-creating the vision or designing the actions.",
+   "evidence": "source 24843-24849 (Ch 16.3): appreciative conversations 'help people to develop common ground as they work together to co-create a positive vision of an ideal future for their organization' ... 'an opportunity for employees to envision the future changes they would like to see, then work together to design how they will make these changes a reality.' Deep 544 carries neither.",
+   "fix": "cycle-to-deep: add to deep 544 (Cooperrider's AI): appreciative conversations help people 'work together to co-create a positive vision of an ideal future for their organization' [V], giving employees the chance to envision the changes they want and 'work together to design how they will make these changes a reality' [V] (Ch 16.3)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-organizational-behavior-software-business.md",
+   "line": 174,
+   "text": "... including by leaving. (Source: Ch 7.3) Decisions about accountability are themselves high-stakes decisions; the cost of diffusion is that high performers leave first. (Source: Ch 7.3, Ch 7.4)",
+   "grade": "EDIT-DEFECT",
+   "problem": "The inserted audit fix brought its own '(Source: Ch 7.3)' tag, so the bullet now carries two source tags, one mid-bullet.",
+   "evidence": "Audit D032 fix ended with '(Source: Ch 7.3)'; the bullet's original trailing '(Source: Ch 7.3, Ch 7.4)' was kept.",
+   "fix": "correct: ... equity theory adds that people who see their ratio as unfair against a referent restore balance, including by leaving. Decisions about accountability are themselves high-stakes decisions; the cost of diffusion is that high performers leave first. (Source: Ch 7.3, Ch 7.4)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-organizational-behavior-software-business.md",
+   "line": 294,
+   "text": "Maslow and Herzberg are carried there as [AP] and [AR], and French and Raven's bases are unmarked.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Marker misstated. The deep ref's Part XII entry for French and Raven (deep 368) is unmarked, but its Connections list marks them [BT] (deep 702), and this same file's borrowed-through list says '[BT] (Ch 12.3; Ch 13.1)' (line 283). The note contradicts both.",
+   "evidence": "deep 702: '- *French and Raven's bases of power*: cited in three chapters (12, 13, 17) [BT].' distillation line 283: '*John French and Bertram Raven* — five bases of power are sourced [BT] (Ch 12.3; Ch 13.1).'",
+   "fix": "correct: Behavioural science models attributed to McClelland, Deci and Ryan, Adams, Vroom, Thomas, Argyris, Tuckman, Lencioni, French and Raven, Hickson, Salancik-Pfeffer, Cameron-Quinn, Lewin, Kotter, Cooperrider, and Olson-Eoyang are [BT] in the deep reference; Maslow and Herzberg are carried there as [AP] and [AR]."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement.md",
+   "line": 167,
+   "text": "AI offers a bottom-up alternative in which participants co-create the vision and design the actions (Ch 16.3).",
+   "grade": "MINOR-DRIFT",
+   "problem": "Source-supported but absent from the deep ref (same gap as decision-making line 152): deep 544 gives AI as the 5-D cycle, abundance-based, bottom-up, shifting narratives through appreciative conversations; nothing on co-creating the vision or designing the actions.",
+   "evidence": "source 24843-24849 (Ch 16.3): 'work together to co-create a positive vision of an ideal future for their organization' ... 'envision the future changes they would like to see, then work together to design how they will make these changes a reality.'",
+   "fix": "cycle-to-deep: as decision-making line 152 (add source 24843-24849 to deep 544)."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement.md",
+   "line": 176,
+   "text": "it carries the 47 per cent liaison figure, the multicultural conflict sources, Thomas and BATNA as `[BT]`, and French-Raven unmarked.",
+   "grade": "MINOR-DRIFT",
+   "problem": "Marker misstated (same as software-business line 294). The deep's Part XII entry is unmarked, but its Connections list marks French and Raven [BT] (deep 702), and this file's own borrowed-through list (line 172) names French and Raven.",
+   "evidence": "deep 702: '*French and Raven's bases of power*: cited in three chapters (12, 13, 17) [BT].' distillation line 172 lists 'French and Raven (power bases, Ch 12.3, Ch 13.1)' as borrowed-through.",
+   "fix": "correct: it carries the 47 per cent liaison figure, the multicultural conflict sources, Thomas, BATNA and French-Raven as `[BT]`."
+  }
+ ],
+ "notes": "COMPLETE. Coverage: every changed file read in full: deep ref (750 lines, 34 changed lines), light ref (137 lines, 3), aar (126, 15), decision-making (176, 18), retro (147, 19), software-business (294, 46), stakeholder-engagement (176, 24); plus 10 added index rows (2 AAR, 1 retro, 7 software-business), all FAITHFUL to the distillations they point to. Stamp lines ignored. No vflags file exists for this slug, so there were no flagged quotations to grade. Every new or corrected [V] in the deep ref and the five distillations was checked word for word against sources/converted with /usr/bin/grep -F plus a read of the passage (Ch 2.4 locus of control; Ch 3.3 FAE consequence and 'two biases' sentence; Ch 3.5 commitment; Ch 4.2 Skinner-advocates passage, punishment, FI sentence, Hamner conclusion; Ch 6.1 decision-making and stakeholder definitions; Ch 6.2; Ch 6.4 relationship conflict; Ch 6.5 Step 2, creativity, EBDM, critical thinking, Rest, front-page test; Ch 6.6 groupthink causes; Ch 7.3 punishment, continuous reinforcement, schedule ranking; Ch 9.2 Asch and cohesiveness; Ch 9.4 reciprocal and decoupling; Ch 11.3 disturbance handler; Ch 12.3 legitimate power x2; Ch 14.4 BATNA; Ch 16.3 involve employees). All match. Endnotes checked: Ryan & Deci 2000 (endnote 17, Ch 7); Glenn, Witmeyer and Stevenson 1977 (endnote 12, Ch 14). Cross-source claims checked against psychology-2e deep (actor-observer Ch 12.1; dissenter and private response Ch 12.4), principles-management deep (Ch 14.2, 15.2, 4.3, 18.6), liberating-structures deep (1-2-4-Whole Group, Mini Constellations), flo deep (tracking matrix, Anxious Annie), ssdl deep (linear X causes Y): all hold. RETRO REINFORCEMENT SCHEDULES (special attention): the old errors are gone (VR as 'most extinction-resistant', the scheduled review as durable reinforcement, 'Phase 0.5'). The Ch 7.3 [V] ranking quote at retro 34 is word for word (source 10399-10401) and correctly placed under the 'Schedules of Reinforcement' subhead of Ch 7.3; 'once a behaviour has been learned' fairly renders 'After that'. Table 4.2 claims (variable schedules slow extinction, VR very high) are right. Line 94's 'recognised only on the calendar, the fixed-interval schedule the text ranks least effective' fits Ch 7.3's own FI definition (time passes, then a response is reinforced). One residual drift at line 34: 'holds action-completion norms better' implies extinction resistance for ratio reinforcement, but Table 4.2 gives fixed ratio quick extinction like fixed interval; only the variable schedules resist extinction, and the Hamner [V] supports performance level only. Note too that the source is not internally uniform: Ch 4.2 (Hamner) ranks both ratio schedules above both interval schedules, while Ch 7.3 puts fixed ratio level with variable interval; the retro quotes both without claiming more than either says. Hedge handling: the light ref (line 25) drops Ch 7.3's 'In most situations' and states the FI result flat (flagged). The deep ref pointer at 125 and retro 94 describe the ranking ('ranks ... least effective') and point to the hedged verbatim, so they are graded FAITHFUL. Pattern in the flags: three come from applying audit fixes literally (actor-observer re-attribution parentheticals in aar 14 and retro 14, the leftover 'Both accounts' in aar 14, the duplicate 'on other criteria' in decision-making 55, the doubled source tag in software-business 174). Three are source-supported content never cycled into the deep ref (aar 34 decoding and noise; decision-making 152 and stakeholder-engagement 167 AI co-creation). Two repeat the audit's own miss that French and Raven are [BT] in the deep's Connections list (software-business 294, stakeholder-engagement 176). Ungraded, pre-existing: light ref 'Signature contrarian positions' numbering skips 7 (6 then 8); software-business 280 says Maslow and Herzberg are carried as [AP]/[AR], true of their item lines (deep 226, 228) though deep 222 marks all five content theories [BT]; software-business 174 keeps the unchanged claim 'high performers leave first', which the deep does not carry (source 8406-8407 says 'the best employees will find new jobs the most quickly', in Ch 6.4)."
+}

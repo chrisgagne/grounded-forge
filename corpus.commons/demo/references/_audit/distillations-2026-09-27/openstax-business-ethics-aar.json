@@ -1,0 +1,169 @@
+{
+ "distillation": "corpus.commons/demo/distillations/aar/openstax-business-ethics-aar.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-105 of 105",
+  "deep": "lines 1-660 of 660",
+  "complete": true
+ },
+ "claims_audited": 84,
+ "tally": {
+  "faithful": 69,
+  "minor_drift": 15,
+  "unsupported": 0,
+  "contradicted": 0
+ },
+ "findings": [
+  {
+   "id": "D001",
+   "line": 12,
+   "section": "Key Concepts #1",
+   "claim": "\"the interests of all stakeholders are of intrinsic value\" [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: the words are Donaldson and Preston's, quoted by the source; the distillation's own integrity note (line 105) calls the framework [BT] but the inline quote carries [V] only.",
+   "evidence": "Source 4011-4013: 'According to Donaldson and Preston, in the normative approach \"the interests of all stakeholders are of intrinsic value...\"'. Deep 111 and 526 (citing Donaldson and Preston).",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D002",
+   "line": 14,
+   "section": "Key Concepts #2",
+   "claim": "When an AAR finding must be escalated, this taxonomy identifies which category must be informed and in what sequence.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Capability overstated: the linkage model classifies stakeholders by relationship to the firm; it carries no sequencing. Sequence comes from Ch 3.3 prioritisation (power x interest, exigency).",
+   "evidence": "Deep 115-120 (four categories, no order); deep 126 (Ch 3.3: prioritisation is 'deciding which stakeholders to focus on and in what sequence'; power x interest; exigency).",
+   "fix": "correct: When an AAR finding must be escalated, this taxonomy names which categories are affected; sequence them with the Ch 3.3 prioritisation tools (power x interest, exigency). (Source: Ch 3.2, \"Defining Stakeholder Categories\"; Ch 3.3, \"Stakeholder Prioritization\")"
+  },
+  {
+   "id": "D003",
+   "line": 18,
+   "section": "Key Concepts #4",
+   "claim": "**Duty of care / workplace safety.** (also 'Duty-of-care chapters' line 8; 'duty-of-care violation' line 38)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Label collides with a source term: the source uses 'duty of care' only for corporate directors' fiduciary duty to act on an informed basis (Ch 4.1). The deep ref never uses the phrase. The OSHA content under the label is supported.",
+   "evidence": "Source 5393: 'the duty of care consists of an obligation to act on an informed basis' (directors' fiduciary duties, Ch 4.1). Deep 216 (OSHA obligations) carries no 'duty of care' wording.",
+   "fix": "correct: **Employer safety obligations (OSHA).** (and in line 8: 'Employer-obligation chapters (workplace safety, OSHA, whistleblower protections)')"
+  },
+  {
+   "id": "D004",
+   "line": 24,
+   "section": "Key Concepts #7",
+   "claim": "**Psychological safety and ethical culture.** ... When an AAR reveals that people knew something was wrong and did not act, cultural conditions explain the silence.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "'Psychological safety' is not a concept in the deep ref or the source; the Ch 11.2 finding is about employees acting unethically, not about staying silent, so the silence premise is the distillation's extension. The quotation also drops the deep ref's [BT].",
+   "evidence": "Deep 468: 'employees are more likely to be unethical when they are dissatisfied with their jobs or see their superiors acting unethically' [V] [BT] (Ch 11.2). Source 17751: 'Workplace research indicates that...'. No 'psychological safety' anywhere in the source (grep).",
+   "fix": "correct: **Tone at the top and ethical culture.** \"employees are more likely to be unethical when they are dissatisfied with their jobs or see their superiors acting unethically\" [V] [BT]. The tone-at-the-top argument: culture is the primary carrier of ethical behaviour, not compliance apparatus. When an AAR reveals that people knew something was wrong and did not act, check the example set at the top and the organisation's relationship with its employees before concluding on individual character. (Source: Ch 11.2, \"Relationships Matter\")"
+  },
+  {
+   "id": "D005",
+   "line": 26,
+   "section": "Key Concepts #8",
+   "claim": "identifying which public category stakeholders occupy tells the facilitator how much time exists before latent becomes active",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The deep ref carries only the four definitions; the source (not the deep) adds that the categories guide message design and that an organisation aware of a problem before its public has an opportunity to communicate first. The 'how much time' framing loosens even that.",
+   "evidence": "Deep 122 (definitions only). Source 4133-4136: 'These categories help the organization design its message about a problem and decide how to communicate... If an organization is aware of a problem and the public is not, the organization has an opportunity to communicate and guide the public in recognizing and dealing with it'.",
+   "fix": "cycle-to-deep: add to the Ch 3.2 publics paragraph: \"These categories help the organization design its message about a problem and decide how to communicate... If an organization is aware of a problem and the public is not, the organization has an opportunity to communicate and guide the public in recognizing and dealing with it\" [V] (Ch 3.2, \"The Chicago Tylenol Murders\"); then correct: identifying which public category stakeholders occupy tells the facilitator whether the organisation still has the opportunity to communicate first."
+  },
+  {
+   "id": "D006",
+   "line": 28,
+   "section": "Key Concepts #9",
+   "claim": "\"Tacit knowledge acquired from experience that enables people to make prudent judgments ... guided by values and morals\" [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker incomplete: the words are Nonaka and Takeuchi's, quoted by the source; the distillation's own note (line 101) calls phronesis [BT]. The quote also starts one word earlier than the deep ref's audited passage ('acquired from experience...').",
+   "evidence": "Source 897-900: 'The authors conclude that \"...Practical wisdom is tacit knowledge acquired from experience...\"' (Nonaka and Takeuchi). Deep 35: quote begins 'acquired from experience', citing Nonaka and Takeuchi.",
+   "fix": "re-mark: [V] [BT]"
+  },
+  {
+   "id": "D007",
+   "line": 45,
+   "section": "Questions, Phase 4",
+   "claim": "Use the Grunig-Hunt categories to sequence outreach.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Same premise as D002: the linkage model categorises; it does not sequence.",
+   "evidence": "Deep 115-120 vs deep 126 (sequencing is Ch 3.3 prioritisation).",
+   "fix": "correct: Use the Grunig-Hunt categories (Ch 3.2) to name who is affected and the Ch 3.3 prioritisation tools (power x interest, exigency) to sequence outreach."
+  },
+  {
+   "id": "D008",
+   "line": 54,
+   "section": "Questions, Phase 5",
+   "claim": "If latent, the organisation has time to act before the public becomes active. If aware, the communication timeline is compressed.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Supported by the source's 'opportunity to communicate' sentence, which the deep ref does not carry; the timeline framing is loosened.",
+   "evidence": "Deep 122 (definitions only); source 4133-4136.",
+   "fix": "cycle-to-deep: as D005; then correct: If latent, the organisation still has the opportunity to communicate and guide the public (Ch 3.2); if aware, that opportunity is narrowing."
+  },
+  {
+   "id": "D009",
+   "line": 78,
+   "section": "Worked Example",
+   "claim": "did the manager have the practical wisdom to recognise this as an OSHA-class duty-of-care situation (a product-defect safety problem reported from the field)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept misapplied: OSHA sets the employer's obligation for a workplace free of risk to employees; a product defect endangering customers is outside it. The deep ref's product-safety cases are Samsung's washer recall (Ch 3.1) and GM's ignition switches (Ch 11.1).",
+   "evidence": "Deep 216 (OSHA: workplace free of risk to employees' safety and health); deep 107 (Samsung recall, ethical maximum); deep 460 (GM ignition switch, 124 deaths, 273 injuries).",
+   "fix": "correct: did the manager have the practical wisdom to recognise a product-safety obligation to customers, of the kind the source shows GM failing (Ch 11.1, \"General Motors' Failure to Consider Stakeholders\") and Samsung meeting at an ethical maximum (Ch 3.1)"
+  },
+  {
+   "id": "D010",
+   "line": 78,
+   "section": "Worked Example",
+   "claim": "Applying whistleblower-protection framing (Ch 7.5): were the channels for reporting upward safe and accessible",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Source defines whistleblowing as reporting to a government agency; internal upward reporting is what it advises first, and its Watkins case shows internal reporting earned no whistleblower protection. The framing fits Ch 7.5's internal-channel guidance and costs-of-speaking cases, not its whistleblower protections.",
+   "evidence": "Deep 308 (whistleblowing = reporting to a governmental entity; try internal channels first); deep 312 (Watkins reported internally, 'received no whistleblower protection'); deep 314 (Krawcheck).",
+   "fix": "correct: Applying Ch 7.5: the source advises trying internal reporting channels first and shows what speaking up internally cost Watkins and Krawcheck; were the channels for reporting upward safe and accessible, or did the manager have reason to believe escalation would be penalised?"
+  },
+  {
+   "id": "D011",
+   "line": 78,
+   "section": "Worked Example",
+   "claim": "The enabling stakeholders (board, legal, compliance) are named via the Grunig-Hunt taxonomy (Ch 3.2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Misclassification: the source's enabling stakeholders are stockholders, legislatures, regulators and boards; internal legal and compliance staff are employees (functional, inputs).",
+   "evidence": "Deep 117 (enabling: stockholders, legislatures, government regulators, boards); deep 119 (functional: employees on the input side).",
+   "fix": "correct: The enabling stakeholders (board of directors, regulators) are named via the Grunig-Hunt taxonomy (Ch 3.2)"
+  },
+  {
+   "id": "D012",
+   "line": 85,
+   "section": "Anti-patterns",
+   "claim": "Diagnosing a character failure when a culture failure is the better-supported explanation: when patterns recur across multiple individuals, culture, not character, is the more likely explanation.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The culture-over-character ranking is the distillation's; the source pairs culture with character formation as what compliance cannot replace, and makes formation of conscience central. Same framing at lines 63 and 72 (graded as applied guidance).",
+   "evidence": "Deep 21 (crises follow neglect of 'organisational culture and individual character formation'); deep 458 (formation of conscience); deep 468 (Ch 11.2 environment shapes conduct).",
+   "fix": "correct: Closing on a character verdict without checking the conditions around it: the source links unethical conduct to job dissatisfaction and to superiors acting unethically (Ch 11.2), and holds that ethics crises follow neglect of both culture and character formation (Ch 5.4, Ch 11)."
+  },
+  {
+   "id": "D013",
+   "line": 86,
+   "section": "Anti-patterns",
+   "claim": "the reputational and relational costs of the minimalist response exceed the costs of the maximal one",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overgeneralised: the deep ref says the text holds that ethical maximums protect long-term profitability and reputation 'more reliably', not that minimalist costs always exceed maximal costs.",
+   "evidence": "Deep 19: 'The text repeatedly takes the position that ethical maximums protect long-term profitability and reputation more reliably than ethical minimums.'",
+   "fix": "correct: Treating the incident's ethical exposure as a legal risk to manage rather than a social-contract obligation to honour; the source holds that ethical maximums protect long-term profitability and reputation more reliably than ethical minimums (Ch 3.1)."
+  },
+  {
+   "id": "D014",
+   "line": 96,
+   "section": "Integration",
+   "claim": "Business Ethics names the duty-of-care and whistleblower-protection dimensions that make LFUO's \"safe to speak\" principle legally grounded",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overreach: the source's whistleblower statutes protect reports of legal violations to government, not participation in a learning review; LFUO itself says the Delegating Official cannot offer immunity from external legal action; 'safe to speak' is not LFUO's phrase; 'duty of care' is not Business Ethics' term here (see D003).",
+   "evidence": "Deep 308 (whistleblowing = reporting to a governmental entity; statute-specific protection). LFUO deep 29 ('open and safe reporting system in which \"everyone can speak\"'); LFUO deep 67 (no immunity from external legal action).",
+   "fix": "correct: LFUO provides the local-rationality and administrative-firewall methodology; Business Ethics adds the US legal backdrop for reporting (statute-specific whistleblower protection, Ch 7.5) and the costs people pay for speaking up (Watkins, Krawcheck), which sit alongside LFUO's open and safe reporting system"
+  },
+  {
+   "id": "D015",
+   "line": 105,
+   "section": "Citation and Source-Integrity Notes",
+   "claim": "The tone-at-the-top claim (\"employees are more likely to be unethical when they see their superiors acting unethically\") is `[V]` in the deep ref",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Quoted text is not verbatim: it drops 'are dissatisfied with their jobs or' without an ellipsis. The deep ref marks it [V] [BT], not [V].",
+   "evidence": "Deep 468: '...when they are dissatisfied with their jobs or see their superiors acting unethically' [V] [BT]. Source 17751-17760.",
+   "fix": "correct: The tone-at-the-top claim (\"employees are more likely to be unethical when they are dissatisfied with their jobs or see their superiors acting unethically\") is `[V] [BT]` in the deep ref; preserved in Concept 7."
+  }
+ ],
+ "notes": "No UNSUPPORTED or CONTRADICTED claims. Figures (OSHA 1970, >20 federal whistleblower laws, qui tam) all trace. Recurring weaknesses: (1) the Grunig-Hunt linkage model is asked to sequence outreach, which is Ch 3.3's job; (2) distillation-vocabulary labels ('duty of care', 'psychological safety') sit on source content where the source either lacks the term or uses it for something else; (3) third-party quotations (Donaldson-Preston, Nonaka-Takeuchi, Ch 11.2 research) carry [V] only. 'Ethical minimum = legal compliance' is supported by source 3870 ('the least a company might do that complies with the law'). Integration claims about TC 25-20 (four steps, discovery), NHS (decision tree), OB (groupthink/conformity explain silence) check out against their deep refs."
+}

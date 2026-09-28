@@ -1,0 +1,219 @@
+{
+ "distillation": "corpus.commons/demo/distillations/decision-making/openstax-principles-marketing-decision-making.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-211 of 211",
+  "deep": "lines 1-577 of 577",
+  "complete": true
+ },
+ "claims_audited": 134,
+ "tally": {
+  "faithful": 111,
+  "minor_drift": 15,
+  "unsupported": 7,
+  "contradicted": 1
+ },
+ "findings": [
+  {
+   "id": "D001",
+   "line": 12,
+   "section": "Decision-Making Relevance (also line 209, Named limits)",
+   "claim": "It is less useful — and explicitly silent — on internal organisational decisions like restructuring, headcount, or governance design. / The book is explicitly silent on internal organisational decisions.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Presents a scope boundary as one the source flags. The deep ref records no such statement, and the source does treat internal decisions in places.",
+   "evidence": "Deep ref has no scope statement of this kind. It carries internal decisions: 5Ms incl. minds (staffing) (deep 42), sales-force structure and compensation methods (deep 413), internal marketing (deep 293), service-profit chain employee satisfaction (deep 291), governance pillar (deep 487). grep 'silent' in source: only 'Silent Generation'.",
+   "fix": "correct (line 12): It is less useful for internal organisational decisions such as restructuring or governance design; it touches them only through the 5Ms (Ch 1.3), sales-force structure and compensation (Ch 15.2, 15.4) and internal marketing (Ch 11.2). correct (line 209): The book does not treat internal organisational decisions (restructuring, governance design) beyond the 5Ms, sales-force structure and internal marketing."
+  },
+  {
+   "id": "D002",
+   "line": 22,
+   "section": "Verbatim anchors (also line 24)",
+   "claim": "Ries and Trout positioning quote marked [V]; Levitt quarter-inch-drill quote marked [V].",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker does not fit. Both quotations are words the source relays from other authors, which the marker contract assigns to [BT], not [V] (the author's own words). The distillation's own line 211 calls both authors [BT]. The deep ref carries the same [V] at 17 and 154, so fix both tiers.",
+   "evidence": "Source 10858-10860: 'marketing gurus Al Ries and Jack Trout write, \"The basic approach of positioning is not to create...\"'. Source 10058-10059: 'Theodore Levitt ... once said, \"People don't want to buy a quarter-inch drill...\"'. Both quotations match the source word for word. 9-pass-protocol.md 173/177: [V] = the author's own words; [BT] = the author cites someone else. Deep 538 marks Levitt [BT].",
+   "fix": "re-mark: [BT] on both (quotation text unchanged); cycle-to-deep: re-mark deep 17 and 154 the same way."
+  },
+  {
+   "id": "D003",
+   "line": 54,
+   "section": "Questions, Phase 1 (Identify the decision domain)",
+   "claim": "a customer-journey decision (segmentation/targeting/positioning)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Concept name attached to the wrong framework. In the source, the customer journey is the 5A funnel (Aware, Appeal, Ask, Act, Advocacy), not STP.",
+   "evidence": "Deep 379: 5A framework maps the customer journey (Ch 13.4). Source 26370-26433: 'moves the customer through the funnel, or customer journey'. Deep 17, 168: STP is segmentation, targeting, positioning.",
+   "fix": "correct: a *customer-focus* decision (segmentation/targeting/positioning)"
+  },
+  {
+   "id": "D004",
+   "line": 59,
+   "section": "Questions, Phase 1 (Test goal quality)",
+   "claim": "If this is a goal decision, can we state it as SMART — specific, measurable, attainable, realistic, time-bound?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Narrows SMART to goals only and drops 'relevant'. The source applies SMART to both goals and objectives and gives R as realistic/relevant.",
+   "evidence": "Deep 66: 'Both must be SMART: specific, measurable, attainable, realistic/relevant, time-bound' (Ch 2.1, Step Four).",
+   "fix": "correct: Can we state each goal and objective as SMART — specific, measurable, attainable, realistic/relevant, time-bound?"
+  },
+  {
+   "id": "D005",
+   "line": 70,
+   "section": "Questions, Phase 2 (Build the buyer persona)",
+   "claim": "Do we have a named persona with age, interests, media usage, finances, brand affinities, and core motivations?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Adds an element ('core motivations') to the source's enumerated persona contents.",
+   "evidence": "Deep 166: persona = name, age, interests, media usage, finances, brand affinities (Ch 5.5). Source 10612-10640 lists exactly these six.",
+   "fix": "correct: Do we have a named persona with age, interests, media usage, finances and brand affinities?"
+  },
+  {
+   "id": "D006",
+   "line": 85,
+   "section": "Questions, Phase 3 (Promotion decision: budget)",
+   "claim": "Objective-and-task (best practice), top-down, percent-of-sales, affordable, or competitive parity?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The deep ref lists budget methods without ranking them. The source does rank objective-and-task, but more cautiously ('perhaps the best'), and Ch 14 warns it can lead to overspending.",
+   "evidence": "Deep 383, 397: methods listed, no ranking. Source 26536 (Ch 13.4): 'Objective and Task: This is perhaps the best method but is often used the least.' Source 27722-27725 (Ch 14.2): 'this approach can lead to overspending when other factors are not considered.'",
+   "fix": "cycle-to-deep: add to deep Ch 13.4 IMC budget: objective and task is 'perhaps the best method but is often used the least' [V] (Ch 13.4), and 'can lead to overspending when other factors are not considered' (Ch 14.2). correct: Objective-and-task (the source calls it 'perhaps the best method', Ch 13.4, but warns it can lead to overspending, Ch 14.2), top-down, percent-of-sales, affordable, or competitive parity?"
+  },
+  {
+   "id": "D007",
+   "line": 116,
+   "section": "Questions, Phase 6 (Test for misuse)",
+   "claim": "Are we measuring leading indicators or only lagging ones?",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Brings in a concept (leading vs lagging indicators) that neither the deep ref nor the source contains, under a 'misuse' label the source does not give.",
+   "evidence": "Not in deep ref. grep 'leading indicator' and 'lagging' in the source: no hits. Deep 82: KPIs are 'metrics tied directly to business objectives with targets and time frames' (Ch 2.4).",
+   "fix": "correct: Test KPI quality | Is each metric tied to a business objective, with a target and a time frame (the source's test for a KPI, Ch 2.4)?"
+  },
+  {
+   "id": "D008",
+   "line": 123,
+   "section": "Questions, Phase 7 (Stakeholder check)",
+   "claim": "Does it work for customers, employees, suppliers, intermediaries, regulators, communities — not just shareholders?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Swaps the source's stakeholder list for a different one: adds intermediaries and regulators, drops shareholders, interest groups and media. The source contrasts the stakeholder approach with a customer approach and lists shareholders as a stakeholder.",
+   "evidence": "Deep 493; source 37793-37795: 'Sustainable marketing takes a \"stakeholder approach\" and considers customers, shareholders, employees, vendors, interest groups, media, and the general public.'",
+   "fix": "correct: Does it work for the stakeholders the source names (customers, shareholders, employees, vendors, interest groups, media, the general public), not customers alone?"
+  },
+  {
+   "id": "D009",
+   "line": 125,
+   "section": "Questions, Phase 7 (Ethics by domain, Promotion)",
+   "claim": "Promotion — are we avoiding selective truth-telling, false comparisons, advertising harmful products?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports it, but the deep ref does not carry the Ch 14.6 advertising-ethics topics or the Ch 1.7 false-comparison guideline.",
+   "evidence": "Deep 389 covers only federal regulators. Source 28576 'Advertising Harmful Products' and 28613 'Selective Truth Telling' (Ch 14.6); source 2565 'Don't make false comparisons' (Ch 1.7).",
+   "fix": "cycle-to-deep: add to deep Ch 14 a Ch 14.6 ethics line: advertising harmful products (legal liability), transparency, selective truth telling ('tells a portion of the truth but omits other portions'), fact-checking; and to Ch 1.7: 'Don't make false comparisons' (Lanham Act)."
+  },
+  {
+   "id": "D010",
+   "line": 143,
+   "section": "When to Use This Reference",
+   "claim": "Segmentation and targeting refresh — typically every 18–36 months, more frequent in fast-moving categories.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "A cadence figure stated as a norm with no basis in the deep ref or the source.",
+   "evidence": "No refresh cadence in deep 142-172. grep '18 months' / '36 months' in source: one hit only, at 29421 (an unrelated 6-18-month sales-foundation timeline).",
+   "fix": "correct: *Segmentation and targeting refresh.*"
+  },
+  {
+   "id": "D011",
+   "line": 153,
+   "section": "Worked Example (growth strategies)",
+   "claim": "diversification (new products into new markets — highest risk)",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Attributes a risk ranking to the source's growth matrix that the source does not give.",
+   "evidence": "Deep 76: four strategies and three diversification types, no risk ranking. Source 4115-4220 (Ch 2.2): no risk language on diversification. The only 'riskiest' in the text is FDI as a global entry mode (source 14391, Ch 7.3).",
+   "fix": "correct: diversification (new products into new markets)"
+  },
+  {
+   "id": "D012",
+   "line": 165,
+   "section": "Worked Example (NPD)",
+   "claim": "can be tested at stages 4 (concept testing) and 7 (test marketing) before commercialisation",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mis-numbered stage. Concept development and testing is stage 3; stage 4 is market strategy development. This also clashes with line 133, which correctly makes business analysis stage 5.",
+   "evidence": "Deep 311 (Ch 10.2, Figure 10.3): idea generation; idea screening; concept development and testing; market strategy development; business analysis; product development; test-marketing; commercialisation; evaluation.",
+   "fix": "correct: can be tested at stages 3 (concept development and testing) and 7 (test-marketing) before commercialisation"
+  },
+  {
+   "id": "D013",
+   "line": 167,
+   "section": "Worked Example (IMC)",
+   "claim": "social commerce (Instagram, TikTok per Ch 16.2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The deep ref's Ch 16.2 platform list has no TikTok; the source does name it in Ch 16.2. Social commerce is a Ch 18.4 retail trend, not a Ch 16.2 concept.",
+   "evidence": "Deep 427 (Ch 16.2): Facebook, Instagram, LinkedIn, Pinterest, Twitter, podcasts. Source 31893-31894 (Ch 16.2): 'In segments under the age of 30, the most popular platforms are Instagram, Snapchat, and TikTok.' Deep 475: social commerce (Ch 18.4).",
+   "fix": "cycle-to-deep: add to deep Ch 16.2: 'In segments under the age of 30, the most popular platforms are Instagram, Snapchat, and TikTok' [V]. correct: social media (Instagram and TikTok, among the most popular platforms under 30, Ch 16.2) and social commerce (Ch 18.4)"
+  },
+  {
+   "id": "D014",
+   "line": 169,
+   "section": "Worked Example (Decision)",
+   "claim": "stretch-down product development to a new segment ... combines two of the four growth strategies (product development primary, market development secondary)",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Misapplies the source's growth matrix. A new product for a new segment is, by the source's own definitions, product diversification (concentric), not product development plus market development. The example also calls diversification 'highest risk' at line 153, then picks it under another name.",
+   "evidence": "Deep 76: product development = new/improved products, existing markets; market development = existing products, new markets; diversification = new products, new markets; concentric = similar products to existing line. Source 4148: market development 'involves searching for new market segments'. Source 4171-4172: Harley's 'diversification strategy might entail selling new products ... in China'. Source 4196: concentric = 'addition of similar products or services to an existing business'.",
+   "fix": "correct: Decision: a stretch-down variant for a new segment is, in the source's growth matrix, product diversification, specifically concentric (similar products added to the existing business, Ch 2.2). It is the highest-expected-value option here; phased NPD stage gates and segment-specific positioning that protects the premium brand hold the risk down."
+  },
+  {
+   "id": "D015",
+   "line": 176,
+   "section": "Anti-patterns",
+   "claim": "One-size-fits-all positioning in a multicultural marketplace — the \"Burger King Texican Whopper\" failure mode.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The example is attached to the wrong failure. The source uses the Texican Whopper to show a campaign aimed at Hispanic consumers that failed on stereotypes and on intangible culture (the cultural iceberg), not a one-size-fits-all campaign. The deep ref does not carry the example.",
+   "evidence": "Source 16217-16232 (Ch 8.3): the campaign 'was a failure because the marketers lacked an understanding of the unseeable elements, or the internal and intangible aspects, of Mexican culture'. Deep 238 carries the iceberg; deep 558 carries 'one size fits all' (Ch 8.2); no Texican in the deep.",
+   "fix": "correct: *Targeting a multicultural segment from surface culture only* — Burger King's 'Texican Whopper' campaign failed because the marketers lacked an understanding of the intangible aspects of Mexican culture (Ch 8.3). cycle-to-deep: add the Texican Whopper example to deep Ch 8.3 under the cultural iceberg."
+  },
+  {
+   "id": "D016",
+   "line": 186,
+   "section": "Integration (Organizational Behavior row)",
+   "claim": "The internal-environment 5Ms map closely to OB's individual/group/organisational levels; Argyris's basic-incongruity thesis provides depth on the minds element.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overclaimed mapping. The OB facts check out, but the 5Ms are internal assets, and only 'minds' (staffing) concerns people. Minutes, machinery, materials and money do not map to levels of analysis.",
+   "evidence": "Marketing deep 42: 5Ms = minds (staffing), minutes (time), machinery, materials, money. OB deep 5: lead author J. Stewart Black; OB deep 13: three levels (individual, group, organisation); OB deep 53-55: Argyris basic incongruity [BT] (Ch 2.5).",
+   "fix": "correct: The 5Ms' *minds* element (staffing) is where OB's individual-, group- and organisation-level analysis applies; Argyris's basic-incongruity thesis (OB Ch 2.5) adds depth on how organisations meet adult developmental needs."
+  },
+  {
+   "id": "D017",
+   "line": 187,
+   "section": "Integration (Goldratt row)",
+   "claim": "The five-step marketing process can be re-read as constraint-finding; the gap analysis is structurally similar to TOC's gap identification.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "TOC has no 'gap identification' step, and nothing in the marketing process is about constraints. The source does not cite Goldratt, and the row doesn't say which corpus reference holds TOC.",
+   "evidence": "Marketing deep 553: 'Goldratt, Drucker, Demming: not cited.' Deep 29: marketing process steps. Accounting Vol 2 deep 53: TOC five steps = identify the constraint, exploit, subordinate, elevate, repeat. Deep 64: gap analysis asks 'what's stopping us from getting there'.",
+   "fix": "correct: Goldratt's Theory of Constraints (held via *Principles of Accounting Vol 2*, Ch 1.5; not cited by this source) | The gap analysis's third question, 'what's stopping us from getting there' (Ch 2.1), is where TOC's first focusing step (identify the system constraint) can sharpen the answer."
+  },
+  {
+   "id": "D018",
+   "line": 191,
+   "section": "Integration (Ries & Trout row; also line 202, Borrowed-through gaps)",
+   "claim": "Cited verbatim — the conceptual backbone of Ch 5.6. / conceptual backbone of positioning and STP treatment (Ch 5.6) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overclaim. The source quotes Ries and Trout once; the STP model is presented without reference to them. Line 202 also lists Ries & Trout among the deep ref's [BT] citations, but the deep marks it [V].",
+   "evidence": "Source 10852-10860: STP defined, then one Ries & Trout quotation (note 61). Deep 17: 'Positioning, drawing on Ries and Trout'; deep 539: 'cited verbatim on the mind-manipulation thesis [V]'.",
+   "fix": "correct (191): Cited once, verbatim, for the positioning thesis ('manipulate what's already up there in the mind', Ch 5.6). correct (202): Al Ries and Jack Trout, Positioning — quoted once for the positioning thesis (Ch 5.6); the source relays their words."
+  },
+  {
+   "id": "D019",
+   "line": 209,
+   "section": "Citation notes, Named limits",
+   "claim": "Pricing theory (especially game-theoretic competitive pricing and price-discrimination mechanics) is introduced without full treatment.",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "Says game-theoretic pricing is introduced; the source never mentions it. Price discrimination appears only as an ethics topic.",
+   "evidence": "grep 'game theor' in source: no hits; not in deep. Deep 365: price discrimination 'legal if no specific economic harm' (Ch 12.6, ethics).",
+   "fix": "correct: Pricing is covered at survey depth (objectives, Five Cs, elasticity, new-product strategies, tactics, ethics); competitive-pricing theory is outside its scope, and price discrimination appears only as an ethics topic (Ch 12.6)."
+  },
+  {
+   "id": "D020",
+   "line": 211,
+   "section": "Citation notes, Evidence-marker continuity",
+   "claim": "Key Concepts are [AP] ... or [AE] ... Maslow, Hofstede, Rogers, Levitt, Ries/Trout — are all [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The note does not describe the file. No Key Concept carries a marker, and lines 22 and 24 mark the Ries/Trout and Levitt quotations [V], not [BT].",
+   "evidence": "Distillation lines 28-46: no inline markers. Lines 22, 24: [V].",
+   "fix": "correct: Key Concepts carry no inline markers; they paraphrase the source's frameworks. The Ries & Trout and Levitt quotations are words the source relays ([BT]); Maslow, Hofstede and Rogers are [BT] frameworks the source applies."
+  }
+ ],
+ "notes": "derived-from-deep sha256 matches the current deep ref. All five [V] quotations (lines 16-24) match the converted source word for word after whitespace and curly-quote normalisation (source 1251, 3386, 1450, 10859, 10059). Multi-line findings count each line as a claim: D001 (12, 209), D002 (22, 24), D018 (191, 202). Checked and faithful: PESTLE cited to Ch 12.3 'Analyze the External Environment' (source 24433-24441 uses PESTLE there); value positioning as 'most robust' (source 18901); stage 5 = business analysis (line 133); DKB supply-chain follow-up (source 34547, Ch 17.5) used by analogy; all [BT] authors in the borrowed-through list except Ries/Trout match deep 536-548. Structural, not graded: the Integration table's Hofstede, Maslow, Levitt, Ries & Trout and Rogers rows describe authors the source borrows, not corpus references. The template's 'Verbatim anchors' section and the 19 Key Concepts (template asks 8-12) sit outside the projection template."
+}

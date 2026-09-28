@@ -1,0 +1,90 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/mcdp1-warfighting-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-56 of 56", "deep": "lines 1-254 of 254", "complete": true},
+  "claims_audited": 32,
+  "tally": {"faithful": 24, "minor_drift": 7, "unsupported": 1, "contradicted": 0},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 56,
+      "section": "Connections to other corpus sources",
+      "claim": "TC 25-20 (slug 00o) — AAR procedure that includes stakeholder review.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Describes the other source with a feature its deep ref does not contain; the TC's AAR is a unit's review of its own training with its key players, not a stakeholder review.",
+      "evidence": "TC 25-20 deep 76 [V] (Ch 2, \"Determining Attendance\"): \"Normally, only key players attend. At times, however, the more participants present, the better the feedback\"; squad and platoon levels, everyone attends. No 'stakeholder' anywhere in the TC deep ref.",
+      "fix": "correct: TC 25-20 (slug 00o): AAR procedure; its attendance rule (normally key players, though more participants give better feedback) is the model for deciding who is in the room."
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Stakeholder Engagement Relevance",
+      "claim": "Three threads from MCDP-1 do transfer cleanly to civilian stakeholder engagement.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Count wrong: four numbered threads follow.",
+      "evidence": "Distillation headings ### 1 through ### 4 (lines 12-36).",
+      "fix": "correct: That said, four threads from MCDP-1 do transfer cleanly to civilian stakeholder engagement."
+    },
+    {
+      "id": "D003",
+      "line": 14,
+      "section": "Stakeholder Engagement Relevance, thread 1 (Commander's intent)",
+      "claim": "The disciplinary requirement intent must be understood two levels up (heading line 12 and line 14).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens 'should understand ... at least two levels up'.",
+      "evidence": "Deep 144 [V] (Ch 4, \"Commander's intent\"): \"[Subordinates] should understand the intent of the commander at least two levels up.\"",
+      "fix": "correct: MCDP-1's guidance that subordinates \"should understand the intent of the commander at least two levels up\" [V] (Ch 4, \"Commander's intent\") is the doctrinal version of shared understanding of the bigger picture."
+    },
+    {
+      "id": "D004",
+      "line": 22,
+      "section": "Stakeholder Engagement Relevance, thread 2",
+      "claim": "Main effort / Schwerpunkt (Ch 4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's term is 'main effort'; 'Schwerpunkt' comes from the deep ref's [AR] note.",
+      "evidence": "Deep 146 [AR]; source: no occurrence of 'Schwerpunkt'.",
+      "fix": "correct: replace 'Schwerpunkt' with 'main effort' at lines 22 and 42."
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Stakeholder Engagement Relevance, thread 2",
+      "claim": "The doctrinal answer is name the main effort; every other interest is supporting effort that yields when in conflict. In practice, this requires some stakeholders to be explicitly subordinated.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes to the doctrine an answer about external parties' interests. MCDP-1's main effort ranks actions and units within one's own command; stakeholders are not units under command, so 'the doctrinal answer' is an analogy, not the doctrine.",
+      "evidence": "Deep 146 [V] (Ch 4, \"Main effort\"): \"Of all the actions going on within our command, we recognize one as the most critical to success at that moment. The unit assigned responsibility for accomplishing this key mission is designated as the main effort.\"",
+      "fix": "correct: [AR] By analogy with MCDP-1's main effort, which ranks the actions within one's own command (Ch 4, \"Main effort\"): name which engagement workstream is the main effort, and let the others support it. Stakeholders themselves are not units to subordinate; their interests are what the main effort must serve or negotiate."
+    },
+    {
+      "id": "D006",
+      "line": 30,
+      "section": "Stakeholder Engagement Relevance, thread 3",
+      "claim": "Surfaces and gaps (Ch 2) and reconnaissance pull (Ch 4 Notes 11)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited chapter: surfaces and gaps is Ch 4 (the Notes 11 of Ch 4 cite is right).",
+      "evidence": "Deep 148 (Ch 4, \"Surfaces and gaps\", with Notes 11).",
+      "fix": "correct: Surfaces and gaps and reconnaissance pull (Ch 4, with Notes 11)"
+    },
+    {
+      "id": "D007",
+      "line": 42,
+      "section": "Stakeholder Engagement Cautions",
+      "claim": "The OODA / Schwerpunkt / mission-tactics / surfaces-and-gaps machinery transfers; the Zweikampf framing usually does not.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref treats the clash of wills as the foundation of tempo and OODA; surfaces-and-gaps and relative tempo presuppose an opposing will. The file's own line 46 concedes the frame fits adversarial cases, which is where these tools belong.",
+      "evidence": "Deep 37 [AR]: interacting wills \"is the foundation for every later move toward tempo, mission tactics, and the OODA loop\"; deep 148: gaps are enemy weaknesses.",
+      "fix": "correct: Intent and main effort transfer most readily. OODA tempo and surfaces-and-gaps assume an opposing will; in cooperative stakeholder work, read 'surface' and 'gap' as resistance and receptivity, and say so. The pure Zweikampf framing usually does not transfer."
+    },
+    {
+      "id": "D008",
+      "line": 44,
+      "section": "Stakeholder Engagement Cautions",
+      "claim": "The doctrine's emphasis on tempo as decisive should be calibrated ... The doctrinal frame defaults to tempo; many stakeholder situations reward patience instead.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the doctrine: MCDP-1 calls tempo 'often the most important' weapon, stresses relative speed, and explicitly counts calculated patience as a form of boldness.",
+      "evidence": "Deep 87 [V]: \"Tempo is itself a weapon — often the most important\"; deep 91 [V]: relative speed; deep 93 [V] (Ch 2, \"Surprise and boldness\"): \"A nervy, calculating patience that allows the enemy to commit himself irrevocably before we strike him can also be a form of boldness.\"",
+      "fix": "correct: MCDP-1 weights tempo heavily (\"often the most important\" weapon) but also counts \"a nervy, calculating patience\" as a form of boldness [V] (Ch 2). Many stakeholder situations call for that patience clause more than for speed."
+    }
+  ],
+  "notes": "Hash matches current deep ref. The file does not follow the nine-section template and carries no [V] quotes (source is Scope: open). The applied guidance is mostly sound. It omits the deep ref's most stakeholder-relevant material: honest dissent before a decision and loyal support after it (deep 111), implicit communication through long working relationships (deep 134), and orienting on the other party ('We should not assume that every enemy thinks as we do', deep 128)."
+}

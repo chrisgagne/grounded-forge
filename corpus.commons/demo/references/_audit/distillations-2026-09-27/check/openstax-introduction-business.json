@@ -1,0 +1,61 @@
+{
+ "slug": "openstax-introduction-business",
+ "changed_lines_checked": 167,
+ "tally": {
+  "faithful": 163,
+  "minor_drift": 2,
+  "unsupported": 2,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/distillations/software-business/openstax-introduction-business-software-business.md",
+   "line": 40,
+   "text": "Applied to software (the distillation's mapping, not the source's; confirm with OpenStax Business Law or counsel): copyright is the usual protection for source code, ...",
+   "grade": "MINOR-DRIFT",
+   "problem": "New claim about another corpus source: routes the software IP question to OpenStax Business Law, whose deep ref has no patent, copyright or trademark treatment. Labelling the software mapping as the distillation's own is correct.",
+   "evidence": "openstax-business-law-deep line 7 (structure: ADR, ethics, constitutional, criminal, torts incl. product liability, contracts, UCC sales, employment, administrative, antitrust, FTC, international, securities; no IP chapter); grep 'copyright' = 0 hits; 'patent'/'trademark' appear only at 403 (a contract-capacity case) and 502 (warranty against infringement).",
+   "fix": "correct: Applied to software (the distillation's mapping, not the source's; confirm with counsel): copyright is the usual protection for source code, patents may cover software-implemented inventions with jurisdictional variation, and trademarks cover product naming."
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/openstax-introduction-business-decision-making.md",
+   "line": 68,
+   "text": "| Test the make-or-buy frame | If the decision involves capability — internal vs external? Quantity, secrecy, reliability, competitive-advantage criteria. |",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error still present (unchanged line). Audit D010 named the four-way split (competitive advantage as a separate fourth criterion) at lines 30, 68 and 132; the repair fixed 30 and 132 but left 68. In the source, protecting a competitive advantage is the reason for secrecy, not a separate test.",
+   "evidence": "Deep 453: 'The make-or-buy decision turns on quantity, secrecy needs, and supplier reliability/quality (Ch 10.4, \"Make or Buy?\")'; 'if a product has special design features that need to be kept secret to protect a competitive advantage, a firm may decide to produce all parts internally' [V]. Source 27059-27078.",
+   "fix": "correct: | Test the make-or-buy frame | If the decision involves capability — internal vs external? Quantity, secrecy (to protect a competitive advantage), and supplier reliability and quality. |"
+  },
+  {
+   "file": "corpus.commons/demo/references/openstax-introduction-business.md",
+   "line": 49,
+   "text": "Goal-setting theory: specific, difficult (when accepted) goals and feedback improve performance. The source names no theorist for expectancy, equity, goal-setting, or reinforcement theory. Reinforcement theory: behaviour is a function of consequences (reward, punishment, none).",
+   "grade": "EDIT-DEFECT",
+   "problem": "Cosmetic seam: the inserted no-theorist note names reinforcement theory one sentence before reinforcement theory is introduced, splitting the chronological list. Content is accurate (deep 873-876; converted source has no Vroom, Lawler, Adams, Locke or Skinner as theorist).",
+   "evidence": "Deep ref 873-876: expectancy, equity, goal-setting, reinforcement each 'named in source but no theorist named (Ch 9.6) [AP]'.",
+   "fix": "correct: Goal-setting theory: specific, difficult (when accepted) goals and feedback improve performance. Reinforcement theory: behaviour is a function of consequences (reward, punishment, none). The source names no theorist for expectancy, equity, goal-setting, or reinforcement theory."
+  }
+ ],
+ "notes": "Coverage: diffs regenerated with git diff HEAD (the earlier run's .diff files were not used). Read in full: deep ref (910 lines), light ref (141), decision-making (184), software-business (187), stakeholder-engagement (219). Changed lines checked: deep 23, light 10, decision-making 39, software-business 43, stakeholder-engagement 42, index rows 10 (3 decision-making, 5 software-business, 2 stakeholder-engagement) = 167. The tally also counts one residual error on an unchanged line (decision-making 68), so it sums to 168. Deep ref: every added statement checked against the converted source. All new [V] quotations match word for word (the only differences are line-break splits, markdown bold on 'annual report', and a lowercase first letter in the 'a basic principle in finance' fragment). Locators check out, including 'Making the Right Decision' (Ch 2.2), 'Make or Buy?' (Ch 10.4), 'Scheduling: When Do We Do It?' (Ch 10.5), 'What Is Marketing Strategy?' (Ch 11.2), 'Connecting Near and Far with Networks' / 'Private Lines: Virtual Private Networks' / 'Software on Demand: Application Service Providers' (Ch 13.2), ERP in Ch 13.1, Unilever in Ch 7.4, the matrix-blame quote in Ch 7.2, 'The Main Sources of Law' (App A). BYU [AP]->[BT] is correct (the source says 'Researchers from Brigham Young University tell us'). Table 6.5 has three decisional roles, as the deep ref now says. The [BT] count of 17 at SE 219 matches the deep ref (16 at HEAD, plus BYU). All audit-requested cycle-to-deep additions are present (VPN/ASP, CPM certainty, env-scanning goal, newspaper-test conflict-of-interest, decentralisation risk, annual report, Lexus four measures). Distillations: every repair traces to the deep ref as it now stands. Carroll, Mintzberg-as-source, Vroom/Adams/Locke-as-source, procedural justice, groupthink, escalation, BATNA, process/relationship conflict, French and Raven, and open systems are gone, or they are now routed to sibling deep refs that carry them: PoM (bounded rationality and escalation Ch 2.4, groupthink Ch 2.6, Vroom-Lawler, Adams and Locke Ch 14.3 with 'contingent on performance', Mintzberg Ch 1.2, open systems Ch 3.7/4.4); OB (bounded rationality Ch 6.4, process/relationship conflict Ch 6.4, Vroom-Lawler and Adams Ch 7.3, justice Ch 7.4, French-Raven and power outcomes Ch 12.3, Thomas's five modes and BATNA Ch 14); Business Ethics (stakeholders, CSR, normative stakeholder theory); Accounting Vol 2 (make-or-buy Ch 10.3); Letaw (RACI, triple constraint, monolith-vs-microservice, Tuckman). Removals: every removed claim is backed by an audit strip or correct fix (D006, D022-D024, D034, D037 DM; D014, D025, D032, D033 SB; D016, D019, D020, D023, D024, D026, D031 SE, plus the SE orphan row at 229 per D009). No removal of a fully supported claim. Two observations, not graded: (1) Three unchanged DM-index rows in the same table also point to content the decision-making distillation does not carry: 'Form-of-business-organisation decision', 'Pricing or pay decision with political or regulatory exposure', and 'Technology, cybersecurity, or privacy decision' (grep of the distillation: 0 hits for proprietor, partnership, franchise, fiscal, cybersecurity, privacy, e-commerce). This is the same defect class as the two graded index findings. (2) SE line 8's 'trend away from autocratic toward participative styles' goes slightly past the source, which says only that the trend is away from autocratic (Table 6.4 adds that participative is 'found in many successful organizations'). The audit passed the earlier wording, so this is left ungraded. Flagged quotations: no vflags file exists for this slug.",
+ "deferred_to_index_audit": [
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 50,
+   "text": "| **Whether to launch an enterprise, venture, or new unit** | Entrepreneurship; start-up steps and business plan; debt vs equity financing (OpenStax Introduction to Business) | `openstax-introduction-business-decision-making.md` |",
+   "grade": "UNSUPPORTED",
+   "problem": "Index row does not match the distillation it points to. The repair swapped the non-source 'Business-model canvas; lean-startup; MVP cycle' for topics the deep ref does carry (Ch 5.4), but the decision-making distillation has no entrepreneurship, start-up steps, business plan, or debt-vs-equity content (grep: 0 hits; its only 'debt' is the debt-ratio category at line 77). A reader routed here finds nothing on the situation.",
+   "evidence": "openstax-introduction-business-decision-making.md: Key Concepts 1-12 cover programmed/non-programmed, risk-return, five-step process, planning horizons, environmental forces, ethical tests, CSR pyramid, make-or-buy, mechanistic/organic, expectancy, equity, CPM/PERT; the worked example is a robot-investment pilot, not a venture launch.",
+   "fix": "strip (or first add an entrepreneurship/financing key concept to the distillation from deep Part V and Part XVI, then keep the row)"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md",
+   "line": 52,
+   "text": "| **Resource-allocation decision under scarcity** | Factors of production (OpenStax Introduction to Business) | `openstax-introduction-business-decision-making.md` |",
+   "grade": "UNSUPPORTED",
+   "problem": "Index row does not match the distillation it points to. The repair removed 'opportunity cost' but kept 'Factors of production', which the decision-making distillation never mentions (grep: 0 hits for factors of production or scarcity).",
+   "evidence": "openstax-introduction-business-decision-making.md, full read: no factors-of-production content. The topic exists only in the deep ref (line 31, Ch 1.1).",
+   "fix": "strip (or first add a factors-of-production key concept to the distillation from deep line 31)"
+  }
+ ]
+}

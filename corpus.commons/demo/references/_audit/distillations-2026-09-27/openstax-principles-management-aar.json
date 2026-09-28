@@ -1,0 +1,179 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/openstax-principles-management-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-128 of 128",
+    "deep": "lines 1-1024 of 1024",
+    "complete": true
+  },
+  "claims_audited": 90,
+  "tally": {
+    "faithful": 74,
+    "minor_drift": 10,
+    "unsupported": 6,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "Mintzberg's six structural types and contingency factors give the facilitator vocabulary to name which part of the organisation a contributory factor lives in.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Wrong author attached to a taxonomy. The six structure types are the textbook's own list (Exhibit 4.6, adapted from Daft). In the deep ref Mintzberg appears only for managerial roles and managerial work (Ch 1.1, 1.2, 16.3). The source cites Mintzberg (1979) only in an endnote for the broad mechanistic/organic split, not for the six types.",
+      "evidence": "Deep 189: 'Six organisational structure types span the mechanistic-organic continuum (Ch 4.3, Exhibit 4.6)', no author. Deep 33-41, 782: Mintzberg = role clusters. Source 4570 + endnote 21 (29108): Burns & Stalker; Mintzberg 1979; Emery & Trist cited for mechanistic vs organic. Source ~4660: Exhibit 4.6 'Adapted from: Daft, R., 2016'; 'The six types of organizational structures discussed here include functional, divisional, geographic, matrix, networked/team...'.",
+      "fix": "correct: The six organisational structure types (Ch 4.3) and the contingency school's 'it depends' (Ch 3.7) give the facilitator vocabulary to name *which* part of the organisation a contributory factor lives in, so the right interlocutor can be identified."
+    },
+    {
+      "id": "D002",
+      "line": 18,
+      "section": "Key Concepts, 4",
+      "claim": "Contingency factors shaping structure. Strategy, environment (simple-stable to complex-unstable), size, technology; the 'it depends' principle from Joan Woodward.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imports the standard OB four-factor contingency list (strategy, environment, size, technology) as structure determinants. Neither the deep ref nor the source gives this list. The deep ref carries the contingency school's 'it depends' and the environment 2x2; the source's Woodward passage is about technology deciding how much training workers need, not structure.",
+      "evidence": "Deep 162: contingency school, Woodward, 'there are no universal rules ... it depends' [V]. Deep 176-181: Duncan-Daft complexity x change 2x2. No 'size' or 'strategy' contingency anywhere in deep 1-1024. Source 3866-3869: Woodward 'argued that contingencies, such as technology, play a role in how much training workers should receive'.",
+      "fix": "correct: **Contingency thinking and environment-structure fit.** The contingency school holds there are no universal rules: external and internal factors create unique situations, each needing a different response, 'it depends' (Joan Woodward; Ch 3.7). The Duncan-Daft 2x2 (simple/complex x stable/unstable; Ch 4.2) says which environments call for mechanistic vs organic structures. When the AAR asks why the structure did not flex to the situation, this provides the hypothesis-generator. (Source: Ch 3.7, Ch 4.2)"
+    },
+    {
+      "id": "D003",
+      "line": 60,
+      "section": "Questions, Phase 2",
+      "claim": "Does the contingency analysis (strategy / environment / size / technology) surface a mismatch that contributed?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same imported four-factor contingency list as D002, embedded as a question premise.",
+      "evidence": "As D002: deep 162, 176-181 carry 'it depends' and the environment 2x2 only.",
+      "fix": "correct: Is the structure mechanistic in an environment demanding organic response, or vice versa? Where does the environment sit on the simple/complex x stable/unstable grid (Ch 4.2), and does the structure fit it?"
+    },
+    {
+      "id": "D004",
+      "line": 34,
+      "section": "Key Concepts, 12",
+      "claim": "Balanced-scorecard-style performance measurement ... the BSC framing names what metrics track whether actions landed. (Source: Ch 9.6)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Balanced Scorecard is not in the deep ref or the source. The concept is relabelled with an outside framework and anchored as 'balanced-scorecard'. 'Benchmarking against clear standards' also loosens the deep ref's benchmarking (another firm's superior performance as the standard).",
+      "evidence": "Deep 448: performance measurement 'comes in many forms, from financial reports to quality measures like defect rates' [V]; benchmarking uses another firm's superior performance as the standard (Disney); evaluation closes the strategy cycle. 'balanced' appears nowhere in deep 1-1024; 'balanced scorecard' appears nowhere in the converted source.",
+      "fix": "correct: <!-- concept: performance-measurement --> **Performance measurement and benchmarking.** Performance measurement 'comes in many forms, from financial reports to quality measures like defect rates' [V]; benchmarking takes another firm's superior performance as the standard; evaluation closes the strategy cycle by feeding back into strategic analysis. AAR outputs need a monitoring mechanism that says whether actions landed. (Source: Ch 9.6, \"Measuring and Evaluating Strategic Performance\")"
+    },
+    {
+      "id": "D005",
+      "line": 100,
+      "section": "Worked Example",
+      "claim": "...owned by the project-office owner, with a BSC-style tracking metric.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Carries the unsupported Balanced Scorecard framing (D004) into the worked example.",
+      "evidence": "As D004: no balanced scorecard in deep or source; deep 448 has performance measurement and benchmarking.",
+      "fix": "correct: ...owned by the project-office owner, with a named performance measure (Ch 9.6) to show whether it landed."
+    },
+    {
+      "id": "D006",
+      "line": 96,
+      "section": "When to Use This Reference",
+      "claim": "Its distinctive contribution is naming the organisational interlocutor, the power mechanism, and the motivation gap — the three most common reasons AAR outputs die before they produce change.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Empirical frequency claim ('the three most common reasons') about AAR outcomes. The source says nothing about AARs or how often their outputs fail.",
+      "evidence": "Deep 1-1024 has no AAR content and no frequency data on why post-review actions fail.",
+      "fix": "correct: Its distinctive contribution is naming the organisational interlocutor, the power mechanism, and the motivation gap: three reasons AAR outputs can die before they produce change."
+    },
+    {
+      "id": "D007",
+      "line": 36,
+      "section": "Key Concepts, 13",
+      "claim": "Difficult, specific, accepted, committed-to goals produce better performance; participation in goal-setting increases commitment [V, paraphrased].",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker wrong: the deep ref marks goal theory [BT] (the text relaying Locke), and the distillation's own citation notes (line 124) say so. '[V, paraphrased]' is self-contradictory. 'Increases' also hardens the deep ref's 'tends to increase'.",
+      "evidence": "Deep 684: Goal theory (Locke) ... 'Participation in goal-setting tends to increase commitment [BT] (Ch 14.3, \"Goal Theory\")'. Deep 23: only 'one of the strongest theories in organizational behavior' is [V].",
+      "fix": "re-mark: [BT]; and correct 'participation in goal-setting increases commitment' to 'participation in goal-setting tends to increase commitment'"
+    },
+    {
+      "id": "D008",
+      "line": 68,
+      "section": "Questions, Phase 4",
+      "claim": "Is the action specific, measurable, accepted, and committed to? ... Apply Locke's criteria before adjourning.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Blends SMART's 'measurable' (Ch 9.5) into Locke's goal-theory criteria and drops Locke's 'difficult'. Credits Locke with a criterion that belongs to a different framework.",
+      "evidence": "Deep 684: Locke = difficult, specific, accepted goals; goal commitment. Deep 438: SMART = specific, measurable, achievable, relevant, time-bound (Ch 9.5).",
+      "fix": "correct: Is the action specific, stretching, accepted, and committed to (Locke, Ch 14.3), and measurable and time-bound (SMART, Ch 9.5)? Vague actions do not survive to next review."
+    },
+    {
+      "id": "D009",
+      "line": 53,
+      "section": "Questions, Phase 1",
+      "claim": "Storming teams produce contested accounts; performing teams surface local-rationality more readily.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Question premise stated as fact goes beyond the deep ref. Tuckman's stages as carried describe leadership contests and side-taking (storming) and self-direction (performing); nothing links performing teams to surfacing local rationality, a term the source does not use.",
+      "evidence": "Deep 718-720: storming = members vie for leadership, win-lose, choose sides; performing = self-directed, little management direction, maximise task and relational performance.",
+      "fix": "correct: Where is this team on Tuckman's curve? A storming team (members vying for leadership, choosing sides) may give contested accounts; does the team's stage shape whose account gets heard?"
+    },
+    {
+      "id": "D010",
+      "line": 84,
+      "section": "What to Look For",
+      "claim": "Groupthink operating — dissent is suppressed by team cohesion or a dominant voice.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Folds two separately named disadvantages into 'groupthink'. The deep ref defines groupthink as members staying quiet to keep the peace or protect camaraderie, and names suppression of dissent (one more powerful member discouraging others) as a separate disadvantage.",
+      "evidence": "Deep 107: groupthink 'occurs when group members choose not to voice their concerns ... because they would rather keep the peace' [V]; 'Suppression of dissent occurs when one individual in the group has more power or exerts more influence than others and discourages those with differing opinions from speaking up' [V] (Ch 2.6).",
+      "fix": "correct: Groupthink (members stay quiet to keep the peace) or suppression of dissent (a dominant member discourages differing views); Ch 2.6 names these as two separate failure modes"
+    },
+    {
+      "id": "D011",
+      "line": 100,
+      "section": "Worked Example",
+      "claim": "...a mismatch the Woodward contingency frame (Ch 3.7) would have flagged in advance.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates the framework's effect (it 'would have flagged' the mismatch in advance) and credits environment-structure fit to Woodward. In the deep ref Woodward carries the general 'it depends' principle; the environment-structure fit is the Ch 4.2-4.3 material.",
+      "evidence": "Deep 162: contingency school, Woodward, 'it depends' [V]. Deep 176-187: environment 2x2 and mechanistic/organic fit (Ch 4.2, 4.3). No claim of predictive power.",
+      "fix": "correct: ...a mismatch that the environment-structure fit analysis (Ch 4.2-4.3) and the contingency school's 'it depends' (Ch 3.7) would have prompted the team to question."
+    },
+    {
+      "id": "D012",
+      "line": 128,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "Follett terms and library-window quotation preserved 'in Concept 10 and in the Integration table's description'; mechanistic and organic [V] definitions 'preserved in Concept 3'; the [BT] flag preserved 'in this section and in the action-design questions'.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Three false statements about the distillation itself. The Integration table never mentions Follett; Concept 3 paraphrases the mechanistic and organic definitions with no [V] and no quotation; the action-design questions (lines 65-69) carry no [BT] flag.",
+      "evidence": "Distillation 115-120: Integration table rows name TC 25-20, OB, LFUO, SSDL only. Distillation 16: paraphrase, no marker. Distillation 67-69: no markers. Deep 156, 187, 485 carry the markers as the note describes.",
+      "fix": "correct: The Follett integration-path terms (dominance, compromise, integration) are `[V terms]` and the library-window quotation `[V]` in the deep ref; the distillation carries both in Concept 10. The mechanistic and organic definitions are `[V]` in the deep ref; Concept 3 paraphrases them. All change-management models (Lewin, Kotter, Cooperrider, Olson-Eoyang) are `[BT]` in the deep ref; this section carries the borrowed-through flag."
+    },
+    {
+      "id": "D013",
+      "line": 126,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The scaffolding sections per chapter (Key Terms, Summary, Management Skills Application Exercises, Critical Thinking Case) were excluded from the deep reference coverage scope.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Incomplete enumeration: the deep ref excludes six section types; the note lists four as though complete.",
+      "evidence": "Deep 9, 1015: six excluded section types: Key Terms, Summary of Learning Outcomes, Chapter Review Questions, Management Skills Application Exercises, Managerial Decision Exercises, Critical Thinking Case.",
+      "fix": "correct: The pedagogical sections per chapter (Key Terms, Summary of Learning Outcomes, Chapter Review Questions, Management Skills Application Exercises, Managerial Decision Exercises, Critical Thinking Case) were excluded from the deep reference coverage scope; all substantive exposition is included."
+    },
+    {
+      "id": "D014",
+      "line": 76,
+      "section": "Questions, Phase 5",
+      "claim": "are hygiene factors (Herzberg) causing dissatisfaction that crowds out action?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rests on Herzberg's two-stage process (dissatisfaction distracts and demotivates, so address hygiene first). The converted source carries it; the deep ref does not.",
+      "evidence": "Deep 670: hygiene vs motivators; satisfaction and dissatisfaction on different scales [AR]; no two-stage process. Source 21673-21682: 'First, managers should address the hygiene factors. Intense forms of dissatisfaction distract employees from important work-related activities and tend to be demotivating ... They should then address the much more powerful motivator needs'.",
+      "fix": "cycle-to-deep: add to deep 670 'Herzberg's work suggests a two-stage process for managing employee motivation and satisfaction. First, managers should address the hygiene factors. Intense forms of dissatisfaction distract employees from important work-related activities and tend to be demotivating' [V]; 'They should then address the much more powerful motivator needs' [V] (Ch 14.2, \"Herzberg's Motivator-Hygiene Theory\")."
+    },
+    {
+      "id": "D015",
+      "line": 86,
+      "section": "What to Look For",
+      "claim": "Motivation-hygiene or SDT gap — hygiene factors depleted ... is it dissatisfaction crowding out capacity",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same source-only Herzberg premise as D014.",
+      "evidence": "As D014.",
+      "fix": "cycle-to-deep: see D014"
+    },
+    {
+      "id": "D016",
+      "line": 108,
+      "section": "Anti-patterns",
+      "claim": "Treating post-AAR follow-through failure as laziness when motivation-hygiene factors (pay, conditions, security concerns) are depleting the team's capacity to act.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same source-only Herzberg premise as D014.",
+      "evidence": "As D014.",
+      "fix": "cycle-to-deep: see D014"
+    }
+  ],
+  "notes": "Integration claims checked against the other deep refs: TC 25-20 four-step process (tc-25-20-army-aar-deep 19, 52), LFUO administrative firewall (lfuo-learning-review-guide-2024-deep 67), SSDL archetypes incl. fixes-that-fail (ssdl-systems-thinking-foundations-deep 21, 226): all FAITHFUL. The one inline [V] fragment (Follett library window, line 30) matches source 3814 word for word. Protocol note, not graded: the distillation carries no verbatim blockquotes although the source is open-nc (protocol asks for 2-5), so load-bearing definitions such as mechanistic/organic and escalation of commitment travel as paraphrase only. Concept 11 gives two of the deep ref's three model-choice questions (omits conventional vs appreciative mindset, deep 492); incomplete but not wrong, graded FAITHFUL."
+}

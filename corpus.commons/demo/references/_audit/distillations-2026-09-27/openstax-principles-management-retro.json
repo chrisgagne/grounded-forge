@@ -1,0 +1,229 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/openstax-principles-management-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-144 of 144",
+    "deep": "lines 1-1024 of 1024",
+    "complete": true
+  },
+  "claims_audited": 102,
+  "tally": {
+    "faithful": 81,
+    "minor_drift": 17,
+    "unsupported": 2,
+    "contradicted": 2
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 18,
+      "section": "Key Concepts, 4",
+      "claim": "A team locked in safety-need concerns (job security, psychological safety) cannot self-actualise into continuous improvement.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Asserts strict Maslow prepotency ('cannot'), a position the text frames against: research does not support the fixed hierarchy, only some evidence that lower-order needs tend to be met first. Also folds 'psychological safety' into Maslow's safety/security level, which the source does not do.",
+      "evidence": "Deep 668: research does not support the strict hierarchical sequence, 'but ... there is some evidence that people satisfy the lower-order needs before they attempt to satisfy higher-order needs' [V]. Deep 992: 'Strict Maslow hierarchical sequencing: research does not support the strict prepotency claim [AR]'. Source 21540-21551 matches.",
+      "fix": "correct: Research does not support Maslow's fixed sequence, though there is some evidence people meet lower-order needs first (Ch 14.2); a team preoccupied with job security may have less attention to spare for continuous improvement."
+    },
+    {
+      "id": "D002",
+      "line": 14,
+      "section": "Key Concepts, 2",
+      "claim": "Storming retros produce contested data and blame language; performing retros surface root causes more readily.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Stage consequences stated as fact go beyond the deep ref. Storming as carried is leadership contests and side-taking; nothing links it to blame language, or performing teams to root-cause surfacing.",
+      "evidence": "Deep 718-720: storming = vie for leadership, win-lose, choose sides, frustration; performing = self-directed, maximise task and relational performance.",
+      "fix": "correct: A storming team (members vying for leadership, choosing sides) is likely to give contested data; read that as the stage, not as pathology."
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts, 3",
+      "claim": "When a team cannot engage with retro content, hygiene-factor dissatisfaction may be crowding out motivational capacity. Address hygiene before expecting motivators to fire.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Supported by the converted source (Herzberg's two-stage process) but not carried by the deep ref, which gives only the two-factor split and the separate-scales claim.",
+      "evidence": "Deep 670: hygiene vs motivators; 'Satisfaction and dissatisfaction are on different scales' [AR]. No two-stage process. Source 21673-21682: 'Herzberg's work suggests a two-stage process ... First, managers should address the hygiene factors. Intense forms of dissatisfaction distract employees from important work-related activities and tend to be demotivating ... They should then address the much more powerful motivator needs'.",
+      "fix": "cycle-to-deep: add to deep 670 'Herzberg's work suggests a two-stage process for managing employee motivation and satisfaction. First, managers should address the hygiene factors. Intense forms of dissatisfaction distract employees from important work-related activities and tend to be demotivating' [V]; 'They should then address the much more powerful motivator needs' [V] (Ch 14.2, \"Herzberg's Motivator-Hygiene Theory\")."
+    },
+    {
+      "id": "D004",
+      "line": 20,
+      "section": "Key Concepts, 5",
+      "claim": "affiliation-seekers prioritise relationships",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref names nAff but does not define it; the gloss is supported by the converted source.",
+      "evidence": "Deep 667: 'three needs — achievement (nAch), affiliation (nAff), power (nPow)'; no nAff definition. Source 21319-21320: nAff 'reflects a desire to establish and maintain warm and friendly relationships with other people'.",
+      "fix": "cycle-to-deep: add to deep 667 'The need for affiliation (nAff) reflects a desire to establish and maintain warm and friendly relationships with other people' [V] (Ch 14.2, \"Need for Affiliation\")."
+    },
+    {
+      "id": "D005",
+      "line": 34,
+      "section": "Key Concepts, 12",
+      "claim": "Linda Hill on managing as paradox — individual and collective goals; support and confrontation; performance and learning; authority and discretion; boundary management.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Swaps the fifth paradox (balancing the manager-team-individual triangle) for boundary management, which the source treats as a separate responsibility.",
+      "evidence": "Deep 726-734: five paradoxes end with 'Balancing the manager-team-individual relationship triangle'; managing boundaries is a separate 'core managerial responsibility'. Source 23608-23615 matches.",
+      "fix": "correct: individual and collective goals; support and confrontation; performance and learning; authority and discretion; the manager-team-individual triangle. Hill's frame also makes boundary management a core responsibility."
+    },
+    {
+      "id": "D006",
+      "line": 43,
+      "section": "Questions, Phase 0",
+      "claim": "Is there a live anxiety ... that will prevent motivators from firing during the retro? If yes, name it before the content — or the content will not land.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rests on Herzberg's two-stage process, which the source carries and the deep ref does not (as D003).",
+      "evidence": "As D003.",
+      "fix": "cycle-to-deep: see D003"
+    },
+    {
+      "id": "D007",
+      "line": 62,
+      "section": "Questions, Phase 3",
+      "claim": "Is the recurring issue a process conflict ... or a relationship conflict ...? Follett's framework names the resolution path for each.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Links two unconnected frameworks. The process/relationship distinction is Ch 2.4; Follett's dominance/compromise/integration (Ch 3.6) is not mapped to conflict type in the source.",
+      "evidence": "Deep 82: process conflict 'can actually lead to improved performance'; relationship conflict 'should be quelled when possible' [V] (Ch 2.4). Deep 156: Follett's three paths with no mapping to conflict type.",
+      "fix": "correct: Is the recurring issue a process conflict (best-way disagreement, potentially productive) or a relationship conflict (personal, to be quelled; Ch 2.4)? For a process disagreement, Follett's integration path (Ch 3.6) is the design target."
+    },
+    {
+      "id": "D008",
+      "line": 70,
+      "section": "Questions, Phase 4",
+      "claim": "Is the experiment specific? Measurable? Accepted by the team as their own? Will they commit to it? A Locke-compliant experiment has all four.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Credits Locke with SMART's 'measurable' (Ch 9.5) and drops Locke's 'difficult'.",
+      "evidence": "Deep 684: Locke = difficult, specific, accepted goals; goal commitment. Deep 438: SMART = specific, measurable, achievable, relevant, time-bound.",
+      "fix": "correct: Is the experiment specific and stretching? Accepted by the team as their own? Will they commit to it (Locke, Ch 14.3)? Is it measurable and time-bound (SMART, Ch 9.5)?"
+    },
+    {
+      "id": "D009",
+      "line": 83,
+      "section": "What to Look For",
+      "claim": "Hygiene-factor dissatisfaction may be crowding out motivational capacity",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rests on Herzberg's two-stage process, carried by the source but not the deep ref (as D003).",
+      "evidence": "As D003.",
+      "fix": "cycle-to-deep: see D003"
+    },
+    {
+      "id": "D010",
+      "line": 88,
+      "section": "What to Look For",
+      "claim": "Fails Locke's goal criteria — not specific, not measurable",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same Locke/SMART blend as D008.",
+      "evidence": "As D008.",
+      "fix": "correct: Fails Locke's goal criteria (not specific) and SMART's (not measurable)"
+    },
+    {
+      "id": "D011",
+      "line": 89,
+      "section": "What to Look For",
+      "claim": "Lead engineer is visibly uncomfortable in the facilitation role | Managing-as-paradox tension: individual identity vs collective role",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Recasts Hill's primary paradox (the team's members have individual and collective identities and goals, which the manager must integrate) as one person's role conflict. The closer Hill paradox for a lead who facilitates is managerial authority vs team member discretion.",
+      "evidence": "Deep 728-731; source 23600-23613: 'teams have both individual and collective identities and goals ... The team manager may need to step in to help integrate all of the individual differences'.",
+      "fix": "correct: Managing-as-paradox tension: holding authority while leaving the team discretion (Hill, Ch 15.3)"
+    },
+    {
+      "id": "D012",
+      "line": 114,
+      "section": "Worked Example",
+      "claim": "The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal criteria, and managing-as-paradox framing all trace to Principles of Management (... Ch 3.6, \"Follett and Conflict Resolution\" [V]; ... Ch 15.3, \"Things to Consider When Managing Teams\" [V]).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] markers sit on section titles in citations with no quotation, against the [V] contract. The example also never applies the managing-as-paradox framing, so the trace claim lists a framing the example does not use.",
+      "evidence": "Distillation 104-112: no paradox framing; no quotation from Ch 3.6 or Ch 15.3 in the example.",
+      "fix": "correct: The Tuckman stage framing, Follett integration path, SDT autonomy and Locke goal criteria trace to Principles of Management (Ch 15.2, \"Team Development Over Time\"; Ch 3.6, \"Follett and Conflict Resolution\"; Ch 14.2, \"Self-Determination Theory\"; Ch 14.3, \"Goal Theory\")."
+    },
+    {
+      "id": "D013",
+      "line": 119,
+      "section": "Anti-patterns",
+      "claim": "Designing retro experiments that require motivators to fire when hygiene factors are depleting the team's baseline capacity.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Rests on Herzberg's two-stage process, carried by the source but not the deep ref (as D003).",
+      "evidence": "As D003.",
+      "fix": "cycle-to-deep: see D003"
+    },
+    {
+      "id": "D014",
+      "line": 124,
+      "section": "Anti-patterns",
+      "claim": "Leaving the retro without a Locke-compliant experiment: specific, measurable, accepted, committed-to.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same Locke/SMART blend as D008.",
+      "evidence": "As D008.",
+      "fix": "correct: Leaving the retro without an experiment that is specific, stretching, accepted and committed-to (Locke) and measurable (SMART)."
+    },
+    {
+      "id": "D015",
+      "line": 125,
+      "section": "Anti-patterns",
+      "claim": "Missing the managing-as-paradox burden on the lead engineer: they are simultaneously the team member (individual identity) and the facilitator (collective role)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same recasting of Hill's individual/collective paradox as a personal role conflict as D011.",
+      "evidence": "As D011.",
+      "fix": "correct: Missing the managing-as-paradox burden on the lead engineer: as facilitator they must hold authority while leaving the team discretion (Hill, Ch 15.3); naming the tension validates the difficulty rather than leaving them to absorb it silently."
+    },
+    {
+      "id": "D016",
+      "line": 132,
+      "section": "Integration with Other References",
+      "claim": "Psychology 2e supplies the cognitive-science grounding for groupthink and the Lencioni dysfunctions",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Half right: Psychology 2e carries groupthink (Janis) but nothing on Lencioni's dysfunctions.",
+      "evidence": "openstax-psychology-2e-deep 295: groupthink (Janis), symptoms and preventatives [AP] (Ch 12.4). No Lencioni in that deep ref.",
+      "fix": "correct: Psychology 2e supplies the social-psychology grounding for groupthink (Janis's symptoms and preventatives, Ch 12.4); Management applies it at the team-management level"
+    },
+    {
+      "id": "D017",
+      "line": 133,
+      "section": "Integration with Other References",
+      "claim": "LS's facilitation moves (1-2-4-All, Mini Constellations, Troika Consulting)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong structure name for this corpus's handbook: it names the structure '1-2-4-Whole Group'.",
+      "evidence": "liberating-structures-handbook-deep 7: catalogue lists '1-2-4-Whole Group'; Mini Constellations (99) and Troika Consulting (79) present.",
+      "fix": "correct: LS's facilitation moves (1-2-4-Whole Group, Mini Constellations, Troika Consulting)"
+    },
+    {
+      "id": "D018",
+      "line": 135,
+      "section": "Integration with Other References",
+      "claim": "FLO's scaffolding-and-fading arc and Anxious-Annie pattern are the facilitation-craft complement to Management's coach-lead distinction and managing-as-paradox framing",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Attributes to this source a 'coach-lead distinction' it does not contain. The coach/lead split is the distillation's scenario framing. The FLO half checks out.",
+      "evidence": "'coach' appears nowhere in openstax-principles-management-deep 1-1024. flo-facilitation-guide-deep 17, 73 (scaffolding-and-fading), 152 (Anxious Annie).",
+      "fix": "correct: FLO's scaffolding-and-fading arc and Anxious-Annie pattern are the facilitation-craft complement to Management's managing-as-paradox framing (Hill, Ch 15.3)"
+    },
+    {
+      "id": "D019",
+      "line": 136,
+      "section": "Integration with Other References",
+      "claim": "LFUO's learning-validation discipline is the application of Management's PDCA Act step — the retro must produce an Act, not just a Check",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mischaracterises LFUO. Its validation practice (the Readback) checks the story with participants, which is closer to Check than Act; LFUO's FLA deliberately produces lessons without recommendations, and actions belong to the separate Learning Review.",
+      "evidence": "lfuo-learning-review-guide-2024-deep 180: Readback validates stories ('Remember this is their story, not yours'). Deep 53: FLA develops lessons 'without recommendations' [V]. Deep 55: Learning Review Board vets recommendations into a Safety Action Plan.",
+      "fix": "correct: LFUO separates learning (the FLA, lessons without recommendations, validated by Readback) from action (the Learning Review, whose Board turns recommendations into a Safety Action Plan); use Management's PDCA Act step to decide which a retro finding needs"
+    },
+    {
+      "id": "D020",
+      "line": 140,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Tuckman's model is cited as Tuckman (1965) and Jensen (1977) [BT] (Ch 15.2).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Jensen appears in neither the deep ref nor the source; the source credits Tuckman alone with adding the fifth stage.",
+      "evidence": "Deep 715: 'Tuckman's stages of group development (1965; adjourning added 1977)'. Source 23417-23419: Tuckman 1965; 'he added the fifth stage'. No 'Jensen' in the converted source.",
+      "fix": "correct: Tuckman's model is cited as Tuckman (1965), with adjourning added in 1977 [BT] (Ch 15.2)."
+    },
+    {
+      "id": "D021",
+      "line": 144,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "PDCA's role as the Check-without-Act failure mode is `[AP]` in the deep ref ...; Tuckman's Storming stage is `[AP]` in the deep ref ...",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Misstates the deep ref's markers. The deep ref marks both PDCA and Tuckman [BT], and carries no 'Check-without-Act failure mode' at all; that framing is the distillation's.",
+      "evidence": "Deep 833: Deming cycle ... [BT] (Ch 17.2); 'ensures continuous improvement rather than implement-and-forget plans'. Deep 715: Tuckman's stages [BT] (Ch 15.2).",
+      "fix": "correct: The Deming/Shewhart cycle is `[BT]` in the deep ref; the Check-without-Act failure mode is this distillation's application of it. Tuckman's stages are `[BT]` in the deep ref; the distillation applies them as a diagnostic without claiming certainty about the team's actual stage."
+    }
+  ],
+  "notes": "All three [V] quotations (SDT line 22; Follett library window line 24; Lencioni line 26) match the converted source word for word; the [BT] AI discover question (line 30) matches source 14998, which says the question 'is commonly used'. Unmarked quoted phrases are the distillation's own wording. Integration rows checked: OB (131) and Approach Perfect Field Guide (134, retro covered at approach-perfect-field-guide-scrum-events-deep 191) FAITHFUL. Five findings (D003, D004, D006, D009, D013) are cycle-to-deep: the source supports them and the deep ref lacks the passage. Protocol note, not graded: the distillation carries its three [V] passages inline, with no blockquotes."
+}

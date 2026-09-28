@@ -1,0 +1,59 @@
+{
+ "slug": "jones-evidence-based-sweng",
+ "changed_lines_checked": 152,
+ "tally": {
+  "faithful": 147,
+  "minor_drift": 4,
+  "unsupported": 0,
+  "contradicted": 0,
+  "edit_defect": 1
+ },
+ "findings": [
+  {
+   "file": "corpus.commons/demo/references/jones-evidence-based-sweng-deep.md",
+   "line": 15,
+   "text": "a systematic review of 5,453 papers (1993–2002) is cited in Ch 1 as finding 2% reporting experiments, and a study of the same 5,453 papers is cited in Ch 13.1 as finding 1.9% reporting controlled experiments, of which 72.6% used students only as subjects [V]",
+   "grade": "MINOR-DRIFT",
+   "problem": "'the same 5,453 papers' is an inference the source does not make: Ch 1 cites ref 775 (Hannay, Sjøberg and Dybå 2007, a systematic review of theory use) and Ch 13.1 cites ref 1717 (Sjøberg et al. 2004, a survey of controlled experiments); the text never says the two share a paper set. The sentence also carries [V] though nothing in it is quoted.",
+   "evidence": "Source 10575-10577: 'a systematic review of 5,453 papers published between 1993 and 2002[775] found 2% reporting experiments'. Source 41852-41854: 'A study[1717] of 5,453 papers in software engineering journals, published between 1993 and 2002, found that only 1.9% reported controlled experiments (of which 72.6% used students, only, as subjects)'. Bib 49639-49643 (775), 53958-53961 (1717).",
+   "fix": "correct: a systematic review of 5,453 papers (1993–2002) is cited in Ch 1 as finding 2% reporting experiments, and a study of 5,453 papers in software engineering journals over the same years is cited in Ch 13.1 as finding 1.9% reporting controlled experiments, of which 72.6% used students only as subjects [AP] (Ch 1, \"History of software engineering research\"; Ch 13.1, \"Introduction\")"
+  },
+  {
+   "file": "corpus.commons/demo/references/jones-evidence-based-sweng.md",
+   "line": 13,
+   "text": "a study of the same papers found 1.9% reported controlled experiments, and 72.6% of those used students as the only subjects",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same unsupported 'the same papers' identity as deep line 15 (different cited studies in Ch 1 and Ch 13.1).",
+   "evidence": "Source 10575-10577 (ref 775) and 41852-41854 (ref 1717).",
+   "fix": "correct: a study of 5,453 journal papers from the same years found 1.9% reported controlled experiments, and 72.6% of those used students as the only subjects"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/aar/jones-evidence-based-sweng-aar.md",
+   "line": 12,
+   "text": "a study of the same papers, cited in Ch 13.1, found 1.9% reported controlled experiments, of which 72.6% used students only as subjects",
+   "grade": "MINOR-DRIFT",
+   "problem": "Carries the deep ref's unsupported 'the same papers' identity (deep line 15): Ch 1 and Ch 13.1 cite different studies (refs 775 and 1717); the source never says they share a paper set.",
+   "evidence": "Source 10575-10577 (ref 775, Hannay et al. 2007) and 41852-41854 (ref 1717, Sjøberg et al. 2004).",
+   "fix": "correct: a study of 5,453 journal papers from the same years, cited in Ch 13.1, found 1.9% reported controlled experiments, of which 72.6% used students only as subjects"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/software-business/jones-evidence-based-sweng-software-business.md",
+   "line": 20,
+   "text": "a systematic review of 5,453 papers (1993–2002) found 2% reporting experiments, 1.9% controlled experiments, of which 72.6% used students only",
+   "grade": "MINOR-DRIFT",
+   "problem": "Same error as deep line 15, left in a changed file: credits the Ch 1 systematic review (ref 775) with the Ch 13.1 figures, which come from a different study (ref 1717). Line itself unchanged by the repair; the audit did not flag it.",
+   "evidence": "Source 10575-10577 (Ch 1, ref 775: 2%) and 41852-41854 (Ch 13.1, ref 1717: 1.9%, 72.6%).",
+   "fix": "correct: a systematic review of 5,453 papers (1993–2002) found 2% reporting experiments, and a study of 5,453 journal papers from the same years found 1.9% reporting controlled experiments, of which 72.6% used students only"
+  },
+  {
+   "file": "corpus.commons/demo/distillations/stakeholder-engagement/jones-evidence-based-sweng-stakeholder-engagement.md",
+   "line": 145,
+   "text": "OB's conflict-mode selection (TKI five modes), power bases, and negotiation stages are the theoretical complement to Jones's agency-theory analysis. OB's process-vs-relationship conflict distinction (Ch 6.4) complements Jones's agency-theory analysis.",
+   "grade": "EDIT-DEFECT",
+   "problem": "The repaired second sentence repeats the first sentence's ending word for word ('complement ... Jones's agency-theory analysis'). Content is accurate (OB deep 198 carries process vs relationship conflict under Ch 6.4); the defect is the duplicated clause.",
+   "evidence": "openstax-organizational-behavior-deep.md 198.",
+   "fix": "correct: OB's conflict-mode selection (Thomas's five modes, Ch 14), power bases, negotiation stages and process-vs-relationship conflict distinction (Ch 6.4) are the theoretical complement to Jones's agency-theory analysis."
+  }
+ ],
+ "notes": "COMPLETE. Coverage: read in full the deep ref (323 lines), light ref (110), and all five distillations (aar 107, decision-making 181, retro 118, software-business 309, stakeholder-engagement 168); every changed line checked against the converted source (deep/light) or the deep ref as it now stands (distillations), with ligatures normalised. Count = 11 deep + 1 light + 14 aar + 28 decision-making + 21 retro + 37 software-business (36 changed + 1 residual) + 33 stakeholder-engagement + 7 index rows. No vflags file exists for this slug, so there were no flagged quotations to grade. Every new or corrected [V] in the deep ref was found word for word in the source (risk/uncertainty definitions and money-matters line 14413-14431; overconfidence 14624-14625; real options 15660-15661 and 15673-15680; conformist transmission 16427-16428; Ch 3.4.6-3.4.7 passages 16545-16617; group cohesion and brainstorming 16634-16635, 16800-16802; bidding and contract lines 20680-20698, 20754-20756; control-mechanism line 24282-24285; Goodhart framing 41870). Salience definition (21866, ref 1294 Mitchell, Agle and Wood) is correctly [BT]; Goodhart quotation correctly [BT]. The one substantive defect is the new 'the same 5,453 papers' identity (deep 15, light 13, aar 12, plus the unchanged software-business 20): Ch 1 and Ch 13.1 cite different studies (Hannay, Sjøberg and Dybå 2007; Sjøberg et al. 2004). Deep 15 also keeps a pre-existing [V] on a sentence with no quotation; re-mark [AP] suggested in the fix. The Bass peak formula (deep 109, sb 50) was checked against a garbled source passage (17533-17548); the repaired reading m(1/2 - p/2q) at time (1/(p+q)) log(q/p) is the standard form and matches the audit's reading, so graded FAITHFUL. All removals trace to audit findings (front-page test D015, Kahneman D033, 9:1 D016/D021, 17%-per-year applications R006/R010/R012, Axelrod E027, process-conflict row E016, political metaphors E010, acquisition valuation S003, SaaS cost clause S018, Lehman S013, Conway/decision rights S021, duty of care S022, and the deep ref's wrong 'real options with warnings' sentence and fused Bass formula). All 7 added index rows (AAR, decision-making, retro, software-business, stakeholder-engagement x3) match their distillations and keep the table's column count. Not flagged, for the caller's judgement: software-business 165 and 211 still prescribe 'input-profile shaping' for the bi-exponential head, the move the repair removed from Concept 11, worked-example item 2 and the runtime trigger; the audit counted these as applied guidance and the deep ref does ground input-profile focus (Ch 6.1.2, 6.3.1), so graded FAITHFUL. Software-business 154 now says 'will collapse ... once used for control' and then 'Once used for control, the metric will tend to lose...', a mild repetition. Decision-making 125 keeps 'rather than as a personal failure' for overconfidence, judged compatible with the deep ref."
+}

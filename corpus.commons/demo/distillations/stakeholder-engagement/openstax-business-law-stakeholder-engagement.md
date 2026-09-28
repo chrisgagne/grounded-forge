@@ -1,11 +1,11 @@
-<!-- derived-from-deep: sha256:08fd4de661ac2c91dd5b0b9aff3d48e19f1c6ae232b496e5d5a7b46b9500e3d7 -->
+<!-- derived-from-deep: sha256:ae0f05cfd784b1568d8f3486c4999b72eddbf2fe6a9268e79174a50b3de60c57 -->
 # OpenStax Business Law I Essentials, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Business Law I Essentials*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-law-i-essentials. Lead author Mirande Valbrune (Esq.); six contributing authors.
 
 ## Stakeholder-Engagement Relevance
 
-OpenStax's Business Law I Essentials treats stakeholder engagement as the legal-and-ethical structure inside which businesses operate, even though it does not name "stakeholder engagement" as an axis. Three threads make the connection explicit. Ch 2 treats negotiation, mediation, and arbitration as stakeholder-engagement modes by another name — interactions with parties holding non-identical preferences, structured by relational versus outcome goals. Ch 3 makes stakeholders central: business ethics protects employees, customers, investors, and communities; corporate social responsibility (CSR) is measured against the triple bottom line of profits, people, and the planet. Ch 9 sets out the legal architecture of employer-employee stakeholder relationships through OSHA, FLSA, FMLA, the Civil Rights Act, the ADA, ADEA, the National Labor Relations Act, and labour-union law. Ch 11-12 frame consumer-stakeholder protection through antitrust law and the FTC's unfair-trade-practice mandate. Ch 14 frames investor-stakeholder protection through securities regulation and disclosure.
+OpenStax's Business Law I Essentials treats stakeholder engagement as the legal-and-ethical structure inside which businesses operate, even though it does not name "stakeholder engagement" as an axis. Five threads make the connection explicit. Ch 2 treats negotiation, mediation, and arbitration as stakeholder-engagement modes by another name — interactions with parties holding non-identical preferences, structured by relational versus outcome goals. Ch 3 makes stakeholders central: business ethics protects employees, customers, investors, and communities; corporate social responsibility (CSR) is measured against the triple bottom line of profits, people, and the planet. Ch 9 sets out the legal architecture of employer-employee stakeholder relationships through OSHA, FLSA, FMLA, the Civil Rights Act, the ADA, ADEA, the National Labor Relations Act, and labour-union law. Ch 11-12 frame consumer-stakeholder protection through antitrust law and the FTC's unfair-trade-practice mandate. Ch 14 frames investor-stakeholder protection through securities regulation and disclosure.
 
 This distillation consolidates these threads into a working pattern: how to map stakeholders by their legal relationship to the firm; how to choose the right mode of engagement (negotiation style, ADR tier, formal compliance); how to handle stakeholder conflict; and how to maintain stakeholder relationships across continuing transactions and across the regulatory backdrop.
 
@@ -19,9 +19,9 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 4. <!-- concept: alternative-dispute-resolution --> **Tiered ADR as stakeholder-engagement modes.** Negotiation (just the parties), mediation (trained third-party facilitator, future-oriented and solution-focused), arbitration (judge-like decision-maker). Each mode preserves different amounts of relationship and control. (Source: Ch 2.1-2.3)
 
-5. <!-- concept: forced-arbitration --> **Forced-arbitration clauses as a stakeholder-fairness flag.** The text explicitly frames against using arbitration clauses "as a way to keep wrongdoings 'quiet' or to limit consumers' abilities to obtain rightful retribution." Use of these clauses is itself a stakeholder decision. (Source: Ch 2.3, "Ethics of Commercial Arbitration Clauses")
+5. <!-- concept: forced-arbitration --> **Forced-arbitration clauses as a stakeholder-fairness flag.** The text explicitly frames against using arbitration clauses "as a way to keep wrongdoings 'quiet' or to limit consumers' abilities to obtain rightful retribution" [V]. Use of these clauses is itself a stakeholder decision. (Source: Ch 2.3, "Ethics of Commercial Arbitration Clauses")
 
-6. <!-- concept: consequentialist-vs-deontological --> **Consequentialist vs deontological ethics in stakeholder decisions.** Consequentialist (situational) evaluates by impact; deontological evaluates the action itself. Stakeholder decisions often involve weighing impacts on parties without voice — consequentialist reasoning is structurally appropriate but the deontological frame catches actions that "everyone doing them would harm." (Source: Ch 2.2, "Ethical Issues")
+6. <!-- concept: consequentialist-vs-deontological --> **Consequentialist vs deontological ethics in stakeholder decisions.** Consequentialist (situational) evaluates by impact; deontological evaluates the action itself. Stakeholder decisions often weigh impacts on parties without voice; the deontological frame adds Kant's test of whether the action would be acceptable if everyone did it. (Source: Ch 2.2, "Ethical Issues")
 
 7. <!-- concept: unethical-consequences --> **Four downstream consequences of unethical action.** Poor company reputation, negative employee relations, recruitment and retention problems, lost company credibility. Each is a stakeholder-relationship failure mode. (Source: Ch 3.1)
 
@@ -41,7 +41,7 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 15. <!-- concept: securities-regulation --> **Investor-stakeholder protection.** Securities regulation requires disclosure (Form 10-K, 10-Q, 8-K, proxy statements), prohibits insider trading on material nonpublic information, and requires Schedule 13D filing for beneficial owners of more than 5% and statements of ownership for corporate insiders owning more than 10%. (Source: Ch 14.1)
 
-16. <!-- concept: international-stakeholders --> **International stakeholder structures.** UN Security Council; EU regional integration; CISG governing international sales; common-law versus civil-law jurisdictions; doctrine of sovereign immunity (qualified post-1976). Three enforcement methods: collective action, reciprocity, shaming. (Source: Ch 13)
+16. <!-- concept: international-stakeholders --> **International stakeholder structures.** UN Security Council; EU regional integration; CISG governing international sales; common-law versus civil-law jurisdictions; doctrine of sovereign immunity (qualified in the US from 1952; Foreign Sovereign Immunities Act of 1976). Three enforcement methods: collective action, reciprocity, shaming. (Source: Ch 13)
 
 ## Questions to Ask During Stakeholder Engagement
 
@@ -80,16 +80,16 @@ This distillation consolidates these threads into a working pattern: how to map 
 | Need | Question |
 |---|---|
 | Distinguish contractual from regulatory dispute | Is this a contract dispute (breach of agreement) or a regulatory dispute (violation of law)? Different mechanisms apply. |
-| Apply Thomas-Kilmann mode | Is the chosen mode appropriate to the situation — competing, collaborating, compromising, avoiding, yielding? |
+| Apply Thomas-Kilmann mode | Is the chosen mode appropriate to the situation — forcing, collaborating, compromising, avoiding, yielding? |
 | Test for protected-class issues | If an employment dispute, is a protected class implicated? Three-step burden-shifting analysis (prima facie, employer reason, pretext) applies. |
-| Surface foreseeability | Could the harm have been reasonably foreseen? This drives both tort liability and ethical responsibility. |
-| Apply procedural justice | Even when distributive outcomes disappoint, fair process sustains commitment. Are we applying procedural fairness regardless of outcome direction? |
+| Surface foreseeability | Could the harm have been reasonably foreseen? Foreseeability drives negligence liability (Ch 6.1). |
+| Apply procedural justice | Are we applying a fair process regardless of which way the outcome goes? (see OpenStax Organizational Behavior Ch 7.4 on procedural justice) |
 
 ### Phase 5: Reaching Agreement (Structuring resolution)
 
 | Need | Question |
 |---|---|
-| Choose ADR mode | Direct settlement? Mediation (with creative options)? Arbitration (binding or non-binding; with subject-matter expert via baseball arbitration)? |
+| Choose ADR mode | Direct settlement? Mediation (with creative options)? Arbitration (binding or non-binding; with subject-matter-expert arbitrators, or baseball arbitration)? |
 | Apply five-remedy palette for contract disputes | Money damages, restitution, rescission, reformation, specific performance — which is appropriate? Note that personal-service specific performance is constitutionally unavailable. |
 | Balance materiality against relationship | If the breach is minor and the relationship continues, can the remedy preserve the partnership? If material, does the remedy need to discharge obligations? |
 | Document the agreement | Has the resolution been clearly written and signed? Are there carve-outs, milestones, or ratification triggers? |
@@ -121,12 +121,12 @@ This distillation consolidates these threads into a working pattern: how to map 
 - **Pattern: Forcing-style negotiation with an employee, supplier, or customer who has alternatives.** Signal: extracting maximum value with no concession; expecting the relationship to absorb it. Diagnosis: forcing in a continuing relationship "often undermines the party's long-term success." [V] Follow-up: shift to collaborating or compromising; price the long-term reputational cost.
 - **Pattern: A protected-class employment decision is being made without disparate-impact analysis.** Signal: a hiring filter, promotion criterion, or disciplinary practice with potentially differential impact across protected classes. Diagnosis: disparate-impact liability potential; the *Griggs* analysis applies. Follow-up: run the statistical analysis; demonstrate business necessity if the practice survives; reform if it does not.
 - **Pattern: A consumer-facing campaign uses misleading or deceptive techniques.** Signal: bait-and-switch advertising, undisclosed conditions, false endorsements, vulnerable-population targeting. Diagnosis: FTC unfair-trade-practice violation; plaintiffs do not need to prove intent. Follow-up: revise the campaign immediately; consider voluntary FTC consent order if exposure is significant.
-- **Pattern: CSR is being deployed primarily as marketing.** Signal: CSR campaigns timed to product launches; sustainability claims that do not survive scrutiny; consumer messaging without operational follow-through. Diagnosis: the source is explicit that this damages brand more than it builds it. Follow-up: anchor CSR in operational reality before marketing it; evaluate against the triple bottom line; ask Bernard Okhakume's questions about sustainability, employee support, and yearly evaluation.
+- **Pattern: CSR is being deployed primarily as marketing.** Signal: CSR campaigns timed to product launches; sustainability claims that do not survive scrutiny; consumer messaging without operational follow-through. Diagnosis: the source is explicit that consumers "will quickly pick up on this tactic, and it can damage the brand" [V] (Ch 3.2). Follow-up: anchor CSR in operational reality before marketing it; evaluate against the triple bottom line; ask Bernard Okhakume's questions about sustainability, employee support, and yearly evaluation.
 - **Pattern: A code-of-conduct violation surfaces with retaliation against the whistleblower.** Signal: the reporter of an ethics violation faces adverse employment action. Diagnosis: source explicitly states retaliation should never be tolerated. Follow-up: separate the conduct investigation from the reporter's employment status; engage third-party investigative firms for executive-level cases.
 - **Pattern: An international stakeholder dispute crosses common-law and civil-law jurisdictions.** Signal: parties operate under different legal traditions; treaty interpretation matters. Diagnosis: choice-of-law and forum-selection analysis required; CISG may govern; Principle of Comity may shape enforcement. Follow-up: secure counsel in the relevant jurisdictions; structure the engagement around clear jurisdictional rules.
-- **Pattern: A securities decision treats material nonpublic information lightly.** Signal: insider considering a trade with knowledge of upcoming events; pre-arranged plan absent. Diagnosis: Rule 10b-5 violation potential. Follow-up: pre-arrange via Rule 10b5-1 plan well in advance, with predetermined dates and amounts.
+- **Pattern: A securities decision treats material nonpublic information lightly.** Signal: insider considering a trade with knowledge of upcoming events; pre-arranged plan absent. Diagnosis: Rule 10b-5 violation potential. Follow-up: do not trade on the information; future trades can use a Rule 10b5-1 plan arranged in good faith beforehand, with predetermined dates and pre-set amounts (Ch 14.1).
 - **Pattern: Union election or activity is being managed informally.** Signal: management actions during an organising campaign without procedural care. Diagnosis: NLRA unfair-labour-practice exposure. Follow-up: engage labour counsel; observe NLRB-supervised election rules; respect the inaccessibility exception for union solicitation.
-- **Pattern: An ADA accommodation request is being denied without reasonableness analysis.** Signal: a disability-disclosure followed by adverse action without explicit review of reasonable accommodation. Diagnosis: ADA violation potential. Follow-up: structured interactive accommodation review; document reasonableness or undue-burden analysis.
+- **Pattern: An ADA accommodation request is being denied without reasonableness analysis.** Signal: a disability-disclosure followed by adverse action without explicit review of reasonable accommodation. Diagnosis: ADA violation potential. Follow-up: a documented review of reasonable accommodation; document reasonableness or undue-burden analysis.
 
 ## When to Use This Reference
 
@@ -159,41 +159,35 @@ A regional grocery chain is acquiring a smaller competitor. The acquisition will
 
 **Post-engagement.** Six months in, retention rates are normal; no protected-class lawsuits emerge; the union relationship is intact. The HR director captures the lesson: stakeholder-engagement structure built before the transaction close prevented several foreseeable conflicts.
 
-This worked example illustrates several key concepts: stakeholder mapping by legal-relationship type, relational-versus-outcome framing, ADR-tier selection, disparate-impact analysis, the deontological frame on forced-arbitration clauses, CSR alignment with operational reality, and procedural justice across multiple stakeholder groups. The scenario is operator-authored; all framework citations trace through `corpus.commons/demo/references/openstax-business-law-deep.md`. The WARN Act notice obligation, NLRA collective-bargaining requirement, FTC pre-merger notification, Title VII disparate-impact analysis, and Thomas-Kilmann conflict-mode vocabulary (Ch 2) are `[AP]`-marked passages in the deep ref. No verbatim source blockquotes appear in this distillation.
+This worked example illustrates stakeholder mapping by legal-relationship type, relational-versus-outcome framing, ADR-tier selection, and disparate-impact analysis. The scenario is operator-authored; all framework citations trace through `corpus.commons/demo/references/openstax-business-law-deep.md`. The WARN Act notice obligation, NLRA collective-bargaining requirement, FTC pre-merger notification, Title VII disparate-impact analysis, and Thomas-Kilmann conflict-mode vocabulary are carried in the deep ref's Ch 2, Ch 9 and Ch 11 sections (TKI as `[V, BT]`; the WARN 60-day notice as `[V]`); the rest are unmarked paraphrase. No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 
 - **Treating stakeholders as a single audience.** Different stakeholders carry different legal claims (employees vs customers vs investors vs regulators) and different communication needs.
-- **Defaulting to forcing-style negotiation with continuing-relationship stakeholders.** Reputational and referral costs typically exceed near-term gains.
+- **Defaulting to forcing-style negotiation with continuing-relationship stakeholders.** Forcing "often undermines the party's long-term success" [V] (Ch 2.1), for example through negative reviews and lost referrals.
 - **Using forced-arbitration clauses to silence consumers.** The source explicitly frames this as an ethical violation, not a legal optimisation.
 - **CSR as marketing rather than as commitment.** Inauthenticity is detected and damages brand.
 - **Code-of-conduct violations followed by retaliation against the whistleblower.** Source is explicit: retaliation should never be tolerated.
 - **BFOQ defences built on stereotype rather than qualification.** No BFOQs for race or colour; sex BFOQs require actual qualifications.
-- **Ignoring the procedural-justice dimension of employment decisions.** Even fair distributive outcomes can produce litigation if the process feels unfair.
-- **Treating regulators as adversaries rather than as stakeholders.** Voluntary compliance through consent orders typically produces better long-term outcomes than litigation.
-- **Hiding material nonpublic information rather than disclosing on time.** The 4-business-day Form 8-K window, the 10-day Schedule 13D window, and the 40-day proxy notice window each carry consequences for missing.
+- **Treating regulators as adversaries rather than as stakeholders.** The FTC's options include voluntary compliance through a consent order as well as administrative complaints and federal litigation (Ch 12.2).
+- **Missing disclosure windows.** Form 8-K events within four business days, Schedule 13D within 10 days of crossing 5% ownership, the Notice of Internet Availability of Proxy Materials at least 40 days before the meeting (Ch 14.1).
 - **International disputes treated under domestic law without choice-of-law analysis.** CISG, sovereign immunity, and treaty rules can override domestic assumptions.
 
 ## Integration with Other References
 
 | Reference | Connection |
 |---|---|
-| Stakeholder theory (Freeman, not in source) | The OpenStax text never cites Freeman, but its CSR and stakeholder framing aligns with stakeholder-theory commitments. Practitioners working in stakeholder-theory contexts will find the legal architecture (Title VII, ADA, FTC, NLRA, securities law) the operational expression of stakeholder claims. |
-| Thomas-Kilmann Conflict Mode Instrument (TKI) | Ch 2 of OpenStax Business Law uses TKI for negotiation styles; OpenStax Organizational Behavior Ch 14 uses the same vocabulary for conflict resolution. Practitioners can move between dispute negotiation and team conflict using one framework. |
-| Triple bottom line (Elkington / Savitz, cited in source) | The Ch 3 TBL frame is directly cited and provides the structure for CSR measurement. |
-| French and Raven's five power bases (OpenStax Organizational Behavior Ch 12) | The OpenStax Business Law text does not use this vocabulary, but the legal regime allocates power: regulators have legitimate power, unions have collective coercive and referent power, consumers have collective expert and economic power, etc. |
-| Procedural justice | The Title VII three-step burden shifting and the FMLA / ADA / FCRA process requirements all express procedural-justice principles in legal form. |
-| Coase / transaction-cost economics (not in source) | The ADR cost arithmetic implies transaction-cost reasoning. Stakeholder-engagement costs can be priced and compared against engagement-failure costs. |
-| Habermasian discourse ethics (not in source) | The text's framing of mediation as solution-focused and joint-discussion-driven aligns with discourse-ethics principles, though the connection is not made explicitly in the source. |
+| `openstax-principles-management` (Ch 5.6, Freeman) | Principles of Management carries stakeholder theory and eight stakeholder-analysis questions; Business Law supplies the legal architecture (Title VII, ADA, FTC, NLRA, securities law) behind each stakeholder's claims. Business Law does not cite Freeman. |
+| Thomas-Kilmann Conflict Mode Instrument (TKI) | Ch 2 of OpenStax Business Law uses TKI for negotiation styles; OpenStax Organizational Behavior Ch 14 uses the same five-mode model under partly different labels (competing for forcing, accommodating for yielding). Practitioners can move between dispute negotiation and team conflict using one framework. |
+| Triple bottom line (Savitz, cited in source) | The Ch 3 TBL frame is directly cited and provides the structure for CSR measurement. |
+| French and Raven's five power bases (OpenStax Organizational Behavior Ch 12) | The OpenStax Business Law text does not use this vocabulary, but the legal regime allocates power: regulators have legitimate power, unions have collective coercive power, consumers have collective reward power (their purchasing). |
+| `openstax-organizational-behavior` (Ch 7.4) | OB distinguishes distributive from procedural justice (seniority-based layoffs are perceived as more procedurally just); pair with Business Law's Title VII seniority defence (Ch 9.3) when structuring layoffs. |
+| Coase (via OpenStax Economics 3e, Ch 12.3) [BT] | Economics 3e relays Coase's point that a dispute over a spillover cannot be resolved until property rights are clearly defined; once one party carries a well-defined responsibility, it seeks the least costly fix. The Ch 2 ADR options lower the cost of engagement once a dispute arises. Business Law does not cite Coase. |
 
 ## Citation and Source-Integrity Notes
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Thomas-Kilmann Conflict Mode Instrument — negotiation styles (Ch 2) [BT]
-- Title VII of the Civil Rights Act, ADA, FMLA, FLSA, COBRA, ERISA, WARN Act — referenced throughout employment-law chapters [BT]
-- NLRA (National Labor Relations Act) — collective bargaining framework (Ch 9) [BT]
-- FTC / 1976 Clayton Act amendment — pre-merger notification requirements [BT]
-- CISG / sovereign immunity / treaty rules — international contract law (Ch 13) [BT]
 - Andrew Savitz — triple-bottom-line definition (Ch 3.2) [BT]
 - Kellogg School of Management — five CSR benefits (Ch 3.2) [BT]
 - Adam Smith and Herbert Spencer — laissez-faire framing (Ch 14.2) [BT]
@@ -201,9 +195,10 @@ This worked example illustrates several key concepts: stakeholder mapping by leg
 
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:
 - The source is a US-law textbook; international law chapters note that domestic US law can be overridden by treaty and sovereign-immunity rules, but detailed guidance on specific jurisdictions requires primary legal sources.
-- The source is framed for undergraduate students; practitioners should supplement with current statute and case law for any specific jurisdiction.
-- Pedagogical scaffolding excluded under Option B coverage policy.
-- Pure deontological ethics is explicitly noted as impractical for dispute resolution; the text favours balanced ethical analysis (Ch 2.2).
+- Statutes (Title VII, ADA, FMLA, FLSA, COBRA, ERISA, the WARN Act, the NLRA, the 1976 Clayton Act amendment, the CISG) are described at survey depth; the primary statutory text is not held.
+- The source is framed for introductory courses on Business Law or the Legal Environment of Business; practitioners should supplement with current statute and case law for any specific jurisdiction.
+- The deep reference excludes Assessment Questions, Endnotes, the Answer Key and the Index.
+- Pure deontological ethics is explicitly noted as very difficult to adopt for dispute resolution; where disputes arise from ambiguity, mediators must apply their best judgment (Ch 2.2).
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `corpus.commons/demo/references/openstax-business-law-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (22 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The forced-arbitration critique and CSR-as-marketing critique are `[AR]` (author argument). The grocery-chain scenario is operator-authored. Where the source cites external authors (Savitz, Thomas-Kilmann, Kionka, Cheeseman), the `[BT]` marker travels with the citation in the deep ref; this distillation names those dependencies in the Borrowed-through section above.
+**Evidence-marker continuity.** The deep reference at `corpus.commons/demo/references/openstax-business-law-deep.md` uses `[V]`, `[AP]`, `[AE]`, and `[BT]` markers inline throughout (22 standalone `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The CSR-as-marketing critique is `[V]`; the forced-arbitration critique is the author's words, quoted verbatim. The grocery-chain scenario is operator-authored. Where the source cites external authors (Savitz, Thomas-Kilmann, Kionka, Cheeseman), the `[BT]` marker travels with the citation in the deep ref; this distillation names those dependencies in the Borrowed-through section above.

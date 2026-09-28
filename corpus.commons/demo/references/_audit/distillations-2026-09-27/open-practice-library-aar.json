@@ -1,0 +1,189 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/open-practice-library-aar.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-135 of 135",
+    "deep": "lines 1-334 of 334",
+    "complete": true
+  },
+  "claims_audited": 98,
+  "tally": {
+    "faithful": 81,
+    "minor_drift": 16,
+    "unsupported": 0,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "AAR Relevance; Key Concepts #1 (line 12)",
+      "claim": "Blameless Postmortem 'Our job is not to point fingers...' quotation marked [BT] ('a quotation the practice page sets apart without naming its speaker')",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "marker departs from the deep ref's audited marker",
+      "evidence": "Deep ref lines 237 and 314 carry the sentence as [V] (237 adds [AR]). Source L19797 sets it in curly quotation marks with no speaker named, so [BT] fits the source better than the deep ref's [V]; the deep ref has not been cycled.",
+      "fix": "cycle-to-deep: re-mark the deep ref's Blameless Postmortem quotation (lines 237, 314) [BT], noting the page sets it in quotation marks without naming its speaker"
+    },
+    {
+      "id": "D002",
+      "line": 14,
+      "section": "Key Concepts #2 Five Whys",
+      "claim": "\"we should ask why the process failed instead of just asking why. It's important to look for a process that's not working well or not there at all. Sometimes people will say the problem is not enough time, money, or resources. But we can't control those things.\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim quotation re-ordered (last sentence moved first, 'So,' dropped) with no ellipsis and no marker; first quote is from 'What is it?' but only 'Why do it?' is cited; line 135 claims the warning is carried as the deep ref's [V]",
+      "evidence": "Deep ref line 96 and source L2180 give the order: 'It's important to look for a process ... But we can't control those things. So, we should ask why the process failed instead of just asking why.' [V]. The 'Five Whys ... real reason' sentence is 'What is it?' (source L2148-2149).",
+      "fix": "correct: \"It's important to look for a process that's not working well or not there at all. Sometimes people will say the problem is not enough time, money, or resources. But we can't control those things. So, we should ask why the process failed instead of just asking why.\" [V] (Source: Practice \"Five Whys (5 Whys)\", \"What is it?\", \"Why do it?\")"
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts #3 Backcasting / Pre-mortem",
+      "claim": "\"...made popular by the Nobel prize winner Daniel Kahneman...\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation silently corrected ('price' to 'prize') and unmarked",
+      "evidence": "Source L10009 and deep ref line 155 read 'Nobel price winner'; deep ref carries the passage [V] [BT].",
+      "fix": "correct: \"...made popular by the Nobel price [sic] winner Daniel Kahneman in his book 'Thinking Fast and Slow'\" [V]"
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts #4 Establish Shared Principles",
+      "claim": "\"Organizations that have done the work to articulate 'why they exist and what they believe' ... 'what they will do.'\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotation carries no evidence marker",
+      "evidence": "Deep ref line 17 carries it [V] (Practice 'Establish Shared Principles', 'What is it?'); the concept cites only 'Why do it?'.",
+      "fix": "re-mark: [V]; add \"What is it?\" to the citation"
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts #5 Disagree and Commit",
+      "claim": "Two pre-conditions: \"everybody must have a meaningful choice, and there must be an agreed review point.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "invented wording set in quotation marks; pre-conditions absent from the deep ref; cited to 'What is it?'/'Why do it?' though they sit in 'How to do it?'",
+      "evidence": "Not in deep ref (D&C entry lines 217, 312). Source L18044-18049 ('How to do it?'): 'Firstly, everybody in the team needs a choice; a decision they can make ... Secondly, for each hypothesis created during the Options period of the Mobius loop, there needs to be an agreed review point and the tests that will be run/ evidence the team is looking for...'. 'meaningful' is the distillation's addition.",
+      "fix": "cycle-to-deep: add to the deep ref's Disagree and Commit entry \"Firstly, everybody in the team needs a choice; a decision they can make ... Secondly, for each hypothesis created during the Options period of the Mobius loop, there needs to be an agreed review point and the tests that will be run/ evidence the team is looking for in order to make their decision as to how to continue when they reach the review point\" [V] (\"How to do it?\"); then replace the invented sentence with that wording and cite \"How to do it?\""
+    },
+    {
+      "id": "D006",
+      "line": 26,
+      "section": "Key Concepts #8 1-2-4-All",
+      "claim": "\"All voices are heard, incorporating 'silent' conversations ... No more HiPPOs (Highest Paid Person's Opinion)!\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim author quotation carries no evidence marker",
+      "evidence": "Deep ref line 90 carries it [V] [AR].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D007",
+      "line": 50,
+      "section": "Questions, Phase 1",
+      "claim": "1-2-4-All: individuals write ...; pairs compare accounts; groups of 4-6 surface the divergences; whole group integrates.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "group size imported from the LS Handbook's 1-2-4-Whole Group",
+      "evidence": "Deep ref line 258: OPL's 1-2-4-All runs 'individual self-reflection -> pairs -> foursomes -> whole-group sharing'; source L41 'Pairs group into foursomes'. Groups of 4-6 is the LS Handbook's variant (liberating-structures-handbook-deep line 59).",
+      "fix": "correct: foursomes surface the divergences"
+    },
+    {
+      "id": "D008",
+      "line": 59,
+      "section": "Questions, Phase 2",
+      "claim": "Blameless Postmortem: \"why did he pick the wrong one and what we personally and as an organization can do to prevent it in the future\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "quotation altered ('why he picked' became 'why did he pick')",
+      "evidence": "Source L19797 and deep ref line 237: 'our job is to figure out why he picked the wrong one and what we personally and as an organization can do to prevent it in the future'.",
+      "fix": "correct: \"figure out why he picked the wrong one and what we personally and as an organization can do to prevent it in the future\""
+    },
+    {
+      "id": "D009",
+      "line": 65,
+      "section": "Questions, Phase 3",
+      "claim": "Blameless Postmortem: \"Our job is not to point fingers.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "fragment closed with a full stop, no ellipsis; marked [V] while lines 8 and 12 mark the same sentence [BT]",
+      "evidence": "Source L19797: the sentence continues 'at an unlucky engineer ...'. Same distillation marks the full sentence [BT] at lines 8 and 12.",
+      "fix": "correct: \"Our job is not to point fingers ...\" with the same marker used at lines 8 and 12"
+    },
+    {
+      "id": "D010",
+      "line": 74,
+      "section": "Questions, Phase 4",
+      "claim": "Disagree and Commit: \"everybody must have a meaningful choice, and there must be an agreed review point.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "invented wording set in quotation marks (repeat of D005)",
+      "evidence": "As D005: source L18044-18049; not in deep ref.",
+      "fix": "cycle-to-deep (as D005); then quote the source's wording or drop the quotation marks"
+    },
+    {
+      "id": "D011",
+      "line": 106,
+      "section": "Worked Example",
+      "claim": "HOTL = 'human monitors but doesn't approve'; HIC = 'human in command of the overall process but not individual decisions'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "definitions not carried in the deep ref; HIC gloss loosens the source",
+      "evidence": "Deep ref line 133 says only 'Distinguishes three oversight models (HITL, HOTL, HIC) [AP]'. Source L2810-2812: HOTL 'The system operates autonomously but a person monitors its behavior and can intervene when needed'; HIC 'A person sets the goals, constraints, and boundaries within which the system operates, and retains the authority to override or shut it down at any time.'",
+      "fix": "cycle-to-deep: add the three oversight-model definitions (source L2806-2814) to the deep ref's Human in the loop entry; correct the HIC gloss to 'sets the goals, constraints and boundaries, and can override or shut the system down'"
+    },
+    {
+      "id": "D012",
+      "line": 127,
+      "section": "Integration: Liberating Structures",
+      "claim": "\"Both sources carry the 1-2-4-All structure\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "concept name and shape conflated across sources",
+      "evidence": "liberating-structures-handbook-deep line 59 names it '1-2-4-Whole Group' with small groups of 4-6; OPL deep ref line 90/258 names '1-2-4-All' with foursomes.",
+      "fix": "correct: Both sources carry the 1-2-4 scaling structure (OPL's 1-2-4-All with foursomes; the LS Handbook's 1-2-4-Whole Group with groups of 4-6)"
+    },
+    {
+      "id": "D013",
+      "line": 131,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "Pre-mortem cites Klein and Kahneman 'as the method's originators'",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "attribution loosened: Kahneman is named as populariser, not originator",
+      "evidence": "Deep ref line 155 / source L10008-10009: 'The method originates from Gary Klein (HBR article) and was made popular by ... Daniel Kahneman'.",
+      "fix": "correct: cites Gary Klein (HBR article) as the method's originator and Daniel Kahneman (Thinking Fast and Slow) as its populariser"
+    },
+    {
+      "id": "D014",
+      "line": 133,
+      "section": "Citation notes, Named limits",
+      "claim": "The library does not address ... timeline reconstruction protocol",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "scope limit overstated",
+      "evidence": "Deep ref line 237: Blameless Postmortem assesses the incident's 'timeline'. Source L19826: 'Meeting course should be structured in a way that follows the timeline of the incident', built from a timestamped track of actions (L19820).",
+      "fix": "correct: The library does not address just-culture decision methodology or formal learning-review design; its Blameless Postmortem offers a brief timeline-walk meeting structure but no reconstruction protocol"
+    },
+    {
+      "id": "D015",
+      "line": 135,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "The Blameless Postmortem quotation is [V] in the deep ref; the distillation quotes it directly in Concept 1",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "continuity note does not disclose that the distillation re-marks the quotation [BT] (and [V] at line 65)",
+      "evidence": "Deep ref lines 237/314 [V]; distillation lines 8, 12 [BT]; line 65 [V].",
+      "fix": "correct: The Blameless Postmortem quotation is [V] in the deep ref; this distillation marks it [BT] because the page sets it in quotation marks without naming a speaker (deep ref to be cycled)"
+    },
+    {
+      "id": "D016",
+      "line": 135,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "The Evals distinction is [V] in the deep ref with [BT] to Karpathy",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[BT] attached to the wrong claim",
+      "evidence": "Deep ref line 132: the certainty/confidence distinction is [V] [AR]; the separate [BT] is Karpathy's 'march of nines' confidence-threshold framing.",
+      "fix": "correct: The Evals distinction is [V] [AR] in the deep ref; the separate 'march of nines' framing is [BT] to Karpathy"
+    },
+    {
+      "id": "D017",
+      "line": 135,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "The Disagree and Commit pre-conditions are [V] in the deep ref; the distillation preserves them in Concept 5",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false claim about the audit record",
+      "evidence": "Deep ref Disagree and Commit entries (lines 217, 312) carry no pre-conditions; the distillation's quoted wording is in neither the deep ref nor the source (see D005).",
+      "fix": "correct: The Disagree and Commit pre-conditions are not yet in the deep ref (cycle-to-deep pending); the distillation paraphrases them from the 'How to do it?' section"
+    }
+  ],
+  "notes": "Source line numbers refer to corpus.commons/demo/sources/converted/open-practice-library.md. Checked integration claims against tc-25-20-army-aar-deep (four-step process, line 19/52), lfuo-learning-review-guide-2024-deep (administrative firewall line 67, networked causality line 273, sense-making story line 19), nhs-just-culture-guide-deep (decision tree line 42), liberating-structures-handbook-deep (1-2-4-Whole Group line 59). The 'no other source carries Evals/HITL' claim holds (grep of all deep refs). RICE's multiply-all-four formula matches the source (L16470), though it is unusual. Worked example says the team 'designs two experiments' but describes one; internal, not a source claim. The What-to-Look-For diagnosis 'the team will not finish any of them' is an unsourced absolute but passed as applied guidance."
+}

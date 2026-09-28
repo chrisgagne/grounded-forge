@@ -1,0 +1,359 @@
+{
+  "distillation": "corpus.commons/demo/distillations/decision-making/openstax-entrepreneurship-decision-making.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-212 of 212",
+    "deep": "lines 1-497 of 497",
+    "complete": true
+  },
+  "claims_audited": 132,
+  "tally": {
+    "faithful": 98,
+    "minor_drift": 30,
+    "unsupported": 4,
+    "contradicted": 0
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Decision-Making Relevance",
+      "claim": "\"an entrepreneur is someone who identifies and acts on an idea or problem\" [V] (Ch 1.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "[V] quotation cut mid-sentence with no ellipsis; it drops the definitional qualifier 'that no one else has identified or acted on', which is what the book says separates an entrepreneur from a small-business owner.",
+      "evidence": "Deep 13 and 25 carry the full sentence [V]: 'an entrepreneur is someone who identifies and acts on an idea or problem that no one else has identified or acted on'. Converted source matches in full.",
+      "fix": "correct: \"an entrepreneur is someone who identifies and acts on an idea or problem that no one else has identified or acted on\" [V] (Ch 1.1)"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Decision-Making Relevance",
+      "claim": "It is less strong on individual cognitive bias mitigation in single high-stakes decisions; for that the text leans on Klein's intuition framing rather than developing its own protocol.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mischaracterises what Klein is cited for. The source's bias countermeasure is fail-safe points plus contingency plans set before opening; Klein is cited for the gut-feel moment after structured advice-sorting (Delphi/Nominal Group), not as a bias-mitigation protocol.",
+      "evidence": "Deep 395 (fail-safe points), 401 (Klein cited 'for the gut-feel framing'). Converted source 32991-32995 (fail-safe points and contingency plans 'can prevent the entrepreneur from becoming trapped by these biases'); 33491-33503 (Klein after the Delphi/Nominal Group tools).",
+      "fix": "correct: It is less strong on debiasing single high-stakes decisions: its countermeasure is fail-safe points set in the business plan before launch (Ch 15.2), and it cites Klein only for the gut-feel moment that can follow structured advice-sorting (Ch 15.3)."
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts 1 (Build-measure-learn loop)",
+      "claim": "Continuous iteration of prototype, customer feedback, and revision until product-market fit is achieved.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Stopping criterion changed. The deep ref and source end the loop when the prototype is good enough for release (or the loop accelerates or must pivot), not at product-market fit.",
+      "evidence": "Deep 261: 'repeated until the prototype is good enough for general release'. Converted source 20190 ('until the prototype is good enough to go to market'); 20329-20330 ('until the process has reached a point where it either accelerates or needs to pivot').",
+      "fix": "correct: Continuous iteration of prototype, customer feedback, and revision until the prototype is good enough for general release."
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts 2 (MVP)",
+      "claim": "The bare-minimum prototype required to elicit useful customer feedback",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Purpose clause ('to elicit feedback') is in the source but not in the deep ref, which gives the purpose as helping people understand what the product is about.",
+      "evidence": "Deep 263: 'the bare minimum to help people understand what the product is about'. Converted source 20233-20234: 'The point is to have a basic product to show to potential users, with enough substance to elicit feedback on what people find useful'.",
+      "fix": "cycle-to-deep: 'The point is to have a basic product to show to potential users, with enough substance to elicit feedback on what people find useful and what attributes are important without having to invest a lot of money and time' (Ch 10.1, \"Lean Startup\")"
+    },
+    {
+      "id": "D005",
+      "line": 20,
+      "section": "Key Concepts 3 (Innovation accounting)",
+      "claim": "Replaces traditional revenue/profit metrics with assumption-validation metrics during the early venture stages.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Assumption-validation metrics' is source-supported but absent from the deep ref, which says only that innovation accounting avoids traditional revenue/profit metrics.",
+      "evidence": "Deep 265. Converted source 20321-20325: 'Measurements may include testing assumptions about the business, attributes that customers like, sign-ups, and retention rates that can be separated into cohorts'.",
+      "fix": "cycle-to-deep: 'Measurements may include testing assumptions about the business, attributes that customers like, sign-ups, and retention rates that can be separated into cohorts and tested, say weekly, as changes to the products are made' (Ch 10.1)"
+    },
+    {
+      "id": "D006",
+      "line": 40,
+      "section": "Key Concepts 13 (Delphi method)",
+      "claim": "Iterative anonymous questionnaires sent to a diverse group, narrowed across rounds until convergence on a final option set.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Diverse group' and the ranking-and-narrowing step are in the source (glossary and body) but not in the deep ref, which carries only 'iterative anonymous questionnaires until convergence'. Note also that the source never states Delphi responses are anonymous; 'anonymous' comes from the deep ref.",
+      "evidence": "Deep 401. Converted source 33466-33473 (options ranked, low-ranked items dropped, narrowed to two or three top choices); glossary 33788-33790 ('a diverse group of people who are located at different locations').",
+      "fix": "cycle-to-deep: glossary definition 'group decision-making process that includes a diverse group of people who are located at different locations and willing to respond to a series of questionnaires' plus the ranking/narrowing step (Ch 15.3); and audit the deep ref's 'anonymous', which the source does not state"
+    },
+    {
+      "id": "D007",
+      "line": 46,
+      "section": "Key Concepts 16 (Fail-safe points)",
+      "claim": "Pre-committed decision triggers built into the business plan",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Within the business plan' and 'before opening the venture' are in the source but not in the deep ref, which carries only the definition.",
+      "evidence": "Deep 395 (definition only). Converted source 32991-32994: 'we can identify fail-safe points within the business plan ... Identifying these trigger points and creating contingency plans before opening the venture can prevent the entrepreneur from becoming trapped by these biases'.",
+      "fix": "cycle-to-deep: 'To avoid this failure to exit the venture, we can identify fail-safe points within the business plan ... Identifying these trigger points and creating contingency plans before opening the venture can prevent the entrepreneur from becoming trapped by these biases' (Ch 15.2)"
+    },
+    {
+      "id": "D008",
+      "line": 60,
+      "section": "Key Concepts 23 (Begin with the end in mind)",
+      "claim": "\"Begin with the end in mind.\" [V]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Marker misfit. The source relays the phrase as common advice ('often referred to as', 'entrepreneurs are often advised to'); it is not the authors' own formulation. The deep ref quotes it without a [V] marker.",
+      "evidence": "Deep 389 (quoted, unmarked). Converted source 32853 ('often referred to as \"begin with the end in mind.\"'), 32864 ('entrepreneurs are often advised to \"begin with the end in mind\"').",
+      "fix": "re-mark: [BT] (the source relays a common maxim)"
+    },
+    {
+      "id": "D009",
+      "line": 72,
+      "section": "Questions, Phase 1 (Understand the customer)",
+      "claim": "What are the customer's pains, gains, and jobs-to-be-done? (Ch 11.2, customer empathy map)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Pains/gains/jobs is the value proposition canvas's customer profile, not the customer empathy map; the deep ref names the value proposition canvas but not its pains/gains/jobs content.",
+      "evidence": "Deep 311 (value proposition canvas named as a BMC plug-in; empathy map as design companion). Converted source 23119-23121 and 23291-23292: 'The value proposition canvas tool looks at customer pains, gains and jobs to be done on the customer side'.",
+      "fix": "correct: What are the customer's pains, gains, and jobs to be done? (Ch 11.2, value proposition canvas) | cycle-to-deep: 'The value proposition canvas tool looks at customer pains, gains and jobs to be done on the customer side and painkillers, gain creators, and products and services on the value proposition side' (Ch 11.2)"
+    },
+    {
+      "id": "D010",
+      "line": 79,
+      "section": "Questions, Phase 2 (Decide on MVP scope)",
+      "claim": "What is the bare minimum that lets me elicit useful customer feedback? (Ch 10.1)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as D004: the feedback purpose is source-supported but not in the deep ref.",
+      "evidence": "Deep 263. Converted source 20233-20234.",
+      "fix": "cycle-to-deep: see D004"
+    },
+    {
+      "id": "D011",
+      "line": 80,
+      "section": "Questions, Phase 2 (Choose validation metrics)",
+      "claim": "Which assumption-validation metrics matter at this stage ...? (Ch 10.1, innovation accounting)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as D005.",
+      "evidence": "Deep 265. Converted source 20321-20325.",
+      "fix": "cycle-to-deep: see D005"
+    },
+    {
+      "id": "D012",
+      "line": 83,
+      "section": "Questions, Phase 2 (Avoid escalation)",
+      "claim": "Have I crossed a fail-safe point I committed to before launch? (Ch 15.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as D007: 'before launch' is source-supported but not in the deep ref.",
+      "evidence": "Deep 395. Converted source 32991-32994.",
+      "fix": "cycle-to-deep: see D007"
+    },
+    {
+      "id": "D013",
+      "line": 92,
+      "section": "Questions, Phase 3 (Allocate capital)",
+      "claim": "Which costs are pre-launch one-time, which are recurring ...? (Ch 14.2)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The one-time vs. ongoing cost split is in the source (Ch 14.2, 'Assessing Resource Costs for Startup') but the deep ref's Ch 14.2 coverage carries only PEST.",
+      "evidence": "Deep 377 (Ch 14.2 = PEST only). Converted source 31486 (subsection heading), 31552 ('determine which ones are one-time costs (pre-launch costs)'), 31563 ('Ongoing costs, on the other hand, are recurring').",
+      "fix": "cycle-to-deep: 'After you have identified all of the costs, determine which ones are one-time costs (pre-launch costs) and ...ongoing costs ... are recurring' (Ch 14.2, \"Assessing Resource Costs for Startup\")"
+    },
+    {
+      "id": "D014",
+      "line": 102,
+      "section": "Questions, Phase 4 (Choose pitch tactics by audience)",
+      "claim": "Different audiences (investors, employees, F&F, trade associations) need different pitch lengths and asks.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source's pitch-audience table (Table 7.3) lists friends and family, elevator-pitch competitions, pitch-competition judges, early investors and employees; trade associations are not a pitch audience. The deep ref does not carry Table 7.3 at all.",
+      "evidence": "Deep 195-197 (pitch to investors, elevator pitch, F&F financing). Converted source 13399-13414 (Table 7.3, 'Summary of Pitch Scenarios').",
+      "fix": "correct: Different audiences (friends and family, pitch-competition judges, early investors, employees) need different pitch lengths and asks (Ch 7.3, Table 7.3) | cycle-to-deep: Table 7.3 audience rows with length and key content"
+    },
+    {
+      "id": "D015",
+      "line": 105,
+      "section": "Questions, Phase 4 (Mitigate risk)",
+      "claim": "Avoid, reduce, transfer, or accept — which strategy fits each major risk? (Ch 13.7)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The four-way risk-response taxonomy is not in the deep ref or in Ch 13.7 of the source; it is imported and cited to a chapter that does not carry it.",
+      "evidence": "Deep 359: ERM as 'risk identification, risk assessment, and risk abatement'; protections are incorporation/limited liability, financial planning, insurance. Converted source 29560-29850 (Ch 13.7): no avoid/reduce/transfer/accept; uses a risk matrix of probability and impact (29627-29632).",
+      "fix": "correct: Have I identified and assessed each major risk (a probability-and-impact risk matrix helps), and which protection abates it — limited-liability structure, financial planning, or insurance? (Ch 13.7)"
+    },
+    {
+      "id": "D016",
+      "line": 111,
+      "section": "Questions, Phase 5 (Diagnose decline signals)",
+      "claim": "Are sales waning, costs rising, or both? Is this a maturity-phase pause or a decline? (Ch 10.5)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The stage indicators (leveled sales at maturity, waning sales at decline) are in the source, not the deep ref, which lists only the five stage names. 'Costs rising' is in neither.",
+      "evidence": "Deep 289. Converted source 21800-21801 ('rapid (growth stage), leveled (maturity stage), or diminishing (decline stage) sales'), 21857 (maturity: 'revenues and profits level off'), 21879 (decline: 'Sales wane').",
+      "fix": "correct: Are sales leveling off (maturity) or waning (decline)? (Ch 10.5) | cycle-to-deep: 'These may include rapid (growth stage), leveled (maturity stage), or diminishing (decline stage) sales' (Ch 10.5, \"Lifecycle Stages\")"
+    },
+    {
+      "id": "D017",
+      "line": 114,
+      "section": "Questions, Phase 5 (Plan the post-harvest role)",
+      "claim": "After exit, do I want to be a serial entrepreneur, mentor, consultant, or champion? (Ch 15.4)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Serial entrepreneur as a post-harvest option is in the source's Ch 15.4 opening but not in the deep ref, which lists only mentor, consultant and champion.",
+      "evidence": "Deep 405. Converted source 33524-33526: 'you might want to become involved in another new venture—that is, maybe your path is to become a serial entrepreneur'.",
+      "fix": "cycle-to-deep: Ch 15.4's post-exit options (serial entrepreneur, time off, social entrepreneur, angel investor) before the mentor/consultant/champion roles"
+    },
+    {
+      "id": "D018",
+      "line": 120,
+      "section": "Questions, Phase 6 (When to use Delphi)",
+      "claim": "The decision benefits from anonymous independent input from a geographically diverse expert group.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "'Geographically diverse' is in the source glossary but not the deep ref. 'Anonymous' traces to the deep ref only; the source does not state it.",
+      "evidence": "Deep 401. Converted source 33788-33790.",
+      "fix": "cycle-to-deep: see D006"
+    },
+    {
+      "id": "D019",
+      "line": 121,
+      "section": "Questions, Phase 6 (When to use Nominal Group)",
+      "claim": "in-person discussion with structured silent-write rounds to suppress dominant voices",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The purpose 'to suppress dominant voices' is not in the deep ref or the source; it attaches a rationale to the source's technique.",
+      "evidence": "Deep 401 (silent-write, share-and-discuss, vote rounds). Converted source 33480-33487 (procedure only; no stated purpose about dominant voices).",
+      "fix": "correct: The decision benefits from in-person discussion in which everyone first writes a response privately, then all input is shared, discussed, and narrowed over repeated rounds before a vote (Ch 15.3)."
+    },
+    {
+      "id": "D020",
+      "line": 122,
+      "section": "Questions, Phase 6 (When to trust intuition)",
+      "claim": "do I have a clear gut signal that conflicts with the analysis, and is that signal informed by deep experience? (Ch 15.3, citing Klein)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds an 'informed by deep experience' condition that the source does not state; the source says a pause after structured tools may yield a gut feeling, possibly a new creative solution, and to make the decision that feels right.",
+      "evidence": "Deep 401. Converted source 33491-33510 ('you might suddenly have a feeling of knowing the right answer'; 'If the advice provided doesn't feel right, make the decision that does feel right and make sure you communicate that decision with your team').",
+      "fix": "correct: After working through the structured tools and pausing, do I have a gut sense of the right decision, even one outside the advice I received, and have I communicated it to the team? (Ch 15.3, citing Klein)"
+    },
+    {
+      "id": "D021",
+      "line": 128,
+      "section": "What to Look For (founders cannot agree on success)",
+      "claim": "ambiguity about whether the venture is a lifestyle business or a harvest target ... document compensation, vesting, buyback clause, and harvest expectations",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The lifestyle-vs-harvest clash and the vesting-plan question are in the source but not in the deep ref, which carries founders' agreement, compensation plan and buyback clause only.",
+      "evidence": "Deep 387. Converted source 32592-32595 (lifestyle business vs. harvest 'clash between these expectations'), 32608 ('Is there a vesting plan with defined timelines aligned with equity percentages?').",
+      "fix": "cycle-to-deep: the lifestyle-business vs. harvest clash (Ch 15.1) and the founders'-agreement questions on monthly compensation, vesting plan, and early departure"
+    },
+    {
+      "id": "D022",
+      "line": 130,
+      "section": "What to Look For (feature creep)",
+      "claim": "zoom-in pivot may be needed — a single feature has become the product",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The zoom-in definition is source-supported (Table 10.2) but the deep ref lists the ten pivots by name only.",
+      "evidence": "Deep 269. Converted source 20591: 'Zoom-in | A product's single feature becomes a whole product.'",
+      "fix": "cycle-to-deep: Table 10.2 one-line definitions of the ten pivot strategies (Ch 10.1)"
+    },
+    {
+      "id": "D023",
+      "line": 134,
+      "section": "What to Look For (founder invested in being right)",
+      "claim": "review fail-safe points written into the original business plan",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same as D007.",
+      "evidence": "Deep 395. Converted source 32991.",
+      "fix": "cycle-to-deep: see D007"
+    },
+    {
+      "id": "D024",
+      "line": 138,
+      "section": "What to Look For (liability not insulated)",
+      "claim": "formalities are skipped ... separate bank accounts, hold required meetings, document minutes, sign documents in the entity name",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The formalities list is in the source but the deep ref carries only the commingling finding from Woodruff v. Clark.",
+      "evidence": "Deep 347. Converted source 28487-28490 ('keeping minutes of shareholder and director major decisions, ensuring that officers and directors sign documents in the name of the corporation, and importantly, maintain separate bank accounts'), 28514-28517 (no bylaws, resolutions, voting records or minutes).",
+      "fix": "cycle-to-deep: the Ch 13.2 corporate-formalities list preceding 'piercing the corporate veil', and the Woodruff court's formalities finding"
+    },
+    {
+      "id": "D025",
+      "line": 140,
+      "section": "What to Look For (competitor disrupts the market)",
+      "claim": "Follow-up: do not optimise for existing customers; consider whether a separate organisational unit could compete with the disruptor on its terms. (Ch 1.3, Ch 4.2, citing Christensen)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The separate-unit remedy is Christensen's own prescription from outside the source; neither the deep ref nor the source gives it. The incumbent-failure mechanics the pattern turns on are in Ch 11.1, not Ch 1.3/4.2.",
+      "evidence": "Deep 301 (Ch 11.1: incumbents' decision criteria favour incremental innovation). Converted source 22804-22808 (incumbents see 'inferior technology'), 22960-22964 (incumbent efforts fail because commercialising needs a different business model). No 'separate' unit or organisation in the source.",
+      "fix": "correct: Follow-up: ask whether the entrant's edge is a different business model; the source says incumbents usually fail to capitalise on a disruption because commercialising it needs a business model different from their current one (Ch 11.1, citing Christensen)."
+    },
+    {
+      "id": "D026",
+      "line": 166,
+      "section": "Worked Example, step 5",
+      "claim": "Reassess runway (Ch 9.4, Ch 10.5).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cite: the runway calculation is Ch 10.1 (Ries's runway analogy), not Ch 10.5.",
+      "evidence": "Deep 271 (runway, Ch 10.1). Converted source 20566-20572.",
+      "fix": "correct: Reassess runway (Ch 9.4, Ch 10.1)."
+    },
+    {
+      "id": "D027",
+      "line": 183,
+      "section": "Integration with Other References (Christensen row)",
+      "claim": "The OpenStax text adopts Christensen's disruptive-innovation framework directly and uses it to motivate the lean-startup recommendation (Ch 1.3, Ch 4.2).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The deep ref never links disruption to the lean-startup recommendation; in Ch 4.2 the build-measure-learn loop is the bridge across Rogers's diffusion chasm. Christensen's work is also not a corpus reference.",
+      "evidence": "Deep 45, 119, 121, 301, 459. Deep 121: 'Iterative development and the build-measure-learn loop are presented as the practical bridge across the chasm'.",
+      "fix": "correct: The OpenStax text adopts Christensen's disruptive-innovation framework (Ch 1.3, Ch 4.2, Ch 11.1) and jobs-to-be-done theory (Ch 11.1) [BT]; Christensen is not held in this corpus."
+    },
+    {
+      "id": "D028",
+      "line": 185,
+      "section": "Integration with Other References (Drucker row)",
+      "claim": "Drucker's seven sources of innovation are reproduced and used to structure opportunity-recognition (Ch 4.2).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The seven sources sit in the innovation chapter (Ch 4.2). The opportunity-recognition chapter (Ch 5) is structured by Schumpeter's five methods and the three criteria, not by Drucker.",
+      "evidence": "Deep 117 (seven sources, Ch 4.2 Table 4.3), 139-149 (Ch 5 structure: Schumpeter, drivers, three criteria), 458.",
+      "fix": "correct: Drucker's seven sources of innovation are reproduced as a catalogue of where innovation comes from (Ch 4.2, Table 4.3)."
+    },
+    {
+      "id": "D029",
+      "line": 186,
+      "section": "Integration with Other References (Osterwalder row)",
+      "claim": "The Business Model Canvas is reproduced and treated as the primary design tool for pre-launch ventures (Ch 11.2).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Overstates prominence. The deep ref presents the BMC as one of three focal canvases in Ch 11.2 and one of four venture-design frameworks in Ch 2.4; the source calls it 'a popular tool'.",
+      "evidence": "Deep 77, 311. Converted source 24782 ('A business model canvas is a popular tool used by entrepreneurs').",
+      "fix": "correct: The Business Model Canvas is reproduced as one of three focal canvases, alongside the Lean Canvas and the Social Business Model Canvas (Ch 11.2)."
+    },
+    {
+      "id": "D030",
+      "line": 187,
+      "section": "Integration with Other References (Kahneman row)",
+      "claim": "The cognitive-biases framework in Ch 15.2 ... overlaps with Kahneman's Thinking, Fast and Slow; OpenStax uses Cossette's entrepreneurship-specific review as the entry point.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The deep ref never mentions Kahneman; the overlap claim rests on outside knowledge of Kahneman's book, which is not a corpus reference. The source names Kahneman only in an excluded Suggested Resources list, via Michael Lewis's The Undoing Project.",
+      "evidence": "Deep 393 (Cossette only). grep 'Kahneman' in deep: no hits. Converted source 34108 (single mention, back-matter reading list).",
+      "fix": "strip"
+    },
+    {
+      "id": "D031",
+      "line": 194,
+      "section": "Citation and Source-Integrity Notes (Christensen bullet)",
+      "claim": "Key Concept 10 and Anti-pattern \"competitor disrupts the market\" trace here.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Internal mis-trace. Key Concept 10 is the Kirton adaptive/innovative distinction (correctly traced to Kirton at line 200); 'competitor disrupts the market' is a What to Look For pattern, not an anti-pattern.",
+      "evidence": "Distillation lines 34, 140, 200.",
+      "fix": "correct: The What to Look For pattern \"a competitor disrupts the market\" traces here."
+    },
+    {
+      "id": "D032",
+      "line": 196,
+      "section": "Citation and Source-Integrity Notes (Osterwalder bullet)",
+      "claim": "the Business Model Canvas is reproduced as the primary design tool for pre-launch ventures (Ch 11.2) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same overstatement as D029.",
+      "evidence": "Deep 77, 311, 463.",
+      "fix": "correct: the Business Model Canvas and value proposition canvas (Ch 11.2) [BT]"
+    },
+    {
+      "id": "D033",
+      "line": 199,
+      "section": "Citation and Source-Integrity Notes (Granovetter bullet)",
+      "claim": "strength-of-weak-ties research supporting team-diversity guidance (Ch 6.1) [BT]",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source uses Granovetter for networking (weak ties as bridges into other functional areas), not team diversity, and the distillation's team-diversity pattern (line 136) cites Ch 12.2, not Granovetter.",
+      "evidence": "Deep 163, 471. Converted source 11139-11149 (networking context).",
+      "fix": "correct: strength-of-weak-ties research on networking: weak ties bridge into other functional areas; strong ties yield fewer new opportunities (Ch 6.1) [BT]"
+    },
+    {
+      "id": "D034",
+      "line": 212,
+      "section": "Citation and Source-Integrity Notes (Evidence-marker continuity)",
+      "claim": "Key Concepts 1–23 are [AP] (author's position) or [AE] (author's example) drawn from OpenStax.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Inaccurate: Key Concepts 1, 4, 5, 9 and 16 carry [V] quotations, and [AP] denotes author paraphrase, not 'author's position'.",
+      "evidence": "Distillation lines 16, 22, 24, 32, 46. Audit brief marker definitions.",
+      "fix": "correct: Key Concepts 1, 4, 5, 9 and 16 carry [V] quotations copied from the deep reference; the rest paraphrase OpenStax ([AP])."
+    }
+  ],
+  "notes": "All seven [V] quotations checked word for word against the converted source; all match (line 8 is truncated, D001). The Integration table names no corpus reference: its five rows are Christensen, Ries, Drucker, Osterwalder/Pigneur and Kahneman, none held in the demo corpus, while openstax-principles-management, openstax-organizational-behavior, openstax-principles-finance, openstax-business-law and liberating-structures-handbook are held and would carry real relationships (e.g. Delphi/Nominal Group vs. Liberating Structures; entity selection vs. business law). The worked example is a plain hypothetical and carries no verbatim blockquote, though fail-safe points and escalation of commitment carry the example. Deep-ref issue surfaced: the deep ref (401) calls Delphi questionnaires 'anonymous'; the source does not say so. Seventeen of the thirty MINOR-DRIFT findings are wholly or partly cycle-to-deep (source supports, deep ref does not)."
+}

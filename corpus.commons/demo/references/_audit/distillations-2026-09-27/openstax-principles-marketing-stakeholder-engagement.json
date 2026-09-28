@@ -1,0 +1,249 @@
+{
+ "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/openstax-principles-marketing-stakeholder-engagement.md",
+ "auditor": "opus",
+ "read_coverage": {
+  "distillation": "lines 1-229 of 229",
+  "deep": "lines 1-577 of 577",
+  "complete": true
+ },
+ "claims_audited": 151,
+ "tally": {
+  "faithful": 119,
+  "minor_drift": 28,
+  "unsupported": 2,
+  "contradicted": 2
+ },
+ "findings": [
+  {
+   "id": "T001",
+   "line": 8,
+   "section": "Relevance (also line 28, Key Concept 1)",
+   "claim": "The text uses the phrase \"interested parties\" — explicitly chosen as a synonym for \"stakeholders\" (Ch 1.1) — and partitions them into internal (employees, owners, managers, investors, shareholders) and external (customers, creditors, suppliers, distributors, society)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports it, but the deep ref does not carry the Ch 1.1 interested-parties passage, and this distillation's stakeholder map rests on it.",
+   "evidence": "Source 1163-1199 (Ch 1.1, 'How Marketing Benefits the Organization, Its Interested Parties, and Society'): interested parties 'can be categorized into two types: internal and external ... You may see these people and groups referred to as \"stakeholders\"'; internal = 'employees, owners, managers, and investors (shareholders)'; external = 'customers, creditors, suppliers, distributors, and even society at large'. No 'interested parties' anywhere in the deep ref.",
+   "fix": "cycle-to-deep: add to deep Part I a Ch 1.1 paragraph: 'Interested parties are those persons or entities that have an interest in the success or failure of a company' [V], split into internal (employees, owners, managers, investors/shareholders) and external (customers, creditors, suppliers, distributors, society), 'referred to as \"stakeholders\" in business writing' [V]. correct (line 8): 'explicitly chosen as a synonym' -> 'which the text notes are called \"stakeholders\" in business writing'."
+  },
+  {
+   "id": "T002",
+   "line": 30,
+   "section": "Key Concept 3 (Internal marketing); also line 8",
+   "claim": "Internal marketing. Promoting the objectives, products, and services of a company to its own employees — recognising employees as the first stakeholder group. (Source: Ch 1.1; Ch 13.5) / employees as internal customers (... Ch 13.5 internal marketing)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Mis-cited: Ch 13.5 (ethics in marketing communication) has no internal-marketing content. 'The first stakeholder group' is the distillation's flourish. The Ch 1.1 definition is source-supported, but the deep ref carries internal marketing only as a leg of the Service Marketing Triangle (Ch 11.2).",
+   "evidence": "Source 1185-1187 (Ch 1.1): 'Internal marketing involves promoting the objectives, products, and services of a company to its internal constituents—particularly employees.' grep 'internal marketing' in the source: 1185, 1193 (Ch 1.1), 22618 (Ch 11.2), none in Ch 13.5 (26861-27413). Deep 293: internal marketing as a Triangle leg.",
+   "fix": "correct: Internal marketing. Promoting the objectives, products, and services of a company to its internal constituents, particularly employees. (Source: Ch 1.1; Ch 11.2). In line 8, replace 'Ch 13.5 internal marketing' with 'Ch 1.1 internal marketing'. cycle-to-deep: add the Ch 1.1 definition to the deep ref."
+  },
+  {
+   "id": "T003",
+   "line": 8,
+   "section": "Relevance (also line 42, Key Concept 15)",
+   "claim": "the planet itself, treated as a stakeholder via the ESG framework (Ch 19) / Three pillars / ESG ... — the three groups of stakeholders sustainability serves",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source's three pillars are dimensions of sustainability, not stakeholder groups, and the planet is not in its stakeholder list.",
+   "evidence": "Deep 487: three pillars / 'planet, people, profits' = environmental, social, economic/governance. Deep 493, source 37793-37795: stakeholders = 'customers, shareholders, employees, vendors, interest groups, media, and the general public'.",
+   "fix": "correct (8): ... and, in the closing chapter, the environment as one of three sustainability pillars alongside social and economic/governance (Ch 19). correct (42): Environmental, social, economic/governance — the three dimensions sustainable marketing is measured against (Ch 19.1)."
+  },
+  {
+   "id": "T004",
+   "line": 32,
+   "section": "Key Concept 5 (CRM); also line 10",
+   "claim": "\"It's a two-way street that allows customers to define and consequently shape offerings in terms of their requirements.\" [V] (Source: Ch 1.6, \"The Role of CRM in Building Customer Equity\")",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The quotation is accurate but was re-extracted from the source: the deep ref does not carry it, and the protocol requires [V] text to be copied from the deep ref's audited passages.",
+   "evidence": "Source 2407-2411 (Ch 1.6, 'The Role of CRM in Building Customer Equity'): exact match. Deep 54: only the CRM definition, types and loyalty stats.",
+   "fix": "cycle-to-deep: add to deep Ch 1.6: 'CRM isn't a one-way communication street to customers. It's a two-way street that allows customers to define and consequently shape offerings in terms of their requirements' [V] (Ch 1.6, 'The Role of CRM in Building Customer Equity')."
+  },
+  {
+   "id": "T005",
+   "line": 10,
+   "section": "Relevance",
+   "claim": "with \"follow-up\" — the post-sale relationship-management step — explicitly called out as where the \"real work begins\"",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Source-supported quotation that the deep ref doesn't carry; it also lacks a [V] marker.",
+   "evidence": "Source 29738-29739 (Ch 15.3, 'Step 7: Follow-Up'): 'After the order is placed, the real work begins.' Deep 411: follow-up (lifetime customer value) only.",
+   "fix": "cycle-to-deep: add to deep Ch 15.3 step 7: 'After the order is placed, the real work begins' [V]. re-mark: [V] on the quoted phrase."
+  },
+  {
+   "id": "T006",
+   "line": 20,
+   "section": "Verbatim anchors (also line 22)",
+   "claim": "Kotler sustainable-marketing definition marked [V]; Costco 'Sustainability to us ...' marked [V]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Marker does not fit. Both are other parties' words the source relays: Kotler's, inside quotation marks, and Costco's. The contract assigns [BT]. The distillation's own line 212 lists Kotler as [BT]. The deep ref carries the same [V] (487, 493).",
+   "evidence": "Source 37655-37657: 'As defined by Philip Kotler ... \"the concept of sustainable marketing holds that an organization should meet the needs ...\"'. Source 37799-37800: 'Costco describes its sustainability agenda this way: \"Sustainability to us is ...\"'. Both quotations match word for word. 9-pass-protocol.md 173/177.",
+   "fix": "re-mark: [BT] on both (quotation text unchanged); cycle-to-deep: re-mark deep 21, 487 and 493 the same way."
+  },
+  {
+   "id": "T007",
+   "line": 39,
+   "section": "Key Concept 12 (Diversity marketing)",
+   "claim": "Diversity marketing as a culturally-responsive engagement strategy — acknowledging differences and validating individuals' importance. (Source: Ch 8.2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports it; the deep ref carries diversity marketing only as an adaptation strategy (Ch 8.1).",
+   "evidence": "Source 15818-15819 (Ch 8.2): 'Acknowledging consumers' differences and adopting tactics to meet each group's needs and preferences also validates individuals' importance in the market.' Deep 226.",
+   "fix": "cycle-to-deep: add to deep Ch 8.2: acknowledging consumers' differences and adopting tactics to meet each group's needs 'validates individuals' importance in the market' [V] (Ch 8.2)."
+  },
+  {
+   "id": "T008",
+   "line": 41,
+   "section": "Key Concept 14 (Stakeholder approach)",
+   "claim": "\"Sustainable marketing takes a 'stakeholder approach' and considers customers, shareholders, employees, vendors, interest groups, media, and the general public.\" (Source: Ch 19.2)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "A verbatim source sentence set in quotation marks with no [V] marker. By the protocol, unmarked quoted text reads as the distillation's own wording.",
+   "evidence": "Source 37793-37795: exact match. Deep 493 paraphrases it.",
+   "fix": "re-mark: [V]"
+  },
+  {
+   "id": "T009",
+   "line": 84,
+   "section": "Questions, Phase 4 (Employee satisfaction; also line 85, Empowerment)",
+   "claim": "Do company policies empower employees to deliver quality? / Can employees deviate from the script when serving the customer (the Zappos call-centre model)?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports both; the deep ref carries neither the employee-satisfaction/empowerment definition nor the Zappos no-script policy.",
+   "evidence": "Source 22439-22441 (Ch 11.2 'Employee Satisfaction'): satisfaction 'is often the direct result of company policies and support services that empower employees'. Source 1771-1774 (Ch 1.3): Zappos call-centre employees 'empowered to do \"whatever it takes\"', no scripts. Deep 291, 545: no such content.",
+   "fix": "cycle-to-deep: add both passages (Ch 11.2 employee-satisfaction definition; Ch 1.3 Zappos call-centre policy) to the deep ref."
+  },
+  {
+   "id": "T010",
+   "line": 96,
+   "section": "Questions, Phase 5 (Ask stage)",
+   "claim": "Are we responsive within the 30–60-minute window consumers expect?",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overstates a survey result as a universal expectation, and the deep ref doesn't carry it. The source reports that 42 per cent expect a reply within 60 minutes and 32 per cent within 30.",
+   "evidence": "Source 2544-2546 (Ch 1.7): '42 percent of consumers expect a response within 60 minutes and 32 percent expect a response within 30 minutes.' Not in deep.",
+   "fix": "correct: Are we answering fast enough? (The source cites research that 42 per cent of consumers expect an email reply within 60 minutes and 32 per cent within 30, Ch 1.7.) cycle-to-deep: add the statistic to deep Ch 1.7."
+  },
+  {
+   "id": "T011",
+   "line": 107,
+   "section": "Questions, Phase 6 (Channel-member relationships; also line 109, Channel partner motivation)",
+   "claim": "collaborative, transparent, cohesive relationships with intermediaries / bonuses, incentives, sales materials, samples, training, dealer conferences",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports both (Ch 17.4 'Managing and Motivating Channel Members'), but the deep ref carries no Ch 17.4 management/motivation content.",
+   "evidence": "Source 34317-34328: 'The qualities of an effective channel relationship include collaboration, transparency, and cohesion'; incentives 'such as bonuses', 'helpful sales materials, product samples'. Deep 449 covers only channel conflict; deep 417 has dealer conferences (Ch 15.6).",
+   "fix": "cycle-to-deep: add to deep Ch 17.4: effective channel relationships show 'collaboration, transparency, and cohesion' [V]; manufacturers reinforce performance with incentives such as bonuses, sales materials and product samples."
+  },
+  {
+   "id": "T012",
+   "line": 118,
+   "section": "Questions, Phase 7 (Compliance)",
+   "claim": "Are we meeting FTC, FCC, FDA, CAN-SPAM Act, GDPR, FCPA, and other regulatory requirements",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "The source never mentions GDPR. The other five check out.",
+   "evidence": "grep 'GDPR' / 'General Data Protection' in the source: no hits. Deep 389: FTC, FCC, FDA, CAN-SPAM; deep 136: FCPA.",
+   "fix": "correct: Are we meeting FTC, FCC, FDA, CAN-SPAM Act, FCPA, and other regulatory requirements"
+  },
+  {
+   "id": "T013",
+   "line": 172,
+   "section": "Worked Example (multicultural)",
+   "claim": "acculturation-spectrum: most second-generation members will be bicultural; first-generation more likely to need Spanish primary",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Loosens and relabels the source. The source says a person born in the US to immigrant parents is 'more likely to be acculturated than unacculturated' ('acculturated', not 'bicultural', and not 'most'), and that unacculturated Hispanic consumers are more likely to support Spanish-language advertising. The deep ref carries neither statement.",
+   "evidence": "Source 16680-16687 (Ch 8.4 'The Acculturation Spectrum'). Deep 248: acculturation definition; bicultural = merging both cultures; unacculturated Hispanic consumers favour Spanish-language advertising.",
+   "fix": "correct: (acculturation spectrum: members born in the US to immigrant parents are more likely to be acculturated than not; unacculturated Hispanic members are more likely to respond to Spanish-language outreach, Ch 8.4). cycle-to-deep: add the birthplace sentence to deep Ch 8.4."
+  },
+  {
+   "id": "T014",
+   "line": 172,
+   "section": "Worked Example (multicultural)",
+   "claim": "Avoid stereotypes (the Burger King Texican Whopper failure mode).",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Correctly attached here, but the example is not in the deep ref.",
+   "evidence": "Source 16217-16232 (Ch 8.3): the Texican Whopper ads were redone; 'insights about the distaste for stereotypes ... could have prevented this situation'. Not in deep.",
+   "fix": "cycle-to-deep: add the Texican Whopper example to deep Ch 8.3 under the cultural iceberg."
+  },
+  {
+   "id": "T015",
+   "line": 182,
+   "section": "Worked Example (closing note)",
+   "claim": "... are all [AP]-marked passages in the deep ref. No verbatim source blockquotes appear in this distillation.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Both halves are false. Most of the cited deep passages carry no marker, and the ESG passage is [V]. The distillation has [V] quotations at lines 10, 16-24 and 32.",
+   "evidence": "Deep 128 (buying centre), 291 (service-profit chain), 293 (Triangle), 379 (IMC, 5A): no marker; deep 487 (ESG): [V]; deep 232-248 (Ch 8.4): mixed [V]. Distillation lines 10, 16, 18, 20, 22, 24, 32: [V].",
+   "fix": "correct: The worked example's framework citations trace to the deep ref (mostly unmarked summary passages; the ESG definition is [V]). The worked example itself quotes no source text."
+  },
+  {
+   "id": "T016",
+   "line": 190,
+   "section": "Anti-patterns (PR-crisis denial)",
+   "claim": "PR-crisis denial — defending the indefensible (Toyota acceleration; Pepsi Kendall Jenner; Nivea \"White Is Purity\").",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Nivea did not defend its campaign: the source says it apologized and removed it. The source presents Pepsi as a diversity-marketing misstep that drew backlash, not a denial (the Pepsi case is not in the deep ref). Only Toyota fits.",
+   "evidence": "Source 13720-13726 (Ch 7.1): Nivea 'apologized and removed the campaign'. Source 15870-15875 (Ch 8.2): Pepsi's campaign 'received heavy backlash ... described as insensitive and offensive'; note 12 is headlined 'Pepsi Pulls Controversial Kendall Jenner Ad'. Deep 86: Toyota as the cost of cover-up (Ch 2.5).",
+   "fix": "correct: *PR-crisis denial* — defending the indefensible (Toyota's unintended-acceleration cover-up and $1.2 billion fine, Ch 2.5). Move Pepsi and Nivea to a separate anti-pattern: *Culturally insensitive campaigns that reach the public* (Nivea 'White Is Purity', Ch 7.1; Pepsi's Kendall Jenner ad, Ch 8.2)."
+  },
+  {
+   "id": "T017",
+   "line": 201,
+   "section": "Integration (Organizational Behavior row)",
+   "claim": "The service-profit chain is parallel to the OB literature on engagement, with Argyris's basic-incongruity thesis lurking beneath the internal service quality link.",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The OB deep ref has no engagement literature. Its match is job satisfaction and organisational commitment. The Argyris part checks out.",
+   "evidence": "OB deep 89-91 (job satisfaction, organisational commitment, Ch 3.5); OB deep 53-55 (Argyris, Ch 2.5). 'engagement' only incidental in OB deep (554, 740).",
+   "fix": "correct: The service-profit chain's employee-satisfaction link parallels OB's treatment of job satisfaction and organisational commitment (Ch 3.5), with Argyris's basic-incongruity thesis (Ch 2.5) beneath the internal-service-quality link."
+  },
+  {
+   "id": "T018",
+   "line": 204,
+   "section": "Integration (Hall row)",
+   "claim": "Used directly in multicultural marketing (Ch 8.3) — half of cultural meaning is below the waterline.",
+   "grade": "CONTRADICTED",
+   "failure_mode": "Wrong figure. The source's iceberg has 90 per cent of the mass below the waterline.",
+   "evidence": "Deep 238: '90 per cent of mass beneath' [BT] (Ch 8.3). Source 16198: 'Did you know that 90 percent of an iceberg's mass is hidden below the waterline?'",
+   "fix": "correct: Used directly in multicultural marketing (Ch 8.3) — most of culture, like 90 per cent of an iceberg's mass, sits below the waterline."
+  },
+  {
+   "id": "T019",
+   "line": 205,
+   "section": "Integration (Stakeholder theory row)",
+   "claim": "Stakeholder theory (R. Edward Freeman) | Not cited explicitly but operationally adopted in Ch 19.2",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "A lineage claim the marketing deep ref does not support ('operationally adopted'). The row names an author as if from outside the corpus, when the corpus holds Freeman's stakeholder theory in Principles of Management.",
+   "evidence": "Marketing deep 493: 'stakeholder approach', a list of groups, no theory cited. openstax-principles-management-deep 263: stakeholder theory [V, citing Freeman] with eight stakeholder-analysis questions (Ch 5.6).",
+   "fix": "correct: Stakeholder theory (Freeman; held via *Principles of Management*, Ch 5.6) | This source does not cite it; its 'stakeholder approach' (Ch 19.2) lists stakeholder groups without theory. Principles of Management supplies the theory and eight stakeholder-analysis questions."
+  },
+  {
+   "id": "T020",
+   "line": 207,
+   "section": "Integration (Ries & Trout row; also line 216)",
+   "claim": "Cited verbatim — the conceptual backbone of how to position engagement in stakeholders' minds (Ch 5.6). / conceptual backbone of stakeholder positioning (Ch 5.6) [BT]",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Overclaim and reframing. The source quotes Ries and Trout once, about product positioning in the customer's mind; nothing in the source extends it to stakeholder engagement.",
+   "evidence": "Source 10852-10860: Product positioning and STP, then one Ries & Trout quotation (note 61). Deep 17, 539.",
+   "fix": "correct: Cited once, verbatim, for the positioning thesis (Ch 5.6): positioning works on 'what's already up there in the mind'. Extending it to non-customer stakeholders is this distillation's inference."
+  },
+  {
+   "id": "T021",
+   "line": 229,
+   "section": "Citation notes, Evidence-marker continuity",
+   "claim": "The deep reference ... uses [V], [AP], [AR], [AE], and [BT] markers inline throughout (21 [BT] markers) ... The product-driven and shareholder-only critiques are [AR].",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "Misreports the deep ref's markers. It contains no [AR] and no [AE]; the critiques at deep 557 and 564 are unmarked. The 21 [BT] count is correct.",
+   "evidence": "Marker count in openstax-principles-marketing-deep.md: [V] 112, [AP] 20, [AR] 0, [AE] 0, [BT] 21.",
+   "fix": "correct: The deep reference uses [V], [AP] and [BT] markers (21 [BT]). ... The product-driven and shareholder-only critiques are unmarked summary in the deep ref's 'Positions the text explicitly frames against'."
+  },
+  {
+   "id": "T022",
+   "line": 229,
+   "section": "Citation notes, Evidence-marker continuity",
+   "claim": "The Burger King, Toyota, Pepsi, Nivea, and Walmart anti-pattern examples are [AE] in the deep ref (author examples).",
+   "grade": "UNSUPPORTED",
+   "failure_mode": "The deep ref has no [AE] markers, and two of the five examples (Burger King, Pepsi) do not appear in it at all.",
+   "evidence": "grep deep ref: no 'Burger King', 'Texican', 'Pepsi' + 'Kendall'; no [AE]. Toyota (86), Nivea (198) and Walmart (501, 566) appear unmarked.",
+   "fix": "correct: Toyota, Nivea and Walmart are examples the deep ref records (unmarked); Burger King's Texican Whopper and Pepsi's Kendall Jenner ad come from the source (Ch 8.3, Ch 8.2) and need cycling into the deep ref."
+  },
+  {
+   "id": "T023",
+   "line": 77,
+   "section": "Questions, Phase 3 (Choose social media platform)",
+   "claim": "Instagram (under 30)",
+   "grade": "MINOR-DRIFT",
+   "failure_mode": "The source supports it, but the deep ref's Ch 16.2 platform notes do not carry the under-30 point.",
+   "evidence": "Source 31893-31894 (Ch 16.2): 'In segments under the age of 30, the most popular platforms are Instagram, Snapchat, and TikTok.' Deep 427: Instagram 1 billion monthly active, no age note.",
+   "fix": "cycle-to-deep: add to deep Ch 16.2: 'In segments under the age of 30, the most popular platforms are Instagram, Snapchat, and TikTok' [V]."
+  }
+ ],
+ "notes": "derived-from-deep sha256 matches the current deep ref. All [V] quotations match the converted source word for word after normalisation (2215, 2311, 37656, 37800, 33356, 2411). The distillation leans on source passages the deep ref never carried: Ch 1.1 interested parties and internal marketing, the Ch 1.6 CRM 'two-way street', the Ch 15.3 'real work begins', the Ch 17.4 channel-management qualities, the Ch 1.7 response-time statistic, the Ch 8.3 Texican Whopper, and the Ch 8.4 acculturation-by-birthplace sentence. That means the projection re-read the source (a protocol breach), and the deep ref's coverage of Ch 1.1 and Ch 17.4 is thin; T001-T014 and T023 carry cycle-to-deep fixes. Multi-claim findings: T001, T002, T003, T004, T006, T009, T011, T015 and T020 count two claims each. Checked and faithful: exchange-process components (buyer, desired object, seller: source 2219-2238); Gap 4 = communication gap (source 22729); crisis communication in Ch 14.4 (source 28178); the Bombas give-with-purchase framing (source 38146-38149); the HUD-Facebook, Toyota, Tylenol, Walmart and Patagonia examples; the Hofstede count note (deep 574); and every borrowed-through entry except Ries & Trout (Kotler, AMA, Hofstede, PZB, Hall, Hsieh, Transparency International, Chouinard). Kotler and AMA are [V] in the deep but [BT] here; the source relays their words, so [BT] fits the marker contract, and this is not graded."
+}

@@ -1,0 +1,200 @@
+{
+  "distillation": "corpus.commons/demo/distillations/aar/approach-perfect-field-guide-scrum-events-aar.md",
+  "auditor": "opus",
+  "read_coverage": {"distillation": "lines 1-125 of 125", "deep": "lines 1-367 of 367", "complete": true},
+  "claims_audited": 81,
+  "tally": {"faithful": 62, "minor_drift": 11, "unsupported": 7, "contradicted": 1},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "This source is a Sprint Retrospective guide first",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "mischaracterises the source's scope",
+      "evidence": "Deep 7: a guide with one section per Scrum event (Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective, Backlog Refinement) under a uniform template; the retrospective is one of six sections, not the primary one. Deep 11: positions itself as the 'bare minimum' to bootstrap all five events plus Backlog Refinement.",
+      "fix": "correct: This source is a field guide to all five Scrum events plus Backlog Refinement; its AAR projection runs mainly through the Sprint Retrospective section and is by adaptation rather than by design."
+    },
+    {
+      "id": "D002",
+      "line": 8,
+      "section": "AAR Relevance",
+      "claim": "The source also carries a quiet action-loop-closure pattern: the retro-close reads back commitments, names owners, names when each lands",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "invented source content",
+      "evidence": "Deep 232 / source 750-752: the 5-minute 'Wrap up' is a round of appreciations plus 'retrospecting on the retrospective. How did it go for the team? What would they like to try next time?' Nothing in the deep ref or source mentions reading back commitments, naming owners, or naming dates. Improvements are captured as Backlog Items (deep 210, 230).",
+      "fix": "strip"
+    },
+    {
+      "id": "D003",
+      "line": 22,
+      "section": "Key Concepts for AAR",
+      "claim": "Forecasting uses \"the average of the last 3–4 sprint's Capacity-adjusted Velocity adjusted for current and forecasted Capacity.\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim source words quoted without an evidence marker (reads as the distillation's own wording)",
+      "evidence": "Deep 95 carries this passage as [V]; source 271-272 matches word for word.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D004",
+      "line": 28,
+      "section": "Key Concepts for AAR",
+      "claim": "Retro close — read back commitments with names and dates. The wrap-up segment reads back commitments, names owners, and names when each lands. (Source: Gagné, Field Guide, Sprint Retrospective, 'Sample 1½-Hour Sprint Retrospective Agenda')",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "content attributed to a cited section that does not contain it",
+      "evidence": "Deep 232 / source 750-752: the wrap-up is appreciations plus a meta-retrospective ('How did it go for the team? What would they like to try next time?'). No owners, no dates, no read-back.",
+      "fix": "correct: **Retro wrap-up — retrospect on the retrospective.** The wrap-up closes with appreciations and a few minutes 'retrospecting on the retrospective. How did it go for the team? What would they like to try next time?' [V] (Source: Gagné, Field Guide, Sprint Retrospective, 'Sample 1½-Hour Sprint Retrospective Agenda'). In AAR terms: close by reviewing the review itself."
+    },
+    {
+      "id": "D005",
+      "line": 32,
+      "section": "Key Concepts for AAR",
+      "claim": "Manager-speaks-last convention ... In AAR context: rank should not pre-empt perspective; whoever holds the local account should speak before the person with authority over the outcome.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "concept not in the source, hung on an accurate but unrelated quotation",
+      "evidence": "The quoted text (deep 68, source 215-217) is about non-Scrum-Team invitees not interfering with the team's process in Sprint Planning. The deep ref says nothing about rank, speaking order, or managers speaking last. Rank-consciousness guidance lives in TC 25-20 (tc-25-20 deep 221, 257: higher-echelon leaders seated to the flanks and rear so the atmosphere is 'not one stifled by rank consciousness').",
+      "fix": "correct: **Non-team attendees support, they do not steer.** Non-team participants 'must understand that this is not their event and they may not interfere with the team's process, only support the team.' [V] (Source: Gagné, Field Guide, Sprint Planning, 'Participants'). In AAR context: observers and sponsors attend on the team's terms. (For rank-ordering of voices, see TC 25-20, App A.)"
+    },
+    {
+      "id": "D006",
+      "line": 50,
+      "section": "Questions to Ask During AAR — Phase 1",
+      "claim": "Preventing rank from closing down accounts: Who in the room holds authority over the outcome being reviewed? Are they speaking last, not first?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "applied question rests on the unsupported manager-speaks-last concept (D005)",
+      "evidence": "No deep-ref passage on rank or speaking order. The nearest source content is the non-interference rule (deep 68, 126) and the retro invitation rule (deep 199).",
+      "fix": "strip, or re-tag the row to TC 25-20 (App A, rank consciousness)"
+    },
+    {
+      "id": "D007",
+      "line": 71,
+      "section": "Questions to Ask During AAR — Phase 5",
+      "claim": "Has each action been read back with a named owner and a named date?",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "applied question rests on the unsupported retro-close concept (D002/D004); the decisions-vs-actions half is supported",
+      "evidence": "Deep 230: decisions vs actions supported. Deep 232: wrap-up carries no owner/date read-back.",
+      "fix": "correct: Has each improvement been captured in the right mechanism — decisions as changes to the working agreement or definitions, actions as new backlog items? Did we spend the last minutes retrospecting on the review itself?"
+    },
+    {
+      "id": "D008",
+      "line": 80,
+      "section": "What to Look For",
+      "claim": "Signal: A senior voice speaks first in timeline reconstruction; Diagnosis: Rank has anchored the account before all perspectives are on the table",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "diagnostic pattern with no trace in the deep ref",
+      "evidence": "Deep ref has no content on rank, seniority, or speaking order. The pattern belongs to TC 25-20 (tc-25-20 deep 221, 257).",
+      "fix": "strip"
+    },
+    {
+      "id": "D009",
+      "line": 81,
+      "section": "What to Look For",
+      "claim": "Signal: An action is described as belonging to 'the team'; Diagnosis: No individual owns it; it will not happen; Follow-up: Require a named individual and a named date",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "diagnostic pattern with no trace in the deep ref; sits uneasily with the source's team-level ownership",
+      "evidence": "Deep 230: actions 'are simply new Backlog Items' on the team's backlog; deep 30: the self-organizing Scrum Team is responsible, with no sub-teams; deep 106: the Development Team divides work 'as they see fit'. Nothing requires a named individual or date.",
+      "fix": "strip"
+    },
+    {
+      "id": "D010",
+      "line": 87,
+      "section": "When to Use This Reference",
+      "claim": "the Prime Directive is the only such verbatim text [a verbatim, blameless-by-default commitment the group can read aloud and own] in the demo corpus",
+      "grade": "CONTRADICTED",
+      "failure_mode": "false claim about the corpus",
+      "evidence": "lfuo-learning-review-guide-2024 deep 119-130 carries ten verbatim 'Principles and Agreements for All Involved in the Facilitation', including 'Learning for future events is more important than assessing past blame' and 'We all make mistakes—it's inevitable'. TC 25-20 deep 121 carries verbatim 'An AAR is not a critique ... does not grade success or failure'. The Relevance paragraph's narrower claim ('from the retro-methodology tradition') holds; this unqualified one does not.",
+      "fix": "correct: The AAR opener needs a short verbatim, blameless-by-default statement the group can read aloud and own — the Prime Directive is the retro tradition's version (LFUO's ten Principles and Agreements are the learning-review version)."
+    },
+    {
+      "id": "D011",
+      "line": 91,
+      "section": "When to Use This Reference",
+      "claim": "Phase 5 needs a close discipline: reading back commitments with names and dates.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "routes to the source for content it does not hold (see D002)",
+      "evidence": "Deep 232: wrap-up is appreciations plus meta-retrospective only.",
+      "fix": "strip"
+    },
+    {
+      "id": "D012",
+      "line": 106,
+      "section": "Anti-patterns This Reference Helps Avoid",
+      "claim": "Allowing the most senior person in the room to speak first and anchor the account before others share their perspective.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "anti-pattern the source does not address",
+      "evidence": "No deep-ref content on seniority or speaking order (see D005, D008).",
+      "fix": "strip"
+    },
+    {
+      "id": "D013",
+      "line": 114,
+      "section": "Integration with Other References",
+      "claim": "this source provides the blameless-by-default language and confidentiality mechanisms TC 25-20 assumes but does not name verbatim",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "overstates the gap in the other reference",
+      "evidence": "tc-25-20 deep 15, 121: verbatim 'An AAR is not a critique. No one, regardless of rank, position, or strength of personality, has all of the information or answers ... An AAR does not grade success or failure.' Deep 167: separate leader AARs so participants speak 'without fear of airing dirty laundry in front of outsiders'. Deep 221/257: rank-consciousness seating rule. TC names non-judgement verbatim; what it lacks is the Prime Directive's good-faith assumption and an explicit confidentiality rule.",
+      "fix": "correct: TC 25-20 provides the full AAR protocol and its own verbatim non-critique and no-grading rules; this source adds the Prime Directive's good-faith assumption and two explicit confidentiality rules (Vegas, Chatham House) that TC 25-20 does not name."
+    },
+    {
+      "id": "D014",
+      "line": 116,
+      "section": "Integration with Other References",
+      "claim": "LS provides the conversation structures (1-2-4-All, Discovery & Action Dialogues)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "wrong concept name for the other reference",
+      "evidence": "liberating-structures-handbook deep 7 names the structure '1-2-4-Whole Group'; '1-2-4-All' does not appear in that deep ref. Discovery & Action Dialogues is present (deep 83).",
+      "fix": "correct: (1-2-4-Whole Group, Discovery & Action Dialogues)"
+    },
+    {
+      "id": "D015",
+      "line": 117,
+      "section": "Integration with Other References",
+      "claim": "OB names the cognitive dynamics (conformity, anchoring, attribution bias)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "one of three named concepts absent from the other reference",
+      "evidence": "openstax-organizational-behavior deep 81 (attribution biases) and 294 (Asch conformity) support two; 'anchoring' as a cognitive bias does not appear in the OB deep ref (grep 'anchor' finds only unrelated uses).",
+      "fix": "correct: OB names the social and perceptual dynamics (conformity, attribution bias)"
+    },
+    {
+      "id": "D016",
+      "line": 121,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The Scrum Guide is cited as the source of the three Daily Scrum questions; the Scrum Guide is held separately in this corpus.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "borrowed-through chain implied to close when it does not",
+      "evidence": "The corpus holds scrum-guide-2020. Its deep ref (141) says the Guide lets Developers 'select whatever structure and techniques they want'; the three questions do not appear in it. The Field Guide's three-questions device comes from an earlier Scrum Guide edition not held here.",
+      "fix": "correct: The Scrum Guide is cited as the source of the three Daily Scrum questions; the corpus holds the 2020 edition, which no longer prescribes them, so this chain is not closed by a held reference."
+    },
+    {
+      "id": "D017",
+      "line": 123,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The source explicitly limits itself to \"the 'bare minimum' instruction required to successfully bootstrap the five standard Scrum Events and Backlog Refinement.\" (no marker)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "verbatim source words quoted without an evidence marker",
+      "evidence": "Deep 13 carries this as [V]; source 5-6 matches.",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D018",
+      "line": 123,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "adaptations to cross-functional, non-software, or one-off AAR contexts are operator-applied, not source-endorsed",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "lists as out-of-scope a context the source explicitly covers",
+      "evidence": "Deep 30 / source 97-99: the source's Development Team is 'the cross-functional Development Team'. Cross-functional teams are the source's default, not an adaptation.",
+      "fix": "correct: adaptations to non-software, cross-team, or one-off AAR contexts are operator-applied, not source-endorsed"
+    },
+    {
+      "id": "D019",
+      "line": 125,
+      "section": "Citation and Source-Integrity Notes",
+      "claim": "The rarely-surprised tip is [V] in the deep ref; the distillation paraphrases it in Concept 3.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "evidence-marker continuity note misdescribes the distillation",
+      "evidence": "Distillation line 16 (Concept 3) quotes the tip word for word with a [V] marker; it does not paraphrase it.",
+      "fix": "correct: The rarely-surprised tip is [V] in the deep ref; the distillation quotes it verbatim with [V] in Concept 3."
+    }
+  ],
+  "notes": "Deep ref and converted source (923 lines) both read in full; every [V] quotation in the distillation was checked against the source and matches (the Prime Directive, Vegas/Chatham House, surprise tip, one-or-two, WIP-liability, 30-minute review, invitation rule, non-interference rule, estimate-defects). The main failure is one invented source feature — a commitment read-back with owners and dates at the retro close — which propagates through Relevance, Concept 9, the Phase 5 question, When-to-Use and the worked-example framing; and one imported concept (manager speaks last / rank anchoring) that belongs to TC 25-20, not this source, and propagates through Concept 11, a Phase 1 question, a What-to-Look-For row and an anti-pattern. The claim that the author is the corpus operator is not in the deep ref but is provenance, not source content; left FAITHFUL. Concept 1 marks the Prime Directive [BT] and the Phase 1 table marks the same text [V]; both fit (verbatim in source, relayed from Kerth)."
+}

@@ -1,0 +1,219 @@
+{
+  "distillation": "corpus.commons/demo/distillations/retro/org-topologies-primer-2025-retro.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-164 of 164",
+    "deep": "lines 1-299 of 299",
+    "complete": true
+  },
+  "claims_audited": 104,
+  "tally": {
+    "faithful": 84,
+    "minor_drift": 14,
+    "unsupported": 5,
+    "contradicted": 1
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 12,
+      "section": "Retro Relevance",
+      "claim": "\"A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] passage carried without its marker.",
+      "evidence": "Deep 250 (p. 4, \"The Hidden Complexities of Org Change\") [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D002",
+      "line": 14,
+      "section": "Retro Relevance",
+      "claim": "\"going to the hands-on workplace to understand how the units work\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim deep-ref [V] fragment carried without its marker.",
+      "evidence": "Deep 128 (p. 16, \"MADE Real: (1) MAP\") [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D003",
+      "line": 22,
+      "section": "Key Concepts, 2",
+      "claim": "Liberating Structures' 15% Solutions ask \"what can you do within your locus of control?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Put in quotation marks as if it were LS's wording; the LS deep ref gives a different question and never says 'locus of control'.",
+      "evidence": "liberating-structures-handbook-deep 101: diagnostic question \"Where do you have freedom to act? What's in your 15%?\" [V] (15% Solutions).",
+      "fix": "correct: Liberating Structures' 15% Solutions ask \"Where do you have freedom to act? What's in your 15%?\""
+    },
+    {
+      "id": "D004",
+      "line": 24,
+      "section": "Key Concepts, 3",
+      "claim": "\"A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged.\" ... The Primer's warning gives the team a name for the failure mode and a clear escalation criterion.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim [V] passage without its marker; and the Primer does not supply an escalation criterion, only the warning.",
+      "evidence": "Deep 250 (p. 4) [V]; no escalation criterion in deep 1-299.",
+      "fix": "re-mark: [V]; correct: The Primer's warning gives the team a name for the failure mode; when to escalate is the team's call."
+    },
+    {
+      "id": "D005",
+      "line": 26,
+      "section": "Key Concepts, 4",
+      "claim": "\"The Directing Archetypes... treat the Doing Archetypes as 'resources,' matching skill demand with skill supply.\" (p. 11)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Quotation re-extracted from the source; the deep reference does not carry it. Unmarked.",
+      "evidence": "Converted source 618-620 (p. 11): 'The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as “resources,” matching skill demand with skill supply.' Deep 100 omits it.",
+      "fix": "cycle-to-deep: add to deep 'Resource Topology' paragraph: \"The Directing Archetypes in the upper left quadrant treat the Doing Archetypes as 'resources,' matching skill demand with skill supply.\" [V] (p. 11, \"Resource Topology\"); then re-mark: [V]"
+    },
+    {
+      "id": "D006",
+      "line": 30,
+      "section": "Key Concepts, 6",
+      "claim": "\"going to the hands-on workplace to understand how the units work\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim [V] fragment without its marker.",
+      "evidence": "Deep 128 (p. 16) [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D007",
+      "line": 32,
+      "section": "Key Concepts, 7",
+      "claim": "\"Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop of feedback and adapting.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim [V] passage without its marker.",
+      "evidence": "Deep 154 and 228 (p. 19) [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D008",
+      "line": 36,
+      "section": "Key Concepts, 9",
+      "claim": "is structurally identical to the retro experiment discipline ... The Primer endorses the retro shape from the org-design side",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Attributes an endorsement of retrospectives to the Primer. The Primer frames Elevating Katas as thoughtful experiments and elevation as incremental; it says nothing about retros.",
+      "evidence": "Deep 152 (p. 19): Katas 'can be applied as thoughtful experiments'; deep 154: 'Elevation can be an incremental process'. No retrospective content in deep 1-299.",
+      "fix": "correct: This matches the retro experiment discipline (one or two owned experiments per retro, with hypotheses and check-points): the Primer, from the org-design side, frames structural change as thoughtful experiments and incremental elevation (p. 19)."
+    },
+    {
+      "id": "D009",
+      "line": 38,
+      "section": "Key Concepts, 10",
+      "claim": "\"Implementing an industry-standard management framework is key to success... is the pitch from consulting companies big and small.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Splices two sentences into one the Primer did not write (drops 'Framework thinking assumes that' and 'This'), and carries no marker.",
+      "evidence": "Deep 181 (p. 22): \"Framework thinking assumes that implementing an industry-standard management framework is key to success. This is the pitch from consulting companies big and small\" [V].",
+      "fix": "correct: \"Framework thinking assumes that implementing an industry-standard management framework is key to success. This is the pitch from consulting companies big and small\" [V]"
+    },
+    {
+      "id": "D010",
+      "line": 40,
+      "section": "Key Concepts, 11",
+      "claim": "OT's strategic-AI stance gives the team a productive frame: the team is becoming the monitoring-and-elevation layer that the AI agents need, rather than being replaced by them.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The Primer predicts monitoring will be an important human responsibility; it makes no claim that teams will not be replaced, and elsewhere says 'Spin up another 10,000 agents'.",
+      "evidence": "Deep 168 (p. 20): 'We predict that monitoring will become an important responsibility for human workers.' Deep 170 (p. 21): 'The small number of existing front-end designers and developers joining the new CAPS-3 teams will be trained in agent monitoring'. Deep 160: 'Spin up another 10,000 agents.'",
+      "fix": "correct: OT's strategic-AI stance gives the team a frame: the Primer predicts monitoring AI agents becomes an important human responsibility, and in its pet-supply example the existing specialists take that role (pp. 20-21)."
+    },
+    {
+      "id": "D011",
+      "line": 42,
+      "section": "Key Concepts, 12",
+      "claim": "\"A co-creating end-to-end team is not just about speed and flow.\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Verbatim [V] passage without its marker.",
+      "evidence": "Deep 198 (p. 27, \"Closing note\") [V].",
+      "fix": "re-mark: [V]"
+    },
+    {
+      "id": "D012",
+      "line": 69,
+      "section": "Questions, Phase 3, 'Detect the topology-mismatch pattern'",
+      "claim": "An Adaptive-Topology-variance pattern (we're delivering high-variance results because the variance is structurally accommodated)?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Invented pattern: the Primer never describes the Adaptive Topology as accommodating variance that produces problems.",
+      "evidence": "Deep 104-106, 112-115 (pp. 13-14): Adaptive = adaptiveness, outcome, innovation, low dependencies; no variance claim.",
+      "fix": "strip: the Adaptive-Topology-variance clause"
+    },
+    {
+      "id": "D013",
+      "line": 87,
+      "section": "Questions, Phase 0.5, 'Reframe from team-failure to structural-constraint'",
+      "claim": "The Primer's single-team-island warning is the named pattern.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Stretches the Primer's warning (a single team cannot reach its full potential in an unchanged surround) into a named pattern for experiments that fail to take hold.",
+      "evidence": "Deep 250 (p. 4).",
+      "fix": "correct: The Primer's single-team warning applies: a team cannot deliver its full potential while the surrounding structures and processes stay the same."
+    },
+    {
+      "id": "D014",
+      "line": 95,
+      "section": "Questions, Phase 5, 'Test for drift toward Resource framing'",
+      "claim": "That is the named drift pattern.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Primer names no drift pattern.",
+      "evidence": "No drift or regression content in deep 1-299; deep 148-154 cover elevation and re-mapping only.",
+      "fix": "strip: \"That is the named drift pattern.\""
+    },
+    {
+      "id": "D015",
+      "line": 127,
+      "section": "Worked Example, Phase 4",
+      "claim": "a precise request — a structural experiment to pilot end-to-end CAPS-2 coverage for one capability area",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Wrong archetype code: the Primer defines CAPS-2 as multi-skilled yet incomplete; end-to-end at the capability level is CAPS-3, which the example itself names two paragraphs earlier as the work-demanded archetype.",
+      "evidence": "Deep 57 (p. 5): 'CAPS-2—multi-skilled yet incomplete, lacking certain capabilities'; deep 15: horizontal level 3 = End-to-End; distillation line 123 sets the target as 'CAPS-3 (end-to-end capability ownership)'.",
+      "fix": "correct: a structural experiment to pilot end-to-end CAPS-3 coverage for one capability area"
+    },
+    {
+      "id": "D016",
+      "line": 151,
+      "section": "Integration, Approach Perfect Field Guide",
+      "claim": "The Field Guide's 5-segment Derby-Larsen retro structure is the host methodology",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Wrong count: the Field Guide's sample agenda has six named segments, and it is 'based on' Derby-Larsen rather than being their structure.",
+      "evidence": "approach-perfect-field-guide-scrum-events-deep 216: 'Six named segments totalling 90 minutes'; 242: 'The sample Sprint Retrospective agenda is based on Esther and Diana's b[ook]'.",
+      "fix": "correct: The Field Guide's six-segment sample retro agenda (based on Derby and Larsen) is the host methodology"
+    },
+    {
+      "id": "D017",
+      "line": 160,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "The Primer references Larman's Laws of Organizational Behavior by name as context for org-change resistance",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "False claim about the source: the Primer never mentions Larman's Laws.",
+      "evidence": "No 'Larman's Law' in deep 1-299 or in converted source 1-1582 (grep).",
+      "fix": "strip"
+    },
+    {
+      "id": "D018",
+      "line": 160,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "Open Kanban's Holistic-Systemic value and the Goldratt borrowed-through ... are invoked by OT at the theoretical level but those works are not cited in the Primer's bibliography",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The Primer does not invoke Open Kanban or Goldratt, and it has no bibliography. The distillation brought in Open Kanban; the Primer did not.",
+      "evidence": "No 'Kanban' or 'Goldratt' in converted source 1-1582 (grep) or in deep 1-299. Open Kanban's Deming/Goldratt line is open-kanban-deep 52.",
+      "fix": "correct: The distillation pairs the Primer with Open Kanban's Holistic-Systemic value (which borrows 'no single part of a system can ever bring overall improvement' from Deming and Goldratt); the Primer itself cites neither. The Primer's own borrowed-through references are Toyota (kata, p. 19), Scrum's Definition of Done (p. 6), systems thinking (p. 16), and the framework list on p. 22."
+    },
+    {
+      "id": "D019",
+      "line": 160,
+      "section": "Citation notes, Borrowed-through gaps",
+      "claim": "The Liberating Structures 15% Solutions practice is named without a direct Lipmanowicz-McCandless citation [BT].",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Placed among the Primer's borrowed-through gaps, but the Primer never names 15% Solutions; only this distillation does.",
+      "evidence": "No '15%' in converted source 1-1582 (grep) or deep 1-299.",
+      "fix": "strip"
+    },
+    {
+      "id": "D020",
+      "line": 164,
+      "section": "Citation notes, Evidence-marker continuity",
+      "claim": "The archetype axis descriptions (TASKS-1/2, CAPS-2/3) are `[V]` in the deep ref (pp. 5–7)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: pp. 6-7 carry the level descriptions, not the archetype codes. TASKS-1 and CAPS-2 appear in the p. 5 [V] sentence, TASKS-2 on p. 16, CAPS-3 only in the p. 21 pet-supply example. The note also claims the p. 4 and p. 16 [V] quotes are carried, but lines 12, 24 carry the p. 4 quote unmarked.",
+      "evidence": "Deep 29-49 (pp. 6-7 level descriptions), 57 (p. 5), 130 (p. 16), 170 (p. 21).",
+      "fix": "correct: The archetype codes come from the deep ref's [V] passages on p. 5 (CAPS-2, TASKS-1), p. 16 (TASKS-2) and p. 21 (CAPS-3); the axis levels are [V, AE] on pp. 6-7."
+    }
+  ],
+  "notes": "This distillation follows the template more closely than the AAR and decision-making ones (has What to Look For, When to Use, and a three-part Citation block) but has no blockquoted [V] passages. Seven verbatim quotations carry no [V] marker (D001, D002, D004, D005, D006, D007, D011) while others in the same file do, so marker discipline is inconsistent. The Borrowed-through gaps paragraph (D017-D019) describes borrowings the Primer does not make and omits the ones it does. Cross-source claims checked: Open Kanban quote correct (open-kanban-deep 52); LS 15% Solutions and What/So What/Now What present; OPL Retrospectives and Design of Experiments present; FLO engagement-equity tracking matrix present (flo-facilitation-guide-deep 245); SSDL archetype names correct."
+}

@@ -1,0 +1,409 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/openstax-principles-management-software-business.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-243 of 243",
+    "deep": "lines 1-1024 of 1024",
+    "complete": true
+  },
+  "claims_audited": 225,
+  "tally": {
+    "faithful": 186,
+    "minor_drift": 19,
+    "unsupported": 15,
+    "contradicted": 5
+  },
+  "findings": [
+    {
+      "id": "D001",
+      "line": 8,
+      "section": "Software-Business Relevance",
+      "claim": "organisational design (Mintzberg's six structural types, mechanistic/organic continuum)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Wrong author attached to the six structure types, repeated throughout this file (D003, D014, D020, D024, D028, D029, D033, D038, D039). The six types are the textbook's own list (Exhibit 4.6, adapted from Daft). In the deep ref Mintzberg is the managerial-roles author; the source cites Mintzberg (1979) only in an endnote for the broad mechanistic/organic split.",
+      "evidence": "Deep 189: 'Six organisational structure types span the mechanistic-organic continuum (Ch 4.3, Exhibit 4.6)', no author. Deep 33-41, 782: Mintzberg = role clusters. Source ~4660: Exhibit 4.6 'Adapted from: Daft, R., 2016, Organization Theory and Design'; source 4570 + endnote 21 (29108): Burns & Stalker; Mintzberg 1979; Emery & Trist, for mechanistic vs organic only.",
+      "fix": "correct: organisational design (six structure types, mechanistic/organic continuum)"
+    },
+    {
+      "id": "D002",
+      "line": 10,
+      "section": "Software-Business Relevance",
+      "claim": "four areas of the text are load-bearing in ways that other corpus sources do not duplicate. First, Chapter 4.3 supplies six organisational structure types ... Fourth ... Ch 18.6's treatment of explicit versus tacit knowledge — the corpus's only substantive treatment of the Nonaka-Takeuchi distinction",
+      "grade": "CONTRADICTED",
+      "failure_mode": "Two false claims. OpenStax Organizational Behavior's deep ref carries the same six structure types, so the first area is duplicated. Nonaka and Takeuchi appear in neither this deep ref nor the converted source; the attribution is imported.",
+      "evidence": "openstax-organizational-behavior-deep 487: 'Six organisational structures along the mechanistic-to-organic continuum (Ch 15.3, Exhibit 15.6): functional → divisional → geographic → matrix → networked team → virtual'. 'Nonaka'/'Takeuchi': 0 hits in openstax-principles-management-deep and in the converted source. Deep 895: explicit vs tacit knowledge, no originator named.",
+      "fix": "correct: For software-business work, four areas of the text are load-bearing. First, Chapter 4.3 supplies six organisational structure types (functional, divisional, geographic, matrix, networked team, virtual) with explicit strength/weakness analysis (OB Ch 15.3 carries the same menu) ... Fourth, Ch 18.6's short treatment of *explicit* versus *tacit* knowledge is the citation for software-business questions about succession planning, knowledge transfer, contractor handoffs, and the cost of senior-engineer departures."
+    },
+    {
+      "id": "D003",
+      "line": 16,
+      "section": "Key Concepts, 1",
+      "claim": "<!-- concept: mintzberg-structures --> **Mintzberg's six organisational structure types.**",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same misattribution as D001, here in the concept title and anchor slug, so the concept index will route 'Mintzberg structures' queries to this content.",
+      "evidence": "As D001.",
+      "fix": "correct: <!-- concept: organisational-structure --> **Six organisational structure types.**"
+    },
+    {
+      "id": "D004",
+      "line": 18,
+      "section": "Key Concepts, 2",
+      "claim": "Environment-structure fit is not optional; mismatch produces structural drag.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens the source's position. The deep ref and source match structures to environments; the source also says the mechanistic form 'may still be relevant' and that not every part of an organisation needs an organic structure. 'Not optional' and 'structural drag' are the distillation's.",
+      "evidence": "Deep 187: mechanistic 'best suited' for stable/simple; organic 'work best' in unstable/complex. Source 4581-4596: 'this type of organizational design may still be relevant ... not every organization or every part of most organizations may require an organic type of structure'.",
+      "fix": "correct: The text treats environment-structure fit as the design question: which structure, for which part of the organisation, in which environment."
+    },
+    {
+      "id": "D005",
+      "line": 22,
+      "section": "Key Concepts, 4",
+      "claim": "trying to combine cost leadership and differentiation produces firms \"stuck in the middle\" [V] that excel at neither.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Hardens the source's hedge ('can lead to') into 'produces', and adds 'excel at neither'.",
+      "evidence": "Deep 410: 'Trying to combine [cost leadership and differentiation], Porter suggests, can lead to a firm being stuck in the middle' [V]. Source 12275.",
+      "fix": "correct: Porter's position: trying to combine cost leadership and differentiation 'can lead to a firm being stuck in the middle' [V]."
+    },
+    {
+      "id": "D006",
+      "line": 28,
+      "section": "Key Concepts, 7",
+      "claim": "Goal planning outperforms domain planning when the conditions support it.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds a condition the source does not give; the source's finding is unconditional.",
+      "evidence": "Deep 829: 'Goal planning produces higher performance than domain planning' [BT]. Source 25946-25947: 'goal planning results in higher levels of performance than does domain planning alone'.",
+      "fix": "correct: Research cited by the text finds goal planning outperforms domain planning alone; domain planning is the fallback when goals cannot yet be set or agreed."
+    },
+    {
+      "id": "D007",
+      "line": 30,
+      "section": "Key Concepts, 8",
+      "claim": "the more complex the change, the greater the need for involvement. (Source: Ch 17.2, Ch 17.7, Ch 17.8)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: the complexity-involvement sentence is Ch 10.3 (managing change), not Ch 17.",
+      "evidence": "Deep 492: 'The more complex the potential change, the greater the need to involve employees in the process of planning and implementing change' [V] (Ch 10.3). Deep 861: Ch 17.8 control- vs involvement-oriented, no complexity sentence.",
+      "fix": "correct: ...approaches (Ch 17.8); separately, the change chapter holds that 'the more complex the potential change, the greater the need to involve employees' [V] (Ch 10.3). (Source: Ch 17.2, Ch 17.7, Ch 17.8, Ch 10.3)"
+    },
+    {
+      "id": "D008",
+      "line": 36,
+      "section": "Key Concepts, 11",
+      "claim": "This is the corpus's only substantive treatment of the Nonaka-Takeuchi distinction and the load-bearing citation for software-business succession planning...",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Nonaka-Takeuchi attribution is imported: neither the deep ref nor the source names them. The treatment is also one paragraph, and the Open Practice Library carries tacit-knowledge transfer practices, so 'only substantive treatment' overreaches.",
+      "evidence": "Deep 895: explicit vs tacit, Bessemer example, no originator. Source 28458-28470: a single paragraph. open-practice-library-deep 108: 'Mentorship, Pair Programming, Mob Programming, Knowledge Sharing. Practices that distribute tacit knowledge across the team.'",
+      "fix": "correct: The text's explicit/tacit distinction (one paragraph in Ch 18.6) is the citation for software-business succession planning, contractor handoff, and senior-departure cost; the Open Practice Library carries the transfer practices (pairing, mobbing, mentorship)."
+    },
+    {
+      "id": "D009",
+      "line": 76,
+      "section": "Questions, Phase 2",
+      "claim": "The more complex the work, the greater the need for involvement. (Ch 17.8)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref carries the complexity-involvement link only for change (Ch 10.3). Ch 17.8's own version (uncertainty and turbulence push planning and control toward the people doing the work) is in the converted source but not in the deep ref.",
+      "evidence": "Deep 492 (Ch 10.3); deep 861 (Ch 17.8) has no uncertainty link. Source 27227-27231: 'As organizations confront increasing environmental or technology-induced uncertainty, rapid environmental change, and turbulence, planning and controlling move closer to the point in the organization where the plans are implemented'.",
+      "fix": "cycle-to-deep: add to deep 861 'As organizations confront increasing environmental or technology-induced uncertainty, rapid environmental change, and turbulence, planning and controlling move closer to the point in the organization where the plans are implemented and carried out on a day-to-day basis' [V] (Ch 17.8). | correct: The more uncertain and turbulent the environment, the closer planning and control move to the people doing the work."
+    },
+    {
+      "id": "D010",
+      "line": 92,
+      "section": "Questions, Phase 3",
+      "claim": "Reducing similarity bias matters more in technical hiring than the conventional unstructured approach assumes.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Comparative claim about technical hiring that the source does not make.",
+      "evidence": "Deep 590: highly structured interviews with 15 characteristics reduce similarity bias (Ch 12.7). Nothing on technical hiring.",
+      "fix": "correct: Highly structured interviews reduce similarity bias (Ch 12.7)."
+    },
+    {
+      "id": "D011",
+      "line": 105,
+      "section": "Questions, Phase 4",
+      "claim": "dominance (short-term win, long-term cost) ... Integration is strongest for ongoing high-stakes relationships.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Dominance's cost is in the source but not the deep ref; the 'ongoing high-stakes relationships' condition is in neither.",
+      "evidence": "Deep 156: three paths, no cost or ranking. Source 3802-3811: dominance 'impossible without incurring social costs in terms of a disaffected workforce'; compromise 'neither side is happy'.",
+      "fix": "correct: dominance (rarely possible; costs a disaffected workforce), compromise (neither side happy), or integration (creative agreement satisfying both)? Integration is the path Follett favours. | cycle-to-deep: add to deep 156 'Dominance is \"impossible without incurring social costs in terms of a disaffected workforce\" [V]; in a compromise \"neither side is happy\" [V] (Ch 3.6).'"
+    },
+    {
+      "id": "D012",
+      "line": 129,
+      "section": "Questions, Phase 6",
+      "claim": "Reward and coercive power produce compliance and alienation; rationality, expertise, and moralistic appeal produce commitment.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Lumps reward power with alienation. The source ties alienation to coercive power and 'measured', tit-for-tat responses to reward power.",
+      "evidence": "Deep 620: coercive power often alienates; reward power produces measured, tit-for-tat thinking. Source 19349-19355.",
+      "fix": "correct: Coercive power tends to alienate; reward power produces measured, 'what am I getting?' responses; rationality, expertise, and moralistic appeal produce commitment."
+    },
+    {
+      "id": "D013",
+      "line": 132,
+      "section": "Questions, Phase 6",
+      "claim": "Servant-leadership framing tends to build durable trust through cycles.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Effect claim the source does not make. The deep ref lists 'inspiring through trust' as an aspect of servant leadership, not an outcome.",
+      "evidence": "Deep 247: servant leadership definition and five aspects incl. 'inspiring through trust'.",
+      "fix": "strip"
+    },
+    {
+      "id": "D014",
+      "line": 136,
+      "section": "What to Look For",
+      "claim": "Diagnosis: structure-environment mismatch from Mintzberg's typology. Follow-up: ... identify which Mintzberg structure better fits",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same Mintzberg misattribution as D001.",
+      "evidence": "As D001.",
+      "fix": "correct: Diagnosis: structure-environment mismatch (Ch 4.2-4.3). Follow-up: ... identify which of the six structure types better fits and what transition would cost."
+    },
+    {
+      "id": "D015",
+      "line": 137,
+      "section": "What to Look For",
+      "claim": "the decision quality improves materially even from a brief structured pass.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Promises an effect the source does not report.",
+      "evidence": "Deep 21: strategic success requires systematic analysis; deep 366: SWOT 'may overlook key issues'. No outcome data.",
+      "fix": "strip"
+    },
+    {
+      "id": "D016",
+      "line": 139,
+      "section": "What to Look For",
+      "claim": "explicit documentation did not capture it (and could not — that is the nature of tacit knowledge).",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The source says tacit knowledge can sometimes be made explicit; only sometimes is it uncodifiable.",
+      "evidence": "Deep 895: tacit knowledge 'sometimes uncodifiable'. Source 28461-28462: 'Tacit knowledge can become explicit at some point if the expert is able to codify the knowledge for others. However, it is not always possible to codify tacit knowledge.'",
+      "fix": "correct: explicit documentation did not capture it (tacit knowledge can sometimes be codified, but not always; Ch 18.6)."
+    },
+    {
+      "id": "D017",
+      "line": 169,
+      "section": "Worked Example",
+      "claim": "The source's framing: \"environment-structure fit is not optional; mismatch produces structural drag.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "The distillation's own sentence (Key Concept 2) is put in quotation marks and presented as the source's words.",
+      "evidence": "Phrase absent from deep 1-1024 and from the converted source. Distillation line 18 is its origin.",
+      "fix": "correct: The source matches mechanistic structures to stable, simple environments and organic structures to unstable, complex ones (Ch 4.3)."
+    },
+    {
+      "id": "D018",
+      "line": 171,
+      "section": "Worked Example",
+      "claim": "tacit knowledge \"emerges from individual experience, sometimes uncodifiable\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The deep ref's paraphrase is set in quotation marks as the source's words ('The source draws the distinction directly').",
+      "evidence": "Deep 895 (paraphrase, no [V]): 'tacit knowledge (emerging from individual experience; sometimes uncodifiable ...)'. Source 28460: 'tacit knowledge (which emerges from experience of an individual)'.",
+      "fix": "correct: tacit knowledge 'emerges from experience of an individual' [V] and cannot always be codified"
+    },
+    {
+      "id": "D019",
+      "line": 173,
+      "section": "Worked Example",
+      "claim": "the source reports that \"rationality is the most effective influence tactic for follower commitment, motivation, performance, satisfaction, and group effectiveness\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Misquotation: 'in terms of its impact on' is dropped inside quotation marks attributed to the source.",
+      "evidence": "Deep 620 / source 19361-19362: 'rationality is the most effective influence tactic in terms of its impact on follower commitment, motivation, performance, satisfaction, and group effectiveness' [V].",
+      "fix": "correct: the source reports that 'rationality is the most effective influence tactic in terms of its impact on follower commitment, motivation, performance, satisfaction, and group effectiveness' [V]"
+    },
+    {
+      "id": "D020",
+      "line": 175,
+      "section": "Worked Example",
+      "claim": "This worked example illustrates ... Mintzberg's six structures and structure-environment fit (Ch 4.3), the strategic management cycle (Ch 9.1), ... and the change-model implications for the matrix-pilot decision (Ch 10.3).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Mintzberg misattribution (D001), and the list names two concepts the example never uses: the strategic management cycle and a change-model choice.",
+      "evidence": "Distillation 167-173: no strategy-cycle step and no Lewin/Kotter/AI/CAS choice. Deep 189 (no Mintzberg).",
+      "fix": "correct: This worked example illustrates the six structure types and structure-environment fit (Ch 4.3), explicit-vs-tacit knowledge (Ch 18.6), communication-as-invention (Ch 16.5), and rationality as influence base (Ch 13.3)."
+    },
+    {
+      "id": "D021",
+      "line": 181,
+      "section": "Anti-patterns",
+      "claim": "Pursuing cost leadership and differentiation simultaneously produces firms that excel at neither",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Same hardening as D005.",
+      "evidence": "Deep 410: 'can lead to a firm being stuck in the middle' [V].",
+      "fix": "correct: Pursuing cost leadership and differentiation simultaneously can leave a firm stuck in the middle"
+    },
+    {
+      "id": "D022",
+      "line": 182,
+      "section": "Anti-patterns",
+      "claim": "Tacit knowledge resists documentation by definition",
+      "grade": "CONTRADICTED",
+      "failure_mode": "As D016: the source says tacit knowledge can become explicit if the expert can codify it; it is not uncodifiable by definition.",
+      "evidence": "Deep 895; source 28461-28462.",
+      "fix": "correct: Tacit knowledge cannot always be codified (Ch 18.6); assuming wiki pages will capture it produces undocumented departures and unrecovered capability."
+    },
+    {
+      "id": "D023",
+      "line": 183,
+      "section": "Anti-patterns",
+      "claim": "brittle plans and demoralised teams follow.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Consequence the source does not state.",
+      "evidence": "Deep 833: PDCA 'ensures continuous improvement rather than implement-and-forget plans'. No morale outcome.",
+      "fix": "strip"
+    },
+    {
+      "id": "D024",
+      "line": 197,
+      "section": "Integration with Other References",
+      "claim": "Letaw provides ... (triple constraint, RACI, microservices boundary analysis, Conway's-Law-shaped team structure) ... Use OpenStax for Mintzberg's six structures menu; use Letaw for the engineering-specific structural decisions inside the chosen Mintzberg structure.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Letaw's deep ref has no Conway's Law; and the Mintzberg misattribution recurs twice.",
+      "evidence": "letaw-handbook-sweng-methods-deep: triple constraint (55-57), RACI (73), microservices (189-201); 'Conway' 0 hits. Deep 189 (no Mintzberg).",
+      "fix": "correct: Letaw provides the software-process discipline (triple constraint, RACI, monolith-vs-microservice architecture) that complements OpenStax's general organisational-design framing. Use OpenStax for the six-structure menu; use Letaw for the engineering-specific decisions inside the chosen structure."
+    },
+    {
+      "id": "D025",
+      "line": 198,
+      "section": "Integration with Other References",
+      "claim": "The two books cite the same theories (Maslow, Herzberg, McClelland, ERG, SDT, expectancy, equity, goal theory, Tuckman, LMX)",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Nine of ten check out; LMX is not in the OB deep ref.",
+      "evidence": "openstax-organizational-behavior-deep 217-233 (motivation theories), 284/316 (Tuckman); 'LMX' / 'member exchange' 0 hits.",
+      "fix": "correct: (Maslow, Herzberg, McClelland, ERG, SDT, expectancy, equity, goal theory, Tuckman)"
+    },
+    {
+      "id": "D026",
+      "line": 199,
+      "section": "Integration with Other References",
+      "claim": "Accounting Vol 2 supplies ... and Theory-of-Constraints chapter.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Accounting Vol 2 has no Theory-of-Constraints chapter: it cites Goldratt's five focusing steps in Ch 1.5 and treats constraint-based product ranking in Ch 10.",
+      "evidence": "openstax-accounting-vol2-deep 501: TOC cited [BT] (Ch 1.5); 295: ranking by contribution margin per unit of constraining resource; 281: make-or-buy.",
+      "fix": "correct: ...make-or-buy relevant-cost analysis, CVP/breakeven, and constraint-based product ranking (with Goldratt's five focusing steps cited in Ch 1.5)."
+    },
+    {
+      "id": "D027",
+      "line": 201,
+      "section": "Integration with Other References",
+      "claim": "Business Ethics: Strong overlap on the seven ethical principles, Rest's four-component model, and stakeholder theory. Pair them: Business Ethics for depth on duty-of-care and normative-stakeholder framing",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Business Ethics' deep ref carries neither Rest's four-component model, nor the seven-principle list, nor duty-of-care. It carries three normative families and the Donaldson-Preston stakeholder taxonomy.",
+      "evidence": "openstax-business-ethics-deep 31-33 (ends/means/character families), 111 (Donaldson and Preston descriptive/instrumental/normative); 'Rest' and 'duty of care' 0 hits.",
+      "fix": "correct: Overlap on ethical theory and stakeholder theory. Pair them: Business Ethics for depth on the normative theories (Bentham, Mill, Kant, virtue) and the Donaldson-Preston normative-stakeholder framing; Principles of Management for Rest's four-component model, the seven-principles survey, the eight-question stakeholder analysis, and the moral-entrepreneur concept."
+    },
+    {
+      "id": "D028",
+      "line": 214,
+      "section": "Runtime triggers",
+      "claim": "Second, which Mintzberg structure fits the response?",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same Mintzberg misattribution as D001.",
+      "evidence": "As D001.",
+      "fix": "correct: Second, which of the six structure types fits the response?"
+    },
+    {
+      "id": "D029",
+      "line": 215,
+      "section": "Runtime triggers",
+      "claim": "Mintzberg's six organisational structures (Ch 4.3); life-cycle stages (Ch 10.2)",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Same Mintzberg misattribution as D001.",
+      "evidence": "As D001.",
+      "fix": "correct: Six organisational structure types (Ch 4.3); life-cycle stages (Ch 10.2)"
+    },
+    {
+      "id": "D030",
+      "line": 218,
+      "section": "Runtime triggers",
+      "claim": "Tacit-knowledge / Nonaka-Takeuchi distinction (Ch 18.6) — the corpus's only substantive treatment | \"Explicit knowledge transfers through documents; tacit knowledge does not — it resists capture.\"",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imported Nonaka-Takeuchi attribution (D008), and the script makes tacit knowledge absolutely untransferable by documents, against the source's 'can become explicit ... not always possible'.",
+      "evidence": "As D008 and D016.",
+      "fix": "correct: Explicit/tacit knowledge distinction (Ch 18.6) | \"Explicit knowledge transfers through documents; tacit knowledge often does not. Design the transfer as apprenticeship ...\""
+    },
+    {
+      "id": "D031",
+      "line": 221,
+      "section": "Runtime triggers",
+      "claim": "the more complex the work, the more involvement matters ... dominance wins the moment and loses the relationship; compromise produces incomplete satisfaction; integration is the strongest outcome for ongoing high-stakes relationships.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Combines the Ch 17.8 source-only uncertainty link (D009) with the Follett cost and condition issues (D011).",
+      "evidence": "As D009 and D011.",
+      "fix": "correct: ...the more uncertain the environment, the closer planning and control move to the people doing the work. When the disagreement escalates, Follett's three paths: dominance is rarely possible and costs a disaffected workforce; compromise leaves neither side happy; integration finds an agreement that satisfies both."
+    },
+    {
+      "id": "D032",
+      "line": 224,
+      "section": "Runtime triggers",
+      "claim": "Follett's integration is strongest for ongoing relationships.",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Adds a relationship condition the source does not give (as D011).",
+      "evidence": "Deep 156; source 3802-3811.",
+      "fix": "correct: Follett's integration, an agreement that satisfies both sides, is the path to aim for."
+    },
+    {
+      "id": "D033",
+      "line": 230,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Henry Mintzberg — six organisational structure types, three managerial role clusters, and the fragmented-manager-time findings are sourced [BT] (Ch 1.2; Ch 4.3; Ch 16.3). Mintzberg's The Nature of Managerial Work (1973) and Structure in Fives (1983) are the primary sources",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Six structure types are not Mintzberg's in the deep ref or source (D001). Structure in Fives is not cited by the source, and its typology is five configurations, not these six types. The role clusters and time findings are correctly Mintzberg's.",
+      "evidence": "Deep 33-41 (roles), 189 (six types, no author). 'Structure in Fives' 0 hits in source; source endnotes cite Mintzberg 1973, 1975, 1979, 1990, 2007, 2009.",
+      "fix": "correct: *Henry Mintzberg* — three managerial role clusters and the fragmented-manager-time findings are sourced [BT] (Ch 1.1; Ch 1.2; Ch 16.3), from *The Nature of Managerial Work* (1973) and later HBR work."
+    },
+    {
+      "id": "D034",
+      "line": 233,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Ikujiro Nonaka and Hirotaka Takeuchi — the explicit-vs-tacit knowledge distinction is the source; the text's Ch 18.6 is the corpus's only substantive treatment of this distinction [BT].",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "A borrowed-through chain the source does not contain: the text names no originator for the distinction.",
+      "evidence": "'Nonaka'/'Takeuchi' 0 hits in deep and source. Deep 895; source 28458-28470 (Bessemer is the only named person).",
+      "fix": "strip"
+    },
+    {
+      "id": "D035",
+      "line": 237,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Rosemary Stewart (manager-time-with-peers finding) — cited [BT] (Ch 1.1).",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Mis-cited: the time-with-peers finding is Ch 1.2 (restated Ch 16.3); Ch 1.1 carries Stewart's uninterrupted-time finding.",
+      "evidence": "Deep 41: Stewart 47/41/12 per cent (Ch 1.2; Ch 16.3). Deep 29: Stewart's half-hour-uninterrupted finding (Ch 1.1).",
+      "fix": "correct: *Rosemary Stewart* (manager-time-with-peers finding) — cited [BT] (Ch 1.2; Ch 16.3)."
+    },
+    {
+      "id": "D036",
+      "line": 238,
+      "section": "Citation and Source-Integrity Notes, Borrowed-through gaps",
+      "claim": "Mary Parker Follett — \"management as the art of getting things done through people\" ... cited [BT] (Ch 3.6).",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Imported quotation: this well-known Follett line is in neither the deep ref nor the converted source.",
+      "evidence": "Deep 156: Follett = conflict resolution paths, library window, power-with. Source: no 'getting things done through people' anywhere.",
+      "fix": "correct: *Mary Parker Follett* — three conflict-resolution paths (dominance, compromise, integration) and power 'with' rather than 'over' the worker are cited [BT] (Ch 3.6)."
+    },
+    {
+      "id": "D037",
+      "line": 241,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The text's treatment of explicit-vs-tacit knowledge (Ch 18.6) ... is brief — four to five pages",
+      "grade": "CONTRADICTED",
+      "failure_mode": "The treatment is a single paragraph, not four to five pages.",
+      "evidence": "Source 28458-28470: one paragraph inside Ch 18.6 'Skills Needed for MTI'; other 'tacit knowledge' hits are the key-terms list (28631) and summary (28711).",
+      "fix": "correct: The text's treatment of explicit-vs-tacit knowledge (Ch 18.6) is a single paragraph; for transfer-mechanism detail, practitioners should expect to work beyond this source."
+    },
+    {
+      "id": "D038",
+      "line": 241,
+      "section": "Citation and Source-Integrity Notes, Named limits",
+      "claim": "The six Mintzberg structural types ... software-specific considerations (Conway's Law, microservices boundary constraints) are not addressed and belong to Letaw.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Mintzberg misattribution (D001); and Conway's Law is not in Letaw's deep ref.",
+      "evidence": "Deep 189; letaw-handbook-sweng-methods-deep 'Conway' 0 hits, microservices at 189-201.",
+      "fix": "correct: The six structural types carry strength/weakness profiles for general organisations; software-specific considerations (monolith-vs-microservice architecture) are not addressed and belong to Letaw."
+    },
+    {
+      "id": "D039",
+      "line": 243,
+      "section": "Citation and Source-Integrity Notes, Evidence-marker continuity",
+      "claim": "Frameworks attributed to Mintzberg, ... Nonaka-Takeuchi ... are all [BT] in the deep reference ... [V]-marked source passages (the Drucker culture-and-strategy quote, the forced-ranking GE reversal passage, communication-as-invention framing) are paraphrased and cited by chapter.",
+      "grade": "CONTRADICTED",
+      "failure_mode": "False on three counts: the deep ref carries no Mintzberg structures and no Nonaka-Takeuchi at all; the Drucker culture passage is quoted [V] at line 32, not paraphrased; communication-as-invention is quoted [V] at lines 126 and 173.",
+      "evidence": "Deep 189, 895 (no such attributions). Distillation 32, 126, 173 carry [V] quotations of those passages.",
+      "fix": "correct: Frameworks attributed to Porter, Cameron-Quinn, Taylor, Fayol, Weber, Hofstede, Follett, Drucker, and the motivation theorists are [BT] in the deep reference and attributed by name here. The Drucker culture passage (Key Concept 9), the rationality finding (Key Concept 13), communication-as-invention (Phase 6 and the worked example) and 'Documents take on lives of their own' are quoted [V] from the deep ref; the GE forced-ranking reversal is paraphrased. The worked example is operator-authored; its structural decisions trace to Ch 4.3 and its tacit-knowledge framing to Ch 18.6."
+    }
+  ],
+  "notes": "Integration rows checked: Jones (196: bi-exponential faults, agency theory, KLOC-scaled folklore metrics present), OB (198, except LMX), Principles of Finance (200), Business Law (202: Thomas-Kilmann negotiation styles; the regulatory list is this source's Ch 11.2), Entrepreneurship (203: funding stages, pivots), OPL (204), LS (205), Scrum Guide + Field Guide (206, interpretive PDCA link), NHS/TC 25-20/LFUO (207): FAITHFUL. [V] quotations at lines 18 (x2), 22, 32 (x2), 40, 126, 128 match the converted source word for word (line 32 differs only in nested quote marks). The Mintzberg misattribution appears ten times (D001, D003, D014, D020, D024, D028, D029, D033, D038, D039) and the Nonaka-Takeuchi attribution at lines 10, 36, 218, 233, 241 and 243 (D002, D008, D030, D034, D037's sentence, D039); both need a single global correction plus the concept anchor rename 'mintzberg-structures'. Protocol note, not graded: no [V] blockquotes; the verbatim register travels inline."
+}

@@ -1,0 +1,46 @@
+{
+  "distillation": "corpus.commons/demo/distillations/software-business/letaw-handbook-sweng-methods-software-business.md",
+  "findings": {
+    "D001": {"action": "applied", "note": ""},
+    "D002": {"action": "applied", "note": "Recurrences at lines 80, 200 and 232 also replaced with the source's example quoted [V]"},
+    "D003": {"action": "applied", "note": "Conway's Law removed; the source never mentions it"},
+    "D004": {"action": "applied", "note": "Cycle-to-deep done (deep line 81)"},
+    "D005": {"action": "applied", "note": "Cycle-to-deep done (deep line 75)"},
+    "D006": {"action": "revised", "note": "Audit's rewrite, opened with the source's definition of estimation (now in the deep ref) and kept the planning-poker sentence and the overpromise point"},
+    "D007": {"action": "revised", "note": "Retitled, conways-law anchor replaced with a new business-capabilities anchor; Michell's definition re-marked [BT] (Letaw quotes Michell); tech-stack quote marked [V]; coordination and Conway sentences replaced with the Ch 5.2.5 governance trade-off"},
+    "D008": {"action": "applied", "note": ""},
+    "D009": {"action": "applied", "note": ""},
+    "D010": {"action": "applied", "note": ""},
+    "D011": {"action": "revised", "note": "Question rewritten as the audit says; the Need cell 'Estimate capacity as commitment-shape' also renamed 'Estimate capacity and calibrate it' since it carried the same premise"},
+    "D012": {"action": "applied", "note": ""},
+    "D013": {"action": "applied", "note": ""},
+    "D014": {"action": "applied", "note": "Follow-up's 'artefact-shape of estimates' also replaced (same premise)"},
+    "D015": {"action": "revised", "note": "Audit's signal and diagnosis; follow-up rewritten to drop 'Tuckman's lead time' and say the source gives no durations"},
+    "D016": {"action": "applied", "note": ""},
+    "D017": {"action": "applied", "note": "Checked against openstax-business-ethics-deep.md lines 7, 17, 130"},
+    "D018": {"action": "applied", "note": ""},
+    "D019": {"action": "applied", "note": ""},
+    "D020": {"action": "applied", "note": ""},
+    "D021": {"action": "applied", "note": "Anti-pattern heading, signal and why-it-happens lines carried the same estimate-as-commitment premise and were corrected too"},
+    "D022": {"action": "revised", "note": "Same substance; 'label any lead-time estimate as the operator's' written for the reader as 'the source gives no durations, so any lead-time estimate is your own'; heading and signal also corrected (individual hire vs team)"},
+    "D023": {"action": "applied", "note": ""},
+    "D024": {"action": "revised", "note": "Jones's deep ref has since been corrected: real options are presented as most useful when uncertainty is high and only Black-Scholes is rejected (jones deep line 91), so the row says that instead of the audit's 'warns option-pricing methods are hard to apply'"},
+    "D025": {"action": "revised", "note": "Audit's fix plus removal of the row's second Mintzberg-for-structures claim and its Conway's-Law parenthetical"},
+    "D026": {"action": "revised", "note": "Audit's fix, naming what the ethics deep ref holds (identification, categorisation, prioritisation; ethical theories) and capitalising the quote to match the source"},
+    "D027": {"action": "revised", "note": "Audit's fix said 'limit-WIP practices', but open-kanban-deep.md lines 74-79 record that Open Kanban does not ask teams to limit WIP; row now names visualise-the-workflow and reduce-batch-size (WIP limiting as a consequence)"},
+    "D028": {"action": "revised", "note": "LS structure renamed 1-2-4-Whole Group; Disagree and Commit kept but moved to Open Practice Library, whose deep ref holds it (open-practice-library-deep.md line 219)"},
+    "D029": {"action": "applied", "note": ""},
+    "D030": {"action": "applied", "note": "Split into two bullets"},
+    "D031": {"action": "revised", "note": "Did not quote 'a portable set of software engineering methods' (the deep ref's wording, not the source's); quoted the source's 'ways people achieve specific objectives in software engineering' [V] instead"},
+    "D032": {"action": "applied", "note": ""}
+  },
+  "extra_fixes": [
+    "Conway's Law removed everywhere: Phase 1 row 'Check the Conway's-Law shape' (line 60) rewritten as a Letaw-grounded check on per-service tech stacks and breadth of expertise (Ch 5.2.3, 5.2.5); principles-management integration row's 'Conway's-Law-shaped' parenthetical removed (line 224)",
+    "Phase 3 row (line 82) and What to Look For microservices diagnosis (line 128): 'coordination cost' premise replaced with the source's stated trade-offs (network communication cost and security, data inconsistency, monolith's narrower tech set and easier common standards)",
+    "When to Use (line 149): 'Tuckman-aware lead-time budgeting' changed to 'Tuckman-aware planning for a new team's early stages' (D008 premise)",
+    "When NOT to use (line 157): Jones's 'real-options critique' corrected to 'real-options treatment, with its rejection of Black-Scholes pricing' to match Jones's current deep ref (same issue as D024)"
+  ],
+  "for_chris": [
+    "The concept anchor conways-law in this distillation was replaced with a new business-capabilities anchor; the next concept-index rebuild will drop any Conway's-Law routing to Letaw and add the new slug"
+  ]
+}

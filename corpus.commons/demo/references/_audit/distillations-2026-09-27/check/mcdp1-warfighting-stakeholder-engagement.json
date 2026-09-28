@@ -1,0 +1,44 @@
+{
+  "distillation": "corpus.commons/demo/distillations/stakeholder-engagement/mcdp1-warfighting-stakeholder-engagement.md",
+  "auditor": "opus",
+  "read_coverage": {
+    "distillation": "lines 1-217 of 217",
+    "deep": "lines 1-242 of 242",
+    "complete": true
+  },
+  "claims_audited": 184,
+  "tally": {"faithful": 181, "minor_drift": 2, "unsupported": 1, "contradicted": 0},
+  "findings": [
+    {
+      "id": "D001",
+      "line": 144,
+      "section": "When to Use This Reference",
+      "claim": "MCDP 1's dissent-before, support-after rule and its refusal of yes-men are the most direct material in the corpus on the timing of disagreement.",
+      "grade": "UNSUPPORTED",
+      "failure_mode": "Superlative claim about the whole corpus that no deep reference supports; the corpus holds a named practice on the same move.",
+      "evidence": "mcdp1-warfighting-deep.md line 113 supports the dissent-then-support rule itself. The ranking against the rest of the corpus has no support: open-practice-library-deep.md line 219 carries the practice 'Disagree and Commit' (moving a team from disagreement to committed execution, with agreed review points and short delivery periods 'so that disagreement is short-lived'), and line 272 pairs it with 'Dissent Cards'. The distillation's Integration table also omits the Open Practice Library.",
+      "fix": "correct: MCDP 1's dissent-before, support-after rule and its refusal of yes-men say when disagreement is due and when it ends; the Open Practice Library's Disagree and Commit is the team-practice counterpart."
+    },
+    {
+      "id": "D002",
+      "line": 33,
+      "section": "Key Concepts for Stakeholder-Engagement (9, Main effort)",
+      "claim": "the harmonising question for every subordinate facing a decision is \"How can I best support the main effort?\"",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "Detail taken from the converted source that the deep reference does not carry.",
+      "evidence": "Deep line 151 carries only 'The harmonising question every subordinate must ask: \"How can I best support the main effort?\"'. The qualifier 'facing a decision' comes from the converted source, lines 3800-3802: 'Like the commander's intent, the main effort becomes a harmonizing force for subordinate initiative. Faced with a decision, we ask ourselves: How can I best support the main effort?' The claim is true to the source, but it bypasses the deep ref.",
+      "fix": "cycle-to-deep: \"Like the commander's intent, the main effort becomes a harmonizing force for subordinate initiative. Faced with a decision, we ask ourselves: How can I best support the main effort?\" [V] (Ch 4, \"Main effort\"; converted source lines 3800-3802)"
+    },
+    {
+      "id": "D003",
+      "line": 111,
+      "section": "Questions to Ask During Stakeholder-Engagement, Phase 7: Post-engagement",
+      "claim": "| Model admitting mistakes | Did the most senior person admit a mistake first, so that others could admit theirs? | Ch 3, \"Training\" |",
+      "grade": "MINOR-DRIFT",
+      "failure_mode": "The source-tag points to a passage whose lever is different: the need label and question make senior-first admission look like the doctrine's mechanism.",
+      "evidence": "Deep line 115 (Ch 3, 'Training'): 'a subordinate's willingness to admit mistakes depends on the commander's willingness to tolerate them.' The doctrine's lever is the commander's tolerance of admitted mistakes, not the commander admitting first. The same technique in What to Look For (line 135) and the Worked Example (line 175) is plainly the distillation's own and is not attributed, so only this table row drifts.",
+      "fix": "correct: | Show that mistakes are tolerated | Did the most senior person make it plain that admitted mistakes would be tolerated (for example, by admitting one of their own first), so that others could admit theirs? | Ch 3, \"Training\" |"
+    }
+  ],
+  "notes": "Vflag entries for this file (lines 17, 41, 159, 165) are all FAITHFUL. Line 17 'Control the bridge in order to prevent the enemy from escaping across the river.' matches source lines 3738 and 3755 exactly once the page break is removed. Line 41 'we should deal severely with errors of inaction or timidity' matches source lines 2405 and 2416, split by a page break. Line 159 matches source lines 3710-3715 word for word: the ellipsis leaves out exactly one sentence ('The task denotes what is to be done, and sometimes when and where; the intent explains why.') and 'in- tent' is a line-break hyphen. Line 165 matches source lines 3194-3198 except that the scan's 'ohjectives' is restored to 'objectives', an OCR fix the distillation discloses. A mechanical check of all 52 [V] quotations (dehyphenated, page-break noise removed, quote marks straightened) found every one in both the converted source and a [V] passage of the deep ref. The only other mismatch is 'personal advancement' (line 25), where the source has 'personal advance- ment' with a stray hyphen from the layout. That is a word-break artefact, not a changed word, so it is FAITHFUL; the Evidence-marker note's 'One quoted word carries an OCR restoration' could mention it but is not wrong about OCR. No [BT] material is quoted. The count 'four practical implications' (line 29) matches the four listed in deep line 137 and the source's First-Fourth (lines 3265-3272). '15 notes' for Clausewitz matches deep lines 15 and 201. All Integration rows were checked against the other sources' deep refs and are FAITHFUL: tc-25-20-army-aar-deep.md lines 15/35/76/121; open-kanban-deep.md line 33; scrum-guide-2020-deep.md lines 78/80/198; ssdl-systems-thinking-foundations-deep.md lines 67/77/85; openstax-business-ethics-deep.md line 107; openstax-organizational-behavior-deep.md line 198. The claims 'the doctrine does not use stakeholder or after-action review' are confirmed by grep: neither term appears in the converted source. The description 'Its parties are seniors, subordinates, peers inside one command, and an enemy' (lines 9, 210) leaves out policy and politics (Ch 2) and public support (Ch 4, 'The challenge'), but those appear only as context, never as parties to engage, so it was graded FAITHFUL. The regenerated file is careful overall: every move from doctrine to stakeholders is labelled as analogy, the worked-example outcomes are labelled as the scenario's, and none of the material removed from the deep ref (Auftragstaktik, Boyd lineage, AAR parallels) returns."
+}

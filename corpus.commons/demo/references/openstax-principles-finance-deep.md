@@ -326,7 +326,7 @@ Retirement planning uses the present-value annuity formula in reverse to solve f
 
 ### Loan amortisation
 
-**Loan amortization** is "a schedule of how and when a debt will be repaid with interest" [V] (Ch 8.3, "Calculating Loan Payments Using Simple Amortization"). For a fixed-rate loan, the present-value-of-an-annuity formula is solved for PYMT given PV (loan amount), r (period rate), and n (number of periods). The amortisation table allocates each fixed payment between interest (the period rate times the remaining balance) and principal (the remainder); over the loan's life, interest's share of each payment falls and principal's share rises. The text catalogues common business and personal loans: term loans (matched to asset useful life, often collateralised), revolvers (no fixed schedule, secured by AR/inventory or unsecured), personal lines of credit, secured and unsecured personal loans, mortgages (secured by the home), and student loans.
+**Loan amortization** is "a schedule of how and when a debt will be repaid with interest" [V] (Ch 8.3, "Calculating Loan Payments Using Simple Amortization"). For a fixed-rate loan, the present-value-of-an-annuity formula is solved for PYMT given PV (loan amount), r (period rate), and n (number of periods). The amortisation table allocates each fixed payment between interest (the period rate times the remaining balance) and principal (the remainder); over the loan's life, interest's share of each payment falls and principal's share rises. Prepayment shortens the schedule: in the mortgage example, a $2,000 bonus applied to the balance at month 36 pays the debt off almost 6 months early and cuts total interest from over $56,000 to $55,000, and "The ability to prepay long-term debts such as this is clearly worth negotiating initially" [V] (Ch 8.3, "Calculating Loan Payments Using Simple Amortization"). The text catalogues common business and personal loans: term loans (matched to asset useful life, often collateralised), revolvers (no fixed schedule, secured by AR/inventory or unsecured), personal lines of credit, secured and unsecured personal loans, mortgages (secured by the home), and student loans.
 
 ### Stated versus effective rates
 
@@ -412,11 +412,11 @@ The **dividend discount model** values a stock as the present value of all futur
 - **Variable (nonconstant) growth DDM**: extends the constant-growth formula to multiple growth phases, calculating present value separately for each.
 - **Two-stage DDM**: assumes initial higher growth followed by sustainable lower growth; applicable to mature companies with established dividend records (Ch 11.2, "Two-Stage Dividend Discount Model").
 
-The text takes a position that DDMs have flaws: they cannot be used for non-dividend-paying companies (Amazon, Google, Biogen as examples); the Gordon model is highly sensitive to assumptions about g and r; results may not match operational reality if companies maintain dividends through borrowing rather than from earnings (Ch 11.2, "Limitations of DDMs"). Warren Buffett's view is given: "the payment of dividends to shareholders is 'almost a last resort for corporate management'" [V] (Ch 11.2).
+The text takes a position that DDMs have flaws: they cannot be used for non-dividend-paying companies (Amazon, Google, Biogen as examples); the Gordon model is highly sensitive to assumptions about g and r; results may not match operational reality if companies maintain dividends through borrowing rather than from earnings, a practice the text calls "not beneficial to an organization's long-term financial health" [V] (Ch 11.2, "Limitations of DDMs"). Warren Buffett's view is given: "the payment of dividends to shareholders is 'almost a last resort for corporate management'" [V] (Ch 11.2). Buffett holds that companies are usually better off reinvesting excess funds in infrastructure, evolving technologies, and other profitable ventures, a practice Berkshire Hathaway, Amazon, Google, and Biogen follow [BT] (Ch 11.2, "Limitations of DDMs").
 
 ### Discounted cash flow (DCF) model
 
-The **DCF model** values a firm based on the present value of its future cash flows rather than dividends; it is used for non-dividend-paying firms and "is the evaluation tool of choice for experienced financial analysts when evaluating companies and their common stock" [AP] (Ch 11.3, "Understanding How the DCF Model Differs from DDMs"). The DCF formula sums the discounted cash flows over the explicit forecast horizon plus a terminal value (often a multiple of the final period's discounted cash flow). Per-share value follows from dividing total firm value by shares outstanding. The text takes a position: "many analysts prefer DCF methods of valuation because these are based on a company's cash flows, which are far less easily manipulated through accounting treatments than revenues or bottom-line earnings" [V] (Ch 11.3).
+The **DCF model** values a firm based on the present value of its future cash flows rather than dividends; it is used for non-dividend-paying firms [AP], and the text calls it "the evaluation tool of choice for experienced financial analysts when evaluating companies and their common stock" [V] (Ch 11.3, "Understanding How the DCF Model Differs from DDMs"). The DCF formula sums the discounted cash flows over the explicit forecast horizon plus a terminal value (often a multiple of the final period's discounted cash flow). Per-share value follows from dividing total firm value by shares outstanding. The text takes a position: "many analysts prefer DCF methods of valuation because these are based on a company's cash flows, which are far less easily manipulated through accounting treatments than revenues or bottom-line earnings" [V] (Ch 11.3).
 
 ### Preferred stock valuation
 
@@ -528,7 +528,7 @@ Volatility of returns is measured by standard deviation; in finance, this is ris
 - **Firm-specific risk (unsystematic, diversifiable risk)**: events affecting one company's revenue or costs (a product liability lawsuit, a new product, accounting irregularities). Diversification eliminates this risk.
 - **Systematic risk (market risk)**: events affecting the overall market (Federal Reserve actions, geopolitical events, pandemics). Diversification does not eliminate this risk.
 
-A diversified portfolio's standard deviation falls quickly with the first few stocks added but plateaus; per Meir Statman's research, a reasonably diversified portfolio can be created with about a dozen stocks [BT] (Ch 15.2, "Portfolio Size and Risk"). The benefit of diversification is greatest when stocks have low correlation; the 2011-2020 example shows DAL (Delta) and LUV (Southwest) at 0.87 correlation — both airlines, much diversification benefit lost — versus DAL and XOM (ExxonMobil) at 0.35.
+Per research by Meir Statman, a portfolio's standard deviation drops quickly as the number of stocks rises from one to two or three, and each further stock reduces risk by less [BT] (Ch 15.2, "Portfolio Size and Risk"); below a certain level, portfolio risk does not drop however diversified the portfolio becomes (Ch 15.2). On how many stocks make a well-diversified portfolio, "There is not an exact number that all financial managers agree on" [V]; the text's own view is that "the average investor can create a reasonably diversified portfolio with approximately a dozen stocks" [V] (Ch 15.2, "Portfolio Size and Risk"). The benefit of diversification is greatest when stocks have low correlation; the 2011-2020 example shows DAL (Delta) and LUV (Southwest) at 0.87 correlation — both airlines, much diversification benefit lost — versus DAL and XOM (ExxonMobil) at 0.35.
 
 ### Risk-free rate, risk premium, and beta
 
@@ -562,7 +562,7 @@ The **payback period** is the time it takes for a company to make enough free ca
 
 ### Net present value (NPV)
 
-**Net present value (NPV)** is "the difference between the present value of the cash inflows and the present value of cash outflows" [V] (Ch 16.2, "NPV Calculation"). The decision criterion is grounded in financial theory: accept projects with positive NPV (which add value to the firm) and reject those with negative NPV. NPV uses the firm's cost of capital as the discount rate; the discount rate can be increased to adjust for project-specific risk.
+**Net present value (NPV)** is "the difference between the present value of the cash inflows and the present value of cash outflows" [V] (Ch 16.2, "NPV Calculation"). The decision criterion is grounded in financial theory: accept projects with positive NPV (which add value to the firm) and reject those with negative NPV. NPV uses the firm's cost of capital as the discount rate; the discount rate "can be increased or decreased to adjust for the riskiness of the project's cash flows" [V] (Ch 16.2, "Advantages").
 
 The **NPV profile** plots NPV against discount rate. Where the profile crosses the horizontal axis (NPV = 0), the discount rate equals the project's IRR; this also bounds the firm's allowable cost of capital (Ch 16.2, "NPV Profile").
 
@@ -599,6 +599,10 @@ For **resource-constrained capital budgeting** (more good projects than capital)
 
 The chapter closes with an honesty note: NPV calculations are based on projected cash flows that are estimates. "A project that has a positive NPV and is accepted when a company is planning how to allocate its capital toward investments may end up being a bad project that the company wishes it had avoided if the future is much different from what it projected" [V] (Ch 16.5, "Capital Budgeting Challenges"). The 2020 oil-price collapse during the COVID-19 pandemic is given as an example of how cash flows can deviate dramatically from projections.
 
+### Capital budgeting in Excel
+
+Excel's NPV function "calculates the sum of the present values of the cash flows occurring from period 1 through the end of the project using the designated discount rate, but it fails to include the initial investment at time period zero" [V] (Ch 16.6, "Calculating NPV Using Excel"). The user must "include references only to the cells that contain cash flows from year 1 to the end of the project. Then, subtract the initial investment of year 0" [V] to get NPV by its standard definition (Ch 16.6). The IRR function, unlike NPV, uses all of the project's cash flows, including the initial outflow at time 0 (Ch 16.6, "Calculating IRR Using Excel").
+
 ## Part XVII: Capital structure and the cost of capital (Ch 17)
 
 ### Capital structure and weights
@@ -615,7 +619,7 @@ A firm's cost of debt is the YTM on its existing debt — the interest rate it w
 
 Two methods estimate the cost of equity capital (Ch 17.2, "Cost of Equity Capital"):
 
-- **CAPM**: Re = Rf + β(Rm - Rf). Requires assumptions about the risk-free rate, the market risk premium (typically 5-8 per cent), and the firm's beta. The text catalogues a range of beta estimates from MarketWatch and Yahoo! Finance; for some firms, the two sources yield estimates of equity cost of capital that differ by more than a factor of two (Ch 17.3, "Estimating the Equity Cost of Capital", Table 17.3).
+- **CAPM**: Re = Rf + β(Rm - Rf). Requires assumptions about the risk-free rate, the market risk premium (typically 5-8 per cent), and the firm's beta. The text catalogues a range of beta estimates from MarketWatch and Yahoo! Finance; for some firms, the two sources yield estimates of equity cost of capital that differ by more than a factor of two (Ch 17.3, "Estimating the Equity Cost of Capital", Table 17.3). For Goodyear Tire and Rubber, MarketWatch's beta of 1.24 and Yahoo! Finance's beta of 2.26 leave "an estimate of the equity cost of capital between 9.20% and 21.08%, using a range of reasonable assumptions" [V] (Ch 17.3).
 - **Constant dividend growth model**: Re = D₁/P₀ + g. Requires assumptions about next year's dividend and the dividend growth rate. Cannot be used for non-dividend-paying companies.
 
 ### WACC
@@ -642,7 +646,7 @@ This is lower than the pretax WACC, encouraging leverage use (Ch 17.4, "The Impa
 
 The interest tax shield grows with leverage, but **financial distress** also grows. Direct costs of financial distress include legal, consulting, appraisal, and auctioneer fees; indirect costs include loss of customers and suppliers (Ch 17.5, "Debt and Financial Distress"). **Trade-off theory** weighs the interest tax shield against the costs of financial distress; the optimal debt level is where the marginal benefit of additional tax shield equals the marginal cost of financial distress [AP] (Ch 17.5, "Trade-Off Theory"). Firms with higher costs of financial distress have lower optimal leverage.
 
-The chapter table (Ch 17.5, Table 17.7) shows substantial industry variation in capital structure. Online retailers average less than 7 per cent debt; rubber and tires firms average 63.62 per cent debt. These reflect industry-specific risks and the trade-off between tax shields and distress costs.
+The chapter table (Ch 17.5, Table 17.7) shows substantial industry variation in capital structure. Online retailers average less than 7 per cent debt (6.67 per cent in the table), and computers/peripherals firms 8.55 per cent; rubber and tires firms average 63.62 per cent debt. These reflect industry-specific risks and the trade-off between tax shields and distress costs.
 
 ### Alternative sources of funds
 
@@ -656,7 +660,7 @@ The chapter table (Ch 17.5, Table 17.7) shows substantial industry variation in 
 
 ### Why forecast
 
-Forecasts use historical data, analytical tools, and other contextual information to make educated guesses about future financial performance [AP] (Ch 18.1, "Financial Statement Foundations"). A budget is a static forecast; a rolling forecast adjusts as time passes and new information arrives. The text emphasises ethics in forecasting: "there can be tremendous pressure on management to perform, to deliver certain levels of profit, and to meet shareholder expectations . . . Forecasting . . . is not an exact science. There is a great deal of subjectivity that can come into play when forecasting sales and expenses. Ethical behavior is crucial in this area" [V] (Ch 18.1).
+Forecasts use historical data, analytical tools, and other contextual information to make educated guesses about future financial performance [AP] (Ch 18.1, "Financial Statement Foundations"). A budget is a static forecast (Ch 18, "Why It Matters"); after the formal budget, a rolling forecast is done monthly "to adjust as time moves on, more information becomes available, and circumstances change" [V] (Ch 18.3, "Length of a Forecast"). The text emphasises ethics in forecasting: "there can be tremendous pressure on management to perform, to deliver certain levels of profit, and to meet shareholder expectations . . . Forecasting . . . is not an exact science. There is a great deal of subjectivity that can come into play when forecasting sales and expenses. Ethical behavior is crucial in this area" [V] (Ch 18.1).
 
 ### Forecasting sales
 
@@ -694,7 +698,7 @@ The **operating cycle** is the time from inventory acquisition to sale; the **ca
 
 `Cash conversion cycle = Inventory conversion period + Receivables collection period − Payables deferral period`
 
-Each component is calculated from the corresponding turnover ratio. Shortening the cycle frees up cash; lengthening it strains liquidity. The text takes a position on payables: "the payables deferral period is the one element that probably cannot be optimized without violating credit terms" — paying suppliers on time preserves the relationship and credit rating (Ch 19.1).
+Each component is calculated from the corresponding turnover ratio. Shortening the cycle frees up cash; lengthening it strains liquidity. The text takes a position on payables: "the payables deferral period is the one element that probably cannot be optimized without violating credit terms" [V] — paying suppliers on time preserves the relationship and credit rating (Ch 19.1).
 
 Working capital needs vary by industry: home construction has very long cycles; restaurants can have very short or even negative cycles. Walmart's current ratio of around 0.9 is enabled by strong supply-chain management (Ch 19.1, "Working Capital Needs by Industry").
 
@@ -731,7 +735,7 @@ Inventory management balances four cost components (Ch 19.5, "Inventory Cost"):
 
 ### Three areas of focus for the financial manager
 
-Three focal areas for the financial manager (Ch 20.1, "What Is Risk?"): increase cash inflows and decrease cash outflows; speed up cash inflows and slow down cash outflows; decrease the riskiness of both inflows and outflows. Risk in finance is uncertainty — "risk occurs because you cannot predict the future" [V] (Ch 20.1, "What Is Risk?"). Hedging takes actions to reduce exposure to risk; speculating bets on future outcomes for profit. The text takes a position: "in finance, hedging is a risk management tool. . . Speculating . . . involves directional bets" [V] (Ch 20.1, "Risk and Firm Value").
+Three focal areas for the financial manager (Ch 20.1, "What Is Risk?"): increase cash inflows and decrease cash outflows; speed up cash inflows and slow down cash outflows; decrease the riskiness of both inflows and outflows. Risk in finance is uncertainty — "risk occurs because you cannot predict the future" [V] (Ch 20.1, "What Is Risk?"). Hedging takes actions to reduce exposure to risk; speculating bets on future outcomes for profit. The text takes a position: "in finance, hedging is a risk management tool. . . Speculating . . . involves directional bets" [V] (Ch 20.1, "Risk and Firm Value"). The same tools serve both ends: "Many of these same strategies can be used by economic players who wish to speculate" [V]. The chapter sets its own scope: "the focus is on the perspective of a financial manager using these strategies to manage risk" [V] (Ch 20.1, "Risk and Firm Value").
 
 ### Commodity price risk
 
@@ -766,6 +770,8 @@ Two main types (Ch 20.3):
 - **Call option**: right to buy. Holder profits when the underlying price rises above strike + premium; option writer's loss is mirror image.
 - **Put option**: right to sell. Holder profits when the underlying price falls below strike - premium; option writer's loss is mirror image.
 
+The holder decides whether to exercise by comparing strike and spot at expiry: "It simply compares the strike price of KWN 1,200/USD to the market, or spot, exchange rate at the time the option is expiring" [V] (Ch 20.3, "Call Options"). Where spot lies between the strike and the strike adjusted for the premium, the holder still exercises and recovers part of the premium, though the net payoff is negative: in the call example, "the company will be 25 KWN worse off than if it had never purchased the call option" [V] (Ch 20.3, "Call Options"); in the put example, the company exercises and its payoff is INR -2 (Ch 20.3, "Put Options").
+
 The text takes a position: option contracts are zero-sum games. The holder's gain equals the writer's loss and vice versa.
 
 ### Interest rate risk and swaps
@@ -794,7 +800,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 | Average 3-month T-bill return, 1928-2020 | 3.36% (sd 3.0%) | [V] (Ch 15.3) |
 | Implied market risk premium, 1928-2020 | 8.28% | [AP] (Ch 15.3, calculated from the difference) |
 | Number of years out of 1928-2020 with negative S&P 500 return | 25 | [V] (Ch 15.3) |
-| Stocks for a reasonably diversified portfolio (no exact number agreed) | ~a dozen (Statman) | [BT] (Ch 15.2; Statman 1987) |
+| Stocks for a reasonably diversified portfolio (no exact number agreed) | approximately a dozen (the text's own view) | [V] (Ch 15.2, "Portfolio Size and Risk") |
 | 20-year fixed mortgage on $140,000 at 3.6% — total interest | over $56,000 | [V] (Ch 8.3, mortgage example) |
 | 36-month auto loan on $32,000 at 6% — total interest | $3,046.08 | [V] (Ch 8.3, auto loan example) |
 | Annualised cost of forgoing 2/10 net 30 discount | 36.73% | [V] (Ch 19.2) |
@@ -816,7 +822,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 - **The DuPont method** is cited as having been developed at the DuPont company in 1919 for internal measurement [BT] (Ch 6.6).
 - **Benjamin Graham**: cited in Buffett profile (Ch 12.4).
 - **Eisenhower, Dwight D.**: quoted: "plans are worthless, but planning is everything" [V] (Ch 1.2).
-- **Meir Statman**: research on diversification, ~12-stock portfolio threshold [BT] (Ch 15.2).
+- **Meir Statman**: research showing portfolio standard deviation falls quickly as the first few stocks are added, with smaller reductions after that [BT] (Ch 15.2).
 - **Bill Gross**: profiled as Pimco co-founder and "bond king," advocate of total returns for fixed-income investing (Ch 12.3).
 - **Janet Yellen**: profiled as first woman Fed chair and Treasury Secretary, with the related claim that employment increased in every month of her four-year term — the first and only such occurrence in Fed history (Ch 12.2).
 - **Carlos Slim Helu**: quoted on the value of historical perspective for understanding the present and future [V] (Ch 12).

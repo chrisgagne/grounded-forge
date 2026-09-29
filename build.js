@@ -654,10 +654,26 @@ class MatrixBuilder {
 
     // Ship the runtime lens-index.json alongside the .md lens specs.
     // It lives one directory up at the corpus root (siblings:
-    // reference-index.json, concept-index.json).
+    // reference-index.json, concept-index.json). Filter it to the shipped
+    // set, as LENS-INDEX.md is: a lens held back by the visibility ceiling
+    // must not travel as its purpose and salience rows.
     const lensIndexSrc = path.join(this.sourceDir, "lens-index.json");
     if (fs.existsSync(lensIndexSrc)) {
-      fs.copyFileSync(lensIndexSrc, path.join(outputDir, "lens-index.json"));
+      const index = JSON.parse(fs.readFileSync(lensIndexSrc, "utf8"));
+      const shippedFiles = new Set(shipped.map((s) => s.file));
+      index.lenses = Object.fromEntries(
+        Object.entries(index.lenses || {}).filter(([, rec]) =>
+          shippedFiles.has(path.basename(rec.spec_path || ""))
+        )
+      );
+      const keptKinds = new Set(Object.values(index.lenses).map((r) => r.kind));
+      index.kinds = (index.kinds || []).filter((k) => keptKinds.has(k));
+      // Same serialisation as build_lens_index.py (indent 2, raw UTF-8,
+      // no trailing newline), so an unfiltered index copies byte-identical.
+      fs.writeFileSync(
+        path.join(outputDir, "lens-index.json"),
+        JSON.stringify(index, null, 2)
+      );
     }
 
     const skippedCount = skippedReasons.length;

@@ -202,8 +202,10 @@ def corpus_readme_stub(corpus_name: str, tier: str, tasks: list[str]) -> str:
         else "This corpus is gitignored by default. Mixed scopes are fine here; "
         "the operator decides what's redistributable and what isn't."
     )
-    return dedent(
-        f"""\
+    # Dedent the template before filling it: a multi-line value spliced into
+    # an indented f-string leaves dedent no common indent to strip.
+    template = dedent(
+        """\
         # {corpus_name}
 
         A corpus under the `corpus.{tier}/` tier.
@@ -235,6 +237,12 @@ def corpus_readme_stub(corpus_name: str, tier: str, tasks: list[str]) -> str:
         distros/               # tarballs from `npm run package` (empty until shipped)
         ```
         """
+    )
+    return template.format(
+        corpus_name=corpus_name,
+        tier=tier,
+        task_lines=task_lines,
+        licence_note=licence_note,
     )
 
 

@@ -182,7 +182,7 @@ fallback_for_capabilities: [{capability-name}]
 
 Then add a `## Capability binding` paragraph below the frontmatter naming the bound behaviour, the unbound fallback (either *fail closed* with a clear binding instruction or a precisely-bounded *degraded path*), and the discipline of never fabricating data the binding would have produced.
 
-**The bar is structural impossibility, not convenience.** Most corpus-bound skills are *framework-application*: they read the corpus and apply distillations, with optional MCP enrichment when present. Those skills MUST NOT declare capabilities (they SHOULD NOT clutter their frontmatter with bindings they only opportunistically use). The repo's worked examples are: `aar-start`, `aar-new`, `obs-coach`, `obs-health`, `obs-report` carry frontmatter declarations; `aar-actions`, `aar-deep`, `retro-*`, `aletheia-session`, `coaching-feedback`, `mentoring-feedback`, `meeting-review` do not. Most new applications will produce zero integration-heavy skills.
+**The bar is structural impossibility, not convenience.** Most corpus-bound skills are *framework-application*: they read the corpus and apply distillations, with optional MCP enrichment when present. Those skills MUST NOT declare capabilities (they SHOULD NOT clutter their frontmatter with bindings they only opportunistically use). The repo's worked examples are: `aar-start` and `aar-new` carry frontmatter declarations; `aar-actions`, `aar-deep`, `aletheia-session`, `coaching-feedback` and `meeting-review` do not. Most new applications will produce zero integration-heavy skills.
 
 ### Step 5: Orchestrate per-distillation distillation
 

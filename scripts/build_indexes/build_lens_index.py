@@ -56,11 +56,12 @@ def _read_index_md(corpus: str) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def _extract_table_rows(text: str) -> list[list[str]]:
-    """Return the body rows of the first markdown pipe-table in the text.
+def _extract_table_rows(text: str) -> tuple[list[str], list[list[str]]]:
+    """Return ``(header, body_rows)`` of the first markdown pipe-table.
 
-    Header and separator rows are skipped. Each row is returned as a list
-    of trimmed cell strings (leading/trailing pipes removed)."""
+    The header is the row whose first cell is ``Kind``; the separator row
+    is skipped. Cells are trimmed, leading/trailing pipes removed."""
+    header: list[str] = []
     rows: list[list[str]] = []
     in_table = False
     for line in text.splitlines():
@@ -70,15 +71,39 @@ def _extract_table_rows(text: str) -> list[list[str]]:
                 break  # table ended
             continue
         cells = [c.strip() for c in stripped.strip("|").split("|")]
-        # Detect header (Kind / Slug / ...) and separator (---) rows; skip both.
         if not in_table:
             if cells and cells[0].lower() == "kind":
                 in_table = True
+                header = [c.lower() for c in cells]
             continue
         if all(set(c) <= set("-: ") for c in cells):
             continue  # separator
         rows.append(cells)
-    return rows
+    return header, rows
+
+
+# Columns the index needs, located by header text so an optional column
+# (the public catalogue carries Visibility after Slug) doesn't shift them.
+COLUMN_PREFIXES = {
+    "kind": "kind",
+    "slug": "slug",
+    "purpose": "purpose",
+    "reach_for_when": "reach for when",
+    "salience": "native vocabulary",
+}
+
+
+def _column_indices(header: list[str]) -> dict[str, int]:
+    indices: dict[str, int] = {}
+    for key, prefix in COLUMN_PREFIXES.items():
+        matches = [i for i, h in enumerate(header) if h.startswith(prefix)]
+        if len(matches) != 1:
+            raise SystemExit(
+                f"ERROR: LENS-INDEX.md header needs exactly one column starting "
+                f"{prefix!r}; got header {header!r}"
+            )
+        indices[key] = matches[0]
+    return indices
 
 
 SLUG_LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
@@ -137,22 +162,28 @@ def _parse_salience(prose: str, slug: str) -> dict:
 
 def build(corpus: str) -> dict:
     text = _read_index_md(corpus)
-    rows = _extract_table_rows(text)
+    header, rows = _extract_table_rows(text)
     if not rows:
         raise SystemExit(
             f"ERROR: no lens rows found in LENS-INDEX.md for corpus {corpus!r}"
         )
+    col = _column_indices(header)
 
     lenses_dir = _lenses_dir(corpus)
     lenses: dict[str, dict] = {}
     kinds_seen: list[str] = []
 
     for row in rows:
-        if len(row) < 5:
+        if len(row) != len(header):
             raise SystemExit(
-                f"ERROR: lens row has {len(row)} cells, expected 5: {row!r}"
+                f"ERROR: lens row has {len(row)} cells, header has "
+                f"{len(header)}: {row!r}"
             )
-        kind, slug_cell, purpose, reach_for_when, salience_prose = row[:5]
+        kind = row[col["kind"]]
+        slug_cell = row[col["slug"]]
+        purpose = row[col["purpose"]]
+        reach_for_when = row[col["reach_for_when"]]
+        salience_prose = row[col["salience"]]
 
         slug, link_target = _parse_slug_cell(slug_cell)
         spec_path = (lenses_dir / link_target).resolve()

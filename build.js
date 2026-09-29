@@ -38,7 +38,8 @@ const CONFIG_FILE = "builds.yaml";
 // `personal` has rank 4 and no max_scope value admits it: personal
 // material is mechanically unshippable. Scope is read from the deep ref
 // frontmatter at build time (the deep ref is a build-time input, not a
-// runtime artefact — apps ship distillations only).
+// runtime artefact — apps ship distillations only). A distillation with
+// no deep ref has no readable scope, so it is excluded too.
 const SCOPE_RANK = {
   open: 0,
   "open-nc": 1,
@@ -431,9 +432,11 @@ class MatrixBuilder {
           // openstax-business-ethics-decision-making.md → openstax-business-ethics
           const taskSuffix = `-${taskDir}.md`;
           if (!file.endsWith(taskSuffix)) {
-            // Lens-variant or other shape (e.g. {slug}-{task}-{lens}.md);
-            // skip the scope check for now. Lens-variant scope handling
-            // is a follow-up.
+            // Lens-variant or other shape (e.g. {slug}-{task}-{lens}.md):
+            // its source slug can't be resolved here, so its scope can't be
+            // checked, and an unchecked file doesn't ship.
+            skippedReasons.push(`no scope check for this filename shape: ${taskDir}/${file}`);
+            continue;
           } else {
             const slug = file.slice(0, -taskSuffix.length);
             const deepRefPath = path.join(refDir, `${slug}-deep.md`);
@@ -486,12 +489,13 @@ class MatrixBuilder {
                   });
                 }
               }
+            } else {
+              // The scope gate reads the source's scope from its deep ref.
+              // A distillation with no deep ref at corpus level can't be
+              // checked, so it doesn't ship.
+              skippedReasons.push(`no deep ref for source ${slug}: ${taskDir}/${file}`);
+              continue;
             }
-            // If the deep ref doesn't exist at corpus level, the
-            // distillation is an orphan — ship it but flag it (a real
-            // ingestion would have produced the deep before the
-            // distillation; this branch covers borrowed-through-only
-            // distillations and pre-Pass-G drafts).
           }
         }
 
@@ -541,7 +545,7 @@ class MatrixBuilder {
     );
 
     if (skippedReasons.length > 0) {
-      console.log(`  Distillations: ${total} files copied (${skippedReasons.length} skipped by scope ceiling: ${maxScope})`);
+      console.log(`  Distillations: ${total} files copied (${skippedReasons.length} skipped by the scope gate, max_scope: ${maxScope})`);
       for (const r of skippedReasons) console.log(`    ${r}`);
     } else {
       console.log(`  Distillations: ${total} files copied (max_scope: ${maxScope})`);

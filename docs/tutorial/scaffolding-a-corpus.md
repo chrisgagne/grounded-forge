@@ -105,7 +105,7 @@ For multi-source ingestion, you have two choices:
 - **Sequential** (one source at a time, watch each pass). Easier to follow; ~5–20 minutes per small source.
 - **Parallel** (the skill spawns sub-agents for the passes that can run concurrently). Faster wall-clock for 3+ sources; the skill describes its own parallel-batch mode.
 
-After each ingestion, Pass H drives the mechanical-index pipeline (allocate slug-ID → preprocess → Sonnet refs + cross-link → regenerate runtime JSON indexes) so subsequent reads can route to the new source. Operators don't hand-edit the JSON; the markdown operator-views are where edits live and Pass H regenerates JSON from them.
+After each ingestion, Pass H drives the mechanical-index pipeline (allocate slug-ID → preprocess → refs + cross-link → regenerate runtime JSON indexes) so subsequent reads can route to the new source. Operators don't hand-edit the JSON; the markdown operator-views are where edits live and Pass H regenerates JSON from them.
 
 ## Step 4: Add a build profile for your corpus
 

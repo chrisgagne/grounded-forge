@@ -1,5 +1,5 @@
 """Assemble ``concept-index.json`` from per-source extracted artefacts plus
-a Sonnet cross-link pass that decides aliasing/merging.
+an LLM cross-link pass that decides aliasing/merging.
 
 Pipeline (Phase 3):
 
@@ -10,9 +10,9 @@ Pipeline (Phase 3):
 
   2. Python writes the merged candidate list to
      ``_planning/staging/{corpus}/concepts/candidates.json``. This artefact
-     is the *input* to the Sonnet cross-link pass.
+     is the *input* to the cross-link pass.
 
-  3. A Sonnet sub-agent reads the candidates, makes alias / merge / novel
+  3. The ``ingest-concept-linker`` agent reads the candidates, makes alias / merge / novel
      decisions, and writes
      ``_planning/staging/{corpus}/concepts/decisions.json``. The spec calls
      out (§"Anti-patterns to avoid") that this step MUST be the LLM; regex
@@ -25,19 +25,19 @@ Pipeline (Phase 3):
      operator/audit surface).
 
 Steps 1, 2, 4 are mechanical and live in this script. Step 3 is the human
-(or orchestrator) running the Sonnet pass with the staging artefacts.
+(or orchestrator) running the cross-link pass with the staging artefacts.
 
 Usage:
 
-    # Step 1+2 (aggregation): emit candidates for the Sonnet pass.
+    # Step 1+2 (aggregation): emit candidates for the cross-link pass.
     python -m scripts.build_indexes.build_concept_index --corpus demo \\
         --emit-candidates
 
-    # Step 4 (after Sonnet decisions land): assemble final index.
+    # Step 4 (after the cross-link decisions land): assemble final index.
     python -m scripts.build_indexes.build_concept_index --corpus demo \\
         --assemble
 
-Decision-file schema (written by the Sonnet pass):
+Decision-file schema (written by the cross-link pass):
 
     {
       "schema_version": 1,
@@ -408,7 +408,7 @@ def _normalise(text: str) -> str:
 
     Strip trailing locators (page numbers), lowercase, collapse whitespace,
     strip surrounding punctuation. Used to bucket textual duplicates inside
-    the candidate vocabulary so the Sonnet pass sees one entry per *distinct
+    the candidate vocabulary so the cross-link pass sees one entry per *distinct
     surface form*, not seven copies of the same string from a multi-page
     index.
     """
@@ -499,12 +499,12 @@ def _collect_candidates(corpus: str, slug_id: dict[str, str]) -> dict:
 
 
 def _emit_candidates(corpus: str) -> Path:
-    """Aggregate per-source extractions into a Sonnet-ready candidate list.
+    """Aggregate per-source extractions into a candidate list for the cross-link pass.
 
     Two-layer construction:
 
     - **Curated layer**: every ``concept_tag`` in ``reference-index.json``.
-      These are the operator-validated (via Sonnet pass 1) routing tags;
+      These are the operator-validated (via the refs pass) routing tags;
       they form the spine of the concept-index.
     - **Mechanical layer**: enumerated-method names (author-curated) plus
       back-matter book-index entries that appear in *at least two distinct
@@ -513,7 +513,7 @@ def _emit_candidates(corpus: str) -> Path:
       back-matter without adding cross-source routing capability. Phase 5
       re-runs can promote them as needed.
 
-    The decision file the Sonnet pass writes back must cover both layers.
+    The decision file the cross-link pass writes back must cover both layers.
     """
     slug_table = load_slug_table(corpus)
     slug_id = slug_to_id(slug_table)
@@ -554,7 +554,7 @@ def _emit_candidates(corpus: str) -> Path:
             "build reference-index first to seed curated tags"
         )
 
-    # Slim payload for the Sonnet pass — drop per-source locator metadata
+    # Slim payload for the cross-link pass — drop per-source locator metadata
     # the cross-link decision doesn't need. The full extracted artefacts
     # remain available at _planning/extracted/{corpus}/*.json if a decision
     # needs to drill into line ranges.
@@ -632,7 +632,7 @@ def _assemble(corpus: str) -> Path:
     if not decisions_path.is_file():
         raise SystemExit(
             f"ERROR: decisions file not found at {decisions_path}.\n"
-            "Run the Sonnet cross-link pass against candidates.json before --assemble."
+            "Run the cross-link pass against candidates.json before --assemble."
         )
 
     with decisions_path.open("r", encoding="utf-8") as f:
@@ -777,7 +777,7 @@ def _assemble(corpus: str) -> Path:
     header = {
         "schema_version": 2,
         "corpus": corpus,
-        "generated_from": "extracted+sonnet-cross-link",
+        "generated_from": "extracted+cross-link",
         "row_format": ["slug", "name", "aliases", "source_ids", "contexts?"],
     }
     with out_path.open("w", encoding="utf-8") as f:
@@ -799,7 +799,7 @@ def _assemble(corpus: str) -> Path:
             {
                 "schema_version": 1,
                 "corpus": corpus,
-                "generated_from": "extracted+sonnet-cross-link",
+                "generated_from": "extracted+cross-link",
                 "variant": "deep",
                 "concepts": concepts,
             },

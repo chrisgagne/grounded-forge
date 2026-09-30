@@ -1,7 +1,7 @@
 ---
 name: ingest-discovery-scanner
 description: LLM leg of the discovery scan in the 9-pass ingestion protocol. Reads one converted source in full and adds to its mechanical-baseline `_planning/discovery/{slug}.json` the author's enumerated named methods, plus any book-index or page-marker correction the regex baseline missed. Feeds Pass H's deterministic preprocessor. Dispatched by the orchestrating session once per source after the mechanical baseline has run; not for direct invocation.
-model: sonnet
+model: opus
 effort: high
 tools: Read, Grep, Write
 ---

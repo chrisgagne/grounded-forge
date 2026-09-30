@@ -1,9 +1,9 @@
-"""Assemble ``reference-index.json`` from Sonnet-extracted per-source records
+"""Assemble ``reference-index.json`` from LLM-extracted per-source records
 plus mechanical fields read from the deep-ref frontmatter and slug-table.
 
 Inputs:
 - ``_planning/staging/{corpus}/refs/{slug}.json``: one per source, written by
-  the Sonnet semantic-extraction sub-agents. Schema (per source):
+  the ``ingest-refs-extractor`` agent. Schema (per source):
 
       {
         "slug": "openstax-organizational-behavior",

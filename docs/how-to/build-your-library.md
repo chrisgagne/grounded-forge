@@ -54,7 +54,7 @@ Pass I (source-only audit) is the gate: a deep reference does not ship until Pas
 
 ## Step 4: Indexes update themselves
 
-The ingestion skill's Pass H drives the mechanical-index pipeline once per source: allocate slug-ID, run the deterministic preprocessor, dispatch the Sonnet refs and cross-link passes, regenerate the runtime JSON indexes. Operators do not hand-edit any JSON index; updates flow through frontmatter, the slug table, and the per-task operator-inspection markdown views (which Pass G authors).
+The ingestion skill's Pass H drives the mechanical-index pipeline once per source: allocate slug-ID, run the deterministic preprocessor, dispatch the refs and cross-link passes, regenerate the runtime JSON indexes. Operators do not hand-edit any JSON index; updates flow through frontmatter, the slug table, and the per-task operator-inspection markdown views (which Pass G authors).
 
 The runtime indexes that get regenerated each Pass H:
 

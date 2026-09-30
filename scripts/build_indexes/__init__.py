@@ -2,12 +2,12 @@
 
 Three artefacts per corpus:
 
-- ``reference-index.json``: file catalogue. Per-source fields come from a
-  Sonnet semantic pass over the deep-ref frontmatter (free-form prose, not
+- ``reference-index.json``: file catalogue. Per-source fields come from an
+  LLM refs pass over the deep-ref frontmatter (free-form prose, not
   amenable to regex); mechanical fields (slug-table ID, ``**Scope:**``,
   light/deep line counts) are merged in by Python.
 - ``concept-index.json``: concept axis. Built from per-source extraction
-  artefacts at ``_planning/extracted/{corpus}/{slug}.json`` plus a Sonnet
+  artefacts at ``_planning/extracted/{corpus}/{slug}.json`` plus an LLM
   cross-link pass that decides aliasing/merging against the library's
   existing concept vocabulary.
 - ``task-index.json``: per-task situation router. Replaces the

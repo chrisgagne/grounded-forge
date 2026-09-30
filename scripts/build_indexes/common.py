@@ -63,7 +63,7 @@ def read_scope(deep_path: Path) -> str | None:
 
     The Scope line is mechanically reliable: it is operator-authored, single-
     token, drawn from a fixed vocabulary (open, open-nc, copyrighted,
-    confidential, personal). Author/year are not; they ride the Sonnet pass.
+    confidential, personal). Author/year are not; they ride the refs pass.
     """
     if not deep_path.is_file():
         return None

@@ -97,13 +97,13 @@ The Pass H ingestion-side artefacts that feed the build:
 
 | Artefact | Path | Produced by | Consumed by |
 |---|---|---|---|
-| Discovery JSON | `_planning/discovery/{slug}.json` | one-time Sonnet discovery scan of the converted source | Pass H's preprocessor (Phase 1) |
+| Discovery JSON | `_planning/discovery/{slug}.json` | one-time discovery scan of the converted source | Pass H's preprocessor (Phase 1) |
 | Extracted artefact | `_planning/extracted/{corpus}/{slug}.json` | the deterministic preprocessor at `scripts/mechanical_index/preprocess.py` | Pass H's concept-index build (Phase 3) |
-| Reference staging | `_planning/staging/{corpus}/refs/{slug}.json` | per-source Sonnet refs pass over the deep-ref frontmatter | `build_reference_index.py` |
-| Concept candidates | `_planning/staging/{corpus}/concepts/candidates.json` | `build_concept_index.py --emit-candidates` | the Sonnet cross-link pass |
-| Concept decisions | `_planning/staging/{corpus}/concepts/decisions.json` | the Sonnet cross-link pass | `build_concept_index.py --assemble` |
+| Reference staging | `_planning/staging/{corpus}/refs/{slug}.json` | per-source refs pass over the deep-ref frontmatter | `build_reference_index.py` |
+| Concept candidates | `_planning/staging/{corpus}/concepts/candidates.json` | `build_concept_index.py --emit-candidates` | the cross-link pass |
+| Concept decisions | `_planning/staging/{corpus}/concepts/decisions.json` | the cross-link pass | `build_concept_index.py --assemble` |
 
-The `extracted artefact` is the load-bearing one. It carries: back-matter `book_index_entries` (with page locators where present), `enumerated_methods` (author-curated method names with body lines where located), the source's `headings` tree, the `page_marker_map` when conversion preserved page anchors, and the dispatcher's `derived_tier` log. Cross-source aggregation across these artefacts feeds the corpus-wide concept candidate set the Sonnet cross-link pass adjudicates.
+The `extracted artefact` is the load-bearing one. It carries: back-matter `book_index_entries` (with page locators where present), `enumerated_methods` (author-curated method names with body lines where located), the source's `headings` tree, the `page_marker_map` when conversion preserved page anchors, and the dispatcher's `derived_tier` log. Cross-source aggregation across these artefacts feeds the corpus-wide concept candidate set the cross-link pass adjudicates.
 
 A `concept-axis entry` is one canonical record in `concept-index.json`: `{canonical, name, aliases[], sources[]}` where each source carries `{id, section?, md_line?, context?}`. The `section` is the deepest body heading whose title matched the canonical name or one of its aliases (or, for enumerated-method matches, the heading enclosing the body line). Sections from front-matter / back-matter (CONTENTS, INDEX, REFERENCES, single-letter dividers) are intentionally excluded.
 
@@ -113,7 +113,7 @@ Ingestion stops at reference. Distillation is a separate step.
 
 | Skill | Owns | Passes |
 |---|---|---|
-| `ingesting-resources` | source → reference; also drives the mechanical-index pipeline at Pass H | A, B, C, D, E, F, plus H (preprocessor + Sonnet refs pass + Sonnet cross-link + index build) and I against the reference |
+| `ingesting-resources` | source → reference; also drives the mechanical-index pipeline at Pass H | A, B, C, D, E, F, plus H (preprocessor + refs pass + cross-link + index build) and I against the reference |
 | `creating-tasks` | task-axis spec (Jobs-to-be-Done scoping) | n/a; a design dialogue, not a pass |
 | `creating-applications` | task spec + corpus subset → compiled application | orchestrates G across the named source set |
 | `creating-distillations` | reference × task [× lens] → distillation | G, plus H and I against the distillation |

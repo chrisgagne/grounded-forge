@@ -1,7 +1,7 @@
 ---
 name: ingest-concept-linker
 description: Pass H cross-link pass of the 9-pass ingestion protocol. Reads the mechanical concept-candidates payload and decides attach, merge, novel or drop for each candidate, writing a pending-decisions file (new sources into a corpus that already has decisions) or `decisions.json` (a corpus with none yet). Dispatched by the orchestrating session after `build_concept_index --emit-candidates`; not for direct invocation.
-model: sonnet
+model: opus
 effort: high
 tools: Read, Grep, Glob, Bash, Write
 ---

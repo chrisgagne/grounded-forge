@@ -1,7 +1,7 @@
 ---
 name: ingest-refs-extractor
 description: Pass H refs pass of the 9-pass ingestion protocol. Reads one deep reference's header and thesis and writes its reference-index fields (author, year, title, primary_topic, concept_tags) to `_planning/staging/{corpus}/refs/{slug}.json`. Dispatched by the orchestrating session once per source after the deep reference is written; not for direct invocation.
-model: sonnet
+model: opus
 effort: medium
 tools: Read, Grep, Write
 ---

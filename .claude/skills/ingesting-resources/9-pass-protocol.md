@@ -251,7 +251,7 @@ For licence considerations when distributing derived artefacts, see [`docs/archi
 
 **Produces:** updated JSON runtime indexes that route to the new files, plus the operator-inspection `.md` views regenerated alongside.
 
-Pass H used to ask the agent to author concept-A-Z entries by inference and hand-edit per-task distillation indexes. The mechanical-index migration moved that work into a deterministic preprocessor plus a constrained Sonnet cross-link pass. The agent now drives the pipeline rather than performing the work directly. The split is the spec's anti-pattern guard: mechanical work (structural extraction, slug-table updates, .md table parsing) goes to Python; semantic work (alias merging, novel-concept naming, applicability) goes to a Sonnet pass operating against a slim staged payload.
+Pass H used to ask the agent to author concept-A-Z entries by inference and hand-edit per-task distillation indexes. The mechanical-index migration moved that work into a deterministic preprocessor plus constrained LLM passes. The agent now drives the pipeline rather than performing the work directly. The split is the spec's anti-pattern guard: mechanical work (structural extraction, slug-table updates, .md table parsing) goes to Python; semantic work (alias merging, novel-concept naming, applicability) goes to three named agents operating against slim staged payloads. Those agents pin Opus: the vocabulary they build is read on every query, so it gets the strongest model, not the cheapest.
 
 **Procedure (single-source run):**
 
@@ -268,13 +268,13 @@ Pass H used to ask the agent to author concept-A-Z entries by inference and hand
 
    **Discovery scan, when `_planning/discovery/{slug}.json` is missing.** Run the mechanical baseline from the repo root, `python -m scripts.mechanical_index.discovery_scan_mechanical --corpus {corpus-root}`. It takes the corpus path and writes a baseline for every source that lacks one. Then dispatch the [`ingest-discovery-scanner`](../../agents/ingest-discovery-scanner.md) agent with the corpus root and slug. The agent reads the converted source in full and adds the author's enumerated named methods, which the regex baseline leaves empty. Those methods pass the concept-candidate filter from a single source, where a book-index entry needs two: the scan is how a source's own named methods enter the concept index.
 
-3. **Extract reference-index fields via Sonnet semantic pass.** Dispatch the [`ingest-refs-extractor`](../../agents/ingest-refs-extractor.md) agent with the corpus name, corpus root and slug. It reads the new deep reference's header and thesis and writes `{author, year, title, primary_topic, concept_tags}` to `_planning/staging/{corpus}/refs/{slug}.json`. Frontmatter prose varies (`Beck et al. (2001)`, `OpenStax (2019)`, organisational authors, working papers without years); regex would mis-attribute silently, so this is delegated to a constrained LLM step. Dispatch the named agent rather than a general-purpose one: the named agent pins Sonnet, and a general-purpose subagent inherits the session's Opus.
+3. **Extract reference-index fields via the refs pass.** Dispatch the [`ingest-refs-extractor`](../../agents/ingest-refs-extractor.md) agent with the corpus name, corpus root and slug. It reads the new deep reference's header and thesis and writes `{author, year, title, primary_topic, concept_tags}` to `_planning/staging/{corpus}/refs/{slug}.json`. Frontmatter prose varies (`Beck et al. (2001)`, `OpenStax (2019)`, organisational authors, working papers without years); regex would mis-attribute silently, so this is delegated to a constrained LLM step. Dispatch the named agent rather than a general-purpose one: it carries the extraction rules.
 
-4. **Rebuild `reference-index.json`.** Run `python -m scripts.build_indexes.build_reference_index --corpus {corpus}`. Python merges the Sonnet output with mechanical fields (slug-table ID, `**Scope:**` from the deep, light/deep line counts) and writes `corpus.commons/{corpus}/reference-index.json`.
+4. **Rebuild `reference-index.json`.** Run `python -m scripts.build_indexes.build_reference_index --corpus {corpus}`. Python merges the refs-pass output with mechanical fields (slug-table ID, `**Scope:**` from the deep, light/deep line counts) and writes `corpus.commons/{corpus}/reference-index.json`.
 
 5. **Emit concept candidates.** Run `python -m scripts.build_indexes.build_concept_index --corpus {corpus} --emit-candidates`. Aggregates extracted artefacts across every source in the corpus, filters to cross-source-or-enumerated-method entries (single-source back-matter index entries are noise at the corpus-level concept axis), seeds curated tags from `reference-index.json`, writes the slim candidates payload to `_planning/staging/{corpus}/concepts/candidates.json`.
 
-6. **Run the Sonnet cross-link pass.** Dispatch the [`ingest-concept-linker`](../../agents/ingest-concept-linker.md) agent with the corpus name. It emits `(canonical, name, aliases, sources[])` records in one of two ways:
+6. **Run the cross-link pass.** Dispatch the [`ingest-concept-linker`](../../agents/ingest-concept-linker.md) agent with the corpus name. It emits `(canonical, name, aliases, sources[])` records in one of two ways:
    - **Corpus already has `decisions.json`:** also pass the new sources' slug + ID pairs and a short label. The agent judges only those sources' candidates and writes `_planning/staging/{corpus}/concepts/pending-{label}-{date}.json`, carrying `new_records` and `add_sources` (new sources for existing canonicals). Back up `decisions.json`, then merge: append the new records, add each `add_sources` entry to its canonical's `sources` unless that source is already there (match on ID *or* slug: older records carry slug only), sort by canonical, write with `indent=2` and `ensure_ascii=False`.
    - **New corpus:** the agent judges the whole payload and writes `_planning/staging/{corpus}/concepts/decisions.json` directly.
 
@@ -292,14 +292,14 @@ Pass H used to ask the agent to author concept-A-Z entries by inference and hand
 
 **Index hygiene.** The operator-inspection `.md` views describe the corpus *as it is right now*. They are read by humans browsing the corpus; the runtime reads only the JSON. Do not add `Last updated` dates, recent-changes summaries in the header, parenthetical "now includes…" lists, or changelog sections: git history covers the journey to here. The JSON indexes are derived artefacts; never hand-edit them. All updates flow through frontmatter + slug-table + the build scripts.
 
-**Parallel-batch operation.** When ingesting many sources in one work-session, steps 2–4 (preprocess + Sonnet refs pass) run in parallel per source (each writes to its own staging path). Steps 5–7 (concept-index) run once after every parallel source agent completes: the cross-link pass needs the corpus-wide candidate aggregation. Steps 8 and 9 also run once.
+**Parallel-batch operation.** When ingesting many sources in one work-session, steps 2–4 (preprocess + refs pass) run in parallel per source (each writes to its own staging path). Steps 5–7 (concept-index) run once after every parallel source agent completes: the cross-link pass needs the corpus-wide candidate aggregation. Steps 8 and 9 also run once.
 
 **The convergence steps are the ones that get skipped, and skipping them is invisible.** Per-source agents write their staging outputs faithfully and report success; the corpus-level assembly at the end of the batch is a single run that nobody's task list owns. A 55-source corpus audited in 2026 had missed four of them at once — no `IMAGE-INDEX.yaml` despite 46 staging files, 13 router rows still sitting in `_ingest_*.md` stubs so five distillations were unreachable, `concept-index --assemble` never run, and 20 source sidecars unwritten. Nothing looked broken from any per-source view. Before declaring a batch complete, run this checklist and check the counts, not the exit codes:
 
 ```
 python -m scripts.build_indexes.build_reference_index --corpus {corpus}
 python -m scripts.build_indexes.build_concept_index   --corpus {corpus} --emit-candidates
-#   … Sonnet cross-link pass → decisions.json …
+#   … cross-link pass → decisions.json …
 python -m scripts.build_indexes.build_concept_index   --corpus {corpus} --assemble
 python -m scripts.build_indexes.build_task_index      --corpus {corpus}
 python3 scripts/build_indexes/build_image_index.py    --corpus {corpus}

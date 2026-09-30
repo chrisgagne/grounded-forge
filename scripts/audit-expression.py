@@ -36,9 +36,10 @@ The thresholds are provisional until calibrated against labelled examples, as Pa
 against tests/audit-fixtures/. The audit measures distance; where the line sits is a
 policy decision for the operator and their counsel.
 
-Sources resolve from {corpus}/sources/converted/{slug}.md, else from the converted-text
-link in {corpus}/sources/original/{slug}.source.md. A distillation with neither is
-reported as unmapped, never matched by guesswork.
+Sources resolve from --source-map (a JSON object of slug -> path, relative to the corpus
+root), else {corpus}/sources/converted/{slug}.md, else the converted-text link in
+{corpus}/sources/original/{slug}.source.md. A distillation with none is reported as
+unmapped, never matched by guesswork; build the map by content, not by filename.
 
 Embeddings use chromadb's default model (all-MiniLM-L6-v2), the one scripts/setup-chroma.py
 uses. Source embeddings are cached under the output directory, keyed by the source text's
@@ -242,7 +243,12 @@ class Embedder:
         return m
 
 
-def resolve_source(corpus: Path, slug: str) -> Path | None:
+def resolve_source(corpus: Path, slug: str, source_map: dict | None = None) -> Path | None:
+    if source_map and slug in source_map:
+        mapped = Path(source_map[slug])
+        mapped = mapped if mapped.is_absolute() else corpus / mapped
+        if mapped.is_file():
+            return mapped
     direct = corpus / "sources" / "converted" / f"{slug}.md"
     if direct.is_file():
         return direct
@@ -265,10 +271,10 @@ def scope_of(corpus: Path, slug: str) -> str:
     return "unknown"
 
 
-def audit(corpus: Path, task: str, slug: str, emb: Embedder) -> dict:
+def audit(corpus: Path, task: str, slug: str, emb: Embedder, source_map: dict | None = None) -> dict:
     dist_path = corpus / "distillations" / task / f"{slug}-{task}.md"
     row = {"slug": slug, "scope": scope_of(corpus, slug)}
-    src_path = resolve_source(corpus, slug)
+    src_path = resolve_source(corpus, slug, source_map)
     if src_path is None:
         return row | {"status": "unmapped"}
     dist_text, src_text = dist_path.read_text(), src_path.read_text()
@@ -345,6 +351,7 @@ def main() -> None:
     ap.add_argument("--task", required=True)
     ap.add_argument("--slug", action="append", help="audit only these slugs (repeatable)")
     ap.add_argument("--out", type=Path, help="default: {corpus}/_audit/expression/{task}")
+    ap.add_argument("--source-map", type=Path, help="JSON object of slug -> source path, relative to the corpus")
     args = ap.parse_args()
 
     dist_dir = args.corpus / "distillations" / args.task
@@ -353,10 +360,11 @@ def main() -> None:
     out = args.out or args.corpus / "_audit" / "expression" / args.task
     out.mkdir(parents=True, exist_ok=True)
     emb = Embedder(out / ".cache")
+    source_map = json.loads(args.source_map.read_text()) if args.source_map else None
 
     rows = []
     for n, slug in enumerate(slugs, 1):
-        row = audit(args.corpus, args.task, slug, emb)
+        row = audit(args.corpus, args.task, slug, emb, source_map)
         (out / f"{slug}.json").write_text(json.dumps(row, indent=2, ensure_ascii=False))
         rows.append(row)
         brief = (f"close {row['paraphrase']['close_share']:.0%}, rho {row['order']['spearman']}"

@@ -36,7 +36,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.build_indexes.check_topics import check, check_skeleton, chunk_doc  # noqa: E402
-from scripts.build_indexes.merge_topic_chunks import apply, merge  # noqa: E402
+from scripts.build_indexes.merge_topic_chunks import _members, apply, merge  # noqa: E402
 
 
 def assert_(cond: bool, msg: str) -> None:
@@ -244,6 +244,23 @@ def case_apply_moves_concepts_and_flags_duplicates() -> None:
     raise AssertionError("moving a concept out of a topic that doesn't hold it must stop")
 
 
+def case_apply_evens_out_noise_calls() -> None:
+    merged = merge(SKELETON, [FILED_1, FILED_2])
+    doc = apply(merged, {
+        "accept": [{"key": "blameless-culture"}],
+        "move": [{"concept": "subject-index", "from": "", "to": "accident-models"}],
+        "unplace": [{"concept": "normal-accident-theory", "reason": "noise"}],
+    })
+    topics = {t["key"]: t for t in doc["topics"]}
+    unplaced = {u["concept"] for u in doc["unplaced"]}
+    assert_("subject-index" in topics["accident-models"]["concepts"] and "subject-index" not in unplaced,
+            f"placing a noise concept takes it out of unplaced: {unplaced}")
+    held = [t["key"] for t in topics.values() if "normal-accident-theory" in _members(t)]
+    assert_(held == [] and "normal-accident-theory" in unplaced,
+            f"unplace removes a concept from every topic and side: {held}, {unplaced}")
+    assert_(not check(CHUNK_1 + CHUNK_2, doc)[0], "the evened-out file must still pass")
+
+
 def case_apply_drops_a_debate_without_moving_its_sides() -> None:
     merged = merge(SKELETON, [FILED_1, FILED_2])
     doc = apply(merged, {"accept": [{"key": "blameless-culture"}], "drop": ["nat-vs-hro", "cognitive-biases"]})
@@ -280,6 +297,7 @@ CASES = [
     case_apply_redirects_splits_and_edits,
     case_apply_repoints_broader_links_on_redirect,
     case_apply_moves_concepts_and_flags_duplicates,
+    case_apply_evens_out_noise_calls,
     case_apply_drops_a_debate_without_moving_its_sides,
     case_apply_stops_on_missing_topics,
 ]

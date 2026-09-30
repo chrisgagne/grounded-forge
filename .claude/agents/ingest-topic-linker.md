@@ -99,7 +99,7 @@ Write a `scope_note` for every topic: the filing agents read it to decide what b
 }
 ```
 
-List only the skeleton topics you filed something under. Run `check_topics --corpus {corpus} --chunk NN` until PASS.
+List only the skeleton topics you filed something under. Run `check_topics --corpus {corpus} --chunk NN` until PASS. Filing agents run at the same time and may share a scratch folder, so start the name of every helper file you write with `chunkNN-`, and read the skeleton from `topics.skeleton.json` itself, never from another agent's copy.
 
 **Stage 3, consolidate.** Run `python3 -m scripts.build_indexes.merge_topic_chunks merge --corpus {corpus}`, then `merge_topic_chunks report --corpus {corpus}`, and read the report whole: every topic with its members by key, flagged when oversized (over 40) or empty, then every proposed topic with its members and the chunks that proposed it. To judge a concept, grep its line in `topic-payload.jsonl` by key for its aliases, sources and contexts; the whole payload is too large to read at this stage. Decide:
 
@@ -108,6 +108,7 @@ List only the skeleton topics you filed something under. Run `check_topics --cor
 - each empty or single-member topic: redirect it into its broader topic or a neighbour, unless the subject is distinct enough to keep;
 - each debate: keep it only if it still meets the debate test above; drop one that doesn't (its concepts already sit under subject topics, so dropping loses no placement);
 - concepts plainly misfiled: move them;
+- noise calls the chunks made differently (one chunk filed bare words such as "food" or "data" while another marked them noise): even them out, unplacing entries that name nothing and moving a noise entry that names something into a topic;
 - duplicates the chunks couldn't see, because their names sort apart: flag them as merge candidates;
 - names, boundaries and broader links the merged view shows need changing: edit them.
 
@@ -119,6 +120,7 @@ Write the operations to `topics.consolidation.json`:
   "redirect": {"<topic or proposal key>": "<target key>"},
   "split": {"<parent key>": [{"key": "", "name": "", "synonyms": [], "boundary": "", "scope_note": "", "concepts": [], "examples": []}]},
   "move": [{"concept": "", "from": "<topic key>", "to": "<topic key>"}],
+  "unplace": [{"concept": "", "reason": "noise"}],
   "drop": ["<topic key>"],
   "edit": {"<topic key>": {"name": "", "boundary": ""}},
   "merge_candidates": [{"concepts": [], "note": ""}]

@@ -138,7 +138,7 @@ def report(doc: dict) -> str:
 
 
 def apply(doc: dict, ops: dict) -> dict:
-    """Carry out consolidation operations, in this order: accept, redirect, split, move, drop, edit, flag.
+    """Carry out consolidation operations, in this order: accept, redirect, split, move, unplace, drop, edit, flag.
 
     - ``accept``: [{"key": proposed key, plus any fields to change}] promotes a proposal.
     - ``redirect``: {"from key": "to key"} moves every member of a topic or proposal
@@ -149,7 +149,10 @@ def apply(doc: dict, ops: dict) -> dict:
     - ``move``: [{"concept", "from", "to"}] refiles one concept: out of topic
       ``from`` (its concepts, examples or a debate side) and into topic ``to``,
       as a concept or as an example, whichever it was. An empty ``from`` adds a
-      placement; an empty ``to`` removes one.
+      placement (and takes the concept out of ``unplaced``); an empty ``to``
+      removes one.
+    - ``unplace``: [{"concept", "reason": "noise"}] removes a concept from every
+      topic and records it as noise, so the chunks' noise calls can be evened out.
     - ``drop``: [keys] removes topics without moving their members, for a
       debate that fails the debate test (its concepts already sit under
       subject topics); the checker reports any concept this leaves unplaced.
@@ -230,6 +233,17 @@ def apply(doc: dict, ops: dict) -> dict:
                 p["concepts"] = [c for c in p.get("concepts", []) if c != concept]
         if target:
             topics[target][field] = _dedupe(topics[target].get(field, []) + [concept])
+            doc["unplaced"] = [u for u in doc.get("unplaced", []) if u.get("concept") != concept]
+
+    for entry in ops.get("unplace", []):
+        concept = entry.get("concept")
+        for t in topics.values():
+            t["concepts"] = [c for c in t.get("concepts", []) if c != concept]
+            t["examples"] = [c for c in t.get("examples", []) if c != concept]
+            for p in t.get("positions", []):
+                p["concepts"] = [c for c in p.get("concepts", []) if c != concept]
+        if all(u.get("concept") != concept for u in doc.get("unplaced", [])):
+            doc.setdefault("unplaced", []).append({"concept": concept, "reason": entry.get("reason", "noise")})
 
     for key in ops.get("drop", []):
         dropped = topics.pop(key, None)

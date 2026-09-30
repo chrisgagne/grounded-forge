@@ -18,14 +18,19 @@ Pipeline (Phase 3):
      out (§"Anti-patterns to avoid") that this step MUST be the LLM; regex
      cannot adjudicate aliases, vocabulary variation, related-but-distinct.
 
-  4. Python reads the decisions, applies them to the candidate vocabulary,
-     resolves slug → ID, and writes two variants: ``concept-index.json``
-     (runtime: name, aliases, source ids — readable whole in one pass) and
-     ``concept-index-deep.json`` (adds section/md_line body pointers; the
-     operator/audit surface).
+  4. The ``ingest-topic-linker`` agent files the concepts under topics and
+     writes ``_planning/staging/{corpus}/concepts/topics.json``.
 
-Steps 1, 2, 4 are mechanical and live in this script. Step 3 is the human
-(or orchestrator) running the cross-link pass with the staging artefacts.
+  5. Python reads the decisions, applies them to the candidate vocabulary,
+     resolves slug → ID, and writes two variants: ``concept-index.json``
+     (runtime) and ``concept-index-deep.json`` (adds section/md_line body
+     pointers; the operator/audit surface). With a topics file the runtime
+     index is schema 3: a topics block a model reads whole, then one concept
+     row per line, found by topic ID. Without one it is schema 2: one row per
+     concept, read whole.
+
+Steps 1, 2, 5 are mechanical and live in this script. Steps 3 and 4 are the
+orchestrator running the agents with the staging artefacts.
 
 Usage:
 
@@ -33,7 +38,7 @@ Usage:
     python -m scripts.build_indexes.build_concept_index --corpus demo \\
         --emit-candidates
 
-    # Step 4 (after the cross-link decisions land): assemble final index.
+    # Step 5 (after the cross-link and topic decisions land): assemble final index.
     python -m scripts.build_indexes.build_concept_index --corpus demo \\
         --assemble
 
@@ -644,6 +649,171 @@ def _previous_pointers(deep_path: Path) -> dict[tuple[str, str], dict]:
     return out
 
 
+_TOPIC_ID = re.compile(r"t(\d{3})")
+
+_TOPIC_FORMAT = ["id", "name", "synonyms", "boundary", "kind", "broader", "concepts", "sources", "positions?"]
+_ROW_FORMAT = ["name", "kind", "synonyms", "source_ids", "topics", "contexts?"]
+
+
+def _load_topics(corpus: str) -> tuple[Path, dict | None]:
+    """The topic linker's decisions, if this corpus has any."""
+    path = staging_dir(corpus, "concepts") / "topics.json"
+    if not path.is_file():
+        return path, None
+    with path.open("r", encoding="utf-8") as f:
+        return path, json.load(f)
+
+
+def _published_topic_ids(runtime_path: Path) -> set[str]:
+    """Topic IDs already shipped in a schema-3 runtime index."""
+    if not runtime_path.is_file():
+        return set()
+    with runtime_path.open("r", encoding="utf-8") as f:
+        index = json.load(f)
+    if index.get("schema_version") != 3:
+        return set()
+    return {t[0] for t in index.get("topics", [])}
+
+
+def _assign_topic_ids(topics_doc: dict, published: set[str]) -> bool:
+    """Give each topic without an ``id`` the next free one; True if any were assigned.
+
+    IDs are append-only: never reassigned and never reused, even after a topic
+    is retired (``published`` carries the IDs already shipped). They are
+    fixed-width, t001 to t999, because retrieval finds a topic's rows by the
+    prefix ``"t031``, which would also match ``"t0310`` if widths varied.
+    """
+    taken = {t["id"] for t in topics_doc["topics"] if t.get("id")} | published
+    numbers = [int(m.group(1)) for i in taken if (m := _TOPIC_ID.fullmatch(i))]
+    following = max(numbers, default=0) + 1
+    assigned = False
+    for topic in topics_doc["topics"]:
+        if topic.get("id"):
+            continue
+        if following > 999:
+            raise SystemExit("topic IDs would pass t999; widen the ID format before adding topics")
+        topic["id"] = f"t{following:03d}"
+        following += 1
+        assigned = True
+    return assigned
+
+
+def _write_schema3(out_path: Path, corpus: str, concepts: dict[str, dict], topics_doc: dict) -> dict:
+    """Write the schema-3 runtime index and check it; return counts for the build log.
+
+    A topics block comes first, one topic per line, with ``topic_lines`` giving
+    its line range so a model reads exactly the block. Concept rows follow, one
+    per line. A row lists its topic IDs, and a debate side as ``t031.1``, so
+    ``grep -F '"t031'`` returns every row under topic t031, sides included.
+    Rows carry no slug: the pipeline keys concepts by slug in ``decisions.json``
+    and the deep variant.
+    """
+    dump = lambda value: json.dumps(value, ensure_ascii=False, separators=(",", ":"))  # noqa: E731
+    topics = sorted(topics_doc["topics"], key=lambda t: t["id"])
+    key_to_id = {t["key"]: t["id"] for t in topics}
+    refs: dict[str, set[str]] = {c: set() for c in concepts}
+    members: dict[str, set[str]] = {t["id"]: set() for t in topics}
+    filed_as_concept: set[str] = set()
+    unknown: list[str] = []
+
+    def attach(topic_id: str, ref: str, canonical: str, as_concept: bool) -> None:
+        if canonical not in refs:
+            unknown.append(f"{topic_id} -> {canonical}")
+            return
+        refs[canonical].add(ref)
+        members[topic_id].add(canonical)
+        if as_concept:
+            filed_as_concept.add(canonical)
+
+    for topic in topics:
+        topic_id = topic["id"]
+        for canonical in topic.get("concepts", []):
+            attach(topic_id, topic_id, canonical, True)
+        for canonical in topic.get("examples", []):
+            attach(topic_id, topic_id, canonical, False)
+        for side, position in enumerate(topic.get("positions", []), 1):
+            for canonical in position.get("concepts", []):
+                attach(topic_id, f"{topic_id}.{side}", canonical, True)
+    bad_broader = [t["key"] for t in topics if t.get("broader") and t["broader"] not in key_to_id]
+    if unknown or bad_broader:
+        raise SystemExit(
+            "topics.json doesn't match the concept vocabulary:\n"
+            + "".join(f"  unknown concept {u}\n" for u in unknown[:20])
+            + "".join(f"  unknown broader topic on {k}\n" for k in bad_broader)
+        )
+
+    synonyms = topics_doc.get("synonyms", {})
+    unplaced = {u["concept"] for u in topics_doc.get("unplaced", [])}
+    dropped_synonyms = 0
+
+    def topic_line(topic: dict) -> str:
+        topic_id = topic["id"]
+        source_ids = {s["id"] for c in members[topic_id] for s in concepts[c]["sources"]}
+        line = [topic_id, topic["name"], topic.get("synonyms", []), topic.get("boundary", ""),
+                topic.get("kind", "subject"), key_to_id.get(topic.get("broader") or "", ""),
+                len(members[topic_id]), len(source_ids)]
+        if topic.get("kind") == "debate":
+            line.append([p["label"] for p in topic.get("positions", [])])
+        return dump(line)
+
+    def concept_line(canonical: str) -> str:
+        nonlocal dropped_synonyms
+        rec = concepts[canonical]
+        if canonical in synonyms:
+            kept = [a for a in synonyms[canonical] if a in rec["aliases"]]
+            dropped_synonyms += len(synonyms[canonical]) - len(kept)
+        else:
+            kept = rec["aliases"]  # not yet reviewed by the topic linker
+        kind = "example" if refs[canonical] and canonical not in filed_as_concept else "concept"
+        row = [rec["name"], kind, kept, [s["id"] for s in rec["sources"]], sorted(refs[canonical])]
+        contexts = {s["id"]: s["context"] for s in rec["sources"] if "context" in s}
+        if contexts:
+            row.append(contexts)
+        return dump(row)
+
+    topic_lines = [topic_line(t) for t in topics]
+    order = sorted(concepts, key=lambda c: (concepts[c]["name"].casefold(), c))
+    head = [
+        "{",
+        '"schema_version": 3,',
+        f'"corpus": {dump(corpus)},',
+        '"generated_from": "extracted+cross-link+topics",',
+    ]
+    first = len(head) + 5  # after topic_lines, topic_format, row_format and '"topics": ['
+    head += [
+        f'"topic_lines": [{first}, {first + len(topic_lines) - 1}],',
+        f'"topic_format": {dump(_TOPIC_FORMAT)},',
+        f'"row_format": {dump(_ROW_FORMAT)},',
+        '"topics": [',
+    ]
+    text = ("\n".join(head) + "\n" + ",\n".join(topic_lines) + "\n],\n" + '"concepts": [\n'
+            + ",\n".join(concept_line(c) for c in order) + "\n]}\n")
+
+    # The contract retrieval relies on: the file parses, topic_lines brackets
+    # the block, and each topic's prefix grep returns exactly its rows.
+    parsed = json.loads(text)
+    lines = text.splitlines()
+    start, end = parsed["topic_lines"]
+    if not all(lines[k - 1].startswith('["t') for k in range(start, end + 1)) or lines[end].startswith('["t'):
+        raise SystemExit("schema 3: topic_lines doesn't bracket the topics block")
+    rows = lines[end:]
+    for topic in topics:
+        hits = sum(1 for line in rows if f'"{topic["id"]}' in line)
+        if hits != len(members[topic["id"]]):
+            raise SystemExit(f"schema 3: grep for {topic['id']} finds {hits} rows, expected {len(members[topic['id']])}")
+
+    out_path.write_text(text, encoding="utf-8")
+    return {
+        "topics": len(topics),
+        "debates": sum(1 for t in topics if t.get("kind") == "debate"),
+        "rows": len(order),
+        "block_bytes": sum(len(lines[k - 1]) + 1 for k in range(start, end + 1)),
+        "unfiled": sorted(c for c in concepts if not refs[c] and c not in unplaced),
+        "unreviewed": sum(1 for c in concepts if c not in synonyms and concepts[c]["aliases"]),
+        "dropped_synonyms": dropped_synonyms,
+    }
+
+
 def _assemble(corpus: str) -> Path:
     slug_table = load_slug_table(corpus)
     slug_id = slug_to_id(slug_table)
@@ -772,14 +942,25 @@ def _assemble(corpus: str) -> Path:
             f"  reconciled {len(drift_log)} slug/id drift entries; log: {drift_path}"
         )
 
-    # Dual emission. The runtime index is compact v2 — one row per concept,
-    # sorted by slug, one line each, so the whole inventory reads in a
-    # fraction of the v1 dict's tokens while carrying identical content.
-    # Row: [slug, name, aliases, source_ids] with an optional 5th element
-    # {id: context} when any source carries a context string. The deep
-    # variant keeps the rich dict shape with section/md_line body pointers;
-    # it is the operator/audit surface and stays at corpus level (apps
-    # never ship it — build.js ships the runtime file).
+    # Dual emission. The deep variant keeps the rich dict shape with
+    # section/md_line body pointers; it is the operator/audit surface and
+    # stays at corpus level (apps never ship it — build.js ships the runtime
+    # file). The runtime file is schema 3 when the topic linker has filed this
+    # corpus (see _write_schema3), otherwise compact v2: one row per concept,
+    # sorted by slug, one line each. Row: [slug, name, aliases, source_ids]
+    # with an optional 5th element {id: context} when any source carries a
+    # context string.
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / "concept-index.json"
+    topics_path, topics_doc = _load_topics(corpus)
+    topic_stats = None
+    if topics_doc is not None:
+        if _assign_topic_ids(topics_doc, _published_topic_ids(out_path)):
+            with topics_path.open("w", encoding="utf-8") as f:
+                json.dump(topics_doc, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+        topic_stats = _write_schema3(out_path, corpus, concepts, topics_doc)
+
     rows = []
     for canonical in sorted(concepts):
         rec = concepts[canonical]
@@ -796,27 +977,25 @@ def _assemble(corpus: str) -> Path:
             row.append(contexts)
         rows.append(row)
 
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    out_path = out_dir / "concept-index.json"
     header = {
         "schema_version": 2,
         "corpus": corpus,
         "generated_from": "extracted+cross-link",
         "row_format": ["slug", "name", "aliases", "source_ids", "contexts?"],
     }
-    with out_path.open("w", encoding="utf-8") as f:
-        f.write("{\n")
-        for key, value in header.items():
-            f.write(f"{json.dumps(key)}: {json.dumps(value, ensure_ascii=False)},\n")
-        f.write('"concepts": [\n')
-        f.write(
-            ",\n".join(
-                json.dumps(row, ensure_ascii=False, separators=(",", ":"))
-                for row in rows
+    if topic_stats is None:
+        with out_path.open("w", encoding="utf-8") as f:
+            f.write("{\n")
+            for key, value in header.items():
+                f.write(f"{json.dumps(key)}: {json.dumps(value, ensure_ascii=False)},\n")
+            f.write('"concepts": [\n')
+            f.write(
+                ",\n".join(
+                    json.dumps(row, ensure_ascii=False, separators=(",", ":"))
+                    for row in rows
+                )
             )
-        )
-        f.write("\n]}\n")
+            f.write("\n]}\n")
 
     deep_path = out_dir / "concept-index-deep.json"
     with deep_path.open("w", encoding="utf-8") as f:
@@ -836,14 +1015,26 @@ def _assemble(corpus: str) -> Path:
     size = out_path.stat().st_size
     deep_size = deep_path.stat().st_size
     coverage = (section_hits / source_count * 100) if source_count else 0
+    runtime = "runtime v2" if topic_stats is None else "runtime schema 3"
     print(
-        f"wrote {out_path} ({len(rows)} concepts, {size} bytes runtime v2; "
+        f"wrote {out_path} ({len(rows)} concepts, {size} bytes {runtime}; "
         f"{deep_size} bytes deep at {deep_path.name}); "
         f"section pointers attached to {section_hits}/{source_count} source mentions "
         f"({coverage:.0f}%)"
         + (f", {carried} kept from the previous deep index for sources with no extracted artefact"
            if carried else "")
     )
+    if topic_stats is not None:
+        s = topic_stats
+        print(
+            f"  topics: {s['topics']} ({s['debates']} debate), topics block {s['block_bytes']} bytes; "
+            f"{len(s['unfiled'])} concepts not yet filed under a topic; "
+            f"{s['unreviewed']} with aliases whose synonyms the topic linker hasn't reviewed"
+            + (f"; {s['dropped_synonyms']} kept synonyms no longer among their concept's aliases"
+               if s["dropped_synonyms"] else "")
+        )
+        if s["unfiled"]:
+            print(f"  not yet filed: {', '.join(s['unfiled'][:10])}{' …' if len(s['unfiled']) > 10 else ''}")
     return out_path
 
 

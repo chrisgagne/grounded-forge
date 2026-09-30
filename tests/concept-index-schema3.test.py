@@ -38,6 +38,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from scripts.build_indexes.build_concept_index import (  # noqa: E402
     _assign_topic_ids,
     _previous_pointers,
+    _retire_topic_ids,
     _write_schema3,
 )
 from scripts.build_indexes.check_topics import check  # noqa: E402
@@ -102,6 +103,17 @@ def case_ids_are_append_only_and_fixed_width() -> None:
     except SystemExit:
         return
     raise AssertionError("passing t999 must stop the build")
+
+
+def case_retired_ids_are_never_reused() -> None:
+    doc = {"topics": [{"key": "a", "id": "t001"}, {"key": "b", "id": "t002"}, {"key": "new"}]}
+    published = {"t001", "t002", "t003"}  # t003, the highest, has been removed from topics.json
+    assert_(_retire_topic_ids(doc, published), "a shipped ID missing from topics.json must be retired")
+    assert_(doc["retired_ids"] == ["t003"], f"retired: {doc.get('retired_ids')}")
+    assert_(not _retire_topic_ids(doc, published), "a second pass must change nothing")
+    later = {"t001", "t002"}  # a later build: the runtime file no longer carries t003
+    _assign_topic_ids(doc, later | set(doc["retired_ids"]))
+    assert_(doc["topics"][2]["id"] == "t004", f"a retired highest ID must not be reused: {doc['topics'][2]['id']}")
 
 
 def case_topic_lines_bracket_the_block() -> None:
@@ -232,6 +244,7 @@ CASES = [
     case_checker_reports_placement_problems,
     case_checker_reports_synonym_problems,
     case_ids_are_append_only_and_fixed_width,
+    case_retired_ids_are_never_reused,
     case_topic_lines_bracket_the_block,
     case_prefix_grep_returns_each_topics_rows,
     case_rows_carry_kind_synonyms_and_contexts,

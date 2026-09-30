@@ -675,6 +675,21 @@ def _published_topic_ids(runtime_path: Path) -> set[str]:
     return {t[0] for t in index.get("topics", [])}
 
 
+def _retire_topic_ids(topics_doc: dict, published: set[str]) -> bool:
+    """Record shipped topic IDs that topics.json no longer holds; True if the list changed.
+
+    ``retired_ids`` in topics.json keeps them out of circulation for good, even
+    once the runtime file that carried them has been overwritten.
+    """
+    current = {t["id"] for t in topics_doc["topics"] if t.get("id")}
+    before = set(topics_doc.get("retired_ids", []))
+    after = before | (published - current)
+    if after == before:
+        return False
+    topics_doc["retired_ids"] = sorted(after)
+    return True
+
+
 def _assign_topic_ids(topics_doc: dict, published: set[str]) -> bool:
     """Give each topic without an ``id`` the next free one; True if any were assigned.
 
@@ -809,7 +824,8 @@ def _write_schema3(out_path: Path, corpus: str, concepts: dict[str, dict], topic
         "rows": len(order),
         "block_bytes": sum(len(lines[k - 1]) + 1 for k in range(start, end + 1)),
         "unfiled": sorted(c for c in concepts if not refs[c] and c not in unplaced),
-        "unreviewed": sum(1 for c in concepts if c not in synonyms and concepts[c]["aliases"]),
+        "unreviewed": sum(1 for c in concepts
+                          if c not in synonyms and c not in unplaced and concepts[c]["aliases"]),
         "dropped_synonyms": dropped_synonyms,
     }
 
@@ -955,7 +971,13 @@ def _assemble(corpus: str) -> Path:
     topics_path, topics_doc = _load_topics(corpus)
     topic_stats = None
     if topics_doc is not None:
-        if _assign_topic_ids(topics_doc, _published_topic_ids(out_path)):
+        published = _published_topic_ids(out_path)
+        retired_changed = _retire_topic_ids(topics_doc, published)
+        if retired_changed:
+            with topics_path.open("w", encoding="utf-8") as f:
+                json.dump(topics_doc, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+        if _assign_topic_ids(topics_doc, published | set(topics_doc.get("retired_ids", []))):
             with topics_path.open("w", encoding="utf-8") as f:
                 json.dump(topics_doc, f, indent=2, ensure_ascii=False)
                 f.write("\n")

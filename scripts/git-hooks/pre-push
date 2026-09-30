@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Pre-push audit for grounded-forge.
 #
-# Runs the eleven public-posting checks before any push to a remote:
+# Runs the twelve public-posting checks before any push to a remote:
 #   1. Private-tier leakage (corpus.local/, _planning/, _evals/ must be gitignored and untracked)
 #   2. Gitignore correctness (the patterns themselves)
 #   3. Credentials and secrets (API keys, tokens, .env files, hardcoded /Users/cgagne paths)
@@ -13,6 +13,7 @@
 #   9. Derived-tier provenance (no derived artefact is STALE against its audited deep — the stranded-tier failure mode)
 #  10. Private-term leakage (lines this push adds name nothing on the local-only list in corpus.local/private-terms.txt)
 #  11. Codex agent twins (every .claude/agents/*.md has a current .codex/agents/*.toml from scripts/sync-codex-agents.py)
+#  12. Private source slugs (lines this push adds name no slug from a corpus.local/*/references/slug-table.json)
 #
 # Exit codes:
 #   0  — all checks pass, push proceeds
@@ -52,7 +53,7 @@ printf "  repo: %s\n" "$REPO_ROOT" >&2
 printf "  branch: %s\n\n" "$(git rev-parse --abbrev-ref HEAD)" >&2
 
 # ─── Check 1: private-tier leakage ─────────────────────────────────────────────
-note "Check 1/11: private-tier leakage"
+note "Check 1/12: private-tier leakage"
 
 PRIVATE_DIRS=(corpus.local _planning _evals)
 for d in "${PRIVATE_DIRS[@]}"; do
@@ -66,7 +67,7 @@ if [ $FAIL_COUNT -eq 0 ]; then
 fi
 
 # ─── Check 2: gitignore correctness ────────────────────────────────────────────
-note "Check 2/11: .gitignore patterns"
+note "Check 2/12: .gitignore patterns"
 
 if [ ! -f .gitignore ]; then
   fail ".gitignore is missing"
@@ -86,7 +87,7 @@ else
 fi
 
 # ─── Check 3: credentials and secrets ──────────────────────────────────────────
-note "Check 3/11: credentials and absolute paths"
+note "Check 3/12: credentials and absolute paths"
 
 # Substrate scan: tracked text files OUTSIDE source-content directories.
 # Source content lives at corpus.commons/{corpus}/sources/converted/ and may legitimately
@@ -131,7 +132,7 @@ else
 fi
 
 # ─── Check 4: internal markdown link integrity ────────────────────────────────
-note "Check 4/11: internal markdown links"
+note "Check 4/12: internal markdown links"
 
 if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping markdown link integrity check"
@@ -220,7 +221,7 @@ PYEOF
 fi
 
 # ─── Check 5: required supporting files ───────────────────────────────────────
-note "Check 5/11: required supporting files"
+note "Check 5/12: required supporting files"
 
 REQUIRED_FILES=(
   README.md
@@ -242,7 +243,7 @@ else
 fi
 
 # ─── Check 6: licence-file shape (GitHub licensee compatibility) ──────────────
-note "Check 6/11: LICENSE shape"
+note "Check 6/12: LICENSE shape"
 
 if [ -f LICENSE ]; then
   first_line=$(head -n 1 LICENSE | tr -d '[:space:]')
@@ -262,7 +263,7 @@ else
 fi
 
 # ─── Check 7: conventional cruft ──────────────────────────────────────────────
-note "Check 7/11: conventional cruft"
+note "Check 7/12: conventional cruft"
 
 CRUFT_HITS=$(git ls-files | grep -E "(\.DS_Store|Thumbs\.db|\.swp$|\.swo$|~$|\.log$|\.tmp$|\.bak$|/node_modules/|/__pycache__/)" || true)
 if [ -z "$CRUFT_HITS" ]; then
@@ -273,7 +274,7 @@ else
 fi
 
 # ─── Check 8: deep-reference structural conformance ───────────────────────────
-note "Check 8/11: deep-ref structural conformance"
+note "Check 8/12: deep-ref structural conformance"
 
 if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping deep-ref structural check"
@@ -307,7 +308,7 @@ else
 fi
 
 # ─── Check 9: derived-tier provenance (staleness) ─────────────────────────────
-note "Check 9/11: derived-tier provenance"
+note "Check 9/12: derived-tier provenance"
 
 if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping derived-tier provenance check"
@@ -339,8 +340,38 @@ else
   fi
 fi
 
+# ─── Lines this push adds (read by Checks 10 and 12) ─────────────────────────
+# git feeds "<local ref> <local sha> <remote ref> <remote sha>" per ref on stdin,
+# which can be read only once. Run by hand (no stdin), fall back to upstream..HEAD.
+EMPTY_TREE=$(git hash-object -t tree /dev/null)
+PAIRS=()
+if [ ! -t 0 ]; then
+  while read -r _lref lsha _rref rsha; do
+    [ -z "${lsha:-}" ] && continue
+    case "$lsha" in *[!0]*) ;; *) continue ;; esac   # deleting a remote ref adds nothing
+    case "$rsha" in
+      *[!0]*) base="$rsha" ;;
+      *) base=$(git merge-base "$lsha" origin/main 2>/dev/null || echo "$EMPTY_TREE") ;;
+    esac
+    PAIRS+=("$base $lsha")
+  done
+fi
+if [ ${#PAIRS[@]} -eq 0 ]; then
+  base=$(git rev-parse -q --verify '@{u}' 2>/dev/null || git merge-base HEAD origin/main 2>/dev/null || echo "$EMPTY_TREE")
+  PAIRS=("$base HEAD")
+fi
+ADDED=$(mktemp)
+for pair in "${PAIRS[@]}"; do
+  set -- $pair
+  git diff -U0 --no-color --no-ext-diff "$1" "$2" 2>/dev/null | awk '
+    /^\+\+\+ / { f = substr($0, 7); next }
+    /^@@ / { split($3, a, ","); ln = substr(a[1], 2) + 0; next }
+    /^\+/ { print f ":" ln ": " substr($0, 2); ln++ }
+  ' >> "$ADDED"
+done
+
 # ─── Check 10: private-term leakage ───────────────────────────────────────────
-note "Check 10/11: private-term leakage"
+note "Check 10/12: private-term leakage"
 
 # Client, contact and private-corpus names live in a gitignored list, so the
 # check can't leak what it guards. Only lines this push ADDS are scanned: names
@@ -352,49 +383,19 @@ if [ ! -f "$TERMS_FILE" ]; then
 else
   TERMS=$(mktemp)
   grep -v -E '^[[:space:]]*(#|$)' "$TERMS_FILE" | sed 's/[[:space:]]*$//' > "$TERMS"
-  EMPTY_TREE=$(git hash-object -t tree /dev/null)
-
-  # git feeds "<local ref> <local sha> <remote ref> <remote sha>" per ref on stdin.
-  # Run by hand (no stdin), fall back to upstream..HEAD.
-  PAIRS=()
-  if [ ! -t 0 ]; then
-    while read -r _lref lsha _rref rsha; do
-      [ -z "${lsha:-}" ] && continue
-      case "$lsha" in *[!0]*) ;; *) continue ;; esac   # deleting a remote ref adds nothing
-      case "$rsha" in
-        *[!0]*) base="$rsha" ;;
-        *) base=$(git merge-base "$lsha" origin/main 2>/dev/null || echo "$EMPTY_TREE") ;;
-      esac
-      PAIRS+=("$base $lsha")
-    done
-  fi
-  if [ ${#PAIRS[@]} -eq 0 ]; then
-    base=$(git rev-parse -q --verify '@{u}' 2>/dev/null || git merge-base HEAD origin/main 2>/dev/null || echo "$EMPTY_TREE")
-    PAIRS=("$base HEAD")
-  fi
-
-  TERM_HITS=""
-  for pair in "${PAIRS[@]}"; do
-    set -- $pair
-    hits=$(git diff -U0 --no-color --no-ext-diff "$1" "$2" 2>/dev/null | awk '
-      /^\+\+\+ / { f = substr($0, 7); next }
-      /^@@ / { split($3, a, ","); ln = substr(a[1], 2) + 0; next }
-      /^\+/ { print f ":" ln ": " substr($0, 2); ln++ }
-    ' | grep -i -w -F -f "$TERMS" || true)
-    [ -n "$hits" ] && TERM_HITS="${TERM_HITS}${hits}"$'\n'
-  done
+  TERM_HITS=$(grep -i -w -F -f "$TERMS" "$ADDED" || true)
   rm -f "$TERMS"
 
   if [ -z "$TERM_HITS" ]; then
     pass "no private terms in the lines this push adds"
   else
     fail "private terms in lines this push adds (edit them out, or remove the term from $TERMS_FILE if it's public):"
-    printf "%s" "$TERM_HITS" | cut -c1-200 | head -10 >&2
+    printf "%s\n" "$TERM_HITS" | cut -c1-200 | head -10 >&2
   fi
 fi
 
 # ─── Check 11: Codex agent twins ─────────────────────────────────────────────
-note "Check 11/11: Codex agent twins"
+note "Check 11/12: Codex agent twins"
 
 # Each substrate agent's Codex form is generated from its Claude .md, so the two
 # runtimes run the same instructions. A twin that lags its .md blocks the push.
@@ -409,6 +410,54 @@ else
     printf "%s\n" "$twin_msgs" | head -10 >&2
   fi
 fi
+
+# ─── Check 12: private source slugs ───────────────────────────────────────────
+note "Check 12/12: private source slugs"
+
+# Every source in a private corpus has a slug, and a slug in a public file tells
+# the world that source is in the private library. The slugs come from the
+# gitignored corpus.local/*/references/slug-table.json, so the check can't leak
+# what it guards. Exempt: slugs a public corpus also has (the source is public
+# anyway), and names on the local-only corpus.local/public-slugs.txt, for slugs
+# that double as public words (a public document's name, a generic term).
+if ! ls corpus.local/*/references/slug-table.json >/dev/null 2>&1; then
+  warn "no private corpora here; skipping private-slug scan"
+elif ! command -v python3 >/dev/null 2>&1; then
+  warn "python3 not available; skipping private-slug scan"
+else
+  SLUGS=$(mktemp)
+  python3 - > "$SLUGS" <<'PY'
+import glob
+import json
+
+
+def slugs(pattern):
+    found = set()
+    for path in glob.glob(pattern):
+        found |= set(json.load(open(path, encoding="utf-8")).get("slugs", {}).values())
+    return found
+
+
+public = slugs("corpus.commons/*/references/slug-table.json")
+try:
+    public |= {line.strip() for line in open("corpus.local/public-slugs.txt", encoding="utf-8")
+               if line.strip() and not line.startswith("#")}
+except FileNotFoundError:
+    pass
+for slug in sorted(slugs("corpus.local/*/references/slug-table.json") - public):
+    print(slug)
+PY
+  SLUG_HITS=$(grep -w -F -f "$SLUGS" "$ADDED" || true)
+  rm -f "$SLUGS"
+
+  if [ -z "$SLUG_HITS" ]; then
+    pass "no private source slugs in the lines this push adds"
+  else
+    fail "private source slugs in lines this push adds (use a public corpus's slug, or list a public word in corpus.local/public-slugs.txt):"
+    printf "%s\n" "$SLUG_HITS" | cut -c1-200 | head -10 >&2
+  fi
+fi
+rm -f "$ADDED"
 
 # ─── Summary ──────────────────────────────────────────────────────────────────
 echo "" >&2

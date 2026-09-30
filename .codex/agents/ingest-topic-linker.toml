@@ -7,16 +7,16 @@
 
 name = "ingest-topic-linker"
 
-description = "Pass H topic pass of the 9-pass ingestion protocol. Reads the assembled concept vocabulary and files every concept under topics (subject topics and cross-school debates), keeps only true synonyms, and flags duplicate concepts for merging, writing `_planning/staging/{corpus}/concepts/topics.json`. Dispatched by the orchestrating session after the concept index is assembled; not for direct invocation."
+description = "Pass H topic pass of the 9-pass ingestion protocol. Reads the assembled concept vocabulary and files every concept under topics (subject topics and cross-school debates), keeps only true synonyms, and flags duplicate concepts for merging, writing `_planning/staging/{corpus}/concepts/topics.json`. For corpora too large for one agent, runs one stage of the staged pass (propose, file one chunk, or consolidate). Dispatched by the orchestrating session after the concept index is assembled; not for direct invocation."
 
 sandbox_mode = "workspace-write"
 
 developer_instructions = '''
 Tool names below are Claude Code's (Read, Grep, Glob, Bash, Write). Use your own equivalents: read files in full, search with rg, write with your file-editing tool.
 
-You build the topic layer of a corpus's concept index: the topics a model reads whole to see what the library covers, each carrying the concepts that sit under it. A deterministic lookup then goes from topic to concepts to sources, so every placement you make decides what a question can reach. The dispatch names the corpus name and, for a per-source run, the new sources. Work from the repo root. Inputs and output live in `_planning/staging/{corpus}/concepts/`.
+You build the topic layer of a corpus's concept index: the topics a model reads whole to see what the library covers, each carrying the concepts that sit under it. A deterministic lookup then goes from topic to concepts to sources, so every placement you make decides what a question can reach. The dispatch names the corpus name and, for a per-source run, the new sources; for a staged run, the stage, and for the filing stage, the chunk number. Work from the repo root. Inputs and output live in `_planning/staging/{corpus}/concepts/`, or in the folder the dispatch names.
 
-## Read
+## Read (full and per-source modes)
 
 1. `topic-payload.jsonl`, **every line**: one concept per line as `{"concept", "name", "aliases", "sources", "contexts", "filed"}`. `concept` is the concept's canonical key; use it, never the display name, in everything you write. Read in consecutive chunks (Read with `offset` and `limit`) until the last line, and keep count. If you can't finish it, write nothing and report how far you got.
 2. `topics.json`, if it exists: the topics already filed. Read it whole.
@@ -25,10 +25,11 @@ You build the topic layer of a corpus's concept index: the topics a model reads 
 
 Decide every item yourself, one at a time. Don't write keyword rules, regular expressions or classification code to file concepts or judge aliases. A script may only transcribe decisions you have already made, such as a mapping you typed out.
 
-## Two modes
+## Modes
 
 - **Full** (no `topics.json` yet): file every concept in the payload and write `topics.json`.
 - **Per-source** (`topics.json` exists): file only concepts with `"filed": false`. Attach them to existing topics or add new topics. Keep every existing topic, ID, placement and decision as it is: add, don't renumber, rename or remove. Keep the existing `grain_rule`. The orchestrator backs the file up before dispatching you; edit it in place.
+- **Staged** (a corpus too large for one agent to file): the dispatch names one stage. See **Staged mode** below; the rules for topics, placement, synonyms and duplicates apply at every stage.
 
 ## Topics
 
@@ -80,7 +81,59 @@ Where two or more concepts are the same idea under different names or keys, reco
 
 Then run `python3 -m scripts.build_indexes.check_topics --corpus {corpus}` and fix what it reports until it prints PASS.
 
+## Staged mode
+
+One agent per stage; several filing agents run at once, one per chunk. Scripts do the mechanics between stages, so you never hand-edit a file another stage wrote. Pass `--folder {folder}` to every script when the dispatch names a folder.
+
+**Stage 1, propose.** Read `topic-names.jsonl`, every line: `{"concept", "name", "sources"}`, with `sources` the number of sources that use the concept. Read in consecutive chunks until the last line and keep count. Decide the grain and the topic list for the whole corpus: every concept in the list should have at least one topic that plausibly fits, and a topic should be able to hold roughly 10 to 40 concepts. Name debates and their sides now, each side as `{"label": "a few words"}`, since filing agents match sides by label, exactly. Write `topics.skeleton.json` with the topic fields above but no `concepts`, `examples` or position concepts:
+
+```json
+{"schema_version": 1, "grain_rule": "one sentence", "topics": [{"key": "", "name": "", "kind": "subject", "synonyms": [], "boundary": "", "scope_note": "", "broader": "", "positions": []}]}
+```
+
+Write a `scope_note` for every topic: the filing agents read it to decide what belongs. Run `check_topics --corpus {corpus} --skeleton-only` until PASS.
+
+**Stage 2, file chunk NN.** Read `topics.skeleton.json` whole, then `topic-payload.chunk-NN.jsonl`, every line, keeping count. File every concept in the chunk against the skeleton's topic keys, under the placement rules above. Where no skeleton topic fits a concept, and only then, propose a topic: full topic fields plus `concepts`, `examples` and a one-line `why`. Filing agents run apart, so two may propose the same subject; use the plainest kebab-case key so their proposals pool. Record synonyms for the chunk's concepts, and merge candidates among them. Leave the skeleton unchanged. Write `topics.chunk-NN.json`:
+
+```json
+{
+  "chunk": "NN",
+  "lines_read": 0,
+  "topics": [{"key": "<skeleton key>", "concepts": [], "examples": [], "positions": [{"label": "<exact side label>", "concepts": []}]}],
+  "proposed_topics": [{"key": "", "name": "", "kind": "subject", "synonyms": [], "boundary": "", "scope_note": "", "broader": "", "concepts": [], "examples": [], "why": ""}],
+  "unplaced": [{"concept": "", "reason": "noise"}],
+  "synonyms": {"<concept key>": ["<kept alias>"]},
+  "merge_candidates": [{"concepts": [], "note": ""}]
+}
+```
+
+List only the skeleton topics you filed something under. Run `check_topics --corpus {corpus} --chunk NN` until PASS.
+
+**Stage 3, consolidate.** Run `python3 -m scripts.build_indexes.merge_topic_chunks merge --corpus {corpus}`, then `merge_topic_chunks report --corpus {corpus}`, and read the report whole: every topic with its members by key, flagged when oversized (over 40) or empty, then every proposed topic with its members and the chunks that proposed it. Decide:
+
+- each proposal: accept it (changing fields as needed), or redirect its members into an existing topic or an accepted proposal;
+- each oversized topic: split it into narrower topics, naming the members each child takes;
+- each empty or single-member topic: redirect it into its broader topic or a neighbour, unless the subject is distinct enough to keep;
+- concepts plainly misfiled: move them;
+- duplicates the chunks couldn't see, because their names sort apart: flag them as merge candidates;
+- names, boundaries and broader links the merged view shows need changing: edit them.
+
+Write the operations to `topics.consolidation.json`:
+
+```json
+{
+  "accept": [{"key": "<proposal key>", "boundary": "fields to change, if any"}],
+  "redirect": {"<topic or proposal key>": "<target key>"},
+  "split": {"<parent key>": [{"key": "", "name": "", "synonyms": [], "boundary": "", "scope_note": "", "concepts": [], "examples": []}]},
+  "move": [{"concept": "", "from": "<topic key>", "to": "<topic key>"}],
+  "edit": {"<topic key>": {"name": "", "boundary": ""}},
+  "merge_candidates": [{"concepts": [], "note": ""}]
+}
+```
+
+Then run `merge_topic_chunks apply --corpus {corpus}` and `check_topics --corpus {corpus}` until PASS. `apply` changes `topics.json` in place, so for another round, overwrite `topics.consolidation.json` with only the new operations.
+
 ## Report
 
-Lines read out of the total; the mode; your grain rule; topic counts (subject and debate); the checker's final output; the debates with their sides; the number of merge candidates; and the five placements you're least sure of, with a phrase on why.
+Lines read out of the total; the mode (and stage); your grain rule; topic counts (subject and debate); the checker's final output; the debates with their sides; the number of merge candidates; and the five placements you're least sure of, with a phrase on why. For a filing stage, also the proposals you made; for consolidation, what you did with each proposal and each flagged topic.
 '''

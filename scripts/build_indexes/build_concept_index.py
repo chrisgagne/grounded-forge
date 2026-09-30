@@ -1060,7 +1060,7 @@ def _assemble(corpus: str) -> Path:
     return out_path
 
 
-def _emit_topic_payload(corpus: str) -> Path:
+def _emit_topic_payload(corpus: str, chunk_size: int | None = None, folder: Path | None = None) -> Path:
     """Write the topic linker's input: the assembled vocabulary, one concept per line.
 
     Built from the deep index, so run --assemble first. Each line is
@@ -1069,6 +1069,11 @@ def _emit_topic_payload(corpus: str) -> Path:
     concept (under a topic or as noise), which is what the linker's per-source
     mode skips. One line per concept lets the linker read the whole vocabulary
     in order rather than slices of a large JSON object.
+
+    With ``chunk_size``, also write the staged pass's inputs: ``topic-names.jsonl``
+    (key, name and source count per concept, for proposing the topic list) and
+    ``topic-payload.chunk-NN.jsonl``, consecutive runs of the alphabetical
+    payload, so near-identical names land in the same chunk.
     """
     deep_path = index_output_dir(corpus) / "concept-index-deep.json"
     if not deep_path.is_file():
@@ -1086,24 +1091,37 @@ def _emit_topic_payload(corpus: str) -> Path:
     filed.update(u["concept"] for u in (topics_doc or {}).get("unplaced", []))
 
     concepts = deep["concepts"]
-    out_path = staging_dir(corpus, "concepts") / "topic-payload.jsonl"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_dir = folder or staging_dir(corpus, "concepts")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / "topic-payload.jsonl"
     order = sorted(concepts, key=lambda c: (concepts[c]["name"].casefold(), c))
-    with out_path.open("w", encoding="utf-8") as f:
-        for canonical in order:
-            rec = concepts[canonical]
-            line = {
-                "concept": canonical,
-                "name": rec["name"],
-                "aliases": rec.get("aliases", []),
-                "sources": [id_to_slug.get(s["id"], s["id"]) for s in rec["sources"]],
-                "contexts": {id_to_slug.get(s["id"], s["id"]): s["context"]
-                             for s in rec["sources"] if s.get("context")},
-                "filed": canonical in filed,
-            }
-            f.write(json.dumps(line, ensure_ascii=False) + "\n")
+    lines = []
+    for canonical in order:
+        rec = concepts[canonical]
+        lines.append(json.dumps({
+            "concept": canonical,
+            "name": rec["name"],
+            "aliases": rec.get("aliases", []),
+            "sources": [id_to_slug.get(s["id"], s["id"]) for s in rec["sources"]],
+            "contexts": {id_to_slug.get(s["id"], s["id"]): s["context"]
+                         for s in rec["sources"] if s.get("context")},
+            "filed": canonical in filed,
+        }, ensure_ascii=False))
+    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     unfiled = sum(1 for c in order if c not in filed)
     print(f"wrote {out_path} ({len(order)} concepts, {unfiled} not yet filed under a topic)")
+
+    if chunk_size:
+        for stale in out_dir.glob("topic-payload.chunk-*.jsonl"):
+            stale.unlink()
+        names_path = out_dir / "topic-names.jsonl"
+        names_path.write_text("".join(
+            json.dumps({"concept": c, "name": concepts[c]["name"], "sources": len(concepts[c]["sources"])},
+                       ensure_ascii=False) + "\n" for c in order), encoding="utf-8")
+        chunks = [lines[i:i + chunk_size] for i in range(0, len(lines), chunk_size)]
+        for n, chunk in enumerate(chunks, 1):
+            (out_dir / f"topic-payload.chunk-{n:02d}.jsonl").write_text("\n".join(chunk) + "\n", encoding="utf-8")
+        print(f"wrote {names_path} and {len(chunks)} chunks of up to {chunk_size} concepts")
     return out_path
 
 
@@ -1118,12 +1136,16 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="write the topic linker's input from the assembled deep index",
     )
+    parser.add_argument("--chunk-size", type=int,
+                        help="with --emit-topic-payload: also write the staged pass's names list and chunks")
+    parser.add_argument("--folder", type=Path,
+                        help="with --emit-topic-payload: write to this folder instead of the corpus's staging folder")
     args = parser.parse_args(argv)
 
     if args.emit_candidates:
         _emit_candidates(args.corpus)
     elif args.emit_topic_payload:
-        _emit_topic_payload(args.corpus)
+        _emit_topic_payload(args.corpus, args.chunk_size, args.folder)
     else:
         _assemble(args.corpus)
     return 0

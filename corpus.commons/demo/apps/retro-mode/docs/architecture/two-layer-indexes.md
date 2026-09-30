@@ -27,7 +27,7 @@ If you build one index, the three lookups compete for the same entry shape. The 
 Split, each index does its job mechanically:
 
 - The corpus catalogue stays declarative. One record per source, derived from frontmatter.
-- The concept axis stays cross-source. One record per concept, with aliases collapsed by a constrained Sonnet pass.
+- The concept axis stays cross-source. One record per concept, with aliases collapsed by a constrained LLM pass.
 - The task-axis router stays imperative. Rows describe situations and route to source-IDs.
 
 ## Two tiers, three indexes, one slug table
@@ -64,7 +64,7 @@ The JSON is derived. Operators don't hand-edit it. The build scripts at [`script
 }
 ```
 
-Author / year / title / primary_topic / concept_tags come from a Sonnet pass over the deep-ref frontmatter: free-form prose ("Beck et al. (2001)", "Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019)", "OpenStax with no year") that a regex would get ~90% right and silently mis-attribute the rest. The mechanical fields (slug-table ID, `**Scope:**` line, light/deep line counts) come from Python.
+Author / year / title / primary_topic / concept_tags come from an LLM pass over the deep-ref frontmatter: free-form prose ("Beck et al. (2001)", "Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019)", "OpenStax with no year") that a regex would get ~90% right and silently mis-attribute the rest. The mechanical fields (slug-table ID, `**Scope:**` line, light/deep line counts) come from Python.
 
 The catalogue is about *the work*. It does not tell you when to use the source.
 
@@ -83,7 +83,7 @@ The catalogue is about *the work*. It does not tell you when to use the source.
 }
 ```
 
-Built in two stages. (1) Python aggregates concept candidates across every source's `extracted artefact`: enumerated-method names (author-curated) plus back-matter book-index entries that appear in ≥2 distinct source slugs (single-source back-matter entries are corpus-level noise). (2) A constrained Sonnet pass adjudicates aliases (e.g., `reflective-system` / `System 2` → `dual-process-theory`; `AAR` → alias of `after-action-review`), filters noise (URL boilerplate, single-letter dividers, generic backmatter terms), and decides novel-vs-existing. The build script then re-attaches section + md_line pointers mechanically: enumerated_method body lines first (highest confidence), heading-tree substring match as fallback, with generic front/back-matter headings (CONTENTS, INDEX, REFERENCES) blocked.
+Built in two stages. (1) Python aggregates concept candidates across every source's `extracted artefact`: enumerated-method names (author-curated) plus back-matter book-index entries that appear in ≥2 distinct source slugs (single-source back-matter entries are corpus-level noise). (2) A constrained LLM pass adjudicates aliases (e.g., `reflective-system` / `System 2` → `dual-process-theory`; `AAR` → alias of `after-action-review`), filters noise (URL boilerplate, single-letter dividers, generic backmatter terms), and decides novel-vs-existing. The build script then re-attaches section + md_line pointers mechanically: enumerated_method body lines first (highest confidence), heading-tree substring match as fallback, with generic front/back-matter headings (CONTENTS, INDEX, REFERENCES) blocked.
 
 The concept index is about *the corpus's concept vocabulary*. It tells you which sources cover a concept and where in each source the concept's body treatment sits.
 
@@ -149,7 +149,7 @@ The principle generalises: **the index is not a content store**, regardless of w
 Operator-edited markdown was the pre-migration shape. The migration replaced markdown runtime with JSON for three reasons:
 
 - **Token-cost asymmetry.** Markdown re-pays scaffolding overhead per row (`| col1 | col2 |`, `**bold**`, `---` dividers); JSON pays field names once per section. Slug-IDs (`00h`) replace 30-character filenames at every routing-row mention. Per-query index cost on the demo corpus dropped from ~131k tokens to 28-47k.
-- **Mechanical-extraction discipline.** The pre-migration Pass H asked the ingesting LLM to author concept-A-Z entries by inference, which drifted under load: live testing found ~4 canonical post-Agile references with zero concept-index entries despite being in the corpus. JSON's structure makes the data flow auditable: per-source extraction → corpus-wide aggregation → constrained Sonnet cross-link → assembly. Each step has a discrete artefact at a known path.
+- **Mechanical-extraction discipline.** The pre-migration Pass H asked the ingesting LLM to author concept-A-Z entries by inference, which drifted under load: live testing found ~4 canonical post-Agile references with zero concept-index entries despite being in the corpus. JSON's structure makes the data flow auditable: per-source extraction → corpus-wide aggregation → constrained LLM cross-link → assembly. Each step has a discrete artefact at a known path.
 - **Operator legibility didn't pay its keep for the reference catalogue.** An early version of the catalogue was 223kB of operator-authored markdown. In practice operators inspected it ~once per quarter while the runtime read it on every query. The cost was paid by the runtime; the value was held by the operator. The reference catalogue now ships as JSON only — the `answer-from-corpus` skill is the human interface; the JSON is the runtime interface. Task and lens catalogues retain operator-view markdowns because their authoring loop genuinely sits in markdown.
 
 The operator-inspection markdown views still ship in the source repo and the compiled apps. They're not load-bearing at runtime; they're a backup readable surface for browsing the corpus. The build pipeline regenerates the JSON from the markdown plus the extracted artefacts whenever the operator updates the markdown.

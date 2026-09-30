@@ -387,12 +387,23 @@ class MatrixBuilder {
         ids.forEach((i) => m.ids.add(i));
       }
     }
+    // A topic ships when a shipped row sits under it, and so does every topic
+    // above it: a parent that only groups its children still routes.
+    const shipped = new Set(members.keys());
+    const broaderOf = new Map(raw.topics.map((t) => [t[0], t[5]]));
+    for (const topicId of [...shipped]) {
+      let parent = broaderOf.get(topicId);
+      while (parent && !shipped.has(parent)) {
+        shipped.add(parent);
+        parent = broaderOf.get(parent);
+      }
+    }
     const topics = raw.topics
-      .filter(([topicId]) => members.has(topicId))
+      .filter(([topicId]) => shipped.has(topicId))
       .map((topic) => {
         const out = [...topic];
-        const m = members.get(topic[0]);
-        if (out[5] && !members.has(out[5])) out[5] = "";
+        const m = members.get(topic[0]) || { rows: 0, ids: new Set() };
+        if (out[5] && !shipped.has(out[5])) out[5] = "";
         out[6] = m.rows;
         out[7] = m.ids.size;
         return out;
@@ -1458,7 +1469,7 @@ source text — they are your citable provenance.
     // A schema-3 concept index must keep the contract retrieval relies on:
     // topic_lines brackets exactly the topics block, each topic's prefix grep
     // ('"t031') returns as many rows as the topic line counts, and every row's
-    // topic refs name a shipped topic.
+    // topic refs and every topic's broader link name a shipped topic.
     const conceptIndexPath = path.join(outputDir, "concept-index.json");
     if (fs.existsSync(conceptIndexPath)) {
       const text = fs.readFileSync(conceptIndexPath, "utf8");
@@ -1483,6 +1494,10 @@ source text — they are your citable provenance.
           refs.some((ref) => !shipped.has(ref.split(".")[0])));
         if (dangling.length) {
           fails.push(`concept-index.json: ${dangling.length} rows name a topic that didn't ship`);
+        }
+        const orphans = index.topics.filter((t) => t[5] && !shipped.has(t[5]));
+        if (orphans.length) {
+          fails.push(`concept-index.json: ${orphans.length} topics name a broader topic that didn't ship`);
         }
       }
     }

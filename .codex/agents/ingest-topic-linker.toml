@@ -48,7 +48,7 @@ Each topic has:
 - `examples`: keys of cases, documents and people that illustrate this topic.
 - `id`: leave it out on new topics. Assembly assigns IDs; never change one that exists.
 
-**Debate topics.** Where sources disagree across schools (sequential vs systemic accident models, Safety-I vs Safety-II), make a topic of kind `debate` with `positions`: a list of `{"label": "one side, a few words", "concepts": [keys]}`, at least two. A concept can sit on a debate side as well as under its subject topics. Only make a debate where the concepts show a real disagreement between sources, not a difference of emphasis. A concept that frames the whole disagreement (a comparison or reconciliation) goes in the debate's own `concepts`.
+**Debate topics.** Where sources disagree across schools (sequential vs systemic accident models, Safety-I vs Safety-II), make a topic of kind `debate` with `positions`: a list of `{"label": "one side, a few words", "concepts": [keys]}`, at least two. A concept can sit on a debate side as well as under its subject topics. Only make a debate where the concepts show a real disagreement between sources, not a difference of emphasis. The sources must answer the same question differently: two fields that use the same word for different work (root-cause analysis of a software flaw, systemic causes of an incident) aren't a debate, and neither is one school arguing against a position no source holds. A concept that frames the whole disagreement (a comparison or reconciliation) goes in the debate's own `concepts`.
 
 ## Placement
 
@@ -58,7 +58,7 @@ Each topic has:
 
 ## Synonyms for each concept
 
-For every concept you file that has aliases, record under `synonyms` which aliases are true synonyms of that concept, copied verbatim, or an empty list if none are. Drop spelling, case and hyphen variants of the name, source-tagged labels ("hindsight bias cook"), descriptions, and aliases that name a part, a sibling or a related idea.
+For every concept you file that has aliases, record under `synonyms` which aliases are true synonyms of that concept, copied verbatim, or an empty list if none are. Drop spelling, case and hyphen variants of the name, source-tagged labels ("hindsight bias cook"), descriptions, and aliases that name a part, a sibling or a related idea. Where the display name itself carries a source tag or a description ("Main effort (MCDP-1 Ch 4) — the one action most critical…"), keep the alias that is the bare term ("main effort"): it is what a practitioner types.
 
 ## Duplicates
 
@@ -109,11 +109,12 @@ Write a `scope_note` for every topic: the filing agents read it to decide what b
 
 List only the skeleton topics you filed something under. Run `check_topics --corpus {corpus} --chunk NN` until PASS.
 
-**Stage 3, consolidate.** Run `python3 -m scripts.build_indexes.merge_topic_chunks merge --corpus {corpus}`, then `merge_topic_chunks report --corpus {corpus}`, and read the report whole: every topic with its members by key, flagged when oversized (over 40) or empty, then every proposed topic with its members and the chunks that proposed it. Decide:
+**Stage 3, consolidate.** Run `python3 -m scripts.build_indexes.merge_topic_chunks merge --corpus {corpus}`, then `merge_topic_chunks report --corpus {corpus}`, and read the report whole: every topic with its members by key, flagged when oversized (over 40) or empty, then every proposed topic with its members and the chunks that proposed it. To judge a concept, grep its line in `topic-payload.jsonl` by key for its aliases, sources and contexts; the whole payload is too large to read at this stage. Decide:
 
 - each proposal: accept it (changing fields as needed), or redirect its members into an existing topic or an accepted proposal;
 - each oversized topic: split it into narrower topics, naming the members each child takes;
 - each empty or single-member topic: redirect it into its broader topic or a neighbour, unless the subject is distinct enough to keep;
+- each debate: keep it only if it still meets the debate test above; drop one that doesn't (its concepts already sit under subject topics, so dropping loses no placement);
 - concepts plainly misfiled: move them;
 - duplicates the chunks couldn't see, because their names sort apart: flag them as merge candidates;
 - names, boundaries and broader links the merged view shows need changing: edit them.
@@ -126,6 +127,7 @@ Write the operations to `topics.consolidation.json`:
   "redirect": {"<topic or proposal key>": "<target key>"},
   "split": {"<parent key>": [{"key": "", "name": "", "synonyms": [], "boundary": "", "scope_note": "", "concepts": [], "examples": []}]},
   "move": [{"concept": "", "from": "<topic key>", "to": "<topic key>"}],
+  "drop": ["<topic key>"],
   "edit": {"<topic key>": {"name": "", "boundary": ""}},
   "merge_candidates": [{"concepts": [], "note": ""}]
 }

@@ -13,8 +13,8 @@ mechanics in between, so these cases lock in:
 - `merge_topic_chunks merge` folds chunk filings into the skeleton by key and
   debate side by label, pools proposals by key across chunks, and stops on a
   filing against a topic or side the skeleton lacks;
-- `merge_topic_chunks apply` accepts, redirects, splits, moves, edits and
-  flags duplicates, and stops on an operation that names a missing topic;
+- `merge_topic_chunks apply` accepts, redirects, splits, moves, drops, edits
+  and flags duplicates, and stops on an operation that names a missing topic;
 - a full check fails while proposals remain unconsolidated, and passes once
   they are settled.
 
@@ -244,10 +244,23 @@ def case_apply_moves_concepts_and_flags_duplicates() -> None:
     raise AssertionError("moving a concept out of a topic that doesn't hold it must stop")
 
 
+def case_apply_drops_a_debate_without_moving_its_sides() -> None:
+    merged = merge(SKELETON, [FILED_1, FILED_2])
+    doc = apply(merged, {"accept": [{"key": "blameless-culture"}], "drop": ["nat-vs-hro", "cognitive-biases"]})
+    topics = {t["key"]: t for t in doc["topics"]}
+    assert_("nat-vs-hro" not in topics, "a dropped debate must be removed")
+    assert_(topics["accident-models"]["concepts"] == ["high-reliability-organizations", "normal-accident-theory"],
+            f"a drop must not move the debate's sides anywhere: {topics['accident-models']}")
+    assert_(topics["hindsight-bias"]["broader"] == "", f"a child moves up to the dropped topic's broader: {topics['hindsight-bias']}")
+    assert_("not placed" in labels(check(CHUNK_1 + CHUNK_2, doc)[0]),
+            "dropping a subject topic that alone held a concept must fail the check")
+
+
 def case_apply_stops_on_missing_topics() -> None:
     merged = merge(SKELETON, [FILED_1, FILED_2])
     for ops in ({"accept": [{"key": "no-such-proposal"}]}, {"redirect": {"blameless-culture": "no-such-topic"}},
-                {"split": {"no-such-topic": []}}, {"edit": {"no-such-topic": {"name": "x"}}}):
+                {"split": {"no-such-topic": []}}, {"edit": {"no-such-topic": {"name": "x"}}},
+                {"drop": ["no-such-topic"]}):
         try:
             apply(merged, ops)
         except SystemExit as e:
@@ -267,6 +280,7 @@ CASES = [
     case_apply_redirects_splits_and_edits,
     case_apply_repoints_broader_links_on_redirect,
     case_apply_moves_concepts_and_flags_duplicates,
+    case_apply_drops_a_debate_without_moving_its_sides,
     case_apply_stops_on_missing_topics,
 ]
 

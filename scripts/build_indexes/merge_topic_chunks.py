@@ -138,7 +138,7 @@ def report(doc: dict) -> str:
 
 
 def apply(doc: dict, ops: dict) -> dict:
-    """Carry out consolidation operations, in this order: accept, redirect, split, move, edit, flag.
+    """Carry out consolidation operations, in this order: accept, redirect, split, move, drop, edit, flag.
 
     - ``accept``: [{"key": proposed key, plus any fields to change}] promotes a proposal.
     - ``redirect``: {"from key": "to key"} moves every member of a topic or proposal
@@ -150,6 +150,10 @@ def apply(doc: dict, ops: dict) -> dict:
       ``from`` (its concepts, examples or a debate side) and into topic ``to``,
       as a concept or as an example, whichever it was. An empty ``from`` adds a
       placement; an empty ``to`` removes one.
+    - ``drop``: [keys] removes topics without moving their members, for a
+      debate that fails the debate test (its concepts already sit under
+      subject topics); the checker reports any concept this leaves unplaced.
+      Topics under a dropped one move up to its broader topic.
     - ``edit``: {"key": {fields}} changes a topic's name, synonyms, boundary,
       scope_note or broader link.
     - ``merge_candidates``: [{"concepts", "note"}] adds duplicate flags.
@@ -226,6 +230,15 @@ def apply(doc: dict, ops: dict) -> dict:
                 p["concepts"] = [c for c in p.get("concepts", []) if c != concept]
         if target:
             topics[target][field] = _dedupe(topics[target].get(field, []) + [concept])
+
+    for key in ops.get("drop", []):
+        dropped = topics.pop(key, None)
+        if dropped is None:
+            problems.append(f"drop: no topic '{key}'")
+            continue
+        for t in topics.values():
+            if t.get("broader") == key:
+                t["broader"] = dropped.get("broader", "")
 
     for key, fields in ops.get("edit", {}).items():
         target = topics.get(key)

@@ -81,6 +81,7 @@ from .common import (
     slug_to_id,
     staging_dir,
 )
+from .merge_topic_chunks import skeleton_of
 
 
 _KEBAB_SPLIT = re.compile(r"[-_]+")
@@ -1060,7 +1061,8 @@ def _assemble(corpus: str) -> Path:
     return out_path
 
 
-def _emit_topic_payload(corpus: str, chunk_size: int | None = None, folder: Path | None = None) -> Path:
+def _emit_topic_payload(corpus: str, chunk_size: int | None = None, folder: Path | None = None,
+                        unfiled_chunk: bool = False) -> Path:
     """Write the topic linker's input: the assembled vocabulary, one concept per line.
 
     Built from the deep index, so run --assemble first. Each line is
@@ -1074,6 +1076,11 @@ def _emit_topic_payload(corpus: str, chunk_size: int | None = None, folder: Path
     (key, name and source count per concept, for proposing the topic list) and
     ``topic-payload.chunk-NN.jsonl``, consecutive runs of the alphabetical
     payload, so near-identical names land in the same chunk.
+
+    With ``unfiled_chunk``, write a per-source run's inputs for a corpus already
+    filed under topics: ``topic-payload.chunk-new.jsonl`` (only the unfiled
+    concepts) and ``topics.skeleton.json`` (the existing topic list, IDs kept, no
+    members), so the linker files the new concepts as one stage-2 chunk.
     """
     deep_path = index_output_dir(corpus) / "concept-index-deep.json"
     if not deep_path.is_file():
@@ -1122,6 +1129,19 @@ def _emit_topic_payload(corpus: str, chunk_size: int | None = None, folder: Path
         for n, chunk in enumerate(chunks, 1):
             (out_dir / f"topic-payload.chunk-{n:02d}.jsonl").write_text("\n".join(chunk) + "\n", encoding="utf-8")
         print(f"wrote {names_path} and {len(chunks)} chunks of up to {chunk_size} concepts")
+
+    if unfiled_chunk:
+        if topics_doc is None:
+            raise SystemExit("--unfiled-chunk needs a topics.json to file against; run the full or staged pass first")
+        new_lines = [line for canonical, line in zip(order, lines) if canonical not in filed]
+        (out_dir / "topics.chunk-new.json").unlink(missing_ok=True)
+        (out_dir / "topic-payload.chunk-new.jsonl").write_text(
+            "".join(line + "\n" for line in new_lines), encoding="utf-8")
+        with (out_dir / "topics.skeleton.json").open("w", encoding="utf-8") as f:
+            json.dump(skeleton_of(topics_doc), f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        print(f"wrote topic-payload.chunk-new.jsonl ({len(new_lines)} unfiled concepts) and "
+              f"topics.skeleton.json ({len(topics_doc['topics'])} topics)")
     return out_path
 
 
@@ -1140,12 +1160,15 @@ def main(argv: list[str] | None = None) -> int:
                         help="with --emit-topic-payload: also write the staged pass's names list and chunks")
     parser.add_argument("--folder", type=Path,
                         help="with --emit-topic-payload: write to this folder instead of the corpus's staging folder")
+    parser.add_argument("--unfiled-chunk", action="store_true",
+                        help="with --emit-topic-payload: also write the unfiled concepts as chunk 'new' "
+                             "and the existing topic list as its skeleton")
     args = parser.parse_args(argv)
 
     if args.emit_candidates:
         _emit_candidates(args.corpus)
     elif args.emit_topic_payload:
-        _emit_topic_payload(args.corpus, args.chunk_size, args.folder)
+        _emit_topic_payload(args.corpus, args.chunk_size, args.folder, args.unfiled_chunk)
     else:
         _assemble(args.corpus)
     return 0

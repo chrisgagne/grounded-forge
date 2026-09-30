@@ -36,7 +36,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.build_indexes.check_topics import check, check_skeleton, chunk_doc  # noqa: E402
-from scripts.build_indexes.merge_topic_chunks import _members, apply, merge  # noqa: E402
+from scripts.build_indexes.merge_topic_chunks import _members, apply, merge, merge_into, skeleton_of  # noqa: E402
 
 
 def assert_(cond: bool, msg: str) -> None:
@@ -273,6 +273,79 @@ def case_apply_drops_a_debate_without_moving_its_sides() -> None:
             "dropping a subject topic that alone held a concept must fail the check")
 
 
+def existing_filing() -> dict:
+    """Chunk 1's concepts, filed and consolidated, with IDs: a corpus before its next source."""
+    doc = apply(merge(SKELETON, [FILED_1]), {"accept": [{"key": "blameless-culture"}]})
+    for n, t in enumerate(doc["topics"], 1):
+        t["id"] = f"t{n:03d}"
+    return doc
+
+
+NEW_CHUNK = {
+    "chunk": "new",
+    "topics": [
+        {"key": "cognitive-biases", "concepts": ["outcome-bias"]},
+        {"key": "accident-models", "concepts": ["normal-accident-theory"]},
+        {"key": "nat-vs-hro", "positions": [{"label": "accidents are inevitable", "concepts": ["normal-accident-theory"]}]},
+        {"key": "blameless-culture", "concepts": ["psychological-safety"]},
+    ],
+    "proposed_topics": [
+        {"key": "speaking-up", "name": "Speaking up", "kind": "subject", "synonyms": [], "boundary": "",
+         "scope_note": "", "broader": "blameless-culture", "concepts": ["psychological-safety"], "examples": [],
+         "why": "voice in teams is asked about apart from blame"},
+    ],
+    "unplaced": [{"concept": "subject-index", "reason": "noise"}],
+    "synonyms": {"normal-accident-theory": ["NAT"]},
+    "merge_candidates": [],
+}
+
+
+def case_skeleton_of_keeps_ids_and_sides_but_no_members() -> None:
+    skeleton = skeleton_of(existing_filing())
+    assert_(not check_skeleton(skeleton)[0], f"a derived skeleton must pass the skeleton check: {check_skeleton(skeleton)[0]}")
+    by_key = {t["key"]: t for t in skeleton["topics"]}
+    assert_(by_key["hindsight-bias"]["id"] == "t002", f"IDs are kept: {by_key['hindsight-bias']}")
+    assert_(by_key["nat-vs-hro"]["positions"] == [{"label": "accidents are inevitable"},
+                                                  {"label": "reliability can be organised"}],
+            f"debate sides keep their labels only: {by_key['nat-vs-hro']}")
+    doc, unknown = chunk_doc(skeleton, NEW_CHUNK)
+    problems, _ = check(CHUNK_2, doc)
+    assert_(not unknown and not problems, f"the new chunk must pass against the derived skeleton: {unknown} {problems}")
+
+
+def case_merge_into_keeps_every_existing_placement() -> None:
+    base = existing_filing()
+    doc = merge_into(base, [NEW_CHUNK])
+    topics = {t["key"]: t for t in doc["topics"]}
+    assert_(topics["hindsight-bias"]["concepts"] == ["hindsight-bias"] and topics["hindsight-bias"]["examples"] == ["challenger"],
+            f"existing placements must survive: {topics['hindsight-bias']}")
+    assert_([t["id"] for t in doc["topics"]] == [t["id"] for t in base["topics"]], "existing IDs must survive, in order")
+    assert_(topics["cognitive-biases"]["concepts"] == ["hindsight-bias", "outcome-bias"],
+            f"new filings are added after the old: {topics['cognitive-biases']}")
+    assert_(set(topics["blameless-culture"]["concepts"]) == {"blameless-review", "psychological-safety"},
+            f"an accepted topic takes new concepts too: {topics['blameless-culture']}")
+    assert_(doc["synonyms"] == {"hindsight-bias": ["knowledge-of-outcome bias"], "normal-accident-theory": ["NAT"]},
+            f"synonym decisions accumulate: {doc['synonyms']}")
+    assert_([p["key"] for p in doc["proposed_topics"]] == ["speaking-up"], f"proposals wait: {doc['proposed_topics']}")
+    assert_(labels(check(CHUNK_1 + CHUNK_2, doc)[0]) == {"proposed topics not yet consolidated"},
+            f"only the proposal should hold the check back: {check(CHUNK_1 + CHUNK_2, doc)[0]}")
+    settled = apply(doc, {"accept": [{"key": "speaking-up"}]})
+    assert_(not check(CHUNK_1 + CHUNK_2, settled)[0], f"settled, the file must pass: {check(CHUNK_1 + CHUNK_2, settled)[0]}")
+    assert_(base["topics"][0].get("concepts") is not None and "outcome-bias" not in base["topics"][1]["concepts"],
+            "merge_into must not change the doc it was given")
+
+
+def case_merge_into_stops_on_unknown_topics_and_reused_keys() -> None:
+    for bad in ({**NEW_CHUNK, "topics": [{"key": "no-such-topic", "concepts": ["outcome-bias"]}]},
+                {**NEW_CHUNK, "proposed_topics": [{**NEW_CHUNK["proposed_topics"][0], "key": "blameless-culture"}]}):
+        try:
+            merge_into(existing_filing(), [bad])
+        except SystemExit as e:
+            assert_("topics.json" in str(e), f"the error must say what it checked against: {e}")
+            continue
+        raise AssertionError(f"a chunk naming a missing topic or reusing a key must stop the merge: {bad['topics']}")
+
+
 def case_apply_stops_on_missing_topics() -> None:
     merged = merge(SKELETON, [FILED_1, FILED_2])
     for ops in ({"accept": [{"key": "no-such-proposal"}]}, {"redirect": {"blameless-culture": "no-such-topic"}},
@@ -299,6 +372,9 @@ CASES = [
     case_apply_moves_concepts_and_flags_duplicates,
     case_apply_evens_out_noise_calls,
     case_apply_drops_a_debate_without_moving_its_sides,
+    case_skeleton_of_keeps_ids_and_sides_but_no_members,
+    case_merge_into_keeps_every_existing_placement,
+    case_merge_into_stops_on_unknown_topics_and_reused_keys,
     case_apply_stops_on_missing_topics,
 ]
 

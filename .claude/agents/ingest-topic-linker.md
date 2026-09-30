@@ -22,6 +22,7 @@ Decide every item yourself, one at a time. Don't write keyword rules, regular ex
 - **Full** (no `topics.json` yet): file every concept in the payload and write `topics.json`.
 - **Per-source** (`topics.json` exists): file only concepts with `"filed": false`. Attach them to existing topics or add new topics. Keep every existing topic, ID, placement and decision as it is: add, don't renumber, rename or remove. Keep the existing `grain_rule`. The orchestrator backs the file up before dispatching you; edit it in place.
 - **Staged** (a corpus too large for one agent to file): the dispatch names one stage. See **Staged mode** below; the rules for topics, placement, synonyms and duplicates apply at every stage.
+- **Per-source, large corpus** (`topics.json` exists and is too large to read and edit whole): file only the new concepts, as a staged chunk. See **New sources in a large corpus** below.
 
 ## Topics
 
@@ -128,6 +129,15 @@ Write the operations to `topics.consolidation.json`:
 ```
 
 Then run `merge_topic_chunks apply --corpus {corpus}` and `check_topics --corpus {corpus}` until PASS. `apply` changes `topics.json` in place, so for another round, overwrite `topics.consolidation.json` with only the new operations.
+
+## New sources in a large corpus
+
+The orchestrator has run `--emit-topic-payload --unfiled-chunk`: `topic-payload.chunk-new.jsonl` holds only the concepts not yet filed, and `topics.skeleton.json` is the existing topic list, IDs kept. Leave `topics.json` and `topic-payload.jsonl` unread.
+
+1. File the chunk exactly as a stage-2 filing agent does, with chunk `new`: read the skeleton whole, then every line of the chunk; file against the skeleton's keys and propose a topic only where none fits; write `topics.chunk-new.json`; run `check_topics --corpus {corpus} --chunk new` until PASS.
+2. Run `merge_topic_chunks merge --corpus {corpus} --into-existing`. It folds your filing into `topics.json`, keeping every existing placement and ID.
+3. Settle your own proposals: run `merge_topic_chunks report --corpus {corpus} --proposals-only`, write `accept` or `redirect` operations (and `split` or `edit` if a topic needs it) to `topics.consolidation.json`, then `apply`.
+4. Run `check_topics --corpus {corpus}` until PASS.
 
 ## Report
 

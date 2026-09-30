@@ -9,11 +9,19 @@ Staged filing runs in three stages (see the ingest-topic-linker agent):
 3. consolidate: one agent reviews the merged result and writes
    ``topics.consolidation.json``, a list of operations this script applies.
 
+A per-source run on a corpus already filed this way files only its new
+concepts: the payload emitter writes them as ``topic-payload.chunk-new.jsonl``
+with a skeleton derived from the existing topics.json (IDs kept), one agent
+files them as a stage-2 chunk, and ``merge --into-existing`` folds the result
+into topics.json without touching an existing placement.
+
 This script does the mechanics between the stages, so no agent hand-edits a
 large JSON file:
 
-    merge    skeleton + chunk files -> topics.json (proposed topics kept apart)
+    merge    skeleton + chunk files -> topics.json (proposed topics kept apart);
+             with --into-existing, topics.chunk-new.json -> the existing topics.json
     report   every topic's size and members, then every proposed topic, compactly
+             (--proposals-only for just the proposals)
     apply    carry out topics.consolidation.json on topics.json, keeping the
              previous state in topics.before-apply.json
 
@@ -48,6 +56,23 @@ def _dedupe(items: list) -> list:
     return out
 
 
+def skeleton_of(doc: dict) -> dict:
+    """The topic list of a filed topics.json, members stripped and IDs kept.
+
+    A per-source run on a large corpus files its new concepts against this, as
+    a stage-2 chunk, instead of reading and editing the whole filing.
+    """
+    fields = ("id", "key", "name", "kind", "synonyms", "boundary", "scope_note", "broader")
+    topics = []
+    for t in doc["topics"]:
+        topic = {f: t[f] for f in fields if f in t}
+        if t.get("kind") == "debate":
+            topic["positions"] = [{"label": p["label"]} for p in t.get("positions", [])]
+        topics.append(topic)
+    return {"schema_version": doc.get("schema_version", 1), "grain_rule": doc.get("grain_rule", ""),
+            "topics": topics}
+
+
 def merge(skeleton: dict, chunks: list[dict]) -> dict:
     """Fold chunk filings into the skeleton's topics; collect proposals apart.
 
@@ -62,11 +87,29 @@ def merge(skeleton: dict, chunks: list[dict]) -> dict:
         if topic.get("kind") == "debate":
             topic["positions"] = [{"label": p["label"], "concepts": []} for p in t.get("positions", [])]
         topics.append(topic)
-    by_key = {t["key"]: t for t in topics}
-    proposed: dict[str, dict] = {}
-    unknown: list[str] = []
     out = {"schema_version": 1, "grain_rule": skeleton.get("grain_rule", ""), "topics": topics,
            "unplaced": [], "synonyms": {}, "merge_candidates": []}
+    return _fold(out, chunks, "the skeleton")
+
+
+def merge_into(base: dict, chunks: list[dict]) -> dict:
+    """Fold chunk filings into an existing topics.json, keeping every placement and ID."""
+    out = copy.deepcopy(base)
+    for t in out["topics"]:
+        t.setdefault("concepts", [])
+        t.setdefault("examples", [])
+        for p in t.get("positions", []):
+            p.setdefault("concepts", [])
+    for field, empty in (("unplaced", []), ("synonyms", {}), ("merge_candidates", [])):
+        out.setdefault(field, empty)
+    return _fold(out, chunks, "topics.json")
+
+
+def _fold(out: dict, chunks: list[dict], against: str) -> dict:
+    topics = out["topics"]
+    by_key = {t["key"]: t for t in topics}
+    proposed: dict[str, dict] = {p["key"]: p for p in out.pop("proposed_topics", [])}
+    unknown: list[str] = []
 
     for chunk in chunks:
         label = chunk.get("chunk", "?")
@@ -84,7 +127,11 @@ def merge(skeleton: dict, chunks: list[dict]) -> dict:
                     continue
                 sides[p["label"]]["concepts"] += p.get("concepts", [])
         for p in chunk.get("proposed_topics", []):
+            if p["key"] in by_key:
+                unknown.append(f"chunk {label}: proposal '{p['key']}' reuses a topic's key")
+                continue
             pooled = proposed.setdefault(p["key"], {**copy.deepcopy(p), "concepts": [], "examples": [], "from_chunks": []})
+            pooled.setdefault("from_chunks", [])
             pooled["concepts"] += p.get("concepts", [])
             pooled["examples"] += p.get("examples", [])
             pooled["from_chunks"].append(label)
@@ -93,7 +140,7 @@ def merge(skeleton: dict, chunks: list[dict]) -> dict:
         out["merge_candidates"] += chunk.get("merge_candidates", [])
 
     if unknown:
-        raise SystemExit("chunks file against topics the skeleton doesn't have:\n"
+        raise SystemExit(f"chunks file against topics {against} doesn't have:\n"
                          + "".join(f"  {u}\n" for u in unknown[:30]))
     for t in topics + list(proposed.values()):
         t["concepts"], t["examples"] = _dedupe(t["concepts"]), _dedupe(t["examples"])
@@ -285,16 +332,27 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--corpus", required=True)
     parser.add_argument("--folder", help="staging folder (default _planning/staging/{corpus}/concepts)")
     parser.add_argument("--force", action="store_true", help="merge over an existing topics.json")
+    parser.add_argument("--into-existing", action="store_true",
+                        help="merge: fold topics.chunk-new.json (a per-source run's new concepts) into topics.json")
+    parser.add_argument("--proposals-only", action="store_true", help="report: only the proposed topics")
     args = parser.parse_args(argv)
     folder = Path(args.folder) if args.folder else staging_dir(args.corpus, "concepts")
     topics_path = folder / "topics.json"
 
-    if args.command == "merge":
+    if args.command == "merge" and args.into_existing:
+        base = json.load(open(topics_path, encoding="utf-8"))
+        doc = merge_into(base, [json.load(open(folder / "topics.chunk-new.json", encoding="utf-8"))])
+        _write(folder / "topics.before-merge.json", base)
+        _write(topics_path, doc)
+        print(f"merged topics.chunk-new.json into {topics_path} (previous state in topics.before-merge.json); "
+              f"{len(doc['proposed_topics'])} proposed topics to settle")
+    elif args.command == "merge":
         if topics_path.exists() and not args.force:
             raise SystemExit(f"{topics_path} exists; back it up and pass --force to merge over it")
         skeleton = json.load(open(folder / "topics.skeleton.json", encoding="utf-8"))
-        chunk_paths = sorted(folder.glob("topics.chunk-*.json"))
-        payload_chunks = sorted(folder.glob("topic-payload.chunk-*.jsonl"))
+        chunk_paths = sorted(p for p in folder.glob("topics.chunk-*.json") if p.name != "topics.chunk-new.json")
+        payload_chunks = sorted(p for p in folder.glob("topic-payload.chunk-*.jsonl")
+                                if p.name != "topic-payload.chunk-new.jsonl")
         if len(chunk_paths) != len(payload_chunks):
             raise SystemExit(f"{len(payload_chunks)} payload chunks but {len(chunk_paths)} filed chunks")
         doc = merge(skeleton, [json.load(open(p, encoding="utf-8")) for p in chunk_paths])
@@ -302,7 +360,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"wrote {topics_path}: {len(doc['topics'])} topics from the skeleton, "
               f"{len(doc['proposed_topics'])} proposed, from {len(chunk_paths)} chunks")
     elif args.command == "report":
-        print(report(json.load(open(topics_path, encoding="utf-8"))))
+        doc = json.load(open(topics_path, encoding="utf-8"))
+        if args.proposals_only:
+            doc = {**doc, "topics": []}
+        print(report(doc))
     else:
         doc = json.load(open(topics_path, encoding="utf-8"))
         ops = json.load(open(folder / "topics.consolidation.json", encoding="utf-8"))

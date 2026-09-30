@@ -307,7 +307,9 @@ class MatrixBuilder {
     }
 
     const outPath = path.join(outputDir, "concept-index.json");
-    if (raw.schema_version === 2 && Array.isArray(raw.concepts)) {
+    if (raw.schema_version === 3) {
+      this.shipSchema3ConceptIndex(raw, shippedIds, outPath);
+    } else if (raw.schema_version === 2 && Array.isArray(raw.concepts)) {
       const kept = [];
       for (const row of raw.concepts) {
         const [slug, name, aliases, ids, contexts] = row;
@@ -353,6 +355,73 @@ class MatrixBuilder {
           (shippedIds ? ` (filtered to ${shippedIds.size} shipped sources)` : "")
       );
     }
+  }
+
+  // Schema 3: a topics block the runtime reads whole (topic_lines gives its
+  // range), then one concept row per line tagged with topic IDs, a debate side
+  // as "t031.1". Filtering keeps the rows with a shipped source, then the
+  // topics that still have rows, with each topic's row and source counts
+  // recomputed. Topic IDs stay as the corpus assigned them. The layout matches
+  // build_concept_index.py so one grep contract holds for corpus and app.
+  shipSchema3ConceptIndex(raw, shippedIds, outPath) {
+    const rows = [];
+    for (const [name, kind, synonyms, ids, topics, contexts] of raw.concepts) {
+      const keptIds = shippedIds ? ids.filter((i) => shippedIds.has(i)) : ids;
+      if (!keptIds.length) continue;
+      const row = [name, kind, synonyms, keptIds, topics];
+      if (contexts) {
+        const keptCtx = Object.fromEntries(
+          Object.entries(contexts).filter(([i]) => keptIds.includes(i))
+        );
+        if (Object.keys(keptCtx).length) row.push(keptCtx);
+      }
+      rows.push(row);
+    }
+
+    const members = new Map();
+    for (const [, , , ids, topics] of rows) {
+      for (const topicId of new Set(topics.map((ref) => ref.split(".")[0]))) {
+        if (!members.has(topicId)) members.set(topicId, { rows: 0, ids: new Set() });
+        const m = members.get(topicId);
+        m.rows += 1;
+        ids.forEach((i) => m.ids.add(i));
+      }
+    }
+    const topics = raw.topics
+      .filter(([topicId]) => members.has(topicId))
+      .map((topic) => {
+        const out = [...topic];
+        const m = members.get(topic[0]);
+        if (out[5] && !members.has(out[5])) out[5] = "";
+        out[6] = m.rows;
+        out[7] = m.ids.size;
+        return out;
+      });
+
+    const head = [
+      "{",
+      `"schema_version": 3,`,
+      `"corpus": ${JSON.stringify(raw.corpus)},`,
+      `"generated_from": ${JSON.stringify(`${raw.generated_from} (app: filtered to shipped sources)`)},`,
+    ];
+    const first = head.length + 5; // after topic_lines, topic_format, row_format and '"topics": ['
+    head.push(
+      `"topic_lines": [${first}, ${first + topics.length - 1}],`,
+      `"topic_format": ${JSON.stringify(raw.topic_format)},`,
+      `"row_format": ${JSON.stringify(raw.row_format)},`,
+      `"topics": [`
+    );
+    const block = topics.length ? topics.map((t) => JSON.stringify(t)).join(",\n") + "\n" : "";
+    fs.writeFileSync(
+      outPath,
+      head.join("\n") + "\n" + block + "],\n" +
+        `"concepts": [\n` + rows.map((r) => JSON.stringify(r)).join(",\n") + "\n]}\n"
+    );
+    console.log(
+      `  Concept index: ${rows.length}/${raw.concepts.length} concepts, ` +
+        `${topics.length}/${raw.topics.length} topics shipped (schema 3)` +
+        (shippedIds ? ` (filtered to ${shippedIds.size} shipped sources)` : " (unfiltered: no distillations configured)")
+    );
   }
 
   async buildDistillations(profile, outputDir) {
@@ -1383,6 +1452,38 @@ source text — they are your citable provenance.
           `.claude/skills and .agents/skills carry different skill sets ` +
             `(.claude: [${claudeSkills.join(", ")}] vs .agents: [${agentsSkills.join(", ")}])`
         );
+      }
+    }
+
+    // A schema-3 concept index must keep the contract retrieval relies on:
+    // topic_lines brackets exactly the topics block, each topic's prefix grep
+    // ('"t031') returns as many rows as the topic line counts, and every row's
+    // topic refs name a shipped topic.
+    const conceptIndexPath = path.join(outputDir, "concept-index.json");
+    if (fs.existsSync(conceptIndexPath)) {
+      const text = fs.readFileSync(conceptIndexPath, "utf8");
+      const index = JSON.parse(text);
+      if (index.schema_version === 3) {
+        const lines = text.split("\n");
+        const [start, end] = index.topic_lines;
+        const block = lines.slice(start - 1, end);
+        if (block.length !== index.topics.length || !block.every((l) => l.startsWith('["t')) ||
+            (lines[end] || "").startsWith('["t')) {
+          fails.push("concept-index.json: topic_lines doesn't bracket the topics block");
+        }
+        const rowLines = lines.slice(end);
+        const shipped = new Set(index.topics.map((t) => t[0]));
+        for (const [topicId, name, , , , , count] of index.topics) {
+          const hits = rowLines.filter((l) => l.includes(`"${topicId}`)).length;
+          if (hits !== count) {
+            fails.push(`concept-index.json: grep for ${topicId} (${name}) finds ${hits} rows, topic line says ${count}`);
+          }
+        }
+        const dangling = index.concepts.filter(([, , , , refs]) =>
+          refs.some((ref) => !shipped.has(ref.split(".")[0])));
+        if (dangling.length) {
+          fails.push(`concept-index.json: ${dangling.length} rows name a topic that didn't ship`);
+        }
       }
     }
 

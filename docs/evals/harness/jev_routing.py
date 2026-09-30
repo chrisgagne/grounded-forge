@@ -53,10 +53,15 @@ def records(app):
               (app / f"distillations/{TASK}").glob(f"*-{TASK}.md")}
     if actual != {r["slug"] for r in result.values()}:
         raise ValueError("Shipped distillations and routing catalogue disagree")
-    concepts = read_json(app / "concept-index.json")["concepts"]
+    index = read_json(app / "concept-index.json")
+    concepts = index["concepts"]
     if isinstance(concepts, dict):
         entries = [(key, c["name"], c.get("aliases", []), c["sources"])
                    for key, c in concepts.items()]
+    elif index.get("schema_version") == 3:
+        # [name, kind, synonyms, source_ids, topics, contexts?]: no slug, so the name is the key.
+        entries = [(c[0], c[0], c[2], [dict(id=s, context=c[5].get(s, "") if len(c) > 5 else "")
+                    for s in c[3]]) for c in concepts]
     else:
         entries = [(c[0], c[1], c[2], [dict(id=s, context=c[4].get(s, "") if len(c) > 4 else "")
                     for s in c[3]]) for c in concepts]

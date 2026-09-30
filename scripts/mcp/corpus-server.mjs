@@ -44,11 +44,29 @@ const readJson = (rel) => {
 };
 
 const conceptIndex = readJson("concept-index.json");
-// schema_version 2 stores concepts as compact rows
-// [slug, name, aliases, source_ids, contexts?]; normalise to the dict
-// shape ({slug: {name, aliases, sources: [{id, context?}]}}) the lookup
-// code reads, so both index generations serve identically.
-if (conceptIndex && Array.isArray(conceptIndex.concepts)) {
+// schema_version 3 rows are [name, kind, synonyms, source_ids, topics,
+// contexts?] with no slug, so each is keyed by its name in the slug form the
+// lookup compares queries against (a repeated name gets a trailing hyphen
+// rather than overwriting the first). schema_version 2 stores compact rows
+// [slug, name, aliases, source_ids, contexts?]. Both normalise to the dict
+// shape ({key: {name, aliases, sources: [{id, context?}]}}) the lookup code
+// reads, so every index generation serves identically.
+if (conceptIndex && conceptIndex.schema_version === 3) {
+  const byRow = {};
+  for (const [name, , synonyms, ids, topics, contexts] of conceptIndex.concepts) {
+    let key = name.toLowerCase().trim().replace(/\s+/g, "-");
+    while (byRow[key]) key += "-";
+    byRow[key] = {
+      name,
+      aliases: synonyms,
+      topics,
+      sources: ids.map((id) =>
+        contexts?.[id] ? { id, context: contexts[id] } : { id },
+      ),
+    };
+  }
+  conceptIndex.concepts = byRow;
+} else if (conceptIndex && Array.isArray(conceptIndex.concepts)) {
   const byRow = {};
   for (const [slug, name, aliases, ids, contexts] of conceptIndex.concepts) {
     byRow[slug] = {

@@ -10,7 +10,7 @@
 
 [`corpus.commons/demo/distillations/decision-making/task-index.json`](../../corpus.commons/demo/distillations/decision-making/task-index.json) answers "In phase X of a decision, which references should I reach for?" Phase-by-phase rows as `[need, slug-id, when]` triples.
 
-[`corpus.commons/demo/concept-index.json`](../../corpus.commons/demo/concept-index.json) is the concept axis that sits between the two: per canonical concept, the slug-IDs of every source that covers it. The build emits it in two variants: the runtime file (schema_version 2; compact rows `[slug, name, aliases, source_ids]`, one per line) and `concept-index-deep.json`, which adds body section names and md_line pointers where one can be resolved mechanically — the operator/audit surface.
+[`corpus.commons/demo/concept-index.json`](../../corpus.commons/demo/concept-index.json) is the concept axis that sits between the two. It holds the corpus's vocabulary at two levels: topics, the subjects a practitioner would ask about, and under them the concepts the sources name, each with the slug-IDs of the sources credited with it. The build emits it in two variants: the runtime file (schema_version 3: a topics block read whole, then one concept row per line, found by topic ID) and `concept-index-deep.json`, which adds body section names and md_line pointers where one can be resolved mechanically — the operator/audit surface. A corpus whose concepts haven't been filed under topics yet gets schema_version 2: concept rows only, read whole.
 
 These three indexes do different jobs and live in different files. The separation is load-bearing.
 
@@ -27,7 +27,7 @@ If you build one index, the three lookups compete for the same entry shape. The 
 Split, each index does its job mechanically:
 
 - The corpus catalogue stays declarative. One record per source, derived from frontmatter.
-- The concept axis stays cross-source. One record per concept, with aliases collapsed by a constrained LLM pass.
+- The concept axis stays cross-source. Topics group the concepts the sources name, and each concept keeps only its true synonyms; both come from constrained LLM passes.
 - The task-axis router stays imperative. Rows describe situations and route to source-IDs.
 
 ## Two tiers, three indexes, one slug table
@@ -38,7 +38,7 @@ The runtime indexes ship as JSON. Operator-inspection views ship alongside as ma
 |---|---|---|---|
 | Slug table | `references/slug-table.json` | — | Append-only mapping from source slug to 3-character base-36 ID. Resolves every other index's IDs to file paths. |
 | Reference index | `reference-index.json` | — | File catalogue. One record per source. |
-| Concept index | `concept-index.json` (+ `concept-index-deep.json`) | — | Concept axis. One row per canonical concept; aliases collapsed. The deep variant adds per-source section + md_line pointers. |
+| Concept index | `concept-index.json` (+ `concept-index-deep.json`) | — | Concept axis. A topics block read whole, then one row per concept tagged with its topics. The deep variant adds per-source section + md_line pointers. |
 | Task index | `distillations/{task}/task-index.json` | `{TASK}-DISTILLATION-INDEX.md` | Situation router. Phase-by-phase rows mapping `(need, slug-id, when)`. One file per task axis. |
 | Lens index | `lens-index.json` | `lenses/LENS-INDEX.md` | Lens catalogue. One record per lens; `salience` block split from the operator-authored markdown. See *Lens-aware retrieval* below. |
 
@@ -72,20 +72,32 @@ The catalogue is about *the work*. It does not tell you when to use the source.
 
 ```json
 {
-  "after-action-review": {
-    "name": "After-Action Review",
-    "aliases": ["aar"],
-    "sources": [
-      {"id": "005", "context": "FLA / Learning Review four-tool ladder"},
-      {"id": "00o", "section": "Chapter 1 The After-Action Review", "md_line": 97}
-    ]
-  }
-}
+"schema_version": 3,
+"corpus": "demo",
+"generated_from": "extracted+cross-link+topics",
+"topic_lines": [9, 58],
+"topic_format": ["id","name","synonyms","boundary","kind","broader","concepts","sources","positions?"],
+"row_format": ["name","kind","synonyms","source_ids","topics","contexts?"],
+"topics": [
+["t003","After-action reviews",["AAR","post-incident review"],"not retrospectives","subject","t012",9,4],
+["t021","Culture first vs structure first",[],"","debate","",6,5,["change culture first","change structure first"]],
+...
+],
+"concepts": [
+["After-Action Review","concept",[],["005","00o"],["t003"]],
+["TC 25-20","example",[],["00o"],["t003"]],
+...
+]}
 ```
 
-Built in two stages. (1) Python aggregates concept candidates across every source's `extracted artefact`: enumerated-method names (author-curated) plus back-matter book-index entries that appear in ≥2 distinct source slugs (single-source back-matter entries are corpus-level noise). (2) A constrained LLM pass adjudicates aliases (e.g., `reflective-system` / `System 2` → `dual-process-theory`; `AAR` → alias of `after-action-review`), filters noise (URL boilerplate, single-letter dividers, generic backmatter terms), and decides novel-vs-existing. The build script then re-attaches section + md_line pointers mechanically: enumerated_method body lines first (highest confidence), heading-tree substring match as fallback, with generic front/back-matter headings (CONTENTS, INDEX, REFERENCES) blocked.
+The file has two parts, read two ways:
 
-The concept index is about *the corpus's concept vocabulary*. It tells you which sources cover a concept and where in each source the concept's body treatment sits.
+- **The topics block**, one topic per line, is read whole: it's the map of what the library covers. A topic is a subject a practitioner would ask about in their own words, not one author's term and not a whole field. Each line carries the words a practitioner might type for it, a short boundary note where a neighbouring topic could be confused with it, a `broader` link, and counts. A `debate` topic names the sides of a cross-school disagreement. `topic_lines` gives the block's line range, so a model reads exactly the block.
+- **The concept rows**, one per line, are fetched by topic: `grep -F '"t003' concept-index.json` returns every row under topic t003, and for a debate the rows on each side (tagged `t021.1`, `t021.2`). A row carries the concept's name, whether it's a concept or an example (a case, document or person that grounds the topic), its true synonyms, the sources credited with it, and its topics.
+
+Built in three stages. (1) Python aggregates concept candidates across every source's `extracted artefact`: enumerated-method names (author-curated) plus back-matter book-index entries that appear in ≥2 distinct source slugs (single-source back-matter entries are corpus-level noise). (2) A constrained LLM pass adjudicates aliases (e.g., `reflective-system` / `System 2` → `dual-process-theory`), filters noise (URL boilerplate, single-letter dividers, generic backmatter terms), and decides novel-vs-existing. (3) A second LLM pass files every concept under subject topics and debates, keeps only true synonyms, keeps cases as examples under the topics they illustrate, and flags duplicate concepts for the first pass to merge. The build then assigns topic IDs, which are append-only and fixed-width, and checks the file before writing it: `topic_lines` must bracket the block, and each topic's grep must return exactly its rows. It re-attaches section + md_line pointers for the deep variant mechanically: enumerated_method body lines first (highest confidence), heading-tree substring match as fallback, with generic front/back-matter headings (CONTENTS, INDEX, REFERENCES) blocked.
+
+The concept index is about *the corpus's vocabulary*. Its topics block tells a model what the library covers without reading every concept; its rows say which sources the index credits with each concept, and the deep variant where in each source the treatment sits.
 
 ## Shape of the task index
 
@@ -115,11 +127,11 @@ The task index is about *the situation*. Read it when you have a phase in mind. 
 
 The compiled assistant's retrieval pattern at session start:
 
-1. Load the corpus-level JSON indexes: `slug-table.json`, `reference-index.json`, `concept-index.json`. ~28k tokens on the demo corpus; loaded once per session, amortised across every subsequent query.
+1. Load the corpus-level JSON indexes once per session: `slug-table.json`, `reference-index.json`, and the concept index's topics block (a schema-2 index is read whole). Concept rows are fetched per question, by topic ID.
 2. Load the task-axis `task-index.json` for the domain(s) in play. ~17-19k tokens per axis on the demo corpus.
 3. For a *named lookup* query, resolve through `reference-index.json` to the slug, then read the light → deep refs.
 4. For a *diagnostic* query, route through `task-index.json` for the relevant phase, then read the distillations the rows point to.
-5. For a *synthesis* query, decompose into sub-claims, route across `concept-index.json` and `task-index.json` for coverage, then read lights and deeps until each sub-claim has a strong source.
+5. For a *synthesis* query, decompose into sub-claims, pick the topics and task-index rows that cover them, fetch the concept rows under those topics, then read lights and deeps until each sub-claim has a strong source.
 
 Per-query cost on the demo corpus, post-migration: 28-47k tokens for index reads depending on which axis is loaded, vs ~131k tokens of the pre-migration `.md` indexes. See [`projection-time.md`](projection-time.md) for the steady-state numbers.
 
@@ -127,7 +139,7 @@ Per-query cost on the demo corpus, post-migration: 28-47k tokens for index reads
 
 The semantic-search backend (Chroma) sits *beneath* the curated indexes in the retrieval hierarchy. Order:
 
-1. `concept-index.json` for named-concept lookups.
+1. `concept-index.json`: its topics for topic lookups, its rows for named concepts.
 2. `reference-index.json` for named-reference / topic lookups.
 3. `task-index.json` for the task at hand.
 4. Semantic search as a safety net for genuinely novel queries the curated indexes did not pre-think-of.

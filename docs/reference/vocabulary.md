@@ -51,7 +51,7 @@ The runtime indexes are JSON; the operator-inspection views alongside them are m
 |---|---|---|---|
 | Slug table | `corpus.commons/demo/references/slug-table.json` | — | Per-corpus mapping from source slug to short 3-character base-36 ID. Append-only; deletions leave a tombstone. The build, ingestion, and runtime skills resolve every other index's source IDs through this table. |
 | Reference index | `corpus.commons/demo/reference-index.json` | — | Corpus catalogue. "Is there a reference on X?" Per source: author, year, title, primary topic, concept tags, scope, line counts. |
-| Concept index | `corpus.commons/demo/concept-index.json` | (no .md) | Concept axis. Per canonical concept: aliases, sources, and section + md_line pointers into each source where one can be mechanically resolved. |
+| Concept index | `corpus.commons/demo/concept-index.json` | (no .md) | Concept axis. "What does the library cover, and where is concept Y?" A topics block read whole (the subjects a practitioner would ask about, with synonyms and cross-school debates), then one row per concept tagged with its topics and the sources credited with it. The deep variant, `concept-index-deep.json`, adds section + md_line pointers into each source where one can be mechanically resolved. |
 | Per-task task index | `corpus.commons/demo/distillations/{task}/task-index.json` | `{TASK}-DISTILLATION-INDEX.md` | Situation router. "For phase Y of task Z, which distillation should I reach for?" Phase-by-phase routing rows as `[need, slug-id, when]` triples. |
 | Lens index | — | `corpus.commons/demo/lenses/LENS-INDEX.md` | Lens catalogue and applicability heuristics. Operator-authored prose; stays markdown. |
 
@@ -102,10 +102,12 @@ The Pass H ingestion-side artefacts that feed the build:
 | Reference staging | `_planning/staging/{corpus}/refs/{slug}.json` | per-source refs pass over the deep-ref frontmatter | `build_reference_index.py` |
 | Concept candidates | `_planning/staging/{corpus}/concepts/candidates.json` | `build_concept_index.py --emit-candidates` | the cross-link pass |
 | Concept decisions | `_planning/staging/{corpus}/concepts/decisions.json` | the cross-link pass | `build_concept_index.py --assemble` |
+| Topic payload | `_planning/staging/{corpus}/concepts/topic-payload.jsonl` | `build_concept_index.py --emit-topic-payload` | the topic pass |
+| Topic decisions | `_planning/staging/{corpus}/concepts/topics.json` | the topic pass | `build_concept_index.py --assemble` (writes schema 3 when present) |
 
 The `extracted artefact` is the load-bearing one. It carries: back-matter `book_index_entries` (with page locators where present), `enumerated_methods` (author-curated method names with body lines where located), the source's `headings` tree, the `page_marker_map` when conversion preserved page anchors, and the dispatcher's `derived_tier` log. Cross-source aggregation across these artefacts feeds the corpus-wide concept candidate set the cross-link pass adjudicates.
 
-A `concept-axis entry` is one canonical record in `concept-index.json`: `{canonical, name, aliases[], sources[]}` where each source carries `{id, section?, md_line?, context?}`. The `section` is the deepest body heading whose title matched the canonical name or one of its aliases (or, for enumerated-method matches, the heading enclosing the body line). Sections from front-matter / back-matter (CONTENTS, INDEX, REFERENCES, single-letter dividers) are intentionally excluded.
+A `concept-axis entry` is one canonical record in `concept-index-deep.json`: `{canonical, name, aliases[], sources[]}` where each source carries `{id, section?, md_line?, context?}`. The runtime `concept-index.json` carries the same concepts as compact rows without slugs or pointers, and in schema 3 under the topics they're filed in. The `section` is the deepest body heading whose title matched the canonical name or one of its aliases (or, for enumerated-method matches, the heading enclosing the body line). Sections from front-matter / back-matter (CONTENTS, INDEX, REFERENCES, single-letter dividers) are intentionally excluded.
 
 ## Skill boundary
 
@@ -113,7 +115,7 @@ Ingestion stops at reference. Distillation is a separate step.
 
 | Skill | Owns | Passes |
 |---|---|---|
-| `ingesting-resources` | source → reference; also drives the mechanical-index pipeline at Pass H | A, B, C, D, E, F, plus H (preprocessor + refs pass + cross-link + index build) and I against the reference |
+| `ingesting-resources` | source → reference; also drives the mechanical-index pipeline at Pass H | A, B, C, D, E, F, plus H (preprocessor + refs pass + cross-link + topic pass + index build) and I against the reference |
 | `creating-tasks` | task-axis spec (Jobs-to-be-Done scoping) | n/a; a design dialogue, not a pass |
 | `creating-applications` | task spec + corpus subset → compiled application | orchestrates G across the named source set |
 | `creating-distillations` | reference × task [× lens] → distillation | G, plus H and I against the distillation |

@@ -7,7 +7,7 @@ This assistant runs on an openly-licensed corpus. Where canonical retrospective 
 ## What you have access to
 
 - **Distillations** in `distillations/retro/`, one per applicable source: the pre-projection of each source onto retro-facilitation work. Each distillation carries paraphrased prose with parenthetical attribution and verbatim quotations marked `[V]`, each matching the converted source word for word, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved.
-- **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/retro/task-index.json` (situation router: *"in phase X, for scenario Y, reach for these distillations"*). Read first.
+- **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis: a topics block read once per session, then concept rows fetched by topic ID), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/retro/task-index.json` (situation router: *"in phase X, for scenario Y, reach for these distillations"*). Read first.
 - **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). Apply when the lead is producing a deliverable shaped by a specific reader.
 - **Skills** in `.claude/skills/`: `matching-references` for topic-to-source search; `answer-from-corpus` for the shape-aware retrieval protocol; `advise-from-corpus` when someone asks how to improve, adopt or roll out a practice: it checks whether their setting supports the answer, asks at most two framing questions, then answers.
 - **Runtime agent** in `.claude/agents/retro-facilitator.md`: the seven-phase coaching loop. Invoke the `retro-facilitator` agent directly when the lead names retro work.
@@ -46,7 +46,7 @@ The phase boundaries are not strict. The retro adapts to what the team brings. T
 
 ## Retrieval order
 
-1. **Runtime JSON indexes first.** Read `distillations/retro/task-index.json` for the current phase. Identify which distillations apply to the situation the lead is in. Use `concept-index.json` for named-concept lookups and `slug-table.json` for named-source / author lookups.
+1. **Runtime JSON indexes first.** Read `distillations/retro/task-index.json` for the current phase. Identify which distillations apply to the situation the lead is in. Use `concept-index.json` for what the library covers on a subject (its topics) and for named concepts (their rows) and `slug-table.json` for named-source / author lookups.
 2. **Distillation for application.** Read `distillations/retro/{slug}-retro.md` for the source's projection: facilitation moves, diagnostic questions, anti-patterns, integration with other sources, and in-band verbatim quotes with evidence markers for the load-bearing claims.
 3. **Operator-inspection `.md` views** (`RETRO-DISTILLATION-INDEX.md`) when the lead is browsing.
 4. **No-coverage is honest.** If the demo corpus doesn't carry a framework that fits, name the gap. The framing is borrowed-through where possible, or absent.

@@ -23,7 +23,7 @@ Measured to date: head-to-head against Google's OKF reference producer, the 9-pa
 The runtime ships three corpus-level JSON indexes plus one task-axis JSON per shipped task:
 
 - [`reference-index.json`](../../corpus.commons/demo/reference-index.json) is the corpus catalogue. "What is X?" Author, topic, key claims. Use it to find the reference.
-- [`concept-index.json`](../../corpus.commons/demo/concept-index.json) is the concept axis. "Where is concept Y discussed?" Per canonical concept: every source that covers it, plus body section pointers where one can be resolved mechanically.
+- [`concept-index.json`](../../corpus.commons/demo/concept-index.json) is the concept axis. "What does the library cover, and where is concept Y discussed?" A topics block, read whole, names the subjects the library covers; under each topic, one row per concept with the sources credited with it. Its deep variant adds body section pointers where one can be resolved mechanically.
 - The per-task task indexes at `distillations/{task}/task-index.json`, one per task axis the corpus carries (the demo ships five: decision-making, stakeholder-engagement, software-business, aar, retro). Each is a situation-to-resource router: "in phase X of task Y, what should I reach for?" Each compiled app ships the task-index for its profile's axis only.
 
 The split matters. Mixing the three collapses what-is, where-is, and when-to-use into one index and produces the unhelpful list-everything outcome familiar from large knowledge bases. Treated separately, each does its job.

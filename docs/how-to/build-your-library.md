@@ -54,13 +54,13 @@ Pass I (source-only audit) is the gate: a deep reference does not ship until Pas
 
 ## Step 4: Indexes update themselves
 
-The ingestion skill's Pass H drives the mechanical-index pipeline once per source: allocate slug-ID, run the deterministic preprocessor, dispatch the refs and cross-link passes, regenerate the runtime JSON indexes. Operators do not hand-edit any JSON index; updates flow through frontmatter, the slug table, and the per-task operator-inspection markdown views (which Pass G authors).
+The ingestion skill's Pass H drives the mechanical-index pipeline once per source: allocate slug-ID, run the deterministic preprocessor, dispatch the refs, cross-link and topic passes, regenerate the runtime JSON indexes. Operators do not hand-edit any JSON index; updates flow through frontmatter, the slug table, and the per-task operator-inspection markdown views (which Pass G authors).
 
 The runtime indexes that get regenerated each Pass H:
 
 - `corpus.commons/{corpus}/references/slug-table.json`: append-only IDs.
 - `corpus.commons/{corpus}/reference-index.json`: the file catalogue.
-- `corpus.commons/{corpus}/concept-index.json`: the concept axis with section pointers.
+- `corpus.commons/{corpus}/concept-index.json`: the concept axis, a topics block then concept rows; `concept-index-deep.json` beside it carries the section pointers.
 - `corpus.commons/{corpus}/distillations/{task}/task-index.json`: the per-axis situation router.
 
 The operator-inspection markdown views (`references/REFERENCE-INDEX.md`, per-task `{TASK}-DISTILLATION-INDEX.md`) sit alongside the JSON as readable surfaces for browsing the corpus. The architectural argument for the split is at [`../architecture/two-layer-indexes.md`](../architecture/two-layer-indexes.md).

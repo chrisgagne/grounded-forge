@@ -81,7 +81,7 @@ The skill walks Passes A through I:
 - **Passes B–E**: deep reference at `references/agile-manifesto-deep.md` with verbatim citations, evidence-classification markers ([V], [AP], [AR], [AE], [BT]).
 - **Pass F**: light reference at `references/agile-manifesto.md`.
 - **Pass G**: one distillation per applicable task axis. For decision-making, that lands at `distillations/decision-making/agile-manifesto-decision-making.md`.
-- **Pass H**: mechanical-index pipeline. Allocate slug-ID, run the preprocessor, dispatch the refs + cross-link passes, regenerate the runtime JSON indexes (`reference-index.json`, `concept-index.json`, per-axis `task-index.json`) and the operator-inspection markdown views (`REFERENCE-INDEX.md`, `DECISION-MAKING-DISTILLATION-INDEX.md`).
+- **Pass H**: mechanical-index pipeline. Allocate slug-ID, run the preprocessor, dispatch the refs, cross-link and topic passes, regenerate the runtime JSON indexes (`reference-index.json`, `concept-index.json`, per-axis `task-index.json`) and the operator-inspection markdown views (`REFERENCE-INDEX.md`, `DECISION-MAKING-DISTILLATION-INDEX.md`).
 - **Pass I**: source-only audit. The deep ref doesn't ship until this passes.
 
 Wall-clock for a 3-page source: ~5 minutes. For a 30-page source: ~20 minutes. The skill prints a per-pass summary so you can see the protocol working.

@@ -64,7 +64,7 @@ corpus.commons/                                 # tracked — open or open-nc; s
     references/                                 # Light + deep references
       slug-table.json                           # slug ↔ short-ID (Phase 2)
     reference-index.json                        # file catalogue (runtime)
-    concept-index.json                          # concept axis (runtime; v2 compact rows)
+    concept-index.json                          # concept axis (runtime; topics block, then concept rows)
     concept-index-deep.json                     # adds per-source section pointers (operator/audit)
     distillations/{task}/                       # Task projections, the task axis
       task-index.json                           # situation router (runtime)
@@ -103,8 +103,8 @@ The retrieval order in any compiled distribution matches the procedure documente
 
 1. **Classify the query shape.** Named lookup (one source, Protocol N), diagnostic (situation in a known task domain, Protocol D), or synthesis (breadth across the corpus, Protocol S). Shape determines which indexes to read and in what order.
 2. **Lens-applicability check.** For Protocols D and S, read `lens-index.json` unconditionally and detect whether a lens materially reweights what's salient. Skipped for Protocol N. The lens shapes how sub-claims decompose, so this runs *before* decomposition.
-3. **Index, then distillation.** Read the runtime JSON indexes shipped in the app: `concept-index.json` (concept axis, filtered at build time to the sources whose distillations the app ships), `slug-table.json` (ID ↔ slug map), and `distillations/{task}/task-index.json` for the user's task domain. The slug-IDs resolve to distillation file paths: `distillations/{task}/{slug}-{task}.md`. The distillation is the pre-projected matrix cell: it carries verbatim quotes + evidence markers in-band for the load-bearing claims.
-4. **`concept-index.json` for named concepts.** Look up the concept (or an alias) directly; each entry lists which sources cover it, plus a `context` string where one exists. The app's variant carries no section pointers; the distillation full-read picks up the concept's in-source location.
+3. **Index, then distillation.** Read the runtime JSON indexes shipped in the app: the topics block of `concept-index.json` once per session (concept axis, filtered at build time to the sources whose distillations the app ships), `slug-table.json` (ID ↔ slug map), and `distillations/{task}/task-index.json` for the user's task domain. The slug-IDs resolve to distillation file paths: `distillations/{task}/{slug}-{task}.md`. The distillation is the pre-projected matrix cell: it carries verbatim quotes + evidence markers in-band for the load-bearing claims.
+4. **Topics, then concept rows.** Pick the topics each sub-claim needs and fetch their concept rows by topic ID (`grep -F '"t031' concept-index.json`); for a named concept, grep its name. Each row lists the sources credited with the concept, plus a `context` string where one exists. The app's variant carries no section pointers; the distillation full-read picks up the concept's in-source location. A corpus without topics yet ships schema 2, concept rows only, read whole.
 
 In the **corpus** (the project, not an app), the full reference tier is available: `references/`, deep refs by slug, and `reference-index.json` (the catalogue with `lines_deep`, `lines_light`, full concept_tags). `answer-from-corpus` runs in project mode here. It routes through the corpus's main `concept-index.json`, reads light then deep refs, checks every quote against `sources/converted/`, and never reads a distillation or a task-index. Answers limited to a task projection belong inside the compiled app. When the cheaper task-index → distillation route would be good enough is an open research question; until an eval settles it, the concept index is the project-mode route.
 

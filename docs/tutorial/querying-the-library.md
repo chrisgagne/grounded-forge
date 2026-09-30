@@ -139,8 +139,8 @@ Try variations to feel the skill's reach:
 
 Three different *shapes* of query: a topic, a situation, and a named concept. The skill routes them through different indexes:
 
-- Topic and situation queries hit the **concept axis** (`concept-index.json`) and the **task-axis indexes** (`distillations/{task}/task-index.json`).
-- Named-concept queries hit `concept-index.json` directly via alias lookup.
+- Topic and situation queries hit the **concept axis** (`concept-index.json`, whose topics block is read once per session and whose concept rows are fetched by topic) and the **task-axis indexes** (`distillations/{task}/task-index.json`).
+- Named-concept queries find the concept's row in `concept-index.json` directly, by its name or a synonym.
 - Named-author or named-title queries hit the **corpus catalogue** (`reference-index.json`).
 
 When `matching-references` returns nothing, that's a real signal: the corpus genuinely doesn't cover the topic. That's when you'd reach for the *scoping a source* tutorial: bringing new material in.

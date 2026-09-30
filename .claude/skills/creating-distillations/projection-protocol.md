@@ -94,7 +94,7 @@ Cite paraphrased concepts inline with parenthetical attribution: `(Source: Autho
 
 Each numbered entry in `## Key Concepts for {Task}` carries an **anchor**: a short slug placed at the start of the line as a comment-style marker, e.g. `<!-- concept: phronesis -->`. The build's concept-index rebuilder reads these anchors and produces per-source `{section, dist_line}` pointers that route the runtime from a concept name directly into the distillation. Without anchors, the concept-index falls back to naming the source only (no in-source landing point).
 
-Anchor slugs match the concept-index's top-level keys where the concept already exists (run `grep -l "^  \"{slug}\":" corpus.commons/{corpus}/concept-index.json` to find the canonical slug). When a concept new to the corpus appears in this distillation, coin a kebab-case slug and let the index-builder add it on the next rebuild.
+Anchor slugs match the concept-index's top-level keys where the concept already exists (run `grep -F '    "{slug}": {' corpus.commons/{corpus}/concept-index-deep.json` to confirm the canonical slug exists). When a concept new to the corpus appears in this distillation, coin a kebab-case slug and let the index-builder add it on the next rebuild.
 
 The discipline is light: anchor the concepts most likely to be the entry point for a runtime concept lookup. Anchors on the worked-example concepts in particular pay off — those are the ones a practitioner will look up by name.
 

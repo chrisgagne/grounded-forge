@@ -53,7 +53,7 @@ For every concept you file that has aliases, record under `synonyms` which alias
 
 ## Duplicates
 
-Where two or more concepts are the same idea under different names or keys, record them in `merge_candidates` as `{"concepts": [keys], "note": "why they are one idea"}`. File each of them normally anyway; merging is the concept linker's call, not yours.
+Where two or more concepts are the same idea under different names or keys, record them in `merge_candidates` as `{"concepts": [keys], "note": "why they are one idea"}`. File each of them normally anyway. Merging them is a separate decision on `decisions.json`, not yours; the flags are what it starts from.
 
 ## Write
 

@@ -75,17 +75,22 @@ The catalogue is about *the work*. It does not tell you when to use the source.
 "schema_version": 3,
 "corpus": "demo",
 "generated_from": "extracted+cross-link+topics",
-"topic_lines": [9, 58],
+"topic_lines": [9, 82],
 "topic_format": ["id","name","synonyms","boundary","kind","broader","concepts","sources","positions?"],
 "row_format": ["name","kind","synonyms","source_ids","topics","contexts?"],
 "topics": [
-["t003","After-action reviews",["AAR","post-incident review"],"not retrospectives","subject","t012",9,4],
-["t021","Culture first vs structure first",[],"","debate","",6,5,["change culture first","change structure first"]],
+["t001","After-action reviews",["AAR","after action debrief","post-exercise review"],"not incident reviews after harm; not sprint retrospectives","subject","t006",10,2],
 ...
+["t075","Shareholder value or stakeholder value",["purpose of the corporation","corporate purpose"],"","debate","",5,8,["maximise shareholder wealth","serve all stakeholders"]]
 ],
 "concepts": [
-["After-Action Review","concept",[],["005","00o"],["t003"]],
-["TC 25-20","example",[],["00o"],["t003"]],
+["After-Action Review","concept",["aar","after action debrief"],["005","00o"],["t001"]],
+...
+["Corporate Social Responsibility","concept",["csr"],["00c","00d","00f","00g"],["t074","t075"]],
+...
+["MCDP 1: Warfighting (US Marine Corps, 1997)","example",["MCDP-1"],["00q"],["t055","t056"]],
+...
+["Shareholder Wealth","concept",["shareholder-value"],["00i"],["t068","t075.1"]],
 ...
 ]}
 ```
@@ -93,7 +98,7 @@ The catalogue is about *the work*. It does not tell you when to use the source.
 The file has two parts, read two ways:
 
 - **The topics block**, one topic per line, is read whole: it's the map of what the library covers. A topic is a subject a practitioner would ask about in their own words, not one author's term and not a whole field. Each line carries the words a practitioner might type for it, a short boundary note where a neighbouring topic could be confused with it, a `broader` link, and counts. A `debate` topic names the sides of a cross-school disagreement. `topic_lines` gives the block's line range, so a model reads exactly the block.
-- **The concept rows**, one per line, are fetched by topic: `grep -F '"t003' concept-index.json` returns every row under topic t003, and for a debate the rows on each side (tagged `t021.1`, `t021.2`). A row carries the concept's name, whether it's a concept or an example (a case, document or person that grounds the topic), its true synonyms, the sources credited with it, and its topics.
+- **The concept rows**, one per line, are fetched by topic: `grep -F '"t001' concept-index.json` returns every row under topic t001, and `grep -F '"t075'` returns a debate's framing rows and the rows on each side (tagged `t075.1`, `t075.2`). A row carries the concept's name, whether it's a concept or an example (a case, document or person that grounds the topic), its true synonyms, the sources credited with it, and its topics.
 
 Built in three stages. (1) Python aggregates concept candidates across every source's `extracted artefact`: enumerated-method names (author-curated) plus back-matter book-index entries that appear in ≥2 distinct source slugs (single-source back-matter entries are corpus-level noise). (2) A constrained LLM pass adjudicates aliases (e.g., `reflective-system` / `System 2` → `dual-process-theory`), filters noise (URL boilerplate, single-letter dividers, generic backmatter terms), and decides novel-vs-existing. (3) A second LLM pass files every concept under subject topics and debates, keeps only true synonyms, keeps cases as examples under the topics they illustrate, and flags duplicate concepts for the first pass to merge. The build then assigns topic IDs, which are append-only and fixed-width, and checks the file before writing it: `topic_lines` must bracket the block, and each topic's grep must return exactly its rows. It re-attaches section + md_line pointers for the deep variant mechanically: enumerated_method body lines first (highest confidence), heading-tree substring match as fallback, with generic front/back-matter headings (CONTENTS, INDEX, REFERENCES) blocked.
 
@@ -127,7 +132,7 @@ The task index is about *the situation*. Read it when you have a phase in mind. 
 
 The compiled assistant's retrieval pattern at session start:
 
-1. Load the corpus-level JSON indexes once per session: `slug-table.json`, `reference-index.json`, and the concept index's topics block (a schema-2 index is read whole). Concept rows are fetched per question, by topic ID.
+1. Load the corpus-level JSON indexes once per session: `slug-table.json`, `reference-index.json`, and the concept index's topics block (a schema-2 index is read whole). On the demo corpus the topics block is 10.7 KB, about a quarter of the 44 KB file. Concept rows are fetched per question, by topic ID.
 2. Load the task-axis `task-index.json` for the domain(s) in play. ~17-19k tokens per axis on the demo corpus.
 3. For a *named lookup* query, resolve through `reference-index.json` to the slug, then read the light → deep refs.
 4. For a *diagnostic* query, route through `task-index.json` for the relevant phase, then read the distillations the rows point to.

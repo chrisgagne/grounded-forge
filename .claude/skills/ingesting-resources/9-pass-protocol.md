@@ -251,7 +251,7 @@ For licence considerations when distributing derived artefacts, see [`docs/archi
 
 **Produces:** updated JSON runtime indexes that route to the new files, plus the operator-inspection `.md` views regenerated alongside.
 
-Pass H used to ask the agent to author concept-A-Z entries by inference and hand-edit per-task distillation indexes. The mechanical-index migration moved that work into a deterministic preprocessor plus constrained LLM passes. The agent now drives the pipeline rather than performing the work directly. The split is the spec's anti-pattern guard: mechanical work (structural extraction, slug-table updates, .md table parsing) goes to Python; semantic work (alias merging, novel-concept naming, applicability) goes to three named agents operating against slim staged payloads. Those agents pin Opus: the vocabulary they build is read on every query, so it gets the strongest model, not the cheapest.
+Pass H used to ask the agent to author concept-A-Z entries by inference and hand-edit per-task distillation indexes. The mechanical-index migration moved that work into a deterministic preprocessor plus constrained LLM passes. The agent now drives the pipeline rather than performing the work directly. The split is the spec's anti-pattern guard: mechanical work (structural extraction, slug-table updates, .md table parsing) goes to Python; semantic work (alias merging, novel-concept naming, applicability) goes to three named agents operating against slim staged payloads. Those agents pin Opus: the vocabulary they build is read on every query, so it runs on a model proven on judgment work, not the cheapest one. Their Codex twins in `.codex/agents/` run on the session's model instead; see `AGENTS.md`.
 
 **Procedure (single-source run):**
 

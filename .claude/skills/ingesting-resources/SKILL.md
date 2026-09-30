@@ -119,7 +119,7 @@ If anything is missing or partial, **stop the run and escalate to the operator.*
 
 Per-source decision. Record it in the deep reference's source/structure block.
 
-**3. Confirm model identity.** Opus 4.7 or higher for every pass that writes or audits source-grounded content: Passes A–G and I. Record the operator's session model in the deep ref's frontmatter (Pass A). If those passes fan out to subagents, each subagent declares its model identity in its first response; on any mismatch, stop and report. Three index-feeding steps run through the `ingest-discovery-scanner`, `ingest-refs-extractor` and `ingest-concept-linker` agents, which pin Opus. They write only to discovery or staging files, never to a reference or a distillation.
+**3. Confirm model identity.** Opus 4.7 or higher for every pass that writes or audits source-grounded content: Passes A–G and I. Record the operator's session model in the deep ref's frontmatter (Pass A). If those passes fan out to subagents, each subagent declares its model identity in its first response; on any mismatch, stop and report. Three index-feeding steps run through the `ingest-discovery-scanner`, `ingest-refs-extractor` and `ingest-concept-linker` agents, which pin Opus (their Codex twins run on the session's model). They write only to discovery or staging files, never to a reference or a distillation.
 
 **4. Image scope decision.** Declare up front whether this run includes image classification:
 

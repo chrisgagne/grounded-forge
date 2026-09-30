@@ -31,7 +31,9 @@
     "audit-deep-refs:local": "python3 scripts/audit-deep-ref.py --all-local",
     "audit-deep-refs:all": "python3 scripts/audit-deep-ref.py --all-corpora",
     "slug-table:demo": "python3 scripts/slug_table.py generate --corpus corpus.commons/demo",
-    "slug-table:demo:check": "python3 scripts/slug_table.py check --corpus corpus.commons/demo"
+    "slug-table:demo:check": "python3 scripts/slug_table.py check --corpus corpus.commons/demo",
+    "codex-agents": "python3 scripts/sync-codex-agents.py",
+    "codex-agents:check": "python3 scripts/sync-codex-agents.py --check"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

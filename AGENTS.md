@@ -69,6 +69,13 @@ If your runtime is Codex, native equivalents ship alongside the Claude ones:
 - **Custom agents:** the facilitators ship as `.codex/agents/*.toml`
   (`developer_instructions` carry the behaviour; `model` is intentionally omitted
   so the agent inherits your current Codex model — it is not a relabelled Sonnet).
+  The ingestion agents that build the concept vocabulary ship the same way at the
+  repo root, generated from `.claude/agents/*.md` by `npm run codex-agents`; the
+  pre-push hook fails when a twin lags its source.
+- **Ingestion model:** those agents run on your session's model, so choose it before
+  you ingest. Use a profile set to a model you have checked on this judgment work,
+  for example `codex -p ingest`, with `~/.codex/ingest.config.toml` setting `model`
+  and `model_reasoning_effort`.
 - **Source integrity:** the deep-reference structural contract is enforced for
   every runtime by the git pre-push audit (`scripts/git-hooks/pre-push`) and
   build-time validation, over the runtime-agnostic core at

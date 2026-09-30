@@ -78,12 +78,28 @@ The sub-claim list is the coverage map for retrieval. Stop reading when every su
 
 Skip decomposition for Protocol N: a named lookup has one sub-claim by construction.
 
+### Reading the concept index
+
+The concept index comes in two shapes; the `schema_version` in its header says which.
+
+**Schema 3: topics, then concept rows.** The file opens with a topics block, one topic per line as `[id, name, synonyms, boundary, kind, broader, concepts, sources, positions?]`, and the header's `topic_lines` gives the block's line range. The block is the map of what the library covers.
+
+1. **Read the topics block once per session.** Read exactly the `topic_lines` range (Read with `offset` and `limit`) and nothing else of the file. If it's already in context from an earlier question, don't read it again.
+2. **Pick topics generously.** For each sub-claim, pick every topic that could hold material for it, matching on names, synonyms and the `boundary` note that separates close neighbours. Include `debate` topics when the question touches a disagreement; their `positions` name the sides. The lookup is cheap, so over-include here and prune at the rows.
+3. **Fetch the rows for all picked topics in one grep:** `grep -F -e '"t012' -e '"t045' concept-index.json`. The prefix, with no closing quote, also returns the rows on each side of a debate (tagged `t045.1`, `t045.2`). Lines that start with `["t` are topic lines; skip them. Each row is `[name, kind, synonyms, source_ids, topics, contexts?]`. `kind` is `concept`, or `example` for a case, document or person that grounds the topic.
+4. **Prune to one row per idea.** Keep the rows that bear on a sub-claim. Where several rows name the same idea, keep one and carry the others' source IDs with it: they add sources, not ideas.
+5. **Named concepts and stray terms.** When the user names a concept, or uses a term no topic's name or synonyms cover, grep the file for it case-insensitively (`grep -i -F 'term' concept-index.json`); names and synonyms sit in the rows.
+
+**Schema 2 (or 1): concept rows only.** Read the whole file: each row is `[slug, name, aliases, source_ids, contexts?]` (schema 1 keys `concepts` by slug with `{name, aliases, sources}`). Paginate to the end when it exceeds the Read cap.
+
+Either way, a row's `source_ids` are the sources the index credits with that concept. Some are passing mentions, so read before you cite.
+
 ### Project-mode retrieval
 
 In project mode, Protocols N, D and S keep their shapes (sub-claims, triangulation, regimes, stopping rules), but every read lands on the reference tier. Where the protocol sections below say "distillation", read the reference instead; where they say "task-index", use the main concept index.
 
 **Pass 1: indexes.**
-- `{corpus}/concept-index.json`, the main concept index. It's the router: read it whole, every time, for Protocols D and S, and for Protocol N when the user names a concept rather than a source. Size the pagination before reading; on a large corpus it runs to hundreds of thousands of tokens (a 723KB concept index is about 310k), which is the price of the whole map.
+- `{corpus}/concept-index.json`, the main concept index and the router, read as set out under *Reading the concept index*, for Protocols D and S and for Protocol N when the user names a concept rather than a source. A schema-2 index is read whole every time, and on a large corpus that runs to hundreds of thousands of tokens (a 723KB index is about 310k). A schema-3 topics block is a small fraction of that, read once per session.
 - `{corpus}/references/slug-table.json` for ID ↔ slug.
 - `{corpus}/reference-index.json`, the catalogue (author, year, title, concept_tags, lines_light, lines_deep, scope). Read it whole when resolving a named author or title, or when concept rows leave candidates ambiguous. It's large on a big corpus (400KB or more), so don't load it by reflex.
 - `lens-index.json`, per Step 0.5.
@@ -101,7 +117,7 @@ Protocol D routes like Protocol S in project mode: the task domain shapes the su
 
 *The read steps below are app mode. In project mode, follow Project-mode retrieval above.*
 
-1. **Resolve the source slug.** Read `./slug-table.json` (`{schema_version, corpus, generated, next_id, slugs}`; `id → slug` under `slugs`). When the user names an author or title, scan the slugs for a match. If the user names a concept and not a specific source, read `./concept-index.json` (schema_version 2: one row per concept under top-level `concepts`, `[slug, name, aliases, source_ids]` with an optional trailing `{id: context}`; schema_version 1 corpora instead key `concepts` by slug with `{name, aliases, sources}`) and route from concept → sources.
+1. **Resolve the source slug.** Read `./slug-table.json` (`{schema_version, corpus, generated, next_id, slugs}`; `id → slug` under `slugs`). When the user names an author or title, scan the slugs for a match. If the user names a concept and not a specific source, find its row in `./concept-index.json` (see *Reading the concept index*; on schema 3, grep the name) and route from concept → sources.
 2. **Read the relevant distillation(s).** For the slug + the user's task domain (if applicable), open `./distillations/{task}/{slug}-{task}.md`. Distillations carry author attribution in the first paragraph, paraphrased claims with parenthetical citations, and verbatim blockquotes with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) for the load-bearing passages. The distillation is what you cite from.
 3. **Stop.** No triage, no breadth sweep.
 
@@ -112,9 +128,9 @@ When the named source is referenced in the corpus but no distillation projects o
 *The read steps below are app mode. In project mode, follow Project-mode retrieval above.*
 
 1. **Decompose the question** into 3-6 sub-claims (see above).
-2. **Read the precondition gate.** Load three files: the task-axis index at `./distillations/{task}/task-index.json`, the slug-table at `./slug-table.json`, and the concept axis at `./concept-index.json`. Read each whole-file in one pass (paginate with successive `offset/limit` Read calls if any file exceeds the cap).
+2. **Read the precondition gate.** Load three files: the task-axis index at `./distillations/{task}/task-index.json`, the slug-table at `./slug-table.json`, and the concept axis at `./concept-index.json`. Read the task index and slug-table whole (paginate with successive `offset/limit` Read calls if either exceeds the cap), and the concept index as set out under *Reading the concept index*.
 
-   The task-axis index partitions the task into named phases (each a `section`) and lists which sources apply (`rows` as `[need, slug-id, when]` triples). A large axis ships a split index (`schema_version` 2): a section with a `shard` field keeps only its short form in `task-index.json` (listener triggers with their `[D#]` pointers; each named disagreement's number and question), and its full rows sit in the named `task-index.shard-*.json` file beside it. Read the main file whole, then load only the shard for the section in play. The slug-table resolves slug-IDs to distillation file paths: `./distillations/{task}/{slug}-{task}.md`. The concept-index does concept routing — task-index rows carry slug-IDs but not concept pointers, so the concept-index is what lets you land on a named concept inside the source the task-index named.
+   The task-axis index partitions the task into named phases (each a `section`) and lists which sources apply (`rows` as `[need, slug-id, when]` triples). A large axis ships a split index (`schema_version` 2): a section with a `shard` field keeps only its short form in `task-index.json` (listener triggers with their `[D#]` pointers; each named disagreement's number and question), and its full rows sit in the named `task-index.shard-*.json` file beside it. Read the main file whole, then load only the shard for the section in play. The slug-table resolves slug-IDs to distillation file paths: `./distillations/{task}/{slug}-{task}.md`. The concept-index does concept routing — task-index rows carry slug-IDs but not concept pointers, so the concept-index is what lets you land on a named concept inside the source the task-index named. With a schema-3 index, also pick topics for the sub-claims the task index leaves thin: its phases carry the practitioner's situation, the topics carry what the literature says about it.
 
    **Stub-or-empty-task-index escape clause.** If `task-index.json` is a stub (`sections: []` or `generated_from: "stub-*"`), the task-axis projection has not been authored yet. In that case the corpus-level concept axis is doing all the routing work; proceed to step 3 using concept-index to identify candidate sources.
 
@@ -131,10 +147,10 @@ Three explicit passes:
 **Pass 1: Routing.** Decompose the question into 5-10 sub-claims. Then route via the runtime JSON indexes:
 
 - `./slug-table.json`: slug ↔ ID mapping; load once per session.
-- `./concept-index.json`: the concept axis. schema_version 2 stores one row per concept, `[slug, name, aliases, source_ids]` plus an optional trailing `{id: context}` object; schema_version 1 corpora key `concepts` by slug with `{name, aliases, sources}` objects. The app's copy is filtered at build time to the sources whose distillations shipped, and carries no in-source `(section, md_line)` pointers — distillations are full-read at Pass 2, so the pointer is unnecessary at app runtime (the corpus-level `concept-index-deep.json` is where pointers live, for operators).
+- `./concept-index.json`: the concept axis, read as set out under *Reading the concept index*. The app's copy is filtered at build time to the sources whose distillations shipped, and carries no in-source `(section, md_line)` pointers — distillations are full-read at Pass 2, so the pointer is unnecessary at app runtime (the corpus-level `concept-index-deep.json` is where pointers live, for operators).
 - `./distillations/{task}/task-index.json` per task domain in play.
 
-**Cap-aware surfaces.** Some runtime artefacts may exceed the Read tool's 25k single-call cap. For all JSON indexes, read the whole object: if a single Read returns the entire file, you're done; if it exceeds the cap, paginate with successive `offset/limit` Read calls until EOF. Never use `grep` or `python3 -c '... json.load ...'` against a JSON index to extract a single key in lieu of reading the file. Distillation files are small (typically 8-15KB each) and always fit in one Read.
+**Cap-aware surfaces.** Some runtime artefacts may exceed the Read tool's 25k single-call cap. For JSON indexes, read the whole object: if a single Read returns the entire file, you're done; if it exceeds the cap, paginate with successive `offset/limit` Read calls until EOF. Never use `grep` or `python3 -c '... json.load ...'` against a JSON index to extract a single key in lieu of reading the file. The one exception is a schema-3 concept index, where the topics block is read whole and rows are fetched by topic ID, as set out under *Reading the concept index*. Distillation files are small (typically 8-15KB each) and always fit in one Read.
 
 **EOF-successive-reads pattern (apply whenever an artefact exceeds the cap):**
 
@@ -175,7 +191,7 @@ Grep the YAML by `source_ref` for each cited source; don't full-read it (on a la
 
 ### Token budget posture
 
-Stay inside the context window with comfortable headroom for the answer-writing step (~200k tokens reserved). In app mode, distillations are small, so Pass 2 is cheap; a 50-distillation read still fits comfortably. In project mode, the main concept index is the big fixed cost (about 310k tokens for a 723KB index), and deep refs are the variable one, so pick Pass 3 authors by the sub-claims they carry rather than by count.
+Stay inside the context window with comfortable headroom for the answer-writing step (~200k tokens reserved). In app mode, distillations are small, so Pass 2 is cheap; a 50-distillation read still fits comfortably. In project mode, a schema-2 main concept index is the big fixed cost (about 310k tokens for a 723KB index), where a schema-3 topics block costs a fraction of that once per session; deep refs are the variable cost, so pick Pass 3 authors by the sub-claims they carry rather than by count.
 
 ### Write the answer
 

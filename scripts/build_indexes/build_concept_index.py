@@ -624,6 +624,26 @@ def _clean_aliases(name: str, canonical: str, aliases: list[str]) -> list[str]:
     return out
 
 
+def _previous_pointers(deep_path: Path) -> dict[tuple[str, str], dict]:
+    """Section pointers from the last deep index, keyed by (concept, source ID).
+
+    Extracted artefacts live in the untracked ``_planning/`` tree, so a machine
+    or clone without them would re-assemble every pointer away. For a source
+    with no artefact here, assembly keeps its last known pointer instead.
+    """
+    if not deep_path.is_file():
+        return {}
+    with deep_path.open("r", encoding="utf-8") as f:
+        deep = json.load(f)
+    out: dict[tuple[str, str], dict] = {}
+    for canonical, rec in deep.get("concepts", {}).items():
+        for src in rec.get("sources", []):
+            ptr = {k: src[k] for k in ("section", "md_line") if src.get(k)}
+            if ptr:
+                out[(canonical, src["id"])] = ptr
+    return out
+
+
 def _assemble(corpus: str) -> Path:
     slug_table = load_slug_table(corpus)
     slug_id = slug_to_id(slug_table)
@@ -642,11 +662,14 @@ def _assemble(corpus: str) -> Path:
     valid_ids = set(slug_id.values())
 
     extracted_lookup = _build_extracted_lookup(corpus, slug_id)
+    out_dir = index_output_dir(corpus)
+    previous_pointers = _previous_pointers(out_dir / "concept-index-deep.json")
 
     concepts: dict[str, dict] = {}
     drift_log: list[dict] = []
     section_hits = 0
     source_count = 0
+    carried = 0
 
     for entry in decisions.get("decisions", []):
         canonical = entry.get("canonical")
@@ -720,6 +743,9 @@ def _assemble(corpus: str) -> Path:
             pointer = _section_pointer(
                 extracted_lookup, resolved_id, canonical, aliases, name
             )
+            if not pointer and resolved_id not in extracted_lookup:
+                pointer = previous_pointers.get((canonical, resolved_id))
+                carried += bool(pointer)
             if pointer:
                 if pointer.get("section"):
                     rec["section"] = pointer["section"]
@@ -770,7 +796,6 @@ def _assemble(corpus: str) -> Path:
             row.append(contexts)
         rows.append(row)
 
-    out_dir = index_output_dir(corpus)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     out_path = out_dir / "concept-index.json"
@@ -816,6 +841,8 @@ def _assemble(corpus: str) -> Path:
         f"{deep_size} bytes deep at {deep_path.name}); "
         f"section pointers attached to {section_hits}/{source_count} source mentions "
         f"({coverage:.0f}%)"
+        + (f", {carried} kept from the previous deep index for sources with no extracted artefact"
+           if carried else "")
     )
     return out_path
 

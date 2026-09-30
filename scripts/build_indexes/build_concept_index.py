@@ -1038,16 +1038,70 @@ def _assemble(corpus: str) -> Path:
     return out_path
 
 
+def _emit_topic_payload(corpus: str) -> Path:
+    """Write the topic linker's input: the assembled vocabulary, one concept per line.
+
+    Built from the deep index, so run --assemble first. Each line is
+    ``{"concept", "name", "aliases", "sources", "contexts", "filed"}`` with
+    sources as slugs; ``filed`` is true when topics.json already places the
+    concept (under a topic or as noise), which is what the linker's per-source
+    mode skips. One line per concept lets the linker read the whole vocabulary
+    in order rather than slices of a large JSON object.
+    """
+    deep_path = index_output_dir(corpus) / "concept-index-deep.json"
+    if not deep_path.is_file():
+        raise SystemExit(f"no deep index at {deep_path}; run --assemble first")
+    with deep_path.open("r", encoding="utf-8") as f:
+        deep = json.load(f)
+    id_to_slug = {rid: slug for slug, rid in slug_to_id(load_slug_table(corpus)).items()}
+
+    _, topics_doc = _load_topics(corpus)
+    filed: set[str] = set()
+    for topic in (topics_doc or {}).get("topics", []):
+        filed.update(topic.get("concepts", []), topic.get("examples", []))
+        for position in topic.get("positions", []):
+            filed.update(position.get("concepts", []))
+    filed.update(u["concept"] for u in (topics_doc or {}).get("unplaced", []))
+
+    concepts = deep["concepts"]
+    out_path = staging_dir(corpus, "concepts") / "topic-payload.jsonl"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    order = sorted(concepts, key=lambda c: (concepts[c]["name"].casefold(), c))
+    with out_path.open("w", encoding="utf-8") as f:
+        for canonical in order:
+            rec = concepts[canonical]
+            line = {
+                "concept": canonical,
+                "name": rec["name"],
+                "aliases": rec.get("aliases", []),
+                "sources": [id_to_slug.get(s["id"], s["id"]) for s in rec["sources"]],
+                "contexts": {id_to_slug.get(s["id"], s["id"]): s["context"]
+                             for s in rec["sources"] if s.get("context")},
+                "filed": canonical in filed,
+            }
+            f.write(json.dumps(line, ensure_ascii=False) + "\n")
+    unfiled = sum(1 for c in order if c not in filed)
+    print(f"wrote {out_path} ({len(order)} concepts, {unfiled} not yet filed under a topic)")
+    return out_path
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build concept-index.json")
     parser.add_argument("--corpus", required=True)
     g = parser.add_mutually_exclusive_group(required=True)
     g.add_argument("--emit-candidates", action="store_true")
     g.add_argument("--assemble", action="store_true")
+    g.add_argument(
+        "--emit-topic-payload",
+        action="store_true",
+        help="write the topic linker's input from the assembled deep index",
+    )
     args = parser.parse_args(argv)
 
     if args.emit_candidates:
         _emit_candidates(args.corpus)
+    elif args.emit_topic_payload:
+        _emit_topic_payload(args.corpus)
     else:
         _assemble(args.corpus)
     return 0

@@ -119,7 +119,7 @@ If anything is missing or partial, **stop the run and escalate to the operator.*
 
 Per-source decision. Record it in the deep reference's source/structure block.
 
-**3. Confirm model identity.** Opus 4.7 or higher for every pass that writes or audits source-grounded content: Passes A–G and I. Record the operator's session model in the deep ref's frontmatter (Pass A). If those passes fan out to subagents, each subagent declares its model identity in its first response; on any mismatch, stop and report. Three index-feeding steps run through the `ingest-discovery-scanner`, `ingest-refs-extractor` and `ingest-concept-linker` agents, which pin Opus (their Codex twins run on the session's model). They write only to discovery or staging files, never to a reference or a distillation.
+**3. Confirm model identity.** Opus 4.7 or higher for every pass that writes or audits source-grounded content: Passes A–G and I. Record the operator's session model in the deep ref's frontmatter (Pass A). If those passes fan out to subagents, each subagent declares its model identity in its first response; on any mismatch, stop and report. Four index-feeding steps run through the `ingest-discovery-scanner`, `ingest-refs-extractor`, `ingest-concept-linker` and `ingest-topic-linker` agents, which pin Opus (their Codex twins run on the session's model). They write only to discovery or staging files, never to a reference or a distillation.
 
 **4. Image scope decision.** Declare up front whether this run includes image classification:
 
@@ -151,7 +151,7 @@ Run in order. Full procedure, templates, contracts, and pass-specific failure mo
 - **Pass E, Synthesis.** Assemble the deep reference; apply `[V]` `[AP]` `[AR]` `[AE]` `[BT]` markers.
 - **Pass F, Light-reference derivation.** Three sub-passes from the verified deep; source not re-read.
 - **Pass G, Distillation projection.** Applicability gate (G.0); project per applicable axis (G.1–G.3).
-- **Pass H, Cross-reference.** Drive the mechanical-index pipeline: allocate slug-ID, run the discovery scan and preprocessor, dispatch the `ingest-refs-extractor` and `ingest-concept-linker` agents, regenerate JSON indexes. Cross-check sibling distillations.
+- **Pass H, Cross-reference.** Drive the mechanical-index pipeline: allocate slug-ID, run the discovery scan and preprocessor, dispatch the `ingest-refs-extractor`, `ingest-concept-linker` and `ingest-topic-linker` agents, regenerate JSON indexes. Cross-check sibling distillations.
 - **Pass I, Source-only audit.** Read the deep cold in a **fresh subagent** — never the session that produced it — and trace every claim. A same-context read certifies its own leakage: a session cannot see the training-priors it just wrote in as source-grounded, so it passes them off as verified. Only independent eyes catch them. Deep ships only when Pass I passes.
 
 ---
@@ -160,13 +160,14 @@ Run in order. Full procedure, templates, contracts, and pass-specific failure mo
 
 When ingesting many sources in one work-session, dispatch multiple subagents in parallel: one source per subagent for Passes A–H. **Pass I always runs in a separate fresh subagent** (per Pass I above), launched once the producing subagent has written the deep reference — a cold read is only cold from a context that did not write the reference.
 
-**The index steps belong to the orchestrating session.** As each deep reference lands, it runs the mechanical discovery baseline (which finds sources through their deep references) and dispatches `ingest-discovery-scanner` and `ingest-refs-extractor` for that source; once every source is in, it dispatches `ingest-concept-linker` once for the batch. The named agents carry the extraction rules; a source agent that ran these steps itself would work without them.
+**The index steps belong to the orchestrating session.** As each deep reference lands, it runs the mechanical discovery baseline (which finds sources through their deep references) and dispatches `ingest-discovery-scanner` and `ingest-refs-extractor` for that source; once every source is in, it dispatches `ingest-concept-linker` once for the batch, then `ingest-topic-linker` once after the concept index is assembled. The named agents carry the extraction rules; a source agent that ran these steps itself would work without them.
 
 **Per-source staging files.** Each source agent writes its per-source artefacts to namespaced staging paths the build scripts read at corpus level. The canonical JSON indexes are derived; nobody edits them by hand. Staging layout (paths relative to repo root):
 
 - `_planning/extracted/{corpus}/{slug}.json`: deterministic preprocessor output (one per source).
 - `_planning/staging/{corpus}/refs/{slug}.json`: refs-pass output (one per source).
 - `_planning/staging/{corpus}/concepts/candidates.json`, `decisions.json`: corpus-wide concept aggregation (single file, written once after every per-source step completes).
+- `_planning/staging/{corpus}/concepts/topic-payload.jsonl`, `topics.json`: the topic linker's input and its filing of concepts under topics (written once per batch, after the concept index is assembled).
 - `docs/images/_ingest_image_index_{slug}.yaml`: image-index staging (one per source). Assembled into `{corpus-root}/sources/converted/IMAGE-INDEX.yaml` by `scripts/build_indexes/build_image_index.py` at Pass H; **an image absent from that index is not part of the library**, so the assembly step is not optional. This staging path sits at repo root rather than inside the corpus, which means a private corpus's per-figure descriptions land in a shared tree — `docs/images/` is gitignored to keep them off any public remote.
 
 The build scripts (`scripts/build_indexes/`) consume the staging artefacts and write the canonical JSON indexes in `corpus.commons/{corpus}/`. Two reasons for the staging layer:

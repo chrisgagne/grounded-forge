@@ -12,7 +12,8 @@ finds a topics file:
 - topic IDs are append-only and fixed-width, never reused after a topic retires;
 - a topics file that names a concept the vocabulary doesn't have stops the build.
 
-Also covers the carry-forward of section pointers for sources whose extracted
+Also covers `check_topics.py`, which the topic linker runs until its output
+passes, and the carry-forward of section pointers for sources whose extracted
 artefacts aren't on this machine.
 
 No test framework, matching tests/mechanical-headings.test.py: each case
@@ -39,6 +40,7 @@ from scripts.build_indexes.build_concept_index import (  # noqa: E402
     _previous_pointers,
     _write_schema3,
 )
+from scripts.build_indexes.check_topics import check  # noqa: E402
 
 
 def assert_(cond: bool, msg: str) -> None:
@@ -184,7 +186,51 @@ def case_previous_pointers_are_keyed_by_concept_and_source() -> None:
     assert_(_previous_pointers(path.parent / "missing.json") == {}, "a missing deep index carries nothing")
 
 
+PAYLOAD = [{"concept": c, "name": r["name"], "aliases": r["aliases"], "sources": [], "contexts": {}, "filed": False}
+           for c, r in CONCEPTS.items()]
+
+
+def reviewed_topics() -> dict:
+    doc = copy.deepcopy(TOPICS)
+    doc["synonyms"]["normal-accident-theory"] = ["NAT"]
+    return doc
+
+
+def labels(problems) -> set[str]:
+    return {label for label, _ in problems}
+
+
+def case_checker_passes_a_complete_file() -> None:
+    problems, counts = check(PAYLOAD, reviewed_topics())
+    assert_(not problems, f"a complete topics file must pass: {problems}")
+    assert_(counts["debates"] == 1 and counts["unplaced"] == 1, f"counts: {counts}")
+
+
+def case_checker_reports_placement_problems() -> None:
+    doc = reviewed_topics()
+    doc["topics"][1]["concepts"].remove("outcome-bias")          # outcome bias now placed nowhere
+    doc["topics"][3]["concepts"].remove("normal-accident-theory")  # NAT now only on a debate side
+    for n in range(3):                                           # hindsight bias under five subject topics
+        doc["topics"].append({"key": f"extra-{n}", "name": f"Extra {n}", "kind": "subject",
+                              "concepts": ["hindsight-bias"], "examples": []})
+    found = labels(check(PAYLOAD, doc)[0])
+    for expected in ("not placed", "placed only on a debate side (needs a subject topic)",
+                     "more than three subject topics"):
+        assert_(expected in found, f"expected '{expected}' among {found}")
+
+
+def case_checker_reports_synonym_problems() -> None:
+    doc = copy.deepcopy(TOPICS)                                  # NAT's aliases never reviewed
+    doc["synonyms"]["hindsight-bias"] = ["hindsight in general"]  # not one of its aliases
+    found = labels(check(PAYLOAD, doc)[0])
+    for expected in ("aliases with no synonyms decision", "kept synonym not among the concept's aliases"):
+        assert_(expected in found, f"expected '{expected}' among {found}")
+
+
 CASES = [
+    case_checker_passes_a_complete_file,
+    case_checker_reports_placement_problems,
+    case_checker_reports_synonym_problems,
     case_ids_are_append_only_and_fixed_width,
     case_topic_lines_bracket_the_block,
     case_prefix_grep_returns_each_topics_rows,

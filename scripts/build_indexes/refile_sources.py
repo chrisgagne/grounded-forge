@@ -120,6 +120,9 @@ class Filing:
         else:
             t["positions"][side - 1].setdefault("concepts", []).append(key)
         self.doc["unplaced"] = [u for u in self.doc.get("unplaced", []) if u["concept"] != key]
+        # A concept filed for the first time has had no synonyms review; keep none of
+        # its aliases as synonyms until the topic linker reviews it.
+        self.doc.setdefault("synonyms", {}).setdefault(key, [])
 
     def remove(self, key: str, ref: str) -> bool:
         base, side = _parse_topic(ref)
@@ -384,7 +387,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("command", choices=["batches", "check", "apply"])
     parser.add_argument("--corpus", required=True)
     parser.add_argument("--folder", type=Path, help="staging folder (default _planning/staging/{corpus}/concepts)")
-    parser.add_argument("--files", nargs="*", help="proposal files (default refile/refile-b*.json in the folder)")
+    parser.add_argument("--files", nargs="*", help="proposal files (default refile/refile-b<n>.json in the folder)")
     parser.add_argument("--label", default="refile", help="names the backups and the log")
     parser.add_argument("--per-batch-kb", type=int, default=340)
     parser.add_argument("--texts", type=Path, help="JSON map of slug to converted-text path from the corpus root")
@@ -409,7 +412,7 @@ def main(argv: list[str] | None = None) -> int:
         if not path.is_file():
             print(f"missing {path}")
             return 1
-    files = [Path(f) for f in args.files] if args.files else sorted(Path(p) for p in glob.glob(str(refile / "refile-b*.json")))
+    files = [Path(f) for f in args.files] if args.files else sorted(Path(p) for p in glob.glob(str(refile / "refile-b[0-9]*.json")))
     if not files:
         print(f"no proposal files in {refile}")
         return 1

@@ -127,6 +127,7 @@ def case_filing_caps_replaces_sides_and_examples() -> None:
     assert_("etto" in topic(t2, "t236")["positions"][1]["concepts"], "debate side not filed")
     assert_("etto" not in topic(t2, "t006")["concepts"], "remove_topics didn't remove")
     assert_("challenger" in topic(t2, "t017")["examples"], "example-only concept not filed as example")
+    assert_(t2["synonyms"].get("drift") == [], "first filing of an unreviewed concept left no synonyms decision")
 
 
 def case_new_rows_create_merge_and_reuse() -> None:

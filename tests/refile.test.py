@@ -98,6 +98,16 @@ def case_credit_adds_source_with_context_once() -> None:
     assert_(len(by_key(d2, "etto")["sources"]) == 2, "repeat credit added twice")
 
 
+def case_slug_only_sources_match_by_slug() -> None:
+    d, t = fixtures()
+    by_key(d, "goodhart")["sources"] = [{"slug": "source-b", "context": "no id on this record"}]
+    p = doc(src(B, credits=[{"row": "Goodhart's Law", "evidence": "e"}]),
+            src(B, removals=[{"row": "Goodhart's Law", "evidence": "e"}]))
+    d2, _, log = apply(d, t, [p])
+    assert_(any("already credited" in e["outcome"] for e in log), "slug-only credit not recognised")
+    assert_(by_key(d2, "goodhart") is None, "slug-only credit not removed")
+
+
 def case_removal_and_last_source_drops_row() -> None:
     d, t = fixtures()
     p = doc(src(A, removals=[{"row": "ETTO Principle", "evidence": "e"}]),

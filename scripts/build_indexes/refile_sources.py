@@ -226,12 +226,16 @@ def apply(decisions: dict, topics: dict, proposals: list[dict]) -> tuple[dict, d
     log: list[dict] = []
     created: list[str] = []
 
+    def same(entry: dict, src: dict) -> bool:
+        # Some older records carry a source by slug only; assembly resolves the id.
+        return entry.get("id") == src["id"] or entry.get("slug") == src["slug"]
+
     def note(src: dict, change: str, row: str, outcome: str) -> None:
         log.append({"slug": src["slug"], "change": change, "row": row, "outcome": outcome})
 
     def credit(key: str, src: dict, context: str) -> bool:
         rec = records[key]
-        if any(x["id"] == src["id"] for x in rec["sources"]):
+        if any(same(x, src) for x in rec["sources"]):
             return False
         entry = {"slug": src["slug"], "id": src["id"]}
         if context:
@@ -261,10 +265,10 @@ def apply(decisions: dict, topics: dict, proposals: list[dict]) -> tuple[dict, d
             for r in s.get("removals", []):
                 key = by_name.get(r["row"])
                 rec = records.get(key) if key else None
-                if rec is None or not any(x["id"] == src["id"] for x in rec["sources"]):
+                if rec is None or not any(same(x, src) for x in rec["sources"]):
                     note(src, "removal", r["row"], "skipped: not credited")
                     continue
-                rec["sources"] = [x for x in rec["sources"] if x["id"] != src["id"]]
+                rec["sources"] = [x for x in rec["sources"] if not same(x, src)]
                 if rec["sources"]:
                     note(src, "removal", r["row"], "removed")
                 else:

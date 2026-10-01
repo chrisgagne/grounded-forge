@@ -144,7 +144,8 @@ def case_new_rows_create_merge_and_reuse() -> None:
     d, t = fixtures()
     p1 = doc(src(A, new_rows=[{"name": "Objectives and Key Results (OKRs)", "kind": "concept", "synonyms": ["OKRs"],
                                "topics": ["t044", "t236.1"], "context": "OKRs as stretch goals", "evidence": "e"},
-                              {"name": "Vision Zero", "kind": "example", "synonyms": [], "topics": ["t017"], "evidence": "e"}]))
+                              {"name": "Vision Zero", "kind": "example", "synonyms": ["VISION ZERO", "vision-zero"],
+                               "topics": ["t017"], "evidence": "e"}]))
     p2 = doc(src(B, new_rows=[{"name": "Objectives and Key Results", "kind": "concept", "synonyms": [],
                                "topics": ["t044"], "evidence": "e"},
                               {"name": "drift into failure", "kind": "concept", "synonyms": [], "topics": ["t008"], "evidence": "e"}]))
@@ -157,6 +158,8 @@ def case_new_rows_create_merge_and_reuse() -> None:
     assert_("objectives-and-key-results-okrs" in topic(t2, "t044")["concepts"], "new row not filed")
     assert_("objectives-and-key-results-okrs" in topic(t2, "t236")["positions"][0]["concepts"], "new row debate side missing")
     assert_("vision-zero" in topic(t2, "t017")["examples"], "example new row not under examples")
+    assert_(by_key(d2, "vision-zero")["aliases"] == [] and t2["synonyms"]["vision-zero"] == [],
+            "synonym differing from the name or key only by case kept")
     assert_([s["id"] for s in by_key(d2, "drift")["sources"]] == ["s01", "s02"], "new row named like an existing one didn't merge")
 
 

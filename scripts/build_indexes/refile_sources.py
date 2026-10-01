@@ -302,7 +302,14 @@ def apply(decisions: dict, topics: dict, proposals: list[dict]) -> tuple[dict, d
                 key, k = _slugify(name), 2
                 while key in records:
                     key, k = f"{_slugify(name)}-{k}", k + 1
-                synonyms = [x for x in dict.fromkeys(n.get("synonyms", [])) if x and x != name]
+                # Matches the assembler's alias hygiene: a synonym that differs from the
+                # name, the key or another synonym only by case is dropped there, and a
+                # kept synonym the assembled row lacks fails check_topics.
+                seen, synonyms = {name.lower(), key}, []
+                for x in (a.strip() for a in n.get("synonyms", []) if a):
+                    if x and x.lower() not in seen:
+                        seen.add(x.lower())
+                        synonyms.append(x)
                 entry = {"slug": src["slug"], "id": src["id"]}
                 if n.get("context"):
                     entry["context"] = n["context"]

@@ -31,7 +31,8 @@ The index is `concept-index.json` at the corpus root. Its header gives `topic_li
       - **filing:** a row that credits (or will credit) this source belongs under a topic it lacks, because the row's idea falls inside that topic's name and boundary; or it sits under a topic that is plainly wrong for it (`remove_topics`). A row keeps at most three subject topics. A debate side goes on a row only when the row's idea argues that side.
       - **new row:** the source develops an idea no row names (check with two or three `grep -i -F` phrasings first). Give a name in the index's naming style, `kind` (`concept`, or `example` for a case, document or person), true synonyms only, and one to three topics.
       - **removal:** the source is credited on a row for an idea it doesn't treat. Propose one only when the credit traces to the deep ref's cross-reference section, or when the deep ref never discusses the idea and a grep of the source's `text` finds no passage treating it. A source with no `text` loses only credits that trace to a cross-reference section. A word used in another sense doesn't count as treating the idea.
-   4. For a credit or a new row, add a `context` of about a dozen words saying how this source treats the idea where that would help someone choosing which source to read ("critique: drift is invisible from inside"). Leave it empty when the row's name says it all.
+   4. When two rows you meet name one idea under two names, list them under `duplicates`; the merge review decides.
+   5. For a credit or a new row, add a `context` of about a dozen words saying how this source treats the idea where that would help someone choosing which source to read ("critique: drift is invisible from inside"). Leave it empty when the row's name says it all.
    Every change needs `evidence`: the deep-ref section (or source-text line) and a short quote. Decide each change yourself; no keyword rules or scripts that decide (a helper script may only transcribe decisions you have made). Prefer fewer, sure changes to many weak ones.
 3. Write `_planning/staging/{corpus}/concepts/refile/refile-{batch}.json`, indent 2, `ensure_ascii=False`:
 
@@ -41,6 +42,7 @@ The index is `concept-index.json` at the corpus root. Its header gives `topic_li
   "removals": [{"row": "<exact row name>", "evidence": ""}],
   "filings":  [{"row": "<exact row name>", "add_topics": ["t044"], "remove_topics": [], "evidence": ""}],
   "new_rows": [{"name": "", "kind": "concept", "synonyms": [], "topics": ["t044"], "context": "", "evidence": ""}],
+  "duplicates": [{"rows": ["<exact row name>", "<exact row name>"], "note": ""}],
   "notes": ""}]}
 ```
 

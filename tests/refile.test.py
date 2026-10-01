@@ -13,7 +13,8 @@ refile_sources carries them out. These cases lock in:
 - a new row gets a key, its synonyms and its topics; the same new row from two
   files becomes one row credited to both; a new row named like an existing one
   merges into it;
-- new rows whose names contain one another are flagged as merge candidates;
+- new rows whose names contain one another, and rows an agent names as
+  duplicates, are flagged as merge candidates once;
 - a proposal that can't apply (unknown row, topic or debate side, a slug the
   table doesn't know, a new row with no topics) is reported by validate.
 
@@ -157,6 +158,17 @@ def case_overlapping_new_rows_are_flagged_for_merge_review() -> None:
     flagged = [set(g["concepts"]) for g in t2["merge_candidates"]]
     assert_({"flynn-effect", "iq-malleability-flynn-effect"} in flagged, f"overlap not flagged: {flagged}")
     assert_(not any("effect-size" in g for g in flagged), f"unrelated row flagged: {flagged}")
+
+
+def case_duplicates_join_merge_candidates_once() -> None:
+    d, t = fixtures()
+    g = {"rows": ["Drift Into Failure", "ETTO Principle"], "note": "same idea"}
+    p = doc(src(A, duplicates=[g]), src(B, duplicates=[g]))
+    _, t2, log = apply(d, t, [p])
+    flagged = [set(x["concepts"]) for x in t2["merge_candidates"]]
+    assert_(flagged.count({"drift", "etto"}) == 1, f"duplicate group not flagged once: {flagged}")
+    bad = doc(src(A, duplicates=[{"rows": ["Drift Into Failure"]}]))
+    assert_(validate(d, t, [bad], SLUG_IDS), "one-row duplicates group not reported")
 
 
 def case_validate_reports_what_cannot_apply() -> None:

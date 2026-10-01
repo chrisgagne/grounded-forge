@@ -15,6 +15,7 @@ in the staging folder:
                     "remove_topics": [], "evidence": ""}],
       "new_rows": [{"name": "", "kind": "concept", "synonyms": [], "topics": ["t044"],
                     "context": "", "evidence": ""}],
+      "duplicates": [{"rows": ["<display name>", "<display name>"], "note": ""}],
       "notes": ""}]}
 
 Rows are named by display name, which is unique in decisions.json. A topic is
@@ -31,6 +32,8 @@ This script makes the changes, so no agent edits either large file:
   don't count). An addition past three is skipped and logged. ``replace`` (an
   older field) names one topic to drop only when the row is full.
 - credit: the source joins an existing row, with its context.
+- duplicates: rows the agent saw naming one idea twice join the merge
+  candidates, for the concept linker's merge review to decide.
 - new row: a new concept credited to the source and filed under its topics,
   examples under a topic's examples. New rows from different files with the
   same name, ignoring case, punctuation and parentheticals, become one row.
@@ -187,6 +190,13 @@ def validate(decisions: dict, topics: dict, proposals: list[dict], slug_ids: dic
                 problems += _topic_problems(f.get("add_topics", []) + f.get("remove_topics", [])
                                             + ([f["replace"]] if f.get("replace") else []),
                                             by_id, f"{where} filing '{f.get('row')}'")
+            for g in s.get("duplicates", []):
+                rows = g.get("rows", [])
+                if len(set(rows)) < 2:
+                    problems.append(f"{where}: a duplicates group needs two rows: {rows}")
+                for row in rows:
+                    if row not in names:
+                        problems.append(f"{where}: duplicates names no row '{row}'")
             for n in s.get("new_rows", []):
                 nm = n.get("name", "").strip()
                 if not nm:
@@ -297,6 +307,17 @@ def apply(decisions: dict, topics: dict, proposals: list[dict]) -> tuple[dict, d
                     filing.add(key, ref, example and "." not in ref)
                 note(src, "new row", name, f"created as {key}")
                 created.append(key)
+            for g in s.get("duplicates", []):
+                keys = list(dict.fromkeys(by_name[r] for r in g.get("rows", []) if r in by_name))
+                if len(keys) < 2:
+                    note(src, "duplicates", " | ".join(g.get("rows", [])), "skipped: a row is gone")
+                    continue
+                groups = topics.setdefault("merge_candidates", [])
+                if any(set(keys) <= set(x.get("concepts", [])) for x in groups):
+                    note(src, "duplicates", " | ".join(g["rows"]), "already flagged")
+                    continue
+                groups.append({"concepts": keys, "note": g.get("note") or "flagged by the re-filing pass"})
+                note(src, "duplicates", " | ".join(g["rows"]), "flagged")
     _flag_overlaps(created, records, topics)
     decisions["decisions"] = sorted(records.values(), key=lambda d: d["canonical"])
     return decisions, topics, log
@@ -396,7 +417,7 @@ def main(argv: list[str] | None = None) -> int:
     proposals = [json.load(open(f, encoding="utf-8")) for f in files]
     slug_ids = slug_to_id(load_slug_table(args.corpus))
     counts = {k: sum(len(s.get(k, [])) for d in proposals for s in d.get("sources", []))
-              for k in ("credits", "removals", "filings", "new_rows")}
+              for k in ("credits", "removals", "filings", "new_rows", "duplicates")}
     summary = (f"{len(files)} files, {sum(len(d.get('sources', [])) for d in proposals)} sources: "
                + ", ".join(f"{v} {k.replace('_', ' ')}" for k, v in counts.items()))
     problems = validate(decisions, topics, proposals, slug_ids)

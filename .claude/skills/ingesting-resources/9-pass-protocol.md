@@ -89,10 +89,10 @@ The `**Scope:**` line is mechanical: the build reads it directly to decide wheth
 
 1. From the candidate quotes captured in Pass C, select passages worth quoting verbatim (the author's own framing of the central argument; a paragraph that compresses a thesis).
 2. Format as `> "..."` blockquotes with the chosen-style citation on the line below or appended.
-3. **Verify exactness.** Re-check each blockquote character-by-character against the source. Verbatim accuracy is mandatory.
+3. **Verify exactness.** Re-check each blockquote character-by-character against the source. Verbatim accuracy is mandatory. `python3 scripts/check-verbatim.py {deep-ref}` checks every blockquote and `[V]` quotation in one run.
 4. Keep blockquotes short. Long blockquotes are a sign that paraphrase would carry the meaning more cleanly.
 
-**Failure modes:** introducing apparent corrections (smart quotes where the source has straight, capitalisation tidied up). Verbatim means verbatim. If the source has an unusual choice, preserve it.
+**Failure modes:** introducing apparent corrections (capitalisation tidied up, a word, dash or punctuation mark changed). Verbatim means verbatim. If the source has an unusual choice, preserve it. Apostrophe and quote-mark style, straight or curly, is typography rather than the author's words, and is not a slip.
 
 ## Pass E: Synthesis (assemble the deep reference)
 
@@ -342,6 +342,8 @@ So: audit in a fresh subagent and, separately, in a *different model family*. Gi
 - `tests/audit-fixtures/07-marker-mismatch-V-without-verbatim.md`: canonical correction case (a `[V]` marker on a paraphrased sentence).
 - `tests/audit-fixtures/12-clean-negative-control.md`: a clean snippet that must not be flagged; over-flagging is as costly as missing real violations.
 
+**Run the verbatim check before the cold read.** `python3 scripts/check-verbatim.py {deep-ref}` checks every `[V]` quotation and blockquote against the converted source and prints each mismatch with the source's own text beside it. Work quotation fixes from that report rather than tracing each quote with its own search; the cold read still traces every other claim. Its `apostrophe`, `initial`, `ligature` and `cross-source` lines need no fix.
+
 The full twelve-fixture set and regression runner are in [`tests/audit-fixtures/README.md`](../../../tests/audit-fixtures/README.md); re-run the regression set when adopting a new model.
 
 **Fail conditions:**
@@ -385,7 +387,7 @@ Failure modes the protocol catches. Most are caught at the pass that introduced 
 - **Post-source vocabulary.** A concept from the author's later work introduced into a deep ref of an earlier work. The author did not have that vocabulary at the time.
 - **Cross-corpus drift.** A connection to another author the source does not cite. The deep ref records what the source cites, not what the corpus ingester knows.
 - **Task-application guidance smuggled into the deep.** Diagnostic questions, anti-patterns, and worked examples belong in distillations (Pass G), not in the deep reference.
-- **Verbatim accuracy slips.** Apparent corrections (smart quotes, capitalisation tidying) introduced into blockquotes in Pass D. Re-verify.
+- **Verbatim accuracy slips.** Apparent corrections (capitalisation tidying, a changed word, dash or punctuation mark) introduced into blockquotes in Pass D. Re-verify. Apostrophe and quote-mark style is not a slip.
 - **Unverified verbatim in distillations.** A distillation quotation marked `[V]` that is not word for word in the source: reworded, silently shortened, or credited to the wrong source. A `[V]` quotation in a distillation matches the converted source exactly; correct it to the source's words, or paraphrase it without the marker.
 - **Silent partial coverage (source-side).** Proceeding with the deep ingest when the available text is incomplete and not flagging the gap. The post-conversion check and the source-integrity pre-flight catch this before Pass A by hard-stopping on incomplete sources, including a conversion cut short by a size cap; the operator decides whether to approve partial-coverage ingestion with an explicit `coverage: partial — operator-approved ...` rationale.
 - **Silent partial coverage (reader-side).** Skipping readable chapters during Pass C and labeling the deep ref `coverage: partial` after the fact. This is the canonical violation of the source-integrity rule: if you can read the chapter, you must read it. If context budget runs out mid-read, stop and escalate to the operator so they decide whether to continue, defer, or abandon. The `coverage:` frontmatter field is operator-consent only — the model never sets `coverage: partial` unilaterally. Pass I's TOC-vs-anchors check is the audit backstop.

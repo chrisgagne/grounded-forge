@@ -21,7 +21,7 @@ tests/audit-fixtures/
 ├── 02-post-source-vocabulary.md
 ├── 03-cross-corpus-drift.md
 ├── 04-distillation-guidance-in-deep.md
-├── 05-verbatim-smart-quote-tidy.md
+├── 05-apostrophe-style-control.md
 ├── 06-verbatim-capitalisation-tidy.md
 ├── 07-marker-mismatch-V-without-verbatim.md
 ├── 08-marker-mismatch-BT-without-source-citing.md
@@ -44,7 +44,7 @@ tier: <deep | distillation>
 ---
 ```
 
-`severity` of `strip` means the violating sentence must be removed; `correct` means it must be amended in place (typically a marker change or a verbatim repair); `none` is the negative control.
+`severity` of `strip` means the violating sentence must be removed; `correct` means it must be amended in place (typically a marker change or a verbatim repair); `none` marks a control, a snippet the auditor must not flag (`05` for apostrophe style, `12` for a fully clean excerpt).
 
 ## Two uses
 

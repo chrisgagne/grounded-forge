@@ -107,7 +107,7 @@ This distillation gathers these threads into a working pattern: how the Scrum fr
 | Inspect outcomes at the Sprint Review | Has the Sprint Review actually been a working session with key stakeholders, or has it degraded into a presentation? Has the Product Backlog been adjusted based on what was learned? |
 | Improve the process at the Sprint Retrospective | What assumptions led the team astray, and what were their origins? What went well, what problems were encountered, and how were they (or weren't they) solved? What's the most impactful change to address next? |
 | Consider Sprint cancellation when the Sprint Goal becomes obsolete | "A Sprint could be cancelled if the Sprint Goal becomes obsolete. Only the Product Owner has the authority to cancel the Sprint." [V] Is the Sprint Goal still valuable, or has the world changed enough to obsolete it? |
-| Watch for partial-implementation drift | Is the team quietly dropping events ("we skipped the Retrospective this Sprint"), watering down accountabilities (committee Product Ownership), or weakening the Definition of Done? "Implementing only parts of Scrum is possible, the result is not Scrum." [V] |
+| Watch for partial-implementation drift | Is the team quietly dropping events (*we skipped the Retrospective this Sprint*), watering down accountabilities (committee Product Ownership), or weakening the Definition of Done? "Implementing only parts of Scrum is possible, the result is not Scrum." [V] |
 
 ## What to Look For
 

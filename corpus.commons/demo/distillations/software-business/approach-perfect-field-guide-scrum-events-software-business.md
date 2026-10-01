@@ -150,7 +150,7 @@ This distillation gathers these threads as a working pattern: where each Scrum-e
 - A *milestone is being celebrated with a demo of undone work* — reach for "WIP is a liability, not an asset" and the don't-demonstrate-work-that-isn't-Done rule as the trust-protection case.
 - A *Sprint Review is drifting into presentation mode* — reach for the 1-hour agenda with the working-session frame and the 5-minute stakeholder market-update slot as the structural reset.
 - A *Daily Scrum is drifting into status reporting* — reach for the no-status-meeting framing and the Parking Lot mechanism as the structural reset.
-- A *carry-over over-commitment* — reach for the "zero new work, possibly remove items" rule and "honest empirical process control" [V] as the commercially legible discipline.
+- A *carry-over over-commitment* — reach for the *zero new work, possibly remove items* rule and "honest empirical process control" [V] as the commercially legible discipline.
 - A *feature-pricing or build-vs-buy conversation is collapsing into implementation debate* — reach for the coffee-temperature outcome-vs-implementation framing as the decision-rights line.
 - A *Sprint Retrospective is being shortened under delivery pressure* — reach for the 1½-hour timebox, the decisions/actions split, and the one-or-two-improvements discipline as the case for protecting the learning loop.
 - An *incident or compliance investment* needs to be sequenced — reach for the one-or-two-improvements rule and the Backlog Refinement budget (up to 10% of Capacity) as the sequencing discipline.

@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-02T09:53:27+13:00
 ---
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Software-Business Distillation
 
@@ -30,7 +30,7 @@ The handbook is not a software-business *theory* source. It does not price the t
 
 ## Key Concepts for Software-Business
 
-1.  **Ownership versus buy-in as a software-business decision-quality distinction.** Engineering "buying in" to a commercial commitment made without them — or sales "buying in" to a reliability-investment schedule decided without them — produces "lukewarm, pallid implementation and mediocre results." [V] The handbook's diagnostic move: listen for the word *buy-in* in the room. It is "a danger signal telling you that your development and implementation process is missing the essential ingredient of involving all who should be involved." [V] For software-business, the involvement question routinely crosses function boundaries (engineering, product, finance, sales, legal). (Source: *Engaging Everyone with LS Handbook*, "Ownership versus Buy-in")
+1.  **Ownership versus buy-in as a software-business decision-quality distinction.** Engineering *buying in* to a commercial commitment made without them — or sales *buying in* to a reliability-investment schedule decided without them — produces "lukewarm, pallid implementation and mediocre results." [V] The handbook's diagnostic move: listen for the word *buy-in* in the room. It is "a danger signal telling you that your development and implementation process is missing the essential ingredient of involving all who should be involved." [V] For software-business, the involvement question routinely crosses function boundaries (engineering, product, finance, sales, legal). (Source: *Engaging Everyone with LS Handbook*, "Ownership versus Buy-in")
 
 2.  **Stacey-Zimmerman complexity classification before method choice.** The Agreement/Uncertainty Matrix names a software-business diagnostic move: classify the situation before reaching for a method. Recipe (simple); airplane (complicated: many parts, but expertise lets you be pretty certain it will fly); child (complex: emergent and unpredictable). Build-vs-buy with a stable partner roadmap is complicated; market-entry-with-AI-integration under partner-roadmap uncertainty is complex. Methods designed for simple or complicated situations "don't work well when things are complex" [V]. (Source: "Agreement/Uncertainty Matrix"; Stacey and Zimmerman as borrowed-through lineage)
 

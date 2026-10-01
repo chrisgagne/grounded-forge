@@ -12,7 +12,7 @@ sources:
     resource: https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-02T12:53:57+13:00
 ---
 # U.S. Marine Corps, MCDP 1: Warfighting, Decision-Making Distillation
 

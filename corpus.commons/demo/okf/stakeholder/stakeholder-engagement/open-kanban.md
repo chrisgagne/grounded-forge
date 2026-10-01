@@ -12,7 +12,7 @@ sources:
     resource: https://github.com/agilelion/Open-Kanban
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-02T09:53:27+13:00
 ---
 # Hurtado, Open Kanban — Stakeholder-Engagement Distillation
 
@@ -173,7 +173,7 @@ The scenario is operator-authored. The board-as-collaboration-artefact framing, 
 - **Push-based scheduling presented as engagement** — assigning work to team members (push) rather than letting them pull from a prioritised backlog removes the engagement-quality signal that pull-based scheduling provides.
 - **Communication without Collaboration** — telling stakeholders what the team is doing is communication; involving stakeholders in shaping the work is collaboration. Open Kanban packages these as one value because "one value does not work without the other." [V]
 - **Letting the Courage-required moment pass silently** — lower-rank stakeholders correcting higher-rank decisions is the named mechanism for system feedback; without it, the feedback loop is broken.
-- **Overwork as engagement-quality management** — overwork destroys the sustainable pace that makes consistent engagement possible; treating "we can always do one more" as a sign of team commitment is the failure the source warns against ("An exhausted developer, manager or team are the perfect recipe for disaster" [V]).
+- **Overwork as engagement-quality management** — overwork destroys the sustainable pace that makes consistent engagement possible; treating *we can always do one more* as a sign of team commitment is the failure the source warns against ("An exhausted developer, manager or team are the perfect recipe for disaster" [V]).
 - **Treating people only as resources** — Open Kanban's value asks that they also be seen as full rounded individuals who make the system work.
 - **Engagement without a learning close** — "Learning is the key concept before continuous improvement can ever happen!" [V] An engagement cycle that closes with no learning step (a Retrospective, Strategy Meeting, Kaizen Group, or another form) has not closed its learning loop.
 - **Field-level engagement without naming who is invited** — the Movement framing's explicit invitation to named fellow-travellers is the model; naming people (not positions) is what makes engagement real.

@@ -26,6 +26,6 @@ The original is the official PDF at the canonical URL above, fetched from its 20
 
 Deep reference: [`corpus.local/aarbuddy/references/mcdp1-warfighting-deep.md`](../../references/mcdp1-warfighting-deep.md). Light reference: [`corpus.local/aarbuddy/references/mcdp1-warfighting.md`](../../references/mcdp1-warfighting.md). Pass I audit: [`corpus.local/aarbuddy/references/_audit/_ingest_pass_I_mcdp1-warfighting_source_audit.md`](../../references/_audit/_ingest_pass_I_mcdp1-warfighting_source_audit.md).
 
-**Cross-corpus note.** The same edition is ingested in the public-tier `corpus.commons/demo/` corpus under slug-id `00q`. Pass I audit covers both ingestions. `corpus.local/aarbuddy` still holds the earlier plain-text OCR as its converted source, because its concept index carries line pointers into that file.
+**Cross-corpus note.** The same edition is ingested in the public-tier `corpus.commons/demo/` corpus under slug-id `00q`. Both corpora hold the same converted source, deep reference and light reference; the audits in `corpus.commons/demo/references/_audit/` cover both.
 
 **Companion volume in the corpus.** Coram's *Boyd: The Fighter Pilot Who Changed the Art of War* (slug 081) — the biographical / intellectual source of the OODA-loop / maneuver-warfare framework MCDP-1 codifies.

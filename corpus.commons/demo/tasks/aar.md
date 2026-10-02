@@ -135,10 +135,7 @@ All Pass-G-applicable demo distillations in `distillations/aar/` are candidates;
 
 ## 4. Intended lenses
 
-The demo lens library carries `builder`, `agentic-builder`, `pm-bounded-by-ba-role`, `cto`, `business-executive-stakeholder`, and `chris-gagne-consultant-coach`. Of these:
-
-- `cto`: moderate fire. When the AAR is on a software incident and surfaces engineering-organisation contributory factors that need CTO-level translation.
-- `business-executive-stakeholder`: moderate fire. When AAR conclusions need to land with the board or exec team in their language.
+The demo lens library carries `builder`, `agentic-builder`, `pm-bounded-by-ba-role`, and `chris-gagne-consultant-coach`. None is named as an intended lens for this axis.
 
 Per-distillation applicability decided at Pass G; thin lens fit is expected and acceptable.
 

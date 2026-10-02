@@ -8,7 +8,7 @@ This is the *when-to-use* layer for the software-business task. It partitions th
 
 The software-business axis fires when a question sits at the *intersection* where the technical and the commercial constrain each other: a feature with both a price and a build-cost; a technical decision with a board-reporting consequence; an engineering structural choice with a customer-experience downstream. Generic management or generic engineering framings should route through `decision-making` or `stakeholder-engagement` instead.
 
-Where a query is shaped by a clear reader-type (a founder briefing a board, a CTO explaining to engineering, a PM communicating with sales), check [`../../lenses/LENS-INDEX.md`](../../lenses/LENS-INDEX.md) before composing the answer; the `cto`, `business-executive-stakeholder`, and `pm-bounded-by-ba-role` lenses are the three strong-fire lenses for this axis.
+Where a query is shaped by a clear reader-type (a founder briefing a board, a CTO explaining to engineering, a PM communicating with sales), check [`../../lenses/LENS-INDEX.md`](../../lenses/LENS-INDEX.md) before composing the answer; the `pm-bounded-by-ba-role` lens is the strong-fire lens for this axis.
 
 ---
 
@@ -827,7 +827,7 @@ Software-business is an *intersection*, not a superset. Questions that are prima
 - `flo-facilitation-guide`: *skip-out-of-axis*. FLO is an online-learning-facilitation craft manual; its diagnostic questions do not land on software-business decisions. Software-business queries that surface a facilitation need should fall back to `decision-making/flo-facilitation-guide-decision-making.md` or `stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md`.
 - `tc-25-20-army-aar`: *skip-thin*. TC 25-20 is an AAR primary source; its contribution is pure facilitation craft already projected onto decision-making (15 key concepts, 6 phases) and stakeholder-engagement (18 key concepts, 7 phases) at the appropriate depth. NHS Just Culture and LFUO Learning Review carry the domain-relevant texture for Phase 5 incident response; Business Ethics carries the social-contract argument for the PR-and-customer dimension. Software-business queries that surface an AAR-vs-critique distinction, horseshoe-seating concern, open-ended-question discipline, or spirit-and-climate framing should fall back to `decision-making/tc-25-20-army-aar-decision-making.md` and `stakeholder-engagement/tc-25-20-army-aar-stakeholder-engagement.md`.
 
-**Lens applicability across distillations.** The `cto`, `business-executive-stakeholder`, and `pm-bounded-by-ba-role` lenses are the three strong-fire lenses for this axis. Per-distillation lens-applied sections live inside individual distillation files under `## Through the {lens-name} lens` headings. The `pm-bounded-by-ba-role` lens read-only by design; lens-applied sections appear only where the source materially reweights for that role. Retrieval-time fallback handles queries where a lens is named but no pre-projected section exists.
+**Lens applicability across distillations.** The `pm-bounded-by-ba-role` lens is the strong-fire lens for this axis. Per-distillation lens-applied sections live inside individual distillation files under `## Through the {lens-name} lens` headings. The lens is read-only by design; lens-applied sections appear only where the source materially reweights for that role. Retrieval-time fallback handles queries where a lens is named but no pre-projected section exists.
 
 ---
 

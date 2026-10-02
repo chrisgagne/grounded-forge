@@ -229,7 +229,7 @@ const TOOLS = [
     inputSchema: {
       type: "object",
       properties: {
-        lens: { type: "string", description: "Lens name, e.g. 'cto'." },
+        lens: { type: "string", description: "Lens name, e.g. 'builder'." },
       },
       required: ["lens"],
       additionalProperties: false,

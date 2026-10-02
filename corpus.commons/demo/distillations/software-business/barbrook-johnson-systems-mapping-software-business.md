@@ -207,51 +207,6 @@ This is the book's pattern, projected onto software-business work: the methods a
 
 - **Audio-recording engineering or board workshops without budgeting for transcription.** Transcription "can easily take five or six times the length of the recording when there are multiple people involved" [V] (Ch 10), and the recording itself can inhibit honest discussion. Default to dedicated note-taking unless the artefact specifically requires verbatim record.
 
-## Through the CTO lens
-
-For the CTO reading any of the artefacts this distillation supports — a Theory of Change for the board, a CLD for the engineering all-hands, a System Dynamics model for the platform-modernisation timeline, a BBN for the security-investment case — the lens reweights three things in particular.
-
-First, **the constraint as operational mechanism, surfaced through the core system engine**. CLDs land for this reader-type when the diagram names the one balancing loop or reinforcing loop that is the constraint — owner, capability gap, repeatable gate — rather than displaying every dependency. A CLD that fires for this CTO puts the core system engine (one or a handful of variables) up front and layers or filters the rest (up to twenty nodes); a CLD with twenty nodes on the front page reads as Past-tempo evidence-display and gets skimmed past. (Source: Ch 4, "How Do You Create Causal Loop Diagrams?")
-
-Second, **the Theory of Change diagram leading with what becomes possible, not what failed**. The source builds a ToC by stating the intervention and the long-term impacts first, then filling the middle backwards from the impacts (Ch 3); opening the memo with the impact is this lens's presentation choice, matching the CTO's opportunity-first reading register. The artefact should open with the long-term impact (the unlock — what AI capability, what reliability tier, what commercial capacity becomes available) and work back to the inputs through outcomes, outputs, and activities. The methodology section recedes; the assumption-surface becomes the artefact's primary work. (Source: Ch 3, "How Do You Create Theory of Change Diagrams?")
-
-Third, **the AI-native angle in the systems-mapping exercise itself**. The CTO's bet is AI-as-substrate-for-org-redesign, not AI-as-productivity-tool. A systems-mapping exercise applied to AI integration should surface the role-bifurcation question (which engineer roles change, which appear, which disappear) as a structural feedback in the map — not as a productivity bullet. The book's silence on AI is a gap this lens fires; the practitioner brings the question even when the book doesn't.
-
-**Triggers the CTO lens reaches for in this distillation:**
-- Phase 1: archetype-recognition diagnosis when a strategic-positioning situation has the shape of *fixes-that-fail*, *limits-to-success*, or *shifting-the-burden* with AI-integration implications.
-- Phase 2: capacity-versus-debt modelling that resolves to a single constraint with an owner and a timeboxed first step.
-- Phase 4: choice of mapping method when the audience is engineering (CLD with core engine) versus when the audience is the executive team (Theory of Change with backward fill).
-- Phase 6: board-memo shape using ToC structure to lead with the unlock and work backward to the inputs.
-
-The lens recedes when the question is genuinely about workshop facilitation craft (other corpus references carry that better for this reader-type) or about generic decision-making process (route through `decision-making`).
-
-## Through the business-executive-stakeholder lens
-
-For the business-executive-stakeholder reading a systems-mapping-derived artefact — a Theory of Change diagram in a quarterly business review, a CLD shown in an executive offsite, a BBN-derived security memo, a Rich Picture in a strategy session — the lens reweights two things.
-
-First, **the register-determines-reception dynamic**. A CLD that names a *tragedy-of-the-commons* dynamic in shared engineering capacity, or a *shifting-the-burden* archetype in vendor dependencies, lands with this reader if the artefact uses Paradigm-A vocabulary (commitment, accountability, plan, KPI, named owner) at the load-bearing positions and treats the systems-mapping vocabulary as a structured Paradigm-B reframe offered as a choice — not as a sermon. The single B-move heuristic applies: one structural reframe per artefact, surfaced as "this pattern reads as system-shaped rather than individual-shaped; the durable fix is structural" with an A-shaped action close. Multiple structural reframes in one artefact read as paradigm sermon and get filed as "not rigorous." (Source: Ch 4, archetypes; Ch 12, participation-vs-rigour trade)
-
-Second, **the Theory of Change as accountability surface, not as systems-thinking proselytising**. The ToC structure (inputs → activities → outputs → outcomes → impacts) maps naturally onto Paradigm-A artefact requirements: the inputs are budget and headcount commitments, the outputs are deliverables with named owners, the outcomes are KPI deltas, the impacts are commercial outcomes the stakeholder can be accountable for. The "fill the gaps backward" pattern surfaces the intermediary KPIs the stakeholder needs to commit against. The "theories of no change / negative change" section meets the stakeholder's Paradigm-A reflex by naming the failure modes operationally rather than letting them surface as ambiguity-trigger in the meeting. (Source: Ch 3, "How Do You Create Theory of Change Diagrams?")
-
-The participation-versus-conceptual-rigour trade (Ch 12) reshapes through this lens: the stakeholder's Paradigm-A operating register prefers conceptual rigour with named owners over deeply participatory ambiguity-rich outputs. The engagement design that lands is *participatory at scoping (to secure ownership), expert-driven in synthesis (to produce a rigorous artefact), participatory at validation (to confirm the artefact and re-anchor ownership)* — a hybrid that supplies both the warmth-and-acknowledgment surface and the A-shaped operational substance.
-
-The horrendogram failure mode (Ch 1, Ch 4) is acute for this lens: a complex map shown to a Paradigm-A-operating executive without filtering reads as "this is a system failure, not an individual failure" without the operational specificity the stakeholder needs to act. The discipline of layered or staged maps — produce a real version and a simplified version (Ch 3's "two version" trick for ToC generalises here) — is load-bearing.
-
-**Triggers the business-executive-stakeholder lens reaches for in this distillation:**
-- Phase 1: CLD archetype-naming as a structural reframe surfaced as choice, not as critique.
-- Phase 2: Theory of Change as accountability surface for technical-debt servicing or capacity-investment cases.
-- Phase 6: any board-memo or executive-update artefact where the ToC discipline supplies the structural rigour the stakeholder needs, with parsimonious B-vocabulary in opening warmth only.
-
-The lens recedes when the artefact is engineering-internal communication (the CTO lens carries that) or when the question is pure facilitation craft for a non-executive audience.
-
-## Anti-patterns the lenses help avoid
-
-- **Producing a horrendogram for a CTO who needs the constraint in the first two sentences.** The single-page complex CLD lands as Past-tempo evidence-display; the same dynamics with the core system engine surfaced and the rest layered lands as constraint-as-mechanism. (CTO lens, Source: Ch 4 + Ch 1)
-- **Producing a Theory of Change diagram for a Paradigm-A-operating executive that opens in B-vocabulary.** "This is a system-shaped intervention with structural assumptions about emergent outcomes..." reads as sermon. "Proposed: 8 engineers, one quarter, target outcome 25% incident reduction; here is the assumption surface" lands. (Business-executive-stakeholder lens, Source: Ch 3 + Ch 12)
-- **Allocating two B-moves into one artefact.** "This is a system failure, not an individual failure" + "this is a structural problem requiring structural intervention" + "this requires a learning loop, not a control loop" stacks paradigm reframes the stakeholder will not carry. One reframe per artefact, surfaced as choice, with A-action close. (Business-executive-stakeholder lens)
-- **Treating the appropriateness triangle as an academic exercise rather than a constraint-discipline move.** The triangulation produces a short, reasoned choice: lead with the primary method and name any combination explicitly. The CTO reads open-ended multi-method recommendations as analysis paralysis. (CTO lens, Source: Ch 11)
-- **Skipping the post-workshop one-to-ones because "the workshop produced the artefact".** Both lenses fire on this. The CTO uses one-to-ones to surface the constraint-as-mechanism question that didn't fit the workshop format; the business-executive-stakeholder uses them to develop ideas for how the map will be analysed and used. (Source: Ch 10, "Post-workshop")
-
 ## Integration with Other References
 
 | Reference | Relationship |

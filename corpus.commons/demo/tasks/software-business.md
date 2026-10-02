@@ -82,11 +82,11 @@ Software-business work is the set of decisions and practices at the intersection
 
 | Trigger | Response |
 |---|---|
-| Operator names a board-paper or exec-memo concern with technical content | Grunig-Hunt linkage model (`openstax-business-ethics`), Mitchell-Agle-Wood stakeholder prioritisation, plus the `business-executive-stakeholder` lens |
+| Operator names a board-paper or exec-memo concern with technical content | Grunig-Hunt linkage model (`openstax-business-ethics`), Mitchell-Agle-Wood stakeholder prioritisation |
 | Operator describes a fundraising or investor-update need | OpenStax Principles of Finance primitives (`openstax-principles-finance`), entrepreneurship funding-ladder (`openstax-entrepreneurship`) |
 | Operator names a cross-function negotiation (engineering vs product vs sales) | TKI five negotiation modes (`openstax-business-law`), Thomas's conflict process model and conflict-handling modes (`openstax-organizational-behavior` Ch 14) |
 | Operator describes a customer-communication concern with technical content | Service-profit chain + Gap Model / RATER (`openstax-principles-marketing`), 5A customer journey |
-| Operator names a CTO-to-board translation problem | The `cto` lens fires; Mintzberg's roles (`openstax-principles-management`), `business-executive-stakeholder` lens cross-cuts |
+| Operator names a CTO-to-board translation problem | Mintzberg's roles (`openstax-principles-management`) |
 
 ## 3. Available sources
 
@@ -98,8 +98,6 @@ All 27 sources in the demo corpus are candidates; per-source applicability decid
 
 ## 4. Intended lenses
 
-- `cto`: strong fire. The CTO-as-reader is the canonical software-business audience.
-- `business-executive-stakeholder`: strong fire. The board-and-exec reader-type for whom the software-business intersection is most opaque.
 - `pm-bounded-by-ba-role`: strong fire. The PM-bounded-by-business-analyst role that sits closest to the intersection.
 
 Other lenses (`builder`, `agentic-builder`, `chris-gagne-consultant-coach`) may fire on specific questions but are not the primary lens-set for this axis.

@@ -83,7 +83,7 @@ After the bracket, the trace narrates the actual route taken: which index was re
 **What to check on every answer:**
 
 1. **Does the protocol match the question shape?** Named-lookup questions should classify as `Named`; in-task diagnostics should classify as `Diagnostic`; corpus-survey questions should classify as `Synthesis`. A mismatch means routing went sideways; ask again with sharper signal.
-2. **Is `lens: none` correct?** For most demo queries, yes. If the trace says `lens: cto` and you weren't asking for a CTO-perspective answer, the lens-applicability check over-detected.
+2. **Is `lens: none` correct?** For most demo queries, yes. If the trace says `lens: builder` and you weren't asking for an answer read from the builder's seat, the lens-applicability check over-detected.
 3. **Are the sub-claims complete?** The trace lists 3-10 sub-claims for Diagnostic and Synthesis protocols. If a sub-claim you'd expect is missing (you asked about decision-making *and* stakeholder dynamics; the trace shows only decision-making sources), the decomposition step missed a dimension.
 4. **Are the cited sources the right ones?** The trace names sources by slug. If you can read `tomlinson-stakeholder-engagement` in the trace, the answer is grounded in Tomlinson's treatment; if you can't, no claim in the answer about stakeholder dynamics traces to him.
 5. **Does the deep-flag match what the answer claims?** An answer that cites *verbatim* passages but has `no-deep` in the trace is internally inconsistent: the verbatim claim depends on a deep read that didn't happen. Either Pass 3 fires (`deep`) and the verbatim is defensible, or the verbatim shouldn't be there.

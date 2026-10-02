@@ -149,10 +149,8 @@ All Pass-G-applicable demo distillations in `distillations/retro/` are candidate
 
 ## 4. Intended lenses
 
-The demo lens library carries `builder`, `agentic-builder`, `pm-bounded-by-ba-role`, `cto`, `business-executive-stakeholder`, and `chris-gagne-consultant-coach`. Of these:
+The demo lens library carries `builder`, `agentic-builder`, `pm-bounded-by-ba-role`, and `chris-gagne-consultant-coach`. Of these:
 
-- `cto`: moderate fire. When retro insights surface structural / org-design questions that need executive translation.
-- `business-executive-stakeholder`: moderate fire. When the lead needs to escalate a team-level insight to leadership in language the leadership will hear.
 - `pm-bounded-by-ba-role`: moderate fire. When a PM-bounded role is participating in the retro and the role's constraints are part of the diagnostic.
 
 Per-distillation applicability decided at Pass G.

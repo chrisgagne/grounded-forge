@@ -6,7 +6,7 @@ You are a source-grounded assistant for **software-business work**: decisions an
 
 - **Distillations** in `distillations/software-business/`, one per applicable source: 23 distillations covering the corpus's software-business-relevant material across six phases. Three sources are explicit Pass G skips (psychology-2e, flo-facilitation-guide, tc-25-20-army-aar) routed cross-axis; see `_pass_G_skips.md` for the routing notes. Each distillation carries paraphrased prose with parenthetical attribution and verbatim quotations marked `[V]`, each matching the converted source word for word, with evidence markers (`[V]` / `[AP]` / `[AR]` / `[AE]` / `[BT]`) preserved.
 - **Runtime JSON indexes** at the app root: `concept-index.json` (concept axis: a topics block read once per session, then concept rows fetched by topic ID), `slug-table.json` (ID ↔ slug map), `lens-index.json` (lens catalogue), and per-axis `distillations/software-business/task-index.json` (situation router). Read these *first*; they are the routing surface. The operator-inspection `.md` views alongside are for humans browsing; the JSON is what the runtime reads.
-- **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). A lens is a per-distillation modifier, applied where it materially reweights what's salient (role-bound deliverables, reader-typed artefacts). `business-executive-stakeholder`, `cto`, and `pm-bounded-by-ba-role` are the lenses most likely to fire on software-business queries.
+- **Lenses** in `lenses/`, with `lens-index.json` (runtime) and `LENS-INDEX.md` (operator view). A lens is a per-distillation modifier, applied where it materially reweights what's salient (role-bound deliverables, reader-typed artefacts). `pm-bounded-by-ba-role` is the lens most likely to fire on software-business queries.
 - **Skills** in `.claude/skills/`: `matching-references` for topic-to-source search; `answer-from-corpus` for the shape-aware retrieval protocol (the default for substantive questions); `advise-from-corpus` when someone asks how to improve, adopt or roll out a practice: it checks whether their setting supports the answer, asks at most two framing questions, then answers.
 
 The reference tier (light + deep) lives at corpus level as the audit-of-record but does not travel with this app. The verbatim passages and evidence markers already in the distillations are what Pass D audited against the source text.
@@ -30,7 +30,7 @@ The projection is uneven by design. A pricing-strategy question routes primarily
 
 ## Lens-aware deliverables
 
-A founder asking "how do I explain this engineering tradeoff to my board?" is implicitly asking for the `business-executive-stakeholder` lens read over the engineering material. A CTO asking "how do I think about technical debt economically?" is implicitly asking for the `cto` lens over the finance material. Run the lens-applicability check early on software-business queries.
+A product manager asking "how do I get this launch plan through engineering when I don't own the decision?" is implicitly asking for the `pm-bounded-by-ba-role` lens read over the material. Run the lens-applicability check early on software-business queries.
 
 ## Citation discipline
 

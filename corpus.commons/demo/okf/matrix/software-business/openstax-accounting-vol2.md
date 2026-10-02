@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-managerial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-02T13:31:31+13:00
 ---
 # OpenStax Principles of Accounting Volume 2, Software-Business Distillation
 
@@ -222,32 +222,6 @@ These four decisions illustrate the volume's central software-business patterns:
 - **Budget slack and managing to engineering variance.** Inflated estimates that make actuals look good degrade the long-term performance signal; short-term decisions to hit cycle-time or velocity targets at the cost of latent debt erode capability (Ch 7.5; Ch 8.5).
 - **Absorption-style engineering-cost allocation for internal decisions.** Judging internal decisions on figures that spread fixed engineering cost across units hides the fixed-cost impact; the volume prescribes variable costing for internal decisions, absorption only for external reporting (Ch 6.5).
 - **Reactive crisis communication after a security or reliability event.** The J&J Tylenol case (protect people first, then the product; the recall cost more than $100 million and the share price recovered within six weeks) is one of the volume's three featured crisis cases, alongside Union Carbide's Bhopal disaster (Ch 13.1).
-
-## Through the cto lens
-
-The CTO's opportunity-first, constraint-disciplined operating tempo reshapes which of this volume's frameworks are load-bearing.
-
-**Surfaced as load-bearing.** The Theory of Constraints five-step (Ch 1.5) and contribution-margin-per-bottleneck-unit ranking (Ch 10.6) are the volume's most CTO-native moves — *one lever, not a list*. Decision-relative cost classification (Ch 2.2) is the discipline that distinguishes the CTO who names the constraint *as an operational mechanism* from one who names it as a concept; *fixed for what decision* is the CTO frame. The capital-budgeting NPV / IRR / profitability-index toolkit (Ch 11) is the language for multi-year platform investments where the CTO is making the AI-native bet and needs to defend it to the board. Variable-versus-absorption costing (Ch 6.5) maps onto the CTO's reluctance to absorb engineering into product cost: variable costing is the internal-decision discipline; absorption is for external reporting only.
-
-**Reshaped questions.** The build-vs-buy question (Phase 1) is the CTO's: state the constraint as *which capacity the buy actually releases* (owner + capability gap + repeatable gate); not as *which option is cheaper on paper*. The technical-debt question (Phase 2) is the CTO's: the constraint is the binding bottleneck; the remediation lever exploits-and-elevates the constraint. The AI-integration question (Phase 1) is the CTO's substrate question — AI as org redesign with role bifurcation (AI-platform-expert vs domain-expert), framed by the cost-classification discipline and the capital-budgeting frame for multi-year investment. The board-reporting question (Phase 6) is the CTO's translation problem — balanced scorecard plus EVA-at-WACC bridges engineering into board-financial language without distorting the underlying engineering.
-
-**Recedes for this reader.** The pedagogical scaffolding of the volume — career roles, certifications, the IMA Statement, the eight-step ethics framework — is contextual orientation, not load-bearing for the CTO's queue. The sustainability-reporting chapter (Ch 13) recedes unless a specific ESG question is in play. The horizontal-and-vertical-analysis appendix (Appendix A) is finance-functional, not CTO-functional.
-
-**Native vocabulary to use when shaping for this lens.** *The constraint as operational mechanism, the lever, what unlocks, capability not productivity, decision-relative, avoidable in this comparison, contribution per bottleneck hour, NPV at our hurdle rate, EVA at WACC, the decision needed (assign / fund / approve), timeboxed first step, success measures.* Strip hedges; lead with what becomes possible; name the constraint by the end of the second sentence; close with the decision plus owner plus first step plus measurable success.
-
-## Through the business-executive-stakeholder lens
-
-The business-executive-stakeholder reads engineering investment in Paradigm-A vocabulary (commitment, accountability, plan, KPI, named owner) with occasional Paradigm-B language in low-heat moments. The volume's frameworks reshape under this lens toward register-fit.
-
-**Surfaced as load-bearing.** The balanced scorecard (Ch 12.4) is this reader's native shape — four perspectives, each with measurable indicators, each owned. The capital-budgeting NPV / IRR analysis (Ch 11) speaks investor-native language; the executive reads NPV and IRR without translation. The responsibility-centre framework (Ch 9.3) supplies the named-owner discipline this executive looks for; the cost / profit / investment / revenue / discretionary-cost distinction names whose accountability holds which function. The variance-analysis framing (Ch 8.5) supplies the planned-vs-actual-vs-explanation structure this executive expects in business-review artefacts.
-
-**Reshaped questions.** Board reporting (Phase 6) lands in this executive's queue via the BSC structure — each perspective with named owner, target, actual, variance, and the decision being asked of the executive (approve, fund, escalate). Variance analysis (Phase 4) lands as the standard-cost framing this executive recognises; the volume's warning against managing-to-the-variance is the parsimonious Paradigm-B move available inside an otherwise A-shaped artefact. Sustainability-reporting choice (Phase 5) lands as a framework decision (GRI vs SASB vs IIRC) with stakeholder-audience reasoning the executive can act on.
-
-**The parsimonious B-move available.** The volume's *cost-classification is decision-relative* move (Ch 2.2) — fixed for what decision, avoidable for what alternative — is the one Paradigm-B reframe most likely to land with this reader inside an A-shaped artefact. It does not ask the executive to operate from B; it offers a sharper cost-classification discipline that produces better A-decisions. The variance-as-learning-signal framing (Ch 8.5) is a second B-move available, surfaced when the artefact carries the management-as-control-system tension; use one or the other, not both, in a single artefact.
-
-**Recedes for this reader.** The pedagogical chapter scaffolding (terms, summaries, exercises) is irrelevant. The detailed cost-estimation methods (high-low, regression, Ch 2.3) recede unless a specific cost-modelling question is in play. The deeper ethics-framework material (Ch 1.4) recedes unless an ethically charged decision is in front of the executive; when it is, the IMA four standards (competence, confidentiality, integrity, credibility) are the load-bearing reference.
-
-**Shape for this lens.** Opening: 1-2 sentences of warmth-and-acknowledgment when post-event; 1 sentence operational opening when pre-event. Operational frame: the plan, the actual, the variance, the consequence, the accountable owner, in Paradigm-A vocabulary throughout. *One* Paradigm-B move: decision-relative cost classification or variance-as-learning-signal, offered as a choice. Closing: named owner, timeboxed first step, measurable success criteria, the decision being requested.
 
 ## Through the pm-bounded-by-ba-role lens
 

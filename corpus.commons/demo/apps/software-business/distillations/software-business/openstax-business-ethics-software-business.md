@@ -183,37 +183,6 @@ A US-headquartered software firm (450 engineers; AI capability shipped across th
 - **"We satisfied the breach-notification minimum."** Disclosure scoped to the legal floor; the ethical-maximum response disclosure framework moves through all four publics.
 - **"We're maximising shareholder value."** Strict shareholder primacy applied as exclusive duty. The book's stakeholder-pluralist position (Ch 1.2, Ch 4.1, App C) is built precisely against this framing.
 
-## Through the business-executive-stakeholder lens
-
-The Paradigm-A-operating, occasionally-B-espousing business-executive-stakeholder is the reader-type for most software-business artefacts that draw on this source: board memos on AI ethics, exec-alignment papers on data protection, incident write-ups with PR + customer dimensions, investor briefings on security investment. The lens reweights the distillation's questions and patterns in three places where the normative-stakeholder argument and the Paradigm-A operating register intersect.
-
-**Reweighted Phase 6 questions (operational register, parsimonious B-move):**
-
-| Need (reweighted) | Question |
-|---|---|
-| Open the board memo with the operational situation, not the normative argument | What is the variance from plan, the consequence, the accountable owner? Lead with the Paradigm-A frame the stakeholder will receive; the normative-stakeholder argument is the one-B-move inside an A-shaped envelope. |
-| Identify the one Paradigm-B move that fits this specific board paper | Out of the distillation's repertoire — normative-stakeholder argument, ethical-maximum framing, moral-minimum exceeding legal-minimum, single-standard rule, deontological lens, triple-bottom-line, social-contract argument — which single B-move does this paper need? More than one will read as sermon and get filed as "not rigorous". |
-| Avoid system-blame-without-individual-accountability framing | When the analysis surfaces a structural / systemic ethics issue, can it be paired with named owner and timeboxed action? A pure structural reframe without operational closure triggers the stakeholder's Model-I defensive reasoning. |
-| Use warmth as opening surface only, not throughout | When the incident is fresh, 1-2 sentences of acknowledgment open the memo. The substance shifts to Paradigm-A operational analysis (variance from plan, accountable owner, KPI, timeboxed action). Extended warmth absorbs the analysis. |
-| Frame the ethical-maximum-versus-minimum choice as a decision the stakeholder makes | The book's spectrum (Ch 3.1, Ch 4.1) is naturally Paradigm-B-flavoured. Reframe as a decision crisp enough for the stakeholder to act on in 15 minutes: "Approve ethical-maximum response (cost $X, rationale) or minimum-compliance response (cost $Y, rationale)." |
-
-**Reweighted patterns (what the lens notices first):**
-
-- **Pattern (lens reweighting): A draft board paper leads with the normative-stakeholder argument.** Signal: the opening paragraph cites Donaldson-Preston, the social-contract argument, or the triple-bottom-line frame. Diagnosis: Paradigm-B framing on a Paradigm-A reader; the paper will be filed as "interesting but not actionable". Follow-up: restructure to open with the operational situation (the variance, the consequence, the accountable owner) and place the normative-stakeholder argument as the one-B-move inside the body.
-- **Pattern (lens reweighting): The recommendation is a system-level reframe without an action close.** Signal: the paper analyses the ethical structure thoroughly but ends with "we recommend further work on the underlying system". Diagnosis: acknowledgment-absorbs-analysis failure mode; the structural analysis has displaced the named-owner-KPI-timeboxed-action close. Follow-up: terminate the paper in a Paradigm-A action — named owner, decision being requested, timeboxed first step (30-60 days), measurable success criteria.
-- **Pattern (lens reweighting): Multiple ethical lenses are being deployed in one paper.** Signal: the paper cites utilitarianism, deontology, virtue ethics, and the social-contract argument; the recommendation pivots between them. Diagnosis: the one-B-move-per-artefact discipline is being violated; the paper reads as paradigm sermon. Follow-up: choose the single lens that fits this paper's content (typically deontology for privacy / data-handling decisions; the normative-stakeholder argument for AI-ethics decisions; the moral-minimum framing for compliance-investment decisions) and use it as the one B-move.
-
-**Lens's preferred shaping for a board memo drawing on this source:**
-
-1. Opening (1-2 sentences, occasionally 3 if the incident is fresh): brief acknowledgment of the team's work investigating / responding / mitigating. Paradigm-B warmth as opening surface.
-2. Operational frame (Paradigm-A vocabulary throughout): the situation, the variance from plan, the consequence, the accountable owner, the cost.
-3. The one Paradigm-B move (named explicitly): "This decision turns on duties the firm owes affected stakeholders [normative-stakeholder argument]" or "The ethical-maximum response benchmark is..." or "The deontological check fails because..." — offered as a choice the stakeholder can take, not as a verdict.
-4. The decision being requested: approve ethical-maximum response / approve minimum-compliance response / approve hybrid (defined). Stated explicitly so the stakeholder can act in 15 minutes.
-5. The action close (Paradigm-A): named owner, timeboxed first step (30-60 days), measurable success criteria.
-6. Pointer to depth: "Full ethical-framework analysis and stakeholder-impact assessment attached."
-
-The voice is Paradigm-A operational throughout the substance, with one Paradigm-B move surfaced as a choice, with warmth as opening surface only, and with the decision-being-requested stated crisply enough to act on. The distillation's content does not change under this lens; the shaping of artefacts drawing on it does.
-
 ## Integration with Other References
 
 | Reference | Connection |

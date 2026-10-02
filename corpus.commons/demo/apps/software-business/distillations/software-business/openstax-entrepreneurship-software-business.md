@@ -136,30 +136,6 @@ The text fits a founder operating in the seed-to-early-stage window where almost
 | Plan the harvest from day one | Is the venture being designed toward acquisition, IPO, or lifestyle operation — and do today's entity-structure, equity-allocation, and IP-protection decisions preserve the harvest options? (Ch 15.1) |
 | Sequence the post-harvest role | After exit, am I best positioned as serial entrepreneur, mentor, consultant, or champion — and how do the relationships built during the venture shape that next role? (Ch 15.4) |
 
-## Through the cto lens
-
-The cto archetype reads this material through opportunity-first, constraint-disciplined, AI-native filters. Reweighted salience:
-
-- **The ten pivots become constraint-finding instruments.** Each pivot type names the single lever to move. The CTO reads them not as "options to consider" but as "which constraint is currently choking the system, and which pivot relaxes it?" (Ch 10.1, Table 10.2)
-- **Build-first-patent-later is load-bearing for fast-iteration software.** The text's suggestion to build first and seek patents later in highly competitive fields (Ch 7.4) is the kind of operational mechanism this lens reaches for: an owner-and-gate decision (defer patent filing until the product shape stabilises) with an explicit constraint (products in most fields must reach market faster than the standard patent process allows).
-- **Founders' agreement reads as cap-table-as-mechanism.** Vesting, buyback clause, dispute resolution: each is a repeatable gate that prevents future ambiguity. The CTO's read flags founders' agreements that name principles without the mechanism (no vesting schedule, no buyback formula, no dispute escalation path) as Past-tempo placeholder documents.
-- **Runway is the constraint, MVP scope is the lever.** Cash-divided-by-burn equals the time-box; MVP scope is the variable the CTO actually controls. The CTO read asks: given runway X, what is the smallest MVP that produces validated learning Y inside that window?
-- **The AI-native angle is missing from the text.** The text predates the current AI-platform wave; opportunity-recognition and PEST treatment touch on AI as a category but do not address AI-as-substrate-for-org-redesign. The lens flags this as a gap the CTO will fill from outside this text (the architecture's `llm-epistemology.md`); Jones's cognitive-capitalism chapter frames human cognition as the means of software production, a useful baseline but not an AI treatment.
-
-The reshape is partial because most of the standard phases (build-measure-learn cadence, runway calculation, founders' agreement) carry through unchanged; the CTO read adjusts vocabulary (constraint, mechanism, owner-and-gate) and surfaces what is missing.
-
-## Through the business-executive-stakeholder lens
-
-The business-executive-stakeholder archetype reads predominantly in Paradigm A, with occasional Paradigm-B language in low-heat moments. Reweighted salience:
-
-- **The six-pitch-elements list reads as the artefact this stakeholder expects.** Brand-identity, problem-solution, key features, product-market fit, competitive analysis, financial projections — each is a Paradigm-A item the stakeholder will look for and notice as absent. (Ch 7.3)
-- **The pitch-matrix supplies the audience-discipline this stakeholder needs.** F&F-vs-angel-vs-VC-vs-trade-group pitching is operational variance against plan: the stakeholder reads "one pitch for all" as the writer ducking the audience-shaping work. (Ch 7.3, Table 7.3)
-- **Cognitive-biases chapter is the parsimonious B-move the artefact can offer.** Overconfidence, planning fallacy, escalation of commitment, hindsight bias (Ch 15.2): these reframe a venture-decline conversation from "the team underperformed" to "the planning fallacy and escalation of commitment are doing the predictable damage at month 18". One B-move per artefact, offered as a choice the stakeholder can take.
-- **Fail-safe points convert system-thinking into Paradigm-A vocabulary.** A pre-committed decision trigger (revenue threshold by date X, customer count by date Y) is the named owner + KPI + timeboxed first step pattern in operational dress; the stakeholder reads fail-safe points as accountability, not as paradigm sermon. (Ch 15.2)
-- **The text's shareholder-vs-stakeholder framing is *not* a useful B-move for this lens.** The 2019 Business Roundtable framing (Ch 3.1) is correct on content but loaded with Paradigm-B register the stakeholder will file as ideological. If the artefact needs a stakeholder-vs-shareholder move, route it through the named accountability surface (which named owner reports to which named board committee for which named stakeholder commitment) rather than through the values claim.
-
-The reshape is partial because most of the standard phases hold; the stakeholder read adjusts the framing of the cognitive-biases material from psychological-insight to operational-accountability and flags which moves are register-safe and which are not.
-
 ## What to Look For
 
 - **Pattern: founder treats the engineering build as the product.** Signal: roadmap, hiring plan, and progress reports are organised around features shipped, not customer outcomes validated. Diagnosis: probable Field-of-Dreams approach (Ch 11.1). Follow-up: pause the build, run customer-discovery interviews with the named target segment, build an empathy map, require validated learning before further engineering investment.

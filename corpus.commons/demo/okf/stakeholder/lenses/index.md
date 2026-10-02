@@ -4,7 +4,5 @@ Per-distillation modifiers: each lens reweights what is salient in a distillatio
 
 - [agentic-builder](agentic-builder.md)
 - [builder](builder.md)
-- [business-executive-stakeholder](business-executive-stakeholder.md)
 - [chris-gagne-consultant-coach](chris-gagne-consultant-coach.md)
-- [cto](cto.md)
 - [pm-bounded-by-ba-role](pm-bounded-by-ba-role.md)

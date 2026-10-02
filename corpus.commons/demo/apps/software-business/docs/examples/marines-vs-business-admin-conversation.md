@@ -17,7 +17,7 @@ I'll answer this by drawing on the corpus. First, let me classify the query shap
 **Shape:** This is a **Synthesis** question — it asks what the corpus says across two domains (Marine warfighting doctrine, textbook business administration) and wants parallels drawn between them. Breadth across sources is the point.
 
 > **Tool calls**
-> - Read `lens-index.json` (full) — six lenses now: builder, cto, pm-bounded-by-ba-role, business-executive-stakeholder, agentic-builder, chris-gagne-consultant-coach.
+> - Read `lens-index.json` (full) — four lenses now: builder, pm-bounded-by-ba-role, agentic-builder, chris-gagne-consultant-coach.
 
 **Lens-applicability check:** Lens-neutral. The query asks for an intellectual synthesis between two doctrines — not a role-bound artefact, not a reader-typed deliverable, and not an application of the named-person lens. No lens applies.
 
@@ -112,5 +112,5 @@ priority/Schwerpunkt↔constrained-resource (00q + 00j + 00b ToC-[BT]); inaction
 comparative-advantage) → dedup: 00c matched (stakeholder-theory) but skipped, 00h+00j already carry
 the sub-claim → Pass 2 (6 distillations read in full: 00q, 00j, 00h, 00g, 00b, 00e) → verbatim [V]
 markers surfaced in-band from the distillations. Lens-neutral: no role-bound reader, no lens
-applied (6 lenses checked).
+applied (4 lenses checked).
 ```

@@ -41,7 +41,7 @@ The frame is reached for when:
 The frame is *not* reached for when:
 
 - The artefact is about engineering work that doesn't involve agent orchestration (use the Builder lens).
-- The artefact is about whether to adopt agentic engineering as a strategic bet (use the CTO lens).
+- The artefact is about whether to adopt agentic engineering as a strategic bet.
 - The artefact is about the felt experience of practitioners running fleets (the frame doesn't read affective texture; that's gemba the operator doesn't yet have).
 
 ### Canonical anchor: BMAD-METHOD

@@ -12,7 +12,7 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 
 ## Lenses
 
-- [lenses](lenses/index.md) — 6 per-distillation modifiers
+- [lenses](lenses/index.md) — 4 per-distillation modifiers
 
 ## Evidence markers
 

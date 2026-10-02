@@ -51,7 +51,7 @@ What someone reading an artefact might reach for instead:
 
 - **Read the artefact at face value.** Take the framing as written; assume the PM has the authority the artefact implies. Cost: produces a read that lands on someone who doesn't actually have that authority, generating frustration on both sides: the artefact author thinks the PM should "just decide"; the PM cannot decide.
 - **Use a senior-PM lens (genuine product authority).** Read as if the PM had discovery surface, roadmap authority, demand refusal rights. Wrong read for this population; produces guidance the PM cannot execute.
-- **Use a different role lens** (Builder, CTO, Stakeholder). Different structural position; different read. The PM lens's distinct value is the coordination-cost-and-authority-gap dimension other lenses don't carry.
+- **Use a different role lens** (Builder). Different structural position; different read. The PM lens's distinct value is the coordination-cost-and-authority-gap dimension other lenses don't carry.
 - **Use a non-personifiable workflow frame** (queue physics, demand governance directly, process discipline directly). Sharp for diagnosis; misses the *positional middleness* the PM lives in: that the PM is the absorber between stakeholder ambiguity and team work.
 - **Talk to the actual PM.** Direct conversation when available. The lens substitutes when not: drafting before sending, designing a process before deploying, evaluating an artefact you don't have time to walk through with the PM directly.
 - **Treat the PM as a stakeholder rather than a reader.** Common misread: the artefact treats the PM as someone to *communicate to* rather than someone whose work *absorbs the artefact's coordination cost*. Different mental model; different lens.

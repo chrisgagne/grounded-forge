@@ -135,8 +135,6 @@ Patterns to notice in software-business work. For each: *Signal* / *Diagnosis* /
 - **Do not use this reference when** the question is a calculation (which vendor is cheaper at list price? what's the payback period at these inputs?), a survey (what do customers think of the new pricing?), a meeting (can sales and product align on the Q3 commitments?), or an obvious decision under time pressure. Brief 1.02's suitability caution (*Considerations*) governs.
 - **Reach for `barbrook-johnson-systems-mapping` instead** when the question is *which systems-mapping method should I use?* — SSDL provides the concepts that motivate the method choice; Barbrook-Johnson provides the seven methods and the appropriateness criteria.
 - **Reach for `openstax-accounting-vol2` instead** when the question is the relevant-cost pricing of the structural intervention SSDL surfaces — the archetype identifies what to invest in; relevant-cost analysis prices the trade-off.
-- **Pair with the `cto` lens** when the artefact is shaped for an opportunity-first CTO who needs the constraint and the loop named in the first two sentences.
-- **Pair with the `business-executive-stakeholder` lens** when the artefact is shaped for a Paradigm-A-operating executive who will receive systems language as ideologically positioned unless wrapped in operational vocabulary.
 
 ## Example: applying SSDL concepts to a software-business decision
 
@@ -180,55 +178,6 @@ The structural read does not reverse the decision. The buy option may still be r
 - **Letting commitment, SLA, or reliability targets quietly slip to match actuals.** *Drifting goals* trap; the gap closes on the metric while the substance does not change.
 - **Pushing harder on a growth strategy that has hit a structural ceiling.** *Limits to growth* trap; the intervention is to address the constraint, not to amplify the reinforcing loop.
 - **Treating the commercial-clock pressure to "just decide" as evidence that systems-thinking isn't worth the time, even when complexity is structural.** The inverse of Brief 1.02's suitability caution; if complexity is real, the cost of not modelling is higher than the cost of modelling.
-
-## Through the CTO lens
-
-The CTO archetype (opportunity-first, constraint-disciplined, AI-native, mid-modernisation, enterprise scale) reshapes which of this distillation's concepts are load-bearing for the CTO and how they should be surfaced in artefacts the CTO will read or produce.
-
-**Reweighted salience:**
-
-- **The constraint-as-operational-mechanism move maps directly onto Brief 1.05's loop-design frame.** The CTO reads for *the lever* — owner, capability gap, repeatable gate. A loop-structure intervention named at the structural level (which loop am I adding, removing, strengthening, or weakening?) supplies the mechanism the CTO needs; a metric-level intervention does not. The shaping move for any artefact landing in this CTO's queue: state the loop the artefact's intervention modifies in one sentence, with the owner who will run it.
-- **Stock-and-flow framing of technical debt is the CTO's native register.** The CTO already operates from constraint-discipline (one lever, not a list); stock-and-flow makes the lever auditable. Artefacts should report stock trajectory, not flow rate. Velocity, incidents-this-quarter, story-counts read as Past-tempo placeholders; brittleness-stock projection, customer-trust-stock projection, senior-tenure-stock projection read as the operational language.
-- **The AI-native angle reshapes the *Shifting the burden* and *Fixes that fail* archetypes.** AI-as-productivity-tool is *Shifting the burden* in archetype shape: the productivity fix erodes the conditions for the substrate redesign the org's structural future depends on. AI rollouts that increase Q1 throughput while accelerating Q3 senior-engineer attrition are *Fixes that fail*. The CTO will reach for these specific archetype framings when AI is mentioned in any artefact; the artefact that does not name the substrate-vs-productivity question reads as missing the dimension this CTO would name.
-- **Brief 1.02's suitability caution is the CTO's preferred constraint on systems-thinking apparatus.** Opportunity-first cognitive tempo cannot afford CLD-everywhere; the CTO will reach for systems-thinking when complexity is structural and will be impatient with it when the situation calls for a decision. Artefacts should name explicitly *why* the situation passes that caution, in one sentence, before introducing systems-thinking content.
-
-**Reweighted vocabulary:**
-
-The CTO reads SSDL's concepts through opportunity-first, constraint-disciplined vocabulary. The translation:
-
-- *Mental-model surfacing* → "surface the constraint the artefact's reader is currently operating from."
-- *Mental-model stickiness among the unaffected* → "the board's frame is sticky because they are at distance from the cost curve; one memo won't shift it."
-- *CLD as hypothesis* → "the loop diagram is the conversation, not the analysis."
-- *Stock-and-flow* → "report stock trajectory, not flow rate; show the inflow-outflow imbalance."
-- *Shifting the burden* → "the symptomatic fix erodes the substrate; the constraint will harden."
-- *Limits to growth* → "the reinforcing loop hits a structural ceiling; the lever is the constraint, not the engine."
-- *Drifting goals* → "the goal is sliding to meet the actual; either take corrective action on performance or renegotiate the goal in the open, never let it drift quietly."
-
-**Shaping move:** when an artefact addressed to this CTO uses SSDL concepts, lead with the constraint and the loop in the first two sentences, supply owner + capability gap + repeatable gate as the mechanism, treat the archetype as one-decision-named (assign/fund/approve), and pair any CLD or stock-and-flow with the operational metric the CTO can act on. Methodology recedes; mechanism leads.
-
-## Through the business-executive-stakeholder lens
-
-The business-executive-stakeholder archetype (Paradigm-A-operating, occasional-B-espousing, peer C-suite without engineering authority) reshapes how SSDL's concepts must be surfaced to be received and explains *structurally* why mental-model stickiness fires hardest on this reader-type.
-
-**Reweighted salience:**
-
-- **Mental-model stickiness is structural for this stakeholder, not personal.** Brief 1.03's stickiness-among-the-unaffected applies: an executive insulated from delivery consequences resists revising the frame. The lens adds its own account of why (the Paradigm-A toolkit that got them to a C-suite role, the time pressure that defaults their attention to commitment-defence, Model-I defensive reasoning under stress); that account is the lens's, not SSDL's. Through the lens, this is not a knowledge gap to be filled with system-thinking material; the executive typically *knows* the Paradigm-B content (they espouse it) but operates from A because the operating context recruits A. Education does not displace the default.
-- **The blindfolded-elephant frame maps onto the parsimonious-B-move discipline.** Brief 1.03's frame — each stakeholder's view is valid and partial — supports the lens's load-bearing move: offer one structural reframe per artefact, named as a choice rather than a verdict, inside an otherwise A-shaped envelope. Multiple SSDL-shaped reframes in one artefact reads as Paradigm-B sermon and gets filed as "not rigorous"; one structural reframe per artefact, offered as a choice the stakeholder can take, lands.
-- **Stock-and-flow translates to KPI-against-target in the stakeholder's register.** The stock framing of technical debt, customer trust, reliability, or capability is the operational substance the stakeholder can hold. The shaping move: present the stock as a measurable variable with a target trajectory; name the named owner, the timeboxed first step, the measurable success criterion. The stock-and-flow diagram is *one* B-move; the rest of the artefact carries A-vocabulary substance.
-- **Archetypes need careful framing to avoid landing as Paradigm-B sermon.** *Shifting the burden*, *Fixes that fail*, *Limits to growth* are the most useful archetype framings for this stakeholder because they map cleanly onto operational consequences they can hold (the symptomatic-fix-erodes-the-substrate logic; the fix-backfires-through-side-effects logic; the ceiling-on-the-engine logic). *Success to the successful* and *Drifting goals* require more care — *Success to the successful* can read as a critique of resource-allocation choices the stakeholder may have made; *Drifting goals* can read as performance critique. Pick the archetype that fits this specific situation; do not deploy all five.
-
-**Reweighted vocabulary:**
-
-The stakeholder reads SSDL's concepts through Paradigm-A operating vocabulary. The translation:
-
-- *Mental-model* → "the frame the reader is currently operating from" (avoid "model" without qualification; reads as B-vocabulary unless tied to operational consequence).
-- *CLD* → "the loop diagram"; pair with "this is a conversation surface, not a finding" to manage the illusion-of-accuracy risk.
-- *Stock-and-flow* → "the accumulation against the target trajectory"; tie to KPI-language explicitly.
-- *Shifting the burden* → "the short-term solution is making the structural fix harder over time"; name the structural fix in operational terms with a named owner.
-- *Fixes that fail* → "the intervention solved the surface symptom but produced a downstream consequence"; report against operational metrics on both legs of the loop.
-- *Limits to growth* → "the strategy has hit a structural ceiling"; name the constraint as operational mechanism with owner.
-
-**Shaping move:** open with operational situation (variance from plan, named owner, KPI delta); deploy *one* SSDL-shaped structural reframe as a choice the stakeholder can take; close with named owner, timeboxed action, measurable success, decision being requested. In opening acknowledgment, the artefact can echo the stakeholder's own occasional Paradigm-B vocabulary (per the lens: "build it into the system", "system not people"), without claiming the stakeholder operates from those values. Warmth as opening surface only (1-2 sentences); SSDL-shaped reframe as one parsimonious move; A-action close.
 
 ## Integration with Other References
 

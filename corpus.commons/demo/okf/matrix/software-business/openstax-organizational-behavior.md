@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-02T13:31:31+13:00
 ---
 # OpenStax Organizational Behavior, Software-Business Distillation
 
@@ -203,27 +203,6 @@ This worked example illustrates several key concepts from the source: dual-syste
 | `tc-25-20-army-aar` | TC 25-20 carries the AAR facilitation method. OB's Ch 6.6 (groupthink, devil's advocate), Ch 14.1 (process vs relationship conflict), and Ch 4.2 (positive reinforcement vs punishment) supply the OB layer underneath the AAR's facilitation discipline. |
 | `decision-making/openstax-organizational-behavior-decision-making` | The decision-making projection of the same source for non-software-specific decisions. Software-business is the *intersection* projection; the decision-making projection is the broader framing. Cross-axis fallback: when a software-business question is mostly generic decision-making with light software content, route through the decision-making distillation. |
 | `stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement` | The stakeholder-engagement projection. Phase 6 software-business stakeholder-communication work inherits much of its structure from this distillation; the software-business projection adds the technical-content-translation and CTO-to-board specificity. |
-
-## Through the CTO lens
-
-When the reader is an opportunity-first, AI-native, constraint-disciplined CTO mid-modernisation, several questions and patterns reweight.
-
-- **Phase 1 (Strategic positioning):** the dual-system framing (Ch 6.2) does not slow the CTO down — it sharpens the question of which decisions need reflective-system processing and which can run on operational-pattern reactive heuristics. The CTO reaches for the source on novel non-programmed decisions (AI integration choices, build-vs-buy with strategic dependency, acquisition-target engineering health) and routes programmed decisions through delegated mechanisms. Critical thinking (Ch 6.5) lands as constraint-discipline-protection: when the case is built on appeal to tradition, bandwagon, or false cause, the constraint is being smuggled in dressed as evidence.
-- **Phase 3 (Team and capability):** the Argyris incongruity thesis (Ch 2.5) and the SDT intrinsic-motivation claim (Ch 7.2) reweight most heavily for this lens. The CTO's bifurcating engineer profile (AI-platform-expert or deep-domain-expert) actively raises Argyris's question: are we structuring roles for the developmental needs of these mature engineers, or are we replicating fragmented mechanised work in new vocabulary? Forced ranking (Ch 17.3) is treated as a non-starter for this lens given the collaboration loss it produces in AI-platform and modernisation work.
-- **Phase 4 (Operations and process):** CAS-emergent change (Ch 16.3) is the CTO's default model for AI-native transitions rather than Kotter. The text's claim that "the more complex the potential change, the greater the need to involve employees" [V] lands directly. Demand governance and explicit prioritisation gates map onto the source's bounded-rationality and Mintzberg-disturbance-handler framings: the constraint is what enters the queue, not how the queue is groomed.
-- **Phase 6 (Stakeholder communication):** the French-Raven bases (Ch 12.3) and communication-as-invention (Ch 11.5) carry the load. The CTO defends technical-debt remediation and AI investments to the board through expert and referent power; legitimate-position arguments are treated as evidence the underlying case is weak. The artefact is composed for the board's reading, not the writer's intent, with the constraint stated by the end of the second sentence and the decision needed (assign, fund, approve) named explicitly.
-
-The CTO lens recedes much of the source's pedagogical scaffolding (Maslow as such, Hofstede as a comparative framework, the catalogue of seven logical fallacies as a checklist) in favour of the constraint-and-mechanism questions: which lever does this concept name, who owns it, what is the timeboxed first step, what is the success measure?
-
-## Through the Business-Executive Stakeholder lens
-
-When the reader is a Paradigm-A-operating peer C-suite executive who occasionally espouses Paradigm-B language, the source reweights for register-and-reception, not content. The substantive content of the source — motivation theories, conflict frames, change models, communication-as-invention — carries content the stakeholder typically already espouses; the question is which moves the artefact makes in Paradigm-A register the stakeholder will receive, with one Paradigm-B move offered parsimoniously.
-
-- **Phase 5 (Risk, reliability) and Phase 6 (Stakeholder communication):** the conflict frames (Ch 6.4, Ch 14) and the communication-as-invention claim (Ch 11.5) carry the lens's load. Post-incident framing as "system not people" lands on this stakeholder as the Paradigm-B move; the artefact pays for it by leading with what was committed, what was actual, the variance, the accountable owner, and the decision being requested. The Thomas modes (Ch 14.2) provide the Paradigm-A vocabulary the stakeholder uses natively (competing, collaborating, compromising, avoiding, accommodating) — the lens treats these as register-match rather than as the lesson.
-- **Phase 3 (Team and capability):** equity theory and procedural justice (Ch 7.4) are the source's most Paradigm-A-shaped contribution: the stakeholder receives "people compare ratios and respond to perceived unfairness" as an accountability frame rather than as a sympathy claim. The Argyris thesis (Ch 2.5) and SDT (Ch 7.2) are typically the *one* Paradigm-B move the artefact can carry — offered as a structural reframe ("this pattern reads as role-shaped, not individual-shaped"), not as a sermon.
-- **Anti-patterns reweight:** "diffusing accountability into the team or the org" is treated as a load-bearing failure for this lens, because diffuse accountability triggers Model-I defensive reasoning in the stakeholder and the artefact gets filed as "not rigorous." Named owners and KPIs throughout; one structural reframe; the artefact terminates in Paradigm-A action.
-
-The lens recedes most of the source's vocabulary about *people's interior life* (motivation as inner experience, perception as construction, attitudes as predispositions) in favour of the *operational consequences* of those interior states. The stakeholder will not engage with "people are motivated when their work meets autonomy, competence, and relatedness needs"; they will engage with named at-risk roles and the equity-theory mechanism (a worsened referent comparison, with exit as one restorative response), with no figures the source does not supply. Same source, register-shaped output.
 
 ## Through the PM Bounded by BA Role lens
 

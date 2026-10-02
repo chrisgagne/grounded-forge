@@ -4,7 +4,6 @@
 
 **Source slug:** `jones-evidence-based-sweng`
 **Task:** `software-business`
-**Lens sections:** `business-executive-stakeholder` (partial reshape, Phase 6)
 
 ## Software-Business Relevance
 
@@ -122,25 +121,6 @@ What this projection deliberately surfaces over the decision-making and stakehol
 | Communicate reliability or security work to customers | What's the asymmetric-cost framing — what does the customer actually bear today, and what does the investment shift? Is the reliability claim framed against empirical fault patterns or against industry "best practice"? | Ch 6.2, Ch 6.3.1 |
 | Negotiate a cross-function decision (engineering vs sales vs product) | Where is the moral-hazard exposure in each party's incentive structure? What information asymmetry exists between the parties? How does that asymmetry affect the negotiation? | Ch 3.4.6, Ch 3.4.7 |
 
-### Through the `business-executive-stakeholder` lens
-
-This lens reweights Phase 6 (and to a lesser extent Phase 4 governance-and-measurement) when the audience is a Paradigm-A-operating executive — one whose operating vocabulary is plan, commitment, KPI, named owner, variance against plan. Jones's empirical findings are most usable here when translated into that operating vocabulary, with the Paradigm-B reframes offered parsimoniously and as choices the stakeholder can take or leave.
-
-The Jones-specific reweighting:
-
-- **Folklore corrections land as register signal, not as content.** When a board paper cites 28:1, 5:1 maintenance-to-development, or 1:10:100 cost-of-fix, the executive's read is "this writer is repeating the industry consensus." The Jones-grounded correction (6:1; 0.8; early detection not automatically cheapest) lands not as a content update but as a register-shift: it tells the executive that the writer has done the empirical work and is not deferring to consensus. Lead with the corrected number stated in Paradigm-A form (committed, with a named source: *"Updated industry-comparable benchmark: 0.8, not 5:1 — survival-adjusted across the Dunn dataset"*).
-- **Technical-debt-as-call-option is a Paradigm-B reframe; deploy parsimoniously.** The financial reframe (no debt, call option) is the kind of structural acknowledgment that wins respect when offered once and undermines the artefact when deployed throughout. Make it once, name it explicitly as a reframe (*"The right financial analogue is a call option, not debt; here's the strike price and the expiry"*), and return to Paradigm-A operational vocabulary for the rest of the memo.
-- **The empirical posture supplies KPI legitimacy.** When the executive asks for a KPI to track engineering quality, Jones supplies the empirical argument against the easy KPIs (LOC velocity, story points, defect counts that collapse under Goodhart). The artefact should name the easy KPIs, name the collapse mechanism, and offer one Paradigm-A-compatible alternative (committed quarterly survey, named outcome metric tied to a customer journey, etc.).
-- **Anchor on the corrected number, not on the folklore.** When the executive is anchored on industry-standard productivity claims, Jones-grounded corrections work best when they land *first* and *as commitment* — not as caveats to a prior estimate. Open with the corrected number, then explain the basis. The order matters: anchoring effects shift the executive's subsequent reasoning.
-
-What recedes when the lens reads:
-
-- The methodological argument (the post-1980 evidence collapse) is rich content for a CTO or for a technical peer, but reads as throat-clearing to the executive. Reduce to a single sentence of register-signal (*"This is based on published longitudinal data, not industry survey consensus"*) and move on.
-- The Bass-diffusion equations, the Brooks's-Law quantitative form, the bi-exponential fault equation. These are the load-bearing artefacts for engineering-internal communication; they read as decorative complexity to the Paradigm-A executive. State the conclusion in plain English with the equation attached as appendix or footnote.
-- Jones's contrarian critiques of academic publishing (peer-review pathologies, predatory journals, dataset-availability collapse). Out of scope for the executive memo; relevant context for the writer to know but not for the artefact to carry.
-
-The lens's reshape of Phase 6 questions (selected): *"How am I going to land the empirical correction without making the writer's evidence-base posture the topic of the memo?"; "What's the one Paradigm-B move (technical-debt-as-call-option, measurement-as-Goodhart-trap, etc.) the artefact carries — and is it named as a reframe rather than asserted as the writer's worldview?"; "Where is the named owner, the KPI delta, the timeboxed action, and the decision being requested?"*
-
 ## What to Look For
 
 **Pattern: A board paper or investment memo invokes industry-norm productivity, maintenance-cost, or cost-of-fix claims.**
@@ -201,7 +181,7 @@ The founder reaches for Jones (software-business projection) before writing the 
 
 4. The board's "reliability vs feature velocity" framing is itself a tangible-goods intuition (you can only build one of them at a time, like you can only run one production line at a time). For an intangible product, the cost asymmetry is different (the customer bears the fault cost in COTS, the vendor decides).
 
-**The memo's shape (informed by the `business-executive-stakeholder` lens reshape):**
+**The memo's shape:**
 
 Opens with 1 sentence acknowledging the board's concern about reliability investment. Then opens the operational frame: the deck's 9:1 figure is the often-cited snapshot number, and the survival-adjusted figure Jones reports is about 0.8 — the actual decision is therefore not about repayment of accrued maintenance debt (which doesn't exist in the empirical data) but about exercising a call option on platform-quality work whose strike price is 4 engineer-quarters and whose expiry is the system's survival horizon.
 
@@ -285,7 +265,7 @@ The seed trigger→response table in task spec §2a already names Jones in 11 ro
 |---|---|---|
 | Phase 2 | Operator names a measurement-system design decision (KPIs for engineering, OKR for delivery, dashboard design) | Goodhart's Law (Ch 13.1.1) as the structural constraint; formative-vs-summative bifurcation as the design pattern |
 | Phase 4 | Operator names a methodology-defence decision against external pressure (board, advisor, vendor advocating a specific methodology) | Post-1980 evidence-collapse (Ch 1) as the empirical context; Royce-1970-misreading (Ch 5.4.1) as the historical-correction; evidence-base critique of Agile (Ch 5.4.3) as the parity argument |
-| Phase 6 | Operator names a board-paper decision where folklore claims are likely to be invoked by the audience | Pre-emptive folklore corrections (Grant-Sackman, Halstead/McCabe, maintenance ratio, cost-of-fix, cone-of-uncertainty) as register-shift mechanism; Paradigm-A landing form per the `business-executive-stakeholder` lens |
+| Phase 6 | Operator names a board-paper decision where folklore claims are likely to be invoked by the audience | Pre-emptive folklore corrections (Grant-Sackman, Halstead/McCabe, maintenance ratio, cost-of-fix, cone-of-uncertainty) as register-shift mechanism |
 
 The operator may want to fold these extensions back into the task spec §2a in a subsequent `creating-tasks` revision.
 
@@ -305,4 +285,4 @@ The operator may want to fold these extensions back into the task spec §2a in a
 | Operator names a hiring or role-structure decision | Team-communication-overhead Dpeak (Ch 5.5); Grant-Sackman 28:1 corrected to ~6:1 (Ch 1, Ch 2.8.7) | "Compute Dpeak. Don't justify compensation differentials with 28:1 folklore — the corrected range is closer to 6:1, or even smaller. What does our measurement evidence actually support?" |
 | Operator names a contractor / vendor / hybrid-team decision | Agency theory and moral hazard (Ch 3.4.6–3.4.7); social-factory extraction analysis (Ch 3.3) | "Agency theory and moral hazard are the analytic frames. What are the vendor's incentives over a 3-year horizon? What's the information-asymmetry mitigation written into the contract? Which decisions sit with the more-informed party?" |
 | Operator names a compliance investment with engineering cost | Cost-as-decision-relative (cross-source with OpenStax Accounting Vol 2); survival-adjusted cost-benefit (Ch 3.2.3, Ch 4.2.2); evidence-base critique (Ch 1) | "Is the compliance period likely to outlast the system itself? Annual survival 0.79–0.87 means the compliance investment must be priced against a likely-shorter system lifetime than the compliance horizon assumes." |
-| Operator names a CTO-to-board translation problem | Folklore corrections as register-shift (Ch 1, Ch 4.5.2, Ch 6.6); Paradigm-A landing form via `business-executive-stakeholder` lens; Goodhart's Law as KPI structural constraint (Ch 13.1.1) | "Anchor on the corrected number — 6:1 not 28:1, 0.8 not 5:1, real-options not debt. State the empirical correction as commitment, not as caveat. Make the Paradigm-B reframes once and named; keep the rest of the memo in Paradigm-A operational vocabulary." |
+| Operator names a CTO-to-board translation problem | Folklore corrections as register-shift (Ch 1, Ch 4.5.2, Ch 6.6); Goodhart's Law as KPI structural constraint (Ch 13.1.1) | "Anchor on the corrected number — 6:1 not 28:1, 0.8 not 5:1, real-options not debt. State the empirical correction as commitment, not as caveat. Make the Paradigm-B reframes once and named; keep the rest of the memo in Paradigm-A operational vocabulary." |

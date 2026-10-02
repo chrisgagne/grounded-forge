@@ -215,29 +215,3 @@ A CTO at a mid-sized SaaS company has committed to the board that the team will 
 - AI-native work is not addressed; the kernel-plus-extensions architecture supports extension to AI ops, but the extension is a distillation-level inference, not a source claim.
 
 **Evidence-marker continuity.** All verbatim quotations in the Key Concepts and Worked Example sections are carried from the deep ref with [V] markers intact. Normative framework claims stated as the source's position (batch-size reduction as the primary lever; multitasking does not work) are paraphrases of [V]-marked content and are labelled with (Source: ...) citations throughout. The Reinertsen, Deming, Goldratt, and Cockburn citations are [BT] in the deep ref and are identified as such here. No [V]-marked content has been restated as the distillation's own analytical claim without attribution.
-
-## Through the CTO lens
-
-Open Kanban's signature contrarian move — "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP" [V] (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size) — is exactly the constraint-as-operational-mechanism discipline the CTO archetype reaches for. The framework refuses to name WIP-limiting as the lever; it names per-stage batch-size reduction as the lever; through the CTO lens, the owner is the team at each stage and the board is the gate.
-
-When the lens reads a roadmap or capacity memo through Open Kanban:
-
-- The constraint the CTO would name: batch size at each stage of the SDLC. One sentence, operational, with owner (the team at each stage) and gap (item complexity or quantity).
-- The mechanism the artefact must supply: smaller items at intake; visible per-stage status on a board or information radiator; a learning structure (Retrospective / Strategy Meeting / Kaizen Group) that produces decisions about the next dial.
-- The AI-native angle (a distillation-level inference): AI integration work can go through the same per-stage batch discipline. Open Kanban's kernel-plus-extensions shape lets the operator extend the framework to AI work (prompt-engineering as a stage; model evaluation as a stage) without re-deriving the values. The framework's Cockburn-derived information-radiator framing applies to AI ops dashboards.
-- The decision implicit: assign an owner for batch-size discipline at each stage; fund the learning structure; approve a deferral of stacked commitments that push the team past a sustainable pace.
-
-The lens reads pure-WIP-limit policy proposals as past-tempo framings — they treat WIP-limiting as the lever, which the framework names as the consequence. The lens reframes them: the batch-size dial at intake is the operational mechanism; WIP-limit telemetry is the gate that verifies the dial is doing the work.
-
-## Through the business-executive-stakeholder lens
-
-Open Kanban's batch-size-first framing is structurally a Paradigm-B move. Inside an A-shaped envelope, this is one B-move per artefact — and through this lens, the artefact supplies the A-shaped substrate the framework leaves open: a per-stage batch-size number, a named owner, a timeboxed first step, and measurable success criteria.
-
-When the lens reads a capacity-planning conversation through Open Kanban:
-
-- The Paradigm-A reading the stakeholder will perform: the conversation must produce a commitment, an owner, a deadline, a KPI. Capacity stated in engineer-hours or headcount lands; capacity stated in batch-size-per-stage lands only if the framework's B-move is named explicitly as a choice.
-- The B-vocabulary the artefact can echo: *sustainable pace*, *system not people*, *less firefighting*. The stakeholder uses this vocabulary in low-heat moments; the framework's *Muri* / sustainable-pace pairing maps onto it directly.
-- The Paradigm-A items the artefact must supply: named accountable owner for batch-size discipline at each stage; a measurable KPI (per-stage lead time, items finished per cycle); a timeboxed first step (one cycle of reduced intake); a decision being requested (approve the trade — Z deferred for X and Y to land at sustainable pace).
-- The one B-move: name the framing — "capacity is per-stage batch size, not engineer-hours" — explicitly, as a structural reframe the stakeholder can take or leave. Do not stack additional B-moves (system-thinking, root-cause-as-systemic, hypothesis-not-commitment) onto the same artefact. The B-move lives inside an A-shaped envelope: A-vocabulary opening, A-vocabulary substance, one B-reframe surfaced as a choice, A-vocabulary close.
-
-The lens reads pure-Paradigm-B framings (root cause as systemic; team is over-stretched; we need slack) as sermon-shaped; the lens's move is to supply the A-substrate (the batch-size number, the per-stage owner, the cycle-length first step) that makes the B-reframe operationally legible.

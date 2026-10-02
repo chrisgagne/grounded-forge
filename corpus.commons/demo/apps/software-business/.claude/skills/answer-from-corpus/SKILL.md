@@ -65,7 +65,7 @@ After classifying the query and before any reads, check whether a lens materiall
 
 The trace footer names the lens used (or "no lens" when the deliverable was lens-neutral).
 
-**Step 0.5 runs *before* sub-claim decomposition.** The lens shapes what the sub-claims should be: a CTO-lens memo and a builder-lens runbook decompose the same source question into different sub-claim lists.
+**Step 0.5 runs *before* sub-claim decomposition.** The lens shapes what the sub-claims should be: a PM-lens launch plan and a builder-lens runbook decompose the same source question into different sub-claim lists.
 
 ### Sub-claim decomposition (Protocols D and S)
 
@@ -234,7 +234,7 @@ Examples in increasing complexity:
 
 ```
 ---
-*Trace [Diagnostic, lens: cto, mode: app, corpus: demo]: stakeholder-engagement/task-index → sub-claims: identify positions/interests (openstax-OB), surface conflict safely (openstax-OB), structure conversation (liberating-structures), close to commitment (lfuo) → lens applied retrieval-time via cto.md salience-and-vocabulary*
+*Trace [Diagnostic, lens: builder, mode: app, corpus: demo]: stakeholder-engagement/task-index → sub-claims: identify positions/interests (openstax-OB), surface conflict safely (openstax-OB), structure conversation (liberating-structures), close to commitment (lfuo) → lens applied retrieval-time via builder.md salience-and-vocabulary*
 ```
 
 ```

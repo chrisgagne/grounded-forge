@@ -43,38 +43,36 @@ Read the essay in full. Identify:
 
 ### Step 2: Closest-neighbour retrieval
 
-Read the curated indexes in full first, then query Chroma, then grep the library as fallback. Queries are derived from:
+Read the topic map first, fetch the concept rows it points to, then query Chroma, then grep the library as fallback. Queries are derived from:
 
 - The essay's section headers
 - Named claims in the load-bearing contribution list (Step 1)
 - Already-cited authors (their neighbours and successors)
 - Named coinages (check whether each is someone else's)
 
-#### Step 2a: Precondition gate: read the corpus-level indexes
+#### Step 2a: Precondition gate: read the topic map, then fetch rows
 
-This is a precondition, not a guideline. The matrix indexes are curated routing documents: they do sense-making about how the corpus clusters that keyword search cannot recover. Read them as maps; reading them through is the work of Pass 1.
+This is a precondition, not a guideline. The concept index's topics block is a curated map: it does sense-making about how the corpus clusters that keyword search cannot recover. Read the map whole; fetch only the rows it points to.
 
-Read these three indexes in the order listed before proceeding to any other step:
+1. **`{corpus-root}/references/slug-table.json`**: slug ↔ ID mapping. Read it whole, once; the `id → slug` map lives under the top-level `slugs` key.
+2. **`{corpus-root}/concept-index.json`**: the router, read as set out in `answer-from-corpus` under *Reading the concept index*. On schema 3, read the topics block whole (the header's `topic_lines` range, nothing else of the file). Pick topics generously for each load-bearing claim and each section of the essay's argument, then fetch their rows in one grep (`grep -F -e '"t012' -e '"t045' concept-index.json`). Then grep each named coinage and distinctive term case-insensitively (`grep -i -F 'term' concept-index.json`): a coinage that lands on a row is someone's, and the row's `source_ids` say whose. On schema 2, read the whole file.
+3. **`{corpus-root}/reference-index.json`**: the catalogue (author, year, title, concept_tags, scope, line counts; per-ID entries under the top-level `refs` key). Grep it by author or title to resolve the essay's already-cited authors, and to tell candidates apart when rows leave them ambiguous. It runs to 400KB or more on a big corpus, so look entries up rather than reading it whole.
 
-1. **`{corpus-root}/references/slug-table.json`**: slug ↔ ID mapping. Load once; the `id → slug` map lives under the top-level `slugs` key.
-2. **`{corpus-root}/reference-index.json`**: file catalogue (one entry per reference: author, year, title, primary_topic, concept_tags, scope, line counts). The per-ID entries live under the top-level `refs` key.
-3. **`{corpus-root}/concept-index.json`**: the concept axis, in one of two shapes set out in `answer-from-corpus` under *Reading the concept index*. On schema 3, its topics block is the map of what the corpus covers. For per-source section pointers, query `{corpus-root}/concept-index-deep.json`, which keys concepts by slug: `python3 -c "import json; ci = json.load(open('{corpus-root}/concept-index-deep.json'))['concepts']; print(json.dumps(ci.get('{concept-slug}'), indent=2))"` returns one concept cheaply rather than reading the whole file. Concept slugs are kebab-case (e.g., `systems-thinking`, `theory-of-constraints`).
+The slug-table or the topics block may exceed the Read tool's single-call token cap. Read in paginated chunks (`offset` + `limit`, increase `offset` by `limit` each call) to the end of the file or the end of `topic_lines`. Before proceeding to any other step, **declare in plain text what you read and fetched** (e.g., "slug-table.json read: L1–L420, complete; topics block L4–L311, complete; rows fetched for t012, t045, t103; coinages grepped: 3, 1 hit"). The declaration is the gate.
 
-Any of these indexes may exceed the Read tool's single-call token cap. Read them in paginated chunks (`offset` + `limit`, increase `offset` by `limit` each call) until the next call returns fewer lines than `limit` (the EOF signal). Before proceeding to any other step, **declare in plain text the line range you have read** (e.g., "reference-index.json read: L1–L420, complete"). The declaration is the gate: keep paginating until you can make it truthfully.
+Grep fetches rows; it never stands in for reading the map. If you notice yourself grepping the topics block for keywords instead of reading it, return to the read: picking topics from the whole list is what finds the neighbours a keyword misses.
 
-**When the Read tool returns a token-cap error, call Read again on the same file with the next `offset` and the same `limit`.** That is the path forward. If you notice yourself reaching for grep, ToolSearch, or any keyword approach to an index file, treat that as a signal you've drifted from the protocol: return to paginated reads or targeted python3 queries. The chunks-and-stitch path costs a few extra turns and preserves the curator's structure, which is what makes this work.
+`{corpus-root}` is the active corpus directory: `corpus.commons/{corpus}/` for a commons corpus, `corpus.local/{corpus}/` for a local corpus. When the skill runs inside a deployed application (`apps/{profile}/`), the indexes live at bare paths (`./slug-table.json`, `./concept-index.json`) and no reference-index ships.
 
-`{corpus-root}` is the active corpus directory: `corpus.commons/{corpus}/` for a commons corpus, `corpus.local/{corpus}/` for a local corpus. When the skill runs inside a deployed application (`apps/{profile}/`), the indexes live at bare paths (`./reference-index.json`, `./references/slug-table.json`, `./concept-index.json`) with the corpus prefix stripped.
+#### Step 2b: Inside an app, read the relevant task-axis indexes
 
-#### Step 2b: Read relevant task-axis indexes in full
-
-Same precondition: paginated reads to EOF, declare the line range covered before moving on. Read whichever task-axis indexes are relevant to the essay's territory: `{corpus-root}/distillations/{task}/task-index.json` for each applicable task domain. Task slugs correspond to the distillation directories present in the corpus (e.g., `decision-making`, `stakeholder-engagement`, `software-business`).
+In the corpus, skip this step: the concept index is the router there, as in `answer-from-corpus` project mode. Inside a compiled app, read whichever task-axis indexes are relevant to the essay's territory, `./distillations/{task}/task-index.json` for each applicable task domain, whole, and add their line ranges to the declaration.
 
 #### Step 2c: Query Chroma via `matching-references`
 
 With `n_results: 50` and queries derived from the essay's load-bearing claims and named coinages. The skill returns metadata (filenames + author + similarity scores), not document bodies. Chroma catches semantic neighbours the index summaries don't surface by literal keyword. Apply the relevance floor (0.5 cosine similarity).
 
-**Grep belongs to the library.** When Chroma is unavailable and index reading hasn't surfaced coverage for a sub-claim, grep `{corpus-root}/references/*.md`: the library files themselves. The distinction is load-bearing: the library is content to find by keyword; the indexes are curator maps to read in full.
+**Grep belongs to the library.** When Chroma is unavailable and index reading hasn't surfaced coverage for a sub-claim, grep `{corpus-root}/references/*.md`: the library files themselves. The distinction is load-bearing: the library is content to find by keyword; the topics block is a curator map to read whole.
 
 The output of Step 2 is a candidate set, *not* a final list. Step 3 narrows it.
 
@@ -190,7 +188,7 @@ CITATIONS PRESENT BUT NOT AT RISK:
 [Brief list of authors cited where the citation is doing the right work — included so the audit doesn't read as "everything is broken." The skill should NOT recommend changes to these.]
 
 ---
-*Trace [Audit]: read essay (X words) → Pass 1 (reference-index.json + concept-index.json L1–LN, task-index(es), Chroma → M candidates) → strongest-form filter → K closest neighbours retained → Pass 3 deeps (K authors, citation-grade) → 11-step audit complete*
+*Trace [Audit]: read essay (X words) → Pass 1 (topics block + rows for N topics + coinage greps, Chroma → M candidates) → strongest-form filter → K closest neighbours retained → Pass 3 deeps (K authors, citation-grade) → 11-step audit complete*
 ```
 
 ## Discipline

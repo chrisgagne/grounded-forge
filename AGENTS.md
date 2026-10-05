@@ -76,6 +76,10 @@ If your runtime is Codex, native equivalents ship alongside the Claude ones:
   you ingest. Use a profile set to a model you have checked on this judgment work,
   for example `codex -p ingest`, with `~/.codex/ingest.config.toml` setting `model`
   and `model_reasoning_effort`.
+- **Pass I:** run `python3 -m scripts.pass_i.run --corpus {corpus-root} {slug}`
+  from any runtime. It drives both audit legs, the sort, the stamp and the
+  derived-tier check as headless `claude -p` and `codex exec` runs; see the
+  `ingesting-resources` skill's *Parallel-batch operations*.
 - **Source integrity:** the deep-reference structural contract is enforced for
   every runtime by the git pre-push audit (`scripts/git-hooks/pre-push`) and
   build-time validation, over the runtime-agnostic core at

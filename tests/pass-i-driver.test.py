@@ -15,8 +15,8 @@ Four properties, each a case that raises on failure:
      decisions-needed.md; `--accept-gate` resumes from there without rerunning
      any leg.
   3. `--second none` skips the second leg and stamps audited-but-unverified.
-  4. A confidential source never reaches the Codex stub: its second leg runs on
-     the Claude stub and the stamp says audited-but-unverified.
+  4. `--second claude` runs the second leg on the Claude stub, never Codex, and
+     stamps audited-but-unverified.
 
 Usage:
     python3 tests/pass-i-driver.test.py
@@ -142,16 +142,16 @@ def no_second_leg(c: Case) -> None:
     check("codex" not in c.calls.read_text().split("\n"), "Codex ran with --second none")
 
 
-def confidential_stays_in_family(c: Case) -> None:
-    r = c.run()
+def same_family_second_leg(c: Case) -> None:
+    r = c.run("--second", "claude")
     check(r.returncode == 0, f"run failed:\n{r.stdout}")
-    check("codex" not in c.calls.read_text().split("\n"), "a confidential source reached Codex")
+    check("codex" not in c.calls.read_text().split("\n"), "Codex ran with --second claude")
     check("same family (audited-but-unverified)" in c.stamp(), f"bad stamp: {c.stamp()}")
 
 
 def main() -> int:
     cases = [(full_two_leg_run, None), (gate_stops_then_accepts, None),
-             (no_second_leg, None), (confidential_stays_in_family, "confidential")]
+             (no_second_leg, None), (same_family_second_leg, "confidential")]
     failures = 0
     for fn, scope in cases:
         c = Case(scope)

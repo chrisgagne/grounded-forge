@@ -28,10 +28,9 @@ so a rerun resumes):
 
 The second leg should be a different model family from the one that wrote the
 deep reference (protocol, Pass I). `--second codex` is the default when the
-writer was Claude. A source scoped confidential or personal never goes to the
-other family: its second leg runs as a fresh Claude agent and the stamp says
-audited-but-unverified. `--second none` skips the second leg, sort and apply,
-with the same label.
+writer was Claude; `--second claude` runs it as a fresh Claude agent, stamped
+audited-but-unverified because it shares the writer's priors. `--second none`
+skips the second leg, sort and apply, with the same label.
 
 Usage:
     python3 -m scripts.pass_i.run --corpus corpus.local/my-corpus SLUG [SLUG ...]
@@ -65,7 +64,6 @@ BRIEFS = Path(__file__).parent / "briefs"
 PROTOCOL = REPO / ".claude/skills/ingesting-resources/9-pass-protocol.md"
 FIXTURES = ["01-training-leakage.md", "07-marker-mismatch-V-without-verbatim.md", "12-clean-negative-control.md"]
 CODEX_FALLBACKS = ["/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"]
-UNSHARED_SCOPES = {"confidential", "personal"}
 PRINT_LOCK = threading.Lock()
 
 
@@ -175,9 +173,6 @@ class Source:
         self.tape_desc = f"Converted via: {meta['converted_via']}." if meta.get("converted_via") else ""
         self.original = self._find_original(meta.get("checksum_sha256"))
         self.second = args.second
-        self.second_reason = ""
-        if self.second == "codex" and self.scope in UNSHARED_SCOPES:
-            self.second, self.second_reason = "claude", f"scope {self.scope}: kept within the writer's family"
         self.agent = Agent(args)
 
     def _deep_field(self, name: str) -> str | None:
@@ -247,7 +242,7 @@ class Source:
         for f in FIXTURES:
             shutil.copy(REPO / "tests/audit-fixtures" / f, self.work / "fixtures" / f)
         return {"ok": True, "original": self.rel(self.original) if self.original else None,
-                "second": self.second, "second_reason": self.second_reason}
+                "second": self.second}
 
     def fixer(self) -> dict:
         if self.second == "none":
@@ -343,7 +338,7 @@ class Source:
             frozen = (self.work / "frozen-deep.sha256").read_text().split()[0]
             post = (self.work / "post-audit-deep.sha256").read_text().split()[0]
             who = (f"{steps.get('blind', {}).get('model')} via the Codex CLI, read-only sandbox" if cross else
-                   f"a fresh Claude agent ({self.second_reason or 'second family not used'}); audited-but-unverified")
+                   "a fresh Claude agent, same family as the writer; audited-but-unverified")
             section += [f"**Auditor:** {who}, for both the blind leg and the sort leg.", "",
                         "**Order of work (anti-anchoring):** the second leg audited a frozen copy of the pre-audit deep "
                         f"reference (sha256 `{frozen}`) blind, with the full tape, the original where available and the "

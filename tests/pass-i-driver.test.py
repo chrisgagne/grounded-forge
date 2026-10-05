@@ -17,14 +17,21 @@ Four properties, each a case that raises on failure:
   3. `--second none` skips the second leg and stamps audited-but-unverified.
   4. `--second claude` runs the second leg on the Claude stub, never Codex, and
      stamps audited-but-unverified.
+  5. A deep-reference defect reported by the fidelity check stops the source
+     before the provenance stamp; `--accept-gate` finishes it.
+  6. `--promote-original` moves the original out of `sources/ingest/` and
+     rewrites its path in the deep reference before the stamp, so the stamped
+     hash is the final one.
 
 Usage:
     python3 tests/pass-i-driver.test.py
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -48,6 +55,7 @@ elif echo "$prompt" | grep -q 'apply leg'; then
 elif echo "$prompt" | grep -q 'fidelity check'; then
   f=$(echo "$prompt" | grep -o '`[^`]*fidelity-report.md`' | head -1 | tr -d '`')
   printf 'report\n\n## Summary for the audit log\n\nFidelity stub summary.\n' > "$f"
+  echo "${STUB_DEEP_DEFECTS:-[]}" > "$(dirname "$f")/fidelity-deep-defects.json"
 else
   out=$(echo "$prompt" | grep -o 'Write the complete report to [^ ]*' | sed 's/.* //; s/\.$//')
   printf 'second-leg report (claude)\n' > "$out"
@@ -87,9 +95,10 @@ class Case:
         self.calls = self.tmp / "calls.txt"
         self.work = REPO / "_planning/pass-i" / self.root.name / SLUG
 
-    def run(self, *extra: str, gate: str = "pass") -> subprocess.CompletedProcess:
+    def run(self, *extra: str, gate: str = "pass", deep_defects: str = "[]") -> subprocess.CompletedProcess:
         env = {**os.environ, "CLAUDE_BIN": str(self.tmp / "stub-claude.sh"),
-               "CODEX_BIN": str(self.tmp / "stub-codex.sh"), "STUB_CALLS": str(self.calls), "STUB_GATE": gate}
+               "CODEX_BIN": str(self.tmp / "stub-codex.sh"), "STUB_CALLS": str(self.calls), "STUB_GATE": gate,
+               "STUB_DEEP_DEFECTS": deep_defects}
         return subprocess.run([sys.executable, "-m", "scripts.pass_i.run", "--corpus", str(self.root), SLUG, *extra],
                               cwd=REPO, env=env, capture_output=True, text=True)
 
@@ -149,9 +158,38 @@ def same_family_second_leg(c: Case) -> None:
     check("same family (audited-but-unverified)" in c.stamp(), f"bad stamp: {c.stamp()}")
 
 
+def fidelity_deep_defect_stops(c: Case) -> None:
+    r = c.run(deep_defects='["line 96: quotation marks misplaced"]')
+    check(r.returncode == 1 and "stopped at deep_check" in r.stdout, f"deep defect did not stop:\n{r.stdout}")
+    steps = json.loads((c.work / "status.json").read_text())["steps"]
+    check("provenance" not in steps, "derived tier stamped before the fix")
+    r = c.run("--accept-gate", SLUG, deep_defects='["line 96: quotation marks misplaced"]')
+    check(r.returncode == 0, f"accept failed:\n{r.stdout}")
+    digest = hashlib.sha256((c.root / f"references/{SLUG}-deep.md").read_bytes()).hexdigest()
+    check(digest in (c.root / f"references/{SLUG}.md").read_text(), "derived tier not stamped after accept")
+
+
+def promote_original(c: Case) -> None:
+    pdf = c.root / "sources/ingest/original-file.pdf"
+    pdf.parent.mkdir(parents=True, exist_ok=True)
+    pdf.write_bytes(b"%PDF-1.4 stub original")
+    digest = hashlib.sha256(pdf.read_bytes()).hexdigest()
+    card = c.root / f"sources/original/{SLUG}.source.md"
+    card.write_text(re.sub(r"(?m)^checksum_sha256:.*$", f"checksum_sha256: {digest}", card.read_text()))
+    deep = c.root / f"references/{SLUG}-deep.md"
+    deep.write_text(deep.read_text() + "\nOriginal received as `sources/ingest/original-file.pdf`.\n")
+    r = c.run("--promote-original")
+    check(r.returncode == 0, f"run failed:\n{r.stdout}")
+    check(not pdf.exists() and (c.root / "sources/original/original-file.pdf").exists(), "original not moved")
+    check("sources/ingest/" not in c.deep_text(), "deep reference still names sources/ingest/")
+    light = (c.root / f"references/{SLUG}.md").read_text()
+    check(hashlib.sha256(deep.read_bytes()).hexdigest() in light, "derived stamp doesn't match the final deep reference")
+
+
 def main() -> int:
     cases = [(full_two_leg_run, None), (gate_stops_then_accepts, None),
-             (no_second_leg, None), (same_family_second_leg, "confidential")]
+             (no_second_leg, None), (same_family_second_leg, "confidential"),
+             (fidelity_deep_defect_stops, None), (promote_original, None)]
     failures = 0
     for fn, scope in cases:
         c = Case(scope)

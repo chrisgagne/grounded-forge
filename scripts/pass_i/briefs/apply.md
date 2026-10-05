@@ -22,7 +22,7 @@ Don't run Pass H scripts, edit JSON indexes, stamp anything, stage or commit, or
 
 Write `${packet}/apply-report.json`, then give a short final message. The JSON has exactly these keys:
 
-- `same_family`: claims audited and corrected by the fix-in-place audit, from its log (e.g. "357 claims audited, 10 corrected").
+- `same_family`: a phrase of under ten words for the stamp line, with no closing full stop: claims audited and corrected by the fix-in-place audit, from its log (e.g. "357 claims audited, 10 corrected").
 - `sort_result`: one sentence with the sort's counts as it states them (confirmed, missed, over-flagged by each auditor, disputed, gate verdict).
 - `applied_note`: one sentence: how many remaining edits were applied as written, applied with changed wording, and declined, naming any declined or changed one briefly.
 - `gate`: `"pass"` when every confirmed defect is now fixed in the deep reference and check-verbatim is clean; otherwise `"fail"`.

@@ -22,8 +22,12 @@ so a rerun resumes):
   gate       stops the source for an operator decision unless the apply leg
              reports pass with nothing open
   finalize   copies the second leg's records into `references/_audit/`,
-             appends them to the audit log, stamps the deep reference
+             appends them to the audit log, stamps the deep reference (with
+             `--promote-original`, first moves the original from
+             `sources/ingest/` to `sources/original/` and updates its path)
   fidelity   a fresh agent checks the derived tier against the audited deep
+  deep-check stops the source for an operator decision if the fidelity agent
+             reported a defect in the deep reference itself
   provenance stamps the derived tier with the deep reference's hash
 
 The second leg should be a different model family from the one that wrote the
@@ -307,7 +311,7 @@ class Source:
         steps = self.status["steps"]
         fixer_model = steps.get("fixer", {}).get("model") or "Claude"
         report = json.loads((self.work / "apply-report.json").read_text()) if self.second != "none" else {}
-        same = report.get("same_family") or "see the audit log"
+        same = re.sub(r"\s*\([^)]*\)", "", report.get("same_family") or "see the audit log").split(";")[0].strip().rstrip(".")
         aud = self.log.parent
         cross = self.second == "codex"
         if self.second == "none":
@@ -323,6 +327,7 @@ class Source:
             (aud / f"_ingest_pass_I_{self.slug}_{tag}_prompts.md").write_text(
                 f"# Second-leg prompts: {self.slug}\n\n## Blind leg\n\n" + (self.work / "blind-brief.md").read_text()
                 + "\n\n## Sort leg\n\n" + (self.work / "sort-brief.md").read_text())
+        promoted = self._promote() if self.args.promote_original else None
         lines = self.deep.read_text().split("\n")
         pending = re.compile(r"Pass I (has not run|not yet run|hasn't run|is pending|pending)\.?|Pass I\. Not yet run\.?", re.I)
         lines = [pending.sub("Pass I: see the stamp on line 2 and the audit log.", line) for line in lines]
@@ -351,7 +356,18 @@ class Source:
                         f"**Gate:** {steps.get('gate', {}).get('gate', 'pass')}. Deep reference sha256 `{new_sha}`, stamp included."]
         with self.log.open("a") as f:
             f.write("\n".join(section) + "\n")
-        return {"ok": True, "sha256": new_sha}
+        return {"ok": True, "sha256": new_sha, "promoted": promoted}
+
+    def _promote(self) -> str | None:
+        if not self.original or self.original.parent.name != "ingest":
+            return None
+        dest = self.root / "sources/original" / self.original.name
+        shutil.move(self.original, dest)
+        for p in (self.deep, self.card):
+            if p.exists():
+                p.write_text(p.read_text().replace("sources/ingest/", "sources/original/"))
+        self.original = dest
+        return self.rel(dest)
 
     def fidelity(self) -> dict:
         derived = [self.light, *(self.root / "distillations").glob(f"*/{self.slug}-*.md")]
@@ -367,6 +383,23 @@ class Source:
             with self.log.open("a") as f:
                 f.write(f"\n## Derived-tier fidelity check ({dt.date.today().isoformat()})\n\n{summary}\n")
         return res
+
+    def deep_check(self) -> dict:
+        found = self.work / "fidelity-deep-defects.json"
+        if self.args.dry_run or not found.exists():
+            return {"ok": True}
+        defects = json.loads(found.read_text())
+        if not defects:
+            return {"ok": True, "gate": "no deep-reference defects"}
+        if self.slug in (self.args.accept_gate or []):
+            return {"ok": True, "gate": "deep-reference defects settled by operator"}
+        lines = [f"# Pass I needs a decision: {self.slug}", "",
+                 "The derived-tier fidelity check reported defects in the stamped deep reference:", ""]
+        lines += [f"- {d}" for d in defects]
+        lines += ["", "Fix them in the deep reference and note each fix in the audit log, then rerun with "
+                  f"`--accept-gate {self.slug}`: the provenance stamp then records the corrected deep reference."]
+        self.save("decisions-needed.md", "\n".join(lines) + "\n")
+        return {"ok": False, "gate": "needs-decision", "file": self.rel(self.work / "decisions-needed.md")}
 
     def provenance(self) -> dict:
         cmd = [sys.executable, "scripts/check_derived_provenance.py", "--root", str(self.root), "--stamp", "--slug", self.slug]
@@ -421,7 +454,7 @@ class Source:
             for name in ("sort", "apply"):
                 if not self.step(name, getattr(self, name)):
                     return f"{name} failed"
-        for name in ("gate", "finalize", "fidelity", "provenance"):
+        for name in ("gate", "finalize", "fidelity", "deep_check", "provenance"):
             if not self.step(name, getattr(self, name)):
                 return f"stopped at {name}"
         return "done"
@@ -442,7 +475,9 @@ def main() -> int:
     ap.add_argument("--jobs", type=int, default=3, help="sources run at once (each runs two legs at once)")
     ap.add_argument("--timeout", type=int, default=90, help="minutes before a leg is killed")
     ap.add_argument("--render-cap", type=int, default=10, help="page renders allowed per leg")
-    ap.add_argument("--accept-gate", nargs="*", metavar="SLUG", help="stamp these sources despite open questions")
+    ap.add_argument("--accept-gate", nargs="*", metavar="SLUG", help="continue these sources past a gate once you have settled it")
+    ap.add_argument("--promote-original", action="store_true",
+                    help="before stamping, move the original from sources/ingest/ to sources/original/ and update its path")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 

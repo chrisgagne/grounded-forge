@@ -12,6 +12,6 @@ For every sentence and table row:
 - **Rows about other corpus sources** (integration tables, cross-references) are outside Pass I: check only that each named slug or file exists and the row claims nothing about *this* source the deep reference lacks.
 - **Index rows:** trace to the distillation; column counts match the table header; no `---` inside a table.
 
-Fix drift in place, as narrowly as possible. Run `python3 scripts/check-verbatim.py` on each file you edit. Don't stamp, run Pass H scripts, edit JSON, edit the deep reference, or stage or commit. If you find a defect in the deep reference itself, report it; don't fix it.
+Fix drift in place, as narrowly as possible. Run `python3 scripts/check-verbatim.py` on each file you edit. Don't stamp, run Pass H scripts, edit JSON indexes, edit the deep reference, or stage or commit. If you find a defect in the deep reference itself, don't fix it: record it in `${packet}/fidelity-deep-defects.json`, a JSON list of strings, one per defect (the deep reference line, the problem, the source passage). Write `[]` when there is none.
 
 **Report:** write `${packet}/fidelity-report.md` with what you read, each fix (file, before → after, reason), counts of claims checked and fixed per file, and any deep-reference defect found. End it with a section `## Summary for the audit log`: one paragraph giving the counts and the kinds of fix, describing only the files and the source.

@@ -22,7 +22,7 @@ That's the matrix architecture working with material you brought.
 - Node 18+ and Python 3.9+.
 - A scratch directory (we'll use `~/gaf-tutorial/`).
 - A working `markitdown` install for PDF/EPUB conversion: `pip install markitdown`.
-- **Claude Code logged in.** Run `claude` once and complete `/login` if you haven't. The ingestion skill in Step 3 runs in an interactive Claude Code session; ~$1–5 in Opus 4.7 tokens for a small source.
+- **Claude Code logged in.** Run `claude` once and complete `/login` if you haven't. The ingestion skill in Step 3 runs in an interactive Claude Code session. At API list price a few-page source costs a few dollars and a 30-page one a few tens of dollars; most of it is context carried across turns, not generation.
 - **Recommended pre-flight:** run `/matching-references {your topic}` from the [querying tutorial](querying-the-library.md) to check the corpus doesn't already cover your source's territory. Ingesting a duplicate wastes the 9-pass cost.
 
 ## Step 1: Pick a source
@@ -82,11 +82,11 @@ The skill walks Passes A through I:
 - **Pass F**: light reference at `references/agile-manifesto.md`.
 - **Pass G**: one distillation per applicable task axis. For decision-making, that lands at `distillations/decision-making/agile-manifesto-decision-making.md`.
 - **Pass H**: mechanical-index pipeline. Allocate slug-ID, run the preprocessor, dispatch the refs, cross-link and topic passes, regenerate the runtime JSON indexes (`reference-index.json`, `concept-index.json`, per-axis `task-index.json`) and the operator-inspection markdown views (`REFERENCE-INDEX.md`, `DECISION-MAKING-DISTILLATION-INDEX.md`).
-- **Pass I**: source-only audit. The deep ref doesn't ship until this passes.
+- **Pass I**: source-only audit, run by the Pass I driver (`python3 -m scripts.pass_i.run`): a fresh fix-in-place auditor and, if you have the Codex CLI, a blind auditor from a second model family, then a sort of both audits, the stamp, and a fidelity check of the light reference and distillations. The deep ref doesn't ship until this passes. Without Codex, run it with `--second none`; the stamp then says audited-but-unverified.
 
 Wall-clock for a 3-page source: ~5 minutes. For a 30-page source: ~20 minutes. The skill prints a per-pass summary so you can see the protocol working.
 
-If Pass I fails, the skill flags exactly which claim didn't trace and pauses for you to inspect. The audit is not advisory; a failed Pass I means the deep reference doesn't ship.
+If Pass I can't settle something, the driver stops before the stamp and writes `decisions-needed.md` in its work folder under `_planning/pass-i/`, naming each open question. Settle them in the deep reference, then rerun with `--accept-gate {slug}`. The audit is not advisory; an unsettled Pass I means the deep reference doesn't ship.
 
 ## Step 4: Build the decision app
 
@@ -141,7 +141,7 @@ The new tarball at `corpus.commons/demo/distros/decision-v0.2.1-open-nc.tar.gz` 
 
 You extended the matrix by one source. The work was:
 
-- **One ingestion run** (~5–20 minutes wall-clock, ~$1–5 in Opus 4.7 tokens for small sources).
+- **One ingestion run** (~5–40 minutes wall-clock; a few dollars at API list price for a few-page source).
 - **One build** (mechanical, ~10 seconds).
 - **One re-package** (mechanical, ~5 seconds).
 

@@ -114,8 +114,12 @@ def _heading_quality(lines: list[str]) -> str:
 
 
 def scan_one(slug: str, source_path: Path) -> dict:
+    # Split on newlines only, as the preprocessor and the Read tool do:
+    # splitlines() also breaks at form feeds, one per page in pdftotext output.
     with source_path.open("r", encoding="utf-8") as f:
-        lines = f.read().splitlines()
+        lines = f.read().split("\n")
+    if lines and lines[-1] == "":
+        lines.pop()
 
     bi = _find_back_matter_index(lines) or {"present": False}
     pm_present = _detect_page_markers(lines)

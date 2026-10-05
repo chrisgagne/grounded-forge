@@ -182,6 +182,16 @@ if applicable.}
 
 **On an OCR'd source, check the tape's reading order before trusting a character-match.** Two-column conversions interleave columns and scramble line order, so a passage can be present word-for-word and still not exist as a contiguous sequence anywhere in the tape. Matching the words is not verifying the quotation. Where reading order is unreliable, either verify against the page image or reclassify to `[AP]` — and say which you did.
 
+**Check a scanned source's quotations with a second OCR before looking at any page.** Render the pages that carry `[V]` quotations and OCR them with tesseract, then run the verbatim check against that text:
+
+```
+pdftoppm -f {p} -l {p} -r 300 -gray -png {source}.pdf {dir}/p{p}   # per quoted page
+tesseract {dir}/p{p}-*.png - -l eng >> {dir}/fresh-ocr.txt
+python3 scripts/check-verbatim.py {deep-ref} --source {dir}/fresh-ocr.txt
+```
+
+A quotation found in both the tape and the fresh OCR has two independent readings that agree, and is verified. Only the ones that disagree need a look at the page image. Do that look in a small separate agent that holds the deep reference and those page renders, never in the producing agent. Page images read in a long context are expensive and fragile: in a 2026 run a producer at 600k context re-read the same 40 renders four times over and rewrote its prompt cache each time, about 7M tokens of cache writes for one source. On that source, tesseract confirmed 27 of 33 quotations in about two minutes with no model tokens. Two of the six it missed were tesseract's own character slips (`tts` for `its`), and those are what the visual check is for.
+
 **Hard rule for the deep reference:**
 
 - No information not in the source. No biographical detail the source does not state. No historical context the author does not provide.

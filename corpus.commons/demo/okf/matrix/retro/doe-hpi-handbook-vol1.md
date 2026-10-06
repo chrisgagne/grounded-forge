@@ -173,7 +173,9 @@ The lead asks the reframing question, not who flipped the flag: how did the setu
 
 **Same source, other task axes:** [aar](../aar/doe-hpi-handbook-vol1.md) · [decision-making](../decision-making/doe-hpi-handbook-vol1.md)
 
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Active Errors, Anatomy of an Event, At-Risk Behaviors, Behavior Observations
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
+- [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md) — shared: High Reliability Organizations, How Organizations Process Information, Learning Organization, Reluctance to Simplify
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making

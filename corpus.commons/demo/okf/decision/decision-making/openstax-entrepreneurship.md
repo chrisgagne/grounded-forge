@@ -235,4 +235,5 @@ The structured walk through these steps surfaces that the founder's intended nex
 - [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Intellectual Property, Venture Capital
 - [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Benchmarking, Cash Flows
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Benchmarking
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Benchmarking
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Team Building

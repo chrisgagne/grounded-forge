@@ -152,6 +152,7 @@ A hospital team reviews a medication incident in which a nurse administered the 
 **Same source, other task axes:** [decision-making](../decision-making/nhs-just-culture-guide.md) · [retro](../retro/nhs-just-culture-guide.md) · [software-business](../software-business/nhs-just-culture-guide.md) · [stakeholder-engagement](../stakeholder-engagement/nhs-just-culture-guide.md)
 
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Culpability Decision Tree, Foresight Test, Incident Investigation, Just Culture
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [Open Kanban](open-kanban.md) — shared: Systems Thinking

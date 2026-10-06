@@ -8,9 +8,9 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 
 ## Task axes
 
-- [aar](aar/index.md) — 20 concept files
-- [decision-making](decision-making/index.md) — 28 concept files
-- [retro](retro/index.md) — 20 concept files
+- [aar](aar/index.md) — 22 concept files
+- [decision-making](decision-making/index.md) — 30 concept files
+- [retro](retro/index.md) — 22 concept files
 - [software-business](software-business/index.md) — 25 concept files
 - [stakeholder-engagement](stakeholder-engagement/index.md) — 27 concept files
 

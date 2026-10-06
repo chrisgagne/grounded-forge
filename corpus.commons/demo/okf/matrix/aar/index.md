@@ -17,6 +17,9 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Surface the senior's stance on mistakes before accounts begin → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Hold the review while memory is fresh, successes included → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Make it safe to report, not only blameless → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Settle the just culture before asking for error reports → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Debrief before the investigator knows too much → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Set terms of reference for a high-stakes review → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 1: Timeline and local-rationality reconstruction
 
@@ -37,6 +40,10 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Reconstruct goals, focus and knowledge at each critical point → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Lay the timeline out on the Anatomy of an Event → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Find who saw it and stayed quiet → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Reconstruct the inside view at each critical juncture → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Ask where someone was unsure → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Extend the timeline back to the first accepted deviation → [caib-report-vol1](caib-report-vol1.md)
+- Track every request, and what decision-makers actually heard → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 2: Contributory-factor analysis
 
@@ -65,6 +72,10 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Refuse person-labels as causes → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Explain severity through controls → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Name normalised deviation and latent accumulation → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Name the defence that should have caught it → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Separate checking an action from verifying a condition → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Name organisational causes alongside the physical one → [caib-report-vol1](caib-report-vol1.md)
+- Ask who carried the burden of proof, and whose voice counted → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 3: Just-culture sorting
 
@@ -80,6 +91,8 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Read the just-culture call against organisational behaviour substrate → [openstax-organizational-behavior](openstax-organizational-behavior.md)
 - Separate error from violation before judging → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Judge by intent, not consequence → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Place the act on the individual-to-organisation spectrum → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Test whether replacing the people would fix it → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 4: Action design
 
@@ -104,6 +117,8 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Test actions for added control and equipment-only fixes → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Match the action to the error type → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Lower severity, not only frequency → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Fit each action to the error type and the failed defence → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Change who decides, not just who to blame → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 5: Learning-loop closure
 
@@ -119,12 +134,16 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Address force protection (safety) at every AAR → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Schedule OT re-mapping to test whether structural recommendations took hold → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Show reporters the change and verify closure → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Report resolutions face to face and share as operating experience → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Plan for fading vigilance → [caib-report-vol1](caib-report-vol1.md)
 
-## All concept files (20)
+## All concept files (22)
 
 - [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
+- [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md)
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md)
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md)
 - [FLO Facilitation Guide](flo-facilitation-guide.md)
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md)
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)

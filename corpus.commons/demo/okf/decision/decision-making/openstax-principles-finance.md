@@ -215,6 +215,7 @@ By NPV, A wins (highest absolute value). By IRR alone, C edges out A despite bei
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Benchmarking
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Benchmarking
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Risk Management
 - [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Securities Regulation
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking

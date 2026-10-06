@@ -190,6 +190,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Structure
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Change Management
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Ownership vs Buy-In
 - [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking

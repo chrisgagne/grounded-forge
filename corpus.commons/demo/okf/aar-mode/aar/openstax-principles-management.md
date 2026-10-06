@@ -148,8 +148,10 @@ A team completes an AAR on a product-launch delay. The facilitator applies Princ
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Benchmarking, Change Management, Decision Making
 - [Open Kanban](open-kanban.md) — shared: Collaboration, Values
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md) — shared: Corporate Culture
 - [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Human Resources
 - [Open Practice Library](open-practice-library.md) — shared: Team Management

@@ -10,7 +10,7 @@ generated:
 
 **Bundle:** decision (OKF 0.2, emitted by grounded-forge/0.4.0)
 **Most-restrictive scope:** open-nc
-**Sources:** 28
+**Sources:** 30
 
 ## Scope levels
 
@@ -30,7 +30,9 @@ The bundle inherits the most-restrictive scope across all sources below. The rec
 |---|---|---|
 | approach-perfect-field-guide-scrum-events | open | Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0) |
 | barbrook-johnson-systems-mapping | open | unknown |
+| caib-report-vol1 | open | Public domain (US Government work, 17 USC §105 |
 | doe-hpi-handbook-vol1 | open | Public domain (US Government work, 17 USC §105 |
+| doe-hpi-handbook-vol2 | open | Public domain (US Government work, 17 USC §105 |
 | flo-facilitation-guide | open | CC BY 4.0 (Creative Commons Attribution 4.0 International) |
 | jones-evidence-based-sweng | open | Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) |
 | letaw-handbook-sweng-methods | open-nc | Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) |

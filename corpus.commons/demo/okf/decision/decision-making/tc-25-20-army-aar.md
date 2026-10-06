@@ -200,5 +200,6 @@ The TC's contribution is a set of decision rules that guard against failure mode
 ## Related concepts
 
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Performance Measurement
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Performance Measurement
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Performance Measurement

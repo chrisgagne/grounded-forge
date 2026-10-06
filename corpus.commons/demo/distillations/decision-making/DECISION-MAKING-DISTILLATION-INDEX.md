@@ -39,6 +39,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Snap judgement under emotional pressure** | Reflective vs reactive systems (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **A novel, ambiguous, high-stakes decision** | Programmed vs non-programmed; six-step process (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Decision-makers defending a sunk-cost decision** | Escalation of commitment (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
+| **Safety uncertain, schedule pushing to proceed** | Conservative decision-making; burden of proof toward stopping; risky shift (DOE HPI Handbook Vol. 1) | `doe-hpi-handbook-vol1-decision-making.md` |
 | **A group reaches consensus too quickly** | Groupthink, devil's advocate (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Ethical implications need to be made explicit** | Rest's four-component model (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Strategic decision needs SWOT / PESTEL / Porter's Five Forces framing** | SWOT, PESTEL, Porter's Five Forces, VRIO (OpenStax Principles of Management) | `openstax-principles-management-decision-making.md` |
@@ -333,6 +334,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Treat the decision method as guidance, not procedure | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | A decision framework is being run the same way whatever the situation; MCDP 1 holds that its doctrine requires judgment in application and is not prescriptive, and asks for decisions based on awareness rather than mechanical habit. |
 | Set the decision clock | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Before deciding how fast to decide: is this decision time-competitive (something outside sets the pace) or a deliberate-planning decision? MCDP 1 holds both halves: time is often the most important factor in decisionmaking, and where time is not a limiting factor, decisions should not be rushed. |
 | Accept the information gap | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The room treats missing information as a reason to wait; MCDP 1 holds that all action rests on incomplete, inaccurate or contradictory information and that risk is equally common to action and inaction. |
+| Recognise a no-rule (knowledge-based) decision | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | A team of experts faces a problem none of their rules cover; the handbook calls knowledge-based mode "lack of knowledge" mode, with an inaccurate mental model as its prevalent error. |
+| Detect production as the default value | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Schedule framing dominates and safety is assumed; unless safety is preserved as a core value, production becomes the default value (adapted from Hollnagel). |
 
 ### Phase 2: Bounding
 
@@ -388,6 +391,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Identify the stock vs the flow | SSDL, Systems Thinking Foundations (Brief 1.06) | `ssdl-systems-thinking-foundations-decision-making.md` | The variable I'm acting on may be a flow rate (signups today, tests written this Sprint) when the relevant decision variable is the stock (waitlist size, technical-debt level, accumulated trust). Bound the decision around the stock, not the flow. |
 | Account for accumulated history | SSDL, Systems Thinking Foundations (Brief 1.06) | `ssdl-systems-thinking-foundations-decision-making.md` | The "blank slate" failure mode — treating a new stakeholder, team, or system state as if it has no history. The state I am bounding is an accumulation of inflows and outflows over time. |
 | Set decision rights by intent | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Deciding which decisions to keep and which to hand down; MCDP 1 puts decisions with whoever is at the point of decision, acting on the senior's intent, and has the senior prescribe method only to the degree coordination needs. Subordinates should understand intent at least two levels up. |
+| Set the irreversible step and abort criteria | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | A decision touches a step whose failure causes irreversible harm (a critical step); weigh severity as well as likelihood and set abort criteria before starting. |
 
 ### Phase 3: Exploring
 
@@ -460,6 +464,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Audit my own and the team's mental-model partiality | SSDL, Systems Thinking Foundations (Brief 1.03) | `ssdl-systems-thinking-foundations-decision-making.md` | None of us has the complete picture; the facilitator's view is partial too. Who is in the room? Whose voice is loudest? Mental models are *especially sticky* among those least exposed to the decision's downside. |
 | Get honest opinions before the decision | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Options are being weighed in a room where people defer to the senior voice; MCDP 1 makes honest, professional opinion, including disagreement with the senior, a subordinate's duty until the decision is stated. |
 | Look for gaps, not surfaces | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Choosing where to apply effort against an opposing party (a competitor, an adversary); MCDP 1 avoids strength and aims at weakness, reaching what the other side cannot do without through a weakness rather than head on. The doctrine assumes an opposing will: name it before using the rule. |
+| Test assumptions and the shared mental model | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | "I think", "We've always", "I believe" are carrying the argument; agree the mental model, name a devil's advocate, check confirmation, similarity and availability bias. |
 
 ### Phase 4: Deciding
 
@@ -529,6 +534,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Test for co-creator vs recipient framing of the org-change | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | "People, when not owning the change ideas, won't fully accept them." If the impacted population is being told rather than involved, the decision's execution will be degraded. |
 | Name the main effort | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Too many simultaneous priorities; MCDP 1 recognises one action as most critical to success at that moment and gives it priority for support of any kind, accepting risk elsewhere. The commitment is not irretrievable; a shift should exploit success rather than reinforce failure. |
 | Price the wait | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The team wants more information before committing; MCDP 1 calls delay in an emergency for incomplete information a lack of moral courage, also warns against rash decisions, and sets the aim as a promising course of action with an acceptable degree of risk, not a perfect one. |
+| Put the burden of proof on proceeding | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Safety is uncertain and work is about to continue: prove it safe before proceeding rather than unsafe before halting; place systems in a known safe condition; watch for the group "risky shift". |
 
 ### Phase 5: Ratifying
 
@@ -575,6 +581,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Commit to incremental elevation and name the first experiments | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | Avoid big-bang reorganisation framing. "Elevation can be an incremental process." Ratify the first one or two Elevating Katas and the date of the next MAP cycle at the same moment as the topology decision. |
 | Close the dissent window | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The decision has been stated; MCDP 1 asks those who argued against it to support it as if it were their own, and does not tolerate ready compliance for personal advancement. |
 | Hand over task and intent | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Committing a decision that others will carry out; give the task and the intent as an *in order to* statement, with the intent predominant because it outlasts the task, and prescribe method only as far as coordination needs. |
+| State roles, contingencies, abort criteria and the right to stop | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Communicating a conservative decision: clear direction, roles and responsibilities, contingencies and abort criteria; workers authorised to take conservative action when conditions turn uncertain. |
 
 ### Phase 6: Monitoring
 
@@ -630,6 +637,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Surface new bottlenecks after elevation | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-decision-making.md` | AI-driven elevation dissolves expertise constraints; check what it adds instead, such as the human monitoring responsibility the Primer predicts. After a successful elevation cycle, re-apply the three AI-investment questions to the *next* binding bottleneck. |
 | Sort errors of boldness from errors of inaction | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Reviewing a decision that went wrong; MCDP 1 treats errors of overboldness by junior leaders leniently, as part of learning, deals severely with errors of inaction or timidity, and gives no licence to act recklessly. |
 | Hold a critique that asks why | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Reviewing a decision after the fact; MCDP 1's critiques are held soon after, in open and frank dialogue where all hands contribute, and focus on why actions were taken and why they brought the results they did. |
+| Catch normalisation of a repeated deviation | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Something happens every time without harm, or good results are used to dismiss recommendations: the bald-tire attitude, with Columbia's foam strikes as the handbook's example. |
 
 ---
 
@@ -699,6 +707,10 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 ### Learning from events
 
 - `tc-25-20-army-aar-decision-making.md`, US Army (Headquarters, Department of the Army). After-action reviews as post-event evaluation upstream of the next decision. AAR vs critique on epistemic grounds; train to weakness, not to strength; critical gate tasks as stop-rules; statistics as double-edged sword (serve teaching, not grading); experience-over-rank evaluator selection; two-levels-above rule for external evaluations; fratricide-equivalent topics that always get detailed discussion; T-P-U three-bucket assessment driving next-training concept. **Public domain (17 USC §105) — no copyleft propagation.** The US Army's 1993 leader's guide to AARs, supplementing FM 25-101.
+
+### Human performance and error in hazardous operations
+
+- `doe-hpi-handbook-vol1-decision-making.md`, U.S. Department of Energy (*Human Performance Improvement Handbook, Vol. 1: Concepts and Principles*, DOE-HDBK-1028-2009). Skill-, rule- and knowledge-based modes as a way to classify decisions (knowledge-based as "lack of knowledge" mode; inaccurate mental model as its failure); assumptions, danger words, devil's advocate and mental biases; conservative decision-making and a burden of proof toward stopping when safety is uncertain; groupthink, deference and the risky shift; production against prevention; normalisation in management decisions (Columbia); change management. Rasmussen, Reason, Senge, Janis, Hollnagel and INPO borrowed-through. **Public domain (17 USC §105) — no copyleft propagation.**
 
 ### Org design
 

@@ -218,6 +218,7 @@ The learning product is a narrative with sensory detail and the characters' inte
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
 - [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking

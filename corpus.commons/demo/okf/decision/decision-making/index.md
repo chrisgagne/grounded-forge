@@ -88,6 +88,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Treat the decision method as guidance, not procedure → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Set the decision clock → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Accept the information gap → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Recognise a no-rule (knowledge-based) decision → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Detect production as the default value → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 2: Bounding
 
@@ -141,6 +143,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Identify the stock vs the flow → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Account for accumulated history → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Set decision rights by intent → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Set the irreversible step and abort criteria → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 3: Exploring
 
@@ -211,6 +214,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Audit my own and the team's mental-model partiality → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Get honest opinions before the decision → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Look for gaps, not surfaces → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Test assumptions and the shared mental model → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 4: Deciding
 
@@ -278,6 +282,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Test for co-creator vs recipient framing of the org-change → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Name the main effort → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Price the wait → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Put the burden of proof on proceeding → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 5: Ratifying
 
@@ -322,6 +327,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Commit to incremental elevation and name the first experiments → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Close the dissent window → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Hand over task and intent → [mcdp1-warfighting](mcdp1-warfighting.md)
+- State roles, contingencies, abort criteria and the right to stop → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 6: Monitoring
 
@@ -375,11 +381,13 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Surface new bottlenecks after elevation → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Sort errors of boldness from errors of inaction → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Hold a critique that asks why → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Catch normalisation of a repeated deviation → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
-## All concept files (27)
+## All concept files (28)
 
 - [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md)
 - [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](flo-facilitation-guide.md)
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md)
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)

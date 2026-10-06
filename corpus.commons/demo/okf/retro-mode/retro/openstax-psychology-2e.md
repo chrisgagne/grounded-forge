@@ -174,4 +174,5 @@ The safety check of 3 also flags a stress-load concern. The facilitator checks: 
 
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Cognitive Biases, Memory
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

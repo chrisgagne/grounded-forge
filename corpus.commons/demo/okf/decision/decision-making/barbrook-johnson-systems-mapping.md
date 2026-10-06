@@ -236,6 +236,7 @@ The final deliverable is not the full 60-factor map but three targeted submaps p
 - [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Systems Thinking
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
 - [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking

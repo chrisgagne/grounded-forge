@@ -155,6 +155,7 @@ The appropriateness triangle, Rich Picture facilitation, the CLD core engine, an
 - [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
 - [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Complex Adaptive Systems, Facilitation, Participatory Design
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Regression Modeling, Statistics
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Systems Thinking
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
 - [Open Kanban](open-kanban.md) — shared: Systems Thinking

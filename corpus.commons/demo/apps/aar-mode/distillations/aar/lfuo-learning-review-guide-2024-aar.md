@@ -136,6 +136,7 @@ A maintenance team reviews a near-miss: a gas line was struck during a dig becau
 | NHS Just Culture Guide (nhs-just-culture-guide) | LFUO names the reckless-and-willful termination threshold; NHS provides the five-test decision tree for sorting individual vs system locus below that threshold; the two work together for Phase 3 just-culture sorting |
 | OpenStax Psychology 2e (openstax-psychology-2e) | Psychology 2e names hindsight bias, memory reconstruction, and conformity — the cognitive conditions that make LFUO's interview-as-soon-as-possible and beliefs-perceptions-expectations-paradigms decomposition necessary; use together when explaining why the protocol is designed the way it is |
 | Barbrook-Johnson Systems Mapping (barbrook-johnson-systems-mapping) | LFUO provides the networked-causality framing and the LLA as the verbal reconstruction tool; Barbrook-Johnson provides shared-model artefacts: a CLD makes the network of conditions visible; a Rich Picture captures the situation more freely; use together when a shared causal map would help Phase 2 |
+| DOE HPI Handbook Vol. 1 (doe-hpi-handbook-vol1) | Both reject blame-first investigation and reconstruct why actions made sense at the time (DOE via Dekker). They part on vocabulary: DOE keeps "root cause" and the Anatomy of an Event as a backward-worked causal chain, where LFUO rejects causal statements. In an LFUO-run review, use DOE's model as a prompt list for contributors, not a causal verdict. |
 
 ## Citation and Source-Integrity Notes
 

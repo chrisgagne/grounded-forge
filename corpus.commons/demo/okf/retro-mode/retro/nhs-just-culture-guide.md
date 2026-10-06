@@ -134,10 +134,10 @@ The default-to-system prior, foresight test, substitution test, and dual-purpose
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, HR Policy
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [Open Kanban](open-kanban.md) — shared: Systems Thinking
-- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Decision Making
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Human Resources
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
 - [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

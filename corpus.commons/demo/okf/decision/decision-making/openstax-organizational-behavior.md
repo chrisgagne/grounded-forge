@@ -194,14 +194,14 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
 - [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Conflict and Negotiation, Employment Law, Sexual Harassment
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Team Building
 - [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Perception

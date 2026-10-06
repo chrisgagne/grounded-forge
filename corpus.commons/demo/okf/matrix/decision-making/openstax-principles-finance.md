@@ -213,9 +213,10 @@ By NPV, A wins (highest absolute value). By IRR alone, C edges out A despite bei
 **Same source, other task axes:** [software-business](../software-business/openstax-principles-finance.md) · [stakeholder-engagement](../stakeholder-engagement/openstax-principles-finance.md)
 
 - [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Time Value of Money
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Benchmarking
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Risk Management
 - [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Securities Regulation
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking

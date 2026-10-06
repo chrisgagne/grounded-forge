@@ -163,4 +163,5 @@ At Phase 5 close, the facilitator summarises the two commitments, names one thin
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Performance Measurement
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review

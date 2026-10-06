@@ -188,12 +188,11 @@ The manager documents the Recommendation D finding and opens a wider investigati
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
-- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, HR Policy
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
-- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
-- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: HR Policy
-- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Decision Making
+- [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Human Resources
+- [OpenStax Principles of Management](openstax-principles-management.md) — shared: Human Resources
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking
 - [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

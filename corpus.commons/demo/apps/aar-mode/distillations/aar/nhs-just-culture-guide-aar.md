@@ -121,6 +121,7 @@ A hospital team reviews a medication incident in which a nurse administered the 
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 frames the AAR as comparing unit performance against the standard, not a critique and not grading success or failure; it does not address the individual-accountability question, which the NHS tree handles |
 | OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the fundamental attribution error and the self-serving bias (Ch 3.3, "Attributional Bias") that drive individual blame before the system locus is examined; the NHS tree is the structural antidote to those biases |
 | Liberating Structures Handbook (liberating-structures-handbook) | LS's Levels of Accountability ladder is the facilitation redirect for below-the-line conversations before the formal NHS tree is applied; the ladder diagnoses the conversation's posture, the tree handles the formal locus decision |
+| DOE HPI Handbook Vol. 1 (doe-hpi-handbook-vol1) | Both trace their just-culture apparatus to Reason and both use a substitution test. DOE adds what NHS does not carry: the error-versus-violation distinction, the blame cycle, and an action matched to the error type (no retraining for skill-based slips). Its own culpability tree is an adaptation of Reason's; for the individual-action decision, NHS's five-test tree stays the primary aid. |
 
 ## Citation and Source-Integrity Notes
 

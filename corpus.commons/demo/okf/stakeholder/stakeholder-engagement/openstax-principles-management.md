@@ -232,12 +232,12 @@ This worked example illustrates several key concepts in the source: the eight-qu
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
-- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
 - [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Employment Law, Sexual Harassment
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Human Resources
 - [Open Practice Library](open-practice-library.md) — shared: Team Management
 - [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Benchmarking
 - [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Customer Value

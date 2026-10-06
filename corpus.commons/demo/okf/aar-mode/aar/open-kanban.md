@@ -127,6 +127,7 @@ A software-delivery team reviews a series of missed releases. The timeline (Phas
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Continuous Improvement, Systems Thinking
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
 - [Open Practice Library](open-practice-library.md) — shared: Agile, Open Source
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Collaboration, Values

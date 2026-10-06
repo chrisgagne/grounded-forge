@@ -222,6 +222,7 @@ This worked example illustrates several key concepts in the source: heuristics v
 
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Cognitive Biases, Memory
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Hawthorne Effect, Theory X, Y and Z
 - [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Consumer Behavior, Perception
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

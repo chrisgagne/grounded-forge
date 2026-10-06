@@ -166,6 +166,7 @@ The batch-size discipline, the exhaustion warning under Respect for People, the 
 
 **Same source, other task axes:** [aar](../aar/open-kanban.md) · [decision-making](../decision-making/open-kanban.md) · [software-business](../software-business/open-kanban.md) · [stakeholder-engagement](../stakeholder-engagement/open-kanban.md)
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Continuous Improvement, Systems Thinking
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Agile, Software Development
 - [Open Practice Library](open-practice-library.md) — shared: Agile, Open Source
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Collaboration, Values

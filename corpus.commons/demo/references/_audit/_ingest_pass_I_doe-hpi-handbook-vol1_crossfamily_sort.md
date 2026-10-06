@@ -11,7 +11,7 @@ Also examined:
 
 - Every changed passage in `frozen-deep.md`, through the complete before/after diff.
 - The full source TOC and the tape passages supporting every ledger decision below, supplemented by full-file searches. I did not reread the entire tape end to end.
-- Original PDF pages 14, 17, 93, 120 and 175 visually. :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/.claude/worktrees/agent-ae65ce6ba11d2a38f/_planning/pass-i/demo/doe-hpi-handbook-vol1/source.pdf" purpose="source"}
+- Original PDF pages 14, 17, 93, 120 and 175 visually. :codex-file-citation{path="_planning/pass-i/demo/doe-hpi-handbook-vol1/source.pdf" purpose="source"}
 
 The post-audit reference matches its supplied SHA-256: `1751c6f2182c2c36c00931bcf19065da65ce169206fd05775f7d817d812be817`. The original PDF matches the source-card checksum. The deterministic verbatim checker, run against `tape.md`, reports no findings.
 

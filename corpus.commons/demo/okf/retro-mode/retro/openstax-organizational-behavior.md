@@ -167,9 +167,8 @@ The attribution-bias, conformity, process-vs-relationship-conflict, and expectan
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
 - [Open Kanban](open-kanban.md) — shared: Collaboration, Values
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
 - [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
-- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making
 - [Schwaber & Sutherland, The Scrum Guide 2020](scrum-guide-2020.md) — shared: Adaptation

@@ -246,3 +246,4 @@ The CTO reads the memo, recognises three things, and routes the question through
 - [Open Practice Library](open-practice-library.md) — shared: 1-2-4-All, Facilitation, Pattern Language
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Appreciative Inquiry
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Appreciative Inquiry
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Ownership vs Buy-In

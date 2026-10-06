@@ -182,11 +182,12 @@ Phase 5: the team schedules the re-MAP 60 days out. The local-optimisation test 
 
 **Same source, other task axes:** [aar](../aar/org-topologies-primer-2025.md) · [decision-making](../decision-making/org-topologies-primer-2025.md) · [software-business](../software-business/org-topologies-primer-2025.md) · [stakeholder-engagement](../stakeholder-engagement/org-topologies-primer-2025.md)
 
-- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Change Management, Organisational Change, Systems Thinking
-- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Change Management, Systems Thinking
 - [Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Structure
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
+- [Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Ownership vs Buy-In
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
 - [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Systems Thinking

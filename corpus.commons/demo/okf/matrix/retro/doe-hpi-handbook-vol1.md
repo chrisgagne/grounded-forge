@@ -12,7 +12,7 @@ sources:
     resource: https://www.energy.gov/sites/default/files/2026-04/doe-hdbk-1028-2009_volume1_0.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-06T13:15:46+13:00
+  at: 2026-10-06T14:53:14+13:00
 ---
 # US DOE, Human Performance Improvement Handbook Vol. 1, Retrospective Distillation
 
@@ -20,13 +20,13 @@ generated:
 
 ## Retrospective Relevance
 
-The handbook has no retrospective format; its closest practice is the post-job review, a feedback step that covers surprises, the usability of work documents, knowledge and skill shortcomings, minor errors, unanticipated conditions, tools, planning and supervision (Source: US DOE, *HPI Handbook Vol. 1*, Ch 1, p. 1-9). What it brings to a retro is a way to read the deltas the team writes down. When a delta is a mistake someone made, the handbook asks what kind of error it was and fits the improvement to it: retraining or "be more careful" does not fix a slip on a familiar task, a misapplied rule may need a clearer rule, and a wrong mental model needs analysis first (Ch 2, pp. 2-27 to 2-28). When a delta keeps coming back, it reads the recurrence as a latent condition that has accumulated rather than faded (Ch 3, p. 3-16), or as a deviation that has been normalised (Ch 2, p. 2-6). When blame language appears, it supplies the reframing question "how did the organization fail the individual?" (Ch 4, p. 4-26).
+The handbook has no retrospective format; its closest practice is the post-job review, a feedback step that covers surprises, the usability of work documents, knowledge and skill shortcomings, minor errors, unanticipated conditions, tools, planning and supervision (Source: US DOE, *HPI Handbook Vol. 1*, Ch 1, p. 1-9). What it brings to a retro is a way to read the deltas the team writes down. When a delta is a mistake someone made, the handbook asks what kind of error it was and fits the improvement to it: retraining does not fix a slip on a familiar task, a misapplied rule may be corrected through retraining, and a wrong mental model needs analysis first (Ch 2, pp. 2-27 to 2-28). When a delta keeps coming back, it reads the recurrence as a latent condition that has accumulated rather than faded (Ch 3, p. 3-16), or as a deviation that has been normalised (Ch 2, p. 2-6). When blame language appears, it supplies the reframing question "how did the organization fail the individual?" (Ch 4, p. 4-26).
 
-It also names the team dynamics a lead will see in the room: deference to a senior person, free riding, groupthink and a group taking a risk no individual would (Ch 2, pp. 2-12 to 2-15). In retro work it fires mainly in Phase 3 (insight) and Phase 4 (experiment design), with uses in Phase 0.5 (experiment review) and Phase 2 (data gathering). It is the source to reach for when the experiment on the board is "be more careful", "add a checklist reminder", or "retrain".
+It also names the team dynamics a lead will see in the room: deference to a senior person, free riding, groupthink and a group taking a risk no individual would (Ch 2, pp. 2-12 to 2-15). In retro work it fires mainly in Phase 3 (insight) and Phase 4 (experiment design), with uses in Phase 0.5 (experiment review) and Phase 2 (data gathering). Reach for it when the experiment on the board is "be more careful", "add a checklist reminder", or "retrain".
 
 ## Key Concepts for Retrospective
 
-1.  **Slip, lapse, mistake, violation.** "Error is behavior without malice or forethought; it is not a result" [V]. Slips and lapses are actions or memory that fail on a task the person knows; mistakes come from "an inadequate plan to achieve the intended outcome" [V] (Source: Ch 2, p. 2-8). Violations are deliberate departures, and "Most violations are well intentioned, arising from a genuine desire to get a job done according to management’s wishes" [V] (Ch 2, p. 2-10). In a retro, a delta that names a mistake is a prompt to ask which kind.
+1.  **Slip, lapse, mistake, violation.** "Error is behavior without malice or forethought; it is not a result" [V]. Slips are physical actions that fail to achieve the immediate objective and lapses are failures of memory or recall; mistakes come from "an inadequate plan to achieve the intended outcome" [V] (Source: Ch 2, p. 2-8). Violations are deliberate departures, and "Most violations are well intentioned, arising from a genuine desire to get a job done according to management’s wishes" [V] (Ch 2, p. 2-10). In a retro, a delta that names a mistake is a prompt to ask which kind.
 
 2.  **Fit the experiment to the error.** For skill-based slips, retraining "is a waste of time and is an insult to the worker" [V]; the conditions that provoked the slip (interruptions, distractions, tools, fatigue) are what "can be controlled" [V] (Ch 2, p. 2-27). Rule-based errors "may be corrected through retraining" [V]; knowledge-based mistakes need analysis first (Ch 2, pp. 2-27 to 2-28).
 
@@ -36,9 +36,9 @@ It also names the team dynamics a lead will see in the room: deference to a seni
 
 5.  **Recurring deltas as latent conditions.** Latent conditions "do not fade away, but rather they accumulate in the system" [V] (Ch 3, p. 3-16), and the handbook's safety-culture attributes treat recurrent errors as indicators of latent organisational weaknesses (Ch 4, p. 4-10).
 
-6.  **Normalised practices.** The bald-tire attitude is "A belief that past performance is justification for not changing (improving) existing practices or conditions" [V] (Ch 2, p. 2-6); at-risk shortcuts are reinforced by convenience and rarely corrected (Ch 2, pp. 2-6 to 2-7).
+6.  **Normalised practices.** The bald-tire attitude is "A belief that past performance is justification for not changing (improving) existing practices or conditions" [V] (Ch 2, p. 2-6); at-risk shortcuts are reinforced by convenience and rarely penalised (Ch 2, pp. 2-6 to 2-7).
 
-7.  **Team errors in the room.** The handbook names the halo effect, pilot/co-pilot deference to a senior person, free riding, groupthink (with symptoms such as self-censorship and an illusion of unanimity, adapted from Janis) and diffusion of responsibility [BT] (Ch 2, pp. 2-12 to 2-15); its remedies include freedom of thought, challenging others' assumptions, a devil's advocate and timeouts (Ch 2, p. 2-15).
+7.  **Team errors in the room.** The handbook names the halo effect, pilot/co-pilot deference to a senior person, free riding, groupthink (eight symptoms adapted from Janis) and diffusion of responsibility [BT] (Ch 2, pp. 2-12 to 2-15); its remedies include freedom of thought, challenging others' assumptions, a devil's advocate and timeouts (Ch 2, p. 2-15).
 
 8.  **Blame stops learning.** "If an individual believes his or her errors will be punished, then information related to those errors will likely remain obscure" [V] (Ch 4, p. 4-13). The blame cycle runs from error through discipline to reduced trust and less communication, while the latent weaknesses persist (Ch 4, p. 4-23).
 
@@ -137,7 +137,7 @@ The lead asks the reframing question, not who flipped the flag: how did the setu
 | Approach Perfect Field Guide (approach-perfect-field-guide-scrum-events) | The Field Guide gives the retro agenda and the Prime Directive; DOE gives the analysis of a mistake-shaped delta and the rule for fitting the experiment to it. |
 | NHS Just Culture Guide (nhs-just-culture-guide) | Both default to the system; NHS gives the individual-action decision tree, DOE gives the error types and the "how did the organization fail the individual?" reframing for the retro conversation. |
 | SSDL Systems Thinking Foundations (ssdl-systems-thinking-foundations) | SSDL archetypes generate hypotheses for a recurring delta; DOE's latent-condition accumulation and bald-tire normalisation name why it recurs. |
-| LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO forbids counterfactuals and causal statements; DOE keeps a root-cause vocabulary but refuses "not paying attention" and "didn't follow the process" as causes. Use DOE's error types, not its root-cause language, in a team retro. |
+| LFUO 2024 (lfuo-learning-review-guide-2024) | LFUO forbids counterfactuals and causal statements; DOE keeps a root-cause vocabulary but rejects "inattention to detail" and "not following procedures" as root causes (DOE Ch 3, p. 3-22). Use DOE's error types, not its root-cause language, in a team retro. |
 | Liberating Structures (liberating-structures-handbook) | LS 1-2-4-All structures the room against the deference and groupthink DOE names as team errors. |
 
 ## Citation and Source-Integrity Notes
@@ -173,13 +173,13 @@ The lead asks the reframing question, not who flipped the flag: how did the setu
 
 **Same source, other task axes:** [aar](../aar/doe-hpi-handbook-vol1.md) · [decision-making](../decision-making/doe-hpi-handbook-vol1.md)
 
-- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, Foresight Test, Human Error, Incident Investigation
-- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
 - [Open Kanban](open-kanban.md) — shared: Continuous Improvement, Systems Thinking
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Memory
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Systems Thinking
 - [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Mental Models, Systems Thinking
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [US Army TC 25-20](tc-25-20-army-aar.md) — shared: Performance Measurement

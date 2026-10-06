@@ -12,7 +12,7 @@ sources:
     resource: https://ntrs.nasa.gov/api/citations/20030093634/downloads/20030093634.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-06T02:55:02Z
+  at: 2026-10-06T17:06:54+13:00
 ---
 # Columbia Accident Investigation Board, Report Volume I, Decision-Making Distillation
 
@@ -20,17 +20,17 @@ generated:
 
 ## Decision-Making Relevance
 
-Chapter 6 of the report is titled "Decision Making at NASA", and it is a close study of a group making a high-stakes decision under uncertainty and getting it wrong in ways that are recognisable well beyond space flight. Managers decided early that a foam strike was not a safety issue, before any analysis had started; an analysis built on a model used far outside its range was presented without its uncertainty; three requests for the information that would have settled the question were turned down; and the decision forum met rarely and heard a three-minute summary (Source: CAIB, *Report Vol. I*, Ch 6, pp. 140–172; Ch 7, p. 192). The Board's analysis supplies decision-makers with a set of tests: who carries the burden of proof, whether the uncertainty reached the deciders, whether a trusted opinion ended the search for others, whether dissent had a route, whether the categories used to label risk had quietly drifted, and whether the schedule was deciding (Ch 6, p. 169; Ch 7, pp. 190–192; Ch 8, pp. 196–203).
+Chapter 6 of the report is titled "Decision Making at NASA", and it is a close study of a group making a high-stakes decision under uncertainty and getting it wrong in ways that are recognisable well beyond space flight. Managers decided early that a foam strike was not a safety issue, before any analysis had started; an analysis built on a model used far outside its range was presented without its uncertainty; three requests for imagery of the wing were turned down; and the decision forum met rarely and heard a three-minute summary (Source: CAIB, *Report Vol. I*, Ch 6, pp. 140–172; Ch 7, p. 192). The Board's analysis supplies decision-makers with a set of tests: who carries the burden of proof, whether the uncertainty reached the deciders, whether a trusted opinion ended the search for others, whether dissent had a route, whether the categories used to label risk had quietly drifted, and whether the schedule was deciding (Ch 6, p. 169; Ch 7, pp. 190–192; Ch 8, pp. 196–203).
 
-It also covers the longer decision cycle. Flight Readiness Reviews ratified known problems as acceptable risks for years, and the Board finds that a process "built on consensus verified by signatures of all responsible parties, in effect renders no one accountable" (Ch 8, p. 198), and that trend analysis, the monitoring that would have shown the drift, was not done (Ch 6, p. 131). It fires in every phase, hardest in Deciding (burden of proof, uncertainty, dissent), Ratifying (consensus-by-signature, rationale reuse) and Monitoring (weak signals, trend analysis, the normalisation of deviance).
+It also covers the longer decision cycle. Flight Readiness Reviews ratified known problems as acceptable risks for years, and the Board finds that a process "built on consensus verified by signatures of all responsible parties, in effect renders no one accountable" [V] (Ch 8, p. 198), and that trend analysis on foam losses was not adequately performed, which hampered informed decisions about them (Ch 6, p. 131). It fires in every phase, hardest in Deciding (burden of proof, uncertainty, dissent), Ratifying (consensus-by-signature, rationale reuse) and Monitoring (weak signals, trend analysis, the normalisation of deviance).
 
 ## Key Concepts for Decision-Making
 
-1.  **Who must prove what.** For a hazardous operation the burden should be to prove it safe; NASA asked its engineers to prove it unsafe. "Organizations that deal with high-risk operations must always have a healthy fear of failure — operations must be proved safe, rather than the other way around. NASA inverted this burden of proof." [V] (Ch 7, p. 190). The engineers were asked to show a "mandatory need" for the very data that would let them decide (Ch 6, p. 157) [AE].
+1.  **Who must prove what.** For a hazardous operation the burden should be to prove it safe; NASA asked its engineers to prove it unsafe. "Organizations that deal with high-risk operations must always have a healthy fear of failure — operations must be proved safe, rather than the other way around. NASA inverted this burden of proof." [V] (Ch 7, p. 190). The engineers were asked to show a "mandatory need" for the very images they wanted in order to assess the damage (Ch 6, p. 157) [AE].
 
 2.  **Deciding before the analysis.** Before any analysis had started, programme managers had officially shared their belief that the strike was no safety issue, and every manager knew the party line that no safety-of-flight issue was expected (Ch 6, p. 142; Ch 7, p. 181) [AP]. "In both cases, managers' techniques focused on the information that tended to support the expected or desired result at that time" [V] (Ch 8, p. 200).
 
-3.  **Uncertainty must reach the decider.** "Engineering solutions presented to management should have included a quantifiable range of uncertainty and risk analysis" [V] (Ch 6, p. 168). The assumptions and uncertainty in the Crater analysis "were never fully presented" to the deciding teams, and management focused on the answer rather than the uncertainties [AP] (Ch 6, pp. 145, 160). The analysis also used a model calibrated for objects hundreds of times smaller than the debris (Ch 6, p. 143) [AE].
+3.  **Uncertainty must reach the decider.** "Engineering solutions presented to management should have included a quantifiable range of uncertainty and risk analysis" [V] (Ch 6, p. 168). The assumptions and uncertainty in the Crater analysis "were never fully presented" to the deciding teams, and management focused on the answer rather than the uncertainties [AP] (Ch 6, pp. 145, 160). The analysis also used a model calibrated for objects hundreds of times smaller in volume than the debris (Ch 6, p. 143) [AE].
 
 4.  **The trusted opinion that ends the search.** An expert's early, unanalysed reassurance, from a tile specialist on a question about RCC, settled the matter: "Mission management welcomed this opinion and sought no others." [V] (Ch 6, p. 169). "Managers' tendency to accept opinions that agree with their own dams the flow of effective communications." [V] (Ch 6, p. 169).
 
@@ -42,13 +42,13 @@ It also covers the longer decision cycle. Flight Readiness Reviews ratified know
 
 8.  **Consensus that diffuses accountability.** The Flight Readiness process, "which is built on consensus verified by signatures of all responsible parties, in effect renders no one accountable" [V]; information was lost at each level for brevity and consensus; and the process transformed "known problems into acceptable flight risks" [V] (Ch 8, p. 198). Safety staff in committee could only choose between "rubber-stamping" and arguing against a side with more information (Ch 7, p. 187) [AP].
 
-9.  **The schedule as a silent decider.** A fixed Node 2 date shaped decisions though management denied undue pressure (Ch 6, p. 131) [AP]. "When a program agrees to spend less money or accelerate a schedule beyond what the engineers and program managers think is reasonable, a small amount of overall risk is added." [V] (Ch 6, p. 139). The Board asks that deadlines be regularly re-evaluated so that any added risk is "recognized, understood, and acceptable" [V] (Ch 6, p. 139).
+9.  **The schedule as a silent decider.** A fixed Node 2 date created pressure that, in the Board's view, may well have subtly influenced how managers handled the foam strikes, though management denied undue pressure (Ch 6, pp. 131, 139) [AP]. "When a program agrees to spend less money or accelerate a schedule beyond what the engineers and program managers think is reasonable, a small amount of overall risk is added." [V] (Ch 6, p. 139). The Board asks that deadlines be regularly re-evaluated so that any added risk is "recognized, understood, and acceptable" [V] (Ch 6, p. 139).
 
 10.  **Process over merits.** Managers asked who was requesting the photos rather than whether they were needed, and imagery requests were cancelled because no one had a "requirement" (Ch 6, pp. 153, 172) [AE]. "Program leaders spent at least as much time making sure hierarchical rules and processes were followed as they did trying to establish why anyone would want a picture of the Orbiter." [V] (Ch 7, p. 181).
 
 11.  **Different standards for unprecedented conditions.** In highly uncertain conditions with lives at risk, management failed to recognise "that different data standards — qualitative, subjective, and intuitive — and different processes — democratic rather than protocol and chain of command — were more appropriate" [V] (Ch 8, p. 201). Status set whose evidence counted; "Status mattered. In its absence, numbers were the great equalizer." [V] (Ch 8, p. 202).
 
-12.  **Separating technical authority from cost and schedule.** The Board's structural answer: the authority to set and waive technical requirements should rest with an independent technical authority, separate from programme managers governed by cost, schedule and mission goals (Ch 7, pp. 184, 193) [AP].
+12.  **Separating technical authority from cost and schedule.** The Board's structural answer: the authority to set and waive technical requirements should rest with an independent technical authority, separate from programme managers, who must be sensitive to cost and schedule (Ch 7, pp. 184, 193) [AP].
 
 ## Questions to Ask During Decision-Making
 
@@ -144,7 +144,7 @@ The scenario is operator-authored; the report's own case is the loss of Columbia
 
 ## Anti-patterns This Reference Helps Avoid
 
-- **Deciding before analysing.** Signal: the conclusion circulates before the analysis starts. Diagnosis: the analysis will be read to confirm it (Ch 6, p. 142; Ch 8, p. 200). Follow-up: hold the conclusion until the analysis and its uncertainty are in.
+- **Deciding before analysing.** Signal: the conclusion circulates before the analysis starts. Diagnosis: the analysis risks being read to confirm it (Ch 6, p. 142; Ch 8, p. 200). Follow-up: hold the conclusion until the analysis and its uncertainty are in.
 - **Burden reversal.** Signal: objectors told to bring proof. Diagnosis: inverted burden of proof (Ch 7, p. 190). Follow-up: require proof of safety.
 - **Familiarity framing.** Signal: "same as last time". Diagnosis: normalisation of deviance (Ch 8, p. 196). Follow-up: compare the actual features.
 - **Consensus by signature.** Signal: many sign-offs, no owner. Diagnosis: diffused accountability (Ch 8, p. 198). Follow-up: name the owner.
@@ -167,7 +167,7 @@ The scenario is operator-authored; the report's own case is the loss of Columbia
 
 **Named limits of the source.** The report examines one organisation's decisions about one hazard; it does not set out a general decision method. Its recommendations are for NASA's Human Space Flight Program in 2003. The hospital scenario is the projection's.
 
-**Evidence-marker continuity.** Every `[V]` and blockquote is copied from the deep reference's verified quotations of the Board's own prose; quoted e-mails, transcripts and outside works are paraphrased. The source text is OCR; Pass I should run the second-OCR check on the quoted pages. Lens gate: the four demo lenses were each judged clear no.
+**Evidence-marker continuity.** Every `[V]` and blockquote is copied from the deep reference's verified quotations of the Board's own prose; quoted e-mails, transcripts and outside works are paraphrased. The source text is OCR; the operator's independent second OCR confirms every `[V]` quotation. Lens gate: the four demo lenses were each judged clear no.
 
 ## Related concepts
 

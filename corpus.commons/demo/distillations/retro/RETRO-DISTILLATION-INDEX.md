@@ -48,6 +48,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Last retro's experiments not done** | TC 25-20 follow-up rule + LS 15% Solutions + Open Practice Library Design of Experiments | `tc-25-20-army-aar-retro.md`, `liberating-structures-handbook-retro.md`, `open-practice-library-retro.md` |
 | **AI-adoption friction** | Open Practice Library Evals + Human-in-the-Loop + Establish Shared Principles | `open-practice-library-retro.md` |
 | **Counterfactual creeping in** | LFUO forbidden-move list | `lfuo-learning-review-guide-2024-retro.md` |
+| **Experiment on the board is "be more careful" or "retrain"** | DOE HPI Handbook Vol. 1 (error types, experiment fitted to the error) | `doe-hpi-handbook-vol1-retro.md` |
 | **Team-internal cadence (not incident-triggered)** | Field Guide Sprint Retrospective + Scrum Guide canonical event | `approach-perfect-field-guide-scrum-events-retro.md`, `scrum-guide-2020-retro.md` |
 | **Same impediment surfacing repeatedly across retros — structural mismatch suspected** | Org Topologies Primer — archetype-mismatch vocabulary + structural-vs-process classification | `org-topologies-primer-2025-retro.md` |
 
@@ -72,6 +73,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Check for hygiene-factor suppression before content | OpenStax, Principles of Management | `openstax-principles-management-retro.md` | If a live anxiety (job security, org change, manager conflict) is in the room, Herzberg's hygiene framing suggests it may crowd out motivator-level engagement. Name it or address it before the topic phase. |
 | Safety check returns 1-2 | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Ch 3 critique rule: a team member's willingness to admit mistakes "depends on the commander's willingness to tolerate them". Before asking for mistakes, the lead (and any manager) states that admitted mistakes will be discussed, not punished; trust "is a product of confidence and familiarity" and is not rebuilt in one retro. |
 | Lead names manager on call | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Brief the manager before the retro: open by stating tolerance for admitted mistakes (Ch 3, "Training"), and invite disagreement before the team commits; MCDP 1 makes honest opinion before a decision a duty (Ch 3, "Professionalism"). |
+| Hold a senior voice back until others have written | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Lead names manager on call: pilot/co-pilot deference, the reluctance to challenge a senior person's opinions or decisions; have everyone write first and the senior speak last. |
 
 ## Phase 0.5: Experiment review (what did we say last time, what happened)
 
@@ -87,6 +89,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Reframe from team-failure to structural-constraint | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-retro.md` | When an experiment hasn't taken hold, apply the Primer's single-team-island warning: "A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged." Reframe before generating another 15% experiment. |
 | Last retro's experiments weren't done | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Sort before judging: an experiment tried boldly that failed is the kind of error MCDP 1 treats leniently (no "zero defects" mentality); one never started is inaction, taken up as a topic rather than a sanction. Ask why, starting with its owner and stated purpose (Ch 3, "Professionalism"; Ch 4, "Commander's intent"). |
 | Same experiment proposed three retros running | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Main-effort rule: a commitment is "not an irretrievable one", and when shifting "we seek to exploit success rather than reinforce failure" (Ch 4, "Main effort"); ask what in this Sprint calls for the experiment, not habit (Ch 4, "Decisionmaking"). |
+| Check what the last experiments visibly changed | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Last retro's experiments weren't done, or the same one is proposed again: people must see change in response to their feedback; latent conditions accumulate rather than fade, so a returning delta points at a condition present each time. |
 
 ## Phase 1: Priming (set the topic frame, surface energy, choose retro shape)
 
@@ -120,6 +123,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Use planning-poker-style estimates for retro vote weight | Letaw, Handbook of Software Engineering Methods | `letaw-handbook-sweng-methods-retro.md` | When voting on which retro item to deep-dive, private estimate → simultaneous reveal beats sequential reveal which anchors. |
 | Team agrees too quickly | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Until a decision is stated, honest disagreement is a duty; after it, everyone supports it as their own (Ch 3, "Professionalism"). Ask for the dissent before the vote. |
 | Team is helpless ("nothing we can do") | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Sort the deltas against MCDP 1's five examples of self-induced friction (unclear goal, lack of coordination, unclear or complicated plans, complex task organizations or command relationships, complicated technologies); the self-induced ones are the team's to act on (Ch 1, "Friction"). |
+| Surface doubt before agreement | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Team agrees too quickly: groupthink symptoms (self-censorship, illusion of unanimity; adapted from Janis); write individually first and name a devil's advocate. |
 
 ## Phase 3: Insight / cause analysis (the *why*, the system, the recurring pattern)
 
@@ -149,6 +153,9 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Detect the topology-mismatch pattern producing the recurring topic | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-retro.md` | Is this a Resource-drag pattern (utilisation pressure blocking end-to-end ownership)? A Delivery-bloat pattern (features unvalidated against outcome)? Name the pattern. |
 | Apply local-optimisation test to proposed experiments | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-retro.md` | Before committing to multiple individually-defensible experiments, test: will they combine to improve the system goal, or will they compete? Primer: "If each element (e.g. policies, structures) is optimized in isolation, the performance of the whole system may actually decline." |
 | Blame language surfacing | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Critique rule: focus "not so much on the actions we took as on why we took those actions and why they brought the results they did" (Ch 3, "Training"). Pair with the NHS default-to-system prior and LFUO's counterfactual rule. |
+| Name the kind of error behind a delta | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | A delta names a mistake: slip or lapse on a familiar task, rule applied in the wrong place, or no rule at all; "not paying attention" and "didn't follow the process" are not causes. |
+| Reframe blame toward the setup | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Blame language surfacing: ask "how did the organization fail the individual?"; if people expect errors to be punished, information about them stays obscure. |
+| Name a normalised shortcut | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Same pattern reappearing, or a shortcut defended because "it's always been fine": the bald-tire attitude; count the close calls. |
 
 ## Phase 4: Experiment design (one or two owned experiments)
 
@@ -176,6 +183,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Use the Elevating-Kata-as-experiment framing for structural escalations | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-retro.md` | Structural escalations should propose experiments, not decisions: a defined small change with a named hypothesis, a check-point, and a re-mapping plan. This matches the retro experiment discipline (one or two owned experiments per retro). |
 | Five experiments on the board | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Main effort: recognise one action "as the most critical to success at that moment"; the others support it or wait (Ch 4, "Main effort"). Pairs with the Field Guide's one-or-two rule. |
 | Give each experiment a purpose, not only a task | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Commander's intent: "Of the two, the intent is predominant"; state the experiment as "[task] in order to [purpose]" so the owner can adapt when the task stops fitting (Ch 4, "Commander's intent"). |
+| Fit the experiment to the error type | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | The experiment is "be more careful", "double-check" or "train X": retraining a slip on a daily task is "a waste of time"; change the conditions that made the slip easy instead. |
+| Add an experiment that limits harm | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Every experiment makes a problem rarer: error reduction lowers frequency, only controls lower severity. |
 
 ## Phase 5: Close (commitments, gratitude, take-aways)
 
@@ -211,6 +220,8 @@ The references below are listed by Pass G applicability fire. Strong-fire refere
 - `lfuo-learning-review-guide-2024-retro.md` — counterfactual prohibition; Five Hows; cause-as-construction; networked causality.
 - `ssdl-systems-thinking-foundations-retro.md` — five briefs covering complex-problem characteristics, mental models, feedback thinking with CLDs, accumulations, system archetypes; recurring-problem diagnostic substrate.
 - `barbrook-johnson-systems-mapping-retro.md` — CLDs and Theory of Change as shared-model artefacts when *recurring problem* needs a picture.
+
+- `doe-hpi-handbook-vol1-retro.md` — U.S. Department of Energy, *Human Performance Improvement Handbook, Vol. 1* (DOE-HDBK-1028-2009); public domain. Reads mistake-shaped deltas by error type (slip, lapse, mistake, violation) and fits the experiment to it (no retraining or "be more careful" for slips); recurring deltas as accumulated latent conditions or normalised shortcuts; frequency versus severity; team errors (deference, groupthink); "how did the organization fail the individual?" for blame language. Has no retro format of its own.
 
 **Strong fire (facilitation craft):**
 

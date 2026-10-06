@@ -183,7 +183,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Address force protection (safety) at every AAR | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | Standing-agenda discipline: safety touched every review regardless of whether it came up during the event under review. |
 | Schedule OT re-mapping to test whether structural recommendations took hold | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-aar.md` | "Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop of feedback and adapting" — did the topology actually shift, or did the structural change stall at announcement? Tie re-mapping to a calendar date and a participant list. |
 | Cross-link to the iterative team-internal cadence | (cross-axis) | (`retro` axis — see [[retro]]) | When the team also needs iterative team-internal learning at retrospective cadence, route to the retro axis. |
-| Show reporters the change and verify closure | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes last AAR's actions never happened: workers must see changes in response to their feedback; track each action to closure with independent verification; check procedures for the common administrative-control flaws. |
+| Show reporters the change and verify closure | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes last AAR's actions never happened: workers must see changes in response to their feedback; give each action an owner and have someone other than the owner verify it worked; check procedures for the common administrative-control flaws. |
 
 ## Reference categories
 

@@ -335,7 +335,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Set the decision clock | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Before deciding how fast to decide: is this decision time-competitive (something outside sets the pace) or a deliberate-planning decision? MCDP 1 holds both halves: time is often the most important factor in decisionmaking, and where time is not a limiting factor, decisions should not be rushed. |
 | Accept the information gap | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The room treats missing information as a reason to wait; MCDP 1 holds that all action rests on incomplete, inaccurate or contradictory information and that risk is equally common to action and inaction. |
 | Recognise a no-rule (knowledge-based) decision | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | A team of experts faces a problem none of their rules cover; the handbook calls knowledge-based mode "lack of knowledge" mode, with an inaccurate mental model as its prevalent error. |
-| Detect production as the default value | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Schedule framing dominates and safety is assumed; without leadership, production becomes the default core value. |
+| Detect production as the default value | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Schedule framing dominates and safety is assumed; unless safety is preserved as a core value, production becomes the default value (adapted from Hollnagel). |
 
 ### Phase 2: Bounding
 
@@ -710,7 +710,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 ### Human performance and error in hazardous operations
 
-- `doe-hpi-handbook-vol1-decision-making.md`, U.S. Department of Energy (*Human Performance Improvement Handbook, Vol. 1: Concepts and Principles*, DOE-HDBK-1028-2009). Skill-, rule- and knowledge-based modes as a way to classify decisions (knowledge-based as "lack of knowledge" mode; inaccurate mental model as its failure); assumptions, danger words, devil's advocate and mental biases; conservative decision-making and a burden of proof toward stopping when safety is uncertain; groupthink, deference and the risky shift; production against prevention; normalisation in management decisions (Columbia); change management. Rasmussen, Reason, Senge, Janis and INPO borrowed-through. **Public domain (17 USC §105) — no copyleft propagation.**
+- `doe-hpi-handbook-vol1-decision-making.md`, U.S. Department of Energy (*Human Performance Improvement Handbook, Vol. 1: Concepts and Principles*, DOE-HDBK-1028-2009). Skill-, rule- and knowledge-based modes as a way to classify decisions (knowledge-based as "lack of knowledge" mode; inaccurate mental model as its failure); assumptions, danger words, devil's advocate and mental biases; conservative decision-making and a burden of proof toward stopping when safety is uncertain; groupthink, deference and the risky shift; production against prevention; normalisation in management decisions (Columbia); change management. Rasmussen, Reason, Senge, Janis, Hollnagel and INPO borrowed-through. **Public domain (17 USC §105) — no copyleft propagation.**
 
 ### Org design
 

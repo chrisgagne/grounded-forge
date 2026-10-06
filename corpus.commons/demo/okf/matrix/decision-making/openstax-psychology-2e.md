@@ -227,4 +227,5 @@ This worked example illustrates several key concepts in the source: heuristics v
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Cognitive Biases, Memory
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Hawthorne Effect, Theory X, Y and Z
 - [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Consumer Behavior, Perception
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Communication
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

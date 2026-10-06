@@ -179,4 +179,5 @@ Phase 4 names two corrective actions with owners: (1) a written standard for wha
 **Same source, other task axes:** [decision-making](../decision-making/tc-25-20-army-aar.md) · [retro](../retro/tc-25-20-army-aar.md) · [stakeholder-engagement](../stakeholder-engagement/tc-25-20-army-aar.md)
 
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Performance Measurement
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Performance Measurement
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: After-Action Review

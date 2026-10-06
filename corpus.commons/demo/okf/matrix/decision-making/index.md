@@ -90,6 +90,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Accept the information gap → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Recognise a no-rule (knowledge-based) decision → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Detect production as the default value → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Decide whether to diagnose before deciding → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Check the risk category and whether it has drifted → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 2: Bounding
 
@@ -144,6 +146,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Account for accumulated history → [ssdl-systems-thinking-foundations](ssdl-systems-thinking-foundations.md)
 - Set decision rights by intent → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Set the irreversible step and abort criteria → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Write down and verify the assumptions → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Decide who carries the burden of proof → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 3: Exploring
 
@@ -215,6 +219,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Get honest opinions before the decision → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Look for gaps, not surfaces → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Test assumptions and the shared mental model → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Generate options and name a devil's advocate → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Get the information that would settle it, and hear the marginal voices → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 4: Deciding
 
@@ -283,6 +289,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Name the main effort → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Price the wait → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Put the burden of proof on proceeding → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Apply the conservative-decision practices → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Demand the uncertainty, and a devil's advocate → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 5: Ratifying
 
@@ -328,6 +336,8 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Close the dissent window → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Hand over task and intent → [mcdp1-warfighting](mcdp1-warfighting.md)
 - State roles, contingencies, abort criteria and the right to stop → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Commit with owners, contingencies and abort criteria → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Name an owner for the accepted risk; check the rationale is fresh → [caib-report-vol1](caib-report-vol1.md)
 
 ## Phase 6: Monitoring
 
@@ -382,12 +392,16 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Sort errors of boldness from errors of inaction → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Hold a critique that asks why → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Catch normalisation of a repeated deviation → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Choose indicators that predict, and read them properly → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
+- Track every recurrence as a trend → [caib-report-vol1](caib-report-vol1.md)
 
-## All concept files (28)
+## All concept files (30)
 
 - [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
+- [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md)
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md)
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md)
 - [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](flo-facilitation-guide.md)
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md)
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)

@@ -157,4 +157,5 @@ The group rebuilds the timeline from the written accounts. The incident's contri
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Cognitive Biases, Memory
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Communication
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md) — shared: Empirical Methods

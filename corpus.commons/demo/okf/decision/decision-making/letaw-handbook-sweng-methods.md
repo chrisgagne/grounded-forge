@@ -188,6 +188,7 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 - [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md) — shared: Agile, Scrum
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Agile, Software Development
 - [Open Practice Library](open-practice-library.md) — shared: Agile, Refactoring
+- [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Project Management
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Software Development
 - [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Risk Management
 - [Schwaber & Sutherland, The Scrum Guide](scrum-guide-2020.md) — shared: Iterative Development

@@ -8,7 +8,7 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 
 ## Task axes
 
-- [decision-making](decision-making/index.md) — 28 concept files
+- [decision-making](decision-making/index.md) — 30 concept files
 
 ## Lenses
 

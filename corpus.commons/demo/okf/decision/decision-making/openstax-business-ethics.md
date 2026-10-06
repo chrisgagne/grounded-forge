@@ -210,5 +210,6 @@ A medium-sized US technology company has been given the opportunity to enter a l
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Collective Bargaining, Corporate Social Responsibility, Ethics
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Corporate Culture, Harassment, Sexual Harassment
 - [OpenStax Principles of Economics 3e](openstax-economics-3e.md) — shared: Collective Bargaining, Intellectual Property
+- [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md) — shared: Corporate Culture
 - [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Compliance
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Stakeholder Theory

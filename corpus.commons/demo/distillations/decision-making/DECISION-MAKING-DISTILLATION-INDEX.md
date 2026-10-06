@@ -40,6 +40,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **A novel, ambiguous, high-stakes decision** | Programmed vs non-programmed; six-step process (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Decision-makers defending a sunk-cost decision** | Escalation of commitment (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Safety uncertain, schedule pushing to proceed** | Conservative decision-making; burden of proof toward stopping; risky shift (DOE HPI Handbook Vol. 1) | `doe-hpi-handbook-vol1-decision-making.md` |
+| **Decision rests on a vendor's or expert's assurance; unlike replacement under schedule pressure** | Validate assumptions; five-step decision tool with abort criteria; devil's advocate (DOE HPI Handbook Vol. 2) | `doe-hpi-handbook-vol2-decision-making.md` |
 | **A group reaches consensus too quickly** | Groupthink, devil's advocate (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Ethical implications need to be made explicit** | Rest's four-component model (OpenStax) | `openstax-organizational-behavior-decision-making.md` |
 | **Strategic decision needs SWOT / PESTEL / Porter's Five Forces framing** | SWOT, PESTEL, Porter's Five Forces, VRIO (OpenStax Principles of Management) | `openstax-principles-management-decision-making.md` |
@@ -336,6 +337,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Accept the information gap | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The room treats missing information as a reason to wait; MCDP 1 holds that all action rests on incomplete, inaccurate or contradictory information and that risk is equally common to action and inaction. |
 | Recognise a no-rule (knowledge-based) decision | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | A team of experts faces a problem none of their rules cover; the handbook calls knowledge-based mode "lack of knowledge" mode, with an inaccurate mental model as its prevalent error. |
 | Detect production as the default value | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Schedule framing dominates and safety is assumed; without leadership, production becomes the default core value. |
+| Decide whether to diagnose before deciding | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | A problem has no clear cause yet: PACTS works backward from a problem stated as a gap; the decision tool works forward from a goal; in a no-rule situation, pause and involve a second knowledgeable person. |
 
 ### Phase 2: Bounding
 
@@ -392,6 +394,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Account for accumulated history | SSDL, Systems Thinking Foundations (Brief 1.06) | `ssdl-systems-thinking-foundations-decision-making.md` | The "blank slate" failure mode — treating a new stakeholder, team, or system state as if it has no history. The state I am bounding is an accumulation of inflows and outflows over time. |
 | Set decision rights by intent | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Deciding which decisions to keep and which to hand down; MCDP 1 puts decisions with whoever is at the point of decision, acting on the senior's intent, and has the senior prescribe method only to the degree coordination needs. Subordinates should understand intent at least two levels up. |
 | Set the irreversible step and abort criteria | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | A decision touches a step whose failure causes irreversible harm (a critical step); weigh severity as well as likelihood and set abort criteria before starting. |
+| Write down and verify the assumptions | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | *I think*, *we've always*, *it was fine last time* or a vendor's *it's equivalent* carry the case: document each assumption, find objective evidence, check it in the field, and close every unverified one out before the decision is handed on. |
 
 ### Phase 3: Exploring
 
@@ -465,6 +468,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Get honest opinions before the decision | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Options are being weighed in a room where people defer to the senior voice; MCDP 1 makes honest, professional opinion, including disagreement with the senior, a subordinate's duty until the decision is stated. |
 | Look for gaps, not surfaces | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Choosing where to apply effort against an opposing party (a competitor, an adversary); MCDP 1 avoids strength and aims at weakness, reaching what the other side cannot do without through a weakness rather than head on. The doctrine assumes an opposing will: name it before using the rule. |
 | Test assumptions and the shared mental model | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | "I think", "We've always", "I believe" are carrying the argument; agree the mental model, name a devil's advocate, check confirmation, similarity and availability bias. |
+| Generate options and name a devil's advocate | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | Only one option is on the table, or front-line expertise has not been asked: develop several alternatives, use all available expertise, and assign someone to look for flaws. |
 
 ### Phase 4: Deciding
 
@@ -535,6 +539,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Name the main effort | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Too many simultaneous priorities; MCDP 1 recognises one action as most critical to success at that moment and gives it priority for support of any kind, accepting risk elsewhere. The commitment is not irretrievable; a shift should exploit success rather than reinforce failure. |
 | Price the wait | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The team wants more information before committing; MCDP 1 calls delay in an emergency for incomplete information a lack of moral courage, also warns against rash decisions, and sets the aim as a promising course of action with an acceptable degree of risk, not a perfect one. |
 | Put the burden of proof on proceeding | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Safety is uncertain and work is about to continue: prove it safe before proceeding rather than unsafe before halting; place systems in a known safe condition; watch for the group "risky shift". |
+| Apply the conservative-decision practices | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | Schedule pressure or a favoured option: stay within the safe envelope, do not discount disconfirming data, minimise uncertainty with facts, weigh cumulative risk, get an independent review, and check the signer can sign without doubt. |
 
 ### Phase 5: Ratifying
 
@@ -582,6 +587,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Close the dissent window | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | The decision has been stated; MCDP 1 asks those who argued against it to support it as if it were their own, and does not tolerate ready compliance for personal advancement. |
 | Hand over task and intent | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Committing a decision that others will carry out; give the task and the intent as an *in order to* statement, with the intent predominant because it outlasts the task, and prescribe method only as far as coordination needs. |
 | State roles, contingencies, abort criteria and the right to stop | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Communicating a conservative decision: clear direction, roles and responsibilities, contingencies and abort criteria; workers authorised to take conservative action when conditions turn uncertain. |
+| Commit with owners, contingencies and abort criteria | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | The plan step: who, what, by when; contingencies for unintended consequences; abort or hold criteria; stakeholders involved. |
 
 ### Phase 6: Monitoring
 
@@ -638,6 +644,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Sort errors of boldness from errors of inaction | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Reviewing a decision that went wrong; MCDP 1 treats errors of overboldness by junior leaders leniently, as part of learning, deals severely with errors of inaction or timidity, and gives no licence to act recklessly. |
 | Hold a critique that asks why | US Marine Corps, MCDP 1 Warfighting | `mcdp1-warfighting-decision-making.md` | Reviewing a decision after the fact; MCDP 1's critiques are held soon after, in open and frank dialogue where all hands contribute, and focus on why actions were taken and why they brought the results they did. |
 | Catch normalisation of a repeated deviation | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Something happens every time without harm, or good results are used to dismiss recommendations: the bald-tire attitude, with Columbia's foam strikes as the handbook's example. |
+| Choose indicators that predict, and read them properly | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | Choosing how to track a decision: seven criteria for an indicator, two or three per objective, leading over lagging; "a single event could appear to be a trend"; schedule the effectiveness review; benchmark or invite independent oversight to see past paradigm blindness. |
 
 ---
 
@@ -711,6 +718,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 ### Human performance and error in hazardous operations
 
 - `doe-hpi-handbook-vol1-decision-making.md`, U.S. Department of Energy (*Human Performance Improvement Handbook, Vol. 1: Concepts and Principles*, DOE-HDBK-1028-2009). Skill-, rule- and knowledge-based modes as a way to classify decisions (knowledge-based as "lack of knowledge" mode; inaccurate mental model as its failure); assumptions, danger words, devil's advocate and mental biases; conservative decision-making and a burden of proof toward stopping when safety is uncertain; groupthink, deference and the risky shift; production against prevention; normalisation in management decisions (Columbia); change management. Rasmussen, Reason, Senge, Janis and INPO borrowed-through. **Public domain (17 USC §105) — no copyleft propagation.**
+
+- `doe-hpi-handbook-vol2-decision-making.md`, U.S. Department of Energy (*Human Performance Improvement Handbook, Vol. 2: Human Performance Tools for Individuals, Work Teams, and Management*, DOE-HDBK-1028-2009). The five-step decision tool (goal, options, analysis, plan with abort criteria, review) and the conservative-decision practices; validate assumptions; questioning attitude and danger words; pause when unsure; PACTS before deciding a fix; devil's advocate; the signature discipline; choosing and reading performance indicators; benchmarking and independent oversight against paradigm blindness; change management. INPO-adapted tools paraphrased only. **Public domain (17 USC §105) — no copyleft propagation.**
 
 ### Org design
 

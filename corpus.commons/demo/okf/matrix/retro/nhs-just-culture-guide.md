@@ -136,6 +136,7 @@ The default-to-system prior, foresight test, substitution test, and dual-purpose
 
 **Same source, other task axes:** [aar](../aar/nhs-just-culture-guide.md) · [decision-making](../decision-making/nhs-just-culture-guide.md) · [software-business](../software-business/nhs-just-culture-guide.md) · [stakeholder-engagement](../stakeholder-engagement/nhs-just-culture-guide.md)
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Decision Making, Foresight Test, Human Error, Incident Investigation
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, HR Policy
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking

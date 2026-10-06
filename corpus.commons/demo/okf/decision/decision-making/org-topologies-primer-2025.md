@@ -183,6 +183,7 @@ This distillation gathers these threads into a working pattern: how to use the M
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Change Management, Organisational Change, Systems Thinking
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure

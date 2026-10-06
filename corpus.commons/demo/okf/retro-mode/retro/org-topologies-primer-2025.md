@@ -180,6 +180,7 @@ Phase 5: the team schedules the re-MAP 60 days out. The local-optimisation test 
 
 ## Related concepts
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Change Management, Organisational Change, Systems Thinking
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
 - [Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure

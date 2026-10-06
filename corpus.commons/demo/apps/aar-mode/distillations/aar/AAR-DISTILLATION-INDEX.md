@@ -48,6 +48,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **AAR that surfaces org-design questions** | OpenStax Principles of Management (six structure types) + OpenStax Business Ethics (Grunig-Hunt categories plus power × interest prioritisation for escalation) | `openstax-principles-management-aar.md`, `openstax-business-ethics-aar.md` |
 | **AAR surfaces org structure as a named contributory factor (team-archetype mismatch, topology drag)** | Org Topologies Primer (Krivitsky, Larman & Flemm) — naming vocabulary + remediation pathway for org-structure subset | `org-topologies-primer-2025-aar.md` |
 | **AAR action requires structural escalation to leadership** | Org Topologies Primer — strategic-design-stance framing; pairs with OpenStax PoM for structure catalogue | `org-topologies-primer-2025-aar.md`, `openstax-principles-management-aar.md` |
+| **Slip or lapse on a familiar task, retraining proposed** | DOE HPI Handbook Vol. 1 (performance modes, action matched to error type) + NHS Just Culture | `doe-hpi-handbook-vol1-aar.md`, `nhs-just-culture-guide-aar.md` |
+| **Severe outcome from an ordinary error; long-tolerated practice** | DOE HPI Handbook Vol. 1 (Anatomy of an Event, severity through controls, normalisation) + SSDL archetypes | `doe-hpi-handbook-vol1-aar.md`, `ssdl-systems-thinking-foundations-aar.md` |
 | **Project-completion review, not an incident** | TC 25-20 + Open Practice Library Blameless Postmortem + Field Guide retro discipline | `tc-25-20-army-aar-aar.md`, `open-practice-library-aar.md`, `approach-perfect-field-guide-scrum-events-aar.md` |
 
 ---
@@ -68,6 +70,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Scope as cross-functional rather than team-internal | Schwaber & Sutherland, Scrum Guide 2020 | `scrum-guide-2020-aar.md` | Scrum's Sprint Retrospective inspects the team's own way of working, sprint by sprint; the AAR is its event-triggered, cross-functional counterpart, so team-internal iterative learning routes to [[retro]] instead. |
 | Surface the senior's stance on mistakes before accounts begin | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator asks how to convene without administrative-action contamination: MCDP 1 ties candour to the senior's tolerance ("a subordinate's willingness to admit mistakes depends on the commander's willingness to tolerate them"); pair with LFUO's no-punitive-action assurance for the procedure. |
 | Hold the review while memory is fresh, successes included | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator describes time pressure tempting them to skip: MCDP 1 holds critiques "immediately after completing training, before memory of the events has faded", after success as well as failure. |
+| Make it safe to report, not only blameless | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator asks how to convene without administrative-action contamination: if people believe errors will be punished, information about them stays obscure; a just culture is a prerequisite for a reporting culture, which also needs de-identification, protection, separation of functions, feedback and easy reporting. |
 
 ## Phase 1: Timeline and local-rationality reconstruction
 
@@ -87,6 +90,9 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Recognise hindsight bias contaminating the analysis | OpenStax, Psychology 2e | `openstax-psychology-2e-aar.md` | Hindsight bias, availability heuristic, anchoring — the perception and memory frame for facilitator vocabulary. |
 | Put the reasons and the intent on the timeline | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator describes building a timeline: for each action, record what the person was trying to achieve and why the move made sense; MCDP 1's critique focuses "not so much on the actions we took as on why we took those actions and why they brought the results they did". |
 | Weigh accounts by where each person stood | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator describes participant accounts diverging: all hands contribute; a competent person at the point of decision better appreciates the true situation than a senior some distance away; everyone acted on incomplete, inaccurate or contradictory information. |
+| Reconstruct goals, focus and knowledge at each critical point | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator notices hindsight contaminating accounts: establish what each person was trying to accomplish, what they were paying attention to and what they knew then (via Dekker). |
+| Lay the timeline out on the Anatomy of an Event | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes building a timeline: for each step, record the error precursors present, the controls in place or missing, and the earlier decisions that set them; name the performance mode (skill, rule, knowledge) of the initiating action. |
+| Find who saw it and stayed quiet | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Someone noticed and deferred to a senior, assumed another was checking, or kept quiet for harmony: name it as a team error (pilot/co-pilot, halo, free riding, groupthink) and treat what made speaking costly as a contributor. |
 
 ## Phase 2: Contributory-factor analysis
 
@@ -114,6 +120,9 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Test whether Resource-Topology framing of frontline staff contributed | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-aar.md` | Frontline staff were being treated as fungible resources (rotated, denied voice in design, denied end-to-end accountability); the Resource-framing is a named structural contributory factor, not a leadership-style critique. |
 | Widen a single cause to many forces and self-made friction | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator describes a single-cause analysis: MCDP 1 treats each episode as "the unique product of myriad moral, mental, and physical forces"; prompt for self-induced friction (unclear goal, poor coordination, unclear or complicated plans, complex task organisation or command relationships, complicated technology). |
 | Show that waiting carried risk too | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator describes counterfactual creeping in: where the counterfactual assumes waiting was safe, MCDP 1's "Risk is equally common to action and inaction" answers it; LFUO carries the rule against counterfactuals itself. |
+| Refuse person-labels as causes | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator says "the root cause was...": "inattention to detail" and "not following procedures" are not root causes; ask what could have prevented the event, not who caused it, and which controls limited it. |
+| Explain severity through controls | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes a single-cause analysis or a severe outcome from an ordinary error: severity is set by the number and weakness of controls; work the Anatomy of an Event backward to show the line of sight from organisational weaknesses to consequences. |
+| Name normalised deviation and latent accumulation | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes the same pattern recurring or a practice that "always worked": latent conditions accumulate rather than fade; the bald-tire attitude, with Columbia's normalised foam strikes as the example; recurrent errors indicate latent organisational weaknesses. |
 
 ## Phase 3: Just-culture sorting
 
@@ -129,6 +138,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Communicate the just-culture decision to stakeholders | NHS Improvement, Just Culture Guide | `nhs-just-culture-guide-aar.md` | The guide is both decision aid and communication tool, shared with all parties in advance; its dual purpose is protecting staff from unfair targeting and protecting patients by not treating wider patient safety issues as individual issues. |
 | Name which kind of error is on the table | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator surfaces an individual-vs-system call: MCDP 1 separates overbold errors (dealt with leniently), errors of inaction or timidity (dealt with severely) and stupid or reckless acts (no licence); use it to bring waits into scope, and route the individual-action decision to the NHS tree. |
 | Read the just-culture call against organisational behaviour substrate | OpenStax, Organizational Behavior | `openstax-organizational-behavior-aar.md` | The fundamental attribution error pushes observers toward blaming the individual rather than the situation, and self-serving bias leads each function to attribute the failure to adjacent teams; surface both before deciding. |
+| Separate error from violation before judging | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator surfaces an individual-vs-system call: unintended slip, lapse or mistake versus deliberate departure from a known rule (mostly well intentioned); zero tolerance for reckless conduct, honest errors unpunished; about 90% or more of unsafe acts blameless. Pair with the NHS tree for the individual decision. |
+| Judge by intent, not consequence | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Discipline is proposed only because harm resulted: the handbook names "named, blamed, shamed, and re-trained based on the consequence" as the failure; apply the substitution question (adapted from Johnston via Reason) and ask how the organisation failed the individual. |
 
 ## Phase 4: Action design
 
@@ -153,6 +164,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Use named-archetype vocabulary in escalation memos to non-engineering leadership | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-aar.md` | Precise archetype labels (CAPS-2 → CAPS-3) survive transit to leadership not engaged in the incident; avoids vague language ("more autonomy", "cross-functional teams") that gets escalation memos dismissed. |
 | Defend against single-element structural fixes in action design | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-aar.md` | A proposed remediation that changes only one org-design element (a role, a policy, a committee) without systems-fit carries the local-optimisation warning: "flow can get worse." The action needs to address systems-fit. |
 | Test actions for added control and equipment-only fixes | U.S. Marine Corps, MCDP 1 | `mcdp1-warfighting-aar.md` | Operator describes drafting actions: "Better equipment is not the cure for all ills"; information technology tempts toward precise, positive control; people oversupervised in routine work cannot be expected to show initiative in the field. |
+| Match the action to the error type | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes drafting actions, especially retraining: retraining a skill-based slip is "a waste of time" and "an insult to the worker"; rule-based errors may be fixed by retraining; knowledge-based mistakes need analysis first. |
+| Lower severity, not only frequency | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Every action asks people to be more careful: error reduction lowers frequency only; add at least one control, engineered over administrative where prevention is imperative; mark the critical step. |
 
 ## Phase 5: Learning-loop closure
 
@@ -170,6 +183,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Address force protection (safety) at every AAR | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | Standing-agenda discipline: safety touched every review regardless of whether it came up during the event under review. |
 | Schedule OT re-mapping to test whether structural recommendations took hold | Krivitsky, Larman & Flemm, Org Topologies Primer | `org-topologies-primer-2025-aar.md` | "Periodic re-mapping with Org Topologies is an easy and fast way to complete a learning loop of feedback and adapting" — did the topology actually shift, or did the structural change stall at announcement? Tie re-mapping to a calendar date and a participant list. |
 | Cross-link to the iterative team-internal cadence | (cross-axis) | (`retro` axis — see [[retro]]) | When the team also needs iterative team-internal learning at retrospective cadence, route to the retro axis. |
+| Show reporters the change and verify closure | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-aar.md` | Operator describes last AAR's actions never happened: workers must see changes in response to their feedback; track each action to closure with independent verification; check procedures for the common administrative-control flaws. |
 
 ## Reference categories
 
@@ -207,6 +221,10 @@ The references below are listed by Pass G applicability fire. Strong-fire refere
 
 - `mcdp1-warfighting-aar.md` — U.S. Marine Corps, *MCDP 1: Warfighting* (1997; supersedes FMFM 1, 1989). US Government public-domain doctrine; scope=open. Not an AAR text and never names the AAR: its word for post-event review is *critique*, one paragraph in Ch 3 "Training" (hold it immediately, before memory fades, even after success; open and frank dialogue with all hands; admissions depend on the senior's tolerance of mistakes; focus on why actions were taken and why they brought their results). Also carries the Ch 3 "Professionalism" error stance (leniency for overbold errors, severity for errors of inaction or timidity, no licence for stupid or reckless acts), the Ch 4 task-versus-intent split for reviewing departures from a plan (the burden of understanding falls on senior and subordinate alike), and Ch 1's uncertainty, friction and complexity for contributory-factor work. Complements TC 25-20, LFUO 2024 and NHS; replaces none of them.
 
+**Strong fire (error types, event model and just culture from safety-management doctrine):**
+
+- `doe-hpi-handbook-vol1-aar.md` — U.S. Department of Energy, *Human Performance Improvement Handbook, Vol. 1: Concepts and Principles* (DOE-HDBK-1028-2009). US Government public-domain work; scope=open. Not an AAR manual. Carries the error taxonomy (slip, lapse, mistake, violation; active versus latent) with an action matched to each performance mode (no retraining for skill-based slips), the Anatomy of an Event worked backward to the line of sight from organisational weaknesses to consequences, severity set by controls rather than by the error, the blame cycle and the error-versus-violation balance, a culpability decision tree adapted from Reason, normalisation (Columbia foam strikes) and team errors. Reason, Rasmussen, Dekker, Johnston, Gilbert, Weick and Hollnagel are borrowed-through; keeps a root-cause vocabulary LFUO rejects.
+
 **Light fire (specific contexts):**
 
 - `openstax-business-ethics-aar.md` — ethical minimum/maximum and social-contract framing, phronesis for judgement calls, employer-obligation chapters (workplace safety, whistleblowing), Grunig-Hunt and power × interest stakeholder prioritisation when AAR surfaces ethical exposure.
@@ -226,6 +244,7 @@ The references below are listed by Pass G applicability fire. Strong-fire refere
 
 ## Anti-patterns this index helps avoid
 
+- **Retraining a slip.** DOE HPI Handbook: retraining someone for a skill-based slip they did not intend is "a waste of time"; match the action to the error type.
 - **Single-cause anchoring.** LFUO 2024 refuses it; *networked causality* is the replacement vocabulary. TC 25-20 takes no position on single versus multiple causes, but its discussion techniques let several contributing actions surface.
 - **Counterfactual creep.** "If they had done X..." is LFUO's forbidden move; redirect to *why people did what they actually did*.
 - **Premature individual blame.** NHS default-to-system framing precedes the five-test decision tree; "action singling out an individual is rarely appropriate."
@@ -234,5 +253,5 @@ The references below are listed by Pass G applicability fire. Strong-fire refere
 - **Recommendations from an FLA.** LFUO: recommendations require Learning Review with the Learning Review Board and Safety Action Plan; an FLA cannot produce them.
 - **AAR closing without a next-action commitment.** TC 25-20: "the real benefits of AARs come from taking the results and applying them to future training"; an AAR without retraining is not finished.
 - **Action ownership left ambiguous.** LS Discovery & Action Dialogues' "Who will do what when next?" is the structural refusal; RACI is the artefact when written.
-- **Source-integrity papering-over.** When the participant names a canonical HOP author (Dekker, Reason, Hollnagel, Weick, Conklin), surface that the framing is carried borrowed-through LFUO 2024 / SSDL and the demo cannot cite directly.
+- **Source-integrity papering-over.** When the participant names a canonical HOP author (Dekker, Reason, Hollnagel, Weick, Conklin), surface that the framing is carried borrowed-through LFUO 2024 / SSDL / the DOE HPI Handbook and the demo cannot cite directly.
 - **Retro-shaped event scoped as AAR.** The AAR is event-triggered cross-functional; iterative team-internal learning routes to [[retro]] — wrong axis selection produces wrong artefact.

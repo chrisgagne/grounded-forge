@@ -227,6 +227,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Business Environment, Business Plan, Entrepreneurship
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
 - [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, HR Policy
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values

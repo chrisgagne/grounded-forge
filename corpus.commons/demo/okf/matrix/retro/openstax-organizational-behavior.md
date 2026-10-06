@@ -167,6 +167,7 @@ The attribution-bias, conformity, process-vs-relationship-conflict, and expectan
 
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: 360 Assessment, Adaptation, Appreciative Inquiry, Avoidance Learning
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Attitude, Cognitive Biases, Communication, Dual Process Theory
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Corporate Culture, Harassment, Sexual Harassment
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Organisational Structure
 - [Open Kanban](open-kanban.md) — shared: Collaboration, Values

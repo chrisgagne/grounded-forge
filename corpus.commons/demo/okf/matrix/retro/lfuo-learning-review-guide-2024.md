@@ -153,6 +153,7 @@ The cause-as-construction principle, counterfactual prohibition, Five Hows, and 
 
 **Same source, other task axes:** [aar](../aar/lfuo-learning-review-guide-2024.md) · [decision-making](../decision-making/lfuo-learning-review-guide-2024.md) · [software-business](../software-business/lfuo-learning-review-guide-2024.md) · [stakeholder-engagement](../stakeholder-engagement/lfuo-learning-review-guide-2024.md)
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [Open Kanban](open-kanban.md) — shared: Systems Thinking

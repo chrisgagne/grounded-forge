@@ -222,6 +222,7 @@ These five decisions illustrate the volume's central decision-making patterns: r
 ## Related concepts
 
 - [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Decision Making, Performance Measurement
 - [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Accounting, Managerial Accounting
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Accounting, Budgeting
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, Stakeholder Theory

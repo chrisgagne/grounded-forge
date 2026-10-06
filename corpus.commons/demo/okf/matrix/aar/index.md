@@ -16,6 +16,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Scope as cross-functional rather than team-internal → [scrum-guide-2020](scrum-guide-2020.md)
 - Surface the senior's stance on mistakes before accounts begin → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Hold the review while memory is fresh, successes included → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Make it safe to report, not only blameless → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 1: Timeline and local-rationality reconstruction
 
@@ -33,6 +34,9 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Recognise hindsight bias contaminating the analysis → [openstax-psychology-2e](openstax-psychology-2e.md)
 - Put the reasons and the intent on the timeline → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Weigh accounts by where each person stood → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Reconstruct goals, focus and knowledge at each critical point → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Lay the timeline out on the Anatomy of an Event → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Find who saw it and stayed quiet → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 2: Contributory-factor analysis
 
@@ -58,6 +62,9 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Test whether Resource-Topology framing of frontline staff contributed → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Widen a single cause to many forces and self-made friction → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Show that waiting carried risk too → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Refuse person-labels as causes → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Explain severity through controls → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Name normalised deviation and latent accumulation → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 3: Just-culture sorting
 
@@ -71,6 +78,8 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Communicate the just-culture decision to stakeholders → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Name which kind of error is on the table → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Read the just-culture call against organisational behaviour substrate → [openstax-organizational-behavior](openstax-organizational-behavior.md)
+- Separate error from violation before judging → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Judge by intent, not consequence → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 4: Action design
 
@@ -93,6 +102,8 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Use named-archetype vocabulary in escalation memos to non-engineering leadership → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Defend against single-element structural fixes in action design → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Test actions for added control and equipment-only fixes → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Match the action to the error type → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Lower severity, not only frequency → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 5: Learning-loop closure
 
@@ -107,11 +118,13 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Frame the AAR as discovery, not critique → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Address force protection (safety) at every AAR → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Schedule OT re-mapping to test whether structural recommendations took hold → [org-topologies-primer-2025](org-topologies-primer-2025.md)
+- Show reporters the change and verify closure → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
-## All concept files (19)
+## All concept files (20)
 
 - [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md)
 - [FLO Facilitation Guide](flo-facilitation-guide.md)
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md)
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)

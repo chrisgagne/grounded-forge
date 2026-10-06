@@ -12,7 +12,7 @@ sources:
     resource: https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-06T13:15:46+13:00
 ---
 # NHS Improvement Just Culture Guide, After-Action Review Distillation
 
@@ -137,6 +137,7 @@ A hospital team reviews a medication incident in which a nurse administered the 
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 frames the AAR as comparing unit performance against the standard, not a critique and not grading success or failure; it does not address the individual-accountability question, which the NHS tree handles |
 | OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the fundamental attribution error and the self-serving bias (Ch 3.3, "Attributional Bias") that drive individual blame before the system locus is examined; the NHS tree is the structural antidote to those biases |
 | Liberating Structures Handbook (liberating-structures-handbook) | LS's Levels of Accountability ladder is the facilitation redirect for below-the-line conversations before the formal NHS tree is applied; the ladder diagnoses the conversation's posture, the tree handles the formal locus decision |
+| DOE HPI Handbook Vol. 1 (doe-hpi-handbook-vol1) | Both trace their just-culture apparatus to Reason and both use a substitution test. DOE adds what NHS does not carry: the error-versus-violation distinction, the blame cycle, and an action matched to the error type (no retraining for skill-based slips). Its own culpability tree is an adaptation of Reason's; for the individual-action decision, NHS's five-test tree stays the primary aid. |
 
 ## Citation and Source-Integrity Notes
 
@@ -150,6 +151,7 @@ A hospital team reviews a medication incident in which a nurse administered the 
 
 **Same source, other task axes:** [decision-making](../decision-making/nhs-just-culture-guide.md) · [retro](../retro/nhs-just-culture-guide.md) · [software-business](../software-business/nhs-just-culture-guide.md) · [stakeholder-engagement](../stakeholder-engagement/nhs-just-culture-guide.md)
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Decision Making, Foresight Test, Human Error, Incident Investigation
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Decision Making, HR Policy
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking

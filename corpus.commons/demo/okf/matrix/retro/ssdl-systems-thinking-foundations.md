@@ -163,6 +163,7 @@ Phase 4: the experiment is redesigned to target the loop, not the event — a sp
 **Same source, other task axes:** [aar](../aar/ssdl-systems-thinking-foundations.md) · [decision-making](../decision-making/ssdl-systems-thinking-foundations.md) · [software-business](../software-business/ssdl-systems-thinking-foundations.md) · [stakeholder-engagement](../stakeholder-engagement/ssdl-systems-thinking-foundations.md)
 
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Mental Models, Systems Thinking
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
 - [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
 - [Open Kanban](open-kanban.md) — shared: Systems Thinking

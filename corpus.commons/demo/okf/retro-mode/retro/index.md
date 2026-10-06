@@ -19,6 +19,7 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 - Check for hygiene-factor suppression before content → [openstax-principles-management](openstax-principles-management.md)
 - Safety check returns 1-2 → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Lead names manager on call → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Hold a senior voice back until others have written → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 0.5: Experiment review (what did we say last time, what happened)
 
@@ -32,6 +33,7 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 - Reframe from team-failure to structural-constraint → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Last retro's experiments weren't done → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Same experiment proposed three retros running → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Check what the last experiments visibly changed → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 1: Priming (set the topic frame, surface energy, choose retro shape)
 
@@ -60,6 +62,7 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 - Use planning-poker-style estimates for retro vote weight → [letaw-handbook-sweng-methods](letaw-handbook-sweng-methods.md)
 - Team agrees too quickly → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Team is helpless ("nothing we can do") → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Surface doubt before agreement → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 3: Insight / cause analysis (the *why*, the system, the recurring pattern)
 
@@ -87,6 +90,9 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 - Detect the topology-mismatch pattern producing the recurring topic → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Apply local-optimisation test to proposed experiments → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Blame language surfacing → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Name the kind of error behind a delta → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Reframe blame toward the setup → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Name a normalised shortcut → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 4: Experiment design (one or two owned experiments)
 
@@ -112,6 +118,8 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 - Use the Elevating-Kata-as-experiment framing for structural escalations → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Five experiments on the board → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Give each experiment a purpose, not only a task → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Fit the experiment to the error type → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
+- Add an experiment that limits harm → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 
 ## Phase 5: Close (commitments, gratitude, take-aways)
 
@@ -127,10 +135,11 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 - Confirm the PDCA Act step is named before close → [openstax-principles-management](openstax-principles-management.md)
 - Schedule the next OT re-mapping as a structural-check cadence → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 
-## All concept files (19)
+## All concept files (20)
 
 - [Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md)
 - [FLO Facilitation Guide](flo-facilitation-guide.md)
 - [Jones, Evidence-Based Software Engineering](jones-evidence-based-sweng.md)
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md)

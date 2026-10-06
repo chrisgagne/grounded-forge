@@ -251,6 +251,7 @@ The point of these examples is not that systems thinking always reverses the con
 **Same source, other task axes:** [aar](../aar/ssdl-systems-thinking-foundations.md) · [retro](../retro/ssdl-systems-thinking-foundations.md) · [software-business](../software-business/ssdl-systems-thinking-foundations.md) · [stakeholder-engagement](../stakeholder-engagement/ssdl-systems-thinking-foundations.md)
 
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Causal Loop Diagrams, Group Model Building, System Dynamics, Systems Thinking
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Mental Models, Systems Thinking
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Systems Thinking
 - [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Systems Thinking
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking

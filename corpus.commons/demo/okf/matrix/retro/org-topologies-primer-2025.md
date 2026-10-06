@@ -182,6 +182,7 @@ Phase 5: the team schedules the re-MAP 60 days out. The local-optimisation test 
 
 **Same source, other task axes:** [aar](../aar/org-topologies-primer-2025.md) · [decision-making](../decision-making/org-topologies-primer-2025.md) · [software-business](../software-business/org-topologies-primer-2025.md) · [stakeholder-engagement](../stakeholder-engagement/org-topologies-primer-2025.md)
 
+- [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Change Management, Organisational Change, Systems Thinking
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Change Management, Organisational Change, Organisational Structure
 - [Open Kanban](open-kanban.md) — shared: Flow, Systems Thinking
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Change Management, Organisational Structure

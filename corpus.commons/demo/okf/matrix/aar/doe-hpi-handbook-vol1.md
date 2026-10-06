@@ -12,7 +12,7 @@ sources:
     resource: https://www.energy.gov/sites/default/files/2026-04/doe-hdbk-1028-2009_volume1_0.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-06T13:15:46+13:00
+  at: 2026-10-06T13:17:59+13:00
 ---
 # US DOE, Human Performance Improvement Handbook Vol. 1, After-Action Review Distillation
 
@@ -188,7 +188,7 @@ The team replaces it with actions aimed at the conditions and the controls: dist
 
 **Named limits of the source.** The handbook is written for DOE facilities (operators, technicians, engineers, laboratory staff) and its examples are mainly nuclear, industrial and aviation; the software scenario above is the projection's. It states that it "focuses on managing human error" rather than violations (Ch 2, p. 2-11). It keeps a root-cause vocabulary that LFUO 2024 rejects. Its error-rate and error-share figures are cited from industry studies, not produced by DOE. Its culpability decision tree is an adaptation of Reason's, and its box text survives in the converted source without the arrows, so the distillation names the questions and outcomes but not every branch.
 
-**Evidence-marker continuity.** The four blockquotes and every inline `[V]` fragment are copied from the deep reference's verified quotations (all checked against the converted source by `scripts/check-verbatim.py`). Within the `[V]` blockquote from Ch 4, p. 4-26, the source's curly inner quotation marks are rendered as single quotes. The foresight and substitution test questions, the culpability-tree walkthrough and the reporting-culture features are paraphrased, not quoted, because the handbook adapts them from Reason and Johnston. Lens gate: the four demo lenses (builder, agentic-builder, pm-bounded-by-ba-role, chris-gagne-consultant-coach) were each judged clear no for this distillation; retrieval-time fallback covers a lens-specified query.
+**Evidence-marker continuity.** The three blockquotes and every inline `[V]` fragment are copied from the deep reference's verified quotations (all checked against the converted source by `scripts/check-verbatim.py`). Within the `[V]` blockquote from Ch 4, p. 4-26, the source's curly inner quotation marks are rendered as single quotes. The foresight and substitution test questions, the culpability-tree walkthrough and the reporting-culture features are paraphrased, not quoted, because the handbook adapts them from Reason and Johnston. Lens gate: the four demo lenses (builder, agentic-builder, pm-bounded-by-ba-role, chris-gagne-consultant-coach) were each judged clear no for this distillation; retrieval-time fallback covers a lens-specified query.
 
 ## Runtime triggers this source addresses
 

@@ -220,13 +220,13 @@ The team replaces it with actions aimed at the conditions and the controls: dist
 
 **Same source, other task axes:** [decision-making](../decision-making/doe-hpi-handbook-vol1.md) · [retro](../retro/doe-hpi-handbook-vol1.md)
 
-- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, Foresight Test, Human Error, Incident Investigation
-- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
+- [NHS Improvement Just Culture Guide](nhs-just-culture-guide.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [US Forest Service LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
 - [Open Kanban](open-kanban.md) — shared: Continuous Improvement, Systems Thinking
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Memory
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Systems Thinking
 - [SSDL Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Mental Models, Systems Thinking
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [US Army TC 25-20](tc-25-20-army-aar.md) — shared: Performance Measurement

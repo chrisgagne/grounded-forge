@@ -215,7 +215,7 @@ This example illustrates several key concepts in the source: stakeholder definit
 **Same source, other task axes:** [decision-making](../decision-making/openstax-principles-finance.md) · [software-business](../software-business/openstax-principles-finance.md)
 
 - [OpenStax Principles of Accounting Vol 1 (Financial Accounting)](openstax-accounting-vol1.md) — shared: Balance Sheet, Cash Flows, Financial Statements, Securities Regulation
-- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Discounted Cash Flow
+- [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Budgeting, Capital Structure, Time Value of Money
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Balance Sheet, Budgeting, Finance
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Cash Flows
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Risk Management

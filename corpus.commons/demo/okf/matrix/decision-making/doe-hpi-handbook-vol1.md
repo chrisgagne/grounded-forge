@@ -178,14 +178,14 @@ They pause the run in a known safe state, check the cooling line, and set an abo
 
 **Same source, other task axes:** [aar](../aar/doe-hpi-handbook-vol1.md) · [retro](../retro/doe-hpi-handbook-vol1.md)
 
-- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Decision Making, Foresight Test, Human Error, Incident Investigation
-- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Culpability Decision Tree, Foresight Test, Human Error, Incident Investigation
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
-- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Change, Systems Thinking
+- [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Continuous Improvement, Systems Thinking
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Performance Measurement
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Memory
+- [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Systems Thinking
 - [SSDL, Systems Thinking Foundations](ssdl-systems-thinking-foundations.md) — shared: Mental Models, Systems Thinking
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking

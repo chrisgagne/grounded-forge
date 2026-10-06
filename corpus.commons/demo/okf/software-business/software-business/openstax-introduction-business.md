@@ -213,5 +213,5 @@ A founder of a Series A medical-imaging SaaS company faces a decision: their lar
 - [OpenStax Principles of Finance](openstax-principles-finance.md) — shared: Balance Sheet, Budgeting, Finance
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Budgeting
 - [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
-- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: HR Policy
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Human Resources
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Organisational Structure

@@ -246,5 +246,5 @@ This worked example illustrates several key concepts: the four-stakeholder mappi
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Accounting, Budgeting
 - [OpenStax, Principles of Marketing](openstax-principles-marketing.md) — shared: Marketing, Supply Chain Management
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Hawthorne Effect, Theory X, Y and Z
-- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: HR Policy
+- [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Human Resources
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Organisational Structure

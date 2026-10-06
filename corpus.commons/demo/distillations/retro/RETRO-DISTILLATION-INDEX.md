@@ -50,6 +50,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Counterfactual creeping in** | LFUO forbidden-move list | `lfuo-learning-review-guide-2024-retro.md` |
 | **Experiment on the board is "be more careful" or "retrain"** | DOE HPI Handbook Vol. 1 (error types, experiment fitted to the error) | `doe-hpi-handbook-vol1-retro.md` |
 | **Deltas raised last time never came back; the team cannot tell whether experiments worked** | DOE HPI Handbook Vol. 2 (post-job review follow-up, leading versus lagging indicators) | `doe-hpi-handbook-vol2-retro.md` |
+| **A "known issue" sits on the board every sprint and never gets an experiment** | CAIB Report Vol. I (normalisation of deviance: first acceptance as precedent, drifting labels, mixed signals from iterations that went fine) + SSDL archetypes | `caib-report-vol1-retro.md`, `ssdl-systems-thinking-foundations-retro.md` |
 | **Team-internal cadence (not incident-triggered)** | Field Guide Sprint Retrospective + Scrum Guide canonical event | `approach-perfect-field-guide-scrum-events-retro.md`, `scrum-guide-2020-retro.md` |
 | **Same impediment surfacing repeatedly across retros — structural mismatch suspected** | Org Topologies Primer — archetype-mismatch vocabulary + structural-vs-process classification | `org-topologies-primer-2025-retro.md` |
 
@@ -75,6 +76,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Safety check returns 1-2 | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Ch 3 critique rule: a team member's willingness to admit mistakes "depends on the commander's willingness to tolerate them". Before asking for mistakes, the lead (and any manager) states that admitted mistakes will be discussed, not punished; trust "is a product of confidence and familiarity" and is not rebuilt in one retro. |
 | Lead names manager on call | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Brief the manager before the retro: open by stating tolerance for admitted mistakes (Ch 3, "Training"), and invite disagreement before the team commits; MCDP 1 makes honest opinion before a decision a duty (Ch 3, "Professionalism"). |
 | Hold a senior voice back until others have written | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Lead names manager on call: pilot/co-pilot deference, the reluctance to challenge a senior person's opinions or decisions; have everyone write first and the senior speak last. |
+| Name the status effect before content | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-retro.md` | Lead names manager on call: position in the organisation decides whose information is weighed, by others and by the speaker; plan a route for the quiet or junior voice before content starts. |
 
 ## Phase 0.5: Experiment review (what did we say last time, what happened)
 
@@ -93,6 +95,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Check what the last experiments visibly changed | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Last retro's experiments weren't done, or the same one is proposed again: people must see change in response to their feedback; latent conditions accumulate rather than fade, so a returning delta points at a condition present each time. |
 | Report back on every delta, face to face | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-retro.md` | Last retro's experiments weren't done: the post-job review's at-risk practices are no follow-up method, no follow-up with the people involved, and follow-up not done face to face; name an owner and a report-back for each delta. |
 | Read results with leading measures, not one event | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-retro.md` | Experiments were done, results unclear: lagging measures show outcomes, leading ones show conditions; "a single event could appear to be a trend"; re-assess after significant changes for unintended consequences. |
+| Check older improvements, not just last sprint's | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-retro.md` | Last retro's experiments weren't done, or a fix from months ago has lapsed: improvements fade and get undone once urgency passes; review past changes periodically. |
 
 ## Phase 1: Priming (set the topic frame, surface energy, choose retro shape)
 
@@ -128,6 +131,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Team is helpless ("nothing we can do") | U.S. Marine Corps, MCDP 1: Warfighting | `mcdp1-warfighting-retro.md` | Sort the deltas against MCDP 1's five examples of self-induced friction (unclear goal, lack of coordination, unclear or complicated plans, complex task organizations or command relationships, complicated technologies); the self-induced ones are the team's to act on (Ch 1, "Friction"). |
 | Surface doubt before agreement | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Team agrees too quickly: groupthink symptoms (self-censorship, illusion of unanimity; adapted from Janis); write individually first and name a devil's advocate. |
 | Gather pluses and deltas against the plan | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-retro.md` | Compare what happened with what was planned, especially at the riskiest steps; prompt for surprises, document and tool problems, minor errors, workarounds and gut feelings, because minor problems are latent and accumulate if left off the board. |
+| Surface what has become normal, and what was not said | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-retro.md` | Ask which problem recurs so often no one raises it, what was asked for and never came, and what people noticed but did not say; marginal voices often hold the signal. |
 
 ## Phase 3: Insight / cause analysis (the *why*, the system, the recurring pattern)
 
@@ -161,6 +165,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Reframe blame toward the setup | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Blame language surfacing: ask "how did the organization fail the individual?"; if people expect errors to be punished, information about them stays obscure. |
 | Name a normalised shortcut | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Same pattern reappearing, or a shortcut defended because "it's always been fine": the bald-tire attitude; count the close calls. |
 | State the gap before the cause, and test the cause | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-retro.md` | Lead asks for root cause, or one voice dominates: PACTS states the problem as a gap agreed by those closest to it, tests causes against refuting evidence, refuses to name a cause when none can be found, and lists one person dominating and avoiding controversy as at-risk practices; assign a devil's advocate. |
+| Trace the accepted anomaly back to its first acceptance | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-retro.md` | Same pattern reappearing 2+ retros or team agrees too quickly: find when it was first accepted and why, check whether its label has drifted, notice whether good iterations are being read as proof it is safe, and ask someone to argue the other side. |
 
 ## Phase 4: Experiment design (one or two owned experiments)
 
@@ -191,6 +196,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Fit the experiment to the error type | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | The experiment is "be more careful", "double-check" or "train X": retraining a slip on a daily task is "a waste of time"; change the conditions that made the slip easy instead. |
 | Add an experiment that limits harm | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-retro.md` | Every experiment makes a problem rarer: error reduction lowers frequency, only controls lower severity. |
 | Design the experiment as a small decision | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-retro.md` | Experiments lack owners or the experiment is "a new rule" or "training": set the goal first, compare options, then who / what / by when with abort criteria; concluding training or a procedure change will always solve it is a named at-risk practice; pick a leading measure. |
+| Make the weak signal visible; route structural causes upward | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-retro.md` | Experiment crossed into structural-change territory: design the experiment to make a recurring problem visible as a trend; name the part that needs authority outside the team and who takes it there. |
 
 ## Phase 5: Close (commitments, gratitude, take-aways)
 
@@ -230,6 +236,7 @@ The references below are listed by Pass G applicability fire. Strong-fire refere
 
 - `doe-hpi-handbook-vol1-retro.md` — U.S. Department of Energy, *Human Performance Improvement Handbook, Vol. 1* (DOE-HDBK-1028-2009); public domain. Reads mistake-shaped deltas by error type (slip, lapse, mistake, violation) and fits the experiment to it (no retraining or "be more careful" for slips); recurring deltas as accumulated latent conditions or normalised shortcuts; frequency versus severity; team errors (deference, groupthink); "how did the organization fail the individual?" for blame language. Has no retro format of its own.
 - `doe-hpi-handbook-vol2-retro.md` — U.S. Department of Energy, *Human Performance Improvement Handbook, Vol. 2: Human Performance Tools* (DOE-HDBK-1028-2009); public domain. The post-job review as a short plus/delta review against the plan with face-to-face follow-up, and its at-risk practices; PACTS problem solving and its group at-risk practices (cause-first problem statements, one voice dominating, avoiding controversy); the devil's advocate; experiment design as a goal-options-plan-review decision with abort criteria; leading versus lagging indicators for reading experiment results. INPO-adapted material paraphrased only. Has no retro ceremony of its own; pairs with Vol. 1.
+- `caib-report-vol1-retro.md` — Columbia Accident Investigation Board, *Report, Volume I* (August 2003); public domain. An accident investigation, scaled down here to a team: the accepted anomaly that becomes furniture (normalisation of deviance, credited to Vaughan), drifting labels, mixed signals from iterations that went fine, devil's advocacy when the room agrees, status deciding whose information counts, and improvements that fade. Route mid-incident teams to its AAR distillation.
 
 **Strong fire (facilitation craft):**
 

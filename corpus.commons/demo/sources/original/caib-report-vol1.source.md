@@ -22,4 +22,4 @@ The text comes from the PDF's OCR layer. The operator checked Chapters 5–8: bo
 
 The report is a US Government work, but it quotes outside works (among them Diane Vaughan's *The Challenger Launch Decision*, Richard Feynman's appendix to the Rogers Commission report, and the Rogers Commission report itself) and carries a Boeing-credited figure in Chapter 9. All of that is paraphrased in every derived artefact, never quoted; the deep reference's header lists it.
 
-Converted markdown: `../converted/caib-report-vol1.md`. Deep reference: `../../references/caib-report-vol1-deep.md`. Light reference: `../../references/caib-report-vol1.md`.
+Converted markdown: `../converted/caib-report-vol1.md`. Deep reference: `../../references/caib-report-vol1-deep.md`. Light reference: `../../references/caib-report-vol1.md`. Distillations: `../../distillations/aar/caib-report-vol1-aar.md`, `../../distillations/retro/caib-report-vol1-retro.md`, `../../distillations/decision-making/caib-report-vol1-decision-making.md`.

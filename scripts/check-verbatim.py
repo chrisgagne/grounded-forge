@@ -49,9 +49,13 @@ that finds it:
             folio sits inside the passage in the converted text. Usually a
             conversion artefact; a changed figure in the quote would also land
             here, so it is shown.
-  ligature  Found once "fi" and "fl" are read as "f": the converter kept the
-            first letter of a ligature glyph and dropped the rest ("confrms").
-            Converter damage, not the author's change; not failing.
+  ligature  Found once every ligature (ff, fi, fl, ffi, ffl) is read as "f",
+            on both sides. That covers the three ways a converter damages a
+            ligature glyph: it keeps the first letter and drops the rest
+            ("confrms"), it splits the ligature from its word ("fi rst",
+            "fl ow"), or it writes a punctuation mark in its place ("e"ort",
+            "o#ce", "signi%cant", "work!ows"). Converter damage, not the
+            author's change; not failing.
   interrupted
             Found as up to four runs of the quote's words, each within a few
             hundred characters of the last. The text in each gap is shown: a
@@ -171,7 +175,14 @@ APOSTROPHE_STEP = (re.compile("[‘’‚‛′`']"), "'")
 DASH_STEP = (re.compile(r"\s*(?:[–—‐‑−]|--+)\s*|\s+-\s+"), "-")
 FOOTNOTE_RE = re.compile(r"(?<=[A-Za-z.,;:')])\d{1,3}(?= |$)")
 PUNCT_RE = re.compile(r"\W+")
-LIGATURE_LOSS_RE = re.compile(r"f[il]")
+LIGATURE_LOSS_RE = re.compile(r"f(?:f[il]?|[il])")  # ffi, ffl, ff, fi, fl → f
+# A mark some converters write in place of a ligature glyph, inside a word
+# ("e"ort", "o#ce", "signi%cant", "work!ows") or opening one ("!ow"). Double
+# quotes already read as a straight single quote here, so a word-internal one is
+# taken as a ligature on both sides; an apostrophe in "don't" turns to "f" in
+# the quotation and the source alike, so a true match still holds.
+LIGATURE_MARK_RE = re.compile(r"(?<=[a-z])['#%!](?=[a-z])|(?<![a-z'])[#%!](?=[a-z])")
+LIGATURE_SPLIT_RE = re.compile(r"(?<=f) (?=[a-z])")  # "f rst" once "fi rst" reads as "f rst"
 PAGE_RE = re.compile(r"(?<![^ ])\d{1,4} ")
 
 
@@ -222,11 +233,14 @@ def normalise(text: str, level: str, hyphen: str = "join") -> tuple[str, list[in
     if rank >= LEVELS.index("near"):
         s, idx = _sub(s, idx, FOOTNOTE_RE, "")
         s, idx = _lower(s, idx)
+        if rank >= LEVELS.index("ligature"):
+            s, idx = _sub(s, idx, LIGATURE_MARK_RE, "f")
         s, idx = _sub(s, idx, PUNCT_RE, " ")
     if rank >= LEVELS.index("page"):
         s, idx = _sub(s, idx, PAGE_RE, "")
     if rank >= LEVELS.index("ligature"):
         s, idx = _sub(s, idx, LIGATURE_LOSS_RE, "f")
+        s, idx = _sub(s, idx, LIGATURE_SPLIT_RE, "")
     return s, idx
 
 

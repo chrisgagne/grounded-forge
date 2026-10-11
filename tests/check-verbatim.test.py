@@ -58,6 +58,8 @@ Work is an activity that produces something of value for other people.
 The second resource is called role perceptions—how employees believe their jobs are done.
 
 A ﬁnal word on ﬁxing things that are not broken.
+
+The e"ort to make the o#ce run e#ciently was signi%cant, and the work!ow was the fi rst thing to change.
 """
 
 # (label, deep-ref line, expected kind or None for a clean match)
@@ -118,6 +120,9 @@ CASES = [
      "missing"),
     ("a ligature the converter cut short → ligature",
      '"Managers who plan carefully find that the flexibility they need" [V] (Ch 4).',
+     "ligature"),
+    ("ligatures written as marks or split off their word → ligature",
+     '"The effort to make the office run efficiently was significant, and the workflow was the first thing to change" [V] (Ch 4).',
      "ligature"),
     ("a figure claim is counted, not flagged",
      '| Reward schedules compared | 4 | [V] (Ch 4) |',

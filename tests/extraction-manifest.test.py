@@ -373,7 +373,23 @@ def case_no_lock_artefact_is_left_in_the_corpus(root: Path) -> None:
     assert_(not leftovers, f"the writer left artefacts behind: {leftovers}")
 
 
+def case_year_suffixed_slug_keeps_its_own_image_dir(root: Path) -> None:
+    """slugify drops a trailing year, so annual-review-2026.pdf used to
+    resolve to annual-review-images/ beside a converted file named
+    annual-review-2026.md. An exact stem match must win."""
+    converted = build_fixture(root)
+    mod = load_extractor(root)
+    (converted / "annual-review-2026.md").write_text("tape\n")
+    source = fake_source(root, "annual-review-2026")
+    got = mod.resolve_md_slug(source, converted)
+    assert_(got == "annual-review-2026", f"expected the exact stem, got {got!r}")
+    orphan = fake_source(root, "no-tape-yet-2025")
+    got = mod.resolve_md_slug(orphan, converted)
+    assert_(got == "no-tape-yet", f"without a tape the slugified name stands, got {got!r}")
+
+
 CASES = [
+    case_year_suffixed_slug_keeps_its_own_image_dir,
     case_second_source_does_not_clobber_the_first,
     case_rerunning_a_source_replaces_its_own_entries,
     case_a_source_with_no_images_clears_its_stale_entries,

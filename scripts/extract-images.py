@@ -197,6 +197,10 @@ def resolve_md_slug(source_path, converted_dir):
     if a matching .md exists in converted_dir; otherwise fall back to the
     source's own slug.
     """
+    # An exact stem match wins: slugify strips a trailing year, which would
+    # send annual-review-2026.pdf to annual-review-images/.
+    if (converted_dir / f"{source_path.stem}.md").is_file():
+        return source_path.stem
     src_slug = slugify(source_path.name)
     for candidate in converted_dir.glob("*.md"):
         if candidate.stem.endswith(src_slug) or candidate.stem == src_slug:

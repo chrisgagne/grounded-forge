@@ -94,6 +94,12 @@ Read the failure message. It names the check and the specific files. Three patte
 
 The script is shell. It reads as documentation. If a check fires for the wrong reason in your work, the script is where to refine it.
 
+## Tests and CI
+
+`npm test` runs every automated test in `tests/` and needs Node 18+, Python 3 and PyYAML. Tests that read `corpus.local/` skip on a clone that doesn't have one.
+
+[CI](.github/workflows/ci.yml) runs on every pull request and every push to `main`: the tests, the slug-table and Codex-agent checks, and a fresh `npm run build` that must reproduce the tracked apps and OKF bundles exactly. If that last step fails, run `npm run build` and commit what changed.
+
 ## A note on tone
 
 The repo prefers direct, precise prose. Match it. Throat-clearing ("In this section we will discuss…") and puffery ("This revolutionary framework…") both go; say what something does and why, and if it doesn't do something important, say why. UK English spelling in docs (per the conventional house style); the codebase doesn't have many spelling-relevant identifiers.

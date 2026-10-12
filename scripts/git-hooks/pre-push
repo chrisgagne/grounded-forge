@@ -31,6 +31,16 @@ set -uo pipefail
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT" || exit 2
 
+# The private lists checks 10 and 12 read live in the main checkout's
+# corpus.local/. A linked worktree, where agent sessions usually work, has no
+# corpus.local/ of its own, so read the main checkout's; otherwise both scans
+# would skip exactly where an agent pushes from.
+LOCAL_TIER="corpus.local"
+if [ ! -d "$LOCAL_TIER" ]; then
+  MAIN_ROOT="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
+  [ -d "$MAIN_ROOT/corpus.local" ] && LOCAL_TIER="$MAIN_ROOT/corpus.local"
+fi
+
 # Colours (only if stderr is a TTY)
 if [ -t 2 ]; then
   R=$'\033[31m'; G=$'\033[32m'; Y=$'\033[33m'; B=$'\033[34m'; X=$'\033[0m'
@@ -50,6 +60,7 @@ note() { printf "${B}·${X} %s\n" "$1" >&2; }
 
 printf "${B}Pre-push audit:${X} grounded-forge\n" >&2
 printf "  repo: %s\n" "$REPO_ROOT" >&2
+printf "  private lists: %s\n" "$LOCAL_TIER" >&2
 printf "  branch: %s\n\n" "$(git rev-parse --abbrev-ref HEAD)" >&2
 
 # ─── Check 1: private-tier leakage ─────────────────────────────────────────────
@@ -377,7 +388,7 @@ note "Check 10/12: private-term leakage"
 # check can't leak what it guards. Only lines this push ADDS are scanned: names
 # already public (and names that collide with open source text) never trip it,
 # and an agent writing private context into a public file does.
-TERMS_FILE="corpus.local/private-terms.txt"
+TERMS_FILE="$LOCAL_TIER/private-terms.txt"
 if [ ! -f "$TERMS_FILE" ]; then
   warn "no $TERMS_FILE; skipping private-term scan (the list is local-only by design)"
 else
@@ -420,15 +431,18 @@ note "Check 12/12: private source slugs"
 # what it guards. Exempt: slugs a public corpus also has (the source is public
 # anyway), and names on the local-only corpus.local/public-slugs.txt, for slugs
 # that double as public words (a public document's name, a generic term).
-if ! ls corpus.local/*/references/slug-table.json >/dev/null 2>&1; then
+if ! ls "$LOCAL_TIER"/*/references/slug-table.json >/dev/null 2>&1; then
   warn "no private corpora here; skipping private-slug scan"
 elif ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping private-slug scan"
 else
   SLUGS=$(mktemp)
-  python3 - > "$SLUGS" <<'PY'
+  LOCAL_TIER="$LOCAL_TIER" python3 - > "$SLUGS" <<'PY'
 import glob
 import json
+import os
+
+local = os.environ["LOCAL_TIER"]
 
 
 def slugs(pattern):
@@ -440,11 +454,11 @@ def slugs(pattern):
 
 public = slugs("corpus.commons/*/references/slug-table.json")
 try:
-    public |= {line.strip() for line in open("corpus.local/public-slugs.txt", encoding="utf-8")
+    public |= {line.strip() for line in open(os.path.join(local, "public-slugs.txt"), encoding="utf-8")
                if line.strip() and not line.startswith("#")}
 except FileNotFoundError:
     pass
-for slug in sorted(slugs("corpus.local/*/references/slug-table.json") - public):
+for slug in sorted(slugs(os.path.join(local, "*/references/slug-table.json")) - public):
     print(slug)
 PY
   SLUG_HITS=$(grep -w -F -f "$SLUGS" "$ADDED" || true)

@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aar-maker",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Your own domain: here, in PUBLIC_URL, and in the GitHub OAuth app's callback URL.
+  "routes": [{ "pattern": "aar.groundedforge.com", "custom_domain": true }],
+  "workers_dev": false,
+  // The icon files; any path not in public/ goes to the Worker.
+  "assets": { "directory": "./public" },
+  // OAuth clients, grants and tokens (hashed), managed by workers-oauth-provider. Put the id
+  // `npx wrangler kv namespace create OAUTH_KV` prints here.
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "REPLACE_WITH_OAUTH_KV_ID" }],
+  // Per GitHub login: 120 MCP calls a minute is far above a real review's pace.
+  "ratelimits": [{ "name": "LIMITER", "namespace_id": "1001", "simple": { "limit": 120, "period": 60 } }],
+  // Workers Logs: the per-call log lines (login, tool, library file; never query text).
+  "observability": { "enabled": true },
+  "vars": {
+    "PUBLIC_URL": "https://aar.groundedforge.com",
+    // Your GitHub OAuth app's client ID (public; the client secret is a Worker secret).
+    "GITHUB_CLIENT_ID": "Ov23liEwXKAHV6NpF3kT",
+    // Comma-separated GitHub logins shut out at sign-in and on every call.
+    "BLOCKED_USERS": ""
+  }
+  // Secrets, never in this file (npx wrangler secret put NAME): GITHUB_CLIENT_SECRET, COOKIE_SECRET.
+}

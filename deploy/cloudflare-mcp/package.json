@@ -1,0 +1,18 @@
+{
+  "name": "aar-maker-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bundle": "node bundle.mjs",
+    "dev": "node bundle.mjs && wrangler dev",
+    "deploy": "node bundle.mjs && wrangler deploy",
+    "test": "esbuild src/mcp.js --bundle --format=esm --platform=neutral --log-level=warning --outfile=.wrangler/test/mcp.mjs && node selftest.mjs"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^1.2.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "wrangler": "^4.149.0"
+  }
+}

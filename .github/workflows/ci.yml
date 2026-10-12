@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: OKF generated.at is each distillation's last commit date,
+      # which a shallow clone would report as HEAD's.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      # --ignore-scripts skips puppeteer's browser download; nothing here needs it.
+      - run: npm ci --ignore-scripts
+
+      # pass-i-driver imports scripts/pass_i/run.py, which reads YAML.
+      - run: pip install pyyaml
+
+      - name: Tests
+        run: npm test
+
+      - name: Slug table and Codex agent twins are current
+        run: |
+          npm run -s slug-table:demo:check
+          npm run -s codex-agents:check
+
+      # Compiled apps and OKF bundles under corpus.commons/ are tracked, so a
+      # rebuild from the committed sources must reproduce them exactly.
+      - name: Tracked build output matches a fresh build
+        run: |
+          npm run -s build
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --short
+            echo "::error::Tracked build output is stale. Run 'npm run build' and commit the result."
+            exit 1
+          fi

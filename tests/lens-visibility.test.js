@@ -100,12 +100,34 @@ function testCommonsConfidentialFails() {
   }
 }
 
-// Case 2: a personal lens does not appear in any app whose profile has
-// max_visibility: confidential. Walks every corpus.local/*/ corpus root,
-// identifies personal-visibility lenses by frontmatter, and asserts none
-// of them appear in any built app under that corpus root. Substrate-agnostic:
-// no corpus name is hardcoded.
-function testPersonalAbsentFromConfidentialApps() {
+// Mirrors build.js. A profile's max_visibility sets the ceiling; `personal`
+// ships only where a profile opts in with max_visibility: personal.
+const VISIBILITY_RANK = { open: 0, "open-nc": 1, copyrighted: 2, confidential: 3, personal: 4 };
+const DEFAULT_MAX_VISIBILITY = "open-nc";
+
+// Map each app directory under a corpus root to its profile's max_visibility,
+// read from that corpus's builds.yaml. The app directory is the basename of
+// output_dir, or the profile name when output_dir is absent.
+function appCeilings(corpusRoot) {
+  const ceilings = new Map();
+  const configPath = path.join(corpusRoot, "builds.yaml");
+  if (!fs.existsSync(configPath)) return ceilings;
+  const yaml = require("js-yaml");
+  const config = yaml.load(fs.readFileSync(configPath, "utf8")) || {};
+  for (const [name, profile] of Object.entries(config.builds || {})) {
+    const dir = profile.output_dir ? path.basename(profile.output_dir) : name;
+    ceilings.set(dir, profile.max_visibility ?? DEFAULT_MAX_VISIBILITY);
+  }
+  return ceilings;
+}
+
+// Case 2: a personal lens appears only in apps whose profile opts in with
+// max_visibility: personal. Walks every corpus.local/*/ corpus root,
+// identifies personal-visibility lenses by frontmatter, and asserts none of
+// them appear in a built app whose ceiling sits below personal. An app with
+// no profile in builds.yaml gets the default ceiling. Substrate-agnostic: no
+// corpus name is hardcoded.
+function testPersonalOnlyInPersonalApps() {
   const localTier = path.join(REPO_ROOT, "corpus.local");
   if (!fs.existsSync(localTier)) {
     console.log("  skip: corpus.local/ not present");
@@ -136,6 +158,7 @@ function testPersonalAbsentFromConfidentialApps() {
 
     const appRoot = path.join(corpusRoot, "apps");
     if (!fs.existsSync(appRoot)) continue;
+    const ceilings = appCeilings(corpusRoot);
     const apps = fs
       .readdirSync(appRoot, { withFileTypes: true })
       .filter((e) => e.isDirectory())
@@ -143,6 +166,8 @@ function testPersonalAbsentFromConfidentialApps() {
     for (const app of apps) {
       const appLensDir = path.join(appRoot, app, "lenses");
       if (!fs.existsSync(appLensDir)) continue;
+      const ceiling = ceilings.get(app) ?? DEFAULT_MAX_VISIBILITY;
+      if (VISIBILITY_RANK[ceiling] >= VISIBILITY_RANK.personal) continue;
       for (const lens of personalLenses) {
         const shipped = path.join(appLensDir, lens);
         assert(
@@ -258,7 +283,7 @@ function testLensIndexMatchesShipped() {
 
 const cases = [
   ["spec-location gate refuses confidential lens under corpus.commons/", testCommonsConfidentialFails],
-  ["personal lens absent from corpus.local apps (max_visibility=confidential)", testPersonalAbsentFromConfidentialApps],
+  ["personal lens ships only in corpus.local apps with max_visibility: personal", testPersonalOnlyInPersonalApps],
   ["open-nc Chris lens ships in every corpus.commons app", testChrisLensInCommonsApps],
   ["regenerated LENS-INDEX in each app matches shipped lens set", testLensIndexMatchesShipped],
 ];

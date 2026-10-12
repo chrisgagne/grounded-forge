@@ -111,6 +111,10 @@ The repo doubles as a Claude Code plugin (`.claude-plugin/plugin.json`). The ski
 
 Claude Code reads `CLAUDE.md`; other coding agents (Codex and the growing set of AGENTS.md-aware tools) read `AGENTS.md`. The repo ships one at its root — a thin adapter that points any file-access agent at the same guardrails: read `CLAUDE.md`, invoke the skills under `.claude/skills/*/SKILL.md` natively where the runtime supports it, fall back to reading them as written procedures where it does not, and honour the source-integrity floor and tier separation. The durable enforcement lives where every agent hits it regardless of vendor: the git pre-push audit and build-time validation, not any one runtime's pre-write hook. Any agent that lands here inherits the discipline from the first file it reads.
 
+### Serving an app as a remote MCP connector
+
+A compiled app can also run as a remote MCP connector, so a practitioner's own Claude or ChatGPT uses the library without installing anything. [`deploy/cloudflare-mcp/`](deploy/cloudflare-mcp/) is a working example: a Cloudflare Worker that serves the `aar-mode` app as AAR Maker at `https://aar.groundedforge.com/mcp`, with GitHub sign-in and a log that names who called which tool but never what they typed. Its README covers deploying your own and connecting it in Claude and ChatGPT. For a local stdio server over any app folder, use [`scripts/mcp/corpus-server.mjs`](scripts/mcp/corpus-server.mjs).
+
 ## Forking for your own domain
 
 The repo ships a demo corpus at [`corpus.commons/demo/`](corpus.commons/demo/) and a private workspace at `corpus.local/` (gitignored, created on demand). The split is structural: `corpus.commons/` is tracked, redistributable, open-licensed; `corpus.local/` is yours and never enters the repo.
@@ -257,6 +261,7 @@ grounded-forge/
 │       ├── okf/                # Emitted OKF v0.2 interchange bundles (per app + full-matrix)
 │       └── distros/            # Packaged tarballs from `npm run package`
 ├── corpus.local/               # gitignored: your private corpora
+├── deploy/cloudflare-mcp/      # Cloudflare Worker serving the aar-mode app as a remote MCP connector
 ├── .claude/skills/             # Substrate authoring + runtime skills (corpus-agnostic)
 ├── scripts/                    # Build helpers (package.js, create-corpus.py, setup-chroma.py, …)
 └── tests/audit-fixtures/       # Pass I calibration + regression fixtures

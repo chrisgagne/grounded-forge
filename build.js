@@ -148,6 +148,7 @@ class MatrixBuilder {
     console.log("=".repeat(60));
 
     const outputDir = path.resolve(this.repoRoot, profile.output_dir);
+    this.helpersDir = null;
 
     if (fs.existsSync(outputDir)) {
       fs.rmSync(outputDir, { recursive: true });
@@ -185,6 +186,7 @@ class MatrixBuilder {
     await this.buildClaudeMd(profile, outputDir);
     await this.buildAgentsMd(profile, outputDir);
     await this.buildDocs(profile, outputDir);
+    await this.buildHelpers(profile, profileName, outputDir);
     await this.copyMisc(profile, outputDir, profileName);
 
     await this.validate(profile, outputDir, profileName);
@@ -1136,6 +1138,32 @@ source text — they are your citable provenance.
     console.log(`  Docs: ${copied} entries copied`);
   }
 
+  // A helper is code an app ships with, beyond its skills and agents: the
+  // factory's harness for factory-warranty, say. It lives in the corpus at
+  // helpers/{profile}/, named after the one profile it belongs to, and is
+  // copied byte for byte into the app at {helpers_dir} (default helpers/).
+  // Local environments and caches stay behind.
+  async buildHelpers(profile, profileName, outputDir) {
+    const src = path.join(this.sourceDir, "helpers", profileName);
+    if (!fs.existsSync(src)) return;
+    const dest = path.join(outputDir, profile.helpers_dir || "helpers");
+    const skip = new Set([".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".DS_Store"]);
+    let files = 0;
+    const copy = (from, to) => {
+      fs.mkdirSync(to, { recursive: true });
+      for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
+        if (skip.has(entry.name) || entry.name.endsWith(".pyc")) continue;
+        const s = path.join(from, entry.name);
+        const d = path.join(to, entry.name);
+        if (entry.isDirectory()) copy(s, d);
+        else if (entry.isFile()) { fs.copyFileSync(s, d); files++; }
+      }
+    };
+    copy(src, dest);
+    this.helpersDir = dest;
+    console.log(`  Helpers: ${files} files -> ${path.relative(outputDir, dest)}/`);
+  }
+
   async copyMisc(profile, outputDir, profileName) {
     // README resolution, parallel to CLAUDE.md template lookup:
     // corpus-bound `{source_dir}/build-profiles/{profile-name}-README.md`
@@ -1528,6 +1556,8 @@ source text — they are your citable provenance.
     for (const entry of entries) {
       if (entry.name === ".git") continue;
       const full = path.join(dir, entry.name);
+      // A helper's own docs link within the helper, not the app's layout.
+      if (this.helpersDir && full === this.helpersDir) continue;
       if (entry.isDirectory()) {
         out.push(...this.collectMdFiles(full, basePath));
       } else if (entry.name.endsWith(".md")) {
@@ -1755,7 +1785,11 @@ Examples:
   }
 }
 
-main().catch((e) => {
-  console.error("Fatal error:", e);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((e) => {
+    console.error("Fatal error:", e);
+    process.exit(1);
+  });
+}
+
+module.exports = { MatrixBuilder };

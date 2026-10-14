@@ -704,8 +704,10 @@ def main() -> int:
         for e in errors:
             print(f"error: {e}", file=sys.stderr)
         summary = ", ".join(f"{counts[k]} {k}" for k in (*LEVELS[1:], "interrupted", "cross-source", "wrong-source", "missing", "no-quote") if k in counts) or "no findings"
-        print(f"\n{len(files)} file(s) checked: {summary}; {figures} figure claim(s) not checked"
-              + (f"; {len(errors)} without a source" if errors else ""))
+        checked = len(files) - len(errors)
+        # A file with no converted source wasn't checked: say so first, so "no findings" can't be read as a pass for it.
+        print((f"\nNOT CHECKED: {len(errors)} file(s) had no converted source (see the errors above)." if errors else "")
+              + f"\n{checked} file(s) checked: {summary}; {figures} figure claim(s) not checked")
 
     if errors:
         return 2

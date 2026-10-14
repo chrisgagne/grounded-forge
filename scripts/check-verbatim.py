@@ -22,9 +22,12 @@ that finds it:
 
   exact     Found once conversion noise is set aside on both sides: whitespace
             collapsed, Markdown emphasis and link syntax dropped, ligatures
-            expanded (ﬂ → fl), zero-width characters and `<br>` dropped, a word
-            hyphenated across a line rejoined (or kept, for a true compound),
-            no space before punctuation, an en or em dash set open or closed. Double quote marks
+            expanded (ﬂ → fl), zero-width characters and `<br>` dropped, a
+            hyphen at a line end read as the quote spells the word (rejoined
+            for a word split across the line, kept for a true compound, each
+            hyphen on its own), running headers and folios between two pages
+            dropped (see below), no space before punctuation, an en or em dash
+            set open or closed. Double quote marks
             read as single: inside a quotation the nesting convention turns the
             source's "x" into 'x'. Trailing
             `,` `.` `;` `:` inside the closing quote mark are the quoting
@@ -59,9 +62,9 @@ that finds it:
   interrupted
             Found as up to four runs of the quote's words, each within a few
             hundred characters of the last. The text in each gap is shown: a
-            running header or folio ("87 Warfighting MCDP1") is conversion
-            noise; a dropped clause is a quote shortened without an ellipsis
-            (fixture 09's failure mode).
+            dropped clause is a quote shortened without an ellipsis (fixture
+            09's failure mode); a page header the furniture rule below missed
+            is conversion noise.
   missing   Not found at any level: reworded, credited to the wrong source, or
             invented. The source text matching the quote's longest opening run
             of words is shown.
@@ -76,6 +79,18 @@ that finds it:
             sits on a paraphrase (fixture 07's failure mode). A segment with
             figures and no quote is a figure claim, which the protocol's stats
             table marks `[V]`; those are counted, not checked.
+
+Running headers and folios. A page break in a converted PDF leaves page
+furniture in the text: the folio at the foot of one page and the running header
+at the top of the next ("87", "Warfighting", "MCDP 1"). A short line (eight
+words or fewer) is a running header when its text, with digits read as one
+placeholder, recurs at least five times in the source; a line one or two
+characters from a header (an OCR slip, "MCD? 1") counts when it sits beside
+one. A run of header, folio and blank lines is dropped only where it shows a
+page break: a form feed, a folio line, or a header whose number changes from
+page to page ("87 Warfighting"). A quote is looked for with the furniture in
+place first, so a quote of a header's own words still matches; one that matches
+only once the furniture is dropped has every other word in place.
 
 Exit status is 1 when any finding other than `apostrophe`, `initial`,
 `ligature` or `cross-source` is reported, 2 when a file's source cannot be found, else 0.
@@ -141,6 +156,9 @@ GAP_WINDOW = 400  # max source characters between the runs of an interrupted quo
 MAX_RUNS = 4  # an interrupted quote may be found in at most this many runs
 MIN_RUN_WORDS = 3
 MIN_CROSS_SOURCE_WORDS = 5
+FURNITURE_MIN_REPEATS = 5  # a running header recurs on at least this many pages
+FURNITURE_MAX_WORDS = 8
+FURNITURE_MAX_CHARS = 60
 
 
 # ---------------------------------------------------------------------------
@@ -165,6 +183,11 @@ BASE_STEPS = [
     (re.compile("[\"“”„‟″]"), "'"),
 ]
 HYPHEN_RE = re.compile(r"(?<=[A-Za-z])-\s+(?=[a-z])")  # "organi-\nzation", "in- ward"
+# In the source, a hyphen at a line end becomes this mark, which a quote's
+# pattern reads as nothing (a word split across the line) or as a hyphen (a true
+# compound), by the quote's own spelling at that point. A private-use character
+# no converted text holds.
+HYPHEN_MARK = "\ue000"
 TAIL_STEPS = [
     (re.compile(r"\s+"), " "),
     (re.compile(r" (?=[.,;:!?)\]])"), ""),
@@ -174,7 +197,7 @@ TAIL_STEPS = [
 APOSTROPHE_STEP = (re.compile("[‘’‚‛′`']"), "'")
 DASH_STEP = (re.compile(r"\s*(?:[–—‐‑−]|--+)\s*|\s+-\s+"), "-")
 FOOTNOTE_RE = re.compile(r"(?<=[A-Za-z.,;:')])\d{1,3}(?= |$)")
-PUNCT_RE = re.compile(r"\W+")
+PUNCT_RE = re.compile(r"[^\w" + HYPHEN_MARK + r"]+")
 LIGATURE_LOSS_RE = re.compile(r"f(?:f[il]?|[il])")  # ffi, ffl, ff, fi, fl → f
 # A mark some converters write in place of a ligature glyph, inside a word
 # ("e"ort", "o#ce", "signi%cant", "work!ows") or opening one ("!ow"). Double
@@ -216,14 +239,34 @@ def _lower(text: str, idx: list[int]) -> tuple[str, list[int]]:
     return "".join(c.lower()[:1] for c in text), idx
 
 
-def normalise(text: str, level: str, hyphen: str = "join") -> tuple[str, list[int]]:
+def _drop(text: str, idx: list[int], spans: list[tuple[int, int]]) -> tuple[str, list[int]]:
+    """Replace each (start, end) span of `text` with a line break, carrying the
+    offset map. Spans are sorted and don't overlap."""
+    out: list[str] = []
+    oidx: list[int] = []
+    last = 0
+    for a, b in spans:
+        out.append(text[last:a] + "\n")
+        oidx.extend(idx[last:a])
+        oidx.append(idx[a])
+        last = b
+    out.append(text[last:])
+    oidx.extend(idx[last:])
+    return "".join(out), oidx
+
+
+def normalise(text: str, level: str, hyphen: str = "join",
+              drop: list[tuple[int, int]] | None = None) -> tuple[str, list[int]]:
     """Normalise `text` for one rung of the ladder. `hyphen` is "join" (rejoin
-    a word split across a line) or "keep" (a true compound broken at its hyphen)."""
+    a word split across a line) or "mark" (leave HYPHEN_MARK, for a quote's
+    pattern to resolve). `drop` lists spans of page furniture to set aside."""
     rank = LEVELS.index(level)
     s, idx = text, list(range(len(text)))
+    if drop:
+        s, idx = _drop(s, idx, drop)
     for pat, repl in BASE_STEPS:
         s, idx = _sub(s, idx, pat, repl)
-    s, idx = _sub(s, idx, HYPHEN_RE, "" if hyphen == "join" else "-")
+    s, idx = _sub(s, idx, HYPHEN_RE, "" if hyphen == "join" else HYPHEN_MARK)
     for pat, repl in TAIL_STEPS:
         s, idx = _sub(s, idx, pat, repl)
     if rank >= LEVELS.index("apostrophe"):
@@ -244,19 +287,121 @@ def normalise(text: str, level: str, hyphen: str = "join") -> tuple[str, list[in
     return s, idx
 
 
+FOLIO_LINE_RE = re.compile(r"\d{1,4}")
+SENTENCE_END_RE = re.compile(r"[.?!;:,]$")
+
+
+def _furniture_key(line: str) -> str:
+    """A line's text for spotting a running header: emphasis dropped, case
+    folded, every number read as one placeholder."""
+    return re.sub(r"\s+", " ", re.sub(r"\d+", "#", re.sub(r"[*_]+", "", line).strip().lower()))
+
+
+def _within(a: str, b: str, limit: int) -> bool:
+    """Levenshtein distance between a and b is at most `limit`."""
+    if abs(len(a) - len(b)) > limit:
+        return False
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        if min(cur) > limit:
+            return False
+        prev = cur
+    return prev[-1] <= limit
+
+
+def furniture_spans(raw: str) -> list[tuple[int, int]]:
+    """Spans of running headers and folios at page breaks (see the module
+    docstring): each a run of header, folio and blank lines that shows a page
+    break, from its first non-blank line to its last."""
+    lines = []  # (start, end, text, after a form feed)
+    for m in re.finditer(r"[^\n\f]*", raw):
+        if m.start() == m.end() and m.start() > 0 and raw[m.start() - 1] not in "\n\f":
+            continue
+        lines.append((m.start(), m.end(), m.group(0), m.start() > 0 and raw[m.start() - 1] == "\f"))
+
+    def short(text: str) -> bool:
+        """A line a running header could be: short, two letters or more, not a
+        sentence end, a Markdown heading or a table row."""
+        t = text.strip()
+        return (0 < len(t) <= FURNITURE_MAX_CHARS and len(t.split()) <= FURNITURE_MAX_WORDS
+                and len(re.findall(r"[A-Za-z]", t)) >= 2 and not SENTENCE_END_RE.search(t)
+                and t[0] not in "#|")
+
+    counts: dict[str, int] = {}
+    numbers: dict[str, set[str]] = {}
+    for _, _, text, _ in lines:
+        if short(text):
+            k = _furniture_key(text)
+            counts[k] = counts.get(k, 0) + 1
+            numbers.setdefault(k, set()).add(" ".join(re.findall(r"\d+", text)))
+    headers = {k for k, n in counts.items() if n >= FURNITURE_MIN_REPEATS}
+    if not headers:
+        return []
+    # A header carrying the folio: one number, at the start or the end, that
+    # changes from page to page ("87 Warfighting", not "Table 3.2").
+    numbered = {k for k in headers if len(numbers[k]) > 1 and k.count("#") == 1
+                and (k.startswith("# ") or k.endswith(" #"))}
+    near: dict[str, bool] = {}
+
+    def kind(text: str) -> str:
+        t = text.strip()
+        if not t:
+            return "blank"
+        if FOLIO_LINE_RE.fullmatch(t):
+            return "folio"
+        if short(t):
+            k = _furniture_key(t)
+            if k in headers:
+                return "numbered" if k in numbered else "header"
+            if k not in near:
+                near[k] = len(k) >= 4 and any(_within(k, h, 2 if len(h) >= 6 else 1) for h in headers)
+            if near[k]:
+                return "near-header"
+        return "text"
+
+    kinds_of = [kind(ln[2]) for ln in lines]
+    spans: list[tuple[int, int]] = []
+    i = 0
+    while i < len(lines):
+        if kinds_of[i] == "text":
+            i += 1
+            continue
+        j = i
+        while j < len(lines) and kinds_of[j] != "text":
+            j += 1
+        run = list(zip(lines[i:j], kinds_of[i:j]))
+        kinds = set(kinds_of[i:j])
+        # A near-header counts only beside a true header, and a page break must show.
+        has_header = kinds & {"header", "numbered"}
+        page_break = "folio" in kinds or "numbered" in kinds or any(ln[3] for ln, _ in run)
+        if has_header and page_break:
+            body = [ln for ln, k in run if k != "blank"]
+            spans.append((body[0][0], body[-1][1]))
+        i = j
+    return spans
+
+
 class Source:
-    """A converted source, normalised lazily per (level, hyphen) rung."""
+    """A converted source, normalised lazily per (level, hyphen, furniture) rung."""
 
     def __init__(self, path: Path):
         self.path = path
         self.raw = path.read_text(encoding="utf-8", errors="replace")
-        self._forms: dict[tuple[str, str], tuple[str, list[int]]] = {}
+        self.furniture = furniture_spans(self.raw)
+        self._forms: dict[tuple[str, str, bool], tuple[str, list[int]]] = {}
 
-    def form(self, level: str, hyphen: str) -> tuple[str, list[int]]:
-        key = (level, hyphen)
+    def form(self, level: str, hyphen: str, furniture: bool = False) -> tuple[str, list[int]]:
+        """With `furniture`, page furniture is dropped first."""
+        key = (level, hyphen, furniture)
         if key not in self._forms:
-            self._forms[key] = normalise(self.raw, level, hyphen)
+            self._forms[key] = normalise(self.raw, level, hyphen, self.furniture if furniture else None)
         return self._forms[key]
+
+    def furniture_modes(self) -> tuple[bool, ...]:
+        return (False, True) if self.furniture else (False,)
 
     def original(self, idx: list[int], start: int, end: int) -> str:
         if not idx or start >= len(idx):
@@ -378,17 +523,38 @@ def extract(text: str) -> Extracted:
 # Matching
 
 
-def _piece_pattern(piece: str, level: str, any_initial: bool) -> re.Pattern | None:
-    """A literal pattern for one elided piece; bracketed insertions become a
-    short wildcard. With `any_initial`, the first letter matches either case."""
+def _literal(lit: str, level: str, any_initial: bool) -> str:
+    """A pattern for one literal run of a quote. A hyphen mark in the source
+    may sit between any two letters, where it reads as nothing, or stand for a
+    hyphen the quote sets between two letters (a space, once punctuation is
+    folded), where it reads as that compound's hyphen."""
+    out: list[str] = []
+    mark = re.escape(HYPHEN_MARK)
+    hyphens = "- " if LEVELS.index(level) >= LEVELS.index("near") else "-"
+    for i, c in enumerate(lit):
+        prev, nxt = lit[i - 1 : i], lit[i + 1 : i + 2]
+        if c in hyphens and prev.isalpha() and nxt.isalpha():
+            out.append(f"[{re.escape(c)}{mark}]")
+            continue
+        if i == 0 and any_initial and c.isalpha():
+            out.append(f"[{re.escape(c.lower())}{re.escape(c.upper())}]")
+        else:
+            out.append(re.escape(c))
+        if c.isalpha() and nxt.isalpha():
+            out.append(mark + "?")
+    return "".join(out)
+
+
+def _piece_pattern(piece: str, level: str, any_initial: bool) -> tuple[re.Pattern, int] | None:
+    """A pattern for one elided piece, and the most source text it can span;
+    bracketed insertions become a short wildcard. With `any_initial`, the first
+    letter matches either case."""
     lits = [normalise(p, level)[0].strip() for p in BRACKET_RE.split(piece)]
     if not "".join(lits):
         return None
-    esc = [re.escape(x) for x in lits]
-    if any_initial and lits[0][:1].isalpha():
-        c = lits[0][0]
-        esc[0] = f"[{re.escape(c.lower())}{re.escape(c.upper())}]" + re.escape(lits[0][1:])
-    return re.compile((r".{0,%d}?" % INSERTION_WINDOW).join(esc), re.S)
+    esc = [_literal(x, level, any_initial and k == 0) for k, x in enumerate(lits)]
+    reach = sum(map(len, lits)) + INSERTION_WINDOW * (len(lits) - 1)
+    return re.compile((r".{0,%d}?" % INSERTION_WINDOW).join(esc), re.S), reach
 
 
 def _pieces(quote: str) -> list[str]:
@@ -403,16 +569,16 @@ def locate(quote: str, src: Source, level: str) -> tuple[int, int, list[int]] | 
         return None
     any_initial = level == "initial"
     norm_level = "glyph" if level == "initial" else level
-    for hyphen in ("join", "keep"):
-        text, idx = src.form(norm_level, hyphen)
-        pats = [_piece_pattern(p, norm_level, any_initial and k == 0) for k, p in enumerate(pieces)]
-        pats = [p for p in pats if p is not None]
-        if not pats:
-            return None
-        for m in pats[0].finditer(text):
+    pats = [_piece_pattern(p, norm_level, any_initial and k == 0) for k, p in enumerate(pieces)]
+    pats = [p for p in pats if p is not None]
+    if not pats:
+        return None
+    for furniture in src.furniture_modes():
+        text, idx = src.form(norm_level, "mark", furniture)
+        for m in pats[0][0].finditer(text):
             end, ok = m.end(), True
-            for p in pats[1:]:
-                nxt = p.search(text, end, end + ELISION_WINDOW + len(p.pattern))
+            for p, reach in pats[1:]:
+                nxt = p.search(text, end, end + ELISION_WINDOW + reach)
                 if not nxt:
                     ok = False
                     break
@@ -426,7 +592,7 @@ def locate_interrupted(quote: str, src: Source) -> list[str] | None:
     """Find a quote as up to MAX_RUNS runs of its words, each starting within
     GAP_WINDOW characters of the last, at the most permissive level. Return
     the source text in each gap, or None."""
-    text, idx = src.form("page", "join")
+    text, idx = src.form("page", "join", furniture=True)
     words = normalise(ELLIPSIS_RE.sub(" ", SIC_RE.sub("", quote)).rstrip(",.;: "), "page")[0].split()
     words = [w for w in words if not BRACKET_RE.fullmatch(w)]
     if len(words) < 2 * MIN_RUN_WORDS:
@@ -467,7 +633,7 @@ def locate_interrupted(quote: str, src: Source) -> list[str] | None:
 def closest(quote: str, src: Source) -> str:
     """The source text that matches the longest opening run of the quote's
     words, at the most permissive level, so the fix needs no further search."""
-    text, idx = src.form("page", "join")
+    text, idx = src.form("page", "join", furniture=True)
     words = normalise(ELLIPSIS_RE.sub(" ", SIC_RE.sub("", quote)), "page")[0].split()
     lo, hi, best = 1, len(words), None
     while lo <= hi:

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:2bedae6bcf6897403031342bddadd2fb0e71e3941082928e0d00f4b78ec25b12 -->
+<!-- derived-from-deep: sha256:d92cc7b35600184d8480c81068fa5ca28fd400b02218d1e2199f91ce05399012 -->
 ---
 title: "MCDP 1: Warfighting"
 author: "U.S. Marine Corps"

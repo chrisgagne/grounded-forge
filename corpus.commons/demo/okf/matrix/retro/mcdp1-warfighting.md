@@ -12,7 +12,7 @@ sources:
     resource: https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-12T08:11:26+13:00
+  at: 2026-10-15T11:27:46+13:00
 ---
 # U.S. Marine Corps, MCDP 1: Warfighting, Retrospective Distillation
 
@@ -189,7 +189,7 @@ In this scenario the next safety check comes back higher; that outcome belongs t
 
 **Named limits of the source.** MCDP 1 is doctrine for war and for preparing for war. It *"contains no specific techniques or procedures for conduct"* [V] (Foreword), never uses the words *retrospective* or *after-action review*, and says nothing about software teams. Every retro application here is by analogy, and the mapping of *commander* to lead or manager and *subordinate* to team member is the distillation's. The critique passage concerns training, not combat; its leniency passage concerns errors by junior leaders stemming from overboldness, and it names limits (counselling continues; no licence for stupid or reckless acts). The source's tempo, maneuver and OODA-loop material concerns competing against an opponent and is not projected here.
 
-**Evidence-marker continuity.** Every `[V]` quotation is copied from a `[V]` passage in the deep reference and matches the converted source word for word (line-break hyphens joined, curly quotes straightened). Two carry OCR repairs: the critique blockquote's "admit mistakes and discuss them", where the converted text reads "ajid", and the dash and spacing around *'yes-men'*, which the converted text runs together. The four blockquotes (critique, zero defects, honest dissent, main effort) are contiguous source text. The zero-defects blockquote joins three overlapping deep-ref `[V]` excerpts that are contiguous in the source (Ch 3, "Professionalism"). The two-way trust clause is paraphrased `[AP]`. The sentence introducing the "in order to" phrasing is paraphrased `[AP]` because the converted text garbles its ". . . in order to . . ." marks. Integration-row quotations carry the marker of their own deep references. Scenario details and outcomes in the worked example are the distillation's, not the doctrine's.
+**Evidence-marker continuity.** Every `[V]` quotation is copied from a `[V]` passage in the deep reference and matches the converted source word for word (line-break hyphens joined, curly quotes straightened). The four blockquotes (critique, zero defects, honest dissent, main effort) are contiguous source text. The zero-defects blockquote joins three overlapping deep-ref `[V]` excerpts that are contiguous in the source (Ch 3, "Professionalism"). The two-way trust clause is paraphrased `[AP]`. The sentence introducing the "in order to" phrasing is paraphrased `[AP]` because the converted text garbles its ". . . in order to . . ." marks. Integration-row quotations carry the marker of their own deep references. Scenario details and outcomes in the worked example are the distillation's, not the doctrine's.
 
 ## Runtime triggers this source addresses
 

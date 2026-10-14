@@ -9,7 +9,9 @@ hermetic deep reference, runs the real CLI against a synthetic converted source
 
 Cases mirror the Pass I audit fixtures where they can: 05 (apostrophe style →
 apostrophe, not failing), 06 (capitalisation tidy → near), 07 ([V] on a paraphrase → no-quote),
-09 (silently shortened quote → interrupted or missing).
+09 (silently shortened quote → interrupted or missing). The paged section mirrors
+MCDP 1's conversion: running headers and folios between pages, and a quote that
+holds both a word split across a line and a compound split across a line.
 
 No test framework, matching tests/derived-provenance.test.py: each case succeeds
 silently or raises; the runner collects failures, prints a summary, exits non-zero.
@@ -61,6 +63,40 @@ A ﬁnal word on ﬁxing things that are not broken.
 
 The e"ort to make the o#ce run e#ciently was signi%cant, and the work!ow was the fi rst thing to change.
 """
+
+
+def page_break(folio: int, header: str = "Field Manual") -> str:
+    """A folio at the foot of a page, a form feed, the next page's running header."""
+    return f"\n\n{folio}\n\f\f{header}\n\nFM 1\n\n"
+
+
+# Pages of a converted PDF: a passage runs across each break.
+SOURCE += (
+    "Mission tactics leave the manner of accomplishing the mission to the subordinate, thereby\n"
+    "allowing the freedom to take whatever steps are deemed necessary based on the"
+    + page_break(41)
+    + "situation. Chance is a universal characteristic of war and a continuous"
+    + page_break(42)
+    + "source of friction. The enemy must be made to see the situation not only as\n"
+    "deteriorating, but deteriorating at an ever-\n"
+    "increasing rate, and the situa-\n"
+    "tion must change faster than he can follow. Speed over time is tempo, the ability to operate\n"
+    "quickly."
+    + page_break(43, header="FieId Manual")
+    + "Commanders must rely on the initiative of subordinates to locate gaps and must have the\n"
+    "flexibility to respond quick-"
+    + page_break(44)
+    + "ly to opportunities rather than blindly follow predetermined schemes."
+    + page_break(45)
+    + "Plans will go awry and instructions will be unclear.\n\nKey Point\n\n"
+    "Units must adapt to the situation as it changes."
+    + page_break(46)
+    # A folio set on the running header's own line, with no form feed.
+    + "".join(f"Filler paragraph {n} for the handbook.\n\n{n} Doctrine Handbook\n\n" for n in range(60, 64))
+    + "Doctrine establishes a particular way of thinking about war\n\n64 Doctrine Handbook\n\n"
+    "and a way of fighting, and it provides a philosophy for leading Marines.\n\n"
+    + "".join(f"Note {n}.\n\nKey Point\n\n" for n in range(4))
+)
 
 # (label, deep-ref line, expected kind or None for a clean match)
 CASES = [
@@ -124,6 +160,36 @@ CASES = [
     ("ligatures written as marks or split off their word → ligature",
      '"The effort to make the office run efficiently was significant, and the workflow was the first thing to change" [V] (Ch 4).',
      "ligature"),
+    ("a running header and folio between two pages are dropped",
+     '"thereby allowing the freedom to take whatever steps are deemed necessary based on the situation" [V] (p 41).',
+     None),
+    ("a short fragment across a page break is found",
+     '"a continuous source of friction" [V] (p 42).',
+     None),
+    ("an elided quote whose last piece crosses a page break is found",
+     '"Mission tactics leave the manner of accomplishing the mission . . . deemed necessary based on the situation" [V] (p 41).',
+     None),
+    ("a running header with an OCR slip is dropped",
+     '"the ability to operate quickly. Commanders must rely on the initiative of subordinates" [V] (p 43).',
+     None),
+    ("a word split across a page break is rejoined",
+     '"the flexibility to respond quickly to opportunities rather than blindly follow predetermined schemes" [V] (p 44).',
+     None),
+    ("a folio on the header's line, with no form feed, is dropped",
+     '"Doctrine establishes a particular way of thinking about war and a way of fighting" [V] (p 64).',
+     None),
+    ("a split word and a split compound in one quote are each read as the quote spells them",
+     '"deteriorating at an ever-increasing rate, and the situation must change faster than he can follow" [V] (p 42).',
+     None),
+    ("a split compound quoted as two words → near",
+     '"deteriorating at an ever increasing rate, and the situation must change faster than he can follow" [V] (p 42).',
+     "near"),
+    ("a clause dropped beside a page break → interrupted",
+     '"thereby allowing the freedom to take whatever steps are deemed necessary. Chance is a universal characteristic of war" [V] (p 41).',
+     "interrupted"),
+    ("a recurring line with no page break stays in the text → interrupted",
+     '"Plans will go awry and instructions will be unclear. Units must adapt to the situation as it changes" [V] (p 45).',
+     "interrupted"),
     ("a figure claim is counted, not flagged",
      '| Reward schedules compared | 4 | [V] (Ch 4) |',
      None),

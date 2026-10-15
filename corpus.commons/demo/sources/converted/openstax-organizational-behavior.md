@@ -18813,6 +18813,51 @@ Research suggests that the more followers focus on off-job (nonleader) factors, 
 leader’s behaviors. Thus, a strong focus on one’s life “away from work” (for example, time with family and
 friends) tends to neutralize the motivational, attitudinal, and/or behavioral effects associated with any
 particular leader behavior. It has also been observed, however, that a strong focus on the leader, either positive
+or negative, enhances the impact that the leader’s behaviors have on followers.91
+
+MANAGERIAL LEADERSHIP
+You Are Now the Leader
+Leading and managing are two very different things. Being a manager means something more than
+gaining authority or charge over former colleagues. With the title does come the power to affect company
+outcomes, but it also comes with something more: the power to shape the careers and personal growth of
+subordinates.
+According to Steve Keating, a senior manager at the Toro Company, it is important not to assume that
+being made a manager automatically makes you a leader. Rather, being a manager means having the
+
+opportunity to lead. Enterprises need managers to guide processes, but the employees—the people—need
+a leader. Keating believes that leaders need a mindset that emphasizes people, and the leader’s job is to
+help the people in the organization to be successful. According to Keating, “If you don’t care for people, you
+can’t lead them” (Hakim 2017 n.p.).
+For someone who has been promoted over his peers, ground rules are essential. "Promotion doesn’t mean
+the end of friendship but it does change it," according to Keating. If a peer has been promoted, rather than
+grouse and give in to envy, it is important to step back and look at the new manager; take a hard look at
+why the peer was promoted and what skill or characteristic made you a less appealing fit for the position
+(Hakim 2017).
+Carol Walker, president of Prepared to Lead, a management consulting firm, advises new managers to
+develop a job philosophy. She urges new managers to develop a core philosophy that provides a guide to
+the day-to-day job of leading. She urges managers to build up the people they are leading and work as a
+"servant leader." The manager’s perspective should be on employee growth and success. Leaders must bear
+in mind that employees don’t work for the manager; they work for the organization—and for themselves.
+Managers coordinate this relationship; they are not the center of it. Work should not be assigned
+haphazardly, but with the employee’s skills and growth in mind. “An employee who understands why she
+has been asked to do something is far more likely to assume true ownership for the assignment," Walker
+says (Yakowicz 2015 n.p.). A leader’s agenda should be on employee success, not personal glory. Employees
+are more receptive when they recognize that their leader is working not for their own success, but for the
+employee’s success.
+A survey from HighGround revealed one important item that most new managers and even many seasoned
+managers overlook: asking for feedback. Everyone has room for growth, even managers. Traditional
+management dictates a top-down style in which managers review subordinates. But many companies have
+found it beneficial to turn things around and ask employees, “How can I be a better manager?” Of course,
+this upward review only works if employees believe that their opinion will be heard. Managers need to
+carefully cultivate a rapport where employees don't fear reprisals for negative feedback. Listening to
+criticism from those you are leading builds trust and helps ensure that as a manager, you are providing the
+sort of leadership that employees need to be successful (Kauflin 2017). Showing respect and caring for
+employees by asking this simple question is inspiring—an important aspect of leadership itself. Whether
+asking for feedback or focusing on an employee’s fit with a particular job description, a leader helps guide
+employees through the day-to-day, builds a positive culture, and helps employees improve their skills.
+
+<!-- The text from "or negative, enhances the" to here is restored from the original PDF with Poppler pdftotext 26.08.0 (PDF page 365, printed page 351); pymupdf4llm dropped it. -->
+
 
 
 
@@ -18841,6 +18886,12 @@ Kauflin, Jeff. 2017. “Every Manager Can Become A Better Leader By Asking This 
 
 mutually exclusive? Why?
 2. How do you think a leader can use feedback to model the growth process for employees?
+
+CONCEPT CHECK
+1. Identify and describe substitutes of leadership.
+
+<!-- The text from "CONCEPT CHECK" to here is restored from the original PDF with Poppler pdftotext 26.08.0 (PDF page 366, printed page 352); pymupdf4llm dropped it. -->
+
 
 
 
@@ -18961,6 +19012,31 @@ effective leaders. Those who do not add these other dimensions still attract fol
 organizational goals as effectively as they could. They are (at least for a time) the pied pipers of the business
 world, with lots of followers but no constructive direction.
 
+ETHICS IN PRACTICE
+Uber’s Need for an Ethical Leader
+Almost since its initial founding in 2009 as a luxury car service for the San Francisco area, controversy has
+followed Uber. Many complaints are against the tactics employed by the company’s founder and former
+CEO, Travis Kalanick, but the effects are found throughout the business and its operations.
+In 2009, UberBlack was a “black car” service, a high-end driving service that cost more than a taxi but less
+than hiring a private driver for the night. It wasn’t until 2012 that the company launched UberX, the taxiesque service most people think of today when they say “Uber.” The UberX service contracted with private
+drivers who provided rides in their personal vehicles. A customer would use Uber's smartphone app to
+request the ride, and a private driver would show up. Originally launched in San Francisco, the service
+spread quickly, and by 2017, Uber was in 633 cities. The service was hailed by many as innovative and the
+free market's answer to high-priced and sometimes unreliable taxi services. But Uber has not been without
+its critics, both inside and outside of the company.
+In 2013, as the UberX service spread, some UberBlack drivers protested at the company’s headquarters
+complaining about poor company benefits and pay. They also claimed that competition from the newly
+launched UberX service was cutting into their sales and undermining job security. Kalanick rebuffed the
+protests, basically calling the complaints sour grapes: most of the protestors had been laid off earlier for
+poor service (Lawler 2013). Controversy also arose over the use of contract drivers rather than full-time
+employees. Contractors complained about a lack of benefits and low wages. Competitors, especially taxi
+services, complained that they were being unfairly undercut because Uber didn’t have to abide by the same
+screening process and costs that traditional yellow taxi companies did. Some municipalities agreed, arguing
+further than Uber’s lack of or insufficient screening of drivers put passengers at risk.
+
+<!-- The text from "ETHICS IN PRACTICE" to here is restored from the original PDF with Poppler pdftotext 26.08.0 (PDF page 368, printed page 354); pymupdf4llm dropped it. -->
+
+
 
 
 
@@ -19032,6 +19108,12 @@ culture?
 
 
 **356   12 • Leadership**
+
+CONCEPT CHECK
+1. What are the defining characteristics of transformational and charismatic leaders?
+
+<!-- The text from "CONCEPT CHECK" to here is restored from the original PDF with Poppler pdftotext 26.08.0 (PDF page 370, printed page 356); pymupdf4llm dropped it. -->
+
 
 
 

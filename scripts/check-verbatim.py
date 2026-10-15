@@ -14,8 +14,18 @@ What it checks, per file:
     marker. A segment is the sentence the `[V]` closes, back no further than
     the previous evidence marker; in a table it is the marker's cell, or the
     whole row when the cell holds no quote. Quoted titles inside citation
-    parentheticals are skipped: they cite, they don't quote.
+    parentheticals are skipped: they cite, they don't quote. A parenthetical
+    inside a quotation is the author's own and stays part of the quote.
+  - A `[V]` before a colon ("Five benefits of UML (Ch 4.4) [V]:") also
+    covers what the colon introduces: the rest of the line up to the next
+    marker, or, when the colon ends the line, the list below it (items and
+    their continuation lines, up to a heading or a paragraph). A list item
+    with its own marker is that marker's.
   - Every quoted span in a blockquote (`>` lines), marker or not.
+
+In a "Citation and Source-Integrity Notes" section a `[V]` with no quoted span
+names the marker ("carries [V] markers") and is neither reported nor counted;
+a quoted span there is checked as anywhere else.
 
 Each quote is looked for at a ladder of levels and reported at the first level
 that finds it:
@@ -149,6 +159,12 @@ CITATION_PAREN_RE = re.compile(
     r"\((?=[^()]*(?:\d|\bCh\b|\bChapter\b|\bPart\b|\bSection\b|§|\bp\.|\bpp\.|\bciting\b))[^()]*\)"
 )
 INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
+# A `[V]` that introduces what follows: stacked markers and a citation, then a colon.
+LEAD_IN_RE = re.compile(r"(?:\s*\[(?:V|AP|AR|AE|BT)\])*\s*(?:\([^()]*\))?\s*:")
+LIST_ITEM_RE = re.compile(r"\s*(?:[-*+]|\d{1,3}[.)])\s")
+HEADING_RE = re.compile(r"(#{1,6})\s+(.*)")
+# The section where a file describes its own evidence markers.
+NOTES_HEADING_RE = re.compile(r"[*_]*citation and source-integrity notes\b", re.I)
 FRONTMATTER_SEED_RE = re.compile(r"^seed_source:\s*(\S+)\s*$", re.M)
 ELLIPSIS_RE = re.compile(r"\s*(?:\.\s?\.\s?\.|…)\s*")
 BRACKET_RE = re.compile(r"\[[^\]]*\]")
@@ -477,16 +493,39 @@ def body_start(lines: list[str]) -> int:
     return 0
 
 
+def citation_parens(segment: str) -> list[tuple[int, int]]:
+    """Spans of the citation parentheticals outside quoted spans. A
+    parenthetical a quotation holds whole is the author's own words."""
+    quotes = [m.span() for m in QUOTE_RE.finditer(segment)]
+    return [m.span() for m in CITATION_PAREN_RE.finditer(segment)
+            if not any(a < m.start() and m.end() <= b for a, b in quotes)]
+
+
+def _inside(pos: int, spans: list[tuple[int, int]]) -> bool:
+    return any(a <= pos < b for a, b in spans)
+
+
 def quoted_spans(segment: str) -> list[str]:
-    segment = CITATION_PAREN_RE.sub(" ", segment)
-    return [(m.group(1) or m.group(2)).strip() for m in QUOTE_RE.finditer(segment)]
+    """Quoted spans, less quoted titles inside a citation parenthetical. A
+    span that runs into one pairs a stray quote mark (a quotation opened on an
+    earlier line) with a title's, and is no quotation either."""
+    parens = citation_parens(segment)
+    return [(m.group(1) or m.group(2)).strip() for m in QUOTE_RE.finditer(segment)
+            if not _inside(m.start(), parens) and not any(m.start() < a < m.end() for a, _ in parens)]
+
+
+def without_citations(segment: str) -> str:
+    parens = citation_parens(segment)
+    return "".join(" " if _inside(i, parens) else c for i, c in enumerate(segment))
 
 
 def sentence_tail(segment: str) -> str:
     """The last sentence of a segment: the text after the last sentence end
-    that sits outside quotation marks. A `[V]` covers the sentence it closes,
-    not an illustrative phrase quoted a sentence earlier."""
+    that sits outside quotation marks and citation parentheticals ("p. 22").
+    A `[V]` covers the sentence it closes, not an illustrative phrase quoted a
+    sentence earlier."""
     in_quote, start = False, 0
+    parens = citation_parens(segment)
     for i, c in enumerate(segment):
         closing = (c == '"' and in_quote) or c == "”"
         if c == '"':
@@ -498,7 +537,7 @@ def sentence_tail(segment: str) -> str:
         # A sentence ends at . ? ! outside quotation marks, or just inside a
         # closing one ("...out of time." Diagnosis:).
         ends = (c in ".?!" and not in_quote) or (closing and i > 0 and segment[i - 1] in ".?!")
-        if ends:
+        if ends and not _inside(i, parens):
             rest = segment[i + 1 :].lstrip("*_)")
             # A sentence end with nothing after it is the end of the sentence
             # the [V] closes, not the start of a new one.
@@ -507,10 +546,30 @@ def sentence_tail(segment: str) -> str:
     return segment[start:]
 
 
+def lead_in_list(lines: list[str], i: int) -> list[tuple[int, str, bool]]:
+    """The list after a lead-in line `lines[i]`, as (index, text, marked)
+    triples: past any blank lines, list items and their indented continuation
+    lines until a heading or a paragraph. `marked` is set on the lines of an
+    item that carries its own evidence marker."""
+    items: list[tuple[int, str, bool]] = []
+    started = marked = False
+    for k in range(i + 1, len(lines)):
+        ln = lines[k]
+        if not ln.strip():
+            continue
+        if LIST_ITEM_RE.match(ln):
+            started, marked = True, bool(MARKER_RE.search(INLINE_CODE_RE.sub(" ", ln)))
+        elif not (ln[:1].isspace() and started):
+            break
+        items.append((k, INLINE_CODE_RE.sub(" ", ln), marked))
+    return items
+
+
 def extract(text: str) -> Extracted:
     lines = text.split("\n")
     ex = Extracted()
     in_code = False
+    notes_level = 0  # the heading level of the notes section we're in, or 0
     for i in range(body_start(lines), len(lines)):
         raw = lines[i]
         stripped = raw.lstrip()
@@ -519,6 +578,13 @@ def extract(text: str) -> Extracted:
             continue
         if in_code or stripped.startswith("<!--"):
             continue
+        heading = HEADING_RE.match(raw)
+        if heading:
+            level = len(heading.group(1))
+            if NOTES_HEADING_RE.match(heading.group(2)):
+                notes_level = level
+            elif level <= notes_level:
+                notes_level = 0
         lineno = i + 1
         line = INLINE_CODE_RE.sub(" ", raw)
         if stripped.startswith(">"):
@@ -526,7 +592,9 @@ def extract(text: str) -> Extracted:
             continue
         is_row = stripped.startswith("|")
         prev_end = 0
-        for m in MARKER_RE.finditer(line):
+        seen: set[tuple[int, str]] = set()
+        markers = list(MARKER_RE.finditer(line))
+        for n, m in enumerate(markers):
             if m.group(1) == "V":
                 if is_row:
                     # The marker's own cell, or the whole row when the cell holds no quote.
@@ -536,13 +604,37 @@ def extract(text: str) -> Extracted:
                     # Drop the previous marker's trailing citation.
                     segment = re.sub(r"^\s*\([^()]*\)[.,;]?", "", line[prev_end : m.start()])
                     segment = sentence_tail(segment)
-                found = quoted_spans(segment)
-                if found:
-                    ex.spans.extend(Span(lineno, q, "V", raw) for q in found)
-                elif DIGIT_RE.search(CITATION_PAREN_RE.sub(" ", segment)):
-                    ex.figures += 1
-                else:
-                    ex.no_quote.append(lineno)
+                found = [(lineno, q, raw) for q in quoted_spans(segment)]
+                covered, quoted = segment, False
+                lead = None if is_row else LEAD_IN_RE.match(line, m.end())
+                if lead:
+                    # A `[V]` before a colon covers what the colon introduces:
+                    # the rest of the line up to the next marker, or the list
+                    # on the lines below when the colon ends the line. An item
+                    # with its own marker is that marker's to check.
+                    stop = next((x.start() for x in markers[n + 1 :] if x.start() >= lead.end()), len(line))
+                    after = line[lead.end() : stop]
+                    if after.strip():
+                        covered += after
+                        found += [(lineno, q, raw) for q in quoted_spans(after)]
+                    else:
+                        for k, item, marked in lead_in_list(lines, i):
+                            covered += item
+                            quotes = quoted_spans(item)
+                            quoted = quoted or bool(quotes)
+                            if not marked:
+                                found += [(k + 1, q, lines[k]) for q in quotes]
+                quoted = quoted or bool(found)
+                # A quote the lead-in and the next marker's segment both take is checked once.
+                ex.spans.extend(Span(ln, q, "V", lt) for ln, q, lt in found if (ln, q) not in seen)
+                seen.update((ln, q) for ln, q, _ in found)
+                # In the notes section a `[V]` with no quote names the marker
+                # ("carries [V] markers"): neither a quotation nor a figure.
+                if not quoted and not notes_level:
+                    if DIGIT_RE.search(without_citations(covered)):
+                        ex.figures += 1
+                    else:
+                        ex.no_quote.append(lineno)
             prev_end = m.end()
     return ex
 

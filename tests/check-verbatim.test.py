@@ -14,6 +14,9 @@ rule that no normalisation lets a changed figure pass: a quote that cuts a numbe
 short at either end never matches. The paged section mirrors
 MCDP 1's conversion: running headers and folios between pages, and a quote that
 holds both a word split across a line and a compound split across a line.
+The multi-line blocks hold extraction scope: a `[V]` before a colon covers the
+list it introduces, and a `[V]` named in the notes section is not a claim, while
+a `[V]` on a paraphrase anywhere else still reports no-quote.
 
 No test framework, matching tests/derived-provenance.test.py: each case succeeds
 silently or raises; the runner collects failures, prints a summary, exits non-zero.
@@ -68,6 +71,10 @@ The e"ort to make the o#ce run e#ciently was signi%cant, and the work!ow was the
 Satisfaction rose by 3.5 points in the second quarter, while turnover rose by 30 points over the year.
 
 The firm hired 2,500 people that year. The plant closed in 1998. It never reopened.
+
+Teams should track velocity (ideally 3-4 sprints worth of data) or throughput before they forecast a release.
+
+The result is the "horrendogram" (Penn, 2018); a map nobody can read at a glance.
 """
 
 
@@ -220,6 +227,67 @@ CASES = [
     ("a figure claim is counted, not flagged",
      '| Reward schedules compared | 4 | [V] (Ch 4) |',
      None),
+    ("a digit parenthetical inside the quote stays in it",
+     '"Teams should track velocity (ideally 3-4 sprints worth of data) or throughput before they forecast" [V] (Ch 4).',
+     None),
+    ("an author-year citation inside the quote stays in it",
+     'It ends in "the \'horrendogram\' (Penn, 2018); a map nobody can read at a glance" [V] (Ch 4).',
+     None),
+    ("a changed figure inside the quote's parenthetical → page",
+     '"Teams should track velocity (ideally 5 sprints worth of data) or throughput before they forecast" [V] (Ch 4).',
+     "page"),
+    ("a quote mark closing a quotation opened on an earlier line is not paired with a citation title's",
+     '> to be right!" [V] (Part 6, "Some Title Not In Source").',
+     None),
+    ("a quote before a page citation is checked, not counted as a figure",
+     'The text is blunt: "Work is an activity that produces something of no value" (p. 22) [V].',
+     "missing"),
+]
+
+# Multi-line cases: (label, [(line, expected kind or None)]). Blank lines are
+# written as "" and expect nothing. The notes section runs to the next level-2
+# heading, so it comes last, and the line after it is the guard.
+BLOCKS = [
+    ("a [V] lead-in covers the list below it", [
+        ('Reward schedules compared (Ch 4.4, "Schedules of Reinforcement") [V] [BT]:', None),
+        ("", None),
+        ('1. Ratio schedules "generally lead to better behavior than the time-contingent (or interval) schedules".', None),
+        ('2. Work is "an activity that produces something of no value".', "missing"),
+        ("3. A plain paraphrase item.", None),
+        ('4. An item with its own marker, "a phrase not in the source at all" [AP] (Ch 4).', None),
+        ("   A continuation of that item, \"also not in the source anywhere\".", None),
+        ("", None),
+        ('5. A loose item: "Relationship conflict tends to erode the trust that teams rely on".', "missing"),
+        ("", None),
+        ('After the list, "a remark the lead-in does not reach" stands alone.', None),
+    ]),
+    ("a [V] lead-in covers the rest of its line", [
+        ('Two passages (Ch 4) [V]: "Work is an activity that produces something of value"; '
+         '"Relationship conflict tends to erode the trust that teams rely on".', "missing"),
+    ]),
+    ("a [V] lead-in over a list whose items carry their own markers", [
+        ("Two passages (Ch 4) [V]:", None),
+        ('- "Work is an activity that produces something of value" [V] [AE].', None),
+        ('- "Relationship conflict tends to erode the trust that teams rely on" [V].', "missing"),
+    ]),
+    ("a [V] lead-in over a list with no quote → no-quote", [
+        ("Two steps (Ch 4) [V]:", "no-quote"),
+        ("- Listen first.", None),
+        ("- Then respond.", None),
+    ]),
+    ("a [V] mention in the notes section is not a claim", [
+        ("## Citation and Source-Integrity Notes", None),
+        ("", None),
+        ("**Evidence-marker continuity.** The deep reference carries [V] markers for the author's direct statements.", None),
+        ("", None),
+        ("- **Evidence-class markers** ([V] verbatim; [AP] author paraphrase) are inline with claims.", None),
+        ("", None),
+        ('The quoted claim "Relationship conflict tends to erode the trust that teams rely on" is [V] in the deep reference.', "missing"),
+        ("", None),
+        ("## After the notes", None),
+        ("", None),
+        ("The source defines work as producing value for others [V] (Ch 4).", "no-quote"),
+    ]),
 ]
 
 
@@ -243,6 +311,12 @@ def main() -> int:
         for label, text, kind in CASES:
             lines.append(text)
             expect[len(lines)] = (label, kind)
+            lines.append("")
+        for label, block in BLOCKS:
+            for j, (text, kind) in enumerate(block, 1):
+                lines.append(text)
+                if text:
+                    expect[len(lines)] = (f"{label} (line {j})", kind)
             lines.append("")
         deep.write_text("\n".join(lines), encoding="utf-8")
 
@@ -270,7 +344,7 @@ def main() -> int:
         if code != 0:
             failures.append(f"exit status with only an initial finding: expected 0, got {code}")
 
-    total = len(CASES) + 3
+    total = len(expect) + 3
     if failures:
         print(f"{len(failures)} of {total} checks failed:")
         for f in failures:

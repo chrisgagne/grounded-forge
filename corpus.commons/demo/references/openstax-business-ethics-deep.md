@@ -16,7 +16,7 @@ A second load-bearing claim is that *a single, universally applied ethical stand
 
 A third load-bearing claim is that *all stakeholders matter*, not just shareholders, and that business managers must develop the discipline of identifying, categorising, and prioritising stakeholder claims as a core managerial competence [AR] (Ch 3, especially 3.1-3.3). The book traces a century-long legal evolution from strict shareholder primacy in *Dodge v. Ford Motor Company* (1919) toward greater management latitude under the business-judgment rule in *Shlensky v. Wrigley* (1968) and *Burwell v. Hobby Lobby* (2014) (Ch 4.1, "Balancing the Many Responsibilities of a Corporation").
 
-A fourth load-bearing claim is that legal compliance is rarely sufficient; ethical conduct requires going *above and beyond* the law to honour stakeholder interests, especially where the law lags behind ethical reflection [AR] (Ch 1.1, Ch 3.1, Ch 4.1, Ch 6.1). Concepts of *ethical minimum* (the least a company might do that complies with the law, or to claim ethical positioning) and *ethical maximum* (the strongest action available) are introduced as a tool for managers and stakeholders to evaluate corporate conduct [V] (Ch 3.1, "Ethical Responsibilities Often Extend Beyond Legal Requirements"). The *moral minimum* is a separate threshold: honouring obligations to all stakeholders, including those who own no stock, is what a firm must undertake "to satisfy the base threshold for acting ethically" [V] (Ch 4.1, "The Two Sides of the Corporate Responsibility Debate"). The text repeatedly takes the position that ethical maximums protect long-term profitability and reputation more reliably than ethical minimums.
+A fourth load-bearing claim is that legal compliance is rarely sufficient; ethical conduct requires going *above and beyond* the law to honour stakeholder interests, especially where the law lags behind ethical reflection [AR] (Ch 1.1, Ch 3.1, Ch 4.1, Ch 6.1). Concepts of *ethical minimum* ("the least a company might do that complies with the law") and *ethical maximum* ("the strongest possible action to behave ethically in a given situation") [V] are introduced through the Samsung washer recall [AP] (Ch 3.1, "Ethical Responsibilities Often Extend Beyond Legal Requirements"). The *moral minimum* is a separate threshold: honouring obligations to all stakeholders, including those who own no stock, is what a firm must undertake "to satisfy the base threshold for acting ethically" [V] (Ch 4.1, "The Two Sides of the Corporate Responsibility Debate"). The text repeatedly takes the position that ethical maximums protect long-term profitability and reputation more reliably than ethical minimums.
 
 A fifth load-bearing claim is that *the formation of conscience* matters more than compliance training; ethics is "a way of life, not a hurdle to overcome" [V] (Ch 11.3, "The Role of Ethical Top Leadership"). The book repeatedly argues that organisations succumb to ethics crises when they neglect organisational culture and individual character formation, however sophisticated their compliance apparatus (Ch 5.4, Ch 11). Ethical leadership at the top — the *tone at the top* — is presented as the most effective means by which ethical behaviour is learned in a company.
 
@@ -133,9 +133,9 @@ The book references the MITRE five-step stakeholder-management system: establish
 
 ### Corporate social responsibility and the triple bottom line
 
-The book reintroduces *CSR* as a stakeholder-oriented philosophy in which a company "views itself within a broader context" (Ch 3.4). The *triple bottom line (TBL)* — described by John Elkington in 1994 — measures three dimensions: economic, social, environmental — "people, planet, profit" [V] (Ch 3.4, "People, Planet, Profit: The Triple Bottom Line"). Externalities — social and environmental impacts — must be taken into account.
+The book reintroduces *CSR* as a stakeholder-oriented philosophy in which a company "views itself within a broader context" (Ch 3.4). The *triple bottom line (TBL)* — described by John Elkington in 1994 — measures three dimensions: economic, social, environmental — "People, Planet, Profit" [V] (Ch 3.4, "People, Planet, Profit: The Triple Bottom Line"). Externalities — social and environmental impacts — must be taken into account.
 
-*Greenwashing* is "carrying out superficial CSR efforts that merely cover up systemic ethics problems for the sake of public relations" [V] (Ch 3.4, "Key Terms"). Coca-Cola's CSR statements about stakeholder engagement are juxtaposed with the company's water footprint (a Chiapas, Mexico bottling plant consumes more than one billion liters of water daily; only about half the local population has running water) [V] (Ch 3.4, "CSR as Public Relations Tool"). Ben and Jerry's reliance on confined-animal feeding operation (CAFO) suppliers under Unilever ownership is offered as another candidate for greenwashing critique (Ch 3.4).
+*Greenwashing* is "carrying out superficial CSR efforts that merely cover up systemic ethics problems for the sake of public relations" [V] (Ch 3.4, "Key Terms"). Coca-Cola's CSR statements about stakeholder engagement are juxtaposed with the company's water footprint: in Chiapas, Mexico, "the Coca-Cola bottling plant consumes more than one billion liters of water daily, but only about half the population has running water" [V] (Ch 3.4, "CSR as Public Relations Tool"). Ben and Jerry's reliance on confined-animal feeding operation (CAFO) suppliers under Unilever ownership is offered as another candidate for greenwashing critique (Ch 3.4).
 
 ## Part IV: Three special stakeholders — society, environment, government (Ch 4)
 
@@ -229,9 +229,9 @@ Generational differences in valued benefits: workers 18-35 rank career advanceme
 
 ### Fair wages and the gender pay gap
 
-The Center for Financial Services Innovation reports "85% of Americans are anxious about their personal financial situation" with stress affecting work performance [V] [BT] (Ch 6.2, "Economic Data as an Indicator of Fair Wages"). Pew Research Center: between 1980 and 2014, inflation-adjusted hourly wages of middle-income workers rose just 6% (less than 0.2% per year); high-income workers' wages rose 41% over the same years. The federal minimum wage is $7.25 per hour; 29 states had higher minima as of late 2017 (Ch 6.2). Since 1960, the inflation-adjusted minimum wage declined 23% [V] (Ch 6.2).
+The Center for Financial Services Innovation reports "85% of Americans are anxious about their personal financial situation" with stress affecting work performance [V] [BT] (Ch 6.2, "Economic Data as an Indicator of Fair Wages"). Pew Research Center: between 1980 and 2014, inflation-adjusted hourly wages of middle-income workers rose just 6% (less than 0.2% per year); high-income workers' wages rose 41% over the same years. The federal minimum wage is $7.25 per hour; 29 states had higher minima as of late 2017 (Ch 6.2). Since 1960, the real minimum wage "actually declined by 23 percent" [V] (Ch 6.2).
 
-The *gender pay gap*: women in top positions (CEO, VP, general counsel) often earn about 80% of what men with the same titles earn; EEOC 2011-2015 data shows women in senior-level roles earned an average of about $600,000 vs men's more than $800,000 — a 35% wage gap [V] [BT] (Ch 6.2, "Unfair Wages: The Gender Pay Gap"). In energy industry land-professional roles with similar experience and education, men earned $7000 more per year than women (Ch 6.2). Women earned about 60% of men's wages in 1960, rising to 80% by 2016; pay equity is projected for 2059-2119 [V] (Ch 6.2).
+The *gender pay gap*: women in top positions (CEO, VP, general counsel) often earn about 80% of what men with the same titles earn; EEOC 2011-2015 data shows women in senior-level roles earned an average of about $600,000 vs men's more than $800,000 — "a wage gap of about 35 percent each year" [V] [BT] (Ch 6.2, "Unfair Wages: The Gender Pay Gap"). In energy industry land-professional roles with similar experience and education, men earned $7000 more per year than women (Ch 6.2). Women earned about 60% of men's wages in 1960, rising to 80% by 2016; women "are not projected to reach pay equity until at least 2059, with projections based on recent trends predicting dates as late as 2119" [V] (Ch 6.2).
 
 The Equal Pay Act (1963) requires equal pay for the *same* job, but not for *equivalent* jobs. The proposed Paycheck Fairness Act and Fair Pay Act would extend protection to "equivalent" work; *comparable worth* — paying based on worth to the organisation — is central. A starting-salary difference of $5000 with 5% annual raises compounds to $600,000+ over a 40-year career; women must work three years longer to earn the same lifetime amount (Ch 6.2).
 
@@ -273,11 +273,11 @@ An American Management Association survey: 48% of employers used video monitorin
 
 The *duty of loyalty* requires that "an employee refrain from acting in a manner contrary to the employer's interest" [V] (Ch 7, "Key Terms"; Ch 7.1, "A Duty of Loyalty"). The duty is rooted in common law of agency and rises to *fiduciary duty* at higher levels of trust. A graphic designer at an advertising agency cannot moonlight on weekends for a friend's web design business but might do so for a friend's catering business or wedding photography (Ch 7.1).
 
-The book observes that "loyalty is a two-way street" — employers' preference for at-will employment naturally reduces employee loyalty (Ch 7.1, "Differing Concepts of Loyalty"). Millennials are three times more likely than older generations to change jobs; 91% do not expect to stay with their current job longer than three years [V] [BT] (Ch 7.1). The shift from defined-benefit to defined-contribution retirement plans rewards high earnings over seniority and reduces loyalty incentives (Ch 7.1).
+The book observes that "loyalty is a two-way street" — employers' preference for at-will employment naturally reduces employee loyalty (Ch 7.1, "Differing Concepts of Loyalty"). Millennials are three times more likely than older generations to change jobs; 91 percent "say they do not expect to stay with their current job longer than three years" [V] [BT] (Ch 7.1). The shift from defined-benefit to defined-contribution retirement plans rewards high earnings over seniority and reduces loyalty incentives (Ch 7.1).
 
 The *duty of confidentiality* covers proprietary information — trade secrets, intellectual property, employee records, customer data (Ch 7.1, "Confidentiality"). Federal IP law protects trademarks, copyrights, and patents; *trade secrets* are protected by company secrecy and *nondisclosure agreements* (Ch 7.1).
 
-*Non-compete agreements* limit competition during and after employment. About 20% of the US private-sector workforce, and one in six workers earning under $40,000, are now covered by non-compete agreements [V] (Ch 7.1). California (2017) declared most post-employment non-competes void. The Jimmy John's case: New York AG Eric Schneiderman pressured Jimmy John's to drop a clause prohibiting employees from working at any business selling "submarine, hero-type, deli-style, pita, and/or wrapped or rolled sandwiches" within two miles of any Jimmy John's anywhere in the US (more than 2,500 stores in 46 states) [V] [AE] (Ch 7.1, "Non-Compete Agreements"). Schneiderman: "They limit mobility and opportunity for vulnerable workers and bully them into staying with the threat of being sued." [V] (Ch 7.1).
+*Non-compete agreements* limit competition during and after employment. "About 20 percent of the U.S. private-sector workforce, and about one in six people in jobs earning less than $40,000 a year, are now covered by non-compete agreements" [V] (Ch 7.1). California (2017) declared most post-employment non-competes void. The Jimmy John's case: New York AG Eric Schneiderman pressured Jimmy John's to drop a clause prohibiting employees from working at any business selling "submarine, hero-type, deli-style, pita, and/or wrapped or rolled sandwiches" within two miles of any Jimmy John's anywhere in the US (more than 2,500 stores in 46 states) [V] [AE] (Ch 7.1, "Non-Compete Agreements"). Schneiderman: "They limit mobility and opportunity for vulnerable workers and bully them into staying with the threat of being sued." [V] (Ch 7.1).
 
 *Nonsolicitation clauses* protect employers from departing employees luring customers or colleagues; *nondisparagement clauses* prohibit defaming the former employer.
 
@@ -309,7 +309,7 @@ Federal employee gift policy (offered as model): no gift to a superior on annual
 
 Ten US states (California, Colorado, Illinois, Louisiana, Maine, Michigan, Minnesota, New Hampshire, New Jersey, Vermont) have banned *pay secrecy* (Ch 7.5, "Limiting Pay Secrecy"). The 2012 NLRB and federal court decisions made most pay-secrecy policies unenforceable under the National Labor Relations Act of 1935; protections cover union and non-union employees and extend to social-media discussions of pay.
 
-The text takes a definite position: the First Amendment does *not* protect at-will employees who criticise their boss or company on social media (Ch 7.5, "Speaking Out on Social Media"). The Adrian Duane / IXL Learning case is reviewed: NLRB judge Etchingham held a Glassdoor post was not "concerted activity" under NLRA Section 7 — described it as "a tantrum" and "childish ridicule" [V] [BT] (Ch 7.5).
+The text takes a definite position: the First Amendment does *not* protect at-will employees who criticise their boss or company on social media (Ch 7.5, "Speaking Out on Social Media"). The Adrian Duane / IXL Learning case is reviewed: NLRB judge Etchingham held the Glassdoor post was not part of a "concerted or group action" among Duane's fellow employees, so not protected under the NLRA, and called it more like "a tantrum" and "childish ridicule" than speech protected under Section 7 [V] [BT] (Ch 7.5).
 
 *Whistleblowing* is "the act of reporting an employer to a governmental entity for violating the law" [V] (Ch 7, "Key Terms"). The text names the risks: "If a whistleblower’s identity becomes known, his or her revelations may amount to career suicide" [V]; whistleblowers who keep their jobs are often not promoted, may face resentment from management and rank-and-file workers, and may be blacklisted, "all as a result of doing what is ethical" [V]. It still holds that "most employees do not want to cover up unethical or illegal conduct, nor should they" [V] (Ch 7.5, "Whistleblowing: Risks and Rewards"). The text's ethical guidance: appropriate motive (compliance, victim protection), not revenge; try internal channels first; have hard evidence; the violation should be serious; whistleblowing should have "some likelihood of stopping the wrongful act" (Ch 7.5, "Whistleblowing: Risks and Rewards"). The Occupational Safety and Health Act (1970) was an early law with whistleblower protection; today over 20 federal laws protect specific categories, and "There is no all-purpose whistleblower protection; it must be granted by individual statutes" [V] (Ch 7.5). Reporting environmental violations is in the public interest, and even when whistleblowers are not acting wholly altruistically their revelations may be true: "Thus, in such situations, the responsible employee becomes a steward of the public interest, and we all should want whistleblowers to come forward" [V] (Ch 7.5).
 
@@ -317,7 +317,7 @@ The *False Claims Act* (1863, 31 U.S.C. §§ 3729-3733) — "enacted in 1863, du
 
 The Sherron Watkins / Enron case is presented as a cautionary illustration: Watkins reported fraud internally to chairman Ken Lay, was ignored, then went to the press — "Because she did not go directly to the SEC, Watkins received no whistleblower protection" (Ch 7.5, "Sherron Watkins and Enron"). Watkins: "I will never have a job in corporate America again. The minute you speak truth to power and you're not heard, your career is never the same again." [V] (Ch 7.5).
 
-The Sallie Krawcheck / Merrill Lynch case illustrates the moral cost even of internal protected speech: Krawcheck successfully argued for compensating Stable Value Fund investors (many Walmart employees) and won her CEO's backing — "speaking out did come at a cost. Krawcheck lost some important and powerful allies within the company, and although she did not lose her job at that time ... 'before long I was 'reorganized out' of that role.'" [V] (Ch 7.5).
+The Sallie Krawcheck / Merrill Lynch case illustrates the moral cost even of internal protected speech: Krawcheck successfully argued for compensating Stable Value Fund investors (many Walmart employees) and won her CEO's backing — "speaking out did come at a cost. Krawcheck lost some important and powerful allies within the company, and although she did not lose her job at that time" — and Krawcheck writes that "before long I was 'reorganized out' of that role" [V] (Ch 7.5).
 
 ## Part VIII: Recognising the rights of all (Ch 8)
 
@@ -325,9 +325,9 @@ The Sallie Krawcheck / Merrill Lynch case illustrates the moral cost even of int
 
 The text frames *diversity* as more than gender and ethnicity: "different thinking styles and personality types, as well as other factors such as physical and cognitive abilities and sexual orientation" [V] [BT] (Ch 8.1, "Workplace Diversity", citing SHRM). *Inclusion* is "the engagement of all employees in the corporate culture" — Howard Ross: "Diversity is being invited to the party; inclusion is being asked to dance." [V] [BT] (Ch 8.1).
 
-McKinsey & Company found a positive correlation between gender/ethnic diversity and financial performance — the *diversity dividend* (Ch 8.1, "Adding Value through Diversity"). Companies in the top 25% for gender diversity were 15% more likely to post above-median financial returns; for racial/ethnic diversity, 35% more likely. McKinsey examined 20,000 firms in 90 countries — top 25% for executive/board diversity had returns on equity 50% higher than bottom 25% [V] [BT] (Ch 8.1).
+McKinsey & Company found a positive correlation between gender/ethnic diversity and financial performance — the *diversity dividend* (Ch 8.1, "Adding Value through Diversity"). Companies in the top 25 percent for gender diversity were "15 percent more likely to post financial returns above their industry median in the United States"; those in the top 25 percent for racial and/or ethnic diversity were "35 percent more likely to show returns exceeding their respective industry median" [V] [BT]. McKinsey examined 20,000 firms in 90 countries: those in the top 25 percent for executive and/or board diversity "had returns on equity more than 50 percent higher than those companies that ranked in the lowest 25 percent" [V] [BT] (Ch 8.1).
 
-US workforce demographics: women's labour-force participation rose from 48% in 1977 to a peak of 60% in 1999 (steady at 57% recently); from 41 million to 71 million women, projected to 92 million by 2050 (Ch 8.1). Hispanic share projected to rise from 15% (2010) to 30% (2050); Asian from 5% to 8%. Technology sector lags: Google about 30% women overall, fewer than 20% in technical roles; about 56% White, 35% Asian, 3.5% Latino, 2.4% Black; 68% of management roles held by White people [V] [BT] (Ch 8.1, citing Google diversity report).
+US workforce demographics: women's labour-force participation rose from 48% in 1977 to a peak of 60% in 1999 (steady at 57% recently); from 41 million to 71 million women, projected to 92 million by 2050 (Ch 8.1). Hispanic share projected to rise from 15% (2010) to 30% (2050); Asian from 5% to 8%. Technology sector lags: Google about 30% women overall, fewer than 20% in technical roles; about 56% White, 35% Asian, 3.5% Latino, 2.4% Black; "of the company’s management and leadership roles, 68 percent are held by White people" [V] [BT] (Ch 8.1, citing Google diversity report).
 
 Backlash is documented: a 2017 Google software engineer's leaked memo attributing women's underrepresentation to "biological causes" and "men's higher drive for status"; the engineer was fired and filed a class-action discrimination lawsuit on behalf of "Whites, conservatives, and men"; the NLRB ruled in February 2018 that Google's termination did not violate federal labor law [BT] (Ch 8.1).
 
@@ -337,7 +337,7 @@ The Americans with Disabilities Act (ADA, 1990) defines disability and requires 
 
 The Verizon EEOC settlement (2011): $20 million for an inflexible "no-fault" attendance policy that disciplined or fired employees for absences caused by their disabilities — "the largest single disability discrimination settlement in the agency's history" (Ch 8.2). Verizon was required to change the policy and provide regular ADA training to attendance-policy managers.
 
-Title VII of the CRA prohibits religious discrimination. Four tenets: nondiscrimination, nonharassment, nonretaliation, reasonable accommodation (Ch 8.2, "Managing Religious Diversity in the Workplace"). *Welsh v. United States* (1970) extended protection to nontheistic value systems "occupying a place parallel to that filled by the God of those admittedly qualifying for the exception" [V] (Ch 8.2). The Abercrombie & Fitch case: Samantha Elauf was denied a job for wearing a hijab (against the company's "Look Policy"); EEOC general counsel David Lopez: "This case is about defending the American principles of religious freedom and tolerance." [V] (Ch 8.2, "The Abercrombie & Fitch Religious Discrimination Case").
+Title VII of the CRA prohibits religious discrimination. Four tenets: nondiscrimination, nonharassment, nonretaliation, reasonable accommodation (Ch 8.2, "Managing Religious Diversity in the Workplace"). *Welsh v. United States* (1970) extended protection to nontheistic value systems occupying "a place parallel to that filled by the God of those admittedly qualifying for the exception" [V] (Ch 8.2). The Abercrombie & Fitch case: Samantha Elauf was denied a job for wearing a hijab (against the company's "Look Policy"); EEOC general counsel David Lopez: "This case is about defending the American principles of religious freedom and tolerance." [V] (Ch 8.2, "The Abercrombie & Fitch Religious Discrimination Case").
 
 ### Sexual identification and orientation
 
@@ -403,13 +403,13 @@ Climate change creates an emerging insurance problem; California Insurance Commi
 
 ### Health care provision
 
-The US has a *multipayer health care system* — patient, employer, private insurer all contribute (Germany, France, Japan also multipayer). UK and Canada use *single-payer health care systems* — government as sole payer funded by tax revenues (Ch 9.4, "Multipayer Health Care in the United States"). The Commonwealth Fund: "the United States spends far more on health care than other high income countries ... Yet the U.S. population has poorer health than other countries" [V] [BT] (Ch 9.4).
+The US has a *multipayer health care system* — patient, employer, private insurer all contribute (Germany, France, Japan also multipayer). UK and Canada use *single-payer health care systems* — government as sole payer funded by tax revenues (Ch 9.4, "Multipayer Health Care in the United States"). The Commonwealth Fund: "the United States spends far more on health care than other high income countries" and "Yet the U.S. population has poorer health than other countries" [V] [BT] (Ch 9.4).
 
 William B. Schultz: "in the past 35 years, the only significant victory in the battle to control drug prices has been the enactment of legislation that established the generic drug program at the FDA" [V] [BT] (Ch 9.4, "The High Cost of Prescription Drugs"). Prescription drug prices accounted for 17% of US healthcare costs in recent years, up from 7% in the 1990s; nearly 20% of Medicare program spending. The pharmaceutical industry argues for high drug prices as recovery of R&D costs; critics cite marketing expense.
 
 The text traces health-coverage history: industrial sickness funds emerged in the late 19th and early 20th centuries; charity (religious organisations); the AMA opposed government health insurance from 1920 (Ch 9.4, "Paying for Health Care and Wellness", citing John E. Murray).
 
-*Wellness programs* aim to reduce health-insurance costs through preventive measures — smoking cessation, gym memberships, healthy food options (Ch 9.4). Michael Hiltzik's caution: "voluntary wellness programs also give employers a window into their workers' health profiles that is otherwise an illegal invasion of their privacy" [V] [BT] (Ch 9.4).
+*Wellness programs* aim to reduce health-insurance costs through preventive measures — smoking cessation, gym memberships, healthy food options (Ch 9.4). Michael Hiltzik's caution: "'voluntary' wellness programs also give employers a window into their workers' health profiles that is otherwise an illegal invasion of their privacy" [V] [BT] (Ch 9.4).
 
 The *Affordable Care Act (ACA, 2010)* — "Obamacare" — mandates preventive care, choice of physicians, coverage for pre-existing conditions, mental health/substance abuse coverage, marketplace plans (Ch 9.4, "The Affordable Care Act"). Massachusetts's 2006 An Act Providing Access to Affordable, Quality, Accountable Health Care preceded the ACA — Brian Mooney in the *Boston Globe*: "the overhaul, after five years, worked as well as or better than expected" [V] [BT] (Ch 9.4, "State-Level Experiments with Single-Payer Health Care Plans"). California's proposed Healthy California Act (SB 562) — a single-payer plan that would cost $370-400 billion and require federal waivers — has been blocked.
 
@@ -525,7 +525,7 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 >
 > (Ch 2.1, "Aristotelian Virtue Ethics", citing Aristotle)
 
-> "the only purpose for which power can be rightfully exercised over any member of a civilized community, against his will, is to prevent harm to others. His own good, either physical or moral, is not a sufficient warrant."
+> "only purpose for which power can be rightfully exercised over any member of a civilized community, against his will, is to prevent harm to others. His own good, either physical or moral, is not a sufficient warrant."
 >
 > (Ch 2.4, "Synthesizing Rights and Utility", citing Mill, *On Liberty*)
 
@@ -550,60 +550,60 @@ Appendix C is a personal credo by the lead author. It states the most pointed po
 | Metric | Value | Classification |
 |---|---|---|
 | US ethics-training annual spend | over $70 billion (US); >$140 billion worldwide | [BT] (Ch 5.4, "Business Ethics and Compliance") |
-| Annual global cost of corruption (WEF estimate) | at least $2 trillion | [V] (Ch 5.4) |
-| US workforce inflation-adjusted minimum-wage decline since 1960 | 23 per cent | [V] (Ch 6.2) |
+| Annual global cost of corruption (WEF estimate) | at least $2 trillion | [AP] (Ch 5.4) |
+| US workforce inflation-adjusted minimum-wage decline since 1960 | 23 per cent | [AP] (Ch 6.2) |
 | Federal minimum wage | $7.25/hour | [AP] (Ch 6.2; Ch 8.4) |
 | US states with higher minimum wage than federal as of 2017 | 29 | [AP] (Ch 6.2; Ch 8.4) |
-| Middle-income hourly wage growth 1980-2014 (Pew) | 6 per cent (≈ 0.2%/yr) | [V] (Ch 6.2) |
-| High-income hourly wage growth 1980-2014 (Pew) | 41 per cent | [V] (Ch 6.2) |
-| US union membership 1980 | 20 per cent | [V] (Ch 6.3) |
-| US union membership 2016 | ~10 per cent | [V] (Ch 6.3) |
-| US public-sector union membership | 35 per cent | [V] (Ch 6.3) |
-| US private-sector union membership | 6.5 per cent | [V] (Ch 6.3) |
-| Sweden unionisation rate (Table 6.2) | 82 per cent | [V] [BT] (Ch 6.3) |
-| US CEO-to-worker pay ratio | ~300× | [V] (Ch 6.3) |
-| UK CEO-to-worker pay ratio | 22× | [V] (Ch 6.3) |
-| Germany CEO-to-worker pay ratio | 12× | [V] (Ch 6.3) |
-| 1965 US CEO-to-worker pay ratio | 20× | [V] (Ch 6.3) |
-| US CEO pay change 1978-2014 (inflation-adjusted) | up almost 1,000 per cent | [V] [BT] (Ch 6.3, citing EPI) |
-| US worker pay change 1978-2014 | +11 per cent | [V] [BT] (Ch 6.3) |
-| US productivity growth 1973-2016 | 74 per cent | [V] (Ch 6.3) |
-| US wage growth 1973-2016 | 12 per cent | [V] (Ch 6.3) |
-| Women's wages as fraction of men's, 1960 | ~60 per cent | [V] (Ch 6.2) |
-| Women's wages as fraction of men's, 2016 | ~80 per cent | [V] (Ch 6.2) |
-| EEOC women's senior-level pay vs men's, 2011-2015 | about $600,000 vs more than $800,000 (~35% gap) | [V] [BT] (Ch 6.2) |
-| Top 1% share of US income (rise over 35 years) | 8 per cent → 22 per cent | [V] (Ch 8.4) |
-| Top 10% income earners' multiple over bottom 90% | 10× | [V] (Ch 8.4) |
-| Top 1% income earners' multiple over bottom 90% | >40× | [V] (Ch 8.4) |
-| US middle-income share of households 1970 | ~60 per cent | [V] (Ch 8.4) |
-| US middle-income share of households 2014 | 47 per cent | [V] (Ch 8.4) |
-| Equal Pay Act passage year | 1963 | [V] (Ch 6.2) |
-| OSHA passage year | 1970 | [V] (Ch 6.1) |
-| ADA passage year | 1990 | [V] (Ch 8.2) |
-| WARN Act passage year | 1989 | [V] (Ch 6.1) |
-| Sarbanes-Oxley year | 2002 | [V] (Ch 4.3) |
-| ACA passage year | 2010 | [V] (Ch 9.4) |
-| FCPA year | 1977 (amended 1988, 1998) | [V] (Ch 7.4) |
+| Middle-income hourly wage growth 1980-2014 (Pew) | 6 per cent (≈ 0.2%/yr) | [AP] (Ch 6.2) |
+| High-income hourly wage growth 1980-2014 (Pew) | 41 per cent | [AP] (Ch 6.2) |
+| US union membership 1980 | 20 per cent | [AP] (Ch 6.3) |
+| US union membership 2016 | ~10 per cent | [AP] (Ch 6.3) |
+| US public-sector union membership | 35 per cent | [AP] (Ch 6.3) |
+| US private-sector union membership | 6.5 per cent | [AP] (Ch 6.3) |
+| Sweden unionisation rate (Table 6.2) | 82 per cent | [BT] (Ch 6.3) |
+| US CEO-to-worker pay ratio | ~300× | [AP] (Ch 6.3) |
+| UK CEO-to-worker pay ratio | 22× | [AP] (Ch 6.3) |
+| Germany CEO-to-worker pay ratio | 12× | [AP] (Ch 6.3) |
+| 1965 US CEO-to-worker pay ratio | 20× | [AP] (Ch 6.3) |
+| US CEO pay change 1978-2014 (inflation-adjusted) | up almost 1,000 per cent | [BT] (Ch 6.3, citing EPI) |
+| US worker pay change 1978-2014 | +11 per cent | [BT] (Ch 6.3) |
+| US productivity growth 1973-2016 | 74 per cent | [AP] (Ch 6.3) |
+| US wage growth 1973-2016 | 12 per cent | [AP] (Ch 6.3) |
+| Women's wages as fraction of men's, 1960 | ~60 per cent | [AP] (Ch 6.2) |
+| Women's wages as fraction of men's, 2016 | ~80 per cent | [AP] (Ch 6.2) |
+| EEOC women's senior-level pay vs men's, 2011-2015 | about $600,000 vs more than $800,000 (~35% gap) | [BT] (Ch 6.2) |
+| Top 1% share of US income (rise over 35 years) | 8 per cent → 22 per cent | [AP] (Ch 8.4) |
+| Top 10% income earners' multiple over bottom 90% | 10× | [AP] (Ch 8.4) |
+| Top 1% income earners' multiple over bottom 90% | >40× | [AP] (Ch 8.4) |
+| US middle-income share of households 1970 | ~60 per cent | [AP] (Ch 8.4) |
+| US middle-income share of households 2014 | 47 per cent | [AP] (Ch 8.4) |
+| Equal Pay Act passage year | 1963 | [AP] (Ch 6.2) |
+| OSHA passage year | 1970 | [AP] (Ch 6.1) |
+| ADA passage year | 1990 | [AP] (Ch 8.2) |
+| WARN Act passage year | 1989 | [AP] (Ch 6.1) |
+| Sarbanes-Oxley year | 2002 | [AP] (Ch 4.3) |
+| ACA passage year | 2010 | [AP] (Ch 9.4) |
+| FCPA year | 1977 (amended 1988, 1998) | [AP] (Ch 7.4) |
 | Foreign Corrupt Practices Act jurisdiction | nationality principle (broad) | [AP] (Ch 7.4) |
-| Project Shakti participants (Unilever, India) | >100,000 (~75,000 women) | [V] [BT] (Ch 4.1) |
-| Hurricane Harvey rainfall (Houston, 2017) | 52 inches | [V] [BT] (Ch 9.3) |
-| Hurricane Harvey insured share of property losses | may be only 40 per cent | [V] [BT] (Ch 9.3) |
-| Deepwater Horizon oil spilled (2010) | ≥5 million barrels | [V] [BT] (Ch 4.3) |
-| Deepwater Horizon worker fatalities | 11 | [V] [BT] (Ch 4.3) |
-| OSHA fines on BP (2005-2009) | >$102 million | [V] [BT] (Ch 6.1) |
-| Volkswagen emissions fine | nearly $30 billion | [V] [BT] (Ch 5.4; Ch 3.2) |
-| Microsoft contractor settlement (2000) | $97 million | [V] [BT] (Ch 10.3) |
-| Bradley Birkenfeld (UBS) IRS whistleblower award (2012) | $104 million | [V] [BT] (Ch 7.5) |
-| Pfizer whistleblowers' combined award (2009) | $102 million | [V] [BT] (Ch 7.5) |
-| HCA Medicare-fraud whistleblowers' combined award | $100 million | [V] [BT] (Ch 7.5) |
-| McKinsey estimate (reported 2017) of jobs lost to robotics by 2030 | more than 800 million / 20% of global workforce | [V] [BT] (Ch 10.4) |
-| US jobs at risk of automation by 2030 | 39-73 million | [V] [BT] (Ch 10.4) |
-| Independent contractors share of US workforce (Freelancers Union) | 35 per cent (~55+ million) | [V] [BT] (Ch 10.3) |
-| Annual harassment complaints (sexual, gender, racial, or creedal; EEOC) | >30,000 | [V] [BT] (Ch 6.1) |
-| Carbon tax proposed by CLC | $45/metric ton; >$200B/yr ($2T/decade) | [V] [BT] (Ch 4.2) |
-| Federal employee gift threshold (annual occasion to superior) | <$10 | [V] (Ch 7.4) |
-| Federal employee one-source annual gift reporting | >$390 | [V] (Ch 7.4) |
-| Number of Tylenol bottles recalled by Johnson & Johnson | ~30 million | [V] [BT] (Ch 3.2) |
+| Project Shakti participants (Unilever, India) | >100,000 (~75,000 women) | [BT] (Ch 4.1) |
+| Hurricane Harvey rainfall (Houston, 2017) | 52 inches | [BT] (Ch 9.3) |
+| Hurricane Harvey insured share of property losses | may be only 40 per cent | [BT] (Ch 9.3) |
+| Deepwater Horizon oil spilled (2010) | ≥5 million barrels | [BT] (Ch 4.3) |
+| Deepwater Horizon worker fatalities | 11 | [BT] (Ch 4.3) |
+| OSHA fines on BP (2005-2009) | >$102 million | [BT] (Ch 6.1) |
+| Volkswagen emissions fine | nearly $30 billion | [BT] (Ch 5.4; Ch 3.2) |
+| Microsoft contractor settlement (2000) | $97 million | [BT] (Ch 10.3) |
+| Bradley Birkenfeld (UBS) IRS whistleblower award (2012) | $104 million | [BT] (Ch 7.5) |
+| Pfizer whistleblowers' combined award (2009) | $102 million | [BT] (Ch 7.5) |
+| HCA Medicare-fraud whistleblowers' combined award | $100 million | [BT] (Ch 7.5) |
+| McKinsey estimate (reported 2017) of jobs lost to robotics by 2030 | more than 800 million / 20% of global workforce | [BT] (Ch 10.4) |
+| US jobs at risk of automation by 2030 | 39-73 million | [BT] (Ch 10.4) |
+| Independent contractors share of US workforce (Freelancers Union) | 35 per cent (~55+ million) | [BT] (Ch 10.3) |
+| Annual harassment complaints (sexual, gender, racial, or creedal; EEOC) | >30,000 | [BT] (Ch 6.1) |
+| Carbon tax proposed by CLC | $45/metric ton; >$200B/yr ($2T/decade) | [BT] (Ch 4.2) |
+| Federal employee gift threshold (annual occasion to superior) | <$10 | [AP] (Ch 7.4) |
+| Federal employee one-source annual gift reporting | >$390 | [AP] (Ch 7.4) |
+| Number of Tylenol bottles recalled by Johnson & Johnson | ~30 million | [BT] (Ch 3.2) |
 
 ## Connections the author makes in the text
 

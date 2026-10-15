@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:32f9687342a7b92e63d2a506b561664e03116998d26f87a63dd8f85baef6abf5 -->
+<!-- derived-from-deep: sha256:00f5bdb8e626bc096712d21a7d33d552c4f812764e5f3a30d2fb34b02862ac47 -->
 # OpenStax Organizational Behavior, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/organizational-behavior. Lead author J. Stewart Black; 11 contributing authors.
@@ -171,6 +171,6 @@ This worked example illustrates several key concepts in the source: dual-system 
 - *Chris Argyris, basic incongruity thesis* — organisation-vs-maturity conflict, strongest in highly structured, mechanised lower-level jobs (Ch 2.5) [BT].
 - *Fiedler's contingency theory of leadership* — LPC scoring and situational favourability (Ch 12.6) [BT].
 
-**Named limits of the source.** The text is an introductory OB survey; it provides orientation to all major decision-making concepts but not the depth of specialist sources on any single topic. Cognitive-bias coverage concentrates on the six barriers; behavioural-economics depth (prospect theory, dual-process experiments) is not developed. The ethical decision-making section (Rest's model) is brief. The cross-cultural negotiation section draws on decades-old American/Arab/Russian typologies (Table 14.5, from Glenn, Witmeyer and Stevenson, 1977) that should be treated as directional rather than current.
+**Named limits of the source.** The text is an introductory OB survey; it provides orientation to all major decision-making concepts but not the depth of specialist sources on any single topic. Cognitive-bias coverage concentrates on the six barriers; behavioural-economics depth (prospect theory, dual-process experiments) is not developed. The ethical decision-making section (Rest's model) is brief. The cross-cultural negotiation section draws on decades-old American/Arab/Russian typologies (Table 14.5, from Glenn, Witmeyer and Stevenson, 1977) that should be treated as directional rather than current. Coverage is partial: the converted text the deep reference was read from lacks about 7% of the PDF's longer lines (mostly feature boxes, some body text); only Ch 12 pp. 350–356 have been restored.
 
 **Evidence-marker continuity.** This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; verbatim passages live in the deep reference (`openstax-organizational-behavior-deep.md`). Key Concepts 1–10 paraphrase the deep ref's [AP], [AR] and [BT] passages; the only in-file markers are the four [V] quotations. Most underlying theories (Adams, Vroom, Locke, Rest, Thomas, Cooperrider) are `[BT]` — the source endorses and explains them but does not originate them.

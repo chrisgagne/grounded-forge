@@ -8,35 +8,35 @@ task: retro
 scope: open
 sources:
   - id: nhs-just-culture-guide
-    title: "NHS Improvement (2018). A Just Culture Guide — Supporting consistent, constructive and fair evaluation of the actions of staff involved in patient safety incidents. A3 landscape poster. Licence: Open Government Licence v3.0 (CC BY 4.0-equivalent). Scope: open. Attributes itself to \"the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree\" [V] (borrowed-through; neither is held directly in this corpus)."
+    title: "NHS Improvement (2018). A Just Culture Guide — Supporting consistent, constructive and fair evaluation of the actions of staff involved in patient safety incidents. A3 portrait poster. Licence: Open Government Licence v3.0 (CC BY 4.0-equivalent). Scope: open. Attributes itself to \"the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree\" [V] (borrowed-through; neither is held directly in this corpus)."
     resource: https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-15T20:53:58+13:00
 ---
 # NHS Improvement Just Culture Guide, Retrospective Distillation
 
-**Source:** NHS Improvement (2018). *A Just Culture Guide — Supporting consistent, constructive and fair evaluation of the actions of staff involved in patient safety incidents*. A3 landscape poster. **Licence:** Open Government Licence v3.0 (CC BY 4.0-equivalent). **Scope:** open. Attributes itself to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree" [V] (borrowed-through; neither is held directly in this corpus).
+**Source:** NHS Improvement (2018). *A Just Culture Guide — Supporting consistent, constructive and fair evaluation of the actions of staff involved in patient safety incidents*. A3 portrait poster. **Licence:** Open Government Licence v3.0 (CC BY 4.0-equivalent). **Scope:** open. Attributes itself to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree" [V] (borrowed-through; neither is held directly in this corpus).
 
 ## Retrospective Relevance
 
-The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. In retro work it fires as *background discipline*, not as a primary move: the guide's default-to-system prior and its five-test tree apply whenever blame language surfaces in a retro, but the retro rarely needs the full decision-tree walk that a cross-functional incident review does. The guide's load-bearing retro contribution is its single most durable claim: "action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" [V] (Preamble, "Purpose and use"). That claim is the principled basis for redirecting blame language in a retro without needing to invoke the full tree. The guide also provides the structural vocabulary for why blame-language redirection is not just a facilitation preference — it is the move the guide argues for in patient safety, where "most patient safety issues have deeper causes and require wider action" [V]; the retro applies it by analogy. Frame to bring: the NHS guide gives the retro facilitator a principled one-liner ("singling out an individual is rarely appropriate" [V]) with a structured decision process behind it for the cases where the one-liner is not enough.
+The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. In retro work it fires as *background discipline*, not as a primary move: the guide's default-to-system prior and its five-test tree apply whenever blame language surfaces in a retro, but the retro rarely needs the full decision-tree walk that a cross-functional incident review does. The guide's load-bearing retro contribution is its single most durable claim: "action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" [V] (Preamble, paragraph 1). That claim is the principled basis for redirecting blame language in a retro without needing to invoke the full tree. The guide also provides the structural vocabulary for why blame-language redirection is not just a facilitation preference — it is the move the guide argues for in patient safety, where "most patient safety issues have deeper causes and require wider action" [V]; the retro applies it by analogy. Frame to bring: the NHS guide gives the retro facilitator a principled one-liner ("singling out an individual is rarely appropriate" [V]) with a structured decision process behind it for the cases where the one-liner is not enough.
 
 ## Key Concepts for Retrospective
 
-1.  **Default-to-system prior.** "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" [V] (Preamble, "Purpose and use"). This is the guide's most portable claim in retro work. When blame language surfaces, this prior frames the redirect: the pattern has deeper causes; the task is to find them.
+1.  **Default-to-system prior.** "Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" [V] (Preamble, paragraph 1). This is the guide's most portable claim in retro work. When blame language surfaces, this prior frames the redirect: the pattern has deeper causes; the task is to find them.
 
-2.  **The circumstances in which an error was made determine the appropriate response.** "The appropriate response to a member of staff involved in an incident can and should differ according to the circumstances in which an error was made" [V] (Preamble, "Purpose and use"). In retro terms: the team's response to a mistake should be calibrated to the circumstances that produced it.
+2.  **The circumstances in which an error was made determine the appropriate response.** "The appropriate response to a member of staff involved in an incident can and should differ according to the circumstances in which an error was made" [V] (Preamble, paragraph 3). In retro terms: the team's response to a mistake should be calibrated to the circumstances that produced it.
 
-3.  **The guide as communication tool, not just decision aid.** "An important part of a just culture is being able to explain the approach that will be taken if an incident occurs" [V] (Preamble, "Purpose and use"). In retro, this means the team can share the default-to-system framing *before* any incident occurs — the Prime Directive and the NHS prior are complementary pre-commitments.
+3.  **The guide as communication tool, not just decision aid.** "An important part of a just culture is being able to explain the approach that will be taken if an incident occurs" [V] (Preamble, paragraph 3). In retro, this means the team can share the default-to-system framing *before* any incident occurs — the Prime Directive and the NHS prior are complementary pre-commitments.
 
 4.  **Five sequential tests as background discipline.** Q1 deliberate harm → Q2 health → Q3 foresight → Q4 substitution → Q5 mitigating circumstances. In a retro, the full tree is rarely necessary — the guide fires at the level of its prior and its Q3/Q4 framing rather than at the level of a formal decision walk. But when blame language persists past a redirect, the Q3 foresight test ("was there a workable agreed protocol the individual knowingly departed from?") and Q4 substitution test ("would peers in the same circumstances have behaved similarly?") give structured questions to surface whether the issue is individual or systemic.
 
-5.  **Q3 foresight test as system-contract probe.** Three sub-questions: Was there an agreed protocol? Was it workable and in routine use? Did the individual knowingly depart? "No" to any routes to Recommendation D: singling out the individual is unlikely to be appropriate, and the wider actions may include, but not be limited to, the individual (Q3, "Recommendation D"). In retro: does the team have an agreed process that is workable and in routine use? If not, the corrective work is wider than the individual.
+5.  **Q3 foresight test as system-contract probe.** Three sub-questions: Was there an agreed protocol? Was it workable and in routine use? Did the individual knowingly depart? "No" to any routes to Recommendation D: singling out the individual is unlikely to be appropriate, and the wider actions may include, but not be limited to, the individual (Q3, Recommendation D). In retro: does the team have an agreed process that is workable and in routine use? If not, the corrective work is wider than the individual.
 
 6.  **Q4 substitution test as peer-and-context probe.** "Are there indications that other individuals from the same peer group, with comparable experience and qualifications, would behave in the same way in similar circumstances?" [V] (Q4, "Substitution test"). In retro: would other team members have done the same thing in the same context? If yes, the locus is systemic; the individual alone is not the relevant lever.
 
-7.  **Protecting staff from unfair targeting AND protecting patients by removing individual-focus.** The guide's dual purpose is "protecting staff from unfair targeting" [V] and protecting patients "by removing the tendency to treat wider patient safety issues as individual issues" [V] (Preamble, "Purpose and use"). In retro: individual-focus at the cost of system-focus is not just unfair to the individual; it also fails to fix the system.
+7.  **Protecting staff from unfair targeting AND protecting patients by removing individual-focus.** The guide's dual purpose is "protecting staff from unfair targeting" [V] and protecting patients "by removing the tendency to treat wider patient safety issues as individual issues" [V] (Preamble, paragraph 3). In retro: individual-focus at the cost of system-focus is not just unfair to the individual; it also fails to fix the system.
 
 8.  **Borrowed-through Reason / NPSA lineage.** The poster attributes itself to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree." [V] Both are borrowed-through; the demo does not hold them directly.
 
@@ -69,7 +69,7 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 | Need | Question |
 |---|---|
 | Is the proposed experiment targeting an individual behaviour or a system condition? | An experiment that says "X should do Y differently" is an individual-focus experiment. Is the underlying system condition — missing protocol, untrained process, absent feedback loop — what actually needs addressing? |
-| Does the experiment address the right locus? | If the substitution test suggests peers would have done the same thing, the experiment must address the conditions that produced the pattern, not only the individual who exhibited it. |
+| Does the experiment address the right locus? | If the substitution test finds indications that comparable peers would behave the same way, the experiment must address the conditions that produced the pattern, not only the individual who exhibited it. |
 
 ## What to Look For
 
@@ -84,7 +84,7 @@ The NHS Just Culture Guide is primarily an AAR / incident-review decision tool. 
 ## When to Use This Reference
 
 Reach for this distillation when:
-- Blame language surfaces and a principled one-liner redirect is needed: "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" [V] (Preamble, "Purpose and use") is this source's most portable claim; in retro, the facilitator applies it by analogy to team issues.
+- Blame language surfaces and a principled one-liner redirect is needed: "Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" [V] (Preamble, paragraph 1) is this source's most portable claim; in retro, the facilitator applies it by analogy to team issues.
 - Blame language has survived the standard redirect and a structured diagnostic is needed: the foresight test (Q3) and substitution test (Q4) provide specific questions that reorient the conversation.
 - The team is proposing an experiment that targets an individual's behaviour — the tests name whether the locus is the individual or the system.
 - The team needs to establish the default-to-system prior as a working-agreement commitment before any incident occurs, not after.
@@ -93,7 +93,7 @@ This source is background discipline for the retro: its load is in Phase 0 (pre-
 
 ## Worked Example
 
-A team's Phase 2 data-gathering produces: "The deployment broke because [name] pushed to production without the checks." The lead recognises this as the individual-blame pattern the guide warns against. The lead reads the NHS prior aloud, "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" [V], and adds: "The same logic applies to our deploys. Let's look at the conditions."
+A team's Phase 2 data-gathering produces: "The deployment broke because [name] pushed to production without the checks." The lead recognises this as the individual-blame pattern the guide warns against. The lead reads the NHS prior aloud, "Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" [V], and adds: "The same logic applies to our deploys. Let's look at the conditions."
 
 The facilitator asks: was there a workable agreed process for deployment checks that the individual knowingly departed from? The team realises: the deployment checklist exists, but it's in Confluence and hasn't been updated in two Sprints. The recent DoD change added a new check that wasn't reflected. The individual followed the checklist they had.
 
@@ -101,7 +101,7 @@ The foresight test (Q3) alone would exit the tree at Recommendation D: singling 
 
 Phase 4 experiment: assign a named owner to keep the deployment checklist in sync with DoD changes. Pre-commitment before close: the team states the default-to-system prior as a working-agreement entry so the next retro opens with the principle already set.
 
-The default-to-system prior, foresight test, substitution test, and dual-purpose framing all trace to the NHS guide (Preamble, "Purpose and use"; Q3; Q4).
+The default-to-system prior, foresight test, substitution test, and dual-purpose framing all trace to the NHS guide (Preamble; Q3; Q4).
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -128,9 +128,9 @@ The default-to-system prior, foresight test, substitution test, and dual-purpose
 
 **Borrowed-through gaps.** The guide attributes its structure to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree" [V] (Footer) [BT]. No specific work of Reason's is cited by name in the source text; only the footer attribution names him. The NPSA Incident Decision Tree is named as the structural origin without further detail [BT]. Both are borrowed-through in the deep ref — any further characterisation of Reason's work or the NPSA's methodology is outside the scope of what the source states.
 
-**Named limits of the source.** The guide is a single-page A3 landscape poster designed as a quick-reference decision tool for patient safety incident evaluation in NHS settings. Its retro applicability is an application by analogy: the default-to-system prior and the foresight/substitution tests transfer cleanly; the five sequential tests are a formal decision-tree designed for HR/management contexts that scale to retro work only for the Q3/Q4 framing, not the full tree walk. The guide does not address retro ceremony design, software development, agile delivery, or team coaching.
+**Named limits of the source.** The guide is a single-page A3 portrait poster designed as a quick-reference decision tool for patient safety incident evaluation in NHS settings. Its retro applicability is an application by analogy: the default-to-system prior and the foresight/substitution tests transfer cleanly; the five sequential tests are a formal decision-tree designed for HR/management contexts that scale to retro work only for the Q3/Q4 framing, not the full tree walk. The guide does not address retro ceremony design, software development, agile delivery, or team coaching.
 
-**Evidence-marker continuity.** "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" is `[V]` in the deep ref (verbatim from the Preamble); the distillation uses this as the primary portable claim, paraphrased as "singling out an individual is rarely appropriate" (correct). The five tests (Q1–Q5) are `[V]` in the deep ref; the distillation focuses on Q3 and Q4 as the retro-relevant subset. The dual-purpose claim (protecting staff AND protecting patients) is `[V]` in the deep ref; the distillation carries both sides of the dual purpose precisely.
+**Evidence-marker continuity.** "Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" is `[V]` in the deep ref (verbatim from the Preamble); the distillation uses this as the primary portable claim, paraphrased as "singling out an individual is rarely appropriate" (correct). The five tests (Q1–Q5) are `[V]` in the deep ref; the distillation focuses on Q3 and Q4 as the retro-relevant subset. The dual-purpose claim (protecting staff AND protecting patients) is `[V]` in the deep ref; the distillation carries both sides of the dual purpose precisely.
 
 ## Related concepts
 

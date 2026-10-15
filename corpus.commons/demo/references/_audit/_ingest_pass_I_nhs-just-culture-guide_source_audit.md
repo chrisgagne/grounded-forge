@@ -1,104 +1,91 @@
 # Pass I source-only audit: nhs-just-culture-guide-deep.md
 
-**Date:** 2026-05-13
-**Auditor model:** claude-opus-4-7[1m]
-**Deep ref under audit:** `corpus.commons/demo/references/nhs-just-culture-guide-deep.md`
-**Source read at Pass C:** `corpus.commons/demo/sources/converted/nhs-just-culture-guide.md` (single-page A3 landscape poster; full content read, no section omitted).
+**Date:** 2026-10-15
+**Mode:** audit (full Pass I, fix in place)
+**Auditor:** fresh claude-opus-5-5 subagent (same family as the generator). No cross-family leg was run in this dispatch, so treat the reference as audited but unverified until a second-family blind audit and sort is done.
+**Deep ref under audit:** `corpus.commons/demo/references/nhs-just-culture-guide-deep.md` (184 lines before the audit, all read)
+**Source:** `corpus.commons/demo/sources/converted/nhs-just-culture-guide.md` (109 lines, all read). This is the Poppler `pdftotext -raw` per-region conversion; the source card is `corpus.commons/demo/sources/original/nhs-just-culture-guide.source.md`.
+**Calibration read first:** the Pass I section and failure-mode reference of `9-pass-protocol.md`; fixtures 01, 07 and 12.
 
-## Calibration
+## Counts
 
-Before the cold read, three audit-fixture exemplars were re-read to calibrate against known-bad and known-clean patterns:
+| | |
+|---|---|
+| Claims audited | about 125 (header and notes 20, thesis 16, Part I 14, Part II 30, Part III 30, statistics 6 rows, connections and positions 9) |
+| Source-anchored as written | about 102 |
+| Corrected in place (claim reworded to what the source says) | 15 |
+| Stripped | 5 clauses or sentences (some inside corrected lines) |
+| Marker-corrected | 4 (statistics rows `[V]` to `[AP]`) |
+| Quotation-corrected | 0 |
 
-- `tests/audit-fixtures/01-training-leakage.md` — biographical claim the source does not make.
-- `tests/audit-fixtures/07-marker-mismatch-V-without-verbatim.md` — `[V]` marker on a paraphrased sentence.
-- `tests/audit-fixtures/12-clean-negative-control.md` — clean negative control.
+## Verbatim check
 
-## Audit pass
+`python3 scripts/check-verbatim.py` before and after: one `initial` line (line 15, `action` against the source's `Action`), which needs no fix. No `glyph`, `near`, `page`, `interrupted`, `wrong-source`, `missing` or `no-quote` lines. Two new `[V]` quotations were added during the audit (lines 19 and 38, "can be used by all parties to explain how they will respond to incidents"); both pass.
 
-Each claim in the deep reference was traced to a specific passage in the converted source (the preamble's four caveats; the three preamble paragraphs framing purpose and use; each of the five tests with their sub-questions; each of the seven recommendation end-states; the source's footer attribution). Verbatim quotations were spot-checked character-by-character against the converted markdown.
+## Routing check against the new converted text
 
-### Claims audited
+Every routing claim was checked against the row grouping in the converted text (header bar, question column, answer label, recommendation, END HERE per row):
 
-The deep reference contains roughly 45 distinct claims across the thesis (5 paragraphs), Part I (caveats and framing), Part II (the five sequential tests), Part III (the seven recommendation end-states), the Key Statistics table (6 rows), the Connections list (2 entries), the Positions-framed-against section (1 entry, characterised as implicit not explicit), and the Citation and source-integrity notes. Each was checked against the converted markdown.
+- Q1 row: 1a, `Yes`, recommendation (A), END HERE; next header "No go to next question - Q2. health test". Supports 1a Yes to A, No to Q2.
+- Q2 first row: 2a, `Yes`, recommendation (B). Supports 2a Yes to B.
+- Headerless row 535-590: 2b and 2c, one `Yes`, recommendation (C). Supports Yes to 2b or 2c to C.
+- Header "if No to all go to next question - Q3. foresight test". Supports No to all of 2a to 2c going to Q3.
+- Q3 row: 3b, 3c, 3a (converter order; the numbers carry the order), `If No to any`, recommendation (D); next header "if Yes to all go to next question - Q4". Supports both Q3 routings.
+- Q4 row: 4a to 4c, `If Yes to any`, recommendation (E); next header "if No to all go to next question - Q5". Supports both Q4 routings.
+- Q5 row: 5a, `Yes`, recommendation (F); header bar "if No", recommendation (G). Supports both Q5 routings.
 
-### Findings and fixes (applied to the deep ref before this log was written)
+The header's A to G mapping (line 8) matches these rows. D and E are word-for-word identical in the converted text (lines 74-77 and 88-91). The police-referral claim (A only) holds: G names regulatory bodies, suspension and disciplinary processes, not police. No routing claim depends on headings, letters or routing bullets from the old ingester-written file.
 
-1. **Verbatim slip in the thesis: "support" vs "supports".** The thesis paragraph originally quoted the source as `designed to "support a conversation between managers about..."`, using the infinitive "support". The source reads "This guide supports a conversation..." with the third-person-singular "supports". The deep ref had mid-quote-shifted the tense to fit the surrounding "designed to" construction. **Action:** rewrote the sentence to introduce the quote with a direct attribution, preserving the source's exact wording ("This guide supports a conversation between managers about whether a staff member involved in a patient safety incident requires specific individual support or intervention to work safely"). The [V] marker now matches the verbatim text.
+## Changes (line numbers are pre-edit)
 
-2. **Verbatim slip in caveat 2 ("Re-entrant"): dropped "the guide".** The deep ref originally rendered caveat 2 as a [V] quote: "The guide can be used at any point of an investigation, but may need to be revisited as more information becomes available." The source reads "A just culture guide can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available" — the deep ref had dropped the second instance of "the guide". **Action:** re-rendered the [V] quote as "can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available" — beginning the quote mid-sentence and preserving the source's word order. Added an [AP] marker on the trailing paraphrase about re-entrancy implications, separating the verbatim from the paraphrase.
+1. **L15, correct.** "The decision tree is calibrated to this prior" asserted design intent the source does not state. Now: "Two of the tree's end-states restate it", which is what D and E do in nearly the preamble's words.
+2. **L19, correct.** "positioned for use by *all parties* — managers, staff, patients, families — as a communication tool" turned the source's audience (staff, patients and families, who are helped to understand) into its list of users, and "all parties" is never spelt out. Now quotes the source: "can be used by all parties to explain how they will respond to incidents" [V].
+3. **L25, correct.** "The poster opens with four caveats": in the converted text the "Please note" block comes after the three preamble paragraphs (lines 29-41). Now "The preamble closes with four caveats".
+4. **L28, strip and relabel.** The `[AP]` sentence "the inputs to the tests are facts surfaced by the investigation, and as those facts change, the path through the tree may change" is the ingester's mechanism, not the author's point; stripped. The label "Re-entrant", which is not the source's term, becomes "Usable at any point, open to revisiting".
+5. **L38, correct.** "both an internal decision aid and an external communication tool": the internal/external split is not in the source, and the communication tool also serves staff. Now names the paragraph 3 use in the source's words, quoted [V].
+6. **L42, correct.** "the source's argument that culpability is the exception, not the default" uses vocabulary the source does not have ("culpability"). Also, "built to surface ... before management action is directed at the individual" was wrong for Recommendation A, which comes at Q1. Now states the order of the questions relative to G and quotes paragraph 2's "before formal management action is directed at an individual staff member" [V].
+7. **L70, strip.** "the load-bearing test for whether the system held up its side of the contract": the contract metaphor is not in the source.
+8. **L70, correct.** "the only path that proceeds further toward potential individual accountability": "accountability" is not the source's word. Now "the only path that proceeds to Q4".
+9. **L80, correct.** "structurally disadvantaged by training gaps (4b)" and "ordinary supervision was absent (4c)" went past the questions' wording. Now close paraphrases of 4b and 4c.
+10. **L80, strip.** "The test's name — substitution — captures the operational question: would substituting another comparable individual into the same situation have produced a different outcome?" The source never explains the test's name, and 4a asks about behaviour, not outcome. This is the generator's outside knowledge of the substitution test.
+11. **L88, correct.** "no peer-behaviour, training-gap, or supervision-failure exoneration": E says singling out is "unlikely to be appropriate" and wider actions may include the individual, which is not exoneration. Now "No to the peer-behaviour, missed-training and supervision questions"; the Q3 gloss now includes "in routine use".
+12. **L92, correct and strip.** "health-affecting-work pathways requiring occupational-health or substance-abuse-at-work response": "requiring" overstates C's "likely to include", and occupational health belongs to C only. The "every recommendation pairs ... a directive about wider investigation" claim now says which wording each uses (A to C "wider investigation is still needed"; D to G "the patient safety incident investigation should indicate the wider actions"). The gloss "patient-safety outcomes are not exhausted by the individual response" is stripped.
+13. **L124, correct.** "The phrasing ... is deliberate" asserts authorial intent, and "the locus of corrective work at the system level" is not the source's framing. Rewritten in terms of the wider actions the investigation indicates.
+14. **L140, correct.** "the case has cleared the prior filters, so the question is open" gave a reason for F's wording that the source does not give. The causal "so" is removed.
+15. **L148, correct.** "peers would not have behaved the same" overstated a No to 4a, which means *no indications* that peers would behave the same way; "no indication that senior team members failed" put 4a's "indications" onto 4c. Both fixed. "a graduated set of management responses ... before reaching for regulatory bodies" read a sequence into a list; now quotes G's list and its "may require ..." clause.
+16. **L156-159, marker.** Four statistics rows marked `[V]` were counts, not verbatim text. Reclassified to `[AP]`, each noted as counted.
+17. **L161, correct.** "B and C route to occupational-health pathways": only C mentions occupational health. Now B goes to substance-abuse-at-work guidance and C to health guidance likely to include occupational health referral.
+18. **L166, correct.** "The source attributes its structure to the NPSA's Incident Decision Tree": the footer says "Based on the work of", not "structure". Reworded.
+19. **L172, correct.** "a *default to individual blame*": "blame" is not the source's word. Now uses the source's own phrase, "the tendency to treat wider patient safety issues as individual issues".
+20. **L176, strip.** "1.5MB" is in neither the source card nor the converted text, and the PDF is not in the repo.
 
-3. **Verbatim slips on Q3 foresight sub-questions: slash spacing.** The deep ref originally rendered 3a as "Are there agreed protocols / accepted practice in place that apply to the action / omission in question?" and 3b as "Were the protocols / accepted practice workable and in routine use?" — adding spaces around the slashes. The source uses tight slashes (`protocols/accepted`, `action/omission`). The audit fixture `06-verbatim-capitalisation-tidy.md` (also `05-verbatim-smart-quote-tidy.md`) covers this exact class of typography-tidying slip. **Action:** restored the source's tight slashes in both 3a and 3b.
+## Checked and left as is
 
-### Coverage notes
+- Header (L5) metadata: 2018, OGL v3.0, the mirror URL, and the retired publisher page after the 2022 NHS Improvement / NHS England merger come from the source card, not the poster text. They are bibliographic provenance, not claims about the source's content. The OGL characterisation (L184) restates the source card's licence note.
+- Preamble paragraph numbers: the converted text has no blank lines. The three paragraphs come from the short closing lines (lines 10, 17, 28) and the sentence breaks. These are citation devices, and the source card also says "three preamble paragraphs".
+- Citation subsection labels such as `(Q1, "Deliberate harm test")` capitalise the poster's lower-case header bar text ("Q1. deliberate harm test"). They are location labels, not quotations, so they are left as is.
+- L50, "the only test in the tree that addresses *intent*": 1a is the only question about intention. 3c asks about *knowing* departure, which is a state of mind but not intent to harm. Left.
+- L13 italic *circumstances in which an error was made* is the source's phrase, used as emphasis inside a paraphrase. Left.
+- No cross-reference beyond Reason and the NPSA Incident Decision Tree, both named in the footer. Image-only content (logos, strapline) is not relied on anywhere.
+- Coverage: every line of the converted source maps to a part of the deep reference. The TOC-vs-anchors check passes: title, preamble paragraphs 1 to 3, all four "Please note" bullets, Q1 to Q5 with all 11 sub-questions, all seven recommendations, and the footer.
 
-- **Complete coverage.** The source is a single A3 landscape poster; all textual content (four caveats, three preamble paragraphs, five tests with all sub-questions, seven recommendation end-states, footer attribution) has been preserved in the converted markdown and represented in the deep reference. No claim in the deep reference depends on content outside the converted file.
+## Derived-tier edits to carry forward (light ref and distillations not edited here)
 
-- **Editorial repair in the converted markdown.** The raw `pymupdf4llm` extraction renders the sentence "Action singling out an individual is rarely appropriate most patient safety issues have deeper causes and require wider action" without a punctuation mark between "appropriate" and "most". The mid-sentence omission is almost certainly a layout artefact (the poster's visual rendering carries a punctuation mark — most likely an em-dash — that the line-break conversion drops). The converted markdown at `sources/converted/nhs-just-culture-guide.md` restores an em-dash to make the sentence grammatical, and the deep ref quotes it with the em-dash. This is recorded here as an editorial repair, not a verbatim transcription; downstream consumers should treat the em-dash in the deep ref's quote as a punctuation reconstruction. The semantic content of the sentence is unaffected.
+The light reference `corpus.commons/demo/references/nhs-just-culture-guide.md` carries these superseded claims:
 
-- **No image axis.** The poster contains visual flow elements (the decision-tree arrows and box layout) but no embedded substantive diagrams that warrant the image-index treatment beyond what is captured in the converted markdown's logical structure. The image axis is text-only for this run; no follow-up `ingesting-images` invocation is needed.
+- L13 and L54: "re-entrant"; L13 and L60: guide "for managers, staff, patients, and families" / "for use by all parties — managers, staff, patients, families" (changes 2, 4, 5).
+- L13: "patient-safety outcomes are not exhausted by the individual response" (change 12).
+- L22: Q4 glossed as "peers would have done the same; training was missed; senior supervision absent" (changes 9, 15). It is also less exact than the source: 4a asks about *indications*.
+- L25: "health-affecting-work pathways" (changes 12, 17).
+- L35: "Graduated response ... before reaching regulatory bodies" (change 15).
+- L43: "whether the system held up its side of the contract" and "advances toward potential individual accountability" (changes 7, 8).
+- L45: the substitution test asks "whether substituting another comparable individual ... would have produced a different outcome" (change 10).
+- L65: the NPSA Incident Decision Tree as the "structural predecessor" (change 18).
+- L69: "Default to system, not to individual" and L70: "The system question is never extinguished by any finding about the individual"; both sit on the claims changed in 1 and 12.
 
-- **OGL v3.0 attribution requirement.** The Open Government Licence v3.0 imposes an attribution-only requirement on derivative artefacts. The deep ref, light ref, and both distillations all carry the OGL v3.0 / NHS Improvement attribution in their Source line. Build profiles that include these artefacts inherit the attribution requirement only; no copyleft propagation applies.
+Light ref L20 also says Q2 "Yes to any → exit", which flattens the two Q2 exits (B for 2a, C for 2b or 2c). It is not a deep-ref change, but it should be fixed when the light ref is re-derived. Re-derive the light ref and all five distillations (aar, decision-making, retro, software-business, stakeholder-engagement), then re-stamp with `scripts/check_derived_provenance.py --corpus demo --stamp --slug nhs-just-culture-guide`.
 
-### Evidence-class marker audit
+## Open
 
-Spot-checked sample of evidence-class markers in body prose:
-
-- `[V]` markers: 26 instances. After the three verbatim-slip fixes (items 1, 2, 3 above), all `[V]` quotes match the converted source character-for-character, with the one acknowledged editorial repair (em-dash in the "rarely appropriate" sentence) flagged above. The blockquoted recommendation end-states (A through G) were re-checked sentence-by-sentence and match exactly.
-- `[AP]` markers: 4 instances, all paraphrasing the source's framing without claiming verbatim status.
-- `[AR]` markers: 13 instances, all reporting the source's argument structure (the structural prior of default-to-system; the sequential gating of tests; the parallel-investigation obligation preserved on every branch; the comparison of "is unlikely to be appropriate" vs "may not be appropriate"). All trace to passages in the preamble or to structural patterns visible in the test/recommendation layout.
-- `[BT]` markers: 2 instances, both on the source's footer attribution to Professor James Reason and the NPSA Incident Decision Tree. No further characterisation of either lineage was attached to the deep reference — the source names them but does not develop them.
-- `[AE]` markers: none. The source contains no worked examples; it is a procedural decision aid.
-
-### Cross-corpus drift check
-
-The deep reference does not connect the NHS guide to any other source in the corpus. The source itself cites only Reason and the NPSA Incident Decision Tree (both registered as `[BT]`). The Connections section in the deep ref correctly reports this minimal citation lineage without manufacturing connections to other authors. The distillations (decision-making and stakeholder-engagement) make integration suggestions in their "Integration with Other References" sections; those are distillation-tier synthesis, not deep-ref-tier claims, and are appropriate at that tier.
-
-### Task-application-smuggling check
-
-The deep reference contains no task-application guidance: no diagnostic questions for managers, no anti-patterns, no worked-example projections. The procedural shape of the source (sequential five-test tree with seven recommendation end-states) is described as the source's argument structure, not as an operator runbook. Diagnostic questions and anti-patterns live in the distillations at `nhs-just-culture-guide-decision-making.md` and `nhs-just-culture-guide-stakeholder-engagement.md`, which is the correct tier separation.
-
-### Post-source-vocabulary check
-
-The deep reference uses the source's own vocabulary (just culture; deliberate harm; foresight test; substitution test; mitigating circumstances; not appropriate to single out; wider investigation). It does not import concepts from later just-culture literature (e.g., Dekker's *Just Culture* book; Reason's *Managing the Risks of Organizational Accidents*; safety-II vocabulary; restorative just culture) that the source itself does not name. The Connections section correctly lists only Reason and the NPSA Incident Decision Tree (the two lineages the source's footer names), without speculating on which of Reason's specific works the guide draws from.
-
-### Verbatim accuracy re-check on the seven recommendation end-states
-
-Each of the seven recommendation end-states is rendered as a `[V]` blockquote in the deep reference. Each was re-checked character-by-character against the converted source:
-
-- **Recommendation A** (deliberate harm): exact match.
-- **Recommendation B** (substance abuse): exact match.
-- **Recommendation C** (health issue): exact match.
-- **Recommendation D** (foresight-branch — not appropriate to single out): exact match.
-- **Recommendation E** (substitution-branch — not appropriate to single out): exact match; textually identical to Recommendation D in the source, which the deep ref calls out explicitly.
-- **Recommendation F** (mitigation applies): exact match.
-- **Recommendation G** (residual — management action plus wider investigation): exact match.
-
-### Verbatim accuracy re-check on the eleven sub-questions
-
-- **1a** (deliberate harm): exact match.
-- **2a/2b/2c** (substance abuse; physical ill health; mental ill health): all three exact matches.
-- **3a/3b/3c** (agreed protocols; workable and in routine use; knowingly departed) — *post-fix* exact matches; pre-fix slash-spacing slip corrected.
-- **4a/4b/4c** (peer behaviour; training missed; supervision absent): all three exact matches.
-- **5a** (mitigating circumstances): exact match.
-
-## Result
-
-**Pass.** The deep reference ships. Three verbatim-slip fixes were applied in-place before this log was written. One editorial repair (an em-dash inserted into a sentence the raw conversion dropped punctuation from) is documented above and flagged in the deep ref's "Citation and source-integrity notes" by reference; the semantic content is unaffected. The light reference and the two distillations derive from this audited deep reference; the source-only discipline propagates by construction.
-
-The deep reference's coverage of the source is complete: every textual element of the single-page poster (four caveats; three preamble paragraphs; five tests with eleven sub-questions; seven recommendation end-states; footer attribution) is represented. No silent partial coverage; no training-data leakage; no post-source vocabulary; no cross-corpus drift; no task-application guidance smuggled into the deep tier.
-
-**Files produced this run:**
-
-- `corpus.commons/demo/sources/original/nhs-just-culture-guide.source.md` — frontmatter sidecar.
-- `corpus.commons/demo/sources/original/nhs-just-culture-guide.pdf` — original PDF (1.5MB, OGL v3.0, redistributable; force-added to git on this run).
-- `corpus.commons/demo/sources/converted/nhs-just-culture-guide.md` — converted markdown (decision-tree-as-logical-structure).
-- `corpus.commons/demo/references/nhs-just-culture-guide-deep.md` — audited deep reference.
-- `corpus.commons/demo/references/nhs-just-culture-guide.md` — light reference (derived from audited deep).
-- `corpus.commons/demo/distillations/decision-making/nhs-just-culture-guide-decision-making.md` — decision-making distillation (Pass G applicability: clear yes — this is a decision aid).
-- `corpus.commons/demo/distillations/stakeholder-engagement/nhs-just-culture-guide-stakeholder-engagement.md` — stakeholder-engagement distillation (Pass G applicability: yes — the source positions itself as a communication tool for managers, staff, patients, and families).
-- `corpus.commons/demo/references/REFERENCE-INDEX.md` — updated (Light + Deep reference rows; concept-index entries for Decision-making, Foresight test, Incident Decision Tree, Just culture, Mitigating circumstances test, Patient safety incident response, Reason James, Substitution test).
-- `corpus.commons/demo/distillations/decision-making/DECISION-MAKING-DISTILLATION-INDEX.md` — updated (quick-start rows; phase-by-phase rows across all six phases; new "Just-culture and patient-safety incident response" reference category).
-- `corpus.commons/demo/distillations/stakeholder-engagement/STAKEHOLDER-ENGAGEMENT-DISTILLATION-INDEX.md` — updated (quick-start rows; phase-by-phase rows across mapping, framing, convening, agreement, ratifying, and post-engagement phases; new "Just-culture and patient-safety stakeholder engagement" reference category).
-- `corpus.commons/demo/references/_audit/_ingest_pass_I_nhs-just-culture-guide_source_audit.md` — this log.
-
-**Input source removed from `sources/ingest/`:** confirmed (moved to `sources/original/`).
+- Cross-family second leg not run.
+- Derived tier not re-derived or re-stamped (out of scope for this dispatch).

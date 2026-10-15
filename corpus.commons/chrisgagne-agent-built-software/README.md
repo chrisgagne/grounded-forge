@@ -1,8 +1,14 @@
 # Signing off AI-written code without reading every line
 
-**An experiment, built by AI and open for critique.** Claude (Anthropic) wrote nearly all of this, the code, the docs
-and the library behind it, with OpenAI's Codex as a second reviewer and as the grader, under the direction of Chris
-Gagné.
+> I'm a product manager and consultant, not a developer. I was curious what kind of software factory could be built
+> from open sources (public domain, MIT, Creative Commons and the like) on what good-quality, AI-built software looks
+> like. This is what I came up with. I directed it, and I signed off its one real change from the sign-off sheet,
+> without reading the code.
+>
+> *Chris Gagné*
+
+**An experiment, built by AI and open for critique.** Claude (Anthropic) wrote nearly all of it: the code, these docs
+and the library behind it, with OpenAI's Codex as a second reviewer and as the grader.
 
 AI agents now write code faster than anyone can review it, and code review has become the queue. This project asks
 whether the person who signs off a change can do it from evidence instead of reading every line, and measures how far

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b741934bea352f3ab0e0f2e2e172a27b897e6ab50af3c2964071f394115f6dd5 -->
+<!-- derived-from-deep: sha256:ae703a8e3e046b3faf84caec4cb1f08b60f1887f1145fb0696bffb479ecb7390 -->
 # US Army TC 25-20, Retrospective Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. Licence: Public domain (17 USC §105 — US Government work product). Scope: open.
@@ -139,6 +139,8 @@ At Phase 5 close, the facilitator summarises the two commitments, names one thin
 | SSDL Systems Thinking Foundations | SSDL's system-archetype diagnostics (fixes that fail, shifting the burden) are the complement to TC 25-20's experiment-review frame: when a retro's experiments keep failing (T-P-U Untrained cycle after cycle), SSDL identifies the dynamic; TC 25-20's follow-up principle provides the commitment structure for re-entry |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process), which the converter dropped; claims about those figures' contents are not grounded here.
 
 **Borrowed-through gaps.** TC 25-20's References cite FM 25-100 (*Training the Force*, 1988) and FM 25-101 (*Battle Focused Training*, 1990); the TC states that it supplements and expands FM 25-101 [BT] (Preface; References). The TC's retraining-scheduling obligation references FM 25-100 and FM 25-101 directly but those manuals are not held as primary references in this corpus [BT] (Ch 5, "Immediate Retraining"). The Combined Arms Training Strategy (CATS), cited as the source of critical-gate-task definitions, is similarly cited by name only [BT] (Ch 5, "Immediate Retraining"). ARTEP mission training plans and soldier's manuals (the task standards) and Combat Training Center practice (Appendix A) are also cited by name [BT]; no other external authorities are invoked; the TC's claims are doctrine, not empirical research, and it cites no studies or datasets.
 

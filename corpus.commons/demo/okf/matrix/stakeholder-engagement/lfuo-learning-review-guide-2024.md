@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # LFUO 2024, Stakeholder-Engagement Distillation
 
@@ -241,6 +241,8 @@ The scenario is operator-authored. The liaison guidance (Part 5), the administra
 | Barbrook-Johnson & Penn, *Systems Mapping* | For stakeholder engagement where participatory systems mapping is used to surface the causal structure of an incident; the boundary-object framing (maps as surfaces all stakeholders can critique from their own perspective) is especially important for participants with different professional standings. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Sidney Dekker — *The Field Guide to Understanding Human Error* (2014); *Just Culture: Balancing Safety and Accountability* (2007); cited throughout for the Just Culture and local-rationality framing [BT]

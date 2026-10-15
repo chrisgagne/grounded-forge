@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:4c767a22e5e59c13b44ba9c6bd5aeccd30436ad53913efc3b469f602e288cb9a -->
+<!-- derived-from-deep: sha256:96c8ded3d0bea6471d72034d44c4a3a641b7f0a8e495e6af2ac452c02cb8c94e -->
 # US Forest Service LFUO 2024, After-Action Review Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Scope:** open.
@@ -140,6 +140,8 @@ A maintenance team reviews a near-miss: a gas line was struck during a dig becau
 | DOE HPI Handbook Vol. 1 (doe-hpi-handbook-vol1) | Both reject blame-first investigation and reconstruct why actions made sense at the time (DOE via Dekker). They part on vocabulary: DOE keeps "root cause" and the Anatomy of an Event as a backward-worked causal chain, where LFUO rejects causal statements. In an LFUO-run review, use DOE's model as a prompt list for contributors, not a causal verdict. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
 
 **Borrowed-through gaps.** Sidney Dekker is cited repeatedly throughout the guide (Dekker's *Just Culture* and *The Field Guide to Understanding Human Error* are in the Recommended Reading, the Field Guide is also quoted in Part 10, and the Dekker & Breakey paper on restorative justice is cited in the Glossary's restorative-justice entry); the demo corpus does not hold Dekker directly. Erik Hollnagel (ETTO principle, Resilience Engineering) is cited borrowed-through. Weick and Sutcliffe (*Managing the Unexpected*, HRO principles) are cited borrowed-through. Gary Klein (Recognition Primed Decision Making) is cited borrowed-through. J. T. Reason (*Managing the Risks of Organizational Accidents*) is cited borrowed-through. Todd Conklin (*Pre-Accident Investigations*) is cited in Recommended Reading. The Roese & Vohs 2012 paper on hindsight bias is cited borrowed-through. None of these authors are held as primary references in the demo corpus; their works are not openly licensed and cannot be cited directly here.
 

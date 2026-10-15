@@ -164,6 +164,8 @@ This worked example illustrates the five-step process (including step 5, gatheri
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice, Catching the Entrepreneurial Spirit) that the converter dropped, sometimes with body text; that material is not covered here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Abraham Maslow* — five-level hierarchy of needs; Ch 9.3 treats it as useful but notes it has not been strictly verified by research [BT].

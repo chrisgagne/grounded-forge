@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-law-i-essentials
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T09:05:06+13:00
 ---
 # OpenStax Business Law I Essentials, Decision-Making Distillation
 
@@ -185,6 +185,8 @@ This worked example illustrates several key concepts: the ADR-tier choice, the T
 | Rest's four-component ethical decision-making (OpenStax Organizational Behavior Ch 6) | The Michigan State six-step model and Rest's four-component model (moral sensitivity, judgment, motivation, character) are complementary frameworks for ethical decision-making. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

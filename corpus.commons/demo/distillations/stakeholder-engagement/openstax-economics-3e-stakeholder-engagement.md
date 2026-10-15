@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a10163965bef57dd4ecdd9b91cf94aef39006a1b9e1a47dd9a60f3ea721b795f -->
+<!-- derived-from-deep: sha256:38a0b08031854cd95680a649d3bd92065476a2a0886191132a1e4321a08cc244 -->
 # OpenStax Principles of Economics 3e, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2022). *Principles of Economics 3e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-economics-3e. Lead author Steven A. Greenlaw; nine contributing authors.
@@ -174,6 +174,8 @@ This worked example illustrates several key concepts: externality framing, commo
 | Behavioural economics | Ch 6.3 introduces loss aversion, mental accounting, fungibility failure. Stakeholder engagement design should compensate for these biases in itself and in stakeholders, especially in the framing of losses vs gains and in the design of voluntary-vs-mandatory contribution structures. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 1.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Work It Out, Link It Up) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Elinor Ostrom — local self-governance of common resources (Ch 13.3) [BT]

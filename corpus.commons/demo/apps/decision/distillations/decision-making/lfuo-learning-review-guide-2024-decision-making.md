@@ -184,6 +184,8 @@ The learning product is a narrative with sensory detail and the characters' inte
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the guide cites named third parties not held as separate primary references in this corpus:
 
 - *Hollnagel, The ETTO Principle* — not held. Source of the ETTO (Efficiency-Thoroughness Trade-Off) principle named in Key Concept 16. The distillation quotes the guide's rendering of ETTO [V] [BT].

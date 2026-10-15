@@ -198,6 +198,8 @@ The board paper now presents a cleaner story: Topic 606 revenue allocation corre
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
+
 **Borrowed-through gaps.** OpenStax Accounting Vol 1 situates US financial accounting within a regulatory and conceptual framework built on external standards bodies and landmark legal cases this corpus does not hold as primary references.
 
 - *Donald Cressey — fraud triangle* (perceived opportunity, rationalisation, incentive) — cited as the criminological origin of the fraud-triangle model (Ch 8.1). Flagged [BT] in the deep ref.

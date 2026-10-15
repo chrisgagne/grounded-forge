@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-law-i-essentials
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T09:05:06+13:00
 ---
 # OpenStax Business Law I Essentials, Stakeholder-Engagement Distillation
 
@@ -200,6 +200,8 @@ This worked example illustrates stakeholder mapping by legal-relationship type, 
 | Coase (via OpenStax Economics 3e, Ch 12.3) [BT] | Economics 3e relays Coase's point that a dispute over a spillover cannot be resolved until property rights are clearly defined; once one party carries a well-defined responsibility, it seeks the least costly fix. The Ch 2 ADR options lower the cost of engagement once a dispute arises. Business Law does not cite Coase. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Thomas-Kilmann Conflict Mode Instrument — negotiation styles (Ch 2) [BT]

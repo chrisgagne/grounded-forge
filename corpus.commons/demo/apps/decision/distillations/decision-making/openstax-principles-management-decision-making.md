@@ -178,6 +178,8 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check, Exploring Managerial Careers) that the converter dropped, sometimes with body text; that material is not covered here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *James Rest, four-component ethical decision-making* — moral sensitivity, moral judgment, moral motivation, moral character/action (Ch 2.5) [BT]. Key Concept 6 traces here.

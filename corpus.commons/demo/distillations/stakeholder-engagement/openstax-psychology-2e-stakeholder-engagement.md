@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:448b7d6ec6a3a159eddee188155bd275102ffeec61c04eea7ee956efbcf03af2 -->
+<!-- derived-from-deep: sha256:cfdc243d0b9565068843d0228623f0363f2a48402e385d98acd53b5a169ad2ee -->
 # OpenStax Psychology 2e, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.
@@ -173,6 +173,8 @@ This worked example illustrates several key concepts in the source: standing-not
 | Tajfel and Turner social identity theory | *Psychology 2e* presents in-group bias and discrimination dynamics that social identity theory formalises; pair for deeper treatment of identity-based stakeholder dynamics. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection, Link to Learning) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Solomon Asch — conformity experiments; line-length studies (Ch 12.4) [BT]

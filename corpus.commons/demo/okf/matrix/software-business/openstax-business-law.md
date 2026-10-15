@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-law-i-essentials
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T09:05:06+13:00
 ---
 # OpenStax Business Law I Essentials, Software-Business Distillation
 
@@ -198,6 +198,8 @@ The decision: drop "fairness-tested" from all marketing; lead with the "60% time
 | `nhs-just-culture-guide` (cross-axis) | Business Law's negligence test (Ch 6.1) asks whether a duty was breached and harm was reasonably foreseeable, and assigns fault to the party that breached; NHS Just Culture's foresight test (Q3) asks whether a workable, agreed protocol existed and was knowingly departed from, and otherwise defaults to system causes rather than singling out the individual. Use Business Law for the liability question and NHS for the incident-learning question. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
 
 **Borrowed-through gaps.** The deep reference carries several third-party citations that are not held as primary references in this corpus. The Thomas-Kilmann Conflict Mode Instrument (Kilmann and Thomas, 1977) is described as closely associated with the work of Pruitt and Rubin; neither is held independently. The Chevron mediation figures are given by the source without a cited origin; treat them as an [AE] example. The *Griggs v. Duke Power Co.* figures (12% vs 34% HS diploma; 6% vs 58% intelligence-test pass rates) are carried as [V] in the deep reference (the source's own statement of the case facts); the case record is not held. Harvard Law School's mediator study (Peter Adler finding) and the nolo.com six-step mediation sequence are both borrowed-through — neither source is independently held. The Michigan State University six-step ethical decision-making model is attributed but the original MSU publication is not held. (Source: OpenStax, *Business Law I Essentials*, deep reference, Part II–III)
 

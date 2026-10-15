@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping, AAR Distillation
 
@@ -129,6 +129,8 @@ A cross-functional team is reviewing a series of late deliveries. The timeline (
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 provides the discussion-organisation techniques (chronological, BOS, key events); when BOS or key-events analysis surfaces a structural pattern, this source provides the mapping discipline to make it explicit |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The system archetypes (Kim 2000, *Systems Archetypes I*) are cited borrowed-through in the source; the deep ref records Kim 2000 as `[BT]` (Ch 4, "How Do You Create Causal Loop Diagrams?"). Kim is not held directly in this corpus. The boundary-objects framing (Star & Griesemer 1989) is cited borrowed-through in the source's Ch 9; Star & Griesemer is not held directly. Meadows 2008 (*Thinking in Systems*) is cited borrowed-through for the system definition; Meadows is not held directly in the demo corpus. The Rogers 2014 "results chain" framing for ToC categories is borrowed-through. The Barbrook-Johnson & Penn text is largely a methods overview, but Ch 5 (Participatory Systems Mapping) is the authors' own method. The text's borrowed-through chain as a whole is extensive and is recorded in the deep ref.
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:bb62270cd2d486ab06926d15d7a39a788e5a7a08a668a1143e48918ae9f264bd -->
+<!-- derived-from-deep: sha256:b173484b1dfcca9c733d2633a4bac3bec35182a3fca1aff5dc473e422c546e70 -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -198,6 +198,8 @@ The board paper now presents a cleaner story: Topic 606 revenue allocation corre
 | IFRS / IASB | Where US GAAP and IFRS diverge (LIFO, component depreciation, contingent-liability thresholds, fair-value option for long-lived assets), the choice of standard is a software-business decision for any company reporting under both — particularly relevant for software businesses with international subsidiaries or considering cross-border listings (Source: Ch 1.4, Ch 7.1, Ch 10.1, Ch 11.3, Ch 12.3). |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** OpenStax Accounting Vol 1 situates US financial accounting within a regulatory and conceptual framework built on external standards bodies and landmark legal cases this corpus does not hold as primary references.
 

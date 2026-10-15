@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:d108947e4e60c31982d95bd276eb8d7b7c56f13f74ed25d95da3da19ba37310d -->
+<!-- derived-from-deep: sha256:7f5fcd84fecb64f6476b7fb57a496886e3b359064a6e81593b9f791881a2e512 -->
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Stakeholder-Engagement Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. **Licence:** CC BY 4.0. Open scope; attribution required on derivative works.
@@ -172,6 +172,8 @@ The scenario is operator-authored; all framework citations trace through `corpus
 | SSDL, *Systems Thinking Foundations* (this corpus) | SSDL names Group Model Building as a participatory method but does not develop facilitation craft; FLO provides the scaffolding-and-fading, modelling, climate-design, and equity-tracking practices that GMB-style engagement depends on. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus:
 - Institute of Cultural Affairs – UK — facilitator definition (Ch 1, "The definition") [BT]

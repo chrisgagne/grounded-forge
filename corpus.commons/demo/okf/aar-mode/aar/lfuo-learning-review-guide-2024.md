@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # US Forest Service LFUO 2024, After-Action Review Distillation
 
@@ -155,6 +155,8 @@ A maintenance team reviews a near-miss: a gas line was struck during a dig becau
 | DOE HPI Handbook Vol. 1 (doe-hpi-handbook-vol1) | Both reject blame-first investigation and reconstruct why actions made sense at the time (DOE via Dekker). They part on vocabulary: DOE keeps "root cause" and the Anatomy of an Event as a backward-worked causal chain, where LFUO rejects causal statements. In an LFUO-run review, use DOE's model as a prompt list for contributors, not a causal verdict. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
 
 **Borrowed-through gaps.** Sidney Dekker is cited repeatedly throughout the guide (Dekker's *Just Culture* and *The Field Guide to Understanding Human Error* are in the Recommended Reading, the Field Guide is also quoted in Part 10, and the Dekker & Breakey paper on restorative justice is cited in the Glossary's restorative-justice entry); the demo corpus does not hold Dekker directly. Erik Hollnagel (ETTO principle, Resilience Engineering) is cited borrowed-through. Weick and Sutcliffe (*Managing the Unexpected*, HRO principles) are cited borrowed-through. Gary Klein (Recognition Primed Decision Making) is cited borrowed-through. J. T. Reason (*Managing the Risks of Organizational Accidents*) is cited borrowed-through. Todd Conklin (*Pre-Accident Investigations*) is cited in Recommended Reading. The Roese & Vohs 2012 paper on hindsight bias is cited borrowed-through. None of these authors are held as primary references in the demo corpus; their works are not openly licensed and cannot be cited directly here.
 

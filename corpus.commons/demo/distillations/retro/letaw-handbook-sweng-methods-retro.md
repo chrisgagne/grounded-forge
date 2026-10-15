@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ee333ca1fcc770c8b6bbfbc094adac51464fcf9e8072d48887a924aebe680c64 -->
+<!-- derived-from-deep: sha256:7e74288a3bcebe1acd3cfa1b8125b73283c6b80a7055921adb3f30eeba9f99f8 -->
 # Letaw, Handbook of Software Engineering Methods, Retro Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.
@@ -122,6 +122,8 @@ The eleven code smells, RACI, INVEST, fist of five, Eisenhower matrix, and Tuckm
 | OpenStax Psychology 2e | Psychology 2e's conformity and anchoring findings explain why simultaneous reveal matters mechanically; Letaw supplies the practice, Psychology 2e supplies the cognitive science |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** Planning poker is attributed to Cohn (2006) [BT] (Ch 2.5.5). INVEST is attributed to Wake (2003) [BT] (Ch 3.6.1). Tuckman's model is cited as Tuckman (1965) and Tuckman & Jensen (1977) [BT] (Ch 2.4). The Inclusivity Heuristics are attributed to GenderMag Project researchers at Oregon State University (Burnett et al., 2016; 2021) [BT] (Ch 7, opening; Ch 7.1); the chapter's definition of inclusive design is quoted from Microsoft [BT] (Ch 7, opening). CHAOS Report (Standish Group, 2015) is cited for failure-rate data [BT] (Ch 1.1). The triple constraint draws on van Wyngaard et al. (2012) [BT] (Ch 2.2). None of Cohn, Wake, Tuckman, Jensen, or van Wyngaard are held directly in this corpus.
 

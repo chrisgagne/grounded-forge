@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b741934bea352f3ab0e0f2e2e172a27b897e6ab50af3c2964071f394115f6dd5 -->
+<!-- derived-from-deep: sha256:ae703a8e3e046b3faf84caec4cb1f08b60f1887f1145fb0696bffb479ecb7390 -->
 # US Army TC 25-20, Stakeholder-Engagement Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). Open scope; no copyleft propagation.
@@ -198,6 +198,8 @@ The opening of the retrospective names the no-grade framing explicitly: this is 
 | OpenStax Organizational Behavior | OB's treatment of group decision-making (groupthink; suppression of dissent by powerful members, Ch 6.6) and group dynamics (Ch 9) gives a research-textbook frame for the TC's doctrine on rank and voice; it does not test the TC's specific techniques. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process), which the converter dropped; claims about those figures' contents are not grounded here.
 
 **Borrowed-through gaps.** The TC's References page names two field manuals that this corpus does not hold as primary sources: FM 25-100, *Training the Force* (November 1988), cited as the parent doctrine for training planning and the requirement to schedule retraining as a normal part of the planning process [BT] (Ch 5, "Immediate Retraining"; References); and FM 25-101, *Battle Focused Training* (September 1990), cited as the doctrine this TC supplements and as the source of additional AAR detail in its Appendix G [BT] (Preface; App A, closing). Three further structures are cited as operational sources rather than bibliographic references: ARTEP mission training plans (AMTPs) and soldier's manuals, from which training-and-evaluation outlines (TEOs) are extracted (or developed by the trainer when none exist) and whose steps provide the standard method for each task [BT] (Ch 2, "Reviewing the Training and Evaluation Plan"); the Combined Arms Training Strategy (CATS), cited as the source from which critical gate tasks are derived [BT] (Ch 5, "Immediate Retraining"); and the combat training centers (CTCs), cited in Appendix A as the source of professional AAR practice distilled into general technique [BT] (App A, opening). None of these five sources is held in this corpus; claims originating in them should be verified against the primary doctrine before being presented as independently confirmed.
 

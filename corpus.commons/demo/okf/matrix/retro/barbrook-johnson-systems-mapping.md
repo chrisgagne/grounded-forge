@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping, Retro Distillation
 
@@ -141,6 +141,8 @@ The appropriateness triangle, Rich Picture facilitation, the CLD core engine, an
 | OpenStax Psychology 2e | Psychology 2e's conformity research (Asch; normative social influence) explains the dominance risk this source names for Rich Pictures and why power dynamics must be managed at planning; Barbrook-Johnson supplies the method, Psychology 2e supplies the social-psychology rationale |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The source cites Meadows (2008) for the systems definition [BT] (Ch 1, "What Is Systems Mapping?") and Star & Griesemer (1989) for the boundary-object concept [BT] (Ch 9, "Defending the Use of a Participatory Process"). Gareth Morgan is cited for the 15-percent-control framing but this appears in the Liberating Structures Handbook, not in Barbrook-Johnson. Sterman's *Business Dynamics* underlies System Dynamics and is borrowed-through in the quantitative chapters. None of Meadows, Star & Griesemer, or Sterman are held directly in this corpus; this distillation cites Star & Griesemer only as the source of the boundary-object term (borrowed-through).
 

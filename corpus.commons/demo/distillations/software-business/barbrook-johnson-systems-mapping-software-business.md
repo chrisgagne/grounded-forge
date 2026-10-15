@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:928572cdb8ff4557097ea59317ba64912c441c3ff2d76d1f2a1842373feacf5e -->
+<!-- derived-from-deep: sha256:7066bbe6172d4457f31dee7593d89425f26a8852af4f5d9ab9b0e0d93de775ac -->
 # Barbrook-Johnson & Penn, Systems Mapping — Software-Business Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.
@@ -227,6 +227,8 @@ This is the book's pattern, projected onto software-business work: the methods a
 | `stakeholder-engagement/barbrook-johnson-systems-mapping-stakeholder-engagement.md` | The stakeholder-engagement sibling distillation covers the workshop-runbook discipline (Ch 10), participant-selection, power dynamics, online-workshop adaptation, and the boundary-object / interested-amateur framing. Route there when the question is engagement craft for the workshop you're running. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The seven methods rest on foundational works this corpus does not hold as primary references.
 

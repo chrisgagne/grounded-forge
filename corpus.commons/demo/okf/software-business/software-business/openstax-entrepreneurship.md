@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/entrepreneurship
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T09:05:06+13:00
 ---
 # OpenStax Entrepreneurship, Software-Business Distillation
 
@@ -246,6 +246,8 @@ The structured walk surfaces that the founder's intended next action (Series A p
 | Osterwalder and Pigneur, *Business Model Generation* | The BMC is reproduced as one of three focal canvases alongside the Lean Canvas and Social Business Model Canvas (Ch 11.2); for the full Canvas methodology including the value-proposition design discipline, Osterwalder and Pigneur's primary sources extend further. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?, Are You Ready?) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The distillation carries a large cluster of borrowed-through influences the source cites but this corpus does not hold as primary references.
 

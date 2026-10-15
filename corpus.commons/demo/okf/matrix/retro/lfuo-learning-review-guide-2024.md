@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # US Forest Service LFUO 2024, Retrospective Distillation
 
@@ -142,6 +142,8 @@ The cause-as-construction principle, counterfactual prohibition, Five Hows, and 
 | OpenStax Psychology 2e | Psychology 2e's fundamental attribution error and actor-observer bias explain the cognitive mechanism behind blame language; LFUO provides the structured redirect |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
 
 **Borrowed-through gaps.** The LFUO guide names Dekker, Hollnagel and Reason in its Recommended Reading and cites Weick and Sutcliffe and Klein in its Glossary and Handout D, borrowing from them throughout [BT] (multiple sections and Recommended Reading). Dekker's *Field Guide to Understanding Human Error* is cited verbatim [BT] (Part 10); his *Just Culture* is in the Recommended Reading. Hollnagel's ETTO principle grounds the safety-vs-production framing [BT] (Part 3). Weick and Sutcliffe's HRO principles appear in Handout D [BT] (Handout D). Klein's Recognition Primed Decision Making appears in the Glossary [BT] (Glossary). Reason's *Managing the Risks of Organizational Accidents* and *The Human Contribution* are in Recommended Reading [BT]. The Dekker and Breakey (2016) restorative-justice paper is cited for the Glossary definition [BT] (Glossary, footnote 14). None of these authors are held directly in this corpus; their works are not openly licensed and cannot be cited directly here.
 

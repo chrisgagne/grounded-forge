@@ -12,7 +12,7 @@ sources:
     resource: https://armypubs.army.mil/productmaps/pubform/details.aspx?pub_id=71643
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T17:41:54+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # US Army TC 25-20, Retrospective Distillation
 
@@ -154,6 +154,8 @@ At Phase 5 close, the facilitator summarises the two commitments, names one thin
 | SSDL Systems Thinking Foundations | SSDL's system-archetype diagnostics (fixes that fail, shifting the burden) are the complement to TC 25-20's experiment-review frame: when a retro's experiments keep failing (T-P-U Untrained cycle after cycle), SSDL identifies the dynamic; TC 25-20's follow-up principle provides the commitment structure for re-entry |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process), which the converter dropped; claims about those figures' contents are not grounded here.
 
 **Borrowed-through gaps.** TC 25-20's References cite FM 25-100 (*Training the Force*, 1988) and FM 25-101 (*Battle Focused Training*, 1990); the TC states that it supplements and expands FM 25-101 [BT] (Preface; References). The TC's retraining-scheduling obligation references FM 25-100 and FM 25-101 directly but those manuals are not held as primary references in this corpus [BT] (Ch 5, "Immediate Retraining"). The Combined Arms Training Strategy (CATS), cited as the source of critical-gate-task definitions, is similarly cited by name only [BT] (Ch 5, "Immediate Retraining"). ARTEP mission training plans and soldier's manuals (the task standards) and Combat Training Center practice (Appendix A) are also cited by name [BT]; no other external authorities are invoked; the TC's claims are doctrine, not empirical research, and it cites no studies or datasets.
 

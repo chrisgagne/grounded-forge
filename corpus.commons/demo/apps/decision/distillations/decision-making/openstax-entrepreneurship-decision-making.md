@@ -186,6 +186,8 @@ The structured walk through these steps surfaces that the founder's intended nex
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?, Are You Ready?) that the converter dropped, sometimes with body text; that material is not covered here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Eric Ries, The Lean Startup (2011)* — build-measure-learn, MVP, pivot strategies, and innovation accounting are drawn entirely from Ries (Ch 4.2; Ch 10.1) [BT]. Key Concepts 1–4 trace here.

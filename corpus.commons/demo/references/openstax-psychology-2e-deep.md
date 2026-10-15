@@ -6,7 +6,7 @@
 **Scope:** open-nc
 **Structure:** Preface; 16 substantive chapters covering introduction and history of psychology, research methods, biopsychology, states of consciousness, sensation and perception, learning, thinking and intelligence, memory, lifespan development, motivation and emotion, personality, social psychology, industrial-organizational psychology, stress and health, psychological disorders, and therapy and treatment. No appendices.
 **Citation style:** `(Ch N, "Section name")`. The PDF was converted with pymupdf4llm 0.2.9, which does not preserve page anchors; section names from the converted markdown are used in their place.
-**Coverage:** substantive content (chapter introductions and numbered sections); excluded sections per chapter: Key Terms, Summary, Review Questions, Critical Thinking Questions, Personal Application Questions. Back-matter References and Index are excluded.
+**Coverage:** substantive content (chapter introductions and numbered sections); excluded sections per chapter: Key Terms, Summary, Review Questions, Critical Thinking Questions, Personal Application Questions. Back-matter References and Index are excluded. **PARTIAL source text:** the converted text this reference was read from lacks about 1.1% of the PDF's longer text lines in the chapters it covers (160 of 14,057; 192 of 21,267 book-wide, the rest mostly in excluded end-of-chapter material), measured 2026-10-16 against pdftotext of the original. pymupdf4llm 0.2.9 dropped framed feature boxes (Dig Deeper, Everyday Connection, Link to Learning), sometimes with the body text just before a box. This reference may not have seen that text; see the source card.
 
 ## Author's thesis (paraphrased from source)
 

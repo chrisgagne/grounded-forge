@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/psychology-2e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:11+13:00
+  at: 2026-10-16T09:05:06+13:00
 ---
 # OpenStax Psychology 2e, Decision-Making Distillation
 
@@ -195,6 +195,8 @@ This worked example illustrates several key concepts in the source: heuristics v
 | Procedural justice (Greenberg, in Ch 13) | Decisions about people (hiring, evaluation, layoffs) carry procedural-justice consequences; fair, explained process reduces retaliation such as theft (Greenberg's pay-explanation study, Ch 13.3). |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection, Link to Learning) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors are cited by the source but not held as primary references in this corpus (the deep reference marks most `[BT]`; Rotter and Yerkes-Dodson sit in `[AP]` passages, Schacter and Schachter-Singer in `[AR]` or unmarked passages):
 

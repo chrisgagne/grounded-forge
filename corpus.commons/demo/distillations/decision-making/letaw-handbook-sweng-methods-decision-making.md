@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ee333ca1fcc770c8b6bbfbc094adac51464fcf9e8072d48887a924aebe680c64 -->
+<!-- derived-from-deep: sha256:7e74288a3bcebe1acd3cfa1b8125b73283c6b80a7055921adb3f30eeba9f99f8 -->
 # Letaw, Handbook of Software Engineering Methods — Decision-Making Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.
@@ -148,6 +148,8 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 | **Gagné, *Field Guide to Scrum Events*** | The Field Guide operationalises the Scrum events that Letaw uses as context for planning poker, story points, spikes, and the Sprint Backlog. Letaw for the methods themselves; Field Guide for how to facilitate the events where those methods are used. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the handbook cites named third parties not held as separate primary references in this corpus:
 

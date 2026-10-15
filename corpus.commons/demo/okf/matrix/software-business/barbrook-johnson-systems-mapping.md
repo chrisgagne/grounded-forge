@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Software-Business Distillation
 
@@ -242,6 +242,8 @@ This is the book's pattern, projected onto software-business work: the methods a
 | `stakeholder-engagement/barbrook-johnson-systems-mapping-stakeholder-engagement.md` | The stakeholder-engagement sibling distillation covers the workshop-runbook discipline (Ch 10), participant-selection, power dynamics, online-workshop adaptation, and the boundary-object / interested-amateur framing. Route there when the question is engagement craft for the workshop you're running. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The seven methods rest on foundational works this corpus does not hold as primary references.
 

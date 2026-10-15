@@ -170,6 +170,8 @@ A medium-sized US technology company has been given the opportunity to enter a l
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World, Ethics Across Time and Cultures, What Would You Do?) that the converter dropped, sometimes with body text; that material is not covered here.
+
 **Borrowed-through gaps.** The deep reference contains extensive `[BT]` citations. The most load-bearing for this distillation's key concepts:
 
 - *Donaldson and Preston* — cited for the descriptive / instrumental / normative stakeholder typology (Ch 3.2) [BT]. Key Concept 14 paraphrases the book's treatment.

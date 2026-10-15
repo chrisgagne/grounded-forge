@@ -235,6 +235,8 @@ The Letaw artefacts in play: the eleven code smells (vocabulary that converts te
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** Letaw's Handbook builds on several foundational sources this corpus does not hold as primary references.
 
 - *Beck et al., Agile Manifesto (2001)* — cited throughout Ch 1 as the philosophical grounding for Agile. Flagged [BT].

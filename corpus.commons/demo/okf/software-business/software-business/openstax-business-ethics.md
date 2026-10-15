@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-ethics
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T09:05:06+13:00
 ---
 # OpenStax Business Ethics, Software-Business Distillation
 
@@ -213,6 +213,8 @@ A US-headquartered software firm (450 engineers; AI capability shipped across th
 | Sarbanes-Oxley | Reporting and governance framework; whistleblower protections relevant to security-vulnerability disclosure and AI-safety dissent. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World, Ethics Across Time and Cultures, What Would You Do?) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** OpenStax Business Ethics situates its normative arguments within a body of stakeholder theory, legal cases, and empirical research this corpus does not hold as primary references.
 

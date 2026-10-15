@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:12:04+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # FLO Facilitation Guide, Retro Distillation
 
@@ -151,6 +151,8 @@ The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, V
 | TC 25-20 Army AAR | TC 25-20's climate-as-operational-concern framing and FLO's Vegas-rules trust-foundation share the same premise: without psychological safety, honest data does not surface |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
 
 **Borrowed-through gaps.** The FLO Guide cites the Community of Inquiry model (Vaughan et al. 2013) as the framing for online learning facilitation [BT] (Ch 1, "Facilitating learning online"). The Institute of Cultural Affairs – UK is cited for the facilitator definition [BT] (Ch 1, "The definition"). Universal Design for Learning (CAST 2018) is cited for the accessibility framework [BT] (Ch 3, "Accessible design, inclusive facilitation"). The International Association of Facilitators (IAF) Core Competencies are cited as inspiration for the skill list [BT] (Ch 3, "Developing FLO facilitation skills"). Liberating Structures is cited for the 1-2-4-All example [BT] (Ch 6, "Week 2"); the corpus holds the Liberating Structures Handbook, but the Guide cites liberatingstructures.com rather than the handbook's text. None of the others are held in this corpus.
 

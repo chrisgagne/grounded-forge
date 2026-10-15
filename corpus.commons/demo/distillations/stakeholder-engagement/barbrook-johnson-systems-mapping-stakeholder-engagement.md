@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:928572cdb8ff4557097ea59317ba64912c441c3ff2d76d1f2a1842373feacf5e -->
+<!-- derived-from-deep: sha256:7066bbe6172d4457f31dee7593d89425f26a8852af4f5d9ab9b0e0d93de775ac -->
 # Barbrook-Johnson & Penn, Systems Mapping — Stakeholder-Engagement Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.
@@ -214,6 +214,8 @@ The scenario is operator-authored; all framework citations trace through `corpus
 | OpenStax *Business Ethics* (this corpus) | The guide provides selection principles ("who affects or is affected" [V], "who is often overlooked" [V]) but not a weighted stakeholder-mapping method; Business Ethics' three-column stakeholder prioritisation (Ch 1.2) and Grunig-Hunt linkage categories (Ch 3.2) are a complement for the "who to include with what weight" question the guide does not answer. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Star and Griesemer (1989) — boundary-object concept (Ch 9) [BT]

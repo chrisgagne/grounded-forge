@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:4b91b785f9def2cb8cc14042599462f0eecd90c662ac93aff7828144ec8677b3 -->
+<!-- derived-from-deep: sha256:af9990b294526740945645b622732f7a847fe0f39996359cb8cd7c3c96ed522a -->
 # OpenStax Principles of Finance, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2022). *Principles of Finance*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-finance. Senior contributing authors Julie Dahlquist and Rainford Knight, with six contributing authors.
@@ -177,6 +177,8 @@ This example illustrates several key concepts in the source: stakeholder definit
 | Risk management and counterparty engagement (Ch 20) | Long-term contracts, vertical integration, and futures shape counterparty relationships; hedging choices have stakeholder implications beyond the direct counterparty. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 7.7% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Think It Through, Concepts in Practice) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Modigliani and Miller (MM Propositions) — capital-structure irrelevance and the extension to trade-off theory (Ch 17) [BT]

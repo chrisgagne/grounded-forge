@@ -170,6 +170,8 @@ This worked example illustrates several key concepts: the ADR-tier choice, the T
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Thomas-Kilmann Conflict Mode Instrument* — cited for the five negotiation styles (forcing, collaborating, compromising, avoiding, yielding) (Ch 2.1) [BT]. Attributed to Kilmann and Thomas (1977).

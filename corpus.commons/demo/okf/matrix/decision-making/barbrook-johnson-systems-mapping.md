@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Decision-Making Distillation
 
@@ -208,6 +208,8 @@ The final deliverable is not the full 60-factor map but three targeted submaps p
 | **Liberating Structures Handbook** | Liberating Structures provides facilitation microstructures for the participatory workshops this book recommends. The book names the workshop value; Liberating Structures supplies the within-workshop facilitation moves. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the book cites named third parties not held as separate primary references in this corpus:
 

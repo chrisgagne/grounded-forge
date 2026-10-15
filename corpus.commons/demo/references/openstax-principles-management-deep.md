@@ -929,7 +929,6 @@ Three managing-now-for-future questions (Ch 18.7, "Managing Now for Future Techn
 | Companies using performance reviews post-WWII to 1960s | 60% rising to 90% | [V] (Ch 11.3) |
 | Pay-for-performance drivers (SHRM 2011): top performers | 46.9% | [V] (Ch 11.4) |
 | Pay-for-performance drivers (SHRM 2011): corporate goals | 32.5% | [V] (Ch 11.4) |
-| Skilled vs avg negotiators options per issue (Adler-Gunderson; not directly cited in this book but contextually relevant) | n/a | [not in this source] |
 | US small businesses share of private workforce 2016 | ~48% (57.9 million) | [V] (Ch 7.8) |
 | Women-owned firms growth rate 2007-2017 | +114% (vs +44% overall) | [V] (Ch 7.8) |
 | US small business net new jobs 2016 | 1.4 million | [V] (Ch 7.8) |

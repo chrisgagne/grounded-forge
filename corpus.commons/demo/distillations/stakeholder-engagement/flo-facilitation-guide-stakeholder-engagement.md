@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b8b52e2fa2914fdc15e0c9ae009e401637daf82f72d328b3576fe556749a50ad -->
+<!-- derived-from-deep: sha256:d108947e4e60c31982d95bd276eb8d7b7c56f13f74ed25d95da3da19ba37310d -->
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Stakeholder-Engagement Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. **Licence:** CC BY 4.0. Open scope; attribution required on derivative works.

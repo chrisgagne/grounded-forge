@@ -64,3 +64,7 @@ Every triage row was fixed: 97, 530, 553, 561, 686, 766, 825, 857, 901. On 857, 
 
 - Stamp left as is (quotations mode). No commit made.
 - Deep ref line 932 (Key statistics) carries a row marked `[not in this source]` for Adler–Gunderson negotiator figures. This is outside the scope of a quotations pass. A full Pass I should strip it.
+
+## Follow-up, 2026-10-15: the open item
+
+- **Key statistics, Adler–Gunderson row stripped.** The row ("Skilled vs avg negotiators options per issue … n/a … [not in this source]") had no value and no source passage: `sources/converted/openstax-principles-management.md` names neither Adler nor Gunderson (its only negotiator passages, l.885 and l.24824, describe the manager's decisional role). The light reference and the distillations never carried the row. Provenance re-stamped.

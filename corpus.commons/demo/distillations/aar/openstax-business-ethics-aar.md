@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:80cefe1262914833844fb06be2c444add3c52abee5ae1e7befad200ef98d98b0 -->
+<!-- derived-from-deep: sha256:e0e9a3dffbdbf5e1e9222b5a38db18316668346bc029dfeb0ea4b4991f2583c3 -->
 # OpenStax Business Ethics, AAR Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Senior contributing authors Stephen M. Byars and Kurt Stanberry et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.
@@ -98,7 +98,7 @@ A team reviews a product-defect incident where field reports of a safety problem
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World, Ethics Across Time and Cultures, What Would You Do?) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The Donaldson-Preston stakeholder-theory taxonomy is cited in the source as borrowed-through from Donaldson and Preston's original work [BT] (Ch 3.2); neither Donaldson nor Preston is held directly in the demo corpus. The Grunig-Hunt organisational linkage model and four-publics framework are similarly borrowed-through [BT] (Ch 3.2); Grunig and Hunt are not held directly. Phronesis is attributed to Aristotle (via Nonaka and Takeuchi in the source) [BT] (Ch 1.1). The legal cases cited in the source — *Dodge v. Ford*, *Shlensky v. Wrigley*, *Burwell v. Hobby Lobby*, *Citizens United v. FEC* — are borrowed-through as legal authority [BT] (Ch 4.1, Ch 4.3).
 

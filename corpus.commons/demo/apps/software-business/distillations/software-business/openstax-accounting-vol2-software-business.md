@@ -239,7 +239,7 @@ This is a read-only lens; no produce-for surface. The PM bounded by a BA role re
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 4.2% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, Your Turn, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 4.2% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, Your Turn). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** OpenStax Accounting Vol 2 situates managerial accounting within frameworks developed by external researchers, practitioners, and standard-setting bodies this corpus does not hold as primary references.
 

@@ -87,7 +87,7 @@ The normative-stakeholder, speaking-up, tone-at-the-top, and ethical-minimum/max
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World, Ethics Across Time and Cultures, What Would You Do?) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The Donaldson-Preston stakeholder taxonomy (descriptive, instrumental, normative) is cited in the source as the framing for stakeholder theory [BT] (Ch 3.2). The MITRE five-step stakeholder-management system is cited in the source [BT] (Ch 3.3). The WARN Act, EEOC wage data, McKinsey survey data, and Grant Thornton survey are all borrowed-through empirical sources [BT] (multiple chapters). The *Dodge v. Ford Motor Company* and *Burwell v. Hobby Lobby* cases are cited for the shareholder-primacy debate [BT] (Ch 4.1). Richard DeGeorge is quoted on the humanities-in-business argument [BT] (Ch 5.4).
 

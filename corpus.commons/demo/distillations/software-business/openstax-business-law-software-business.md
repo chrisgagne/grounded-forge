@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:9d252cf1f038bbb4724e648bc5e023dddb3334bb1569d4dc253a9e8736db20d0 -->
+<!-- derived-from-deep: sha256:2742926f837180a3e9c37d317fa75299bec4c75bc5a157ec968b342c9b6488aa -->
 # OpenStax Business Law I Essentials, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Business Law I Essentials*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-law-i-essentials. Lead author Mirande Valbrune (Esq.); six contributing authors.
@@ -184,7 +184,7 @@ The decision: drop "fairness-tested" from all marketing; lead with the "60% time
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
+**PARTIAL source text.** This was derived from a conversion that lacked about 0.7% of the PDF's longer lines in the covered chapters, almost all table cells. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference carries several third-party citations that are not held as primary references in this corpus. The Thomas-Kilmann Conflict Mode Instrument (Kilmann and Thomas, 1977) is described as closely associated with the work of Pruitt and Rubin; neither is held independently. The Chevron mediation figures are given by the source without a cited origin; treat them as an [AE] example. The *Griggs v. Duke Power Co.* figures (12% vs 34% HS diploma; 6% vs 58% intelligence-test pass rates) are carried as [V] in the deep reference (the source's own statement of the case facts); the case record is not held. Harvard Law School's mediator study (Peter Adler finding) and the nolo.com six-step mediation sequence are both borrowed-through — neither source is independently held. The Michigan State University six-step ethical decision-making model is attributed but the original MSU publication is not held. (Source: OpenStax, *Business Law I Essentials*, deep reference, Part II–III)
 

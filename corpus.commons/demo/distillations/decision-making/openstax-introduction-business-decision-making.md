@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:6b9940c5db833eef1474c4face6dcf389399a4554a945524866ccda52e265da1 -->
+<!-- derived-from-deep: sha256:6f2f90bfa5165dbcff04944dcb0316e12f7847f65ca566a789d5968dc4d2e6e5 -->
 # OpenStax Introduction to Business, Decision-Making Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.

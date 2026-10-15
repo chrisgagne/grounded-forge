@@ -34,7 +34,7 @@ Four traditional inputs are common to all productive activity: natural resources
 
 The business environment decomposes into seven sub-environments [AP] (Ch 1.2, Exhibit 1.4): economic, political and legal, demographic, social, competitive, global, and technological. Managers have control over *internal* operations (supplies, employees, products, locations) but the *external* environmental conditions are "generally beyond the control of management and change constantly" [V] (Ch 1.2). The book's strategic-management argument follows: "managers are primarily adapters to, rather than agents of, change" [V] (Ch 1.2).
 
-Demographic shifts surface across the discussion: U.S. minorities will rise from ~38% of population to 56% by 2060 (U.S. Census Bureau projection) [V] (Ch 1.2, "Demographic Factors"); millennials surpassed baby boomers as America's largest generation in 2017 (Ch 1.2). Today's workforce spans five generations: Generation Z (recent grads), millennials and Generation X (30s-40s), baby boomers (50s-60s), and traditionalists (70s+) (Ch 1.8, "Changing Workforce Demographics").
+Demographic shifts surface across the discussion: U.S. minorities will rise from more than 38% of population to 56% by 2060 (U.S. Census Bureau projection) [V] (Ch 1.2, "Demographic Factors"); millennials surpassed baby boomers as America's largest generation in 2017 (Ch 1.2). Today's workforce spans five generations: Generation Z (recent grads), millennials and Generation X (30s-40s), baby boomers (50s-60s), and traditionalists (70s+) (Ch 1.8, "Changing Workforce Demographics").
 
 ### Three economic systems plus mixed
 
@@ -96,7 +96,7 @@ Two decision tests are added: the *feelings test* (after deciding, do I sleep we
 
 - *Employees*: provide jobs; safe and discrimination-free working environment; empowerment to make decisions (Ch 2.4, "Responsibility to Employees").
 - *Customers*: deliver what's promised; honesty and forthrightness (Ch 2.4, "Responsibility to Customers").
-- *Society*: jobs, goods, services, taxes; certified Benefit Corporations (B Corps) reach a higher standard (Ch 2.4, "Responsibility to Society"). Environmental protection, corporate philanthropy (~$19 billion annually in U.S. corporate philanthropy) [V] (Ch 2.4, "Corporate Philanthropy").
+- *Society*: jobs, goods, services, taxes; certified Benefit Corporations (B Corps) reach a higher standard (Ch 2.4, "Responsibility to Society"). Environmental protection, corporate philanthropy (more than $19 billion annually in U.S. corporate philanthropy) [V] (Ch 2.4, "Corporate Philanthropy").
 - *Investors*: economic responsibility; *social investing* is investing limited to securities matching ethical/social beliefs; assets invested using socially responsible strategies total >$7 trillion [V] (Ch 2.4, "Responsibilities to Investors").
 
 ### Trends: strategic giving and the new social contract
@@ -482,7 +482,7 @@ Three major trends (Ch 10.8, "Trends in Production and Operations Management"): 
 
 *Marketing* is "finding out the needs and wants of potential buyers (whether organizations or consumers) and then providing goods and services that meet or exceed the expectations of those buyers" [V] (Ch 11.1, "The Marketing Concept"). The "right principle" — right goods or services to the right people at the right place, time, and price using the right promotion and people — anchors marketing strategy (Ch 11.1).
 
-The *marketing concept* uses customer needs and wants as the starting point for product development [V] (Ch 11.1). *Customer value* is "the ratio of benefits for the customer (organization or consumer) to the sacrifice necessary to obtain those benefits" [V] (Ch 11.1, "Customer Value"). Southwest Airlines is the example: doesn't offer assigned seats, meals, or in-flight movies but consistently delivers on-time departures and beats full-service airlines on service value [AE].
+The *marketing concept* is "the use of marketing data to focus on the needs and wants of customers in order to develop marketing strategies" [V]; using it "means the product is created after market research is used to identify the needs and wants of the customers" [V] (Ch 11.1). *Customer value* is "the ratio of benefits for the customer (organization or consumer) to the sacrifice necessary to obtain those benefits" [V] (Ch 11.1, "Customer Value"). Southwest Airlines is the example: doesn't offer assigned seats, meals, or in-flight movies but consistently delivers on-time departures and beats full-service airlines on service value [AE].
 
 *Customer satisfaction* is "the customer's feeling that a product has met or exceeded expectations" [V] (Ch 11.1, "Customer Satisfaction"). Lexus consistently wins awards for customer satisfaction; JD Powers surveys car owners two years after purchase, and its Customer Satisfaction Survey has four measures: vehicle quality/reliability, vehicle appeal, ownership costs, and service satisfaction from a dealer. Lexus has led the industry as America's top-ranked vehicle for five years in a row [AE] (Ch 11.1).
 
@@ -822,7 +822,7 @@ The text reproduces a long list of major consumer protection laws (App A, Table 
 |---|---|---|
 | U.S. nongovernmental not-for-profits annual contribution to U.S. economy | >$900 billion | [V] (Ch 1.1) |
 | U.S. knowledge workers growth over 30 years | ~doubled, ~2 million job openings annually | [V] (Ch 1.1) |
-| U.S. minorities projected share of population by 2060 | 56% (from ~38%) | [V] (Ch 1.2, U.S. Census Bureau) |
+| U.S. minorities projected share of population by 2060 | 56% (from >38%) | [V] (Ch 1.2, U.S. Census Bureau) |
 | U.S. unemployment rate at 2009 peak | 10% | [V] (Ch 1.4) |
 | U.S. real GDP growth, recent | 3-4% annually | [V] (Ch 1.4) |
 | China real GDP growth | 6-7% annually | [V] (Ch 1.4) |

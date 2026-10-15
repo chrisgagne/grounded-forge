@@ -173,7 +173,7 @@ The FLIF is used after each participant-facilitated week; facilitators complete 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
+**PARTIAL source text.** This was derived from a conversion that lacked the opening line of several boxed bullet lists. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the Guide cites named third parties not held as separate primary references in this corpus:
 

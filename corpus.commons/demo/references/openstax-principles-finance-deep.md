@@ -10,7 +10,7 @@
 
 ## Author's thesis (paraphrased from source)
 
-*Principles of Finance* presents finance as the study of the management, movement, and raising of money, organised around three primary domestic areas: business finance (how managers apply financial principles to maximise firm value in a risky environment), investments (products and processes used to create and grow wealth), and financial markets and institutions (the firms and regulatory agencies that oversee the financial system) [V] (Ch 1.1, "Definition of Finance"; Ch 1.1, "Basic Areas in Finance"). The book opens with a load-bearing claim: "business finance is about developing and understanding the tools that help people make consistently good and repeatable decisions" [V] (Ch 1, "Why It Matters"). Finance is positioned as a decision-making toolkit.
+*Principles of Finance* presents finance as the study of the management, movement, and raising of money, organised around three primary domestic areas: business finance (how managers apply financial principles to maximise firm value in a risky environment), investments (products and processes used to create and grow wealth), and financial markets and institutions (the firms and regulatory agencies that oversee the financial system) [AP] (Ch 1.1, "Definition of Finance"; Ch 1.1, "Basic Areas in Finance"). The book opens with a load-bearing claim: "business finance is about developing and understanding the tools that help people make consistently good and repeatable decisions" [V] (Ch 1, "Why It Matters"). Finance is positioned as a decision-making toolkit.
 
 A second load-bearing claim is that the **risk-return tradeoff** is finance's organising principle: "an increase in risk results in an increase in expected return" [AP] (Ch 1.1, "Risk and Return in Finance"). Investors are risk-averse, so they must be compensated through higher expected returns to bear greater uncertainty. The text returns to this principle repeatedly across bond pricing, stock valuation, the CAPM, capital structure, and risk management.
 
@@ -24,16 +24,16 @@ A fifth load-bearing claim is that **the goal of management is to maximise share
 
 ### The three areas of finance and the three focal areas of business finance
 
-Finance is divided into three primary areas in the domestic market: business finance, investments, and financial markets and institutions [V] (Ch 1.1, "Basic Areas in Finance"). Within business finance, managers focus on three broad areas: working capital management (short-term assets and liabilities), capital budgeting (long-term or fixed assets), and capital structure (long-term debt and equity financing) [AP] (Ch 1.1, "Business Finance"). Capital budgeting decisions "add the greatest value to a firm. As such, capital budgeting is thought to be one of the most important financial functions within a firm" [V] (Ch 1.1, "Business Finance"). The opening narrative case (Bacon Signs, 1978-onwards) frames the three areas concretely: a regional sign company that grew by combining quality production with a financing plan that anticipated capital requirements (Ch 1, "Why It Matters").
+"Finance is divided into three primary areas in the domestic market: business finance, investments, and financial markets and institutions" [V] (Ch 1.1, "Basic Areas in Finance"). Within business finance, managers focus on three broad areas: working capital management (short-term assets and liabilities), capital budgeting (long-term or fixed assets), and capital structure (long-term debt and equity financing) [AP] (Ch 1.1, "Business Finance"). Capital budgeting decisions "add the greatest value to a firm. As such, capital budgeting is thought to be one of the most important financial functions within a firm" [V] (Ch 1.1, "Business Finance"). The opening narrative case (Bacon Signs, 1978-onwards) frames the three areas concretely: a regional sign company that grew by combining quality production with a financing plan that anticipated capital requirements (Ch 1, "Why It Matters").
 
 ### The five components of investment risk
 
 The overall uncertainty of returns has several components, each named with a definition (Ch 1.1, "Risk and Return in Finance"):
 
-- **Default risk**: the chance that the issuer will fail to make the required payment [V].
-- **Inflation risk**: reduced purchasing power from realised cash flows due to rising prices [V].
-- **Diversifiable risk** (unsystematic risk): risk that can be eliminated by holding a more well-rounded portfolio [V].
-- **Non-diversifiable risk** (systematic risk): what remains after portfolio diversification has eliminated unnecessary diversifiable risk; measured with beta [V].
+- **Default risk**: "the chance that the issuer will fail to make the required payment" [V].
+- **Inflation risk**: reduced purchasing power from realised cash flows due to rising prices [AP].
+- **Diversifiable risk** (unsystematic risk): risk that can be eliminated by holding a more well-rounded portfolio [AP].
+- **Non-diversifiable risk** (systematic risk): "what remains after portfolio diversification has eliminated unnecessary diversifiable risk" [V]; measured with beta [AP].
 - **Political risk**: risk associated with macroeconomic issues beyond the firm's control — local, state, or national governments "changing the rules" through zoning, product liability, taxation, or nationalisation [V] (Ch 1.1).
 
 ### Roles within the finance function
@@ -42,7 +42,7 @@ The text names a hierarchy of finance roles. The **comptroller** (controller) ha
 
 ### Markets and participants
 
-The **primary market** is the market for new securities; the **secondary market** is the market for used securities [V] (Ch 1.5, "Primary and Secondary Markets"). Most equity-market activity is secondary; new issues come through SEOs (seasoned equity offerings) by established firms and IPOs (initial public offerings) for firms going public for the first time. Treasury auctions of new securities are a substantial primary market.
+The **primary market** is the market for new securities; the **secondary market** is the market for used securities [AP] (Ch 1.5, "Primary and Secondary Markets"). Most equity-market activity is secondary; new issues come through SEOs (seasoned equity offerings) by established firms and IPOs (initial public offerings) for firms going public for the first time. Treasury auctions of new securities are a substantial primary market.
 
 Three classes of intermediaries operate in secondary markets. **Dealers** own the securities they buy or sell; they "make markets," willing and able to buy and sell at current bid and ask prices, earning the bid-ask spread [AP] (Ch 1.5, "Dealers"). **Brokers** facilitate trades between buyers and sellers and earn commissions; they hold no inventory of their own (Ch 1.5, "Brokers"). **Financial intermediaries** (commercial banks, mutual fund investment companies) accept funds from one set of parties and create different securities for another — for instance, a bank takes deposits and creates loans (Ch 1.5, "Financial Intermediaries"). Disintermediation, when borrowers and lenders bypass intermediaries, can cause significant turmoil; the 1970s loss of savings to direct Treasury investments effectively eliminated the savings and loan industry and led to deregulation of US commercial and investment banking (Ch 1.5).
 
@@ -127,7 +127,7 @@ Publicly traded companies are required to file annual Form 10-K, quarterly Form 
 
 **Inflation** is "a general increase in price levels" [V] (Ch 3.2, "Inflation"). It is measured by:
 
-- The **consumer price index (CPI)**, the BLS's measure of the cost of buying a fixed basket of goods and services across eight major categories: food and beverages, housing, apparel, transportation, medical care, recreation, education and communication, and other goods and services [V] (Ch 3.2, "How Is Inflation Measured").
+- The **consumer price index (CPI)**, the BLS's measure of the cost of buying a fixed basket of goods and services; the BLS "divides these purchases into eight major categories: food and beverages, housing, apparel, transportation, medical care, recreation, education and communication, and other goods and services" [V] (Ch 3.2, "How Is Inflation Measured").
 - The **core inflation index**, calculated by excluding volatile food and energy prices from the CPI (Ch 3.2).
 - The **producer price index (PPI)**, based on prices producers pay for supplies and raw materials; rising PPI can foreshadow rising CPI (Ch 3.2).
 - The **GDP deflator**, calculated by the BEA using all components of gross domestic product rather than a fixed basket (Ch 3.2).
@@ -150,7 +150,7 @@ Risk premiums reflect credit risk: the US Treasury rate is the proxy for the ris
 
 ### Foreign exchange and exchange rate risk
 
-The **spot exchange rate** is the rate at which currencies trade right now [V] (Ch 3.5, "Spot Exchange Rate"). Currency **appreciation** occurs when a unit of one currency buys more of a foreign currency than before; **depreciation** is the inverse. By definition, if one currency depreciates, the other appreciates. Three forms of currency exchange-rate risk are distinguished (Ch 3.5, "Exchange Rate Risk"; revisited at length in Ch 20.3):
+The **spot exchange rate** is the rate at which currencies trade right now [AP] (Ch 3.5, "Spot Exchange Rate"). Currency **appreciation** occurs when a unit of one currency buys more of a foreign currency than before; **depreciation** is the inverse. By definition, if one currency depreciates, the other appreciates. Three forms of currency exchange-rate risk are distinguished (Ch 3.5, "Exchange Rate Risk"; revisited at length in Ch 20.3):
 
 - **Transaction exposure**: risk that the value of expected receipts or expenses changes as exchange rates change.
 - **Translation exposure**: accounting risk that the reported value of foreign-currency-denominated items on financial statements changes as rates change.
@@ -172,7 +172,7 @@ The **accounting equation** is `Assets = Liabilities + Equity`, framed in the te
 
 ### Revenue and expense recognition
 
-**Revenue recognition** records sales or fees earned within the period earned [V] (Ch 4.3, "Revenue Recognition"). A cash sale is recorded under both cash and accrual basis; a credit sale is recorded under cash basis only when paid, but under accrual basis at the time of the sale. The same logic applies symmetrically to purchases. Accounting Standards Update No. 2014-09 replaced industry-specific revenue-recognition rules with a principle-based approach (Ch 4.3, "Ethics in Revenue Recognition"). Gift-card revenue recognition is treated as an explicit example of estimation in revenue recognition (Ch 4.3).
+**Revenue recognition** "involves recording sales or fees earned within the period earned" [V] (Ch 4.3, "Revenue Recognition"). A cash sale is recorded under both cash and accrual basis; a credit sale is recorded under cash basis only when paid, but under accrual basis at the time of the sale. The same logic applies symmetrically to purchases. Accounting Standards Update No. 2014-09 replaced industry-specific revenue-recognition rules with a principle-based approach (Ch 4.3, "Ethics in Revenue Recognition"). Gift-card revenue recognition is treated as an explicit example of estimation in revenue recognition (Ch 4.3).
 
 ### Capitalisation and depreciation of long-term assets
 
@@ -412,7 +412,7 @@ The **dividend discount model** values a stock as the present value of all futur
 - **Variable (nonconstant) growth DDM**: extends the constant-growth formula to multiple growth phases, calculating present value separately for each.
 - **Two-stage DDM**: assumes initial higher growth followed by sustainable lower growth; applicable to mature companies with established dividend records (Ch 11.2, "Two-Stage Dividend Discount Model").
 
-The text takes a position that DDMs have flaws: they cannot be used for non-dividend-paying companies (Amazon, Google, Biogen as examples); the Gordon model is highly sensitive to assumptions about g and r; results may not match operational reality if companies maintain dividends through borrowing rather than from earnings, a practice the text calls "not beneficial to an organization's long-term financial health" [V] (Ch 11.2, "Limitations of DDMs"). Warren Buffett's view is given: "the payment of dividends to shareholders is 'almost a last resort for corporate management'" [V] (Ch 11.2). Buffett holds that companies are usually better off reinvesting excess funds in infrastructure, evolving technologies, and other profitable ventures, a practice Berkshire Hathaway, Amazon, Google, and Biogen follow [BT] (Ch 11.2, "Limitations of DDMs").
+The text takes a position that DDMs have flaws: they cannot be used for non-dividend-paying companies (Amazon, Google, Biogen as examples); the Gordon model is highly sensitive to assumptions about g and r; results may not match operational reality if companies maintain dividends through borrowing rather than from earnings, a practice the text calls "not beneficial to an organization's long-term financial health" [V] (Ch 11.2, "Limitations of DDMs"). Warren Buffett's view is given: the payment of dividends to shareholders is "almost a last resort for corporate management" [V] (Ch 11.2). Buffett holds that companies are usually better off reinvesting excess funds in infrastructure, evolving technologies, and other profitable ventures, a practice Berkshire Hathaway, Amazon, Google, and Biogen follow [BT] (Ch 11.2, "Limitations of DDMs").
 
 ### Discounted cash flow (DCF) model
 
@@ -534,7 +534,7 @@ Per research by Meir Statman, a portfolio's standard deviation drops quickly as 
 
 The **risk-free rate** is the return on a default-risk-free investment, typically proxied by short-term US Treasury securities; the average three-month T-bill return for 1928-2020 was 3.36 per cent [V] (Ch 15.3, "Risk-Free Rate"). The **risk premium** is the extra return earned for taking on risk; the average S&P 500 return for 1928-2020 was 11.64 per cent, implying a market risk premium of 8.28 per cent [V] (Ch 15.3, "Risk Premium").
 
-**Beta** is the measure of how much a stock moves with the market — its systematic risk [V] (Ch 15.3, "Beta"). A beta of 1 means the stock moves in step with the market; greater than 1 means more pronounced moves than the market; less than 1 means smaller moves. Beta is calculated as the slope of the regression line of stock returns on market returns.
+**Beta**: "The measure of how much a stock moves with the market is known as its beta" [V]; it measures the stock's systematic risk [AP] (Ch 15.3, "Beta"). A beta of 1 means the stock moves in step with the market; greater than 1 means more pronounced moves than the market; less than 1 means smaller moves. Beta is calculated as the slope of the regression line of stock returns on market returns.
 
 ### The CAPM equation
 
@@ -566,11 +566,11 @@ The **payback period** is the time it takes for a company to make enough free ca
 
 The **NPV profile** plots NPV against discount rate. Where the profile crosses the horizontal axis (NPV = 0), the discount rate equals the project's IRR; this also bounds the firm's allowable cost of capital (Ch 16.2, "NPV Profile").
 
-The text takes positions: NPV is "the criterion for whether or not a project is a good project" but "does not always provide a good solution when a company must make a choice between several acceptable projects because funds are not available to pursue them all" [V] (Ch 16.2, "Disadvantages").
+The text takes positions: the NPV method "provides a criterion for whether or not a project is a good project" but "does not always provide a good solution when a company must make a choice between several acceptable projects because funds are not available to pursue them all" [V] (Ch 16.2, "Disadvantages").
 
 ### Internal rate of return (IRR)
 
-The **internal rate of return (IRR)** is the discount rate at which NPV equals zero [V] (Ch 16.3, "IRR Calculation"). The decision rule: accept projects whose IRR exceeds the cost of capital; reject those whose IRR is below. The text catalogues three disadvantages (Ch 16.3, "Disadvantages"):
+The **internal rate of return (IRR)** is "the discount rate that sets the present value of the cash inflows equal to the present value of the cash outflows" [V]; equivalently, the discount rate at which NPV equals zero [AP] (Ch 16.3, "Internal Rate of Return (IRR) Calculation"). The decision rule: accept projects whose IRR exceeds the cost of capital; reject those whose IRR is below. The text catalogues three disadvantages (Ch 16.3, "Disadvantages"):
 
 - **No single mathematical solution** when negative cash flows occur in more than one period — multiple IRRs may exist.
 - **Reinvestment rate assumption**: IRR assumes intermediate cash flows are reinvested at the IRR itself, which may not be feasible if the IRR is high.
@@ -613,7 +613,7 @@ Weights are derived from current market values, not book values, on a market-val
 
 ### Cost of debt capital
 
-A firm's cost of debt is the YTM on its existing debt — the interest rate it would have to pay to refinance. The **after-tax cost of debt** is `Rd × (1 - T)`, where Rd is the YTM and T is the corporate tax rate [V] (Ch 17.2, "After-Tax Cost of Debt"). Interest is tax-deductible, so the effective cost is lower than the rate paid to lenders. The text catalogues the example of Bluebonnet Industries: 6 per cent coupon bonds selling at 97 per cent of face value with 15 years to maturity yield 6.312 per cent before tax; at a 21 per cent corporate tax rate, the after-tax cost is 4.99 per cent.
+A firm's cost of debt is the YTM on its existing debt — the interest rate it would have to pay to refinance. The **after-tax cost of debt** is `Rd × (1 - T)`, where Rd is the YTM and T is the corporate tax rate [AP] (Ch 17.2, "After-Tax Cost of Debt"). Interest is tax-deductible, so the effective cost is lower than the rate paid to lenders. The text catalogues the example of Bluebonnet Industries: 6 per cent coupon bonds selling at 97 per cent of face value with 15 years to maturity yield 6.312 per cent before tax; at a 21 per cent corporate tax rate, the after-tax cost is 4.99 per cent.
 
 ### Cost of equity capital
 
@@ -800,7 +800,7 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 | Average 3-month T-bill return, 1928-2020 | 3.36% (sd 3.0%) | [V] (Ch 15.3) |
 | Implied market risk premium, 1928-2020 | 8.28% | [AP] (Ch 15.3, calculated from the difference) |
 | Number of years out of 1928-2020 with negative S&P 500 return | 25 | [V] (Ch 15.3) |
-| Stocks for a reasonably diversified portfolio (no exact number agreed) | approximately a dozen (the text's own view) | [V] (Ch 15.2, "Portfolio Size and Risk") |
+| Stocks for a reasonably diversified portfolio (no exact number agreed) | "approximately a dozen stocks" (the text's own view) | [V] (Ch 15.2, "Portfolio Size and Risk") |
 | 20-year fixed mortgage on $140,000 at 3.6% — total interest | over $56,000 | [V] (Ch 8.3, mortgage example) |
 | 36-month auto loan on $32,000 at 6% — total interest | $3,046.08 | [V] (Ch 8.3, auto loan example) |
 | Annualised cost of forgoing 2/10 net 30 discount | 36.73% | [V] (Ch 19.2) |
@@ -825,11 +825,11 @@ A **swap** involves two parties agreeing to exchange specified payment streams. 
 - **Meir Statman**: research showing portfolio standard deviation falls quickly as the first few stocks are added, with smaller reductions after that [BT] (Ch 15.2).
 - **Bill Gross**: profiled as Pimco co-founder and "bond king," advocate of total returns for fixed-income investing (Ch 12.3).
 - **Janet Yellen**: profiled as first woman Fed chair and Treasury Secretary, with the related claim that employment increased in every month of her four-year term — the first and only such occurrence in Fed history (Ch 12.2).
-- **Carlos Slim Helu**: quoted on the value of historical perspective for understanding the present and future [V] (Ch 12).
-- **Sam Ewing**: quoted defining inflation in folksy terms [V] (Ch 12.2).
-- **Ted Williams**: quoted on baseball's 30 per cent success rate as a benchmark, contrasted with the higher accuracy required for major capital decisions [V] (Ch 9).
-- **Mark Twain**: quoted on the dangers of speculating in stocks [V] (Ch 12).
-- **Winston Churchill**: quoted on learning from history [V] (Ch 12).
+- **Carlos Slim Helu**: quoted: "With a good perspective on history, we can have a better understanding of the past and present, and thus a clear vision of the future" [V] (Ch 12, "Why It Matters").
+- **Sam Ewing**: quoted on inflation: "Inflation is when you pay fifteen dollars for the ten-dollar haircut you used to get for five dollars when you had hair" [V] (Ch 12.2).
+- **Ted Williams**: quoted: "Baseball is the only field of endeavor where a man can succeed three times out of ten and be considered a good performer" [V]; the text contrasts this with the accuracy required for major capital investment choices [AP] (Ch 9, "Why It Matters").
+- **Mark Twain**: quoted on speculating in stocks: "October—this is one of the peculiarly dangerous months to speculate in stocks. The others are July, January, September, April, November, May, March, June, December, August, and February" [V] (Ch 12, "Why It Matters").
+- **Winston Churchill**: quoted: "Those that fail to learn from history are doomed to repeat it" [V] (Ch 12, "Why It Matters").
 - **Carlos Slim Helu, Jeremy Siegel, Burton Malkiel**: quoted at various points (Ch 12).
 
 ## Positions the author explicitly frames against

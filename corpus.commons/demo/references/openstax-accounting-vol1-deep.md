@@ -122,11 +122,11 @@ The text takes a clear teaching position: "Cash will never be in an adjusting en
 
 ### Depreciation, accumulated depreciation, and book value
 
-Depreciation is "the systematic method to record the allocation of cost over a given period of certain assets" [V] (Ch 4.2, "Prepaid Expenses"). The **useful life** is "the time period over which an asset cost is allocated." A **contra account** (here, Accumulated Depreciation) "is paired with another account type, has an opposite normal balance to the paired account, and reduces the balance in the paired account at the end of a period" [V] (Ch 4.2). **Book value** is the asset's value (cost) minus accumulated depreciation. (Detailed treatment in Ch 11.)
+Depreciation is "the systematic method to record the allocation of cost over a given period of certain assets" [V] (Ch 4.2, "Prepaid Expenses"). The **useful life** is "the time period over which an asset cost is allocated." A **contra account** (here, Accumulated Depreciation) "is an account paired with another account type, has an opposite normal balance to the paired account, and reduces the balance in the paired account at the end of a period" [V] (Ch 4.2). **Book value** is the asset's value (cost) minus accumulated depreciation. (Detailed treatment in Ch 11.)
 
 ### Earnings management and "cookie jar accounting"
 
-Ch 4 contains an Ethical Considerations box on Bristol-Myers Squibb's "cookie jar accounting" (2000-2001), which resulted in $150 million in SEC fines: "Bristol-Myers inflated its results primarily by (1) stuffing its distribution channels with excess inventory near the end of every quarter in amounts sufficient to meet its targets by making pharmaceutical sales to its wholesalers ahead of demand; and (2) improperly recognizing $1.5 billion in revenue from such pharmaceutical sales to its two biggest wholesalers" [V] (Ch 4.1, "Illegal Cookie Jar Accounting Used to Manage Earnings"). The case anchors the text's argument that adjusting entries can be manipulated, and that boundary between legitimate estimation and earnings manipulation requires ethical discipline.
+Ch 4 contains an Ethical Considerations box on Bristol-Myers Squibb's "Cookie Jar Accounting" (2000-2001), which resulted in $150 million in SEC fines: "Bristol-Myers inflated its results primarily by (1) stuffing its distribution channels with excess inventory near the end of every quarter in amounts sufficient to meet its targets by making pharmaceutical sales to its wholesalers ahead of demand; and (2) improperly recognizing $1.5 billion in revenue from such pharmaceutical sales to its two biggest wholesalers" [V] (Ch 4.1, "Illegal Cookie Jar Accounting Used to Manage Earnings"). The case anchors the text's argument that adjusting entries can be manipulated, and that boundary between legitimate estimation and earnings manipulation requires ethical discipline.
 
 ### The 10-column worksheet and the four financial statements from the adjusted trial balance
 
@@ -157,7 +157,7 @@ A **service company** "provides intangible services to customers and does not ha
 
 ### Purchase and sales transactions, gross/net, discounts, returns, allowances
 
-**Gross purchases** are "the original amount of the purchase without considering reductions" and **net purchases** subtract purchase discounts, returns, and allowances [V] (Ch 6.1). **Gross sales** is the original sale amount; **net sales** subtracts sales discounts, returns, and allowances [V].
+**Gross purchases** are "the original amount of the purchase without considering reductions for purchase discounts, returns, or allowances," and **net purchases** "equals gross purchases less purchase discounts, purchase returns, and purchase allowances" [V] (Ch 6.1). **Gross sales** is "the original amount of the sale without factoring in any possible reductions for discounts, returns, or allowances," and **net sales** "equals gross sales less sales discounts, sales returns, and sales allowances" [V] (Ch 6.1).
 
 Credit terms like "2/10, n/30" mean: 2% discount if paid in 10 days, otherwise net due in 30 days. **Cash discount** is a discount on the final price for prompt payment; **trade discount** is a price reduction negotiated before purchase and not separately recorded [AP] (Ch 6.1).
 
@@ -209,7 +209,7 @@ The text concentrates on the *opportunity* axis because that is where internal c
 
 Internal controls are "the systems used by an organization to manage risk and diminish the occurrence of fraud" [V] (Ch 8.2). The **Committee of Sponsoring Organizations (COSO)** issued the Internal Control–Integrated Framework, identifying five components of an effective internal control system: control environment, risk assessment, control activities, information and communication, and monitoring [BT] (Ch 8.2, Figure 8.3).
 
-A properly designed system: "ensure assets are properly used; ensure that the accounting system is functioning properly; monitor operations of the organization to ensure maximum efficiency; ensure that assets are kept secure; ensure that employees are in compliance with corporate policies" [V] (Ch 8.2). "An effective internal control system allows a business to monitor its employees, but it also helps a company protect sensitive customer data" [V]; the text's example is "the 2017 massive data breach at Equifax that compromised data of over 143 million people" [V], where proper internal controls would have kept unauthorised parties from the data and protected it "from corruption, damage, or misuse" [V] (Ch 8.2).
+The system's formal policies and procedures "ensure assets are properly used," "ensure that the accounting system is functioning properly," "monitor operations of the organization to ensure maximum efficiency," "ensure that assets are kept secure," and "ensure that employees are in compliance with corporate policies" [V] (Ch 8.2). "An effective internal control system allows a business to monitor its employees, but it also helps a company protect sensitive customer data" [V]; the text's example is "the 2017 massive data breach at Equifax that compromised data of over 143 million people" [V], where proper internal controls would have kept unauthorised parties from the data and protected it "from corruption, damage, or misuse" [V] (Ch 8.2).
 
 ### Six elements of a strong internal control system
 
@@ -340,7 +340,7 @@ The text emphasises that the cost-flow assumption is a *choice about how to allo
 
 ### IFRS and LIFO
 
-The text takes a clear position on the international divergence: "IFRS does not permit the use of LIFO. This is a major difference between US GAAP and IFRS. The AICPA estimates that roughly 35-40% of all US companies use LIFO, and in some industries, such as oil and gas, the use of LIFO is more prevalent. Because LIFO generates lower taxable income during times of rising prices, it is estimated that eliminating LIFO would generate an estimated $102 billion in tax revenues in the US for the period 2017-2026. In creating IFRS, the IASB chose to eliminate LIFO, arguing that FIFO more closely matches the flow of goods. In the US, FASB believes the choice between LIFO and FIFO is a business model decision that should be left up to each company" [V] (Ch 10.1, IFRS Connection).
+The text takes a clear position on the international divergence: "IFRS does not permit the use of LIFO. This is a major difference between US GAAP and IFRS. The AICPA estimates that roughly 35–40% of all US companies use LIFO, and in some industries, such as oil and gas, the use of LIFO is more prevalent. Because LIFO generates lower taxable income during times of rising prices, it is estimated that eliminating LIFO would generate an estimated $102 billion in tax revenues in the US for the period 2017–2026. In creating IFRS, the IASB chose to eliminate LIFO, arguing that FIFO more closely matches the flow of goods. In the US, FASB believes the choice between LIFO and FIFO is a business model decision that should be left up to each company" [V] (Ch 10.1, IFRS Connection).
 
 ### Consistency, method changes, and the LIFO tax exception
 
@@ -424,7 +424,7 @@ The interest formula presented: Interest = Principal × Annual Interest Rate × 
 
 ### Contingent liabilities: FASB's two requirements
 
-A **contingency** is "a current situation that has an outcome that is unknown or uncertain and will not be resolved until a future point in time" [V] (Ch 12.3). For a contingent liability to be recognised, two FASB requirements: (1) **likelihood of occurrence** (probable, reasonably possible, or remote) and (2) **measurement** (estimable or inestimable) [AP] (Ch 12.3, "Two Financial Accounting Standards Board (FASB) Requirements for Recognition of a Contingent Liability").
+A **contingency** "occurs when a current situation has an outcome that is unknown or uncertain and will not be resolved until a future point in time" [V] (Ch 12.3). For a contingent liability to be recognised, two FASB requirements: (1) **likelihood of occurrence** (probable, reasonably possible, or remote) and (2) **measurement** (estimable or inestimable) [AP] (Ch 12.3, "Two Financial Accounting Standards Board (FASB) Requirements for Recognition of a Contingent Liability").
 
 ### Four treatments of contingent liabilities
 
@@ -567,7 +567,7 @@ A **small stock dividend** (less than 25% of outstanding) reduces retained earni
 
 ### Earnings per share
 
-**Earnings per share (EPS)** = (net income – preferred dividends) / weighted average common shares outstanding [V] (Ch 14.5). The text observes that "many financial analysts believe that EPS is the single most important tool in assessing a stock's market price" [AP] (Ch 14.5). EPS is the only ratio GAAP requires to be reported on the face of the income statement; public companies report basic and diluted EPS.
+**Earnings per share (EPS)** = (net income – preferred dividends) / weighted average common shares outstanding [AP] (Ch 14.5, "Calculating Earnings per Share"). The text observes that "many financial analysts believe that EPS is the single most important tool in assessing a stock's market price" [V] (Ch 14.5). EPS is the only ratio GAAP requires to be reported on the face of the income statement; public companies report basic and diluted EPS.
 
 ### Stock buybacks and the ethics of EPS engineering
 
@@ -703,7 +703,7 @@ The text takes a measured position on negative cash flow: "Investors do not alwa
 | FUTA wage base per employee per year | first $7,000 | [V] (Ch 12.5) |
 | Approximate share of US companies using LIFO | 35-40% | [V] (Ch 10.1, citing AICPA) |
 | Estimated US tax revenue gain from eliminating LIFO, 2017-2026 | $102 billion | [V] (Ch 10.1) |
-| Bristol-Myers Squibb SEC fine for "cookie jar accounting" | $150 million | [V] (Ch 4.1) |
+| Bristol-Myers Squibb SEC fine for "Cookie Jar Accounting" | $150 million | [V] (Ch 4.1) |
 | Bristol-Myers Squibb improperly recognised revenue, 2000-2001 | $1.5 billion | [V] (Ch 4.1) |
 | Enron stock price drop | $91 → less than $1 per share | [V] (Ch 8.2) |
 | Enron stockholder losses | $40 billion | [V] (Ch 8.2) |

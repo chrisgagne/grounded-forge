@@ -18,6 +18,14 @@ against each bug's fix. Reported as it stands.
 one more clean change. The +1 on controls is the most the rule allows, and that one extra case was a gate flake, not
 the review (below).
 
+**How much of the +5 rests on review malfunctions.** Three of the five extra cases (v10, v11, v14) are ones where the
+no-corpus arm caught the bug on one trial, and on the other its review leg malfunctioned (invalid output, so the
+factory failed closed and stopped the change without naming the defect). All three review malfunctions on bug trials
+fell in the no-corpus arm; the corpus arm had none. Scored as registered, a malfunction is not a catch, and the
+criterion is met. Counting only reviews that completed, the corpus arm caught 16 of 17 on every completed review and
+the no-corpus arm 14 of 17: a difference of 2, which would not meet the +3 rule. Whether the corpus makes a review leg
+less likely to malfunction, or the three fell on that arm by chance, these 100 trials can't say.
+
 The limits stated before the run still apply: 17 bug cases is a small sample, so a difference of 5 can't rule out
 chance, and two trials per case is an easier bar than three.
 
@@ -29,6 +37,7 @@ chance, and two trials per case is an easier bar than three.
 | Bug trials surfaced to the signer | 28 / 34 (82%) | 32 / 34 (94%) |
 | Bug cases caught in at least one trial | 16 / 17 | 16 / 17 |
 | Control trials with a false alarm | 6 / 16 (38%) | 7 / 16 (44%) |
+| Review malfunctions (bug trials / control trials) | 3 / 2 | 0 / 1 |
 | Confirmed findings citing a standard, a corpus source or an axis row | 0 of 64 (0%) | 56 of 82 (68%) |
 | Errored trials / grader errors | 0 / 0 | 0 / 0 |
 | Outage re-runs (Amendment 1) | 1 | 2 |
@@ -61,6 +70,10 @@ scored as the pre-registration says.
 
 ## What this does and doesn't show
 
+- The cases are small, reverted logic fixes and clean changes in eight JavaScript and TypeScript libraries, with the
+  projects' own test suites replaced by a passing stub: it measures the review stage, not the whole factory.
+- Catches are graded by a model (Sol), blind to arm and severity; no human has checked the grader against human
+  judgement. Sol also picked the cases and is one of the two reviewers.
 - It shows that, on these 17 real bugs, reviewers given the corpus caught more of them reliably than the same
   reviewers without it, and cited a standard or source in two thirds of their confirmed findings (none did without).
 - It costs more: about 2.4 times the Claude review spend and 1.7 times the Codex tokens.

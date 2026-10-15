@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ee333ca1fcc770c8b6bbfbc094adac51464fcf9e8072d48887a924aebe680c64 -->
+<!-- derived-from-deep: sha256:7e74288a3bcebe1acd3cfa1b8125b73283c6b80a7055921adb3f30eeba9f99f8 -->
 # Letaw, Handbook of Software Engineering Methods — Stakeholder-Engagement Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.
@@ -177,6 +177,8 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 | Open Practice Library | OPL's *Stakeholders Interview*, *Empathy Mapping*, and *Stakeholder RACI Map* practices are field-ready versions of Letaw's academic-textbook treatments. Use Letaw to understand the method rationale; use OPL for the facilitation shape. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Tuckman (1965) and Tuckman & Jensen (1977) — five-stage team-development model (Ch 2.4) [BT]

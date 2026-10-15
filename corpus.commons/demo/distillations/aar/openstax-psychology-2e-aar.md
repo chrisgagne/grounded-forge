@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:448b7d6ec6a3a159eddee188155bd275102ffeec61c04eea7ee956efbcf03af2 -->
+<!-- derived-from-deep: sha256:b5ecc3d3e0f3df4378035bde027d4cb7b78baac3472578055435bf031fa29b66 -->
 # OpenStax Psychology 2e, AAR Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Senior contributing author Rose M. Spielman. ISBN 978-1-951693-23-7 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.
@@ -128,6 +128,8 @@ The group rebuilds the timeline from the written accounts. The incident's contri
 | Scrum Guide 2020 (scrum-guide-2020) | Scrum's Transparency pillar requires the emergent process and work to be visible (Scrum Theory, "Transparency"); Psychology 2e explains the cognitive and social forces (conformity, obedience, the fundamental attribution error) that work against that visibility even in teams committed to it |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference carries several borrowed-through citations that land directly in AAR-relevant distillation concepts. Carli's (1999) work linking reconstructive memory to hindsight bias is presented via the Psychology 2e text (Ch 8.3), not held directly in this corpus. Ross, Amabile, and Steinmetz's quizmaster study (fundamental attribution error) is borrowed-through. Loftus and Palmer's (1974) misinformation effect study is borrowed-through. Asch's (1955) line-judgment conformity study is borrowed-through. Milgram's (1963) obedience study is borrowed-through. Zimbardo's Stanford Prison Experiment is borrowed-through with the text's own caveat that subsequent attempts have not fully replicated the original findings and that design flaws (explicit guidance to guards) are acknowledged. Schacter's seven sins are presented via the textbook; Schacter is not held directly.
 

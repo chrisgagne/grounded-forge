@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:448b7d6ec6a3a159eddee188155bd275102ffeec61c04eea7ee956efbcf03af2 -->
+<!-- derived-from-deep: sha256:b5ecc3d3e0f3df4378035bde027d4cb7b78baac3472578055435bf031fa29b66 -->
 # OpenStax Psychology 2e, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.
@@ -180,6 +180,8 @@ This worked example illustrates several key concepts in the source: heuristics v
 | Procedural justice (Greenberg, in Ch 13) | Decisions about people (hiring, evaluation, layoffs) carry procedural-justice consequences; fair, explained process reduces retaliation such as theft (Greenberg's pay-explanation study, Ch 13.3). |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The following authors are cited by the source but not held as primary references in this corpus (the deep reference marks most `[BT]`; Rotter and Yerkes-Dodson sit in `[AP]` passages, Schacter and Schachter-Singer in `[AR]` or unmarked passages):
 

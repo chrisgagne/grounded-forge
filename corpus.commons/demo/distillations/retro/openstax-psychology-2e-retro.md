@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:448b7d6ec6a3a159eddee188155bd275102ffeec61c04eea7ee956efbcf03af2 -->
+<!-- derived-from-deep: sha256:b5ecc3d3e0f3df4378035bde027d4cb7b78baac3472578055435bf031fa29b66 -->
 # OpenStax Psychology 2e, Retro Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Senior contributing author Rose M. Spielman. ISBN 978-1-951693-23-7 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.
@@ -148,6 +148,8 @@ The safety check of 3 also flags a stress-load concern. The facilitator checks: 
 | FLO Facilitation Guide | FLO's engagement-equity tracking (spreading facilitator attention so each participant feels heard) and its scaffolding-and-fading arc can counter the uneven participation that Psychology 2e's conformity findings predict; the link is this distillation's synthesis, not FLO's stated rationale |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The Asch line-judgement conformity studies are cited by the source but the original Asch work is not held directly in this corpus [BT] (Ch 12.4). Milgram's obedience studies are cited approvingly but Milgram's own works are not in the corpus [BT] (Ch 12.4). Bandura's social learning and Bobo doll experiments are cited [BT] (Ch 6.4). Loftus and Palmer (1974) misinformation effect is cited [BT] (Ch 8.3). Ebbinghaus's forgetting curve is cited [BT] (Ch 8.3). Kahneman and Tversky heuristics-and-biases program informs the problem-solving chapter [BT] (Ch 7). Galton, Binet, and Terman for intelligence testing history are cited [BT] (Ch 7.5). Ekman for universal facial expressions [BT] (Ch 10.4). Festinger's cognitive dissonance research [BT] (Ch 12.3). Selye for general adaptation syndrome stages [BT] (Ch 14.1). Ross, Amabile, and Steinmetz quizmaster study for fundamental attribution error [BT] (Ch 12.1).
 

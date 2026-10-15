@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:bb62270cd2d486ab06926d15d7a39a788e5a7a08a668a1143e48918ae9f264bd -->
+<!-- derived-from-deep: sha256:58897d119eb51757be869a0e39ba652d9f04e41c2c75e1e1dd7b2212e4cf1da1 -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -179,6 +179,8 @@ This worked example illustrates several key concepts in the source: the multi-st
 | Mintzberg liaison role (from *Organizational Behavior*) | Sustaining stakeholder relationships between reporting cycles requires Mintzberg-style liaison work — investor relations, lender relationships, regulator engagement, audit-committee interface. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - FASB / SFAC No. 6 — definitions of assets, liabilities, equity, revenues, expenses, gains, losses (Ch 2) [BT]

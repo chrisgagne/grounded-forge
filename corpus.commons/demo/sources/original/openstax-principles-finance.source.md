@@ -19,3 +19,5 @@ PDF not shipped (download free from the URL above). Converted markdown is at
 `../../references/openstax-principles-finance-deep.md`.
 
 **Role in corpus.** The corpus's time-value-of-money axis: present and future value, annuities and perpetuities, NPV / IRR / MIRR / PI / payback, the cost-of-capital toolkit (WACC, Modigliani-Miller), CAPM and the security-market line, systematic vs unsystematic risk, the dividend-discount model, working-capital and cash-conversion-cycle, short-term financing (commercial paper, line of credit, factoring). The corpus's only treatment of the TVM apparatus, load-bearing for any deliberation involving capital allocation, project ranking, or cost-of-capital arguments. Paired with `openstax-accounting-vol2-deep.md` for the managerial-vs-financial-modelling distinction; finance ranks projects, accounting accounts for them.
+
+**Known gaps, not repaired.** pymupdf4llm 0.2.9 drops text inside framed boxes (about 7% of longer lines in openstax-organizational-behavior, measured 2026-10-15). This conversion has not yet been compared with its PDF, so it may lack text; treat it as partial until it is measured or re-converted.

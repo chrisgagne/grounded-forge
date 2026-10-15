@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:7bad45eeee309d84c96281398c38b8bfccaae63313d6cdfe6614f16f878bf0ad -->
+<!-- derived-from-deep: sha256:bc7f693656b52ee47acc35dc14264f038a0c4b768052c4d8bb3c2390f89083a2 -->
 # OpenStax Business Ethics, Decision-Making Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-ethics. Senior contributing authors Stephen M. Byars and Kurt Stanberry; seven contributing authors.
@@ -170,6 +170,8 @@ A medium-sized US technology company has been given the opportunity to enter a l
 | Sarbanes-Oxley | Reporting and governance framework; whistleblower protections. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference contains extensive `[BT]` citations. The most load-bearing for this distillation's key concepts:
 

@@ -6,7 +6,7 @@
 **Scope:** open-nc
 **Structure:** Introduction (purpose, philosophy, second-edition changes); eight chapters — (1) Agile, (2) Project Management and Teamwork, (3) Requirements, (4) Unified Modeling Language Class and Sequence Diagrams, (5) Monolith versus Microservice Architectures, (6) Paper Prototyping, (7) Inclusivity Heuristics, (8) Code Smells and Refactoring; Conclusion; Glossary; consolidated References.
 **Citation style:** `(Ch N, "Section name")`. The PDF was converted with pymupdf4llm 0.2.9, which produces footer-style page numbers (e.g., "Agile | 9") but does not preserve PDF page anchors as cite-able markers; section names from the converted markdown are used in their place.
-**Coverage:** all substantive content (Introduction, Chapters 1–8, Conclusion, Glossary). The consolidated end-of-book References section duplicates per-chapter References and is summarised rather than enumerated.
+**Coverage:** all substantive content (Introduction, Chapters 1–8, Conclusion, Glossary). The consolidated end-of-book References section duplicates per-chapter References and is summarised rather than enumerated. **PARTIAL source text:** the converted text this reference was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes (in openstax-organizational-behavior it lost about 7% of the PDF's longer lines, mostly feature-box openings, some body text). This source has not yet been measured against its PDF, so it may hold passages this reference has not seen.
 
 ## Author's thesis (paraphrased from source)
 

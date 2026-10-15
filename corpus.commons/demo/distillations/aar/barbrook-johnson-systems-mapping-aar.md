@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:928572cdb8ff4557097ea59317ba64912c441c3ff2d76d1f2a1842373feacf5e -->
+<!-- derived-from-deep: sha256:7066bbe6172d4457f31dee7593d89425f26a8852af4f5d9ab9b0e0d93de775ac -->
 # Barbrook-Johnson & Penn, Systems Mapping, AAR Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature, Cham. ISBN 978-3-031-01833-6. DOI: https://doi.org/10.1007/978-3-031-01919-7. Licence: **CC BY 4.0**. Scope: open. Seven methods covered: Rich Pictures, Theory of Change, Causal Loop Diagrams, Participatory Systems Mapping, Fuzzy Cognitive Mapping, Bayesian Belief Networks, System Dynamics.
@@ -114,6 +114,8 @@ A cross-functional team is reviewing a series of late deliveries. The timeline (
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 provides the discussion-organisation techniques (chronological, BOS, key events); when BOS or key-events analysis surfaces a structural pattern, this source provides the mapping discipline to make it explicit |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The system archetypes (Kim 2000, *Systems Archetypes I*) are cited borrowed-through in the source; the deep ref records Kim 2000 as `[BT]` (Ch 4, "How Do You Create Causal Loop Diagrams?"). Kim is not held directly in this corpus. The boundary-objects framing (Star & Griesemer 1989) is cited borrowed-through in the source's Ch 9; Star & Griesemer is not held directly. Meadows 2008 (*Thinking in Systems*) is cited borrowed-through for the system definition; Meadows is not held directly in the demo corpus. The Rogers 2014 "results chain" framing for ToC categories is borrowed-through. The Barbrook-Johnson & Penn text is largely a methods overview, but Ch 5 (Participatory Systems Mapping) is the authors' own method. The text's borrowed-through chain as a whole is extensive and is recorded in the deep ref.
 

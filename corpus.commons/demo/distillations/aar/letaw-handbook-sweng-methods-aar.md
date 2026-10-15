@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ee333ca1fcc770c8b6bbfbc094adac51464fcf9e8072d48887a924aebe680c64 -->
+<!-- derived-from-deep: sha256:7e74288a3bcebe1acd3cfa1b8125b73283c6b80a7055921adb3f30eeba9f99f8 -->
 # Letaw, Handbook of Software Engineering Methods, AAR Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.
@@ -105,6 +105,8 @@ A team is reviewing an incident where a hotfix deployment failed because no one 
 | TC 25-20 (tc-25-20-army-aar) | TC 25-20 provides the protocol structure; this source provides the software-specific decision-rights and code-quality vocabulary for Phase 2 analysis |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The Tuckman stage model (Tuckman 1965; Tuckman & Jensen 1977) is cited borrowed-through in the source (Ch 2.4); Tuckman is not held directly in this corpus. The INVEST acronym (Wake 2003) is cited borrowed-through (Ch 3.6.1); Wake is not held directly. The Hewlett Packard Enterprise 2017 Agile-adoption survey is cited borrowed-through (Ch 1.2); the survey is not held directly. The Badawy 1995 managerial skill-mix framework is cited borrowed-through (Ch 2.3); Badawy is not held directly. The triple constraint framing (van Wyngaard et al. 2012) is cited borrowed-through (Ch 2.2); van Wyngaard is not held directly.
 

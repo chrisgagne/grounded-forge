@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:eca8e30e0e7b260ae0988498646d9b60097c222b84a003ad4f2d05dc49618d85 -->
+<!-- derived-from-deep: sha256:a578c36360d60746d7359dbd6f8976c76dd70145f687248d5b7483b11ee6901e -->
 # OpenStax Principles of Management, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -178,6 +178,8 @@ This worked example illustrates several key concepts in the source: dual-system 
 | Deming-Shewhart cycle (PDCA) | The text builds the Plan-Do-Check-Act cycle into planning and controlling. Decisions are not one-off events but iterative learning loops. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

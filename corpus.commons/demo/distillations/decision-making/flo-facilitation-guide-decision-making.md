@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:d108947e4e60c31982d95bd276eb8d7b7c56f13f74ed25d95da3da19ba37310d -->
+<!-- derived-from-deep: sha256:7f5fcd84fecb64f6476b7fb57a496886e3b359064a6e81593b9f791881a2e512 -->
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Decision-Making Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. **Licence:** CC BY 4.0. Open scope; attribution required on derivative works.
@@ -173,6 +173,8 @@ The FLIF is used after each participant-facilitated week; facilitators complete 
 | **Gagné, *Field Guide to Scrum Events*** | The Sprint Retrospective and the FLO facilitation model share the same developmental posture: structured events, pre-committed posture (Prime Directive / Vegas rules), defined output types, and explicit closing. When designing a retrospective as a facilitated learning event, the two pair directly. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the Guide cites named third parties not held as separate primary references in this corpus:
 

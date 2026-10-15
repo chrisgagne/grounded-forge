@@ -6,7 +6,7 @@
 **Scope:** open-nc
 **Structure:** Preface; 15 substantive chapters covering the entrepreneurial perspective and mindset, the entrepreneurial journey and pathways, ethics and social responsibility, creativity and innovation, opportunity identification, problem solving (lean and design thinking), pitching and storytelling, marketing and sales, finance and accounting, lean startup launch, business model and plan, networks and team building, legal/tax/risk structures, resource planning, and next steps; plus Appendix A (Suggested Resources, excluded as back-matter reading list).
 **Citation style:** `(Ch N, "Section name")`. The PDF was converted with pymupdf4llm 0.2.9, which does not preserve page anchors; section names from the converted markdown are used in their place.
-**Coverage:** substantive content (chapter introductions and numbered sections); excluded sections per chapter: Key Terms, Summary, Review Questions, Discussion Questions, Case Questions, Suggested Resources. Appendix A (Suggested Resources) and the Index are excluded as back-matter.
+**Coverage:** substantive content (chapter introductions and numbered sections); excluded sections per chapter: Key Terms, Summary, Review Questions, Discussion Questions, Case Questions, Suggested Resources. Appendix A (Suggested Resources) and the Index are excluded as back-matter. **PARTIAL source text:** the converted text this reference was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes (in openstax-organizational-behavior it lost about 7% of the PDF's longer lines, mostly feature-box openings, some body text). This source has not yet been measured against its PDF, so it may hold passages this reference has not seen.
 
 ## Author's thesis (paraphrased from source)
 

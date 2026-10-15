@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b741934bea352f3ab0e0f2e2e172a27b897e6ab50af3c2964071f394115f6dd5 -->
+<!-- derived-from-deep: sha256:ae703a8e3e046b3faf84caec4cb1f08b60f1887f1145fb0696bffb479ecb7390 -->
 # US Army TC 25-20, Decision-Making Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). Open scope; no copyleft propagation.
@@ -169,6 +169,8 @@ The TC's contribution is a set of decision rules that guard against failure mode
 | Scrum Guide, Sprint Retrospective | The Sprint Retrospective is Scrum's structural analog of the AAR: a time-boxed, cadenced review in which the team identifies the most helpful changes and addresses the most impactful as soon as possible. The TC supplies the evaluation-quality rules (open-ended questions, no-grade, experience-beats-rank) that the Scrum Guide leaves unspecified. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process), which the converter dropped; claims about those figures' contents are not grounded here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — doctrine and doctrine-derived frameworks the TC references but does not originate:
 

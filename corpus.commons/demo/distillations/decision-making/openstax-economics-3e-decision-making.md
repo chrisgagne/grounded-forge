@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a10163965bef57dd4ecdd9b91cf94aef39006a1b9e1a47dd9a60f3ea721b795f -->
+<!-- derived-from-deep: sha256:91170f953e02a70cd342ec649a6548a67c6d17a428be669947477d61a100cd7f -->
 # OpenStax Principles of Economics 3e, Decision-Making Distillation
 
 **Source:** OpenStax (2022). *Principles of Economics 3e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-economics-3e. Lead author Steven A. Greenlaw; nine contributing authors.
@@ -174,6 +174,8 @@ This worked example illustrates several key concepts: opportunity cost, sunk cos
 | Coase / property rights | Ch 12.3 presents Coase's property-rights approach: until property rights are clearly defined the parties may squabble and nothing is done; once they are, the responsible party finds the least costly way to reduce the harm. For externality decisions, weigh it alongside the other market-oriented tools: marketable permits where a few dozen or a few hundred parties are keen to trade, pollution charges where millions of small emitters are not. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — economists and frameworks cited by the source but not held as primary references in this corpus:
 

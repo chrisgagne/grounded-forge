@@ -25,3 +25,5 @@ anchors). PDF binary is not redistributed (defensively gitignored); the converte
 markdown lives at `../converted/letaw-handbook-sweng-methods.md`. Deep reference
 at `../../references/letaw-handbook-sweng-methods-deep.md`. The source's editor
 of record is Ashleigh McKown; the work is published by the OSU OER Unit.
+
+**Known gaps, not repaired.** pymupdf4llm 0.2.9 drops text inside framed boxes (about 7% of longer lines in openstax-organizational-behavior, measured 2026-10-15). This conversion has not yet been compared with its PDF, so it may lack text; treat it as partial until it is measured or re-converted.

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:7bad45eeee309d84c96281398c38b8bfccaae63313d6cdfe6614f16f878bf0ad -->
+<!-- derived-from-deep: sha256:bc7f693656b52ee47acc35dc14264f038a0c4b768052c4d8bb3c2390f89083a2 -->
 # OpenStax Business Ethics, Retro Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Senior contributing authors Stephen M. Byars and Kurt Stanberry et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.
@@ -87,6 +87,8 @@ The normative-stakeholder, speaking-up, tone-at-the-top, and ethical-minimum/max
 | Approach Perfect Field Guide | The Field Guide supplies the retro structure; Business Ethics fires as a lens in Phase 3 and Phase 4 when an ethical dimension emerges in the data |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The Donaldson-Preston stakeholder taxonomy (descriptive, instrumental, normative) is cited in the source as the framing for stakeholder theory [BT] (Ch 3.2). The MITRE five-step stakeholder-management system is cited in the source [BT] (Ch 3.3). The WARN Act, EEOC wage data, McKinsey survey data, and Grant Thornton survey are all borrowed-through empirical sources [BT] (multiple chapters). The *Dodge v. Ford Motor Company* and *Burwell v. Hobby Lobby* cases are cited for the shareholder-primacy debate [BT] (Ch 4.1). Richard DeGeorge is quoted on the humanities-in-business argument [BT] (Ch 5.4).
 

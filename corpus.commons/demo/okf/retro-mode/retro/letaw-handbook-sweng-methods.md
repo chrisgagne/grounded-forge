@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T08:46:30+13:00
+  at: 2026-10-16T11:02:00+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods, Retro Distillation
 
@@ -138,7 +138,7 @@ The eleven code smells, RACI, INVEST, fist of five, Eisenhower matrix, and Tuckm
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 5% of the PDF's longer lines, mostly callout and example boxes that the converter dropped (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations); that material is not covered here.
 
 **Borrowed-through gaps.** Planning poker is attributed to Cohn (2006) [BT] (Ch 2.5.5). INVEST is attributed to Wake (2003) [BT] (Ch 3.6.1). Tuckman's model is cited as Tuckman (1965) and Tuckman & Jensen (1977) [BT] (Ch 2.4). The Inclusivity Heuristics are attributed to GenderMag Project researchers at Oregon State University (Burnett et al., 2016; 2021) [BT] (Ch 7, opening; Ch 7.1); the chapter's definition of inclusive design is quoted from Microsoft [BT] (Ch 7, opening). CHAOS Report (Standish Group, 2015) is cited for failure-rate data [BT] (Ch 1.1). The triple constraint draws on van Wyngaard et al. (2012) [BT] (Ch 2.2). None of Cohn, Wake, Tuckman, Jensen, or van Wyngaard are held directly in this corpus.
 

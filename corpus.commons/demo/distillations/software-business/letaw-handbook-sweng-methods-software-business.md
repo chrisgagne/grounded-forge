@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:7e74288a3bcebe1acd3cfa1b8125b73283c6b80a7055921adb3f30eeba9f99f8 -->
+<!-- derived-from-deep: sha256:ea30d29cc135064378b23a69799c212f1180974510fe71bd4902a27fb0ffe32c -->
 # Letaw, Handbook of Software Engineering Methods — Software-Business Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.
@@ -236,7 +236,7 @@ The Letaw artefacts in play: the eleven code smells (vocabulary that converts te
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 5% of the PDF's longer lines, mostly callout and example boxes that the converter dropped (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations); that material is not covered here.
 
 **Borrowed-through gaps.** Letaw's Handbook builds on several foundational sources this corpus does not hold as primary references.
 

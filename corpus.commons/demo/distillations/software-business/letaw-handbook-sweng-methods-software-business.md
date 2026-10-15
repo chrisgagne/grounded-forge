@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:414b58dd67e1f0976a2f184f2bc4592dd837a75a9d410f3991bdf4c6641b6078 -->
+<!-- derived-from-deep: sha256:ee333ca1fcc770c8b6bbfbc094adac51464fcf9e8072d48887a924aebe680c64 -->
 # Letaw, Handbook of Software Engineering Methods — Software-Business Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.

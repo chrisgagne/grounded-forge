@@ -94,7 +94,7 @@ Ethical decision-making is grounded in James Rest's four-component model [BT] (C
 3. Moral motivation/intention — deciding to do the right thing.
 4. Moral character/action — actually doing what is right.
 
-"A failure at any point in the chain can lead to unethical actions!" [V] (Ch 2.5). The "front-page-of-a-newspaper" test is offered for moral judgment: "If you would feel guilty or ashamed, don't do it!" [V] (Ch 2.5).
+"A failure at any point in the chain can lead to unethical actions!" [V] (Ch 2.5). For moral judgment the text offers a newspaper test: think about how you would feel "if that decision ended up on the front page of a major newspaper. If you would feel guilty or ashamed, don't do it!" [V] (Ch 2.5).
 
 The selection step warns against decision paralysis: "Effective managers recognize that they will not always make optimal (best possible) decisions because they don't have complete information and/or don't have the time or resources to gather and process all the possible information" [V] (Ch 2.5, "Recognize that perfection is unattainable").
 
@@ -203,7 +203,7 @@ Lewin and Stephens's unifying framework integrates external scanning with SWOT a
 
 ### Corporate culture and the Competing Values Framework
 
-Drucker's "culture eats strategy for breakfast" is reproduced as the framing claim [BT] (Ch 4.5, "Corporate Cultures"). Culture serves two purposes: helping the organisation adapt to and integrate with its external environment by adopting appropriate values, and creating internal unity for shared goal pursuit. "Organizational cultures are generally framed and influenced by the top-level leader or founder. This individual's vision, values, and mission set the 'tone at the top'" [V] (Ch 4.5).
+Drucker's "culture eats strategy for breakfast" is reproduced as the framing claim [BT] (Ch 4.5, "Corporate Cultures"). Culture serves two purposes: helping the organisation adapt to and integrate with its external environment by adopting appropriate values, and creating internal unity for shared goal pursuit. "Organizational cultures are generally framed and influenced by the top-level leader or founder. This individual's vision, values, and mission set the 'tone at the top,'" [V] (Ch 4.5).
 
 The Cameron-Quinn *Competing Values Framework* (CVF) yields four cultural types on external/internal × flexibility/control axes [BT] (Ch 4.5, Exhibit 4.21):
 
@@ -250,7 +250,7 @@ Seven symptoms of failed ethical leadership ("dark side") [BT] (Ch 5.4): ethical
 
 ### Ethics, culture, and compliance
 
-Schein defines organisational culture as "a pattern of shared tacit assumptions learned or developed by a group as it solves its problems of external adaptation and internal integration that have worked well enough to be considered valid and, therefore, to be taught to new members as the correct way to perceive, think, and feel in relation to those problems" [V] (Ch 5.5, "Ethics, Corporate Culture, and Compliance"). Heskett: culture "can account for 20-30% of the differential in corporate performance when compared with 'culturally unremarkable' competitors" [V].
+Schein defines organisational culture as "a pattern of shared tacit assumptions learned or developed by a group as it solves its problems of external adaptation and internal integration that have worked well enough to be considered valid and, therefore, to be taught to new members as the correct way to perceive, think, and feel in relation to those problems" [V] (Ch 5.5, "Ethics, Corporate Culture, and Compliance"). Heskett: culture "can account for 20–30% of the differential in corporate performance when compared with 'culturally unremarkable' competitors" [V].
 
 The Sarbanes-Oxley Act of 2002 set new accountability for CEOs and CFOs, requiring written certification of financial statements with 20-year prison terms and $5 million fines for knowingly false statements (Ch 5.5).
 
@@ -258,7 +258,7 @@ The Sarbanes-Oxley Act of 2002 set new accountability for CEOs and CFOs, requiri
 
 CSR is "a belief that corporations have a social responsibility beyond pure profit" [V] (Ch 5.6, "Corporate Social Responsibility (CSR)"). The 3 Ps / *triple bottom line* (TBL/3BL) — profit, people, planet — measures financial, social, and environmental performance (Ch 5.6). The TBL passage's endnote cites Elkington, *Cannibals with Forks* (1999) [BT] (Ch 5.6).
 
-Cone Communications' 2015 Millennial CSR Study: "More than nine-in-10 Millennials would switch brands to one associated with a cause (91% vs. 85% U.S. average), and two-thirds use social media to engage around CSR (66% vs. 53% U.S. average)" [V] (Ch 5.6). A meta-analysis of 52 studies (sample 33,878) suggested "corporate virtue in the form of social responsibility and, to a lesser extent, environmental responsibility, is likely to pay off" [V] (Ch 5.6).
+Cone Communications' 2015 Millennial CSR Study found that more than "nine-in-10 Millennials would switch brands to one associated with a cause (91% vs. 85% U.S. average), and two-thirds use social media to engage around CSR (66% vs. 53% U.S. average)" [V] (Ch 5.6). A meta-analysis of 52 studies (sample 33,878) suggested "corporate virtue in the form of social responsibility and, to a lesser extent, environmental responsibility, is likely to pay off" [V] (Ch 5.6).
 
 *Stakeholder theory* "argues that corporations should treat all their constituencies fairly and that doing so can strengthen companies' reputations, customer relations, and performance in the marketplace" [V, citing Freeman] (Ch 5.6, "Stakeholder Management"). A *stakeholder* is "any group or individual who can affect or is affected by an organization's strategies, major transactions, and activities. Stakeholders include employees, suppliers, customers, shareholders, the government, media, and others" [V] (Ch 5.6). Eight stakeholder analysis questions are offered: Who are the stakeholders? What are their stakes? What do supporters/resisters stand to gain/lose? What types of power do they have? What strategies retain support / win over resistance? (Ch 5.6, Exhibit 5.8).
 
@@ -308,7 +308,7 @@ A *cultural paradox* occurs "where the insights from an understanding of culture
 
 *Cultural stereotyping* "occurs when one assumes that all people within a culture act, think, and behave the same way" [V]. Recent research shows 80 per cent of variation in cultural values is *within* countries, not between them, suggesting other factors matter (Ch 6.4).
 
-Three relevant *social institutions*: *social stratification* (degree to which social benefits are unequally distributed and patterns are perpetuated); *education* (socialising experiences preparing individuals to act in society); *religion* (Christianity 31 per cent, Islam 24.1 per cent, Hindu 15.1 per cent, Buddhist 6.9 per cent, Judaism 0.2 per cent of world population) [V] (Ch 6.4). Christianity's (especially Protestantism's) link to capitalism and entrepreneurship; Islam's prohibition of interest, requirement for prayer accommodation, and Ramadan considerations; Hinduism's caste system (illegal in modern India but socially active) and reverence for cows are presented as examples of how religion affects business (Ch 6.4).
+Three relevant *social institutions*: *social stratification* (degree to which social benefits are unequally distributed and patterns are perpetuated); *education* (socialising experiences preparing individuals to act in society); *religion* (Christianity 31 per cent, Islam 24.1 per cent, Hindu 15.1 per cent, Buddhist 6.9 per cent, Judaism 0.2 per cent of world population) [AP] (Ch 6.4). Christianity's (especially Protestantism's) link to capitalism and entrepreneurship; Islam's prohibition of interest, requirement for prayer accommodation, and Ramadan considerations; Hinduism's caste system (illegal in modern India but socially active) and reverence for cows are presented as examples of how religion affects business (Ch 6.4).
 
 ### Cultural intelligence and cross-cultural training
 
@@ -525,9 +525,9 @@ Five performance management challenges (Ch 11.3): aligning individual and compan
 
 ### Pay-for-performance and total rewards
 
-The 2011 SHRM study found four drivers for moving to pay-for-performance: "Recognize and reward high performers (46.9%); Increase the likelihood of achieving corporate goals (32.5%); Improve productivity (7.8%); Move away from an entitlement culture (7.8%)" [V] (Ch 11.4, "Influencing Employee Performance and Motivation"). The 2015 World at Work report: 72 per cent of companies tie pay increases to performance; 67 per cent give top performers raises at least 1.5 times those of average performers (Ch 11.4).
+The 2011 SHRM study found four drivers for moving to pay-for-performance: "Recognize and reward high performers (46.9%)", "Increase the likelihood of achieving corporate goals (32.5%)", "Improve productivity (7.8%)" and "Move away from an entitlement culture (7.8%)" [V] (Ch 11.4, "Influencing Employee Performance and Motivation"). The 2015 World at Work report: 72 per cent of companies tie pay increases to performance; 67 per cent give top performers raises at least 1.5 times those of average performers (Ch 11.4).
 
-WorldatWork's six total rewards elements [V] (Ch 11.4): compensation; benefits; work-life effectiveness; recognition; performance management; talent development.
+WorldatWork's six total rewards elements [BT] (Ch 11.4): compensation; benefits; work-life effectiveness; recognition; performance management; talent development.
 
 The Nohria-Groysberg-Lee four-drives model maps drives to organisational levers (Ch 11.4, Table 11.2) [BT]:
 
@@ -550,7 +550,7 @@ Succession planning identifies short-term (<1 year), mid-term (1-3 years), and l
 
 ### Three kinds of workplace diversity
 
-The text distinguishes *surface-level diversity* (visible: age, body size, visible disabilities, race, sex), *deep-level diversity* (non-observable: attitudes, values, beliefs), and *hidden diversity* (deep-level traits that may be concealed or revealed at the individual's discretion, called *invisible social identities*) [V] (Ch 12.1, "An Introduction to Workplace Diversity"). Hidden diversity may include sexual orientation, hidden disability, mixed racial heritage, or socioeconomic status.
+The text distinguishes *surface-level diversity* (visible: age, body size, visible disabilities, race, sex), *deep-level diversity* (non-observable: attitudes, values, beliefs), and *hidden diversity* (deep-level traits that may be concealed or revealed at the individual's discretion, called *invisible social identities*) [AP] (Ch 12.1, "An Introduction to Workplace Diversity"). Hidden diversity may include sexual orientation, hidden disability, mixed racial heritage, or socioeconomic status.
 
 ### Workforce demographics
 
@@ -558,7 +558,7 @@ Workforce composition (2016): 17 per cent Hispanic/Latino, 12 per cent Black, 6 
 
 The *glass ceiling* is "an invisible barrier based on the prejudicial beliefs that underlie organizational decisions that prevent women from moving beyond certain levels within a company" [V] (Ch 12.2). The *Equal Pay Act of 1963* attempts to address pay inequities; women still earn about 80 cents per dollar earned by men in similar work (Ch 12.4).
 
-The *model minority myth* portrays Asian men/women as obedient and successful, contrasted against stereotypes of other minority groups, justifying socioeconomic disparities and limiting Asian/Asian-American leadership opportunities [V] (Ch 12.2). LGBTQ employees face the choice between *passing* (not disclosing invisible social identity) and *revealing*; both carry risks and trade-offs (Ch 12.2).
+The *model minority myth* portrays Asian men/women as obedient and successful, contrasted against stereotypes of other minority groups, justifying socioeconomic disparities and limiting Asian/Asian-American leadership opportunities [AP] (Ch 12.2). LGBTQ employees face the choice between *passing* (not disclosing invisible social identity) and *revealing*; both carry risks and trade-offs (Ch 12.2).
 
 ### Cox-Blake business case for diversity
 
@@ -651,7 +651,7 @@ The House-Evans *path-goal theory* posits that effective leaders provide a path 
 
 Substitutes for and neutralisers of leader behaviour exist in subordinate characteristics (experience, professional orientation, indifference to organisational rewards), task characteristics (structured/routine tasks, task-provided feedback, intrinsically satisfying tasks), and organisation characteristics (cohesive work group, low position power, formalisation, inflexibility, leader spatially separated) [BT] (Ch 13.7, "Substitutes for and Neutralizers of Leadership", Table 13.1).
 
-*Transformational leaders* "inspire others to action through their personal values, vision, passion, and belief in and commitment to the mission" [V] (Ch 13.8, "Transformational, Visionary, and Charismatic Leadership"). They use idealised influence (charisma), individualised consideration, intellectual stimulation, and inspirational motivation. *Visionary leaders* "influence others through an emotional and/or intellectual attraction to the leader's dreams of what 'can be'" [V]. *Charismatic leaders* possess "legitimate power that arises from 'exceptional sanctity, heroism, or exemplary character'" [V, citing Weber]. Charismatic leadership has produced both Iacocca-style turnarounds and David Koresh / Waco disasters.
+*Transformational leaders* "inspire others to action through their personal values, vision, passion, and belief in and commitment to the mission" [V] (Ch 13.8, "Transformational, Visionary, and Charismatic Leadership"). They use idealised influence (charisma), individualised consideration, intellectual stimulation, and inspirational motivation. *Visionary leaders* "influence others through an emotional and/or intellectual attraction to the leader's dreams of what 'can be.'" [V]. *Charismatic leaders* possess "legitimate power that arises from 'exceptional sanctity, heroism, or exemplary character'" [V, citing Weber]. Charismatic leadership has produced both Iacocca-style turnarounds and David Koresh / Waco disasters.
 
 ## Part XIV: Work motivation for performance (Ch 14)
 
@@ -665,7 +665,7 @@ Five content theories presented [BT] (Ch 14.2, "Content Theories of Motivation")
 
 - **Manifest needs theory** (Murray): humans have many needs but only a few are *manifest* at a given time; *latent* needs may exist without being expressed in current behaviour. Murray condensed the 6,000+ identified human needs into a manageable set of *primary* (instinctive: food, water, sex, urination) and *secondary* (learned: achievement, love, affiliation, power) needs.
 - **Learned needs theory** (McClelland): three needs — achievement (nAch), affiliation (nAff), power (nPow) — are learned, especially in childhood. High-nAch individuals "feel personally responsible for completing whatever tasks they are assigned"; prefer "moderate" probability-of-success situations; have "very strong desires for feedback about how well they are doing" [V] (Ch 14.2). "The need for affiliation (nAff) reflects a desire to establish and maintain warm and friendly relationships with other people" [V] (Ch 14.2, "Need for Affiliation"). McClelland argues that "the high need for social power is the most important motivator for successful managers" [V] (Ch 14.2, "Need for Power"). Two faces of power: *personal power seekers* dominate others for self; *social power seekers* influence others to achieve group goals.
-- **Maslow's hierarchy of needs**: physiological, safety/security, social, ego/esteem, self-actualization, with prepotency (lower needs satisfied before higher ones become motivating). Self-actualization: "a desire for self-fulfillment, 'to become more and more what one is, to become everything that one is capable of becoming'" [V] (Ch 14.2). The text notes that research does not support the strict hierarchical sequence, "but, on the other hand, there is some evidence that people satisfy the lower-order needs before they attempt to satisfy higher-order needs" [V] (Ch 14.2).
+- **Maslow's hierarchy of needs**: physiological, safety/security, social, ego/esteem, self-actualization, with prepotency (lower needs satisfied before higher ones become motivating). Self-actualization: "a desire for self-fulfillment, 'to become more and more what one is, to become everything that one is capable of becoming'" [V] (Ch 14.2). The text notes that research results do not support Maslow's hierarchical notion; "On the other hand, there is some evidence that people satisfy the lower-order needs before they attempt to satisfy higher-order needs" [V] (Ch 14.2).
 - **Alderfer's ERG theory**: existence, relatedness, growth, with *frustration regression* (when growth needs are blocked, attention shifts back to relatedness). Four components: satisfaction progression; frustration; frustration regression; aspiration (the more we satisfy growth, the more important it becomes). ERG has stronger empirical support than Maslow's hierarchy [BT] (Ch 14.2, "Alderfer's ERG Theory").
 - **Herzberg's motivator-hygiene theory**: hygiene factors (pay, conditions, supervision, security) prevent dissatisfaction but do not motivate; motivators (achievement, recognition, work itself, growth) drive satisfaction. Satisfaction and dissatisfaction are on different scales [AR] (Ch 14.2, "Herzberg's Motivator-Hygiene Theory"). "Herzberg's work suggests a two-stage process for managing employee motivation and satisfaction. First, managers should address the hygiene factors. Intense forms of dissatisfaction distract employees from important work-related activities and tend to be demotivating" [V]; "They should then address the much more powerful motivator needs, in which workers experience recognition, responsibility, achievement, and growth" [V] (Ch 14.2, "Herzberg's Motivator-Hygiene Theory").
 
@@ -683,7 +683,7 @@ Four process theories [BT] (Ch 14.3, "Process Theories of Motivation"):
 
 - **Goal theory** (Locke): difficult, specific, accepted goals produce better performance than easy or vague goals. Goal acceptance ("they need to feel that it is also their goal") and *goal commitment* (degree of dedication to a specific goal among many) are critical. Participation in goal-setting tends to increase commitment [BT] (Ch 14.3, "Goal Theory"). Hazards: goal conflict, narrow goals neglecting other duties, unethical use to set impossible goals, over-emphasis on quantifiable measures, individual goals harming teamwork.
 
-- **Expectancy theory** (Vroom, Lawler): motivation = E1 (effort-performance expectancy) × E2 (performance-outcome expectancy) × valence. The integrative claim: "to maximize motivation, organizations must make outcomes contingent on performance" [V] (Ch 14.3, "Implications of Expectancy Theory"). *Self-efficacy* (Bandura) is a strong determinant of E1: "high self-efficacy employees believe that they are likely to succeed at most or all of their job duties" [AP]. Weak E1s arise from insufficient resources or inaccurate performance ratings; weak E2s arise from equality-focused organisations that do not differentiate rewards based on performance. Recent research finds "the components of expectancy theory predict performance just as well, without being multiplied" [V] (Ch 14.4).
+- **Expectancy theory** (Vroom, Lawler): motivation = E1 (effort-performance expectancy) × E2 (performance-outcome expectancy) × valence. The integrative claim: "to maximize motivation, organizations must make outcomes contingent on performance" [V] (Ch 14.3, "Implications of Expectancy Theory"). *Self-efficacy* (Bandura) is a strong determinant of E1: "high self-efficacy employees believe that they are likely to succeed at most or all of their job duties" [AP]. Weak E1s arise from insufficient resources or inaccurate performance ratings; weak E2s arise from equality-focused organisations that do not differentiate rewards based on performance. Recent research demonstrates that "the individual components predict performance just as well, without being multiplied" [V] (Ch 14.4).
 
 ## Part XV: Managing teams (Ch 15)
 
@@ -763,7 +763,7 @@ Four common conflict sources in multicultural teams [BT] (Ch 15.6, "Multicultura
 
 Four interventions: *adaptation* (work with or around differences); *structural intervention* (reorganise to reduce friction); *managerial intervention* (decisions made by management without team involvement, used sparingly); *exit* (last resort) (Ch 15.6).
 
-*Cultural intelligence* develops through three sources [V] (Ch 15.6, "Cultural Intelligence"): *head* (cognitive: training-based knowledge of beliefs, customs, taboos); *body* (physical: demeanor, eye contact, posture, accent — physical experimentation with new culture); *heart* (emotional/motivational: confidence and motivation to adapt). Best practices for cross-cultural skills: broaden your mind; develop skills through practice; boost cultural metacognition; develop cognitive complexity (Ch 15.6).
+*Cultural intelligence* develops through three sources, per the authors of the *Harvard Business Review* article "Cultural Intelligence" [BT] (Ch 15.6, "Cultural Intelligence"): *head* (cognitive: training-based knowledge of beliefs, customs, taboos); *body* (physical: demeanor, eye contact, posture, accent — physical experimentation with new culture); *heart* (emotional/motivational: confidence and motivation to adapt). Best practices for cross-cultural skills: broaden your mind; develop skills through practice; boost cultural metacognition; develop cognitive complexity (Ch 15.6).
 
 ## Part XVI: Managerial communication (Ch 16)
 
@@ -822,7 +822,7 @@ The Koontz-O'Donnell five-step planning process [BT] (Ch 17.2, "The Planning Pro
 
 ### Goal vs domain vs hybrid planning
 
-In *goal planning*, people set specific goals and create action statements [V] (Ch 17.2, "Goal vs. Domain Planning"). In *domain/directional planning*, managers develop a course of action that moves an organisation toward an identified domain. Domain planning suits situations where: flexibility is needed; people cannot agree on goals; the external environment is unstable and uncertain; the organisation is starting up or transitioning.
+In *goal planning*, "people set specific goals and then create action statements" [V] (Ch 17.2, "Goal vs. Domain Planning"). In *domain/directional planning*, managers develop a course of action that moves an organisation toward an identified domain. Domain planning suits situations where: flexibility is needed; people cannot agree on goals; the external environment is unstable and uncertain; the organisation is starting up or transitioning.
 
 The 3M Post-it example illustrates domain planning: research aimed at strong cohesives produced an unintended low-cohesion material; Arthur Fry's hymn-book frustration sparked the Post-it innovation [AE] (Ch 17.2). *Hybrid planning* couples the two: managers commit to a domain initially and transition to goal planning as learning accumulates.
 
@@ -854,7 +854,7 @@ By the late 1960s, 83 per cent of major US firms used long-range planning; today
 
 ### Goal characteristics that motivate performance and MBO
 
-Two primary goal attributes that enhance motivating potential: *goal specificity* and *goal difficulty* [BT] (Ch 17.6, "Employees' Responses to Planning"). The Weyerhaeuser truck-driver case: instructing drivers to load to 94 per cent of legal weight capacity (rather than "do their best") yielded approximately $250,000 in savings over nine months as drivers competed against the specific goal [V] (Ch 17.6).
+Two primary goal attributes that enhance motivating potential: *goal specificity* and *goal difficulty* [BT] (Ch 17.6, "Employees' Responses to Planning"). The Weyerhaeuser truck-driver case: instructing drivers to load to 94 per cent of legal weight capacity (as opposed to simply "doing their best") yielded approximately $250,000 in savings over nine months as drivers competed against the specific goal [V] (Ch 17.6).
 
 *Management by Objectives (MBO)* is the participatory goal-setting and management technique grounded in goal theory (Ch 17.7, "Management by Objectives: A Planning and Control Technique").
 
@@ -868,7 +868,7 @@ The control-oriented vs involvement-oriented approaches to planning and controll
 
 *Technology* is defined as "the processes within the organization that help to convert inputs into outputs as well as the supporting evaluation and control mechanisms" [V] (Ch 18.1, "MTI — Its Importance Now and In the Future"). *Management of technology* is "the planning, implementation, evaluation, and control of the organization's resources and capabilities in order to create value and competitive advantage" [V]. Activities: technology strategy; technology forecasting; technology roadmapping; technology project portfolio.
 
-*Innovation* includes "newness in the development and use of products and/or processes within a firm and within an industry. Invention, new product development, and process-improvement methods are all examples" [V]. *Management of innovation* requires: casting a wide net to track changes; creating newness with existing products (3M tape and Post-it variants); creating a culture open to newness; communicating knowledge throughout the firm (Post-it glue's tackiness was reframed from a failure of strong-glue R&D); changing with courage to avoid *strategic inertia*. Kodak's bankruptcy and IBM's "who wants a computer on their desk?" CEO quotation are presented as cautionary examples (Ch 18.1).
+*Innovation* includes "'newness' in the development and use of products and/or processes within a firm and within an industry. Invention, new product development, and process-improvement methods are all examples" [V]. *Management of innovation* requires: casting a wide net to track changes; creating newness with existing products (3M tape and Post-it variants); creating a culture open to newness; communicating knowledge throughout the firm (Post-it glue's tackiness was reframed from a failure of strong-glue R&D); changing with courage to avoid *strategic inertia*. Kodak's bankruptcy and IBM's "who wants a computer on their desk?" CEO quotation are presented as cautionary examples (Ch 18.1).
 
 Six societal/business areas requiring good MTI [BT] (Ch 18.1): human resources management; cooperative model expansion; internationalisation; environmental concerns; growth of service industries; intellectual property rights as strategic resource.
 
@@ -896,9 +896,9 @@ Entrepreneurial activities and the *value proposition* (how the firm makes money
 
 Required organisational skills: managing learning and knowledge processes; analysing and forecasting future trends. *Organisational learning* is "the acquisition of knowledge through the collection of data that is analyzed to gather information, which is then transferred and shared through communication among members of the organization" [V] (Ch 18.6, "Skills Needed for MTI"). Two knowledge types: *explicit knowledge* ("codified or written down as rules or guidelines" [V]); *tacit knowledge* ("which emerges from experience of an individual" [V]). "Tacit knowledge can become explicit at some point if the expert is able to codify the knowledge for others. However, it is not always possible to codify tacit knowledge" [V] (Ch 18.6). Bessemer's steel-making expertise, which he could not convey to the purchasers of his patent, is the example (Ch 18.6). The treatment is a single paragraph.
 
-Required individual skills: leadership/followship and creative thinking. *Leadership* shifts within the new-product-development process (engineer in design, engineer/production in prototype, marketing in launch). *Followship* is "the mirror image of leadership … the success of organizations is more the result of good followship than of great leadership. Leadership is influencing others, and followship is seeking or accepting influence" [V] (Ch 18.6, "Skills Needed for MTI"). Five characteristics of good followers: truthful; supportive (not blaming the boss); giving the leader benefit of knowledge and experience; taking initiative to provide solutions; keeping the leader informed (Ch 18.6).
+Required individual skills: leadership/followship and creative thinking. *Leadership* shifts within the new-product-development process (engineer in design, engineer/production in prototype, marketing in launch). *Followship* is "the mirror image of leadership. … The success of organizations is more the result of good followship than of great leadership. Leadership is influencing others, and followship is seeking or accepting influence" [V] (Ch 18.6, "Skills Needed for MTI"). Five characteristics of good followers: truthful; supportive (not blaming the boss); giving the leader benefit of knowledge and experience; taking initiative to provide solutions; keeping the leader informed (Ch 18.6).
 
-Three managing-now-for-future questions [V] (Ch 18.7, "Managing Now for Future Technology and Innovation"): Where are we now? Where do we want to be? What do we need to move from here to there?
+Three managing-now-for-future questions (Ch 18.7, "Managing Now for Future Technology and Innovation"): "Where are we now?" "Where do we want to be?" "What do we need to move from here to there?" [V]
 
 ## Key statistics (with provenance)
 

@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-02T13:31:31+13:00
+  at: 2026-10-15T18:23:08+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Software-Business Distillation
 

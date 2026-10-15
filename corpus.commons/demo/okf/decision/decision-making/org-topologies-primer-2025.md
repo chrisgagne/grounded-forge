@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T18:25:33+13:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Decision-Making Distillation
 
@@ -105,14 +105,14 @@ This distillation gathers these threads into a working pattern: how to use the M
 | Run the named-failure-mode check | For each option, name the topology-specific failure mode and ask: are we prepared to accept this failure mode? (Resource: coordination tax; Delivery: feature bloat; Adaptive: no failure mode named by the Primer; weigh the silo caution for complete units, p. 8.) |
 | Run the systems-fit check | For each option, are the other org-design elements (policies, structures, rewards) compatible? If not, what is the smallest set of co-changes required? |
 | Test for buy-in | Will the people affected by this change be co-creators of it or recipients of it? "People, when not owning the change ideas, won't fully accept them." [V] A pushed change is a degraded change. |
-| Test AI investment ROI | Does the AI investment target a bottleneck in the elevation path, or is it generic "adopt AI"? Generic adoption is named as inferior to targeted bottleneck investment (p. 21). |
+| Test AI investment ROI | Does the AI investment target a bottleneck in the elevation path, or is it generic "adopt AI"? Generic adoption is named as inferior to targeted bottleneck investment (p. 20). |
 | Test for the divergent-design option | Are we choosing one design for the whole company because we haven't considered divergent-by-division designs? |
 
 ### Phase 5: Committing (Selecting and announcing)
 
 | Need | Question |
 |---|---|
-| Declare the target topology in the OT vocabulary | What named topology and named archetype set is the target? Express it precisely (e.g. "move R&D from mostly TASKS-1 individuals to CAPS-3 teams", as in the Primer's pet-supply example, p. 21). |
+| Declare the target topology in the OT vocabulary | What named topology and named archetype set is the target? Express it precisely (e.g. "move R&D from mostly TASKS-1 individuals to CAPS-3 teams", as in the Primer's pet-supply example, p. 20). |
 | Anchor the decision to the business objective | Restate the business objective the chosen design is intended to deliver. The decision is a *bet* on that connection. |
 | Frame the chosen frameworks as tools, not the answer | If the decision involves adopting (or partially adopting) SAFe, LeSS, Team Topologies, etc., frame those as elevating-kata sources, not as the decision itself. |
 | Acknowledge the rejected alternatives | Which other topologies were considered and why this one was preferred? This signals the failure mode you've accepted. |

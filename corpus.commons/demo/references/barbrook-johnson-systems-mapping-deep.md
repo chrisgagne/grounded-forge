@@ -130,7 +130,7 @@ ToC diagrams can be textual (as short as one sentence, "don't tend to be much lo
 
 ### Participatory Systems Mapping (Ch 5)
 
-**Author disclosure.** "PSM has evolved a lot over the last ten years... Our experiences over the last ten years, as we have developed Participatory Systems Mapping (PSM), are one of the core motivations for this book" [V] (Ch 5, "Participatory Systems Mapping"). The authors explicitly note this chapter is their method, and they offer the disclosure that "we have experienced all sorts of reactions when using PSM, from the positive and enthusiastic, through to negative and harsh criticism" [V] (Ch 5, "Participatory Systems Mapping"). The core idea: "to turn potentially overwhelming complexity (in systems, and in our models of them), into something more actionable, practical, and usable" [V] (Ch 5, "Participatory Systems Mapping").
+**Author disclosure.** "Our experiences over the last ten years, as we have developed Participatory Systems Mapping (PSM), are one of the core motivations for this book" [V]; "PSM has evolved a lot over the last ten years" [V] (Ch 5, "Participatory Systems Mapping"). The authors explicitly note this chapter is their method, and they offer the disclosure that "we have experienced all sorts of reactions when using PSM, from the positive and enthusiastic, through to negative and harsh criticism" [V] (Ch 5, "Participatory Systems Mapping"). The core idea: "to turn potentially overwhelming complexity (in systems, and in our models of them), into something more actionable, practical, and usable" [V] (Ch 5, "Participatory Systems Mapping").
 
 **What it is.** "The maps are causal models of a system, represented by a network of factors and their causal relations. They are almost always annotated and layered with information about the factors and their connections. Technically speaking, they are directed cyclic graphs, that is, the connections between factors have arrows and there can be feedback loops in the network" [V] (Ch 5, "What Is Participatory Systems Mapping?"). Nodes are called *factors*; specialised factor types include outcomes, functions, and interventions. Connections are positive, negative, or "uncertain or complex" (when relationships depend on other factors/contexts or are strongly nonlinear) [AP] (Ch 5, "What Is Participatory Systems Mapping?").
 
@@ -327,7 +327,7 @@ The conclusion offers five take-home messages [AP] (Ch 12, "Our Final Take-Home 
 | CLD design-and-communication allocation: "we would suggest thinking about using half of your time or resources on this" | (Ch 4, "Commons Issues and 'Tricks of the Trade'") | [V] |
 | Transcription burden: "Transcription can easily take five or six times the length of the recording when there are multiple people involved" | (Ch 10, "Capturing and Recording Workshops") | [V] |
 | Loops vary by sign and balance pattern: B (balancing, self-stabilising); R (reinforcing, runaway) | (Ch 4, "What Is a Causal Loop Diagram?"; Ch 8, "What Is System Dynamics?") | [AP] |
-| Eight system archetypes (Kim 2000): drifting goals, escalation, fixes that fail, growth and under-investment, limits to success, shifting the burden, success to the successful, tragedy of the commons | (Ch 4, "How Do You Create Causal Loop Diagrams?") | [V] |
+| Eight system archetypes (Kim 2000): drifting goals, escalation, fixes that fail, growth and under-investment, limits to success, shifting the burden, success to the successful, tragedy of the commons | (Ch 4, "How Do You Create Causal Loop Diagrams?") | [BT] |
 | Four outputs of FCM dynamic analysis: stabilise at new values; runaway change; return to zero; cycles | (Ch 6, "What Is Fuzzy Cognitive Mapping?") | [AP] |
 | The five ToC categories (Rogers 2014's "results chain"): inputs, activities, outputs, outcomes, impacts | (Ch 3, "What Is Theory of Change Mapping?") | [BT] (cite Rogers 2014) |
 | Five general-purpose uses of systems mapping: helping us think, orient, synthesise, communicate, extrapolate | (Ch 1, "How Can Systems Mapping Be Useful?") | [AP] |
@@ -351,9 +351,9 @@ The conclusion offers five take-home messages [AP] (Ch 12, "Our Final Take-Home 
 
 ## Positions the author explicitly frames against
 
-- **Highly technical "black-box" modelling.** Named as one of the three failures of historical complexity-science applications [V] (Ch 1, "Why Think About Systems Mapping Now?").
-- **Appealing metaphors and language that do not lead to action.** Named as second failure [V] (Ch 1, "Why Think About Systems Mapping Now?").
-- **Overwhelming and paralysing complexity (the "horrendogram" failure mode).** Named as third failure and recurring concern; central frame for PSM's submap-based response [V] (Ch 1, "Why Think About Systems Mapping Now?"; Ch 5, "Participatory Systems Mapping").
+- **Highly technical "black-box" modelling.** Named as one of the three failures of historical complexity-science applications [AP] (About the Book; Ch 1, "Why Think About Systems Mapping Now?").
+- **Appealing metaphors and language that do not lead to action.** Named as second failure [AP] (About the Book; Ch 1, "Why Think About Systems Mapping Now?").
+- **Overwhelming and paralysing complexity (the "horrendogram" failure mode).** Named as third failure and recurring concern; central frame for PSM's submap-based response [AP] (About the Book; Ch 1, "Why Think About Systems Mapping Now?"; Ch 5, "Participatory Systems Mapping").
 - **Treating ToC diagrams as products rather than processes.** "The 'product' of a ToC process, normally the diagram itself" is critiqued; the value lies as much in process as product [V] (Ch 3, "Common Issues and 'Tricks of the Trade'").
 - **Pressures to create a narrow or overly simple ToC.** Resisted by argument [AP] (Ch 3, "Common Issues and 'Tricks of the Trade'").
 - **Researcher-assumption-driven FCM analysis where threshold function dominates results.** "Changing the form of the threshold function can have more of an impact on the results than the map structure, even to the degree of reversing model results" — the analytical concern that prompted PSM's development [V] (Ch 6, "Common Issues and 'Tricks of the Trade'").

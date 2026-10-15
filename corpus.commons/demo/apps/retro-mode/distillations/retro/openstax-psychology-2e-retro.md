@@ -148,7 +148,7 @@ The safety check of 3 also flags a stress-load concern. The facilitator checks: 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection, Link to Learning) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The Asch line-judgement conformity studies are cited by the source but the original Asch work is not held directly in this corpus [BT] (Ch 12.4). Milgram's obedience studies are cited approvingly but Milgram's own works are not in the corpus [BT] (Ch 12.4). Bandura's social learning and Bobo doll experiments are cited [BT] (Ch 6.4). Loftus and Palmer (1974) misinformation effect is cited [BT] (Ch 8.3). Ebbinghaus's forgetting curve is cited [BT] (Ch 8.3). Kahneman and Tversky heuristics-and-biases program informs the problem-solving chapter [BT] (Ch 7). Galton, Binet, and Terman for intelligence testing history are cited [BT] (Ch 7.5). Ekman for universal facial expressions [BT] (Ch 10.4). Festinger's cognitive dissonance research [BT] (Ch 12.3). Selye for general adaptation syndrome stages [BT] (Ch 14.1). Ross, Amabile, and Steinmetz quizmaster study for fundamental attribution error [BT] (Ch 12.1).
 

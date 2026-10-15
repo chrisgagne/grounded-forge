@@ -29,18 +29,16 @@ No other quotation needed a change: each now matches the conversion.
 
 ## Checker findings left, none of them a defect
 
-Deep reference, after the fix: 2 initial, 4 near, 15 interrupted, 3 missing.
+Deep reference, after the fix: 2 initial, 5 near.
 
 | Kind | Lines | What it is |
 |---|---|---|
 | initial | 88, 96 | A quotation that starts mid-sentence in the source; not failing. |
-| near | 42, 96, 116, 156 | The quotation omits a footnote reference number glued to a word: `accomplished.8`, `quickly.'8` (footnote 18), `learning.6`, `it.°` (footnote 10 on the page). |
-| interrupted | 42, 44, 80, 82, 84, 114, 128, 152, 154, 156, 160 (twice), 175, 198 | A running header and page number between two pages of the quoted passage, for example `87 Warfighting MCDP I`; line 175 also has an ellipsis gap. |
-| interrupted | 136 | Word for word. The passage has a word split across a line (`situa-` / `tion`) and a compound split across a line (`ever-` / `increasing`); the checker rejoins or keeps every split hyphen in a source, never both at once. |
-| missing | 58 | `a continuous source of friction`: a page break (`8 MCDP 1 The Nature of War`) falls after "continuous", and the fragment is too short for the interrupted rung. |
-| missing | 64, 90 | An elided quotation whose last piece crosses a page break (`12 MCDP 1 The Nature of War`; `36 MCDP 1 The Theory of War`). Read in the source: word for word apart from the header and the marked elisions. |
+| near | 42, 96, 114, 116, 156 | The quotation omits a footnote reference number glued to a word: `accomplished.8`, `quickly.'8` (footnote 18), `conduct.4`, `learning.6`, `it.°` (footnote 10 on the page). |
 
-Distillations, after the fix: aar 1 initial (13), 1 interrupted (43, page header); decision-making 3 interrupted (17 twice, 31: page headers); retro 15 cross-source (below); software-business none; stakeholder-engagement 1 initial (138), 1 interrupted (21, page header).
+Running headers and page numbers between two pages of a quoted passage, and a quotation holding both a word split across a line (`situa-` / `tion`) and a compound split across a line (`ever-` / `increasing`), are conversion noise the checker sets aside (PR #15).
+
+Distillations, after the fix: aar 1 initial (13); decision-making none; retro 15 cross-source (below); software-business none; stakeholder-engagement 1 initial (138).
 
 ## Cross-source quotations in the retro distillation
 

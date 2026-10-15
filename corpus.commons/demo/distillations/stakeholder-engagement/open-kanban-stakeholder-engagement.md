@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:f87aa805a67d3e95e80fbad103f14e3e8e22461db1c60dc3e247777430a6d25d -->
+<!-- derived-from-deep: sha256:2d4a20cfd1f18fc3cdf6d95d0690c885c2c6391bd9a92f7f95bf825683af19f9 -->
 # Hurtado, Open Kanban — Stakeholder-Engagement Distillation
 
 **Source:** Hurtado, J. (with Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban — Open Source Initiative to create a Kanban core that is Agile, Lean and Free*. Release 1.00 Rev A. Licence: CC BY 3.0 Unported. https://github.com/agilelion/Open-Kanban.
@@ -21,7 +21,7 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 
 2. <!-- concept: respect-for-people --> **Respect for people as the engagement foundation.** "At the core of Lean and TPS is respecting people. Respect for people also means assuming responsibility for your actions, and empowering others to take those actions." [V] Engagement without respect collapses into compliance. The pull-based scheduling discipline operationalises respect: the team member doing the work is trusted to pull what they will do next. ("Open Kanban Values" — Respect for people)
 
-3. <!-- concept: courage --> **Courage as the upward-engagement enabler.** "Like Kent Beck [BT] noticed in order to improve or even correct mistakes we need courage. When a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." [V] Engagement that flows only top-down is partial; without lower-rank correction of higher-rank decisions, the system has no feedback. ("Open Kanban Values" — Courage)
+3. <!-- concept: courage --> **Courage as the upward-engagement enabler.** "Like Kent Beck noticed in order to improve or even correct mistakes we need courage. When a manager, VP, or person in authority makes a mistake and someone with lower rank notices it, it takes courage for him to tell us about it." [V] (Beck is cited by name [BT].) Engagement that flows only top-down is partial; without lower-rank correction of higher-rank decisions, the system has no feedback. ("Open Kanban Values" — Courage)
 
 4. <!-- concept: communication-and-collaboration --> **Communication and Collaboration packaged as one value.** "Communication, and collaboration are at the center of teamwork. One value does not work without the other that is the reason we decided to group them together. To succeed we need to make ourselves heard (communicate) but also we need to be able to work with others to create value." [V] The deliberate packaging is a stake in the ground: engagement that does only one of these is engagement that fails. ("Open Kanban Values" — Communication and Collaboration)
 
@@ -39,7 +39,7 @@ A fourth thread runs through the methodology's lean-leadership stance: team-base
 
 11. <!-- concept: named-invitations --> **Explicit invitations to named fellow-travellers.** "We already share many key ideas with Alan Shalloway's Kanban for Teams, Corey Ladas Scrumban and Karl Scotland's Kanban Thinking. We extend an open invitation to them, and to any leading thinker or organization that wants to join us." [V] The author engages the field by naming people, not just positions. ("The Open Kanban Movement")
 
-12. <!-- concept: reciprocal-contribution --> **Reciprocal contribution as the engagement ask.** "We only ask you that you: Give us credit; Contribute your best ideas back to Open Kanban root repository." [V] CC BY 3.0 does not require Share-Alike, so the contribution-back is a *request*, not a legal obligation — but the methodology's stated preference is reciprocal community engagement. ("Open Kanban's License")
+12. <!-- concept: reciprocal-contribution --> **Reciprocal contribution as the engagement ask.** "We only ask you that you:" "Give us credit" and "Contribute your best ideas back to Open Kanban root repository." [V] CC BY 3.0 does not require Share-Alike, so the contribution-back is a *request*, not a legal obligation — but the methodology's stated preference is reciprocal community engagement. ("Open Kanban's License")
 
 13. <!-- concept: continuous-improvement --> **Continuous learning as engagement renewal.** "There are many ways a Kanban team can implement this practice, you could have Retrospectives, Strategy Meetings or even Kaizen Groups." [V] The forms vary; the engagement function is the same — periodic, structured team conversation about how the work is going. ("Open Kanban Practices" — Learn and improve continuously)
 

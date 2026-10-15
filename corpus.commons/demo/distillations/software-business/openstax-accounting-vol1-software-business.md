@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:58897d119eb51757be869a0e39ba652d9f04e41c2c75e1e1dd7b2212e4cf1da1 -->
+<!-- derived-from-deep: sha256:b173484b1dfcca9c733d2633a4bac3bec35182a3fca1aff5dc473e422c546e70 -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -199,7 +199,7 @@ The board paper now presents a cleaner story: Topic 606 revenue allocation corre
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** OpenStax Accounting Vol 1 situates US financial accounting within a regulatory and conceptual framework built on external standards bodies and landmark legal cases this corpus does not hold as primary references.
 

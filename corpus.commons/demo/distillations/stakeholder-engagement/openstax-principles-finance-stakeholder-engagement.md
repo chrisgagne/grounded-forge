@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:4860b84e4d9e2e90d675282b229cc688b504d1ab6d149077b5416e7253c6f09b -->
+<!-- derived-from-deep: sha256:af9990b294526740945645b622732f7a847fe0f39996359cb8cd7c3c96ed522a -->
 # OpenStax Principles of Finance, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2022). *Principles of Finance*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-finance. Senior contributing authors Julie Dahlquist and Rainford Knight, with six contributing authors.
@@ -178,7 +178,7 @@ This example illustrates several key concepts in the source: stakeholder definit
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 7.7% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Think It Through, Concepts in Practice) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Modigliani and Miller (MM Propositions) — capital-structure irrelevance and the extension to trade-off theory (Ch 17) [BT]

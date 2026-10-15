@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a578c36360d60746d7359dbd6f8976c76dd70145f687248d5b7483b11ee6901e -->
+<!-- derived-from-deep: sha256:c3dc2f2edac44280086ebc8ce5e8482069c7c09b54645dc824f393356d53faa9 -->
 # OpenStax Principles of Management, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -225,7 +225,7 @@ This worked example illustrates the six structure types and structure-environmen
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check, Exploring Managerial Careers) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The text draws on a broad cluster of foundational management researchers this corpus does not hold as primary references.
 

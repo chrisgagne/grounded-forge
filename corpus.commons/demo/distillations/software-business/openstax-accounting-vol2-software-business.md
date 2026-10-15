@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:94ad7036c8224bf5c51d01d1f95019d2f0e60554478a26f3536f85698c060bf6 -->
+<!-- derived-from-deep: sha256:6772a68ee0729ce93d463e311c291cbefd90b018f7c6297e13beb767e3f0ada3 -->
 # OpenStax Principles of Accounting Volume 2, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 2: Managerial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-managerial-accounting. Senior contributing authors Mitchell Franklin, Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -240,7 +240,7 @@ This is a read-only lens; no produce-for surface. The PM bounded by a BA role re
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 4.2% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, Your Turn, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** OpenStax Accounting Vol 2 situates managerial accounting within frameworks developed by external researchers, practitioners, and standard-setting bodies this corpus does not hold as primary references.
 

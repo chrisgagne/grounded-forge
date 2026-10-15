@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a49a846e6be8f35c273642751278dcb9d6c86ea68e7d3f8c62dbd452265e6ae3 -->
+<!-- derived-from-deep: sha256:85ecda320e39340ecdc9a87364eaccfbf4a62780f2e93523dfd7ab6e2eb798f3 -->
 # OpenStax, Principles of Marketing, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -209,7 +209,7 @@ The scenario is operator-authored; all framework citations trace through `corpus
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice, Companies with a Conscience) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Philip Kotler — sustainable-marketing definition (Ch 19.1) [BT]

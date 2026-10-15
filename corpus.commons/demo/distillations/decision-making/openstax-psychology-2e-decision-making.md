@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b5ecc3d3e0f3df4378035bde027d4cb7b78baac3472578055435bf031fa29b66 -->
+<!-- derived-from-deep: sha256:cfdc243d0b9565068843d0228623f0363f2a48402e385d98acd53b5a169ad2ee -->
 # OpenStax Psychology 2e, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.
@@ -181,7 +181,7 @@ This worked example illustrates several key concepts in the source: heuristics v
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection, Link to Learning) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors are cited by the source but not held as primary references in this corpus (the deep reference marks most `[BT]`; Rotter and Yerkes-Dodson sit in `[AP]` passages, Schacter and Schachter-Singer in `[AR]` or unmarked passages):
 

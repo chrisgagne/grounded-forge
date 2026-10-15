@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:e0f2c76b41dfe1c6b501ca711e5961c6729bdbc4b9efa20cd5a345be049f8615 -->
+<!-- derived-from-deep: sha256:9d252cf1f038bbb4724e648bc5e023dddb3334bb1569d4dc253a9e8736db20d0 -->
 # OpenStax Business Law I Essentials, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Business Law I Essentials*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-law-i-essentials. Lead author Mirande Valbrune (Esq.); six contributing authors.
@@ -171,7 +171,7 @@ This worked example illustrates several key concepts: the ADR-tier choice, the T
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:58897d119eb51757be869a0e39ba652d9f04e41c2c75e1e1dd7b2212e4cf1da1 -->
+<!-- derived-from-deep: sha256:b173484b1dfcca9c733d2633a4bac3bec35182a3fca1aff5dc473e422c546e70 -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -180,7 +180,7 @@ This worked example illustrates several key concepts in the source: the multi-st
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - FASB / SFAC No. 6 — definitions of assets, liabilities, equity, revenues, expenses, gains, losses (Ch 2) [BT]

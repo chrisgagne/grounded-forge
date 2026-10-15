@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:2acb3a413ad7e6717ae93ca29a200afb8ebd2a85b566ab8dc08d9c6fc2e994a0 -->
+<!-- derived-from-deep: sha256:38ce4596324db372b183a54e39d65b04ed352a1f29c8612086772455fc2ef36e -->
 # OpenStax Entrepreneurship, Software-Business Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.
@@ -232,7 +232,7 @@ The structured walk surfaces that the founder's intended next action (Series A p
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?, Are You Ready?) that the converter dropped, sometimes with body text; that material is not covered here.
 
 **Borrowed-through gaps.** The distillation carries a large cluster of borrowed-through influences the source cites but this corpus does not hold as primary references.
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:81bf8cb150500b17c90ed71cf74306b3acdc9246ea991067c95cadefc5c019d8 -->
+<!-- derived-from-deep: sha256:88fc18dc052f23657291ecba7e45fe6ef3dc07814ed4708b8e508cc83462857e -->
 # Krivitsky, Larman & Flemm, Org Topologies Primer — AAR Distillation
 
 **Source:** Alexey Krivitsky, Craig Larman & Roland Flemm (2025). *Strategic Org Design: The Primer*. Org Topologies™ 2025 Edition. February 2025. Licence: CC BY-NC-SA 4.0. https://orgtopologies.com.

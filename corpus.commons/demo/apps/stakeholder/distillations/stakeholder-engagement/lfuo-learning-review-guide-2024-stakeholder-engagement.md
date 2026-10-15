@@ -226,6 +226,8 @@ The scenario is operator-authored. The liaison guidance (Part 5), the administra
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
+
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Sidney Dekker — *The Field Guide to Understanding Human Error* (2014); *Just Culture: Balancing Safety and Accountability* (2007); cited throughout for the Just Culture and local-rationality framing [BT]
 - Dekker & Breakey (2016), *Safety Science* — restorative justice framing (Glossary, "Restorative justice", footnote 14) [BT]

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:12:04+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Principles of Management, Retro Distillation
 
@@ -151,6 +151,8 @@ The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal cr
 | LFUO Learning Review Guide | LFUO separates learning (the FLA, lessons without recommendations, validated by Readback) from action (the Learning Review, whose Board turns recommendations into a Safety Action Plan); use Management's PDCA Act step to decide which a retro finding needs |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** PDCA traces to Deming-Shewhart; the source attributes it as such [BT] (Ch 17.2). Tuckman's model is cited as Tuckman (1965), with adjourning added in 1977 [BT] (Ch 15.2). Lencioni's Five Dysfunctions is cited [BT] (Ch 15.4). Follett's conflict-resolution framework is cited as the source of the integration-path concept [BT] (Ch 3.6). The four change models (Lewin, Kotter, Cooperrider AI, Olson-Eoyang CAS) are named with their originators [BT] (Ch 10.3). Goal theory traces to Locke [BT] (Ch 14.3). Linda Hill's managing-as-paradox framing is cited [BT] (Ch 15.3). None of these are held directly in this corpus.
 

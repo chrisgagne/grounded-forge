@@ -122,6 +122,8 @@ The eleven code smells, RACI, INVEST, fist of five, Eisenhower matrix, and Tuckm
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** Planning poker is attributed to Cohn (2006) [BT] (Ch 2.5.5). INVEST is attributed to Wake (2003) [BT] (Ch 3.6.1). Tuckman's model is cited as Tuckman (1965) and Tuckman & Jensen (1977) [BT] (Ch 2.4). The Inclusivity Heuristics are attributed to GenderMag Project researchers at Oregon State University (Burnett et al., 2016; 2021) [BT] (Ch 7, opening; Ch 7.1); the chapter's definition of inclusive design is quoted from Microsoft [BT] (Ch 7, opening). CHAOS Report (Standish Group, 2015) is cited for failure-rate data [BT] (Ch 1.1). The triple constraint draws on van Wyngaard et al. (2012) [BT] (Ch 2.2). None of Cohn, Wake, Tuckman, Jensen, or van Wyngaard are held directly in this corpus.
 
 **Named limits of the source.** Letaw describes the book as "geared toward Agile software development" [V] (Introduction); the methods are framed in an Agile context. The handbook names its scope as a portable set of software engineering methods; it defines the Sprint Retrospective as a Scrum event (Ch 1.2.2) but gives no retrospective agenda or structure. The RACI, fist of five, INVEST, and Eisenhower matrix all require the retro container (supplied by the Field Guide); this source does not supply the container. The Inclusivity Heuristics are specific to UI/UX design decisions and transfer to retro work only when a UI friction item is the retro topic.

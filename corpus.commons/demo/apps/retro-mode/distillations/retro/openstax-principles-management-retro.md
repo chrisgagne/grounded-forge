@@ -136,6 +136,8 @@ The Tuckman stage framing, Follett integration path, SDT autonomy, Locke goal cr
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** PDCA traces to Deming-Shewhart; the source attributes it as such [BT] (Ch 17.2). Tuckman's model is cited as Tuckman (1965), with adjourning added in 1977 [BT] (Ch 15.2). Lencioni's Five Dysfunctions is cited [BT] (Ch 15.4). Follett's conflict-resolution framework is cited as the source of the integration-path concept [BT] (Ch 3.6). The four change models (Lewin, Kotter, Cooperrider AI, Olson-Eoyang CAS) are named with their originators [BT] (Ch 10.3). Goal theory traces to Locke [BT] (Ch 14.3). Linda Hill's managing-as-paradox framing is cited [BT] (Ch 15.3). None of these are held directly in this corpus.
 
 **Named limits of the source.** Principles of Management is an OpenStax introductory textbook covering the full breadth of management theory. Its retro projection focuses on PDCA, Tuckman, motivational frameworks, conflict-resolution, change models, and goal theory. The source's content on strategic planning, managerial roles, diversity management, and environmental scanning does not fire in a team retro context. The CC BY-NC-SA 4.0 licence means this distillation inherits the non-commercial and ShareAlike obligations.

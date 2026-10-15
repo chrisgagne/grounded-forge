@@ -180,6 +180,8 @@ This worked example illustrates several key concepts in the source: heuristics v
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The following authors are cited by the source but not held as primary references in this corpus (the deep reference marks most `[BT]`; Rotter and Yerkes-Dodson sit in `[AP]` passages, Schacter and Schachter-Singer in `[AR]` or unmarked passages):
 
 - *Daniel Kahneman and Amos Tversky* — heuristics-and-biases program informs Ch 7 problem-solving content; the five bias inventory in Key Concept 2 traces here [BT].

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-ethics
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Business Ethics, AAR Distillation
 
@@ -112,6 +112,8 @@ A team reviews a product-defect incident where field reports of a safety problem
 | OpenStax Organizational Behavior (openstax-organizational-behavior) | OB names the cognitive biases and cultural pressures that explain why people stay silent; Business Ethics names the structural and ethical conditions — channels, culture, obligations — that should have made speaking safe |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The Donaldson-Preston stakeholder-theory taxonomy is cited in the source as borrowed-through from Donaldson and Preston's original work [BT] (Ch 3.2); neither Donaldson nor Preston is held directly in the demo corpus. The Grunig-Hunt organisational linkage model and four-publics framework are similarly borrowed-through [BT] (Ch 3.2); Grunig and Hunt are not held directly. Phronesis is attributed to Aristotle (via Nonaka and Takeuchi in the source) [BT] (Ch 1.1). The legal cases cited in the source — *Dodge v. Ford*, *Shlensky v. Wrigley*, *Burwell v. Hobby Lobby*, *Citizens United v. FEC* — are borrowed-through as legal authority [BT] (Ch 4.1, Ch 4.3).
 

@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T17:41:54+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods — Software-Business Distillation
 
@@ -250,6 +250,8 @@ The Letaw artefacts in play: the eleven code smells (vocabulary that converts te
 | **Letaw stakeholder-engagement distillation (cross-task, same source)** | The stakeholder-engagement projection treats Letaw's methods as engagement tools (Tuckman, ground rules, RACI, fist of five, requirements elicitation, paper prototyping, Inclusivity Heuristics). This software-business projection adds the technical-commercial-intersection specificity — the same RACI conversation is engagement (who's in the room) and software-business (decision rights across the engineering-commercial seam). |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** Letaw's Handbook builds on several foundational sources this corpus does not hold as primary references.
 

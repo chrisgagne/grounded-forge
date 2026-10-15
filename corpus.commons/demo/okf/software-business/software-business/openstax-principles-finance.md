@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-finance
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T17:41:53+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Principles of Finance, Software-Business Distillation
 
@@ -222,6 +222,8 @@ The seed table in `software-business.md` §2a does not yet include the following
 - **Operator names a multi-currency FX exposure decision.** This source's Ch 20.3 addresses transaction, translation, and economic exposures explicitly; the rule is to match the hedge (forwards, futures, natural hedges) to the exposure type. Phase 5 (risk) candidate.
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The source cites several foundational finance researchers and practitioners this corpus does not hold as primary references.
 

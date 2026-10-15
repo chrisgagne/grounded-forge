@@ -174,6 +174,8 @@ This worked example illustrates several key concepts: opportunity cost, sunk cos
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — economists and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Adam Smith, The Wealth of Nations (1776)* — cited as foundational for specialisation, invisible hand, and self-interest (Ch 1.1, Ch 2.3) [BT]. Key Concepts implicitly build on this lineage.

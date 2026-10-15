@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/introduction-business
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:11+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Introduction to Business, Stakeholder-Engagement Distillation
 
@@ -216,6 +216,8 @@ This worked example illustrates several key concepts: the four-stakeholder mappi
 | `openstax-principles-management` (open systems) | That source carries the open-systems framing (Ch 3.7, 4.4); this source does not. Use it to treat stakeholder engagement as part of the organisation's resource exchanges with its environment. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Abraham Maslow — hierarchy of needs (Ch 9.3) [BT]

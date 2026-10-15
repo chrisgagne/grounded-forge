@@ -172,6 +172,8 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
+
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus:
 - Institute of Cultural Affairs – UK — facilitator definition (Ch 1, "The definition") [BT]
 - Vaughan, Cleveland-Innes & Garrison (2013) — Community of Inquiry model (Ch 1, "Facilitating learning online") [BT]

@@ -198,6 +198,8 @@ A US-headquartered software firm (450 engineers; AI capability shipped across th
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** OpenStax Business Ethics situates its normative arguments within a body of stakeholder theory, legal cases, and empirical research this corpus does not hold as primary references.
 
 - *Donaldson and Preston — stakeholder theory taxonomy* (descriptive / instrumental / normative) — cited as the framework the book adopts for its fundamental stakeholder argument (Ch 3.2). The Donaldson-Preston paper is not held as a primary corpus reference. Flagged [BT] in the deep ref.

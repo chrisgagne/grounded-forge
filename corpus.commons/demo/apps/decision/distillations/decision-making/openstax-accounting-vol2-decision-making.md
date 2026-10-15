@@ -189,6 +189,8 @@ These five decisions illustrate the volume's central decision-making patterns: r
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Eliyahu Goldratt, Theory of Constraints* — cited approvingly as a five-step continuous-improvement tool (Ch 1.5) [BT]. The volume attributes TOC and its five focusing steps to Goldratt in Ch 1.5 only; Key Concept 7's ranking rule is the volume's own Ch 10.6 treatment.

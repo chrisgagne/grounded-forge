@@ -231,6 +231,8 @@ The structured walk surfaces that the founder's intended next action (Series A p
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The distillation carries a large cluster of borrowed-through influences the source cites but this corpus does not hold as primary references.
 
 - *Clayton Christensen, The Innovator's Dilemma and Competing Against Luck* — disruptive innovation and jobs-to-be-done are sourced [BT] from Christensen's primary works (Ch 1.3; Ch 4.2; Ch 11.1). The distillation treats these as Christensen's frameworks, not as the text's original claims.

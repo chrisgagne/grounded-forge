@@ -178,6 +178,8 @@ This worked example illustrates several key concepts in the source: dual-system 
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *James Rest, four-component ethical decision-making* — moral sensitivity, moral judgment, moral motivation, moral character/action (Ch 2.5) [BT]. Key Concept 6 traces here.

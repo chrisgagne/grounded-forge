@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-managerial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Principles of Accounting Volume 2, Decision-Making Distillation
 
@@ -204,6 +204,8 @@ These five decisions illustrate the volume's central decision-making patterns: r
 | Triple bottom line and integrated reporting | Ch 13 develops the People-Planet-Profit framing and the IIRC's six-capitals model. Practitioners working on sustainability decisions should pair with the GRI, SASB, and IIRC reporting frameworks for stakeholder communication. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

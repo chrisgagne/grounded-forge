@@ -207,6 +207,8 @@ The seed table in `software-business.md` §2a does not yet include the following
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The source cites several foundational finance researchers and practitioners this corpus does not hold as primary references.
 
 - *Modigliani and Miller* — MM Proposition II (in a perfect market, capital structure does not affect firm value) is cited [BT] (Ch 17.4). Their original papers are not in this corpus; the text is the corpus's only treatment of capital-structure irrelevance.

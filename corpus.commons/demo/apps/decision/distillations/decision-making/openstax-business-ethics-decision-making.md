@@ -170,6 +170,8 @@ A medium-sized US technology company has been given the opportunity to enter a l
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The deep reference contains extensive `[BT]` citations. The most load-bearing for this distillation's key concepts:
 
 - *Donaldson and Preston* — cited for the descriptive / instrumental / normative stakeholder typology (Ch 3.2) [BT]. Key Concept 14 paraphrases the book's treatment.

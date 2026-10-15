@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/entrepreneurship
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Entrepreneurship, Decision-Making Distillation
 
@@ -201,6 +201,8 @@ The structured walk through these steps surfaces that the founder's intended nex
 | Osterwalder and Pigneur, *Business Model Generation* | The Business Model Canvas is reproduced as one of three focal canvases, alongside the Lean Canvas and the Social Business Model Canvas (Ch 11.2). |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

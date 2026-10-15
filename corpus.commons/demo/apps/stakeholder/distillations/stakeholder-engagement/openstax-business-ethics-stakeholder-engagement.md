@@ -182,6 +182,8 @@ The scenario is operator-authored. Framework citations: Grunig-Hunt taxonomy (Ch
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Aristotle (Ch 1.1, 2.1) and Confucius (Ch 2.2-2.3) — virtue ethics foundations [BT]
 - Immanuel Kant — categorical imperative and deontological ethics (Ch 2.5, App A, App C) [BT]

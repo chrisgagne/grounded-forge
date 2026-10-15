@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/introduction-business
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:11+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # OpenStax Introduction to Business, Software-Business Distillation
 
@@ -194,6 +194,8 @@ A founder of a Series A medical-imaging SaaS company faces a decision: their lar
 | `letaw-handbook-sweng-methods` | Letaw carries the software-engineering methods discipline (RACI, triple constraint, monolith-vs-microservice architecture, Tuckman team stages). *Introduction to Business* provides the general structural vocabulary (departmentalization, mechanistic-vs-organic, leadership styles) that Letaw narrows to software-specific operational patterns. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
 
 **Borrowed-through gaps.** The source cites several third parties not held independently in this corpus. Drucker's "to society / for society" framing is borrowed-through from Drucker; the underlying Drucker text is not held. The Brigham Young University eleven-category unethical-activity classification is [BT]. The Unilever matrix-to-product structure example used in the anti-patterns section is presented in the source as an illustrative [AE]; the underlying case documentation is not held. (Source: OpenStax, *Introduction to Business*, deep reference, Parts II and VII)
 

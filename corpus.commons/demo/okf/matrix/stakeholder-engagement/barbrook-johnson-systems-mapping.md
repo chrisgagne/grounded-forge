@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T18:23:08+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Stakeholder-Engagement Distillation
 
@@ -229,6 +229,8 @@ The scenario is operator-authored; all framework citations trace through `refere
 | OpenStax *Business Ethics* (this corpus) | The guide provides selection principles ("who affects or is affected" [V], "who is often overlooked" [V]) but not a weighted stakeholder-mapping method; Business Ethics' three-column stakeholder prioritisation (Ch 1.2) and Grunig-Hunt linkage categories (Ch 3.2) are a complement for the "who to include with what weight" question the guide does not answer. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Star and Griesemer (1989) — boundary-object concept (Ch 9) [BT]

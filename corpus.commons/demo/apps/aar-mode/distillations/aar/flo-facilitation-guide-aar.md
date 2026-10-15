@@ -121,6 +121,8 @@ A hybrid AAR (three participants in-room, four remote) is reviewing a customer-e
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
+
 **Borrowed-through gaps.** The Community of Inquiry model (Garrison, Anderson; Vaughan et al. 2013) is cited borrowed-through as the framing model for online facilitation; the demo corpus does not hold the Community of Inquiry literature directly. Liberating Structures (1-2-4-All, User Experience Fishbowl) is cited borrowed-through as a worked example of synchronous facilitation activities; this corpus holds the Liberating Structures Handbook directly but the FLO Guide's citation is to the LS tradition rather than to the handbook's own text. The Institute of Cultural Affairs – UK definition of the facilitator is cited borrowed-through. The International Association of Facilitators (IAF) Core Competencies is cited borrowed-through as inspiration for the FLO facilitation skills list.
 
 **Named limits of the source.** The FLO Facilitation Guide is designed for online learning facilitation in educational settings — primarily multi-week asynchronous courses with synchronous sessions. Its direct applicability to AARs is by adaptation, not by design: it does not address incident review, contributory-factor analysis, just-culture sorting, or action design. The guide's participant set is ongoing cohorts in a learning relationship; the AAR's participant set is typically a one-off cross-functional group convened around a specific event. Adaptations to the AAR context are operator-applied throughout this distillation.

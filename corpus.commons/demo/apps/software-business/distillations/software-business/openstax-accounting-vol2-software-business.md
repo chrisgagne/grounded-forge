@@ -239,6 +239,8 @@ This is a read-only lens; no produce-for surface. The PM bounded by a BA role re
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** OpenStax Accounting Vol 2 situates managerial accounting within frameworks developed by external researchers, practitioners, and standard-setting bodies this corpus does not hold as primary references.
 
 - *Eliyahu Goldratt — Theory of Constraints* — cited in Ch 1.5 as the developer of TOC and its five focusing steps. Ch 10.6's constrained-resource analysis carries no Goldratt attribution. Goldratt is not held as a primary corpus reference; open-kanban carries him [BT]. Flagged [BT] in the deep ref.

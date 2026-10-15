@@ -136,6 +136,8 @@ The scaffolding-and-fading arc, Anxious-Annie pattern, equity-tracking matrix, V
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
+
 **Borrowed-through gaps.** The FLO Guide cites the Community of Inquiry model (Vaughan et al. 2013) as the framing for online learning facilitation [BT] (Ch 1, "Facilitating learning online"). The Institute of Cultural Affairs – UK is cited for the facilitator definition [BT] (Ch 1, "The definition"). Universal Design for Learning (CAST 2018) is cited for the accessibility framework [BT] (Ch 3, "Accessible design, inclusive facilitation"). The International Association of Facilitators (IAF) Core Competencies are cited as inspiration for the skill list [BT] (Ch 3, "Developing FLO facilitation skills"). Liberating Structures is cited for the 1-2-4-All example [BT] (Ch 6, "Week 2"); the corpus holds the Liberating Structures Handbook, but the Guide cites liberatingstructures.com rather than the handbook's text. None of the others are held in this corpus.
 
 **Named limits of the source.** The FLO Guide is written for the BCcampus family of online professional-learning courses — it addresses facilitator development in that context. Its retro applicability is an application by analogy: the scaffolding-and-fading arc, Vegas rules, and equity-tracking matrix all transfer cleanly; the specific course-content framing (five-week Fundamentals course, LMS technologies, BCcampus tooling) does not. The Guide does not address team retros, Scrum, or agile delivery directly — those mappings are projections in this distillation.

@@ -173,6 +173,8 @@ This worked example illustrates several key concepts in the source: standing-not
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Solomon Asch — conformity experiments; line-length studies (Ch 12.4) [BT]
 - Stanley Milgram — obedience-to-authority studies (Ch 12.4) [BT]

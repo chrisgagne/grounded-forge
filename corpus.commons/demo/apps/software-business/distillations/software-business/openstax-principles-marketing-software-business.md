@@ -176,6 +176,8 @@ The lens surfaces (structural voice, no first-person, no sympathy-performance) t
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The source draws on several foundational marketing researchers and practitioners this corpus does not hold as primary references.
 
 - *Valarie Zeithaml, A. Parasuraman, and Leonard Berry, Delivering Quality Service* — the RATER framework (Reliability, Assurance, Tangibles, Empathy, Responsiveness) is sourced [BT] (Ch 11.3). The Gap Model is presented as first proposed in 1985, without named authors. The primary research monograph is not in this corpus; this text is the corpus's only treatment of both frameworks.

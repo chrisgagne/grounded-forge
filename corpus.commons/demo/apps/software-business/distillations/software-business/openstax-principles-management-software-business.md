@@ -224,6 +224,8 @@ This worked example illustrates the six structure types and structure-environmen
 
 ## Citation and Source-Integrity Notes
 
+**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+
 **Borrowed-through gaps.** The text draws on a broad cluster of foundational management researchers this corpus does not hold as primary references.
 
 - *Henry Mintzberg* — three managerial role clusters and the fragmented-manager-time findings are sourced [BT] (Ch 1.1; Ch 1.2; Ch 16.3).

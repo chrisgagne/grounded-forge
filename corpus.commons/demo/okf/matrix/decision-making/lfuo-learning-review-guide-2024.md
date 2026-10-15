@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:10+13:00
+  at: 2026-10-16T08:46:30+13:00
 ---
 # LFUO 2024, Decision-Making Distillation
 
@@ -199,6 +199,8 @@ The learning product is a narrative with sensory detail and the characters' inte
 | **Gagné, *Field Guide to Scrum Events*** | The Sprint Retrospective and the FLA share the same blameless-by-default posture (the Prime Directive and Just Culture are structurally parallel). For routine Sprint-cadence reviews, the Field Guide applies; for significant incidents, LFUO applies. |
 
 ## Citation and Source-Integrity Notes
+
+**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the guide cites named third parties not held as separate primary references in this corpus:
 

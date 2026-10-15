@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ceddf7a7d9a53732ca06828c3bc5709c8f8cd9d6012670498669d2e43abedd6f -->
+<!-- derived-from-deep: sha256:5ea1c1ea4543f8f35bc217d2d59feeee8cfd174620e442ae23435efab8eb7262 -->
 # NHS Improvement Just Culture Guide, After-Action Review Distillation
 
 **Source:** NHS Improvement (2018). *A Just Culture Guide — Supporting consistent, constructive and fair evaluation of the actions of staff involved in patient safety incidents*. A3 landscape poster. Licence: **Open Government Licence v3.0** (CC BY 4.0-equivalent). **Scope:** open. Attributes itself to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree" [V] (borrowed-through; Reason and the NPSA Incident Decision Tree are not held directly in this corpus).

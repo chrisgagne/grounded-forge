@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ceddf7a7d9a53732ca06828c3bc5709c8f8cd9d6012670498669d2e43abedd6f -->
+<!-- derived-from-deep: sha256:5ea1c1ea4543f8f35bc217d2d59feeee8cfd174620e442ae23435efab8eb7262 -->
 # NHS Just Culture Guide, Stakeholder-Engagement Distillation
 
 **Source:** NHS Improvement (2018). *A Just Culture Guide*. A3 landscape poster, single page. Open Government Licence v3.0 (CC BY 4.0-equivalent). Based on the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree. https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf.

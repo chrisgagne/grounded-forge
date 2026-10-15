@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T18:25:33+13:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Stakeholder-Engagement Distillation
 
@@ -20,7 +20,7 @@ generated:
 
 ## Stakeholder-Engagement Relevance
 
-The Primer treats the *engagement* of the people affected by change as load-bearing, not as downstream rollout work, and sets this against the market's "canned change 'solutions'" [V] (p. 3). The cover declares OT as "the first human-centric plus AI-friendly organizational change approach" [V] and frames the human-centric claim explicitly: "OT is based on the psychology of change, recognizing that people have to own – not rent – their change." [V] The Management Summary names lack-of-ownership as "an underappreciated factor behind failed change" [V]: "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work. As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities." [V]
+The Primer treats the *engagement* of the people affected by change as load-bearing, not as downstream rollout work, and sets this against the market's "canned change 'solutions.'" [V] (p. 3). The cover declares OT as "the first human-centric plus AI-friendly organizational change approach" [V] and frames the human-centric claim explicitly: "OT is based on the psychology of change, recognizing that people have to own – not rent – their change." [V] The Management Summary names lack-of-ownership as "an underappreciated factor behind failed change" [V]: "people, when not owning the change ideas, won't fully accept them and won't go the extra mile to make them work. As a result, the promised benefits of change often remain unfulfilled despite all the wasted resources and opportunities." [V]
 
 This stance has three operational consequences for stakeholder engagement. First, the choice of *vocabulary* matters: OT's named archetype language ("CAPS-2", "WHOLE-3", "TASKS-1") — one the Primer says makes it easier to see things as they are, "bringing together specialists from different backgrounds and facilitating open, unambiguous discussions about the current situation and the next steps." [V] Vocabulary is an engagement choice: framework-laden language pre-loads who is in the in-group and who isn't. Second, the Primer calls OT "engaging for people to map, assess, design, and elevate" [V] (p. 1), and its MAP step means "going to the hands-on workplace to understand how the units work" [V], not a back-office mapping exercise. Third, the closing co-creation note on p. 27 is a reflexive statement that the Primer itself was made by co-creation and that co-creation power increases as units move rightward (broader skill mandate) and upward (broader work mandate) on the OT map.
 

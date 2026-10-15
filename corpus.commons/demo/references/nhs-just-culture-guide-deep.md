@@ -24,14 +24,14 @@ A fourth load-bearing claim is that *making the approach explainable* is itself 
 
 The poster opens with four caveats that set the guide's scope (Preamble, "Please note"):
 
-1. **Not a replacement for investigation.** The guide is not a replacement for an investigation of a patient safety incident; only a full investigation can identify the underlying causes that need to be acted on to reduce the risk of future incidents [V] (Preamble, "Please note", bullet 1).
+1. **Not a replacement for investigation.** The guide "is not a replacement for an investigation of a patient safety incident. Only a full investigation can identify the underlying causes that need to be acted on to reduce the risk of future incidents" [V] (Preamble, "Please note", bullet 1).
 2. **Re-entrant.** The guide "can be used at any point of an investigation, but the guide may need to be revisited as more information becomes available" [V] (Preamble, "Please note", bullet 2). The guide is therefore not a once-only assessment; the inputs to the tests are facts surfaced by the investigation, and as those facts change, the path through the tree may change [AP].
-3. **Not a replacement for HR advice.** The guide does not replace HR advice and should be used in conjunction with organisational policy [V] (Preamble, "Please note", bullet 3).
-4. **One action at a time.** The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately [V] (Preamble, "Please note", bullet 4) [AR]. This caveat enforces a discipline of decomposition: an incident comprising several distinct actions or omissions is not a single trip through the tree but multiple trips, one per action.
+3. **Not a replacement for HR advice.** The guide "does not replace HR advice and should be used in conjunction with organisational policy" [V] (Preamble, "Please note", bullet 3).
+4. **One action at a time.** "The guide can only be used to take one action (or failure to act) through the guide at a time. If multiple actions are involved in an incident they must be considered separately" [V] (Preamble, "Please note", bullet 4) [AR]. This caveat enforces a discipline of decomposition: an incident comprising several distinct actions or omissions is not a single trip through the tree but multiple trips, one per action.
 
 ### Purpose: a conversation between managers
 
-The guide supports a conversation between managers about whether a staff member involved in a patient safety incident requires specific individual support or intervention to work safely [V] (Preamble, "Purpose and use") [AR]. The prior is explicit: "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" [V] (Preamble, "Purpose and use"). The actions of staff involved in an incident should **not** automatically be examined using the guide; the guide is useful when "the investigation of an incident begins to suggest a concern about an individual action" [V] (Preamble, "Purpose and use") [AR]. The guide is described as highlighting "important principles that need to be considered before formal management action is directed at an individual staff member" [V] (Preamble, "Purpose and use").
+The guide "supports a conversation between managers about whether a staff member involved in a patient safety incident requires specific individual support or intervention to work safely" [V] (Preamble, "Purpose and use") [AR]. The prior is explicit: "Action singling out an individual is rarely appropriate — most patient safety issues have deeper causes and require wider action" [V] (Preamble, "Purpose and use"). The actions of staff involved in an incident should **not** automatically be examined using the guide; the guide is useful when "the investigation of an incident begins to suggest a concern about an individual action" [V] (Preamble, "Purpose and use") [AR]. The guide is described as highlighting "important principles that need to be considered before formal management action is directed at an individual staff member" [V] (Preamble, "Purpose and use").
 
 ### Use as communication tool
 
@@ -63,8 +63,8 @@ A Yes to 2a routes to Recommendation B (substance-abuse response); a Yes to 2b o
 
 The third test asks three sub-questions (Q3, "Foresight test"):
 
-**3a.** "Are there agreed protocols/accepted practice in place that apply to the action/omission in question?" [V] (Q3, "Foresight test").
-**3b.** "Were the protocols/accepted practice workable and in routine use?" [V] (Q3, "Foresight test").
+**3a.** "Are there agreed protocols / accepted practice in place that apply to the action / omission in question?" [V] (Q3, "Foresight test").
+**3b.** "Were the protocols / accepted practice workable and in routine use?" [V] (Q3, "Foresight test").
 **3c.** "Did the individual knowingly depart from these protocols?" [V] (Q3, "Foresight test").
 
 Yes to all three routes to Q4; No to any of 3a, 3b, or 3c routes to Recommendation D (not appropriate to single out — foresight branch). The foresight test is the load-bearing test for whether the system held up its side of the contract: if there is no agreed protocol (3a), or the protocol is unworkable or not in routine use (3b), or the individual did not knowingly depart from it (3c), then action singling out the individual is unlikely to be appropriate — the wider investigation should indicate the actions needed, and those actions may include, but not be limited to, the individual [AR]. The test isolates the case of *knowing departure from a workable, routinely-used, agreed protocol* — the conjunction of all three sub-conditions — as the only path that proceeds further toward potential individual accountability.

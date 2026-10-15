@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-financial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T18:23:08+13:00
 ---
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Decision-Making Distillation
 

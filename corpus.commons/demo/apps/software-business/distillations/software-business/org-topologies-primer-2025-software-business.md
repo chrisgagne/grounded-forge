@@ -34,11 +34,11 @@ This distillation gathers these threads into a working pattern: how to use the t
 
 7.  **The SAFe-to-OT-map worked observation.** "Observe the OT map for SAFe; anyone can easily see that SAFe is mostly implemented with interdependent incomplete teams working on components at the Tasks level, and fast-flow teams at the Capabilities level." [V] A software business considering SAFe should expect to land mostly at TASKS-and-CAPS archetypes; if the business strategy requires WHOLE-3 archetypes (whole-business end-to-end), SAFe is the wrong tool. (p. 22, "Mapping SAFe")
 
-8.  **The Rendanheyi mapping (Haier's micro-enterprises).** "RDHY elevates its thousands of micro-enterprises (MEs) that directly interact with users, and optimizing for autonomy and customer-focused value creation." [V] Rendanheyi is the Primer's example of an organisation elevating thousands of user-facing units at scale, useful when senior leadership asks "can we get there from here". (p. 22, "Mapping RDHY")
+8.  **The Rendanheyi mapping (Haier's micro-enterprises).** "RDHY elevates its thousands of micro‑enterprises (MEs) that directly interact with users, and optimizing for autonomy and customer‑focused value creation." [V] Rendanheyi is the Primer's example of an organisation elevating thousands of user-facing units at scale, useful when senior leadership asks "can we get there from here". (p. 22, "Mapping RDHY")
 
 9.  **Strategic AI adoption as a commercial decision.** "A key insight when designing with OT: Specialization and expertise are vanishing as limited resources, due to intelligence as a service. That makes it much easier to elevate an organization!" [V] The structural consequence: "top-right Driving archetypes will become more feasible" [V] as AI lowers the cost of broader skill and work mandates. The commercial decision is not whether to adopt AI but where — focused on the elevation area, targeting bottlenecks. (p. 20, "Strategic AI Adoption")
 
-10.  **The three AI-investment questions as a software-business filter.** (1) "What parts of the organization are the focus of development with OT? Focus your AI investment in the area you are elevating." [V] (2) "What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption? Find the early points where AI can make an outsized impact." [V] (3) "Do the AIs need monitoring by humans? That implies new responsibilities and processes in your organization." [V] The third question has a hidden cost: human-monitoring overhead must be priced into the AI investment. (p. 20)
+10.  **The three AI-investment questions as a software-business filter.** (1) "What parts of the organization are the focus of development with OT? Focus your AI investment in the area you are elevating, where competitive advantage may come from early adoption of new technology." [V] (2) "What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption? Find the early points where AI can make an outsized impact." [V] (3) "Do the AIs need monitoring by humans? That implies new responsibilities and processes in your organization." [V] The third question has a hidden cost: human-monitoring overhead must be priced into the AI investment. (p. 20)
 
 11.  **The pet-supply e-commerce worked example as an AI investment archetype.** Resource topology → target Delivery topology with CAPS-3 teams; bottleneck is front-end skill; AI investment targeted at front-end agents; human monitoring assigned to existing front-end specialists in their new CAPS-3 roles. This is the Primer's worked example for a software business deciding *where* to aim AI investment. (pp. 20–21, "Strategic AI Adoption")
 
@@ -118,7 +118,7 @@ This distillation gathers these threads into a working pattern: how to use the t
 
 4. **Whole-company single-design forced on mixed business lines.** Different products require different topologies; forcing one design on all ignores the Primer's point that different parts of a company may need their own goal and design. (p. 18)
 
-5. **Generic "adopt AI" without bottleneck targeting.** Spreading AI investment evenly rather than at the bottlenecks limiting elevation. The Primer is explicit: "Focus your AI investment in the area you are elevating." [V] (p. 20)
+5. **Generic "adopt AI" without bottleneck targeting.** Spreading AI investment evenly rather than at the bottlenecks limiting elevation. The Primer is explicit: "Focus your AI investment in the area you are elevating" [V] (p. 20).
 
 6. **AI investment without human-monitoring cost pricing.** The Primer flags monitoring as "an important responsibility for human workers" [V] — pricing it as zero is a commercial mistake. (p. 20)
 
@@ -136,7 +136,7 @@ This distillation gathers these threads into a working pattern: how to use the t
 
 - **The SAFe mapping (p. 22).** "SAFe is mostly implemented with interdependent incomplete teams working on components at the Tasks level, and fast-flow teams at the Capabilities level." [V] A software business considering SAFe can read its topology implication directly: predominantly TASKS-and-CAPS, not Adaptive. If the business strategy requires Adaptive (market-disruptor stance), SAFe is the wrong tool.
 
-- **The Rendanheyi (Haier RDHY) mapping (p. 22).** "RDHY elevates its thousands of micro-enterprises (MEs) that directly interact with users, and optimizing for autonomy and customer-focused value creation." [V] A reference for elevation at scale in practice — useful for software businesses asking whether elevation is achievable at their scale.
+- **The Rendanheyi (Haier RDHY) mapping (p. 22).** "RDHY elevates its thousands of micro‑enterprises (MEs) that directly interact with users, and optimizing for autonomy and customer‑focused value creation." [V] A reference for elevation at scale in practice — useful for software businesses asking whether elevation is achievable at their scale.
 
 - **The Uber/Uber Eats Partial-Business example (p. 7).** Two separate profit centres within one company, each a Partial-Business unit with cross-team collaboration inside it. Pair it with the p. 18 point that divisions may carry their own goal and design.
 

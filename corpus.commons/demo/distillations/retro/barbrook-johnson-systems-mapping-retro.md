@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ec6ec1280ae2ab5f37a45a1b3db672a34d0a70084dc92c9cf03d938eff685f14 -->
+<!-- derived-from-deep: sha256:928572cdb8ff4557097ea59317ba64912c441c3ff2d76d1f2a1842373feacf5e -->
 # Barbrook-Johnson & Penn, Systems Mapping, Retro Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature, Cham. ISBN 978-3-031-01833-6. DOI: https://doi.org/10.1007/978-3-031-01919-7. Licence: **CC BY 4.0**. Scope: open. Seven methods covered: Rich Pictures, Theory of Change, Causal Loop Diagrams, Participatory Systems Mapping, Fuzzy Cognitive Mapping, Bayesian Belief Networks, System Dynamics.

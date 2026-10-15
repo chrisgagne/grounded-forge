@@ -18,7 +18,7 @@ A third load-bearing claim is that facilitator presence shifts over the arc of a
 
 A fourth load-bearing claim is that reflective practice is the engine of facilitator development. Throughout the Guide, the facilitator is portrayed as a continuing learner. "Developing skills in online facilitation is a journey, not something that can be accomplished over one iteration of a course! We encourage people interested in facilitating FLO courses to spend some time reading about online facilitation, open education practices and Universal Design for Learning, before facilitating FLO courses" [V] (Ch 3, "Developing FLO facilitation skills"). The mentorship model — apprenticeship under an experienced facilitator, mutual exchange of time and expertise, gradual handoff — is the Guide's recommended pathway: "the best way to learn how to facilitate a FLO course is to co-facilitate with a more experienced facilitator as a mentor" [V] (Ch 3, "Our model").
 
-A fifth load-bearing claim is that *climate* and *community* are operational concerns, not soft skills. The four core skill categories named in Chapter 3 are: Support Diverse Learners Online; Build and Sustain Online Community; Manage Course Online; Model Effective Online Facilitation [AP] (Ch 3, "Developing FLO facilitation skills", "Core FLO Facilitation Skills" table). One of the four, Build and Sustain Online Community, names community directly; community building takes the entire first week of Fundamentals; the privacy-and-confidentiality framing ("Vegas rules" — what happens in the course stays in the course) is a community-design choice [V] (Ch 4, "Privacy and Confidentiality"; Ch 5, "Privacy and confidentiality"). The Guide frames trust as foundational alongside institutional privacy and confidentiality requirements: "our learning relies on the exchange of honest, constructive feedback, and we need to agree on rules that support this foundation of trust" [V] (Ch 4, "Privacy and Confidentiality").
+A fifth load-bearing claim is that *climate* and *community* are operational concerns, not soft skills. The four core skill categories named in Chapter 3 are: Support Diverse Learners Online; Build and Sustain Online Community; Manage Course Online; Model Effective Online Facilitation [AP] (Ch 3, "Developing FLO facilitation skills", "Core FLO Facilitation Skills" table). One of the four, Build and Sustain Online Community, names community directly. In Week 1 of Fundamentals the facilitators guide participants "to experience what it feels like to help build an active online community" [V] (Ch 4, "What is FLO Fundamentals?"). The privacy-and-confidentiality guidance is a community-design choice too [AE]: "You may wish to establish 'Vegas rules,' i.e. what happens in the course, stays in the course" [V] (Ch 4, "Privacy and Confidentiality"; FLO Design gives the same rule). The Guide frames trust as foundational alongside institutional privacy and confidentiality requirements: "our learning relies on the exchange of honest, constructive feedback, and we need to agree on rules that support this foundation of trust" [V] (Ch 4, "Privacy and Confidentiality").
 
 A sixth load-bearing claim is that the course-design choices that shape facilitation are mostly made before the course begins. The course chapters organise facilitator work into pre-course, during-course, and post-course phases, with timing detail varying by course.
 
@@ -344,33 +344,33 @@ The Guide deploys explicit sidebars throughout — visually offset short instruc
 
 | Item | Value | Classification |
 |---|---|---|
-| FLO Fundamentals duration | 5 weeks | [V] (Ch 4, Synopsis/abstract) |
-| FLO Design duration | 4 weeks | [V] (Ch 5, Synopsis/abstract) |
-| FLO Synchronous duration | 3 weeks | [V] (Ch 6, Synopsis/abstract) |
-| FLO MicroCourse duration | 5 days | [V] (Ch 7, Synopsis/abstract) |
-| Fundamentals — class size sweet spot | 14–20 participants | [V] (Ch 4, "What's the right number of participants for this course?") |
-| Fundamentals — facilitator weekly time | 15–25 hours | [V] (Ch 4, Synopsis/abstract) |
-| Fundamentals — participant weekly time | 6–12 hours | [V] (Ch 4, Synopsis/abstract) |
-| Design — facilitator weekly time | ~15 hours, more in Wks 1 and 4 | [V] (Ch 5, Synopsis/abstract) |
-| Design — participant weekly time | 6–8 hours | [V] (Ch 5, Synopsis/abstract) |
-| Synchronous — class size | 10+ to into the 20s, most likely with two facilitators | [V] (Ch 6, "What is FLO Synchronous?") |
-| Synchronous — facilitator weekly time | ~15 hours; more in Week 3 | [V] (Ch 6, Synopsis/abstract) |
-| Synchronous — participant weekly time | 6–8 hours; more for Practicing Facilitator track | [V] (Ch 6, Synopsis/abstract) |
-| Synchronous — Practicing Facilitator target ratio | Ideally 6–8 or more of 20 participants choose this track | [V] (Ch 6, "Help participants choose which track") |
-| MicroCourse — class size | 10+ active participants | [V] (Ch 7, "Participants") |
-| MicroCourse — facilitator weekly time | ≥5 hours | [V] (Ch 7, Synopsis/abstract) |
-| MicroCourse — participant weekly time | ~5 hours | [V] (Ch 7, Synopsis/abstract) |
-| Video Introductions activity length (Synchronous) | ~90 seconds | [V] (Ch 6, "Choose and set up the tool for the Video Introductions activity") |
-| Practicing Facilitator session minimum | ≥15 minutes | [V] (Ch 6, "Self-Assessment Rubric (Additional items for practicing facilitators)") |
-| Design — Showcase slot length | 10–15 minutes per presentation | [V] (Ch 5, "Promote the value of the Showcase sessions") |
-| Design — Showcase session capacity | 4–5 presentations per 1-hour session | [V] (Ch 5, "Showcase session(s)") |
-| Number of core FLO facilitation skill categories | 4 (Support Diverse Learners; Build/Sustain Community; Manage Course; Model Effective Facilitation) | [V] (Ch 3, "Developing FLO facilitation skills") |
-| FLIF question count | 6 | [V] (Ch 4, "The FLIF Facilitation Process") |
-| FLO MicroCourse Activity Packet steps | 5 (Research/Creation/Review-and-feedback phases) | [V] (Ch 7, "Activity Packet – 5 steps / 5 days") |
-| Self-assessment scale (Fundamentals & Design) | 3 levels (Beginning / Developing / Accomplished) | [V] (Ch 4, "Team Facilitation Rubric"; Ch 5, "FLO Design Rubric") |
-| Self-assessment scale (Synchronous) | 3 levels (did not meet / met / exceeded requirements) | [V] (Ch 6, "FLO Synchronous Self-Assessment Rubric") |
-| Peer feedback rubric levels (MicroCourse) | 3 levels (Sophisticated / Competent / Marginal) | [V] (Ch 7, "FLO MicroCourse Peer Feedback Rubric") |
-| FLO lineage origin | ISWO at Royal Roads University, 2008; renamed FLO 2015; FLO Fundamentals 2013 | [V] (Ch 2, "The FLO story (the short version!)") |
+| FLO Fundamentals duration | "Five consecutive weeks" | [V] (Ch 4, Synopsis/abstract) |
+| FLO Design duration | "Four consecutive weeks" | [V] (Ch 5, Synopsis/abstract) |
+| FLO Synchronous duration | "Three consecutive weeks" | [V] (Ch 6, Synopsis/abstract) |
+| FLO MicroCourse duration | "Five days" | [V] (Ch 7, Synopsis/abstract) |
+| Fundamentals — class size sweet spot | "a class of 14 – 20 educators is a good size for this course" | [V] (Ch 4, "What's the right number of participants for this course?") |
+| Fundamentals — facilitator weekly time | "anywhere from 15 to 25 hours per week" | [V] (Ch 4, Synopsis/abstract) |
+| Fundamentals — participant weekly time | "6 – 12 hours per week" | [V] (Ch 4, Synopsis/abstract) |
+| Design — facilitator weekly time | "approximately 15 hours per week, potentially more in the first week and in the fourth week" | [V] (Ch 5, Synopsis/abstract) |
+| Design — participant weekly time | "approximately 6-8 hours for course activities during each of the four weeks" | [V] (Ch 5, Synopsis/abstract) |
+| Synchronous — class size | "10 or more participants and can accommodate participant numbers into the 20s, most likely with two facilitators" | [V] (Ch 6, "What is FLO Synchronous?") |
+| Synchronous — facilitator weekly time | "approximately 15 hours per week; more time may be required to attend Practicing Facilitator sessions in the final week" | [V] (Ch 6, Synopsis/abstract) |
+| Synchronous — participant weekly time | "approximately 6-8 hours for course activities each week"; Practicing Facilitator track participants "can expect to invest more time" | [V] (Ch 6, Synopsis/abstract) |
+| Synchronous — Practicing Facilitator target ratio | In a class of 20, "Ideally 6-8 participants or more would choose to go that route" | [V] (Ch 6, "Help participants choose which track they want to be on for the course") |
+| MicroCourse — class size | "10 or more active participants" | [V] (Ch 7, "Participants") |
+| MicroCourse — facilitator weekly time | "at least 5 hours during the week" | [V] (Ch 7, Synopsis/abstract) |
+| MicroCourse — participant time | "5 hours for course activities" | [V] (Ch 7, Synopsis/abstract) |
+| Video Introductions activity length (Synchronous) | "approx. 90 seconds" | [V] (Ch 6, "Choose and set up the tool for the Video Introductions activity") |
+| Practicing Facilitator session minimum | "at least 15 minutes in length" | [V] (Ch 6, "Self-Assessment Rubric (Additional items for practicing facilitators)") |
+| Design — Showcase slot length | "each participant will have a maximum of 10-15 minutes" | [V] (Ch 5, "Promote the value of the Showcase sessions") |
+| Design — Showcase session capacity | "the standard one hour format and allowing only 4-5 presentations per session" | [V] (Ch 5, "Showcase session(s)") |
+| Number of core FLO facilitation skill categories | 4 (Support Diverse Learners Online; Build and Sustain Online Community; Manage Course Online; Model Effective Online Facilitation) | [AP] (Ch 3, "Developing FLO facilitation skills", "Core FLO Facilitation Skills" table) |
+| FLIF question count | "the 6-question FLIF survey" | [V] (Ch 4, "The FLIF Facilitation Process") |
+| FLO MicroCourse Activity Packet steps | "The activity packet includes five steps"; participants "follow steps that include research, creation, review and feedback" | [V] (Ch 7, "Activity Packet – 5 steps / 5 days") |
+| Self-assessment scale (Fundamentals & Design) | "a three-stage developmental structure: Level 1: Beginning; Level 2: Developing; Level 3: Accomplished" | [V] (Ch 5, "Assessment of learning"; the same three levels head the rubric tables in Ch 4, "FLO Fundamentals Self-Assessment Rubric", and Ch 5, "FLO Design Self-Assessment Rubric") |
+| Self-assessment scale (Synchronous) | "a three-point rubric with the categories of 'did not meet requirements,' 'met requirements,' and 'exceeded' requirements" | [V] (Ch 6, "Course assessment") |
+| Peer feedback rubric levels (MicroCourse) | 3 levels (Sophisticated / Competent / Marginal) | [AP] (Ch 7, "FLO MicroCourse Peer Feedback Rubric") |
+| FLO lineage origin | ISWO "was developed by Royal Roads University in 2008"; "In 2013, BCcampus began offering what is now called FLO Fundamentals"; "In 2015, the name of the workshop changed from Instructional Skills Workshop Online (ISWO) to Facilitating Learning Online (FLO)" | [V] (Ch 2, "The FLO story (the short version!)") |
 
 ## Connections the text makes
 

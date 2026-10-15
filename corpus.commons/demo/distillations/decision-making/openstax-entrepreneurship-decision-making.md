@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:1113662b0e6fb118efd3651601bd1596eb5a95e9fd1a5fbe0800d6a58bd11050 -->
+<!-- derived-from-deep: sha256:b5de98994ad82b75191e6096bbec870eeeddbf1a1a3f75e7e997101cfdc7c958 -->
 # OpenStax Entrepreneurship, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.

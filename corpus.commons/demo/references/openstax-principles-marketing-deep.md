@@ -16,7 +16,7 @@ A second load-bearing claim is that customer-driven (rather than product-driven)
 
 A third load-bearing claim is that **segmentation, targeting, and positioning (STP)** is the spine of customer-driven strategy: "you can't be all things to all people," so marketers segment broad markets into subgroups, select targets where their resources can produce profitable response, and position offerings in customers' minds against competitors [V] (Ch 5.1, "Market Segmentation Defined"; Ch 5.6, "Product Positioning Defined"). Positioning, drawing on Ries and Trout, is "not to create something new and different, but to manipulate what's already up there in the mind" [BT] (Ch 5.6, "Product Positioning Defined").
 
-A fourth load-bearing claim is that **integrated marketing communications (IMC)** beats fragmented promotion: marketers should combine advertising, sales promotion, personal selling, public relations, direct marketing, and digital/Internet marketing into a unified, consistent message across channels because the consumer "is bombarded with marketing messages throughout the day" — an estimated 5,000 ads per day per digitally connected person — and a single channel rarely cuts through [V] (Ch 13.1, "What Is the Promotion Mix?"; Ch 13.3, "Integrated Marketing Communications").
+A fourth load-bearing claim is that **integrated marketing communications (IMC)** beats fragmented promotion: marketers should combine advertising, sales promotion, personal selling, public relations, direct marketing, and digital/Internet marketing into a unified, consistent message across channels because "consumers are bombarded with marketing messages throughout the day" [V] (Ch 13.1, "The Importance of the Promotion Mix") — an estimated 5,000 ads per day per digitally connected person (Ch 13.1, "What Is the Promotion Mix?") — and a single channel rarely cuts through [AP] (Ch 13.1, "The Importance of the Promotion Mix"; Ch 13.3, "Integrated Marketing Communications").
 
 A fifth load-bearing claim, presented as the "new paradigm" in the closing supplemental chapter, is that **sustainable marketing** is now a business imperative: "an organization should meet the needs of its present consumers without compromising the ability of future generations to fulfill their own needs" [BT] (Ch 19.1, "Environmental Sustainability", attributed to Philip Kotler). The text frames sustainability through three pillars — environmental, social, economic (governance) — paralleling the ESG (environmental, social, governance) reporting framework (Ch 19.1, "Environmental Sustainability"; Ch 19.2, "Differences between Traditional and Sustainable Marketing").
 
@@ -157,7 +157,7 @@ B2B segmentation is more complex than B2C because the buying centre is multi-per
 
 ### International segmentation and Hofstede's dimensions
 
-Four primary methods for international segmentation: geographic, political/legal, economic (developed/developing/underdeveloped), cultural (Ch 5.3, "Methods of Segmenting International Markets"). Hofstede's cultural dimensions are presented as four (treated for marketing purposes; the source notes the original five and later additions): Power Distance Index (US PDI ≈ 40 vs world average ≈ 55 — moderately low); Individualism vs Collectivism (US individualism = 91; Latin American countries like Ecuador and Guatemala in single digits); Uncertainty Avoidance (US ≈ 46 moderate vs Italy 75, Poland 93); Masculinity/Femininity (Japan high masculinity; United States and Canada low) [V] (Ch 5.3, "Segmentation Based on Cultural Factors", citing Hofstede).
+Four primary methods for international segmentation: geographic, political/legal, economic (developed/developing/underdeveloped), cultural (Ch 5.3, "Methods of Segmenting International Markets"). Hofstede "identified five dimensions that could be used to distinguish one culture from another"; "Four of these dimensions directly affect marketing in different cultures" [V]. Power Distance Index: "the United States has a moderately low PDI score of 40 on a scale of 1 to 100, compared to a world average of 55" [V]. Individualism versus Collectivism: "The United States has a very high individualism score of 91, compared to many Latin American countries such as Ecuador and Guatemala, which have single-digit individualism scores" [V]. Uncertainty Avoidance: "The UAI for the United States is 46, putting it into the moderate range compared to European nations like Italy (UAI of 75) and Poland (UAI of 93)" [V]. Masculinity/Femininity: Japan is the example of a high masculinity ranking, the United States and Canada of a low one [AP] (Ch 5.3, "Segmentation Based on Cultural Factors", citing Hofstede).
 
 ### ADAMS, target market strategies, and positioning
 
@@ -187,7 +187,7 @@ Seven steps: define the problem (with research question/objectives and **target 
 
 ### Methods of quantifying research
 
-Four classes: awareness (**unaided** vs **aided**); customer satisfaction score (CSAT, 0–100 per cent — 75–85 considered good, above 85 exceptional); customer acquisition cost (CAC); customer effort score (CES — ease of service experience) (Ch 6.3, "Methods of Quantifying Marketing Research"). The Telephone Consumer Protection Act (1991) prohibits phone calls before 8 a.m. or after 9 p.m. recipient time [V] (Ch 6.3).
+Four classes: awareness (**unaided** vs **aided**); customer satisfaction score (CSAT, 0–100 per cent — 75–85 considered good, above 85 exceptional); customer acquisition cost (CAC); customer effort score (CES — ease of service experience) (Ch 6.3, "Methods of Quantifying Marketing Research"). Under the Telephone Consumer Protection Act, "approved by Congress in 1991, no calls can be made prior to 8:00 a.m. or after 9:00 p.m. in the recipient’s time zone" [V] (Ch 6.3).
 
 ### Ethics: deception, privacy, confidentiality
 
@@ -197,7 +197,7 @@ Four classes: awareness (**unaided** vs **aided**); customer satisfaction score 
 
 ### Why and why not to enter global markets
 
-Advantages: increased revenues, decreased competition (in some markets), faster growth, diversification of risk, disposal of surplus goods (e.g., losing-team Super Bowl apparel donated rather than landfilled). Challenges: understanding the business landscape; understanding target country business politics; differences in regulations and marketing (United States and New Zealand the only two countries where direct-to-consumer prescription drug ads are allowed [V]); cultural differences (Nivea "White Is Purity"; Gucci balaclava sweater similar to blackface) (Ch 7.1).
+Advantages: increased revenues, decreased competition (in some markets), faster growth, diversification of risk, disposal of surplus goods (e.g., losing-team Super Bowl apparel donated rather than landfilled). Challenges: understanding the business landscape; understanding target country business politics; differences in regulations and marketing (on advertising prescription medications to the general public, "the United States and New Zealand are the only countries where this type of marketing is allowed" [V]); cultural differences (Nivea "White Is Purity"; Gucci balaclava sweater similar to blackface) (Ch 7.1).
 
 ### Assessment: HBR's seven characteristics
 
@@ -233,7 +233,7 @@ The text uses five parameters: cultural/racial/ethnic; gender and sexual identit
 
 The text projects a US majority-minority population shift by the mid-2040s and "plurality nation" status by 2050 — no group with sizeable majority. Multicultural segments (2020 US Census): Hispanic 19 per cent (≈ 63 million; one of the fastest-growing groups; median age 29; 59 per cent of US population growth between 2010 and 2021); Black 14.2 per cent (≈ 46.9 million; 88.7 per cent increase in "in combination" identification since 2010 census); Asian 7.2 per cent (≈ 24 million; fastest population growth 2000–2019); Native American/Alaska Native 1.1 per cent single-race (3.7 million) and ≈ 2.9 per cent in combination (9.7 million) [V] (Ch 8.2, "Multicultural Populations"; Ch 8.4, sub-segments).
 
-Sociodemographic segments: LGBTQIA+ (≈ 5.6 per cent of US adults, ≈ 14.4 million); generational (2020 Census counts: Silent 21.7M; boomers 70.6M; Gen X 65M; millennials 72.2M; Gen Z 67M; Gen Alpha 27.6M); socioeconomically disadvantaged (≈ 34 million below the poverty line in 2019); consumers with disabilities (≈ 61 million; one in four adults) [V] (Ch 8.2, "Sociodemographic Populations").
+Sociodemographic segments: LGBTQIA+ (≈ 5.6 per cent of US adults, ≈ 14.4 million); generational (2020 Census counts: Silent 21.7M; boomers 70.6M; Gen X 65M; millennials 72.2M; Gen Z 67M; Gen Alpha 27.6M); socioeconomically disadvantaged (over 34 million people living in poverty in 2019); and consumers with disabilities — "This group represents an estimated 61 million Americans. About one in four adults lives with some type of disability" [V] (Ch 8.2, "Sociodemographic Populations").
 
 ### The cultural iceberg and Hofstede dimensions for marketing
 
@@ -312,7 +312,7 @@ Three innovation types by behavioural change: discontinuous (smartphones radical
 
 Nine stages: idea generation; idea screening and evaluation; concept development and testing (concept testing typically uses five-point Likert "definitely would purchase" through "definitely would not purchase"); market strategy development; business analysis (payback, break-even); product development (creating a **prototype**); test-marketing (sales-wave research; controlled test-marketing; full test-marketing — top US test cities are Nashville, Cincinnati, Indianapolis, Charleston SC, Jacksonville FL [V]; simulated test-markets; crowdsourcing); commercialisation; evaluation of results (Ch 10.2, Figure 10.3).
 
-Maxwell House case: research showed consumers wanted "bold, vigorous, deep tasting" coffee, but four months of formulation work showed it too expensive to produce; the cheaper formula didn't meet expectations and flopped (Ch 10.2, "Stage 6: Product Development").
+Maxwell House case: research showed consumers wanted "bold, vigorous, and deep tasting" coffee, but four months of formulation work showed it too expensive to produce; the cheaper formula didn't meet expectations and flopped (Ch 10.2, "Stage 6: Product Development").
 
 ### Success and failure factors
 
@@ -348,7 +348,7 @@ Five Cs: cost, customers (Toyota vs Lexus segment positioning), channels of dist
 
 Five-step process: determine pricing objective, estimate demand, estimate costs, analyse external environment, select strategies/tactics (Ch 12.3, Figure 12.4).
 
-Seven objectives (Table 12.1): customer value-based (GoToMeeting's "$49 all-you-can-meet"); cost-based; sales-oriented (volume-driven); market-share-oriented (cell phone industry parity pricing); target return; competition-based (Amazon's algorithmic just-below-competitor pricing); customer-driven (what the customer is willing to pay; eBay auction model) (Ch 12.3, Table 12.1).
+Seven objectives (Table 12.1): customer value-based (GoToMeeting's $49 "all you can meet flat-rate pricing"); cost-based; sales-oriented (volume-driven); market-share-oriented (cell phone industry parity pricing); target return; competition-based (Amazon's algorithmic just-below-competitor pricing); customer-driven (what the customer is willing to pay; eBay auction model) (Ch 12.3, Table 12.1).
 
 ### Demand, elasticity, and the demand curve
 
@@ -474,7 +474,7 @@ Ten store-retailer types (Table 18.1): specialty store (single line — AutoZone
 
 Six non-store types: automatic vending (Carvana 27th car vending machine in Atlanta in 2020 — 12 stories, 43 vehicles [V]); direct mail/catalogs (Tiffany's Blue Book 1845 — first US mail-order catalog; Sears "big book" final edition 1993); television home shopping (QVC — generated $14.1 billion 2018 [V]; acquired HSN 2017); online retailing ($5.4 trillion US online retail spend 2021 [V]; expected to reach 22 per cent of global retail by 2023); telemarketing (FTC 1991 rules; 2003 Do Not Call Registry); direct selling (Kirby B2C, publishing/tech B2B).
 
-Retail strategy: **markup** (retail − purchase price ÷ purchase price × 100; **keystone pricing** doubles wholesale; grocery ~15 per cent, clothing 100–300 per cent [V]); maintained markup; markdowns; gross margin = net sales − COGS. Locations: central business district (Manhattan world's largest CBD, highest retail rent globally [V]); regional shopping center/mall (Mall of America — retailtainment); strip mall; freestanding location.
+Retail strategy: **markup** (retail − purchase price ÷ purchase price × 100; **keystone pricing** doubles wholesale; grocery ~15 per cent, clothing 100–300 per cent [V] (Ch 18.3, "Retail Pricing")); maintained markup; markdowns; gross margin = net sales − COGS. Locations: central business district ("Manhattan is the world’s largest central business district"; "It has the highest retail rent in the world" [V] (Ch 18.3, "Central Business District")); regional shopping center/mall (Mall of America — retailtainment); strip mall; freestanding location.
 
 Retail trends: social commerce (Macy's ambassador program — 5 per cent commission to outside influencers; social commerce grew 30 per cent 2019–2020 [V]); online stores in offline spaces (Walgreens drive-through pickup of online orders); same-day delivery (Kozmo.com 1998 pioneer; defunct 2001; revived by Amazon Prime); digital wallets (touchless payments) (Ch 18.4).
 
@@ -533,13 +533,13 @@ Purpose-driven brands: Accenture global survey of 30,000 consumers — 62 per ce
 | Tylenol 1982 cyanide-tampering recall | 30 million products | [V] (Ch 13.1) |
 | FCPA enactment year | 1977 | [V] (Ch 4.5) |
 | US National Do Not Call Registry | 2003 | [V] (Ch 16.1) |
-| Telephone Consumer Protection Act | 1991; no calls before 8 a.m. or after 9 p.m. recipient time | [V] (Ch 6.3) |
+| Telephone Consumer Protection Act | 1991; no calls before 8:00 a.m. or after 9:00 p.m. in the recipient's time zone | [V] (Ch 6.3) |
 
 ## Connections the text makes
 
 - **Hofstede** (cultural dimensions): cited approvingly as "particularly useful in assessing culture" and applied to cross-cultural marketing analysis [BT] (Ch 5.3, "Segmentation Based on Cultural Factors"; Ch 8.3, "Values and Attitudes").
 - **Maslow** (hierarchy of needs): used to anchor motivation analysis for consumer purchasing [BT] (Ch 3.2).
-- **Theodore Levitt** ("Marketing Myopia" — the railroads were in the railroad business not the transportation business; "people don't want a quarter-inch drill, they want a quarter-inch hole"): cited approvingly twice [BT] (Ch 1.4; Ch 5.2).
+- **Theodore Levitt** ("Marketing Myopia" — the railroads were in the railroad business not the transportation business; "People don’t want to buy a quarter-inch drill; they want a quarter-inch hole"): cited approvingly twice [BT] (Ch 1.4; Ch 5.2).
 - **Al Ries and Jack Trout** (*Positioning: The Battle for Your Mind*): cited verbatim on the mind-manipulation thesis [BT] (Ch 5.6).
 - **Kevin Lane Keller** (brand-equity pyramid): cited approvingly [BT] (Ch 9.5).
 - **Rebecca Henderson** (Harvard Business School, on shared-value orientation): cited approvingly [BT] (Ch 19.3).
@@ -558,8 +558,8 @@ Purpose-driven brands: Accenture global survey of 30,000 consumers — 62 per ce
 
 ## Positions the text explicitly frames against
 
-- *Product-driven ("build it and they will come") strategies*: framed against in favour of customer-driven strategy (Ch 1.1).
-- *"One size fits all"* generic strategies: framed against, as a "shortsighted perspective that limits business growth" (Ch 8.2).
+- *Product-driven strategies* (the production concept's "If you build it, they will come", Ch 1.4): framed against in favour of customer-driven strategy (Ch 1.1).
+- *"One size fits all"* generic strategies: framed against; generalising buyers anywhere in the world "is a shortsighted perspective, because it limits business growth and commercial possibilities" (Ch 8.2).
 - *Caveat emptor*: framed as an outdated motto displaced by consumer-protection regulation (Ch 18.6).
 - *Marketing-as-advertising-or-sales-only* (a layperson conflation): framed against early in the text (Ch 13.1).
 - *Production concept and product concept eras*: framed as historically superseded by the marketing concept and societal marketing concept (Ch 1.4).

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:7066bbe6172d4457f31dee7593d89425f26a8852af4f5d9ab9b0e0d93de775ac -->
+<!-- derived-from-deep: sha256:c99067c5aa676e0cf5128ebfcab395b0198e808aefe8e291cfb9e91746752035 -->
 # Barbrook-Johnson & Penn, Systems Mapping — Decision-Making Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.
@@ -194,7 +194,7 @@ The final deliverable is not the full 60-factor map but three targeted submaps p
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
+**PARTIAL source text.** This was derived from a conversion that lacked the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels. The source has been re-converted and now holds them, but they are not yet covered here, so claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the book cites named third parties not held as separate primary references in this corpus:
 

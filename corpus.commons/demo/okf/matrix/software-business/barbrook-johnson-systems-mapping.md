@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T08:46:30+13:00
+  at: 2026-10-16T11:30:46+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Software-Business Distillation
 
@@ -243,7 +243,7 @@ This is the book's pattern, projected onto software-business work: the methods a
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
+**PARTIAL source text.** This was derived from a conversion that lacked the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels. The source has been re-converted and now holds them, but they are not yet covered here, so claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The seven methods rest on foundational works this corpus does not hold as primary references.
 

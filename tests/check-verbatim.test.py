@@ -9,7 +9,9 @@ hermetic deep reference, runs the real CLI against a synthetic converted source
 
 Cases mirror the Pass I audit fixtures where they can: 05 (apostrophe style →
 apostrophe, not failing), 06 (capitalisation tidy → near), 07 ([V] on a paraphrase → no-quote),
-09 (silently shortened quote → interrupted or missing). The paged section mirrors
+09 (silently shortened quote → interrupted or missing). The figure cases hold the
+rule that no normalisation lets a changed figure pass: a quote that cuts a number
+short at either end never matches. The paged section mirrors
 MCDP 1's conversion: running headers and folios between pages, and a quote that
 holds both a word split across a line and a compound split across a line.
 
@@ -62,6 +64,10 @@ The second resource is called role perceptions—how employees believe their job
 A ﬁnal word on ﬁxing things that are not broken.
 
 The e"ort to make the o#ce run e#ciently was signi%cant, and the work!ow was the fi rst thing to change.
+
+Satisfaction rose by 3.5 points in the second quarter, while turnover rose by 30 points over the year.
+
+The firm hired 2,500 people that year. The plant closed in 1998. It never reopened.
 """
 
 
@@ -189,6 +195,27 @@ CASES = [
      "interrupted"),
     ("a recurring line with no page break stays in the text → interrupted",
      '"Plans will go awry and instructions will be unclear. Units must adapt to the situation as it changes" [V] (p 45).',
+     "interrupted"),
+    ("a figure quoted whole is exact",
+     '"Satisfaction rose by 3.5 points in the second quarter" [V] (Ch 4).',
+     None),
+    ("a figure ending a sentence, the full stop inside the closing quote, is exact",
+     '"The plant closed in 1998." [V] (Ch 4).',
+     None),
+    ("a decimal cut at the point → missing",
+     '"Satisfaction rose by 3." [V] (Ch 4).',
+     "missing"),
+    ("a whole number cut short → missing",
+     '"while turnover rose by 3" [V] (Ch 4).',
+     "missing"),
+    ("a number cut at the thousands separator → missing",
+     '"The firm hired 2," [V] (Ch 4).',
+     "missing"),
+    ("a quote starting inside a number → page",
+     '"500 people that year" [V] (Ch 4).',
+     "page"),
+    ("an elided piece ending inside a number → interrupted",
+     '"Satisfaction rose by 3 ... over the year" [V] (Ch 4).',
      "interrupted"),
     ("a figure claim is counted, not flagged",
      '| Reward schedules compared | 4 | [V] (Ch 4) |',

@@ -80,6 +80,15 @@ that finds it:
             figures and no quote is a figure claim, which the protocol's stats
             table marks `[V]`; those are counted, not checked.
 
+Numbers at a quote's ends. At every level, a quote (or an elided piece of one)
+that starts or ends on a digit matches only where the source's number starts or
+ends there too: not where the source runs on into another digit, or into a `.`
+or `,` and a digit. "rose by 3." against "rose by 3.5 points", "rose by 3"
+against "rose by 30 points" and "hired 2," against "hired 2,500 people" are
+not matches, so a figure cut short can't pass. The source's own characters
+decide, so a quote ending on a figure the source follows with a glued footnote
+("in 2019.12") is reported too.
+
 Running headers and folios. A page break in a converted PDF leaves page
 furniture in the text: the folio at the foot of one page and the running header
 at the top of the next ("87", "Warfighting", "MCDP 1"). A short line (eight
@@ -207,6 +216,11 @@ LIGATURE_LOSS_RE = re.compile(r"f(?:f[il]?|[il])")  # ffi, ffl, ff, fi, fl → f
 LIGATURE_MARK_RE = re.compile(r"(?<=[a-z])['#%!](?=[a-z])|(?<![a-z'])[#%!](?=[a-z])")
 LIGATURE_SPLIT_RE = re.compile(r"(?<=f) (?=[a-z])")  # "f rst" once "fi rst" reads as "f rst"
 PAGE_RE = re.compile(r"(?<![^ ])\d{1,4} ")
+# A number running on past a quote's end or before its start, in the source's
+# own characters: a digit, or a decimal point or thousands separator and a
+# digit. Emphasis marks between are read through.
+NUMBER_AFTER_RE = re.compile(r"[*_]*[.,]?[*_]*\d")
+NUMBER_BEFORE_RE = re.compile(r"\d[*_]*[.,]?[*_]*$")
 
 
 def _sub(text: str, idx: list[int], pattern: re.Pattern, repl) -> tuple[str, list[int]]:
@@ -403,6 +417,20 @@ class Source:
     def furniture_modes(self) -> tuple[bool, ...]:
         return (False, True) if self.furniture else (False,)
 
+    def number_intact(self, idx: list[int], start: int, end: int, lead: bool, tail: bool) -> bool:
+        """The match text[start:end] doesn't cut a number short: with `lead`
+        (the quote starts on a digit) the source's number doesn't run on before
+        it; with `tail` (it ends on one), not after it."""
+        if tail:
+            a = idx[end - 1] + 1
+            if NUMBER_AFTER_RE.match(self.raw, a, a + 8):
+                return False
+        if lead:
+            a = idx[start]
+            if NUMBER_BEFORE_RE.search(self.raw[max(0, a - 8) : a]):
+                return False
+        return True
+
     def original(self, idx: list[int], start: int, end: int) -> str:
         if not idx or start >= len(idx):
             return ""
@@ -569,16 +597,24 @@ def locate(quote: str, src: Source, level: str) -> tuple[int, int, list[int]] | 
         return None
     any_initial = level == "initial"
     norm_level = "glyph" if level == "initial" else level
-    pats = [_piece_pattern(p, norm_level, any_initial and k == 0) for k, p in enumerate(pieces)]
-    pats = [p for p in pats if p is not None]
+    pats = []  # (pattern, reach, starts on a digit, ends on a digit)
+    for k, piece in enumerate(pieces):
+        pat = _piece_pattern(piece, norm_level, any_initial and k == 0)
+        if pat is not None:
+            lit = normalise(piece, norm_level)[0].strip()
+            pats.append((*pat, lit[:1].isdigit(), lit[-1:].isdigit()))
     if not pats:
         return None
     for furniture in src.furniture_modes():
         text, idx = src.form(norm_level, "mark", furniture)
-        for m in pats[0][0].finditer(text):
+        first, _, lead, tail = pats[0]
+        for m in first.finditer(text):
+            if not src.number_intact(idx, m.start(), m.end(), lead, tail):
+                continue
             end, ok = m.end(), True
-            for p, reach in pats[1:]:
-                nxt = p.search(text, end, end + ELISION_WINDOW + reach)
+            for p, reach, p_lead, p_tail in pats[1:]:
+                nxt = next((n for n in p.finditer(text, end, end + ELISION_WINDOW + reach)
+                            if src.number_intact(idx, n.start(), n.end(), p_lead, p_tail)), None)
                 if not nxt:
                     ok = False
                     break

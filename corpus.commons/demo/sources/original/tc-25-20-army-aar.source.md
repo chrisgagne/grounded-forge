@@ -9,7 +9,7 @@ scope: open
 licence: Public domain (17 USC §105 — US Government work product)
 ingested: 2026-05-13
 original_format: pdf
-converted_via: pymupdf4llm 0.2.9
+converted_via: 'PyMuPDF 1.28.2 text blocks in content-stream order (page.get_text("blocks", sort=False)), one block per paragraph, pages split by form feed'
 checksum_sha256: d7de188144b0b9540af5aa094442a41fe7a5a0a47b4f4d38a87f9735abd0f02f
 ---
 
@@ -17,7 +17,7 @@ checksum_sha256: d7de188144b0b9540af5aa094442a41fe7a5a0a47b4f4d38a87f9735abd0f02
 
 Training Circular 25-20, published 30 September 1993 by Headquarters, Department of the Army. Distribution statement on the cover page: "DISTRIBUTION RESTRICTION: Approved for public release; distribution is unlimited." Authenticated by Gordon R. Sullivan, General, US Army Chief of Staff; Milton H. Hamilton, Administrative Assistant to the Secretary of the Army. The proponent listed in the Preface is the U.S. Army Combined Arms Command, Deputy Commanding General for Training (ATTN ATZL-CTT, Fort Leavenworth, KS 66027-7000).
 
-The PDF is 35 pages and 168 KB. Converted with `pymupdf4llm 0.2.9` in 3.2 s; page anchors and the chapter/section headers were preserved cleanly. Citation style on the deep reference is `(Ch N, "Section name")` since the doc has explicit named headers throughout and section names are more durable than page numbers as anchors.
+The PDF is 35 pages and 168 KB. Citation style on the deep reference is `(Ch N, "Section name")` since the doc has explicit named headers throughout and section names are more durable than page numbers as anchors.
 
 **Status on the Army Publishing Directorate.** As of 2026-05-13, the APD records show TC 25-20 as INACTIVE. No direct successor exists; AAR doctrine has been partially absorbed into ADP 7-0 *Training* and FM 7-0 *Training*, but TC 25-20 itself remains the canonical primary source for the leader-level AAR methodology: the planning / preparing / conducting / following-up phase structure, the AAR-vs-critique framing, the chronological / BOS / key-events discussion techniques, and the horseshoe site organisation all originate here. Subsequent civilian, healthcare, education, and software AAR derivatives trace back to this document. The corpus ingests TC 25-20 as the load-bearing primary source for the AAR axis (a future task axis), not as a derivative of a more recent doctrine doc.
 
@@ -27,4 +27,6 @@ The PDF is 35 pages and 168 KB. Converted with `pymupdf4llm 0.2.9` in 3.2 s; pag
 
 Converted markdown: `../converted/tc-25-20-army-aar.md`. Deep reference: `../../references/tc-25-20-army-aar-deep.md`. Light reference: `../../references/tc-25-20-army-aar.md`. Distillations: `../../distillations/decision-making/tc-25-20-army-aar-decision-making.md` and `../../distillations/stakeholder-engagement/tc-25-20-army-aar-stakeholder-engagement.md`.
 
-**Known gaps, not repaired.** Compared line by line with pdftotext of the original on 2026-10-16, the converted text lacks 48 of the PDF's 802 text lines of 12 or more characters (6.0%). pymupdf4llm 0.2.9 dropped the text inside framed boxes: all of Figures 1-1 (AAR Key Points, PDF p. 5), 1-2 (AAR Format) and 1-3 (Types of AARs, both PDF p. 6), and 1-4 (The AAR Process, PDF p. 8). A re-conversion is needed before this text can be called complete.
+**Conversion.** Re-converted on 2026-10-16 with PyMuPDF 1.28.2: each page's text blocks in content-stream order (`page.get_text("blocks", sort=False)`), one block per paragraph, trailing spaces removed, pages separated by form feeds, nothing added or edited. Content-stream order keeps a framed box or side column whole and reads it after the body text it sits beside. The alternatives each failed a check: pymupdf4llm 0.2.9 dropped boxed text, `pdftotext` set side boxes in the middle of the paragraph beside them, `pdftotext -raw` ran words together in table cells, and PyMuPDF with `sort=True` interleaved a side box with the body column line by line. Each page's folio and running header come first in its text. Checked against pdftotext of the original: all 802 of the PDF's text lines of 12 or more characters are present, as is every line of the earlier pymupdf4llm conversion. Page renders of PDF pp. 5, 6 and 8 confirm Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process) read in full and in order; Figure 1-3's two columns come out as two whole blocks. The bullet glyphs in the figures are drawn, not text, so the items carry no bullets. Image-only content: Figure 3-2 (an example comment card) and Figure 3-3 (a typical AAR site) are pictures with captions.
+
+**Deep reference coverage.** The deep reference was read from an earlier pymupdf4llm 0.2.9 conversion that lacked the text of Figures 1-1 to 1-4, so it stays PARTIAL until Passes C–E cover them (see its Coverage line).

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:96c8ded3d0bea6471d72034d44c4a3a641b7f0a8e495e6af2ac452c02cb8c94e -->
+<!-- derived-from-deep: sha256:b2f993f87935a866b5405e7f763e30d4ef7bc8325c4676907576c69d300fe235 -->
 # LFUO 2024, Software-Business Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.
@@ -221,7 +221,7 @@ A naive post-mortem treats this as a sev-1 incident requiring a sev-1 post-morte
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The source cites several external works not held as primary references in this corpus. Erik Hollnagel's ETTO (Efficiency-Thoroughness Trade-Off) principle is cited extensively in Part 3 and the Glossary as [BT]; the underlying *The ETTO Principle Efficiency-Thoroughness Trade-Off* text is not held. Gary Klein's Recognition-Primed Decision Making model is cited in the Glossary as [BT]; the underlying Klein publications are not held. Sidney Dekker and Hugh Breakey's 2016 *Safety Science* paper on substantive, procedural, and restorative justice is cited as the academic source for the Glossary's restorative-justice definition (footnote 14) as [BT]; the paper is not held. Norman Maclean's *Young Men and Fire* is cited as an example of Mann Gulch learning narrative [BT]; the book is not held. Weick and Sutcliffe's High Reliability Organisation theory is referenced in Handout D as [BT]; the underlying HRO texts are not held. Appendix B cites Hollnagel's "Safety Management – Looking Back or Looking Forward" (*Resilience Engineering Perspectives*, 2008) [BT] for the normal-performance-variability framing; the text is not held. (Source: LFUO 2024, deep reference, Parts 1, 3, Appendices A–B, Glossary)
 

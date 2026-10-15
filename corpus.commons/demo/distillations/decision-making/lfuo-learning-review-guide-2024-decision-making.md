@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:96c8ded3d0bea6471d72034d44c4a3a641b7f0a8e495e6af2ac452c02cb8c94e -->
+<!-- derived-from-deep: sha256:b2f993f87935a866b5405e7f763e30d4ef7bc8325c4676907576c69d300fe235 -->
 # LFUO 2024, Decision-Making Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.
@@ -185,7 +185,7 @@ The learning product is a narrative with sensory detail and the characters' inte
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the guide cites named third parties not held as separate primary references in this corpus:
 

@@ -12,7 +12,7 @@ sources:
     resource: https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # Scrum Guide 2020, AAR Distillation
 

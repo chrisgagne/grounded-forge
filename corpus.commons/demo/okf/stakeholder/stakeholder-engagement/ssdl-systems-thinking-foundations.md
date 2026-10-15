@@ -12,7 +12,7 @@ sources:
     resource: https://openscholarship.wustl.edu/ssdl/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # SSDL, Systems Thinking Foundations — Stakeholder Engagement Distillation
 
@@ -30,7 +30,7 @@ Third, *Brief 1.06* on Accumulations supplies a sharp tool against a recurring s
 
 Fourth, *Brief 1.07* on System Archetypes is stakeholder-engagement-shaped at two levels. The archetypes themselves describe patterns of stakeholder dynamics — *Success to the successful* names the structural mechanism of resource-allocation inequity between stakeholder groups; *Shifting the burden* names the dynamic of treating a stakeholder problem's symptoms with a quick fix that erodes the capacity to address its fundamental cause; *Limits to growth* names the dynamic of a stakeholder relationship that scales beyond its capacity. The brief is also explicit about engagement-practice cautions: archetypes used prescriptively in workshops can reinforce expert/novice dynamics in which the modeller's diagnosis "overshadows the lived experience of the participants" [V] — a direct warning to the stakeholder-engagement practitioner about their own positioning.
 
-The Brief 1.07 framing — "Many of the structures that cause these patterns can be found all around us — in schools, in businesses, in non-profit organizations, in health systems, and in communities" [V] — is the explicit cross-domain warrant for using these concepts in any stakeholder system, not just the education-equity domain the worked examples illustrate.
+The Brief 1.07 framing — "Many of the structures that cause these patterns can be found all around us - in schools, in businesses, in non-profit organizations, in health systems, and in communities" [V] — is the explicit cross-domain warrant for using these concepts in any stakeholder system, not just the education-equity domain the worked examples illustrate.
 
 ## Key Concepts for Stakeholder Engagement
 
@@ -54,7 +54,7 @@ The Brief 1.07 framing — "Many of the structures that cause these patterns can
 
 10.  **Trust is a stock, not a flow.** Generalising from the brief's framing (the bathtub metaphor, citing Meadows 2008 [BT]): stakeholders' trust in a relationship, in an organisation, or in a process is an accumulated state. Trust-building events (workshops, briefings, community sessions) are *flows*; what matters for engagement quality is the net accumulation over time. Single events that do not address the prior stock will under-fire. (Source: Brief 1.06, "+ WHAT DO WE MEAN BY ACCUMULATION?" — extending the bathtub metaphor to relationship stocks)
 
-11.  **Feedback thinking changes the diagnostic for "why is the stakeholder behaving like this?".** "Feedback thinking recognizes relationships and interdependencies between the parts... we look to feedback structure to understand why problems persist despite our best efforts — why we might push on one part of the system and see a response in another, in sometimes unexpected ways." [V] A stakeholder's resistance, withdrawal, or unexpected response is rarely an individual choice in isolation; it is usually the visible end of a feedback loop the practitioner has not yet mapped. (Source: Brief 1.05, "+Linear vs. Feedback Perspective")
+11.  **Feedback thinking changes the diagnostic for "why is the stakeholder behaving like this?".** "Feedback thinking recognizes relationships and interdependencies between the parts... we look to feedback structure to understand why problems persist despite our best efforts – why we might push on one part of the system and see a response in another, in sometimes unexpected ways." [V] A stakeholder's resistance, withdrawal, or unexpected response is rarely an individual choice in isolation; it is usually the visible end of a feedback loop the practitioner has not yet mapped. (Source: Brief 1.05, "+Linear vs. Feedback Perspective")
 
 12.  **CLDs as engagement structures, not as expert outputs.** "a CLD is a hypothesis – there is not one single 'right' answer to the variables that are included or the relationships that exist between them. The model we produce is informed by each of our individual mental models, which come from our unique vantage point and lived experiences" [V]. Used in engagement, the CLD is a structured surface on which stakeholders can express, negotiate, and refine shared understanding; it is not the practitioner's analysis to be defended. (Source: Brief 1.05, "+ CONSIDERATIONS")
 

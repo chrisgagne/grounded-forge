@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:c3dc2f2edac44280086ebc8ce5e8482069c7c09b54645dc824f393356d53faa9 -->
+<!-- derived-from-deep: sha256:3272b7ed2cdd4bef706f3f92cad68131217ad8fb6c03069434e616a78c11f85e -->
 # OpenStax Principles of Management, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -189,7 +189,7 @@ This worked example illustrates several key concepts in the source: the eight-qu
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check, Exploring Managerial Careers) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - R. Edward Freeman — stakeholder theory (Ch 5.6) [BT]; the eight questions come from Exhibit 5.8 (Ch 5.6)

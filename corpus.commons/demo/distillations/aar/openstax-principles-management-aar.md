@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:c3dc2f2edac44280086ebc8ce5e8482069c7c09b54645dc824f393356d53faa9 -->
+<!-- derived-from-deep: sha256:3272b7ed2cdd4bef706f3f92cad68131217ad8fb6c03069434e616a78c11f85e -->
 # OpenStax Principles of Management, AAR Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Lead author David S. Bright et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.
@@ -121,7 +121,7 @@ A team completes an AAR on a product-launch delay. The facilitator applies Princ
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check, Exploring Managerial Careers) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** French and Raven's five power bases are cited in the source as [BT] (Ch 13.3); neither is held directly in the demo corpus. Tuckman's team-development stages are [BT] in the source (Ch 15.2); Tuckman is not held directly. Locke's goal theory is [BT] in the source (Ch 14.3); Locke is not held directly. Follett's conflict-resolution taxonomy and the library-window example are borrowed-through as attributed quotation [BT] (Ch 3.6); Wren and Bedeian are cited as secondary sources for Follett in the deep ref. The change-management models (Lewin, Kotter, Cooperrider, Olson-Eoyang) are all [BT] in the source (Ch 10.3); none are held directly in the demo corpus. Herzberg's motivator-hygiene theory, Alderfer's ERG, and McClelland's nAch/nAff/nPow are [BT] (Ch 14.2).
 

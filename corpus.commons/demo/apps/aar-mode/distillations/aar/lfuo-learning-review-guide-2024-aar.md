@@ -140,7 +140,7 @@ A maintenance team reviews a near-miss: a gas line was struck during a dig becau
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text that the converter dropped. Coverage of those boxes is not grounded here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** Sidney Dekker is cited repeatedly throughout the guide (Dekker's *Just Culture* and *The Field Guide to Understanding Human Error* are in the Recommended Reading, the Field Guide is also quoted in Part 10, and the Dekker & Breakey paper on restorative justice is cited in the Glossary's restorative-justice entry); the demo corpus does not hold Dekker directly. Erik Hollnagel (ETTO principle, Resilience Engineering) is cited borrowed-through. Weick and Sutcliffe (*Managing the Unexpected*, HRO principles) are cited borrowed-through. Gary Klein (Recognition Primed Decision Making) is cited borrowed-through. J. T. Reason (*Managing the Risks of Organizational Accidents*) is cited borrowed-through. Todd Conklin (*Pre-Accident Investigations*) is cited in Recommended Reading. The Roese & Vohs 2012 paper on hindsight bias is cited borrowed-through. None of these authors are held as primary references in the demo corpus; their works are not openly licensed and cannot be cited directly here.
 

@@ -12,7 +12,7 @@ sources:
     resource: https://armypubs.army.mil/productmaps/pubform/details.aspx?pub_id=71643
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T08:46:30+13:00
+  at: 2026-10-16T10:57:01+13:00
 ---
 # US Army TC 25-20, After-Action Review Distillation
 
@@ -168,7 +168,7 @@ Phase 4 names two corrective actions with owners: (1) a written standard for wha
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process), which the converter dropped; claims about those figures' contents are not grounded here.
+**PARTIAL source text.** This was derived from a conversion that lacked the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process). The source has been re-converted and now holds them, but they are not yet covered here, so claims about those figures' contents are not grounded here.
 
 **Borrowed-through gaps.** TC 25-20's bibliography is minimal: two field manuals (FM 25-100 *Training the Force*, November 1988; FM 25-101 *Battle Focused Training*, September 1990) are cited in the References page. The Combined Arms Training Strategy (CATS) is cited as the source of critical gate tasks (Ch 5) but is not held in this corpus [BT]. Combat training center (CTC) observer/controller practice is cited as the source for Appendix A's AAR techniques but the CTCs are not held as a primary reference [BT]. No research studies, psychological literature, or external theoretical frameworks are cited; the TC presents itself as doctrine, not as empirical research.
 

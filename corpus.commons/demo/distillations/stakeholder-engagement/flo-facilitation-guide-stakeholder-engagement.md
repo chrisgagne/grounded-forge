@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:7f5fcd84fecb64f6476b7fb57a496886e3b359064a6e81593b9f791881a2e512 -->
+<!-- derived-from-deep: sha256:f7e0788cfe9319ebab5a983cd3e6edcdf868285a0c6ab5f33a256ce48e4f6917 -->
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Stakeholder-Engagement Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. **Licence:** CC BY 4.0. Open scope; attribution required on derivative works.
@@ -173,7 +173,7 @@ The scenario is operator-authored; all framework citations trace through `corpus
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks the opening line of several boxed bullet lists (about 0.4% of the PDF's text lines), which the converter dropped.
+**PARTIAL source text.** This was derived from a conversion that lacked the opening line of several boxed bullet lists. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus:
 - Institute of Cultural Affairs – UK — facilitator definition (Ch 1, "The definition") [BT]

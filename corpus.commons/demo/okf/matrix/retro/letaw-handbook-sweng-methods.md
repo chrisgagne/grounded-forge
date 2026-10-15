@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T17:41:54+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods, Retro Distillation
 
@@ -32,7 +32,7 @@ The Handbook projects onto the retrospective as a *structured-method toolkit*: L
 
 4.  **Planning poker as private-estimate-before-reveal discipline.** Each team member privately selects an estimate card; all reveal simultaneously; differences open a discussion [AP] (Ch 2.5.5, citing Cohn 2006). Applied to retro voting: the private pick before the reveal keeps an early or senior voice from setting the number others adjust to. Jones reports anchoring in estimates: Jørgensen and Sjøberg found estimates strongly shifted by the customer's offered estimate (Jones, Ch 2.2.1), and Aranda found large anchoring from middle-manager statements (Jones, Ch 5.3). When choosing which retro item to deep-dive or how to weight experiments, private-before-reveal prevents early voices from anchoring the field.
 
-5.  **Eleven named code smells as recurring-pattern vocabulary.** Three families: comments (Obsolete Comment, Commented-Out Code, Redundant Comment, Long Comment); functions (Long Function, Function with Many Jobs, Function with Many Parameters); code in general (Duplicate Code, Long Lines, Inconsistent Conventions, Vague Naming) [V] (Ch 8.3–8.5). When a retro's recurring theme is "code is hard to maintain" [V] or "every feature takes longer than it should," naming the specific smells present gives the team a precise vocabulary for what to address — rather than the vague "technical debt" label that produces unfocused actions.
+5.  **Eleven named code smells as recurring-pattern vocabulary.** Three families: comments (Obsolete Comment, Commented-Out Code, Redundant Comment, Long Comment); functions (Long Function, Function with Many Jobs, Function with Many Parameters); code in general (Duplicate Code, Long Lines, Inconsistent Conventions, Vague Naming) [AP] (Ch 8.3–8.5). When a retro's recurring theme is "code is hard to maintain" or "every feature takes longer than it should," naming the specific smells present gives the team a precise vocabulary for what to address — rather than the vague "technical debt" label that produces unfocused actions.
 
 6.  **Code decay is self-reinforcing.** "Smelly code leads to smellier code" [V] — the presence of disorganised code signals to the team that disorganised code is acceptable, producing a reinforcing loop [AP] (Ch 8.1). At a retro, if code-quality themes are recurring (Phase 0.5: same experiment three retros running), this reinforcing pattern is the structural explanation. The intervention is not effort but normalisation: a refactoring practice that becomes routine breaks the loop.
 
@@ -46,7 +46,7 @@ The Handbook projects onto the retrospective as a *structured-method toolkit*: L
 
 11.  **Software engineering is not black and white.** "“Right” answers can be hard to find and may not be reproducible in different contexts" [V] (Introduction, "Software Engineering Is Not Black and White"). Retro experiments are hypotheses, not prescriptions. A practice that worked for another team is not guaranteed to work here; the retro's experiment-design posture should hold team context as the key variable.
 
-12.  **Eisenhower matrix for prioritising which retro item to address.** Urgent × Important quadrant grid: Do (urgent, important), Decide (not urgent, important), Delegate (urgent, not important), Delete (not urgent, not important) [V] (Ch 2.5.3, "Task Prioritization: Eisenhower Matrix"). When five retro items are on the board and the team cannot choose, the Eisenhower matrix provides a structured first-pass filter. Items in Delete are often the ones that make the board crowded without ever being acted on.
+12.  **Eisenhower matrix for prioritising which retro item to address.** Urgent × Important quadrant grid: Do (urgent, important), Decide (not urgent, important), Delegate (urgent, not important), Delete (not urgent, not important) [AP] (Ch 2.5.3, "Task Prioritization: Eisenhower Matrix"). When five retro items are on the board and the team cannot choose, the Eisenhower matrix provides a structured first-pass filter. Items in Delete are often the ones that make the board crowded without ever being acted on.
 
 ## Questions to Ask During Retro
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:9228e5c06028189f27ebbc1e8fc907dcb0e899a9f568e81100e1674723498c91 -->
+<!-- derived-from-deep: sha256:b8b52e2fa2914fdc15e0c9ae009e401637daf82f72d328b3576fe556749a50ad -->
 # FLO Facilitation Guide, AAR Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. Ebook ISBN 978-1-77420-036-0. Licence: **CC BY 4.0**. Scope: open.

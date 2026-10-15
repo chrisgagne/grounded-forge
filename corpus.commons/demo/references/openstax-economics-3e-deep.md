@@ -18,13 +18,13 @@ A second load-bearing claim is that markets are extraordinarily powerful coordin
 
 A third load-bearing claim is that decisions made at the individual level can produce macroeconomic outcomes that no individual intended. The text uses Keynes's law ("demand creates its own supply") and Say's law ("supply creates its own demand") as the two organising frames for short-run and long-run macroeconomic analysis (Ch 24.1). Combined with the AD-AS model and the three macroeconomic goals — economic growth, low unemployment, low inflation (Ch 19) — the framework shows why recessions, inflation, and growth slowdowns can occur even when individual households and firms are behaving rationally, and why monetary and fiscal policy may be needed to coordinate aggregate behaviour.
 
-A fourth load-bearing claim, woven throughout, is that international trade and globalization are economic-welfare-enhancing in aggregate even when distributional consequences are uneven. The text invokes Ricardo's comparative advantage (Ch 33.1) and demonstrates that "by specializing in a good that it gives up the least to produce, a country can produce more and offer that additional output for sale," with gains accruing even when one country has absolute advantage in all goods (Ch 33.2). The text confronts the political-economy critique of trade — that protectionism is "an indirect subsidy from consumers to producers" (Ch 34.1) — and argues that infant-industry, anti-dumping, environmental, consumer-safety, and national-interest arguments are weaker than they first appear (Ch 34.3).
+A fourth load-bearing claim, woven throughout, is that international trade and globalization are economic-welfare-enhancing in aggregate even when distributional consequences are uneven. The text invokes Ricardo's comparative advantage (Ch 33.1) and demonstrates that "by specializing in a good that it gives up the least to produce, a country can produce more and offer that additional output for sale," with gains accruing even when one country has absolute advantage in all goods (Ch 33.2). The text confronts the political-economy critique of trade — that protectionism is an indirect subsidy from consumers to producers, as the section title "Protectionism: An Indirect Subsidy from Consumers to Producers" puts it (Ch 34.1) — and argues that infant-industry, anti-dumping, environmental, consumer-safety, and national-interest arguments are weaker than they first appear (Ch 34.3).
 
 ## Part I: Foundations — scarcity, choice, and the economic way of thinking (Ch 1)
 
 ### Economics as the study of choice under scarcity
 
-The text defines **economics** as "the study of how humans make decisions in the face of scarcity" [V] (Ch 1.1) and **scarcity** as the condition that "human wants for goods, services and resources exceed what is available" [V] (Ch 1.1). Scarcity is treated as a universal condition, present even in wealthy economies because "the ultimate scarce resource is time — everyone, rich or poor, has just 24 expendable hours in the day" [V] (Ch 1.1).
+The text defines **economics** as "the study of how humans make decisions in the face of scarcity" [V] (Ch 1.1) and **scarcity** as the condition that "human wants for goods, services and resources exceed what is available" [V] (Ch 1.1). Scarcity is treated as a universal condition, present even in wealthy economies because "the ultimate scarce resource is time": "everyone, rich or poor, has just 24 expendable hours in the day" [V] (Ch 1.1).
 
 The book opens with Adam Smith's Wealth of Nations (1776) and the **division of labour**: dividing production into distinct tasks that different workers perform [AP] (Ch 1.1, "The Division of and Specialization of Labor"). Smith counted "18 distinct tasks" in pin-making and observed that one worker alone might make 20 pins a day while ten workers specialising could make 48,000 [V] (Ch 1.1). Three reasons explain why specialisation increases output: workers focus on areas of advantage; specialised workers learn and innovate; and specialisation allows businesses to "take advantage of economies of scale" [AP] (Ch 1.1).
 
@@ -60,7 +60,7 @@ The text emphasises that opportunity cost extends beyond monetary cost: time, fo
 
 The **production possibilities frontier (PPF)** plays for society the role the budget constraint plays for the individual: it shows the productively efficient combinations of two goods given resources and technology (Ch 2.2). Unlike the budget constraint (a straight line), the PPF is curved outward because of the **law of increasing opportunity cost**: "as production of a good or service increases, the marginal opportunity cost of producing it increases as well" because "some resources are better suited for producing certain goods and services instead of others" [V] (Ch 2.2).
 
-Two efficiency concepts: **productive efficiency** ("it is impossible to produce more of one good without decreasing the quantity that is produced of another good" [V]) and **allocative efficiency** ("the particular combination of goods and services on the production possibility curve that a society produces represents the combination that society most desires" [V]) [V] (Ch 2.2).
+Two efficiency concepts: **productive efficiency** ("it is impossible to produce more of one good without decreasing the quantity that is produced of another good" [V]) and **allocative efficiency** ("the particular combination of goods and services on the production possibility curve that a society produces represents the combination that society most desires" [V]) (Ch 2.2).
 
 ### Comparative advantage at the level of nations
 
@@ -88,7 +88,7 @@ The **four-step process** for analysing how an economic event affects equilibriu
 
 **Price ceilings** (legal maximums, e.g. rent control) generate shortages, lower quality, and benefit some renters at the expense of others (Ch 3.4). **Price floors** (legal minimums, e.g. minimum wage, agricultural price supports) generate surpluses (Ch 3.4). Both create **deadweight loss** — "the loss in social surplus that occurs when the economy produces at an inefficient quantity" [V] (Ch 3.5).
 
-**Consumer surplus** and **producer surplus** sum to **social surplus** at equilibrium; equilibrium maximises social surplus (Ch 3.5). The text takes a strong position: "Removing such barriers, so that prices and quantities can adjust to their equilibrium level, will increase the economy's social surplus" [V] (Ch 3.5). Quoting Alfred Marshall (1890): asking whether supply or demand determines price is "like arguing 'whether it is the upper or the under blade of a pair of scissors that cuts a piece of paper'" [V] (Ch 3.5).
+**Consumer surplus** and **producer surplus** sum to **social surplus** at equilibrium; equilibrium maximises social surplus (Ch 3.5). The text takes a strong position: "Removing such barriers, so that prices and quantities can adjust to their equilibrium level, will increase the economy's social surplus" [V] (Ch 3.5). Alfred Marshall wrote in 1890 that asking whether supply or demand determines a price was like arguing "whether it is the upper or the under blade of a pair of scissors that cuts a piece of paper" [V] (Ch 3.5).
 
 ## Part IV: Labour and financial markets (Ch 4)
 
@@ -98,7 +98,7 @@ The same demand-supply framework applies to labour and financial markets. In lab
 
 In financial markets, savers supply financial capital and borrowers demand it; the interest rate is the price (Ch 4.2). **Usury laws** are price ceilings on interest rates — generally non-binding because limits are above market rates (Ch 4.2). The U.S. has run a current-account deficit financed by foreign investors. If foreign confidence diminishes, supply of financial capital shifts left, interest rates rise, and U.S. borrowers face higher costs (Ch 4.2, "The United States as a Global Borrower").
 
-The market system serves as "an efficient mechanism for information": prices "convey information about conditions of demand and supply" and serve as "messengers" [V] (Ch 4.3). The text applies this to the Mao-era price controls during the Great Leap Forward, where the government "kept food prices artificially low, with the result that 30 to 40 million people died of starvation because the low prices depressed farm production" [V] (Ch 4.3) — a stark illustration of price-control failure.
+Section 4.3 presents the market system as an efficient mechanism for information: prices "serve as a remarkable social mechanism for collecting, combining, and transmitting information that is relevant to the market" and then serve as "messengers to convey that information to buyers and sellers" [V] (Ch 4.3, "The Market System as an Efficient Mechanism for Information"). The text applies this to the Mao-era price controls during the Great Leap Forward, where the government "kept food prices artificially low, with the result that 30 to 40 million people died of starvation because the low prices depressed farm production" [V] (Ch 4.3) — a stark illustration of price-control failure.
 
 ## Part V: Elasticity (Ch 5)
 
@@ -106,7 +106,7 @@ The market system serves as "an efficient mechanism for information": prices "co
 
 Categories: **elastic** (|ε| > 1), **unitary** (|ε| = 1), **inelastic** (|ε| < 1). Polar cases: **infinite/perfect elasticity** (horizontal curve) and **zero/perfect inelasticity** (vertical curve) (Ch 5.2).
 
-Demand for necessities (housing 0.12, electricity 0.20, gasoline 0.35) tends to be inelastic; demand for substitutable items (restaurant meals 2.27, premium cable 1.77) tends to be elastic [V] (Ch 5.3, Table 5.2).
+Table 5.2 lists selected price elasticities of demand, among them housing 0.12, electricity 0.20, gasoline 0.35, premium cable TV 1.77 and restaurant meals 2.27 (Ch 5.3, Table 5.2). The text notes that "demand for necessities such as housing and electricity is inelastic, while items that are not necessities such as restaurant meals are more price-sensitive" [V] (Ch 5.3).
 
 "Elasticity also reveals whether firms can pass higher costs that they incur on to consumers" [V] (Ch 5.3, "Can Businesses Pass Costs on to Consumers?"). When a cost increase shifts supply to the left and demand is inelastic, firms can largely pass the increase on as higher prices with little fall in quantity; when demand is elastic, the same shift mainly lowers the quantity sold (Ch 5.3, Figure 5.9).
 
@@ -138,7 +138,7 @@ The shape of the LRAC affects industry structure: a single bottom point implies 
 
 ## Part VIII: Perfect competition (Ch 8)
 
-A **perfectly competitive market** has four conditions: (1) many firms producing identical products; (2) many buyers and sellers; (3) full information; (4) free entry and exit (Ch 8.1). A **price taker** firm "must accept the prevailing equilibrium price in the market" [V] (Ch 8.1).
+A **perfectly competitive market** has four conditions: (1) many firms producing identical products; (2) many buyers and sellers; (3) full information; (4) free entry and exit (Ch 8.1). A perfectly competitive firm is a **price taker** "because the pressure of competing firms forces it to accept the prevailing equilibrium price in the market" [V] (Ch 8.1).
 
 A perfectly competitive firm faces a perfectly elastic (horizontal) demand curve at the market price. Marginal revenue equals price; there is no incentive to charge other than market price. The profit-maximising rule is **P = MC** in the short run (Ch 8.2). At the **break-even point**, P = MC = ATC and economic profit is zero (Ch 8.2). At the **shutdown point**, P = MC = AVC; below this price, "the firm is not even covering its variable costs" and should shut down [V] (Ch 8.2). Between these points, the firm operates at a loss but covers some fixed costs.
 
@@ -192,7 +192,7 @@ Investment in new technology produces **positive externalities** because the inv
 
 Government policies to encourage innovation: intellectual property protection (patents, trademarks, copyrights, trade secrets); direct R&D spending (about 22.7% of total U.S. R&D in 2018 [V] — Ch 13.2, Table 13.3); R&D tax credits; cooperative research between universities and industry (Ch 13.2). The text emphasises the tradeoff: patents must last long enough to incentivise invention but not so long that monopoly pricing harms consumers (Ch 13.2).
 
-A **public good** has two defining features: **nonexcludable** ("it is costly or impossible to exclude someone from using the good" [V]) and **non-rival** ("when one person uses the public good, another can also use it" [V]) [V] (Ch 13.3). National defence is the canonical example. Markets fail to provide public goods because of the **free rider problem**: individuals have an incentive to use the good without paying (Ch 13.3).
+A **public good** has two defining features: **nonexcludable** ("it is costly or impossible to exclude someone from using the good" [V]) and **non-rival** ("when one person uses the public good, another can also use it" [V]) (Ch 13.3). National defence is the canonical example. Markets fail to provide public goods because of the **free rider problem**: individuals have an incentive to use the good without paying (Ch 13.3).
 
 The text relates this to the prisoner's-dilemma structure: rational individual behaviour produces collective failure (Ch 13.3). Government provision financed by taxation is the standard solution; some public goods can be provided through advertising-supported private provision (e.g. broadcast radio); in some cases social pressure or collective action can overcome free-riding (Ch 13.3).
 
@@ -200,7 +200,7 @@ The text relates this to the prisoner's-dilemma structure: rational individual b
 
 ## Part XIV: Labour markets and income (Ch 14)
 
-A **perfectly competitive labour market** has firms acting as wage-takers (Ch 14.1). The **first rule of labour markets**: "an employer will never pay a worker more than the value of their marginal productivity to the firm" [V] (Ch 14.1). For competitive output markets, demand for labour is the **value of the marginal product** (VMPL = MPL × P). For imperfectly competitive output markets, demand is the **marginal revenue product** (MRPL = MPL × MR), which lies below VMPL because MR < P. This produces lower employment in non-competitive output markets even at the same wage (Ch 14.1, "Demand for Labor in Imperfectly Competitive Output Markets").
+A **perfectly competitive labour market** has firms acting as wage-takers (Ch 14.1). The **first rule of labour markets**: "an employer will never pay a worker more than the value of the worker's marginal productivity to the firm" [V] (Ch 14.1). For competitive output markets, demand for labour is the **value of the marginal product** (VMPL = MPL × P). For imperfectly competitive output markets, demand is the **marginal revenue product** (MRPL = MPL × MR), which lies below VMPL because MR < P. This produces lower employment in non-competitive output markets even at the same wage (Ch 14.1, "Demand for Labor in Imperfectly Competitive Output Markets").
 
 Demand for labour is **derived demand** — derived from demand for the firm's products (Ch 14.1).
 
@@ -224,7 +224,7 @@ Lisa D. Cook estimates that GDP could be 4.4% higher if women and minority popul
 
 The **poverty trap** occurs when government benefits decline as recipients earn income, so working produces little or no net income gain (Ch 15.2). Mitigation: phasing out benefits more slowly (50¢ reduction per $1 earned rather than $1 per $1), work requirements, time limits.
 
-The **safety net** includes Temporary Assistance for Needy Families (TANF), Earned Income Tax Credit (EITC), Supplemental Nutrition Assistance Program (SNAP), Medicaid, and Supplemental Security Income (Ch 15.3). The 1996 welfare reform replaced AFDC with TANF, imposing work requirements and a 5-year lifetime limit. EITC is "one of the largest assistance programs for low-income groups" — about 25 million workers received about $60 billion in 2021 [V] (Ch 15.3). EITC phases out gradually, reducing the poverty trap. Medicaid similarly faces poverty-trap issues; expanded eligibility helps.
+The **safety net** includes Temporary Assistance for Needy Families (TANF), Earned Income Tax Credit (EITC), Supplemental Nutrition Assistance Program (SNAP), Medicaid, and Supplemental Security Income (Ch 15.3). The 1996 welfare reform replaced AFDC with TANF, imposing work requirements and a 5-year lifetime limit. EITC is "one of the largest assistance program [sic] for low-income groups" — as of December 2021, about 25 million eligible workers and families received about $60 billion [V] (Ch 15.3). EITC phases out gradually, reducing the poverty trap. Medicaid similarly faces poverty-trap issues; expanded eligibility helps.
 
 **Quintile analysis** divides the population into fifths of equal size by income. In 2020, the bottom quintile received 3.0% of total U.S. income, the top quintile 52.2%, and the top 5% alone 23.0% (Ch 15.4, Table 15.5). The U.S. is more unequal than most other high-income countries (Germany: top quintile 39.6%, bottom 7.6%) but less unequal than Brazil, Mexico, or Russia (Ch 15.4).
 
@@ -242,7 +242,7 @@ Mechanisms to reduce information asymmetry: money-back guarantees, warranties, s
 
 Two information problems plague insurance markets:
 
-**Moral hazard** — "people engage in riskier behaviour with insurance than they would if they did not have insurance" [V] (Ch 16.2). Mitigation: deductibles, copayments, coinsurance — all of which require the insured to bear part of the loss. Health Maintenance Organisations (HMOs) shift moral hazard from patients to providers by paying providers a fixed amount per enrolled person (Ch 16.2).
+**Moral hazard** — "people engage in riskier behavior with insurance than they would if they did not have insurance" [V] (Ch 16.2). Mitigation: deductibles, copayments, coinsurance — all of which require the insured to bear part of the loss. Health Maintenance Organisations (HMOs) shift moral hazard from patients to providers by paying providers a fixed amount per enrolled person (Ch 16.2).
 
 **Adverse selection** — high-risk individuals are more likely to seek insurance, while low-risk individuals avoid it. Insurers respond by raising prices, which drives out more low-risk customers; the text uses this example to show how adverse selection "can strangle an insurance market" [V] (Ch 16.2). Mitigation: group insurance through employers (mixes risks), mandates that everyone buy insurance, and government provision.
 
@@ -475,7 +475,7 @@ The text's bottom line: gains from international trade are real, especially for 
 
 ## Part XXXIV: Globalization and protectionism (Ch 34)
 
-**Protectionism** (tariffs, import quotas, non-tariff barriers) is "an indirect subsidy from consumers to producers" [V] (Ch 34.1). The text uses sugar markets (Brazil-U.S.) to demonstrate that free trade creates social surplus and that quotas reduce it.
+**Protectionism** (tariffs, import quotas, non-tariff barriers) is treated in the section "Protectionism: An Indirect Subsidy from Consumers to Producers" [V] (Ch 34.1). The text uses sugar markets (Brazil-U.S.) to demonstrate that free trade creates social surplus and that quotas reduce it.
 
 The text takes a clear position on trade and jobs: protectionism saves jobs in the protected industry but costs jobs in unprotected industries through (1) lower consumer purchasing power and (2) higher input costs for downstream firms (Ch 34.2). Federal Reserve Bank of Dallas estimates: saving a job in apparel and textiles costs consumers ~$199,000 per year; in sugar ~$826,000; in dairy ~$685,000 (Ch 34.2, Table 34.2).
 
@@ -536,10 +536,9 @@ The text's overall position: gains from trade are real and significant; protecti
 - **David Ricardo** (Principles of Political Economy and Taxation, 1817) — comparative advantage, foundational for trade theory (Ch 33.1) [BT].
 - **John Maynard Keynes** (General Theory, 1936) — Keynesian framework for macroeconomic analysis; recessions caused by AD shortfalls; sticky wages and prices; multiplier effect (Chs 24-25) [BT].
 - **Alfred Marshall** — supply-and-demand microeconomics, "scissors" metaphor for price determination (Ch 3.5) [V].
-- **Mary Parker Follett** is not cited; Lionel Robbins is cited for the scarcity-and-tradeoffs framing (Ch 2 intro) [V].
-- **Anthony Downs** (1957 Economic Theory of Democracy) — rational ignorance theory of voting (Ch 18.1) [V].
+- **Anthony Downs** (1957 Economic Theory of Democracy) — rational ignorance theory of voting (Ch 18.1) [BT].
 - **Mancur Olson** (1965 Logic of Collective Action) — special interest politics theory (Ch 18 intro) [BT].
-- **Daniel Kahneman and Amos Tversky** (Econometrica 1979) — loss aversion, prospect theory, foundation of behavioural economics (Ch 6.3, Ch 16.1) [V].
+- **Daniel Kahneman and Amos Tversky** (Econometrica 1979) — loss aversion, prospect theory, foundation of behavioural economics (Ch 6.3, Ch 16.1) [BT].
 - **Gary Becker** (Nobel 1992) — economics of discrimination; competitive markets penalise discrimination (Ch 14.5) [BT].
 - **William A. Darity Jr.** — argues competitive markets have not been sufficient to eliminate discrimination (Ch 14.5) [BT].
 - **Lisa D. Cook** — quantifies costs of innovation losses from discrimination, ~4.4% of GDP (Ch 14.5) [BT].
@@ -549,30 +548,30 @@ The text's overall position: gains from trade are real and significant; protecti
 - **Elinor Ostrom** (Nobel laureate) — non-tragedy of the commons; local self-governance can manage common resources (Ch 13.3) [BT].
 - **Garret Hardin** (Science 1968) — "tragedy of the commons" framing (Ch 13.3) [BT].
 - **A.W. Phillips** (London School of Economics, 1950s) — Phillips curve (Ch 25.3) [BT].
-- **Milton Friedman** — quoted (1967 speech) summing up the neoclassical view of the long-run Phillips curve: a temporary but no permanent inflation-unemployment tradeoff (Ch 25) [V].
+- **Milton Friedman** — quoted (1967 speech) summing up the neoclassical view of the long-term Phillips curve tradeoff: "[T]here is always a temporary trade-off between inflation and unemployment; there is no permanent tradeoff" [V] (Ch 26.2).
 - **Ronald Coase** (Nobel 1991) — externalities and property rights, illustrated by railroad sparks and a farmer's field (Ch 12.3) [BT].
-- **Simon Kuznets** (Nobel laureate) — invented GDP measurement during the 1930s Great Depression (Ch 19 intro) [V].
-- **Robert E. Lucas Jr.** (Nobel 1995) — quoted on the importance of growth (Ch 20 intro) [V].
-- **Esther Duflo, Abhijit Banerjee, Michael Kremer** (Nobel 2019) — experimental methods to understand poverty (Ch 1.1) [V].
-- **Robert Shiller** (Nobel 2013) — surveys on inflation attitudes (Ch 22.4) [V].
+- **Simon Kuznets** (Nobel laureate) — invented GDP measurement during the 1930s Great Depression (Ch 19 intro) [BT].
+- **Robert E. Lucas Jr.** (Nobel 1995) — quoted on the importance of growth (Ch 20 intro) [BT].
+- **Esther Duflo, Abhijit Banerjee, Michael Kremer** (Nobel 2019) — experimental methods to understand poverty (Ch 1.1) [BT].
+- **Robert Shiller** (Nobel 2013) — surveys on inflation attitudes (Ch 22.4) [BT].
 - **Pierre Mohnen, Abraham García** — research on Austrian government's R&D support (Ch 20.3) [BT].
 - **Walter Williams, Thomas Sowell** — argue minimum wages increase discrimination and limit mobility (Ch 4.1) [BT].
 - **Michael Gerson** (Washington Post) — quoted on cotton subsidies harming African farmers (Ch 34.1) [BT].
-- **Paul Krugman** (Nobel laureate) — quoted on the first wave of globalization (Ch 33 intro) [V].
+- **Paul Krugman** (Nobel laureate) — quoted on the first wave of globalization (Ch 33 intro) [BT].
 - **Walter McMahon** — research on social returns to education (Ch 13.1) [BT].
 - **Alexander Gerschenkron** — "advantages of backwardness" for catch-up growth (Ch 20.4) [BT].
 - **Angus Maddison** — economic historian who measured pre-1870 GDP (Ch 20.1) [BT].
 - **George Psacharopoulos** — research on social returns to schooling (Ch 13.1) [BT].
 - **Amartya Sen** (Nobel laureate) — research on poverty, inequality, and food security (Ch 20 closing case) [BT].
-- **John Bates Clark** — cited on labour-market bargaining disadvantage (Ch 14.2) [V].
+- **John Bates Clark** — cited on labour-market bargaining disadvantage (Ch 14.2) [BT].
 - **Joan Robinson** — introduced and widely discussed the term "monopsony" (crediting Bertrand Hallward with inventing the word); quoted on economics being a method, not doctrine (Ch 14.2, Ch 18 closing) [BT].
-- **Edward Chamberlin** — co-developed monopolistic competition theory (Ch 10.1) [V].
-- **Lionel Robbins** — Essay on the Nature and Significance of Economic Science 1932; framed economics as the study of choice under scarcity (Ch 2 intro) [V].
+- **Edward Chamberlin** (Harvard) — published *The Economics of Monopolistic Competition*; developed the theory of imperfect competition in 1933, independently of but simultaneously with Joan Robinson (Ch 10.1) [BT].
+- **Lionel Robbins** — Essay on the Nature and Significance of Economic Science 1932; framed economics as the study of choice under scarcity (Ch 2 intro) [BT].
 - **Ben Bernanke, Janet Yellen, Jerome Powell** — Federal Reserve chairs; Bernanke pioneered QE (Chs 28.1, 28.3) [BT].
 
 ## Positions the authors explicitly frame against
 
-- **Mercantilism / protectionism**: the text takes a clear pro-trade stance, arguing that comparative advantage gains accrue even when one country has absolute advantage (Ch 33). Protectionism is "an indirect subsidy from consumers to producers" (Ch 34.1) [V].
+- **Mercantilism / protectionism**: the text takes a clear pro-trade stance, arguing that comparative advantage gains accrue even when one country has absolute advantage (Ch 33). The protectionism section is titled "Protectionism: An Indirect Subsidy from Consumers to Producers" (Ch 34.1) [V].
 - **Strict balanced-budget requirements**: the text argues against rigid annual balanced budgets, which would prevent automatic stabilisers from working and worsen recessions (Ch 30.7).
 - **Government as the only solution to market failures**: the text takes a balanced view — markets and governments are both imperfect; sensible policy compares real-world institutions, not idealised versions (Chs 11, 18).
 - **Markets as always self-correcting**: the text identifies multiple cases where markets fail (monopoly, externalities, public goods, information asymmetries, unemployment, financial crises).

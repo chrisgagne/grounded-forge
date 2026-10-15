@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T17:41:54+13:00
 ---
 # OpenStax Principles of Management, Decision-Making Distillation
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:70830aa24cd0d7b786472158af2ad0f62934e2e8bbc10200d84813a92f52612f -->
+<!-- derived-from-deep: sha256:b741934bea352f3ab0e0f2e2e172a27b897e6ab50af3c2964071f394115f6dd5 -->
 # US Army TC 25-20, Decision-Making Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). Open scope; no copyleft propagation.

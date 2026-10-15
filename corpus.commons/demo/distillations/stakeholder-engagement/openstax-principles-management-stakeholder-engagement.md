@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a4bdf3ad54d512f1d7ddccf1fc6d267296df424f0c242b7029fbb9395b8d18ed -->
+<!-- derived-from-deep: sha256:ab882d1a0e72cad22af8dcbafdb49e40a3e7626a591be4fcfb0f4f51ea81a2ef -->
 # OpenStax Principles of Management, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -155,7 +155,7 @@ Closing: agreements include explicit milestones, communication checkpoints, envi
 
 Sustaining: post-closure, the firm sustains liaison with the local community, the host government, and former workers' associations. Trust is being built for future engagements rather than depleted in this one. The firm's stakeholder-management practices feed back into broader CSR reporting and the triple-bottom-line accounting.
 
-This worked example illustrates several key concepts in the source: the eight-question stakeholder analysis, the seven ethical principles, the rejection of pure shareholder framing, the four cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, the Plan-Do-Check-Act cycle, and the sustained-liaison principle. The scenario is operator-authored; all framework citations trace through `corpus.commons/demo/references/openstax-principles-management-deep.md`. The seven ethical principles, Hofstede, GLOBE and Follett are [BT] in the deep ref; head-body-heart cultural intelligence is [V]; the news test's "If you would feel guilty or ashamed, don't do it!" is [V]; the eight-question framework is unmarked paraphrase of Exhibit 5.8. No verbatim source blockquotes appear in this distillation.
+This worked example illustrates several key concepts in the source: the eight-question stakeholder analysis, the seven ethical principles, the rejection of pure shareholder framing, the four cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, the Plan-Do-Check-Act cycle, and the sustained-liaison principle. The scenario is operator-authored; all framework citations trace through `corpus.commons/demo/references/openstax-principles-management-deep.md`. In the deep ref the seven ethical principles, Hofstede, GLOBE and Follett are borrowed-through citations, head-body-heart cultural intelligence is borrowed through the *Harvard Business Review* article "Cultural Intelligence" (Ch 15.6), and the eight-question framework is unmarked paraphrase of Exhibit 5.8; the one verbatim line is the news test's "If you would feel guilty or ashamed, don't do it!" [V] (Ch 2.5). No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 

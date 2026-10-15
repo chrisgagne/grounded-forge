@@ -1,0 +1,97 @@
+{
+  "section": "Runtime listeners: Phase 1",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "The story's acceptance criteria are prose (\"works well\", \"handles errors\") with no runnable check",
+      "Block the build until each criterion has concrete examples beneath it (names, dates, amounts), formulated in Gherkin and agreed with the business: the documentation makes concrete examples the means of guiding work from concept to implementation (`cucumber-bdd-gherkin`) [D7] • Block the build until each criterion is a planned test case with an expected result: test cases are defined from the acceptance criteria while the story is designed, and writing them clarifies the criteria (`microsoft-code-with-engineering-playbook`) [D7] • Require each criterion to have a test that fails on the current code and passes once the change is right: fail-to-pass tests characterise the problem statement, and every task instance carries at least one (`jimenez-swe-bench`) • Block until each criterion is a stated behaviour a test could fail on: the authors found developer documentation too underspecified to generate tests from (`egashira-testsuitebench-2026`) • Hold the build until the spec states acceptable accuracy and margins of error and the required level of assurance, signed off by the client: the specification should state them and is the reference for later validation (`uk-aqua-book-2025`) • For the security criteria, require the written requirements this change must meet and put them in the Definition of Done as tracked checks: requirements are documented and maintained, and security belongs in done (`nist-ssdf-1-1`) • For the security part, return the story until it names versioned requirement IDs at the application's level: each requirement is verifiable to a pass or fail decision, and abuse-case tests can check the control on every build (`owasp-asvs-5-0`) • For security properties, block until they are written as checkable statements: without a project-specific definition neither humans nor AI can tell a defect from a design choice (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The agent is asked to \"build X like Y\" with no statement of what must not change",
+      "Require scenarios for the current behaviour before the rework: automated examples show what the system currently does and let the team change it without unintentionally breaking anything (`cucumber-bdd-gherkin`) • Require each affected quality attribute as a quantitative, measurable, testable requirement with a verification method, plus an area-regression plan for neighbouring behaviour (`microsoft-code-with-engineering-playbook`) • Require written requirements, including what must stay unchanged, before the build: the source says to capture requirements before writing code and treats documentation as a specification of what the code is expected to do (`uk-duck-book-qa-of-code`) • Write the change's boundaries into the spec and check that what made Y right still holds for X: reuse or repurposing may need fresh verification and validation of the original method and assumptions (`uk-aqua-book-2025`) • Have the person who knows the code write down what must stay as it is: developers reported AI making unwanted changes elsewhere in large codebases and missing a compatibility case only maintainers knew (`becker-metr-ai-developer-productivity-2025`) • Ask which security requirements and secure defaults must survive the change: requirements are carried into design records, and defaults must not weaken the platform's security (`nist-ssdf-1-1`) • State the level and the security decisions that must hold before the build: the organisation, not the individual developer, makes and documents those decisions (`owasp-asvs-5-0`) • Ask for the invariants and where each is enforced: an invariant written only in the agent's instructions can be ignored, so it is enforced outside the AI (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "Nobody can say who will use the change or what they will do with it",
+      "Ask for the feature's `In order to`, `As a` and `I want` lines, which the documentation says cover Why, Who and What, discovered in a short session with the product owner, a developer and a tester (`cucumber-bdd-gherkin`) • Return as not Ready: a Ready story addresses a business need, and end-to-end cases are designed from the end user's perspective (`microsoft-code-with-engineering-playbook`) • Ask the accountable human to name the user and their use before the build; the source's managers' guide asks that users be consulted at the beginning and throughout (`uk-duck-book-qa-of-code`) • Hold scoping with the client until both can say it: commissioner and analyst should develop a shared understanding of the problem and context, and validation involves the users (`uk-aqua-book-2025`) • Name the user and what they will do before the build: without a user-centric focus, respondents' AI adoption went with worse team performance, and teams \"may be moving quickly in the wrong direction\" (`dora-ai-assisted-swdev-2025`) • Require the deployment model in writing: agents do better told how the software is used, and AIs tend to assume the most permissive deployment (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The spec is long and the change is large",
+      "Split it: the documentation reads a story that needs more than about 25-30 minutes of discovery as too large or missing specifics, and a scenario not describable in one sentence as covering too much (`cucumber-bdd-gherkin`) • Split before the build: small PRs with one reason to change, self-contained slices that add value or hidden features (`microsoft-code-with-engineering-playbook`) • Split it into short fixes, or expect the first patch to come up narrow: models struggled with multi-line, multi-file changes and their applied patches rarely touched more than one file (`jimenez-swe-bench`) • Split the change or check test coverage per requirement: test strength correlated negatively, if weakly, with the number of spec sections (`egashira-testsuitebench-2026`) • Slice into small changes reviewed and tested as they land; the source says separate review works best on small, frequent changes and recommends committing small changes often (`uk-duck-book-qa-of-code`) • Stage the work and plan a check that the slices fit together: larger projects may stage the work, and modular work should assure each module and their integration (`uk-aqua-book-2025`) • Split it into changes a reviewer can follow and revert one at a time: small batches amplified AI's association with product performance, and larger batches are hypothesised to be harder to review (`dora-ai-assisted-swdev-2025`) • Split into narrow tasks and small reviewable changes: narrow scope gives better agent results and regressions track large rewrites, as the guide reports (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The builder says \"the agent will figure out the details\"",
+      "Record each unanswered question as open (Example Mapping's red cards) rather than leaving it to the agent: discovery exists to reveal where more information is needed before anyone knows what to do (`cucumber-bdd-gherkin`) • Require the input values and measurable acceptance criteria first: a story not Ready at the start is more likely to finish undone (`microsoft-code-with-engineering-playbook`) • Write down which helpers, libraries and conventions the fix must use: model patches solved the problem exactly with little regard for the codebase's style or constraints, and skipped its existing libraries (`jimenez-swe-bench`) • Require each behaviour written down in enough detail to test from before the build: on developer documentation instead of a detailed spec, Sol's test strength fell from 25.5% to 4.0%, with three times the underspecification failures per test (`egashira-testsuitebench-2026`) • Return the task for a precise specification (data, behaviour, limits); in the source's worked example a vague prompt produced a 225-line change the human then had to review, a precise one a 46-line function (`uk-duck-book-qa-of-code`) • Decide the details that matter in the spec now: with a black box, assurance weight moves to the design and to validating outputs; applying this to the coding agent is the distillation's transfer (`uk-aqua-book-2025`) • Write the maintainer-only details into the spec before the build: AI lacked the undocumented repository knowledge experienced developers relied on and picked the wrong places to edit (`becker-metr-ai-developer-productivity-2025`) • Name the terms the agent could read two ways and give it a permitted *not verified* outcome: errors can turn on context the prompt leaves out, and under scoring that gives abstaining nothing, guessing scores better (`why-language-models-hallucinate-kalai`) • Supply the threat model and day-one context first: the guide reports that AI runs steps out of order and guesses, and assumes the most permissive deployment (`openssf-finding-fixing-vulnerabilities-ai`) • Name what the agent will decide alone and which check confirms each decision: in agentic designs overreliance on model output is often built into the system, and excessive autonomy is a root cause of damaging actions (`owasp-llm-top10-2026`) • Name what the agent will decide alone and how conversational its orchestration is: when the LLM decides the control flow, the agency and reasoning threats (goal manipulation, deceptive behaviour, untraceability) apply (`owasp-agentic-threats-mitigations`) • Return the story to name what the agent will decide alone and why the task needs each piece of autonomy: autonomy where it isn't needed widens the attack surface without adding value (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "Discovery for one story runs well past half an hour",
+      "Split the story or set it aside for research; the documentation reads the overrun as a story too large or missing specifics (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "Scenario steps name buttons, fields or URLs",
+      "Rewrite declaratively, moving mechanics into step definitions: procedural steps change whenever the implementation does and are harder to maintain (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "The agent wrote the scenarios and nobody on the business side has read them",
+      "Route them to the product owner before they are locked: the documentation calls discovery left to one individual \"not BDD\" and has the product owner actively review what a pair writes (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "The ticket's evidence is a screenshot, chart or mock-up image",
+      "Transcribe what the image shows into the spec and its tests, or confirm the agent reads images: the authors attribute a failure directly to the lack of image input (`jimenez-swe-bench`)"
+    ],
+    [
+      "A locked test calls a function or class the spec never names",
+      "Name the interface in the spec or rewrite the test against stated behaviour: tests on names only the solution introduces may be impossible to satisfy from the problem statement, even for a human (`jimenez-swe-bench`)"
+    ],
+    [
+      "An agent's output fails and the team argues whether the spec or the agent is wrong",
+      "Classify the failure as a generation fault or a spec defect, and require a claimed contradiction to quote the spec word for word (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "The agent's change is several times larger than the request",
+      "Block review of the oversized change; re-specify and regenerate small, since offloading the design turns the human into the model's reviewer (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "The agent made an assumption (a data format, a business rule) that nobody signed off",
+      "Log it and have the client accept or correct it: assumptions logs record what, when, why, who made it and who signed it off (`uk-aqua-book-2025`)"
+    ],
+    [
+      "The story's success measure is output (lines, pull requests, stories closed, agent sessions run), with no user or product outcome named",
+      "Rewrite it as an outcome: individual effectiveness is a means to team, product and organisational performance, not a goal in itself (`dora-ai-assisted-swdev-2025`)"
+    ],
+    [
+      "A plan, estimate or client quote assumes the agent will cut the time, with no measure on this codebase",
+      "Treat the figure as a forecast to test: in a randomized trial, experienced developers forecast a 24% cut and took 19% longer (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "The task instructions say *make the tests pass* or *finish the task* and give the agent no permitted *not verified* or *blocked* outcome",
+      "Add one, and state the confidence target and what a wrong answer costs: when abstaining scores zero, guessing has the higher expected score (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "A spec term has more than one common reading (*delete*, *user*, *account*) and the spec does not pick one",
+      "Settle the meaning before the build: errors can turn on context the prompt leaves out (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The spec names no security requirement, or none from a written list",
+      "Return it for the requirements it must meet: software security requirements are identified, documented and maintained (`nist-ssdf-1-1`)"
+    ],
+    [
+      "The story needs a rule that differs per application (upload types and sizes, session timeouts, access rules, business limits) and no decision is on record",
+      "Record the organisation's decision and get it approved before the build, since a rule the standard cannot set cannot be verified without it: 8.1.1, 6.1.1 (L1); 2.1.3, 5.1.1, 7.1.1 (L2) (`owasp-asvs-5-0`)"
+    ],
+    [
+      "A vendor's model is in the change and nobody has said what the vendor is responsible for",
+      "Write the per-task split and how each party attests before the build: with a model from one party in another's system there is likely a shared responsibility model (`nist-sp-800-218a`)"
+    ],
+    [
+      "The story adds a model call, a tool or memory and states no capability budget, output schema or spend cap",
+      "Return the story to state which of untrusted input, sensitive data and state change the feature holds, the schema its output must meet, and the cap that halts it: an agent holding all three needs per-action human approval and a two-leg one an explicit residual-risk assessment, and alerting thresholds can be outpaced where a hard cap cannot (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The story adds an agentic feature (an agent that plans and acts) and doesn't say what the agent decides alone, what it remembers, which tools, actions and identity it holds, which actions need a human, or why the task needs that autonomy",
+      "Return it to answer the six decision-path questions and name the actions that need explicit approval: each yes opens a threat group and a playbook, and financial, medical or administrative tool calls need explicit user approval (`owasp-agentic-threats-mitigations`) • Return it to make the Least-Agency case and to write the goals, permitted actions and tools down, explicit and auditable under configuration management, with a behavioural manifest the orchestrator checks before each action (`owasp-agentic-top10-2026`)"
+    ]
+  ]
+}

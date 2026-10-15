@@ -1,0 +1,3 @@
+should_block: true
+caught_by: [gate:sast, review]
+defect: searchNotes interpolates q into the SQL text (LIKE '%${term}%'); q = "') OR 1=1 --" returns every user's notes and a UNION SELECT reads emails and password hashes

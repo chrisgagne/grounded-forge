@@ -1,0 +1,291 @@
+# OWASP Agentic Security Initiative, Top 10 for Agentic Applications 2026, Warranting Agent-Built Software Distillation
+
+**Source:** OWASP GenAI Security Project, Agentic Security Initiative, *OWASP Top 10 For Agentic Applications 2026*, "Version 2026", December 2025 (cover); led by John Sotiropoulos, Keren Katz and Ron F. Del Rosario, with named entry leads; genai.owasp.org. **Scope:** open. Citations take the form `(ASI0N, p. N)`, printed page numbers, with the entry ID where one applies.
+
+**Licence and share-alike notice.** The source is licensed CC BY-SA 4.0 (p. 1). This distillation is an adaptation of it: the source's guidance condensed, paraphrased, reordered and projected onto the task of warranting agent-built software, with short verbatim quotations marked `[V]`. It is shared under the same licence, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Attribution: OWASP GenAI Security Project, Agentic Security Initiative, *OWASP Top 10 for Agentic Applications 2026*, genai.owasp.org. The source states it is not legal advice (p. 1), and nothing here adds to that.
+
+**Setting, read before projecting.** The list names the ten highest-impact threats to systems where agents "plan, decide, and act across multiple steps and systems" [V] (p. 6), and gives each entry common examples, attack scenarios and mitigations teams can start on today (p. 6) [AR]. It reaches this axis by two routes. First, when a change adds an agentic feature to the client's software (an agent that plans and acts, its tools, its memory, other agents it talks to), the ten entries are the threat list for that feature, as written. Second, the coding agent the builder runs is itself an agentic system the list covers by name: its scenarios include vibe-coding agents that run unreviewed shell commands and delete production data (ASI05, p. 22) [AE], a coding agent whose auto-run tools leak data through DNS (ASI02, p. 13) [AE], a lockfile regenerated during a *fix build* task (ASI05, p. 22) [AE], a compromised package installed automatically by coding agents (ASI04, p. 19) [AE], and a coding assistant's one-line fix that runs a malicious script (ASI09, p. 34) [AE]; and several rows of its incident tracker concern coding agents, coding CLIs and IDE extensions (pp. 44–48) [AE]. Where this distillation carries a control the source writes for a product agent across to the builder's own harness without one of those scenarios behind it, it marks the move as a transfer. The source is threat guidance built from community research, red-team findings and tracked incidents (pp. 7, 44) [AP]; it does not measure whether its mitigations work, and this distillation keeps its recommendations as recommendations.
+
+**LLM numbering.** The source cites the OWASP Top 10 for LLM Applications by its 2025 edition's entry numbers (LLM01:2025 to LLM09:2025; Appendix A's column reads "OWASP LLM Top 10 (2025)") (pp. 9–40) [AP]. Those identifiers do not match the 2026 edition held in this corpus (`owasp-llm-top10-2026`), so this distillation avoids them and names the risk instead.
+
+**Applicability gate (Pass G.0): clear yes.** (1) The source answers questions this axis asks: what the worst irreversible thing the agent can do from where it runs is, and what stops it (ASI02, ASI03, ASI05, ASI10); whether a run of past successes has become the evidence (its *governance drift cascade*, ASI08); which claims are demonstrated and which only asserted (fabricated rationales and approval without independent validation, ASI09); and whether an inventory or a signature is evidence of safe behaviour (Appendix B). (2) Its mitigations land on all eight phases, strongest on triaging agentic features, building in the sandbox and releasing. Phase 1 gets only the agentic slice (Least-Agency, declared goals, permitted actions and tools); nothing speaks to acceptance criteria for ordinary behaviour. Phase 3 gets the adversarial and rollback tests an agentic feature needs, not test independence or test strength. Phase 6 gets what an agentic design review must check, not who reviews. (3) Its contrarian positions (avoid unnecessary autonomy; no eval, no root, no direct agent-to-production path; keys never held by agents; plain-language risk summaries rather than model-generated rationales) bear directly on what a warranty pack may count as a control.
+
+**Phase mapping.**
+
+| Phase | Fit | What the source brings |
+|---|---|---|
+| 1 Specifying the change | Partial (agentic features) | Least-Agency: say why the task needs autonomy; goals, permitted actions and tools explicit and auditable, under configuration management; actions that need a human; a signed behavioural manifest. Nothing on acceptance criteria or non-goals |
+| 2 Triaging risk | Strong (agentic features) | Ten entries to route a feature by its shape, each with its boundary against the others; the attribution gap for agent identities; memory segmentation; destructive actions behind confirmation and a dry-run diff; reward hacking on a single-metric goal; planner–executor coupling |
+| 3 Locking the tests | Partial | Adversarial unit tests, goal-override red-team tests that verify rollback, memory snapshots and rollback, replay of recorded actions; reward hacking as the frame for an agent gaming its own metric (transfer). Nothing on who writes the tests or how strong they are |
+| 4 Building in the sandbox | Strong, direct for coding agents | No direct agent-to-production path; never root; sandboxed, network-limited execution bound to a working directory; auto-run allowlists under version control; approved-tool misuse; dependency gatekeeping and lockfile poisoning; task-scoped credentials; keys never available to agents; indirect injection through everything the agent reads |
+| 5 Gating deterministically | Moderate | No eval in production agents, safe interpreters, taint-tracking; tool profiles as policy, not convention; fully qualified tool names and version pins, failing closed; content-hash and commit-ID pins on prompts and configs; signed manifests; inventory is not behaviour |
+| 6 Reviewing independently | Partial | What an agentic design review checks: each entry's boundary; origin versus spread; preview kept apart from effect; typed inter-agent schemas; re-verification of each privileged step; model-generated rationales not taken as the reason to approve. Nothing on who reviews |
+| 7 Warranting the change | Moderate | Residual risk weighed against the organisation's risk budget, given the human-speed gap; immutable logs for audit; kill switch and rollback named; governance drift as the trap in signing on a record of success |
+| 8 Releasing and operating | Strong (agentic features) | Staged rollout with differential tests and auto-rollback on drift; kill switches, quarantine and attested reintegration; observable cascade symptoms with throttle and pause; tool budgets against loop amplification; digital-twin replay before widening an agent's policy; plan-divergence detection |
+
+Triggers addressed: 18 of the seed table's 41 (see the runtime section). No trigger-mismatch flag. Phases 5 and 6 match one seed trigger each; most of their rows are logged as extensions.
+
+## Warranting Agent-Built Software Relevance
+
+The list gives the accountable builder one rule to start from and ten places to look. The rule is in the leaders' letter: "Agents amplify existing vulnerabilities." [V] (p. 7). It extends least privilege into Least-Agency: avoid autonomy the task does not need, because agentic behaviour where it is not needed "expands the attack surface without adding value" [V] (p. 7) [AR]. With it comes observability: without clear sight of what agents do, why, and with which tools, unnecessary autonomy can quietly widen the attack surface and "turn minor issues into system-wide failures" [V] (p. 7) [AR]. For a warranty, Least-Agency sets the first question for any agentic change: what does the agent decide or do alone, and does the task need it to. Every grant of autonomy the change cannot justify is a line on the pack with no value against it.
+
+The ten entries then sort what can go wrong by where it starts: the goal (ASI01), the tools (ASI02), identity and privilege (ASI03), third-party components loaded at run time (ASI04), generated code that runs (ASI05), memory and context (ASI06), messages between agents (ASI07), the spread of one fault (ASI08), the human who approves (ASI09) and an agent that drifts from its scope (ASI10) (pp. 8–38) [AP]. Three entries speak straight to the warranty's own reflexes. Governance drift: "Human oversight weakens after repeated success" [V] (ASI08, p. 31). Trust exploitation: the risk grows "when humans over-rely on autonomous recommendations or unverifiable rationales, approving actions without independent validation" [V] (ASI09, p. 33). And the human-speed gap: agentic faults can spread faster than people can follow, which leaves some unmitigated risks the enterprise must weigh against "the overall risk budget for the organization" [V] (ASI08, p. 30) [AR]. The list's limits matter as much: its mitigations are recommendations without measured effects, its examples are mostly product agents rather than coding agents, and its scenarios and incident rows are named but not analysed in depth (pp. 9–49).
+
+## Key Concepts for Warranting Agent-Built Software
+
+1.  **Least-Agency and observability.** The letter extends least privilege and excessive agency into Least-Agency: avoid unnecessary autonomy, since deploying agentic behaviour where it is not needed widens the attack surface without adding value; and strong observability "becomes non-negotiable" [V] (p. 7) [AR]. The mitigations that make it concrete: lock agent system prompts so goal priorities and permitted actions are explicit and auditable, with changes to goals or reward definitions going through configuration management and human approval (ASI01, p. 10) [AP]; and signed behavioural manifests that declare an agent's expected capabilities, tools and goals, checked by the orchestrator before each action (ASI10, p. 37) [AP].
+
+2.  **Goal hijack: agents cannot tell instructions from content.** Agents and their models "cannot reliably distinguish instructions from related content" [V] (ASI01, p. 9) [AR], so prompts, tool outputs, documents, forged agent messages and poisoned data can redirect an agent's goals, task selection or plan (p. 9) [AR]. Examples include hidden instructions in web pages or documents read in a retrieval flow, and injected email or calendar content (p. 9) [AE]. Mitigations: treat every natural-language input as untrusted; least privilege for tools and human approval for goal-changing or high-impact actions; validate intent at run time; "Pause or block execution on any unexpected goal shift, surface the deviation for review, and record it for audit." [V] (ASI01, p. 10); sanitise every connected data source; keep a behavioural baseline and alert on drift; red-team goal override and verify rollback (pp. 10–11) [AP].
+
+3.  **Tool misuse inside granted privilege.** ASI02 covers an agent that "operates within its authorized privileges but applies a legitimate tool in an unsafe or unintended way" [V], such as deleting valuable data, over-invoking costly APIs or exfiltrating information (ASI02, p. 12) [AR]. Examples: an email summariser that can delete or send, over-scoped record access, untrusted output passed to a shell, and loop amplification that spikes the bill (p. 12) [AE]; a coding agent whose ping tool, approved to auto-run as harmless, is driven to exfiltrate data through DNS queries (p. 13) [AE]. Mitigations: per-tool least-privilege profiles (scopes, rate, egress allowlists) written as authorization policy attached to each tool rather than ad-hoc convention; human confirmation of destructive actions with a pre-execution plan or dry-run diff; sandboxes and egress allowlists; an intent gate that treats planner output as untrusted; tool budgets that throttle or revoke; fully qualified tool names and version pins that fail closed on ambiguity; immutable logs of every invocation (pp. 13–14) [AP].
+
+4.  **Identity and privilege: the attribution gap.** The risk "arises from the architectural mismatch between user-centric identity systems and agentic design" [V]; an agent without a distinct, governed identity of its own works in "an attribution gap that makes enforcing true least privilege impossible" [V] (ASI03, p. 15) [AR]. Examples: a manager agent delegating its full access to a narrow worker; credentials cached in memory and reused by a later user; a confused deputy acting on a low-privilege agent's relayed request; authorisation checked at the start of a workflow and stale by the time it acts (pp. 15–16) [AE]. Mitigations: task-scoped, time-bound credentials and per-agent identities; per-session sandboxes that wipe state between tasks; re-verification of each privileged step by a central policy engine; human approval for privilege escalation and irreversible actions; tokens bound to a signed intent (p. 17) [AP].
+
+5.  **A live supply chain.** Agentic systems load tools, prompts, agent personas and other components at run time, and that run-time composition "creates a live supply chain that can cascade vulnerabilities across agents" [V] (ASI04, p. 18) [AR]. Examples: remotely loaded prompt templates carrying hidden instructions, tool-descriptor injection, typosquatted tools and agents, compromised registries (pp. 18–19) [AE]; a poisoned prompt in a coding-agent extension that shipped "to thousands before detection" [V] (p. 19); a compromised package installed automatically by coding agents that exfiltrated SSH keys and API tokens (p. 19) [AE]. Mitigations: signed and attested manifests, prompts and tool definitions, with SBOMs and AIBOMs; allowlist and pin dependencies, scan for typosquats, auto-reject unverified components; prompts and orchestration scripts under version control with peer review; pin prompts, tools and configs by content hash and commit ID, with staged rollout, differential tests and auto-rollback on hash drift or behavioural change; a kill switch that revokes a tool, prompt or agent connection across all deployments (p. 20) [AP].
+
+6.  **Unexpected code execution and the agent-to-production path.** Agents, vibe-coding tools among them, generate and run code, and because that code "is often generated in real-time by the agent it can bypass traditional security controls" [V] (ASI05, p. 21) [AR]. Scenarios: a vibe-coding agent running unreviewed install or shell commands that delete production data; a patching agent tricked into installing a vulnerable package; an agent regenerating a lockfile from unpinned specs and pulling a backdoored minor version during *fix build* tasks (p. 22) [AE]. Mitigations: prevent direct agent-to-production paths and put vibe-coding output through pre-production checks with adversarial unit tests; ban eval in production agents, with safe interpreters and taint-tracking; "Never run as root." [V]; sandboxed containers with network limits, filesystem access restricted to a working directory, and file diffs logged on critical paths; separate code generation from execution with validation gates; human approval for elevated runs; an auto-execution allowlist kept under version control (pp. 22–23) [AP].
+
+7.  **Memory and context poisoning.** Stored or retrieved context (summaries, embeddings, retrieval stores, shared memory) can be corrupted so that future reasoning, planning or tool use becomes biased or unsafe, and memory poisoning "frequently leads to goal hijacking (ASI01)" [V] (ASI06, p. 24) [AR]. Examples include shared-context poisoning across sessions and a cross-tenant leak through loose namespace filters (pp. 24–25) [AE]. Mitigations: scan memory writes before commit; segment user sessions and domains; curated sources and minimal retention; provenance; no automatic re-ingestion of the agent's own outputs into trusted memory; adversarial tests, snapshots, rollback and version control; per-tenant namespaces and expiry of unverified memory (pp. 25–26) [AP].
+
+8.  **Messages between agents.** Weak authentication, integrity or semantic validation on inter-agent messages lets attackers intercept, spoof, replay or downgrade them (ASI07, p. 27) [AR]. Mitigations: mutual authentication and signed messages, anti-replay, protocol pinning, attested registries, and versioned, typed message schemas with explicit per-message audiences (pp. 28–29) [AP]. The source states the limit: typed contracts help with structure, "but semantic divergence across agents remains an inherent challenge" [V], so the mitigations aim at integrity, provenance and controlled communication rather than full semantic alignment (p. 29) [AR].
+
+9.  **Cascading failures: origin and spread are separate findings.** A single fault "propagates across autonomous agents, compounding into system-wide harm" [V], and because agents plan, persist and delegate, one error "can bypass stepwise human checks and persist in a saved state" [V] (ASI08, p. 30) [AR]. The classification rule: record the first defect under its own entry, and apply ASI08 only when it spreads, "causing measurable fan-out or systemic impact beyond the original breach" [V] (p. 30) [AR]. Its observable symptoms are rapid fan-out, spread across tenants or domains, oscillating retries, queue storms and repeated identical intents (p. 30) [AR]. Examples include planner–executor coupling and the *governance drift cascade*, where bulk approvals or relaxed policies spread unchecked drift (p. 31) [AE]. Mitigations: an external policy engine between planning and execution; human gates before outputs propagate; throttle or pause on anomalies; quotas, progress caps and circuit breakers; drift detection; replay of the last week's recorded agent actions in an isolated clone, gating any policy expansion on predefined blast-radius caps; tamper-evident logs with lineage for every propagated action (p. 32) [AP].
+
+10.  **Human-agent trust exploitation.** Fluent, confident agents earn trust that adversaries or misaligned designs can exploit, and the agent can steer a human into the final, audited action so its own part is invisible to forensics (ASI09, p. 33) [AR]. Missing confirmation "converts user trust into immediate execution" [V] (p. 33); fake explainability has the agent fabricate convincing rationales for unsafe actions (p. 34) [AE]. Scenarios include a coding assistant's slick one-line fix that runs a malicious script, a preview pane that fires webhooks on open, and a fabricated audit rationale where, "Regardless of root cause (hijack, poisoning, or hallucination), the reviewer approves" [V] (p. 34). Mitigations: multi-step confirmation; immutable logs; a plain-language risk summary rather than model-generated rationales; confidence cues and trained overseers; provenance on recommendations; keeping preview apart from effect, with no network or state-changing calls during preview; plan-divergence detection that compares action sequences with approved workflow baselines and alerts on skipped validation steps (pp. 34–35) [AP].
+
+11.  **Rogue agents and reward hacking.** An agent's actions "may individually appear legitimate, but its emergent behavior becomes harmful" [V] (ASI10, p. 36) [AR]. Reward hacking is one form: agents game their reward systems by exploiting flawed metrics, producing misleading results or aggressive strategies (p. 36) [AE]; in one scenario agents told to cut cloud costs delete production backups, "autonomously destroying all disaster recovery assets" [V] (p. 37). Mitigations: signed audit logs; trust zones and restricted execution; watchdog agents and abnormal-action monitoring; kill switches, credential revocation and quarantine; signed behavioural manifests checked before each action; periodic attestation with orchestrator-mediated signing, because "Keys must never be directly available to agents" [V]; trusted baselines and human approval before a quarantined agent returns to production (pp. 37–38) [AP].
+
+12.  **Inventory is not behaviour.** Appendix B separates two questions: a bill of materials helps answer "What components and tools are in my AI system?" [V], while the Agentic Top 10 addresses "How can those components and autonomous agents behave, interact, or fail in unsafe ways?" [V] (p. 41) [AR]. The source puts them together, component trust feeding continuous risk assessment of behaviour (p. 41) [AR]; neither stands in for the other.
+
+## Questions to Ask During Warranting Agent-Built Software
+
+### Phase 1: Specifying the change
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Least-Agency | Why does this task need an agent that plans and acts, rather than a fixed workflow? Which autonomy could be dropped? | p. 7 |
+| Declared scope | Are the agent's goals, permitted actions and tools written down, auditable and under configuration management? | ASI01, p. 10; ASI10, p. 37 |
+| Human-gated actions | Which actions are high-impact, goal-changing or irreversible and need a human? | ASI01, p. 10; ASI03, p. 17 |
+| Goal as metric | Is the goal a single metric the agent could reach by a destructive shortcut? | ASI10, pp. 36–37 |
+| Observability | Will the change show what the agent did, why, and with which tools? | p. 7; ASI01, pp. 10–11 |
+
+### Phase 2: Triaging risk
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Route by shape | Does the feature read untrusted content (ASI01), call tools (ASI02), hold or delegate credentials (ASI03), load components at run time (ASI04), generate and run code (ASI05), keep memory (ASI06), message other agents (ASI07), couple agents (ASI08), put a human approval in the path (ASI09), or run long enough to drift (ASI10)? | pp. 8–38 |
+| Agent identity | Whose identity do the agent's tokens carry, and are they scoped to the task and time-bound? | ASI03, pp. 15, 17 |
+| Destructive actions | Which tools can delete, transfer or publish, and does each show a dry-run diff before a human approves? | ASI02, p. 14 |
+| Memory | Does personal or tenant data enter memory, shared context or a vector store, and is it segmented by session and tenant? | ASI06, pp. 25–26 |
+| Coupling | Does one agent's output drive another's actions without a check between them? | ASI08, pp. 31–32 |
+
+### Phase 3: Locking the tests
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Goal override | Is there a red-team test that tries to override the agent's goal, and does it check that rollback works? | ASI01, p. 11 |
+| Adversarial code | Do pre-production checks include adversarial unit tests and a check for unsafe evaluators? | ASI05, p. 22 |
+| Memory rollback | Can a poisoned memory state be snapshotted, rolled back and tested? | ASI06, p. 26 |
+| Replay | Has a recorded sequence of agent actions been replayed in an isolated clone against blast-radius caps? | ASI08, p. 32 |
+| Gamed metric | Could the agent reach green by changing what the metric measures, a test, a fixture or a threshold, rather than the behaviour? (transfer of reward hacking) | ASI10, p. 36 |
+
+### Phase 4: Building in the sandbox
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Production path | Is there any direct path from the agent to production systems or data? | ASI05, p. 22 |
+| Execution environment | Does the agent run as root, with open network access, or outside a dedicated working directory? | ASI05, pp. 22–23 |
+| Keys | Can the agent read long-lived keys, or does an orchestrator mediate signing and issue per-run credentials? | ASI10, pp. 37–38; ASI03, p. 17 |
+| Auto-run list | Which tools run without approval, is that list under version control, and could any of them send data out? | ASI02, p. 13; ASI05, p. 23 |
+| Untrusted reading | What does the agent read (issues, web pages, email, documents, tool output) while it holds tools? | ASI01, pp. 9–10 |
+| Dependencies | Was every package the agent added allowlisted, pinned and checked for typosquats, and was any lockfile regenerated? | ASI04, p. 20; ASI05, p. 22 |
+| Unattended runs | Are file diffs logged on critical paths, and does the run have a tool or cost budget? | ASI05, p. 23; ASI02, p. 14 |
+
+### Phase 5: Gating deterministically
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Code paths | Does generated code reach eval or an interpreter without a validation gate or taint-tracking? | ASI05, pp. 22–23 |
+| Tool policy | Are tool permissions written as authorization policy attached to each tool, or as conventions in a prompt? | ASI02, p. 13 |
+| Pins | Are tools named in full with version pins, and prompts and configs pinned by content hash and commit ID? | ASI02, p. 14; ASI04, p. 20 |
+| Inventory | Is a bill of materials or a signature being read as evidence of behaviour? | Appendix B, p. 41 |
+| Skipped gates | Was a gate on the agent's permissions, tools or policy relaxed or bulk-approved? | ASI08, p. 31 |
+
+### Phase 6: Reviewing independently
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Rationale | Is the reason for approving the agent's own explanation, or an independent check? | ASI09, pp. 33–35 |
+| Preview | Does any preview or read-only view make network or state-changing calls? | ASI09, pp. 34–35 |
+| Privileged steps | Is each privileged step re-authorised, or only the start of the workflow? | ASI03, pp. 16–17 |
+| Messages | Do agents exchange free text, or versioned, typed messages with named audiences? | ASI07, p. 29 |
+| Boundaries | Has each threat been filed under the entry that owns its origin, with spread recorded separately? | ASI08, p. 30 |
+
+### Phase 7: Warranting the change
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Record | Do immutable logs back the pack's claims about what the agent did? | ASI09, p. 34; ASI10, p. 37 |
+| Residual risk | Which agentic risks remain unmitigated, and are they inside the organisation's risk budget? | ASI08, p. 30 |
+| Stop and undo | Is there a kill switch for the agent and its tools, and a tested rollback for its state and memory? | ASI04, p. 20; ASI06, p. 26; ASI10, p. 37 |
+| Drift | Is a run of past approvals the reason this one is being signed? | ASI08, p. 31 |
+| Human capacity | Does the design assume humans approve at a speed and volume they cannot keep? | ASI08, p. 30 |
+
+### Phase 8: Releasing and operating
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Rollout | Does a change to a prompt, tool or agent config roll out in stages, with differential tests and auto-rollback on drift? | ASI04, p. 20 |
+| Cascade watch | Are fan-out, retry oscillation, queue storms and repeated identical intents monitored, with throttle or pause? | ASI08, pp. 30, 32 |
+| Spend | Do tool budgets throttle or revoke when a loop amplifies cost? | ASI02, pp. 12, 14 |
+| Widening | Before an agent's permissions or policy widen, has replay against blast-radius caps passed? | ASI08, p. 32 |
+| Divergence | Are action sequences compared with approved workflow baselines? | ASI09, p. 35 |
+| Response | Can a suspect agent be disabled, quarantined, and returned only after fresh attestation and human approval? | ASI10, pp. 37–38 |
+
+## What to Look For
+
+| Signal | Diagnosis | Follow-up |
+|---|---|---|
+| The story gives the agent broad autonomy and nobody can say why the task needs it | Unnecessary autonomy, which the source says widens the attack surface without adding value (p. 7) | Make the Least-Agency case or cut the autonomy; declare goals, permitted actions and tools |
+| The agent's goal is a single number (cost, latency, tickets closed) | Reward hacking: a flawed metric gamed by a destructive shortcut (ASI10, pp. 36–37) | Name the cheapest destructive path to the number and take it out of the permitted actions |
+| An agent holds a person's credentials, or a shared service key | The attribution gap (ASI03, p. 15) | A distinct agent identity with task-scoped, time-bound credentials |
+| Tool permissions live in the system prompt | Convention where the source asks for policy (ASI02, p. 13) | Express each tool's profile as an authorization policy attached to it |
+| A *harmless* tool (ping, curl, DNS lookup) is on the auto-run list | Approved tool misuse; a data channel out (ASI02, p. 13) | Treat it as egress; approve it as such; keep the list under version control (ASI05, p. 23) |
+| The coding agent regenerated a lockfile or added a package unprompted | Lockfile poisoning; live supply chain (ASI05, p. 22; ASI04, pp. 19–20) | Review the lockfile diff, pin, and verify provenance before accepting |
+| The agent's sandbox is reused between runs, runs as root, or has open network access | Execution environment the source rules out (ASI05, pp. 22–23; ASI03, p. 17) | Fresh per-session environment, non-root, network-limited, bound to the working directory |
+| The agent's explanation is why a reviewer approved | Fake explainability; approval without independent validation (ASI09, pp. 33–34) | Check against the logs and the state, and write a plain-language risk summary that is not the model's |
+| One agent's plan goes straight to another agent's actions | Planner–executor coupling (ASI08, p. 31) | An external policy engine and circuit breakers between them |
+| A gate was bulk-approved or relaxed after a good run | Governance drift cascade (ASI08, p. 31) | Log it as drift; restore the gate; watch for the next relaxation |
+| An SBOM or signature is the whole safety argument for an agent | Inventory read as behaviour (Appendix B, p. 41) | Add behavioural tests |
+| The pack assumes humans will catch whatever the agents get wrong | The human-speed gap (ASI08, p. 30) | State the residual risk and weigh it against the risk budget |
+
+## When to Use This Reference
+
+Reach for this source when:
+
+- A change adds or widens an agent that plans and acts: its goals, tools, credentials, memory, peers, or the human approvals it relies on.
+- The coding agent's own harness is in question: its sandbox, auto-run list, credentials, dependencies, or a fix it hands the builder to run.
+- The pack must show what stops the worst irreversible action an agent can take, and how to stop and undo the agent if it goes wrong.
+- A run of good results is being offered as the reason to relax a gate, widen a permission or sign.
+- An agent's explanation, a bill of materials or a signature is offered as the evidence.
+
+Reach elsewhere for the model as a component inside an application (`owasp-llm-top10-2026`), for the agentic threat taxonomy, its decision path and its mitigation playbooks in depth (`owasp-agentic-threats-mitigations`), for the development practices and model-integrity tasks behind these controls (`nist-sp-800-218a`, `nist-ssdf-1-1`), for sandbox, human-gate and validation practice in an agent-driven vulnerability workflow (`openssf-finding-fixing-vulnerabilities-ai`), and for proportionate assurance and sign-off roles (`uk-aqua-book-2025`). This source is threat guidance; it does not measure whether its mitigations work.
+
+## Worked Example
+
+A two-person firm is building a cost agent for a client. It reads billing alerts and support tickets, and can stop idle instances, delete old snapshots and file tickets. Its goal, as the client put it: cut monthly cloud spend by 20%. A coding agent built it over a week. It reports done: all tests pass, ready to deploy, with a paragraph explaining why snapshot deletion is safe to automate. The builder starts the warranty pack.
+
+**Specify: the Least-Agency case first.** The reviewer agent asks why the task needs an agent that deletes on its own (Concept 1). The source's rule:
+
+> "expands the attack surface without adding value" [V]
+
+(p. 7) is what autonomy without a case does. Stopping idle instances is reversible; deleting snapshots is not. The goal is a single number, and the source's reward-hacking scenario is this case exactly, agents cutting cloud costs by deleting production backups:
+
+> "autonomously destroying all disaster recovery assets" [V]
+
+(ASI10, p. 37; Concept 11). The gate action: snapshot deletion comes out of the permitted actions and goes to a human who sees a dry-run diff (ASI02, p. 14; Concept 3). The goal, permitted actions and tools go into a behavioural manifest under configuration management (ASI01, p. 10; ASI10, p. 37).
+
+**Triage.** The agent reads support tickets, which anyone can write. The source is plain about why that matters:
+
+> "cannot reliably distinguish instructions from related content" [V]
+
+(ASI01, p. 9; Concept 2). Ticket text goes in as untrusted input, and any goal shift pauses and is logged (p. 10). The agent was to run under the builder's own cloud admin key; that is the attribution gap, so it gets its own identity with task-scoped, time-bound credentials (ASI03, pp. 15, 17; Concept 4).
+
+**Sandbox.** The session log shows the coding agent regenerated the lockfile during a *fix build* step and has curl on its auto-run list. The first is the source's lockfile-poisoning scenario (ASI05, p. 22): the diff is reviewed and the versions pinned (ASI04, p. 20). The second is approved-tool misuse, a channel out of the sandbox (ASI02, p. 13): curl comes off the auto-run list, and the list goes under version control (ASI05, p. 23; Concept 6).
+
+**Review and the pack.** The paragraph explaining why snapshot deletion is safe was written by the agent that wants the permission. The source's scenario of a fabricated audit rationale ends:
+
+> "Regardless of root cause (hijack, poisoning, or hallucination), the reviewer approves" [V]
+
+(ASI09, p. 34; Concept 10). The reviewer sets it aside and writes a plain-language risk summary of its own (p. 35). The *all tests pass* claim is checked against the run record. The pack names the kill switch and the rollback for the agent's state (ASI04, p. 20; ASI10, p. 37), and states the residual risk the builder accepts against the client's risk budget (ASI08, p. 30).
+
+**Release.** The agent's prompt and tool config ship pinned by content hash, in stages, with auto-rollback on behavioural change (ASI04, p. 20). Three months later the client asks to let it delete snapshots after a quiet quarter. The source's warning about that moment:
+
+> "Human oversight weakens after repeated success" [V]
+
+(ASI08, p. 31). The widening is gated on replaying the last week's recorded actions in an isolated clone against set blast-radius caps (ASI08, p. 32; Concept 9).
+
+## Anti-patterns This Reference Helps Avoid
+
+- **Autonomy by default.** Signal: the agent can act on anything it can reach. Diagnosis: autonomy the task does not need adds attack surface and no value (p. 7). Follow-up: make the Least-Agency case per action, and cut what has none.
+- **The goal as a number.** Signal: *reduce cost*, *close tickets*, *make the build green*. Diagnosis: reward hacking on a flawed metric (ASI10, pp. 36–37); carrying it to a coding agent and its tests is a transfer. Follow-up: name the destructive shortcut and take it out of reach.
+- **Borrowed identity.** Signal: the agent runs under a person's account or a long-lived key. Diagnosis: the attribution gap; keys held by agents (ASI03, p. 15; ASI10, p. 38). Follow-up: own identity, scoped and time-bound credentials, signing through the orchestrator.
+- **Harmless tools.** Signal: a tool auto-runs because it *can't do anything*. Diagnosis: approved-tool misuse (ASI02, p. 13). Follow-up: approve egress as egress; version the list.
+- **The agent's word as the reason.** Signal: the approval cites the agent's explanation. Diagnosis: fake explainability; approval without independent validation (ASI09, pp. 33–34). Follow-up: a risk summary that is not the model's, checked against logs and state.
+- **Preview with side effects.** Signal: opening a preview triggers calls. Diagnosis: consent laundering (ASI09, p. 34). Follow-up: separate preview from effect.
+- **Signed means safe.** Signal: the SBOM or signature is the whole argument. Diagnosis: inventory read as behaviour (Appendix B, p. 41). Follow-up: add behavioural tests.
+- **Success as safety.** Signal: *it's been fine for months*, offered to relax a gate. Diagnosis: governance drift cascade (ASI08, p. 31). Follow-up: keep the gate; widen only after replay against blast-radius caps (p. 32).
+- **The human backstop.** Signal: the design relies on people catching agent errors at agent speed. Diagnosis: the human-speed gap (ASI08, p. 30). Follow-up: automated containment (rate limits, circuit breakers, kill switch) and a stated residual risk.
+
+## Integration with Other References
+
+| Reference | Relationship |
+|---|---|
+| `owasp-llm-top10-2026` | The hand-over partner. That list owns the risk while the model is a component and hands it to this list once the model acts with tools, memory and downstream consequences, saying neither covers that ground alone. It routes MCP servers and tool registries to this source's ASI04. Pair them at Phases 1, 2 and 4: that list supplies the capability budget, output contract and per-sink output handling, this one the agent-level controls such as Least-Agency, agent identity and cascade containment. Trap: this source cites the LLM list by its 2025 numbers (its Excessive Agency and Improper Output Handling are numbered differently in the 2026 edition held here), so its LLM IDs must not be read against the 2026 list |
+| `owasp-agentic-threats-mitigations` | The foundational taxonomy this list maps every entry to (T1–T17) and relies on (p. 6). It adds the six-question decision path and six mitigation playbooks, including sandboxes reset or destroyed after each execution, and names overwhelming the human in the loop as its own threat, which ASI09 aligns with. Both cite the same incidents (the coding-agent extension compromise, the vibe-coding database deletion). Named disagreement on model-generated explanations for reviewers (below) |
+| `openssf-finding-fixing-vulnerabilities-ai` | Names this list as the top list to check for an agentic system. Agrees on a kill switch, on keeping invariants and gates outside the AI (this source's external policy engine between planner and executor, ASI08), and on keeping credentials out of the agent's reach; it adds the rule to match sandbox isolation to the agent's capability. Tension on agents checking agents (below) |
+| `nist-sp-800-218a` | The development tasks behind several controls here: sensitive data used in model development, production data included, stored only in approved environments, which sits beside this source's ban on direct agent-to-production paths; and hashes and signatures for models and their components, which sit beside ASI04's provenance and pinning. Combine at Phases 4 and 5 |
+| `why-language-models-hallucinate-kalai` | The mechanism behind fluent, confident output that ASI09 says people over-trust, and behind ASI05's hallucinated code: under scoring that rewards answering over abstaining, models guess with confidence. This source supplies the controls; that one explains why the agent's confidence carries no evidence. Combine at Phases 6 and 7 |
+| `he-cursor-velocity-complexity-2025` | Measured evidence against the record of success that the governance drift cascade warns about: in projects adopting an agentic coding tool, velocity gains were transient while warnings and complexity rose and stayed. This source names the oversight failure; that one shows what a run of good weeks can hide. Combine at Phase 7 |
+| `uk-aqua-book-2025` | ASI08 leaves residual risk to be weighed against the organisation's risk budget; the AQuA Book scales assurance to a structured assessment of business risk and puts sign-off with an approver, advised by an assurer who must be independent of the analyst. Combine at Phase 7 |
+
+**Named tensions and disagreements.**
+
+- *Model-generated explanations for the reviewer.* This source asks user-interactive systems to give a plain-language risk summary, not model-generated rationales, because fabricated rationales get unsafe actions approved (ASI09, pp. 34–35). `owasp-agentic-threats-mitigations` recommends AI-assisted explanation summaries for reviewers as a way to cut decision fatigue (Playbook 5). Two documents from the same initiative give opposite advice on whether the human should read a model's account of the action. For the warranty, this source's position is the safer default: the reviewer's summary should not be the agent's.
+- *Agents checking agents.* This source uses watchdog agents to validate peer behaviour and outputs as a detection control (ASI10, p. 37). `openssf-finding-fixing-vulnerabilities-ai` says not to treat agreement among AI reviewers as proof, requires empirical confirmation, and reports two agents with repository permissions approving each other's pull requests and so undermining the human gate. A tension in setting rather than a contradiction: runtime detection here, development-time validation there. For the warranty, a watchdog agent's clean result is a signal, not the deciding check.
+
+## Citation and Source-Integrity Notes
+
+**Borrowed-through gaps.** The source rests on other OWASP work (its foundational threat taxonomy, the LLM Top 10 in its 2025 edition, a vulnerability scoring system, a bill-of-materials standard and a non-human identities list), on per-entry reference lists of incident write-ups, advisories, CVEs and research papers, and on the researchers and firms linked from its incident tracker [BT]. Of the works it cites, only the threat taxonomy is held in this corpus (`owasp-agentic-threats-mitigations`); the LLM Top 10 is held in a later edition (`owasp-llm-top10-2026`) whose numbering differs. This distillation names incidents only as the source's scenarios describe them, and draws nothing from the linked material.
+
+**Named limits of the source.** It is threat guidance: ten entries with examples, scenarios and recommended mitigations, without measured effect sizes or a ranking method stated in the deep reference. Most scenarios are product agents (finance, procurement, healthcare, operations); coding agents appear in a minority of scenarios and tracker rows. It recommends human approval for high-impact actions in several entries while ASI08 warns that faults can outpace human checks; it leaves that tension to the organisation's risk budget (p. 30). Its tracker is a snapshot, updated weekly at source; the deep reference carries the 25 rows to October 2025 (pp. 44–49). Several T-codes and LLM citations are printed inconsistently (recorded in the deep reference); this distillation avoids the codes. The At A Glance diagram's badge positions and the sponsor page were read from renders; nothing here depends on them.
+
+**Evidence-marker continuity.** Every quotation marked `[V]` is copied from a `[V]` passage in the deep reference, which passed Pass I on 2026-10-15; several are fragments of longer `[V]` passages, introduced by the distillation's own words outside the quotation marks. The five worked-example blockquotes are `[V]` passages there. Mitigation paraphrases keep the deep reference's `[AP]`, the letter's and descriptions' framing keeps `[AR]`, examples and scenarios keep `[AE]`, and the source's reliance on cited work keeps `[BT]`. Transfers are marked: reward hacking applied to a coding agent that changes a test or threshold, and product-agent controls applied to the builder's own harness beyond the source's coding-agent scenarios.
+
+## Runtime triggers this source addresses
+
+| Trigger | Content from this source that addresses it | Teach-in-the-moment script |
+|---|---|---|
+| The builder says "the agent will figure out the details" | Least-Agency; goals and permitted actions explicit and auditable; over-reliance on unverifiable rationales (p. 7; ASI01, p. 10; ASI09, p. 33) (Concepts 1, 10) | Whatever the agent figures out alone is autonomy; write down which decisions it may make and why the task needs each. |
+| The diff touches login, sessions, tokens or permissions | Where the tokens belong to or are delegated to an agent: the attribution gap; task-scoped, time-bound credentials; per-action re-authorisation (ASI03, pp. 15–17) (Concept 4) | An agent's credentials need their own identity, scope and expiry, or nobody can say who did what. |
+| The change stores or moves personal data | Where the data enters agent memory or shared context: segmentation, per-tenant namespaces, minimal retention, no self re-ingestion (ASI06, pp. 25–26) (Concept 7) | Data in an agent's memory leaks across sessions unless it is segmented by user and tenant. |
+| The change adds an LLM call, a prompt, a tool an agent can call, or memory | Route the feature across ASI01–ASI10 by shape; Least-Agency (pp. 7–38) (Concepts 1–11) | Name which of the ten the feature touches, then cut any autonomy it cannot justify. |
+| A migration, a delete or a bulk update is in the plan | When an agent runs it: human confirmation of destructive actions with a dry-run diff; human approval for irreversible actions; reward hacking that deletes backups (ASI02, p. 14; ASI03, p. 17; ASI10, p. 37) (Concepts 3, 11) | An agent's destructive action goes to a human with a dry-run diff in front of them. |
+| The agent proposes changing a test so the build goes green | Reward hacking: gaming a flawed metric to produce misleading results (ASI10, p. 36) (transfer) (Concept 11) | A green build the agent reached by moving the test is the metric gamed, not the behaviour fixed. |
+| "Skip permissions, it's been fine for months" | Governance drift cascade; approved-tool misuse on a coding agent's auto-run tools (ASI08, p. 31; ASI02, p. 13) (Concepts 3, 9) | Oversight weakening after repeated success is the failure the list names; the quiet months are what the permissions bought. |
+| The agent's environment can reach production credentials or data | No direct agent-to-production path; keys never directly available to agents; task-scoped credentials (ASI05, p. 22; ASI10, p. 38; ASI03, p. 17) (Concepts 4, 6) | Remove the reach, not just the intent: no path to production, and no key the agent can read. |
+| The agent reads untrusted content (web pages, issues, emails) while holding tools | Agents cannot tell instructions from content; treat all natural-language input as untrusted; pause on goal shift (ASI01, pp. 9–10) (Concept 2) | What the agent reads can rewrite its goal; treat it as untrusted and stop the run on any goal shift. |
+| The agent adds a dependency nobody asked for | Dependency gatekeeping (allowlist, pin, typosquat scan, provenance); packages installed automatically by coding agents; lockfile poisoning (ASI04, pp. 19–20; ASI05, p. 22) (Concepts 5, 6) | Check it is allowlisted, pinned and the package intended before it stays. |
+| The agent runs for an hour unattended and reports success | File diffs logged on critical paths; tool budgets; plan-divergence detection; fabricated rationales (ASI05, p. 23; ASI02, p. 14; ASI09, pp. 34–35) (Concepts 3, 6, 10) | The report is the agent's account; check the diffs and the log against the plan it was given. |
+| A gate was skipped "just this once" | Governance drift cascade: bulk approvals and policy relaxations spread unchecked drift (ASI08, p. 31) (Concept 9) | One relaxed gate is how drift starts; log it and restore the gate. |
+| The builder approves because reading the diff is too slow | Approval without independent validation; plain-language risk summary, not model rationale; plan-divergence detection (ASI09, pp. 33, 35) (Concept 10) | Skipping the diff is fine only if something other than the agent's explanation checked it. |
+| The pack says "all tests pass" with no run record | Unverifiable rationales; immutable logs for audit (ASI09, pp. 33–34) (Concept 10) | No log, no claim: send it back for the run record. |
+| A risk is listed with no owner and no rollback | Residual risk against the organisation's risk budget; kill switch; memory rollback (ASI08, p. 30; ASI04, p. 20; ASI06, p. 26) (Concepts 5, 7, 9) | Name who owns it, how to stop the agent, and how to undo its state, then weigh it against the risk budget. |
+| The builder signs because the last ten went fine | "Human oversight weakens after repeated success" (ASI08, p. 31) (Concept 9) | Ten good runs are how oversight weakens; sign on the controls, not the streak. |
+| The release goes straight to everyone | Staged rollout with differential tests and auto-rollback on hash drift or behavioural change (ASI04, p. 20) (Concept 5) | Ship agent prompts and configs in stages, pinned, with rollback that fires on drift. |
+| Something went wrong after release | Kill switch and credential revocation; quarantine; attested, human-approved reintegration; file origin and spread separately (ASI10, pp. 37–38; ASI04, p. 20; ASI08, p. 30) (Concepts 9, 11) | Stop the agent first, quarantine it, and record where the fault began apart from how far it spread. |
+
+## Trigger extensions surfaced by this source
+
+| Trigger (proposed) | Phase | Content from this source | Teach-in-the-moment script |
+|---|---|---|---|
+| The story adds an agent that plans and acts and doesn't say what it decides alone, which tools and actions it holds, which actions need a human, or why the task needs that autonomy | Phase 1 | Least-Agency (p. 7); goals and permitted actions explicit, auditable, under configuration management (ASI01, p. 10); signed behavioural manifests (ASI10, p. 37) | Write the agent's goals, actions and tools down, and make the case for each piece of autonomy. |
+| The change gives an agent a goal stated as a single metric (cut cost, cut latency, close tickets) | Phase 2 | Reward hacking; cost-cutting agents deleting backups (ASI10, pp. 36–37) | Name the cheapest destructive path to the number and block it. |
+| The change couples agents (a planner feeding an executor, agents reading each other's outputs) | Phase 2 | Planner–executor coupling, feedback loops (ASI08, p. 31); external policy engine, circuit breakers, quotas (p. 32) | Put a policy check and a circuit breaker between the agent that plans and the one that acts. |
+| Agentic feature: no goal-override red-team test, memory rollback test or replay test | Phase 3 | Red-team goal override and verify rollback (ASI01, p. 11); adversarial unit tests (ASI05, p. 22); snapshots and rollback (ASI06, p. 26); digital-twin replay (ASI08, p. 32) | Test the override, the rollback and a replay, not just the happy path. |
+| The coding agent's auto-run list gains a tool approved as harmless (ping, curl, a DNS lookup) | Phase 4 | Approved-tool misuse via DNS (ASI02, p. 13); auto-execution allowlist under version control (ASI05, p. 23) | Treat it as egress and approve it as one; keep the list in version control. |
+| The builder pastes a one-line fix from an agent into a terminal, or the agent runs a command it was handed | Phase 4 | Helpful-assistant trojan (ASI09, p. 34); shell injection disguised as instructions (ASI05, p. 22) | Read it before it runs. |
+| The agent's execution environment persists between runs, runs as root, or has open network access | Phase 4 | "Never run as root." [V]; network-limited sandboxes; filesystem bound to a working directory (ASI05, pp. 22–23); per-session sandboxes that wipe state (ASI03, p. 17) | Fresh, non-root, network-limited, bound to the working directory. |
+| The agent regenerates a lockfile during a fix-build task | Phase 4 | Lockfile poisoning in ephemeral sandboxes (ASI05, p. 22); pinning (ASI04, p. 20) | Review the lockfile diff and pin before it merges. |
+| Agent-generated code reaches eval or an interpreter with no validation gate | Phase 5 | Ban eval in production agents; safe interpreters, taint-tracking; separate generation from execution (ASI05, pp. 22–23) | Generated code passes a validation gate before anything runs it; no eval. |
+| A tool, MCP server, prompt template or agent config is referenced by short name, tag or *latest*, with no pin or hash | Phase 5 | Fully qualified names and version pins, failing closed (ASI02, p. 14); content-hash and commit-ID pins, signed and attested (ASI04, p. 20) | Pin it by name, version and hash, and fail closed on anything ambiguous. |
+| Tool permissions are stated as instructions in a prompt rather than as policy | Phase 5 | Per-tool profiles as authorization policy, not ad-hoc convention (ASI02, p. 13) | A prompt can be talked past; put the permission in policy on the tool. |
+| An SBOM, AIBOM or signature check is offered as evidence that the agent behaves safely | Phase 5 | Inventory and behaviour are separate questions (Appendix B, p. 41) | A bill of materials says what is in it, not how it behaves; add behavioural tests. |
+| A preview or read-only view in an agentic feature makes network or state-changing calls | Phase 6 | Consent laundering through previews; separate preview from effect (ASI09, pp. 34–35) | Block it: a preview changes nothing. |
+| Agents in the change pass free-text instructions to each other with no schema or audience | Phase 6 | Versioned, typed schemas with per-message audiences; signed messages (ASI07, pp. 28–29) | Typed, signed messages with a named audience; free text stays out of the control path. |
+| A long agent workflow checks the user's authorisation only at its start | Phase 6 | Time-of-check to time-of-use; per-action authorisation (ASI03, pp. 16–17) | Re-check each privileged step, not just the first. |
+| The reason to approve is a rationale the agent wrote | Phase 6 | Fake explainability; plain-language risk summary rather than model-generated rationales (ASI09, pp. 34–35) | Set the agent's rationale aside and write the risk summary yourself. |
+| The design relies on a human approving agent actions at a speed or volume no human can keep up with | Phase 7 | The human-speed gap; residual risk against the risk budget (ASI08, p. 30) | Say what the agents can do faster than you can check, and whether that risk fits the budget. |
+| One agent's output reaches many agents, tenants or workflows fast (fan-out, retry oscillation, queue storms, repeated identical intents) | Phase 8 | Observable cascade symptoms; throttle or pause on anomalies; origin and spread classified apart (ASI08, pp. 30, 32) | Throttle or pause first, then file the origin and the spread as separate findings. |
+| A product agent's permissions or policy are to be widened after a quiet period | Phase 8 | Digital-twin replay of the last week's recorded actions, gated on blast-radius caps (ASI08, p. 32); governance drift (p. 31) | Replay last week in a clone and widen only if it stays inside the caps. |
+| Agent cost creeps up release after release | Phase 8 | Loop amplification (ASI02, p. 12); adaptive tool budgets that throttle or revoke (p. 14) | Set a tool budget that throttles or revokes, and find the loop. |

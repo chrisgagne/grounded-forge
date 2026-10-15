@@ -1,0 +1,145 @@
+{
+  "section": "Runtime listeners: Phase 8",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "The release goes straight to everyone",
+      "Put a smoke gate after each deployment stage that stops the chain on failure; the playbook's canary and blue/green advice is written for fault-injection experiments, so a staged rollout stays a harness rule (`microsoft-code-with-engineering-playbook`) • Require human approval for deploying and modifying production, enforced in the tool, and a kill switch for the agents; staging the rollout stays a harness rule (`openssf-finding-fixing-vulnerabilities-ai`) • For agent prompts, tools and configs: pin by content hash and roll out in stages with differential tests and auto-rollback on hash drift or behavioural change (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "There is no service-level target, so every alert is urgent",
+      "Write availability as an uptime requirement with its allowed downtime before triaging alerts (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "Warnings and code complexity climb release after release",
+      "Set maintainability thresholds (complexity, coverage, churn) and check them each release (`microsoft-code-with-engineering-playbook`) • Set a review date and an owner for the system in use: analysis in ongoing use should be regularly re-checked under robust change control. The source names no code-quality metric (`uk-aqua-book-2025`) • For warnings, restore the gate: warnings are errors except identified false positives, and approved build settings are continuously verified (`nist-ssdf-1-1`). The source is silent on complexity • Track both against the pre-agent baseline and code size, and schedule the paydown before it slows the work: in adopting projects warnings and complexity rose and stayed while velocity gains were transient (`he-cursor-velocity-complexity-2025`) [D3]"
+    ],
+    [
+      "Throughput rose with AI assistance and so did instability",
+      "Track change fail rate and rework rate beside throughput and fix the harness: higher AI adoption is associated with higher throughput and higher instability, with no moderating effect on instability's harms (`dora-ai-assisted-swdev-2025`)"
+    ],
+    [
+      "Something went wrong after release",
+      "Return the fix until it is a regression test in the full plan and the bug is linked to the change that introduced it (`microsoft-code-with-engineering-playbook`) • Require a test that would have caught it before the fix lands; the source gives every identified error a test and asks for errors logged in production (`uk-duck-book-qa-of-code`) • Ask why the assurance let it through, as well as what broke: leaders should build processes for reporting failures and reviewing failures in the assurance process, as a department did after a funding-formula error (`uk-aqua-book-2025`) • Rate and respond by risk, then find the root cause, sweep the class, add a toolchain detection and update the process (`nist-ssdf-1-1`) • Find the root cause, look for patterns, sweep the software for the same class and update the process so it does not recur (`nist-sp-800-218a`) • For a security incident, respond under the incident practice and, if it arrived as a report, within the disclosure programme's timelines: monitoring and responding to suspected and confirmed incidents, and addressing disclosed vulnerabilities in a timely fashion, are attested practices (`cisa-secure-software-attestation-form`) • Write the failing test, fix the root cause, search for variants, update the threat model and leave a check that runs on every change (`openssf-finding-fixing-vulnerabilities-ai`) • Start from the security log: entries carry when, where, who and what (16.2.1), authentication and failed authorization events are logged (16.3.1, 16.3.2), and logs are protected and sent to a separate system (16.4.2, 16.4.3) (`owasp-asvs-5-0`) • If data may have left through a model channel, run the disclosure playbook: scope by data class and affected subject, then clean vectors, caches and persistent memory, not only the code (`owasp-llm-top10-2026`) • Where an agent was involved, contain first: isolate it with its communication history and memory, revoke or downgrade its privileges, roll memory back to a validated state, then trace the knowledge lineage (`owasp-agentic-threats-mitigations`) • Where an agent took part: disable it with the kill switch and revoke its credentials, quarantine it, and return it only with fresh attestation and human approval; file the first defect and its spread as separate findings (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The change ships with no diagnostics, and a failure cannot be traced across services",
+      "Require the done item for diagnostics and telemetry: parameters logged at startup, correlation IDs across systems (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "A bug is fixed with no regression test and no link to the change that introduced it",
+      "Return the fix: add the regression test to the full-regression plan and link the bug to its PR (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "A system is being replaced and the new one was not run alongside the old",
+      "Hold the cut-over until both run on the same inputs and every difference is explained; the source says parallel running identifies differences and improvements (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "The shipped software is being used for something it was not specified for",
+      "Treat the new use as a new commission and assure it: multi-use models carry a greater risk of use outside their intended scope (`uk-aqua-book-2025`)"
+    ],
+    [
+      "A library, service or third-party component the system relies on loses support or maintenance, or reaches end-of-life",
+      "Put supported-software checks on the review cadence: ongoing use should check whether relied-on software is still supported and up to date (`uk-aqua-book-2025`) • Confirm ongoing maintenance and plan the replacement for end-of-life or unavailable components (`nist-ssdf-1-1`)"
+    ],
+    [
+      "A client, user or public source reports a vulnerability in a shipped release",
+      "Investigate, record and rate it by exploitability and impact, plan the response (temporary mitigation if no fix, an advisory), then root cause and class sweep (`nist-ssdf-1-1`)"
+    ],
+    [
+      "A fixed vulnerability's type shows up again in a later change",
+      "Analyse root causes over time for patterns, add automated toolchain detections, sweep the class, and review the process (`nist-ssdf-1-1`)"
+    ],
+    [
+      "Nobody outside the factory has a published way to report a vulnerability, there are no timelines for handling reports, or the response playbook has never been exercised",
+      "Create an accessible disclosure programme and exercise the response processes periodically (`nist-ssdf-1-1`) • Publish a disclosure route and response timelines, then keep to them: operating a programme that accepts, reviews and addresses disclosed vulnerabilities within its stated timelines is an attested practice (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "A model in production misbehaves and nobody has a criterion to stop it or a way to run without it",
+      "Write stop and rollback criteria and a fallback before release: be prepared to stop using a model at any time and continue by other means (`nist-sp-800-218a`)"
+    ],
+    [
+      "The ML framework or library the product depends on has no vulnerability watch",
+      "Add it to the vulnerability and incident database watch (`nist-sp-800-218a`)"
+    ],
+    [
+      "A later release no longer runs on an attested practice",
+      "Restore the practice or notify every agency that received the form: the signer attested to notify when consistent use stops, and the attestation binds future versions until then (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "The case that agents made delivery faster is reported as output (lines, commits, pull requests merged) or as felt speed",
+      "Measure time or outcome on work defined before the change: output counts can rise without productivity rising, and felt speed ran opposite to measured time (`becker-metr-ai-developer-productivity-2025`) [D1]"
+    ],
+    [
+      "A delivery measure is compared with an industry figure or another team's instead of this service's own history",
+      "Compare the service with its own past (`dora-ai-assisted-swdev-2025`)"
+    ],
+    [
+      "Hotfixes or rollbacks are not counted in the service's change fail rate",
+      "Count them: change fail rate is deployments needing immediate intervention, likely a rollback or hotfix (`dora-ai-assisted-swdev-2025`)"
+    ],
+    [
+      "Nobody has looked at the service's delivery measures since it went live",
+      "Set a date to review them again (`dora-ai-assisted-swdev-2025`)"
+    ],
+    [
+      "Unplanned, reactive work is crowding out planned work",
+      "Read it as instability: the report's legacy-bottleneck profile pairs frequent instability with a high volume of unplanned, reactive work (`dora-ai-assisted-swdev-2025`)"
+    ],
+    [
+      "Output rose for a month or two after agents were adopted or widened, then fell back while warnings and complexity stayed up",
+      "Recognise the study's average profile; check whether QA scaled with the output and pay the debt down before it slows more work (`he-cursor-velocity-complexity-2025`) [D1]"
+    ],
+    [
+      "Warnings and complexity climb month after month while every change passed its gates",
+      "Check the gates against the project's series, absolute and relative to size: the authors only suggest that review, testing and dedicated QA might prevent proportional debt accumulation (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The documentation says the system does one thing and the system does another",
+      "Keep the description of the behaviour executable, so it is automatically checked against what the system does (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "A new ASVS release lands, or the checklist cites IDs with no version",
+      "Cite IDs in versioned form and re-evaluate on a major release, which may renumber requirements; a patch release keeps a compliant application compliant (`owasp-asvs-5-0`)"
+    ],
+    [
+      "An observability or tracing SDK ships with default capture of prompts, completions or traces",
+      "Scrub before export or turn the capture off: these platforms log full prompts, completions and traces by default (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "An agent or model feature's cost or latency creeps up release after release, or long sessions grow in cost",
+      "Attribute cost per key, user and session and cap the session: per-turn cost climbs with context while no single request trips a rate limit (`owasp-llm-top10-2026`) • Set quotas and per-session rate limits and track cumulative consumption: agents can self-trigger tasks and spawn processes (`owasp-agentic-threats-mitigations`) • Find the loop and set tool budgets that throttle or revoke when exceeded: a planner calling costly APIs repeatedly spikes the bill (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "A leaked vector store or embedding backup is classed low severity because only embeddings leaked",
+      "Reclassify it as a leak of the documents behind it: embeddings can be inverted to recover source text (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "Approval requests to a product feature's human reviewers rise sharply",
+      "Treat as possible flooding of the human in the loop: frequency thresholds and a risk-sorted queue (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "A product agent repeatedly tries to change its own goals, role or configuration",
+      "Track goal-change frequency per agent as a sign of manipulation, and review (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "An agent's memory is rewritten unusually often",
+      "Flag it, re-validate the suspect entries and roll back to a validated state (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "One agent's output reaches many agents, tenants or workflows fast (fan-out, retry oscillation, queue storms, repeated identical intents)",
+      "Throttle or pause on the anomaly; file the origin and the spread as separate factors (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "A product agent's permissions or policy are to be widened after a quiet period",
+      "Replay the last week's recorded agent actions in an isolated clone and gate the widening on set blast-radius caps (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "An LLM feature's production metric counts *I don't know* or a hand-off as a failed answer",
+      "Score a wrong answer below an abstention: a side metric may be outweighed by a primary one that rewards answering (`why-language-models-hallucinate-kalai`)"
+    ]
+  ]
+}

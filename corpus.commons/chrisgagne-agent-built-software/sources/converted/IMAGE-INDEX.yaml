@@ -1,0 +1,2843 @@
+# IMAGE-INDEX.yaml
+#
+# Substantive figures from this corpus's sources. Image files live beside the converted
+# markdown at {source-slug}-images/ and are gitignored; this index is the record that travels
+# with the repo. Paths are relative to this file's directory. An image absent from this index
+# is not part of the library.
+
+- file: becker-metr-ai-developer-productivity-2025-images/p0002-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 2
+  section: 1 Introduction
+  description: 'Figure 1, titled ''Experts and Study Participants Misjudge AI Speedup'', plots the change in time when AI is allowed (y axis from -50% faster to +40% slower) for five groups: economics expert forecasts (about -39%), ML expert forecasts (about -38%), developer forecasts during the study (about -24%), developer estimates after the study (about -20%), and the observed result (red, about +19%, interval from near 0% to about +39%). Every prediction expected a speedup of 20 to 40%, while the measured result was a slowdown.'
+  tags:
+  - ai-productivity
+  - forecast-vs-observed
+  - expert-forecasts
+  - perception-gap
+  - randomized-controlled-trial
+  - confidence-intervals
+  style: chart
+  frameworks: []
+  suggested_use: Show when making the case that people, including experts, misjudge what an AI tool does to their own speed, so measurement beats self-report.
+- file: becker-metr-ai-developer-productivity-2025-images/p0004-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 4
+  section: 2 Methodology
+  description: Figure 2 is a flow diagram of the study design. Issues from a repository (example stdlib-js/stdlib) carry developer forecasts with and without AI; a developer (300 commits, 3 years of contribution) receives training (set up Cursor, learn agent mode); each issue is randomized to an AI-disallowed or AI-allowed arm with the same steps (implement issue, open pull request, address review, merge, report time). Panel 3 calculates the change in time from AI as E[time AI allowed] / E[time AI disallowed] - 1, screen recordings get activity labels, and the speedup comparison sets expert forecasts (E), participant forecasts (1), participant estimates (2) and observed result (3) side by side, fed by expert forecast collection and an exit interview.
+  tags:
+  - experimental-design
+  - randomized-controlled-trial
+  - study-protocol
+  - issue-randomization
+  - screen-recordings
+  - forecast-collection
+  style: flowchart
+  frameworks: []
+  suggested_use: Use to explain how the study separated the effect of AI from task difficulty by defining issues before randomizing them to AI-allowed or AI-disallowed.
+- file: becker-metr-ai-developer-productivity-2025-images/p0005-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 5
+  section: 2.2 Experimental Design
+  description: Figure 3 shows two real study records as cards. A stdlib-js/stdlib bug issue (nlp-sentencize splits sentences on repeated punctuation) was forecast at 1 hr without AI and 45 min with AI, randomized AI-disallowed, and took 24 min initial implementation with 0 min post-review. A mito-ds/mito issue (Polish Chat Input) was forecast at 1 hr without AI and 30 min with AI, randomized AI-allowed, and took 36 min. Each card has the labelled sections before-randomization forecasts, issue randomization, and after-completion pull request link, screen recording and times.
+  tags:
+  - study-example
+  - issue-records
+  - forecasts
+  - randomization
+  - data-collection
+  - open-source-issues
+  style: screenshot
+  frameworks: []
+  suggested_use: Show to make the unit of analysis concrete, one real issue with a pre-randomization forecast and a measured implementation time.
+- file: becker-metr-ai-developer-productivity-2025-images/p0008-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 8
+  section: 3 Results
+  description: 'Figure 4 is a two-part bar chart of average time in hours with error bars. Left, forecasted time for all issues (N=246 each): AI-disallowed about 1.9 hr, AI-allowed about 1.4 hr, so AI-allowed forecasts are 0.76x as long (CI 0.68x to 0.86x). Right, observed implementation time: AI-disallowed (N=110) about 1.7 hr and AI-allowed (N=136) about 2.2 hr, so AI-allowed times are 1.34x as long (CI 1.05x to 1.70x).'
+  tags:
+  - ai-productivity
+  - forecast-vs-observed
+  - implementation-time
+  - slowdown
+  - bar-chart
+  - confidence-intervals
+  style: chart
+  frameworks: []
+  suggested_use: Use to show the reversal between what developers forecast (a speedup) and what the raw timings recorded (a slowdown).
+- file: becker-metr-ai-developer-productivity-2025-images/p0009-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 9
+  section: 3 Results
+  description: Figure 5 plots the empirical cumulative distribution of observed implementation times, with implementation time in hours on a log x axis (0.125 to 8+) and percentile on the y axis (0 to 100). The AI-disallowed (N=110, purple) and AI-allowed (N=136, green) curves overlap below about one hour, then the AI-allowed curve shifts right, so longer tasks take longer when AI is allowed.
+  tags:
+  - cumulative-distribution
+  - implementation-time
+  - distribution-comparison
+  - ai-productivity
+  - slowdown
+  style: chart
+  frameworks: []
+  suggested_use: Show when a reader wants to know whether the slowdown is a few outliers or a shift across the distribution, and where in the task-length range it sits.
+- file: becker-metr-ai-developer-productivity-2025-images/p0010-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 10
+  section: 3 Results
+  description: Figure 6 is a grouped bar chart of the average percentage of time spent per activity among labeled screen recordings, AI-disallowed (N=30) versus AI-allowed (N=44). With AI allowed, active coding falls from about 36% to 24% and reading and searching from about 24% to 17%, while reviewing AI output (about 9%), prompting AI (about 8%), waiting on AI (about 4%) and idle or overhead (about 6% to 10%) take time. Testing and debugging and git and environment change little.
+  tags:
+  - time-allocation
+  - activity-breakdown
+  - screen-recordings
+  - prompting
+  - reviewing-ai-output
+  - waiting-on-ai
+  style: chart
+  frameworks: []
+  suggested_use: Use to show where the time went when AI was allowed, since new work (prompting, waiting, reviewing) replaced coding and searching rather than adding to them.
+- file: becker-metr-ai-developer-productivity-2025-images/p0019-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 19
+  section: C Factor Analysis
+  description: Figure 7 plots the change in time when AI is allowed (y axis, 40% faster at top to 100% slower at bottom) for subsets of issues, each with an interval. Baseline (N=159) is about +26%; low prior task exposure (N=81) about +14% and high prior task exposure (N=78) about +41%; low external resource needs (N=109) about +35% and high external resource needs (N=50) about +9%. The slowdown is larger where developers already know the task and need little outside documentation.
+  tags:
+  - heterogeneous-effects
+  - prior-task-exposure
+  - external-resource-needs
+  - factor-analysis
+  - subgroup-analysis
+  - slowdown
+  style: chart
+  frameworks: []
+  suggested_use: Show when discussing which task conditions make AI help less, notably familiar work where the developer is already expert.
+- file: becker-metr-ai-developer-productivity-2025-images/p0021-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 21
+  section: C Factor Analysis
+  description: 'Figure 8 shows the change in time when AI is allowed, by how developers report using AI: baseline (N=246) about +19%; ''Using AI as Normal'' (6 developers, N=70) about +10%; ''Experimenting with AI'' (7 developers, N=119) about +26%; ''As Much AI as Possible'' (3 developers, N=57) about +15%. All intervals cross or approach zero and are wide.'
+  tags:
+  - heterogeneous-effects
+  - ai-usage-style
+  - experimenting-with-ai
+  - factor-analysis
+  - subgroup-analysis
+  style: chart
+  frameworks: []
+  suggested_use: Use to address the objection that the slowdown comes from developers overusing AI because they were in a study.
+- file: becker-metr-ai-developer-productivity-2025-images/p0022-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 22
+  section: C Factor Analysis
+  description: 'Figure 9 plots the change in time when AI is allowed for issues split by whether the developer reported scope creep when using AI: baseline (N=246) about +19%, scope creep reported (7 developers, N=109) about 0%, no scope creep (9 developers, N=137) about +33%. Slowdown is concentrated in issues where the developer did not report scope creep.'
+  tags:
+  - heterogeneous-effects
+  - scope-creep
+  - factor-analysis
+  - subgroup-analysis
+  - ai-productivity
+  style: chart
+  frameworks: []
+  suggested_use: Show when testing the common explanation that AI slows work by expanding scope, and the result that cuts against it.
+- file: becker-metr-ai-developer-productivity-2025-images/p0023-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 23
+  section: C Factor Analysis
+  description: 'Figure 10 plots the change in time when AI is allowed for subsets by prior tool experience: baseline (N=246) about +19%; has or lacks Copilot experience (about +18% and +21%); has or lacks prior Cursor experience (about +17% and +19%); Cursor was or was not a primary IDE before the experiment (about +11% and +21%); has or lacks web LLM experience (about +18% and +26%, the latter one developer, N=19, with a very wide interval). Slowdown is similar across experience groups.'
+  tags:
+  - heterogeneous-effects
+  - prior-ai-experience
+  - cursor-experience
+  - copilot-experience
+  - factor-analysis
+  - subgroup-analysis
+  style: chart
+  frameworks: []
+  suggested_use: Use to show that prior exposure to AI tools did not separate fast from slow developers in this sample.
+- file: becker-metr-ai-developer-productivity-2025-images/p0024-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 24
+  section: C Factor Analysis
+  description: Figure 11 plots the change in time when AI is allowed (baseline N=246, about +19%) after excluding each developer's first 1 through 8 AI-allowed issues (N falls from 230 to 139). Point estimates stay between about +14% and +30% slowdown while the intervals widen as sample size drops.
+  tags:
+  - learning-effects
+  - sensitivity-analysis
+  - factor-analysis
+  - ai-productivity
+  - early-issues-excluded
+  style: chart
+  frameworks: []
+  suggested_use: Show when asked whether the slowdown is just a learning curve from the first few AI-assisted tasks.
+- file: becker-metr-ai-developer-productivity-2025-images/p0024-2.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 24
+  section: C Factor Analysis
+  description: 'Figure 12 plots the change in time when AI is allowed by developers'' hours of Cursor experience: 0-1 hours (9 developers, N=21) a speedup of about 9% (green); 1-10 hours (N=79) about +30% slower; 10-30 hours (N=86) about +31%; 30-50 hours (N=36) about +24%; over 50 hours (one developer, N=24) a speedup of about 26% (green). Red marks slowdown and green marks speedup; the intervals are wide, and the over-50-hour result rests on a single developer.'
+  tags:
+  - experience-effects
+  - cursor-hours
+  - learning-curve
+  - factor-analysis
+  - subgroup-analysis
+  - underpowered
+  style: chart
+  frameworks: []
+  suggested_use: Use to discuss whether experience with the tool flips the result, while flagging that the over-50-hour bin is one developer.
+- file: becker-metr-ai-developer-productivity-2025-images/p0027-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 27
+  section: D Empirical Strategy
+  description: 'Figure 13 compares speedup estimators on the same 246 issues: Baseline about +19%; ratio estimator about +34% with a wide interval; regression on treatment only about +23%; regression on treatment and log forecast AI-allowed about +22%; regression on treatment, log forecast AI-disallowed and fixed effects about +15%. All estimates show a slowdown, and the intervals overlap.'
+  tags:
+  - estimator-comparison
+  - regression-specification
+  - ratio-estimator
+  - fixed-effects
+  - empirical-strategy
+  - sensitivity-analysis
+  style: chart
+  frameworks: []
+  suggested_use: Show when explaining that the slowdown estimate does not depend on one statistical specification.
+- file: becker-metr-ai-developer-productivity-2025-images/p0029-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 29
+  section: D Empirical Strategy
+  description: 'Figure 14 is a six-panel set of regression diagnostics: a Normal Q-Q plot of standardized residuals, residuals versus fitted values (log scale), a scale-location plot of root absolute standardized residuals, a box plot of residuals by treatment group (No AI versus AI Allowed), residuals versus log predicted time without AI, and a histogram of residuals with a normal curve overlaid. Points track the Q-Q line, with no visible funnel shape in the residual plots.'
+  tags:
+  - regression-diagnostics
+  - residuals
+  - model-checking
+  - normality
+  - heteroskedasticity
+  - empirical-strategy
+  style: chart
+  frameworks: []
+  suggested_use: Use to show the checks behind the log-linear regression, when someone doubts the model's assumptions hold.
+- file: becker-metr-ai-developer-productivity-2025-images/p0029-2.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 29
+  section: D Empirical Strategy
+  description: 'Figure 15 shows the same speedup point estimate (about +19% time, N=246 each) under five uncertainty methods: homoskedastic, developer-level clustered, CR2, CR3, and two-stage bootstrap standard errors. The intervals are similar for the first four and widest for the two-stage bootstrap, whose interval reaches just across zero.'
+  tags:
+  - standard-errors
+  - clustered-errors
+  - bootstrap
+  - uncertainty-estimation
+  - empirical-strategy
+  - confidence-intervals
+  style: chart
+  frameworks: []
+  suggested_use: Use to show how much the confidence interval depends on how uncertainty is computed, with the point estimate unchanged.
+- file: becker-metr-ai-developer-productivity-2025-images/p0032-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 32
+  section: E Other Analysis
+  description: Figure 16 is a log-log scatter of actual implementation time (y, hours) against AI-disallowed forecasted implementation time (x, hours), purple for AI-disallowed issues and green for AI-allowed issues, with a dashed perfect-prediction diagonal and marginal box plots on the top and right edges. AI-allowed points sit above the diagonal more often and the right-hand box plot is higher and wider, showing longer and more variable actual times when AI was allowed.
+  tags:
+  - forecast-accuracy
+  - scatter-plot
+  - implementation-time
+  - perfect-prediction-line
+  - distribution-comparison
+  style: chart
+  frameworks: []
+  suggested_use: Show when asking how well developers' no-AI estimates predicted real time, and how AI-allowed issues drift above the forecast.
+- file: becker-metr-ai-developer-productivity-2025-images/p0032-2.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 32
+  section: E Other Analysis
+  description: Figure 17 shows the speedup estimate per developer (IDs 14, 8, 11, 10, 9, 5, 15, 3, 6, 4, 12, 7, 1, 2, 13, ranked by issue count, with N per developer) beside the baseline (N=246). Eleven developers are shown in red (slowed down) and four in green (sped up, IDs 7, 1, 2 and 13), with very wide intervals for developers with few issues.
+  tags:
+  - per-developer-effects
+  - individual-variation
+  - heterogeneous-effects
+  - small-samples
+  - ai-productivity
+  style: chart
+  frameworks: []
+  suggested_use: Use to show that the average slowdown hides large differences between individuals and that single-developer estimates are noisy.
+- file: becker-metr-ai-developer-productivity-2025-images/p0033-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 33
+  section: E Other Analysis
+  description: 'Figure 18 plots the change in time when AI is allowed by forecasted speedup. Between developers: low forecasted speedup (<-15%, N=80) about +31%, medium (-15 to -33%, N=87) about +31%, high (>-33%, N=79) about 0% (green). Within participants: bottom tertile (N=60) about +45%, middle (N=120) about +19%, top tertile (N=64) about 0% (green). Issues forecast to benefit most from AI show no slowdown.'
+  tags:
+  - forecasted-speedup
+  - heterogeneous-effects
+  - between-developer
+  - within-developer
+  - tertile-analysis
+  - forecast-calibration
+  style: chart
+  frameworks: []
+  suggested_use: Show when asking whether developers can tell in advance which tasks AI will help, and the sign that their forecasts carry some information.
+- file: becker-metr-ai-developer-productivity-2025-images/p0033-2.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 33
+  section: E Other Analysis
+  description: Figure 19 is a grouped bar chart of average minutes per activity among labeled screen recordings, AI-disallowed (N=30) versus AI-allowed (N=44). Active coding is about 24 versus 20 minutes, reading and searching about 15 versus 14, testing and debugging about 9 versus 10, git and environment about 7 versus 6, idle or overhead about 4 versus 8; AI-allowed adds reviewing AI output (about 6), prompting AI (about 5) and waiting on AI (about 4).
+  tags:
+  - time-allocation
+  - activity-breakdown
+  - screen-recordings
+  - absolute-minutes
+  - prompting
+  - waiting-on-ai
+  style: chart
+  frameworks: []
+  suggested_use: Use alongside the percentage view to show the absolute minutes behind the time-allocation shift.
+- file: becker-metr-ai-developer-productivity-2025-images/p0034-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 34
+  section: E Other Analysis
+  description: Figure 20 breaks the average minutes spent into 27 fine-grained activity labels, grouped under the eight high-level panels (Reviewing AI output, Prompting AI, Waiting on AI, Active coding, Reading and searching, Testing and debugging, Git and environment, Idle or overhead), AI-disallowed (N=30) versus AI-allowed (N=44). Writing code dominates (about 20 versus 15 minutes); AI-only labels include reading generation, AI code cleaning, writing prompt and waiting on generation.
+  tags:
+  - fine-grained-activities
+  - time-allocation
+  - screen-recordings
+  - activity-labels
+  - absolute-minutes
+  style: chart
+  frameworks: []
+  suggested_use: Use when a reader wants the detailed activity taxonomy and which specific activities absorb or lose time under AI.
+- file: becker-metr-ai-developer-productivity-2025-images/p0034-2.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 34
+  section: E Other Analysis
+  description: Figure 21 is the percentage-of-time version of the 27 fine-grained activity chart, in the same eight panels, AI-disallowed (N=30) versus AI-allowed (N=44). Writing code falls from about 31% to 18% of time, reading code from about 18% to 14%, and manually checking tests from about 12% to 6%; writing a prompt takes about 8%, waiting on generation about 4%, and reading AI generation about 4% when AI is allowed.
+  tags:
+  - fine-grained-activities
+  - time-allocation
+  - screen-recordings
+  - activity-labels
+  - percentage-of-time
+  style: chart
+  frameworks: []
+  suggested_use: Use to show how the share of time moves across the detailed activity labels when AI is allowed.
+- file: becker-metr-ai-developer-productivity-2025-images/p0035-1.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 35
+  section: E Other Analysis
+  description: 'Figure 22 plots the change in time when AI is allowed under alternative outcome measures and subsets: baseline (N=246) about +19%; all issues initial implementation time about +19%; merged PRs initial implementation (N=219) about +19%; merged PRs post-review time about +59% with a very wide interval; merged PRs total implementation time about +17%; video recording duration (N=174) about +24%; self-reported time for issues with video about +24%; Bernoulli randomization subset (N=221) about +19%.'
+  tags:
+  - alternative-outcomes
+  - post-review-time
+  - robustness-checks
+  - outcome-measures
+  - ai-productivity
+  style: chart
+  frameworks: []
+  suggested_use: Show that the slowdown holds across ways of measuring time, and that review time is noisy.
+- file: becker-metr-ai-developer-productivity-2025-images/p0035-2.png
+  source_ref: becker-metr-ai-developer-productivity-2025
+  page: 35
+  section: E Other Analysis
+  description: 'Figure 23 plots the change in time when AI is allowed by the month the issue was started: baseline (N=241) about +17%; January (N=3) and May (N=4) near zero with intervals cut off; February (N=46) about +13%; March (N=129) about +32%; April (N=50) a speedup of about 9% (green); June (N=9) about +8%. Most issues fall in March, and the smaller months have very wide intervals.'
+  tags:
+  - time-trend
+  - month-of-study
+  - heterogeneous-effects
+  - small-samples
+  - ai-productivity
+  style: chart
+  frameworks: []
+  suggested_use: Use to check whether the slowdown clusters in one stretch of the study, and how thin the data are outside March.
+- file: cucumber-bdd-gherkin-images/bdd-practices-diagram.png
+  source_ref: cucumber-bdd-gherkin
+  page: null
+  section: docs/bdd/index.md / Three practices
+  description: Five labelled stages run down the right side (User Story, Discovery, Formulation, Automation, Working Software) with orange forward arrows. Green arrows curve back from each later stage to the earlier ones. The source uses it to show that BDD is an iterative three-step process (Discovery, Formulation, Automation) in which each change is kept small and the team moves back up a level whenever it needs more information.
+  tags:
+  - bdd
+  - discovery-formulation-automation
+  - iterative-feedback
+  - user-story
+  - working-software
+  style: diagram
+  suggested_use: Show it when asking whether agent-built software was specified through examples agreed with the people involved before code was automated and written, with a way back up when understanding changed.
+  frameworks:
+  - Behaviour-Driven Development
+- file: dora-ai-assisted-swdev-2025-images/page-016-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 16
+  section: 'Software delivery performance: Cluster 1, Foundational challenges'
+  description: 'Seven small radar charts (Figure 2) show the performance profile of each team archetype across eight axes: team performance, product performance, software delivery throughput, software delivery instability, individual effectiveness, valuable work, friction and burnout. The clusters are Foundational challenges, The legacy bottleneck, Constrained by process, High impact low cadence, Stable and methodical, Pragmatic performers and Harmonious high-achiever. A larger Figure 3 and text profile Cluster 1 (10% of respondents) as teams in survival mode with high burnout and friction.'
+  tags:
+  - team-archetypes
+  - radar-chart
+  - dora-clusters
+  - software-delivery-performance
+  - burnout
+  - friction
+  style: chart
+  frameworks:
+  - DORA team archetypes
+  suggested_use: Show the seven team archetypes when judging whether a team's delivery, well-being and stability can absorb faster AI-assisted change before signing it off.
+- file: dora-ai-assisted-swdev-2025-images/page-017-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 17
+  section: 'Cluster 2: The legacy bottleneck; Cluster 3: Constrained by process; Cluster 4: High impact, low cadence'
+  description: Three cluster profiles, each with a radar chart (Figures 4 to 6) and text on share of respondents (11%, 17%, 7%), performance indicators, team well-being and system stability. The legacy bottleneck is in constant reaction to unstable systems; Constrained by process has stable systems but high burnout and friction; High impact, low cadence has strong product results with high instability and low throughput.
+  tags:
+  - team-archetypes
+  - radar-chart
+  - legacy-bottleneck
+  - process-constraint
+  - system-stability
+  - burnout
+  style: chart
+  frameworks:
+  - DORA team archetypes
+  suggested_use: Use when a review needs to separate a stability problem from a process-friction problem by comparing two archetypes side by side.
+- file: dora-ai-assisted-swdev-2025-images/page-018-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 18
+  section: 'Cluster 5: Stable and methodical; Cluster 6: Pragmatic performers; Cluster 7: Harmonious high-achiever'
+  description: Three cluster profiles with radar charts (Figures 7 to 9) and text on share of respondents (15%, 20%, 20%), performance indicators, team well-being and system stability. Stable and methodical delivers quality work at a deliberate pace; Pragmatic performers deliver with speed and stability but average well-being; Harmonious high-achiever has low burnout and friction on a stable technical base.
+  tags:
+  - team-archetypes
+  - radar-chart
+  - high-performing-teams
+  - well-being
+  - system-stability
+  style: chart
+  frameworks:
+  - DORA team archetypes
+  suggested_use: Show as the contrast set to the struggling clusters when a team asks what good looks like across delivery and well-being together.
+- file: dora-ai-assisted-swdev-2025-images/page-020-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 20
+  section: How do you compare?
+  description: Two distribution tables with inline bars. Figure 11 gives lead time for changes, from more than six months (2%) to less than one hour (9.4%). Figure 12 gives deployment frequency, from fewer than once per six months (3.6%) to on demand (16.2%). Each row shows the percentage of respondents at that level and the cumulative top percentile.
+  tags:
+  - lead-time-for-changes
+  - deployment-frequency
+  - benchmark
+  - survey-distribution
+  - dora-metrics
+  style: table
+  frameworks:
+  - DORA software delivery metrics
+  suggested_use: Use to place a team own lead time and deployment frequency against the 2025 respondent population.
+- file: dora-ai-assisted-swdev-2025-images/page-021-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 21
+  section: Software delivery performance
+  description: 'Three distribution tables with inline bars: failed deployment recovery time (Figure 13, most respondents under one day), change failure rate (Figure 14, bands from 0%-2% to over 64%) and rework rate (Figure 15, same bands). Each lists the survey question, the percentage at each level and the top percentile.'
+  tags:
+  - failed-deployment-recovery-time
+  - change-failure-rate
+  - rework-rate
+  - benchmark
+  - dora-metrics
+  style: table
+  frameworks:
+  - DORA software delivery metrics
+  suggested_use: Use when a team wants to compare its recovery time, change failure rate and rework rate with the survey distribution during an incident review.
+- file: dora-ai-assisted-swdev-2025-images/page-025-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 25
+  section: 'AI adoption and use: Experience and Time'
+  description: Two bar charts. Figure 17 shows new AI users starting each month from Jul 2022 to Jul 2025, annotated with industry events (GitHub Copilot, ChatGPT, GPT-4, Llama 2, M365 Copilot, Gemini 1.0, Claude 3, Gemini 2.0) and a median start date of Apr 2024. Figure 18 is a histogram of hours spent using AI on a recent workday, with a median of 2 hours.
+  tags:
+  - ai-adoption
+  - adoption-timeline
+  - time-spent-with-ai
+  - histogram
+  style: chart
+  frameworks: []
+  suggested_use: Show to ground a discussion of how new and how heavy AI use is in the population before judging its effects on delivery.
+- file: dora-ai-assisted-swdev-2025-images/page-027-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 27
+  section: Reliance; Tasks
+  description: Figure 20 is a horizontal bar chart of general reliance on AI at work (a great deal 8%, a lot 20%, a moderate amount 37%, a little 30%, not at all 5%) with 89% credible interval error bars. Figure 21 ranks about 25 tasks by the share of task performers who use AI, from writing new code (71%) down to calendar management (25%), with the share of all respondents who do each task in parentheses.
+  tags:
+  - ai-reliance
+  - ai-task-usage
+  - bar-chart
+  - credible-intervals
+  style: chart
+  frameworks: []
+  suggested_use: Use to show which tasks teams actually hand to AI and how heavily they lean on it.
+- file: dora-ai-assisted-swdev-2025-images/page-029-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 29
+  section: Surfaces; Mode of AI use
+  description: 'Figure 22 is a bar chart of where people interact with AI: conversational chatbots 55%, IDE 41%, external web interfaces 31%, internal web interfaces 22%, automated tool chain 18%, other dev tools 18%. Figure 23 is a heatmap of how often respondents use four modes (predictive text, chat, collaborative, agent) from never to hourly or more; 61% never use agent mode.'
+  tags:
+  - ai-interaction-surfaces
+  - ai-interaction-modes
+  - agentic-ai
+  - heatmap
+  style: chart
+  frameworks: []
+  suggested_use: Show when discussing how mature agentic AI use is compared with chat and code completion.
+- file: dora-ai-assisted-swdev-2025-images/page-030-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 30
+  section: Individual productivity; Code quality
+  description: Two diverging bar charts of perceived impact. Figure 24 shows perceived impact on individual productivity (extremely increased 13%, moderately 31%, slightly 41%, no impact 9%, decreases 3%, 1%, 1%). Figure 25 shows perceived impact on code quality (improved 7%, 21%, 31%; no impact 30%; worsened 7%, 2%, 1%). Error bars show 89% credible intervals.
+  tags:
+  - perceived-productivity
+  - perceived-code-quality
+  - ai-impact
+  - self-report
+  style: chart
+  frameworks: []
+  suggested_use: Use to show that self-reported gains from AI are mostly slight, and that perception is not the same as measured outcome.
+- file: dora-ai-assisted-swdev-2025-images/page-046-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 46
+  section: Existential connection; Psychological ownership
+  description: Figure 30 is a horizontal bar chart of five ownership survey items (such as "The code I write is MY code" and "I feel a very high degree of personal ownership for the code I write"), comparing No AI (blue) and AI (purple) groups on a disagreement-to-agreement average with error bars. The accompanying text says the data show no link between AI adoption and a diminished sense of ownership or existential connection.
+  tags:
+  - psychological-ownership
+  - existential-connection
+  - ai-and-identity
+  - survey-items
+  style: chart
+  frameworks: []
+  suggested_use: Show when a team worries that AI assistance weakens ownership of its code, to bring evidence into the conversation.
+- file: dora-ai-assisted-swdev-2025-images/page-067-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 67
+  section: Overall experience is what matters
+  description: Figure 46 is a 100% stacked horizontal bar chart of perceptions of platform capabilities, one bar per item (works as expected, helps me follow required processes, helps me build and run secure applications, automates the tasks I perform, and others), split into extremely, very much, moderately, slightly and not at all. Core technical capabilities rate higher than user-experience items.
+  tags:
+  - platform-engineering
+  - developer-experience
+  - platform-capabilities
+  - stacked-bar-chart
+  style: chart
+  frameworks: []
+  suggested_use: Use to show the experience gap between technical platform capabilities and the user-facing ones.
+- file: dora-ai-assisted-swdev-2025-images/page-069-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 69
+  section: Platform engineering
+  description: Figure 47 is a triangular correlation matrix of ten platform capabilities (helps follow required processes, helps build reliable applications, helps build secure applications, tasks are well-automated, abstracts away infrastructure complexity, behaves as I would expect, gives clear feedback on tasks, provides tools to work independently, teams act on my feedback, easy to use, UI is straightforward and clean). Cells carry coefficients from 0.39 to 0.71, shaded blue by strength; the highest is easy to use with UI at 0.71.
+  tags:
+  - platform-engineering
+  - correlation-matrix
+  - platform-capabilities
+  - holistic-improvement
+  style: matrix
+  frameworks: []
+  suggested_use: Show to argue that improving one platform capability in isolation is a flawed strategy because the capabilities move together.
+- file: dora-ai-assisted-swdev-2025-images/page-075-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 75
+  section: From mental mess to shared map
+  description: Figure 50 is an example value stream map of a backlog item flowing to production. A top lane runs from Requirement through Backlog, design, code, debug and code review preparation to Code commit, Production and Feedback; a zoomed lane below focuses on commit to successful deployment (code review, security review, build, deploy to QA, bug fixes, release review, deploy to production).
+  tags:
+  - value-stream-mapping
+  - delivery-flow
+  - commit-to-production
+  - bottleneck
+  style: flowchart
+  frameworks:
+  - Value stream mapping
+  suggested_use: Use as a template when a team maps its own delivery flow to find where a change waited or looped back.
+- file: dora-ai-assisted-swdev-2025-images/page-104-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 104
+  section: Individual
+  description: Two charts of respondent demographics. Figure 54 is a histogram of respondent age with a median of 41. Figure 55 is a bar chart of gender (man 62.8%, woman 19.2%, prefer not to say 2.1%, non-binary 1.1%, in own words 0.5%).
+  tags:
+  - respondent-demographics
+  - age
+  - gender
+  - survey-sample
+  style: chart
+  frameworks: []
+  suggested_use: Use to check who the survey represents before generalising its findings to a team.
+- file: dora-ai-assisted-swdev-2025-images/page-105-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 105
+  section: 'Individual: Disability and Roles'
+  description: Figure 56 is a bar chart of self-reported disabilities (91.5% none, then small shares for prefer not to say, blind, deaf, mobility and typing difficulty). Figure 57 is a long bar chart of respondent roles led by full-stack developer (15.0%), engineering manager (9.3%) and back-end developer (9.3%).
+  tags:
+  - respondent-demographics
+  - disability
+  - roles
+  - survey-sample
+  style: chart
+  frameworks: []
+  suggested_use: Use to see which roles the survey sample covers and which it barely reaches.
+- file: dora-ai-assisted-swdev-2025-images/page-106-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 106
+  section: 'Individual: Role experience and Team experience'
+  description: Two histograms. Figure 58 shows years of experience in current or similar role, median 6 years. Figure 59 shows years on current team, median 3 years, with a steep fall-off after the first few years.
+  tags:
+  - respondent-demographics
+  - role-experience
+  - team-tenure
+  - histogram
+  style: chart
+  frameworks: []
+  suggested_use: Use to show how experienced and how settled the surveyed teams are.
+- file: dora-ai-assisted-swdev-2025-images/page-107-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 107
+  section: Where they work; Coding language
+  description: Figure 60 is a histogram of the percentage of the last five days spent in an office, median 50%, with 800 respondents fully remote. Figure 61 is a bar chart of programming language use, led by Python (47.5%), JavaScript (33.4%) and SQL (32.0%).
+  tags:
+  - respondent-demographics
+  - work-location
+  - programming-languages
+  - hybrid-work
+  style: chart
+  frameworks: []
+  suggested_use: Use to describe the working context and technology mix of the survey sample.
+- file: dora-ai-assisted-swdev-2025-images/page-108-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 108
+  section: Organization
+  description: Figure 62 is a bar chart of respondent industries (technology 38.0%, financial services 13.6%, other 9.7%, retail 7.2% and others down to non-profit 1.3%). Figure 63 is a bar chart of organization size, led by 10,001+ employees (22.4%), 51-200 (16.2%) and 1,001-5,000 (14.5%).
+  tags:
+  - respondent-demographics
+  - industry
+  - organization-size
+  - survey-sample
+  style: chart
+  frameworks: []
+  suggested_use: Use to judge whether the survey industries and company sizes resemble the audience at hand.
+- file: dora-ai-assisted-swdev-2025-images/page-110-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 110
+  section: Service age; Service users
+  description: Figure 66 is a histogram of the age of the primary service or application, median 8 years. Figure 67 is a bar chart of primary end-user characteristics (internal 56.8%, business 52.9%, external 51.2%, consumers 32.7%).
+  tags:
+  - respondent-demographics
+  - service-age
+  - end-users
+  - survey-sample
+  style: chart
+  frameworks: []
+  suggested_use: Use to show the typical age and audience of the systems the survey covers.
+- file: dora-ai-assisted-swdev-2025-images/page-111-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 111
+  section: Country
+  description: A world map labels respondent share by country (U.S. 29%, UK 14%, India 7%, Canada 6%, Germany 6%, Netherlands 4%, Australia 3% and others), above a shaded table listing more than 100 countries in descending order of respondent count, with darker cells for higher volume.
+  tags:
+  - respondent-demographics
+  - country
+  - geographic-distribution
+  - survey-sample
+  style: table
+  frameworks: []
+  suggested_use: Use to show the geographic spread of the sample when asked how global the findings are.
+- file: dora-ai-assisted-swdev-2025-images/page-121-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 121
+  section: How we evaluate the SEM
+  description: A structural equation model path diagram. Latent factors ai_adoption_factor and individual_effectiveness_factor (ovals) link to observed items (trust, reliance, use; flow, impactful, productivity, effective) with loadings such as 0.85, 0.88, 0.92 and 0.98. Covariates stability, resources and individual_experience feed in with coefficients between 0.12 and 0.33. The text above explains global fit (chi-square, CFI, TLI, RMSEA) and local fit checks.
+  tags:
+  - structural-equation-model
+  - path-diagram
+  - research-method
+  - model-fit
+  style: diagram
+  frameworks: []
+  suggested_use: Show when explaining how the report links AI adoption to individual effectiveness, and which controls it holds in the model.
+- file: dora-ai-assisted-swdev-2025-images/page-126-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 126
+  section: Methodology
+  description: 'An R code block for convergence and residual checks, then six model-diagnostic plots: posterior predictive check, linearity, homogeneity of variance, influential observations, collinearity (VIF all low, under 5) and normality of residuals. Each plot states what a good result looks like.'
+  tags:
+  - bayesian-model-diagnostics
+  - research-method
+  - model-checking
+  - residual-analysis
+  style: chart
+  frameworks: []
+  suggested_use: Use to show that the headline findings passed standard model-assumption checks.
+- file: dora-ai-assisted-swdev-2025-images/page-127-render.png
+  source_ref: dora-ai-assisted-swdev-2025
+  page: 127
+  section: 'Step 6: Visualizing the estimated effect'
+  description: 'Three views of the effect of AI adoption on individual effectiveness: predicted effectiveness at low, average and high adoption (about -0.2, 0.0, 0.2); a scatter of raw data with a regression line and 89% credible interval; and the posterior distribution of the standardized coefficient centred near 0.2, clear of zero.'
+  tags:
+  - posterior-distribution
+  - credible-interval
+  - ai-adoption-effect
+  - research-method
+  style: chart
+  frameworks: []
+  suggested_use: Show to explain that the AI-adoption effect on individual effectiveness is positive but modest, and how that conclusion was drawn.
+- file: he-cursor-velocity-complexity-2025-images/page-008-render.png
+  source_ref: he-cursor-velocity-complexity-2025
+  page: 8
+  section: 4 Results
+  description: Figure 3 plots the estimated horizon-average treatment effect of Cursor adoption in five panels (Commits, Lines Added, Static Analysis Warnings, Duplicated Lines Density, Code Complexity) against months relative to adoption (-6 to +6, dashed line at adoption), with filled dots for p < 0.05 and hollow dots for non-significant placebo and post-adoption estimates. Commits and lines added spike in months 0 to 1 and fade, while static analysis warnings and code complexity step up at adoption and stay elevated. The same page carries Table 3, the dynamic panel GMM estimates for lines added (L), warnings (W) and complexity (C) with Cursor and lines-of-code covariates.
+  tags:
+  - cursor-adoption
+  - difference-in-differences
+  - event-study
+  - development-velocity
+  - code-quality
+  - static-analysis-warnings
+  - code-complexity
+  - panel-gmm
+  style: chart
+  frameworks: []
+  suggested_use: Show when arguing that an AI tool's speed gain can be transient while the quality cost persists, and that the pre-adoption placebo estimates support the causal reading.
+- file: he-cursor-velocity-complexity-2025-images/page-009-render.png
+  source_ref: he-cursor-velocity-complexity-2025
+  page: 9
+  section: 4.3 Robustness Checks
+  description: Figure 4 repeats the five-panel horizon-average treatment-effect plots (Commits, Lines Added, Static Analysis Warnings, Duplicated Lines Density, Code Complexity) in three rows of alternative samples. Row 1 compares the original sample with High Contributor Adoption and Cursor Configuration Changes subsets, Row 2 compares Original with Active Months (>0 commits) and Very Active (>=10 commits) repositories, Row 3 compares Original with Cursor and Others and Only Cursor repositories. The quality effects hold or grow in the high-adoption subsets, and the potential use of other AI tools weakens the estimates only slightly.
+  tags:
+  - robustness-checks
+  - cursor-adoption
+  - difference-in-differences
+  - sample-subsets
+  - static-analysis-warnings
+  - code-complexity
+  - confounding-tools
+  style: chart
+  frameworks: []
+  suggested_use: Use when a reader asks whether the finding survives sustained usage, activity level and use of other AI tools, as a model of how to stress-test an observational claim.
+- file: he-cursor-velocity-complexity-2025-images/page-016-render.png
+  source_ref: he-cursor-velocity-complexity-2025
+  page: 16
+  section: C Full Robustness Check Results
+  description: Table 6 gives average treatment effects on the treated (estimate, standard error, percent change) for commits, lines added, static analysis warnings, duplicated lines density and code complexity under three difference-in-differences estimators (Borusyak et al., two-way fixed effects, Callaway and Sant'Anna). Figure 6 plots the horizon-average effects of the three estimators in the same five panels. Velocity results agree across all three; the quality results diverge, with Callaway and Sant'Anna returning negative, non-significant estimates for warnings and complexity.
+  tags:
+  - did-estimators
+  - estimator-comparison
+  - cursor-adoption
+  - treatment-effects
+  - robustness-checks
+  - code-quality
+  style: table
+  frameworks: []
+  suggested_use: Show when explaining how much a causal estimate depends on the estimator chosen, and where the paper itself says the quality findings need caution.
+- file: he-cursor-velocity-complexity-2025-images/page-017-render.png
+  source_ref: he-cursor-velocity-complexity-2025
+  page: 17
+  section: C Full Robustness Check Results
+  description: 'Table 7 lists, for each alternative dataset setting (main settings, adoption cohorts, programming languages), the number of treatment repositories, control repositories, total observations and post-treatment observations; the original sample is 801 treatment and 1,172 control repositories. Figure 7 shows the five-outcome treatment-effect panels in two rows: Row 1 by language group (Original, JavaScript/TypeScript, Python, Go) and Row 2 by adoption cohort (Original, Before Agent Release, After Agent Release, Agent Made Default). Findings are qualitatively consistent across languages and cohorts; Rust is dropped for too few observations.'
+  tags:
+  - robustness-checks
+  - programming-languages
+  - adoption-cohorts
+  - sample-sizes
+  - cursor-adoption
+  - heterogeneity
+  style: table
+  frameworks: []
+  suggested_use: Use when checking how many repositories sit behind each subgroup estimate and whether results depend on language or on when a team adopted agent features.
+- file: microsoft-code-with-engineering-playbook-images/bigBang.jpg
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/integration-testing/README.md / Applying Integration Testing / Big Bang
+  description: Six module ellipses (Module 1 to Module 6) each point with an arrow at one central System ellipse. It shows Big Bang integration testing, where all components are tested together as a single unit. The source says this suits small systems, because a large system makes it hard to locate the cause of a failed test, and it requires every component to be finished before testing can begin.
+  tags:
+  - integration-testing
+  - big-bang
+  - test-strategy
+  - component-integration
+  style: diagram
+  suggested_use: Show it when judging whether a team tested agent-built components only as one lump at the end, which leaves failures hard to localize.
+  frameworks:
+  - Integration testing approaches
+- file: microsoft-code-with-engineering-playbook-images/bottomUp.jpg
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/integration-testing/README.md / Applying Integration Testing / Incremental Testing / Bottom Up
+  description: A tree has Driver 1 at the top, Drivers 2 and 3 below it and numbered modules 4 to 7 at the bottom, with a large arrow pointing up. The source says bottom up testing starts with lower-level modules tested together, using drivers to emulate higher-level modules not yet complete or included. It names a sandwich or hybrid model that combines top down and bottom up.
+  tags:
+  - integration-testing
+  - bottom-up
+  - drivers
+  - incremental-testing
+  style: diagram
+  suggested_use: Show it when asking whether low-level components written by an agent were integration-tested before the higher layers that call them existed.
+  frameworks:
+  - Integration testing approaches
+- file: microsoft-code-with-engineering-playbook-images/cdc-testing-pyramid.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/cdc-testing/README.md / Why Consumer-Driven Contract Testing
+  description: A pyramid with Unit at the base, Integration in the middle and E2E at the top, headed 'Where do we focus our time?', with the same turtle-to-runner speed arrow and one-to-three dollar cost arrow. The source cites it while explaining that best practice is a few E2E tests compared with cheaper, faster, more stable integration and unit tests, yet many teams write too many E2E tests because they give the most confidence to release.
+  tags:
+  - test-pyramid
+  - e2e-testing
+  - test-cost
+  - consumer-driven-contract-testing
+  style: diagram
+  suggested_use: Show it when asking why a team's test suite leans on slow, costly end-to-end tests and whether that is a risk to release confidence.
+  frameworks:
+  - Testing pyramid
+- file: microsoft-code-with-engineering-playbook-images/cdc-testing.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/cdc-testing/README.md / Consumer-Driven Contract Testing Design Blocks
+  description: On the left a Consumer with a test sends a request to a Provider Mock and receives an expected response. A Contract document sits above, generated from the mock side by an arrow going up and feeding the Contract Verifier on the right side of a dashed divider. The Contract Verifier test sends an expected request to the real Provider and checks the response. The source says consumers define the contract through tests against a mock, the contract is generated, then versioned and stored centrally, and the provider verifies it against real responses in a separate pipeline.
+  tags:
+  - consumer-driven-contracts
+  - cdc-testing
+  - provider-mock
+  - contract-verification
+  - api-testing
+  style: diagram
+  suggested_use: Show it when asking how agreement between a consuming and a providing component of agent-built software is written down and checked.
+  frameworks:
+  - Consumer-driven contract testing
+  - Pact
+- file: microsoft-code-with-engineering-playbook-images/cdc-vs-e2e.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/cdc-testing/README.md / Conclusion
+  description: Two side-by-side charts plot Effort against Time. For Contract Tests the line rises gently and stays low; for E2E Tests the curve starts similarly but bends sharply upward. The source uses it to support the claim that CDC reduces maintenance effort by testing consumer-provider interactions in isolation, especially as interactions between components grow in number and complexity.
+  tags:
+  - cdc-testing
+  - e2e-testing
+  - maintenance-effort
+  - test-cost
+  style: chart
+  suggested_use: Show it when weighing contract tests against end-to-end tests for keeping a growing agent-built system verifiable at a sustainable cost.
+  frameworks:
+  - Consumer-driven contract testing
+- file: microsoft-code-with-engineering-playbook-images/e2e-blocks.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/e2e-testing/README.md / E2E Testing Design Blocks
+  description: 'A User Function box on the left leads to two decision diamonds, Condition 1 and Condition 2. Each diamond leads to two Test Case boxes (Test Case 1 and 2, Test Case 3 and 4). The source describes three building blocks for E2E design: list user functions, prepare a set of conditions for each function, and create one or more test cases per scenario, with each condition listed as its own test case.'
+  tags:
+  - e2e-testing
+  - test-design
+  - user-functions
+  - conditions
+  - test-cases
+  style: diagram
+  suggested_use: Show it when asking how end-to-end tests for agent-built software trace from user functions through conditions to individual test cases.
+  frameworks:
+  - E2E testing design blocks
+- file: microsoft-code-with-engineering-playbook-images/e2e-testing-pyramid.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/e2e-testing/README.md / Why E2E Testing
+  description: A pyramid with Unit at the base, then Integration, System and E2E at the top, headed 'Where do we focus our time?'. An orange arrow on the left runs from a running figure at the bottom to a turtle at the top, and a green arrow on the right runs from one dollar sign to three. The source says most tests sit at the bottom, and tests higher up are fewer, slower and more expensive to write, run and maintain; it credits the pyramid to Kent C. Dodds, combining Martin Fowler and the Google Testing Blog.
+  tags:
+  - test-pyramid
+  - unit-testing
+  - integration-testing
+  - system-testing
+  - e2e-testing
+  - test-cost
+  style: diagram
+  suggested_use: Show it when checking whether the test suite behind agent-built software has the right mix of cheap fast tests and a few expensive end-to-end ones.
+  frameworks:
+  - Testing pyramid
+- file: microsoft-code-with-engineering-playbook-images/horizontal-e2e-testing.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/e2e-testing/testing-methods.md / Horizontal Test
+  description: Source databases feed Extract, then an intermediate store, then Transform, a second store, then Load into destination databases. Three red test-case arrows point up at the Extract, Transform and Load stages, and a red pipe labelled Horizontal End-to-end Testing spans the whole flow. The source uses an ETL data ingest system to explain that a horizontal test follows data across multiple applications through one processing pipeline.
+  tags:
+  - e2e-testing
+  - horizontal-testing
+  - etl
+  - data-pipeline
+  - test-cases
+  style: diagram
+  suggested_use: Show it when asking whether a data pipeline built by an agent was tested along its whole path from source to destination.
+  frameworks:
+  - Horizontal E2E testing
+- file: microsoft-code-with-engineering-playbook-images/topDown.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/integration-testing/README.md / Applying Integration Testing / Incremental Testing / Top Down
+  description: A tree runs Module 1 to Modules 2 and 3 to Modules 4 to 7, with a large arrow pointing down. The bottom-level modules are labelled as simulated to Stub 1 to Stub 4. The source says top down testing follows the control flow from higher-level components down, using stubs to emulate lower-level modules that are not yet complete or merged.
+  tags:
+  - integration-testing
+  - top-down
+  - stubs
+  - incremental-testing
+  style: diagram
+  suggested_use: Show it when asking how a team tested high-level behaviour of agent-built software while lower-level parts were still missing or replaced by stand-ins.
+  frameworks:
+  - Integration testing approaches
+- file: microsoft-code-with-engineering-playbook-images/vertical-e2e-testing.png
+  source_ref: microsoft-code-with-engineering-playbook
+  page: null
+  section: docs/automated-testing/e2e-testing/testing-methods.md / Vertical Test
+  description: Four horizontal tiers (Client, Presentation, Business Services, Data) hold monitors, linked Service boxes and two data stores (Directory Services, DB Services). Red Test Case arrows sit between the tiers, a red bar on the right is labelled Vertical End-to-end Testing, and a bar at the bottom is labelled Horizontal End-to-end Testing. The source says a vertical test verifies critical transactions layer by layer from top to bottom, each layer tested together with the layers above and below it, which makes it much harder than the horizontal method.
+  tags:
+  - e2e-testing
+  - vertical-testing
+  - layered-architecture
+  - tiers
+  - test-cases
+  style: diagram
+  suggested_use: Show it when asking whether the critical transactions of agent-built software were tested through every tier, not just at the user interface.
+  frameworks:
+  - Vertical E2E testing
+- file: nist-sp-800-218a-images/page-016-render.png
+  source_ref: nist-sp-800-218a
+  page: 16
+  section: Table 1. SSDF Community Profile for AI Model Development
+  description: First page of Table 1 with columns Practice, Task, Priority, Recommendations, Considerations and Notes specific to AI model development, and Informative References. It begins the Prepare the Organization (PO) group with PO.1 Define Security Requirements, tasks PO.1.1 to PO.1.3 (High, High, Medium) and their R1, R2, C1, N1 additions with AI RMF and OWASP references. A note above says the Profile supplements SSDF 1.1 and is not used on its own.
+  tags:
+  - ssdf-community-profile
+  - prepare-the-organization
+  - security-requirements
+  - practice-task-priority
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when explaining how the AI profile layers recommendations on top of SSDF practices and tasks, and how to read its columns.
+- file: nist-sp-800-218a-images/page-017-render.png
+  source_ref: nist-sp-800-218a
+  page: 17
+  description: Table 1 continued for PO.2 Implement Roles and Responsibilities (PO.2.1 to PO.2.3) and PO.3 Implement Supporting Toolchains (PO.3.1, PO.3.2), each with priority, AI-specific recommendations and notes, and AI RMF and OWASP references.
+  tags:
+  - ssdf-community-profile
+  - roles-and-responsibilities
+  - role-based-training
+  - toolchains
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when a review finds unclear roles, training gaps or weak toolchain automation around AI model development.
+- file: nist-sp-800-218a-images/page-018-render.png
+  source_ref: nist-sp-800-218a
+  page: 18
+  description: Table 1 continued with PO.3.3 (tools generate artifacts as evidence), PO.4 Define and Use Criteria for Software Security Checks (PO.4.1, PO.4.2) and the start of PO.5 Implement and Maintain Secure Environments (PO.5.1, with recommendations R1 to R3 and C1 on separating and protecting environments).
+  tags:
+  - ssdf-community-profile
+  - security-check-criteria
+  - secure-environments
+  - artifacts-as-evidence
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when asking whether development and training environments were separated, limited and checked against defined criteria.
+- file: nist-sp-800-218a-images/page-019-render.png
+  source_ref: nist-sp-800-218a
+  page: 19
+  section: Protect Software (PS)
+  description: Table 1 continued with PO.5.1 recommendations R4 to R6, PO.5.2 (harden development endpoints), PO.5.3 (continuous monitoring of development environments), and the start of the Protect Software (PS) group with PS.1.1 (store all code and configuration under least privilege), each with priority and references.
+  tags:
+  - ssdf-community-profile
+  - continuous-monitoring
+  - endpoint-hardening
+  - least-privilege
+  - protect-software
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when reviewing monitoring gaps in development environments or access control over model code, weights and pipelines.
+- file: nist-sp-800-218a-images/page-020-render.png
+  source_ref: nist-sp-800-218a
+  page: 20
+  description: Table 1 continued with the end of PS.1.1 (R4, C1, C2 on indirect access to model weights), PS.1.2 (protect training, testing, fine-tuning and aligning data), PS.1.3 (protect model weights and configuration parameters), PS.2.1 (release integrity verification) and the start of PS.3.1 (archive each release).
+  tags:
+  - ssdf-community-profile
+  - model-weights
+  - training-data-protection
+  - release-integrity
+  - protect-software
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when the question is how model weights, training data and releases should be protected and verified.
+- file: nist-sp-800-218a-images/page-021-render.png
+  source_ref: nist-sp-800-218a
+  page: 21
+  section: Produce Well-Secured Software (PW)
+  description: Table 1 continued with the end of PS.3.1, PS.3.2 (provenance data for each release, such as SBOM and SLSA), and the start of the Produce Well-Secured Software (PW) group with PW.1.1 (risk modeling, threat modeling and attack surface mapping) and its AI-specific recommendations.
+  tags:
+  - ssdf-community-profile
+  - provenance
+  - sbom
+  - threat-modeling
+  - produce-well-secured-software
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when asking whether a model release carried provenance and whether AI-specific threats were considered at design.
+- file: nist-sp-800-218a-images/page-022-render.png
+  source_ref: nist-sp-800-218a
+  page: 22
+  description: Table 1 continued with the end of PW.1.1 (C1, C2), PW.1.2 and PW.1.3, PW.2.1 (independent design review) and the start of PW.3 Confirm the Integrity of Training, Testing, Fine-Tuning, and Aligning Data Before Use (PW.3.1, data analysis for poisoning, bias and tampering).
+  tags:
+  - ssdf-community-profile
+  - design-review
+  - data-poisoning
+  - data-integrity
+  - produce-well-secured-software
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when reviewing whether design review and training-data integrity checks happened before a model was used.
+- file: nist-sp-800-218a-images/page-023-render.png
+  source_ref: nist-sp-800-218a
+  page: 23
+  description: Table 1 continued with the end of PW.3.1 (R2, C1), PW.3.2 (track provenance of training data), PW.3.3 (adversarial samples in training and testing), PW.4 Reuse Existing, Well-Secured Software (PW.4.1, PW.4.2) and the start of PW.4.4 (verify third-party components).
+  tags:
+  - ssdf-community-profile
+  - data-provenance
+  - adversarial-samples
+  - third-party-components
+  - produce-well-secured-software
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when the question is how training-data provenance and reuse of third-party models or components should be handled.
+- file: nist-sp-800-218a-images/page-024-render.png
+  source_ref: nist-sp-800-218a
+  page: 24
+  description: Table 1 continued with the end of PW.4.4 (verify integrity and provenance of acquired AI models and datasets), PW.5.1 (secure coding, including input and output handling), PW.6.1 and PW.6.2 (compiler and build configuration), PW.7.1 and the start of PW.7.2 (code review and analysis, scanning models for malware and backdoors).
+  tags:
+  - ssdf-community-profile
+  - secure-coding
+  - input-output-handling
+  - code-review
+  - model-scanning
+  - produce-well-secured-software
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when reviewing coding, build and code review practices for AI components.
+- file: nist-sp-800-218a-images/page-025-render.png
+  source_ref: nist-sp-800-218a
+  page: 25
+  section: Respond to Vulnerabilities (RV)
+  description: Table 1 continued with the end of PW.7.2, PW.8.1 and PW.8.2 (test executable code, retest models when retrained), PW.9.1 and PW.9.2 (secure defaults), and the start of the Respond to Vulnerabilities (RV) group with RV.1.1 (gather vulnerability information and monitor inputs and outputs).
+  tags:
+  - ssdf-community-profile
+  - testing
+  - red-teaming
+  - secure-defaults
+  - respond-to-vulnerabilities
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when the question is what testing and secure-default practices should have caught a weakness before release.
+- file: nist-sp-800-218a-images/page-026-render.png
+  source_ref: nist-sp-800-218a
+  page: 26
+  description: Table 1 continued with the rest of RV.1.1, RV.1.2 (review, analyse and test for undetected vulnerabilities), RV.1.3 (vulnerability disclosure policy), RV.2.1 (analyse each vulnerability for risk) and the start of RV.2.2 (plan and implement risk responses).
+  tags:
+  - ssdf-community-profile
+  - vulnerability-identification
+  - vulnerability-disclosure
+  - risk-response
+  - respond-to-vulnerabilities
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  - OWASP Top 10 for LLM
+  suggested_use: Show when looking at how vulnerabilities in AI models should be found, reported and assessed.
+- file: nist-sp-800-218a-images/page-027-render.png
+  source_ref: nist-sp-800-218a
+  page: 27
+  description: Final page of Table 1. It finishes RV.2.2 (criteria to stop using a model and roll back) and sets out RV.3 Analyze Vulnerabilities to Identify Their Root Causes with RV.3.1 to RV.3.4 (determine root causes, analyse patterns over time, eradicate classes of vulnerability, review and update the SDLC), all Medium priority.
+  tags:
+  - ssdf-community-profile
+  - root-cause-analysis
+  - rollback
+  - sdlc-improvement
+  - respond-to-vulnerabilities
+  - ai-model-development
+  style: table
+  frameworks:
+  - NIST SSDF
+  - NIST AI RMF
+  suggested_use: Show when a review turns from a single vulnerability to its root causes and what should change in the development process.
+- file: nist-ssdf-1-1-images/p0014-table.png
+  source_ref: nist-ssdf-1-1
+  page: 14
+  section: 'Table 1: SSDF Version 1.1 (PDF page 14; printed page 5): Prepare the Organization (PO): PO.1 Define Security Requirements for Software Development'
+  description: 'First page of Table 1 under the Prepare the Organization group. Practice PO.1 (Define Security Requirements for Software Development) has tasks PO.1.1 to PO.1.3: identify and document security requirements for development infrastructure and processes, for organization-developed software, and communicate requirements to third-party suppliers. Each task lists notional implementation examples and mapped references to other frameworks such as BSAFSS, BSIMM, NIST CSF, OWASP SAMM and SP 800-53.'
+  tags:
+  - ssdf
+  - prepare-the-organization
+  - po-1
+  - security-requirements
+  - third-party-requirements
+  - framework-crosswalk
+  style: table
+  suggested_use: Show it when checking which secure software development practice and task a claim about agent-built software maps to, and what notional implementation examples and cross-framework references back it.
+  frameworks: &id001
+  - NIST SSDF 1.1 (SP 800-218)
+- file: nist-ssdf-1-1-images/p0015-table.png
+  source_ref: nist-ssdf-1-1
+  page: 15
+  section: 'Table 1: SSDF Version 1.1 (PDF page 15; printed page 6): PO.1.3 examples (continued); PO.2 Implement Roles and Responsibilities'
+  description: Continues PO.1.3 examples on third-party provenance data and exceptions, then practice PO.2 (Implement Roles and Responsibilities) with tasks PO.2.1 (create and maintain SDLC roles and responsibilities) and PO.2.2 (role-based training for all personnel with secure development responsibilities). Examples include integrating security roles into the team, designating code owners and measuring training outcomes. A footnote defines provenance.
+  tags:
+  - ssdf
+  - prepare-the-organization
+  - po-2
+  - roles-and-responsibilities
+  - training
+  - provenance
+  - code-owners
+  style: table
+  suggested_use: Show it when checking which secure software development practice and task a claim about agent-built software maps to, and what notional implementation examples and cross-framework references back it.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0016-table.png
+  source_ref: nist-ssdf-1-1
+  page: 16
+  section: 'Table 1: SSDF Version 1.1 (PDF page 16; printed page 7): PO.2.3 Upper management commitment; PO.3 Implement Supporting Toolchains'
+  description: Task PO.2.3 (obtain upper management commitment to secure development) with examples such as naming a single accountable leader. Then practice PO.3 (Implement Supporting Toolchains) with tasks PO.3.1 (specify tools to include in each toolchain), PO.3.2 (follow security practices to deploy, operate and maintain tools, including reproducible builds and pipelines-as-code) and the start of PO.3.3 (configure tools to generate artifacts, defined in a footnote as pieces of evidence).
+  tags:
+  - ssdf
+  - prepare-the-organization
+  - po-2-3
+  - po-3
+  - management-commitment
+  - toolchains
+  - reproducible-builds
+  - evidence-artifacts
+  style: table
+  suggested_use: Show it when checking which secure software development practice and task a claim about agent-built software maps to, and what notional implementation examples and cross-framework references back it.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0017-table.png
+  source_ref: nist-ssdf-1-1
+  page: 17
+  section: 'Table 1: SSDF Version 1.1 (PDF page 17; printed page 8): PO.3.3 (continued); PO.4 Define and Use Criteria for Software Security Checks; PO.5 start'
+  description: Finishes PO.3.3 (tools generate artifacts that support secure development practices), then practice PO.4 (Define and Use Criteria for Software Security Checks) with PO.4.1 (define criteria for security checks and track them through the SDLC, including KPIs, KRIs and recording approvals, rejections and exceptions) and PO.4.2 (gather and safeguard the information that supports the criteria). Begins PO.5 (Implement and Maintain Secure Environments) with PO.5.1, separating and protecting each development environment.
+  tags:
+  - ssdf
+  - prepare-the-organization
+  - po-4
+  - po-5
+  - security-check-criteria
+  - kpi-kri
+  - exceptions
+  - secure-environments
+  style: table
+  suggested_use: Show it when asking what criteria a team defined for security checks on agent-built software and how approvals and exceptions were recorded.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0018-table.png
+  source_ref: nist-ssdf-1-1
+  page: 18
+  section: 'Table 1: SSDF Version 1.1 (PDF page 18; printed page 9): PO.5.1 and PO.5.2 (continued); Protect Software (PS): PS.1 Protect All Forms of Code from Unauthorized Access and Tampering'
+  description: Finishes PO.5.1 examples (network segmentation, minimized human access to toolchain systems, logging and monitoring) and gives PO.5.2 (secure and harden development endpoints) with examples such as multi-factor authentication and least privilege. Opens the Protect Software group with PS.1 and task PS.1.1 (store all forms of code, including configuration-as-code, with least-privilege access), with examples of version control, commit signing, code-owner approval and code signing.
+  tags:
+  - ssdf
+  - po-5
+  - ps-1
+  - development-environments
+  - endpoint-hardening
+  - least-privilege
+  - commit-signing
+  - code-signing
+  - zero-trust
+  style: table
+  suggested_use: Show it when asking how access to the code and development environment that an agent works in was restricted and tracked.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0019-table.png
+  source_ref: nist-ssdf-1-1
+  page: 19
+  section: 'Table 1: SSDF Version 1.1 (PDF page 19; printed page 10): PS.2 Provide a Mechanism for Verifying Software Release Integrity; PS.3 Archive and Protect Each Software Release'
+  description: 'Practice PS.2 (PS.2.1: make integrity verification information available to acquirers, with examples such as published cryptographic hashes and certificate-authority code signing) and practice PS.3 (PS.3.1: archive release files and supporting data; PS.3.2: collect, safeguard and share provenance data for all components, for example in a software bill of materials). Each task lists examples and framework references including NTIA SBOM guidance.'
+  tags:
+  - ssdf
+  - protect-software
+  - ps-2
+  - ps-3
+  - release-integrity
+  - code-signing
+  - sbom
+  - provenance
+  - archiving
+  style: table
+  suggested_use: Show it when asking whether a release of agent-built software can be verified as untampered and comes with provenance data such as an SBOM.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0020-table.png
+  source_ref: nist-ssdf-1-1
+  page: 20
+  section: 'Table 1: SSDF Version 1.1 (PDF page 20; printed page 11): Produce Well-Secured Software (PW): PW.1 Design Software to Meet Security Requirements and Mitigate Security Risks'
+  description: Opens the Produce Well-Secured Software group with practice PW.1 and tasks PW.1.1 (use risk modeling such as threat modeling, attack modeling or attack surface mapping), PW.1.2 (track and maintain security requirements, risks and design decisions) and PW.1.3 (build in support for standardized security features and services instead of proprietary versions). Examples include recording each risk response and approved exception, and re-evaluating exceptions periodically.
+  tags:
+  - ssdf
+  - produce-well-secured-software
+  - pw-1
+  - threat-modeling
+  - risk-modeling
+  - design-decisions
+  - security-by-design
+  - exceptions
+  style: table
+  suggested_use: Show it when asking whether agent-built software had threat modeling and recorded design and risk decisions behind it.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0021-table.png
+  source_ref: nist-ssdf-1-1
+  page: 21
+  section: 'Table 1: SSDF Version 1.1 (PDF page 21; printed page 12): PW.2 Review the Software Design; PW.3 (moved); PW.4 Reuse Existing, Well-Secured Software'
+  description: 'Practice PW.2 (PW.2.1: have a qualified person not involved in the design, or automated processes, review the design against security requirements and recorded risk). Notes that PW.3 was moved (PW.3.1 to PO.1.3, PW.3.2 to PW.4.4). Practice PW.4 with PW.4.1 (acquire and maintain well-secured components from commercial, open-source and other developers, with examples on provenance and SBOMs) and PW.4.2 (create well-secured components in-house); PW.4.3 was moved to PW.1.3.'
+  tags:
+  - ssdf
+  - pw-2
+  - pw-4
+  - design-review
+  - independent-review
+  - third-party-components
+  - reuse
+  - provenance
+  style: table
+  suggested_use: Show it when asking whether a design for agent-built software was reviewed by someone other than its author and whether reused components were vetted.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0022-table.png
+  source_ref: nist-ssdf-1-1
+  page: 22
+  section: 'Table 1: SSDF Version 1.1 (PDF page 22; printed page 13): PW.4.4 Verify third-party components; PW.5 Create Source Code by Adhering to Secure Coding Practices'
+  description: Task PW.4.4 (verify that acquired commercial, open-source and other third-party components comply with the organization's requirements through their life cycles) with examples such as automatic detection of known vulnerabilities in the toolchain, checking components are still maintained and confirming integrity by digital signature. Then PW.5 and task PW.5.1 (follow secure coding practices) with nine examples such as validating inputs, avoiding unsafe functions, logging, linters, and developer self-review; PW.5.2 was moved.
+  tags:
+  - ssdf
+  - pw-4-4
+  - pw-5
+  - third-party-verification
+  - known-vulnerabilities
+  - secure-coding
+  - input-validation
+  - linters
+  style: table
+  suggested_use: Show it when asking what secure coding practices and dependency checks applied to code an agent wrote or pulled in.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0023-table.png
+  source_ref: nist-ssdf-1-1
+  page: 23
+  section: 'Table 1: SSDF Version 1.1 (PDF page 23; printed page 14): PW.6 Configure the Compilation, Interpreter and Build Processes; PW.7 Review and/or Analyze Human-Readable Code'
+  description: Practice PW.6 with tasks PW.6.1 (use compiler, interpreter and build tools that offer security features, kept current and validated) and PW.6.2 (decide which features to enable and configure them, including clean builds and a controlled build environment). Practice PW.7 with task PW.7.1 (decide whether code review and/or code analysis should be used) and the start of PW.7.2 (perform the review or analysis against secure coding standards, with examples such as peer review, static analysis and review checklists).
+  tags:
+  - ssdf
+  - pw-6
+  - pw-7
+  - build-configuration
+  - clean-build
+  - code-review
+  - static-analysis
+  - peer-review
+  style: table
+  suggested_use: Show it when asking how code produced by an agent was reviewed or analysed, and by whom, before release.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0024-table.png
+  source_ref: nist-ssdf-1-1
+  page: 24
+  section: 'Table 1: SSDF Version 1.1 (PDF page 24; printed page 15): PW.7.2 (continued); PW.8 Test Executable Code to Identify Vulnerabilities and Verify Compliance with Security Requirements'
+  description: Finishes PW.7.2 examples (record root causes, document lessons learned in a searchable wiki). Practice PW.8 with PW.8.1 (determine whether executable-code testing should be performed and which types) and PW.8.2 (scope, design and perform the testing and record and triage issues), with examples such as robust functional testing of security features, dynamic vulnerability testing in the automated suite, regression tests for reported vulnerabilities, fuzzing and penetration testing.
+  tags:
+  - ssdf
+  - pw-7-2
+  - pw-8
+  - security-testing
+  - dynamic-testing
+  - fuzzing
+  - penetration-testing
+  - regression-tests
+  - root-cause
+  style: table
+  suggested_use: Show it when asking what executable-code security testing was performed on agent-built software and whether past vulnerabilities have regression tests.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0025-table.png
+  source_ref: nist-ssdf-1-1
+  page: 25
+  section: 'Table 1: SSDF Version 1.1 (PDF page 25; printed page 16): PW.9 Configure Software to Have Secure Settings by Default; Respond to Vulnerabilities (RV): RV.1 Identify and Confirm Vulnerabilities on an Ongoing Basis'
+  description: Practice PW.9 with PW.9.1 (define a secure baseline for default settings and test it) and PW.9.2 (implement and document the defaults, stored as configuration-as-code). Opens the Respond to Vulnerabilities group with practice RV.1 and tasks RV.1.1 (gather information on potential vulnerabilities from acquirers, users and public sources, such as vulnerability databases and threat intelligence) and the start of RV.1.2 (review, analyze or test code to confirm previously undetected vulnerabilities).
+  tags:
+  - ssdf
+  - pw-9
+  - rv-1
+  - secure-defaults
+  - vulnerability-monitoring
+  - threat-intelligence
+  - configuration-as-code
+  style: table
+  suggested_use: Show it when asking whether agent-built software ships with secure defaults and how new vulnerabilities in it will be learned about after release.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0026-table.png
+  source_ref: nist-ssdf-1-1
+  page: 26
+  section: 'Table 1: SSDF Version 1.1 (PDF page 26; printed page 17): RV.1.2 (continued); RV.1.3 Vulnerability disclosure and remediation policy; RV.2 Assess, Prioritize, and Remediate Vulnerabilities'
+  description: Finishes RV.1.2 references, then RV.1.3 (have a policy covering vulnerability disclosure and remediation, with the roles and processes to support it) with examples such as a disclosure programme, a Product Security Incident Response Team and response playbooks. Starts RV.2 with RV.2.1 (analyze each vulnerability to gather enough risk information to plan its remediation), with examples of recording each vulnerability in issue tracking and risk calculations based on exploitability and impact.
+  tags:
+  - ssdf
+  - rv-1-3
+  - rv-2
+  - vulnerability-disclosure
+  - psirt
+  - incident-response
+  - risk-assessment
+  - issue-tracking
+  style: table
+  suggested_use: Show it when asking whether there is a disclosure policy and a response team ready for vulnerabilities found in agent-built software after release.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0027-table.png
+  source_ref: nist-ssdf-1-1
+  page: 27
+  section: 'Table 1: SSDF Version 1.1 (PDF page 27; printed page 18): RV.2.2 Plan and implement risk responses; RV.3 Analyze Vulnerabilities to Identify Their Root Causes'
+  description: Task RV.2.2 (plan and implement risk responses for vulnerabilities) with examples of risk-based remediation decisions, temporary mitigations, security advisories and delivering remediations through an automated and trusted mechanism. Then practice RV.3 with RV.3.1 (determine root causes), RV.3.2 (analyze root causes over time to find patterns), RV.3.3 (review the software for similar vulnerabilities to remove a whole class proactively) and RV.3.4 (update the SDLC to prevent recurrence).
+  tags:
+  - ssdf
+  - rv-2
+  - rv-3
+  - remediation
+  - risk-response
+  - root-cause-analysis
+  - security-advisories
+  - sdlc-feedback
+  style: table
+  suggested_use: Show it when asking how vulnerabilities in agent-built software are prioritized and fixed, and whether root causes feed back into the development process.
+  frameworks: *id001
+- file: nist-ssdf-1-1-images/p0033-table.png
+  source_ref: nist-ssdf-1-1
+  page: 33
+  section: 'Appendix A: The SSDF and Executive Order 14028 (Table 2, PDF page 33; printed page 24)'
+  description: 'Table 2 has two columns: EO 14028 subsection (4e(i)(A) through 4e(x)) and the SSDF practices and tasks that help address it, for example 4e(iv) maps to a long list including PO.4.1, PW.7.2, PW.8.2 and RV.1.1, and 4e(ix) maps to all practices and tasks consistent with a risk-based approach. The text says Executive Order 14028, issued 12 May 2021, directed NIST to identify standards and best practices for software supply chain security, and Table 2 maps Section 4e to SSDF practices.'
+  tags:
+  - ssdf
+  - eo-14028
+  - software-supply-chain
+  - crosswalk
+  - executive-order-section-4e
+  - attestation
+  style: table
+  suggested_use: Show it when asking which SSDF practices a supplier of agent-built software would cite as evidence against each subsection of Executive Order 14028 Section 4e.
+  frameworks:
+  - NIST SSDF 1.1 (SP 800-218)
+  - Executive Order 14028
+- file: openssf-finding-fixing-vulnerabilities-ai-images/chrome-bug-fixes-by-milestone-showing.png
+  source_ref: openssf-finding-fixing-vulnerabilities-ai
+  page: null
+  section: Core tasks for finding and fixing vulnerabilities / Fix vulnerabilities
+  description: Bars show total bug count per Chrome milestone from M126 to M150, a red line shows how many were internally found. Both sit low (roughly 20 to 50 per milestone) until M145, then climb through M146 and M147 to a peak near 580 at M149 and about 490 at M150, with the internally found line tracking the same surge. The source cites it to show a huge rise in Chrome bug fixes in 2026 compared with 2024 and 2025 caused by AI-discovered defect reports, so teams must be ready to fix far more vulnerabilities than before.
+  tags:
+  - ai-vulnerability-discovery
+  - bug-fix-volume
+  - chrome
+  - remediation-capacity
+  - defect-reports
+  style: chart
+  suggested_use: Show it when asking whether a team has the capacity to fix the volume of vulnerability findings that AI-assisted discovery will produce.
+  frameworks: []
+- file: owasp-agentic-threats-mitigations-images/p0007-1.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 7
+  description: Three architectures placed along a left-to-right arrow labelled autonomy. An Agentic LLM Application (varying bespoke agency over downstream integrations) leads to a Single Agent (an LLM with Planning, Action, Tools / Function Calling and Memory) and then to a Multi-agent system (Agent
+  tags:
+  - agentic-ai
+  - autonomy-spectrum
+  - single-agent
+  - multi-agent-system
+  - agent-components
+  style: diagram
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when establishing what counts as an agentic system and how much autonomy a given AI system has before reviewing an incident involving it.
+- file: owasp-agentic-threats-mitigations-images/p0007-2.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 7
+  description: Hub-and-spoke diagram with Agent at the centre. Memory (short-term, long-term), Tools (Calendar, Calculator, Code Interpreter, Search, more), Planning (Reflection, Self-critics, Chain of thoughts, Subgoal decomposition) and Action branch off it, with dashed links from Memory to Planning and Reflection and from Tools to Action. It names the building blocks of an LLM agent that later threats attach to.
+  tags:
+  - agent-components
+  - memory
+  - tools
+  - planning
+  - reflection
+  style: diagram
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when locating where in an agent (memory, tool, planning or action) a risk sits during triage or review of an agent-built change.
+- file: owasp-agentic-threats-mitigations-images/p0009-1.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 9
+  description: Reference architecture for a single agent. An Application sends and receives natural-language or media input and output through the Agent, whose Execution Loop holds Planning, Action and Tools / Function Calling, with short-term Memory. The agent connects to Services (Content, Data, Human in the loop, Device, Code, Service), to a Model (an LLM with augmented function calling), and to Supporting Services (Long-Term Memory and a Vector Datastore).
+  tags:
+  - reference-architecture
+  - single-agent
+  - execution-loop
+  - function-calling
+  - memory
+  - vector-datastore
+  style: diagram
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show as the base map of trust boundaries and data flows when tracing how a single-agent incident moved through the system.
+- file: owasp-agentic-threats-mitigations-images/p0011-1.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 11
+  description: Reference architecture for a multi-agent system. A Coordinating Agent (intent extraction and reasoning, query expansion, subtask breakdown, Plan and Execute, conversation history, short-term memory, process tracking) shares a Shared memory store and talks over multi-agent communication to Agents 1 to 4, each with its own LLMs and execution loop (sub-task planning, chain of thoughts, self-critic, reflection, RAG, summarise). They reach Services (Content, Data, Human in the loop, Device, Code, Service) and Internal Services (Long-Term Memory, Vector Datastore).
+  tags:
+  - multi-agent-system
+  - coordinating-agent
+  - shared-memory
+  - reference-architecture
+  - agent-communication
+  - rag
+  style: diagram
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when reviewing an incident that crossed agent boundaries, to see where coordination, shared memory and inter-agent messages could have carried the fault.
+- file: owasp-agentic-threats-mitigations-images/p0017-1.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 17
+  description: The single-agent reference architecture overlaid with red threat markers T1 to T15. Markers sit on Memory and Long-Term Memory (T1), the Application input (T2), Planning and Execution Loop (T3, T6), Tools / Function Calling (T7), the Human in the loop (T10), Code (T11), the user (T14, T15) and the Agent
+  tags:
+  - threat-model
+  - agentic-threats
+  - threat-mapping
+  - attack-surface
+  - reference-architecture
+  style: diagram
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when placing a reported incident or near miss on the architecture to see which threat IDs could apply and where controls should sit.
+- file: owasp-agentic-threats-mitigations-images/page-012-render.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 12
+  description: Two-column table of agentic architecture patterns with a definition and example for each. Rows cover Hierarchical Agent, Coordinating Agent, Distributed Agent Ecosystem, Human-in-the-Loop Collaboration, Self-Learning and Adaptive Agents, RAG-Based Agent, Planning Agent and Context-Aware Agent.
+  tags:
+  - agent-patterns
+  - architecture-patterns
+  - human-in-the-loop
+  - rag
+  - taxonomy
+  style: table
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when classifying which agent pattern a system follows so the matching threats and mitigations can be chosen.
+- file: owasp-agentic-threats-mitigations-images/page-017-render.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 17
+  section: Detailed Threat Model
+  description: The agent reference architecture with red threat markers T1 to T15, above the start of the Detailed Threat Model table. The table has columns TID, Threat Name, Threat Description and Mitigations, and shows T1 Memory Poisoning and T2 Tool Misuse (including Agent Hijacking) with their mitigations.
+  tags:
+  - threat-model
+  - memory-poisoning
+  - tool-misuse
+  - agent-hijacking
+  - mitigations
+  - threat-mapping
+  style: diagram
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when explaining where the threats sit in the architecture and what the first two (memory poisoning, tool misuse) mean and how they are mitigated.
+- file: owasp-agentic-threats-mitigations-images/page-018-render.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 18
+  description: Continuation of the Detailed Threat Model table, with TID, Threat Name, Threat Description and Mitigations columns for T3 Privilege Compromise, T4 Resource Overload, T5 Cascading Hallucination Attacks, T6 Intent Breaking and Goal Manipulation, and T7 Misaligned and Deceptive Behaviors.
+  tags:
+  - threat-model
+  - privilege-compromise
+  - resource-overload
+  - cascading-hallucination
+  - goal-manipulation
+  - deceptive-behavior
+  - mitigations
+  style: table
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when looking up a threat in the T3 to T7 range and the controls that answer it.
+- file: owasp-agentic-threats-mitigations-images/page-019-render.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 19
+  description: Continuation of the Detailed Threat Model table for T8 Repudiation and Untraceability, T9 Identity Spoofing and Impersonation, T10 Overwhelming Human in the Loop, T11 Unexpected RCE and Code Attacks, T12 Agent Communication Poisoning and T13 Rogue Agents in Multi-Agent Systems, each with a description and mitigations.
+  tags:
+  - threat-model
+  - repudiation
+  - identity-spoofing
+  - human-in-the-loop
+  - rce
+  - agent-communication-poisoning
+  - rogue-agents
+  - mitigations
+  style: table
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when looking up a threat in the T8 to T13 range, such as untraceable actions or an overloaded human reviewer, and the controls that answer it.
+- file: owasp-agentic-threats-mitigations-images/page-020-render.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 20
+  description: End of the Detailed Threat Model table for T14 Human Attacks on Multi-Agent Systems, T15 Human Manipulation, T16 Insecure Inter-Agent Protocol Abuse and T17 Supply Chain Compromise, each with description and mitigations. A boxed note below says the taxonomy draws on NIST, CSA, academic and industry work.
+  tags:
+  - threat-model
+  - human-manipulation
+  - inter-agent-protocols
+  - supply-chain-compromise
+  - mitigations
+  - taxonomy
+  style: table
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when looking up a threat in the T14 to T17 range, or when asking where the full threat list ends and what the taxonomy is built from.
+- file: owasp-agentic-threats-mitigations-images/page-035-render.png
+  source_ref: owasp-agentic-threats-mitigations
+  page: 35
+  section: Mitigation Strategies
+  description: Table headed Playbook and Threat Mapping Overview that maps five playbooks to the threats each covers. They are preventing AI agent reasoning manipulation; preventing memory poisoning and AI knowledge corruption; securing AI tool execution and preventing unauthorized actions across supply chains; strengthening authentication, identity and privilege controls; and protecting human-in-the-loop and preventing threats rooted in human interaction. Text above notes that mitigations overlap across playbooks.
+  tags:
+  - mitigation-playbooks
+  - threat-to-playbook-mapping
+  - defense-in-depth
+  - agentic-threats
+  style: table
+  frameworks:
+  - OWASP Agentic AI Threats and Mitigations
+  suggested_use: Show when choosing which mitigation playbook to open for a given group of agentic threats.
+- file: owasp-agentic-top10-2026-images/page-009-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 9
+  section: Agentic Top 10 At A Glance
+  description: Architecture diagram in three columns (Inputs, Integration/Processing, Outputs) with the ASI01-ASI10 risk codes pinned to where each one bites. Inputs hold User Prompts, API and External Agents; the middle holds Policy & Governance, Human-in-the-loop, two Agents (one boxed in red dashes) linked by a dashed arrow, Memory and Connected data/RAG; Outputs hold Tools, APIs/Resources and External Agents. ASI01, ASI03 and ASI09 sit on the input side, ASI10 on the red-dashed agent, ASI07 on the agent-to-agent link, ASI06 on Connected data/RAG, ASI02 on Tools, and ASI04, ASI05 and ASI08 span the whole bottom. A legend below names all ten entries from Agent Goal Hijack to Rogue Agents.
+  tags:
+  - agentic-ai
+  - owasp-asi
+  - threat-model
+  - attack-surface
+  - architecture
+  style: diagram
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when orienting a team on where in an agent system each of the ten agentic risks enters, before diving into any single entry.
+- file: owasp-agentic-top10-2026-images/page-040-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 40
+  section: Appendix A - OWASP Agentic AI Security Mapping Matrix
+  description: Four-column mapping table (ASI ID / Title, OWASP LLM Top 10 (2025), Agentic AI Threats & Mitigations, AIVSS Core Risk Alignment) with rows for ASI 01 through the start of ASI 06. For example, ASI 01 Agent Goal Hijack maps to LLM01 Prompt Injection and LLM06 Excessive Agency, to T6 Goal Manipulation and T7 Misaligned & Deceptive Behaviors, and to Agent Goal & Instruction Manipulation. The table cross-maps the agentic Top 10 to three other risk taxonomies.
+  tags:
+  - owasp-asi
+  - cross-mapping
+  - llm-top10
+  - aivss
+  - threat-taxonomy
+  style: matrix
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  - OWASP LLM Top 10
+  - AIVSS
+  suggested_use: Use when a reviewer holds findings in one taxonomy (for example LLM Top 10) and needs the matching agentic entry, threat code and AIVSS category.
+- file: owasp-agentic-top10-2026-images/page-041-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 41
+  description: 'Second page of the ASI mapping matrix: the tail of the ASI 06 row, then ASI 07 Insecure Inter-Agent Communication through ASI 10 Rogue Agents, each mapped to LLM Top 10 entries, T-codes and AIVSS core risks. Below the table, four notes explain the columns, ending with the crossover insight that ASI entries often blend several LLM entries, for example ASI01 combining LLM01 prompt injection with LLM06 autonomy.'
+  tags:
+  - owasp-asi
+  - cross-mapping
+  - llm-top10
+  - aivss
+  - threat-taxonomy
+  style: matrix
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  - OWASP LLM Top 10
+  - AIVSS
+  suggested_use: Show alongside the first mapping page when explaining how agentic autonomy compounds model-level risks.
+- file: owasp-agentic-top10-2026-images/page-043-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 43
+  section: Appendix C - Mapping Between OWASP Non-Human Identities Top 10 (2025) and OWASP Agentic AI Top 10
+  description: 'Five-column table mapping Non-Human Identity risks to agentic risks: NHI Risk ID / Title, Brief Description, Mapped ASI Top 10 Entries, Mapped T-codes / Threats & Mitigations, and Mapped AIVSS Core Risk Alignment. This page covers NHI1 Improper Offboarding, NHI2 Secret Leakage and NHI3 Vulnerable Third-Party NHI, for example NHI1 mapping to ASI04 and to T17 and T2.'
+  tags:
+  - non-human-identities
+  - owasp-asi
+  - cross-mapping
+  - credentials
+  - threat-taxonomy
+  style: matrix
+  frameworks:
+  - OWASP Non-Human Identities Top 10
+  - OWASP Top 10 for Agentic Applications
+  - AIVSS
+  suggested_use: Use when an incident involves leaked or stale agent credentials and the team needs to place it in both the identity and the agentic risk lists.
+- file: owasp-agentic-top10-2026-images/page-044-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 44
+  description: Continuation of the Non-Human Identities to Agentic Top 10 mapping table, covering NHI4 Insecure Authentication through NHI10 Human Use of NHI. Each row gives a one-line description and the mapped ASI entries, T-codes and AIVSS category, for example NHI5 Overprivileged NHI mapping to ASI02 and ASI03 and to Agent Access Control Violation.
+  tags:
+  - non-human-identities
+  - owasp-asi
+  - cross-mapping
+  - least-privilege
+  - threat-taxonomy
+  style: matrix
+  frameworks:
+  - OWASP Non-Human Identities Top 10
+  - OWASP Top 10 for Agentic Applications
+  - AIVSS
+  suggested_use: Show when tracing an over-privileged or reused service credential back to the agentic risk entries it feeds.
+- file: owasp-agentic-top10-2026-images/page-045-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 45
+  section: Appendix D - ASI Agentic Exploits & Incidents Tracker
+  description: 'Start of the Exploits & Incidents Table with columns Date, Exploit / Incident, Impact Summary, ASI T&M Mapping and Links to further analysis. Two October 2025 rows: a malicious MCP package backdoor mapped to ASI04, and the Framelink Figma MCP remote code execution flaw mapped to ASI05 and ASI02.'
+  tags:
+  - incident-tracker
+  - mcp
+  - supply-chain
+  - remote-code-execution
+  - real-world-incidents
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Use to ground a risk discussion in dated, real agent incidents already mapped to ASI entries.
+- file: owasp-agentic-top10-2026-images/page-046-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 46
+  description: 'Incident table rows from October and September 2025: Cursor config overwrite via case mismatch, Cursor workspace file injection, MCP OAuth response exploit, Cursor CLI project config RCE, Cursor agent file protections bypassed, and the Google Gemini Trifecta. Each row states the impact and the ASI entries (ASI01, ASI04, ASI05, ASI07) it maps to.'
+  tags:
+  - incident-tracker
+  - prompt-injection
+  - coding-agents
+  - remote-code-execution
+  - real-world-incidents
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when a team needs concrete examples of coding-agent compromise through config files and indirect prompt injection.
+- file: owasp-agentic-top10-2026-images/page-047-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 47
+  description: 'Incident table rows from September and July 2025: a malicious MCP server impersonating Postmark, ForcedLeak in Salesforce Agentforce, VS Code agentic RCE, Amazon Q prompt poisoning, Gemini CLI file loss, ToolShell RCE via SharePoint, and the Replit vibe-coding meltdown. Each row carries an impact summary and its ASI mapping, from ASI01 to ASI09.'
+  tags:
+  - incident-tracker
+  - data-exfiltration
+  - destructive-actions
+  - real-world-incidents
+  - mcp
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Use when discussing agents that destroyed data or hid mistakes, to show the pattern across vendors.
+- file: owasp-agentic-top10-2026-images/page-048-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 48
+  description: 'Incident table rows from July to May 2025: the tail of the Replit entry (ASI10), Microsoft Copilot Studio agents public by default, Heroku MCP app ownership hijack, Hub MCP prompt injection via DNS rebinding, AgentSmith prompt-hub proxy attack, and EchoLeak zero-click prompt injection. Each is mapped to ASI01 through ASI07 and ASI10 with source links.'
+  tags:
+  - incident-tracker
+  - zero-click
+  - access-control
+  - real-world-incidents
+  - mcp
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when making the case that default-open agents and unauthenticated tool proxies are live attack paths.
+- file: owasp-agentic-top10-2026-images/page-049-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 49
+  description: 'Incident table rows from May to March 2025: GitPublic issue repo hijack (mapped to ASI01, ASI02, ASI06, ASI07 and ASI08), Agent-in-the-Middle A2A protocol spoofing (ASI03, ASI06, ASI07, ASI08, ASI10), GitHub Copilot and Cursor code-agent exploit, and the Flowise pre-auth arbitrary file upload.'
+  tags:
+  - incident-tracker
+  - agent-to-agent
+  - cascading-failures
+  - real-world-incidents
+  - supply-chain
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Use to show how one incident can span several ASI entries, especially agent-to-agent spoofing and cross-repo injection.
+- file: owasp-agentic-top10-2026-images/page-050-render.png
+  source_ref: owasp-agentic-top10-2026
+  page: 50
+  description: 'Final row of the incidents table: the February 2025 OpenAI ChatGPT Operator vulnerability, where prompt injection in web content made the agent follow attacker instructions and expose private data. It maps to six entries (ASI01, ASI02, ASI03, ASI04, ASI06, ASI07 and ASI09), the widest spread in the table.'
+  tags:
+  - incident-tracker
+  - prompt-injection
+  - browser-agents
+  - real-world-incidents
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show as a single case of one incident touching most of the agentic risk list.
+- file: owasp-llm-top10-2026-images/p0006-2.png
+  source_ref: owasp-llm-top10-2026
+  page: 6
+  description: 'Bump chart titled ''OWASP GenAI/LLM Top 10 (2025 to 2026): Rank Migration''. Ten boxed risks in the 2025 release (left) connect by arrows to ten boxes in the 2026 final release (right). Grey arrows mark unchanged rank (Prompt Injection, Sensitive Information Disclosure), blue marks risks that moved up (Excessive Agency to LLM03, Unbounded Consumption to LLM06, Misinformation to LLM07), orange marks risks that moved down (Supply Chain, Data and Model Poisoning, Improper Output Handling to LLM10, Vector and Embedding Weaknesses to LLM09), and a dashed red arrow shows System Prompt Leakage renamed Hidden Context Exposure (LLM08).'
+  tags:
+  - owasp-llm-top-10
+  - rank-migration
+  - bump-chart
+  - version-comparison
+  - risk-prioritisation
+  style: chart
+  frameworks:
+  - OWASP Top 10 for LLM Applications 2025
+  - OWASP Top 10 for LLM Applications 2026
+  suggested_use: Show when explaining what changed between the 2025 and 2026 lists and which risks gained or lost priority.
+- file: owasp-llm-top10-2026-images/p0009-1.png
+  source_ref: owasp-llm-top10-2026
+  page: 9
+  description: 'Concentric threat-flow diagram of the 2026 Top 10 in three nested layers. Layer 1, Entry Vectors: LLM01 Prompt Injection, LLM04 Supply Chain, LLM05 Data and Model Poisoning. Layer 2, Amplifiers / Machinery: LLM08 Hidden Context Exposure, LLM09 Vector and Embedding Weaknesses, LLM03 Excessive Agency, LLM10 Improper Output Handling. Layer 3, Impacts: LLM02 Sensitive Information Disclosure, LLM06 Unbounded Consumption, LLM07 Misinformation. Arrows point inward, with the caption ''Attack flows inward. Defense pushes outward'' and a note that dashed chips sit in more than one layer.'
+  tags:
+  - owasp-llm-top-10
+  - threat-flow
+  - attack-chain
+  - layered-model
+  - entry-vectors
+  - impacts
+  style: diagram
+  frameworks:
+  - OWASP Top 10 for LLM Applications 2026
+  suggested_use: Show when grouping the ten risks into entry points, amplifiers and impacts so a team can see where in the chain to place controls.
+- file: owasp-llm-top10-2026-images/p0028-1.png
+  source_ref: owasp-llm-top10-2026
+  page: 28
+  description: 'Threat-model diagram of an LLM supply chain. Components include External Data, Container Image Repo, Package Repo, Dev Environment, a Hugging Face model repo with merge and convert steps, an Inference Platform (vLLM, OpenLLM, other), an LLM App, a Supplier delivering a LoRA adapter, an on-device LLM app and the user, with a dotted red trust boundary. Red tags T01 to T11 sit on the flows, and a Threats table lists them: poisoned or tampered model published, malicious model posing as another, supplier data breach, collaborative-process tampering, malicious model or adapter download, poisoned data, vulnerable components, insecure container images, compromised manufacturing or deployment, replaced on-device model, and OS vulnerability abuse.'
+  tags:
+  - supply-chain
+  - threat-model
+  - model-repository
+  - lora-adapter
+  - trust-boundary
+  - llm04
+  style: diagram
+  frameworks:
+  - OWASP Top 10 for LLM Applications 2026
+  suggested_use: Show when walking a team through where tampered models, data, packages and images can enter an LLM deployment.
+- file: owasp-llm-top10-2026-images/p0107-1.png
+  source_ref: owasp-llm-top10-2026
+  page: 107
+  description: 'Example LLM application threat-model diagram titled ''OWASP Top 10 for LLM Applications and Generative AI, 2026 Version: Example LLM Application and Basic Threat Modeling'' (original source credited to Ads Dawson). Labelled zones include a Client / Malicious actor on an untrusted medium, Application Services, LLM Production Services with LLM Automation (Agents) and the LLM Model, Server-side functions, a Vector DB with RAG private data stores (embeddings, databases, credentials), Fine-tuning and Training Data fed by an ML Engineer and Data Scientist, and External Data Sources. Chips for LLM01 to LLM10 (Prompt Injection, Unbounded Consumption, Excessive Agency, Misinformation, Improper Output Handling, Hidden Context Exposure, Sensitive Information Disclosure, Data and Model Poisoning, Supply Chain, Vector and Embedding Weaknesses) are placed where each risk surfaces; some chip sub-labels are too small to read.'
+  tags:
+  - threat-modeling
+  - llm-application-architecture
+  - owasp-llm-top-10
+  - risk-mapping
+  - rag
+  - trust-boundary
+  style: diagram
+  frameworks:
+  - OWASP Top 10 for LLM Applications 2026
+  - MITRE ATLAS
+  suggested_use: Show when mapping the ten risks onto the components of a typical LLM application during a threat-modelling session or a post-incident review.
+- file: owasp-llm-top10-2026-images/page-058-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 58
+  section: 'Appendix A: Related Framework Mappings'
+  description: Opening page of Appendix A with a how-to-read note and a legend (filled dot primary, hollow dot supporting, dash no mapping). The Coverage matrix has rows LLM01 Prompt Injection to LLM04 Supply Chain and columns ASI, DSGAI, ATLAS, ATT&CK, CWE, 600-1, RMF, AICM and AIVSS. Almost every cell is primary; RMF is supporting for LLM01 to LLM03, and AIVSS has no mapping for LLM02.
+  tags:
+  - framework-mapping
+  - coverage-matrix
+  - owasp-llm-top-10
+  - crosswalk
+  - appendix
+  style: matrix
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  - OWASP GenAI Data Security 2026
+  - MITRE ATLAS
+  - MITRE ATT&CK
+  - MITRE CWE
+  - NIST AI 600-1
+  - NIST AI RMF
+  - CSA AI Controls Matrix
+  - OWASP AIVSS
+  suggested_use: Show when a reader asks which external frameworks (ATLAS, ATT&CK, CWE, NIST, AICM, AIVSS) cover each LLM risk.
+- file: owasp-llm-top10-2026-images/page-059-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 59
+  section: OWASP Top 10 for Agentic Applications (ASI) — 2026 (announced 2025-12-09)
+  description: Continuation of the Coverage matrix for LLM05 Data and Model Poisoning to LLM10 Improper Output Handling across the nine frameworks, with LLM07 primary in every column except ATT&CK and LLM10 having no RMF mapping. Below it begins the ASI mapping table (Risk, Element, Relevance), opening with LLM01 Prompt Injection mapped to ASI01 Agent Goal Hijack and ASI02 Tool Misuse and Exploitation.
+  tags:
+  - framework-mapping
+  - coverage-matrix
+  - agentic-applications
+  - asi
+  - crosswalk
+  style: matrix
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when completing the framework coverage view for LLM05 to LLM10 and introducing the agentic (ASI) crosswalk.
+- file: owasp-llm-top10-2026-images/page-060-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 60
+  section: OWASP Top 10 for Agentic Applications (ASI) — 2026 (announced 2025-12-09)
+  description: ASI mapping table continued. LLM01 Prompt Injection maps to ASI03 Identity and Privilege Abuse, ASI05 Unexpected Code Execution, ASI06 Memory and Context Poisoning, ASI08 Cascading Failures and ASI09 Human-Agent Trust Exploitation; LLM02 maps to ASI06; LLM03 Excessive Agency maps to ASI01, ASI02, ASI03, ASI05 and ASI07, each with a one-line relevance note.
+  tags:
+  - framework-mapping
+  - agentic-applications
+  - asi
+  - prompt-injection
+  - excessive-agency
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when relating prompt injection or excessive agency to specific agentic-application risks.
+- file: owasp-llm-top10-2026-images/page-061-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 61
+  section: OWASP Top 10 for Agentic Applications (ASI) — 2026 (announced 2025-12-09)
+  description: ASI mapping table continued. LLM03 Excessive Agency also maps to ASI08 and ASI09; LLM04 Supply Chain to ASI04 Agentic Supply Chain Vulnerabilities; LLM05 Data and Model Poisoning to ASI04, ASI06 and ASI08; LLM06 Unbounded Consumption to ASI02 and ASI08; the LLM07 Misinformation row begins with ASI08. Each row carries a relevance note.
+  tags:
+  - framework-mapping
+  - agentic-applications
+  - asi
+  - supply-chain
+  - poisoning
+  - unbounded-consumption
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when tracing supply-chain, poisoning or consumption risks into their agentic counterparts.
+- file: owasp-llm-top10-2026-images/page-062-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 62
+  section: OWASP Top 10 for Agentic Applications (ASI) — 2026 (announced 2025-12-09)
+  description: ASI mapping table continued. LLM07 Misinformation maps to ASI08, ASI09 Human-Agent Trust Exploitation and ASI10 Rogue Agents; LLM08 Hidden Context Exposure maps to ASI06 and ASI07 as pointers to out-of-scope agentic amplifications; LLM09 Vector and Embedding Weaknesses maps to ASI04 and ASI06.
+  tags:
+  - framework-mapping
+  - agentic-applications
+  - asi
+  - misinformation
+  - hidden-context
+  - vector-embedding
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when explaining which agentic risks sit just outside the scope of the hidden-context and vector-weakness entries.
+- file: owasp-llm-top10-2026-images/page-063-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 63
+  section: OWASP Top 10 for Agentic Applications (ASI) — 2026 (announced 2025-12-09)
+  description: 'Last page of the ASI mapping table: LLM10 Improper Output Handling maps to ASI02 Tool Misuse and Exploitation (a 2026 addition), ASI05 Unexpected Code Execution and ASI09 Human-Agent Trust Exploitation, with notes on how loose or foundational each match is.'
+  tags:
+  - framework-mapping
+  - agentic-applications
+  - asi
+  - improper-output-handling
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  suggested_use: Show when linking unvalidated model output to agentic tool misuse and code execution risks.
+- file: owasp-llm-top10-2026-images/page-064-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 64
+  section: OWASP GenAI Data Security 2026 (DSGAI) — v1.0 (2026-03-17)
+  description: Start of the DSGAI mapping table. LLM01 Prompt Injection maps to DSGAI01 Sensitive Data Leakage and DSGAI06 Tool, Plugin and Agent Data Exchange Risks (primary), plus DSGAI09, DSGAI16 and DSGAI04 (supporting); LLM02 Sensitive Information Disclosure begins with DSGAI01 and DSGAI18 Inference and Data Reconstruction.
+  tags:
+  - framework-mapping
+  - data-security
+  - dsgai
+  - prompt-injection
+  - sensitive-information
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP GenAI Data Security 2026
+  suggested_use: Show when connecting prompt injection and disclosure risks to data-security risk categories.
+- file: owasp-llm-top10-2026-images/page-065-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 65
+  section: OWASP GenAI Data Security 2026 (DSGAI) — v1.0 (2026-03-17)
+  description: DSGAI mapping table continued. LLM02 adds DSGAI15 Over-Broad Context Windows, DSGAI08 Non-Compliance and DSGAI14 Excessive Telemetry; LLM03 Excessive Agency maps to DSGAI02 Agent Identity and Credential Exposure, DSGAI06 and DSGAI01; LLM04 Supply Chain begins with DSGAI04 Data, Model and Artifact Poisoning and DSGAI05 Data Integrity and Validation Failures.
+  tags:
+  - framework-mapping
+  - data-security
+  - dsgai
+  - excessive-agency
+  - supply-chain
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP GenAI Data Security 2026
+  suggested_use: Show when tying over-sharing, telemetry and agent credentials to data-security categories.
+- file: owasp-llm-top10-2026-images/page-066-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 66
+  section: OWASP GenAI Data Security 2026 (DSGAI) — v1.0 (2026-03-17)
+  description: DSGAI mapping table continued. LLM04 adds DSGAI03 Shadow AI and DSGAI08; LLM05 Data and Model Poisoning maps to DSGAI04, DSGAI05, DSGAI21 and DSGAI07; LLM06 Unbounded Consumption maps to DSGAI20 Model Exfiltration and IP Replication, DSGAI17 Data Availability and Resilience Failures, and DSGAI04.
+  tags:
+  - framework-mapping
+  - data-security
+  - dsgai
+  - poisoning
+  - unbounded-consumption
+  - model-exfiltration
+  style: table
+  frameworks:
+  - OWASP GenAI Data Security 2026
+  suggested_use: Show when relating poisoning and consumption attacks to data-integrity, availability and IP-theft categories.
+- file: owasp-llm-top10-2026-images/page-067-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 67
+  section: OWASP GenAI Data Security 2026 (DSGAI) — v1.0 (2026-03-17)
+  description: DSGAI mapping table continued. LLM07 Misinformation maps to DSGAI21, DSGAI05 and DSGAI06; LLM08 Hidden Context Exposure to DSGAI18, DSGAI15 and DSGAI02; LLM09 Vector and Embedding Weaknesses to DSGAI13 Vector Store Platform Data Security, DSGAI18, DSGAI11 Cross-Context and Multi-User Conversation Bleed, and DSGAI04.
+  tags:
+  - framework-mapping
+  - data-security
+  - dsgai
+  - misinformation
+  - hidden-context
+  - vector-embedding
+  style: table
+  frameworks:
+  - OWASP GenAI Data Security 2026
+  suggested_use: Show when mapping misinformation, hidden context and vector-store risks to data-security categories.
+- file: owasp-llm-top10-2026-images/page-068-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 68
+  section: MITRE ATLAS — content v2026.06 (format-version 6.0.0)
+  description: 'End of the DSGAI table, where LLM09 gains DSGAI17 and LLM10 Improper Output Handling maps to DSGAI12 Unsafe Natural-Language Data Gateways, DSGAI06, DSGAI01 and DSGAI16. The MITRE ATLAS table then begins: LLM01 Prompt Injection maps to AML.TA0004 Initial Access and AML.TA0005 Execution (primary).'
+  tags:
+  - framework-mapping
+  - mitre-atlas
+  - dsgai
+  - improper-output-handling
+  - adversary-tactics
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP GenAI Data Security 2026
+  - MITRE ATLAS
+  suggested_use: Show when moving from data-security categories to adversary tactics for the same LLM risks.
+- file: owasp-llm-top10-2026-images/page-069-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 69
+  section: MITRE ATLAS — content v2026.06 (format-version 6.0.0)
+  description: ATLAS mapping continued. LLM01 Prompt Injection adds Persistence, Defense Evasion and Exfiltration (primary) and AI Attack Staging, Impact and Privilege Escalation (supporting); LLM02 Sensitive Information Disclosure maps to Exfiltration (primary), Credential Access and AI Model Access (supporting).
+  tags:
+  - framework-mapping
+  - mitre-atlas
+  - adversary-tactics
+  - prompt-injection
+  - sensitive-information
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATLAS
+  suggested_use: Show when describing the adversary tactics a prompt-injection or disclosure attack traverses.
+- file: owasp-llm-top10-2026-images/page-070-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 70
+  section: MITRE ATLAS — content v2026.06 (format-version 6.0.0)
+  description: ATLAS mapping continued. LLM02 adds Defense Evasion; LLM03 Excessive Agency maps to Execution and Impact (primary), Exfiltration and Privilege Escalation (supporting); LLM04 Supply Chain maps to Initial Access (primary) and Resource Development, Execution and Persistence (supporting).
+  tags:
+  - framework-mapping
+  - mitre-atlas
+  - adversary-tactics
+  - excessive-agency
+  - supply-chain
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATLAS
+  suggested_use: Show when relating excessive agency and supply-chain compromise to ATLAS tactics.
+- file: owasp-llm-top10-2026-images/page-071-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 71
+  section: MITRE ATLAS — content v2026.06 (format-version 6.0.0)
+  description: ATLAS mapping continued. LLM05 Data and Model Poisoning maps to Resource Development, Persistence and Impact (primary) with Initial Access, AI Attack Staging and Execution (supporting); LLM06 Unbounded Consumption maps to Impact and Exfiltration (primary) and AI Model Access (supporting).
+  tags:
+  - framework-mapping
+  - mitre-atlas
+  - adversary-tactics
+  - poisoning
+  - unbounded-consumption
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATLAS
+  suggested_use: Show when describing how poisoning and resource-exhaustion attacks map to adversary tactics.
+- file: owasp-llm-top10-2026-images/page-072-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 72
+  section: MITRE ATLAS — content v2026.06 (format-version 6.0.0)
+  description: ATLAS mapping continued. LLM07 Misinformation maps to Impact (primary) with Resource Development, Initial Access and AI Attack Staging; LLM08 Hidden Context Exposure maps to Discovery and Exfiltration (primary) with Reconnaissance and Credential Access; the LLM09 Vector and Embedding Weaknesses row opens with Persistence.
+  tags:
+  - framework-mapping
+  - mitre-atlas
+  - adversary-tactics
+  - misinformation
+  - hidden-context
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATLAS
+  suggested_use: Show when explaining how misinformation and system-prompt leakage fit adversary kill-chain stages.
+- file: owasp-llm-top10-2026-images/page-073-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 73
+  section: MITRE ATLAS — content v2026.06 (format-version 6.0.0)
+  description: End of the ATLAS table. LLM09 adds Exfiltration (primary) plus AI Attack Staging, Impact and Discovery; LLM10 Improper Output Handling maps to Execution (primary) with Exfiltration, Impact and Privilege Escalation (supporting).
+  tags:
+  - framework-mapping
+  - mitre-atlas
+  - adversary-tactics
+  - vector-embedding
+  - improper-output-handling
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATLAS
+  suggested_use: Show when tracing vector-store and output-handling weaknesses to ATLAS tactics.
+- file: owasp-llm-top10-2026-images/page-074-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 74
+  section: MITRE ATT&CK — v19.1
+  description: MITRE ATT&CK v19.1 mapping begins. LLM01 Prompt Injection maps to TA0001 Initial Access (primary) and TA0002 Execution, TA0010 Exfiltration and TA0005 Stealth (supporting); LLM02 maps to TA0010 Exfiltration (primary) with TA0009 Collection and TA0006 Credential Access, each with an example-based relevance note.
+  tags:
+  - framework-mapping
+  - mitre-attack
+  - adversary-tactics
+  - prompt-injection
+  - sensitive-information
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATT&CK
+  suggested_use: Show when mapping prompt injection and disclosure to enterprise ATT&CK tactics.
+- file: owasp-llm-top10-2026-images/page-075-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 75
+  section: MITRE ATT&CK — v19.1
+  description: ATT&CK mapping continued. LLM03 Excessive Agency maps to TA0002 Execution and TA0040 Impact (primary) with Exfiltration and Privilege Escalation; LLM04 Supply Chain maps to TA0001 Initial Access (primary) with TA0042 Resource Development and TA0002 Execution.
+  tags:
+  - framework-mapping
+  - mitre-attack
+  - adversary-tactics
+  - excessive-agency
+  - supply-chain
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATT&CK
+  suggested_use: Show when relating agent over-permissioning and package or pipeline compromise to ATT&CK tactics.
+- file: owasp-llm-top10-2026-images/page-076-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 76
+  section: MITRE ATT&CK — v19.1
+  description: ATT&CK mapping continued. LLM04 adds TA0003 Persistence; LLM05 Data and Model Poisoning maps to Impact, Initial Access and Execution (supporting); LLM06 Unbounded Consumption maps to TA0040 Impact (primary) and Exfiltration; LLM07 Misinformation maps to Initial Access; LLM08 Hidden Context Exposure begins with TA0006 Credential Access.
+  tags:
+  - framework-mapping
+  - mitre-attack
+  - adversary-tactics
+  - poisoning
+  - unbounded-consumption
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATT&CK
+  suggested_use: Show when mapping poisoning, consumption and hallucinated-package risks to ATT&CK tactics.
+- file: owasp-llm-top10-2026-images/page-077-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 77
+  section: MITRE ATT&CK — v19.1
+  description: End of the ATT&CK table. LLM09 Vector and Embedding Weaknesses maps to Collection, Exfiltration and Impact (supporting); LLM10 Improper Output Handling maps to TA0002 Execution (primary) with Exfiltration, Impact and Privilege Escalation.
+  tags:
+  - framework-mapping
+  - mitre-attack
+  - adversary-tactics
+  - vector-embedding
+  - improper-output-handling
+  - crosswalk
+  style: table
+  frameworks:
+  - MITRE ATT&CK
+  suggested_use: Show when linking retrieval-layer and output-handling weaknesses to ATT&CK tactics.
+- file: owasp-llm-top10-2026-images/page-078-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 78
+  section: MITRE CWE (Common Weakness Enumeration) — 4.20
+  description: MITRE CWE 4.20 mapping begins. LLM01 Prompt Injection maps to CWE-1427 Improper Neutralization of Input Used for LLM Prompting (primary) with CWE-707, CWE-349 and CWE-693 (supporting); LLM02 Sensitive Information Disclosure maps to CWE-200, CWE-359 and CWE-212 (primary), each with a root-cause note.
+  tags:
+  - framework-mapping
+  - mitre-cwe
+  - weakness-enumeration
+  - prompt-injection
+  - sensitive-information
+  - root-cause
+  style: table
+  frameworks:
+  - MITRE CWE
+  suggested_use: Show when naming the underlying software weakness behind prompt injection or disclosure in a finding.
+- file: owasp-llm-top10-2026-images/page-079-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 79
+  section: MITRE CWE (Common Weakness Enumeration) — 4.20
+  description: CWE mapping continued. LLM02 adds CWE-532 Insertion of Sensitive Information into Log File (primary) and CWE-285, CWE-732 and CWE-201 (supporting); LLM03 Excessive Agency maps to CWE-285 Improper Authorization and CWE-732 Incorrect Permission Assignment (primary) with CWE-284, CWE-770 and CWE-1427.
+  tags:
+  - framework-mapping
+  - mitre-cwe
+  - weakness-enumeration
+  - excessive-agency
+  - authorization
+  - root-cause
+  style: table
+  frameworks:
+  - MITRE CWE
+  suggested_use: Show when pointing to authorization and permission weaknesses as the root cause of excessive agency.
+- file: owasp-llm-top10-2026-images/page-080-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 80
+  section: MITRE CWE (Common Weakness Enumeration) — 4.20
+  description: CWE mapping continued. LLM04 Supply Chain maps to CWE-494 Download of Code Without Integrity Check and CWE-829 Inclusion of Functionality from Untrusted Control Sphere (primary) with CWE-349 and CWE-664; LLM05 Data and Model Poisoning maps to CWE-349 and CWE-829 (primary) with CWE-494 and CWE-1427.
+  tags:
+  - framework-mapping
+  - mitre-cwe
+  - weakness-enumeration
+  - supply-chain
+  - poisoning
+  - integrity-check
+  style: table
+  frameworks:
+  - MITRE CWE
+  suggested_use: Show when citing integrity-check and untrusted-component weaknesses behind supply-chain and poisoning findings.
+- file: owasp-llm-top10-2026-images/page-081-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 81
+  section: MITRE CWE (Common Weakness Enumeration) — 4.20
+  description: CWE mapping continued. LLM06 Unbounded Consumption maps to CWE-400 Uncontrolled Resource Consumption and CWE-770 Allocation of Resources Without Limits (primary) with CWE-664, CWE-691 and CWE-829; LLM07 Misinformation maps to CWE-1426 Improper Validation of Generative AI Output (primary) with CWE-349 and CWE-494.
+  tags:
+  - framework-mapping
+  - mitre-cwe
+  - weakness-enumeration
+  - unbounded-consumption
+  - misinformation
+  - root-cause
+  style: table
+  frameworks:
+  - MITRE CWE
+  suggested_use: Show when naming resource-limit and unvalidated-output weaknesses behind consumption and misinformation findings.
+- file: owasp-llm-top10-2026-images/page-082-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 82
+  section: MITRE CWE (Common Weakness Enumeration) — 4.20
+  description: CWE mapping continued. LLM07 adds CWE-1427; LLM08 Hidden Context Exposure maps to CWE-200 (primary) with CWE-798 Use of Hard-coded Credentials, CWE-693 and CWE-285; LLM09 Vector and Embedding Weaknesses maps to CWE-200 and CWE-285 (primary) with CWE-359 and CWE-732.
+  tags:
+  - framework-mapping
+  - mitre-cwe
+  - weakness-enumeration
+  - hidden-context
+  - vector-embedding
+  - hard-coded-credentials
+  style: table
+  frameworks:
+  - MITRE CWE
+  suggested_use: Show when citing hard-coded credentials and post-search access checks as root causes of hidden-context and vector leaks.
+- file: owasp-llm-top10-2026-images/page-083-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 83
+  section: MITRE CWE (Common Weakness Enumeration) — 4.20
+  description: End of the CWE table. LLM09 adds CWE-829; LLM10 Improper Output Handling maps to CWE-1426, CWE-116 Improper Encoding or Escaping of Output and CWE-79 Cross-site Scripting (primary) with CWE-707, CWE-200 and CWE-201 (supporting).
+  tags:
+  - framework-mapping
+  - mitre-cwe
+  - weakness-enumeration
+  - improper-output-handling
+  - xss
+  - output-encoding
+  style: table
+  frameworks:
+  - MITRE CWE
+  suggested_use: Show when tying output-handling failures to encoding and cross-site scripting weaknesses.
+- file: owasp-llm-top10-2026-images/page-084-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 84
+  section: NIST AI 600-1 (Generative AI Profile) — v1.0 (July 2024)
+  description: NIST AI 600-1 mapping begins. LLM01 Prompt Injection maps to Information Security (primary) with Information Integrity, Data Privacy and Human-AI Configuration (supporting); LLM02 Sensitive Information Disclosure maps to Data Privacy and Information Security (primary) with Intellectual Property beginning.
+  tags:
+  - framework-mapping
+  - nist-ai-600-1
+  - generative-ai-profile
+  - prompt-injection
+  - sensitive-information
+  - crosswalk
+  style: table
+  frameworks:
+  - NIST AI 600-1
+  suggested_use: Show when relating LLM risks to NIST generative-AI risk categories in a governance conversation.
+- file: owasp-llm-top10-2026-images/page-085-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 85
+  section: NIST AI 600-1 (Generative AI Profile) — v1.0 (July 2024)
+  description: NIST AI 600-1 mapping continued. LLM02 adds Value Chain and Component Integration; LLM03 Excessive Agency maps to Information Security (primary) with Human-AI Configuration, Confabulation and Data Privacy; LLM04 Supply Chain maps to Value Chain and Component Integration and Information Security (primary) with Intellectual Property.
+  tags:
+  - framework-mapping
+  - nist-ai-600-1
+  - generative-ai-profile
+  - excessive-agency
+  - supply-chain
+  - crosswalk
+  style: table
+  frameworks:
+  - NIST AI 600-1
+  suggested_use: Show when mapping agency and supply-chain risks to NIST value-chain and human-oversight categories.
+- file: owasp-llm-top10-2026-images/page-086-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 86
+  section: NIST AI 600-1 (Generative AI Profile) — v1.0 (July 2024)
+  description: NIST AI 600-1 mapping continued. LLM04 adds Information Integrity and Confabulation (supporting); LLM05 Data and Model Poisoning maps to Information Integrity, Value Chain and Component Integration and Information Security (primary) with Dangerous, Violent, or Hateful Content; LLM06 Unbounded Consumption maps to Information Security (primary) and Intellectual Property.
+  tags:
+  - framework-mapping
+  - nist-ai-600-1
+  - generative-ai-profile
+  - poisoning
+  - unbounded-consumption
+  - crosswalk
+  style: table
+  frameworks:
+  - NIST AI 600-1
+  suggested_use: Show when linking poisoning and extraction risks to NIST integrity, security and IP categories.
+- file: owasp-llm-top10-2026-images/page-087-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 87
+  section: NIST AI 600-1 (Generative AI Profile) — v1.0 (July 2024)
+  description: NIST AI 600-1 mapping continued. LLM06 adds Value Chain and Component Integration; LLM07 Misinformation maps to Information Integrity, Confabulation and Human-AI Configuration (primary) with Information Security and Value Chain; LLM08 Hidden Context Exposure maps to Information Security (primary) and Intellectual Property; LLM09 begins with Data Privacy.
+  tags:
+  - framework-mapping
+  - nist-ai-600-1
+  - generative-ai-profile
+  - misinformation
+  - confabulation
+  - hidden-context
+  style: table
+  frameworks:
+  - NIST AI 600-1
+  suggested_use: Show when explaining misinformation through NIST's confabulation and overreliance categories.
+- file: owasp-llm-top10-2026-images/page-088-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 88
+  section: NIST AI 600-1 (Generative AI Profile) — v1.0 (July 2024)
+  description: End of the NIST AI 600-1 table. LLM09 Vector and Embedding Weaknesses adds Information Security and Information Integrity (primary) and Value Chain and Component Integration; LLM10 Improper Output Handling maps to Information Security (primary) with Data Privacy, Confabulation and Value Chain and Component Integration.
+  tags:
+  - framework-mapping
+  - nist-ai-600-1
+  - generative-ai-profile
+  - vector-embedding
+  - improper-output-handling
+  - crosswalk
+  style: table
+  frameworks:
+  - NIST AI 600-1
+  suggested_use: Show when mapping retrieval-layer and output-handling risks to NIST generative-AI categories.
+- file: owasp-llm-top10-2026-images/page-089-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 89
+  section: NIST AI RMF (AI 100-1) — v1.0 (2023)
+  description: NIST AI RMF mapping begins. LLM01 Prompt Injection maps to MEASURE 1 (methods and metrics), MEASURE 2 (evaluate trustworthiness) and MAP 4 (map risks across all components); LLM02 Sensitive Information Disclosure maps to MAP 5 (characterize impacts on people), MEASURE 2 and MANAGE 4 (risk treatment, response and recovery).
+  tags:
+  - framework-mapping
+  - nist-ai-rmf
+  - risk-management
+  - prompt-injection
+  - sensitive-information
+  - crosswalk
+  style: table
+  frameworks:
+  - NIST AI RMF
+  suggested_use: Show when connecting LLM risks to the Govern, Map, Measure and Manage functions of the AI RMF.
+- file: owasp-llm-top10-2026-images/page-090-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 90
+  section: NIST AI RMF (AI 100-1) — v1.0 (2023)
+  description: NIST AI RMF mapping continued. LLM03 Excessive Agency maps to MANAGE 4; LLM04 Supply Chain maps to GOVERN 6 (third-party and supply-chain policy), MAP 4 and MANAGE 3 (primary) with MEASURE 2 and MEASURE 3; the LLM05 Data and Model Poisoning row begins with MEASURE 3 (track risks over time).
+  tags:
+  - framework-mapping
+  - nist-ai-rmf
+  - risk-management
+  - supply-chain
+  - third-party-risk
+  - crosswalk
+  style: table
+  frameworks:
+  - NIST AI RMF
+  suggested_use: Show when pointing to third-party and supply-chain governance controls in the AI RMF.
+- file: owasp-llm-top10-2026-images/page-091-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 91
+  section: NIST AI RMF (AI 100-1) — v1.0 (2023)
+  description: NIST AI RMF mapping continued. LLM05 adds MEASURE 2 and GOVERN 6; LLM06 Unbounded Consumption maps to MANAGE 1 (prioritize and respond to risks) and MEASURE 2; LLM07 Misinformation maps to MEASURE 2 (primary) and MEASURE 1, with groundedness and consistency checks as the evaluation signals.
+  tags:
+  - framework-mapping
+  - nist-ai-rmf
+  - risk-management
+  - poisoning
+  - unbounded-consumption
+  - misinformation
+  style: table
+  frameworks:
+  - NIST AI RMF
+  suggested_use: Show when mapping poisoning, consumption and misinformation to AI RMF evaluation and response functions.
+- file: owasp-llm-top10-2026-images/page-092-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 92
+  section: NIST AI RMF (AI 100-1) — v1.0 (2023)
+  description: End of the NIST AI RMF table. LLM07 adds MEASURE 3 and MANAGE 1; LLM08 Hidden Context Exposure maps to MEASURE 2; LLM09 Vector and Embedding Weaknesses maps to MAP 4, MAP 5 and MANAGE 4, treating an embeddings-only leak as a source-data breach.
+  tags:
+  - framework-mapping
+  - nist-ai-rmf
+  - risk-management
+  - hidden-context
+  - vector-embedding
+  - breach-response
+  style: table
+  frameworks:
+  - NIST AI RMF
+  suggested_use: Show when mapping hidden-context and embedding leaks to AI RMF measurement and incident-response functions.
+- file: owasp-llm-top10-2026-images/page-093-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 93
+  section: CSA AI Controls Matrix (AICM) — v1.1 (2026-06-22)
+  description: CSA AI Controls Matrix mapping begins. LLM01 Prompt Injection maps to AIS Application and Interface Security (primary) with IAM, TVM Threat and Vulnerability Management and STA Supply Chain Management; LLM02 Sensitive Information Disclosure maps to DSP Data Security and Privacy Lifecycle Management and IAM (primary).
+  tags:
+  - framework-mapping
+  - csa-aicm
+  - control-domains
+  - prompt-injection
+  - sensitive-information
+  - crosswalk
+  style: table
+  frameworks:
+  - CSA AI Controls Matrix
+  suggested_use: Show when a team needs control domains to assign against prompt injection and disclosure.
+- file: owasp-llm-top10-2026-images/page-094-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 94
+  section: CSA AI Controls Matrix (AICM) — v1.1 (2026-06-22)
+  description: AICM mapping continued. LLM02 adds CEK Cryptography, MDS Model Development Security and AIS (supporting); LLM03 Excessive Agency maps to IAM Identity and Access Management (primary) with AIS and LOG Logging and Monitoring.
+  tags:
+  - framework-mapping
+  - csa-aicm
+  - control-domains
+  - sensitive-information
+  - excessive-agency
+  - least-privilege
+  style: table
+  frameworks:
+  - CSA AI Controls Matrix
+  suggested_use: Show when choosing identity, interface and logging controls to contain excessive agency.
+- file: owasp-llm-top10-2026-images/page-095-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 95
+  section: CSA AI Controls Matrix (AICM) — v1.1 (2026-06-22)
+  description: AICM mapping continued. LLM03 adds TVM; LLM04 Supply Chain maps to STA and MDS (primary) with TVM, CEK and CCC Change Control and Configuration Management; the LLM05 Data and Model Poisoning row begins with MDS (primary) and DSP.
+  tags:
+  - framework-mapping
+  - csa-aicm
+  - control-domains
+  - supply-chain
+  - model-signing
+  - crosswalk
+  style: table
+  frameworks:
+  - CSA AI Controls Matrix
+  suggested_use: Show when selecting supply-chain, model-development and change-control domains for a supply-chain finding.
+- file: owasp-llm-top10-2026-images/page-096-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 96
+  section: CSA AI Controls Matrix (AICM) — v1.1 (2026-06-22)
+  description: AICM mapping continued. LLM05 adds STA, LOG and TVM (supporting); LLM06 Unbounded Consumption maps to AIS Application and Interface Security and BCR Business Continuity Management and Operational Resilience (primary) with IVS Infrastructure and Virtualization Security and LOG.
+  tags:
+  - framework-mapping
+  - csa-aicm
+  - control-domains
+  - poisoning
+  - unbounded-consumption
+  - resilience
+  style: table
+  frameworks:
+  - CSA AI Controls Matrix
+  suggested_use: Show when picking control domains for poisoning detection and consumption or availability limits.
+- file: owasp-llm-top10-2026-images/page-097-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 97
+  section: CSA AI Controls Matrix (AICM) — v1.1 (2026-06-22)
+  description: AICM mapping continued. LLM06 adds IAM; LLM07 Misinformation maps to AIS (primary) with TVM, LOG and STA; LLM08 Hidden Context Exposure maps to AIS (primary) with IAM and CEK, and the CEK note about keeping credentials out of the prompt begins.
+  tags:
+  - framework-mapping
+  - csa-aicm
+  - control-domains
+  - misinformation
+  - hidden-context
+  - crosswalk
+  style: table
+  frameworks:
+  - CSA AI Controls Matrix
+  suggested_use: Show when selecting control domains for misinformation and system-prompt exposure.
+- file: owasp-llm-top10-2026-images/page-098-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 98
+  section: CSA AI Controls Matrix (AICM) — v1.1 (2026-06-22)
+  description: AICM mapping continued. LLM08 ends with the CEK note on externalising secrets; LLM09 Vector and Embedding Weaknesses maps to IAM, DSP and LOG (primary) with CEK, AIS and STA; LLM10 Improper Output Handling begins with AIS (primary).
+  tags:
+  - framework-mapping
+  - csa-aicm
+  - control-domains
+  - vector-embedding
+  - improper-output-handling
+  - tenant-isolation
+  style: table
+  frameworks:
+  - CSA AI Controls Matrix
+  suggested_use: Show when choosing identity, data-lifecycle and logging controls for vector-store security.
+- file: owasp-llm-top10-2026-images/page-100-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 100
+  section: OWASP AIVSS (AI Vulnerability Scoring System) — v0.8
+  description: OWASP AIVSS v0.8 mapping begins, listing the AIVSS agentic core risks that each LLM risk can produce or feed. LLM01 Prompt Injection maps to AIVSS-10 Goal and Instruction Manipulation, AIVSS-1 Tool Misuse, AIVSS-2 Access Control Violation and AIVSS-6 Memory and Context Manipulation (primary), with AIVSS-7, AIVSS-3 and AIVSS-4 (supporting).
+  tags:
+  - framework-mapping
+  - owasp-aivss
+  - agentic-risk-scoring
+  - prompt-injection
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP AIVSS
+  suggested_use: Show when scoring the agentic severity of a prompt-injection finding.
+- file: owasp-llm-top10-2026-images/page-101-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 101
+  section: OWASP AIVSS (AI Vulnerability Scoring System) — v0.8
+  description: AIVSS mapping continued. LLM03 Excessive Agency maps to AIVSS-1, AIVSS-2 and AIVSS-7 (primary) with AIVSS-3, AIVSS-4 and AIVSS-10 (supporting); the LLM04 Supply Chain row begins with AIVSS-8 Agent Supply Chain and Dependency Risk.
+  tags:
+  - framework-mapping
+  - owasp-aivss
+  - agentic-risk-scoring
+  - excessive-agency
+  - supply-chain
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP AIVSS
+  suggested_use: Show when mapping excessive agency to agentic vulnerability-scoring categories.
+- file: owasp-llm-top10-2026-images/page-102-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 102
+  section: OWASP AIVSS (AI Vulnerability Scoring System) — v0.8
+  description: AIVSS mapping continued. LLM05 Data and Model Poisoning maps to AIVSS-6, AIVSS-8 and AIVSS-3 (supporting); LLM06 Unbounded Consumption maps to AIVSS-1 Tool Misuse, AIVSS-3 Cascading Failures and AIVSS-8 Supply Chain and Dependency Risk (supporting).
+  tags:
+  - framework-mapping
+  - owasp-aivss
+  - agentic-risk-scoring
+  - poisoning
+  - unbounded-consumption
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP AIVSS
+  suggested_use: Show when scoring poisoning and consumption findings against agentic risk categories.
+- file: owasp-llm-top10-2026-images/page-103-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 103
+  section: OWASP AIVSS (AI Vulnerability Scoring System) — v0.8
+  description: AIVSS mapping continued. LLM07 Misinformation maps to AIVSS-3 Cascading Failures (primary) with AIVSS-1 and AIVSS-7; LLM08 Hidden Context Exposure maps to AIVSS-2 and AIVSS-1; LLM09 Vector and Embedding Weaknesses maps to AIVSS-6 and begins AIVSS-8.
+  tags:
+  - framework-mapping
+  - owasp-aivss
+  - agentic-risk-scoring
+  - misinformation
+  - hidden-context
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP AIVSS
+  suggested_use: Show when mapping misinformation and exposed context to agentic cascading and access-control risks.
+- file: owasp-llm-top10-2026-images/page-104-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 104
+  section: OWASP AIVSS (AI Vulnerability Scoring System) — v0.8
+  description: End of the AIVSS table. LLM09 adds AIVSS-8 notes and AIVSS-2 Access Control Violation (supporting); LLM10 Improper Output Handling maps to AIVSS-7 Insecure Agent Critical Systems Interaction and AIVSS-1 Agentic AI Tool Misuse (supporting).
+  tags:
+  - framework-mapping
+  - owasp-aivss
+  - agentic-risk-scoring
+  - vector-embedding
+  - improper-output-handling
+  - crosswalk
+  style: table
+  frameworks:
+  - OWASP AIVSS
+  suggested_use: Show when mapping vector-store and output-handling risks to agentic scoring categories.
+- file: owasp-llm-top10-2026-images/page-105-render.png
+  source_ref: owasp-llm-top10-2026
+  page: 105
+  section: Framework Sources & Versions
+  description: 'Table titled ''Framework Sources & Versions'' pinning the nine external frameworks to version and source URL: OWASP Top 10 for Agentic Applications (2026), OWASP GenAI Data Security 2026 (v1.0), MITRE ATLAS (content v2026.06), MITRE ATT&CK (v19.1), MITRE CWE (4.20), NIST AI 600-1 (v1.0, July 2024), NIST AI RMF (v1.0, 2023), CSA AI Controls Matrix (v1.1, 2026-06-22) and OWASP AIVSS (v0.8).'
+  tags:
+  - framework-versions
+  - reference-table
+  - framework-mapping
+  - appendix
+  - provenance
+  style: table
+  frameworks:
+  - OWASP Top 10 for Agentic Applications
+  - OWASP GenAI Data Security 2026
+  - MITRE ATLAS
+  - MITRE ATT&CK
+  - MITRE CWE
+  - NIST AI 600-1
+  - NIST AI RMF
+  - CSA AI Controls Matrix
+  - OWASP AIVSS
+  suggested_use: Show when a reader needs the exact framework versions behind the Appendix A crosswalks.
+- file: uk-aqua-book-2025-images/Figure_3-1_Business_Risk_and_or_Analytical_Complexity_.svg
+  source_ref: uk-aqua-book-2025
+  page: null
+  section: 3 Proportionality / 3.1 Factors for determining appropriate assurance (Figure 3-1)
+  description: 'A grey Low-to-High arrow headed ''Business Risk and/or Analytical Complexity'' sits over four coloured arrows, each pairing a low-end and high-end technique: internal consultation to expert consultation (consultation on methods and assumptions), minimal viable RAP to full RAP project (use of RAP tools), analyst-led testing to external audit (analyst-assurer separation), and in-line documentation to full project documentation (documentation detail). The source says the need for assurance rises with complexity and business risk, the interventions should build on each other rather than be viewed in isolation, and risk can never be eliminated entirely.'
+  tags:
+  - proportionality
+  - assurance-techniques
+  - business-risk
+  - analytical-complexity
+  - rap
+  - external-audit
+  - documentation
+  style: chart
+  suggested_use: Show it when deciding how much assurance, from internal consultation up to external audit, agent-built analysis needs given its business risk and complexity.
+  frameworks:
+  - Aqua Book proportionality
+  - Reproducible Analytical Pipelines (RAP)
+- file: uk-aqua-book-2025-images/Table_3.2_risk_matrix_v2.svg
+  source_ref: uk-aqua-book-2025
+  page: null
+  section: 3 Proportionality / 3.2 Structured assessment of business risk and complexity (Figure 3-2)
+  description: A five-by-five grid of cells shaded from pale pink to deep red, with Effect on the vertical axis, Likelihood along the bottom and the word Risk over the middle; risk rises towards the high-effect, high-likelihood corner. The source says business risk is the combination of the potential effect of analytical errors and the likelihood of them occurring, the effect is usually beyond the analyst's control, so additional assurance treatments mainly reduce likelihood.
+  tags:
+  - risk-matrix
+  - effect
+  - likelihood
+  - business-risk
+  - mitigation
+  - assurance
+  style: chart
+  suggested_use: Show it when rating the risk of agent-built analysis by effect and likelihood, and when explaining why added assurance works mainly by lowering likelihood of error.
+  frameworks:
+  - Aqua Book risk matrix
+- file: uk-aqua-book-2025-images/analytical_lifecycle_diagram.svg
+  source_ref: uk-aqua-book-2025
+  page: null
+  section: 1.3 How to use this book (overview of the analytical life cycle); repeated as Figure 2 in 5.2 The analytical lifecycle
+  description: Start leads into Engagement and Scoping (Chapter 6), then Design (Chapter 7), Analysis (Chapter 8) and Delivery and Communication (Chapter 9), which exits to Sign-off and also loops back to Engagement and Scoping. A central note says that in practice the cycle is often iterative and projects may include each phase several times, possibly out of order. A corner note says Proportionality (Chapter 3) should be considered in every phase. The source says quality assurance activities should take place throughout an analytical project, with ongoing engagement between commissioner and analyst.
+  tags:
+  - analytical-lifecycle
+  - quality-assurance
+  - proportionality
+  - sign-off
+  - commissioner-analyst
+  - iterative-cycle
+  style: diagram
+  suggested_use: Show it when mapping where in the life cycle assurance happened for agent-built analysis and who engaged with whom before sign-off.
+  frameworks:
+  - Aqua Book analytical life cycle
+- file: uk-duck-book-qa-of-code-images/centaur-prompting.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: 'Generative AI / Vibe coding: Using LLMs to write code in the workplace / Conclusion - Centaurs and reverse-centaurs'
+  description: A chat prompt reading 'Write a Python function that will flag numerical outliers in a Pandas DataFrame if they are more than 3 standard deviations above the mean'. The caption says the user is more precise with the requirements. The text offers it as the improved version of the vague prompt, so the human stays the centaur, assisted by the machine, and the output is small enough to review.
+  tags:
+  - prompting
+  - centaur
+  - precise-requirements
+  - copilot
+  - human-in-control
+  style: screenshot
+  suggested_use: Show it next to the vague prompt when asking whether a team specifies work precisely enough to keep agent output reviewable.
+  frameworks:
+  - Centaur and reverse-centaur
+- file: uk-duck-book-qa-of-code-images/git_deeper_branching.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Use branching appropriately
+  description: 'Three lines: main, feature and bug-fix. The bug-fix branch leaves the feature branch early, holds two commits and merges back into the feature, which then merges into main. The text says deeper branching reflects less stable, more experimental work and is used to fix a bug found while developing a feature independently of the remaining feature work.'
+  tags:
+  - git
+  - deeper-branching
+  - bug-fix
+  - feature-branch
+  - version-control
+  style: diagram
+  suggested_use: Show it when asking whether sub-tasks and bug fixes during agent-led feature work were isolated before merging upward.
+  frameworks:
+  - Git branching
+- file: uk-duck-book-qa-of-code-images/git_develop.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Use branching appropriately
+  description: A main line with a develop branch that rises, holds three commits and merges back, then rises again with two commits and merges again. The caption reads 'Iteratively working on a develop branch'. The text says the GitHub flow strategy uses branching in combination with pull requests to include peer review in the workflow, and merges should only go to a more stable branch when they are not expected to break working code.
+  tags:
+  - git
+  - develop-branch
+  - branching-strategy
+  - pull-requests
+  - peer-review
+  style: diagram
+  suggested_use: Show it when asking whether agent-made changes pass through an integration branch and review before they reach the stable branch.
+  frameworks:
+  - Git branching
+  - GitHub flow
+- file: uk-duck-book-qa-of-code-images/git_feature.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Use branching appropriately
+  description: A main line has a new-feature branch rising from one commit, holding three commits, and merging back into the next main commit. The text says changes on a feature branch are initially experimental and are refined over a few commits, then the complete, working feature is merged back onto main.
+  tags:
+  - git
+  - feature-branch
+  - branching
+  - merge
+  - version-control
+  style: diagram
+  suggested_use: Show it when asking whether an agent's changes were developed on a feature branch and merged only once complete and working.
+  frameworks:
+  - Git branching
+- file: uk-duck-book-qa-of-code-images/git_main.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Use branching appropriately
+  description: Five black circles joined by a line labelled main, with an arrow at the end. It shows the simplest case, commits along a single main branch. The text says main is the default highest-level branch and, when branches are used, should be treated as the most stable branch, meaning code on it builds and runs as expected.
+  tags:
+  - git
+  - branching
+  - main-branch
+  - version-control
+  - stable-branch
+  style: diagram
+  suggested_use: Show it when asking whether agent-written changes go straight onto the stable main branch or are isolated first.
+  frameworks:
+  - Git branching
+- file: uk-duck-book-qa-of-code-images/git_multiple_features.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Use branching appropriately
+  description: A main line with feature-1 above it and feature-2 below, both created from the same early commit and merged back at different points. The text says multiple branches suit features developed in parallel or several analysts changing the same code independently; each is merged to main when complete, and if branches change the same files, merging may cause conflicts that must be resolved.
+  tags:
+  - git
+  - parallel-branches
+  - merge-conflicts
+  - branching
+  - version-control
+  style: diagram
+  suggested_use: Show it when asking how work by several agents or people on the same code is kept apart and then merged with conflicts resolved.
+  frameworks:
+  - Git branching
+- file: uk-duck-book-qa-of-code-images/github_pr_changes.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Use pull requests for reviewing changes
+  description: 'A GitHub pull request page (ropensci fingertipsR, merged, 5 commits, 3 files changed) with the Files changed tab open and a side-by-side diff: one removed red line on the left, added green lines on the right, a viewed checkbox per file and a Review changes button. The text says the Files changed view shows altered sections before and after the change, left and right, so reviewers can inspect each file in detail.'
+  tags:
+  - pull-requests
+  - code-review
+  - diff
+  - github
+  - peer-review
+  style: screenshot
+  suggested_use: Show it when asking what a reviewer actually sees, and so can sign off, when judging a change an agent proposed as a pull request.
+  frameworks:
+  - Pull request review
+- file: uk-duck-book-qa-of-code-images/gradient_descent.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Generative AI / Introduction - Machine learning and Large Language Models / Machine learning rapid primer - linear regression
+  description: 'A loop numbered 1 to 4: calculate loss (weight and bias go into the model with dataset features, predictions are compared with labels to determine loss), determine the direction to move the weights and bias, move a small amount in the direction that reduces loss, and repeat until loss cannot be reduced. Credit is given to Google. The text says this iterative process ends when the model has converged, giving a trained model whose weight and bias produce the lowest possible loss.'
+  tags:
+  - gradient-descent
+  - machine-learning
+  - loss
+  - model-training
+  - convergence
+  style: diagram
+  suggested_use: Show it when a sign-off discussion needs a plain account of how the model behind the agent was trained, so its limits are understood.
+  frameworks:
+  - Gradient descent
+- file: uk-duck-book-qa-of-code-images/neural_net_layers.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Generative AI / Introduction - Machine learning and Large Language Models / Machine learning rapid primer - linear regression
+  description: Circles are arranged in an input layer of two, two hidden layers of four and an output layer of four, with every neuron joined to all neurons in the next layer. Weights and biases are marked W1,b1, W2,b2 and W3,b3 between layers. The caption says outputs of each layer are calculated from the previous layer's outputs, weights, biases and an activation function; credit is given to Wolfram Research. The text notes that each unit does trivial maths, but scaled up with many layers such networks predict complex non-linear patterns.
+  tags:
+  - neural-network
+  - hidden-layers
+  - weights-and-biases
+  - activation-function
+  - deep-learning
+  style: diagram
+  suggested_use: Show it when explaining to a decision-maker what the model underneath an AI coding agent is made of.
+  frameworks:
+  - Neural networks
+- file: uk-duck-book-qa-of-code-images/neural_net_training.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Generative AI / Introduction - Machine learning and Large Language Models / Machine learning rapid primer - linear regression
+  description: Four side-by-side panels each show a small network above a function plot. With 10,000 examples the learned curve is nearly a straight line; at 100,000 it bends; at 1,000,000 it approaches a smooth hump; at 10,000,000 it closely follows a sharp stepped shape, while the connection weights thicken. The caption reads 'A neural network learning to predict a non-linear function', credit Stephen Wolfram. The text links this to LLMs being very large neural networks trained on vast text whose workings nobody can fully explain, a black box that can only be assessed on outputs.
+  tags:
+  - neural-network-training
+  - training-data-volume
+  - non-linear-function
+  - llm-black-box
+  - learning-curve
+  style: chart
+  suggested_use: Show it when explaining why more training data improves fit and why even so the resulting model stays a black box that is judged only by its outputs.
+  frameworks:
+  - Neural networks
+  - Large language models
+- file: uk-duck-book-qa-of-code-images/repro_stack.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Principles
+  description: 'A grey pyramid in three bands: Reproducible (widest, bottom), Auditable (middle) and Assured (top). The caption calls them the founding principles of good analysis, each supported by the one before it. The text says reproducibility guarantees we have done what we claim and others can replicate it; auditability means we know why we chose the analysis and who is responsible for each part, including assurance; assurance improves average quality and covers communicating that quality to users.'
+  tags:
+  - reproducibility
+  - auditability
+  - assurance
+  - founding-principles
+  - rap
+  - quality-of-analysis
+  style: diagram
+  suggested_use: Show it when asking whether agent-built analysis or software can be reproduced, audited and then assured, in that order, before sign-off.
+  frameworks:
+  - Reproducible Analytical Pipelines (RAP)
+  - Aqua Book
+- file: uk-duck-book-qa-of-code-images/reverse-centaur-prompting.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: 'Generative AI / Vibe coding: Using LLMs to write code in the workplace / Conclusion - Centaurs and reverse-centaurs'
+  description: 'A chat prompt reading ''Write a Python function to flag outliers. Ensure the code meets quality standards''. The caption says it offloads most of the thinking to CoPilot. The text uses it as the example of a prompt so vague that the user then has to review a large amount of generated code, practically the size of a pull request, and so becomes a reverse-centaur: the machine designs and writes the code while the human tests and reviews.'
+  tags:
+  - prompting
+  - reverse-centaur
+  - vibe-coding
+  - copilot
+  - review-burden
+  style: screenshot
+  suggested_use: Show it when asking whether prompts given to a coding agent were specific enough that the human kept control of design, rather than only reviewing output.
+  frameworks:
+  - Centaur and reverse-centaur
+- file: uk-duck-book-qa-of-code-images/semantic_versioning.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Versioning
+  description: 'The version number 1.5.3 has each part labelled: Major (not backwards compatible), Minor (backwards compatible) and Patch (no change to API, bug fixes). The text says a change to the major number signals an API change that breaks use of previous versions, while minor and patch changes are compatible or have no effect on use.'
+  tags:
+  - semantic-versioning
+  - versioning
+  - api-compatibility
+  - releases
+  - change-control
+  style: diagram
+  suggested_use: Show it when asking whether releases of agent-built software signal breaking changes clearly enough for dependents to manage them.
+  frameworks:
+  - Semantic versioning
+- file: uk-duck-book-qa-of-code-images/separation_of_concerns.png
+  source_ref: uk-duck-book-qa-of-code
+  page: null
+  section: Separate responsibilities
+  description: A box labelled Software holds two rounded groups, Concern 1 (Responsibility 1.1 to 1.3) and Concern 2 (Responsibility 2.1 to 2.3). The caption describes concerns and responsibilities within a piece of software. The text says separate sections of software should be responsible for each of the concerns.
+  tags:
+  - separation-of-concerns
+  - software-design
+  - modularity
+  - responsibilities
+  - code-structure
+  style: diagram
+  suggested_use: Show it when asking whether code written by an agent is divided so each part has one clear job and can be reviewed and tested alone.
+  frameworks:
+  - Separation of concerns
+- file: why-language-models-hallucinate-images/fig-1-is-it-valid.png
+  source: research-paper
+  source_ref: why-language-models-hallucinate-kalai
+  page: 3
+  description: Is-It-Valid classification diagram contrasting valid and erroneous language-model generations, then showing three classification regimes—spelling with a good separating model, counting with a poor model, and arbitrary birthday facts with no learnable pattern. It visualises the paper's reduction from generative hallucination to binary validity classification.
+  tags:
+  - language-models
+  - hallucination
+  - binary-classification
+  - is-it-valid
+  - model-error
+  - epistemic-uncertainty
+  style: diagram
+  suggested_use: Explaining why hallucinations can be analysed as ordinary classification errors and distinguishing learnable patterns, representational failure, and arbitrary facts
+- file: why-language-models-hallucinate-images/fig-2-posttraining-calibration.png
+  source: research-paper
+  source_ref: why-language-models-hallucinate-kalai
+  page: 8
+  description: GPT-4 post-training PPO calibration histogram showing empirical correctness substantially below predicted answer probability across most bins, with expected calibration error of 0.074. It is the right-hand comparison to the pretrained calibration chart.
+  tags:
+  - language-models
+  - hallucination
+  - calibration
+  - post-training
+  - reinforcement-learning
+  - gpt-4
+  style: chart
+  suggested_use: Contrasting post-training confidence with pretraining calibration and discussing how reinforcement-learning objectives can distort uncertainty signalling
+- file: why-language-models-hallucinate-images/fig-2-pretraining-calibration.png
+  source: research-paper
+  source_ref: why-language-models-hallucinate-kalai
+  page: 8
+  description: GPT-4 pretraining calibration histogram showing answer probability closely tracking empirical correctness across probability bins, with expected calibration error of 0.007 and bars lying near the ideal diagonal.
+  tags:
+  - language-models
+  - hallucination
+  - calibration
+  - pretraining
+  - gpt-4
+  - uncertainty
+  style: chart
+  suggested_use: Showing the paper's evidence that base-model probability estimates can be well calibrated before reinforcement-learning post-training
+- source_ref: why-language-models-hallucinate
+  description: 'Calibration curve for pre-trained language model. X-axis: P(answer), Y-axis: P(correct). Near-diagonal alignment (ECE: 0.007) showing well-calibrated confidence before RLHF fine-tuning.
+
+    '
+  tags:
+  - llm
+  - calibration
+  - hallucination
+  - confidence
+  - uncertainty
+  suggested_use: 'Illustrate how pre-trained models have better-calibrated uncertainty than fine-tuned models; contrast with PPO calibration curve.
+
+    '
+  file: why-language-models-hallucinate-images/p0008-1.png
+  source: org-book
+- source_ref: why-language-models-hallucinate
+  description: 'Calibration curve for PPO (RLHF fine-tuned) language model. ECE: 0.074, showing systematic overconfidence — model answers cluster high regardless of actual correctness. Severe miscalibration vs. pre-train baseline.
+
+    '
+  tags:
+  - llm
+  - calibration
+  - hallucination
+  - rlhf
+  - overconfidence
+  - uncertainty
+  suggested_use: 'Illustrate how RLHF fine-tuning degrades calibration and increases confident hallucination; pair with pre-train curve for contrast.
+
+    '
+  file: why-language-models-hallucinate-images/p0008-2.png
+  source: org-book

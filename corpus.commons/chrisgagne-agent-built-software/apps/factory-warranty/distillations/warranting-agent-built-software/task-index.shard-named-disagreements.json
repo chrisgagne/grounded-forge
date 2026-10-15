@@ -1,0 +1,185 @@
+{
+  "section": "Named disagreements",
+  "columns": [
+    "#",
+    "Question",
+    "Sides",
+    "Where they differ"
+  ],
+  "rows": [
+    [
+      "D1",
+      "Do commits and lines added measure productivity?",
+      "`he-cursor-velocity-complexity-2025` vs `becker-metr-ai-developer-productivity-2025`",
+      "He et al. use commits and lines added per repository-month as velocity outcomes, relaying their correlation with perceived productivity ([BT]), and report a velocity gain that fades. Becker et al. frame against outcome measures not fixed in advance, since AI can raise lines and commits without productivity rising, and measure task time fixed before randomization. He et al. cite Becker et al. as agreeing on over-optimism, so the disagreement is about the measure, not the direction of the finding."
+    ],
+    [
+      "D2",
+      "What do developers' own reports of AI's productivity effect show?",
+      "`dora-ai-assisted-swdev-2025` vs `becker-metr-ai-developer-productivity-2025`",
+      "More than 80% of DORA's respondents perceive AI raised their productivity, and higher adoption goes with higher reported individual effectiveness and throughput. Becker et al. measured experienced developers 19% slower while they believed they were 20% faster. The settings differ (a broad survey against an RCT of 16 maintainers in mature repositories), and DORA cites that result and names self-report bias, so the conflict is in the evidence, not in either source's stated caution."
+    ],
+    [
+      "D3",
+      "Which way does AI adoption move code quality?",
+      "`dora-ai-assisted-swdev-2025` vs `he-cursor-velocity-complexity-2025`",
+      "DORA finds higher AI adoption associated with higher reported code quality (59% of respondents perceive a positive effect). He et al. measure static-analysis warnings up 30.3% and cognitive complexity up 41.6% after Cursor adoption, persisting beyond the adoption period. The measures differ (self-reported perception against SonarQube metrics on open-source repositories); DORA warns that self-reports carry bias and logs-based metrics are not objective, and He et al. note their complexity metrics were designed for human-written code. A conflict in the evidence; neither result settles the other."
+    ],
+    [
+      "D4",
+      "How far does a test-scored benchmark carry to real work? (partial)",
+      "`jimenez-swe-bench` vs `becker-metr-ai-developer-productivity-2025`",
+      "Jimenez et al. call SWE-bench a faithful mirror of real-world coding environments (§7). Becker et al. read their field slowdown as some evidence that capability in the wild may be lower than benchmarks suggest. Qualified on both sides: Becker et al.'s benchmark critique names other benchmarks, not SWE-bench, and Jimenez et al. say execution-based testing alone is insufficient. The disagreement is about benchmark scores as a stand-in for field results, not about SWE-bench's construction."
+    ],
+    [
+      "D5",
+      "How should a coding benchmark score?",
+      "`jimenez-swe-bench` vs `why-language-models-hallucinate-kalai`",
+      "SWE-bench's metric is the share of instances resolved, pass or fail (§2.2). Kalai et al. class SWE-bench as binary with no credit for an uncertainty response, argue such scoring rewards guessing over abstaining, and propose explicit confidence targets for benchmarks such as SWE-bench (§4.2). SWE-bench's six-outcome analysis separates a No-Op from a Regression, but that analyses applied patches, not its metric, and gives no route for a model to abstain."
+    ],
+    [
+      "D6",
+      "Is hallucination inevitable?",
+      "`uk-duck-book-qa-of-code` vs `why-language-models-hallucinate-kalai`",
+      "The Duck Book, citing an unnamed paper ([BT]), calls LLMs' plausible but inaccurate output mathematically inevitable and a feature, since models are trained only to produce output that looks right. Kalai et al. limit inevitability to base models, describe a system that would not hallucinate (a fixed answer set plus IDK), and place persistence after pretraining in evaluation incentives that can change. Both lead the harness to check the claim, since confident output is no evidence of correctness; they differ on whether better scoring could make a model's answer more trustworthy."
+    ],
+    [
+      "D7",
+      "Does every acceptance example become an automated test?",
+      "`cucumber-bdd-gherkin` vs `microsoft-code-with-engineering-playbook`",
+      "Both build test cases from a story's acceptance criteria before the code, with Given-When-Then. The Cucumber documentation implements each documented example starting from an automated test. The playbook's test planning lets some cases start manual and automates where possible, focusing on hot paths and critical areas. A harness that locks acceptance checks has to pick one; neither source measures the difference."
+    ],
+    [
+      "D8",
+      "Can AI-written tests be trusted? (tension)",
+      "`openssf-finding-fixing-vulnerabilities-ai` vs `egashira-testsuitebench-2026`",
+      "The OpenSSF guide reports with approval that having AI write tests for fixes helps. TestSuiteBench finds agents' suites written from specifications killed at most 55.5% of seeded faults, and concludes agents can build software they cannot verify. The settings differ (tests for one fix, with a reproducing input, against whole suites from a specification), so this is a tension to hold rather than a direct contradiction."
+    ],
+    [
+      "D9",
+      "What counts as independent review? (tension)",
+      "`uk-aqua-book-2025` vs `uk-duck-book-qa-of-code`",
+      "The Aqua Book says the assurer and the analyst shall be independent and the roles separate in all cases, while the analyst also assures their own work. The Duck Book strongly recommends pair programming as the most timely and practical review method, with the reviewer beside the author, and also recommends external review for high-risk work, where the two meet. A reviewer agent pairing with the build session meets the Duck Book's review, not the Aqua Book's independent assurance."
+    ],
+    [
+      "D10",
+      "Does pairing count as the review?",
+      "`uk-duck-book-qa-of-code` vs `microsoft-code-with-engineering-playbook`",
+      "The Duck Book strongly recommends pair programming as the most timely and practical method of code review. The playbook says someone outside the pair should perform the review (for a mob, the member least at the keyboard). For an agent harness, the playbook's side is the one that keeps the writing session from reviewing its own work."
+    ],
+    [
+      "D11",
+      "Can an automated check alone be the independent check?",
+      "`uk-aqua-book-2025` vs `nist-ssdf-1-1`",
+      "The Aqua Book asks for a formal independent assurer, skilled and competent, who confirms the assurance state to the approver. The SSDF's design review (PW.2.1) may be done by qualified people not involved in the design *and/or* by automated processes in the toolchain, so an automated check alone can meet it."
+    ],
+    [
+      "D12",
+      "Does design review need a person and automation, or either?",
+      "`nist-sp-800-218a` vs `nist-ssdf-1-1`",
+      "SSDF 1.1's PW.2.1 has the design reviewed by qualified people not involved with it and/or by automated toolchain processes. SP 800-218A tags its PW.2.1 \"Modified from SSDF 1.1\" and requires both. For a model feature, automation alone meets the first but not the second."
+    ],
+    [
+      "D13",
+      "Is the producer's own attestation enough assurance? (mild tension)",
+      "`uk-aqua-book-2025` vs `cisa-secure-software-attestation-form`",
+      "The Aqua Book requires assurance independent of the analyst, with some formal independent assurance. The form's default is self-attestation by the producer's own CEO or designee; a 3PAO assessment is an alternative, not a requirement. The acts differ (the assurance of analysis against a procurement attestation), so the tension bites when a warranty pack offers the producer's own signature as its only assurance."
+    ],
+    [
+      "D14",
+      "Does every change need a human reader?",
+      "`nist-ssdf-1-1` vs `microsoft-code-with-engineering-playbook`",
+      "The SSDF leaves code review to policy: human review and/or tool-based analysis, chosen by the software's stage (PW.7.1). The playbook asks for peer review on every pull request and tells reviewers to read every changed line."
+    ],
+    [
+      "D15",
+      "Must a human review all AI-generated code?",
+      "`uk-duck-book-qa-of-code` vs `openssf-finding-fixing-vulnerabilities-ai`",
+      "The Duck Book's first golden rule is unconditional: never use or submit LLM-generated code without reviewing it yourself. The OpenSSF guide limits the requirement: where code cannot have a security impact, vibe coding may be fine, and human review is necessary where failures can cause serious problems."
+    ],
+    [
+      "D16",
+      "How far can confidence rest on not reading the code? (role and emphasis)",
+      "`uk-duck-book-qa-of-code` vs `microsoft-code-with-engineering-playbook`",
+      "The Duck Book says managers should not need to read the code to trust it, and supplements code assurance with output checks such as dual running where it falls short. The playbook tells reviewers to read every changed line and keeps changes small so they can. The Duck Book's own reviewers must still understand the code, so the two differ on how far assurance can rest on not reading it, not on whether anyone reads it."
+    ],
+    [
+      "D17",
+      "Who must see the code? (a distinction in role)",
+      "`owasp-asvs-5-0` vs `uk-duck-book-qa-of-code`",
+      "The Duck Book says a manager should not need an in-depth understanding of the code to trust it. The ASVS says verifying many requirements needs the source, documentation, configuration and people. The signer may rely on the pack, but the verification behind it must have read the source."
+    ],
+    [
+      "D18",
+      "Can black-box assurance stand? (tension in setting)",
+      "`owasp-asvs-5-0` vs `uk-aqua-book-2025`",
+      "The Aqua Book gives guidance for assuring black-box models, defined by their inputs and outputs, with greater weight on design and on domain experts' validation of outputs. The ASVS calls testing without the documentation or source inefficient and ineffective and discourages black-box testing. The Aqua Book's black box is a model whose workings cannot be seen; the ASVS's is a tester denied information that exists. Agent-built code has source, so its security review should use it."
+    ],
+    [
+      "D19",
+      "Does AI-written code get its own bar? (tension)",
+      "`nist-sp-800-218a` vs `openssf-finding-fixing-vulnerabilities-ai`, `owasp-agentic-threats-mitigations`",
+      "SP 800-218A does not distinguish AI-generated from human-written source code, since all code should be evaluated before use. The OpenSSF guide treats AI-written code as its own case: where failures could be serious it is not accepted without human review, while code with no possible security impact may be fine unreviewed. The agentic threats guide flags AI-generated code running with elevated privileges for manual review. A tension rather than a contradiction: SP 800-218A does not say what the evaluation must be."
+    ],
+    [
+      "D20",
+      "What can automated tooling stand for? (tension)",
+      "`nist-ssdf-1-1` vs `owasp-asvs-5-0`",
+      "The SSDF counts tool-based analysis, with human handling of findings, as a form of review its policy may choose (PW.7.1, PW.7.2). The ASVS holds that running an off-the-shelf automated tool is not verification and is insufficient for certification. The acts differ (development review against verification to the ASVS), so the tension bites when a pack cites a tool run as ASVS evidence."
+    ],
+    [
+      "D21",
+      "How fixed is the list of practices? (mild)",
+      "`cisa-secure-software-attestation-form` vs `nist-ssdf-1-1`",
+      "The SSDF says it is not a checklist but a basis for a risk-based approach. The form, built from it, sets four practices as minimum requirements every covered producer must meet and attest to under one signature, though several items carry their own hedges (*good-faith effort*, *to the extent practicable and based on risk*, *to the greatest extent feasible*). The tension bites when a pack treats an SSDF selection as enough for the form, or the form's four as the whole SSDF."
+    ],
+    [
+      "D22",
+      "Are the practices prioritised? (mild)",
+      "`nist-ssdf-1-1` vs `nist-sp-800-218a`",
+      "The SSDF says its practices are neither prioritised nor sequenced. The Profile built on it assigns each task a suggested High, Medium or Low priority, though it too calls that a starting point for organisations to set their own."
+    ],
+    [
+      "D23",
+      "Can a second agent's validation stand as a control?",
+      "`owasp-agentic-threats-mitigations` vs `openssf-finding-fixing-vulnerabilities-ai`",
+      "The agentic threats guide offers a second agent as a check: two-agent or human validation for high-risk authentication changes, dual-agent verification before an agent changes its own goals, and multi-agent consensus for mission-critical decisions. The OpenSSF guide holds that agreement among AI reviewers is not proof, and reports two agents with repository permissions able to approve each other's pull requests, undermining the human approval gate. Settings differ (runtime agent actions against validating findings and gating merges); the agentic threats guide also names forged consensus (T12) and assumed prior validation (T14) as threats of its own."
+    ],
+    [
+      "D24",
+      "Can watchdog agents check their peers? (tension in setting)",
+      "`owasp-agentic-top10-2026` vs `openssf-finding-fixing-vulnerabilities-ai`",
+      "The Agentic Top 10 uses watchdog agents to validate peer behaviour and outputs as a detection control (ASI10). The OpenSSF guide says not to treat agreement among AI reviewers as proof, requires empirical confirmation, and reports agents approving each other's pull requests and so undermining the human gate. The first is runtime detection, the second development-time validation; for a warranty, a watchdog agent's clean result is a signal, not the deciding check."
+    ],
+    [
+      "D25",
+      "How much can AI review carry? (partial)",
+      "`dora-ai-assisted-swdev-2025` vs `openssf-finding-fixing-vulnerabilities-ai`",
+      "DORA's \"AI mirror\" chapter suggests AI first-pass reviews and pipelines that add AI-powered quality checks without manual gates. The OpenSSF guide holds that agreement among AI reviewers is not proof, that humans review fixes, and that a human gate sits outside the AI. DORA's \"first-pass\" implies human review after, and its \"without manual gates\" concerns wait states in quality checks rather than release approval, so the two may agree more than the wording suggests."
+    ],
+    [
+      "D26",
+      "Can a second model call check a model's output? (tension in setting)",
+      "`owasp-llm-top10-2026` vs `openssf-finding-fixing-vulnerabilities-ai`",
+      "The LLM Top 10 asks for structural validation in trusted code rather than a second LLM call before a downstream action (LLM01 #2). The OpenSSF guide uses AI reviewers and an independent AI verifier as a first pass on findings and fixes, while warning not to treat agreement among AI reviewers as proof and requiring empirical confirmation and human review of fixes. One is a runtime gate on model output, the other development-time triage; both make the deciding check one that does not rest on a model's judgment."
+    ],
+    [
+      "D27",
+      "Should the human reviewer read a model's account of the action?",
+      "`owasp-agentic-top10-2026` vs `owasp-agentic-threats-mitigations`",
+      "The Agentic Top 10 (ASI09) asks user-interactive systems to give a plain-language risk summary, not model-generated rationales, because fabricated rationales get unsafe actions approved. The agentic threats guide (Playbook 5) recommends AI-assisted explanation summaries for reviewers to cut decision fatigue. Same series, opposite advice."
+    ],
+    [
+      "D28",
+      "Is the agent supply chain a threat of its own?",
+      "`owasp-agentic-threats-mitigations` vs `owasp-agentic-top10-2026`",
+      "A box in the agentic threats guide says it adds no new supply-chain threat because the 2025 LLM list's supply-chain entry covers it (though its threat list carries T17). The Agentic Top 10 gives the agentic supply chain its own entry, arguing that runtime composition makes a live supply chain beyond static dependencies."
+    ],
+    [
+      "D29",
+      "What does safe model serialisation buy?",
+      "`owasp-llm-top10-2026` vs `nist-sp-800-218a`",
+      "SP 800-218A (PW.6.1.C1) asks organisations to consider secure model serialisation mechanisms that reduce or eliminate vectors for malicious content. The LLM Top 10 says moving off unsafe serialisation reduces but does not remove the risk: a backdoor can sit in the computational graph of a format widely considered safe, a crafted file can exploit the format's own parser, and scanners and safe-loader flags have had bypasses (LLM04). For a warranty, a safe format is one layer, not the supply-chain check."
+    ]
+  ]
+}

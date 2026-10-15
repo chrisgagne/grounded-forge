@@ -1,0 +1,296 @@
+{
+ "method": "Read-only inspection of cloned default-branch histories using git log/show/diff, regression tests, control follow-up patches, revert/hash/subject searches, and git -S/-L. Follow-up claims end at the cloned tips named in evidence. code_files contains every non-test changed file, including accompanying documentation; code_lines_changed counts source-file additions plus deletions, including source comments and blank lines. Randomization used Python random.Random(20261012): sort cases by (project, full SHA), shuffle and assign rb01..rb36; randomly select four alphabetically listed projects to contribute two tuning bugs each, with the other four contributing one; shuffle each project's bugs in alphabetical project order and allocate accordingly. In alphabetical project order, shuffle each project's controls, putting one in each half when there are two; shuffle the four singleton controls and allocate two to each half. Finally shuffle tuning, then heldout. Each half has 12 BUG and 6 CONTROL, with bugs from all eight projects.",
+ "cases": [
+  {
+   "id": "rb21",
+   "kind": "bug",
+   "project": "node-semver",
+   "commit": "4ceca76729c577166395f19172854cbbcce3cec1",
+   "parent": "e7c3973ce5a065f46d55322806278f327d42c4f8",
+   "code_files": [
+    "bin/semver.js"
+   ],
+   "test_files": [
+    "tap-snapshots/test/bin/semver.js.test.cjs",
+    "test/bin/semver.js"
+   ],
+   "code_lines_changed": 3,
+   "ground_truth": "BUG: The CLI truncates an option at '=' before extracting its value, so the value becomes empty. Running '-i premajor 1.0.0 --preid=beta' produces '2.0.0-0' instead of '2.0.0-beta.0'.",
+   "evidence": "fix(bin): get correct value from arg separated by equals (#449); test/bin/semver.js adds 'args with equals', comparing equals-separated and space-separated arguments; the changed snapshot corrects this exact prerelease output."
+  },
+  {
+   "id": "rb09",
+   "kind": "bug",
+   "project": "node-semver",
+   "commit": "bea6028694a75e840f48b288ac019e9644cfe6e8",
+   "parent": "76416081a8413383cf6e24c82cafa438bd076d41",
+   "code_files": [
+    "classes/semver.js"
+   ],
+   "test_files": [
+    "test/fixtures/increments.js"
+   ],
+   "code_lines_changed": 21,
+   "ground_truth": "BUG: Incrementing a prerelease with a dotted identifier incorrectly resets its sequence. Incrementing '3.0.0-alpha.beta.5.4' with release 'prerelease' and identifier 'alpha.beta' yields '3.0.0-alpha.beta.0' instead of '3.0.0-alpha.beta.5.5'.",
+   "evidence": "fix: increment dotted prerelease identifiers (#870); test/fixtures/increments.js adds this exact regression, plus 'alpha.beta.5' and non-numeric suffix cases."
+  },
+  {
+   "id": "rb30",
+   "kind": "bug",
+   "project": "yargs-parser",
+   "commit": "ccc3634e324458d15789d8e9bd81851b178f21b5",
+   "parent": "cea8972ad169121c32a9a67693e5eb11dd3dc001",
+   "code_files": [
+    "lib/yargs-parser.ts"
+   ],
+   "test_files": [
+    "test/yargs-parser.mjs"
+   ],
+   "code_lines_changed": 2,
+   "ground_truth": "BUG: With short-option-groups disabled, a negative number is mistaken for an option name. Parsing ['-1'] with configuration {'short-option-groups': false} produces an option named '1' instead of positional argv._ = [-1].",
+   "evidence": "fix: preserve negative number handling when short-option-groups:false (#511); test/yargs-parser.mjs adds 'should treat negative numbers as numbers when \"short-option-groups\" false', comparing both configurations."
+  },
+  {
+   "id": "rb06",
+   "kind": "bug",
+   "project": "js-yaml",
+   "commit": "49280f3e799b6deb596ba9a041b0ebe2bba83c77",
+   "parent": "355dc969519947daf7b886059439fed9b741b080",
+   "code_files": [
+    "src/tag/scalar/timestamp.ts"
+   ],
+   "test_files": [
+    "test/core/tags/timestamp.test.mjs"
+   ],
+   "code_lines_changed": 22,
+   "ground_truth": "BUG: Date.UTC interprets years 0000 through 0099 as 1900 through 1999, causing calendar validation to reject valid YAML timestamps. Loading '0001-01-01' leaves a string instead of creating the Date for 0001-01-01T00:00:00.000Z.",
+   "evidence": "Fix !!timestamp resolution for years 0000-0099, #775; test/core/tags/timestamp.test.mjs adds expected Dates for '0001-01-01' and '0050-06-15T12:30:00Z', and verifies '0001-02-29' remains invalid."
+  },
+  {
+   "id": "rb05",
+   "kind": "control",
+   "project": "yargs-parser",
+   "commit": "981e1512d15a0af757a74a9cd75c448259aa8efa",
+   "parent": "69ddfedf03024ac0e9e45d0a18daa0964e4c1c34",
+   "code_files": [
+    "lib/tokenize-arg-string.js"
+   ],
+   "test_files": [],
+   "code_lines_changed": 1,
+   "ground_truth": "CONTROL: Removes a redundant argument-initialization check from the closing-quote branch because initialization still occurs immediately afterward.",
+   "evidence": "refactor: remove duplicate check for `args[i]` in tokenize-arg-string.js (#175); checked C..origin/main through aa386be6 with all patches in the .js file and its .ts successor, -S on the initialization statement, and revert/hash/#175/duplicate-check searches. Later numeric-array coercion, declaration changes, TypeScript conversion and license edits leave this branch intact; no corrective fix or revert was found."
+  },
+  {
+   "id": "rb23",
+   "kind": "control",
+   "project": "date-fns",
+   "commit": "2e7272029f89601baa4bfc229bdba070a4c066a6",
+   "parent": "030cc70a029f2bf7a349ced129fd028ef3491797",
+   "code_files": [
+    "src/fromUnixTime/index.ts",
+    "src/getMilliseconds/index.ts",
+    "src/getSeconds/index.ts"
+   ],
+   "test_files": [
+    "src/fromUnixTime/test.ts"
+   ],
+   "code_lines_changed": 26,
+   "ground_truth": "CONTROL: Adds a date-construction context to fromUnixTime and simplifies getMilliseconds and getSeconds.",
+   "evidence": "Add tz support to fromUnixTime; checked C..origin/main through 717ce0a8 with subsequent patches for all three files and their pkgs/core successors, -S on the context-forwarding call, and revert/hash/function-name searches. Later changes concern types, docs, extensions or moves; all three runtime bodies remain intact, with no corrective fix or revert found."
+  },
+  {
+   "id": "rb07",
+   "kind": "control",
+   "project": "jsdiff",
+   "commit": "0e7c20c9223a07ae7e617e587c31754b03d3fc28",
+   "parent": "896c982536bcce1aac786e31c477f90f85d66212",
+   "code_files": [
+    "README.md",
+    "release-notes.md",
+    "src/diff/line.js"
+   ],
+   "test_files": [
+    "test/diff/line.js"
+   ],
+   "code_lines_changed": 7,
+   "ground_truth": "CONTROL: Adds ignoreNewlineAtEof to line diffs so a final line can match an otherwise identical newline-terminated line.",
+   "evidence": "Add ignoreNewlineAtEof (#530); checked C..origin/master through 59476090 with history and full patches for src/diff/line.js and its .ts successor, -S ignoreNewlineAtEof, and revert/hash/#530/option-name searches. The sole later source change is dd1c4e0's TypeScript rewrite, which preserves this equality branch; no corrective fix or revert was found."
+  },
+  {
+   "id": "rb31",
+   "kind": "control",
+   "project": "js-yaml",
+   "commit": "fbb3e9d6a0ac540c69562638287e586ef0e65290",
+   "parent": "d43c185985e3c5906e331c034aa28833c8a15e14",
+   "code_files": [
+    "src/ast/scalar_styler.ts"
+   ],
+   "test_files": [],
+   "code_lines_changed": 15,
+   "ground_truth": "CONTROL: Rewrites plain-scalar matching regexes without lookbehind so the same logic can run in ES2015 environments.",
+   "evidence": "Remove regex lookbehind for ES2015 compatibility; checked C..origin/master through 78326247 with every later scalar_styler.ts patch, -S SRC_NS_PLAIN_CHAR_FLOW_OUT, and revert/hash/lookbehind/ES2015 searches. The only later file change exposes styling types and documentation; the regexes remain unchanged, with no corrective fix or revert found."
+  },
+  {
+   "id": "rb11",
+   "kind": "control",
+   "project": "node-semver",
+   "commit": "48d8f8fa63bf6e35db70ff840b6da1a51596a5a8",
+   "parent": "f66cc45c6e82eebb4b5b51af73e7b8dcaeda7e21",
+   "code_files": [
+    "index.js",
+    "internal/constants.js"
+   ],
+   "test_files": [],
+   "code_lines_changed": 16,
+   "ground_truth": "CONTROL: Exports a RELEASE_TYPES array of supported increment types through the public entry point.",
+   "evidence": "feat: export new RELEASE_TYPES constant; checked C..origin/main through 6e05b763 with file history, -S RELEASE_TYPES, -L on the constant, and revert/hash/RELEASE_TYPES/release-types searches. Later matches are docs/type tests; source fixes concern regex lengths, caching or strict directives, with no revert or corrective fix to this export found."
+  },
+  {
+   "id": "rb12",
+   "kind": "bug",
+   "project": "decimal.js",
+   "commit": "cb60444aafd4f1eaf160811c395ea6164b87579a",
+   "parent": "08e5a381d2dc9f3989938c981156b620ec6108cc",
+   "code_files": [
+    "decimal.js"
+   ],
+   "test_files": [
+    "test/modules/minAndMax.js"
+   ],
+   "code_lines_changed": 23,
+   "ground_truth": "BUG: Minimum and maximum choose the wrong sign when positive and negative zero compare equal. Decimal.min(0, -0, 0) returns +0 and Decimal.max(-0, 0, 0) returns -0, reversing the required signed-zero tie handling.",
+   "evidence": "#241 Match Math.max and Math.min negative zero handling; test/modules/minAndMax.js adds permutations of positive and negative zero expecting min -0 and max +0, comparing valueOf strings so signs are observable."
+  },
+  {
+   "id": "rb27",
+   "kind": "bug",
+   "project": "jsdiff",
+   "commit": "d76ac52ab7c33bf43d49d0c9f59d46bf9c49f702",
+   "parent": "f27b89947d0d5e0c5e7866a9dcb983cb52ca81d1",
+   "code_files": [
+    "src/patch/create.js"
+   ],
+   "test_files": [
+    "test/patch/create.js"
+   ],
+   "code_lines_changed": 6,
+   "ground_truth": "BUG: Patch creation emits only one missing-newline marker when both replaced final lines lack newlines. Comparing 'line1\\nline2\\nline3\\nline4' with 'line1\\nline2\\nline3\\nline44' must mark both '-line4' and '+line44', but mutually exclusive branches omit the new-side marker.",
+   "evidence": "Fix: Missing \"No newline at end of file\" when comparing two texts that do not end in newlines (#94); test/patch/create.js adds 'should output \"no newline\" at end of file message on both missing nl', expecting a marker after each changed final line."
+  },
+  {
+   "id": "rb35",
+   "kind": "bug",
+   "project": "date-fns",
+   "commit": "0d1a223993737dbefb98a668c8394f1b31743ced",
+   "parent": "d1773c3b5469289750a70759ad5f7bee1f49ecc4",
+   "code_files": [
+    "src/isWithinInterval/index.ts"
+   ],
+   "test_files": [
+    "src/isWithinInterval/test.ts"
+   ],
+   "code_lines_changed": 2,
+   "ground_truth": "BUG: Interval endpoints are sorted lexicographically rather than numerically, which can reverse chronological bounds. isWithinInterval(new Date(2023, 11, 19), {start: new Date(2001, 8, 1), end: new Date(2023, 11, 20)}) incorrectly returns false.",
+   "evidence": "Fix isWithinInterval not sorting dates correctly; src/isWithinInterval/test.ts adds 'properly sorts the dates', asserting true for this interval spanning timestamps with different digit lengths."
+  },
+  {
+   "id": "rb17",
+   "kind": "bug",
+   "project": "markdown-it",
+   "commit": "e8c6688d0d54e3c72f43cc2521033293afeb7bbf",
+   "parent": "5e9b1cc8309d09a9df0f53ae32f811da6ad5c23d",
+   "code_files": [
+    "src/markdownit.ts"
+   ],
+   "test_files": [
+    "test/fixtures/markdown-it/normalize.txt"
+   ],
+   "code_lines_changed": 13,
+   "ground_truth": "BUG: Encoding an entire formatted URL percent-encodes the brackets required around IPv6 host literals. '[foo](http://[2001:db8::1]:1896/a[b]?x=[y])' gets an invalid encoded host instead of preserving its IPv6 brackets while encoding path and query brackets.",
+   "evidence": "fix: preserve IPv6 brackets in normalizeLink (#1204); test/fixtures/markdown-it/normalize.txt adds 'IPv6 address literals should preserve brackets while encoding other components', with this input and two further IPv6 fixtures."
+  },
+  {
+   "id": "rb24",
+   "kind": "control",
+   "project": "immutable-js",
+   "commit": "f3eff2592e10249d7423845e06cc0c07b6aba3fd",
+   "parent": "4d50e12cba9a9fd18ae5dcaf21038cb210ff542d",
+   "code_files": [
+    "src/CollectionImpl.js"
+   ],
+   "test_files": [
+    "__tests__/List.ts",
+    "__tests__/Map.ts",
+    "__tests__/Set.ts"
+   ],
+   "code_lines_changed": 12,
+   "ground_truth": "CONTROL: Makes Set collection keys and values share the same iterator method and reuses collection prototype aliases in mixins.",
+   "evidence": "Use ES standard for iterator fmethod reuse (#1867); checked C..origin/main through 686b8baf with CollectionImpl.js history, -S SetCollectionPrototype.keys, -L around the alias/mixin block, and revert/hash/#1867/iterator-reuse searches. That block has no later edits; later fixes affect indexed has or ordered hashing, and later reverts concern other changes."
+  },
+  {
+   "id": "rb01",
+   "kind": "bug",
+   "project": "js-yaml",
+   "commit": "5b886bd3e4984162235fbc19778542f9fce67796",
+   "parent": "83af54ade8b1e65c0a59d7e538e5e111f03996d9",
+   "code_files": [
+    "src/ast/presenter.ts"
+   ],
+   "test_files": [
+    "test/core/ast/presenter.test.mjs"
+   ],
+   "code_lines_changed": 8,
+   "ground_truth": "BUG: Flow presentation silently omits empty null sequence items because their rendered text is empty. Converting the AST of '-\\n' to flow style emits '[]\\n' instead of '[!!null]\\n', losing its sole element.",
+   "evidence": "Fix empty scalar items in flow sequences; test/core/ast/presenter.test.mjs adds 'tags an otherwise empty flow sequence item', covering a sole null and null before or after another item, with exact output and round-trip equality assertions."
+  },
+  {
+   "id": "rb16",
+   "kind": "bug",
+   "project": "immutable-js",
+   "commit": "be3cb9a7ae9a29f82c9d0c595f5f3cb957d7006c",
+   "parent": "d7664bf9d3539da8ea095f2ed08bbe1cd0d46071",
+   "code_files": [
+    "src/Repeat.js"
+   ],
+   "test_files": [
+    "__tests__/Repeat.ts"
+   ],
+   "code_lines_changed": 2,
+   "ground_truth": "BUG: Repeat.equals passes only one argument to the two-argument deepEqual helper, so comparing with undefined makes deepEqual see two undefined arguments. Repeat(1).equals(undefined) incorrectly returns true.",
+   "evidence": "Fix Repeat(<value>).equals(undefined) incorrectly returning true (#1994); __tests__/Repeat.ts adds 'does not claim to be equal to undefined', asserting Repeat(1).equals(undefined) is false."
+  },
+  {
+   "id": "rb22",
+   "kind": "bug",
+   "project": "decimal.js",
+   "commit": "02f1e51c3bcb411b2c8b70b177ec704d8aaf4b39",
+   "parent": "1a6e845004b29a3b7dcef78fe92b8d786634f4e2",
+   "code_files": [
+    "decimal.js",
+    "decimal.mjs"
+   ],
+   "test_files": [
+    "test/modules/asin.js"
+   ],
+   "code_lines_changed": 6,
+   "ground_truth": "BUG: Computing 1 - x*x loses precision through cancellation near |x| = 1. With precision 31 and rounding mode 1, asin('0.9999999999999999995') returns '1.570796325794896619231321691573' instead of '1.570796325794896619231321691598'.",
+   "evidence": "Fix asin losing precision near x = 1; test/modules/asin.js adds four near-unit regressions, including this exact precision, rounding mode and expected result; old and fixed outputs were reproduced from historical source in memory."
+  },
+  {
+   "id": "rb18",
+   "kind": "bug",
+   "project": "jsdiff",
+   "commit": "9e24284f2c79ba6802943eb87b237d2dc872f415",
+   "parent": "00e2f9411ec4863147a01facf4eacb8ac5157308",
+   "code_files": [
+    "src/diff/array.js"
+   ],
+   "test_files": [
+    "test/diff/array.js"
+   ],
+   "code_lines_changed": 3,
+   "ground_truth": "BUG: Array diffing inherits string-token filtering, which discards false, 0 and empty strings before comparing. diffArrays(['', 0, false, 0, false, ''], [false, 0, '', false, 0, 0, false]) reports an empty unchanged result instead of the actual edits.",
+   "evidence": "Fix: diffArrays can compare falsey items; test/diff/array.js adds 'should diff falsey values' with these exact arrays and an expected seven-component edit sequence."
+  }
+ ]
+}

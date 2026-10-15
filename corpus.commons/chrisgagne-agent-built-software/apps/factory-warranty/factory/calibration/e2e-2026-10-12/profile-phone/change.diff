@@ -1,0 +1,762 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index 452e009..5f85a77 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -4,7 +4,7 @@ What this program is for, how its parts fit, and the rules that keep it safe to
+ 
+ ## Purpose
+ 
+-A personal notes service. People sign up, keep notes with tags, and ask an LLM to summarise their notes, optionally emailing the summary to themselves. The notes and the profile (name, email, date of birth) are personal data; most of the design is about keeping each person's data to that person.
++A personal notes service. People sign up, keep notes with tags, and ask an LLM to summarise their notes, optionally emailing the summary to themselves. The notes and the profile (name, email, date of birth, phone number) are personal data; most of the design is about keeping each person's data to that person.
+ 
+ ## Parts
+ 
+@@ -25,7 +25,7 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ 
+ **T3. Passwords are only ever stored as scrypt hashes, and login does not reveal who has an account.** Each hash has its own salt. The hash never leaves `src/users/repo.js` (`toProfile` omits it). Login answers a wrong password and an unknown email identically, and does the same scrypt work for both.
+ 
+-**T4. Profile fields stay inside the app.** Name, email and date of birth leave the app only in responses to their owner and as the recipient address of the owner's own summary email. They are never sent to the LLM provider. Dates of birth are optional, ISO `YYYY-MM-DD`, real and in the past.
++**T4. Profile fields stay inside the app.** Name, email, date of birth and phone number leave the app only in responses to their owner and as the recipient address of the owner's own summary email. They are never sent to the LLM provider. Dates of birth are optional, ISO `YYYY-MM-DD`, real and in the past. Phone numbers are optional and stored exactly as given in E.164 form (`+`, then 2 to 15 digits, the first not 0); anything else is refused, never normalised.
+ 
+ **T5. Note text is data, never instructions.** The model sees note titles, bodies, tags and dates, escaped, inside a `<notes>` element in the user turn. The system prompt is a constant: no user-supplied text is ever placed in it.
+ 
+@@ -49,10 +49,10 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ 
+ | Route | Session | Purpose |
+ |---|---|---|
+-| `POST /signup` | no | Create an account (`email`, `password` of 10 to 200 characters, `name`, optional `dateOfBirth`). |
++| `POST /signup` | no | Create an account (`email`, `password` of 10 to 200 characters, `name`, optional `dateOfBirth`, optional `phoneNumber`). |
+ | `POST /login` | no | Start a session; sets the `sid` cookie. |
+ | `POST /logout` | yes | End the session. |
+-| `GET /me`, `PATCH /me` | yes | Read or change your own name and date of birth. Email and password are not changed here. |
++| `GET /me`, `PATCH /me` | yes | Read or change your own name, date of birth and phone number. Email and password are not changed here. |
+ | `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
+diff --git a/migrations/0005_add_user_phone_number.down.sql b/migrations/0005_add_user_phone_number.down.sql
+new file mode 100644
+index 0000000..8ea1f58
+--- /dev/null
++++ b/migrations/0005_add_user_phone_number.down.sql
+@@ -0,0 +1 @@
++ALTER TABLE users DROP COLUMN phone_number;
+diff --git a/migrations/0005_add_user_phone_number.up.sql b/migrations/0005_add_user_phone_number.up.sql
+new file mode 100644
+index 0000000..5abf751
+--- /dev/null
++++ b/migrations/0005_add_user_phone_number.up.sql
+@@ -0,0 +1 @@
++ALTER TABLE users ADD COLUMN phone_number TEXT;
+diff --git a/rollback.md b/rollback.md
+new file mode 100644
+index 0000000..17f47e7
+--- /dev/null
++++ b/rollback.md
+@@ -0,0 +1,32 @@
++# Rollback: optional phone number on the profile
++
++The change adds migration `0005_add_user_phone_number`, which adds a nullable `phone_number` column to `users`. Existing rows get `NULL`; no other column or row is touched.
++
++## How to undo
++
++1. Deploy the previous version of the app (the one without `phoneNumber`). It reads and writes users by named columns, so it runs fine against a schema that still has `phone_number`; this step alone stops the feature.
++2. If the column must go too, revert the migration:
++
++   ```
++   DATABASE_PATH=<path to the database> npm run migrate -- down 1
++   ```
++
++   This runs `migrations/0005_add_user_phone_number.down.sql`, which removes the `phone_number` column from `users`, and removes `0005` from `schema_migrations`, all in one transaction. Accounts, sessions, notes and tags, and every other profile field, are kept.
++
++## What is lost
++
++Rolling back the migration deletes every stored phone number. They cannot be recovered from the database afterwards. If they may be needed again, export them first:
++
++```
++sqlite3 <path to the database> "SELECT id, phone_number FROM users WHERE phone_number IS NOT NULL" > phone-numbers.csv
++```
++
++That file is personal data: keep it access-controlled and delete it when it is no longer needed.
++
++Running `npm run migrate` again re-adds the column with every account at `phoneNumber: null`.
++
++## Rehearsal
++
++The rehearsal runs the real migrations against a scratch SQLite file: it migrates up, adds two accounts (one with a phone number), rolls back one step, checks that `0005` was the step reverted, that the column is gone and that the accounts are byte-for-byte unchanged, then migrates up again and checks every account has no phone number.
++
++rehearse: node --disable-warning=ExperimentalWarning scripts/rehearse-rollback.js
+diff --git a/scripts/rehearse-rollback.js b/scripts/rehearse-rollback.js
+new file mode 100644
+index 0000000..4763f0a
+--- /dev/null
++++ b/scripts/rehearse-rollback.js
+@@ -0,0 +1,38 @@
++// Rehearses rolling back the phone number migration (0005) on a scratch database file:
++// migrate up, add accounts, roll back one step, check the accounts are intact, migrate up again.
++// Exits 0 when the rollback works and non-zero otherwise.
++import assert from 'node:assert/strict';
++import { mkdtempSync, rmSync } from 'node:fs';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { openDatabase } from '../src/db/index.js';
++import { appliedVersions, migrateDown, migrateUp } from '../src/db/migrate.js';
++
++const dir = mkdtempSync(join(tmpdir(), 'rehearse-rollback-'));
++const db = openDatabase(join(dir, 'notes.db'));
++try {
++  migrateUp(db);
++  const insert = db.prepare(
++    'INSERT INTO users (email, password_hash, name, date_of_birth, phone_number, created_at) VALUES (?, ?, ?, ?, ?, ?)',
++  );
++  insert.run('alice@example.com', 'hash-a', 'Alice', '1990-04-12', '+64211234567', 1);
++  insert.run('bob@example.com', 'hash-b', 'Bob', null, null, 2);
++  const accounts = () =>
++    db.prepare('SELECT id, email, password_hash, name, date_of_birth, created_at FROM users ORDER BY id').all();
++  const columns = () => db.prepare('SELECT name FROM pragma_table_info(?)').all('users').map((row) => row.name);
++  const before = accounts();
++
++  assert.deepEqual(migrateDown(db), ['0005_add_user_phone_number']);
++  assert.deepEqual(appliedVersions(db), ['0001', '0002', '0003', '0004']);
++  assert.ok(!columns().includes('phone_number'), 'phone_number column should be gone');
++  assert.deepEqual(accounts(), before);
++
++  assert.deepEqual(migrateUp(db), ['0005_add_user_phone_number']);
++  assert.deepEqual(accounts(), before);
++  const phones = db.prepare('SELECT phone_number FROM users').all().map((row) => row.phone_number);
++  assert.deepEqual(phones, [null, null]);
++  console.log('rollback rehearsal passed');
++} finally {
++  db.close();
++  rmSync(dir, { recursive: true, force: true });
++}
+diff --git a/src/auth/routes.js b/src/auth/routes.js
+index 1ea3de1..90c7239 100644
+--- a/src/auth/routes.js
++++ b/src/auth/routes.js
+@@ -1,7 +1,13 @@
+ import { randomBytes } from 'node:crypto';
+ import { sendJson, sendNoContent } from '../http.js';
+ import { createUser, findCredentials, findUserByEmail, findUserById, toProfile } from '../users/repo.js';
+-import { validateDateOfBirth, validateEmail, validateName, validatePassword } from '../users/validate.js';
++import {
++  validateDateOfBirth,
++  validateEmail,
++  validateName,
++  validatePassword,
++  validatePhoneNumber,
++} from '../users/validate.js';
+ import { SESSION_COOKIE } from './middleware.js';
+ import { hashPassword, verifyPassword } from './passwords.js';
+ 
+@@ -23,11 +29,12 @@ export function authRoutes(router, { db, sessions, auth, now }) {
+     const password = validatePassword(req.body.password);
+     const name = validateName(req.body.name);
+     const dateOfBirth = validateDateOfBirth(req.body.dateOfBirth, now());
++    const phoneNumber = validatePhoneNumber(req.body.phoneNumber);
+     if (findUserByEmail(db, email)) {
+       return sendJson(res, 409, { error: 'An account with that email already exists' });
+     }
+     const passwordHash = await hashPassword(password);
+-    const user = createUser(db, { email, passwordHash, name, dateOfBirth, createdAt: now() });
++    const user = createUser(db, { email, passwordHash, name, dateOfBirth, phoneNumber, createdAt: now() });
+     sendJson(res, 201, { user: toProfile(user) });
+   });
+ 
+diff --git a/src/users/repo.js b/src/users/repo.js
+index a1256fd..d8c6627 100644
+--- a/src/users/repo.js
++++ b/src/users/repo.js
+@@ -1,5 +1,5 @@
+ /**
+- * @typedef {{ id: number, email: string, name: string, dateOfBirth: string | null, createdAt: number }} User
++ * @typedef {{ id: number, email: string, name: string, dateOfBirth: string | null, phoneNumber: string | null, createdAt: number }} User
+  */
+ 
+ /** @returns {User} */
+@@ -9,6 +9,7 @@ function toUser(row) {
+     email: String(row.email),
+     name: String(row.name),
+     dateOfBirth: row.date_of_birth === null ? null : String(row.date_of_birth),
++    phoneNumber: row.phone_number === null ? null : String(row.phone_number),
+     createdAt: Number(row.created_at),
+   };
+ }
+@@ -21,26 +22,33 @@ export function toProfile(user) {
+     email: user.email,
+     name: user.name,
+     dateOfBirth: user.dateOfBirth,
++    phoneNumber: user.phoneNumber,
+     createdAt: new Date(user.createdAt).toISOString(),
+   };
+ }
+ 
+-export function createUser(db, { email, passwordHash, name, dateOfBirth, createdAt }) {
++export function createUser(db, { email, passwordHash, name, dateOfBirth, phoneNumber, createdAt }) {
+   const result = db
+-    .prepare('INSERT INTO users (email, password_hash, name, date_of_birth, created_at) VALUES (?, ?, ?, ?, ?)')
+-    .run(email, passwordHash, name, dateOfBirth, createdAt);
++    .prepare(
++      'INSERT INTO users (email, password_hash, name, date_of_birth, phone_number, created_at) VALUES (?, ?, ?, ?, ?, ?)',
++    )
++    .run(email, passwordHash, name, dateOfBirth, phoneNumber, createdAt);
+   return findUserById(db, Number(result.lastInsertRowid));
+ }
+ 
+ /** @returns {User | null} */
+ export function findUserById(db, id) {
+-  const row = db.prepare('SELECT id, email, name, date_of_birth, created_at FROM users WHERE id = ?').get(id);
++  const row = db
++    .prepare('SELECT id, email, name, date_of_birth, phone_number, created_at FROM users WHERE id = ?')
++    .get(id);
+   return row ? toUser(row) : null;
+ }
+ 
+ /** @returns {User | null} */
+ export function findUserByEmail(db, email) {
+-  const row = db.prepare('SELECT id, email, name, date_of_birth, created_at FROM users WHERE email = ?').get(email);
++  const row = db
++    .prepare('SELECT id, email, name, date_of_birth, phone_number, created_at FROM users WHERE email = ?')
++    .get(email);
+   return row ? toUser(row) : null;
+ }
+ 
+@@ -50,11 +58,16 @@ export function findCredentials(db, email) {
+   return row ? { id: Number(row.id), passwordHash: String(row.password_hash) } : null;
+ }
+ 
+-/** @param {number} id @param {{ name?: string, dateOfBirth?: string | null }} changes */
++/** @param {number} id @param {{ name?: string, dateOfBirth?: string | null, phoneNumber?: string | null }} changes */
+ export function updateProfile(db, id, changes) {
+   const current = findUserById(db, id);
+   if (!current) return null;
+   const next = { ...current, ...changes };
+-  db.prepare('UPDATE users SET name = ?, date_of_birth = ? WHERE id = ?').run(next.name, next.dateOfBirth, id);
++  db.prepare('UPDATE users SET name = ?, date_of_birth = ?, phone_number = ? WHERE id = ?').run(
++    next.name,
++    next.dateOfBirth,
++    next.phoneNumber,
++    id,
++  );
+   return findUserById(db, id);
+ }
+diff --git a/src/users/routes.js b/src/users/routes.js
+index 95a9fe7..c35d9a3 100644
+--- a/src/users/routes.js
++++ b/src/users/routes.js
+@@ -1,6 +1,6 @@
+ import { HttpError, sendJson } from '../http.js';
+ import { toProfile, updateProfile } from './repo.js';
+-import { validateDateOfBirth, validateName } from './validate.js';
++import { validateDateOfBirth, validateName, validatePhoneNumber } from './validate.js';
+ 
+ /**
+  * @param {import('../router.js').Router} router
+@@ -15,6 +15,7 @@ export function userRoutes(router, { db, auth, now }) {
+     const changes = {};
+     if ('name' in req.body) changes.name = validateName(req.body.name);
+     if ('dateOfBirth' in req.body) changes.dateOfBirth = validateDateOfBirth(req.body.dateOfBirth, now());
++    if ('phoneNumber' in req.body) changes.phoneNumber = validatePhoneNumber(req.body.phoneNumber);
+     if ('email' in req.body || 'password' in req.body) {
+       throw new HttpError(400, 'Email and password cannot be changed here');
+     }
+diff --git a/src/users/validate.js b/src/users/validate.js
+index f5726d4..f7c4552 100644
+--- a/src/users/validate.js
++++ b/src/users/validate.js
+@@ -2,6 +2,7 @@ import { HttpError } from '../http.js';
+ 
+ const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
+ const ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
++const E164 = /^\+[1-9][0-9]{1,14}$/;
+ 
+ export const MIN_PASSWORD_LENGTH = 10;
+ export const MAX_PASSWORD_LENGTH = 200;
+@@ -43,3 +44,16 @@ export function validateDateOfBirth(value, now) {
+   }
+   return String(value);
+ }
++
++/**
++ * Phone numbers are optional and must already be in E.164 form (`+` and 2 to 15 digits). Nothing is normalised.
++ * @param {unknown} value
++ * @returns {string | null}
++ */
++export function validatePhoneNumber(value) {
++  if (value === undefined || value === null || value === '') return null;
++  if (typeof value !== 'string' || !E164.test(value)) {
++    throw new HttpError(400, 'phoneNumber must be in international E.164 format, like +64211234567');
++  }
++  return value;
++}
+diff --git a/test/auth.test.js b/test/auth.test.js
+index ea7bbcc..b433d32 100644
+--- a/test/auth.test.js
++++ b/test/auth.test.js
+@@ -102,3 +102,76 @@ test('each login gets its own session', async (t) => {
+   await app.request('POST', '/logout', { cookie: first });
+   assert.equal((await app.request('GET', '/me', { cookie: second })).status, 200);
+ });
++
++const INTERNATIONAL_FORMAT = /E\.?164|international/i;
++
++test('signup stores an optional phone number in E.164 form', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const res = await app.request('POST', '/signup', { body: { ...alice, phoneNumber: '+64211234567' } });
++  assert.equal(res.status, 201);
++  assert.equal(res.body.user.phoneNumber, '+64211234567');
++  assert.equal(res.body.user.email, alice.email);
++
++  const shortest = await app.request('POST', '/signup', { body: { ...bob, phoneNumber: '+12' } });
++  assert.equal(shortest.status, 201);
++  assert.equal(shortest.body.user.phoneNumber, '+12');
++
++  const longest = await app.request('POST', '/signup', {
++    body: { ...bob, email: 'carol@example.com', phoneNumber: '+123456789012345' },
++  });
++  assert.equal(longest.status, 201);
++  assert.equal(longest.body.user.phoneNumber, '+123456789012345');
++});
++
++test('signup without a phone number gives a profile with no phone number', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const omitted = await app.request('POST', '/signup', { body: alice });
++  assert.equal(omitted.status, 201);
++  assert.ok('phoneNumber' in omitted.body.user, 'expected the profile to include phoneNumber');
++  assert.equal(omitted.body.user.phoneNumber, null);
++
++  const asNull = await app.request('POST', '/signup', { body: { ...bob, phoneNumber: null } });
++  assert.equal(asNull.status, 201);
++  assert.equal(asNull.body.user.phoneNumber, null);
++
++  const empty = await app.request('POST', '/signup', {
++    body: { ...bob, email: 'carol@example.com', phoneNumber: '' },
++  });
++  assert.equal(empty.status, 201);
++  assert.equal(empty.body.user.phoneNumber, null);
++});
++
++test('signup rejects a phone number that is not in E.164 form and creates no account', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const invalid = [
++    '0211234567',
++    '64211234567',
++    '+64 21 123 4567',
++    '+64-21-123-4567',
++    '+(64)211234567',
++    '+0211234567',
++    '+1234567890123456',
++    '+64abc',
++    '+1',
++    '+',
++    ' +64211234567',
++    '+64211234567 ',
++    64211234567,
++    true,
++    ['+64211234567'],
++    { number: '+64211234567' },
++  ];
++  for (const phoneNumber of invalid) {
++    const res = await app.request('POST', '/signup', { body: { ...alice, phoneNumber } });
++    assert.equal(res.status, 400, `expected ${JSON.stringify(phoneNumber)} to be rejected`);
++    assert.match(String(res.body?.error), INTERNATIONAL_FORMAT, `error for ${JSON.stringify(phoneNumber)}`);
++  }
++  const { count } = app.db.prepare('SELECT COUNT(*) AS count FROM users').get();
++  assert.equal(count, 0);
++  const valid = await app.request('POST', '/signup', { body: { ...alice, phoneNumber: '+64211234567' } });
++  assert.equal(valid.status, 201);
++  assert.equal(valid.body.user.phoneNumber, '+64211234567');
++});
+diff --git a/test/helpers/db-app.js b/test/helpers/db-app.js
+new file mode 100644
+index 0000000..8f64865
+--- /dev/null
++++ b/test/helpers/db-app.js
+@@ -0,0 +1,50 @@
++import { once } from 'node:events';
++import { createServer } from 'node:http';
++import { createApp } from '../../src/app.js';
++import { createLogger } from '../../src/log.js';
++import { fakeMailer, scriptedLlm } from './fakes.js';
++
++/**
++ * Starts the app on an ephemeral port over a database the caller owns.
++ * Unlike `startTestApp`, it neither migrates nor closes the database, so a test can
++ * prepare the schema itself and keep using the database after the server stops.
++ * @param {any} db
++ * @param {{ llm?: any, mailer?: any, now?: () => number }} [options]
++ */
++export async function startTestAppOn(db, { llm = scriptedLlm(), mailer = fakeMailer(), now = Date.now } = {}) {
++  const server = createServer(createApp({ db, llm, mailer, now, log: createLogger({ level: 'silent' }) }));
++  server.listen(0, '127.0.0.1');
++  await once(server, 'listening');
++  const { port } = /** @type {import('node:net').AddressInfo} */ (server.address());
++  const baseUrl = `http://127.0.0.1:${port}`;
++
++  /**
++   * @param {string} method
++   * @param {string} path
++   * @param {{ body?: unknown, cookie?: string, headers?: Record<string, string> }} [options]
++   */
++  async function request(method, path, { body, cookie, headers = {} } = {}) {
++    const response = await fetch(baseUrl + path, {
++      method,
++      headers: {
++        ...(body === undefined ? {} : { 'content-type': 'application/json' }),
++        ...(cookie ? { cookie } : {}),
++        ...headers,
++      },
++      body: body === undefined ? undefined : JSON.stringify(body),
++    });
++    const raw = await response.text();
++    return { status: response.status, headers: response.headers, body: raw ? JSON.parse(raw) : null };
++  }
++
++  return {
++    db,
++    llm,
++    mailer,
++    request,
++    async close() {
++      server.closeAllConnections();
++      await new Promise((resolve) => server.close(resolve));
++    },
++  };
++}
+diff --git a/test/migrations.test.js b/test/migrations.test.js
+index 3e0957e..ca6526c 100644
+--- a/test/migrations.test.js
++++ b/test/migrations.test.js
+@@ -68,3 +68,121 @@ test('a failing migration leaves no trace', (t) => {
+   assert.ok(!tables(db).includes('half'));
+   assert.deepEqual(appliedVersions(db), []);
+ });
++
++import { copyFileSync } from 'node:fs';
++import { basename } from 'node:path';
++import { hashPassword } from '../src/auth/passwords.js';
++import { alice, bob } from './helpers/app.js';
++import { startTestAppOn } from './helpers/db-app.js';
++
++/** The migrations that existed before phone numbers were added. */
++const BEFORE_PHONE_NUMBERS = ['0001', '0002', '0003', '0004'];
++
++function migrationsBeforePhoneNumbers(t) {
++  const dir = mkdtempSync(join(tmpdir(), 'migrations-before-phone-'));
++  t.after(() => rmSync(dir, { recursive: true, force: true }));
++  for (const m of listMigrations().filter((m) => BEFORE_PHONE_NUMBERS.includes(m.version))) {
++    copyFileSync(m.up, join(dir, basename(m.up)));
++    if (m.down) copyFileSync(m.down, join(dir, basename(m.down)));
++  }
++  return dir;
++}
++
++/** @param {Awaited<ReturnType<typeof startTestAppOn>>} app @param {{ email: string, password: string }} user */
++async function loginProfile(app, { email, password }) {
++  const res = await app.request('POST', '/login', { body: { email, password } });
++  assert.equal(res.status, 200, `login failed: ${JSON.stringify(res.body)}`);
++  const cookie = res.headers.get('set-cookie').split(';')[0];
++  const me = await app.request('GET', '/me', { cookie });
++  assert.equal(me.status, 200);
++  return { login: res.body.user, me: me.body.user };
++}
++
++test('existing accounts keep working with no phone number after migrating', async (t) => {
++  const db = openDatabase();
++  t.after(() => db.close());
++  migrateUp(db, { dir: migrationsBeforePhoneNumbers(t) });
++  assert.deepEqual(appliedVersions(db), BEFORE_PHONE_NUMBERS);
++
++  const insert = db.prepare(
++    'INSERT INTO users (email, password_hash, name, date_of_birth, created_at) VALUES (?, ?, ?, ?, ?)',
++  );
++  const createdAt = Date.parse('2025-06-01T08:00:00Z');
++  const aliceId = Number(
++    insert.run(alice.email, await hashPassword(alice.password), alice.name, alice.dateOfBirth, createdAt).lastInsertRowid,
++  );
++  const bobId = Number(insert.run(bob.email, await hashPassword(bob.password), bob.name, null, createdAt).lastInsertRowid);
++
++  const applied = migrateUp(db);
++  assert.ok(applied.length >= 1, 'expected a migration for phone numbers to be applied');
++
++  const app = await startTestAppOn(db);
++  t.after(app.close);
++  const aliceProfile = await loginProfile(app, alice);
++  for (const user of [aliceProfile.login, aliceProfile.me]) {
++    assert.equal(user.id, aliceId);
++    assert.equal(user.email, alice.email);
++    assert.equal(user.name, alice.name);
++    assert.equal(user.dateOfBirth, alice.dateOfBirth);
++    assert.ok('phoneNumber' in user, 'expected the profile to include phoneNumber');
++    assert.equal(user.phoneNumber, null);
++  }
++  const bobProfile = await loginProfile(app, bob);
++  for (const user of [bobProfile.login, bobProfile.me]) {
++    assert.equal(user.id, bobId);
++    assert.equal(user.email, bob.email);
++    assert.equal(user.name, bob.name);
++    assert.equal(user.dateOfBirth, null);
++    assert.ok('phoneNumber' in user, 'expected the profile to include phoneNumber');
++    assert.equal(user.phoneNumber, null);
++  }
++});
++
++test('rolling back the phone number migration keeps existing accounts', async (t) => {
++  const db = openDatabase();
++  t.after(() => db.close());
++  migrateUp(db);
++
++  const first = await startTestAppOn(db);
++  const aliceSignup = await first.request('POST', '/signup', { body: { ...alice, phoneNumber: '+64211234567' } });
++  assert.equal(aliceSignup.status, 201);
++  const bobSignup = await first.request('POST', '/signup', { body: bob });
++  assert.equal(bobSignup.status, 201);
++  await first.close();
++
++  const accounts = () =>
++    db.prepare('SELECT id, email, password_hash, name, date_of_birth, created_at FROM users ORDER BY id').all();
++  const before = accounts();
++  assert.equal(before.length, 2);
++
++  const reverted = migrateDown(db);
++  assert.equal(reverted.length, 1);
++  const revertedVersion = reverted[0].slice(0, 4);
++  assert.ok(
++    !BEFORE_PHONE_NUMBERS.includes(revertedVersion),
++    `expected the latest migration to be the phone number one, but rolled back ${reverted[0]}`,
++  );
++  assert.deepEqual(accounts(), before);
++  assert.deepEqual(appliedVersions(db), BEFORE_PHONE_NUMBERS);
++
++  assert.deepEqual(migrateUp(db), reverted);
++  assert.deepEqual(accounts(), before);
++
++  const app = await startTestAppOn(db);
++  t.after(app.close);
++  for (const [user, signup] of [
++    [alice, aliceSignup.body.user],
++    [bob, bobSignup.body.user],
++  ]) {
++    const { login, me } = await loginProfile(app, user);
++    for (const profile of [login, me]) {
++      assert.equal(profile.id, signup.id);
++      assert.equal(profile.email, user.email);
++      assert.equal(profile.name, user.name);
++      assert.equal(profile.dateOfBirth, user.dateOfBirth);
++      assert.equal(profile.createdAt, signup.createdAt);
++      assert.ok('phoneNumber' in profile, 'expected the profile to include phoneNumber');
++      assert.equal(profile.phoneNumber, null);
++    }
++  }
++});
+diff --git a/test/summary.test.js b/test/summary.test.js
+index c831c66..e1bb29f 100644
+--- a/test/summary.test.js
++++ b/test/summary.test.js
+@@ -73,3 +73,29 @@ test('answers 502 when the model is unavailable', async (t) => {
+   assert.equal(res.status, 502);
+   assert.doesNotMatch(JSON.stringify(res.body), /529/);
+ });
++
++test('the phone number is never sent to the model', async (t) => {
++  const phoneNumber = '+64211234567';
++  const llm = scriptedLlm(
++    text('You are planning Q3.'),
++    toolUse('send_email', { subject: 'Your notes', body: 'Summary body' }),
++    text('Sent you the summary.'),
++  );
++  const app = await startTestApp({ llm });
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, { ...alice, phoneNumber });
++  const me = await app.request('GET', '/me', { cookie });
++  assert.equal(me.body.user.phoneNumber, phoneNumber, 'precondition: the user has a phone number');
++  await addNote(app, cookie, { title: 'Q3 planning', body: 'Draft the roadmap.', tags: ['work'] });
++
++  const plain = await app.request('POST', '/notes/summary', { cookie, body: {} });
++  assert.equal(plain.status, 200);
++  const emailed = await app.request('POST', '/notes/summary', { cookie, body: { email: true } });
++  assert.equal(emailed.status, 200);
++
++  assert.equal(llm.calls.length, 3);
++  const sent = JSON.stringify(llm.calls);
++  assert.match(sent, /Q3 planning/);
++  assert.ok(!sent.includes('64211234567'), 'the phone number was sent to the model');
++  assert.ok(!sent.includes('211234567'), 'the national part of the phone number was sent to the model');
++});
+diff --git a/test/users.test.js b/test/users.test.js
+index 170302f..7edb428 100644
+--- a/test/users.test.js
++++ b/test/users.test.js
+@@ -61,3 +61,170 @@ test('PATCH /me does not change the email address', async (t) => {
+   assert.equal(res.status, 400);
+   assert.equal((await app.request('GET', '/me', { cookie })).body.user.email, alice.email);
+ });
++
++import { addNote, logIn, signUp } from './helpers/app.js';
++
++const INTERNATIONAL_FORMAT = /E\.?164|international/i;
++const alicePhone = '+64211234567';
++const bobPhone = '+15551234567';
++
++test('GET /me and login show the user\'s own phone number', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  await app.request('POST', '/signup', { body: { ...alice, phoneNumber: alicePhone } });
++  const login = await app.request('POST', '/login', { body: { email: alice.email, password: alice.password } });
++  assert.equal(login.status, 200);
++  assert.equal(login.body.user.phoneNumber, alicePhone);
++  const cookie = login.headers.get('set-cookie').split(';')[0];
++  const me = await app.request('GET', '/me', { cookie });
++  assert.equal(me.status, 200);
++  assert.equal(me.body.user.phoneNumber, alicePhone);
++  assert.equal(me.body.user.email, alice.email);
++});
++
++test('PATCH /me sets and changes the phone number', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const set = await app.request('PATCH', '/me', { cookie, body: { phoneNumber: alicePhone } });
++  assert.equal(set.status, 200);
++  assert.equal(set.body.user.phoneNumber, alicePhone);
++  assert.equal((await app.request('GET', '/me', { cookie })).body.user.phoneNumber, alicePhone);
++
++  const changed = await app.request('PATCH', '/me', { cookie, body: { phoneNumber: '+447700900123' } });
++  assert.equal(changed.status, 200);
++  assert.equal(changed.body.user.phoneNumber, '+447700900123');
++  const again = await app.request('GET', '/me', { cookie });
++  assert.equal(again.body.user.phoneNumber, '+447700900123');
++  assert.equal(again.body.user.name, alice.name);
++  assert.equal(again.body.user.dateOfBirth, alice.dateOfBirth);
++});
++
++test('PATCH /me can clear the phone number', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, { ...alice, phoneNumber: alicePhone });
++  assert.equal((await app.request('GET', '/me', { cookie })).body.user.phoneNumber, alicePhone);
++
++  const cleared = await app.request('PATCH', '/me', { cookie, body: { phoneNumber: null } });
++  assert.equal(cleared.status, 200);
++  assert.equal(cleared.body.user.phoneNumber, null);
++  assert.equal((await app.request('GET', '/me', { cookie })).body.user.phoneNumber, null);
++
++  await app.request('PATCH', '/me', { cookie, body: { phoneNumber: alicePhone } });
++  assert.equal((await app.request('GET', '/me', { cookie })).body.user.phoneNumber, alicePhone);
++  const emptied = await app.request('PATCH', '/me', { cookie, body: { phoneNumber: '' } });
++  assert.equal(emptied.status, 200);
++  assert.equal(emptied.body.user.phoneNumber, null);
++  assert.equal((await app.request('GET', '/me', { cookie })).body.user.phoneNumber, null);
++});
++
++test('PATCH /me rejects phone numbers that are not in E.164 form and keeps the old one', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, { ...alice, phoneNumber: alicePhone });
++  const before = (await app.request('GET', '/me', { cookie })).body.user;
++  assert.equal(before.phoneNumber, alicePhone);
++  const invalid = [
++    '0211234567',
++    '64211234567',
++    '+64 21 123 4567',
++    '+64-21-123-4567',
++    '+(64)211234567',
++    '+0211234567',
++    '+1234567890123456',
++    '+64abc',
++    '+1',
++    ' +64211234567',
++    '+64211234567 ',
++    64211234567,
++    false,
++  ];
++  for (const phoneNumber of invalid) {
++    const res = await app.request('PATCH', '/me', { cookie, body: { phoneNumber } });
++    assert.equal(res.status, 400, `expected ${JSON.stringify(phoneNumber)} to be rejected`);
++    assert.match(String(res.body?.error), INTERNATIONAL_FORMAT, `error for ${JSON.stringify(phoneNumber)}`);
++  }
++  const mixed = await app.request('PATCH', '/me', {
++    cookie,
++    body: { name: 'Someone Else', dateOfBirth: '1991-01-01', phoneNumber: '021 123 4567' },
++  });
++  assert.equal(mixed.status, 400);
++  assert.match(String(mixed.body?.error), INTERNATIONAL_FORMAT);
++  const after = (await app.request('GET', '/me', { cookie })).body.user;
++  assert.deepEqual(after, before);
++});
++
++test('PATCH /me without a phone number leaves the stored one unchanged', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, { ...alice, phoneNumber: alicePhone });
++  const renamed = await app.request('PATCH', '/me', { cookie, body: { name: 'Alice M. Moreau' } });
++  assert.equal(renamed.status, 200);
++  assert.equal(renamed.body.user.name, 'Alice M. Moreau');
++  assert.equal(renamed.body.user.phoneNumber, alicePhone);
++  const redated = await app.request('PATCH', '/me', { cookie, body: { dateOfBirth: '1990-04-13' } });
++  assert.equal(redated.status, 200);
++  assert.equal(redated.body.user.phoneNumber, alicePhone);
++  const me = await app.request('GET', '/me', { cookie });
++  assert.equal(me.body.user.phoneNumber, alicePhone);
++  assert.equal(me.body.user.name, 'Alice M. Moreau');
++});
++
++test('each user sees only their own phone number', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const aliceCookie = await signUpAndLogIn(app, { ...alice, phoneNumber: alicePhone });
++  const bobCookie = await signUpAndLogIn(app, { ...bob, phoneNumber: bobPhone });
++
++  const aliceMe = await app.request('GET', '/me', { cookie: aliceCookie });
++  const bobMe = await app.request('GET', '/me', { cookie: bobCookie });
++  assert.equal(aliceMe.body.user.phoneNumber, alicePhone);
++  assert.equal(bobMe.body.user.phoneNumber, bobPhone);
++
++  const aliceNote = await addNote(app, aliceCookie, { title: 'Alice note', body: 'Hello.' });
++  const bobNote = await addNote(app, bobCookie, { title: 'Bob note', body: 'Hi.' });
++
++  const seenBy = {
++    alice: [
++      aliceMe,
++      await app.request('POST', '/login', { body: { email: alice.email, password: alice.password } }),
++      await app.request('GET', '/notes', { cookie: aliceCookie }),
++      await app.request('GET', `/notes/${aliceNote.id}`, { cookie: aliceCookie }),
++      await app.request('GET', `/notes/${bobNote.id}`, { cookie: aliceCookie }),
++    ],
++    bob: [
++      bobMe,
++      await app.request('POST', '/login', { body: { email: bob.email, password: bob.password } }),
++      await app.request('GET', '/notes', { cookie: bobCookie }),
++      await app.request('GET', `/notes/${bobNote.id}`, { cookie: bobCookie }),
++      await app.request('GET', `/notes/${aliceNote.id}`, { cookie: bobCookie }),
++    ],
++  };
++  const digits = (phone) => phone.slice(1);
++  for (const res of seenBy.alice) assert.ok(!JSON.stringify(res.body).includes(digits(bobPhone)), 'alice saw bob\'s number');
++  for (const res of seenBy.bob) assert.ok(!JSON.stringify(res.body).includes(digits(alicePhone)), 'bob saw alice\'s number');
++  assert.equal(seenBy.alice[1].body.user.phoneNumber, alicePhone);
++  assert.equal(seenBy.bob[1].body.user.phoneNumber, bobPhone);
++});
++
++test('phone number cannot be read or changed without a session', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  await signUp(app, { ...alice, phoneNumber: alicePhone });
++  const loggedOut = await logIn(app, alice);
++  await app.request('POST', '/logout', { cookie: loggedOut });
++
++  for (const cookie of [undefined, 'sid=forged-token', loggedOut]) {
++    const read = await app.request('GET', '/me', { cookie });
++    assert.equal(read.status, 401);
++    assert.ok(!JSON.stringify(read.body).includes(alicePhone.slice(1)));
++    const write = await app.request('PATCH', '/me', { cookie, body: { phoneNumber: '+15550000000' } });
++    assert.equal(write.status, 401);
++    const clear = await app.request('PATCH', '/me', { cookie, body: { phoneNumber: null } });
++    assert.equal(clear.status, 401);
++  }
++
++  const cookie = await logIn(app, alice);
++  assert.equal((await app.request('GET', '/me', { cookie })).body.user.phoneNumber, alicePhone);
++});

@@ -1,0 +1,55 @@
+# The rules every warranty pack is judged by, in plain words: where each comes from, who set it, and whether the
+# accountable person has confirmed it. The decision page at the top of each pack lists them. A rule stays PROPOSED
+# until the accountable person confirms it here (status: confirmed, confirmed_by, confirmed_on).
+# tests/test_policy.py checks that the values below match the code that applies them.
+rules:
+  - id: blocking-bar
+    rule: >-
+      A finding the review confirms as critical or high stops the change until it's fixed or you accept it.
+    source: No standard sets a severity bar; this one is the factory's.
+    set_by: Claude, in the factory's design (2026-10-11)
+    status: PROPOSED
+    values: {blocking: [critical, high]}
+  - id: sort-cannot-clear-a-high
+    rule: >-
+      If either reviewer rated a finding critical or high, the AI that sorts the findings can't clear it on its own:
+      it stays a stop until you decide.
+    source: NIST SP 800-218A, PW.1.1 C2 (no AI model in the critical path of a significant security decision without a human)
+    set_by: Claude, from the source (2026-10-12)
+    status: PROPOSED
+  - id: medium-blocks-on-personal-data-or-one-way-steps
+    rule: >-
+      Where a change reaches personal data or a step that can't be undone (a delete, a drop), a confirmed medium
+      finding stops it too.
+    source: No standard sets it. The first two real changes' medium findings were data loss.
+    set_by: Claude's recommendation; Chris Gagné asked for it to be added (2026-10-14)
+    status: PROPOSED
+    values: {lower_bar_classes: [personal-data, irreversible]}
+  - id: second-person
+    rule: >-
+      A change that reaches personal data, money, sign-in or a step that can't be undone needs a qualified second
+      person before real use; the decision page names what they should check.
+    source: >-
+      OWASP ASVS 5.0 (automated tools can't fully verify access control or business logic); NIST SP 800-218A
+      PW.1.1 C2 (human in the loop). Who counts as qualified is not in any source.
+    set_by: Claude (2026-10-14)
+    status: PROPOSED
+    values: {classes: [personal-data, money, auth, irreversible, migration]}
+  - id: scans-judge-added-lines
+    rule: >-
+      The code scanner stops a change only for problems on lines it adds; problems already in a file are recorded,
+      and their count may not rise.
+    source: No standard sets it; a held-out clean change was blocked for warnings that were already there.
+    set_by: Claude (2026-10-14)
+    status: PROPOSED
+  - id: pass-mark
+    rule: >-
+      On the real-bug replay, the factory should catch at least 80% of bug trials, catch at least 70% of bug cases
+      every time (3 of 3), get at least 95% of defects in front of you, block at most 20% of clean-change trials,
+      and pass at least 80% of clean changes every time.
+    source: >-
+      Anthropic, "Demystifying evals for AI agents" (pass^k, balanced sets), and Google SRE Ch 6 (alarms rare and
+      actionable) give the measures; no source gives the numbers.
+    set_by: Claude's recommendation; Chris Gagné handed the numbers to Claude (2026-10-14)
+    status: PROPOSED
+    values: {file: calibration/realbugs/pass-mark-v2.yaml}

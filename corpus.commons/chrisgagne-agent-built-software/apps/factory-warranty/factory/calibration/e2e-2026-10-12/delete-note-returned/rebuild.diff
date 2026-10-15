@@ -1,0 +1,217 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index a9df6ae..f1da65a 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -56,5 +56,5 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
+-| `DELETE /notes/:id` | yes | Delete one of your notes and its tags (`204`); someone else's or a missing note is `404`. |
++| `DELETE /notes/:id` | yes | Delete one of your notes and its tags (`204`); someone else's or a missing note is `404`. Note ids are never reused, so repeating a delete stays `404`. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/migrations/0005_notes_ids_never_reused.down.sql b/migrations/0005_notes_ids_never_reused.down.sql
+new file mode 100644
+index 0000000..0ab42d4
+--- /dev/null
++++ b/migrations/0005_notes_ids_never_reused.down.sql
+@@ -0,0 +1,28 @@
++-- Rebuild notes without AUTOINCREMENT, keeping every note and tag. See the up migration
++-- for why the tags are set aside.
++CREATE TEMP TABLE note_tags_saved AS SELECT note_id, tag FROM note_tags;
++DROP TABLE note_tags;
++
++CREATE TABLE notes_new (
++  id INTEGER PRIMARY KEY,
++  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
++  title TEXT NOT NULL,
++  body TEXT NOT NULL DEFAULT '',
++  created_at INTEGER NOT NULL,
++  updated_at INTEGER NOT NULL
++);
++INSERT INTO notes_new (id, user_id, title, body, created_at, updated_at)
++  SELECT id, user_id, title, body, created_at, updated_at FROM notes;
++DROP TABLE notes;
++ALTER TABLE notes_new RENAME TO notes;
++DELETE FROM sqlite_sequence WHERE name = 'notes';
++CREATE INDEX notes_user_created ON notes(user_id, created_at DESC, id DESC);
++
++CREATE TABLE note_tags (
++  note_id INTEGER NOT NULL REFERENCES notes(id) ON DELETE CASCADE,
++  tag TEXT NOT NULL,
++  PRIMARY KEY (note_id, tag)
++) WITHOUT ROWID;
++CREATE INDEX note_tags_tag ON note_tags(tag, note_id);
++INSERT INTO note_tags (note_id, tag) SELECT note_id, tag FROM note_tags_saved;
++DROP TABLE note_tags_saved;
+diff --git a/migrations/0005_notes_ids_never_reused.up.sql b/migrations/0005_notes_ids_never_reused.up.sql
+new file mode 100644
+index 0000000..8251c3c
+--- /dev/null
++++ b/migrations/0005_notes_ids_never_reused.up.sql
+@@ -0,0 +1,29 @@
++-- Rebuild notes with AUTOINCREMENT so a deleted note's id is never given to a new note.
++-- note_tags references notes with ON DELETE CASCADE and foreign keys stay on inside the
++-- migration transaction, so dropping notes in place would delete every tag. Set the tags
++-- aside, rebuild both tables, then put the tags back.
++CREATE TEMP TABLE note_tags_saved AS SELECT note_id, tag FROM note_tags;
++DROP TABLE note_tags;
++
++CREATE TABLE notes_new (
++  id INTEGER PRIMARY KEY AUTOINCREMENT,
++  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
++  title TEXT NOT NULL,
++  body TEXT NOT NULL DEFAULT '',
++  created_at INTEGER NOT NULL,
++  updated_at INTEGER NOT NULL
++);
++INSERT INTO notes_new (id, user_id, title, body, created_at, updated_at)
++  SELECT id, user_id, title, body, created_at, updated_at FROM notes;
++DROP TABLE notes;
++ALTER TABLE notes_new RENAME TO notes;
++CREATE INDEX notes_user_created ON notes(user_id, created_at DESC, id DESC);
++
++CREATE TABLE note_tags (
++  note_id INTEGER NOT NULL REFERENCES notes(id) ON DELETE CASCADE,
++  tag TEXT NOT NULL,
++  PRIMARY KEY (note_id, tag)
++) WITHOUT ROWID;
++CREATE INDEX note_tags_tag ON note_tags(tag, note_id);
++INSERT INTO note_tags (note_id, tag) SELECT note_id, tag FROM note_tags_saved;
++DROP TABLE note_tags_saved;
+diff --git a/rollback.md b/rollback.md
+index ed3a9fc..64291ad 100644
+--- a/rollback.md
++++ b/rollback.md
+@@ -1,14 +1,18 @@
+ # Rollback: delete a note
+ 
+-This change adds `DELETE /notes/:id`. It has no migration and changes no schema.
++This change adds `DELETE /notes/:id` and migration `0005_notes_ids_never_reused`, which rebuilds `notes` with `AUTOINCREMENT` so a deleted note's id is never given to a new note. Without it, SQLite reuses the highest id after that note is deleted, and a repeated `DELETE` of the old id would remove the newer note. The migration copies every note and tag across unchanged.
+ 
+ ## Undo the code
+ 
+-Revert the commit that adds the route (`git revert <commit>`) and redeploy. Once that's done, nobody can delete notes. Nothing in the database needs to change.
++Revert the commit that adds the route (`git revert <commit>`) and redeploy. Once that's done, nobody can delete notes.
++
++## Undo the migration
++
++Run `npm run migrate -- down` before deploying the reverted code. It rebuilds `notes` without `AUTOINCREMENT` and keeps every note and tag. Take a backup first (`sqlite3 notes.db ".backup notes-before-down.db"`). Leaving the migration in place after reverting the code does no harm: the app works the same whichever way the ids are allocated.
+ 
+ ## Restore deleted notes
+ 
+-A delete is a hard delete: the `notes` row and its `note_tags` rows are removed. Reverting the code does not bring them back. The only way to recover a deleted note is from a database backup taken before the delete:
++A delete is a hard delete: the `notes` row and its `note_tags` rows are removed. Reverting the code does not bring them back. The only way to recover a deleted note is from a database backup taken before the delete. With the migration applied, a deleted id is never reused, so the restore cannot collide with a newer note:
+ 
+ ```sql
+ ATTACH DATABASE '/path/to/backup.db' AS backup;
+@@ -19,6 +23,6 @@ COMMIT;
+ DETACH DATABASE backup;
+ ```
+ 
+-The rehearsal makes a backup of a throwaway database, deletes a note, restores the note with the steps above, and checks that the note and its tags match what was there before.
++The rehearsal uses a throwaway database. It takes a backup, deletes a note, and restores it with the steps above. Then it reverts and reapplies the migration and checks that every note and tag is unchanged, and that a new note doesn't take a deleted note's id.
+ 
+ rehearse: node --disable-warning=ExperimentalWarning scripts/rehearse-rollback.js
+diff --git a/scripts/rehearse-rollback.js b/scripts/rehearse-rollback.js
+index 12f8d80..91c9c5b 100644
+--- a/scripts/rehearse-rollback.js
++++ b/scripts/rehearse-rollback.js
+@@ -1,11 +1,12 @@
+-// Rehearses rollback.md against a throwaway database: back up, delete a note, restore it from the backup.
++// Rehearses rollback.md against a throwaway database: back up, delete a note, restore it from the backup,
++// then revert and reapply the id migration and check every note survives.
+ import assert from 'node:assert/strict';
+ import { mkdtempSync, rmSync } from 'node:fs';
+ import { tmpdir } from 'node:os';
+ import { join } from 'node:path';
+ import { openDatabase } from '../src/db/index.js';
+-import { migrateUp } from '../src/db/migrate.js';
+-import { createNote, deleteNote, getNote } from '../src/notes/repo.js';
++import { migrateDown, migrateUp } from '../src/db/migrate.js';
++import { createNote, deleteNote, getNote, listNotes } from '../src/notes/repo.js';
+ 
+ const dir = mkdtempSync(join(tmpdir(), 'notes-rollback-'));
+ try {
+@@ -33,6 +34,17 @@ try {
+   db.exec('DETACH DATABASE backup');
+ 
+   assert.deepEqual(getNote(db, userId, note.id), note);
++
++  // Undo the id migration, as `npm run migrate -- down` would, and check nothing is lost.
++  const other = createNote(db, userId, { title: 'other', body: 'still here', tags: ['b'], now: Date.now() });
++  const before = listNotes(db, userId);
++  assert.deepEqual(migrateDown(db), ['0005_notes_ids_never_reused']);
++  assert.deepEqual(listNotes(db, userId), before);
++  assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(), []);
++  assert.deepEqual(migrateUp(db), ['0005_notes_ids_never_reused']);
++  assert.deepEqual(listNotes(db, userId), before);
++  assert.equal(deleteNote(db, userId, other.id), true);
++  assert.ok(createNote(db, userId, { title: 'next', body: '', tags: [], now: Date.now() }).id > other.id);
+   db.close();
+   console.log('rollback rehearsal ok');
+ } finally {
+diff --git a/test/note-ids.test.js b/test/note-ids.test.js
+new file mode 100644
+index 0000000..e972d7e
+--- /dev/null
++++ b/test/note-ids.test.js
+@@ -0,0 +1,59 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { openDatabase } from '../src/db/index.js';
++import { migrateDown, migrateUp } from '../src/db/migrate.js';
++import { createNote, deleteNote, getNote, listNotes } from '../src/notes/repo.js';
++
++function seededDb() {
++  const db = openDatabase();
++  migrateUp(db);
++  const userId = Number(
++    db
++      .prepare('INSERT INTO users (email, password_hash, name, created_at) VALUES (?, ?, ?, ?)')
++      .run('ids@example.com', 'not-a-real-hash', 'Ids', 1).lastInsertRowid,
++  );
++  return { db, userId };
++}
++
++const tagRows = (db) =>
++  db
++    .prepare('SELECT note_id, tag FROM note_tags ORDER BY note_id, tag')
++    .all()
++    .map((row) => ({ note_id: Number(row.note_id), tag: String(row.tag) }));
++
++test("a new note never takes a deleted note's id", () => {
++  const { db, userId } = seededDb();
++  createNote(db, userId, { title: 'older', body: '', tags: [], now: 1 });
++  const newest = createNote(db, userId, { title: 'newest', body: '', tags: ['x'], now: 2 });
++  assert.equal(deleteNote(db, userId, newest.id), true);
++  const next = createNote(db, userId, { title: 'next', body: '', tags: [], now: 3 });
++  assert.ok(next.id > newest.id);
++});
++
++test('repeating a delete of a stale id does not remove a newer note', () => {
++  const { db, userId } = seededDb();
++  const stale = createNote(db, userId, { title: 'stale', body: '', tags: [], now: 1 });
++  assert.equal(deleteNote(db, userId, stale.id), true);
++  const fresh = createNote(db, userId, { title: 'fresh', body: '', tags: ['keep'], now: 2 });
++  assert.equal(deleteNote(db, userId, stale.id), false);
++  assert.deepEqual(getNote(db, userId, fresh.id), fresh);
++});
++
++test('the id migration keeps every note and tag, up and down', () => {
++  const { db, userId } = seededDb();
++  migrateDown(db);
++  const a = createNote(db, userId, { title: 'a', body: 'alpha', tags: ['one', 'two'], now: 1 });
++  const b = createNote(db, userId, { title: 'b', body: 'beta', tags: ['two'], now: 2 });
++  const before = { notes: listNotes(db, userId), tags: tagRows(db) };
++  assert.deepEqual(before.notes, [b, a]);
++
++  migrateUp(db);
++  assert.deepEqual({ notes: listNotes(db, userId), tags: tagRows(db) }, before);
++  assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(), []);
++
++  migrateDown(db);
++  assert.deepEqual({ notes: listNotes(db, userId), tags: tagRows(db) }, before);
++  assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(), []);
++  assert.equal(deleteNote(db, userId, a.id), true);
++  assert.deepEqual(tagRows(db), [{ note_id: b.id, tag: 'two' }]);
++});

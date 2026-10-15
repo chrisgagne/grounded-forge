@@ -1,0 +1,21 @@
+{
+  "name": "notes-app",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Personal notes with tags and an LLM summary assistant.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13 <23"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/index.js",
+    "migrate": "node --disable-warning=ExperimentalWarning src/db/migrate-cli.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/**/*.test.js\"",
+    "typecheck": "tsc --noEmit -p .",
+    "perf": "node --disable-warning=ExperimentalWarning scripts/perf.js"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "5.9.3"
+  }
+}

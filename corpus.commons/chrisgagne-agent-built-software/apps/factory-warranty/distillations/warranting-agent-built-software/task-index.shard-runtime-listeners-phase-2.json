@@ -1,0 +1,113 @@
+{
+  "section": "Runtime listeners: Phase 2",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "The diff touches login, sessions, tokens or permissions",
+      "Route to rigorous risk modelling, require a standard security service over an agent-written one, and require functional tests of the security feature: high-risk areas get concentrated assessment (`nist-ssdf-1-1`) • Require the matching chapters (V6, V7, V8, V9, V10) at the level the client's risks warrant, and check each requirement rather than the feature as a whole (`owasp-asvs-5-0`) • Route to a reviewer who runs the security pass, and require the security test plan's authentication and authorisation cases (`microsoft-code-with-engineering-playbook`) • Route to transition review: list the invariants that must hold across re-authentication, token refresh and expiry, logout, revocation and role changes, and test the paths that break them (`openssf-finding-fixing-vulnerabilities-ai`) • Where a model or a prompt sits on that path, move the decision into deterministic code: authorization is not delegated to the LLM, and hidden context is no security boundary (`owasp-llm-top10-2026`) • Where an agent's identity or permissions change, require least-privilege scope, a per-action check that the user is authorised and short-lived credentials: agents inherit permissions and non-human identities may lack session oversight (`owasp-agentic-threats-mitigations`) • Where the credentials belong to or are delegated to an agent, give it its own identity with task-scoped, time-bound credentials and re-verify each privileged step: without a governed identity of its own, an agent works in an attribution gap where true least privilege can't be enforced (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The change stores or moves personal data",
+      "Classify the data against the builder's written definition of sensitive data before choosing requirements and tests: data classification is part of risk modelling (`nist-ssdf-1-1`) • If the data reaches a model, classify it, keep it in approved environments and track models trained on it; privacy itself sits outside the source, which addresses cybersecurity only, so name who owns it (`nist-sp-800-218a`) • Classify the data into protection levels with documented protections (14.1.1, 14.1.2, L2), consult local law and a privacy specialist, keep credentials and payment details out of logs (16.2.5), and have the verification led by documentation or source rather than black-box alone (`owasp-asvs-5-0`) • Require the reviewer to check every new identifier and log line for customer information and correct PII handling before merge (`microsoft-code-with-engineering-playbook`) • List every channel the data can leave by (answers, tool arguments, reasoning traces, logs, telemetry, embeddings) and put the access check inside the retrieval query: each channel is an output, and filtering after generation cannot undo a chunk the model already saw (`owasp-llm-top10-2026`) • If the data enters an agent's memory, require session isolation and a retention limit by sensitivity: shared memory lets one user's planted data reach others (`owasp-agentic-threats-mitigations`) • Where the data enters an agent's memory or shared context, require session and tenant segmentation, minimal retention and no automatic re-ingestion of the agent's own outputs: poisoned or shared context carries into later sessions and other tenants (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The change adds an LLM call, a prompt, a tool an agent can call, or memory",
+      "Score that component's risk on its own and plan its output checks: black-box models should get the same structured risk assessment, a scoping discussion of whether such a model is appropriate, and planned automatic checks (`uk-aqua-book-2025`) • Run the risk model against the AI threat types (unwanted content in inputs and outputs, adversarial prompts, supply chain, information disclosure) and check whether the model's output decides anything security-relevant on its own (`nist-sp-800-218a`) • Require an injection review: an LLM cannot tell commands from content, and stored memory is another input, not authoritative truth (`openssf-finding-fixing-vulnerabilities-ai`) • Name which of the three legs (untrusted input, sensitive data, state change or external communication) the feature holds and remove one where possible, then route it through the entries its shape touches: an agent holding all three at once has the conditions for high-impact exploitation (`owasp-llm-top10-2026`) • Answer the six decision-path questions for the change and attach the threats and playbook steps they open to the ledger: agentic threats are new or agentic variations, and the general LLM list covers them only partially (`owasp-agentic-threats-mitigations`) • Route the feature through the ten agentic entries its shape touches and cut any autonomy it cannot justify (`owasp-agentic-top10-2026`) • Write down what the feature promises about false answers and what it does when retrieval finds nothing: a system that does not hallucinate answers from a fixed set and says IDK otherwise (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "A migration, a delete or a bulk update is in the plan",
+      "Score the effect as severe and treat the likelihood before it runs: high risk should not be tolerated, and new assurance measures, then stopping or transferring the risk, must be considered. A rehearsed rollback is a harness rule (`uk-aqua-book-2025`) • Require the PR to declare the change breaking, with impact and migration path, and a recovery test that checks data integrity afterwards (`microsoft-code-with-engineering-playbook`) • Classify as an approval boundary and require human approval enforced in the tool or workflow, not in the prompt (`openssf-finding-fixing-vulnerabilities-ai`) • Where a model or agent can trigger it, route it to human review of the exact rendered action: a graduated policy lets reversible actions auto-approve and sends irreversible ones to a human (`owasp-llm-top10-2026`) • Where an agent can trigger it, require explicit human approval and a run away from production first: the guide's coding agent deleted a real database for want of test/production separation (`owasp-agentic-threats-mitigations`) • When an agent can run it, require human confirmation with a pre-execution plan or dry-run diff, and human approval for irreversible actions: an agent can misuse a tool inside the privileges it was granted (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The change is business-critical, or complex enough that nobody can predict its effects",
+      "Raise assurance to match, on top of the basic checks: assurance should be proportionate to risk and complexity, and the interventions should build on each other (`uk-aqua-book-2025`) • Raise the assurance level at triage: route to an external reviewer and plan a second run by an independent route; the source recommends external review for novel, complex or business-critical work and dual running for high-risk analysis (`uk-duck-book-qa-of-code`) • Scale the practices and record the choice: tailoring follows risk, and penetration testing is for high-risk scenarios where resources permit (`nist-ssdf-1-1`) • Select more of the Profile's tasks and give them more effort, and record the selection: risk, cost, feasibility and applicability decide which tasks apply and how much each gets (`nist-sp-800-218a`) • Raise the level, or bring forward the higher-level requirements this change's risk calls for: levels compare risk reduction with effort, and organisations may move requirements up for their own risks (`owasp-asvs-5-0`) • Prioritise test cases by risk and test the most critical transactions vertically, layer by layer, before sign-off (`microsoft-code-with-engineering-playbook`) • Require expert human review planned up front: complete fixes of complex problems are where AI is weakest, and human review is necessary where failure can cause serious problems (`openssf-finding-fixing-vulnerabilities-ai`) • Raise the review, starting with anything outside the named scope: AI performed worse in large, complex repositories, with unwanted changes elsewhere and edit failures (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "A simple, low-risk change is held in the same heavy gates as a risky one",
+      "Grade it and record the grade: it is not necessary to spend months assuring simple, low-influence work (`uk-aqua-book-2025`)"
+    ],
+    [
+      "The change reuses or repurposes code, a model or a prompt built for another purpose",
+      "Check the original method and assumptions still fit: reuse may need fresh verification and validation (`uk-aqua-book-2025`)"
+    ],
+    [
+      "A high-risk change has an outside review but skipped the basic checks",
+      "Put the basic checks back underneath: the interventions must not be viewed in isolation and should build on each other (`uk-aqua-book-2025`)"
+    ],
+    [
+      "A credential, personal data or real configuration appears in the agent's prompt, a config file or a commit",
+      "Block and treat as exposed: close access, rewrite history, change the credential, inform the data owner; the source forbids sensitive input to a chatbot, keeps secrets in environment variables, and says deleting the file and committing is not sufficient (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "A model's output would decide a security question (access, approval, closing an alert) with no human step",
+      "Put a human on the decision or record why the risk model says one is not needed: consider checking that the model is not on a critical path for significant security decisions without a human in the loop (`nist-sp-800-218a`)"
+    ],
+    [
+      "The application has no recorded verification level, or the change adds a class of data the level was not set for",
+      "Set or revisit the level from the application's risks, its sensitivity and its users' expectations; the standard prescribes no level (`owasp-asvs-5-0`)"
+    ],
+    [
+      "The diff adds a file upload, a file download or archive extraction",
+      "Route to V5 and check the documented file rules first: 5.2.1, 5.2.2, 5.3.1, 5.3.2 (L1); 5.1.1, 5.2.3, V5.4 (L2); 5.3.3 against zip slip (L3) (`owasp-asvs-5-0`)"
+    ],
+    [
+      "The agent assigned the risk or severity rating",
+      "Have a human confirm it after re-asking through specific questions (reach, preconditions, blast radius): AI severity estimates run both too high and too low (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The client is a US federal agency, or asks for the common form, and the factory ships continuously",
+      "Treat every change as made under the attestation, not only major releases: continuous delivery is one of the three conditions that require attestation, and attestations bind future versions until the producer notifies (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "Someone says third-party components are out of scope, so an agent-added library needs nothing",
+      "Run the supply-chain steps anyway: a component needs no attestation of its own, but the producer attests to the steps it takes to minimise the risk of relying on it (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "An agent change adds thousands of lines across many files",
+      "Scale the review and test effort to the volume, not to the size of the request: reviewing large multi-file AI changes differs from reviewing completions, and quality assurance needs to scale with AI-era velocity (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The agent is working in intricate existing logic, or the spec turns on edge cases",
+      "Require edge-case tests and a reviewer who knows the surrounding code: the authors propose, without measuring, these as cases where AI is still limited (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The diff edits a shared function, base class or reused pattern to fix one caller's case",
+      "Require a caller list and pass-to-pass tests over each caller: in the paper's partial passes, many fixes did not account for other modules that use the changed entity, and an edit to a reused regex broke existing tests (`jimenez-swe-bench`)"
+    ],
+    [
+      "The change writes model output or user content into an agent's long-term memory or a retrieval corpus",
+      "Treat the write as privileged: log the causing prompt, classify it for instruction content, and approve before instruction-bearing entries persist, since one tainted entry reaches every later session that reads the store (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "Retrieval filters by tenant or permission after the search, or trusts a scope the client sends",
+      "Block until scoping is inside the index query and validated server-side: similarity search ignores access lists, and a client-supplied scope is not a control (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "A product agent will act for users under its own service identity",
+      "Confused-deputy check: least-privilege entitlements and a per-action check that the requesting user is authorised, since an agent with more privilege than its user can be tricked into acting for an attacker (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The change gives an agent a persistent identity or a long-lived token",
+      "Require short-lived credentials, MFA for high-privilege AI accounts, continuous reauthentication and time-limited elevation: a stolen persistent identity widens the blast radius and keeps access until revoked or rotated (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The feature talks to users directly and can show links or touch payment details",
+      "Require role-consistency monitoring, restricted tools, limits on printing links and response filtering: users' implicit trust in an agent makes it a channel for social engineering (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The change gives an agent a goal stated as a single metric (cut cost, cut latency, close tickets)",
+      "Name the cheapest destructive path to the metric and take it out of the permitted actions: in the source's reward-hacking scenario, agents told to cut cloud costs delete production backups (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The change couples agents (a planner feeding an executor, agents reading each other's outputs)",
+      "Require a policy check and circuit breakers between planning and execution: a hallucinating or compromised planner's unsafe steps are otherwise executed without validation and multiplied (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "An LLM feature's design note says retrieval or grounding will stop it hallucinating",
+      "Require a tested path for when retrieval finds nothing: search can reduce hallucination but does not remove the incentive to guess (`why-language-models-hallucinate-kalai`)"
+    ]
+  ]
+}

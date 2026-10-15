@@ -1,0 +1,29 @@
+commands:
+  install: npm ci
+  test: npm test
+  typecheck: npm run typecheck
+  perf: npm run perf
+test_globs:
+  - "test/**/*.test.*"
+  - "test/helpers/**"
+  - "scripts/perf.js"
+risk_paths:
+  auth: ["src/auth/**"]
+  personal-data: ["src/users/**", "migrations/*users*"]
+  migration: ["migrations/**"]
+  llm-agent: ["src/llm/**"]
+  secrets: ["src/config.js", "config/**"]
+  dependency: ["package.json", "package-lock.json"]
+# The open corpus's axis, relative to the factory's home in grounded-forge (run factory from there).
+axis_spec: ../../tasks/warranting-agent-built-software.md
+axis_index: ../../distillations/warranting-agent-built-software/WARRANTING-AGENT-BUILT-SOFTWARE-DISTILLATION-INDEX.md
+builder:
+  kind: claude
+  command: null
+ratchet:
+  semgrep_findings: true
+theory_doc: docs/THEORY.md
+review:
+  claude_model: opus
+  codex_model: gpt-6.1-sol
+  grounding: seeds

@@ -1,0 +1,3 @@
+should_block: true
+caught_by: [review]
+defect: send_email starts the send without awaiting it, turns any failure into a log line, and always reports status 'sent', so a rejected or failed email is shown to the user as sent

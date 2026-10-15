@@ -1,0 +1,93 @@
+diff --git a/src/auth/middleware.js b/src/auth/middleware.js
+index 639298a..85a57fa 100644
+--- a/src/auth/middleware.js
++++ b/src/auth/middleware.js
+@@ -3,6 +3,12 @@ import { findUserById } from '../users/repo.js';
+ 
+ export const SESSION_COOKIE = 'sid';
+ 
++/** @param {string} token @param {number} maxAgeMs */
++export function sessionCookie(token, maxAgeMs) {
++  const maxAge = Math.floor(maxAgeMs / 1000);
++  return `${SESSION_COOKIE}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
++}
++
+ /**
+  * Route guard: resolves the session cookie to a user, or answers 401.
+  * @param {{ db: any, sessions: import('./sessions.js').SessionStore }} deps
+@@ -19,5 +25,6 @@ export function requireSession({ db, sessions }) {
+     }
+     req.user = user;
+     req.sessionToken = token;
++    res.setHeader('set-cookie', sessionCookie(token, sessions.ttlMs));
+   };
+ }
+diff --git a/src/auth/routes.js b/src/auth/routes.js
+index 1ea3de1..461d591 100644
+--- a/src/auth/routes.js
++++ b/src/auth/routes.js
+@@ -2,17 +2,11 @@ import { randomBytes } from 'node:crypto';
+ import { sendJson, sendNoContent } from '../http.js';
+ import { createUser, findCredentials, findUserByEmail, findUserById, toProfile } from '../users/repo.js';
+ import { validateDateOfBirth, validateEmail, validateName, validatePassword } from '../users/validate.js';
+-import { SESSION_COOKIE } from './middleware.js';
++import { sessionCookie } from './middleware.js';
+ import { hashPassword, verifyPassword } from './passwords.js';
+ 
+ const DUMMY_HASH = await hashPassword(randomBytes(16).toString('hex'));
+ 
+-/** @param {string} token @param {number} maxAgeMs */
+-function sessionCookie(token, maxAgeMs) {
+-  const maxAge = Math.floor(maxAgeMs / 1000);
+-  return `${SESSION_COOKIE}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
+-}
+-
+ /**
+  * @param {import('../router.js').Router} router
+  * @param {{ db: any, sessions: import('./sessions.js').SessionStore, auth: import('../router.js').Handler, now: () => number }} deps
+diff --git a/src/auth/sessions.js b/src/auth/sessions.js
+index a7a9196..2ea8c21 100644
+--- a/src/auth/sessions.js
++++ b/src/auth/sessions.js
+@@ -27,10 +27,15 @@ export function createSessionStore(db, { now = Date.now, ttlMs = SESSION_TTL_MS
+       return { token, expiresAt };
+     },
+ 
+-    /** @param {string | undefined} token */
++    /**
++     * Resolves a token to its session and pushes the expiry out to `ttlMs` from now, so active users stay signed in.
++     * @param {string | undefined} token
++     */
+     lookup(token) {
+       if (!token) return null;
+-      const row = db.prepare('SELECT user_id, expires_at FROM sessions WHERE token_hash = ?').get(hashToken(token));
++      const row = db
++        .prepare('UPDATE sessions SET expires_at = ? WHERE token_hash = ? RETURNING user_id, expires_at')
++        .get(now() + ttlMs, hashToken(token));
+       if (!row) return null;
+       if (Number(row.expires_at) <= now()) {
+         db.prepare('DELETE FROM sessions WHERE token_hash = ?').run(hashToken(token));
+diff --git a/test/auth.test.js b/test/auth.test.js
+index ea7bbcc..c198ee7 100644
+--- a/test/auth.test.js
++++ b/test/auth.test.js
+@@ -82,14 +82,16 @@ test('a session is valid until it expires', async (t) => {
+   assert.equal((await app.request('GET', '/me', { cookie })).status, 200);
+ });
+ 
+-test('rejects a session after it expires', async (t) => {
++test('keeps a session alive while it is being used', async (t) => {
+   let clock = Date.parse('2026-03-02T09:00:00Z');
+   const app = await startTestApp({ now: () => clock });
+   t.after(app.close);
+   const cookie = await signUpAndLogIn(app, alice);
+-  clock += 8 * DAY;
++  clock += 5 * DAY;
++  assert.equal((await app.request('GET', '/me', { cookie })).status, 200);
++  clock += 5 * DAY;
+   const res = await app.request('GET', '/me', { cookie });
+-  assert.equal(res.status, 401);
++  assert.equal(res.status, 200);
+ });
+ 
+ test('each login gets its own session', async (t) => {

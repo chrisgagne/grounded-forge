@@ -1,0 +1,296 @@
+{
+ "method": "Read-only inspection of cloned default-branch histories using git log/show/diff, regression tests, control follow-up patches, revert/hash/subject searches, and git -S/-L. Follow-up claims end at the cloned tips named in evidence. code_files contains every non-test changed file, including accompanying documentation; code_lines_changed counts source-file additions plus deletions, including source comments and blank lines. Randomization used Python random.Random(20261012): sort cases by (project, full SHA), shuffle and assign rb01..rb36; randomly select four alphabetically listed projects to contribute two tuning bugs each, with the other four contributing one; shuffle each project's bugs in alphabetical project order and allocate accordingly. In alphabetical project order, shuffle each project's controls, putting one in each half when there are two; shuffle the four singleton controls and allocate two to each half. Finally shuffle tuning, then heldout. Each half has 12 BUG and 6 CONTROL, with bugs from all eight projects.",
+ "cases": [
+  {
+   "id": "rb19",
+   "kind": "bug",
+   "project": "jsdiff",
+   "commit": "15fef933f4a8bd540cfa25bfc794e7ca8687d780",
+   "parent": "2a7ae3edf035c1a6be2f28443b67cf3da757410b",
+   "code_files": [
+    "src/patch/apply.js"
+   ],
+   "test_files": [
+    "test/patch/apply.js"
+   ],
+   "code_lines_changed": 4,
+   "ground_truth": "BUG: Applying a new-file hunk beginning '@@ -0,0 +1,4 @@' computes insertion position -1, corrupting the order of inserted lines. Applying the regression patch to '' should produce 'line1\\nline2\\nline3\\nline4\\n'.",
+   "evidence": "Fix: Bad merge when adding new files (#189); test/patch/apply.js adds 'should create a file', applying that zero-old-line hunk to an empty string and asserting the four lines in order."
+  },
+  {
+   "id": "rb28",
+   "kind": "control",
+   "project": "js-yaml",
+   "commit": "c63fa166cecf8e286fea86264b3ef7195f6efa2a",
+   "parent": "bc57eb9be8c8a900106cbb41bec237b5f5d68e4a",
+   "code_files": [
+    "README.md",
+    "src/tag/mapping/set.ts"
+   ],
+   "test_files": [
+    "test/core/tags/set.test.mjs"
+   ],
+   "code_lines_changed": 18,
+   "ground_truth": "CONTROL: Changes YAML !!set representation from an object with null-valued properties to a JavaScript Set, including serialization support.",
+   "evidence": "Use real `Set` for !!set; checked C..origin/master through 78326247 with every subsequent set.ts patch, -S on setTag and container.add(key), and revert/hash/!!set/real-Set searches. Subsequent file edits add documentation only; no corrective fix or revert was found."
+  },
+  {
+   "id": "rb33",
+   "kind": "bug",
+   "project": "yargs-parser",
+   "commit": "aa386be666df974a127904020c61b9febc10301f",
+   "parent": "add38aafb96709e8eeecdc86b825419b3f1d5f96",
+   "code_files": [
+    "lib/yargs-parser.ts"
+   ],
+   "test_files": [
+    "test/yargs-parser.mjs"
+   ],
+   "code_lines_changed": 2,
+   "ground_truth": "BUG: A short option ending in '=' is parsed as flag characters instead of an explicit empty value. parser(['-o='], {alias: {o: 'opt'}}) sets o and opt to true and creates an '=' flag instead of returning {_: [], o: '', opt: ''}.",
+   "evidence": "fix: parse short option with trailing equals and empty value (-o=) as empty string (#541); test/yargs-parser.mjs adds 'should set a short option to an empty string when a trailing equals sign supplies no value', asserting the empty-string result and checking '-o=x' remains unchanged."
+  },
+  {
+   "id": "rb20",
+   "kind": "bug",
+   "project": "node-semver",
+   "commit": "f070dde0cc22894ac254e281cb36a79ab790272d",
+   "parent": "4571a1a05ab527e81c162857c8ed6c37210e90ab",
+   "code_files": [
+    "functions/inc.js"
+   ],
+   "test_files": [
+    "test/functions/inc.js"
+   ],
+   "code_lines_changed": 5,
+   "ground_truth": "BUG: Calling inc on an existing SemVer object mutates that input because the constructor reuses it. For v = new SemVer('1.2.3'), inc(v, 'patch') returns '1.2.4' but also changes v.version from '1.2.3' to '1.2.4'.",
+   "evidence": "fix: ensure SemVer instance passed to inc are not modified (#427); test/functions/inc.js adds before/after JSON equality assertions in 'increment versions test'; the existing '1.2.3', 'patch', '1.2.4' fixture exercises this mutation."
+  },
+  {
+   "id": "rb34",
+   "kind": "bug",
+   "project": "date-fns",
+   "commit": "9ac551ce5c4f87b298c75cc961f50f9019b3f38b",
+   "parent": "a49902e17c89f84642c30e52bc8d67d56dbe6afe",
+   "code_files": [
+    "src/areIntervalsOverlapping/index.ts"
+   ],
+   "test_files": [
+    "src/areIntervalsOverlapping/test.ts"
+   ],
+   "code_lines_changed": 4,
+   "ground_truth": "BUG: Lexicographic sorting of timestamps can reverse an interval and falsely report no overlap. Intervals ['1970-01-01T02:00:00.000Z', '1970-01-01T03:00:00.000Z'] and ['1969-12-31T23:30:00.000Z', '1970-01-01T02:30:00.000Z'] incorrectly return false.",
+   "evidence": "Fix bug in areIntervalsOverlapping (#3628) (closes #3614); src/areIntervalsOverlapping/test.ts adds 'sort timestamp', asserting true for these overlapping intervals."
+  },
+  {
+   "id": "rb36",
+   "kind": "control",
+   "project": "node-semver",
+   "commit": "0864b3ce7932667013e0c7c5ec764777d4682883",
+   "parent": "67e54785a0f871361230f84323cbb631b9b6d834",
+   "code_files": [
+    "README.md",
+    "bin/semver.js",
+    "classes/semver.js"
+   ],
+   "test_files": [
+    "tap-snapshots/test/bin/semver.js.test.cjs",
+    "test/fixtures/increments.js"
+   ],
+   "code_lines_changed": 11,
+   "ground_truth": "CONTROL: Adds the 'release' increment operation, which removes prerelease identifiers, and exposes it in the CLI.",
+   "evidence": "feat: add \"release\" inc type (#753); checked C..origin/main through 6e05b763 using file history, -S on the release case, -L on its implementation, and revert/hash/#753/release-increment searches. The class case is unchanged; inspected 3905343's CLI rewrite, which preserves release handling while warning about invalid increment arguments, and later identifier fixes do not correct this feature."
+  },
+  {
+   "id": "rb04",
+   "kind": "bug",
+   "project": "yargs-parser",
+   "commit": "585ae8ffad74cc02974f92d788e750137fd65146",
+   "parent": "a4000b6b30aef5d1e48655842c020eb2e3899854",
+   "code_files": [
+    "lib/yargs-parser.ts"
+   ],
+   "test_files": [
+    "test/yargs-parser.cjs"
+   ],
+   "code_lines_changed": 5,
+   "ground_truth": "BUG: A token made of hyphens followed by '=value' can populate the reserved '--' property with a scalar. Parsing '----=test' with populate-- true should leave '--' absent and preserve ['----=test'] in argv._.",
+   "evidence": "fix(populate--): -- should always be array (#354); test/yargs-parser.cjs adds 'should not populate \"--\" for key values other than \"--\"', asserting the literal positional token and undefined argv['--']."
+  },
+  {
+   "id": "rb29",
+   "kind": "bug",
+   "project": "markdown-it",
+   "commit": "988c82be47391e20040c1c7f40249ac5ba8c5467",
+   "parent": "26b9a7be97ae6858cc8e0f3fd7efb62fb14eb074",
+   "code_files": [
+    "src/rules_inline/backticks.ts"
+   ],
+   "test_files": [
+    "test/fixtures/markdown-it/commonmark_extras.txt"
+   ],
+   "code_lines_changed": 11,
+   "ground_truth": "BUG: The code-span normalizer removes two spaces from content consisting entirely of spaces. Markdown '`   `' renders a code element containing one space instead of three.",
+   "evidence": "fix: don't strip spaces from all-space code spans; test/fixtures/markdown-it/commonmark_extras.txt adds 'No stripping when a code span is all spaces', expecting '<p><code>   </code></p>'."
+  },
+  {
+   "id": "rb02",
+   "kind": "bug",
+   "project": "markdown-it",
+   "commit": "272a470ed20ca13654716f9ca741a71cf52135de",
+   "parent": "3740146fc9c92ea15fdc6a358137ec7b68f05f4b",
+   "code_files": [
+    "lib/renderer.js"
+   ],
+   "test_files": [
+    "test/fixtures/markdown-it/commonmark_extras.txt"
+   ],
+   "code_lines_changed": 2,
+   "ground_truth": "BUG: Image descriptions lose soft line breaks when converted to alt text, joining words across lines. '![here\\nit is](https://github.com/executablebooks/)' gets alt text 'hereit is' instead of 'here\\nit is'.",
+   "evidence": "Fix newline not rendered in image alt attribute; test/fixtures/markdown-it/commonmark_extras.txt adds 'Newline in image description', expecting the newline to survive inside the img alt attribute."
+  },
+  {
+   "id": "rb03",
+   "kind": "bug",
+   "project": "immutable-js",
+   "commit": "800364678ff9052ce1bb8daeefa15dd515dda602",
+   "parent": "13b9e4db84c549ac7ecb2f58000808c90317c81f",
+   "code_files": [
+    "src/Record.js"
+   ],
+   "test_files": [
+    "__tests__/Map.ts",
+    "__tests__/Record.ts"
+   ],
+   "code_lines_changed": 3,
+   "ground_truth": "BUG: Record.equals treats every truthy argument as a Record and accesses its record-specific _keys field. Record({a: 1, b: 2})().equals(Map({a: 1, b: 2})) throws instead of returning false.",
+   "evidence": "Fix bug in Record.equals when comparing against Map (#1903); __tests__/Record.ts adds 'if compared against Map should return false', and __tests__/Map.ts adds 'does not equal Record with same values'. The surrounding recordSeq calls record._keys.map, explaining the exception."
+  },
+  {
+   "id": "rb25",
+   "kind": "control",
+   "project": "decimal.js",
+   "commit": "27de48c4c3d17eba424cb0b916ed0fe74c4dd5a7",
+   "parent": "148be72e6fc62162e6c55ce9af87bac95bf9b6f1",
+   "code_files": [
+    "decimal.js"
+   ],
+   "test_files": [],
+   "code_lines_changed": 12,
+   "ground_truth": "CONTROL: Removes duplicated trailing-zero trimming from multiplication and simplifies the base-10 exponent calculation.",
+   "evidence": "Remove duplicated for-loop. Minor refactoring.; checked C..origin/master through b1d1e311 with decimal.js history, -S getBase10Exponent, -L on that helper and the multiplication tail, and revert/hash/helper-name/subject searches. Those changed regions have no later edits; later reverts concern README advice, with no corrective fix or revert of this refactor found."
+  },
+  {
+   "id": "rb13",
+   "kind": "bug",
+   "project": "immutable-js",
+   "commit": "c11a66c27ef9b19b4c773b03809bf0ca50f61517",
+   "parent": "4a66888fb63a9535852e42eca6561962bfaeb049",
+   "code_files": [
+    "src/Repeat.js"
+   ],
+   "test_files": [
+    "__tests__/Repeat.ts"
+   ],
+   "code_lines_changed": 6,
+   "ground_truth": "BUG: Repeat.lastIndexOf returns the collection size instead of its last valid index, and empty repeats incorrectly report a match. Repeat('x', 3).lastIndexOf('x') returns 3 instead of 2; an empty Repeat's matching searches return 0 instead of -1.",
+   "evidence": "fix(Repeat): lastIndexOf returned size instead of size - 1; __tests__/Repeat.ts adds 'indexOf and lastIndexOf return the first and last index' and 'lastIndexOf on an empty Repeat returns -1', covering matching and absent values."
+  },
+  {
+   "id": "rb26",
+   "kind": "control",
+   "project": "yargs-parser",
+   "commit": "2cfab05f0981145fab757ed7d490c55d9f29ad00",
+   "parent": "261730383e02448562f737b94bbd1f164aed5143",
+   "code_files": [
+    "lib/yargs-parser-types.ts",
+    "lib/yargs-parser.ts"
+   ],
+   "test_files": [],
+   "code_lines_changed": 37,
+   "ground_truth": "CONTROL: Replaces default-value type strings with an enum and computed property keys while preserving default-value selection.",
+   "evidence": "refactor: quote properties used for meta-programming; checked C..origin/main through aa386be6 with both files' history, -S DefaultValuesForTypeKey, -L covering defaultForType and guessType, and revert/hash/subject/enum-name searches. Those functions and enum references are unchanged; later fixes address other parser branches, with no corrective fix or revert found."
+  },
+  {
+   "id": "rb10",
+   "kind": "bug",
+   "project": "js-yaml",
+   "commit": "0cbb471d67b083778e7b2600af2418142bf5bf04",
+   "parent": "30108cc828b5393d55dfbfc8087ab713f7145946",
+   "code_files": [
+    "src/parser/parser.ts"
+   ],
+   "test_files": [
+    "test/core/parser/parser.test.mjs"
+   ],
+   "code_lines_changed": 2,
+   "ground_truth": "BUG: A whitespace-only block scalar is rejected when the next mapping entry is less indented, because indentation validation runs before recognizing the scalar's end. load('a: |+\\n   \\nb: 1\\n') throws instead of returning {a: '\\n', b: 1}.",
+   "evidence": "Fix whitespace-only block scalar followed by a less indented line, close #802; test/core/parser/parser.test.mjs adds 'ends a whitespace-only block scalar at a less indented line', covering this input, a nested variant and a genuinely invalid indentation case."
+  },
+  {
+   "id": "rb08",
+   "kind": "bug",
+   "project": "date-fns",
+   "commit": "d098e19e32938a66f4e6e0d69edaaf6117c70ed4",
+   "parent": "02f1eade46dbe1d14bb2f9b7215c4460aadd327d",
+   "code_files": [
+    "src/addBusinessDays/index.js"
+   ],
+   "test_files": [
+    "src/addBusinessDays/test.js"
+   ],
+   "code_lines_changed": 13,
+   "ground_truth": "BUG: Adding or subtracting a multiple of five business days from a weekend can leave the result on a weekend. From Sunday 2019-08-18, amounts -5 and 5 yield Sundays 2019-08-11 and 2019-08-25 instead of weekdays 2019-08-12 and 2019-08-23.",
+   "evidence": "Fix addBusinessDays when input date is a weekend day (#1628); src/addBusinessDays/test.js adds 'starting from a weekend day should land on a weekday when reducing a divisible by 5', asserting both corrected dates."
+  },
+  {
+   "id": "rb14",
+   "kind": "control",
+   "project": "markdown-it",
+   "commit": "1a1f8e493f4a5fa8800b32fbfdeaae6f038195e9",
+   "parent": "a32f499be96919291e42b6786bbbdb9149c9fabb",
+   "code_files": [
+    "src/rules_inline/image.ts",
+    "src/rules_inline/link.ts"
+   ],
+   "test_files": [
+    "test/markdown-it/misc.test.mjs"
+   ],
+   "code_lines_changed": 16,
+   "ground_truth": "CONTROL: Stores normalized reference labels in metadata on reference-link and reference-image tokens.",
+   "evidence": "Store reference labels in token metadata, #938; checked C..origin/master through 3c51991c with both files' subsequent history, -S meta.label, and revert/hash/#938/reference-label searches. Neither source file has a subsequent commit; no corrective fix, naming reference or revert was found."
+  },
+  {
+   "id": "rb15",
+   "kind": "bug",
+   "project": "decimal.js",
+   "commit": "08263d430552fae0c941bb2c4f3a695bb96349ed",
+   "parent": "05e698aba6dd01bef628a30f5a6b1cf528e2e721",
+   "code_files": [
+    "decimal.js"
+   ],
+   "test_files": [
+    "test/modules/cos.js"
+   ],
+   "code_lines_changed": 1,
+   "ground_truth": "BUG: Calling cos on a negative Decimal mutates the input's sign while reducing the angle. With precision 10 and rounding 4, x = new Decimal('-14044.44444444444'); x.cos() changes x to positive '14044.44444444444'.",
+   "evidence": "Fix for issue #20; test/modules/cos.js adds this negative input and asserts x.valueOf() still equals a freshly constructed original after x.cos(); the mutation was reproduced from historical source in memory."
+  },
+  {
+   "id": "rb32",
+   "kind": "control",
+   "project": "date-fns",
+   "commit": "4fd26ceafc1911bf025355cf6076ac53aec65594",
+   "parent": "c96a9d731316d9a79a22fdae2d644816e45721fd",
+   "code_files": [
+    "src/endOfSecond/index.ts"
+   ],
+   "test_files": [
+    "src/endOfSecond/test.ts"
+   ],
+   "code_lines_changed": 21,
+   "ground_truth": "CONTROL: Adds an optional date-construction context to endOfSecond so callers can request results in a chosen time zone.",
+   "evidence": "Add tz support to endOfSecond; checked C..origin/main through 717ce0a8 with full subsequent patches at the original and pkgs/core paths, -S on toDate(date, options?.in), and revert/hash/endOfSecond searches. Later edits change types, import extensions, formatting or location; runtime context forwarding is unchanged, with no corrective fix or revert found."
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+commands:
+  test: PYTHONPATH=. "<factory>/.venv/bin/python" -m pytest -q -rA -p no:cacheprovider
+test_globs:
+  - "tests/**"
+risk_paths: {}
+# Rewritten after the run to this corpus's axis; the run read seed rows from an earlier version of this axis spec.
+axis_spec: /path/to/grounded-forge/corpus.commons/chrisgagne-agent-built-software/tasks/warranting-agent-built-software.md
+axis_index: /path/to/grounded-forge/corpus.commons/chrisgagne-agent-built-software/distillations/warranting-agent-built-software/WARRANTING-AGENT-BUILT-SOFTWARE-DISTILLATION-INDEX.md
+builder:
+  kind: claude
+  command: null
+ratchet:
+  semgrep_findings: true
+theory_doc: DESIGN.md
+review:
+  claude_model: opus
+  codex_model: gpt-6.1-sol
+  grounding: seeds

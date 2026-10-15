@@ -1,0 +1,31 @@
+[
+ {
+  "sources": [
+   "C1",
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "THEORY.md:40 (T10) requires a migration that drops personal-data columns to ship with a tested restore. 0005 down.sql is `ALTER TABLE users DROP COLUMN phone_number;`. rollback.md offers only an export with no import step, and scripts/rehearse-rollback.js:126 only checks that phones come back as [null, null]. No restore is tested anywhere.",
+  "severity": "medium",
+  "file": "migrations/0005_add_user_phone_number.down.sql",
+  "line": 1,
+  "claim": "The down migration permanently drops every stored phone number, with no restore path or tested restore, which breaks theory invariant T10 for a personal-data column.",
+  "evidence": "The down file is `ALTER TABLE users DROP COLUMN phone_number;`. THEORY.md T10 says \"A migration that drops or rewrites personal-data columns ships with a down path and a tested restore.\" rollback.md admits \"Rolling back the migration deletes every stored phone number. They cannot be recovered from the database afterwards\" and gives only a manual `sqlite3 ... > phone-numbers.csv` export, with no import step. scripts/rehearse-rollback.js asserts only that phone numbers come back as `[null, null]` after re-migrating. It never exercises export and restore. The diff edits T4 in docs/THEORY.md but leaves T10 alone.",
+  "axis_row": "P2.4",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C2"
+  ],
+  "verdict": "confirmed",
+  "reason": "rollback.md:20 writes all phone numbers to ./phone-numbers.csv using sqlite3's default list mode, which separates fields with `|` rather than commas. The only safeguard is the advice to keep the file access-controlled. The file is a manual, optional export of personal data, so low severity is right.",
+  "severity": "low",
+  "file": "rollback.md",
+  "line": 20,
+  "claim": "The rollback runbook exports phone numbers to a plaintext file with no location, permissions or retention set, and the output is pipe-separated rather than CSV.",
+  "evidence": "rollback.md line 20 has `sqlite3 <path to the database> \"SELECT id, phone_number FROM users WHERE phone_number IS NOT NULL\" > phone-numbers.csv`. sqlite3's default output mode is pipe-separated (`id|phone`), not CSV. The only safeguard is the advice \"keep it access-controlled and delete it when it is no longer needed\".",
+  "axis_row": "P2.2",
+  "id": "F2"
+ }
+]

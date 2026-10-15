@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-management
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T09:05:06+13:00
+  at: 2026-10-16T11:51:36+13:00
 ---
 # OpenStax Principles of Management, AAR Distillation
 
@@ -136,7 +136,7 @@ A team completes an AAR on a product-launch delay. The facilitator applies Princ
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check, Exploring Managerial Careers) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** French and Raven's five power bases are cited in the source as [BT] (Ch 13.3); neither is held directly in the demo corpus. Tuckman's team-development stages are [BT] in the source (Ch 15.2); Tuckman is not held directly. Locke's goal theory is [BT] in the source (Ch 14.3); Locke is not held directly. Follett's conflict-resolution taxonomy and the library-window example are borrowed-through as attributed quotation [BT] (Ch 3.6); Wren and Bedeian are cited as secondary sources for Follett in the deep ref. The change-management models (Lewin, Kotter, Cooperrider, Olson-Eoyang) are all [BT] in the source (Ch 10.3); none are held directly in the demo corpus. Herzberg's motivator-hygiene theory, Alderfer's ERG, and McClelland's nAch/nAff/nPow are [BT] (Ch 14.2).
 

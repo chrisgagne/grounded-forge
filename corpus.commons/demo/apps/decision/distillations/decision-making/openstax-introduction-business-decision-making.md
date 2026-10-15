@@ -164,7 +164,7 @@ This worked example illustrates the five-step process (including step 5, gatheri
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice, Catching the Entrepreneurial Spirit) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

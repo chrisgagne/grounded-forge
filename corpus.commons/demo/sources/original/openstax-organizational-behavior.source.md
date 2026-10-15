@@ -9,7 +9,7 @@ scope: open-nc
 licence: CC BY-NC-SA 4.0
 ingested: 2026-05-05
 original_format: pdf
-converted_via: 'pymupdf4llm 0.2.9; Poppler pdftotext 26.08.0 for text pymupdf4llm dropped on printed pp. 351, 352, 354 and 356 (PDF pp. 365, 366, 368, 370)'
+converted_via: 'PyMuPDF 1.28.2 text blocks in content-stream order (page.get_text("blocks", sort=False)), one block per paragraph, pages split by form feed'
 checksum_sha256: 17f40f05d37592cc65b1c77bb7ba991cf8948b5c4b67fb5474c5ebe8fb095fa9
 ---
 
@@ -20,23 +20,9 @@ PDF not shipped (download free from the URL above). The SHA256 above is of
 2026-04-21), fetched from assets.openstax.org on 2026-10-15 and held in the
 gitignored `sources/original/`; its printed folios match the converted text.
 
-**Restored spans.** pymupdf4llm dropped text on printed pages 351, 352, 354 and
-356 of Ch 12: the end of a Ch 12.7 body sentence (from "or negative, enhances")
-with footnote 91, the "You Are Now the Leader" feature, the opening of the
-"Uber’s Need for an Ethical Leader" feature, and two Concept Check items. Those
-spans were extracted from PDF pages 365, 366, 368 and 370 with Poppler
-`pdftotext` (default mode), checked against page renders, and inserted
-unchanged; an HTML comment after each names its page. pdftotext joins one
-line-end hyphen there ("taxi-esque" reads "taxiesque").
+**Conversion.** Re-converted on 2026-10-16 with PyMuPDF 1.28.2: each page's text blocks in content-stream order (`page.get_text("blocks", sort=False)`), one block per paragraph, trailing spaces removed, pages separated by form feeds, nothing added or edited. Each page's folio and running header come first in its text. Checked against pdftotext of the original: 22,791 of the PDF's 22,795 text lines of 12 or more characters match line for line, and the other four are present with different line breaks; a page-by-page word comparison finds no word pdftotext reads that the new text lacks. Every line of the earlier conversion is present except where that conversion damaged a ligature ("frst", "confict", "diferent"), which the new text reads correctly. This restores what pymupdf4llm 0.2.9 dropped book-wide: the opening of most feature boxes (Concept Check, Managerial Leadership, Ethics in Practice, Managing Change, Catching the Entrepreneurial Spirit, Exploring Managerial Careers, Sustainability and Responsible Management) and some body text, e.g. the end of Ch 4.3's "allowing time for reentry" sentence with footnote 15 (printed p. 99). The Ch 12 spans restored by hand on 2026-10-15 (printed pp. 351, 352, 354, 356) are now part of the conversion itself (every line of them is present), and "taxi-" / "esque" keeps its printed line-end hyphen.
 
-**Known gaps, not repaired.** Compared line by line with pdftotext of the
-original on 2026-10-15, the converted text lacks 1,258 of the PDF's 17,269
-longer text lines (7.3%, an upper bound: some are table cells or reflowed
-text). pymupdf4llm loses a page's text from the start of a feature box, so
-the opening of 110 of 120 feature boxes is missing, sometimes with the body
-sentence before it (Ch 4.3 loses the end of "allowing time for reentry" with
-footnote 15). Only Ch 12 pp. 350–356 are restored. A full re-conversion is
-needed before this text can be called complete.
+**Deep reference coverage.** The deep reference was read from the earlier pymupdf4llm 0.2.9 conversion; only Ch 12.7–12.9 were read from complete text. It stays PARTIAL until Passes C–E cover the restored material in the other chapters (see its Coverage line).
 
 Converted markdown is at
 `../converted/openstax-organizational-behavior.md`; deep reference at

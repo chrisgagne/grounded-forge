@@ -12,7 +12,7 @@ sources:
     resource: https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # Schwaber & Sutherland, The Scrum Guide — Stakeholder-Engagement Distillation
 
@@ -28,7 +28,7 @@ Three distinct engagement modes are encoded in the framework:
 
 **Internal-team engagement.** The Scrum Team itself is the most intimate engagement: one Scrum Master, one Product Owner, and Developers, with "no sub-teams or hierarchies" [V] — "a cohesive unit of professionals focused on one objective at a time." [V] Sprint Planning is collaborative across the whole team; the Sprint Retrospective is the team-internal engagement ceremony where "the Scrum Team inspects how the last Sprint went with regards to individuals, interactions, processes, tools, and their Definition of Done." [V] The five Scrum Values — Commitment, Focus, Openness, Respect, Courage — explicitly include "the Scrum Team and its stakeholders are open about the work and the challenges." [V]
 
-**Organisational engagement.** The Scrum Master is the conduit. "The Scrum Master serves the organization in several ways, including: Leading, training, and coaching the organization in its Scrum adoption; Planning and advising Scrum implementations within the organization; Helping employees and stakeholders understand and enact an empirical approach for complex work; and, Removing barriers between stakeholders and Scrum Teams." [V] Note the last point: removing barriers *between* stakeholders and Scrum Teams is a Scrum Master responsibility, not a Product Owner one.
+**Organisational engagement.** The Scrum Master is the conduit. "The Scrum Master serves the organization in several ways, including": "Leading, training, and coaching the organization in its Scrum adoption"; "Planning and advising Scrum implementations within the organization"; "Helping employees and stakeholders understand and enact an empirical approach for complex work"; and "Removing barriers between stakeholders and Scrum Teams." [V] Note the last point: removing barriers *between* stakeholders and Scrum Teams is a Scrum Master responsibility, not a Product Owner one.
 
 A unifying theme: stakeholder engagement in Scrum is *cadenced*. The Sprint Review is the regular, structured engagement moment with external stakeholders; the Daily Scrum is the daily team-internal engagement; the Sprint Retrospective is the per-Sprint team improvement engagement; the Product Backlog refinement is the ongoing conversation between Product Owner and Developers about what stakeholders need. Engagement is not an event organised when a problem surfaces; it is a structural rhythm.
 

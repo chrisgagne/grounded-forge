@@ -12,7 +12,7 @@ sources:
     resource: https://approachperfect.com/wp-content/uploads/2020/04/The-Approach-Perfect-Field-Guide-to-Scrum-Events-2020-04-03.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-02T09:53:27+13:00
+  at: 2026-10-15T20:30:11+13:00
 ---
 # Gagné, The Approach Perfect Field Guide to Scrum Events — Software-Business Distillation
 

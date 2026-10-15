@@ -12,7 +12,7 @@ sources:
     resource: https://openpracticelibrary.com/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # Open Practice Library, Stakeholder-Engagement Distillation
 
@@ -46,7 +46,7 @@ This distillation projects OPL practices onto the stakeholder-engagement task by
 
 9.  **Engagement across organisational silos.** *5 Elements Canvas* surfaces "areas of mutual interest and benefit between teams/ silos that are trying to solve similar problems independently to each other" [V] (Source: Practice "5 Elements Canvas", "Why do it?") — Development / Operations / Leadership / Product / Architecture as five default stakeholder groups. *6 Dimensions of Discovery* extends the framing to People & culture / Tools & technologies / Process / Communication / Work environment / Governance. *Collaborative Pathways* and *Inter-Team Agreement* operationalise cross-team engagement.
 
-10.  **Formal relational contracts for ecosystem engagement.** *Formal Relational Contract* is the library's contrarian on transactional contracting: "Transactional (legal) contracts are still relevant but do not cover all required parts which are essential for collaboration based on transparency and trust... we believe collaboration, building an ecosystem as we do more and more does not fit in a transactional contract but actually needs a formal (written) relational contract" [V] (Source: Practice "Formal Relational Contract", "What is it?") [AR]. The seven-step process: Social Contract → trust foundation → joint vision and goals → guiding principles → terms and conditions → governance mechanisms → canvas consolidation.
+10.  **Formal relational contracts for ecosystem engagement.** *Formal Relational Contract* is the library's contrarian on transactional contracting: "Transactional (legal) contracts are still relevant but do not cover all required parts which are essential for collaboration based on transparency and trust. We believe collaboration, building an ecosystem as we do more and more does not fit in a transactional contract but actually needs a formal (written) relational contract" [V] (Source: Practice "Formal Relational Contract", "What is it?") [AR]. The seven-step process: Social Contract → trust foundation → joint vision and goals → guiding principles → terms and conditions → governance mechanisms → canvas consolidation.
 
 11.  **Discovery work as multi-stakeholder framing.** *Start With Why* (Sinek [BT]), *Vision Statement*, *OKRs*, *Impact Mapping* (Adzic [BT]), *North Star Framework* (Ellis [BT]), *Lean Canvas* (Maurya [BT]) — these practices all *produce a shared frame* between organisational stakeholders and the team. Impact Mapping is framed explicitly as engagement: "It is an excellent way to allow leadership and autonomous teams to have a conversation around strategic priorities and how they translate into the work of the team" [V] (Source: Practice "Impact Mapping", "Why do it?").
 

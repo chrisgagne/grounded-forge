@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:11+13:00
 ---
 # Liberating Structures Handbook, AAR Distillation
 
@@ -40,7 +40,7 @@ The Liberating Structures Handbook projects onto the AAR axis as a facilitation-
 
 8.  **Just In Time Topics (Open Space lineage, emergent agenda).** Self-organising agenda: participants write a topic they want to spend 45–90 minutes on. Two operating laws: "Whoever comes are the right people" [V] and "The law of two feet. If you're not contributing or getting value, use your feet to go somewhere else." [V] (Source: "Just In Time Topics") In a large-group AAR where Phase 2 contributory-factor work needs to branch into topic-specific working groups, Just In Time Topics surfaces what the group most needs to talk about rather than imposing a fixed agenda.
 
-9.  **Levels of Accountability ladder (above-the-line vs below-the-line).** A stair-step ladder from "Denial / Woe is me" at the bottom through "Blame others," "Blame self," "Wait 'n Hope," "Acknowledge situation," "Accept ownership," "Find Solutions," to "Take Action and Learn" [V] at the top. (Source: "Levels of Accountability") In an AAR where the conversation has slid into blame language or helplessness, the ladder gives the facilitator a named frame for redirecting without shaming.
+9.  **Levels of Accountability ladder (above-the-line vs below-the-line).** A stair-step ladder from "Denial" ("Woe is me") at the bottom through "Blame others," "Blame self," "Wait 'n Hope," "Acknowledge situation," "Accept ownership," "Find Solutions," to "Take Action and Learn" [V] at the top. (Source: "Levels of Accountability") In an AAR where the conversation has slid into blame language or helplessness, the ladder gives the facilitator a named frame for redirecting without shaming.
 
 10.  **5 Whys.** Pair-based question-asking: "Keep going until you feel you've pared away enough layers to get at a fundamental truth." [V] (Source: "5 Whys") In an AAR the 5 Whys move surfaces contributory factor chains that a flat brainstorm misses. Paired with LFUO's networked-causality framing — the 5 Whys provides the conversational tool; LFUO provides the anti-causal-statement discipline that keeps the Whys from converging on a single root cause.
 
@@ -72,7 +72,7 @@ The Liberating Structures Handbook projects onto the AAR axis as a facilitation-
 
 | Need | Question |
 |---|---|
-| Surfacing factors below the obvious | 5 Whys: "Why?" at least five times, relaxable past five; "Why is that important? And why do you care about that?" [V] |
+| Surfacing factors below the obvious | 5 Whys: "WHY?" at least five times, relaxable past five; "Why is that important? And why do you care about that?" [V] |
 | Surfacing the system that made the outcome inevitable | TRIZ inversion: What policies and practices would make it 100% certain this outcome happens every time? Does the current system resemble that? |
 | Naming the paradox in the system | Wicked Questions: Where is the embedded paradox or tension that no single action will resolve? |
 | Testing for artificial consensus | Mini Constellations: place an object on the floor; where does each person stand relative to the proposed contributory factor? |

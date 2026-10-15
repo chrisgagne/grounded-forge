@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # LFUO 2024, Stakeholder-Engagement Distillation
 
@@ -58,7 +58,7 @@ Where the guide is silent (e.g., on broader community engagement outside the age
 
 11.  **The Ten Principles and Agreements for the group dialogue.** A formal opening agreement covering: no administrative actions; respectful discussion; learning matters more than past blame; willingness to be vulnerable; the FLA team is not here to fix a problem; we all make mistakes; almost all human actions are intuitive responses based on past experience; accidents are usually combinations of normal performance variability and unlikely event sequences; safety is never absolute; safety = the reasonableness of risk. (Source: Part 6, "Principles and Agreements for All Involved in the Facilitation")
 
-12.  **Facilitator moves for productive dialogue.** Named explicitly: "Location, location, location" (the field is almost always best); "You are not your point of view" [V] (open with a story where a smart person was convinced and wrong); "Invite uncertainty" (dare people to suspend certainty and listen for what they did not know); "Exploit points of departure" [V] (moments of inconsistency that reveal different perspectives); "Encourage sensemaking, not adjudication"; "Listen for the silent voice" [V] (work quiet participants into the dialogue). (Source: Part 6, "Suggestions to FLA Facilitator for the Group Dialogue Session")
+12.  **Facilitator moves for productive dialogue.** Named explicitly: "Location, location, location" (the field is almost always best); "You are not your point of view" [V] (open with a story where a smart person was convinced and wrong); "Invite uncertainty" (dare people to suspend certainty and listen for what they did not know); "Exploit points of departure" [V] (moments of inconsistency that reveal different perspectives); the group dialogue is not a group interview: its goal "is to encourage sensemaking through dialogue to achieve a better understanding of the multiple perspectives of the participants" [V]; "Listen for the silent voice" [V] (work quiet participants into the dialogue). (Source: Part 6, "Suggestions to FLA Facilitator for the Group Dialogue Session")
 
 13.  **Points of departure as the engagement target, not consensus.** "Points of departure, refers to the moments of inconsistency that occur in our accounts of the event that reflect the different perspectives that members hold. The idea is not to validate one story over the other but to reveal when these discrepancies occur so that all involved have a chance to see from another's perspective." [V] (Source: Part 6, "Suggestions to FLA Facilitator for the Group Dialogue Session")
 

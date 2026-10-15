@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3ce94d54a8fde4de59e43729faca331d9c17379e5fcb399133342886497c1dbe -->
+<!-- derived-from-deep: sha256:1e20d267ab179919423054d3781a7099b5a00b274a40597ed78a33bfe41178ce -->
 # OpenStax, Principles of Marketing, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.

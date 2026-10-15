@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:1663d6bb7bfaa7b86418f355a302c1abc4afdd019e4996d3aff40ff2692e0872 -->
+<!-- derived-from-deep: sha256:7bad45eeee309d84c96281398c38b8bfccaae63313d6cdfe6614f16f878bf0ad -->
 # OpenStax Business Ethics, Decision-Making Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-ethics. Senior contributing authors Stephen M. Byars and Kurt Stanberry; seven contributing authors.

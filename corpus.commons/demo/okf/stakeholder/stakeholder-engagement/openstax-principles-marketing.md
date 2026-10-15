@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-marketing
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:09+13:00
 ---
 # OpenStax, Principles of Marketing, Stakeholder-Engagement Distillation
 

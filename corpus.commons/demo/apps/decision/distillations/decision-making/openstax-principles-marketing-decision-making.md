@@ -169,7 +169,7 @@ Decision: a stretch-down variant for a new segment is the highest-expected-value
 
 ## Anti-patterns This Reference Helps Avoid
 
-- *"Build it and they will come"* — product-driven thinking that ignores Step 1 of the marketing process (understand marketplace and customers).
+- *"If you build it, they will come"* — product-driven thinking that ignores Step 1 of the marketing process (understand marketplace and customers).
 - *Imitating competitors' growth strategy* without checking it against your own gap analysis and 5Ms.
 - *Pricing for revenue maximisation only*, ignoring customer value perception (price-value equation).
 - *Targeting a multicultural segment from surface culture only* — Burger King's "Texican Whopper" campaign failed because the marketers lacked an understanding of the intangible aspects of Mexican culture (Ch 8.3).

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:f87aa805a67d3e95e80fbad103f14e3e8e22461db1c60dc3e247777430a6d25d -->
+<!-- derived-from-deep: sha256:2d4a20cfd1f18fc3cdf6d95d0690c885c2c6391bd9a92f7f95bf825683af19f9 -->
 # Hurtado, Open Kanban — Software-Business Distillation
 
 **Source:** Hurtado, J. (with Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban — Open Source Initiative to create a Kanban core that is Agile, Lean and Free*. Release 1.00 Rev A. Licence: CC BY 3.0 Unported. https://github.com/agilelion/Open-Kanban.
@@ -21,7 +21,7 @@ A fourth thread runs through the licence framing: Open Kanban explicitly chose C
 
 ## Key Concepts for Software-Business
 
-1. <!-- concept: batch-size-reduction --> **Batch-size reduction as the primary flow lever.** Open Kanban's signature contrarian position: "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts'" [V] (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size). For software-business work, this reshapes capacity planning, roadmap commitment, and the speed-vs-quality framing.
+1. <!-- concept: batch-size-reduction --> **Batch-size reduction as the primary flow lever.** Open Kanban's signature contrarian position: "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts.'" [V] (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size). For software-business work, this reshapes capacity planning, roadmap commitment, and the speed-vs-quality framing.
 
 2. <!-- concept: per-stage-batch-discipline --> **Per-stage batch discipline (software case).** The mechanism is two-lever: reduce *complexity per item* (avoid epics; keep stories simple) and reduce *quantity per stage* of the SDLC. The decision is per-stage, not aggregate (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size).
 

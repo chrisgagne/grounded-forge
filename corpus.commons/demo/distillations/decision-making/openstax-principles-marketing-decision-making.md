@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3ce94d54a8fde4de59e43729faca331d9c17379e5fcb399133342886497c1dbe -->
+<!-- derived-from-deep: sha256:1e20d267ab179919423054d3781a7099b5a00b274a40597ed78a33bfe41178ce -->
 # OpenStax, Principles of Marketing, Decision-Making Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -170,7 +170,7 @@ Decision: a stretch-down variant for a new segment is the highest-expected-value
 
 ## Anti-patterns This Reference Helps Avoid
 
-- *"Build it and they will come"* — product-driven thinking that ignores Step 1 of the marketing process (understand marketplace and customers).
+- *"If you build it, they will come"* — product-driven thinking that ignores Step 1 of the marketing process (understand marketplace and customers).
 - *Imitating competitors' growth strategy* without checking it against your own gap analysis and 5Ms.
 - *Pricing for revenue maximisation only*, ignoring customer value perception (price-value equation).
 - *Targeting a multicultural segment from surface culture only* — Burger King's "Texican Whopper" campaign failed because the marketers lacked an understanding of the intangible aspects of Mexican culture (Ch 8.3).

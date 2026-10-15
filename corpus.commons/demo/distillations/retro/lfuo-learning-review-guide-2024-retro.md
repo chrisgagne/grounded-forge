@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:5d7c12909a895e5f4a541111ca76907bd1e72f1a682f85c2232afa248088a635 -->
+<!-- derived-from-deep: sha256:4c767a22e5e59c13b44ba9c6bd5aeccd30436ad53913efc3b469f602e288cb9a -->
 # US Forest Service LFUO 2024, Retrospective Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Scope:** open. Carries borrowed-through citations to Dekker, Hollnagel, Weick, Klein, and Reason, which the demo does not hold directly.

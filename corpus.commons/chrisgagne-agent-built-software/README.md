@@ -13,7 +13,8 @@ signs it or sends it back in their own words. The harness never signs. It also c
 the right behaviour or that the reviewers weren't fooled; [DESIGN.md](helpers/factory-warranty/DESIGN.md) lists what it
 does and doesn't guarantee.
 
-The reviewers don't work from their training alone. They work from distillations of 18 open sources (NIST, OWASP,
+In the configuration tested below, the reviewers don't work from their training alone. They work from distillations
+of 18 open sources (NIST, OWASP,
 CISA, UK government assurance guidance, and research on AI-assisted development) projected onto the eight stages of a
 change's life. A pre-registered test, set up so it could have killed that idea, came out in the corpus's favour, but
 less firmly than its headline number suggests. The same test shows a problem we haven't solved. Both are below.
@@ -54,9 +55,10 @@ less firmly than its headline number suggests. The same test shows a problem we 
 The axis spec says, in advance: if reviewers who consult the corpus don't catch more defects than the same reviewers
 without it, the corpus is shelf material and the gates carry the warranty on their own.
 
-The first try couldn't answer that. On 10 planted defects (2026-10-11), the factory as a whole caught all 10 every
-time, and the review stage alone caught 10 with no corpus, 9 with the axis spec's seed rows and 10 with an earlier
-version of the distillations: a ceiling, too easy to tell anything apart.
+The first try couldn't answer that. On 10 planted defects (2026-10-11), the tested gates and review caught all 10 in each of
+three grounding configurations (spec, tests and build were simulated), and the review stage alone caught 10 with no
+corpus, 9 with the axis spec's seed rows and 10 with an earlier version of the distillations: a ceiling, too easy to
+tell anything apart.
 
 So we wrote a harder test down first ([pre-registration](helpers/factory-warranty/calibration/realbugs/PREREG-v3-grounding.md);
 the commit order that shows it came before the run is in the factory's history before publication, not in this
@@ -82,7 +84,8 @@ rule allowed (that one was the gate, not the reviewers).
 once, and on the other try returned invalid output, so the factory stopped the change without naming the bug. All
 three malfunctions on bug cases happened without the corpus; none with it. Counting only reviews that completed, the
 gap is 16 against 14: 2, under the bar we set. Whether the corpus makes a review less likely to break, or the three
-landed on one side by chance, 100 trials can't tell.
+landed on one side by chance, 100 trials can't tell. (That count is descriptive, not the registered rule: it lets
+three no-corpus cases qualify on one completed review while every corpus case needed two.)
 
 Other limits: 17 bugs is a small sample; two tries per change is an easier bar than three; the citation count says a
 finding names a standard, not that it names the right one; and with the corpus, review cost 2.4 times the Claude spend
@@ -91,9 +94,10 @@ and 1.7 times the Codex tokens. Full results:
 
 ### The problem we haven't solved
 
-**38% and 44% of the clean-change reviews (6 and 7 of 16) ended in a stop, without and with the corpus.** Our own bar
-is 20%. Three of the eight clean changes were stopped in both arms, so the corpus isn't what stopped them; the stops
-were reviewers' findings and, in three trials across the two arms, a review that malfunctioned. Some of the flags are arguably
+**38% and 44% of the clean-change trials (6 and 7 of 16) were stopped, without and with the corpus.** Our own bar is
+20%. In each arm, six of the stops came from review (reviewers' findings and, in three trials across the two arms, a
+review that malfunctioned); the corpus arm's seventh came from the gate. Three of the eight clean changes were stopped
+in both arms. Some of the flags are arguably
 right (one change updated a library's source but not its committed minified build), but they were picked as clean
 changes, so they count against us. For a builder, every false stop is time spent reading a decision page and clearing
 it. If you've solved false alarms in AI code review without letting real bugs through, that's the conversation we'd
@@ -105,22 +109,23 @@ its rules fresh each run; pinning them is on the list.
 ### One real change, start to finish
 
 The factory built one of its own features: a scanner rule that blocks added lines matching listed JavaScript,
-TypeScript and Python patterns that run text built at run time (`eval` and its relatives); the rule names the forms it
-doesn't follow. The accountable person read each decision page, sent the change back twice in plain
+TypeScript and Python patterns that run text built at run time (`eval` and its relatives). The rule lists the forms it
+doesn't follow, and the signed pack records two more that the list misses. The accountable person read each decision page, sent the change back twice in plain
 words ("Don't claim more than it catches"), and signed the third version. Along the way the run exposed three bugs in
 the factory itself, each fixed with a test. The ledger, the signed pack and the cost (about $9 of Claude and 214k
 Codex tokens over five runs) are in [the showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/). It
 ran before this corpus existed, with the axis spec's seed rows as grounding, and its `config.yaml` was later edited to
-point at this corpus (so the hash the ledger recorded for that one file no longer matches; the folder's README says
-so).
+point at this corpus; the original pointed at a local copy of an earlier version of this axis spec, outside this
+repository (so the hash the ledger recorded for that one file no longer matches; the folder's README says so).
 
 ## What is still a proposal
 
 The factory's rules (when a finding blocks, when the pack recommends a qualified second person, the replay's pass
 mark) are in
 [`policy.yaml`](helpers/factory-warranty/factory/policy.yaml), and every one is marked PROPOSED, with who set it.
-One rests on a source (NIST SP 800-218A: no AI model alone in the path of a significant security decision); the
-others are design choices. All are the operator's to confirm. The standards mapping
+Several draw on sources (for example NIST SP 800-218A: no AI model alone in the path of a significant security
+decision); the severity thresholds, risk categories and numerical pass marks are design choices. All are the
+operator's to confirm. The standards mapping
 ([conformance/](helpers/factory-warranty/conformance/)) says row by row what is shown by a test, what is only
 asserted, and what is a gap.
 

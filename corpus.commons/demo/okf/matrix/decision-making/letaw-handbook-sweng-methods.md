@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T11:02:00+13:00
+  at: 2026-10-16T12:01:46+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods — Decision-Making Distillation
 
@@ -164,7 +164,7 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 5% of the PDF's longer lines, mostly callout and example boxes that the converter dropped (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations); that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the handbook cites named third parties not held as separate primary references in this corpus:
 

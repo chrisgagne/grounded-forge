@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ea30d29cc135064378b23a69799c212f1180974510fe71bd4902a27fb0ffe32c -->
+<!-- derived-from-deep: sha256:2c01dbb539b3f1d631ea39bb2e310e999f6c9684748fcf03987775135e92d3a8 -->
 # Letaw, Handbook of Software Engineering Methods — Decision-Making Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.
@@ -149,7 +149,7 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 5% of the PDF's longer lines, mostly callout and example boxes that the converter dropped (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations); that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the handbook cites named third parties not held as separate primary references in this corpus:
 

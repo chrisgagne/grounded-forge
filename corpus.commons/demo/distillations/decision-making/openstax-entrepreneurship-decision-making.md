@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:38ce4596324db372b183a54e39d65b04ed352a1f29c8612086772455fc2ef36e -->
+<!-- derived-from-deep: sha256:3187dc585fb46278de5a30d571d547ba04d92b8d7817633d64f1568f2cf60d0a -->
 # OpenStax Entrepreneurship, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.
@@ -187,7 +187,7 @@ The structured walk through these steps surfaces that the founder's intended nex
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?, Are You Ready?) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

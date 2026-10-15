@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ea30d29cc135064378b23a69799c212f1180974510fe71bd4902a27fb0ffe32c -->
+<!-- derived-from-deep: sha256:2c01dbb539b3f1d631ea39bb2e310e999f6c9684748fcf03987775135e92d3a8 -->
 # Letaw, Handbook of Software Engineering Methods, AAR Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.
@@ -106,7 +106,7 @@ A team is reviewing an incident where a hotfix deployment failed because no one 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 5% of the PDF's longer lines, mostly callout and example boxes that the converter dropped (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations); that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The Tuckman stage model (Tuckman 1965; Tuckman & Jensen 1977) is cited borrowed-through in the source (Ch 2.4); Tuckman is not held directly in this corpus. The INVEST acronym (Wake 2003) is cited borrowed-through (Ch 3.6.1); Wake is not held directly. The Hewlett Packard Enterprise 2017 Agile-adoption survey is cited borrowed-through (Ch 1.2); the survey is not held directly. The Badawy 1995 managerial skill-mix framework is cited borrowed-through (Ch 2.3); Badawy is not held directly. The triple constraint framing (van Wyngaard et al. 2012) is cited borrowed-through (Ch 2.2); van Wyngaard is not held directly.
 

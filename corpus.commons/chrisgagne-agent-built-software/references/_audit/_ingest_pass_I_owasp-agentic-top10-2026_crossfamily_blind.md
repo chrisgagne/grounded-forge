@@ -8,7 +8,7 @@ Read in full:
 - `source-card.md` and `frozen-deep.sha256`.
 - Repository `CLAUDE.md` and its nine required architecture documents.
 
-Inspected in part: :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/owasp-agentic-top10-2026/source.pdf" purpose="source"} — complete rendered printed pages 8, 13 and 55, plus document metadata. These resolve the diagram, garbled scenario heading and image-only sponsor page. I did not visually inspect every PDF page.
+Inspected in part: :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/owasp-agentic-top10-2026/source.pdf" purpose="source"} — complete rendered printed pages 8, 13 and 55, plus document metadata. These resolve the diagram, garbled scenario heading and image-only sponsor page. I did not visually inspect every PDF page.
 
 Both supplied hashes match their files. PDF metadata confirms 57 pages, Word provenance, letter dimensions, the stated title field and creation timestamp. The tape contains 57 form feeds and 13,820 words.
 

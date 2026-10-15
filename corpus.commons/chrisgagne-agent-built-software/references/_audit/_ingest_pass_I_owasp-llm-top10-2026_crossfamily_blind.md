@@ -2,7 +2,7 @@
 
 **Read in full:** `blind-brief.md`; all three calibration fixtures; `pass-i-spec.md`; `frozen-deep.md`, lines 1–451; `tape.md`, lines 1–5118, covering the converted text of all 122 pages; and `source-card.md`.
 
-**Original inspected in part:** :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/owasp-llm-top10-2026/source.pdf" purpose="source"} — metadata, page count, checksum, deterministic text extraction, and image/link objects on pp. 6, 9, 28, 106–107 and 121–122. Image contents were not visually inspected.
+**Original inspected in part:** :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/owasp-llm-top10-2026/source.pdf" purpose="source"} — metadata, page count, checksum, deterministic text extraction, and image/link objects on pp. 6, 9, 28, 106–107 and 121–122. Image contents were not visually inspected.
 
 The frozen reference matches `frozen-deep.sha256`. The PDF matches the checksum declared in the reference and source card. A fresh `pdftotext -layout` extraction using Poppler 26.08.0 matches the tape **byte for byte**.
 

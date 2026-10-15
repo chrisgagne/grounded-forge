@@ -39,6 +39,7 @@ Figures, by caption (alt text where the caption is a bare link or differs):
 Tables: one MyST list-table, "Packages that can be used for linting or formatting in Python and R" (book/continuous_integration.md, "Linters and formatters").
 
 **Citation style:** `(book/{file}.md, "Section heading")`. The source is a web book converted by concatenating its Markdown files, so it carries no page anchors; the file path from the tape's `<!-- file: ... -->` marker plus the nearest heading locates every claim. A file's opening text before its first `##` heading is cited by the file's `#` title. Headings are given as the source spells them.
+**Coverage:** complete — every line of the converted tape read (6,656 lines; producer receipt). Image scope full: the figures were inspected separately and the substantive ones are listed in `sources/converted/IMAGE-INDEX.yaml`.
 
 ## Author's thesis (paraphrased from source)
 

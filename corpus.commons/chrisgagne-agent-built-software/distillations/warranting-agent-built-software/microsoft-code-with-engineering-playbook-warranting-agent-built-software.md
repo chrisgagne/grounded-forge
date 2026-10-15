@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:7fb9492dfa116bc3050b5c13029bd462b7f5b63fccfe6de156b5943f5a380cf0 -->
+<!-- derived-from-deep: sha256:a093fe41c71549506e2e4922737724d93a0ef13f81c2a7a57959000159e5e1a3 -->
 # Microsoft, Code-With Engineering Playbook (selected sections), Warranting Agent-Built Software Distillation
 
 **Source:** Microsoft (Industry Solutions Engineering), with contributors. *Code-With Engineering Playbook* (selected sections), repository commit 016770e43d8a75be87b98c000c049f07c4a6e6f8 (2025-09-26). Licence: CC BY 4.0 for the documentation; code samples MIT. Attribution: *Code-With Engineering Playbook*, Microsoft (Industry Solutions Engineering) and contributors, CC BY 4.0; this distillation paraphrases and quotes the source, and changes were made. Scope: open.

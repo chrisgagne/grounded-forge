@@ -26,7 +26,7 @@
 *Figures* (one image reference, cited here by its alt text and caption): in `docs/bdd/index.md`, "Three practices", an image with alt text "Diagram of how the practices fit together" and caption "Discovery, Formulation and Automation" (`/img/docs/bdd-practices-diagram.png`).
 **Citation style:** `(file path, "Heading")`, where the file path is the one in the tape's `<!-- file: ... -->` marker and the heading is the nearest heading in that page. The tape is Markdown concatenated from a repository: it has no page numbers or chapters, so the per-file marker plus heading is the finest stable anchor.
 
-coverage: partial — operator-approved 2026-10-14 — the BDD and Gherkin sections of the Cucumber documentation, every page of each; the rest of the site (installation, language-specific guides, blog) is not taken
+**Coverage:** partial — operator-approved 2026-10-14 — the BDD and Gherkin sections of the Cucumber documentation, every page of each; the rest of the site (installation, language-specific guides, blog) is not taken. Every line of the subset's tape was read (producer receipt). Image scope full: the figures were inspected separately and the substantive ones are listed in `sources/converted/IMAGE-INDEX.yaml`.
 
 ## Author's thesis (paraphrased from source)
 

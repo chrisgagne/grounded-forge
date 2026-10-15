@@ -4,7 +4,7 @@ Read in full, in the brief’s prescribed order: all three calibration fixtures,
 
 Inspected the original PDF selectively: PDF pages 9, 21, 33 and 36, covering the contents, retired-task rows, Table 2 and change log. Checked the PDF’s page count and embedded-image inventory programmatically. The complete source-text read was through the tape; I did **not** visually inspect every original PDF page.
 
-:codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/nist-ssdf-1-1/source.pdf" purpose="source"}
+:codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/nist-ssdf-1-1/source.pdf" purpose="source"}
 
 Verified both hashes:
 

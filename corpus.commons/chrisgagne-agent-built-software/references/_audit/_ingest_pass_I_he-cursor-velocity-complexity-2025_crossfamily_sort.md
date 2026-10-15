@@ -4,7 +4,7 @@ Read `sort-brief.md`, all three calibration fixtures, `pass-i-spec.md`, both aud
 
 Independently checked the source passages relevant to every finding: tape pp. 1–2, 7–8, 15–16 and 18. Visually inspected Figure 1 and Tables 2, 3, 6 and 8 in the original PDF, using the PDF skill. This was a sort of the supplied findings, not a repeat of the full-source cold audit.
 
-Original PDF: :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/he-cursor-velocity-complexity-2025/source.pdf" purpose="source"}
+Original PDF: :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/he-cursor-velocity-complexity-2025/source.pdf" purpose="source"}
 
 The post-audit reference’s SHA-256 matches `post-audit-deep.sha256`. No files were edited; this response is the report.
 

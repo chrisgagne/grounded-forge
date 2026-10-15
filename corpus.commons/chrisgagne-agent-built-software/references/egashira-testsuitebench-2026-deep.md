@@ -32,6 +32,7 @@
 Figures 1-14 and Tables 1-7 are cited below by their captions as the tape carries them.
 
 **Citation style:** `(§N, "Section name")` for the numbered sections, with the paper's run-in paragraph heading where one exists, e.g. `(§3.2, "Error Analysis")`; `(App. X.N, "Section name")` for appendices; `(Table N)` and `(Figure N caption)` for tables and figures; `(Abstract)`, `(Reproducibility Statement)`, `(AI Usage Statement)`. Headings are given in title case where the tape sets them in capitals. Rationale: the tape keeps the paper's section numbers and run-in headings, while page numbers survive only as bare footer digits that markitdown places inconsistently around figures and tables.
+**Coverage:** complete — every line of the converted tape read (2,860 lines; producer receipt). Image scope full: the figures were inspected separately and the substantive ones are listed in `sources/converted/IMAGE-INDEX.yaml`.
 
 ## Author's thesis (paraphrased from source)
 

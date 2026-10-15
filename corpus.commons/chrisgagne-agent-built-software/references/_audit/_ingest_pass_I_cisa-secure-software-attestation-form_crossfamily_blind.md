@@ -2,7 +2,7 @@
 
 **Read in full:** `blind-brief.md`; all three calibration fixtures; `pass-i-spec.md`; `frozen-deep.md` (244 lines); `tape.md` (all ten pages, including the final form feed); `source-card.md`; and `frozen-deep.sha256`. I also read `CLAUDE.md` and its nine required architecture documents.
 
-**Original inspected in part:** :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/cisa-secure-software-attestation-form/source.pdf" purpose="source"} — metadata and XMP, document structure, image inventory, all pages’ annotations and AcroForm fields, and the appendix text and layout on pages 9–10. I did not visually render all ten pages.
+**Original inspected in part:** :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/cisa-secure-software-attestation-form/source.pdf" purpose="source"} — metadata and XMP, document structure, image inventory, all pages’ annotations and AcroForm fields, and the appendix text and layout on pages 9–10. I did not visually render all ten pages.
 
 **Integrity checks:**
 

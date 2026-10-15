@@ -11,7 +11,7 @@ Read in full:
 
 Compared both fixer edits against `frozen-deep.md`. The post-audit reference’s SHA-256 matches `post-audit-deep.sha256`.
 
-Although the audit folder contains no original, the repository contains :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/corpus.commons/chrisgagne-agent-built-software/sources/ingest/egashira-testsuitebench-2026.pdf" purpose="source"}. I inspected its metadata and deterministic layout extraction of pages 5–8 and 24–25. Both its SHA-256 and the tape’s SHA-256 match the acquisition manifest. The PDF’s rights metadata explicitly identifies CC BY 4.0.
+Although the audit folder contains no original, the repository contains :codex-file-citation{path="corpus.commons/chrisgagne-agent-built-software/sources/ingest/egashira-testsuitebench-2026.pdf" purpose="source"}. I inspected its metadata and deterministic layout extraction of pages 5–8 and 24–25. Both its SHA-256 and the tape’s SHA-256 match the acquisition manifest. The PDF’s rights metadata explicitly identifies CC BY 4.0.
 
 This report is the output. No files were edited.
 

@@ -6,7 +6,7 @@ Compared `frozen-deep.md` with the post-audit reference. **The only change is th
 
 Visually inspected PDF pages 21, 22, 33 and 36—printed pages 12, 13, 24 and 27—for the relevant table wording, shading, EO mappings and change log:
 
-:codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/nist-ssdf-1-1/source.pdf" purpose="source"}
+:codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/nist-ssdf-1-1/source.pdf" purpose="source"}
 
 Ran `check-verbatim.py post-audit-deep.md --source tape.md`: **no findings**.
 

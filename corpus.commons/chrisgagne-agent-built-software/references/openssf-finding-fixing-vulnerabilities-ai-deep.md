@@ -40,6 +40,7 @@ Embedded elements: 46 multiple-choice quiz blocks, each labelled Q1 with a keyed
 (Alt text above has its inner quotation marks removed; otherwise as in the tape.)
 
 **Citation style:** `(Finding.md, § "Section heading")`. `Finding.md` abbreviates the single file `docs/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.md` named in the tape's `<!-- file: ... -->` marker. A subsection is cited as `§ "Section" › "Subsection"`, and a quiz block as `§ "Section", quiz`. Rationale: the tape is Markdown from a repository file with no pages, so page anchors do not exist; the guide's headings are unique within this commit. Citation keys in square brackets (for example [Yan2026]) are the guide's own bibliography keys, kept so a reader can see which outside source the guide is reporting.
+**Coverage:** complete — every line of the converted tape read (2,060 lines; producer receipt). Image scope full: the figures were inspected separately and the substantive ones are listed in `sources/converted/IMAGE-INDEX.yaml`.
 
 ## Author's thesis (paraphrased from source)
 

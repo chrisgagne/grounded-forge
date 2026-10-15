@@ -10,7 +10,7 @@ Read in full:
 
 Compared every change against `frozen-deep.md`. The post-audit checksum matches: `5ecfc665c7976ccd2947e6273947345f6c6cd4a4fabe5db16b84dd89582f5708`.
 
-Independently extracted all 52 pages of :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/jimenez-swe-bench/source.pdf" purpose="source"} with `pdftotext`. Every page matches its tape segment after whitespace normalisation. Also inspected layout-preserving extraction of pp. 28–29 to verify citation placement and Table 24’s columns. No figure images were visually inspected.
+Independently extracted all 52 pages of :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/jimenez-swe-bench/source.pdf" purpose="source"} with `pdftotext`. Every page matches its tape segment after whitespace normalisation. Also inspected layout-preserving extraction of pp. 28–29 to verify citation placement and Table 24’s columns. No figure images were visually inspected.
 
 Ran the repository’s verbatim checker against the post-audit reference with `--source tape.md`: **no findings**.
 

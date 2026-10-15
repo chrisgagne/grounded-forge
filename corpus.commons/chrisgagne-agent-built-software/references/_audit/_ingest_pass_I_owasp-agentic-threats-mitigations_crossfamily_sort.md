@@ -10,7 +10,7 @@ Read in full:
 
 Compared `frozen-deep.md` with `post-audit-deep.md`: the only changes are at lines 17, 41 and 393. Also checked the protocol’s evidence-marker definitions: `[BT]` means the author cites someone else **for the claim**, rather than merely naming a product.
 
-Inspected PDF metadata and rendered printed pages 6, 10 and 45 of the original: :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/owasp-agentic-threats-mitigations/source.pdf" purpose="source"}
+Inspected PDF metadata and rendered printed pages 6, 10 and 45 of the original: :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/owasp-agentic-threats-mitigations/source.pdf" purpose="source"}
 
 Independently verified that a fresh `pdftotext -layout` conversion reproduces `tape.md` byte for byte. The supplied post-audit checksum matches:
 

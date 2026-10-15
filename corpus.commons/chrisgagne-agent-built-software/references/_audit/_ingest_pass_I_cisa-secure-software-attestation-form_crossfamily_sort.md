@@ -2,7 +2,7 @@
 
 Read in full: `sort-brief.md`, `pass-i-spec.md`, all three calibration fixtures, `blind-findings.md`, `fixer-audit-log.md`, `post-audit-deep.md` (244 lines), `tape.md` (all ten pages, including the terminal form feed), and `source-card.md`. Compared every change between `frozen-deep.md` and `post-audit-deep.md`.
 
-Inspected metadata and rendered pages 9–10 of the [original PDF](</Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/cisa-secure-software-attestation-form/source.pdf>). The page images resolve the appendix-column finding.
+Inspected metadata and rendered pages 9–10 of the original PDF (`_planning/pass-i/chrisgagne-agent-built-software/cisa-secure-software-attestation-form/source.pdf`, the audit's working copy, not published). The page images resolve the appendix-column finding.
 
 Verified:
 

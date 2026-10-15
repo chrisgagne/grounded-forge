@@ -8,7 +8,7 @@ Read in full:
 - `fixer-prompt.md`, `source-card.md` and `post-audit-deep.sha256`.
 - Repository operating instructions and the required architecture documents; the evidence-classification taxonomy in `9-pass-protocol.md`.
 
-**Source coverage for this sort was selective:** I independently read the complete tape pages supporting every finding: pp. 1–5, 10, 17, 19, 24–31, 35, 37–38, 41–42, 44–47, 50, 52, 54–56, 58, 60, 62, 66–67, 70–71, 74, 76–78, 88, 103–115 and 141–142. I visually inspected the cover and back cover of :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/dora-ai-assisted-swdev-2025/source.pdf" purpose="source"}.
+**Source coverage for this sort was selective:** I independently read the complete tape pages supporting every finding: pp. 1–5, 10, 17, 19, 24–31, 35, 37–38, 41–42, 44–47, 50, 52, 54–56, 58, 60, 62, 66–67, 70–71, 74, 76–78, 88, 103–115 and 141–142. I visually inspected the cover and back cover of :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/dora-ai-assisted-swdev-2025/source.pdf" purpose="source"}.
 
 The frozen-to-post-audit diff contains exactly one change: `invited sidebars` → `signed sidebars`. The post-audit SHA-256 matches its manifest:
 

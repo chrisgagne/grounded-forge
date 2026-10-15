@@ -4,7 +4,7 @@ Read in full, in the required order: all three calibration fixtures, `pass-i-spe
 
 Inspected the original PDF’s metadata, Figure 1, and Tables 2, 3 and 6 visually. Checked table alignment using deterministic layout extraction on pages 4, 14, 17 and 18. Independently extracted all 19 PDF pages and confirmed that every page’s converted text occurs in the tape.
 
-Original PDF: :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/he-cursor-velocity-complexity-2025/source.pdf" purpose="source"}
+Original PDF: :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/he-cursor-velocity-complexity-2025/source.pdf" purpose="source"}
 
 The frozen-reference and PDF checksums match their recorded values. I did not read the parallel auditor’s findings. No files were edited; this report is delivered here because the environment is read-only.
 

@@ -4,7 +4,7 @@
 
 Read in full, in the requested order: all three calibration fixtures, `pass-i-spec.md`, `frozen-deep.md` (520 lines), and `tape.md` (1,985 lines). Also read the brief, checksum file, source card, repository operating instructions and required architecture documents.
 
-Inspected the original PDF’s metadata and rendered cover and printed pages 2, 6, 8–10, 12, 14–16, 33, 45, 50 and 51. The original is :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/_planning/pass-i/chrisgagne-agent-built-software/owasp-agentic-threats-mitigations/source.pdf" purpose="source"}
+Inspected the original PDF’s metadata and rendered cover and printed pages 2, 6, 8–10, 12, 14–16, 33, 45, 50 and 51. The original is :codex-file-citation{path="_planning/pass-i/chrisgagne-agent-built-software/owasp-agentic-threats-mitigations/source.pdf" purpose="source"}
 
 Verified:
 

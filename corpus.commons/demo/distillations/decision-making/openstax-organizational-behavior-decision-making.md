@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:56e61f3d3ff81785f0fd8788c8d8c30ad7dee84e1166921e0a06a2cf6ba2aaef -->
+<!-- derived-from-deep: sha256:32f9687342a7b92e63d2a506b561664e03116998d26f87a63dd8f85baef6abf5 -->
 # OpenStax Organizational Behavior, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/organizational-behavior. Lead author J. Stewart Black; 11 contributing authors.

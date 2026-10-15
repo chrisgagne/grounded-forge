@@ -1,0 +1,34 @@
+{
+ "id": "v03",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.2015,
+ "codex_tokens": 23148,
+ "work": "<tmp>/replay-v03-t2-y_j8s96b",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "noise",
+   "reason": "At base.ts:170, addPath sits on diagonal k+1, so addPath.oldPos - k equals its newPos + 1. Paths start from a seed with newPos >= -1 and only move forward through addToPath/extractCommon, so that value is always >= 0 and the removed lower-bound check could never fail. The finding agrees behaviour is unchanged, and a hypothetical future regression is not a defect in this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/diff/base.ts",
+   "line": 170,
+   "claim": "Removing the 0 <= newPos-after-insertion guard from canAdd leaves an unstated invariant that stored paths have newPos >= -1.",
+   "evidence": "The diff replaces `const addPathNewPos = addPath.oldPos - k; canAdd = addPath && 0 <= addPathNewPos && addPathNewPos < newLen;` with `const canAdd = addPath && addPath.oldPos - k < newLen;`. The removed check can't fail today, because paths only move by addToPath (newPos+1 or oldPos+1) from a seed whose newPos is >= -1. So behaviour is unchanged, but a defensive bounds check was removed and no comment records the invariant it relied on. The packet has no story.md, so the reason for this change can't be checked against a spec.",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

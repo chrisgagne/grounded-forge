@@ -1,0 +1,57 @@
+{
+ "id": "v14",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5294,
+ "codex_tokens": 40696,
+ "work": "<tmp>/replay-v14-t2-ymuzaz7h",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "parse_link_destination.mjs:52 now hits `break` at a backslash that comes before a space, so result.pos lands on the backslash. In link.mjs:55-58 the whitespace skip stops at that backslash, the title parse fails, and the `)` check at line 76 sees `\\`. The link is rejected, where before it was accepted with the backslash kept as a literal character. For `[a](\\ )`, the `start === pos` check at line 70 now returns not-ok immediately.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/helpers/parse_link_destination.mjs",
+   "line": 52,
+   "claim": "When an unbracketed link destination contains a backslash followed by a space, it now ends before the backslash. As a result, valid links and reference definitions such as `[x](foo\\ \"t\")` and `[x]: foo\\ ` are rejected.",
+   "evidence": "The diff swaps `if (str.charCodeAt(pos + 1) === 0x20) { pos++; continue }` for `{ break }`. In CommonMark a backslash before a space is a literal character, not an escape. The old code kept the backslash in the destination and then stopped at the space (line 46). The new code ends the destination at the backslash, so `result.pos` points at `\\`. In lib/rules_inline/link.mjs:55-58 the whitespace skip stops at `\\`; parseLinkTitle then fails, and the following `)` check finds `\\`, so the link is rejected. The same happens in image.mjs and reference.mjs, which expect whitespace or end of line after the destination. For `[a](\\ )`, `start === pos` (line 70) now returns not-ok outright.",
+   "axis_row": "L3.7",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only parse_link_destination.mjs. The fixture at commonmark_extras.txt:345 (`[link](a\\ b)`) fails to form a link under both versions: the old code stops at `b`, the new code stops at the backslash, and neither reaches `)`. Both render the literal paragraph, so the test passes either way and gives no protection.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/fixtures/markdown-it/commonmark_extras.txt",
+   "line": 345,
+   "claim": "The change adds no test, and the only existing backslash-space fixture renders the same before and after, so the suite cannot catch this behaviour change.",
+   "evidence": "diff.patch touches only parse_link_destination.mjs, with no fixture added. With the fixture `[link](a\\ b)`, the old code gives destination `a\\` followed by the non-title `b)`, and the new code gives destination `a` followed by `\\ b)`. Both fail to form a link and both render `<p>[link](a\\ b)</p>`. No story.md or tests.lock is in the packet to show what behaviour was asked for.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

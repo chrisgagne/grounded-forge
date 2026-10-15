@@ -60,14 +60,38 @@ The shipped corpus:
 | Columbia Accident Investigation Board, *Report, Volume I* (2003) | US Government work; NASA: "Public Use Permitted". Passages it quotes from other works, and a Boeing-credited figure, are paraphrased, never quoted | open |
 | US Marine Corps, *MCDP 1 Warfighting* | Distribution Statement A: "Approved for public release; distribution is unlimited" (cover of the official PDF). The imprint also reads "© 1997 United States Government as represented by the Secretary of the Navy. All rights reserved."; the source states no other licence | open |
 
+The `chrisgagne-agent-built-software` corpus (`corpus.commons/chrisgagne-agent-built-software/`) follows the same rule: each reference and distillation inherits its source's licence, recorded in the source card and the deep reference's **Source:** line.
+
+| Source | Licence | Scope |
+|---|---|---|
+| NIST, *Secure Software Development Framework (SSDF) Version 1.1*, SP 800-218 | US public domain; worldwide reprint and derivative-work permission under NIST Technical Series Publications policy | open |
+| NIST, *Secure Software Development Practices for Generative AI and Dual-Use Foundation Models: An SSDF Community Profile*, SP 800-218A | Not subject to copyright in the United States; attribution requested by NIST | open |
+| CISA, *Secure Software Development Attestation Form* | US federal government work (17 USC §105); the form states no copyright or licence terms | open |
+| OWASP, *Application Security Verification Standard 5.0* | CC BY-SA 4.0 | open |
+| OWASP, *Top 10 for LLM Applications 2026* | CC BY-SA 4.0 | open |
+| OWASP, *Top 10 for Agentic Applications 2026* | CC BY-SA 4.0 | open |
+| OWASP, *Agentic AI - Threats and Mitigations* | CC BY-SA 4.0 | open |
+| Becker et al. (METR), *Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity* | CC BY 4.0 | open |
+| He et al., *Speed at the Cost of Quality: How Cursor AI Increases Short-Term Velocity and Long-Term Complexity in Open-Source Projects* | CC BY 4.0 | open |
+| Jimenez et al., *SWE-bench* | CC BY 4.0 | open |
+| Kalai et al., *Why Language Models Hallucinate* | CC BY 4.0 | open |
+| Google (DORA), *State of AI-assisted Software Development* (2025) | CC BY-NC-SA 4.0 | open-nc |
+| Egashira et al., *TestSuiteBench* (preprint) | CC BY 4.0 | open |
+| Cucumber, *BDD and Gherkin documentation* (the BDD and Gherkin sections) | MIT (Copyright (c) 2014 Aslak Hellesøy and contributors) | open |
+| Microsoft, *Code-With Engineering Playbook* (selected sections) | CC BY 4.0 for the documentation; code samples MIT | open |
+| UK Government Analytical Community, *Quality assurance of code for analysis and research* (the Duck Book) | Open Government Licence v3.0; Crown copyright | open |
+| UK Government Analysis Function, *The AQuA Book* (2025 edition) | Open Government Licence v3.0, except where otherwise stated | open |
+| Wheeler and OpenSSF Contributors, *Finding and Fixing Software Vulnerabilities Using AI* | CC BY 4.0 | open |
+
 ### What the licence families mean for derivative use
 
-The corpus carries seven distinct upstream licence shapes. Each propagates to its derivative references and distillations.
+The corpora carry eight distinct upstream licence shapes. Each propagates to its derivative references and distillations.
 
 - **CC BY 4.0 / OGL v3.0 / CC BY 3.0**: attribution required; commercial use and derivatives permitted. Derivatives can be redistributed under any compatible licence.
 - **CC BY-SA 4.0 / CC BY-SA-equivalent**: attribution + ShareAlike: derivatives must be redistributed under the same (or compatible) licence. Commercial use permitted.
 - **CC BY-NC 4.0**: attribution + NonCommercial. Derivatives cannot be used commercially.
 - **CC BY-NC-SA 4.0 / CC BY-NC-SA 3.0**: attribution + NonCommercial + ShareAlike. Derivatives cannot be used commercially and must propagate the same licence on redistribution.
+- **MIT**: attribution (the copyright and permission notice) required; commercial use and derivatives permitted.
 - **Public domain (17 USC §105)**: US federal government work product; no copyright in the United States. Attribution still requested as a matter of professional practice.
 
 Each source sidecar (`corpus.commons/demo/sources/original/{slug}.source.md`) is authoritative for that source. The **Source:** line in each deep reference repeats the licence for citation context.

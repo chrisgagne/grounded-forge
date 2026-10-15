@@ -1,0 +1,56 @@
+{
+ "id": "v20",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2711,
+ "codex_tokens": 15237,
+ "work": "<tmp>/replay-v20-t1-r8y97rw8",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/constructFrom/index.ts:53 now reads `typeof date === \"object\" && constructFromSymbol in date`. Because typeof null is \"object\", a null date reaches the `in` operator, which throws a TypeError. Before the change, `date &&` skipped this branch and the code fell through to `new Date(value)` at line 59. I kept severity high because this is a public helper and JS callers can pass null.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/constructFrom/index.ts",
+   "line": 53,
+   "claim": "Removing the `date &&` guard makes constructFrom(null, value) throw a TypeError instead of returning new Date(value).",
+   "evidence": "The diff changes `if (date && typeof date === \"object\" && constructFromSymbol in date)` to `if (typeof date === \"object\" && constructFromSymbol in date)`. Because `typeof null === \"object\"`, a null `date` now reaches `constructFromSymbol in date`, and the `in` operator throws when its right-hand side is null. Callers that pass a possibly-null reference straight in, such as `parse` calling `constructFrom(options?.in || referenceDate, NaN)` with a null `referenceDate` from JS callers, now crash instead of producing a date.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff only deletes `date &&` and adds no test. A grep for `null` in src/constructFrom/ finds no matches, so no test covers this path. The regression itself is already covered by the C1/X1 item, and the packet has no story.md, so I can't confirm the guard removal was unrequested. Severity lowered to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/constructFrom/index.ts",
+   "line": 53,
+   "claim": "The change weakens input validation without being asked to and adds no test for a null reference date.",
+   "evidence": "The whole diff is the one-line removal of `date &&` in `constructFrom`. A grep for `null` in `src/constructFrom/` finds nothing, and `acceptance.md` names no criterion that calls for changing this guard.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

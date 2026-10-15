@@ -1,0 +1,103 @@
+{
+ "id": "v12",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.3059,
+ "codex_tokens": 27909,
+ "work": "<tmp>/replay-v12-t2-buxmnrmz",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "from_events.ts:153-155 reads state.frames[length-1] and then frame.kind with no check, because the diff removed the 'node appears outside a document' throw. A node event with no open frame now hits a TypeError. eventsToAst is public (index.ts:193), while constructor.ts:319 still guards this case.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/from_events.ts",
+   "line": 153,
+   "claim": "A node event with no open frame now crashes with a raw TypeError instead of a positioned parser error.",
+   "evidence": "The diff deletes `if (!frame) throwErrorAt(state.parserState, state.position, 'node appears outside a document')`. Line 155 now reads `frame.kind` directly on `state.frames[state.frames.length - 1]`, which is undefined when the frame stack is empty. eventsToAst is exported publicly (src/index.ts:193), so callers can pass any ParserState. The sibling walker in src/parser/constructor.ts:321 still keeps this check.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "from_events.ts:230 is now `state.frames.pop()!`, and the next line reads frame.kind. An extra EVENT_POP therefore throws an unpositioned TypeError where it used to throw 'unexpected collection end'. constructor.ts:438 keeps the check.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/from_events.ts",
+   "line": 230,
+   "claim": "An unbalanced EVENT_POP is no longer reported; the non-null assertion only silences TypeScript.",
+   "evidence": "The diff swaps `const frame = state.frames.pop(); if (!frame) throwErrorAt(parserState, state.position, 'unexpected collection end')` for `const frame = state.frames.pop()!`. The `!` only silences TypeScript and does nothing at runtime. src/parser/constructor.ts:439 keeps the equivalent check.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes the final frames.length check, and the function now returns state.stream directly. A document only reaches the stream on its EVENT_POP, so in a truncated stream the unfinished documents are silently dropped. constructor.ts:456 still throws on this. Both reviewers found it; I kept severity high.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/from_events.ts",
+   "line": 241,
+   "claim": "A truncated event stream with open frames silently returns a partial Stream instead of erroring.",
+   "evidence": "The diff deletes `if (state.frames.length !== 0) throwErrorAt(parserState, state.position, 'unexpected end of event stream')`. The function now ends with a bare `return state.stream`, and documents only reach the stream when their EVENT_POP arrives (line 232). src/parser/constructor.ts:456 keeps this check, so the two walkers now behave differently on the same input.",
+   "breaks": "story",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "noise",
+   "reason": "NO_RANGE is -1 (from_events.ts:39), and slice(-1,-1) returns '', so behavior is unchanged when both ends are unset. The parser sets anchorStart and anchorEnd together (parser.ts:237-238), so the mixed case the finding relies on doesn't come up. This is a readability point, not a defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/ast/from_events.ts",
+   "line": 223,
+   "claim": "Removing the NO_RANGE guard on alias names relies on slice(-1,-1) returning ''.",
+   "evidence": "The diff replaces `event.anchorStart === NO_RANGE ? '' : parserState.input.slice(...)` with an unconditional `parserState.input.slice(event.anchorStart, event.anchorEnd)`. Negative slice indexes count from the end of the input. constructor.ts:426-428 and anchorName() in this same file (line 89) both keep the guard.",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "disputed",
+   "reason": "diff.patch only removes the throwErrorAt import and three validation checks, and adds no feature code or tests. acceptance.md names story.md as the spec, but there is no story.md in the packet or the export, so I can't tell whether the change was intended.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/ast/from_events.ts",
+   "line": 25,
+   "claim": "The change only weakens existing validation, and no story or acceptance criterion asks for that.",
+   "evidence": "diff.patch touches only src/ast/from_events.ts. It removes the `throwErrorAt` import and all three throwErrorAt calls, and adds no tests and no feature code. acceptance.md says only that story.md is the spec, but no story.md exists in the packet or the export.",
+   "breaks": "story",
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

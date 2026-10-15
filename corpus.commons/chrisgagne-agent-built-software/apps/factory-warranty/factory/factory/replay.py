@@ -25,6 +25,7 @@ from __future__ import annotations
 import concurrent.futures as cf
 import io
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -60,7 +61,9 @@ def exists_at(repo: Path, commit: str, path: str) -> bool:
 def case_config() -> dict:
     sample = yaml.safe_load(SAMPLE_CONFIG.read_text())
     return {"commands": {"test": STUB_TEST}, "test_globs": TEST_GLOBS, "risk_paths": {},
-            "axis_spec": sample.get("axis_spec"), "axis_index": sample.get("axis_index"),
+            # A run names the corpus it reads explicitly: the sample's relative paths depend on where the factory sits.
+            "axis_spec": os.environ.get("FACTORY_AXIS_SPEC") or sample.get("axis_spec"),
+            "axis_index": os.environ.get("FACTORY_AXIS_INDEX") or sample.get("axis_index"),
             "builder": {"kind": "claude", "command": None}, "ratchet": {"semgrep_findings": True},
             "theory_doc": None, "review": dict(sample.get("review") or {})}
 

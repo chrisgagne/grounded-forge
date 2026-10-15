@@ -1,0 +1,74 @@
+{
+ "id": "v20",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.5481,
+ "codex_tokens": 25085,
+ "work": "<tmp>/replay-v20-t2-pttnl08h",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/constructFrom/index.ts:53 now evaluates `constructFromSymbol in date` whenever typeof date === \"object\", and that throws for null. normalizeDates/index.ts:27 picks a null argument through `typeof date === \"object\"`, so the throw reaches multi-date functions too. I lowered C1 from high to medium: the DateArg types exclude null, so only untyped JS callers hit this, and toDate/index.ts:60 already throws on null in the same way.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/constructFrom/index.ts",
+   "line": 53,
+   "claim": "Removing the `date &&` guard makes constructFrom(null, value) throw a TypeError instead of returning new Date(value), and this also affects normalizeDates when one of its arguments is null.",
+   "evidence": "The diff changes `if (date && typeof date === \"object\" && constructFromSymbol in date)` to `if (typeof date === \"object\" && constructFromSymbol in date)`. When `date` is null, `typeof date === \"object\"` is true, so the next step evaluates `constructFromSymbol in null`, which throws. Callers that can pass a null date at runtime include `src/constructNow/index.ts:36` (`return constructFrom(date, Date.now())`) and `src/_lib/normalizeDates/index.ts:25-27` (`constructFrom.bind(null, dates.find((date) => typeof date === \"object\"))`). In normalizeDates, `find` picks a null argument because typeof null is \"object\", so every multi-date function that goes through normalizeDates now throws when any of its date arguments is null, where it used to return a Date.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff is one deleted guard with no test or note. story.md and tests.lock are not in the packet, so I can't tell whether the story asked for this change. The actual behaviour problem is covered by the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/constructFrom/index.ts",
+   "line": 53,
+   "claim": "The change weakens a defensive check and gives no stated reason, test or documentation.",
+   "evidence": "The whole diff is a one-line deletion of the `date &&` guard. It adds no tests, and `src/constructFrom/test.ts` has no case that passes null or undefined. `acceptance.md` points to story.md and tests.lock, but neither file is in the packet or the export, and `risk.json` lists no classes.",
+   "axis_row": "L5.15",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching src/constructFrom/test.ts for null or undefined finds only the `undefined` case at line 52-54 and no null case, so a passing run does not exercise the changed path.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/constructFrom/test.ts",
+   "line": null,
+   "claim": "No existing test covers a null reference date, so the suite cannot catch this regression.",
+   "evidence": "Searching `src/constructFrom/test.ts` for `null` finds no matches. The only behaviour the change affects is the null reference case, and no test covers it.",
+   "axis_row": "L3.4",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

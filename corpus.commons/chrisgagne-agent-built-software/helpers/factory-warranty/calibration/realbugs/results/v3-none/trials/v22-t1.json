@@ -1,0 +1,56 @@
+{
+ "id": "v22",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2716,
+ "codex_tokens": 22134,
+ "work": "<tmp>/replay-v22-t1-xxhmznu2",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "entity.mjs:36 now calls decodeHTML. NAMED_RE (line 7) matches the whole `&notit;`. With entities ^4.4.0 (package.json:49), legacy-mode decoding turns the `&not` prefix into \u00ac, so `decoded !== match[0]` and line 37 emits a text_special token that consumes the whole match. This breaks the spec's rule that unknown names stay literal.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 36,
+   "claim": "Swapping decodeHTMLStrict for decodeHTML makes invalid named references that start with a legacy entity name (e.g. &notit;) decode partly (\u00acit;) instead of staying literal text as CommonMark requires.",
+   "evidence": "The diff replaces `decodeHTMLStrict(match[0])` with `decodeHTML(match[0])`. In entities ^4.4.0 (package.json:49), `decodeHTML` decodes in Legacy mode, which accepts semicolon-less legacy names like `&not`, `&copy` and `&amp` as a prefix. NAMED_RE `/^&([a-z][a-z0-9]{1,31});/i` matches the whole `&notit;`, and because `decoded !== match[0]` the rule emits a `text_special` token with the partly decoded content and consumes the whole match.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes only entity.mjs. A grep of test/ for &(not|copy|amp)<letters>; finds nothing, so the suite cannot catch the regression in C1/X1.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": null,
+   "claim": "No test covers unknown entity names that begin with a legacy entity prefix.",
+   "evidence": "diff.patch changes only lib/rules_inline/entity.mjs and adds no fixtures. A search of test/ for inputs like `&not\u2026;`, `&copy\u2026;` or `&amp\u2026;` with extra letters finds no matches.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

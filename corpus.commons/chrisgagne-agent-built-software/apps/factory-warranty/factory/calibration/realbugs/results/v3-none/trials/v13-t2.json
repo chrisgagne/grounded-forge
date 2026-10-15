@@ -1,0 +1,56 @@
+{
+ "id": "v13",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2864,
+ "codex_tokens": 29443,
+ "work": "<tmp>/replay-v13-t2-92nyd2uy",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes the `node.tag !== defaultScalarTag.tagName` early return, so applyForceQuotesOption now quotes any plain non-key scalar. presenter.ts:417 prints the tag for any non-plain scalar whose tag isn't the default string tag, and this goes against the documented contract at presenter.ts:99 ('Quotes all non-key strings').",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/styler_defaults.ts",
+   "line": 65,
+   "claim": "Removing the default-scalar-tag guard makes forceQuotes quote non-string scalars (ints, floats, booleans, null), which then print with explicit tags such as `!!int '1'`.",
+   "evidence": "The diff deletes `if (layout.node.tag !== layout.presenterOptions.schema.defaultScalarTag.tagName) return` and rewrites the comment to 'applies only to plain values'. src/ast/presenter.ts:99 still documents the option as 'Quotes all non-key strings', and CHANGELOG.md:134 says 'force quoting non-key strings'. For a quoted non-str node, src/ast/presenter.ts:417 `(layout.style !== SCALAR_STYLE.PLAIN && node.tag !== state.defaultScalarTagName)` makes the presenter print an explicit tag, so every number, boolean and null gets a verbose `!!int`/`!!bool`/`!!null` tag.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "dump-options.test.mjs:93-103 and dump-scalar-styles.test.mjs:107 only dump string values with forceQuotes, and the diff adds no test. The gap is real. I lowered severity to low because it is a missing test for the C1/X1 defect, not a separate defect.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/core/units/dump-options.test.mjs",
+   "line": 93,
+   "claim": "forceQuotes tests only cover string values, so the regression for non-string scalars isn't caught.",
+   "evidence": "The test 'forceQuotes \u2014 quotes non-key strings using quoteStyle' only asserts on `{ hello: 'world' }`. No test dumps a number, boolean or null with `forceQuotes: true`, and the diff adds no test of its own.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

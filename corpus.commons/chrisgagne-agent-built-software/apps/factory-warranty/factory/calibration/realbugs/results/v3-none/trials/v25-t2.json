@@ -1,0 +1,49 @@
+{
+ "id": "v25",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.2636,
+ "codex_tokens": 13547,
+ "work": "<tmp>/replay-v25-t2-tu432gv6",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "disputed",
+   "reason": "src/Set.js:107 now always calls SetCollection(iters[ii]).forEach, and the diff deletes the typeof === 'string' branch, so Set([1]).union('abc') now adds 'a','b','c' where the baseline added 'abc'. The behaviour change is real. Whether it is a defect depends on story.md, which is not in the packet or the export (the CHANGELOG doesn't mention it either), so the code can't tell us if the change was intended.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Set.js",
+   "line": 107,
+   "claim": "Removing the string special case makes Set#union split a string argument into characters instead of adding the whole string.",
+   "evidence": "The diff deletes `if (typeof iters[ii] === 'string') { set.add(iters[ii]); } else {...}` and keeps only `SetCollection(iters[ii]).forEach(value => set.add(value));`. SetCollection iterates a string by character, so `Set([1]).union('abc')` now yields {1,'a','b','c'} where the baseline yielded {1,'abc'}. No story.md exists in the packet or export, so the intended behaviour can't be checked against a spec.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch only touches src/Set.js. A grep of __tests__ finds union called only with arrays, Sets and OrderedSets (Set.ts:121, 261, 312; OrderedSet.ts:42-43), never with a bare string. So neither the old nor the new behaviour is covered by a test.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "__tests__/Set.ts",
+   "line": null,
+   "claim": "No test pins how union handles a string argument.",
+   "evidence": "diff.patch only touches src/Set.js and adds no tests. A search of __tests__ for union with string arguments finds none; the existing union tests (Set.ts:154-181, 221, 261, 312) pass arrays, Sets, Lists or objects only.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

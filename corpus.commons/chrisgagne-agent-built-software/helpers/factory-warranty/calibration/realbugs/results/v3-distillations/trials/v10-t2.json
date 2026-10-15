@@ -1,0 +1,74 @@
+{
+ "id": "v10",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8187,
+ "codex_tokens": 40220,
+ "work": "<tmp>/replay-v10-t2-truzf92l",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch drops invalidXRangeOrder and the `return comp` guard. At range.js:405-425 the callback now goes straight to xM = isX(M), and when xM is true it sets ret = '*' (or '<0.0.0-0'), ignoring the numeric minor and patch. Nothing in the diff replaces the guard.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "classes/range.js",
+   "line": 403,
+   "claim": "Removing invalidXRangeOrder and its early return makes out-of-order wildcard ranges (x.1.2, *.1.2, 1.x.3) parse as '*' or a major-wide range instead of being rejected, so validRange/satisfies silently accept malformed ranges and widen what matches.",
+   "evidence": "The diff removes `invalidXRangeOrder` (`(isX(M) && !isX(m)) || (isX(m) && p && !isX(p))`) and the early `return comp` in `replaceXRange`. The callback now goes straight to `const xM = isX(M)`. When `xM` is true it sets `ret = '*'` (or `'<0.0.0-0'` for `>`/`<`). When `xm` is true it sets `ret = `>=${M}.0.0${pr} <${+M + 1}.0.0-0``. Nothing looks at the specific minor or patch numbers that follow the wildcard.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching test/ for a wildcard followed by a numeric part (x.1, *.1, etc.) finds nothing, and the diff touches no tests. The locked suite would pass whether or not the guard exists.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/fixtures/range-parse.js",
+   "line": null,
+   "claim": "No locked test covers out-of-order wildcard inputs, so the suite cannot detect that their rejection was removed.",
+   "evidence": "`test/fixtures/range-parse.js` only has well-ordered wildcard cases such as `['2.x.x', ...]`, `['1.2.x', ...]` and `['x', '*']`. Searching the test directory for patterns like `x.1` or `.x.<digit>` found nothing, and the diff does not touch the tests.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "disputed",
+   "reason": "acceptance.md calls story.md the spec, but there is no story.md in the packet or in the export, so I can't tell whether this deletion was asked for. The code doesn't settle it either way.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "classes/range.js",
+   "line": 278,
+   "claim": "The removal of input validation may be work the task never named, since no story is available to justify it.",
+   "evidence": "`acceptance.md` only says \"story.md is the spec\", but there is no `story.md` in the packet or the export. `risk.json` has empty `classes`. The whole diff is the deletion of `invalidXRangeOrder` and its call site.",
+   "breaks": "story",
+   "axis_row": "L4.27",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

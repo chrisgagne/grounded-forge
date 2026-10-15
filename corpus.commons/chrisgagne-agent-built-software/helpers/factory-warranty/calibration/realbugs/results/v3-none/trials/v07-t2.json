@@ -1,0 +1,70 @@
+{
+ "id": "v07",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5857,
+ "codex_tokens": 30774,
+ "work": "<tmp>/replay-v07-t2-3r0mjyzh",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "decimal.js:2153 now only validates rm and never sets rm = Ctor.rounding. divide (decimal.js:2759) only sets the default when pr == null, and here pr is 0. With rm undefined, finalise at decimal.js:3011-3013 evaluates rm < 4, rm == 4, rm == 6 and rm == 7/8 all false, so an exact tie (rd == 5, not truncated) does not round up. This contradicts the doc comment at decimal.js:2120-2121. It only affects ties, not every call, but the severity stays high.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "decimal.js",
+   "line": 2153,
+   "claim": "When y is given and rm is omitted, toNearest no longer defaults rm to Decimal.rounding. Exact ties then round toward zero, so with the default HALF_UP new Decimal(1.5).toNearest(1) gives 1.",
+   "evidence": "The diff replaces `if (rm === void 0) { rm = Ctor.rounding; } else { checkInt32(rm, 0, 8); }` with `if (rm !== void 0) checkInt32(rm, 0, 8);`, so `rm` stays undefined. `divide(x, y, 0, rm, 1)` only sets `rm = Ctor.rounding` when `pr == null`, and here `pr` is 0, so `finalise` gets `rm === undefined`. In `finalise`, `rm < 4` is false and `rm == 4`, `rm == 6` and `rm == (x.s<0?8:7)` are all false, so on an exact tie (rd == 5, not truncated) `roundUp` is false. That is HALF_DOWN behaviour, which contradicts the doc comment at line 2120\u20132121: \"the rounding mode `rm`, or `Decimal.rounding` if `rm` is omitted\".",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "In test/modules/toNearest.js:74-88 every call with y but no rm uses 123.456, which is never a tie for those y values. The tie cases at 90-157 either pass rm explicitly or pass y as void 0, which goes through the y == null branch where rm = Ctor.rounding is still set. This gap explains why the C1/X1 bug gets through; it is not a separate defect, so I lowered the severity to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/modules/toNearest.js",
+   "line": 74,
+   "claim": "The locked tests never call toNearest with y given, rm omitted and an exact tie, so the dropped Decimal.rounding default passes the suite.",
+   "evidence": "Every call that passes `y` but no `rm` (lines 75\u201388, e.g. `t('123', 123.456, 1)` and `t('124', 123.456, '-2')`) uses a value that is not a tie. The tie cases at lines 90\u2013157 either pass `rm` explicitly or pass `y` as `void 0`, which goes through the `y == null` branch, and that branch still sets `rm = Ctor.rounding`.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "noise",
+   "reason": "The diff only adds the rm === 1 || rm === 3 mapping at decimal.js:2168. Before the change decimal.js had no mapping at all, while decimal.mjs:2166 already mapped every rm < 4. So the 0/2 divergence was already there, and this change narrows it rather than causing it. The locked test at toNearest.js:115 expects mode 0 to behave as ROUND_UP (540), which matches decimal.js.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.js",
+   "line": 2168,
+   "claim": "decimal.js and decimal.mjs map rounding modes differently in toNearest, so modes 0 and 2 give different results depending on require vs import.",
+   "evidence": "decimal.js line 2168 has `if (rm === 1 || rm === 3) rm = [4, 5, 7, 8][rm];`, while decimal.mjs line 2166, which the diff does not touch, has `if (rm < 4) rm = [4, 5, 7, 8][rm];`. So `new Decimal('83105511539.4').toNearest(1, 0)` gives 83105511540 from decimal.js (test line 115) but 83105511539 from decimal.mjs (0 \u2192 4, HALF_UP).",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

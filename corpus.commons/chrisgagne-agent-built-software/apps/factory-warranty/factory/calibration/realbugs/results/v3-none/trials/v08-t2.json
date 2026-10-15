@@ -1,0 +1,56 @@
+{
+ "id": "v08",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2805,
+ "codex_tokens": 13473,
+ "work": "<tmp>/replay-v08-t2-h4buhng1",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "merge.js:27-32 now calls collection.constructor(iters[0]) for any empty collection. For Record({})(), toSeq().size is 0, and Record.js:56-57 builds a new RecordType, so the result is a different object. The locked test __tests__/issues.ts:135 expects emptyRecord.merge({id: 1}) toBe emptyRecord, so it fails. Kept at high because it breaks a locked acceptance test.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/methods/merge.js",
+   "line": 32,
+   "claim": "Removing the isRecord guard makes merge() on an empty Record return a new instance instead of the same one, which brings back the Issue #1785 regression.",
+   "evidence": "The diff deletes `return isRecord(collection) ? collection // Record is empty and will not be updated: return the same instance : collection.constructor(iters[0]);` and replaces it with an unconditional `return collection.constructor(iters[0]);`. An empty Record such as `Record({})()` has `toSeq().size === 0`, so it reaches this branch. `RecordType` in src/Record.js:52-97 builds `new RecordType(values)` because `values` is not an instance of `RecordType`, so the result is a fresh object. The locked test at __tests__/issues.ts:135 expects `emptyRecord.merge({ id: 1 })` to be `emptyRecord` (`toBe`), and CHANGELOG.md:628 records this guard as the fix for #1785.",
+   "breaks": "AC-1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "wrapIndex in TrieUtils.ts:54-58 turns a non-numeric index like undefined into NaN, and updateList in List.js:441 returns the list unchanged for NaN. Unknown keys are dropped safely, so the only real effect is the new instance already covered by C1/X1.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/Record.js",
+   "line": 94,
+   "claim": "For an empty Record, keys the Record doesn't define reach the constructor and call l.set(undefined, v).",
+   "evidence": "In src/Record.js:93-94 the constructor runs `KeyedCollection(values).forEach((v, k) => { l.set(this._indices[k], ...) })`. For `Record({})`, `_indices` is `{}`, so `this._indices['id']` is `undefined` and the call becomes `l.set(undefined, 1)`. The removed guard avoided this by returning the existing instance.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

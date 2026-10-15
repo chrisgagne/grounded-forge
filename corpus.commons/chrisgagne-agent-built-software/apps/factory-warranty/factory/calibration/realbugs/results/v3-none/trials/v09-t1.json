@@ -1,0 +1,57 @@
+{
+ "id": "v09",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.3222,
+ "codex_tokens": 24926,
+ "work": "<tmp>/replay-v09-t1-1a1wl6c2",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In decimal.js:748-754, x.asin() and halfPi are each computed to about pr+4..pr+6 digits and then subtracted at precision pr. For x near 1 the two are nearly equal, so only absolute error is left. The old 2*atan(sqrt((1-x)/(1+x))) form had no such cancellation. decimal.mjs:741-751 in the diff makes the identical change. Codex's concrete repro (a value about 1e-16 where about 1.414e-20 is expected) fits this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "decimal.js",
+   "line": 748,
+   "claim": "acos now computes pi/2 - asin(x), which cancels catastrophically for x near 1. The result loses most or all of its significant digits, and decimal.mjs has the same defect.",
+   "evidence": "The diff removes `x = (new Ctor(1)).minus(x).div(x.plus(1)).sqrt().atan(); ... return x.times(2);` and adds `x = x.asin(); halfPi = getPi(Ctor, pr + 4, rm).times(0.5); ... return halfPi.minus(x);`. Both operands are computed with only about pr+4 to pr+6 significant digits and are nearly equal when x\u21921. The true result is about sqrt(2(1-x)), so it is many orders of magnitude smaller than pi/2. The subtraction keeps only the absolute error of about 10^-(pr+5), which means most or all of the requested significant digits are lost. The old formula computes 1-x exactly and has no such cancellation.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only decimal.js and decimal.mjs. A search of test/modules/acos.js for '0.9999' or 'e-' finds nothing, which fits Codex's note that all existing tests still pass. This gap in test coverage is why the precision bug went unnoticed; it is not a separate failure.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/modules/acos.js",
+   "line": null,
+   "claim": "The change adds no tests, and the existing acos tests have no near-1 inputs, so the regression passes the locked suite.",
+   "evidence": "diff.patch touches only decimal.js and decimal.mjs. A search of test/modules/acos.js for `0.9999` or `1e-` finds no matches, so no case checks arguments close to \u00b11, where the new formula cancels.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "id": "v13",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.3365,
+ "codex_tokens": 31397,
+ "work": "<tmp>/replay-v13-t1-oc7zfapa",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes the `node.tag !== defaultScalarTag.tagName` return, leaving only the isKey/PLAIN check at styler_defaults.ts:65. presenter.ts:417 then sets shouldPrintTag for any non-plain scalar whose tag isn't the default string tag. That goes against the documented contract at presenter.ts:99 ('Quotes all non-key strings'). No story.md is in the packet, so breaks is left out.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/styler_defaults.ts",
+   "line": 65,
+   "claim": "Removing the default-scalar-tag guard makes forceQuotes quote plain numbers, booleans, nulls and custom-tag scalars, and presenter.ts then adds explicit tags to them (e.g. `n: !!int '1'`).",
+   "evidence": "The diff deletes `if (layout.node.tag !== layout.presenterOptions.schema.defaultScalarTag.tagName) return`, so the only remaining guard is `layout.isKey || layout.style !== SCALAR_STYLE.PLAIN`. In presenter.ts:417, `shouldPrintTag = ... || (layout.style !== SCALAR_STYLE.PLAIN && node.tag !== state.defaultScalarTagName)` then adds an explicit tag to every non-string scalar that ends up quoted. This breaks the documented contract at presenter.ts:99 ('Quotes all non-key strings using quoteStyle') and the CHANGELOG entry 'forceQuotes option to force quoting non-key strings'. The rewritten comment ('applies only to plain values') shows the change of scope was deliberate, but nothing in the packet asks for it.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes only styler_defaults.ts. The forceQuotes test at dump-options.test.mjs:93-103 dumps only string values ({ hello: 'world' }), so it passes whether or not the tag guard is there.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/core/units/dump-options.test.mjs",
+   "line": 93,
+   "claim": "No test covers forceQuotes with non-string scalars, so the scope change is unguarded.",
+   "evidence": "diff.patch changes only src/ast/styler_defaults.ts and adds no tests. The existing forceQuotes test (`forceQuotes \u2014 quotes non-key strings using quoteStyle`) only dumps `{ hello: 'world' }`, a string value, so it passes with or without the removed tag check.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

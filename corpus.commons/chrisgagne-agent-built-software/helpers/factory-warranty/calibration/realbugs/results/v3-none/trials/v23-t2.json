@@ -1,0 +1,57 @@
+{
+ "id": "v23",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2159,
+ "codex_tokens": 27274,
+ "work": "<tmp>/replay-v23-t2-f3j4p9y4",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In src/diff/json.ts, the array branch (lines 88-98) returns before toJSON is called at lines 100-102, so an array's toJSON is never used. The value toJSON returns is never re-checked for being an array, so a returned array falls into the Object.create(null) branch at line 104 and its keys are sorted as strings (\"10\" before \"2\"). Both results contradict the release-notes promise that callable toJSON behaves as it does in JSON.stringify.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "Moving the toJSON call below the array branch breaks two cases. Arrays with a callable toJSON skip it, and an array returned by toJSON is canonicalized as an object with sorted string keys. In both cases diffJson output no longer matches JSON.stringify.",
+   "evidence": "The diff moves `if (obj && typeof obj.toJSON === 'function') { obj = obj.toJSON(); }` from before the `'[object Array]' === Object.prototype.toString.call(obj)` check to after it (lines 88-102). The value toJSON returns is never re-checked for array-ness. It goes straight into the `typeof obj === 'object'` branch, which builds `Object.create(null)`, collects keys with `for (key in obj)` and calls `sortedKeys.sort()`.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only toJSON tests (test/diff/json.js:131-158) use toJSON functions that return strings, plus one non-callable toJSON. The diff adds no tests, so the reordering bug goes undetected.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/diff/json.js",
+   "line": 131,
+   "claim": "No test covers toJSON returning an array or toJSON defined on an array, so the suite cannot catch the regression.",
+   "evidence": "The only toJSON tests (test/diff/json.js:131-158) use `toJSON: () => 'aaa'` / `'bbb'`, which return strings, and a non-callable `toJSON: 'aaa'`. The diff adds no new tests.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

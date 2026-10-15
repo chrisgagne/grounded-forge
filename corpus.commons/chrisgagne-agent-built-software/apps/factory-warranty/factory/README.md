@@ -98,14 +98,14 @@ When a stage blocks, `.factory/changes/{id}/decisions-needed.md` says what block
 
 ```bash
 factory sign   --change ID --by NAME                      # at a terminal; asks you to type the change id
-factory return --change ID --reason "..." [--by NAME]     # the next build's prompt carries the reason
+factory return --change ID --reason "..." [--by NAME]     # spec adds criteria for it, tests lock them, then the rebuild
 factory accept --change ID --item F2 --reason "..." --by NAME            # a confirmed review finding
 factory accept --change ID --item class:dependency --reason "..." --by NAME   # an unplanned risk class
 factory accept --change ID --item ratchet:semgrep_findings --reason "..." --by NAME   # a measured ratchet rise
 factory accept --change ID --item surface --reason "..." --by NAME       # an edit to test or scanner config
 ```
 
-`sign` fails if the pack changed since it was assembled, if any stage ran or a return was recorded since, if the pack isn't ready, or if the worktree isn't at the commit and tree the pack covers with nothing uncommitted. A signature records the signer, the time, the pack's sha256, the commit, the tree and a seal over them. After a return, the change needs a new build commit (and fresh triage, gate, review and pack) before anyone can sign. An acceptance covers the stage run it follows; re-running that stage needs a fresh one. Gate failures other than a measured ratchet rise or a surface edit can't be accepted.
+`sign` fails if the pack changed since it was assembled, if any stage ran or a return was recorded since, if the pack isn't ready, or if the worktree isn't at the commit and tree the pack covers with nothing uncommitted. A signature records the signer, the time, the pack's sha256, the commit, the tree and a seal over them. After a return, `factory run --change ID` goes back through spec (which keeps every locked criterion word for word and adds new ones in new test files), tests (which writes and locks failing tests for the new criteria alone) and the build, then fresh triage, gate, review and pack, before anyone can sign. An acceptance covers the stage run it follows; re-running that stage needs a fresh one. Gate failures other than a measured ratchet rise or a surface edit can't be accepted.
 
 ## What's in a change folder
 

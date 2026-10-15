@@ -1,0 +1,35 @@
+{
+ "id": "v03",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5121,
+ "codex_tokens": 49250,
+ "work": "<tmp>/replay-v03-t1-l5ifjf7f",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "noise",
+   "reason": "A path stored at bestPath[offset+k+1] sits on diagonal k+1, so its newPos is oldPos-(k+1), which is at least -1 (base.ts:110-112 documents this range). That makes oldPos-k at least 0, so the removed clause could never be false. Behaviour is unchanged, as the reviewer also says, so this is not a defect in the change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/diff/base.ts",
+   "line": 170,
+   "claim": "Removing the `0 <= addPathNewPos` lower-bound check makes canAdd rely on an invariant that nothing enforces.",
+   "evidence": "The diff replaces `const addPathNewPos = addPath.oldPos - k; canAdd = addPath && 0 <= addPathNewPos && addPathNewPos < newLen;` with `const canAdd = addPath && addPath.oldPos - k < newLen;`. The dropped `0 <=` clause is redundant only because every path on diagonal k+1 has newPos = oldPos - (k+1) >= -1, which the comment at lines 110-112 states. No assertion enforces that invariant. The diff adds or changes no tests, and the packet holds no story.md. So the packet shows no test aimed at this branch and no requirement that asked for the guard to be removed. In my reading, behaviour is unchanged for valid paths.",
+   "axis_row": "L4.27",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

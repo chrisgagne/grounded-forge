@@ -1,0 +1,35 @@
+{
+ "id": "v17",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5277,
+ "codex_tokens": 65247,
+ "work": "<tmp>/replay-v17-t2-t1l9nuc_",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "noise",
+   "reason": "The facts hold: diff.patch deletes the guarded block in src/common/utils.ts normalizeReference, and package.json has no engines field. But the deleted comment itself says to remove the block once Node v10 is no longer supported. Node 10 went end-of-life in 2021, and this package already depends on modern-Node features (an exports map, ESM bin, node --test). So dropping the dead workaround is what this change is meant to do, not a defect in it.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "package.json",
+   "line": null,
+   "claim": "Removing the Node v10 '\u1e9e' case-folding workaround without a declared engines minimum may silently break reference-label matching for Node 10 users.",
+   "evidence": "The diff deletes the runtime-guarded block in normalizeReference (src/common/utils.ts) `if ('\u1e9e'.toLowerCase() === '\u1e7e') { str = str.replace(/\u1e9e/g, '\u00df') }`, whose comment said 'remove this when node v10 is no longer supported'. A search of package.json finds no `engines` field. CI (.github/workflows/ci.yml:23) only tests `node-version: lts/*`, so no run would show the regression on old runtimes. The fixtures test/fixtures/commonmark/good.txt and spec.txt contain '\u1e9e', so the behaviour is still covered on modern Node.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

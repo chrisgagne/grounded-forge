@@ -1,0 +1,55 @@
+{
+ "id": "v24",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2429,
+ "codex_tokens": 27205,
+ "work": "<tmp>/replay-v24-t2-5wr77dkg",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff swaps the conditional `patterns.push(negatedBoolean)` for an unconditional `hasFlagsMatching(arg, flagWithEquals, negatedBoolean, normalFlag)` at line 984. negatedBoolean (line 112) captures `foo` from `--no-foo`, and hasFlagsMatching (lines 936-941) returns true for a known key. The parse loop at line 253 only negates when configuration['boolean-negation'] is true, so the arg falls through to the ordinary long-option branch as `no-foo` instead of being pushed as a positional.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 984,
+   "claim": "isUnknownOption now always matches the negatedBoolean pattern, even when 'boolean-negation' is false. So with 'unknown-options-as-args' on, `--no-foo` (where foo is known) counts as a known option and is not kept as a positional argument.",
+   "evidence": "The diff removes `const patterns = [flagWithEquals, normalFlag]; if (configuration['boolean-negation']) patterns.push(negatedBoolean);` and replaces it with `return !hasFlagsMatching(arg, flagWithEquals, negatedBoolean, normalFlag)`. negatedBoolean (line 112) captures the part after `--no-`, so hasFlagsMatching finds the known key `foo`. The main parse loop applies negation only when `configuration['boolean-negation']` is true (line 253), so isUnknownOption and the parser now disagree about what counts as a known option.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching the tests for 'boolean-negation': false finds only test/yargs-parser.mjs:2533-2542, which parses `--no-dice` without 'unknown-options-as-args', so it never reaches isUnknownOption. This is a gap in test coverage, not a separate defect, so I lowered severity from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/yargs-parser.mjs",
+   "line": 2533,
+   "claim": "No test covers 'unknown-options-as-args' combined with 'boolean-negation': false, so the regression gets past the locked suite.",
+   "evidence": "The only 'boolean-negation': false test (`does not negate arguments prefixed with --no-`, line 2533) parses `--no-dice` without 'unknown-options-as-args' and never reaches isUnknownOption's negatedBoolean branch.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

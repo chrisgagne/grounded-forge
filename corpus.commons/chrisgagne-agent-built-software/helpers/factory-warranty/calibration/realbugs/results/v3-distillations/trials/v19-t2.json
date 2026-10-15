@@ -1,0 +1,73 @@
+{
+ "id": "v19",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5392,
+ "codex_tokens": 21610,
+ "work": "<tmp>/replay-v19-t2-t6akbvc0",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "range.js:309 and :312 now build `>=M.0.0` / `>=M.m.0` with no `-0`, and the diff deletes the `z` variable. replaceCaret (range.js:347) still keeps it. README.md:331-332 says `~1.2` is the same as `1.2.x` and `~1` is the same as `1.x`, so `~1.2` with includePrerelease now rejects 1.2.0-beta while 1.2.x accepts it.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "classes/range.js",
+   "line": 309,
+   "claim": "With includePrerelease set, partial tilde ranges (~1, ~1.2) no longer use the -0 lower bound, so they reject prereleases of their lower bound that the documented equivalent x-ranges (1.x, 1.2.x) accept.",
+   "evidence": "The diff deletes `const z = options.includePrerelease ? '-0' : ''` along with its comment (\"this keeps `~1.2` equivalent to the `1.2.x` x-range it's documented as\"). It also changes the two branches to `ret = `>=${M}.${m}.0 <${M}.${+m + 1}.0-0`` (line 312) and `ret = `>=${M}.0.0 <${+M + 1}.0.0-0`` (line 309). README.md:331 says `~1.2` is \"(Same as `1.2.x`)\", and test/fixtures/range-include.js:113 requires `['1.1.x', '1.1.0-a', { includePrerelease: true }]` to match, but `~1.1` now gives `>=1.1.0`, which rejects `1.1.0-a`. replaceCaret (line 347) still keeps `z`, so `^` and `~` now behave differently under the same option.",
+   "breaks": "story",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching test/ for a `~` range together with includePrerelease finds nothing, and the diff adds no tests. Lowered to low because this is a coverage gap that hides C1/X1, not a separate defect.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/fixtures/range-include.js",
+   "line": 113,
+   "claim": "No test covers tilde ranges with includePrerelease, so the locked suite cannot catch this regression.",
+   "evidence": "Searching test/ for a `~` range together with `includePrerelease` finds nothing. The tilde cases in test/fixtures/range-parse.js (for example `['~2.4', '>=2.4.0 <2.5.0-0']` and `['~1.0', '>=1.0.0 <1.1.0-0']`) pass no options. The only includePrerelease prerelease-inclusion cases are x-ranges (`1.1.x`, range-include.js:113-114). The change adds no tests.",
+   "axis_row": "L3.7",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "noise",
+   "reason": "This is about what the packet contains, not the code. The deleted code comment and README.md:331-332 already show the old behaviour was intended and documented, and C1/X1 cover the resulting regression.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "classes/range.js",
+   "line": 300,
+   "claim": "The spec (story.md, tests.lock) is missing from the packet, so we can't check whether removing the tilde prerelease bound was requested.",
+   "evidence": "acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests; tests.lock lists them.\" Neither story.md nor tests.lock is in the packet or the export. risk.json has empty `classes` and `unplanned`. The diff is a pure deletion of behaviour that a code comment documented as intended.",
+   "axis_row": "L1.1",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

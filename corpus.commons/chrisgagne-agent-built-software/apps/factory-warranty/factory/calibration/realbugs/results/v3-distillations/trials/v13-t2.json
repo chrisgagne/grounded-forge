@@ -1,0 +1,71 @@
+{
+ "id": "v13",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.789,
+ "codex_tokens": 32787,
+ "work": "<tmp>/replay-v13-t2-jdepxqoy",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch deletes the `node.tag !== defaultScalarTag.tagName` return, leaving only the isKey/PLAIN guard. presenter.ts:415-417 then sets shouldPrintTag when the style is non-plain and the tag isn't the default, so quoted non-strings come out tagged. This goes against the contract at presenter.ts:99 ('Quotes all non-key strings') and the locked test's name at dump-options.test.mjs:93.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/styler_defaults.ts",
+   "line": 65,
+   "claim": "Removing the tag guard makes forceQuotes quote every plain non-key scalar (ints, floats, bools, null), not only strings, and those values then get explicit tags such as !!int '5'.",
+   "evidence": "The diff deletes `if (layout.node.tag !== layout.presenterOptions.schema.defaultScalarTag.tagName) return`, so the only remaining guard is `layout.isKey || layout.style !== SCALAR_STYLE.PLAIN`. In presenter.ts:415-417, `shouldPrintTag` becomes true when `layout.style !== SCALAR_STYLE.PLAIN && node.tag !== state.defaultScalarTagName`, so each quoted non-string scalar gets an explicit tag. The option is still documented as 'Quotes all non-key strings using {@link quoteStyle}' (presenter.ts:99), CHANGELOG.md:134 says it forces 'quoting non-key strings', and the locked test is named 'forceQuotes \u2014 quotes non-key strings using quoteStyle' (dump-options.test.mjs:93). The packet has no story that asks for non-string values to be quoted.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff touches only styler_defaults.ts. The forceQuotes assertions at dump-options.test.mjs:94-101 and dump-scalar-styles.test.mjs:107 use only strings, and the property test that mixes forceQuotes with numbers, booleans and null is it.skip (dump-fuzzy.test.mjs:36).",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/core/units/dump-options.test.mjs",
+   "line": 93,
+   "claim": "No test covers forceQuotes with non-string scalars, so the behaviour change is unpinned and the existing tests pass either way.",
+   "evidence": "diff.patch touches only src/ast/styler_defaults.ts. The only forceQuotes assertions use string values (`dump({ hello: 'world' }, { forceQuotes: true })`, dump-options.test.mjs:94-101, and a string at dump-scalar-styles.test.mjs:107). The property test that combines `forceQuotes: fc.boolean()` with numbers, booleans and null is disabled with `it.skip` (dump-fuzzy.test.mjs:36), so nothing exercises non-string scalars under forceQuotes.",
+   "axis_row": "L5.26",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "presenter.ts:99 and CHANGELOG.md:134 both still say 'non-key strings', and the diff changes only the inline comment. The mismatch is real, but it comes from C1/X1: reverting the code fixes it, so the docs are not the thing to change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/ast/presenter.ts",
+   "line": 99,
+   "claim": "The option doc and CHANGELOG still say forceQuotes applies to strings only, which no longer matches the code.",
+   "evidence": "presenter.ts:99 reads 'Quotes all non-key strings using {@link quoteStyle}.' CHANGELOG.md:134 reads 'force quoting non-key strings'. Only the inline comment at styler_defaults.ts:64 was changed, to 'forceQuotes applies only to plain values, not to mapping keys.'",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

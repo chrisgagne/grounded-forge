@@ -1,0 +1,57 @@
+{
+ "id": "v14",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8173,
+ "codex_tokens": 21795,
+ "work": "<tmp>/replay-v14-t1-lpq739ik",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "disputed",
+   "reason": "The mechanics hold: parse_link_destination.mjs:52 now breaks without advancing, and link.mjs:76 then sees `\\` instead of `)` and falls back to a reference, where the baseline (`pos++; continue`) kept the backslash and produced a link. But story.md is not in the packet and the new line matches upstream markdown-it, so I can't tell whether this narrower behaviour was asked for. Kept at medium (X1 said high) because the inputs affected are rare edge cases.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "lib/helpers/parse_link_destination.mjs",
+   "line": 52,
+   "claim": "Breaking at a backslash followed by a space leaves pos on the backslash, so inputs like `[x](foo\\ )` or a reference definition ending in `\\ ` are no longer parsed as links.",
+   "evidence": "Line 52, `if (str.charCodeAt(pos + 1) === 0x20) { break }`, leaves `pos` on the backslash. lib/rules_inline/link.mjs:76 then sees `\\` where it expects `)` and falls back to a reference lookup, so the link is never built. CommonMark spec example (test/fixtures/commonmark/spec.txt:500) says a backslash before a non-punctuation character such as a space is a literal backslash, so the destination should be `a\\` with href `a%5C`. The baseline line `pos++; continue` kept the backslash and stopped at the space, so it produced that link. story.md is not in the packet, so I can't check whether this narrower behaviour was asked for. It does match upstream markdown-it.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff touches only parse_link_destination.mjs. The fixture at commonmark_extras.txt:345 (`[link](a\\ b)` gives unlinked text) fails on both versions, since `b` sits where link.mjs:76 expects `)`. A grep of test/ finds no `\\ )` input, so nothing would catch a regression in the changed branch.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/fixtures/markdown-it/commonmark_extras.txt",
+   "line": 345,
+   "claim": "No test exercises the changed branch; the only escaped-space fixture gives the same output before and after the change, and the diff adds no test.",
+   "evidence": "The diff only touches lib/helpers/parse_link_destination.mjs. Fixture `[link](a\\ b)` \u2192 `<p>[link](a\\ b)</p>` stays unlinked on the baseline too. There, `pos++` moves onto the space, line 46 breaks, the destination is `a\\`, and link.mjs then finds `b` instead of `)` at line 76 and fails. The inputs where the two versions actually differ (`\\` + space + `)`, or a trailing `\\ ` in a reference definition) appear in no fixture under test/. The 'Coverage. parseLinkDestination' block at line 431 tests only the `<...>` form.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

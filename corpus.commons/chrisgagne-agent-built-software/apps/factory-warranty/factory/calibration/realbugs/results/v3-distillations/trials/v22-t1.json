@@ -1,0 +1,57 @@
+{
+ "id": "v22",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6082,
+ "codex_tokens": 48648,
+ "work": "<tmp>/replay-v22-t1-evl5un3h",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "entity.mjs:36 now calls decodeHTML, which in entities ^4.4.0 (package.json:49) defaults to legacy mode and decodes semicolon-less prefixes like `&not`. NAMED_RE at line 7 matches all of `&notit;`, so the output differs from match[0] and lines 37-45 consume the whole match as an entity. The baseline's decodeHTMLStrict left it unchanged.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 36,
+   "claim": "Switching to decodeHTML (legacy mode) decodes unknown named references that start with a legacy entity name (e.g. `&notit;` becomes `\u00acit;`) instead of leaving them literal as CommonMark requires.",
+   "evidence": "NAMED_RE (`/^&([a-z][a-z0-9]{1,31});/i`, line 7) matches the whole `&notit;`. With entities ^4.4.0 (package.json:49), `decodeHTML` defaults to DecodingMode.Legacy, which decodes semicolon-less legacy prefixes such as `&not`, `&copy`, `&amp`, `&lt`, so `decodeHTML('&notit;')` returns `\u00acit;`. That differs from match[0], so lines 37-45 push a text_special token with that content and consume the full match. The baseline's `decodeHTMLStrict` only decoded complete `name;` references, so it returned the input unchanged and the rule fell through to `return false`. The spec says only names on the HTML5 entity list are recognised (test/fixtures/commonmark/spec.txt:714-720).",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep of test/ for `&(not|copy|amp|lt|gt)[a-z]+;` finds nothing, and the diff adds no tests, so locked tests pass under both decoding modes. Severity lowered to low because this is a coverage gap: the actual defect is the merged C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 36,
+   "claim": "No test covers an unknown entity that starts with a legacy prefix, so the suite cannot catch the regression.",
+   "evidence": "The diff touches only entity.mjs and adds no tests. The existing non-entity fixtures (`&x;`, `&ThisIsNotDefined;`, `&hi?;`, `&MadeUpEntity;` in test/fixtures/commonmark/good.txt:322-348) contain no legacy prefix such as `&not`, `&amp`, `&lt` or `&copy`, so legacy and strict decoding give the same output for all of them. A grep of test/ for `&notit` or `&copy[a-z]` finds nothing.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,72 @@
+{
+ "id": "v13",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6306,
+ "codex_tokens": 26610,
+ "work": "<tmp>/replay-v13-t1-v9xotbuo",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes the `node.tag !== defaultScalarTag.tagName` early return, so now only isKey and style are checked. presenter.ts:417 sets shouldPrintTag whenever the style is not PLAIN and the tag is not the default str tag, so non-strings come out quoted and tagged. That goes against the documented 'Quotes all non-key strings' (presenter.ts:99). I kept Codex's high severity because every forceQuotes user gets different output. story.md is not in the packet, so I can't say whether the story asked for this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/styler_defaults.ts",
+   "line": 65,
+   "claim": "With the tag guard removed, forceQuotes now quotes every plain non-key scalar, including ints, floats, booleans and null, not just strings. Because the value is quoted, it also gets an explicit tag, so 42 is written as !!int '42'.",
+   "evidence": "The diff deletes `if (layout.node.tag !== layout.presenterOptions.schema.defaultScalarTag.tagName) return` and rewrites the comment from 'plain string values' to 'plain values'. Once the style is no longer PLAIN, presenter.ts:417 sets `shouldPrintTag` for any node whose tag isn't the default str tag (`layout.style !== SCALAR_STYLE.PLAIN && node.tag !== state.defaultScalarTagName`), so every non-string value gets an explicit tag plus quotes. The option's docs still say 'Quotes all non-key strings using {@link quoteStyle}' (src/ast/presenter.ts:99), and CHANGELOG.md:134 describes forceQuotes as 'force quoting non-key strings'. The packet's acceptance.md points to a story.md that isn't in the packet or the export, so the intent can't be confirmed.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "presenter.ts:99 still reads 'Quotes all non-key strings using {@link quoteStyle}', and the diff touches only styler_defaults.ts. Whichever behaviour is intended, the docs and the code now disagree.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/ast/presenter.ts",
+   "line": 99,
+   "claim": "The option docs and changelog still say forceQuotes quotes only strings.",
+   "evidence": "The diff touches only src/ast/styler_defaults.ts. presenter.ts:98-103 still reads 'Quotes all non-key strings using {@link quoteStyle}', and CHANGELOG.md has no entry for the change.",
+   "axis_row": "L5.26",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds no tests. The only forceQuotes unit test (dump-options.test.mjs:93-103) and dump-scalar-styles.test.mjs:107 dump only strings, and dump-fuzzy.test.mjs:28 just toggles the flag.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/core/units/dump-options.test.mjs",
+   "line": 93,
+   "claim": "No test covers forceQuotes on non-string scalars, so the new behaviour is never checked.",
+   "evidence": "The diff adds no tests. The only forceQuotes unit test (`forceQuotes \u2014 quotes non-key strings using quoteStyle`) dumps string values only (`{ hello: 'world' }`). dump-scalar-styles.test.mjs:107 also uses a string. The fuzzy test (dump-fuzzy.test.mjs:28) only toggles the flag and checks round-tripping, not the rendered style or tag.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

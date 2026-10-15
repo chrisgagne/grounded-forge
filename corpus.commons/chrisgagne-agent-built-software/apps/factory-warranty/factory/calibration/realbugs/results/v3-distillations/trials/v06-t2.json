@@ -1,0 +1,85 @@
+{
+ "id": "v06",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 1.0293,
+ "codex_tokens": 33564,
+ "work": "<tmp>/replay-v06-t2-l2nnfsjz",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In re.js:144-149, XRANGEPLAIN allows BUILD only after the third component, so `1.x+build` can't match the anchored HYPHENRANGE (re.js:209). The range is then split on spaces (range.js:134), leaving a bare `-` that parseComparator doesn't change; Comparator('-') at range.js:154 throws in strict mode, and in loose mode the filter at 143-146 drops it. The per-comparator strip at range.js:258 runs too late to recover this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "classes/range.js",
+   "line": 115,
+   "claim": "Without the up-front build strip, hyphen ranges with partial-version ends that carry build metadata (e.g. `1.x+build - 2.x+build`) no longer match HYPHENRANGE. They throw in strict mode and turn into a wrong range in loose mode.",
+   "evidence": "The diff deletes `range = range.replace(BUILDSTRIPRE, '')` from parseRange. The hyphen check at line 114-115 (`re[t.HYPHENRANGE]`) is anchored, and in internal/re.js:144-149 XRANGEPLAIN only allows `src[t.BUILD]` after the third component (`(?:\\.(id)(?:\\.(id)(?:PRERELEASE)?BUILD?)?)?`). So `1.x+build` cannot match either end of HYPHENRANGE, and the hyphen replacement never runs. The range is then split on ' ' (line 134), which gives a bare `-` comparator. parseComparator (line 257) leaves `-` unchanged, and `new Comparator('-')` (line 154) rejects it. In loose mode the filter at lines 143-146 drops `-` and keeps `>=1.0.0 <2.0.0-0 >=2.0.0 <3.0.0-0`. The per-comparator `comp.replace(re[t.BUILD], '')` at line 258 runs only after the split, so it cannot recover this case. The deleted comment ('strip build metadata so it can't bleed into the version') shows the baseline stripped metadata on purpose before any of this parsing.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "HYPHENRANGE now captures `1.2.3+abc` whole, and hyphenReplace (range.js:503) builds `>=1.2.3+abc-0`. Then BUILD (`\\+[a-zA-Z0-9-]+...`) at range.js:258 strips `+abc-0` along with the metadata, leaving `>=1.2.3`, which rejects 1.2.3-alpha. The baseline stripped `+abc` first and produced `>=1.2.3-0`.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "classes/range.js",
+   "line": 503,
+   "claim": "With includePrerelease, a hyphen range whose full lower bound carries build metadata loses its `-0` floor, so prereleases of the lower-bound version are wrongly excluded.",
+   "evidence": "hyphenReplace appends '-0' to the complete lower-bound string, producing '>=1.2.3+abc-0'; parseComparator subsequently strips '+abc-0', losing the prerelease bound. Reproduced: satisfies('1.2.3-alpha', '1.2.3+abc - 2.0.0', {includePrerelease:true}) returns false, whereas the equivalent range without '+abc' returns true.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Every `+build` fixture at range-parse.js:92-118 is a space-separated, `||`, caret or tilde form with null options. None uses ` - ` or loose/includePrerelease, and each listed form is still handled by the per-comparator strip at range.js:258.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/fixtures/range-parse.js",
+   "line": 92,
+   "claim": "The locked build-metadata fixtures don't cover hyphen ranges, loose mode or includePrerelease with build metadata, so the suite can't catch the regressions above.",
+   "evidence": "Every build-metadata case at range-parse.js lines 92-118 is a space-separated, `||`, caret or tilde form, and all of them pass `null` options. The per-comparator strip at range.js:258 handles each of these after splitting on spaces. No fixture combines `+build` with ` - ` (a grep for `+build -` finds nothing), and none uses `{ loose: true }`, which is the input combination that exposes the change.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only classes/range.js (it removes the strip, the `src` import and BUILDSTRIPRE). It has no test changes, so there is no regression evidence for removing the strip, and story.md isn't in the packet to justify it.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "classes/range.js",
+   "line": 100,
+   "claim": "The change removes behaviour from parseRange but adds or updates no tests.",
+   "evidence": "diff.patch changes only classes/range.js: it deletes the parseRange strip, the `src` import and the `BUILDSTRIPRE` constant. No file under test/ is changed, and acceptance.md defers to a story.md that is not in the packet or the export.",
+   "axis_row": "L5.26",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

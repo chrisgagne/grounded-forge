@@ -1,0 +1,56 @@
+{
+ "id": "v16",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.1716,
+ "codex_tokens": 24564,
+ "work": "<tmp>/replay-v16-t2-cajmjfv6",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/diff/json.ts:100 now reads `if (obj && obj.toJSON)` and line 101 calls `obj.toJSON()` unconditionally. So an object like {toJSON:'x'} throws a TypeError, where the old typeof === 'function' guard let it serialize normally.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "canonicalize/diffJson throws TypeError on objects with a truthy non-function toJSON property",
+   "evidence": "The diff changes `if (obj && typeof obj.toJSON === 'function')` to `if (obj && obj.toJSON)`, and the next line, `obj = obj.toJSON();`, calls the property unconditionally. Plain JSON data whose key happens to be named toJSON will crash the diff.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for toJSON outside node_modules matches only src/diff/json.ts:100-101, so no test exercises the toJSON branch. This is a coverage gap, not a separate defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "No test covers the toJSON branch, so the regression goes undetected",
+   "evidence": "A search for `toJSON` across the export (excluding node_modules) matches only src/diff/json.ts lines 100\u2013101. No test has an object with a function or non-function toJSON property.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T17:41:53+13:00
+  at: 2026-10-15T18:12:04+13:00
 ---
 # FLO Facilitation Guide, Retro Distillation
 

@@ -24,7 +24,9 @@ factory failed closed and stopped the change without naming the defect). All thr
 fell in the no-corpus arm; the corpus arm had none. Scored as registered, a malfunction is not a catch, and the
 criterion is met. Counting only reviews that completed, the corpus arm caught 16 of 17 on every completed review and
 the no-corpus arm 14 of 17: a difference of 2, which would not meet the +3 rule. Whether the corpus makes a review leg
-less likely to malfunction, or the three fell on that arm by chance, these 100 trials can't say.
+less likely to malfunction, or the three fell on that arm by chance, these 100 trials can't say. This count is descriptive,
+not the registered rule: it lets three no-corpus cases qualify on one completed review while every corpus case needed
+two.
 
 The limits stated before the run still apply: 17 bug cases is a small sample, so a difference of 5 can't rule out
 chance, and two trials per case is an easier bar than three.

@@ -192,13 +192,13 @@ Federalism is "the political system that divides authority to govern between the
 
 ### The Commerce Clause: 1937 inflection
 
-The Commerce Clause (Article I, Section 8) grants Congress the power "to 'regulate Commerce with foreign Nations, and among the several States, and with the Indian Tribes'" [V] (Ch 4.1, "The Commerce Clause and The Affordable Care Act"). It "serves to simultaneously empower the federal government, while limiting state power" (Ch 4.1).
+The Commerce Clause (Article I, Section 8) grants Congress the power to "regulate Commerce with foreign Nations, and among the several States, and with the Indian Tribes" [V] (Ch 4.1, "The Commerce Clause and The Affordable Care Act"). It "serves to simultaneously empower the federal government, while limiting state power" (Ch 4.1).
 
 The 1937 case *NLRB v. Jones & Laughlin Steel Corp.* is treated as the doctrinal turning point: the prior year's *Carter v. Carter Coal Co.* had invalidated New Deal coal-labour regulation as "local"; *NLRB v. Jones & Laughlin Steel Corp.* held that "Congress could regulate employment practices at a steel plant because any stoppages at that plant would have a serious, detrimental impact on interstate commerce" [AP] (Ch 4.1). The court's verbatim conclusion is blockquoted in the source: "Although activities may be intrastate in character when separately considered, if they have such a close and substantial relationship to interstate commerce that their control is essential or appropriate to protect that commerce from burdens or obstructions, Congress cannot be denied the power to exercise that control" [V, BT] (Ch 4.1, citing *NLRB v. Jones & Laughlin Steel Corp.*, 301 U.S. 1, 1937).
 
 The text quantifies the Commerce Clause's reach: "there are more than 700 legislative provisions that explicitly refer to foreign or interstate commerce" [V] (Ch 4.1, "Challenges to and Reinterpretations of the Commerce Clause"). Named statutes invoking it include the Controlled Substances Act, Federal Mine Safety and Health Act, Civil Rights Act, Americans with Disabilities Act, and Indian Child Welfare Act (Ch 4.1).
 
-The 1995 *United States v. Lopez* is the named limit: the Gun-Free School Zone Act was struck because possession of guns near schools "had 'nothing to do with commerce, or any sort of enterprise'" [V] (Ch 4.1).
+The 1995 *United States v. Lopez* is the named limit: the Gun-Free School Zone Act was struck because possession of guns near schools had "nothing to do with commerce, or any sort of enterprise" [V] (Ch 4.1).
 
 ### Police power and the dormant Commerce Clause
 
@@ -258,8 +258,8 @@ Five additional categories are named (Ch 5.1, "Other Types of Business Crime"):
 
 - **Antitrust violations.** Antitrust laws "do not allow activities that restrain trade or promote market domination," with the goal of avoiding **monopolies**. The Sherman Antitrust Act includes criminal provisions.
 - **Racketeering.** Includes loan-sharking, money laundering, blackmailing. RICO (Racketeer Influenced and Corrupt Organizations Act) is the federal vehicle: "RICO is now used against insurance companies, stock brokerages, tobacco companies, banks, and other large commercial enterprises" [V, BT, citing Schodolski 2018] (Ch 5.1).
-- **Bribery.** "Monetary payments, goods, services, information, or anything of value… exchanged for favorable or desired actions." The Foreign Corrupt Practices Act prohibits bribery payments by U.S. companies to foreign government officials [V] (Ch 5.1).
-- **Money laundering.** "Taking 'dirty' money… and passing it through otherwise legitimate businesses so that it appears 'clean'" [V] (Ch 5.1).
+- **Bribery.** "Monetary payments, goods, services, information, or anything of value… exchanged for favorable or desired actions." The Foreign Corrupt Practices Act "prohibits bribery payments by U.S. companies to foreign government officials" [V] (Ch 5.1).
+- **Money laundering.** Taking "dirty" money, "or money obtained through criminal activities, and passing it through otherwise legitimate businesses so that it appears 'clean.'" [V] (Ch 5.1).
 - **Spamming.** Illegal under state legislation (Washington state cited as model) prohibiting misrepresentation of sender, hidden identity, and misleading subject lines.
 
 ### Criminal procedure: components of crime
@@ -711,7 +711,7 @@ The **rule of reason** distinguishes (Ch 11.1, "Rule of Reason"):
 
 ### Section 5(a) of the FTC Act
 
-The FTC Act "prohibits 'unfair or deceptive acts or practices in or affecting commerce'" [V] (Ch 12.1). Per the rule, **unfair practices** are those that cause or are likely to cause consumer injury, are unavoidable by consumers, and where the benefit does not outweigh the deception. **Deceptive practices** are those where "the seller misrepresents or misleads the consumer, and the misleading practice is substantial" [V] (Ch 12.1).
+The FTC Act prohibits "unfair or deceptive acts or practices in or affecting commerce" [V] (Ch 12.1). Per the rule, **unfair practices** are those that cause or are likely to cause consumer injury, are unavoidable by consumers, and where the benefit does not outweigh the deception. **Deceptive practices** are those where "the seller misrepresents or misleads the consumer, and the misleading practice is substantial" [V] (Ch 12.1).
 
 ### Six categories of unfair trade practices
 
@@ -815,7 +815,7 @@ The Securities Exchange Act of 1934 "represented a broad shift in the social and
 
 ### The SEC: structure and jurisdiction
 
-Section 4 of the Securities Exchange Act of 1934 created the **SEC** as "an independent agency of the United States federal government." Joseph P. Kennedy was the first chairperson [V] (Ch 14.2, "The SEC"). Five divisions: Corporation Finance; Investment Management; Trading and Markets; Enforcement; Economic and Risk Analysis.
+Section 4 of the Securities Exchange Act of 1934 created the **SEC** as "an independent agency of the United States federal government." "The first chairperson of the SEC was Joseph P. Kennedy" [V] (Ch 14.2, "The SEC"). Five divisions: Corporation Finance; Investment Management; Trading and Markets; Enforcement; Economic and Risk Analysis.
 
 The SEC oversees **self-regulatory organizations (SROs)** including NYSE, NASDAQ, and the Chicago Board of Options. Per Section 12(g), "companies with total assets exceeding $10 million and with 500 or more owners of any class of securities must register with the SEC unless they meets exemption requirements" [V] (Ch 14.2). The SEC also makes rules for emerging technologies, e.g., Title III of the JOBS Act 2012 Section 4(a)(6) on **crowdfunding**, exempt from registration when not exceeding $1,070,000 in 12 months (Ch 14.2).
 
@@ -919,8 +919,8 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 - *Kimberlee Leonard / Houston Chronicle* — code-of-conduct elements [BT] (Ch 3.1).
 - *Anna Spooner / LovetoKnow* — ethical-evaluation examples [BT] (Ch 3.1).
 - *Kellogg School of Management at Northwestern University* — five CSR benefits [BT] (Ch 3.2).
-- *Andrew Savitz* — triple-bottom-line definition [V, BT] (Ch 3.2).
-- *Bernard Okhakume / Daily Times* — CSR success factors [V, BT] (Ch 3.2).
+- *Andrew Savitz* — triple-bottom-line definition [BT] (Ch 3.2).
+- *Bernard Okhakume / Daily Times* — CSR success factors [BT] (Ch 3.2).
 - *Adam Smith and Herbert Spencer* — laissez-faire framing [BT] (Ch 14.2).
 - *Cheeseman (2016)* — international law textbook citations recur throughout Ch 13 [BT].
 - *Clarkson, Miller, and Cross (2018)* — recurring citation for international law definitions [BT].
@@ -931,7 +931,7 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 - *Klymak (2017)* — research on shaming and forced/child labour goods [BT] (Ch 13.2).
 - *Kennedy F. (President)* — New Frontier programme cited as Equal Pay Act context [BT] (Ch 9.3).
 - *Roosevelt F. (President)* — Securities Exchange Act of 1934 framing [BT] (Ch 14.2).
-- *Truman H. (President)* — international law framing quote (1945) [V, BT] (Ch 13.1).
+- *Truman H. (President)* — international law framing quote (1945) [BT] (Ch 13.1).
 - *Trump D. (President)* — international trade renegotiation context [BT] (Ch 13.1, 13.2).
 
 ## Positions the author explicitly frames against
@@ -940,7 +940,7 @@ In 1911, Kansas bank commissioner J.N. Dolley lobbied for the "first 'comprehens
 - *Profit-only foundations for organisations.* The text states an organisation "built on socially responsible values… will be stronger than an organization that is built on profit alone" (Ch 3.1).
 - *CSR as marketing pitch.* "One should not use corporate social responsibility as a marketing pitch for a company. Consumers will quickly pick up on this tactic, and it can damage the brand" (Ch 3.2).
 - *Treating decisions on purely deontological grounds.* The text takes the position that pure deontological ethics is impractical for dispute resolution: "In real life, it is very difficult to adopt a 100% deontological viewpoint" (Ch 2.2).
-- *Pure laissez-faire.* The 1934 Securities Exchange Act is presented as "a rejection of laissez faire" and "part of a larger social shift that opposed the long hours, unsafe working conditions, and child labor" of the Industrial Revolution (Ch 14.2).
+- *Pure laissez-faire.* The 1934 Securities Exchange Act is presented as a break with laissez-faire policy: "The rejection of laissez faire was part of a larger social shift that opposed the long hours, unsafe working conditions, and child labor that had become commonplace as a result of the Industrial Revolution" (Ch 14.2).
 - *Compelled personal-service performance.* "Personal service…may not be used to compel specific performance, since doing so would constitute forced labor, i.e. slavery, which is in violation of the U.S. Constitution" (Ch 7.3).
 - *Stereotype-based BFOQs.* The text notes BFOQs must be based on "actual qualifications, rather than stereotypes about the abilities of a certain class. For example, an employer is not expected to hire a man as a model for women's clothes," and explicitly that "there are no BFOQs for discrimination on the basis of race or color" (Ch 9.3).
 

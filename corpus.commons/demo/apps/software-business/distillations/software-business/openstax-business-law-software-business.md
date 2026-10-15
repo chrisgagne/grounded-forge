@@ -183,7 +183,7 @@ The decision: drop "fairness-tested" from all marketing; lead with the "60% time
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from was produced by pymupdf4llm 0.2.9, which drops text inside framed boxes; it has not yet been measured against the PDF, so the source may hold passages not covered here.
+**PARTIAL source text.** The converted text this source was read from lacks about 0.7% of the PDF's longer lines in the covered chapters, mostly table cells, which the converter dropped.
 
 **Borrowed-through gaps.** The deep reference carries several third-party citations that are not held as primary references in this corpus. The Thomas-Kilmann Conflict Mode Instrument (Kilmann and Thomas, 1977) is described as closely associated with the work of Pruitt and Rubin; neither is held independently. The Chevron mediation figures are given by the source without a cited origin; treat them as an [AE] example. The *Griggs v. Duke Power Co.* figures (12% vs 34% HS diploma; 6% vs 58% intelligence-test pass rates) are carried as [V] in the deep reference (the source's own statement of the case facts); the case record is not held. Harvard Law School's mediator study (Peter Adler finding) and the nolo.com six-step mediation sequence are both borrowed-through — neither source is independently held. The Michigan State University six-step ethical decision-making model is attributed but the original MSU publication is not held. (Source: OpenStax, *Business Law I Essentials*, deep reference, Part II–III)
 

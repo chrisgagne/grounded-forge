@@ -10,25 +10,25 @@
 **An experiment, built by AI and open for critique.** Claude (Anthropic) wrote nearly all of it: the code, these docs
 and the library behind it, with OpenAI's Codex as a second reviewer and as the grader.
 
-AI agents now write code faster than anyone can review it, and code review has become the queue. This project asks
-whether the person who signs off a change can do it from evidence instead of reading every line, and measures how far
-that gets.
+When AI agents write code faster than a team can review it, code review becomes the queue. This project asks whether
+the person who signs off a change can rely on evidence instead of reading every line, and measures how far that gets.
 
 ## What it does
 
 A change goes through a harness (we call it the factory) before anyone signs it off:
 
 1. **Tests come first and get locked.** An AI turns the request into numbered acceptance criteria and writes a test
-   for each. The factory checks the tests fail before the change exists, then locks them so the AI building the change
-   can't edit them.
-2. **The usual checks run.** The project's own tests and commands, plus secret, dependency and code scanners, all
-   sandboxed.
+   for each. The factory checks the project's tests pass before the new ones are added and fail once they are, then
+   locks them so the AI building the change can't edit them.
+2. **The usual checks run.** The project's own tests and commands, sandboxed, plus secret, dependency and code
+   scanners.
 3. **Two AI reviewers from different companies review it separately.** Claude and OpenAI's model each get their own
-   copy of the change in a fresh session, and work from a library of 18 open standards and studies on secure software
-   and AI-assisted development (NIST, OWASP, CISA, UK government guidance on quality assurance of code, and research).
+   copy of the change in a fresh session. When it's configured to, as in the comparison below, they work from a library
+   of 18 open standards and studies on secure software and AI-assisted development (NIST, OWASP, CISA, UK government
+   guidance on quality assurance of code, and research).
    A third AI sorts their findings, and can't wave through a serious finding either reviewer raised.
-4. **You get a one-page sign-off sheet**, written for someone who doesn't read code: what was asked for, which checks
-   passed, what you must decide, what's left over. You sign, or send it back in your own words; a send-back goes
+4. **You get a sign-off sheet**, written for someone who doesn't read code, with the evidence after it: what was asked
+   for, which checks passed, what you must decide, what's left over. You sign, or send it back in your own words; a send-back goes
    through the tests-first step again before the rebuild. The factory never signs for you.
 
 Every step lands on a tamper-evident log. What it can't promise: that the tests check the right behaviour, or that the
@@ -36,14 +36,16 @@ reviewers weren't fooled. [DESIGN.md](helpers/factory-warranty/DESIGN.md) lists 
 
 ## One change, start to finish
 
-The factory built one of its own features: a scanner rule that blocks code running text built at run time (`eval` and
-its relatives in JavaScript, TypeScript and Python). Chris read each sign-off sheet as a non-coder would. The first
+The factory built one of its own features: a scanner rule that blocks added lines matching listed JavaScript,
+TypeScript and Python patterns that run text built at run time (`eval` and its relatives). Chris read each sign-off sheet as a non-coder would. The first
 version flagged harmless code, so he sent it back: "It flags fixed text it shouldn't." The second version claimed to
 catch `eval` "however reached"; a reviewer showed it didn't, so he sent it back again: "Don't claim more than it
 catches." The third version listed what it doesn't catch, and he signed it. The rule's own list still misses two
 forms, which the signed sheet records. Along the way the run exposed three bugs in the factory itself, each fixed
 with a test. Cost: about $9 of Claude and 214,000 Codex tokens over five runs. The log and the signed sheet are in
-[the showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/).
+[the showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/). It ran before this library existed, with
+the lighter summary as the reviewers' grounding, and its config was edited afterwards to point here, so the hash the
+log recorded for that one file no longer matches; the log's chain and the signature still check out.
 
 ## Does the standards library help the reviewers?
 
@@ -56,7 +58,8 @@ early summary of it and 10 with an earlier version of the full library.
 So we wrote a harder test down before running it ([the pre-registration](helpers/factory-warranty/calibration/realbugs/PREREG-v3-grounding.md)):
 25 real changes from eight JavaScript and TypeScript libraries' history, 17 of them small bug fixes reversed to bring
 the bug back and 8 good changes. OpenAI's model picked them, not us. Each was reviewed twice with the library and twice
-without, and OpenAI's model graded each review against the bug's real fix, without knowing which side it came from.
+without. OpenAI's model matched each bug review's findings against the bug's real fix, without knowing which side it
+came from; stops on the good changes were counted mechanically.
 The library would count as helping only if it caught at least 3 more of the 17 bugs on both tries, while stopping at
 most one more good change.
 
@@ -65,17 +68,19 @@ most one more good change.
 | Real bugs caught on both tries | 11 of 17 | **16 of 17** |
 | Good changes stopped at least once | 3 of 8 | 4 of 8 |
 | Confirmed findings that name a standard, a source or a library row | 0 of 64 | 56 of 82 (68%) |
-| Review cost per change | about $0.27 of Claude and 25,000 Codex tokens | about $0.64 of Claude and 42,000 Codex tokens |
+| Review cost per review (one of the two per change; review only) | about $0.27 of Claude and 25,000 Codex tokens | about $0.64 of Claude and 42,000 Codex tokens |
 
 **The test was met as written:** 5 more bugs caught on both tries, and one more good change stopped, which the rule
 allowed (that stop came from a scanner, not the reviewers).
 
 **But it's weaker than that headline.** In three of those five, the review without the library caught the bug once,
-and on the other try returned broken output, so the factory stopped the change without naming the bug. All three of
-those breakdowns happened without the library; none with it. Counting only reviews that finished, it's 16 against 14,
+and on the other try OpenAI's reviewer ran past its 30-minute time limit and was stopped, so the factory stopped the
+change without naming the bug. Without the library that reviewer hit the limit five times in 50 reviews; with it, once.
+Without the library it read around the code base for longer, which may be the library's real effect here: focus,
+showing up as finishing in time. Counting only reviews that finished, it's 16 against 14,
 a gap of 2, under the bar we set. (That count isn't the rule we registered: it lets three cases count on one finished
-review where the library side needed two.) Whether the library makes a review less likely to break down, or the three
-landed on one side by chance, 100 reviews can't tell.
+review where the library side needed two.) Whether a longer time limit would close that gap, these 100 reviews can't
+tell.
 
 Other limits: 17 bugs is a small sample, and two tries per change is an easier bar than three. The project's own test
 suites were switched off, so this measures the review step, not the whole factory. No human has checked the AI
@@ -88,7 +93,8 @@ it was published, not in this repository. Full results:
 
 **The factory stops too many good changes.** Without and with the library, 38% and 44% of the runs on good changes (6 and 7 of
 16) ended in a stop, against our own bar of 20%. Six of the stops on each side came from review, mostly reviewers'
-findings and, in three runs across both sides, broken output; the seventh with the library came from a scanner. Three of the eight
+findings and, in three runs across both sides, a reviewer that hit its time limit; the seventh with the library came
+from a scanner. Three of the eight
 good changes were stopped on both sides. Some flags are arguably right (one change updated a library's source but not
 its committed minified build), but those changes were picked as good, so they count against us. For whoever signs off,
 every false stop is time spent reading a sheet and clearing it.
@@ -101,16 +107,18 @@ rules fresh each run. Pinning them is on the list.
 
 ## What's still a proposal
 
-The factory's rules (when a finding blocks, when the sheet recommends a qualified second person, the bar the test
-above was measured against) are in [`policy.yaml`](helpers/factory-warranty/factory/policy.yaml), each marked
-PROPOSED with who set it. Several draw on the sources (for example NIST SP 800-218A: no AI model alone in the path of a
+The factory's rules (when a finding blocks, when the sheet recommends a qualified second person, and the targets a
+replay is reported against, such as the 20% false-stop bar) are in
+[`policy.yaml`](helpers/factory-warranty/factory/policy.yaml), each marked PROPOSED with who set it. The library
+comparison's own rule is in its pre-registration. Several draw on the sources (for example NIST SP 800-218A: no AI model alone in the path of a
 significant security decision); the thresholds and categories are design choices. The second-person rule is advice
 on the sheet; the factory doesn't check that the second review happened. [conformance/](helpers/factory-warranty/conformance/)
 says, standard by standard, what is shown by a test, what is only asserted, and what is a gap.
 
 Other limits: macOS only (it sandboxes with `sandbox-exec`); Codex's separation from the other reviewer is by
-procedure, since its read-only sandbox can still read the disk; the log is tamper-evident, not tamper-proof, against
-someone with the operator's own access; and a signature is a record, not a cryptographic signature.
+procedure, since its read-only sandbox can still read the disk; the log shows tampering by the agents or by accident, but
+someone with the operator's own access could rewrite it and its anchor together; and a signature is a record, not a
+cryptographic signature.
 
 ## The library
 
@@ -130,7 +138,7 @@ and, separately, by OpenAI's model. Two are labelled subsets (the Microsoft play
 The sources don't always agree, and the library names 29 places where they disagree, pull against each other or speak
 to different roles. One direct disagreement: the Duck Book calls hallucination in language models inevitable, while
 *Why Language Models Hallucinate* argues it persists because evaluations reward guessing, which can change. The
-reviewers are told to say so when a disagreement matters.
+assistant in the app is told to say so when a disagreement matters; the factory's reviewers aren't yet.
 
 ## Try it
 
@@ -156,7 +164,7 @@ has the commands and the config.
 | [`tasks/`](tasks/warranting-agent-built-software.md) | The job the library is organised around, "warranting agent-built software", in eight stages of a change's life |
 | [`distillations/`](distillations/warranting-agent-built-software/) | One write-up per source, aimed at that job, and the index the reviewers read: 271 trigger-and-response rows and the 29 disagreements |
 | [`references/`](references/), [`sources/`](sources/) | Each source's full write-up, its converted text, its licence and its check log |
-| [`apps/factory-warranty/`](apps/factory-warranty/), [`distros/`](distros/) | Everything above built into one app, and its download |
+| [`apps/factory-warranty/`](apps/factory-warranty/), [`distros/`](distros/) | The write-ups, the indexes and the factory built into one app, and its download |
 
 This folder is a corpus in [grounded-forge](../../README.md), which builds assistants that answer from a fixed set of
 sources rather than from memory. In its terms: a *corpus* is the set of sources; a *distillation* is one source

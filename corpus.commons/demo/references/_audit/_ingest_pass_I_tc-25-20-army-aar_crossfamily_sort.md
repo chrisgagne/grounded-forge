@@ -2,7 +2,7 @@
 
 Read in full: `sort-brief.md`, `pass-i-spec.md`, all three calibration fixtures, both audit reports, `post-audit-deep.md` (296 lines), `tape.md` (1,413 lines), and `source-card.md`. I compared the frozen and post-audit references and read both auditors’ briefs to establish their original scope.
 
-I independently checked the relevant AAR and retro distillation passages, light-reference passages, and Markdown index rows. For the original, I checked PDF metadata, deterministically extracted PDF pages 6–8 and 16–17, and visually inspected page 16, containing Figure 3-2: :codex-file-citation{path="/Users/cgagne/Documents/LLM Repos/repos/grounded-forge/.claude/worktrees/wizardly-heyrovsky-6827ae/_planning/pass-i/demo/tc-25-20-army-aar/source.pdf" purpose="source"}
+I independently checked the relevant AAR and retro distillation passages, light-reference passages, and Markdown index rows. For the original, I checked PDF metadata, deterministically extracted PDF pages 6–8 and 16–17, and visually inspected page 16, containing Figure 3-2: (`_planning/pass-i/demo/tc-25-20-army-aar/source.pdf`)
 
 Both reference manifests match their files. The post-audit SHA-256 is:
 

@@ -20,7 +20,7 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 
 6.  **Counterfactual reasoning is a forbidden move.** "FLA teams must guard against making counterfactual arguments such as: 'If this person had done X, then the outcome would have been Y and the accident would not have occurred.' The FLA is only useful when it learns why people did what they actually did (why it made sense to them at the time)" [V] (Source: Part 9, "Avoid Counterfactual Arguments").
 
-7.  **Five Hows as local-rationality reconstruction tool.** The Lessons Learned Analysis applies the Five Hows to each key decision in the event: explore how and why decisions that seemed wrong in hindsight "were actually valid or at least legitimate in context at the time" [V] (Source: Part 7, "The Five Hows – A Sensemaking Tool") Consensus is not the goal; tension between team-member perspectives is valuable.
+7.  **Five Hows as local-rationality reconstruction tool.** The Lessons Learned Analysis applies the Five Hows to each key decision in the event: explore how and why decisions that seemed wrong in hindsight "were actually valid or at least legitimate in context at the time" [V] (Source: Part 7, "The Five Hows – A Sensemaking Tool"). Consensus is not the goal; tension between team-member perspectives is valuable (Part 7, "The Lessons Learned Analysis"). The graphic gives one stem and five completions: "How it made sense at the time of - and leading up to - the incident to ..." [V] "...expect what they expected." "... ignore a risk that (in hindsight) seems so obvious." "... see things the way they were seen in their eyes." "... forgo an available hazard mitigation." "...shortcut a standard procedure or process." [V] (Source: Part 7, "The Five Hows – A Sensemaking Tool", graphic). The focus is how it made sense "to those involved" [V], not to the review team (Part 7, box).
 
 8.  **Beliefs, perceptions, expectations, paradigms decomposition.** The Lessons Learned Analysis procedure surfaces the beliefs, perceptions, expectations and paradigms held before the experience that in hindsight turned out wrong, inaccurate, misleading or deceptive (Source: Part 7, "A Process for conducting a Lessons Learned Analysis", step 4). This four-category decomposition makes invisible pre-event mental models visible and testable.
 
@@ -36,6 +36,18 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 
 14.  **Recommendations only through Learning Review.** "In many circumstances, recommendations actually interfere with learning. Often recommendations, when implemented, add complexity to the workplace, which has the paradoxical effect of increasing risk" [V] (Source: Part 5, "Recommendations vs Lessons Learned") Recommendations require Learning Review with the Learning Review Board and Safety Action Plan.
 
+15.  **The six AAR-type dialogue questions.** Handout D gives the questions facilitators "most commonly use" [V]: "What was planned? What was your leader's intent?" "What information were you provided? What did you feel was missing? Why couldn't you get this?" "What was the situation? What did you see? What were you aware of that you couldn't see?" "What did you do? Why did you do it? What didn't you do? Why didn't you do it?" "What was routine? What surprised you?" "What did you learn? What might you do differently next time? What can we learn as an organization? What might we do differently?" [V] (Source: Handout D, "After Action Review-Type Questions"). They run from intent through information, situation, action and surprise to individual and organisational learning.
+
+16.  **No signed witness statements, no recordings.** "Very often people involved in a traumatic event remember things that never actually happened and cannot recall key events that they were directly involved with. This is what happens to normal and honest people" [V]. "Consequently, FLA Teams never collect written witness statements or record interviews. We don't want participants to feel like that have to maintain or defend early perspectives of what they think happened" [V] (Source: Part 6, "No Signed Witness Statements: An FLA Commitment"). The dialogue is where contrasting memories meet, often with "moments of shock and surprise" [V].
+
+17.  **Interview technique: how and what, never why.** "Never ask WHY; instead ask HOW or WHAT" [V]; "The 'why' question puts people immediately on the defensive" [V]; instead ask, "What was going through your mind as that was occurring?" [V] (Source: Handout B, "Be Curious"). Open with "What are you able to tell me about your experience?" [V] (Part 6, "Interviews"; Handout B). Give "space to talk and give room for silence" [V]; at the end, paraphrase back what you heard so the person can correct it, and "make sure they are mentally in a good place before you leave" [V] (Source: Handout B).
+
+18.  **The convener may be the elephant in the room.** A December 2014 analysis found FLAs "tend to not include an examination of the decisions made by Delegating Officials and other key supervisors" [V]. The guide asks the Delegating Official whether "you—your decisions, guidance and leadership—are one of the key influences that need to be examined" [V], and suggests asking the team to examine "Why were they there?" [V] (Source: Part 5, "Are you the elephant in the room?").
+
+19.  **Four biases and a way of thinking.** Handout C's watch-outs are confirmation bias, the fundamental attribution error, outcome bias, hindsight bias and counterfactual thinking (Source: Handout C, "FLA 'Watch outs'"; three of the five boxes are image-held and read from OCR in the deep reference). Counterfactuals "will blind the team from understanding the event in context" [V].
+
+20.  **Fear the fusion, not the confusion.** "When everyone is in agreement, you either didn't need to lead the facilitated group analysis (everyone is in agreement) or you haven't revealed points of departure or they don't want to talk about it" [V] (Source: Part 6, box). Agreement in the room is a prompt to look for the points of departure, not a sign the review is done.
+
 ## Questions to Ask During After-Action Review
 
 ### Phase 0: Scoping
@@ -46,6 +58,8 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 | Is the learning opportunity here even if the outcome was minor? | Would a small difference have changed the outcome classification? If yes, the learning opportunity is real regardless of actual outcome severity. |
 | Is the administrative firewall in place? | Has the Delegating Official issued a signed delegation of authority committing to no punitive administrative actions? |
 | Is there enough trust in this unit for honest accounts? | Is there enough trust here to support such an analysis? Are there conflicting stories surrounding the event? |
+| Is the convener's own decision-making in scope? | Has the Delegating Official asked the team to examine "Why were they there?" [V], including their own decisions (Part 5, "Are you the elephant in the room?")? |
+| Is the team clear that nothing will be recorded or signed? | No written witness statements and no recorded interviews (Part 6, "No Signed Witness Statements"). Has that been said to participants? |
 
 ### Phase 1: Timeline and Local-Rationality Reconstruction
 
@@ -54,6 +68,8 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 | What did participants believe, perceive, expect, and assume before the event? | Work through the four-category decomposition for each key decision: what was the belief, perception, expectation, and paradigm the participant held at the time? |
 | Are we interviewing before hindsight contaminates accounts? | Interview as soon as possible (Handout C, "FLA 'Watch outs'"); "memories change; perspectives shift as time progresses" [V] (Part 5, "Should the affected people take Notes?"). |
 | Are accounts diverging? | "Don't see this as somebody being right and somebody being wrong" [V] (Part 8, "Different Perspectives"). The guide quotes Dekker, Cilliers and Hofmeyr: diversity of narrative is a source of resilience in complex systems [BT]. |
+| How do we open each interview? | Start with easy questions, then "What are you able to tell me about your experience?" [V]; ask how or what, never why (Handout B). |
+| Which dialogue questions do we use? | Handout D's six AAR-type questions, from "What was planned? What was your leader's intent?" [V] to "What can we learn as an organization? What might we do differently?" [V] |
 | Has the interview reached a traumatic memory? | Do not take the interview deeper into that recall; the guide leaves it to mental health professionals. Apply the deflection-question protocol: ask about something that went right or something the person knows well. Make sure they know how to reach mental health professionals (Part 6, "Interviews"). |
 
 ### Phase 2: Contributory-Factor Analysis
@@ -64,6 +80,8 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 | Is counterfactual reasoning creeping in? | Redirect to what people actually did and why it made sense to them at the time. |
 | Are multiple improbable events visible? | The Lessons Learned Analysis most often reveals that multiple improbable events were necessary. Is the team anchoring on one? |
 | Are we applying the Five Hows to each key decision? | For each key action identified: how did the participant develop their understanding of the situation, and why did the action make sense to them? |
+| Which of the watch-outs is operating? | Confirmation bias, fundamental attribution error, outcome bias, hindsight bias, counterfactual thinking (Handout C): which of them is shaping the team's reading of the event? |
+| Has the room fused too early? | If everyone agrees, was the facilitated analysis not needed, or are there points of departure not yet revealed, or that people don't want to talk about (Part 6, "FEAR THE FUSION")? |
 | Is the work-as-imagined / work-as-done gap visible? | How were employees actually completing the work vs how administrators expected it to be completed? |
 
 ### Phase 3: Just-Culture Sorting
@@ -88,6 +106,8 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 |---|---|
 | Has the story been validated through the Readback process? | Read the finalised learning product aloud to participants; they correct important details. "Remember this is their story, not yours" [V] (Part 8, "Validating Stories through the Readback process"). |
 | Is the learning product in the right format for its audience? | Organisational learning product (for policy-makers: gap between work-as-imagined and work-as-done) vs field learning product (for frontline: emotive, experiential, personally reflective). |
+| Has the Delegating Official been debriefed? | Appendix D's oral debrief: thank helpers, review the goals, report who was interviewed, preview the story, summarise, preview lesson categories, name what won't be in the document, agree next steps and a timeline. |
+| Have the harms been acknowledged? | Appendix F's restorative checklist: who is hurt, what do they need, whose obligation is it to meet the need? |
 | Has the Recommended Reading gap been named? | The guide cites Dekker, Hollnagel, Reason and Conklin in its Recommended Reading, Weick and Sutcliffe in its Glossary and Handout D, and Klein in its Glossary; the demo holds none of them directly. |
 
 ## What to Look For
@@ -99,6 +119,8 @@ The LFUO 2024 guide is a learning-review framework that runs from choosing the r
 | An FLA is producing a list of recommendations | Recommendations belong to the Learning Review pathway, not the FLA | Name this explicitly; if the sponsoring leader wants recommendations, initiate the Learning Review process |
 | An interviewee's account slows or stops at a traumatic moment | The interview has reached vivid traumatic recall, which the guide leaves to mental health professionals | Apply the deflection-question protocol: redirect to a comfortable domain and do not steer back into the vivid recall; point them to mental health support |
 | The conversation uses "should have" or "could have" language | Counterfactual reasoning has entered — the forbidden move | Redirect to: "What did they actually do, and why did that make sense at the time?" |
+| An interviewer asks "Why did you…?" | The why question puts people "immediately on the defensive" [V] (Handout B) | Reframe as how or what: "What was going through your mind as that was occurring?" [V] |
+| The whole group agrees early | The facilitated analysis may not have been needed, points of departure may not have been revealed, or people may not want to talk about them (Part 6, box) | Ask where accounts differ; invite the quiet voices |
 
 ## When to Use This Reference
 
@@ -107,6 +129,7 @@ Reach for this source when:
 - The group is using root-cause language and needs a named epistemological replacement (networked causality).
 - The administrative firewall question has not been answered and the review is about to proceed without it.
 - A participant's account is approaching a traumatic memory and the deflection-question protocol is needed.
+- The facilitator needs ready-made dialogue questions (Handout D) or interview questions and an interview structure (Handout B).
 - Phase 4 is producing recommendations when the sponsoring leader has not initiated a Learning Review.
 
 Reach for LFUO for the learning-review stance (networked causality, local rationality, administrative firewall) and for events that outgrow a local AAR; pair it with TC 25-20 for the AAR protocol itself.
@@ -139,8 +162,6 @@ A maintenance team reviews a near-miss: a gas line was struck during a dig becau
 | DOE HPI Handbook Vol. 1 (doe-hpi-handbook-vol1) | Both reject blame-first investigation and reconstruct why actions made sense at the time (DOE via Dekker). They part on vocabulary: DOE keeps "root cause" and the Anatomy of an Event as a backward-worked causal chain, where LFUO rejects causal statements. In an LFUO-run review, use DOE's model as a prompt list for contributors, not a causal verdict. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** Sidney Dekker is cited repeatedly throughout the guide (Dekker's *Just Culture* and *The Field Guide to Understanding Human Error* are in the Recommended Reading, the Field Guide is also quoted in Part 10, and the Dekker & Breakey paper on restorative justice is cited in the Glossary's restorative-justice entry); the demo corpus does not hold Dekker directly. Erik Hollnagel (ETTO principle, Resilience Engineering) is cited borrowed-through. Weick and Sutcliffe (*Managing the Unexpected*, HRO principles) are cited borrowed-through. Gary Klein (Recognition Primed Decision Making) is cited borrowed-through. J. T. Reason (*Managing the Risks of Organizational Accidents*) is cited borrowed-through. Todd Conklin (*Pre-Accident Investigations*) is cited in Recommended Reading. The Roese & Vohs 2012 paper on hindsight bias is cited borrowed-through. None of these authors are held as primary references in the demo corpus; their works are not openly licensed and cannot be cited directly here.
 

@@ -54,6 +54,7 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 
 ## Phase 2: Data gathering (positives, deltas, insights)
 
+- Gather data with the AAR-type questions, asked as how and what → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Run chat-waterfall written-first input → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Run 1-2-4-All to refuse HiPPO-driven discussion → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Run 1-2-4-All from the Open Practice Library → [open-practice-library](open-practice-library.md)
@@ -73,6 +74,7 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 
 ## Phase 3: Insight / cause analysis (the *why*, the system, the recurring pattern)
 
+- Treat early agreement as a warning → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Refuse the "root cause" framing → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Refuse counterfactual reasoning → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Apply Five Whys with surprise-as-progress-signal → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)

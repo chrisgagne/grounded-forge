@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:2c01dbb539b3f1d631ea39bb2e310e999f6c9684748fcf03987775135e92d3a8 -->
+<!-- derived-from-deep: sha256:a10e1eeb60987843801dd946e70c6b6eb5e20861a10936aa3d30e6ab556869b3 -->
 # Letaw, Handbook of Software Engineering Methods, Retro Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.
@@ -9,7 +9,7 @@ The Handbook projects onto the retrospective as a *structured-method toolkit*: L
 
 ## Key Concepts for Retro
 
-1. <!-- concept: fist-of-five --> **Fist of five for surfacing latent dissent before experiment commit.** One person states a proposed experiment; each team member responds by holding up a fist (strong reject / blocks consensus) or one through five fingers (up to strong accept and willing to lead) [AP] (Ch 2.4.3, "Measuring and Building Consensus: Fist of Five Method"). If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again; how much consensus is enough is the team's or leader's call. The method "can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment" [V] (Ch 2.4.3).
+1. <!-- concept: fist-of-five --> **Fist of five for surfacing latent dissent before experiment commit.** One person states a proposed experiment; each team member responds by holding up a fist (strong reject / blocks consensus) or one through five fingers (up to strong accept and willing to lead) [AP] (Ch 2.4.3, "Measuring and Building Consensus: Fist of Five Method"). If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again; how much consensus is enough is the team's or leader's call. The method "can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment" [V] (Ch 2.4.3). The book adds a caution: "Meanings of single-finger hand gestures vary around the world" [V], so a mixed or international group should agree what each count means before voting (Ch 2.4.3; the voting advice is this distillation's application).
 
 2. <!-- concept: raci-matrix --> **RACI matrix for ambiguous experiment ownership.** The RACI matrix defines Responsible (who does the work), Accountable (who approves the work and makes sure it gets done), Consulted (who advises), and Informed (who receives status) [AP] (Ch 2.4.2, "Defining Roles and Responsibilities: RACI Matrix"). When a retro experiment has no one in the Accountable cell — "team responsible," "engineering to investigate" — it is more likely to be dropped before the next experiment review. Building a minimal RACI for each experiment before adjournment is the structural refusal of ambiguity.
 

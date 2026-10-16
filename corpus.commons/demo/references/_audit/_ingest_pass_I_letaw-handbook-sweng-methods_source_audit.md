@@ -278,3 +278,82 @@ Before reading the deep reference, three calibration fixtures were read to ancho
 - Pass I outcome: **PASS**
 
 The deep ref is cleared to ship. The light ref and distillations derived from it inherit this audit's discipline.
+
+## Scoped re-audit 2026-10-16: restored callouts
+
+**Scope.** Only the callout and example-box text restored by the 2026-10-16 re-conversion (PyMuPDF text blocks, sort=False) and the deep-reference text written for it (`git diff origin/main`). Everything else was audited earlier and is unchanged. Out of scope, so not re-audited: the body-text "17%–22%" CHAOS row.
+
+**Read.** Every tape range in the dispatch, in full: 244–266, 482–516, 528–560, 656–676, 744–766, 846–870, 892–912, 987–1011, 1216–1240, 1362–1386, 1576–1596, 1665–1773, 1831–1877, 1947–1971, 2056–2076, 2132–2156, 2246–2270, 2360–2380, 2440–2470, 2791–2811, 2828–2848, 2868–3075, 3129–3153, 3205–3229, 3245–3269, 3296–3334, 3363–3383, 3454–3503, 3532–3552, 3761–3782, 4328–4348, 4449–4469. Grep checks: Standish/CHAOS mentions (lines 492–525, 703, 4459), the RACI example (912–935). Deep reference: every added or changed line in the diff (lines 9, 33–35, 39, 61, 75, 79, 91, 121, 129, 138–144, 148, 152, 158, 172, 189, 217, 219, 284–291, 293, 299, 320, 324, 341, 360, 409), read in full. One page render (PDF p. 47, Figure 3.3), to check the "project cards" description: three boxed cards, confirmed.
+
+**Verbatim check.** `check-verbatim.py` before and after: 67 apostrophe, 23 initial, nothing that needs a fix. Every restored `[V]` quotation matches the tape, including the eight heuristic design recommendations, the three Figure 3.4 criteria, the Manifesto, the CHAOS figures and the Ch 8 callouts.
+
+**Counts.**
+- Claims audited: 49
+- Source-anchored as written: 44
+- Stripped: 1
+- Marker or wording corrected: 2
+- Coverage-line completions: 2
+- Quotations corrected: 0
+
+**Changes.**
+1. Line 35 (CHAOS subsection): stripped "The callout reports the figures without discussing how the report defines failure." No passage says this. It is the ingester's methodological caveat, which invites doubt the source doesn't raise.
+2. Line 39 (Agile and the Manifesto): "The Manifesto is quoted in full" became "The source quotes the Manifesto". Whether the quotation is the *full* Manifesto can't be checked against this source; that would take outside knowledge. The quotation itself is verbatim.
+3. Line 129 (user stories): "to a satirical Twitter feed" became "to a Twitter feed". "Satirical" is an evaluative label the source doesn't use (the callout says "comically bad user stories").
+4. Line 9 (Coverage): the list of what was added left out several in-scope additions. Added "the quality-attributes and user-story callouts" (Part III), "the two GenderMag pointers" (Part VII) and "further-resources" (Part VIII), so the list matches the body.
+
+**Checked and left as written.**
+- CHAOS "citing Standish Group 2015" (line 35, and the line 360 row): the callout itself names only "The 2015 CHAOS report". The same section's body bullet credits "CHAOS Report from the Standish Group International, Inc. (2015)" (tape 519–521), and Ch 1's references list it (703). The attribution holds.
+- Gesture callout: "is an insult" paraphrases "it means 'up yours!'". [AP] [BT] fits.
+- Use-case citation "(Ch 3.6, Figure 3.2)": Figure 3.2 comes before the 3.6.1 heading (tape 1669–1693), so the citation is correct.
+- Figure 3.3 quotation: "spread of disinformation" is Figure 3.3's wording. Figure 3.4 reads "the spread of disinformation", and the deep reference quotes 3.3 correctly.
+- Integrity paragraph (line 409): its comparison remark ("wrapped reference entries, a wrapped code line and the ISO definition's citation") is conversion provenance. The tape agrees as far as it goes (the reference ranges, and the ISO citation on its own line at 250–254), but the comparison itself wasn't re-run.
+- Restored boxes left out of the deep reference (the RACI example list at 902–935; "If any links are broken, try the Wayback Machine"): leaving them out is a selection choice. The Coverage line doesn't claim every box was added.
+
+**Derived tier.**
+- Light reference: the "Manifesto's four values are quoted in full" sentence is accurate as worded (all four values are quoted), so the deep-reference change in item 2 doesn't make it stale. The CHAOS sentence and row, the requirements worked examples (use case, US-023, the Definition of Done's 10 ms criterion, the SDD/SRS quotation) and the heuristic-recommendations sentence all trace to the tape. None of the light reference's additions carries the stripped caveat or "satirical".
+- Software-business concept 16's Definition-of-Done sentence: the quotation "The message appears within 10 milliseconds" is verbatim (tape 1861–1863). Tying it to INVEST's "Testable" is task application, which belongs at distillation tier, and it's supported by the source's own link between acceptance criteria and "done" (1835–1840).
+- Source card coverage sentence: accurate.
+- The PARTIAL notes removed from the five distillations: the deep reference now covers the restored text. But only software-business gained content from it. The other four (aar, decision-making, retro, stakeholder-engagement) weren't re-projected. Retro's and decision-making's fist-of-five and requirements material may be worth checking against the new gesture caution, user-story and Definition-of-Done content. Taking the notes out is honest only if the parent judges that content immaterial to those tasks. All six derived files carry `derived-from-deep` stamps, which this re-audit's edits make stale. Re-stamp after the parent's re-derivation decision.
+- Claims the derived tier might carry that changed here: none of the four changes alters a claim found in the light reference or any distillation.
+
+**Open.** The deep reference is not stamped here; the driver stamps once the cross-family leg is done. The "Pass I has not run." lines are untouched.
+
+### Apply leg (sort reconciliation and derived tier)
+
+**Sort result.** 21 findings sorted: 15 confirmed and fixed, 0 confirmed with a wrong or incomplete fix, 0 missed by the fix-in-place audit, 0 over-flagged by the blind auditor, 2 over-flagged by the fixer, 4 disputed; 0 new defects; gate PASS. Remaining edits: none.
+
+**Disputed findings, settled against the tape.**
+- S1 (CHAOS caveat stripped, line 35): the callout (tape 492–506) is a heading sentence and six figures; it says nothing about how failure is defined. The removed sentence described an absence, not a source passage. Left stripped.
+- S3 ("satirical", line 129): the callout says "comically bad user stories" (1763); "satirical" isn't in it. Left as "a Twitter feed" [AP].
+- H6 (marker scope, line 15; outside this re-audit's scope): every quoted fragment matches tape 278–281, and the unquoted "the field keeps changing" traces to "Software engineering as a field also keeps changing" (279). No defect; left as written.
+- H12 (Waterfall quotation, line 400; outside scope): matches tape 480 exactly (apostrophe notice only). Left as written.
+- S2 (over-flagged): "The source quotes the Manifesto" is accurate and stays.
+
+**Verbatim check.** `check-verbatim.py` on the deep reference: 67 apostrophe, 23 initial, no mismatches.
+
+**Derived tier.** The deep reference's changed claims since the earlier audit are the fixer's three (S1 strip, "quoted in full", "satirical") plus the Coverage and integrity notes. Read in full: the light reference and all five distillations. Only one derived claim echoed a changed one: the light reference's "The Agile Manifesto's four values are quoted in full" became "The source quotes the Agile Manifesto's four values", matching the deep reference's wording (tape 535–550). Software-business concept 16's added sentence checks out: "The message appears within 10 milliseconds" matches tape 1861–1863, and the deep reference lines 138–144 back it. No distillation index row carries a changed claim. No provisional or PARTIAL header text remains. `check-verbatim.py`: light reference clean; software-business 4 apostrophe, 3 initial, no mismatches.
+
+### Gate settlement (2026-10-16, orchestrator)
+
+The apply leg passed the gate with one open item: whether the aar, decision-making, retro and stakeholder-engagement distillations should carry restored callouts. Settled as Pass G would: the fist-of-five concept in all four now carries the hand-gesture caution ([V], Ch 2.4.3), labelled where it turns into advice; stakeholder-engagement's Definition-of-Done concept carries Figure 3.4's US-023 example ([V], Ch 3.6.1); and its cross-cultural limits note cites Ch 2.4.3. The fidelity check covers these additions.
+
+
+## Second leg
+
+**Auditor:** gpt-6.1-sol via the Codex CLI, read-only sandbox, for both the blind leg and the sort leg.
+
+**Order of work (anti-anchoring):** the second leg audited a frozen copy of the pre-audit deep reference (sha256 `cada55f2d15253dbec22e1c6da61d7a48d2fc7984d261899c6a0706eca620d01`) blind, with the full tape, the original where available and the source card. In a separate run it then read both audits and the post-audit deep reference (sha256 `c5b45850b3847151fe9048058ac4f7ba86a341017ee4c8ea5d37d523a4ef57a3`), checked each finding against the source, and sorted them. Files: `_ingest_pass_I_letaw-handbook-sweng-methods_crossfamily_blind.md`, `_ingest_pass_I_letaw-handbook-sweng-methods_crossfamily_sort.md`, `_ingest_pass_I_letaw-handbook-sweng-methods_crossfamily_prompts.md`.
+
+**Sort result:** 21 findings sorted: 15 confirmed and fixed, 0 confirmed with a wrong or incomplete fix, 0 missed by the fixer, 0 over-flagged by the blind auditor, 2 over-flagged by the fixer, 4 disputed, 0 new defects; gate verdict PASS.
+
+**Remaining edits applied (2026-10-16):** The sort listed no remaining edits, so 0 were applied as written, 0 applied with changed wording and 0 declined; the four disputed findings (S1, S3, H6, H12) were settled against the tape in favour of the current deep-reference wording.
+
+**Gate:** accepted by operator. Deep reference sha256 `091e513ad1ffc3231136d5b99748053baa55b8c8289b88e6da0d16208c57e83d`, stamp included.
+
+## Derived-tier fidelity check (2026-10-16)
+
+Fidelity check of the derived tier for the restored callouts (2026-10-16). I checked 37 claims against the audited deep reference: 16 light-reference additions, 3 each in the aar, decision-making and retro distillations (the fist-of-five caution and its labelled application, plus the PARTIAL-note removal), 4 in software-business and 7 in stakeholder-engagement, and the source card's coverage sentence. The 91 index rows were unchanged and carry no restored-text claim, and their structure checked clean. Fixed 4. Two restored a dropped qualifier or scope: the light reference's heuristic-6 recommendation now says Tim and Pat bypass steps and tutorials they don't need, not the whole path, and stakeholder-engagement's cross-cultural note now says single-finger gestures. One re-anchored a quotation to the wording the deep reference carries: stakeholder-engagement concept 10 now quotes US-023's story as in Figure 3.3, not Figure 3.4's "the spread" variant. One labelled an application as the distillation's own: software-business concept 16's link between Figure 3.4 and INVEST's "Testable". check-verbatim on each edited file shows only apostrophe and initial flags, none in edited lines. One anchor defect in the deep reference is recorded in `fidelity-deep-defects.json`: the GenderMag facets pointer is anchored Ch 7.1 but sits in the Chapter 7 opening (tape L2801). No derived file carries it.
+
+### Post-stamp anchor fix (2026-10-16, orchestrator)
+
+The fidelity check recorded one deep-reference defect: the GenderMag facets pointer was anchored (Ch 7.1), but the callout sits in the Chapter 7 opening (tape L2801), before the 7.1 heading. Re-anchored to (Ch 7, opening); derived tier restamped.

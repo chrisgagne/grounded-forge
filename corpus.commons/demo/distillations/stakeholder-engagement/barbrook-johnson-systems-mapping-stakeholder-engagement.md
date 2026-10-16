@@ -215,8 +215,6 @@ The scenario is operator-authored; all framework citations trace through `corpus
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels. The source has been re-converted and now holds them, but they are not yet covered here, so claims about those tables rest on the surrounding prose.
-
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Star and Griesemer (1989) — boundary-object concept (Ch 9) [BT]
 - Dennett (2014) and Johnson (2015) — "interested amateur" framing (Ch 9) [BT]

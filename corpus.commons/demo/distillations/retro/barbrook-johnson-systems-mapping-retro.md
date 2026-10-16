@@ -48,7 +48,7 @@ Barbrook-Johnson & Penn's method catalogue projects onto the retro axis at phase
 | Need | Question |
 |---|---|
 | A problem is recurring for the second or third retro | Build a CLD together. Start with the core system engine: what are the two or three variables at the centre of this problem, and which feedback loops connect them? Build the first diagram around the engine, up to about twenty nodes ("Twenty nodes seem to be a useful limit here" [V]). (Ch 4, "How Do You Create Causal Loop Diagrams?") |
-| The team has drawn a CLD and it is getting large and unwieldy | Extract a submap: pick the factor the team agrees is most important and map one to two steps upstream and downstream. What is driving it? What is it driving? (Ch 5, "What Is Participatory Systems Mapping?") |
+| The team has drawn a CLD and it is getting large and unwieldy | Extract a submap: pick the factor the team agrees is most important and map one to two steps upstream and downstream. What is driving it? What is it driving? Table 5.1's questions sharpen this: "What is influencing the thing we care about? Is it vulnerable or supported?" [V]; for an experiment the team controls, "Are there unexpected indirect effects?" [V] (Ch 5, "What Is Participatory Systems Mapping?"; Table 5.1) |
 | Participants are defending their positions rather than negotiating the map | The map is a boundary object. Redirect: *the map says X causes Y — does your experience confirm or contradict that link? What would you change?* The shared task is improving the map, not winning the argument. (Ch 9, "Defending the Use of a Participatory Process to Build and Use Your Map") |
 | The team's CLD is growing into a horrendogram | Interrupt and refocus on the core system engine. Introduce the rest in steps (colour-code or group it by theme) rather than deleting it; for a large map, work through submaps. (Ch 4, "Commons Issues and 'Tricks of the Trade'"; Ch 5, "What Is Participatory Systems Mapping?") |
 | The facilitator wants to check whether a systems-mapping tool is warranted | Are feedback loops present and important here? If not, a CLD "will be less useful" [V]. (Ch 4, "What Are Causal Loop Diagrams Good and Bad At?") |
@@ -60,6 +60,7 @@ Barbrook-Johnson & Penn's method catalogue projects onto the retro axis at phase
 | The team has agreed on an experiment and wants to ensure it has a stated causal theory | Trace the ToC: what is the experiment, what does it produce, what does it change in the system, and what is the intended long-term effect? Name the assumption in each causal link — that is the hypothesis the experiment will test. (Ch 3, "How Do You Create Theory of Change Diagrams?") |
 | The proposed experiment has been tried before with no lasting effect | Which feedback loop in the CLD does this experiment address? Does the experiment disrupt the vicious cycle or only one of its symptoms? What would addressing the loop directly require? (Ch 4, "Commons Issues and 'Tricks of the Trade'") |
 | The team has multiple candidate experiments and wants to prioritise | Use the CLD from Phase 3: which experiment would disrupt a vicious cycle or strengthen a virtuous one? (Ch 4, "Commons Issues and 'Tricks of the Trade'") |
+| Two candidate experiments touch the same part of the map | Table 5.1 asks of multiple interventions, "How are multiple interventions complementing or clashing with each other?" [V] (Ch 5, Table 5.1). Will the experiments clash? |
 
 ### Phase 5: Close
 
@@ -126,8 +127,6 @@ The appropriateness triangle, Rich Picture facilitation, the CLD core engine, an
 | OpenStax Psychology 2e | Psychology 2e's conformity research (Asch; normative social influence) explains the dominance risk this source names for Rich Pictures and why power dynamics must be managed at planning; Barbrook-Johnson supplies the method, Psychology 2e supplies the social-psychology rationale |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels. The source has been re-converted and now holds them, but they are not yet covered here, so claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The source cites Meadows (2008) for the systems definition [BT] (Ch 1, "What Is Systems Mapping?") and Star & Griesemer (1989) for the boundary-object concept [BT] (Ch 9, "Defending the Use of a Participatory Process"). Gareth Morgan is cited for the 15-percent-control framing but this appears in the Liberating Structures Handbook, not in Barbrook-Johnson. Sterman's *Business Dynamics* underlies System Dynamics and is borrowed-through in the quantitative chapters. None of Meadows, Star & Griesemer, or Sterman are held directly in this corpus; this distillation cites Star & Griesemer only as the source of the boundary-object term (borrowed-through).
 

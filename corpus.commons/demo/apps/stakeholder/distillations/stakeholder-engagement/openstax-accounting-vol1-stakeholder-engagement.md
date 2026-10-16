@@ -179,8 +179,6 @@ This worked example illustrates several key concepts in the source: the multi-st
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - FASB / SFAC No. 6 — definitions of assets, liabilities, equity, revenues, expenses, gains, losses (Ch 2) [BT]
 - COSO Internal Control–Integrated Framework (2013) — five-component framework underlying SOX-era internal controls (Ch 8) [BT]

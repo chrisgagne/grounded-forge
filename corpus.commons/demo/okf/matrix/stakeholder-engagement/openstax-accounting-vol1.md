@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-financial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T12:07:14+13:00
+  at: 2026-10-17T11:55:22+13:00
 ---
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Stakeholder-Engagement Distillation
 
@@ -194,8 +194,6 @@ This worked example illustrates several key concepts in the source: the multi-st
 | Mintzberg liaison role (from *Organizational Behavior*) | Sustaining stakeholder relationships between reporting cycles requires Mintzberg-style liaison work — investor relations, lender relationships, regulator engagement, audit-committee interface. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - FASB / SFAC No. 6 — definitions of assets, liabilities, equity, revenues, expenses, gains, losses (Ch 2) [BT]

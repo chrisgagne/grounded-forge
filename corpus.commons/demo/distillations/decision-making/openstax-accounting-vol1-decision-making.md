@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b173484b1dfcca9c733d2633a4bac3bec35182a3fca1aff5dc473e422c546e70 -->
+<!-- derived-from-deep: sha256:2a6f7a65efa8442b72533f505043822d4cdc1eab3fd26f3d3a1081bffe35c4de -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -164,7 +164,7 @@ This worked example illustrates several key concepts in the source: the GAAP-per
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

@@ -198,7 +198,7 @@ A US-headquartered software firm (450 engineers; AI capability shipped across th
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World, Ethics Across Time and Cultures, What Would You Do?) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** OpenStax Business Ethics situates its normative arguments within a body of stakeholder theory, legal cases, and empirical research this corpus does not hold as primary references.
 

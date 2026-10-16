@@ -97,7 +97,7 @@ A team reviews a product-defect incident where field reports of a safety problem
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World, Ethics Across Time and Cultures, What Would You Do?) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The Donaldson-Preston stakeholder-theory taxonomy is cited in the source as borrowed-through from Donaldson and Preston's original work [BT] (Ch 3.2); neither Donaldson nor Preston is held directly in the demo corpus. The Grunig-Hunt organisational linkage model and four-publics framework are similarly borrowed-through [BT] (Ch 3.2); Grunig and Hunt are not held directly. Phronesis is attributed to Aristotle (via Nonaka and Takeuchi in the source) [BT] (Ch 1.1). The legal cases cited in the source — *Dodge v. Ford*, *Shlensky v. Wrigley*, *Burwell v. Hobby Lobby*, *Citizens United v. FEC* — are borrowed-through as legal authority [BT] (Ch 4.1, Ch 4.3).
 

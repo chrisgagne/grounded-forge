@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-financial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T09:05:06+13:00
+  at: 2026-10-16T12:07:14+13:00
 ---
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Decision-Making Distillation
 
@@ -179,7 +179,7 @@ This worked example illustrates several key concepts in the source: the GAAP-per
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection, Think It Through) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 3.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, IFRS Connection). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

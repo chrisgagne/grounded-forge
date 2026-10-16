@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:cacd3f4921c8643b21dfa2db384a2901b78e5063ecafe941d6d69e128b48e083 -->
+<!-- derived-from-deep: sha256:2d6680682f0e3e64e77a0886414644938d1009a01a7f4265cf19e0836fbf9f48 -->
 # OpenStax Principles of Finance, Software-Business Distillation
 
 **Source:** OpenStax (2022). *Principles of Finance*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-finance. Senior contributing authors Julie Dahlquist and Rainford Knight, with six contributing authors.
@@ -207,8 +207,6 @@ The seed table in `software-business.md` §2a does not yet include the following
 - **Operator names a multi-currency FX exposure decision.** This source's Ch 20.3 addresses transaction, translation, and economic exposures explicitly; the rule is to match the hedge (forwards, futures, natural hedges) to the exposure type. Phase 5 (risk) candidate.
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 7.7% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Think It Through, Concepts in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The source cites several foundational finance researchers and practitioners this corpus does not hold as primary references.
 

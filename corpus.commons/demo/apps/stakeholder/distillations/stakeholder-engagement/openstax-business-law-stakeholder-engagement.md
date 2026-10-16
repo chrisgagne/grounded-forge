@@ -185,8 +185,6 @@ This worked example illustrates stakeholder mapping by legal-relationship type, 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 0.7% of the PDF's longer lines in the covered chapters, almost all table cells. The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Thomas-Kilmann Conflict Mode Instrument — negotiation styles (Ch 2) [BT]
 - Andrew Savitz — triple-bottom-line definition (Ch 3.2) [BT]

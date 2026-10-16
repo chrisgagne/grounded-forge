@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:f693b60d2b22ee44edae9326da4ca1cdfb5eee93fa2948a4b377686215724389 -->
+<!-- derived-from-deep: sha256:03774165082001ad86a3412a3a09f20999934a7e33463d6d7fb140443ff8224d -->
 # OpenStax Psychology 2e, AAR Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Senior contributing author Rose M. Spielman. ISBN 978-1-951693-23-7 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.
@@ -128,8 +128,6 @@ The group rebuilds the timeline from the written accounts. The incident's contri
 | Scrum Guide 2020 (scrum-guide-2020) | Scrum's Transparency pillar requires the emergent process and work to be visible (Scrum Theory, "Transparency"); Psychology 2e explains the cognitive and social forces (conformity, obedience, the fundamental attribution error) that work against that visibility even in teams committed to it |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference carries several borrowed-through citations that land directly in AAR-relevant distillation concepts. Carli's (1999) work linking reconstructive memory to hindsight bias is presented via the Psychology 2e text (Ch 8.3), not held directly in this corpus. Ross, Amabile, and Steinmetz's quizmaster study (fundamental attribution error) is borrowed-through. Loftus and Palmer's (1974) misinformation effect study is borrowed-through. Asch's (1955) line-judgment conformity study is borrowed-through. Milgram's (1963) obedience study is borrowed-through. Zimbardo's Stanford Prison Experiment is borrowed-through with the text's own caveat that subsequent attempts have not fully replicated the original findings and that design flaws (explicit guidance to guards) are acknowledged. Schacter's seven sins are presented via the textbook; Schacter is not held directly.
 

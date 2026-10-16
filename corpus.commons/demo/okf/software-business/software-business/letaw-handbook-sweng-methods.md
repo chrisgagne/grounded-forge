@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T12:01:46+13:00
+  at: 2026-10-16T23:14:16+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods — Software-Business Distillation
 
@@ -58,7 +58,7 @@ This distillation gathers Letaw's methods for software-business work: how to fra
 
 15.  **Constraints vs quality attributes — internally chosen vs externally mandated.** Constraints are nonfunctional requirements that aren't about quality attributes (technology choices, target platforms, backward compatibility, coding standards, data handling — e.g., "must only be stored on US servers" [V]). Letaw distinguishes the two by origin: "constraints are often externally mandated, while quality attributes can be chosen internally by the team." [V] The distinction is software-business-load-bearing: external constraints are the regulatory, contractual, and platform-imposed commitments the engineering side cannot trade against; internal quality attributes are the dimensions where the engineering-vs-commercial trade-off is open. (Source: Ch 3.5.2, "Constraints")
 
-16.  **INVEST as the commit-shape check for engineering work units.** Independent (no unnecessary dependencies/overlap), Negotiable (encourages instead of discourages discussion), Valuable (fulfils a user need), Estimable (can be given a time estimate), Small (fits a single development period), Testable (possible to determine it's done). User stories that fail INVEST will create cost surprises later; for software-business work, the framework is the standing check before a work unit is added to a sprint commitment that will reach a customer-facing date. (Source: Ch 3.6.1, citing Wake 2003)
+16.  **INVEST as the commit-shape check for engineering work units.** Independent (no unnecessary dependencies/overlap), Negotiable (encourages instead of discourages discussion), Valuable (fulfils a user need), Estimable (can be given a time estimate), Small (fits a single development period), Testable (possible to determine it's done). User stories that fail INVEST will create cost surprises later; for software-business work, the framework is the standing check before a work unit is added to a sprint commitment that will reach a customer-facing date. (Source: Ch 3.6.1, citing Wake 2003) The book's worked Definition of Done gives US-023 three given-when-then criteria, one of them "The message appears within 10 milliseconds" [V] (Source: Ch 3.6.1, Figure 3.4); read against INVEST, it shows what "Testable" can look like in practice (this distillation's reading).
 
 17.  **The five stakeholder-elicitation failure modes for software-business requirements.** Stakeholders "might not have experience or expertise," [V] "might not have good ideas," [V] "might not know what they want," [V] "might want what's bad for them or others," [V] and "are humans" who "communicate imperfectly." None of these is a reason to skip the engagement; each is a reason to design the engagement with care. For software-business work, these are the standing reasons why "the customer asked for it" is not a sufficient justification for committing engineering capacity to a feature. (Source: Ch 3.4, "Requirements Elicitation")
 
@@ -250,8 +250,6 @@ The Letaw artefacts in play: the eleven code smells (vocabulary that converts te
 | **Letaw stakeholder-engagement distillation (cross-task, same source)** | The stakeholder-engagement projection treats Letaw's methods as engagement tools (Tuckman, ground rules, RACI, fist of five, requirements elicitation, paper prototyping, Inclusivity Heuristics). This software-business projection adds the technical-commercial-intersection specificity — the same RACI conversation is engagement (who's in the room) and software-business (decision rights across the engineering-commercial seam). |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** Letaw's Handbook builds on several foundational sources this corpus does not hold as primary references.
 

@@ -178,8 +178,6 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Tuckman (1965) and Tuckman & Jensen (1977) — five-stage team-development model (Ch 2.4) [BT]
 - Beck et al. (2001), Agile Manifesto — grounding document for the Agile philosophy (Ch 1.2.1) [BT]

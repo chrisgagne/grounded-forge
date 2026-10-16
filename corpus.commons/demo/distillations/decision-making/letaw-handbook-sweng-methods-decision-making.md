@@ -149,8 +149,6 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the handbook cites named third parties not held as separate primary references in this corpus:
 
 - *Agile Manifesto (Beck et al. 2001)* — not held as a standalone reference. Grounding document for the Agile philosophy in Ch 1.

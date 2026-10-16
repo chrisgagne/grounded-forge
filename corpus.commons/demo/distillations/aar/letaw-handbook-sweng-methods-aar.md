@@ -106,8 +106,6 @@ A team is reviewing an incident where a hotfix deployment failed because no one 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The Tuckman stage model (Tuckman 1965; Tuckman & Jensen 1977) is cited borrowed-through in the source (Ch 2.4); Tuckman is not held directly in this corpus. The INVEST acronym (Wake 2003) is cited borrowed-through (Ch 3.6.1); Wake is not held directly. The Hewlett Packard Enterprise 2017 Agile-adoption survey is cited borrowed-through (Ch 1.2); the survey is not held directly. The Badawy 1995 managerial skill-mix framework is cited borrowed-through (Ch 2.3); Badawy is not held directly. The triple constraint framing (van Wyngaard et al. 2012) is cited borrowed-through (Ch 2.2); van Wyngaard is not held directly.
 
 **Named limits of the source.** The Handbook is "geared toward Agile software development" [V] by design; the author endorses Agile explicitly and the method coverage reflects that bias. The source does not address incident review methodology, just-culture sorting, or facilitation protocol. The code-smells catalogue is a named set of eleven; the author says it "is not an exhaustive list" [V] and points to the references at the end of the chapter for more (Ch 8.2). The RACI matrix is presented as a team-design tool rather than an incident-analysis tool; adaptation to post-incident RACI reconstruction is operator-applied.

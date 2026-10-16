@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T11:40:58+13:00
+  at: 2026-10-17T09:56:34+13:00
 ---
 # OpenStax Organizational Behavior, Software-Business Distillation
 
@@ -283,7 +283,7 @@ These triggers lift verbatim from the task spec's §2a seed table; the rows belo
 - *Kurt Lewin, John Kotter, David Cooperrider, Glenda Eoyang and Royce Olson* — four change models are cited [BT] (Ch 16.3).
 - *Dearborn and Simon* — the classic perceptual selectivity study is cited [BT] (Ch 3.1).
 
-**Named limits of the source.** The text is a general OB textbook, not a software-specific source. Its empirical claims about motivation, leadership, and group dynamics are drawn from the broader management-research literature; they hold in software organisations but are not calibrated to engineering-specific work conditions. The text does not address AI-native roles or the motivational dynamics of AI-augmented work, and treats virtual teams (Ch 15.3) only in general terms, not remote-first engineering specifically; these are inference territory, not source claims. The text's cultural framing rests on Hofstede's definition of culture and Kluckhohn and Strodtbeck's six dimensions (Ch 2.7). Coverage is partial: the deep reference was read from a conversion that lacked about 7% of the PDF's longer lines (mostly feature boxes, some body text); the source has since been re-converted and now holds them, but outside Ch 12.7–12.9 they are not yet covered here.
+**Named limits of the source.** The text is a general OB textbook, not a software-specific source. Its empirical claims about motivation, leadership, and group dynamics are drawn from the broader management-research literature; they hold in software organisations but are not calibrated to engineering-specific work conditions. The text does not address AI-native roles or the motivational dynamics of AI-augmented work, and treats virtual teams (Ch 15.3) only in general terms, not remote-first engineering specifically; these are inference territory, not source claims. The text's cultural framing rests on Hofstede's definition of culture and Kluckhohn and Strodtbeck's six dimensions (Ch 2.7).
 
 **Evidence-marker continuity.** Behavioural science models attributed to McClelland, Deci and Ryan, Adams, Vroom, Thomas, Argyris, Tuckman, Lencioni, Hickson, Salancik-Pfeffer, Cameron-Quinn, Lewin, Kotter, Cooperrider, and Olson-Eoyang are [BT] in the deep reference; Behavioural science models attributed to McClelland, Deci and Ryan, Adams, Vroom, Thomas, Argyris, Tuckman, Lencioni, French and Raven, Hickson, Salancik-Pfeffer, Cameron-Quinn, Lewin, Kotter, Cooperrider, and Olson-Eoyang are [BT] in the deep reference; Maslow and Herzberg are carried there as [AP] and [AR]. All are attributed by name in this distillation. The distillation reproduces these verbatim passages with [V]: the SDT and expectancy-theory claims (Ch 7.2, Ch 7.3), process conflict's "can actually lead to improved performance" (Ch 6.4), Rest's failure-at-any-point sentence (Ch 6.5), the BATNA sentence (Ch 14.4), the auditors passage and the Larkin observation (Ch 11.5), the legitimate-power finding (Ch 12.3), the GE forced-ranking reason (Ch 17.3), and the complex-change rule of thumb (Ch 16.3). The positive-reinforcement preference is verbatim but relayed from Skinner and other advocates, and is marked [V; relayed, BT]. Other content is paraphrased and cited by chapter.
 

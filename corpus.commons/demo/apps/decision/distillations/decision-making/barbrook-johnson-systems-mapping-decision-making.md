@@ -193,8 +193,6 @@ The final deliverable is not the full 60-factor map but three targeted submaps p
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels. The source has been re-converted and now holds them, but they are not yet covered here, so claims about those tables rest on the surrounding prose.
-
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the book cites named third parties not held as separate primary references in this corpus:
 
 - *Williams & Hummelbrunner (2011), Systems Concepts in Action* — not held. Cited for the three-point definition of a system (elements, links, boundary).

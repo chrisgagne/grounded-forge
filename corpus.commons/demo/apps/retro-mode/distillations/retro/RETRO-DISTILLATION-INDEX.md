@@ -101,6 +101,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Walk the AAR's three questions in order | US Army, TC 25-20 | `tc-25-20-army-aar-retro.md` | Figure 1-2's AAR format glosses three items as what was supposed to happen, what happened, and why it happened and how to improve; restate the Sprint Goal and plan first, then ask what happened. |
 | Choose the retro shape that fits this Sprint's content | Gagné, The Approach Perfect Field Guide to Scrum Events | `approach-perfect-field-guide-scrum-events-retro.md` | Field Guide six-segment Derby-Larsen pattern is the default; sample agenda includes positives / deltas / insights / √n voting. |
 | Reach for alternate retro shapes from the catalogue | Open Practice Library | `open-practice-library-retro.md` | Open Practice Library Retrospective practice with multiple shapes when the default doesn't fit. |
 | Open with an energising structure | Liberating Structures Handbook | `liberating-structures-handbook-retro.md` | LS Impromptu Speed Networking or Knee-to-Knee Conversation as opener when team is low-energy. |

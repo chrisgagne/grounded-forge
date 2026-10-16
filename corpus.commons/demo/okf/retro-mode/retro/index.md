@@ -41,6 +41,7 @@ One concept file per source, projected onto the `retro` task axis. Each row maps
 
 ## Phase 1: Priming (set the topic frame, surface energy, choose retro shape)
 
+- Walk the AAR's three questions in order → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Choose the retro shape that fits this Sprint's content → [approach-perfect-field-guide-scrum-events](approach-perfect-field-guide-scrum-events.md)
 - Reach for alternate retro shapes from the catalogue → [open-practice-library](open-practice-library.md)
 - Open with an energising structure → [liberating-structures-handbook](liberating-structures-handbook.md)

@@ -134,3 +134,26 @@ The light reference and application files derive from this audited deep ref and 
 - Pass I outcome: **PASS**
 
 The deep ref is cleared to ship. Notable: this is a notable contrast with the pilot's audit (which made 1 strip and 1 marker correction). The Business Law deep ref's discipline at draft time was high; spot-checks did not surface problems requiring intervention.
+
+## Scoped re-audit 2026-10-17: restored table text
+
+**Auditor:** same-family (a fresh Claude agent, Opus 5.5); no cross-family leg.
+**Scope:** the two lines of `corpus.commons/demo/references/openstax-business-law-deep.md` changed after the 2026-10-16 re-conversion (the Coverage line, line 9, and the Disparate treatment bullet under "### Title VII of the Civil Rights Act", line 618), checked against `corpus.commons/demo/sources/converted/openstax-business-law.md` and the earlier conversion (`git show b26b04fd^:corpus.commons/demo/sources/converted/openstax-business-law.md`); plus every deep-ref claim drawn from a table in Ch 4, 6, 8, 9 and 13 (lines 207–216, 218, 306, 447–465, 507, 513–520, 530, 554–560, 576, 630–636, 798, 945), and a ligature-damage scan of all quotations. The rest of the deep reference was not re-read.
+
+**Method.** Compared every table in the chapters covered (Tables 4.1, 4.2, 6.1, 8.1–8.4, 9.1–9.5, 13.1) in the old and new conversions. Compared the 21 runs (386 words) from the order-aware word diff against the Coverage line's description. Scanned every word in the deep ref for a form that differs from a tape word only by a missing "fi", "ff" or "fl" (none found). `scripts/check-verbatim.py`: before and after, 10 apostrophe, 9 initial, 1 near, 2 interrupted (unchanged; the `near` at line 437 is the tape's missing space in "(UCC)was", which needs no fix).
+
+**Findings and changes.**
+
+1. Line 9 (Coverage), corrected. It said the earlier conversion "lacked … almost all table cells", then that those cells "were held by the earlier conversion as pipe tables". The old conversion holds Tables 4.1, 4.2, 6.1, 8.1–8.4, 9.1–9.3, 9.5 and 13.1 in full as pipe tables, differing from the tape only by ligature damage; only Table 9.4's cells were absent (caption kept). Reworded so the 0.7% is what a line-level count flagged, not what was lacking. Also: the ligature damage was "fi" and "ff" (e.g. "efect", "plaintif", "sufered", "ofered", alongside "specifed", "ftness"), not "fi" alone; and the first diff run (tape lines 144–154) is front-matter promotional text, not table of contents, so "front-matter" was added to the list of what the runs hold. Kept: 21 runs, about 390 words (386); running headers; Index lines; Table 9.4 as the only table; no quotation carries ligature damage.
+2. Line 618 (Table 9.4 sentence), corrected. "If the jury finds for the employee-plaintiff, Table 9.4 lists…" tied the condition to the table rather than to the award. Now follows the source: damages can be awarded if the jury finds for the employee-plaintiff, none if it finds for the employer-defendant, and Table 9.4 lists those permissible. The six items match tape lines 4500–4514 word for word in substance; [AP] and the (Ch 9.3, Table 9.4) cite stand.
+3. Table-derived claims in Ch 4, 6, 8, 9 and 13: all source-anchored. The [V]/quoted table text at lines 306 (Table 6.1), 458–464 (Table 8.2), 517 (Table 8.4), 634 and 945 (Table 9.5) matches the re-converted tape, ligatures intact.
+
+**Counts.** Claims audited: 2 changed lines plus 17 table-derived claims; source-anchored: 17 without change; stripped: 0; marker-corrected: 0; quotation-corrected: 0; wording corrected: 2 (lines 9, 618).
+
+**Open.**
+- The source card `corpus.commons/demo/sources/original/openstax-business-law.source.md` line 24 still says the re-conversion "restores … almost all table cells, in Ch 4, 6, 8 and 9"; per finding 1 the earlier conversion held those tables (rows strung across pipe cells), so only Table 9.4 was restored. Line 26 still says the deep reference "stays PARTIAL until Passes C–E cover the restored material", which the Coverage line no longer says. Both need the same correction.
+- Derived tier: line 618 adds Table 9.4 content a light reference or distillation may want to carry; the parent re-derives. No stamp set.
+
+### Orchestrator follow-up, derived tier and stamp (2026-10-17)
+
+The source card's conversion note now matches the Coverage line: the earlier conversion held the Ch 4, 6, 8 and 9 tables as ligature-damaged pipe tables and lost only Table 9.4. The PARTIAL notes are gone from the light reference, the distillations and the source card. Table 9.4 is a list of remedies that adds no concept to the derived projections, so the derived tier carries no new content. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b2f993f87935a866b5405e7f763e30d4ef7bc8325c4676907576c69d300fe235 -->
+<!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
 # US Forest Service LFUO 2024, Retrospective Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Scope:** open. Carries borrowed-through citations to Dekker, Hollnagel, Weick, Klein, and Reason, which the demo does not hold directly.
@@ -33,7 +33,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 
 12. <!-- concept: how-not-why --> **Ask how or what, not why.** "Never ask WHY; instead ask HOW or WHAT" [V]; the why question "puts people immediately on the defensive" [V], and "What was going through your mind as that was occurring?" [V] gets at it without that (Handout B, "Be Curious").
 
-13. <!-- concept: fla-watch-outs --> **Outcome bias and hindsight bias in the room.** Handout C's watch-outs include outcome bias (judging a decision by its outcome rather than the conditions behind it) and hindsight bias (the knew-it-all-along effect), alongside confirmation bias, the fundamental attribution error and counterfactual thinking; the guide asks teams to give everyone "permission to call out any biases they see" [V] (Handout C, "FLA 'Watch outs'"; three boxes are image-held and read from OCR in the deep reference).
+13. <!-- concept: fla-watch-outs --> **Outcome bias and hindsight bias in the room.** Handout C's watch-outs include outcome bias (judging a decision by its outcome rather than the conditions behind it) and hindsight bias (the knew-it-all-along effect), alongside confirmation bias, the fundamental attribution error and counterfactual thinking (Handout C, "FLA 'Watch outs'"; three boxes are image-held and read from OCR in the deep reference).
 
 ## Questions to Ask During Retrospective
 
@@ -56,7 +56,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 | Need | Question |
 |---|---|
 | Is the LFUO framing on variability relevant here? | Is the team treating mistakes as aberrations or as normal? "Errors, mistakes, and lapses are inherent in the human condition" [V] (Part 1, "Learning"). Naming this shifts the energy before data gathering begins. |
-| Which questions will gather the data? | Handout D's six AAR-type questions, starting with "What was planned?" [V] and ending with "What can we learn as an organization?" [V], phrased as how and what rather than why (Handout B). |
+| Which questions will gather the data? | Handout D's six AAR-type questions, starting with "What was planned?" [V] and ending with "What might we do differently?" [V]. Handout D itself asks "Why did you do it?" and "Why didn't you do it?" [V]; recasting those as how and what, after Handout B's interview guidance ("Never ask WHY; instead ask HOW or WHAT" [V]), is this distillation's application. |
 
 ### Phase 3: Insight / Cause Analysis
 
@@ -67,7 +67,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 | Are we applying the Five Hows to the recurring problem? | For each key action or non-action in the recurring pattern: what beliefs, perceptions, expectations, and paradigms led to it? What situational awareness did the team hold that made it reasonable? |
 | Is the work-as-imagined / work-as-done gap visible? | Where is the gap between what the team's process documentation says should happen and what the team actually does? Illuminate the gap rather than resolving it immediately. |
 | Are multiple conditions interacting to produce this pattern? | Have we anchored on one fix that hasn't worked? The LFUO principle: multiple improbable events are typically necessary. What are the interacting conditions the team has not yet named? |
-| Has the room fused too early? | If everyone agrees, which points of departure haven't surfaced, or which don't people want to talk about (Part 6, "FEAR THE FUSION")? |
+| Has the room fused too early? | If everyone agrees, was the facilitated discussion not needed, or are there points of departure not yet revealed, or that people don't want to talk about (Part 6, "FEAR THE FUSION")? |
 | Is outcome bias shaping the verdict? | Is a decision being judged by how the Sprint turned out rather than the conditions the team faced (Handout C)? |
 
 ### Phase 4: Experiment Design
@@ -94,7 +94,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 | Work-as-documented differs from work-as-done | Process documentation has drifted from actual practice | Illuminate the gap before resolving it; ask what makes the actual practice locally rational |
 | Experiment was "done" but produced no learning | The experiment was designed as a box-tick, not as a hypothesis with a validation criterion | Redesign with an explicit belief-and-evidence structure: "We believe X; we will see Y if correct" |
 | Blame language survives the data-gathering redirect | Deeper blame pattern persists; the container isn't holding it | Re-state the just-culture framing; consider applying the Five Hows directly to the blamed individual's decision context |
-| The team agrees on the answer within minutes | Fusion: points of departure haven't surfaced (Part 6, box) | Ask where accounts differ; invite quieter voices before closing the topic |
+| The team agrees on the answer within minutes | The facilitated discussion may not have been needed, points of departure may not have been revealed, or people may not want to talk about them (Part 6, box) | Ask where accounts differ; invite quieter voices before closing the topic |
 
 ## When to Use This Reference
 

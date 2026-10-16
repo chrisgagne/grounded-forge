@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b2f993f87935a866b5405e7f763e30d4ef7bc8325c4676907576c69d300fe235 -->
+<!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
 # LFUO 2024, Stakeholder-Engagement Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.
@@ -95,7 +95,7 @@ Where the guide is silent (e.g., on broader community engagement outside the age
 | Has rapport been built before the substantive questions? | The deflection-question protocol depends on knowing what the participant is comfortable with. The opening of the interview is for rapport, not for substantive questions. |
 | Is the participant being walked away from re-traumatising recall? | Do not steer into deeper recall; the guide leaves that to mental health professionals. If the participant goes there anyway, deflection questions ready: "take me back to that morning when you guys were at the engine bay, what time did your duty day start?" [V] |
 | Are quotes being captured? | The FLA facilitator should remind interviewers to collect quotes for use in the learning product. |
-| Is the interviewer aware of their biases? | Hindsight bias (Handout C) and the fundamental attribution error (Part 3) need explicit team conversation; Handout C's full watch-out list is a graphic in the PDF. |
+| Is the interviewer aware of their biases? | Hindsight bias (Handout C) and the fundamental attribution error (Part 3) need explicit team conversation; Handout C lists five watch-outs (confirmation bias, the fundamental attribution error, outcome bias, hindsight bias, counterfactual thinking). |
 | Is the team debriefing daily? | The lead facilitator schedules end-of-day sharing — interview results, adjustments, team well-being. |
 
 ### Phase 4: Designing the group dialogue

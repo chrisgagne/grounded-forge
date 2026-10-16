@@ -34,7 +34,7 @@ The distillation projects these contributions onto a working pattern. Where the 
 
 7.  **The two-or-three-ways explanation test.** "Be prepared to explain how the mapping method you are using works in two or three different ways. Think about how you would describe it to a ten-year-old child. If you can't do this, then you probably can't explain it clearly to diverse sets of stakeholders." [V] (Source: Ch 10, "Common Issues")
 
-8.  **The "rules of the game" [V] front-loading principle.** "It is well worth spending an extra ten minutes at the start of workshop explaining the definitions of nodes and edges clearly, rather than discovering two hours in that people were misusing them." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
+8.  **The "rules of the game" [V] front-loading principle.** "It is well-worth spending an extra ten minutes at the start of workshop explaining the definitions of nodes and edges clearly, rather than discovering two hours in that people were misusing them." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
 
 9.  **The "always ask people to explain" [V] facilitation move.** "Your most powerful prompt during a workshop is 'could you explain that a bit more please?' Do not worry about looking stupid or not knowing the system in question; you are not the expert, the stakeholders are. This will encourage discussion and precision in thought and will surface assumptions and disagreements." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
 
@@ -214,7 +214,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels, which the converter dropped; claims about those tables rest on the surrounding prose.
+**PARTIAL source text.** This was derived from a conversion that lacked the bodies of Tables 1.2, 5.1 and 11.1–11.3 and some figure labels. The source has been re-converted and now holds them, but they are not yet covered here, so claims about those tables rest on the surrounding prose.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Star and Griesemer (1989) — boundary-object concept (Ch 9) [BT]

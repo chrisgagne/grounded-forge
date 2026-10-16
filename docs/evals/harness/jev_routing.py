@@ -312,14 +312,55 @@ def check_snapshot(out):
     return manifest
 
 
-def run(out, arms, ids, repeats, env_file, timeout):
-    manifest = check_snapshot(out)
+def select_cases(out, ids):
     cases = read_json(out / "cases.json")
     if ids:
         unknown = set(ids) - {c["id"] for c in cases}
         if unknown:
             raise ValueError(f"Unknown case IDs: {unknown}")
         cases = [c for c in cases if c["id"] in ids]
+    return cases
+
+
+def route_only(out, ids, env_file):
+    """Jev selection alone, no answering model: does the shortlist hold the anchor files, and how big is it?"""
+    check_snapshot(out)
+    cases = select_cases(out, ids)
+    key = load_key(env_file)
+    gold = read_json(out / "gold-anchors.json")
+    for case in cases:
+        case_dir = out / "routing-only" / case["id"]
+        print(f"ROUTE {case['id']}", flush=True)
+        write_json(case_dir / "routing.json", route(out / "snapshot", case["prompt"], case_dir / "jev-requests", key))
+    rows = []
+    for routing_file in sorted((out / "routing-only").glob("*/routing.json")):
+        case_id = routing_file.parent.name
+        routed = read_json(routing_file)
+        scores = {f"distillations/{TASK}/{s['slug']}-{TASK}.md": s["score"] for s in routed["sources"]}
+        anchors = sorted({a["path"] for a in gold[case_id]})
+        rows.append({"case": case_id, "selected": len(routed["selected_paths"]), "sources": len(scores),
+                     "anchor_files": len(anchors),
+                     "anchor_files_selected": sum(p in routed["selected_paths"] for p in anchors),
+                     "lowest_anchor_score": min((scores[p] for p in anchors), default=None),
+                     "input_tokens": routed["input_tokens"], "estimated_usd": routed["estimated_api_usd"],
+                     "seconds": routed["elapsed_seconds"]})
+    write_json(out / "routing-only-summary.json", rows)
+    lines = ["# Jev routing pilot — routing-only check", "",
+             f"Jev `{JEV_MODEL}` scored every shipped source per case; threshold {THRESHOLD}. No answering model ran.",
+             "Anchor files are agent-authored, non-exhaustive evidence checks: a shortlist that holds them is",
+             "necessary for a good answer, not sufficient.", "",
+             "| Case | Selected / sources | Anchor files selected | Lowest anchor score | Jev tokens | Est. USD | Seconds |",
+             "|---|---:|---:|---:|---:|---:|---:|"]
+    for r in rows:
+        low = "—" if r["lowest_anchor_score"] is None else f"{r['lowest_anchor_score']:.2f}"
+        lines.append(f"| {r['case']} | {r['selected']} / {r['sources']} | {r['anchor_files_selected']}/{r['anchor_files']} | "
+                     f"{low} | {r['input_tokens']} | {r['estimated_usd']:.4f} | {r['seconds']:.1f} |")
+    (out / "ROUTING-ONLY.md").write_text("\n".join(lines) + "\n")
+
+
+def run(out, arms, ids, repeats, env_file, timeout):
+    manifest = check_snapshot(out)
+    cases = select_cases(out, ids)
     key = load_key(env_file) if "jev" in arms else None
     for repeat in range(1, repeats + 1):
         for case in cases:
@@ -526,7 +567,7 @@ verdict and the evidence pointer; all finding lists contain descriptive strings.
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=["prepare", "run", "report", "grade"])
+    parser.add_argument("action", choices=["prepare", "route-only", "run", "report", "grade"])
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--cases", type=Path, default=HERE / "jev-routing-cases.json")
     parser.add_argument("--arms", default="current,jev")
@@ -538,6 +579,8 @@ def main():
     out = args.out.resolve()
     if args.action == "prepare":
         prepare(out, args.cases)
+    elif args.action == "route-only":
+        route_only(out, args.ids.split(",") if args.ids else [], args.env_file)
     elif args.action == "report":
         report(out)
     elif args.action == "grade":

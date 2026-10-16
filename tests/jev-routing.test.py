@@ -105,6 +105,32 @@ class RoutingTests(unittest.TestCase):
         p.write_text("export TYPESAFE_API_KEY='literal$(not-executed)'\n")
         self.assertEqual(pilot.load_key(p), "literal$(not-executed)")
 
+    def test_route_only_scores_anchor_files_without_answering(self):
+        out = self.app / "round"
+        pilot.write_json(out / "cases.json", [{"id": "q01", "prompt": "q"}])
+        pilot.write_json(out / "gold-anchors.json", {"q01": [
+            {"path": "distillations/decision-making/beta-decision-making.md"}]})
+        import shutil
+        shutil.copytree(self.app / "distillations", out / "snapshot/distillations")
+        for name in ["slug-table.json", "concept-index.json"]:
+            shutil.copy(self.app / name, out / "snapshot" / name)
+
+        def fake(payload, key):
+            score = 0.9 if payload["state"]["source_slug"] == "alpha" else 0.2
+            return {"model": pilot.JEV_MODEL, "answers": {"relevant": {"noul": score}},
+                    "usage": {"input_tokens": 10}}
+        with patch.object(pilot, "check_snapshot", return_value={}), \
+             patch.object(pilot, "jev_request", side_effect=fake), \
+             patch.object(pilot, "load_key", return_value="not-a-real-key"), \
+             patch.object(pilot, "codex_call") as codex:
+            pilot.route_only(out, [], None)
+        codex.assert_not_called()
+        row = pilot.read_json(out / "routing-only-summary.json")[0]
+        self.assertEqual((row["selected"], row["sources"]), (1, 2))
+        self.assertEqual(row["anchor_files_selected"], 0)
+        self.assertAlmostEqual(row["lowest_anchor_score"], 0.2)
+        self.assertIn("| q01 | 1 / 2 | 0/1 |", (out / "ROUTING-ONLY.md").read_text())
+
     def test_current_only_report_does_not_claim_a_comparison(self):
         self.write("gold-anchors.json", {"q01": []})
         self.write("runs/q01/repeat-1/current/execution.json", {

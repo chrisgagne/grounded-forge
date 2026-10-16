@@ -87,5 +87,50 @@ Light ref L20 also says Q2 "Yes to any → exit", which flattens the two Q2 exit
 
 ## Open
 
-- Cross-family second leg not run.
-- Derived tier not re-derived or re-stamped (out of scope for this dispatch).
+None. The cross-family leg and the derived-tier pass are recorded below.
+
+
+## Second leg
+
+**Auditor:** gpt-6.1-sol via the Codex CLI, read-only sandbox, for both the blind leg and the sort leg.
+
+**Order of work (anti-anchoring):** the second leg ran on 2026-10-17, after the fix-in-place leg of 2026-10-15, so its frozen copy is that leg's output. It audited the frozen deep reference (sha256 `e30802c2306b9e025a7f53fbf0559e4fc269993f439d41c7e3f1fc274080b114`) blind, with the full tape, the original where available and the source card. In a separate run it then read both audits and the post-audit deep reference (sha256 `e30802c2306b9e025a7f53fbf0559e4fc269993f439d41c7e3f1fc274080b114`), checked each finding against the source, and sorted them. Files: `_ingest_pass_I_nhs-just-culture-guide_crossfamily_blind.md`, `_ingest_pass_I_nhs-just-culture-guide_crossfamily_sort.md`, `_ingest_pass_I_nhs-just-culture-guide_crossfamily_prompts.md`.
+
+**Sort result:** The sort counted 22 confirmed defects (14 already fixed, 2 fixes incomplete, 5 missed by the fixer, 1 found during the sort), the fixer over-flagged 1 and the blind auditor 0, 3 findings were disputed, and its gate verdict was FAIL pending the remaining edits, the licence question and the derived tier.
+
+**Remaining edits applied (2026-10-17):** Of the 10 remaining edits, 8 were applied as written and 2 with changed wording, none declined: edit 1 (licence) keeps the source card's OGL v3.0 claim but marks it as stated on neither the poster nor the PDF metadata and unverified, and edit 7 (line 140) folds F's HR-advice quotation into the new sentence instead of keeping the next sentence that repeated it; line 148's trailing 'At that residual,' became 'The recommendation lists' to match edit 8; the three disputed findings (F5, F8, F18) were settled as needing no deep edit, since the deep's current wording matches the poster.
+
+**Gate settlement (operator, 2026-10-17).** The apply leg passed its own gate and left three questions:
+
+- *Licence and scope.* The poster and the PDF metadata state no licence. NHS England's website terms (https://www.england.nhs.uk/terms-and-conditions/, read 2026-10-17) say information on the site, other than logos, photographs and third-party material, may be re-used free of charge under the Open Government Licence v3.0. NHS England's being fair tool page describes the 2018 guide as its own, and improvement.nhs.uk now redirects to england.nhs.uk. Scope stays `open` on that basis. The deep reference's Source line, the light reference, the five distillations and the source card now name the website terms as the licence's basis instead of the source card.
+- *Source card.* Fixed: the individual-support-versus-wider-investigation choice (B7) now reads in the poster's words; the 2022-merger and mirror-equivalence claims are replaced by what was checked; the OGL-propagation note is replaced by a licence note citing the website terms.
+- *AAR distillation "When to Use".* "The corpus's only explicit decision aid" contradicted its own integration table, which names DOE HPI Vol. 1's culpability tree. Now "a decision aid built for this call".
+
+Two further deep-reference edits: the Q3 paragraph stated the Q3 routing twice after edit 3 (the sort's "retain its first sentence" kept a sentence the replacement restates), so the first statement is removed; the Recommendation F sentence's anchor "(Q3–Q5 recommendations)" now names D, E and F. check-verbatim on the deep reference reports only the line-15 `initial`.
+
+**Gate:** accepted by operator. Deep reference sha256 `ce9f74fa23371ad54bf48332e39b47613490eef4ecb0d701a1e83f290b069a70`, stamp included, after two operator edits: the licence line reworded so the build reads its value, and a currency note (NHS England's being fair tool replaces this guide, checked 2026-10-17) added to the source-integrity notes. The light reference, the five distillations (under "When to Use This Reference") and the source card carry the same currency note.
+
+## Derived-tier fidelity check (2026-10-17)
+
+The fidelity check read the audited deep reference and the full poster tape. It then checked, sentence by sentence and row by row:
+
+- the light reference (about 45 claims, 4 fixed)
+- the AAR distillation (about 85 claims, 5 fixed)
+- the decision-making distillation (about 110 claims, 11 fixed)
+- the retro distillation (about 65 claims, 5 fixed)
+- the software-business distillation (about 120 claims, 10 fixed)
+- the stakeholder-engagement distillation (about 95 claims, 7 fixed)
+- the source's 57 rows across the five distillation indexes (3 fixed)
+
+That is about 575 claims checked and 45 fixed. The fixes were of eight kinds:
+
+- **Evaluative labels and superlatives removed:** "the hardest call", "unusually explicit", "single most durable" and "most portable", "the corpus's load-bearing artefact", "maps cleanly", "canonical", "transfer cleanly".
+- **Distillation-level readings labelled:** the generalised five-test pattern, the PDCA and Shifting-the-Burden characterisations, the engagement-frame reading, the communication-tool application.
+- **Dropped hedges and wording restored:** Recommendation D's "may include, but not be limited to", "would behave" in 4a, B's "and addressed".
+- **Additions the poster does not support taken out:** "professional bodies", "(rare)", "on employment-law dimensions", "every recommendation requires a conversation".
+- **Wording corrected:** "the wider investigation should indicate the actions" became the D–G wording, "the patient safety incident investigation should indicate the wider actions".
+- **Inverted Q5 residual description corrected**, in the light reference.
+- **Wrong evidence marker corrected:** the Q3.3b routing is `[AP]`, not `[AR]`.
+- **Glyph corrected:** one quoted index run had an em dash where the poster has a hyphen.
+
+Every edited file passes `check-verbatim.py` with only cosmetic apostrophe, initial-case and named cross-source findings. Index tables keep their column counts, and every cross-referenced slug exists. No defect was found in the deep reference itself.

@@ -39,7 +39,7 @@ The bundle inherits the most-restrictive scope across all sources below. The rec
 | lfuo-learning-review-guide-2024 | open | Public domain in the United States (17 USC §105 — federal-employee work) |
 | liberating-structures-handbook | open-nc | unknown |
 | mcdp1-warfighting | open | unknown |
-| nhs-just-culture-guide | open | Open Government Licence v3.0 (UK public-sector open licence |
+| nhs-just-culture-guide | open | Open Government Licence v3.0 |
 | nist-ssdf-1-1 | open | United States public domain |
 | open-kanban | open | Creative Commons Attribution 3.0 Unported (CC BY 3.0) |
 | open-practice-library | open | CC BY 4.0 for content (site-level declaration) |

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-marketing
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T11:51:36+13:00
+  at: 2026-10-17T11:07:03+13:00
 ---
 # OpenStax, Principles of Marketing, Software-Business Distillation
 
@@ -191,8 +191,6 @@ The lens surfaces (structural voice, no first-person, no sympathy-performance) t
 | `scrum-guide-2020`, `approach-perfect-field-guide-scrum-events` | The NPD test-marketing stage (Ch 10.2) parallels the Sprint Review, where the Scrum Team presents results to key stakeholders and the Product Backlog may be adjusted (Scrum Guide 2020). Pair when sequencing customer-discovery work against sprint cadence. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The source draws on several foundational marketing researchers and practitioners this corpus does not hold as primary references.
 

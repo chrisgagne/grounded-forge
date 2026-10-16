@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-marketing
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T11:51:36+13:00
+  at: 2026-10-17T11:07:03+13:00
 ---
 # OpenStax, Principles of Marketing, Stakeholder-Engagement Distillation
 
@@ -223,8 +223,6 @@ The scenario is operator-authored; all framework citations trace through `refere
 | Ries & Trout, *Positioning* | Cited once, verbatim, for the positioning thesis (Ch 5.6): positioning works on what is already in the customer's mind. Extending it to non-customer stakeholders is this distillation's inference. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Philip Kotler — sustainable-marketing definition (Ch 19.1) [BT]

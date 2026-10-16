@@ -24,4 +24,6 @@ The poster's footer credits `improvement.nhs.uk`, which now redirects to england
 
 **Licence note.** The poster states no licence. NHS England's website terms (checked 2026-10-17) say that information on its site, other than logos, photographs and third-party material, may be re-used free of charge under the Open Government Licence v3.0; scope `open` rests on those terms.
 
+**Currency.** Superseded. NHS England's patient-safety pages (https://www.england.nhs.uk/patient-safety/patient-safety-culture/being-fair-tool/, checked 2026-10-17) say NHS England's being fair tool replaces the just culture guide, and that a discovery phase from November 2023 to March 2024 found the guide no longer fit for purpose. The corpus holds the 2018 poster as published; it is not current NHS England practice.
+
 Deep reference at `../../references/nhs-just-culture-guide-deep.md`; light reference at `../../references/nhs-just-culture-guide.md`; decision-making distillation at `../../distillations/decision-making/nhs-just-culture-guide-decision-making.md`; stakeholder-engagement distillation at `../../distillations/stakeholder-engagement/nhs-just-culture-guide-stakeholder-engagement.md`.

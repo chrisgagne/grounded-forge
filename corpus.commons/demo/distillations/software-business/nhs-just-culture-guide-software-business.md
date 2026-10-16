@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:50a530213b49064c879a525674e6bec4323631c6d0a313ebdf4023e328df20e1 -->
+<!-- derived-from-deep: sha256:ce9f74fa23371ad54bf48332e39b47613490eef4ecb0d701a1e83f290b069a70 -->
 # NHS Just Culture Guide, Software-Business Distillation
 
 **Source:** NHS Improvement (2018). *A Just Culture Guide*. A3 portrait poster, single page. Open Government Licence v3.0; the poster states no licence, and the basis is NHS England's website terms. Based on the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree. https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf.
@@ -130,6 +130,8 @@ The task spec's §2a Phase 3 table names `nhs-just-culture-guide` as a cross-axi
 | Multi-action incident treated as a single trip through the tree | The decomposition discipline has been skipped; the most-visible action is being treated as the whole incident | Decompose into distinct actions; walk the tree once per action; the recommendations may differ across actions |
 
 ## When to Use This Reference
+
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
 
 Reach for this distillation when:
 

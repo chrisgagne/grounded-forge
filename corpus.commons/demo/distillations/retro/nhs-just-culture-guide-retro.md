@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:50a530213b49064c879a525674e6bec4323631c6d0a313ebdf4023e328df20e1 -->
+<!-- derived-from-deep: sha256:ce9f74fa23371ad54bf48332e39b47613490eef4ecb0d701a1e83f290b069a70 -->
 # NHS Improvement Just Culture Guide, Retrospective Distillation
 
 **Source:** NHS Improvement (2018). *A Just Culture Guide — Supporting consistent, constructive and fair evaluation of the actions of staff involved in patient safety incidents*. A3 portrait poster. **Licence:** Open Government Licence v3.0; the poster states no licence, and the basis is NHS England's website terms. **Scope:** open. Attributes itself to "the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree" [V] (borrowed-through; neither is held directly in this corpus).
@@ -67,6 +67,8 @@ The NHS Just Culture Guide is a decision aid for managers evaluating the actions
 | Outcome severity is driving the response | The appropriate response can and should differ according to the circumstances in which the error was made | Redirect from severity to circumstances: what was happening in the system at the time? |
 
 ## When to Use This Reference
+
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
 
 Reach for this distillation when:
 - Blame language surfaces and a principled one-liner redirect is needed: "Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" [V] (Preamble, paragraph 1) is the claim this distillation leans on; in retro, the facilitator applies it by analogy to team issues.

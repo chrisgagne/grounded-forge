@@ -108,7 +108,7 @@ None. The cross-family leg and the derived-tier pass are recorded below.
 
 Two further deep-reference edits: the Q3 paragraph stated the Q3 routing twice after edit 3 (the sort's "retain its first sentence" kept a sentence the replacement restates), so the first statement is removed; the Recommendation F sentence's anchor "(Q3–Q5 recommendations)" now names D, E and F. check-verbatim on the deep reference reports only the line-15 `initial`.
 
-**Gate:** accepted by operator. Deep reference sha256 `50a530213b49064c879a525674e6bec4323631c6d0a313ebdf4023e328df20e1`, stamp included, after the licence line was reworded so the build reads its value.
+**Gate:** accepted by operator. Deep reference sha256 `ce9f74fa23371ad54bf48332e39b47613490eef4ecb0d701a1e83f290b069a70`, stamp included, after two operator edits: the licence line reworded so the build reads its value, and a currency note (NHS England's being fair tool replaces this guide, checked 2026-10-17) added to the source-integrity notes. The light reference, the five distillations (under "When to Use This Reference") and the source card carry the same currency note.
 
 ## Derived-tier fidelity check (2026-10-17)
 

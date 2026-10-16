@@ -105,6 +105,17 @@ def pass_i_spec() -> str:
     return text[start:end] + "\n"
 
 
+def repo_relative(text: str) -> str:
+    """Make a leg's report safe to track: Codex cites files as
+    `:codex-file-citation{path="/abs/..."}`, and an absolute path under the
+    operator's home fails the pre-push check. Write each as a repo-relative path."""
+    def cite(m: re.Match) -> str:
+        path = Path(m.group(1))
+        return f"(`{path.relative_to(REPO)}`)" if path.is_relative_to(REPO) else f"(`{path.name}`)"
+    text = re.sub(r':codex-file-citation\{path="([^"]+)"[^}]*\}', cite, text)
+    return text.replace(f"{REPO}/", "")
+
+
 class Agent:
     """One headless leg. Returns a dict with ok, cost and session details."""
 
@@ -322,11 +333,11 @@ class Source:
             second_stamp = f"fresh {steps.get('blind', {}).get('model') or 'Claude'} blind audit and sort, same family (audited-but-unverified)"
         if self.second != "none":
             tag = "crossfamily" if cross else "secondleg"
-            (aud / f"_ingest_pass_I_{self.slug}_{tag}_blind.md").write_text((self.work / "blind-findings.md").read_text())
-            (aud / f"_ingest_pass_I_{self.slug}_{tag}_sort.md").write_text((self.work / "sort.md").read_text())
-            (aud / f"_ingest_pass_I_{self.slug}_{tag}_prompts.md").write_text(
+            (aud / f"_ingest_pass_I_{self.slug}_{tag}_blind.md").write_text(repo_relative((self.work / "blind-findings.md").read_text()))
+            (aud / f"_ingest_pass_I_{self.slug}_{tag}_sort.md").write_text(repo_relative((self.work / "sort.md").read_text()))
+            (aud / f"_ingest_pass_I_{self.slug}_{tag}_prompts.md").write_text(repo_relative(
                 f"# Second-leg prompts: {self.slug}\n\n## Blind leg\n\n" + (self.work / "blind-brief.md").read_text()
-                + "\n\n## Sort leg\n\n" + (self.work / "sort-brief.md").read_text())
+                + "\n\n## Sort leg\n\n" + (self.work / "sort-brief.md").read_text()))
         promoted = self._promote() if self.args.promote_original else None
         lines = self.deep.read_text().split("\n")
         pending = re.compile(r"Pass I (has not run|not yet run|hasn't run|is pending|pending)\.?|Pass I\. Not yet run\.?", re.I)

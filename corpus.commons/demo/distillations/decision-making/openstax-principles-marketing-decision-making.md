@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:85ecda320e39340ecdc9a87364eaccfbf4a62780f2e93523dfd7ab6e2eb798f3 -->
+<!-- derived-from-deep: sha256:c13f8588f55b31e069f847fb8f2d0c91c86fd96b14c43df91b2f545abee90b50 -->
 # OpenStax, Principles of Marketing, Decision-Making Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -193,7 +193,7 @@ Decision: a stretch-down variant for a new segment is the highest-expected-value
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice, Companies with a Conscience) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

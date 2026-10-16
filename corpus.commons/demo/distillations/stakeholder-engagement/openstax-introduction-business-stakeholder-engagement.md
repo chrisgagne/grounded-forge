@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:55e7d001e7ca211d880006c918338f0a2866e5a1197d74150863a630934399ea -->
+<!-- derived-from-deep: sha256:6801cf9701ff95ff530947456cd42722dc6ce27005a33f1fb9421f6f024364ae -->
 # OpenStax Introduction to Business, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.
@@ -202,7 +202,7 @@ This worked example illustrates several key concepts: the four-stakeholder mappi
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice, Catching the Entrepreneurial Spirit) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Abraham Maslow — hierarchy of needs (Ch 9.3) [BT]

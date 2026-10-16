@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:55e7d001e7ca211d880006c918338f0a2866e5a1197d74150863a630934399ea -->
+<!-- derived-from-deep: sha256:6801cf9701ff95ff530947456cd42722dc6ce27005a33f1fb9421f6f024364ae -->
 # OpenStax Introduction to Business, Software-Business Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.
@@ -180,7 +180,7 @@ A founder of a Series A medical-imaging SaaS company faces a decision: their lar
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice, Catching the Entrepreneurial Spirit) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The source cites several third parties not held independently in this corpus. Drucker's "to society / for society" framing is borrowed-through from Drucker; the underlying Drucker text is not held. The Brigham Young University eleven-category unethical-activity classification is [BT]. The Unilever matrix-to-product structure example used in the anti-patterns section is presented in the source as an illustrative [AE]; the underlying case documentation is not held. (Source: OpenStax, *Introduction to Business*, deep reference, Parts II and VII)
 

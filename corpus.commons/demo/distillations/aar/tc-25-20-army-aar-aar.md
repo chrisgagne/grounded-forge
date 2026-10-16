@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:43e41f999c21452375ce86ca0019eb5053804b5ffe16a8c6026e1ed735f321d8 -->
+<!-- derived-from-deep: sha256:f9f9bb80576820e76d0f46dd2ce83e7df0c5b1285060bb3a1a38f3d5ea1a164d -->
 # US Army TC 25-20, After-Action Review Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). **Scope:** open.
@@ -41,7 +41,7 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 
 16. <!-- concept: aar-key-points --> **Eight key points that hold for every AAR.** Figure 1-1 lists them: AARs "Are conducted during or immediately after each event. Focus on intended training objectives. Focus on soldier, leader, and unit performance. Involve all participants in the discussion. Use open-ended questions. Are related to specific standards. Determine strengths and weaknesses. Link performance to subsequent training" [V] (Source: *TC 25-20*, Ch 1, Figure 1-1). Read as a pre-flight check, formal or informal: a review that misses one of the eight has drifted from the TC's AAR.
 
-17. <!-- concept: aar-format --> **The AAR format carries the three questions.** Figure 1-2's ten-item format glosses three of its items: the commander's mission and intent is "what was supposed to happen" [V], the summary of recent events is "what happened" [V], and the discussion of key issues is "why it happened and how to improve" [V] (Source: *TC 25-20*, Ch 1, Figure 1-2). Force protection is "discussed throughout" [V] rather than held to one slot (Source: *TC 25-20*, Ch 1, Figure 1-2). The format is the skeleton a facilitator can run in order; Figure 4-1 expands it for the formal AAR.
+17. <!-- concept: aar-format --> **The AAR format carries the three questions.** Figure 1-2's ten-item format glosses three of its items: the commander's mission and intent is "what was supposed to happen" [V], the summary of recent events is "what happened" [V], and the discussion of key issues is "why it happened and how to improve" [V] (Source: *TC 25-20*, Ch 1, Figure 1-2). Force protection is "discussed throughout" [V] rather than held to one slot (Source: *TC 25-20*, Ch 1, Figure 1-2). The format is the skeleton a facilitator can run in order; Figure 4-1 lays the same sequence out as a grouped outline, with subtopics under key issues and optional issues, as the TC's recommended sequence for conducting an AAR (Source: *TC 25-20*, Ch 4, Figure 4-1).
 
 ## Questions to Ask During AAR
 
@@ -53,7 +53,7 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 | Who is the right evaluator? | Is this an internal review (the unit's own leaders or OCs, with no one evaluating their own duties where possible) or an external evaluation (the TC assigns those to the headquarters two levels above)? If using an external OC, is the OC at least equal in rank to the unit leader, and where rank and experience conflict, does experience win? |
 | How much time is honest? | 30–45 min platoon; 1 hr company; 2 hr battalion-and-above. Are we budgeting realistically or pretending a 30-minute slot will support a 2-hour question? |
 | What are our fratricide-equivalents? | What events in this domain, if they occurred, must always be discussed in detail, in a review held as soon as possible afterwards? Name them now. |
-| Is the plan complete? | Has each Figure 1-4 planning action been done: OCs selected and trained, the training and evaluation plan reviewed, AAR timing set, attendance decided, sites and training aids chosen, the AAR plan reviewed (Source: *TC 25-20*, Ch 1, Figure 1-4)? |
+| Is the plan complete? | Has each Figure 1-4 planning action been done: qualified OCs selected and trained; the training and evaluation plan, ARTEP mission training plans and soldier training publications reviewed; AAR timing identified; attendance determined; potential sites selected; training aids chosen; and the AAR plan reviewed (Source: *TC 25-20*, Ch 1, Figure 1-4)? |
 | Is the climate ready? | Has the leader set the spirit — professional discussion, not critique, not a grading exercise — before the first question is asked? |
 
 ### Phase 1: Timeline and Local-Rationality Reconstruction

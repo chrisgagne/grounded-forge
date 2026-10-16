@@ -170,8 +170,6 @@ The TC's contribution is a set of decision rules that guard against failure mode
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process). The source has been re-converted and now holds them, but they are not yet covered here, so claims about those figures' contents are not grounded here.
-
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — doctrine and doctrine-derived frameworks the TC references but does not originate:
 
 - *FM 25-100, Training the Force (November 1988)* — cited as the parent doctrine for training planning, including the requirement to schedule retraining (Ch 5) [BT].

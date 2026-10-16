@@ -11,9 +11,9 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 
 1. <!-- concept: discovery-frame --> **Discovery frame, not critique frame.** "An after-action review (AAR) is a professional discussion of an event, focused on performance standards, that enables soldiers to discover for themselves what happened, why it happened, and how to sustain strengths and improve on weaknesses" [V] (Source: Department of the Army, *TC 25-20*, Ch 1, "Definition and Purpose"). A critique transmits one viewpoint and stifles learning; the AAR aggregates and tests views across all participants.
 
-2. <!-- concept: aar-four-step-cycle --> **Four-step cycle: Planning, Preparing, Conducting, Following up.** The AAR is a process, not an event. Chapter 5 is explicit: "The real benefits of AARs come from taking the results and applying them to future training" [V] (Source: *TC 25-20*, Ch 5, "Benefits"). Follow-up is not optional post-processing: the TC places the real benefits there. The discussion has value of its own too, since AARs "maximize training benefits by allowing soldiers, regardless of rank, to learn from each other" [V] (Source: *TC 25-20*, Ch 4, "Introduction and Rules").
+2. <!-- concept: aar-four-step-cycle --> **Four-step cycle: Planning, Preparing, Conducting, Following up.** The AAR is a process, not an event. Chapter 5 is explicit: "The real benefits of AARs come from taking the results and applying them to future training" [V] (Source: *TC 25-20*, Ch 5, "Benefits"). Follow-up is not optional post-processing: the TC places the real benefits there. Figure 1-4 ("The AAR Process") gives each step a checklist; its Conduct list reads "Seek maximum participation. Maintain focus on training objectives. Constantly review teaching points. Record key points" [V], and its Follow up list starts with "Identify tasks requiring retraining" [V] and ends with "Use to assist in making commander's assessment" [V] (Source: *TC 25-20*, Ch 1, Figure 1-4). The discussion has value of its own too, since AARs "maximize training benefits by allowing soldiers, regardless of rank, to learn from each other" [V] (Source: *TC 25-20*, Ch 4, "Introduction and Rules").
 
-3. <!-- concept: formal-aar --> **Formal vs informal AAR.** Formal AARs are resource-intensive, planned 6–8 weeks out, typically company-level and above. Informal AARs use the same format with minimal resources — "using nothing more than pinecones to represent squad members" [V] (Source: *TC 25-20*, Ch 1, "Informal"). Choose by fit, not by formality preference.
+3. <!-- concept: formal-aar --> **Formal vs informal AAR.** Formal AARs are resource-intensive, planned 6–8 weeks out, typically company-level and above. Informal AARs use the same format with minimal resources — "using nothing more than pinecones to represent squad members" [V] (Source: *TC 25-20*, Ch 1, "Informal"). Figure 1-3 sets out the contrast: formal reviews "Have external observers and controllers (OCs)" [V], "Take more time" [V] and "Are scheduled beforehand" [V]; informal reviews are "Conducted by internal chain of command" [V], "Are conducted when needed" [V] and "Are held at the training site" [V] (Source: *TC 25-20*, Ch 1, Figure 1-3). Choose by fit, not by formality preference.
 
 4. <!-- concept: two-echelons-above --> **Two-echelons-above evaluator rule.** External evaluations are conducted "two levels above the unit being evaluated" [V] (Source: *TC 25-20*, Ch 2, "The After-Action Review Plan"). The TC gives no rationale for the two-level distance, and the rule covers external evaluations only; the unit conducts its own internal evaluations (Source: *TC 25-20*, Ch 2, "The After-Action Review Plan"). When dedicated OCs are unavailable, leaders one level up in the chain of command evaluate and run the AAR, avoiding their own duties and tasks (Source: *TC 25-20*, Ch 2, "Selecting and Training Observers and Controllers").
 
@@ -39,6 +39,10 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 
 15. <!-- concept: closing-comments --> **Closing-comments rule.** The AAR leader summarises key points, ends positively, links to next training, then leaves so the unit can discuss in private (Source: *TC 25-20*, Ch 4, "Closing Comments"). The leader communicates the commitment, then creates space.
 
+16. <!-- concept: aar-key-points --> **Eight key points that hold for every AAR.** Figure 1-1 lists them: AARs "Are conducted during or immediately after each event. Focus on intended training objectives. Focus on soldier, leader, and unit performance. Involve all participants in the discussion. Use open-ended questions. Are related to specific standards. Determine strengths and weaknesses. Link performance to subsequent training" [V] (Source: *TC 25-20*, Ch 1, Figure 1-1). Read as a pre-flight check, formal or informal: a review that misses one of the eight has drifted from the TC's AAR.
+
+17. <!-- concept: aar-format --> **The AAR format carries the three questions.** Figure 1-2's ten-item format glosses three of its items: the commander's mission and intent is "what was supposed to happen" [V], the summary of recent events is "what happened" [V], and the discussion of key issues is "why it happened and how to improve" [V] (Source: *TC 25-20*, Ch 1, Figure 1-2). Force protection is "discussed throughout" [V] rather than held to one slot (Source: *TC 25-20*, Ch 1, Figure 1-2). The format is the skeleton a facilitator can run in order; Figure 4-1 expands it for the formal AAR.
+
 ## Questions to Ask During AAR
 
 ### Phase 0: Scoping
@@ -49,6 +53,7 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 | Who is the right evaluator? | Is this an internal review (the unit's own leaders or OCs, with no one evaluating their own duties where possible) or an external evaluation (the TC assigns those to the headquarters two levels above)? If using an external OC, is the OC at least equal in rank to the unit leader, and where rank and experience conflict, does experience win? |
 | How much time is honest? | 30–45 min platoon; 1 hr company; 2 hr battalion-and-above. Are we budgeting realistically or pretending a 30-minute slot will support a 2-hour question? |
 | What are our fratricide-equivalents? | What events in this domain, if they occurred, must always be discussed in detail, in a review held as soon as possible afterwards? Name them now. |
+| Is the plan complete? | Has each Figure 1-4 planning action been done: OCs selected and trained, the training and evaluation plan reviewed, AAR timing set, attendance decided, sites and training aids chosen, the AAR plan reviewed (Source: *TC 25-20*, Ch 1, Figure 1-4)? |
 | Is the climate ready? | Has the leader set the spirit — professional discussion, not critique, not a grading exercise — before the first question is asked? |
 
 ### Phase 1: Timeline and Local-Rationality Reconstruction
@@ -91,6 +96,7 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 | Is the next-action commitment locked? | "The real benefits of AARs come from taking the results and applying them to future training." [V] Who owns the next action, and when? |
 | If retraining is delayed, is the delay visible? | Soldiers must understand the task was not performed to standard and retraining will occur. Is the deferral timed and communicated, not silent? |
 | Has the SOP been revised? | Did the review surface SOP problems? Has the revision been implemented, not just noted? |
+| Has the result reached the assessment? | Figure 1-4's last follow-up action is to "Use to assist in making commander's assessment" [V] (Ch 1, Figure 1-4). Who outside the room needs this AAR's results for their own assessment, and have they got them? |
 | Did the leader close correctly? | Summary of key points, positive ending, link to next training, then leave so the unit can discuss in private? |
 
 ## What to Look For
@@ -106,7 +112,7 @@ TC 25-20 is the Army's leader's guide to planning, preparing and conducting AARs
 ## When to Use This Reference
 
 Reach for this source when:
-- You need the foundational AAR protocol — four steps, the seven-part conducting sequence (Figure 4-1), question design, and closing discipline — grounded in the Army's own leader's guide.
+- You need the foundational AAR protocol — four steps with Figure 1-4's action checklist, the eight key points (Figure 1-1), the AAR format (Figure 1-2) and its seven-part conducting sequence (Figure 4-1), question design, and closing discipline — grounded in the Army's own leader's guide.
 - The question is which format (formal vs informal) fits the event and the resources available.
 - There is a choice between evaluators and experience versus rank is the deciding factor.
 - An incident has occurred that belongs in the fratricide-equivalent class (a safety or severity-equivalent event) — the fratricide-mandatory-discussion rule is the principle to invoke: discuss it in detail, in an AAR held as soon as possible after the event.
@@ -152,8 +158,6 @@ Phase 4 names two corrective actions with owners: (1) a written standard for wha
 | Scrum Guide 2020 (scrum-guide-2020) | Scrum's Retrospective is the iterative-delivery analogue of the formal AAR. TC 25-20's immediate retraining on particularly weak areas (Ch 5, "Immediate Retraining") corresponds to Scrum's rule that the most impactful improvements are addressed as soon as possible; both share the adaptation-requires-commitment discipline |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked the text of Figures 1-1 to 1-4 (AAR Key Points, AAR Format, Types of AARs, The AAR Process). The source has been re-converted and now holds them, but they are not yet covered here, so claims about those figures' contents are not grounded here.
 
 **Borrowed-through gaps.** TC 25-20's bibliography is minimal: two field manuals (FM 25-100 *Training the Force*, November 1988; FM 25-101 *Battle Focused Training*, September 1990) are cited in the References page. The Combined Arms Training Strategy (CATS) is cited as the source of critical gate tasks (Ch 5) but is not held in this corpus [BT]. Combat training center (CTC) observer/controller practice is cited as the source for Appendix A's AAR techniques but the CTCs are not held as a primary reference [BT]. No research studies, psychological literature, or external theoretical frameworks are cited; the TC presents itself as doctrine, not as empirical research.
 

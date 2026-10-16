@@ -22,7 +22,7 @@ This distillation gathers these decision frames into a working pattern: how to b
 
 4.  **Clear path vs spike-warranted decisions.** When a task has knowns and the path is clear, estimate and commit. When the task has unknowns — risk, dependencies, "many unknowns" [V] — run a **Spike**: ask a question, try to answer it by reading and experimenting, repeat until enough information. A spike is the structured response to "we don't yet know enough to decide." (Source: Ch 1.2.3, "Agile Methods"; Ch 2.5.4, "Finer-Grained Prioritization")
 
-5.  **Fist of five for consensus.** Six-level voting (None=strong reject, blocks; One=reject, major issues; Two=weak reject, minor issues; Three=weak accept; Four=accept; Five=strong accept, willing to lead). If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again; how much consensus is enough is the team's or leader's call. The mechanism reduces risk by (1) surfacing latent dissent and (2) increasing team motivation, ownership, and investment. (Source: Ch 2.4.3)
+5.  **Fist of five for consensus.** Six-level voting (None=strong reject, blocks; One=reject, major issues; Two=weak reject, minor issues; Three=weak accept; Four=accept; Five=strong accept, willing to lead). If anyone shows two or fewer fingers, the team can stop, discuss, change the proposal and vote again; how much consensus is enough is the team's or leader's call. The mechanism reduces risk by (1) surfacing latent dissent and (2) increasing team motivation, ownership, and investment. (Source: Ch 2.4.3) The book adds a caution: "Meanings of single-finger hand gestures vary around the world" [V], so a mixed or international group should agree what each count means before voting (Ch 2.4.3; the voting advice is this distillation's application).
 
 6.  **RACI for decision rights.** Decisions about who decides, executes, advises, and observes are themselves load-bearing. RACI (Responsible / Accountable / Consulted / Informed) makes those roles explicit per task or deliverable. A team that doesn't know who needs to do what increases the probability of negative events and outcomes — "shipping a broken product to customers because nobody was assigned to quality assurance" [V] is the canonical example. (Source: Letaw, *Handbook of Software Engineering Methods*, Ch 2.4.2, "Defining Roles and Responsibilities: RACI Matrix")
 
@@ -147,8 +147,6 @@ Before the Week 6 scope-change request (the client wants to add a reporting modu
 | **Gagné, *Field Guide to Scrum Events*** | The Field Guide operationalises the Scrum events that Letaw uses as context for planning poker, story points, spikes, and the Sprint Backlog. Letaw for the methods themselves; Field Guide for how to facilitate the events where those methods are used. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the handbook cites named third parties not held as separate primary references in this corpus:
 

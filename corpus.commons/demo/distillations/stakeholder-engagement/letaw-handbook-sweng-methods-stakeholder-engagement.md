@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:2c01dbb539b3f1d631ea39bb2e310e999f6c9684748fcf03987775135e92d3a8 -->
+<!-- derived-from-deep: sha256:a10e1eeb60987843801dd946e70c6b6eb5e20861a10936aa3d30e6ab556869b3 -->
 # Letaw, Handbook of Software Engineering Methods — Stakeholder-Engagement Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.
@@ -21,7 +21,7 @@ This distillation gathers these threads into a working pattern: how to engage *t
 
 4. <!-- concept: raci-matrix --> **RACI matrix for explicit decision rights.** Responsible (who does the work), Accountable (who approves and ensures completion), Consulted (who advises), Informed (who is kept up to date). The matrix reduces risk by preventing the failure mode in which no one knows who needs to do what — the canonical example is "shipping a broken product to customers because nobody was assigned to quality assurance." [V] (Source: Ch 2.4.2)
 
-5. <!-- concept: fist-of-five --> **Fist of five for consensus.** Six-level voting: None (strong reject, blocks), One (reject, major issues), Two (weak reject), Three (weak accept), Four (accept), Five (strong accept, willing to lead). Two or fewer fingers is the cue for the team to stop, discuss, make changes and vote again; the team or its leader decides how much consensus is required. The mechanism surfaces latent dissent and increases team motivation, ownership, and investment. (Source: Ch 2.4.3)
+5. <!-- concept: fist-of-five --> **Fist of five for consensus.** Six-level voting: None (strong reject, blocks), One (reject, major issues), Two (weak reject), Three (weak accept), Four (accept), Five (strong accept, willing to lead). Two or fewer fingers is the cue for the team to stop, discuss, make changes and vote again; the team or its leader decides how much consensus is required. The mechanism surfaces latent dissent and increases team motivation, ownership, and investment. (Source: Ch 2.4.3) The book adds a caution: "Meanings of single-finger hand gestures vary around the world" [V], so a mixed or international group should agree what each count means before voting (Ch 2.4.3; the voting advice is this distillation's application).
 
 6. <!-- concept: project-priority-matrix --> **Project priority matrix decided with the client.** Time, cost, and scope are each tagged Constrain (fixed), Enhance (try to improve), or Accept (can worsen). Ideally defined before the project starts, with the client, and referenced throughout. The matrix anchors client-stakeholder conversations when the inevitable "can you also add this feature?" arrives. (Source: Ch 2.5.2)
 
@@ -31,7 +31,7 @@ This distillation gathers these threads into a working pattern: how to engage *t
 
 9. <!-- concept: user-stories --> **User stories as stakeholder-perspective specification.** "As a <role> I can <capability>, so that <receive benefit>." [V] Written in plain English so non-technical stakeholders can understand them. Stakeholders may originate user stories; clients guide prioritisation; conversation about each user story extracts details that get added back to the card. The INVEST acronym (Independent, Negotiable, Valuable, Estimable, Small, Testable) characterises a good user story — and the *N* (Negotiable) is the explicit invitation to ongoing stakeholder conversation. (Source: Ch 3.6.1, citing Wake 2003 [BT])
 
-10. <!-- concept: definition-of-done --> **Definition of Done negotiated with the client.** Acceptance criteria say what must be true about the functionality for the user story to be considered done. Often written in given-when-then format. The DoD is a stakeholder-engagement artefact: it is the boundary between "developer says done" and "client agrees it is done." (Source: Ch 3.6.1)
+10. <!-- concept: definition-of-done --> **Definition of Done negotiated with the client.** Acceptance criteria say what must be true about the functionality for the user story to be considered done. Often written in given-when-then format. The DoD is a stakeholder-engagement artefact: it is the boundary between "developer says done" and "client agrees it is done." (Source: Ch 3.6.1) The book's worked example gives US-023, "As an admin, I want to disable comments so that I can control spam and spread of disinformation" [V] (Figure 3.3), three given-when-then criteria in Figure 3.4, one of them "The message appears within 10 milliseconds" [V] (Ch 3.6.1).
 
 11. <!-- concept: paper-prototyping --> **Paper prototyping with users via swap-and-watch.** Once a paper prototype is in hand, give the user the entry screen drawing and either a task or free exploration. Watch how they interact; quickly swap in other drawings to respond. Combine with a *think-aloud protocol* — asking the user to verbalise what they are doing, trying to do, asking, and disliking. The method is cheap, fast, and surfaces design problems before code commitment. (Source: Ch 6.2; Glossary, "think-aloud protocol")
 
@@ -178,8 +178,6 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 5% of the PDF's longer lines, mostly callout and example boxes (the Agile Manifesto values, example use cases and user stories, acceptance criteria, Inclusivity Heuristics design recommendations). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Tuckman (1965) and Tuckman & Jensen (1977) — five-stage team-development model (Ch 2.4) [BT]
 - Beck et al. (2001), Agile Manifesto — grounding document for the Agile philosophy (Ch 1.2.1) [BT]
@@ -195,7 +193,7 @@ The scenario is operator-authored. The project-priority-matrix framing (Ch 2.5.2
 **Named limits of the source.** The text explicitly acknowledges or implies these scope boundaries:
 - Detailed stakeholder-mapping frameworks (Mitchell-Agle-Wood salience; Freeman stakeholder theory) are not developed. The *Handbook* names stakeholders implicitly and engages them through methods but does not develop a stakeholder-mapping theory.
 - Negotiation theory (BATNA, distributive vs integrative bargaining, principled negotiation) is not developed. Letaw's engagement methods are upstream of formal negotiation.
-- Cross-cultural stakeholder engagement is addressed only in passing (ground rules will vary by culture, Ch 2.4.1). Hofstede and culture-aware engagement are not developed.
+- Cross-cultural stakeholder engagement is addressed only in passing (ground rules will vary by culture, Ch 2.4.1; single-finger hand-gesture meanings vary around the world, Ch 2.4.3). Hofstede and culture-aware engagement are not developed.
 - Power and politics dynamics (French and Raven, resource dependence) are not developed. RACI is a decision-rights artefact, not a power analysis.
 - Regulatory-stakeholder engagement (privacy law, accessibility law) is gestured at through quality attributes and constraints but not developed.
 - The source is CC BY-NC 4.0 (open-nc); derivative works for commercial purposes require permission.

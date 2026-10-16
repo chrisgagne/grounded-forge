@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3187dc585fb46278de5a30d571d547ba04d92b8d7817633d64f1568f2cf60d0a -->
+<!-- derived-from-deep: sha256:7ade4c45685ba2322fe1886eca4d73f0799d9e7686a7903b629c9d5d9ee6bfbd -->
 # OpenStax Entrepreneurship, Decision-Making Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.
@@ -186,8 +186,6 @@ The structured walk through these steps surfaces that the founder's intended nex
 | Osterwalder and Pigneur, *Business Model Generation* | The Business Model Canvas is reproduced as one of three focal canvases, alongside the Lean Canvas and the Social Business Model Canvas (Ch 11.2). |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

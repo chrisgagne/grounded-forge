@@ -9,6 +9,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 - Choose formal AAR for high-stakes cross-functional incident → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Convene without administrative-action contamination → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Hold the default-to-system posture before the conversation begins → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- Check the plan and the run against the TC's checklists → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Budget time honestly for the depth required → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Set the climate and spirit as operational concern → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Identify the fratricide-equivalent topics → [tc-25-20-army-aar](tc-25-20-army-aar.md)

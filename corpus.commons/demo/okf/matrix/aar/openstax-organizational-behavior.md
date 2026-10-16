@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T11:40:58+13:00
+  at: 2026-10-17T09:56:34+13:00
 ---
 # OpenStax Organizational Behavior, AAR Distillation
 
@@ -136,7 +136,7 @@ A cross-functional team reviews a missed safety alert. The operations team says 
 
 **Borrowed-through gaps.** The Dearborn and Simon perceptual-selectivity study is cited in the source as [BT] (Ch 3.1); neither Dearborn nor Simon is held directly. Likert's supervisor-subordinate data (Table 3.1, adapted from Likert, 1961) is cited in the source as [BT]; Likert's original research is not held directly. The Asch conformity finding is cited as [BT] (Ch 9.2); Asch's work is not held directly in the demo corpus. Mintzberg's managerial role taxonomy (disturbance-handler) is borrowed-through in the source [BT] (Ch 11.3). Attribution theory's Heider-Kelley lineage is borrowed-through [BT] (Ch 3.3).
 
-**Named limits of the source.** Organizational Behavior is a management textbook covering individual, group, and organisational dynamics. It does not carry timeline reconstruction protocol, just-culture decision frameworks, or action-design methodology. Its AAR contribution is confined to the cognitive and social dynamics of the AAR room — particularly Phases 1 through 3. The source's scaffolding sections (Key Terms, Review Questions, Management Skills exercises) were excluded from the deep reference coverage scope; the deep reference was read from a conversion that lacked about 7% of the PDF's longer lines (mostly feature boxes, some body text); the source has since been re-converted and now holds them, but outside Ch 12.7–12.9 they are not yet covered here.
+**Named limits of the source.** Organizational Behavior is a management textbook covering individual, group, and organisational dynamics. It does not carry timeline reconstruction protocol, just-culture decision frameworks, or action-design methodology. Its AAR contribution is confined to the cognitive and social dynamics of the AAR room — particularly Phases 1 through 3. The source's scaffolding sections (Key Terms, Review Questions, Management Skills exercises) were excluded from the deep reference coverage scope.
 
 **Evidence-marker continuity.** The fundamental attribution error definition is `[V]` in the deep ref; preserved in Concept 1. The Likert data are `[V]` in the deep ref (the quoted row label is Table 3.1's wording); Concept 5 carries them as `[BT]` because the source relays Likert's study. The Asch conformity finding is `[BT]` in the deep ref (the source attributes it to Asch's original work, not to the OB text itself), and the text's own sentence reporting it is `[V]`; Concept 11 carries both markers. The process-conflict-can-improve-performance claim is `[V]` in the deep ref; preserved in Concept 9.
 

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T11:40:58+13:00
+  at: 2026-10-17T09:56:34+13:00
 ---
 # OpenStax Organizational Behavior, Stakeholder-Engagement Distillation
 
@@ -63,6 +63,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 | Map resource dependencies | Who controls critical resources we need? What resources do we control that they need? Where is the asymmetry? |
 | Identify counterpower | If we exercise influence, what counterpower can stakeholders draw on? Where would push-back come from? |
 | Surface latent stakeholders | Who is affected but not yet engaged? Whose voice is missing because they lack the power to assert themselves? |
+| Map internal stakeholders | Beyond the team, which internal stakeholders (boss, boss's boss, peers, key influencers, internal customers) do we need to meet early, and perhaps regularly? Whose support do we need, and who could keep the team from succeeding? The source's own checklist for new managers, where reconciling "different constituencies’ expectations and interests" is called "probably the most difficult" challenge [V] [BT, Hill] (Ch 10.3, "Who Am I Managing?"). |
 
 ### Phase 2: Framing the Engagement (Before convening)
 
@@ -186,7 +187,7 @@ The scenario is operator-authored; all framework citations trace through the dee
 
 **Borrowed-through gaps.** The deep ref carries more than 80 `[BT]` markers. Stakeholder-engagement-relevant borrowed-through authors who are not held as primary references in this corpus include: French and Raven (power bases, Ch 12.3, Ch 13.1); Salancik and Pfeffer (resource dependence, Ch 13.3); Hickson et al. (strategic contingencies, Ch 13.3); Thomas (five conflict modes, Ch 14.2); Fisher, Ury, and Patton (BATNA and principled negotiation, Ch 14.4); Mintzberg (liaison role, Ch 11.3); Asch (conformity, Ch 9.2); and the head-body-heart cultural-intelligence framework (Ch 10.6). None of these authors is held as a primary reference in this corpus; their frameworks are accessed through the OpenStax deep ref.
 
-**Named limits of the source.** The source covers organisational behaviour in a textbook frame. The deep ref notes that pedagogical scaffolding (Key Terms, Summary, Review Questions) was excluded; the deep reference was read from a conversion that lacked about 7% of the PDF's longer lines (mostly feature boxes, some body text); the source has since been re-converted and now holds them, but outside Ch 12.7–12.9 they are not yet covered here. The source does not provide applied stakeholder-engagement protocols or field-tested facilitation tools; it provides analytical frameworks. Its conflict-resolution and negotiation treatments are conceptually grounded but less detailed than specialist negotiation texts. Cross-cultural content (Ch 2.7, Ch 10.6) names dimensions without developing country-specific application guides. Licence is CC BY-NC-SA 4.0; distillations derived from this deep ref inherit the ShareAlike obligation.
+**Named limits of the source.** The source covers organisational behaviour in a textbook frame. The deep ref notes that pedagogical scaffolding (Key Terms, Summary, Review Questions) was excluded. The source does not provide applied stakeholder-engagement protocols or field-tested facilitation tools; it provides analytical frameworks. Its conflict-resolution and negotiation treatments are conceptually grounded but less detailed than specialist negotiation texts. Cross-cultural content (Ch 2.7, Ch 10.6) names dimensions without developing country-specific application guides. Licence is CC BY-NC-SA 4.0; distillations derived from this deep ref inherit the ShareAlike obligation.
 
 **Evidence-marker continuity.** The deep ref carries the Ch 6.1 stakeholder definition and the BATNA-attractiveness sentence as `[V]`; it carries the 47 per cent liaison figure, the multicultural conflict sources, Thomas, BATNA and French-Raven as `[BT]`. This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; the deep ref's `[V]` passages are the authoritative verbatim layer. Where the distillation cites "Ch N, Section name", the corresponding passage is in the deep ref at `references/openstax-organizational-behavior-deep.md`.
 

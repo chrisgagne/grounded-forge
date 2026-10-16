@@ -130,6 +130,8 @@ The task spec's §2a Phase 3 table names `nhs-just-culture-guide` as a cross-axi
 
 ## When to Use This Reference
 
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
+
 Reach for this distillation when:
 
 - A software incident has occurred (security breach, outage, defect with customer impact, data loss, regulator-visible event) **and** the conversation has begun to surface a concern about an individual engineer's action, beyond the system-level corrective work.

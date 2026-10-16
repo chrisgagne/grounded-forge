@@ -89,6 +89,8 @@ The NHS Just Culture Guide is a single-page five-test decision tree for a call a
 
 ## When to Use This Reference
 
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
+
 Reach for this source when:
 - Phase 3 requires a structured framework for the individual-vs-system locus decision — the five-test tree is a decision aid built for this call.
 - The default-to-system posture needs to be established at Phase 0 before any individual accounts are heard.

@@ -67,6 +67,8 @@ The NHS Just Culture Guide is a decision aid for managers evaluating the actions
 
 ## When to Use This Reference
 
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
+
 Reach for this distillation when:
 - Blame language surfaces and a principled one-liner redirect is needed: "Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action" [V] (Preamble, paragraph 1) is the claim this distillation leans on; in retro, the facilitator applies it by analogy to team issues.
 - Blame language has survived the standard redirect and a structured diagnostic is needed: the foresight test (Q3) and substitution test (Q4) provide specific questions that reorient the conversation.

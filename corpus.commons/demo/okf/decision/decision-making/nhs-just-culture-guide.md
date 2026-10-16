@@ -12,7 +12,7 @@ sources:
     resource: https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-17T09:53:02+13:00
+  at: 2026-10-17T10:03:50+13:00
 ---
 # NHS Just Culture Guide, Decision-Making Distillation
 
@@ -136,6 +136,8 @@ This distillation is shaped for the just-culture decision specifically — the r
 | The guide is applied once and closed when new facts surface later in the investigation | Re-entrant-property ignored — "the guide may need to be revisited as more information becomes available" [V] (Source: Preamble, "Please note") | Treat the guide as a live conversation aid; re-run if investigation facts change any Q1-Q5 answer |
 
 ## When to Use This Reference
+
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
 
 - An investigation of a patient safety incident has begun to surface a concern about an individual action, and a manager needs to decide whether the appropriate response is individual-directed, system-directed, or both.
 - A multi-action incident requires decomposition — the guide applies one action at a time; complex incidents require multiple separate trips through the tree.

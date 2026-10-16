@@ -12,7 +12,7 @@ sources:
     resource: https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-17T09:53:02+13:00
+  at: 2026-10-17T10:03:50+13:00
 ---
 # NHS Just Culture Guide, Stakeholder-Engagement Distillation
 
@@ -126,6 +126,8 @@ This distillation projects the source onto the stakeholder-engagement task by su
 **Follow-up:** Return to the staff member formally. The guide may "need to be revisited as more information becomes available" [V] — the source expects this.
 
 ## When to Use This Reference
+
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
 
 - A patient safety incident has occurred and the organisation needs a structured framework for evaluating whether individual-directed action is appropriate alongside the systemic investigation.
 - A manager needs to explain the organisation's just-culture approach to a staff member before an incident occurs — as a communication of what the organisation is committed to.

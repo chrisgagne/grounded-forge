@@ -121,6 +121,8 @@ This distillation is shaped for the just-culture decision specifically — the r
 
 ## When to Use This Reference
 
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
+
 - An investigation of a patient safety incident has begun to surface a concern about an individual action, and a manager needs to decide whether the appropriate response is individual-directed, system-directed, or both.
 - A multi-action incident requires decomposition — the guide applies one action at a time; complex incidents require multiple separate trips through the tree.
 - The question is whether indications of substance abuse or ill health route the case to organisational substance-abuse-at-work guidance or to health guidance likely to include occupational health referral — Q2 is the filter.

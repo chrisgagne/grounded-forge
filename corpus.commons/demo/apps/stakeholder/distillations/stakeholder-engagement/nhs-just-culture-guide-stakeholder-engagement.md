@@ -111,6 +111,8 @@ This distillation projects the source onto the stakeholder-engagement task by su
 
 ## When to Use This Reference
 
+**Currency (checked 2026-10-17, from NHS England's patient-safety pages, not the poster):** NHS England has replaced this 2018 guide with its being fair tool, after a 2023–24 review found the guide no longer fit for purpose. Cite it as the 2018 guide, not as current NHS practice.
+
 - A patient safety incident has occurred and the organisation needs a structured framework for evaluating whether individual-directed action is appropriate alongside the systemic investigation.
 - A manager needs to explain the organisation's just-culture approach to a staff member before an incident occurs — as a communication of what the organisation is committed to.
 - Patients or families need to understand how the response to a staff member involved in an incident can and should differ according to the circumstances in which an error was made.

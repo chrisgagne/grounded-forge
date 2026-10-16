@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-economics-3e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T12:13:02+13:00
+  at: 2026-10-17T12:43:43+13:00
 ---
 # OpenStax Principles of Economics 3e, Software-Business Distillation
 
@@ -192,8 +192,6 @@ Information asymmetry is the next question. The vendor's roadmap and renewal-pri
 | `openstax-organizational-behavior` | Org Behavior supplies the individual-and-group cognitive and motivational frames; Economics supplies the structural framing (monopsony in labour markets, derived demand, incentive design, moral hazard in insurance-like arrangements). Pair them: Org Behavior gives the individual-and-group lens; Economics gives the structural mechanics of labour-market and insurance-like relationships. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 1.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Work It Out). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference carries several third-party citations not held as primary references in this corpus. The loss-aversion sentence is [V] in the deep ref: the source's words, relaying Kahneman and Tversky's 1979 finding that a $1 loss pains 2.25 times more than a $1 gain helps; the underlying 1979 paper is not held in the corpus. The Mao-era Great Leap Forward price-control example (30-40 million deaths attributed to suppressed farm-production prices) is the source's own [V] statement in Ch 4.3; the underlying historical research is not held or independently verified in this corpus. The "six-tenths rule" for economies-of-scale in pipe geometry is flagged [BT] in the deep ref (Ch 7.5). Minimum-wage elasticity of hiring (1-2% reduction per 10% wage increase) is cited in Ch 4.1 from unnamed research as [BT]. (Source: OpenStax, *Principles of Economics 3e*, deep reference, Parts IV, VI, VII)
 

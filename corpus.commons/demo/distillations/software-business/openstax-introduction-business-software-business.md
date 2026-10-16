@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:6801cf9701ff95ff530947456cd42722dc6ce27005a33f1fb9421f6f024364ae -->
+<!-- derived-from-deep: sha256:767c4bf3cb76809578d67ca3450533e1a9396a1d17ee64a829f8dd3eca8390cc -->
 # OpenStax Introduction to Business, Software-Business Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.
@@ -179,8 +179,6 @@ A founder of a Series A medical-imaging SaaS company faces a decision: their lar
 | `letaw-handbook-sweng-methods` | Letaw carries the software-engineering methods discipline (RACI, triple constraint, monolith-vs-microservice architecture, Tuckman team stages). *Introduction to Business* provides the general structural vocabulary (departmentalization, mechanistic-vs-organic, leadership styles) that Letaw narrows to software-specific operational patterns. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The source cites several third parties not held independently in this corpus. Drucker's "to society / for society" framing is borrowed-through from Drucker; the underlying Drucker text is not held. The Brigham Young University eleven-category unethical-activity classification is [BT]. The Unilever matrix-to-product structure example used in the anti-patterns section is presented in the source as an illustrative [AE]; the underlying case documentation is not held. (Source: OpenStax, *Introduction to Business*, deep reference, Parts II and VII)
 

@@ -174,8 +174,6 @@ The FLIF is used after each participant-facilitated week; facilitators complete 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked the opening line of several boxed bullet lists. The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — passages where the Guide cites named third parties not held as separate primary references in this corpus:
 
 - *Community of Inquiry model (Garrison, Anderson; Vaughan et al. 2013; Anderson 2017; Richardson et al. 2015)* — not held. Named as the framing model for online facilitation; cited for the 18-years-of-research claim and the three-presence framework. The Guide uses this model to frame facilitation of social and cognitive interaction online (Ch 1, "Facilitating learning online"); the facilitate-versus-transmit framing comes from Ch 1's account of adult learning theory, not from this model.

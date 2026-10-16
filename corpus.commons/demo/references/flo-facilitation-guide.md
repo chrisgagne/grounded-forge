@@ -5,7 +5,6 @@
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. Ebook ISBN 978-1-77420-036-0; v2.00 (April 2020). Licence: **CC BY 4.0**.
 **Structure:** Introduction + 7 chapters + 3 appendices. Ch 1 *What is Facilitation?*; Ch 2 *FLO Family of Courses* (five courses, lineage from ISWO 2008); Ch 3 *Facilitating FLO* (accessible design; scaffolding-and-fading role arc; four-category Core FLO Facilitation Skills; mentorship model; *Tools to Support FLO*); Ch 4 *FLO Fundamentals* (5-week course; Self-Assessment Rubric; *FLIF* reflection process); Ch 5 *FLO Design* (4-week course; studio-based approach; rubric); Ch 6 *FLO Synchronous* (3-week course; two tracks — Reviewing Participant vs Practicing Facilitator; rubric; 3-2-1 reflection); Ch 7 *FLO MicroCourses* (5-day single-topic; 5-step Activity Packet; Peer Feedback Rubric); App 1 Annotated Bibliography; App 2 Glossary; App 3 Generalized Course Evaluation Survey.
-**PARTIAL source text:** This was derived from a conversion that lacked the opening line of several boxed bullet lists. The source has been re-converted and now holds them, but they are not yet covered here.
 
 ## Thesis (condensed)
 
@@ -119,7 +118,9 @@ Short, single-topic, hands-on. Participants engage in a five-step process to cre
 
 ## Cross-cutting facilitation craft
 
-**Modelling as through-line.** Facilitator authenticity with the practice is part of the curriculum. Welcome post models good facilitation; first-week presence models what participant teams will do later in Fundamentals; FLIF facilitators complete the FLIF themselves; FLO Synchronous facilitators plan their final session in the open in shared Google Docs and design sessions that demonstrate what they're teaching.
+**Modelling as through-line.** Facilitator authenticity with the practice is part of the curriculum. Welcome post models good facilitation (it "doesn't need to be just text", and part of the facilitator's job is to model "fearless experimentation with communication technologies"); first-week presence models what participant teams will do later in Fundamentals; FLIF facilitators complete the FLIF themselves; FLO Synchronous facilitators plan their final session in the open in shared Google Docs and design sessions that demonstrate what they're teaching.
+
+**Open Forum posts.** Beyond the weekly overview post, facilitators keep instructor presence with additional Open Forum posts, made engaging with Creative Commons images, short informal videos, other tech tools (e.g. an annotated screen capture) or links to current events; the closing post includes the last session's recording link and asks participants to complete the course feedback by a due date.
 
 **Question form.** Open-ended, invitational, and probing. The video transcript on team feedback names the move: "post in their planning forum to ask some open-ended questions about how they think things are going." The MicroCourse facilitator's "curious voice" — "I can't wait to read others' first impressions and advice" — is an explicit invitational tone.
 

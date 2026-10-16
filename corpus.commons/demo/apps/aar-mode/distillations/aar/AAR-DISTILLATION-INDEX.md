@@ -63,6 +63,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Ask whether the convener's own decisions are in scope | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | The "elephant in the room" box: FLAs tend not to examine Delegating Officials' decisions; ask the team to examine "Why were they there?" |
 | Select the right learning tool for the event | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Operator names an event and asks "what kind of review" — apply the four-tool ladder (AAR / RLS / FLA / Learning Review), scaled by learning opportunity not outcome severity. |
 | Choose informal AAR for small in-team learning | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | A platoon-level-and-below event; an on-the-spot informal AAR uses the same format as a formal one with minimal resources and gives immediate feedback while the training is fresh. |
 | Choose formal AAR for high-stakes cross-functional incident | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | Formal-AAR 6-8 week lead time; two-levels-above rule for external evaluations; experience-over-rank OC selection. |
@@ -85,6 +86,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Run interviews with how and what, never why | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Handout B: start easy, open with "What are you able to tell me about your experience?", ask "What was going through your mind as that was occurring?", paraphrase back at the end; no signed statements or recordings. |
+| Use the six AAR-type dialogue questions | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Handout D: from "What was planned? What was your leader's intent?" to "What can we learn as an organization? What might we do differently?" |
 | Choose the discussion-organisation technique for this event | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | Three options — chronological for narrative recall, BOS-equivalent for systemic patterns across phases, key events for tight-focus when time is limited. |
 | Decompose pre-event beliefs, perceptions, expectations, paradigms | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Surface the participants' pre-event situational awareness; four-category decomposition makes invisible mental models visible. |
 | Build the timeline through the Five Hows | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Structured decision-reconstruction tool inside the Lessons Learned Analysis: for each key decision, explore how and why choices that seemed wrong in hindsight "were actually valid or at least legitimate in context at the time"; consensus is not the goal. |
@@ -111,6 +114,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Check the team for the five watch-outs | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Handout C: confirmation bias, fundamental attribution error, outcome bias, hindsight bias, counterfactual thinking; fear the fusion, not the confusion. |
 | Refuse the "root cause" framing | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | "Cause isn't something investigators 'find' or 'discover'; cause is always something we create by recreating the event"; *networked causality* as the replacement vocabulary. |
 | Refuse counterfactual reasoning | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | "If this person had done X, then the outcome would have been Y and the accident would not have occurred" is the forbidden move; learn why people did what they actually did. |
 | Apply contributory-factors-not-the-cause framing | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | TC 25-20 takes no position on single versus multiple causes; its discussion techniques (chronological, BOS across phases) let several contributing actions surface. Ask what else contributed besides the first explanation offered. |
@@ -192,6 +196,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Debrief the convener and acknowledge harms | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-aar.md` | Appendix D's eight-step oral debrief for the Delegating Official; Appendix F's restorative checklist (who is hurt, what do they need, whose obligation). |
 | Close with What/So What/Now What sequenced debrief | Liberating Structures Handbook | `liberating-structures-handbook-aar.md` | Three-question sequence (included in many Center for Creative Leadership programs, borrowed-through; explicitly named *After Action Debrief* in the handbook); refuses jumping to Now-What before What and So-What. |
 | Apply TC 25-20 closing-comments rule | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | Leader summarises key points, ends positively, links to next training, then leaves so the unit can discuss in private. |
 | Lock in the next-action commitment before the review ends | US Army, TC 25-20 | `tc-25-20-army-aar-aar.md` | The real benefits live in follow-up; an AAR without a clear retraining commitment leaves them unrealised. |

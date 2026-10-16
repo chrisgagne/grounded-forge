@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b2f993f87935a866b5405e7f763e30d4ef7bc8325c4676907576c69d300fe235 -->
+<!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
 # LFUO 2024, Stakeholder-Engagement Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.
@@ -31,7 +31,7 @@ Where the guide is silent (e.g., on broader community engagement outside the age
 
 5. <!-- concept: trust-bridge-liaisons --> **Liaisons as trust-bridge stakeholders.** "Provide employees with a trusted liaison who can explain the FLA process and who will be available to support employees until the FLA is completed." [V] Multiple liaison roles are named: Family Liaisons (for fatalities), Hospital Liaisons, CISM Coordinators, CAP Coordinators, Employee Assistance Program liaisons, agency representatives, IMT liaisons, regional/state office liaisons, cooperator liaisons. (Source: Part 5, "Priority Delegating Official Actions"; Appendix E)
 
-6. <!-- concept: restorative-justice --> **Restorative justice as an engagement modality.** "After a serious accident, employees are often emotionally harmed, and relationships can be strained or broken... It allows all parties to discuss how they have been affected and collaboratively decide how they want to proceed." [V] The guide points to a Restorative Justice Checklist (Appendix F); its content is a graphic that did not extract, so consult the PDF. The framing draws on Dekker & Breakey 2016 *Safety Science* [BT]. (Source: Part 1, "Just Culture"; Appendix F; Glossary, "Restorative justice")
+6. <!-- concept: restorative-justice --> **Restorative justice as an engagement modality.** "After a serious accident, employees are often emotionally harmed, and relationships can be strained or broken... It allows all parties to discuss how they have been affected and collaboratively decide how they want to proceed." [V] The guide points to Dekker's Restorative Just Culture Checklist (Appendix F; image pages, read from OCR in the deep reference), which asks who is hurt (first victims, second victims, the organisation, the community), what they need, and whose obligation it is to meet the need, then whether the parties are ready to forgive and whether the response has achieved moral engagement, emotional healing, reintegration of the practitioner and organisational learning. The framing draws on Dekker & Breakey 2016 *Safety Science* [BT]. (Source: Part 1, "Just Culture"; Appendix F; Glossary, "Restorative justice")
 
 7. <!-- concept: setting-the-stage --> **Setting the stage for engagement.** "Throughout the FLA process, team members should be prepared to explain the history of FLA and its major underpinnings, such as the degree of confidentiality, Just Culture and The Gap." [V] After an incident, participants tend to worry "that this time the 'investigators' are out to get them" [V]; a frank discussion of the delegation helps. (Source: Part 6, "Setting the stage")
 
@@ -95,7 +95,7 @@ Where the guide is silent (e.g., on broader community engagement outside the age
 | Has rapport been built before the substantive questions? | The deflection-question protocol depends on knowing what the participant is comfortable with. The opening of the interview is for rapport, not for substantive questions. |
 | Is the participant being walked away from re-traumatising recall? | Do not steer into deeper recall; the guide leaves that to mental health professionals. If the participant goes there anyway, deflection questions ready: "take me back to that morning when you guys were at the engine bay, what time did your duty day start?" [V] |
 | Are quotes being captured? | The FLA facilitator should remind interviewers to collect quotes for use in the learning product. |
-| Is the interviewer aware of their biases? | Hindsight bias (Handout C) and the fundamental attribution error (Part 3) need explicit team conversation; Handout C's full watch-out list is a graphic in the PDF. |
+| Is the interviewer aware of their biases? | Hindsight bias (Handout C) and the fundamental attribution error (Part 3) need explicit team conversation; Handout C lists five watch-outs (confirmation bias, the fundamental attribution error, outcome bias, hindsight bias, counterfactual thinking). |
 | Is the team debriefing daily? | The lead facilitator schedules end-of-day sharing — interview results, adjustments, team well-being. |
 
 ### Phase 4: Designing the group dialogue
@@ -140,7 +140,7 @@ Where the guide is silent (e.g., on broader community engagement outside the age
 
 | Need | Question |
 |---|---|
-| Who has been harmed, and what do they need? | The guide points to Appendix F's Restorative Justice Checklist (a graphic in the PDF) for this step. |
+| Who has been harmed, and what do they need? | Appendix F's Restorative Just Culture Checklist: who is hurt, what do they need, whose obligation is it to meet the need, are the parties ready to forgive (Appendix F, from OCR in the deep reference)? |
 | What is restorative justice trying to repair? | Restorative justice aims to repair trust and relationships damaged after an incident (Part 1). |
 | Have all affected parties had a chance to discuss how they have been affected? | Restorative justice "allows all parties to discuss how they have been affected and collaboratively decide how they want to proceed." [V] |
 | Is there ongoing support for the FLA team itself? | FLA team members may also need mental health support after engaging with traumatic material. |
@@ -226,8 +226,6 @@ The scenario is operator-authored. The liaison guidance (Part 5), the administra
 | Barbrook-Johnson & Penn, *Systems Mapping* | For stakeholder engagement where participatory systems mapping is used to surface the causal structure of an incident; the boundary-object framing (maps as surfaces all stakeholders can critique from their own perspective) is especially important for participants with different professional standings. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Sidney Dekker — *The Field Guide to Understanding Human Error* (2014); *Just Culture: Balancing Safety and Accountability* (2007); cited throughout for the Just Culture and local-rationality framing [BT]

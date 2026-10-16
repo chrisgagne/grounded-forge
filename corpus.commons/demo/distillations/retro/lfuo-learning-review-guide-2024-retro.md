@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:b2f993f87935a866b5405e7f763e30d4ef7bc8325c4676907576c69d300fe235 -->
+<!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
 # US Forest Service LFUO 2024, Retrospective Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Scope:** open. Carries borrowed-through citations to Dekker, Hollnagel, Weick, Klein, and Reason, which the demo does not hold directly.
@@ -15,7 +15,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 
 3. <!-- concept: counterfactual-reasoning --> **Counterfactual reasoning is forbidden.** "FLA teams must guard against making counterfactual arguments such as: 'If this person had done X, then the outcome would have been Y and the accident would not have occurred.' The FLA is only useful when it learns why people did what they actually did" [V] (Part 9, "Avoid Counterfactual Arguments"). In retro, state the rule aloud at the opening when blame language or counterfactual framing is anticipated.
 
-4. <!-- concept: five-hows --> **Five Hows as local-rationality reconstruction.** The Lessons Learned Analysis applies the Five Hows to the most important key decisions or actions, to "explore how and why the decisions and actions that seemed wrong in hindsight were actually valid or at least legitimate in context at the time" [V] (Part 7, "The Five Hows – A Sensemaking Tool"). Scaled to retro, the Five Hows apply to recurring problems: how did the team develop its understanding of the situation that led to the repeated pattern?
+4. <!-- concept: five-hows --> **Five Hows as local-rationality reconstruction.** The Lessons Learned Analysis applies the Five Hows to the most important key decisions or actions, to "explore how and why the decisions and actions that seemed wrong in hindsight were actually valid or at least legitimate in context at the time" [V] (Part 7, "The Five Hows – A Sensemaking Tool"). Scaled to retro, the Five Hows apply to recurring problems: how did the team develop its understanding of the situation that led to the repeated pattern? The guide's graphic completes one stem, "How it made sense at the time of - and leading up to - the incident to ..." [V], five ways: "...expect what they expected." "... ignore a risk that (in hindsight) seems so obvious." "... see things the way they were seen in their eyes." "... forgo an available hazard mitigation." "...shortcut a standard procedure or process." [V] (Part 7, "The Five Hows – A Sensemaking Tool", graphic).
 
 5. <!-- concept: beliefs-perceptions-expectations-paradigms --> **Beliefs, perceptions, expectations, paradigms decomposition.** Each key recurring problem can be decomposed into the beliefs, perceptions, expectations, and paradigms the team held before the Sprint that turned out to be wrong, inaccurate, or misleading (Part 7, step 4). This four-category decomposition surfaces what is invisible in a surface-level data-gathering pass.
 
@@ -26,6 +26,14 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 8. <!-- concept: just-culture --> **Just Culture and the Learning principle as the substrate for blame-free retrospection.** Just Culture's accountability is forward-looking: "It is concerned with preventing the next accident, not focused on correcting history" [V] (Part 1, "Just Culture"). Part 1 adds that "Employees make mistakes, but most of the time (almost continuously) they are actually *creating safety*" [V] (Part 1, "Part 1 — Foundational Principles"), and the Learning principle holds that human performance variability is "not only normal, it's the rule!" [V] (Part 1, "Learning"). This framing supports the Prime Directive's intent without requiring direct citation of Kerth.
 
 9. <!-- concept: learning-climate --> **Psychological safety as the administrative firewall, scaled down.** The guide's administrative-firewall principle (a signed no-punitive-action commitment, because information is "the lifeblood of safety" [V]; Part 3, "Administrative assurance of no punitive actions") scales to retro as psychological safety. The formal mechanism differs; the requirement is the same.
+
+10. <!-- concept: aar-type-questions --> **The six AAR-type dialogue questions.** Handout D's default set, from "What was planned? What was your leader's intent?" through "What was routine? What surprised you?" to "What did you learn? What might you do differently next time? What can we learn as an organization? What might we do differently?" [V] (Handout D, "After Action Review-Type Questions"). Scaled to retro (this distillation's application), they give a data-gathering sequence that moves from the Sprint's intent to what surprised the team.
+
+11. <!-- concept: fear-the-fusion --> **Fear the fusion, not the confusion.** "When everyone is in agreement, you either didn't need to lead the facilitated group analysis (everyone is in agreement) or you haven't revealed points of departure or they don't want to talk about it" [V] (Part 6, box). Early agreement in a retro is a prompt to look for where accounts differ.
+
+12. <!-- concept: how-not-why --> **Ask how or what, not why.** "Never ask WHY; instead ask HOW or WHAT" [V]; the why question "puts people immediately on the defensive" [V], and "What was going through your mind as that was occurring?" [V] gets at it without that (Handout B, "Be Curious").
+
+13. <!-- concept: fla-watch-outs --> **Outcome bias and hindsight bias in the room.** Handout C's watch-outs include outcome bias (judging a decision by its outcome rather than the conditions behind it) and hindsight bias (the knew-it-all-along effect), alongside confirmation bias, the fundamental attribution error and counterfactual thinking (Handout C, "FLA 'Watch outs'"; three boxes are image-held and read from OCR in the deep reference).
 
 ## Questions to Ask During Retrospective
 
@@ -48,6 +56,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 | Need | Question |
 |---|---|
 | Is the LFUO framing on variability relevant here? | Is the team treating mistakes as aberrations or as normal? "Errors, mistakes, and lapses are inherent in the human condition" [V] (Part 1, "Learning"). Naming this shifts the energy before data gathering begins. |
+| Which questions will gather the data? | Handout D's six AAR-type questions, starting with "What was planned?" [V] and ending with "What might we do differently?" [V]. Handout D itself asks "Why did you do it?" and "Why didn't you do it?" [V]; recasting those as how and what, after Handout B's interview guidance ("Never ask WHY; instead ask HOW or WHAT" [V]), is this distillation's application. |
 
 ### Phase 3: Insight / Cause Analysis
 
@@ -58,6 +67,8 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 | Are we applying the Five Hows to the recurring problem? | For each key action or non-action in the recurring pattern: what beliefs, perceptions, expectations, and paradigms led to it? What situational awareness did the team hold that made it reasonable? |
 | Is the work-as-imagined / work-as-done gap visible? | Where is the gap between what the team's process documentation says should happen and what the team actually does? Illuminate the gap rather than resolving it immediately. |
 | Are multiple conditions interacting to produce this pattern? | Have we anchored on one fix that hasn't worked? The LFUO principle: multiple improbable events are typically necessary. What are the interacting conditions the team has not yet named? |
+| Has the room fused too early? | If everyone agrees, was the facilitated discussion not needed, or are there points of departure not yet revealed, or that people don't want to talk about (Part 6, "FEAR THE FUSION")? |
+| Is outcome bias shaping the verdict? | Is a decision being judged by how the Sprint turned out rather than the conditions the team faced (Handout C)? |
 
 ### Phase 4: Experiment Design
 
@@ -83,6 +94,7 @@ The LFUO guide's primary domain is the AAR / FLA / Learning Review ladder for ac
 | Work-as-documented differs from work-as-done | Process documentation has drifted from actual practice | Illuminate the gap before resolving it; ask what makes the actual practice locally rational |
 | Experiment was "done" but produced no learning | The experiment was designed as a box-tick, not as a hypothesis with a validation criterion | Redesign with an explicit belief-and-evidence structure: "We believe X; we will see Y if correct" |
 | Blame language survives the data-gathering redirect | Deeper blame pattern persists; the container isn't holding it | Re-state the just-culture framing; consider applying the Five Hows directly to the blamed individual's decision context |
+| The team agrees on the answer within minutes | The facilitated discussion may not have been needed, points of departure may not have been revealed, or people may not want to talk about them (Part 6, box) | Ask where accounts differ; invite quieter voices before closing the topic |
 
 ## When to Use This Reference
 
@@ -97,7 +109,7 @@ This source fires most sharply on Phase 3 and the background of Phase 0. Prefer 
 
 A team's retro Phase 3 is analysing why the same integration-testing gap has appeared for four Sprints. The first round of discussion produces: "the QA engineer keeps missing the edge cases." The lead names the counterfactual prohibition: the team is learning why the QA engineer's situation made the omission locally rational, not what they should have done instead.
 
-The team then applies the Five Hows' intent (this distillation's application, not the guide's list) as a local-rationality reconstruction at the QA engineer's decision point. What did they know about the edge case at the time? What they read in the story's acceptance criteria. What did they expect those criteria to cover? The full scope, because stories normally reach them after refinement. What made relying on the criteria reasonable? The product manager writes them in a refinement meeting QA cannot attend, since it clashes with the standup of the second team QA also serves, and nothing in the process shows that QA's view is missing.
+The team then works through the Five Hows at the QA engineer's decision point, asking how it made sense at the time to expect what they expected and to see things the way they saw them (the guide's stem and completions, applied by this distillation). What did they know about the edge case at the time? What they read in the story's acceptance criteria. What did they expect those criteria to cover? The full scope, because stories normally reach them after refinement. What made relying on the criteria reasonable? The product manager writes them in a refinement meeting QA cannot attend, since it clashes with the standup of the second team QA also serves, and nothing in the process shows that QA's view is missing.
 
 The team now has five networked conditions: story-writing process, refinement timing, QA availability, multi-team assignment, acceptance-criteria ownership. The previous experiment — "QA should flag edge cases earlier" — targeted one event (the flag), not the conditions that made early flagging impossible. The new experiment targets one condition: moving refinement ten minutes later so QA can attend.
 
@@ -128,10 +140,8 @@ The cause-as-construction principle, counterfactual prohibition, Five Hows, and 
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 11% of the PDF's longer lines: framed sidebars, pull quotes and boxed worksheet and interview-guide text. The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The LFUO guide names Dekker, Hollnagel and Reason in its Recommended Reading and cites Weick and Sutcliffe and Klein in its Glossary and Handout D, borrowing from them throughout [BT] (multiple sections and Recommended Reading). Dekker's *Field Guide to Understanding Human Error* is cited verbatim [BT] (Part 10); his *Just Culture* is in the Recommended Reading. Hollnagel's ETTO principle grounds the safety-vs-production framing [BT] (Part 3). Weick and Sutcliffe's HRO principles appear in Handout D [BT] (Handout D). Klein's Recognition Primed Decision Making appears in the Glossary [BT] (Glossary). Reason's *Managing the Risks of Organizational Accidents* and *The Human Contribution* are in Recommended Reading [BT]. The Dekker and Breakey (2016) restorative-justice paper is cited for the Glossary definition [BT] (Glossary, footnote 14). None of these authors are held directly in this corpus; their works are not openly licensed and cannot be cited directly here.
 
 **Named limits of the source.** The LFUO guide is written for Forest Service incident investigators and learning-review practitioners in a high-consequence operational context. Its retro applicability is an application by analogy: the Five Hows, networked causality, counterfactual prohibition, and work-as-imagined vs work-as-done all transfer cleanly; the formal administrative-firewall and signed-commitment structures are specific to the Forest Service context and scale down to psychological-safety preconditions in a team retro. The guide does not address Scrum, software development, or iterative delivery.
 
-**Evidence-marker continuity.** "Cause isn't something investigators find or discover" is `[V]` in the deep ref and is quoted `[V]` in Key Concept 1. "FLA teams must guard against making counterfactual arguments" is `[V]` in the deep ref; the distillation carries the prohibition as a named gate. The Five Hows list is an unextracted graphic in the source (deep ref, Part VI note); the deep ref carries its stated intent and the seven-step Lessons Learned Analysis. The distillation's questions apply that intent; they are not the source's list.
+**Evidence-marker continuity.** "Cause isn't something investigators find or discover" is `[V]` in the deep ref and is quoted `[V]` in Key Concept 1. "FLA teams must guard against making counterfactual arguments" is `[V]` in the deep ref; the distillation carries the prohibition as a named gate. The Five Hows graphic's stem and five completions are `[V]` in the deep ref (Part VI) and are quoted `[V]` in Key Concept 4; the worked example's questions apply them to a software team.

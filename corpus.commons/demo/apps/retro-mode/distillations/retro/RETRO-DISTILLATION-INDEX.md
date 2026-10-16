@@ -117,6 +117,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Gather data with the AAR-type questions, asked as how and what | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-retro.md` | Handout D's six questions, from "What was planned?" to "What might we do differently?"; Handout D keeps two why questions, and recasting them as how and what after Handout B ("never ask WHY") is the distillation's application. |
 | Run chat-waterfall written-first input | Gagné, The Approach Perfect Field Guide to Scrum Events | `approach-perfect-field-guide-scrum-events-retro.md` | Each team member writes positives / deltas / insights individually on stickies; group like items; vote on top 3 to deep-dive. (Applied reading: writing before talking keeps the first voice from setting the field.) |
 | Run 1-2-4-All to refuse HiPPO-driven discussion | Liberating Structures Handbook | `liberating-structures-handbook-retro.md` | LS 1-2-4-All: individual reflection → pairs → groups of 4-6 → whole group; by the whole-group round every participant has formed and tested a view, so a dominant voice finds it harder to anchor the room. |
 | Run 1-2-4-All from the Open Practice Library | Open Practice Library | `open-practice-library-retro.md` | Open Practice Library's 1-2-4-All practice — against HiPPOs. |
@@ -138,6 +139,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 
 | Need | Reference | Distillation | Reach for this when |
 |---|---|---|---|
+| Treat early agreement as a warning | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-retro.md` | "FEAR THE FUSION. NOT THE CONFUSION": agreement may mean the facilitated analysis wasn't needed, the points of departure haven't been revealed, or people don't want to talk about them; watch for outcome and hindsight bias. |
 | Refuse the "root cause" framing | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-retro.md` | Cause-as-construction; *networked causality* replaces root cause; cause "is always something we create by recreating the event" (Appendix B) — scales down to retro level. |
 | Refuse counterfactual reasoning | US Forest Service, LFUO 2024 | `lfuo-learning-review-guide-2024-retro.md` | "If this person had done X..." is the forbidden move; learn why people did what they actually did, not what hindsight suggests. |
 | Apply Five Whys with surprise-as-progress-signal | Gagné, The Approach Perfect Field Guide to Scrum Events | `approach-perfect-field-guide-scrum-events-retro.md` | At a retrospective: ask "why" five times (give or take); "if you're rarely surprised by your root causes, you may not be digging deep enough." |

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-economics-3e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T09:05:06+13:00
+  at: 2026-10-16T12:13:02+13:00
 ---
 # OpenStax Principles of Economics 3e, Stakeholder-Engagement Distillation
 
@@ -190,7 +190,7 @@ This worked example illustrates several key concepts: externality framing, commo
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 1.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Work It Out, Link It Up) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 1.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Work It Out). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Elinor Ostrom — local self-governance of common resources (Ch 13.3) [BT]

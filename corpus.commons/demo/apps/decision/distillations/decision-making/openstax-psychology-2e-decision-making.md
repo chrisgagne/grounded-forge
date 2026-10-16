@@ -180,7 +180,7 @@ This worked example illustrates several key concepts in the source: heuristics v
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** The converted text this source was read from lacks about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection, Link to Learning) that the converter dropped, sometimes with body text; that material is not covered here.
+**PARTIAL source text.** This was derived from a conversion that lacked about 1.1% of the PDF's longer lines in the covered chapters, mostly feature boxes (Dig Deeper, Everyday Connection). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors are cited by the source but not held as primary references in this corpus (the deep reference marks most `[BT]`; Rotter and Yerkes-Dodson sit in `[AP]` passages, Schacter and Schachter-Singer in `[AR]` or unmarked passages):
 

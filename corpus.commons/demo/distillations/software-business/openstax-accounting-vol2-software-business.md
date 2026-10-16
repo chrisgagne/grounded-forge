@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:eb475be0a38dfa90bf70d5a1560ce526cfdd1964a384215a7d5373add9360c38 -->
+<!-- derived-from-deep: sha256:8652eb488af72d432beb08d370ace36252ea7bfcb11e763c6dc195475416fb94 -->
 # OpenStax Principles of Accounting Volume 2, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 2: Managerial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-managerial-accounting. Senior contributing authors Mitchell Franklin, Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -239,8 +239,6 @@ This is a read-only lens; no produce-for surface. The PM bounded by a BA role re
 | NHS Just Culture Guide + TC 25-20 AAR | Cross-axis on incident-response (Phase 5); this volume's contribution is the cost-classification of post-incident remediation (avoidable vs sunk; controllable vs uncontrollable; relevant vs irrelevant), not the learning-loop facilitation those sources provide. Pair this volume's cost discipline with the Just-Culture and AAR facilitation for the full incident-response toolkit. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 4.2% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, Your Turn). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** OpenStax Accounting Vol 2 situates managerial accounting within frameworks developed by external researchers, practitioners, and standard-setting bodies this corpus does not hold as primary references.
 

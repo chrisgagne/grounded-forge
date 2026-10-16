@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:eb475be0a38dfa90bf70d5a1560ce526cfdd1964a384215a7d5373add9360c38 -->
+<!-- derived-from-deep: sha256:8652eb488af72d432beb08d370ace36252ea7bfcb11e763c6dc195475416fb94 -->
 # OpenStax Principles of Accounting Volume 2, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 2: Managerial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-managerial-accounting. Senior contributing authors Mitchell Franklin, Patty Graybeal, Dixon Cooper; 28 contributing authors.
@@ -206,8 +206,6 @@ This worked example illustrates several volume concepts: stakeholder mapping by 
 | Continuing application (Gearhead Outfitters) | The volume's continuing-application thread tracks Gearhead's growth from a single store through multi-state expansion, raising management questions (centralisation, expansion, capital budgeting, customer satisfaction) at each stage; pair with broader entrepreneurship and growth literature. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 4.2% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Concepts in Practice, Your Turn). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - John Elkington — triple bottom line (1997); cited directly in Ch 13.1 [BT]

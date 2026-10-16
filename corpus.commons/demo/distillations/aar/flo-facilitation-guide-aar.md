@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:f7e0788cfe9319ebab5a983cd3e6edcdf868285a0c6ab5f33a256ce48e4f6917 -->
+<!-- derived-from-deep: sha256:61fd5854f4b4134888076a683872cdeb87bd66f0817114612460e7fbd7a562a3 -->
 # FLO Facilitation Guide, AAR Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. Ebook ISBN 978-1-77420-036-0. Licence: **CC BY 4.0**. Scope: open.
@@ -121,8 +121,6 @@ A hybrid AAR (three participants in-room, four remote) is reviewing a customer-e
 | OpenStax Psychology 2e (openstax-psychology-2e) | Psychology 2e names the conformity and anchoring dynamics that this distillation's equity tracking and written-first input can help counter; pair when the facilitator needs to name what is happening |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked the opening line of several boxed bullet lists. The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The Community of Inquiry model (Garrison, Anderson; Vaughan et al. 2013) is cited borrowed-through as the framing model for online facilitation; the demo corpus does not hold the Community of Inquiry literature directly. Liberating Structures (1-2-4-All, User Experience Fishbowl) is cited borrowed-through as a worked example of synchronous facilitation activities; this corpus holds the Liberating Structures Handbook directly but the FLO Guide's citation is to the LS tradition rather than to the handbook's own text. The Institute of Cultural Affairs – UK definition of the facilitator is cited borrowed-through. The International Association of Facilitators (IAF) Core Competencies is cited borrowed-through as inspiration for the FLO facilitation skills list.
 

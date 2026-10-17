@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-17T09:56:34+13:00
+  at: 2026-10-17T16:53:18+13:00
 ---
 # OpenStax Organizational Behavior, Stakeholder-Engagement Distillation
 
@@ -32,13 +32,13 @@ This distillation synthesises these threads into a working pattern: how to map s
 
 3.  **Five integration techniques.** Rules and procedures, member exchange, linking roles, task forces, and decoupling. Each fits a different intergroup configuration; decoupling separates, physically or administratively, closely related groups that simply don't work together effectively. (Source: Ch 9.4, "Managing Intergroup Behavior and Performance")
 
-4.  **French and Raven's five power bases.** Reward (control of desired outcomes), coercive (capacity to punish), referent (interpersonal attraction or charisma), expert (knowledge or expertise), legitimate (right to influence based on position). Stakeholders draw on different bases; recognising which base is in play shapes engagement strategy. (Source: Ch 12.3 and Ch 13.1)
+4.  **French and Raven's five power bases.** Reward (control of desired outcomes), coercive (capacity to punish), referent (others want to associate with or be accepted by the holder), expert (knowledge or expertise), legitimate (right to influence based on position). Stakeholders draw on different bases; recognising which base is in play shapes engagement strategy. (Source: Ch 12.3 and Ch 13.1)
 
 5.  **Counterpower and power dependencies.** A target's response to influence depends on the target's values (whether the offered outcomes matter), the relationship nature, and counterpower (other power sources the target can draw on). Stakeholders are not merely on the receiving end of organisational influence; they have their own power bases. (Source: Ch 13.1, "Power Dependencies")
 
 6.  **Salancik-Pfeffer resource dependence.** Subunits and stakeholders gain power through controlling critical resources others need. Stakeholder maps should track who controls what and how substitutable each contribution is. (Source: Ch 13.3)
 
-7.  **Hickson strategic contingencies.** Three sources of subunit power: ability to cope with uncertainty, non-substitutability, and centrality (workflow pervasiveness and immediacy). Stakeholder importance fluctuates as organisational contingencies shift. (Source: Ch 13.3)
+7.  **Hickson strategic contingencies.** Three sources of subunit power: ability to cope with uncertainty, non-substitutability, and centrality (workflow pervasiveness and immediacy). Subunit power shifts as an organisation's goals, outputs, technologies and markets change, so stakeholder importance can shift with it. (Source: Ch 13.3)
 
 8.  **Five conflict-resolution modes (Thomas).** On assertiveness × cooperativeness axes: competing, collaborating, compromising, avoiding, accommodating. Each fits different stakeholder situations. Collaboration suits high-stakes integrative conflicts; compromise suits opponents of equal power committed to exclusive goals, or expedient settlements under time pressure; accommodation suits situations where the issue matters more to the other side. (Source: Ch 14.2, Table 14.1)
 
@@ -131,7 +131,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 - **Pattern: Influence attempts produce alienation rather than commitment.** Signal: stakeholders comply but resentfully; subsequent engagement is harder. Diagnosis: coercive power (alienation, resistance) or reward power (measured, tit-for-tat response) being used where rationality or expertise would have produced commitment (Ch 12.3). Follow-up: shift to influence based on rationality, expertise, or trust; rebuild relationships before next engagement.
 - **Pattern: Stakeholder coalitions form to oppose an initiative.** Signal: coalition emerges with shared interests opposing the proposal. Diagnosis: stakeholders have aggregated their power as counterpower; resource dependencies have been triggered. Follow-up: engage the coalition's actual interests; consider whether the proposal needs revision rather than harder push.
 - **Pattern: Engagement happens only when there is a problem.** Signal: stakeholder relationships are reactive, episodic, transactional. Diagnosis: liaison-role investment is inadequate; trust is being depleted rather than accumulated. Follow-up: build sustained engagement habits independent of immediate need.
-- **Pattern: Persuasion runs through pure rationality, with stakeholders unmoved.** Signal: well-argued cases fail to land. Diagnosis: rationality is one influence path; emotion, identity, and values may be operating. Follow-up: sense the emotional and value dimensions; on the engager's side, cultural intelligence means knowing the culture (head), adapting demeanour (body) and committing to adapt (heart) (Ch 10.6).
+- **Pattern: Persuasion runs through pure rationality, with stakeholders unmoved.** Signal: well-argued cases fail to land. Diagnosis: rationality is one influence path; emotion, identity, and values may be operating. Follow-up: sense the emotional and value dimensions; on the engager's side, cultural intelligence draws on head, body and heart: cognitive, physical and emotional/motivational sources (Ch 10.6).
 
 ## When to Use This Reference
 
@@ -179,7 +179,7 @@ The scenario is operator-authored; all framework citations trace through the dee
 | Resource dependence (Salancik and Pfeffer) | Power and stakeholder mapping should include resource flows. Sustained relationships require attention to who controls what others need. |
 | Cultural dimensions (Hofstede; Kluckhohn-Strodtbeck) | Multicultural stakeholder engagement requires attention to the cultural frames that shape interpretation. The OpenStax Ch 2.7 framing pairs with explicit cultural-intelligence development from Ch 10.6. |
 | Open systems (Katz and Kahn) | Stakeholder engagement is the human side of the resource exchanges that constitute the organisation as an open system. Closed-system thinking misses this. |
-| Equity and procedural justice (Adams; expanded) | Procedural justice: people judge the fairness of the process as well as the outcome; layoffs by seniority are seen as fairer than by supervisors' opinion (Ch 7.4). Equity theory in Ch 7.3-7.4 provides the foundation. |
+| Equity and procedural justice (Adams; expanded) | Procedural justice: people judge the fairness of the process as well as the outcome; layoffs by seniority may be seen as fairer than by supervisors' opinion (Ch 7.4). Equity theory in Ch 7.3-7.4 provides the foundation. |
 | Appreciative Inquiry (Cooperrider) | For stakeholder engagement at scale, especially for organisation-wide change, AI offers a bottom-up alternative in which participants co-create the vision and design the actions (Ch 16.3). |
 | Mintzberg's managerial roles | The liaison role is central to sustained stakeholder engagement; the informational roles structure the data flows that engagement requires. |
 

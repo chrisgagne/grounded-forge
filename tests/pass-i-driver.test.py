@@ -10,8 +10,9 @@ source into a temp corpus.
 
 Four properties, each a case that raises on failure:
   1. A full two-leg run stamps the deep reference, appends the second leg to the
-     audit log, copies its records into `_audit/`, and stamps the derived tier.
-     The packet carries an AGENTS.md that keeps Codex legs off the repo docs.
+     audit log with the sort's capture-recapture estimate, copies its records
+     into `_audit/`, and stamps the derived tier. The packet carries an
+     AGENTS.md that keeps Codex legs off the repo docs.
   2. A failed gate stops the source before the stamp and writes
      decisions-needed.md; `--accept-gate` resumes from there without rerunning
      any leg.
@@ -67,7 +68,7 @@ echo '{"result":"done","total_cost_usd":0.01,"session_id":"stub","num_turns":1,"
 STUB_CODEX = r'''#!/bin/bash
 out=""; for ((i=1;i<=$#;i++)); do [ "${!i}" = "-o" ] && { j=$((i+1)); out="${!j}"; }; done
 echo codex >> "$STUB_CALLS"
-printf 'second-leg report (codex)\n' > "$out"; printf 'tokens used\n1,234\n'
+printf 'second-leg report (codex)\n\nCapture: fixer=2 blind=4 both=0\n' > "$out"; printf 'tokens used\n1,234\n'
 '''
 
 
@@ -127,6 +128,9 @@ def full_two_leg_run(c: Case) -> None:
     check(r.returncode == 0, f"run failed:\n{r.stdout}\n{r.stderr}")
     check(c.stamp().startswith("<!-- Pass I applied") and "Codex CLI" in c.stamp(), f"bad stamp: {c.stamp()}")
     check("## Second leg" in c.log() and "## Derived-tier fidelity check" in c.log(), "audit log sections missing")
+    cap = json.loads((c.work / "status.json").read_text())["steps"]["sort"].get("capture", {})
+    check(cap.get("estimate") == 14.0 and cap.get("unfound") == 8.0, f"bad capture estimate: {cap}")
+    check("**Capture-recapture:**" in c.log(), "capture-recapture line missing from the audit log")
     for k in ("blind", "sort", "prompts"):
         check((c.root / f"references/_audit/_ingest_pass_I_{SLUG}_crossfamily_{k}.md").exists(), f"no {k} record")
     check("derived-from-deep: sha256:" in (c.root / f"references/{SLUG}.md").read_text(), "light ref not stamped")

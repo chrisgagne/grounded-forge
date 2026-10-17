@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3272b7ed2cdd4bef706f3f92cad68131217ad8fb6c03069434e616a78c11f85e -->
+<!-- derived-from-deep: sha256:4a174b85f3983a961e49237ba66764f1015ba881b5d936224d31771ae4163acc -->
 # OpenStax Principles of Management, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -224,8 +224,6 @@ This worked example illustrates the six structure types and structure-environmen
 | Operator describes a cross-function negotiation (engineering vs product vs sales) | Follett's three conflict-resolution paths (Ch 3.6); French-Raven's power bases (Ch 13.3); the process-vs-relationship-conflict distinction (Ch 2.4) | "First, is this productive process conflict or corrosive relationship conflict? Surface the first; quell the second. Then choose the resolution path: Follett's integration, an agreement that satisfies both sides, is the path to aim for. Avoid coercive power as default — it produces compliance and alienation, not commitment." |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The text draws on a broad cluster of foundational management researchers this corpus does not hold as primary references.
 

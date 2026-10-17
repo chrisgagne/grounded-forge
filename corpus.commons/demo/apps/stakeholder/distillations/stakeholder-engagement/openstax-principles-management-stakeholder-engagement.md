@@ -58,6 +58,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 | Apply the eight-question framework | Who are the stakeholders? What are their stakes? What do supporters / resisters stand to gain or lose? What types of power do they have? What strategies retain support? Win over resistance? |
 | Map power bases | Which stakeholders hold reward power? Coercive? Referent? Expert? Legitimate? Whose power is most relevant to this engagement? |
 | Surface latent stakeholders | Who is affected but not yet engaged? Whose voice is missing because they lack the power to assert themselves? Triple-bottom-line thinking expands the candidate set: people, planet, profit. |
+| Map internal stakeholders | Beyond the team, which internal stakeholders (boss, boss's boss, peers, key influencers, internal customers) do we need to meet early, and perhaps regularly? Whose support do we need, and who could keep the team from succeeding? The source's own checklist for new managers, where reconciling "different constituencies’ expectations and interests" is called "probably the most difficult" challenge [V] [BT, Hill] (Ch 15.3, "Who Am I Managing?"). |
 | Reject pure shareholder framing | Is the stakeholder list being narrowed to shareholders by default? The text rejects shareholder-primacy; surface non-shareholder stakeholders explicitly. |
 
 ### Phase 2: Framing the Engagement (Before convening)
@@ -187,8 +188,6 @@ This worked example illustrates several key concepts in the source: the eight-qu
 | Moral entrepreneur (Kaptein) and ethical leadership (Brown and Trevino) | Names the leadership role that creates or enforces new ethical norms (Kaptein, Becker) and the conduct ethical leaders demonstrate and promote (Brown and Trevino) (Ch 5.8). |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 9.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Ethics in Practice, Managing Change, Concept Check). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - R. Edward Freeman — stakeholder theory (Ch 5.6) [BT]; the eight questions come from Exhibit 5.8 (Ch 5.6)

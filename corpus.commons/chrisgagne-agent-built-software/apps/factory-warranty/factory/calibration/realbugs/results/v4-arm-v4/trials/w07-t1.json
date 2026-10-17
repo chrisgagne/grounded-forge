@@ -1,0 +1,88 @@
+{
+ "id": "w07",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4742,
+ "codex_tokens": 22310,
+ "work": "<tmp>/replay-w07-t1-c8m2tdhb",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.ts:29 now returns `hours! * 60 + (minutes || 0)`, so \"-03:30\" (America/St_Johns) gives -180+30 = -150 instead of -210. The removed line subtracted the minutes when hours was not positive. The wrong value is also stored in the module-level offsetCache, so every later lookup of that string gets it too.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/tzOffset/index.ts",
+   "line": 29,
+   "claim": "Negative UTC offsets that include minutes (e.g. -03:30) are now computed wrong because the minutes are added to the negative hours instead of subtracted.",
+   "evidence": "The new line is `return (offsetCache[offsetStr] = hours! * 60 + (minutes || 0));`. For America/St_Johns in winter, Intl longOffset gives \"-03:30\", so hours=-3 and minutes=30, and the function returns -180+30 = -150 instead of -210. For America/Caracas before 2016 (\"-04:30\") it returns -210 instead of -270. For Pacific/Marquesas (\"-09:30\") it returns -510 instead of -570. The removed line `hours > 0 ? hours * 60 + minutes : hours * 60 - minutes` handled the sign correctly. The wrong value is also stored in the module-level `offsetCache`, so every later call with that offset string gets it too.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "`\"-00:25\".split(\":\").map(Number)` gives [-0, 25], and the new line computes -0*60 + 25 = 25. The old code took the `hours > 0` false branch and returned -25. Lowered from high to medium because only historical LMT-style offsets like Europe/Dublin before 1880 hit this.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/tzOffset/index.ts",
+   "line": 29,
+   "claim": "Offsets between -00:01 and -00:59 come out positive because Number(\"-00\") is -0 and the sign is lost when the minutes are added.",
+   "evidence": "For offsetStr \"-00:25:21\", `split(\":\").map(Number)` gives [-0, 25, 21], and `-0*60 + 25` = 25 instead of -25. The old code took the `hours > 0` false branch and computed `-0*60 - 25` = -25. The new code also drops the seconds part, but so did the old code.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "In tests.ts the only negative zone is America/New_York (-300) and the only fractional zone is Asia/Kathmandu (+345), so the new formula passes every test. Lowered to low because this is a coverage gap in the locked baseline tests, not a defect the change adds; the real bug is the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/tzOffset/tests.ts",
+   "line": 5,
+   "claim": "The locked tests have no negative fractional offset, so the sign regression passes the suite.",
+   "evidence": "The only negative zone in the tests is America/New_York (-5*60). The only fractional zone is Asia/Kathmandu (+345), which is positive. No test covers America/St_Johns, Pacific/Marquesas or any other \"-HH:30\" or \"-HH:45\" offset. Under the new formula these tests pass while a negative fractional offset gives the wrong result.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "noise",
+   "reason": "String.split always returns at least one element, so `hours` can never be undefined at runtime. The removed guard was dead code, and dropping it changes no behaviour.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/tzOffset/index.ts",
+   "line": 28,
+   "claim": "The undefined guard was replaced with a non-null assertion.",
+   "evidence": "The removed lines were `// type-guard if (hours === undefined) { return NaN; }`. The new code relies on `hours!`. Nothing breaks at runtime, because split always returns at least one element, but it is a type-check suppression added in place of a guard.",
+   "axis_row": "L5.4",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

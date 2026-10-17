@@ -1,0 +1,79 @@
+{
+ "id": "w05",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5726,
+ "codex_tokens": 54367,
+ "work": "<tmp>/replay-w05-t1-hb_ys8dc",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "TrieUtils.ts:43-46 declares `index: number`, and lines 54-60 still branch on `typeof index !== 'number'` and compare `'' + uint32Index !== index`. The signature misdescribes the contract. Runtime is unchanged because the callers are still JS, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 45,
+   "claim": "wrapIndex types index as number, yet its body handles string indices, so that branch narrows index to never and is no longer type-checked.",
+   "evidence": "Signature `wrapIndex(iter: Collection<unknown, unknown>, index: number): number` is followed by `if (typeof index !== 'number') { const uint32Index = index >>> 0; if ('' + uint32Index !== index ...`. Inside that branch `index` has type `never`, so the string comparison is never checked. Runtime is unchanged because the callers (Seq.js, List.js, Range.js, Stack.js) are still JS.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "TrieUtils.ts:68-72 checks `size !== undefined` and `end === undefined`, line 91 checks `index === undefined` and line 23 guards `if (ref)`, yet every parameter is typed as required. Only the types are wrong and callers are still JS, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 68,
+   "claim": "wholeSlice, resolveBegin, resolveEnd, resolveIndex and SetRef take non-optional parameters even though their bodies handle undefined.",
+   "evidence": "`wholeSlice(begin: number, end: number, size: number)` checks `size !== undefined` and `end === undefined`. `resolveIndex(index: number, size: number, ...)` checks `index === undefined ? defaultIndex` and `size === undefined`. `SetRef(ref: Ref)` guards `if (ref)`. Callers such as Range.js and Repeat.js pass the `end` from `slice(begin, end)`, which may be undefined.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "TrieUtils.ts:34, 36 and 39 add `@ts-expect-error` before every access to `iter.size` and `__iterate`, because the parameter is typed `Collection<unknown, unknown>`. This hides type errors on that path. Behaviour is unchanged, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 34,
+   "claim": "ensureSize adds three @ts-expect-error suppressions instead of typing iter with size and __iterate.",
+   "evidence": "Lines 34, 36 and 39 each add `// @ts-expect-error size should exists on Collection` before `iter.size === undefined`, `iter.size = iter.__iterate(returnTrue)` and `return iter.size`. `interface Collection<K, V>` in type-definitions/immutable.d.ts:4351 declares no `size`, so the parameter type `Collection<unknown, unknown>` is the wrong type for this function.",
+   "axis_row": "L5.4",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff.patch hunks for deepEqual.ts change only the text of four `@ts-expect-error` comments, with no code change. That is cosmetic churn outside the TrieUtils conversion, and it adds a grammar error.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/utils/deepEqual.ts",
+   "line": 22,
+   "claim": "The diff rewrites four comments in deepEqual.ts to the ungrammatical 'size should exists on Collection', which is unrelated churn.",
+   "evidence": "In deepEqual.ts, the diff replaces `// @ts-expect-error size exists on Collection` with `// @ts-expect-error size should exists on Collection` at four places. No code changes in that file.",
+   "axis_row": "L4.27",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

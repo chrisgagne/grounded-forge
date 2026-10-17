@@ -1,0 +1,103 @@
+{
+ "id": "v05",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.9061,
+ "codex_tokens": 53095,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-v05-t1-sb4d3_0_",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "package.json:21-29 lists only bin, range.bnf, classes, functions, internal, ranges and index.js, and the diff adds a top-level preload.js without touching `files`. npm pack would leave it out, so `require('semver/preload')` throws MODULE_NOT_FOUND after install. test/preload.js loads ../preload.js from the source tree, so the tests cannot catch this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "package.json",
+   "line": 21,
+   "claim": "The new preload.js is missing from package.json's `files` allowlist, so it is left out of the published package and `require('semver/preload')` fails for installed consumers.",
+   "evidence": "package.json:21-29 sets `\"files\": [\"bin\", \"range.bnf\", \"classes\", \"functions\", \"internal\", \"ranges\", \"index.js\"]`. The diff adds a top-level `preload.js` but does not touch `files`. npm packs only the listed entries plus package.json, README and LICENSE, so an installed copy has no preload.js and `require('semver/preload')` throws MODULE_NOT_FOUND. test/preload.js requires `../preload.js` from the source tree, so it passes and the packaging gap goes unnoticed.",
+   "breaks": "story",
+   "axis_row": "L6.20",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "test/preload.js:4 is the only assertion: `t.strictSame(preload, index, ...)`. Nothing checks require.cache or whether preload's properties are plain values rather than getters, so `module.exports = require('./index.js')` would pass.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/preload.js",
+   "line": 4,
+   "claim": "The only test checks that preload's values deep-equal index's. It never checks that anything is loaded eagerly, so a plain re-export of the lazy index would also pass.",
+   "evidence": "test/preload.js has one assertion, `t.strictSame(preload, index, 'preload and index match')`. Comparing index runs its lazy getters, so a `module.exports = require('./index.js')` preload would satisfy the test without pre-loading any module. No assertion checks require.cache or the absence of getters on preload's properties.",
+   "axis_row": "L3.10",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "noise",
+   "reason": "The evidence misquotes the file. preload.js:3-46 is an object literal of eager requires and does not call lazyExport. The duplication follows from wanting an eager list next to a lazy one, and test/preload.js's strictSame fails on any mismatch, so this is a style preference rather than a defect in this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "preload.js",
+   "line": 3,
+   "claim": "preload.js duplicates index.js's export list by hand.",
+   "evidence": "preload.js:9-52 repeats each key/path pair from index.js:23-64 (`lazyExport('re', './internal/re', 're')` \u2026 `lazyExport('intersects', './ranges/intersects')`) instead of building both from one shared list. test/preload.js's strictSame would catch a mismatch, so the risk is maintenance cost, not silent breakage.",
+   "axis_row": "L6.15",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "A case-insensitive grep of the export for 'preload' matches only test/preload.js (preload.js itself says 'pre-load'). README and CHANGELOG never mention the new entry point.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": null,
+   "claim": "The new `semver/preload` entry point is not documented in README or CHANGELOG.",
+   "evidence": "Grep for 'preload' (case-insensitive) matches only preload.js and test/preload.js. README.md:463-499 lists the supported `require('semver/...')` paths, and preload is not one of them. CHANGELOG.md has no entry for it.",
+   "axis_row": "L5.26",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "noise",
+   "reason": "acceptance.md does point to story.md and tests.lock, and neither is in the export or the packet. That is a gap in how the review packet was put together, not a defect in the code change, so it is not a finding against this diff.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "story.md and tests.lock, which acceptance.md refers to, are missing from the export and the packet.",
+   "evidence": "acceptance.md says 'story.md is the spec. The baseline's tests are the locked acceptance tests; tests.lock lists them.' A glob of the export root for story.md and tests.lock finds neither. risk.json has empty `classes`.",
+   "axis_row": "L1.1",
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

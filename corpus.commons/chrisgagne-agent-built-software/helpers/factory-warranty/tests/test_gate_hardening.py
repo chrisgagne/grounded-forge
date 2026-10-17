@@ -342,3 +342,30 @@ def test_nosemgrep_does_not_hide_an_eval_finding(tmp_path):
     change.start("gate")
     ev = gate.sast(change)
     assert ev["status"] == "fail" and "src/run.js:2" in ev["reason"]
+
+
+def test_a_ratchet_measurement_that_errors_once_is_measured_again(tmp_path, monkeypatch):
+    app = make_app(tmp_path, ratchet={"lint_warnings": {"command": "sh measure.sh", "mode": "absolute"}})
+    (app / "measure.sh").write_text("echo '{\"count\": 0}'\n")
+    sh(app, "git", "add", "-A")
+    sh(app, "git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "measure")
+    story = tmp_path / "s.md"
+    story.write_text("# x\n")
+    change = Change.create(app, story, change_id="m2")
+    write_lock(change)
+    commit(change, {"src/x.sh": "echo x\n"})
+    real, calls = gate.measure, {"after": 0}
+
+    def flaky(change, spec, cwd, which):
+        if which == "after":
+            calls["after"] += 1
+            if calls["after"] == 1:
+                return {"count": 0, "exit": 2, "output_sha256": "", "log": "x", "errors": None,
+                        "problem": "after run exited 2"}
+        return real(change, spec, cwd, which)
+
+    monkeypatch.setattr(gate, "measure", flaky)
+    gate.run(change)
+    ev = [e for e in change.last_run("gate") if e["check"] == "ratchet:lint_warnings"][-1]
+    assert calls["after"] == 2
+    assert ev["status"] == "pass" and ev["runs"]["after"]["retried_after"] == "after run exited 2"

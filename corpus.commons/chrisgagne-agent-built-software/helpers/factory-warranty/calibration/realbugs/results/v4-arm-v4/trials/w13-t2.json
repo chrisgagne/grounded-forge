@@ -1,0 +1,34 @@
+{
+ "id": "w13",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7135,
+ "codex_tokens": 42727,
+ "work": "<tmp>/replay-w13-t2-2ui20bxu",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "At src/date/mini.js:22 the new branch is `args[0] instanceof Date`, so a Date from another realm (iframe or vm context) fails it and drops into the else branch at :24-31, which re-applies the local-vs-zone offset and moves the instant. This is an edge case outside the locked same-realm tests, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/mini.js",
+   "line": 22,
+   "claim": "A Date from another realm fails the instanceof Date check and falls into the date-values branch, so its instant gets shifted by the zone-offset difference instead of being kept.",
+   "evidence": "`} else if (args[0] instanceof Date) { this.setTime(+args[0]); } else { this.setTime(+new Date(...args)); const offset = tzOffset(this.timeZone, this); const localOffset = -new Date(...args).getTimezoneOffset(); Date.prototype.setMinutes.call(this, ... + (localOffset - offset)); }`. A cross-realm Date is not `instanceof` this realm's Date, so it takes the `else` path, which treats its value as local wall-clock time and re-offsets it. The locked tests (src/date/tests.ts:55-63, 149-151) only use same-realm `new Date(...)`.",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

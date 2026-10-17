@@ -1,0 +1,35 @@
+{
+ "id": "w03",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5195,
+ "codex_tokens": 39051,
+ "work": "<tmp>/replay-w03-t2-9lc2xmgv",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "noise",
+   "reason": "Both files are indeed missing (a glob for story.md and tests.lock finds nothing), but that is a gap in the packet, not a defect in this change. The code holds up: index.js:15 now calls Object.assign, which merges the same way and skips an undefined configuration. No other assign( callers remain.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "story.md and tests.lock, which acceptance.md names as the spec, are missing from the packet and the export.",
+   "evidence": "packet/acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests; tests.lock lists them.\" No story.md or tests.lock exists in the packet or the export. The code itself checks out: diff.patch swaps the local assign(defaults, configuration) helper for Object.assign at index.js:15 and deletes the helper. Both shallow-copy own enumerable keys, defaults first and then overrides. Object.assign skips an undefined opts.configuration, as the old `configuration || {}` did. Object.assign exists on Node 6, the lowest version package.json (\"node\": \">=6\") and .travis.yml target. Grep finds no other assign( callers.",
+   "axis_row": "L1.1",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

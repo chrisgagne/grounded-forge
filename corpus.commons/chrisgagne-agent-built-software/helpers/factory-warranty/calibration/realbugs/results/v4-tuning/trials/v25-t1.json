@@ -1,0 +1,64 @@
+{
+ "id": "v25",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6012,
+ "codex_tokens": 42778,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-v25-t1-65v7y5g7",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "disputed",
+   "reason": "src/Set.js:107 now always calls SetCollection(iters[ii]), and the size filter at :98 lets strings through, so Set([1]).union('abc') gives {1,'a','b','c'} where it used to give {1,'abc'}. This also differs from List.concat, which keeps a string as one value (__tests__/List.ts:767). The empty-set path at :103 already split strings, and no story.md exists, so the code can't show whether this change was intended.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Set.js",
+   "line": 107,
+   "claim": "Removing the string guard makes union/merge/concat split a string argument into characters on a non-empty Set.",
+   "evidence": "The diff deletes the `if (typeof iters[ii] === 'string') { set.add(iters[ii]); }` branch, leaving only `SetCollection(iters[ii]).forEach(value => set.add(value));`. Traced: Set([1]).union('abc') used to give {1, 'abc'} and now gives {1, 'a', 'b', 'c'}. Nothing else takes over the guard's job: `iters.filter(x => x.size !== 0)` lets strings through because their `.size` is undefined. Line 192 (`SetPrototype.merge = SetPrototype.concat = SetPrototype.union`) means merge and concat change too. Set.concat('abc') now also differs from List/Seq concat: `concatFactory` in src/Operations.js:583-586 wraps a non-collection value as `[v]`, so it stays a single value. No story.md is in the packet or the export, so the code can't show which reading was intended. The empty-set fast path (`return this.constructor(iters[0])`, line 103) already split strings at baseline, so the change may have been meant to make the two paths consistent.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grep of __tests__ for union/merge/concat called with a string literal finds only List.ts:767. Set tests only pass arrays or Sets to union, and the diff adds no test. Lowered to low because this is a coverage gap, not a defect the change introduces.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "__tests__/Set.ts",
+   "line": null,
+   "claim": "No test covers union/merge/concat with a string argument, so either behaviour passes the suite.",
+   "evidence": "The diff changes only src/Set.js and adds no test. Searching the tests for `union(` with a string literal finds only arrays or Sets (`set.union(['a'])` at __tests__/Set.ts:261, `s.union(['c'])` at :312, and Set arguments in __tests__/OrderedSet.ts:42-43). The only string-input test is the constructor test `Set('abc')` at __tests__/Set.ts:30-37, which never calls union.",
+   "axis_row": "L5.26",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "noise",
+   "reason": "The changelog has no entries on string handling and the d.ts union docs never described it, so nothing documented is now stale. Acceptance.md asks for no changelog update, and whether the change is wanted at all is covered by the C1 item.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Set.js",
+   "line": 107,
+   "claim": "The changed semantics have no changelog or doc entry.",
+   "evidence": "The diff touches only src/Set.js. Grep finds no mention of union in CHANGELOG*. The union docs in type-definitions/immutable.d.ts (lines 1688-1695 and 1839-1846) say nothing about how strings are handled.",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

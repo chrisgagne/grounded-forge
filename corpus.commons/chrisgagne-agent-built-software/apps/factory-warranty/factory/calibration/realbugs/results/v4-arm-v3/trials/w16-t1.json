@@ -1,0 +1,34 @@
+{
+ "id": "w16",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6467,
+ "codex_tokens": 46240,
+ "work": "<tmp>/replay-w16-t1-e8qhgzk1",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/index.ts:97 still re-exports getScalarValue, and the diff changes its first parameter from ParserState to string with no fallback. CHANGELOG.md has no Unreleased entry; its newest section is 4.2.0. The locked test spec.test.mjs:166 calls it with a string, so the new signature is what was asked for. The only gap is that the breaking change isn't documented, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/parser/parser_scalar.ts",
+   "line": 284,
+   "claim": "The public export getScalarValue now takes a string instead of a ParserState, and CHANGELOG.md doesn't record this breaking API change.",
+   "evidence": "src/index.ts:97 still has `export { getScalarValue } from './parser/parser_scalar.ts'` (index.ts is not in the diff), so the function is part of the package API. The diff changes `function getScalarValue (state: ParserState, ...)` to `function getScalarValue (input: string, ...)` and removes `const { input } = state`. If a caller passes a state object now, `input.slice` / getPlainValue(input, ...) run against an object instead of a string. All callers inside the repo were updated (from_events.ts:105, constructor.ts:152), and the locked test/spec/spec.test.mjs:166 already calls `getScalarValue(input, event)` with a string, so the new signature is what the test expects. But CHANGELOG.md has no Unreleased or Changed entry that records the breaking API change.",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

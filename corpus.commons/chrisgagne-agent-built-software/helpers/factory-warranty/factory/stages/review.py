@@ -332,16 +332,37 @@ def _run(change, cfg: dict, lc: dict, work: Path) -> bool:
     # whole disk, including the change folder (the builder's summary) and the Claude reviewer's live transcript: a
     # residual risk to its blindness, listed in DESIGN.
     claude_settings = settings_file(change, "review", "reviewer-claude", deny_read=[change.dir, work / "codex"])
+    (xl / "findings-schema.json").write_text(json.dumps(CODEX_FINDINGS_SCHEMA))
+    timeout_s, retries = change.timeout("review"), int(cfg.get("timeout_retries", 0))
+
+    def leg(name: str) -> dict:
+        """One reviewer, retried when it runs out of time; each earlier attempt's log is kept and listed."""
+        earlier = []
+        for attempt in range(retries + 1):
+            if name == "claude":
+                res = legs.run_claude(ask(cp), ce, cl / "claude-log.jsonl", model=cfg["claude_model"],
+                                      timeout_s=timeout_s, read_only=True, add_dirs=(cp,),
+                                      setting_sources=lc.get("setting_sources"), settings=claude_settings,
+                                      json_schema=FINDINGS_SCHEMA)
+            else:
+                res = legs.run_codex(ask(xp), xe, xl / "codex-log.txt", xl / "codex-final.md",
+                                     model=cfg.get("codex_model"), timeout_s=timeout_s,
+                                     output_schema=xl / "findings-schema.json")
+            if not res.get("timed_out") or attempt == retries:
+                res.update(review_attempts=attempt + 1, timed_out_earlier=earlier)
+                return res
+            logname = "claude-log.jsonl" if name == "claude" else "codex-log.txt"
+            earlier.append({"attempt": attempt + 1, "error": res.get("error"),
+                            "log": keep(change, folders[name][2] / logname, f"review/{name}-timed-out-{attempt + 1}.log")})
+
     with ThreadPoolExecutor(2) as ex:
-        c = ex.submit(legs.run_claude, ask(cp), ce, cl / "claude-log.jsonl", model=cfg["claude_model"],
-                      timeout_s=change.timeout(), read_only=True, add_dirs=(cp,),
-                      setting_sources=lc.get("setting_sources"), settings=claude_settings, json_schema=FINDINGS_SCHEMA)
-        (xl / "findings-schema.json").write_text(json.dumps(CODEX_FINDINGS_SCHEMA))
-        x = ex.submit(legs.run_codex, ask(xp), xe, xl / "codex-log.txt", xl / "codex-final.md",
-                      model=cfg.get("codex_model"), timeout_s=change.timeout(),
-                      output_schema=xl / "findings-schema.json")
+        c, x = ex.submit(leg, "claude"), ex.submit(leg, "codex")
         results = {"claude": c.result(), "codex": x.result()}
     inputs, problems = {}, []
+    for name, res in results.items():  # the ledger is written from one thread, after both reviewers finish
+        for e in res.get("timed_out_earlier") or []:
+            change.record("review", "info", check=f"timed-out:{name}", attempt=e["attempt"], error=e["error"],
+                          evidence=[change.rel(e["log"])], retried=True)
     for prefix, name, logname in (("C", "claude", "claude-log.jsonl"), ("X", "codex", "codex-log.txt")):
         res = results[name]
         res["log_path"] = keep(change, folders[name][2] / logname, f"review/{logname}")
@@ -349,7 +370,11 @@ def _run(change, cfg: dict, lc: dict, work: Path) -> bool:
             keep(change, folders[name][2] / "codex-final.md", "review/codex-final.md")
         change.record_leg("review", f"reviewer-{name}", res, change.dir / "review" / f"packet-{name}" / "brief.md")
         if not res["ok"]:
-            problems.append(f"the {name} review leg failed: {res.get('error')}")
+            if res.get("timed_out"):
+                problems.append(f"the {name} reviewer ran out of time ({res['review_attempts']} attempts of "
+                                f"{timeout_s // 60} min) and named no finding")
+            else:
+                problems.append(f"the {name} review leg failed: {res.get('error')}")
             continue
         try:
             found = validate_findings(unwrap(parse_strict(res["result"]), "findings"), row_ids)

@@ -1,0 +1,79 @@
+{
+ "id": "w05",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7929,
+ "codex_tokens": 28129,
+ "work": "<tmp>/replay-w05-t2-39_gzcim",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "TrieUtils.ts:34, 36 and 39 each add a @ts-expect-error. The parameter is typed Collection<unknown, unknown>, and immutable.d.ts:4351 declares no size on it, so the checker can't see any of these accesses, including the assignment at line 37. Under axis row L5.4, each new suppression counts as a finding. Low severity because the runtime behaviour is unchanged.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 34,
+   "claim": "ensureSize hides its size/__iterate reads and its write to size behind three new @ts-expect-error comments instead of giving the parameter a type that declares them.",
+   "evidence": "ensureSize is typed `(iter: Collection<unknown, unknown>)`, and `interface Collection<K, V>` in type-definitions/immutable.d.ts:4351 declares no `size`. Lines 34, 36 and 39 each carry `// @ts-expect-error size should exists on Collection`. Line 37 (`iter.size = iter.__iterate(returnTrue)`) assigns `size`, which the concrete types declare `readonly`.",
+   "axis_row": "L5.4",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "wholeSlice (line 68) checks `end === undefined` and `size !== undefined`. resolveIndex (lines 84-99) checks `index === undefined` and `size === undefined`. SetRef (line 22) guards with `if (ref)`. All of these parameters are declared without `| undefined`. Low severity: the current callers are JS, so nothing is rejected today, but the types are inaccurate.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 68,
+   "claim": "wholeSlice, resolveBegin, resolveEnd, resolveIndex and SetRef take plain number/Ref types, but their bodies explicitly handle undefined, so the declared types don't match how the functions behave.",
+   "evidence": "`wholeSlice(begin: number, end: number, size: number)` tests `end === undefined` and `size !== undefined`. `resolveIndex(index: number, size: number, ...)` tests `index === undefined` and `size === undefined`. `resolveBegin`/`resolveEnd` pass these through. `SetRef(ref: Ref)` guards with `if (ref)`. All of these need `| undefined` to match the behaviour.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 45 declares `index: number`. The branch at line 54 (`typeof index !== 'number'`) and the comparison `'' + uint32Index !== index` at line 56 only make sense for strings, so under this signature the checker treats that code as unreachable. Low severity: this is a type-accuracy problem with no runtime change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 45,
+   "claim": "wrapIndex declares index as number, yet its body exists to handle string indices, so that branch narrows to never.",
+   "evidence": "Line 45 is `index: number`. Line 54 is `if (typeof index !== 'number') { const uint32Index = index >>> 0; if ('' + uint32Index !== index ...` \u2014 this branch is only reachable for strings, which the signature excludes.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the deepEqual.ts part of diff.patch, the only changes are four comments going from 'size exists on Collection' to 'size should exists on Collection', with no code change. That is unrequested churn (axis row L4.27) and introduces a grammar error. Low severity because it has no effect on behaviour.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/utils/deepEqual.ts",
+   "line": 22,
+   "claim": "The diff rewrites four comments in deepEqual.ts, a file outside the TrieUtils migration, and the new wording is ungrammatical.",
+   "evidence": "Four `// @ts-expect-error size exists on Collection` comments (lines 22, 38, 60, 94) are rewritten to `// @ts-expect-error size should exists on Collection`, with no code change in that file.",
+   "axis_row": "L4.27",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

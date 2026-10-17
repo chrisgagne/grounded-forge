@@ -1,0 +1,35 @@
+{
+ "id": "w16",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7188,
+ "codex_tokens": 70035,
+ "work": "<tmp>/replay-w16-t2-ijtbm02w",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/index.ts:97 re-exports getScalarValue. The diff changes its first parameter from ParserState to string, and CHANGELOG.md says the project follows SemVer but has no Unreleased entry. The locked test at test/spec/spec.test.mjs:166 calls getScalarValue(input, event), so the new signature is what acceptance asks for. The gap is only the missing changelog or breaking-change note, so it stays low and breaks no criterion.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/parser/parser_scalar.ts",
+   "line": 284,
+   "claim": "The public export getScalarValue now takes (input: string, event) instead of (state: ParserState, event), and the CHANGELOG doesn't record it.",
+   "evidence": "`src/index.ts:97` re-exports `getScalarValue` as public API. The diff changes the parameter from `state: ParserState` (it destructured `const { input } = state`) to `input: string`. Plain-JS callers passing the state object would now hit `input.slice is not a function` on the fast path, or a similar error in the style helpers. CHANGELOG.md has no Unreleased or Changed entry for this, though the project says it follows SemVer. The diff updates both internal call sites (`from_events.ts:105`, `constructor.ts:152`) and matches the locked test's call `getScalarValue(input, event)` in `test/spec/spec.test.mjs:166`, so internal behaviour is consistent.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

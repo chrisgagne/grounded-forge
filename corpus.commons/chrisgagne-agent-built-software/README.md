@@ -68,7 +68,7 @@ most one more good change.
 | Real bugs caught on both tries | 11 of 17 | **16 of 17** |
 | Good changes stopped at least once | 3 of 8 | 4 of 8 |
 | Confirmed findings that name a standard, a source or a library row | 0 of 64 | 56 of 82 (68%) |
-| Review cost per review (one of the two per change; review only) | about $0.27 of Claude and 25,000 Codex tokens | about $0.64 of Claude and 42,000 Codex tokens |
+| Review cost per review (one of the two per change; review only; Codex tokens exclude cached input) | about $0.27 of Claude and 25,000 Codex tokens | about $0.64 of Claude and 42,000 Codex tokens |
 
 **The test was met as written:** 5 more bugs caught on both tries, and one more good change stopped, which the rule
 allowed (that stop came from a scanner, not the reviewers).
@@ -84,20 +84,36 @@ tell.
 
 Other limits: 17 bugs is a small sample, and two tries per change is an easier bar than three. The project's own test
 suites were switched off, so this measures the review step, not the whole factory. No human has checked the AI
-grader, which also picked the cases and is one of the two reviewers. A finding that names a standard may still name
+grader, which also picked the cases and is one of the two reviewers; a model from a third company, TypeSafe's
+Jev, graded every finding again and agreed on every count in the table. A finding that names a standard may still name
 the wrong one. And the timestamps showing the test was written before it ran sit in the factory's history from before
 it was published, not in this repository. Full results:
 [v3-RESULTS.md](helpers/factory-warranty/calibration/realbugs/results/v3-RESULTS.md).
 
-## What doesn't work yet
+## How often it stops good changes
 
-**The factory stops too many good changes.** Without and with the library, 38% and 44% of the runs on good changes (6 and 7 of
-16) ended in a stop, against our own bar of 20%. Six of the stops on each side came from review, mostly reviewers'
-findings and, in three runs across both sides, a reviewer that hit its time limit; the seventh with the library came
-from a scanner. Three of the eight
-good changes were stopped on both sides. Some flags are arguably right (one change updated a library's source but not
-its committed minified build), but those changes were picked as good, so they count against us. For whoever signs off,
-every false stop is time spent reading a sheet and clearing it.
+**We don't know yet, and it's the question we'd most like help with.** In the test above, 38% and 44% of the runs on
+good changes (6 and 7 of 16, without and with the library) ended in a stop, against our own bar of 20%. Six of the
+stops on each side came from review, mostly reviewers' findings and, in three runs across both sides, a reviewer that
+hit its time limit; the seventh with the library came from a scanner. Some flags were arguably right (one change
+updated a library's source but not its committed minified build), but those changes were picked as good, so they count
+against us. For whoever signs off, every false stop is time spent reading a sheet and clearing it.
+
+So we changed the factory: reviewers get more time and one retry, a serious finding must name the input that now goes
+wrong, a stale generated file counts as minor, and a scanner check that errors is measured again. Then we tested the old and new versions on 20 changes neither
+had seen, 12 good and 8 bugs, with the rule written down first
+([the pre-registration](helpers/factory-warranty/calibration/realbugs/PREREG-v4-false-stops.md)).
+
+**Round two's changes didn't measurably cut false stops without costing catches.** There was little to cut: each
+version stopped 2 of 24 runs on the good changes (8%), both on the same change, and both caught the same 7 of 8 bugs on
+both tries. So the stop rate depends on which changes you test more than our small samples can pin down. Full results:
+[v4-RESULTS.md](helpers/factory-warranty/calibration/realbugs/results/v4-RESULTS.md).
+
+All four stops were one change to the jsdiff library, titled "Remove dead code". Each time a reviewer called it
+critical and named the input that would now break. We ran that input through the code before and after the change:
+it works the same, because jsdiff's parser adjusts the line number before the deleted code would matter; only a
+patch object built by hand reaches the difference. Asking
+reviewers to name the trigger made the finding look evidenced without making it right.
 
 If you run AI code review in anger: what share of good changes does it stop, and what brought that down without
 letting real bugs through? That's the conversation we'd most like to have.

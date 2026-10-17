@@ -1,0 +1,57 @@
+{
+ "id": "w12",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4957,
+ "codex_tokens": 38272,
+ "work": "<tmp>/replay-w12-t1-wq000ilq",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "apply.js:85 gives toPos = 0+0+0-1 = -1 for `@@ -0,0` hunks, and the code at lines 88-103 no longer clamps it, so `lines.splice(-1, 0, ...)` inserts before the last element. The locked tests at test/patch/apply.js:396, :411 and :635 (create a file, insert at start) expect the order this now breaks. I kept C1's critical over X1's medium because this is silent content corruption on a common path, with a traced trigger.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/patch/apply.js",
+   "line": 85,
+   "claim": "With the `toPos < 0` clamp removed, any hunk with oldStart 0 (creating a new file, or inserting at the top of a file) splices at index -1. applyPatch then returns the added lines in the wrong order with no error.",
+   "evidence": "The diff deletes `if (toPos < 0) { // Creating a new file  toPos = 0; }`. For a hunk with oldStart=0 and offset=0, line 85 computes `toPos = 0 + 0 + 0 - 1 = -1`. Nothing else clamps it: hunkFits checks no context lines, so it accepts the hunk. The '+' branch then runs `lines.splice(toPos, 0, content)` with toPos=-1, and a negative index makes splice count from the end of the array. Trace for the existing test 'should create a file' (test/patch/apply.js:635): source '' gives lines ['']. Adding line1 at -1 gives ['line1',''], and toPos becomes 0. Adding line2 at 0 gives ['line2','line1',''], then line3 at 1 and line4 at 2. The result is 'line2\\nline3\\nline4\\nline1\\n' where 'line1\\nline2\\nline3\\nline4\\n' is expected. The same thing happens to 'should apply single line patches with zero context and zero removed at start of file' (test/patch/apply.js:396): 'line1' lands after 'line3', giving 'line2\\nline3\\nline1\\n'. The `delimiters.splice(toPos, ...)` calls are misplaced in the same way. Nothing else in the function does the clamp's job now.",
+   "axis_row": "L5.21",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "This is a packet and process remark, not a separate defect. The real effect, the deleted clamp breaking the locked tests at test/patch/apply.js:396, :411 and :635, is already covered by the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/patch/apply.js",
+   "line": null,
+   "claim": "The change has no stated spec or new tests, and nothing shows the existing tests were run against it.",
+   "evidence": "acceptance.md says 'story.md is the spec' and that tests.lock lists the locked tests, but neither story.md nor tests.lock is in the export or the packet. diff.patch changes only src/patch/apply.js (4 lines deleted) and adds or edits no tests. The existing tests at test/patch/apply.js:396, :411 and :635 cover exactly the behaviour the deletion breaks.",
+   "axis_row": "L4.32",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

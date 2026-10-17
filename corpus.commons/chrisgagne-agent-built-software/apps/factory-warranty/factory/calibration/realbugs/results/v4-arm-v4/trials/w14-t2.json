@@ -1,0 +1,64 @@
+{
+ "id": "w14",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6898,
+ "codex_tokens": 48464,
+ "work": "<tmp>/replay-w14-t2-_fpo9i_7",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/date/mini.js:234 and src/date/index.js:97 now use Symbol.for(\"constructDateFrom\") inline, while src/constants/index.ts:1 still defines constructFromSymbol from the same string and src/date/index.d.ts:123 declares the method by the constant. Behaviour is the same today because of the global symbol registry, so this stays low: it is a maintainability risk with no trigger that fails now.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/mini.js",
+   "line": 234,
+   "claim": "The constructDateFrom symbol key is now duplicated as a string literal in mini.js and index.js, apart from the exported constructFromSymbol constant, so the copies can drift.",
+   "evidence": "The diff replaces `[constructFromSymbol](date)` with `[Symbol.for(\"constructDateFrom\")](date)` in src/date/mini.js:234 and src/date/index.js:97. `src/constants/index.ts:1` still defines `constructFromSymbol = Symbol.for(\"constructDateFrom\")`, `src/index.ts:1` re-exports it, and `src/date/index.d.ts:123` still declares `[constructFromSymbol](...)`. Today the behaviour is the same because `Symbol.for` uses the global registry, but nothing ties the three copies together.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "src/date/mini.js:1 imports from \"../index.ts\", and src/index.ts:3 re-exports ./date/mini.js, so the cycle is real. No story.md is in the packet, so the code can't tell us whether the change was meant to remove all barrel cycles or only the constants import.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/mini.js",
+   "line": 1,
+   "claim": "mini.js still imports tzOffset from the ../index.ts barrel, which re-exports mini.js, so a circular import remains.",
+   "evidence": "The diff removes only the `../constants/index.ts` import. `src/date/mini.js:1` still has `import { tzOffset } from \"../index.ts\";`, and `src/index.ts` re-exports `./date/index.js` and `./date/mini.js`, giving the cycle index.ts \u2192 date/mini.js \u2192 index.ts. The story isn't in the packet, so whether the change was meant to fix this is unconfirmed.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "src/date/tests.ts:3 imports constructFromSymbol and lines 1612-1637 call date[constructFromSymbol](...); this matches both the base and the head method keys, so no test goes from fail to pass. For a refactor that keeps behaviour the same, that is expected. Without the story it's unclear whether a fail-to-pass test was required.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/tests.ts",
+   "line": 1606,
+   "claim": "The locked tests call the method through constructFromSymbol, which resolves to the same registry symbol as before, so they pass on the base code and on the head alike and don't show the change's purpose.",
+   "evidence": "`src/date/tests.ts:3` imports `constructFromSymbol` from `../constants/index.ts`, and lines 1612-1637 call `date[constructFromSymbol](...)`. Both the base `[constructFromSymbol]` method and the new `[Symbol.for(\"constructDateFrom\")]` method satisfy these calls, so no test fails on the base code and later passes.",
+   "axis_row": "L3.4",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

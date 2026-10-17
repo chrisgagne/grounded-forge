@@ -1,0 +1,57 @@
+{
+ "id": "w12",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5444,
+ "codex_tokens": 34338,
+ "work": "<tmp>/replay-w12-t2-_f65dqpk",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "apply.js:85 computes toPos = oldStart + offset + diffOffset - 1, which is -1 when oldStart is 0. The fit loop at :61-66 accepts that position because hunkFits has no context lines to check for a pure-add hunk. With the clamp gone, splice(-1, 0, ...) at :101 inserts before the last element: 'line2\\nline3\\n' becomes line2,line3,line1 and '' gives reversed lines. That breaks the locked tests at test/patch/apply.js:396, :411, :635 and :709. acceptance.md has no numbered AC, so breaks is set to story; the locked-tests bar is the one missed.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/patch/apply.js",
+   "line": 85,
+   "claim": "Removing the toPos < 0 clamp makes hunks with oldStart 0 (new-file creation, insertion at start of file) apply at index -1. The output gets corrupted and the locked baseline tests for these cases fail.",
+   "evidence": "The diff deletes `if (toPos < 0) { // Creating a new file\\n toPos = 0; }`. For `@@ -0,0 +1,4 @@`, `toPos = hunk.oldStart + hunk.offset + diffOffset - 1` = -1. On source '' (`lines` = ['']), the first '+' runs `lines.splice(-1, 0, 'line1')`, which inserts before the last element and gives ['line1',''], then `toPos++` makes it 0. Each later '+' then splices at index 0 ahead of the earlier lines, so the result is line4,line3,line2,line1. `delimiters.splice(-1, \u2026)` is misaligned in the same way. hunkFits never rejects this position because a pure-add hunk has no context lines to compare.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "Neither story.md nor tests.lock is in the export or the packet, so I can't check whether the story asked for this deletion. The real harm is already covered by the C1/C2 item, so I lowered this from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/patch/apply.js",
+   "line": 85,
+   "claim": "Nothing on record explains why the guard was removed, and story.md and tests.lock are missing.",
+   "evidence": "acceptance.md says 'story.md is the spec \u2026 tests.lock lists them', but neither file is in the export or the packet. The whole diff is the deletion of the 'Creating a new file' clamp, with no new test or explanation.",
+   "axis_row": "L1.1",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

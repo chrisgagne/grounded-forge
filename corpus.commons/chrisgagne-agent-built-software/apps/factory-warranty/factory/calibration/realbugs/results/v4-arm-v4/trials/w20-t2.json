@@ -1,0 +1,57 @@
+{
+ "id": "w20",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.486,
+ "codex_tokens": 35734,
+ "work": "<tmp>/replay-w20-t2-cqhumutx",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Operations.js:307 defines `__iterator` as an arrow function, and every caller calls reverseFactory as a plain function (CollectionImpl.js:259, 573; Operations.js:61), so `this` is undefined in module strict mode. The diff swaps `reversedSequence.size` for `this.size` at line 320 and removes the comment warning about this. Any `__iterator(type, true)` on a non-keyed reversed sequence, for example via toKeyedSeq().reverse().entries(), now throws a TypeError on the first non-empty step.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Operations.js",
+   "line": 320,
+   "claim": "Reverse iteration through `__iterator` of a reversed indexed sequence reads `this.size` on undefined and throws a TypeError.",
+   "evidence": "Line 307 defines `reversedSequence.__iterator = (type, reverse) => { ... }` as an arrow function, so `this` is the `this` of the `reverseFactory(collection, useKeys)` call. That call is a plain function call, so in ES-module strict mode `this` is undefined. The diff replaces `reverse ? reversedSequence.size - ++i : i++` with `reverse ? this.size - ++i : i++`, and also deletes the comment that warned about exactly this (\"`__iterator` is an arrow function, so `this` is not the reversed sequence here \u2014 read `reversedSequence.size` explicitly\"). Trigger: any iterator-based traversal that calls a reversed indexed sequence's `__iterator` with `reverse=true`. One example is `[...Seq([1,2,3]).reverse().map(x => x).reverse()]`: the outer reverse calls `mapped.__iterator(ENTRIES, true)`, which passes `reverse=true` through to the inner reversed sequence's `__iterator`. On the first `next()`, `this.size` is evaluated on undefined. Nothing else guards this path: `__iterate` at line 303 is a `function` expression, so its `this.size` is fine, but `__iterator` is not.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The List.ts:1065 test and the other reverse() tests in __tests__ use reverse=false iterators or `__iterate`, which is a `function` expression at Operations.js:298, so its `this` is correct. None of them reaches the arrow `__iterator` with reverse=true, so the locked suite doesn't catch the regression. This is a test gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "__tests__/List.ts",
+   "line": 1065,
+   "claim": "No locked test exercises a reversed indexed sequence's `__iterator` with reverse=true.",
+   "evidence": "The nearest test, 'iterates through List in reverse', calls `l2.toSeq().reverse()` and then `.values()/.keys()/.entries()`. Those reach `reversedSequence.__iterator(type, false)`, which takes the `i++` branch and never evaluates `this.size`. None of the `reverse()` uses in `__tests__` (KeyedSeq, slice, concat, Stack, ArraySeq) iterates a non-keyed reversed sequence backwards through an iterator.",
+   "axis_row": "L3.9",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,85 @@
+{
+ "id": "w18",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6451,
+ "codex_tokens": 34053,
+ "work": "<tmp>/replay-w18-t2-y8t0qd_l",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The guard at lib/yargs-parser.ts:978 now returns false whenever hasAllShortFlags passes (945-967 checks each letter with hasAnyFlag), whatever the config. So isUnknownOptionAsArg is false at line 226, and the branch at line 262 (groups off) sets key 'ab' via setArg. The baseline sent '-ab' to '_'. Trigger traced: boolean ['a','b'] with both config flags.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "With short-option-groups off and unknown-options-as-args on, an argument like '-ab' (a and b known, ab unknown) is now parsed as option 'ab' instead of passing through to '_'.",
+   "evidence": "isUnknownOption now returns false whenever `hasAllShortFlags(arg)` is true, whatever the config. hasAllShortFlags('-ab') with boolean a,b returns true because it checks each letter with hasAnyFlag. Trace for parser('-ab', {boolean:['a','b'], configuration:{'short-option-groups':false,'unknown-options-as-args':true}}): the check at line 226 (`isUnknownOptionAsArg(arg)`) is now false, and the branch at line 262 (`!configuration['short-option-groups'] && arg.match(/^-[^-]+/)`) sets key = 'ab' and calls setArg('ab', true). The result is `{ab:true}` rather than the baseline `_:['-ab']`, which the baseline got because normalFlag `ab` failed hasAnyFlag. With short-option-groups off, nothing else stops a letter-wise group check from being applied to an argument the parser will read as one long key.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "eatNargs (line 483) and eatArray (lines 513, 529) take '-ab' as a value only when isUnknownOptionAsArg is true. After the change that call returns false for '-ab', so the loop breaks and line 262 later sets '-ab' as key 'ab'. Same root cause as C1 but a separate path.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "With short-option-groups off, an argument like '-ab' after an array or nargs option is no longer collected as that option's value.",
+   "evidence": "eatNargs (line 483: `... || isUnknownOptionAsArg(args[ii])) available++`) and eatArray (lines 513 and 529: `!isUnknownOptionAsArg(next)`) both use isUnknownOption. For `--arr -ab` with array:['arr'], boolean:['a','b'], short-option-groups false and unknown-options-as-args true, the baseline took '-ab' as an element of arr. Now isUnknownOptionAsArg('-ab') is false, so the loop breaks and '-ab' is later set as key 'ab'.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only lib/yargs-parser.ts. Grep finds short-option-groups:false only at test lines 2316, 2322, 2879 and 2898, and none of those also sets unknown-options-as-args. Lowered to low because it is a coverage gap; the defect itself is C1.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/yargs-parser.mjs",
+   "line": 3047,
+   "claim": "No test covers short-option-groups false together with unknown-options-as-args true, so the behaviour change goes undetected.",
+   "evidence": "diff.patch touches only lib/yargs-parser.ts (one line). Every test in the `unknown-options-as-args = true` block (test/yargs-parser.mjs:3047 onward) leaves short-option-groups at its default of true, where the old and new conditions behave the same. No story.md or tests.lock exists in the export, so no locked fail-to-pass test shows what behaviour the change was meant to deliver.",
+   "axis_row": "L5.26",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 977 says the check is for a short option group, but line 978 now runs it even when short-option-groups is false. The parser honours that setting elsewhere (lines 235, 262). No story.md exists to explain the change. This is documentation and intent only, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/yargs-parser.ts",
+   "line": 977,
+   "claim": "The comment still says the check applies to short option groups, and nothing records why the config check was dropped.",
+   "evidence": "Line 977: `// if this is a short option group and all of them are configured, it isn't unknown`. Line 978 now runs that check even when `configuration['short-option-groups']` is false, a setting the parser honours elsewhere (lines 235 and 262). acceptance.md only says 'story.md is the spec', but no story.md exists in the export.",
+   "axis_row": "L1.13",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

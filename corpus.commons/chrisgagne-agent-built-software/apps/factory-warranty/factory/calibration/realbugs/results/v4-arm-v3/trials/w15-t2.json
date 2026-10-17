@@ -1,0 +1,90 @@
+{
+ "id": "w15",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8961,
+ "codex_tokens": 21798,
+ "work": "<tmp>/replay-w15-t2-r20kq7ge",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "parser.ts:1452 only does state.position++, while the removed skipByteOrderMark also set lineStart. As a result parseNode at :1243 computes blockIndent=1, readBlockSequence at :992 breaks when the next line has lineIndent 0, and readDocument at :1421 throws. skipSeparationSpace at :336 sees position!==lineStart and FEFF is not whitespace, so '#' is not treated as a comment, and the '...' check at :1388 also needs position===lineStart.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/parser/parser.ts",
+   "line": 1452,
+   "claim": "The leading BOM is now skipped without setting lineStart, so the first line's indent and line-start checks are off. Multi-line top-level block collections, a comment right after the BOM, and a '...' right after the BOM all misparse.",
+   "evidence": "The new line `if (state.input.charCodeAt(state.position) === 0xFEFF) state.position++` leaves `state.lineStart` at 0. The removed skipByteOrderMark also set `state.lineStart = state.position`. parseNode then computes `const blockIndent = state.position - state.lineStart` (line 1243), which gives 1 for the first top-level node. readBlockSequence stops at `if (state.lineIndent < nodeIndent ...) break` (line 992) when the second line has lineIndent 0, and readDocument then throws 'end of the stream or a document separator is expected' (lines 1419-1422). The only BOM unit test, test/core/units/load-other.test.mjs:7, uses a single-line mapping ('\ufefffoo: bar\\n'), so it never reaches this path.",
+   "breaks": "AC-1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes testDocumentBoundary and the per-document skipByteOrderMark. The checks at :672, :776 and :1421 now call bare testDocumentSeparator, and BOM skipping happens only once at position 0 (:1452). So 'a\\n\ufeff---\\nb' is read as one scalar where the baseline split it into two documents.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/parser/parser.ts",
+   "line": 776,
+   "claim": "BOMs at the start of later documents in a multi-document stream are no longer accepted. A BOM-prefixed '---' no longer ends the previous scalar or document.",
+   "evidence": "The diff deletes the per-document `skipByteOrderMark(state)` call from the parseEvents loop and deletes testDocumentBoundary, which looked for a BOM-prefixed '---'/'%' boundary. The block-scalar (line 672), plain-scalar (line 776) and readDocument (line 1421) boundary checks now call bare `testDocumentSeparator`, so a BOM before a separator no longer ends the scalar or document. Only the single leading BOM at position 0 is still skipped (line 1452). The spec suite maps '\u21d4' to '\ufeff' (test/spec/spec.test.mjs:52), so this feature is part of the conformance surface. The yaml-test-suite fixtures are not in the export, so I could not run them.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "diff.patch lines 9-36 do delete skipByteOrderMark and testDocumentBoundary, and no test file changes. But the packet has no story.md and acceptance.md just points to it, so I can't tell whether the removal was in scope. The resulting behaviour regression is covered by the item for C2/X2.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/parser/parser.ts",
+   "line": 382,
+   "claim": "The diff removes deliberate BOM-boundary support with no test and no record that the removal was asked for.",
+   "evidence": "Lines 9-36 of diff.patch delete skipByteOrderMark and testDocumentBoundary, including the comments 'Fast path: most document boundaries do not have a BOM' and 'BOM-prefixed boundaries are rare'. acceptance.md says only 'story.md is the spec', and no story.md exists in the packet or export. The diff changes no test file.",
+   "breaks": "story",
+   "axis_row": "L4.27",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep of test/ finds only load-other.test.mjs:7 (load('\ufefffoo: bar\\n')) as a core BOM parse assertion. A single-line mapping parses even with blockIndent=1, so this test passes despite the C1/X1 bug. This is a coverage gap, not a defect in the change itself.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/core/units/load-other.test.mjs",
+   "line": 7,
+   "claim": "The only BOM load test uses a single-line input, so it can't catch the multi-line and multi-document regressions.",
+   "evidence": "`assert.deepStrictEqual(load('\ufefffoo: bar\\n'), { foo: 'bar' })` is the only BOM parse assertion in test/core. No test loads a BOM followed by a multi-line block collection, or a BOM after a '...' or '---' separator.",
+   "axis_row": "L3.9",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -522,8 +522,14 @@ def ratchet(change) -> list[dict]:
                                             os_sandbox=change.os_sandbox(),
                                             tmp_root=change.worktree.parent / ".factory-tmp")
         for spec in specs:
+            # A run that errors is measured once more before it counts: a scanner that fetches its rules, or a machine
+            # that sleeps mid-run, can fail once for reasons that have nothing to do with the change.
             b = measure(change, spec, base, "baseline")
+            if b["problem"]:
+                b = {**measure(change, spec, base, "baseline"), "retried_after": b["problem"]}
             a = measure(change, spec, change.worktree, "after")
+            if a["problem"]:
+                a = {**measure(change, spec, change.worktree, "after"), "retried_after": a["problem"]}
             if base_install and base_install["exit"] != 0 and not spec["trusted"]:
                 b["problem"] = f"the baseline install failed ({base_install.get('error') or base_install['exit']})"
             status, reason, acceptable, nums = judge(spec, b, a)

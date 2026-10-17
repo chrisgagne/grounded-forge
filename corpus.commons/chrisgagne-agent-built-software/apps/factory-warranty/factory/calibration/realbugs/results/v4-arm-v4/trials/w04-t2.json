@@ -1,0 +1,50 @@
+{
+ "id": "w04",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7054,
+ "codex_tokens": 39908,
+ "work": "<tmp>/replay-w04-t2-3hakwovu",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch only touches classes/range.js lines 376/379. A grep of test/fixtures finds no includePrerelease case for a ^0. range: range-parse.js:56-61 tests ^0.x without options, and range-include/range-exclude have none either. So the new lower bound `-0` (e.g. ^0.1.2 -> >=0.1.2-0 <0.2.0-0) is never asserted.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "classes/range.js",
+   "line": 376,
+   "claim": "No test covers the new includePrerelease behaviour for ^0.0.x / ^0.x.y caret ranges.",
+   "evidence": "The diff only changes classes/range.js (adding `${z}` at lines 376 and 379) and adds no fixture. The test fixtures have no includePrerelease case for a `^0.` range: range-parse.js lines 54-61 test `^0.0.1` -> `>=0.0.1 <0.0.2-0` and `^0.1.2` -> `>=0.1.2 <0.2.0-0` without options, and range-include/range-exclude have no `^0.x.y` entries with `{ includePrerelease: true }`. So `^0.1.2` -> `>=0.1.2-0 <0.2.0-0` is never asserted.",
+   "axis_row": "L5.26",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "range.js:382-383 does leave out ${z} for M !== '0'. But the locked fixture test/fixtures/range-exclude.js:82 (['^1.0.0', '1.0.0-rc1', { includePrerelease: true }]) requires major>=1 to keep excluding the lower-bound prerelease, so this change could not alter that. The asymmetry comes from the locked acceptance tests and is not a defect in this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "classes/range.js",
+   "line": 382,
+   "claim": "With includePrerelease, ^0.x admits lower-bound prereleases but ^1.x does not, and no recorded decision explains the asymmetry.",
+   "evidence": "In the no-prerelease branch of replaceCaret, the two `M === '0'` cases (lines 375-379) now append `${z}` to the lower bound. The `M !== '0'` case (lines 382-383, `>=${M}.${m}.${p} <${+M + 1}.0.0-0`) still does not. The X-range branches (lines 350-355) apply `${z}` for every major. Locked fixture test/fixtures/range-exclude.js:82 (`['^1.0.0', '1.0.0-rc1', { includePrerelease: true }]`) pins the major\u22651 exclusion, so the asymmetry is either intended or forced by the locked tests, and neither the packet nor a code comment says which.",
+   "axis_row": "L1.13",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

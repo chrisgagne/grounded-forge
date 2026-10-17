@@ -56,7 +56,10 @@ DEFAULTS = {
     "theory_doc": None,
     "builder": {"kind": "claude", "command": None},
     "ratchet": {"semgrep_findings": False, "lint_warnings": None},
-    "review": {"claude_model": "opus", "codex_model": "gpt-6.1-sol", "grounding": "seeds"},
+    # A review leg reads the whole change, so it gets longer than a build leg, and one retry if it runs out of time:
+    # a reviewer killed at its limit names no finding, and the change stops without the signer learning why.
+    "review": {"claude_model": "opus", "codex_model": "gpt-6.1-sol", "grounding": "seeds", "timeout_minutes": 60,
+               "timeout_retries": 1},
     # acceptEdits: file edits in the worktree go through; Bash runs only sandboxed (autoAllowBashIfSandboxed);
     # anything that would need a prompt is denied, since a headless leg has no one to ask.
     "legs": {"claude_model": "opus", "permission_mode": "acceptEdits", "effort": None, "timeout_minutes": 30,

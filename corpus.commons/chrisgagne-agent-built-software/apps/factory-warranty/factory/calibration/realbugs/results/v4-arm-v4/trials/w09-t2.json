@@ -1,0 +1,49 @@
+{
+ "id": "w09",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6531,
+ "codex_tokens": 43942,
+ "work": "<tmp>/replay-w09-t2-gglg1530",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "noise",
+   "reason": "The export has no tsconfig, no .ts test files and no type-checking step (package.json runs `node ./test/test.js`), so the project has no way to test type declarations at all. The change only edits a return type in a .d.ts file and doesn't change runtime behaviour, which test/modules/isFiniteEtc.js already covers. A missing type test isn't a defect of this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.d.ts",
+   "line": 254,
+   "claim": "No test checks the new `object is Decimal` type guard.",
+   "evidence": "The diff touches only decimal.d.ts:254 and decimal.global.d.ts:275. package.json runs tests with `node ./test/test.js` and there is no tsconfig or .ts test file. test/modules/isFiniteEtc.js:261-277 only checks the runtime boolean result of Decimal.isDecimal, never type narrowing.",
+   "axis_row": "L5.26",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "decimal.js:126 sets `P = { toStringTag: tag }` on the shared prototype, and decimal.js:4535 also accepts `obj.toStringTag === tag`. That check exists so instances made by other Decimal clones or library copies, which fail `instanceof`, are still recognised, and those really are Decimals. The only false positive is an object built on purpose with that private string, so no realistic trigger was traced and the guard matches the runtime contract.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.d.ts",
+   "line": 254,
+   "claim": "The type guard can narrow a duck-typed plain object to Decimal although it lacks Decimal methods.",
+   "evidence": "decimal.js:4535 `isDecimalInstance(obj) { return obj instanceof Decimal || obj && obj.toStringTag === tag || false; }` returns true for any object whose `toStringTag` equals the Decimal tag, not just real instances. Before this change the declared return type was `boolean`, so it never narrowed anything; now `object is Decimal` narrows on this duck-typed check too.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

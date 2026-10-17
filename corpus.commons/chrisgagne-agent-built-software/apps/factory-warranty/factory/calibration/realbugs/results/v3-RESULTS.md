@@ -80,6 +80,12 @@ this, not tested here: with the corpus the reviewer gets a focused packet and fi
 the repository and runs out of time. Whether a longer limit would have let the no-corpus arm catch v10, v11 and v14 on
 both trials, these runs can't say. The outage rule (Amendment 1) doesn't cover a timeout, so these stay scored.
 
+The machine running the replay was put to sleep (lid closed) at 22:19 on 2026-10-15 and slept, with brief maintenance
+wakes, until morning (`pmset -g log`). All six timeouts started between 18:09 and 20:59, while it was awake, so sleep
+didn't cause them. The corpus arm's fourth batch (v16 to v20) ran in those brief wakes overnight; every trial in it
+completed, though a leg's 30-minute clock keeps counting while the machine sleeps (v18 t2's Codex leg finished at 29
+minutes). Later runs keep the machine awake for their whole length.
+
 ## What this does and doesn't show
 
 - The cases are small, reverted logic fixes and clean changes in eight JavaScript and TypeScript libraries, with the

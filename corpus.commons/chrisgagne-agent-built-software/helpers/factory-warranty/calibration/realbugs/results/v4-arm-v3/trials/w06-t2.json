@@ -1,0 +1,71 @@
+{
+ "id": "w06",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.7432,
+ "codex_tokens": 44113,
+ "work": "<tmp>/replay-w06-t2-cnxmku3e",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/renderer.ts:307-323 now handles only text, image, html_inline/html_block and breaks, so code_inline tokens fall to the default branch and are skipped. default_rules.image sets alt from renderInlineAsText (src/renderer.ts:108-109), so ![`logo`](x.png) gets alt=\"\", which goes against the CommonMark rule that alt is the plain-text content.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/renderer.ts",
+   "line": 308,
+   "claim": "Removing the code_inline case from renderInlineAsText drops inline code text from image alt attributes.",
+   "evidence": "The diff deletes `case 'code_inline':` and its comment \"code content is added as plain text, without backticks\" from the `text` branch. code_inline tokens now fall to `default: // all other tokens are skipped`, so their content is never appended. renderInlineAsText is what the image rule calls for alt (src/renderer.ts:109 `slf.renderInlineAsText(token.children!, options, env)`).",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep under test/ for an image description containing a backtick finds only prose lines in spec.txt and no example. The diff adds no test, so the locked suite passes whether or not this behaviour is kept.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/renderer.ts",
+   "line": 303,
+   "claim": "No existing or new test covers inline code in image alt text, so the suite can't catch this regression.",
+   "evidence": "A grep for an image description containing a backtick (`!\\[.*``) under test/ and the fixtures finds no matches. The diff touches only src/renderer.ts and adds no test, and no story.md or tests.lock is in the export to show this behaviour change was requested.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "diff.patch touches only src/renderer.ts, so no test or CHANGELOG entry was added. The packet has no story.md to show whether this change was intended. If it wasn't, the fix is to revert (C1), not to document it, so whether a changelog entry is needed can't be settled.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/renderer.ts",
+   "line": null,
+   "claim": "The change alters user-visible output with no test or CHANGELOG entry.",
+   "evidence": "diff.patch has only the 2-line deletion in src/renderer.ts. CHANGELOG.md is unchanged, and no test files appear in the diff.",
+   "axis_row": "L5.26",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

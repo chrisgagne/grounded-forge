@@ -230,3 +230,42 @@ def test_a_send_back_stays_open_until_its_tests_are_locked(tmp_path, monkeypatch
     amends = [e for e in change.ledger.events() if e.get("check") == "amend"]
     assert len(amends) == 2 and amends[-1]["added"] == ["AC-2"]
     assert (change.dir / "tests" / "acceptance-locked.md").exists()
+
+
+def run_with_codex_timeouts(tmp_path, monkeypatch, capsys, timeouts):
+    """A run whose Codex reviewer runs out of time on its first `timeouts` attempts."""
+    calls = {"n": 0}
+
+    def codex(prompt, cwd, log, out, **kw):
+        calls["n"] += 1
+        if calls["n"] <= timeouts:
+            log.write_text("exec\n... still reading ...\n")
+            return {"ok": False, "exit": None, "timed_out": True, "error": "killed after 60 min", "family": "codex",
+                    "cmd": "codex <prompt>", "started": "t", "finished": "t", "duration_s": 3600, "log_path": log,
+                    "result": "", "output_sha256": "0" * 64, "tokens": None, "model": "fake", "cost_usd": None}
+        return fake_codex(prompt, cwd, log, out, **kw)
+
+    monkeypatch.setattr(legs, "run_claude", fake_claude)
+    monkeypatch.setattr(legs, "run_codex", codex)
+    app = make_app(tmp_path)
+    story = tmp_path / "story.md"
+    story.write_text("# Add a goodbye script\n\n`src/bye.sh NAME` prints Bye, NAME.\n")
+    cli.main(["run", str(story), "--repo", str(app)])
+    change = Change(app, capsys.readouterr().out.split("change ", 1)[1].split()[0])
+    return change, calls["n"]
+
+
+def test_a_reviewer_that_runs_out_of_time_is_retried_once(tmp_path, monkeypatch, capsys):
+    change, attempts = run_with_codex_timeouts(tmp_path, monkeypatch, capsys, timeouts=1)
+    assert attempts == 2
+    timed = [e for e in change.ledger.events() if e.get("check") == "timed-out:codex"]
+    assert len(timed) == 1 and timed[0]["retried"] and timed[0]["evidence"] == ["review/codex-timed-out-1.log"]
+    assert change.outcome("review")["blocking"] == ["F1"]  # the retry's findings count as usual
+
+
+def test_a_reviewer_out_of_time_twice_stops_the_change_and_says_so(tmp_path, monkeypatch, capsys):
+    change, attempts = run_with_codex_timeouts(tmp_path, monkeypatch, capsys, timeouts=2)
+    assert attempts == 2
+    out = change.outcome("review")
+    assert out["status"] == "blocked"
+    assert "the codex reviewer ran out of time (2 attempts of 60 min) and named no finding" in out["reason"]

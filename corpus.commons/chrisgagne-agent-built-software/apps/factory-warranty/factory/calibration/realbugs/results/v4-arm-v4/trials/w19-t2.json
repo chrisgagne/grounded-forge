@@ -1,0 +1,71 @@
+{
+ "id": "w19",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6894,
+ "codex_tokens": 47927,
+ "work": "<tmp>/replay-w19-t2-949ypm6t",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "isUnknownOption (lib/yargs-parser.ts:972-989) returns !hasFlagsMatching, and every pattern there needs a leading '-', so a word like 'foo' counts as unknown. Line 225 now pushes it and continues, so the halt branch at line 397 (`notFlags = args.slice(i); break`) is never reached. With ['foo','--known','1'] and both flags on, '--known' is now parsed when it should be left alone.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "Removing the `/^-/` guard sends plain positionals into the unknown-option branch when unknown-options-as-args is on, so halt-at-non-option never fires and later options get parsed.",
+   "evidence": "Line 225 is now `if (arg !== '--' && isUnknownOptionAsArg(arg))`. `isUnknownOption` (lines 972-990) returns `!hasFlagsMatching(...)`, and every pattern it checks (`flagWithEquals`, `normalFlag`, `negatedBoolean` = `^--no-...`, etc.) needs a leading hyphen, so a plain word like `foo` matches none and counts as 'unknown'. That word gets `pushPositional` at line 226, and the parser never reaches `else if (configuration['halt-at-non-option']) { notFlags = args.slice(i); break }` at line 397. Trigger: `parser(['foo','--known','1'], {string:['known'], configuration:{'unknown-options-as-args':true,'halt-at-non-option':true}})`. Before the change, `foo` fell through to line 397 and parsing stopped, giving `_: ['foo','--known','1']`. Now `foo` is pushed, `--known 1` is parsed by the branch at line 260, and the result is `_: ['foo'], known: '1'`. With `populate--` on, the halted args used to go to `argv['--']` and now land in `_`. No other check stops this.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only one line of lib/yargs-parser.ts. The unknown-options-as-args tests in test/yargs-parser.cjs (3013-3299, 3991+) never set halt-at-non-option, so nothing catches the C1/X1 regression.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "Parser behaviour changes with no new test, and no existing test combines unknown-options-as-args with halt-at-non-option, so the regression passes the suite.",
+   "evidence": "diff.patch changes only `lib/yargs-parser.ts`, one line. In test/yargs-parser.cjs the `halt-at-non-option` tests (around line 2980) never set `unknown-options-as-args`, and the `unknown-options-as-args = true` block (line 3013 onward) never sets `halt-at-non-option`. No story.md or tests.lock is in the packet or the export, so there is no fail-to-pass test showing what the change was meant to fix.",
+   "axis_row": "L5.26",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "test/tscc/lib/yargs-parser.ts:225 still has `/^-/.test(arg)`, while lib/yargs-parser.ts:225 doesn't. package.json doesn't mention tscc, so nothing shows the copy must change with the code. It stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/tscc/lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "The test/tscc copy of the parser still has the old guard and now differs from lib/.",
+   "evidence": "`test/tscc/lib/yargs-parser.ts:225` reads `if (arg !== '--' && /^-/.test(arg) && isUnknownOptionAsArg(arg)) {`, while `lib/yargs-parser.ts:225` no longer has `/^-/.test(arg)`.",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

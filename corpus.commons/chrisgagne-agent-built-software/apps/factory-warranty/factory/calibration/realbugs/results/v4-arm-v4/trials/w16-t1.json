@@ -1,0 +1,35 @@
+{
+ "id": "w16",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7199,
+ "codex_tokens": 42311,
+ "work": "<tmp>/replay-w16-t1-babfqdn3",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/index.ts:97 re-exports getScalarValue, and the diff changes parser_scalar.ts:284 from (state: ParserState) to (input: string). CHANGELOG.md, which follows Keep a Changelog and SemVer, has no Unreleased section and goes straight to 4.2.0. The signature change itself is what the locked test needs: spec.test.mjs:166 already passes a string, and the diff leaves that test untouched. So the gap is only the missing note about a breaking change to the public API, and the severity stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/parser/parser_scalar.ts",
+   "line": 284,
+   "claim": "getScalarValue is publicly exported, and the change alters its first parameter from ParserState to string without a CHANGELOG entry, so external callers may break on upgrade.",
+   "evidence": "src/index.ts:97 re-exports the function: `export { getScalarValue } from './parser/parser_scalar.ts'`. The diff changes its first parameter from `state: ParserState` (it used to read `const { input } = state`) to `input: string`. CHANGELOG.md has no Unreleased section that mentions this. The code I read doesn't show whether 4.2.0 shipped this export. All in-repo callers were updated: from_events.ts:105, constructor.ts:152 and test/spec/spec.test.mjs:166.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

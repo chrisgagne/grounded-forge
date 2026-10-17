@@ -8,7 +8,7 @@ Check every finding against the code, then decide:
 - **disputed**: it may be a problem but the code doesn't settle it, or the reviewers disagree and you can't tell which is right.
 - **noise**: the code shows the claim is wrong (the check exists, the path can't happen, the line says something else), or it isn't a problem for this change.
 
-Merge findings that describe the same problem into one item. Give every item a reason: one or two sentences on what you checked and what you saw, for example "routes.js:40 calls requireAuth before the handler, so the route is not open". An item without a reason counts as disputed. You may raise or lower the severity when the evidence calls for it; say so in the reason.
+Merge findings that describe the same problem into one item. Give every item a reason: one or two sentences on what you checked and what you saw, for example "routes.js:40 calls requireAuth before the handler, so the route is not open". An item without a reason counts as disputed. You may raise or lower the severity when the evidence calls for it; say so in the reason. Hold every item to the reviewers' rule: a critical or high needs a traced trigger (the input, call or state that now goes wrong), and a generated file left stale is low unless the project shows it must change with the code.
 
 Your final message is only a JSON array: no prose, no code fence. (If you are held to an output schema, the array goes in its `items` field.)
 

@@ -100,7 +100,7 @@ def _spawn(cmd, cwd: Path, log: Path, timeout_s: int, env: dict, stderr_log: Pat
             res["exit"] = p.wait(timeout=timeout_s)
         except subprocess.TimeoutExpired:
             _kill(p)
-            res.update(exit=None, error=f"killed after {timeout_s // 60} min")
+            res.update(exit=None, timed_out=True, error=f"killed after {timeout_s // 60} min")
         except BaseException:  # the driver is being stopped: take the leg down with it
             _kill(p)
             raise

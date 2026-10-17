@@ -37,5 +37,7 @@ Your final message is only a JSON array: no prose, no code fence. (If you are he
 - `claim` is what is wrong; `evidence` is what the code shows that makes it so. Keep them apart. Write "the diff shows X" only when you can point to X. When something may be true but the code you read doesn't show it, say "may" in the claim and lower the severity.
 - `line` is the line at the change's head (new numbering), or null when the finding is about something missing.
 - critical: data loss, a security hole, or the change does the opposite of the story. high: an acceptance criterion isn't met, or a defect a user will hit. medium: a real defect on an unusual path. low: a risk or debt worth recording.
+- A critical or high needs a trigger: the input, call or state that now goes wrong, traced through the code you read, in `evidence`. Without one, it's medium at most. For a check or guard the change removes, say whether something else now does its job before you rate it.
+- A file a build step generates (a minified bundle, `dist/`, a lockfile) that the change doesn't regenerate is low, unless the project's tests, scripts or docs show it must be regenerated in the same change.
 - Report each problem once, and nothing you can't support with evidence. If you find nothing, return [].
 - Every item needs a severity, a claim and evidence. The factory rejects the whole list if any item lacks one, or if there is any text outside the array; a rejected list blocks the change until review runs again.

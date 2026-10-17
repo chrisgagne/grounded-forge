@@ -1,0 +1,35 @@
+{
+ "id": "w09",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5392,
+ "codex_tokens": 42832,
+ "work": "<tmp>/replay-w09-t2-1d9bdhbh",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Glob shows the only .ts files are decimal.d.ts and decimal.global.d.ts, so nothing compiles the typings or checks narrowing; the isDecimal tests at test/modules/isFiniteEtc.js:261-277 are runtime JS and pass either way. The guard itself is sound, since isDecimalInstance (decimal.js:4534) is the runtime check. This is a test-coverage gap in a repo that has never type-tested, not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.d.ts",
+   "line": 254,
+   "claim": "The new type-guard signature for isDecimal has no type-level test (compile or narrowing check), so a later regression in the typings would go unnoticed.",
+   "evidence": "The diff only changes `static isDecimal(object: any): boolean` to `static isDecimal(object: any): object is Decimal;` in decimal.d.ts:254 and decimal.global.d.ts:275. No .ts test file exists in the repo; the only isDecimal tests are runtime JS assertions in test/modules/isFiniteEtc.js:261-277, which pass with or without this change. The guard is sound against the runtime: isDecimalInstance (decimal.js:4534) returns `obj instanceof Decimal || obj && obj.toStringTag === tag || false`.",
+   "axis_row": "L3.22",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

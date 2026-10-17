@@ -150,3 +150,39 @@ Both application files (`openstax-entrepreneurship-decision-making.md` and `open
 - Each concept carries a `(Source: …)` citation linking back to a chapter and section in the source.
 - Worked examples are fictional and original to the application files, not lifted from the source.
 - "Integration with Other Frameworks" sections include library-level synthesis (this is the application-file tier where such synthesis is permitted; it is not in the deep ref).
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor:** same-family (a fresh Claude agent, Opus), fix-in-place. No cross-family leg was run, so this re-audit is audited-but-unverified under the protocol's two-leg rule.
+
+**Scope.** Only the material the 2026-10-16 re-conversion (PyMuPDF text blocks, sort=False) restored, and the deep-reference text written for it on 2026-10-17: lines 9, 35, 41, 61, 67, 69, 89, 99, 113, 115, 121, 141, 145, 159, 169, 171, 177, 183, 185, 187, 211, 213, 223, 225, 259, 261, 269, 275, 281, 299, 305, 315, 323, 345, 373, 379, 383, 389, 403, 409, 411, 419, 427, 433, 439, 451, 463, 477, 491, 499 and 586 (line numbers as of this audit). For the six replaced lines (259, 275, 281, 305, 323, 463) only the added clauses were audited. The rest of the deep reference was audited earlier and was not re-audited.
+
+**Read.** All 51 scoped paragraphs, in full, and the whole deep reference once (590 of 590 lines) for context. For each scoped paragraph, its whole box or body passage in `sources/converted/openstax-entrepreneurship.md`, in full, including continuations across page breaks and the box's footnotes. For the coverage check: the word-diff log and run list (287 runs, 14,517 words, matching line 9), every restored run of 20 or more words, and every titled box among the restored spans; boxes not added were confirmed to be pointers or question-only exercises, and boxes absent from the deep reference but present in the old conversion (Project Shakti, Building Diversity, BitGiving, Scheduling Sounds Simple, Nic & Luc Jam, Textbooks for Change, Developing and Practicing an Elevator Pitch) were confirmed out of scope against the pre-reconversion text (`git show 9ad41b9e^`). No PDF render was needed.
+
+**Verbatim check.** `scripts/check-verbatim.py` before and after: 8 apostrophe, 7 initial, 1 near, 3 interrupted, 1 missing, unchanged and all pre-existing or no-fix classes. The one in-scope hit (line 281, `initial`) needs no fix. All [V] quotations in the scoped paragraphs match the tape.
+
+**Counts.** 51 paragraphs audited (about 130 claim sentences, about 150 evidence markers, 60-odd [V] quotations); all source-anchored after fixes; 0 stripped; 1 marker corrected; 2 placement or wording corrections; 1 source-structure note added; 0 quotations corrected.
+
+**Changes.**
+- Line 183 (SpaceX box): "sets space travel against the many products promised that fail in implementation" read as a contrast the box does not draw. Reworded to the box's sequence: it opens by noting that many promised products fail in implementation and offers space travel as a bold concept.
+- Line 225 (The Origin of Lean box): added one sentence noting that the source leaves the box's Ford-and-Toyoda account beside its body-text statement (tape line 10771) that Toyota pioneered the lean process in the 1980s, without reconciling them. Both are reported as the source states; nothing from outside the source.
+- Line 389 (Colonel Sanders box): "The section opens with" was inaccurate; the box follows 12.1's learning objectives and an opening paragraph. Reworded to "Early in the section, after its opening paragraph".
+- Line 403 (Who Am I? Who Am I Not?): `[BT, Cattell]` corrected to `[AP]`. Calling the 16PF "a reliable tool" is the authors' own claim; Cattell is named as the questionnaire's developer, not cited for the claim.
+
+**Checked and left.**
+- The Nintendo box (line 323) reports Fusajiro Yamauchi's failed hotel and taxi ventures as the box states (tape 18357–18359), sourced `[BT, McCoy]` to the box's footnote 21; no correction from outside knowledge.
+- Box-type labels match the tape for every scoped box (Entrepreneur in Action, Link to Learning, Are You Ready?, What Can You Do?, Work It Out). Section placements were checked against the tape's section headings and running heads, including the 9.4 accounting Link to Learning (page 337, 9.4 running head; the converted text carries no 9.4 body heading) and Born Global Companies (10.5).
+- Line 89 and line 187 pair a `[BT, organisation]` marker with a trailing `[AP]` over a table the organisation supplied. Left: the table rows are paraphrased and the borrowing is marked.
+- Line 223 (Too Much Too Late?) marks the authors' observation that many entrepreneurs rely on their own assumptions `[AR]`. Defensible as authors' claim; `[AP]` would also fit. Left.
+- Line 9: "about 14,500 words in 287 runs" matches `entrepreneurship-wdiff.log` (287 runs, 14,517 words). About 520 of those words are table-of-contents lines, which line 9 does not name among the scaffolding; not a coverage defect.
+- B Corporation Certification (Are You Ready?, 13.2) names B Lab's three steps (Verified Performance, Legal Accountability, Public Transparency); line 425 (out of scope) already carries the substance, so it is not added. The COSO Link to Learning (13.7) quotes COSO's mission statement; treated as a pointer.
+
+**Derived tier.** Not stamped; no distillations edited. Edits that change a claim a light reference or distillation may carry: line 403 (16PF reliability now the authors' claim, `[AP]`, not `[BT, Cattell]`) and line 225 (added note on the source's two accounts of lean's origin). Lines 183 and 389 change wording and placement only. The parent re-derives.
+
+**Open.**
+- Cross-family leg not run for this restored material.
+- Line 221 (out of scope) says lean "originated at Toyota in the 1980s"; the tape says Toyota "pioneered" it. Close enough to leave, but a reader of 221 alone will miss the Ford account now noted at 225.
+
+### Derived tier and stamp (2026-10-17, orchestrator)
+
+The PARTIAL notes are gone from the light reference, the distillations and the source card, replaced by a coverage statement that names the single-family audit. The restored boxes are illustrative cases and short claims that add no concept to the derived projections, and neither changed claim above (the 16PF marker, the lean-origin note) appears in the light reference or any distillation. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

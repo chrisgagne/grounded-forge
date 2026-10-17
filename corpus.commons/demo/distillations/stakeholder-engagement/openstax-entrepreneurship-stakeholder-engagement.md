@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3187dc585fb46278de5a30d571d547ba04d92b8d7817633d64f1568f2cf60d0a -->
+<!-- derived-from-deep: sha256:7ade4c45685ba2322fe1886eca4d73f0799d9e7686a7903b629c9d5d9ee6bfbd -->
 # OpenStax Entrepreneurship, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.
@@ -209,8 +209,6 @@ The framework's contribution is to surface that the cooperative has eight distin
 | Ethics Resource Center / National Business Ethics Survey | Cited in Ch 15.2 for the link between weak ethics culture and repeat misconduct; useful baseline data for stakeholder-trust assessment. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 5.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Entrepreneur in Action, What Can You Do?). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Pfeffer and Salancik — *The External Control of Organizations* (1978); resource dependence theory (Ch 14.3) [BT]

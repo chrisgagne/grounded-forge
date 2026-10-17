@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-finance
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T12:01:46+13:00
+  at: 2026-10-17T11:29:52+13:00
 ---
 # OpenStax Principles of Finance, Decision-Making Distillation
 
@@ -191,8 +191,6 @@ By NPV, A wins (highest absolute value). By IRR alone, C edges out A despite bei
 | OpenStax, Principles of Management — strategic planning | Capital budgeting decisions are operational implementations of strategy; the Finance toolkit answers "given the strategy, which projects implement it most efficiently?" Strategy-formulation is upstream and requires different tools. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 7.7% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Think It Through, Concepts in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

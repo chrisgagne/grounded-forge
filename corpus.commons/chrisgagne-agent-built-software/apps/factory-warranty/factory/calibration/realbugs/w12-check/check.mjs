@@ -5,6 +5,9 @@ const r = (x) => JSON.stringify(x);
 // 1. A parsed new-file patch, text form
 const p1 = "--- /dev/null\n+++ b\n@@ -0,0 +1,2 @@\n+a\n+b\n";
 console.log(v, "parsed new file:", r(applyPatch("", p1)));
+// 1b. The reviewers' input: a four-line new-file hunk, @@ -0,0 +1,4 @@
+const p1b = "--- /dev/null\n+++ b\n@@ -0,0 +1,4 @@\n+a\n+b\n+c\n+d\n";
+console.log(v, "parsed new file, four lines:", r(applyPatch("", p1b)));
 // 2. Insert at the top of a non-empty file, text form
 const p2 = "--- a\n+++ b\n@@ -0,0 +1,1 @@\n+top\n";
 console.log(v, "parsed insert at top:", r(applyPatch("x\ny\n", p2)));

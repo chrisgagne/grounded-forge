@@ -9,4 +9,4 @@ for v in parent:7dbf2ea712aa7a6073ec9c0212b245b5273065ac child:4428de9c1c89c1880
   find $W/$n/src -name "*.js" -exec perl -pi -e "s#(from\s+'\.{1,2}/[^']+?)(?<!\.js)'#\$1.js'#g" {} \;
 done
 cp $H/check.mjs $W/; cd $W
-for n in parent child; do node check.mjs $n 2>&1 | grep -v "^\s*at " | head -5; done
+for n in parent child; do node check.mjs $n 2>&1 | grep -v "^\s*at " | head -6; done

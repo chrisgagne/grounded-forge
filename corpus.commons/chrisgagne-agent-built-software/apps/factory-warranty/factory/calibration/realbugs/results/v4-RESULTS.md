@@ -32,15 +32,17 @@ The operator checked that trigger after scoring by running jsdiff before and aft
 
 | Input | Before | After |
 |---|---|---|
-| A parsed new-file patch (`@@ -0,0 +1,2 @@`) | correct | correct, identical |
+| The reviewers' input, a parsed four-line new-file patch (`@@ -0,0 +1,4 @@`) | correct | correct, identical |
+| A parsed two-line new-file patch (`@@ -0,0 +1,2 @@`) | correct | correct, identical |
 | A parsed insert at the top of a file | correct | correct, identical |
 | `structuredPatch`'s own hunk for a new file | starts at line 1 | starts at line 1 |
 | A hunk object built by hand with `oldStart: 0` | `top`, `x`, `y` | `x`, `y`, `top` (wrong) |
 
-`parsePatch` adds 1 to `oldStart` when the old side is empty, and `structuredPatch` never emits 0, so the guard can't
-fire on any patch the library reads or makes. The reviewers traced the arithmetic from the header text and missed the
-parser's adjustment. Only a hand-built hunk object reaches the changed behaviour. These are false stops; a named
-trigger made the findings look evidenced without making them right.
+`parsePatch` adds 1 to `oldStart` when the old side is empty (`src/patch/parse.js`), and `structuredPatch` gave 1 for
+a new file. The reviewers traced the arithmetic from the header text and missed the parser's adjustment. Every parsed
+patch tested behaved identically; the one input that changed behaviour was a hunk object built by hand with
+`oldStart: 0`. These are false stops on the trigger the reviewers named; a named trigger made the findings look
+evidenced without making them right.
 
 ## Reported, not judged
 
@@ -75,9 +77,10 @@ registered result; Sol's grade stays the registered one.
 
 - **Finding by finding:** 212 of 250 agree (85%). Jev said a finding describes the bug 134 times, Sol 108; both 102.
   Jev is the more generous grader: 32 findings it matched Sol didn't, 6 the other way.
-- **On what decides a catch** (a blocking finding that describes the bug): 95 of 97 trials agree. Both disagreements
+- **On what decides a catch** (a blocking finding that describes the bug): 95 of the 97 bug trials that had findings
+  agree (the other 3 of 100 bug trials had no findings to ask about). Both disagreements
   are case v06, where Jev counts a catch Sol didn't (`v3-none` trial 1, `v3-distillations` trial 2).
-- **On every registered count:** identical. Bug cases caught on both trials: `v3-none` 11, `v3-distillations` 16,
+- **On every registered bug-catch count:** identical. Bug cases caught on both trials: `v3-none` 11, `v3-distillations` 16,
   `v4-arm-v3` 7, `v4-arm-v4` 7, by either grader.
 
 Jev's threshold (0.5) was set before the call. 247,384 Jev input tokens in all.

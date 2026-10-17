@@ -85,7 +85,7 @@ tell.
 Other limits: 17 bugs is a small sample, and two tries per change is an easier bar than three. The project's own test
 suites were switched off, so this measures the review step, not the whole factory. No human has checked the AI
 grader, which also picked the cases and is one of the two reviewers; a model from a third company, TypeSafe's
-Jev, graded every finding again and agreed on every count in the table. A finding that names a standard may still name
+Jev, graded every bug-review finding again, and its grades gave the same bug-catch totals. A finding that names a standard may still name
 the wrong one. And the timestamps showing the test was written before it ran sit in the factory's history from before
 it was published, not in this repository. Full results:
 [v3-RESULTS.md](helpers/factory-warranty/calibration/realbugs/results/v3-RESULTS.md).
@@ -99,20 +99,24 @@ hit its time limit; the seventh with the library came from a scanner. Some flags
 updated a library's source but not its committed minified build), but those changes were picked as good, so they count
 against us. For whoever signs off, every false stop is time spent reading a sheet and clearing it.
 
-So we changed the factory: reviewers get more time and one retry, a serious finding must name the input that now goes
-wrong, a stale generated file counts as minor, and a scanner check that errors is measured again. Then we tested the old and new versions on 20 changes neither
+So we changed the factory: reviewers get 60 minutes and one retry if they run out of time, a serious finding must name
+the input that now goes wrong, a stale generated file counts as minor unless the project requires it to change with
+the code, and a measurement that fails to produce a count is taken again. Then we tested the old and new versions on 20 changes neither
 had seen, 12 good and 8 bugs, with the rule written down first
 ([the pre-registration](helpers/factory-warranty/calibration/realbugs/PREREG-v4-false-stops.md)).
 
 **Round two's changes didn't measurably cut false stops without costing catches.** There was little to cut: each
 version stopped 2 of 24 runs on the good changes (8%), both on the same change, and both caught the same 7 of 8 bugs on
-both tries. So the stop rate depends on which changes you test more than our small samples can pin down. Full results:
+both tries. Those figures count a rule we added during the test: Codex's usage limit cut off 26 runs' reviews twice
+over, so they were run again once it reset. Counting those cut-off runs as stops and misses instead, it's 10 against 8
+of 24 stopped, and 2 against 4 of 8 bugs caught; round two fails the test either way. And the stop rate
+depends on which changes you test more than our small samples can pin down. Full results:
 [v4-RESULTS.md](helpers/factory-warranty/calibration/realbugs/results/v4-RESULTS.md).
 
 All four stops were one change to the jsdiff library, titled "Remove dead code". Each time a reviewer called it
 critical and named the input that would now break. We ran that input through the code before and after the change:
-it works the same, because jsdiff's parser adjusts the line number before the deleted code would matter; only a
-patch object built by hand reaches the difference. Asking
+it works the same, because jsdiff's parser adjusts the line number before the deleted code would matter. Every parsed
+patch we tried behaved the same; only a patch object we built by hand with line 0 behaved differently. Asking
 reviewers to name the trigger made the finding look evidenced without making it right.
 
 If you run AI code review in anger: what share of good changes does it stop, and what brought that down without

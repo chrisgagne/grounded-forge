@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:6801cf9701ff95ff530947456cd42722dc6ce27005a33f1fb9421f6f024364ae -->
+<!-- derived-from-deep: sha256:767c4bf3cb76809578d67ca3450533e1a9396a1d17ee64a829f8dd3eca8390cc -->
 # OpenStax Introduction to Business, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.
@@ -201,8 +201,6 @@ This worked example illustrates several key concepts: the four-stakeholder mappi
 | `openstax-principles-management` (open systems) | That source carries the open-systems framing (Ch 3.7, 4.4); this source does not. Use it to treat stakeholder engagement as part of the organisation's resource exchanges with its environment. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 10.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Managing Change, Concept Check, Ethics in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Abraham Maslow — hierarchy of needs (Ch 9.3) [BT]

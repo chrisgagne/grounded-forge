@@ -129,3 +129,57 @@ The body of the deep ref is well-anchored to source material with appropriate ev
 - **Pass I outcome:** **PASS**
 
 The deep ref is cleared to ship. The light ref and application files derived from it inherit this audit's discipline.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor:** same-family (a fresh Claude agent, no context from the session that wrote the text). No cross-family leg was run, so this scoped audit is audited-but-unverified in the protocol's terms.
+
+**Scope.** Only the deep-reference text written on 2026-10-17 for the spans the 2026-10-16 re-conversion restored (`git diff origin/main -- corpus.commons/demo/references/openstax-accounting-vol2-deep.md`): line 9 (Coverage), the 27 inserted paragraphs at lines 70, 74, 118, 126, 128, 130, 140, 148, 160, 172, 176, 205, 217, 261, 277, 287, 293, 319, 327, 333, 353, 372, 382, 384, 396, 454, 456, and line 599 (integrity note). Everything else was audited earlier and was not re-audited.
+
+**Read.** All three orchestrator span files for the body sections, in full: batch A (Ch 1–4, 1,671 lines), batch B (Ch 5–9, 1,065 lines), batch C (Ch 10–13 and Appendix A, 1,172 lines): 195 spans holding about 8,540 restored words, with their surrounding context. Each restored run was mapped to its span through the word-diff run list, so every span's restored text is known, not just its context. Tape (`corpus.commons/demo/sources/converted/openstax-accounting-vol2.md`) read directly for: footnotes Ch 3 n.1 (Meyer), Ch 9 n.2 (J&J "Our Story") and n.5 (Gleiter), Ch 11 nn.4–7 (Riley, Slater, Salz, Barclays); the Disney solution E–F (L21455–21462); the end of Ch 11.5 (L24205–24262); the Volkswagen box (L22984–22992, Ch 11.1); the Frequency of Maintenance label (L19343–19350); the start of Ch 9.1 and its Concepts in Practice boxes (L18370–18424). End-of-chapter apparatus (501 spans, about 17,975 restored words) is outside coverage and was spot-checked only: seven spans (L3126, L3569, L7587, L11740, L13750, L19944, L26929) are all Multiple Choice, Questions, Exercise or Problem items. No PDF renders were used.
+
+**Verbatim check.** `python3 scripts/check-verbatim.py` before: 17 apostrophe, 5 initial, 2 near. After: 17 apostrophe, 5 initial, 2 near. Both `near` lines (41, 445) are outside this scope and predate it. Every `[V]` quotation in the 27 paragraphs matches the tape.
+
+**Counts.** 27 paragraphs, 75 evidence-marked claims (62 sentences) audited. Source-anchored without change: 65. Stripped: 0. Marker-corrected: 3. Quotation-corrected: 1. Wording corrected for added framing, a dropped hedge, a softened word or a misplaced box: 6. (Ten corrections in nine edits on eight lines.)
+
+### Changes by line
+
+- **70** (Plum Crazy, Ch 2.1). "Because merchandisers carry inventory …, identifying … is 'a crucial step'" added a causal link the box does not make; the box sets the two statements side by side ("As you recall, merchandising companies carry inventory … When they prepare their income statement, a crucial step is …"). Reworded to the box's sequence.
+- **118** (Value Menus, Ch 3.3). The rivals sentence (Taco Bell and Dunkin' Donuts) carried `[BT, Meyer]`, but footnote 1 (Zlati Meyer, *USA Today*) sits after "orders." and the risk and rivals sentences follow it uncited. Marker `[BT, Meyer]` → `[AE]` on the rivals clause.
+- **148** (Discount Tire, Ch 4.4). "makes the pricing corollary explicit" presented the box as a corollary of the loss-leader paragraph above it; the box makes no such link. → "states that companies …".
+- **261** (Johnson & Johnson, Ch 9.1). (a) "The section's Concepts in Practice feature" implied the only one; Ch 9.1 also carries "Double Loop Learning" (tape L18418). → "A Concepts in Practice feature in Ch 9.1". (b) Footnote 2 ("Our Story") covers the founding sentence only; "Today, Johnson & Johnson employs over 125,000 associates … over 60 countries" is a new, uncited paragraph. Split: founding facts keep `[BT, Johnson & Johnson]`; the headcount and countries take `[AE]`.
+- **287** (Analyzing Historical Success, Ch 9.3). (a) The quotation "since 1986, it has had an annualized return of 25 percent" is the *New York Times* article's wording ("According to the article"), but it carried `[BT, Bessembinder]` and no `[V]`. Now the ranking carries `[BT, New York Times; Bessembinder]` and the quotation `[V]`. (b) "leaving it an uncertain future" dropped the source's hedge ("this issue potentially leaves them with an uncertain future"). → "potentially leaving it with an uncertain future".
+- **293** (The Frequency of Maintenance, Ch 9.4). "it is common to hear" → "it is not uncommon to hear", the box's wording.
+- **382** (Barclays and the LIBOR Scandal, Ch 11.5). "Ch 11.5 closes with an Ethical Considerations feature": the Shark Tank Link to Learning follows it before the footnotes and Key Terms (tape L24243–24262). → "Near its end, Ch 11.5 carries …". "press and company sources" → "press, review and company sources", since Salz (n.6) is an independent review.
+- **456** (Do Friedman's Ideas Stand the Test of Time?, Ch 13.1). The `[V]` quotation ended at "increase its profits" with no ellipsis, dropping Friedman's qualifier "so long as it stays within the rules of the game, which is to say, engages in open and free competition without deception or fraud" (tape L27925–27931). The cut changes the claim, so the quotation was extended to the end of the source sentence.
+
+No text was added beyond these rewordings. The only new source words are the Friedman qualifier at line 456, taken verbatim from the tape.
+
+### Checked and left
+
+- Box-type names match the tape's labels for every paragraph: Concepts in Practice (Plum Crazy, Just Desserts, Value Menus, Fluctuating Operating Leverage, Johnson & Johnson, Hershey's); Link to Learning (Yahoo Finance, Gutekanst, Discount Tire, penny, UPS, Chrysler, flexible budget, standards, Robinson-Patman, iPhone, Solarcentury, Shark Tank, GE); Continuing Application (Viking); Your Turn (Analyzing Historical Success, Disney's Segments, Determining Future/Present Value, Mars Inc.); Think It Through (Frequency of Maintenance at L19347, Friedman); Ethical Considerations (Barclays). Section citations match the tape's section for each box.
+- Numbers. Every figure in lines 126, 333, 372, 382 and 454 is printed in the tape: $125,000,000, 10%, 5%, 35%, 6%; Disney segments A–F; factors 1.407, 24.215, 0.557, 7.020 and the products $7,035, $278,472.50, $55,700, $7,020; £450m/$680m, £140m/$212m; 67% by 2050 from 2015. None was computed.
+- **128**: "during sales downturns" is attached to the airlines. The box frames the airlines as an example of companies shifting away from fixed costs in downturns. Left.
+- **277**: "names a limit of responsibility accounting" reads the box's "Responsibility accounting is no exception … measure of past events. Have you ever considered how companies measure the outcome of activities that have not yet occurred?" Interpretive but faithful. Left.
+- **382**: `[BT, Riley]` on "caught … in 2012" stays, because the claim sits in the paragraph that footnote 4 (CNN) closes.
+- **140, 396**: `[BT, Gutekanst]` on a pointer and `[AE]` on the GE/Impraise pointer are both defensible. Left.
+- The batch dispositions were checked against the tape. Spans marked header or label only, ligature or hyphenation repair, pointer box, exercise or Thought Provoker are what they say.
+
+### Derived tier
+
+No edited claim appears in `references/openstax-accounting-vol2.md` or in the three distillations (`distillations/{decision-making,software-business,stakeholder-engagement}/openstax-accounting-vol2-*.md`): a grep for Friedman, Bessembinder, Value Menu, LIBOR, Discount Tire and Plum Crazy finds none. The 2026-10-17 paragraphs have not been derived yet. If they are, derive from the corrected text, especially the Friedman quotation (456), the Microsoft/GE attribution and hedge (287), the Value Menus and J&J markers (118, 261). Not stamped, as the dispatch asked.
+
+### Open (for the orchestrator)
+
+1. **Coverage line (9) does not say clearly that restored apparatus text is outside coverage.** It says "every span that re-conversion restored (about 27,200 words in 1,205 runs …) was read in full and added". About 17,975 of those words (501 spans) are end-of-chapter apparatus (Key Terms through Thought Provokers), and about 730 are front-matter TOC and Index runs. The exclusion list earlier in the line covers them by section, but the sentence reads as if all 27,200 words were read and folded in. The generation outputs show dispositions only for the spans in batches A–C, so this audit cannot confirm the apparatus spans were read. Line 599 repeats "read in full".
+2. **Line 9 also says restored "body and table text" was "folded into the paragraphs it belongs to".** No existing paragraph was changed. Every substantive restored run in scope was a feature box. Restored runs next to body text were running headers, box labels, footnote markers or ligature and hyphenation repairs, with the body text already in the old conversion. The box list in line 9 also omits Continuing Application, though Viking Grocery Stores (130) was added.
+3. **Borderline omissions (judgement calls, not added).** These Link to Learning or Think It Through boxes state a claim but got no paragraph:
+   - L9196–9199: "The construction industry typically uses job order costing".
+   - L9367–9371: "Job order costing and overhead allocation are not new methods of accounting and apply to governmental units as well".
+   - L1472–1485 (US Small Business Administration): "In order to operate a small business, you need an understanding of managerial accounting".
+   - L11236–11246 (Ch 5.2): management needs its costs to set prices, budget and evaluate performance.
+   - L8325–8332: bar codes help either costing system.
+
+### Orchestrator follow-up, derived tier and stamp (2026-10-17)
+
+Open items 1 and 2 settled: the Coverage line (line 10 after the stamp) now says that about 18,000 restored words sit in the excluded end-of-chapter apparatus and about 700 in the table of contents and Index, identified by section, spot-checked and not read for this reference; that the roughly 8,500 restored words in the body sections were read in full; that the substantive ones were all boxes (Continuing Application now named); and that the other body runs were headers, labels, footnote markers or ligature fixes. The integrity note no longer says every span was read. Open item 3 (five one-line claims in pointer boxes) is left as a judgement call and listed in the PR. The PARTIAL notes are gone from the light reference, the distillations and the source card, replaced by a coverage statement that names the single-family audit; no changed claim is carried by the derived tier. Derived tier restamped against the new deep-reference hash.

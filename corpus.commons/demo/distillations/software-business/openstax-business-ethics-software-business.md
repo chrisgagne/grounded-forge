@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:e0e9a3dffbdbf5e1e9222b5a38db18316668346bc029dfeb0ea4b4991f2583c3 -->
+<!-- derived-from-deep: sha256:df51e6b991770aca483fcf192dd74a4677075674465b815b618b62922f80338a -->
 # OpenStax Business Ethics, Software-Business Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-ethics. Senior contributing authors Stephen M. Byars and Kurt Stanberry; seven contributing authors.
@@ -198,8 +198,6 @@ A US-headquartered software firm (450 engineers; AI capability shipped across th
 | Sarbanes-Oxley | Reporting and governance framework; whistleblower protections relevant to security-vulnerability disclosure and AI-safety dissent. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 4.8% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Cases from the Real World). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** OpenStax Business Ethics situates its normative arguments within a body of stakeholder theory, legal cases, and empirical research this corpus does not hold as primary references.
 

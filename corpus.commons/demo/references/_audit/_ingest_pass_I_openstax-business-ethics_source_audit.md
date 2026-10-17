@@ -322,3 +322,53 @@ The deep reference is fit to ship as the basis from which the light reference an
 - The image-classification finding (zero substantive images extracted) is a property of OpenStax's typographic-figure layout in this book. If a future ingestion uses a different extractor that captures composited diagrams, the IMAGE-INDEX entries could be enriched.
 - The 2020 Bostock decision is integrated; future Court decisions on sex/gender discrimination may warrant a focused update to the deep ref's Ch 8.3 paragraph.
 - Federal carbon-tax developments, FCPA enforcement levels, and ACA legal status all change politically; the deep ref captures the position as of 2018; re-ingestion of a future edition would refresh.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor:** a fresh Claude agent (same model family as the writer), fix-in-place mode. No cross-family leg was run, so this pass is audited-but-unverified under the Pass I protocol.
+
+**Scope.** Only the text the 2026-10-16 re-conversion (PyMuPDF text blocks) restored to `corpus.commons/demo/sources/converted/openstax-business-ethics.md`, and the deep-reference text written for it on 2026-10-17 (`git diff origin/main -- corpus.commons/demo/references/openstax-business-ethics-deep.md`; pre-audit lines 9, 49-50, 53-56, 93-94, 119-120, 136, 144-145, 160-161, 170, 176-177, 180-181, 196-197, 206-207, 220-221, 236-237, 262, 288-291, 294, 326, 366, 372-373, 402-403, 408-409, 420-421, 438-439, 474-475, 482, 518-519, 526, 707; for replaced lines, only the added clauses). Everything else was audited earlier and was not re-audited.
+
+**Read.** All 32 scoped deep-reference paragraphs, in full. The restored-span extract (108 merged spans, 3,002 lines) was read in full, and every restored box and passage was read whole in the tape, including the parts that fall outside the extract: the rest of the Keystone XL box (tape L5540-5568), the end of the Kelly Zong box (L1997-2003), the end of the New York Times drug-price box (L13257-13262), and the Tylenol box with its Critical Thinking (L3698-3736). An order-aware paragraph check against the old conversion (`git show 76e09f58^:…`) separated restored paragraphs from context. Placement was checked against tape subsection headings. Endnotes were checked for every named [BT] source: Ch 1 nn. 3, 5-7, 10; Ch 4 nn. 26, 39, 53-54; Ch 5 n. 39; Ch 8 nn. 47-49; Ch 10 nn. 44-46; Ch 11 nn. 13-19. No PDF renders were used.
+
+**Verbatim check.** `python3 scripts/check-verbatim.py` before: 17 apostrophe, 5 initial, 2 interrupted, 1 missing. After: the same 17 / 5 / 2 / 1. All of these are outside scope (the `missing` at the 2059/2119 pay-equity quote, now line 268, predates this work), and every quotation added by this pass checks clean.
+
+**Counts.** About 135 claim units (a sentence or a marked clause) across the 32 scoped paragraphs were audited. 129 were source-anchored as written. 0 were stripped. 4 markers were corrected, 1 wording over-extension was corrected, and 0 quotations needed correcting. 8 coverage gaps were filled (7 new paragraphs or sentences, with Ellevest and Pohle sharing one paragraph), and the Coverage line's carve-out was reworded once.
+
+**Changes by line (post-audit numbering).**
+- L9 (Coverage): the carve-out now reads "Boxes that only point to a video, article or website, or name its subject in a phrase". The old wording ("only point to a video or website") did not cover pointer boxes that summarise their target in a few words (SAS perks, job sharing, Sherron Watkins, Cruelty Free International, the J&J "Our Credo" pointer, the Center for Earth Jurisprudence video, the union-history video, the NYT drug-price article). Those boxes remain out of coverage.
+- L51 (Buffett box): added [BT, Cunningham] to the "Do nothing…" quotation. It is endnote 6, Cunningham, and the second principle already carried the marker.
+- L296 (Clifford box): "sets out the two justifications boards give" became "reports two claims corporate boards make … some that … others that". The source reports what "some corporate boards claim" and "others claim", not an exhaustive pair.
+- L416 (Beagles box): [BT] became [BT, Rescue and Freedom Project] (endnote 47, "The Mission").
+- L446 (insurance box): [BT] became [BT, *Sydney Morning Herald*], naming the article the box relays.
+- L528 (Walmart box): the size and "largest private employer" claim is endnote 13, Walmart's 2017 annual report, not a press source. The intro now names the annual report, and the quotation carries [BT, Walmart].
+- Coverage gaps filled. Each is a restored Link to Learning box that states a claim, under the deep reference's own Coverage rule, and was not represented. **The auditor wrote this text**; each sentence is close paraphrase, and every quotation was checked clean by check-verbatim:
+  - L31: Mark Faris interview: greed, arrogance and ambition; rationalisation; proposed remedies [AP] (Ch 1.1, "Acting with Integrity").
+  - L85: Kelly Zong, China "lost its soul" [AP] (Ch 2.2, "A Confucian Business Model").
+  - L123 (appended): Friedman 1970 article; "Friedman was in the majority when he wrote this, but his position has since fallen out of favor" [V] (Ch 3.1).
+  - L129: United Airlines removal of passengers; overbooking rationale, "because an unoccupied seat represents lost revenue" [V] (Ch 3.2, "The Ethical Basis of Stakeholders' Claims").
+  - L170: Ellevest / Sallie Krawcheck (2016) [AE]; "Being socially responsible does not necessarily mean being unprofitable" [V]; George Pohle on CSR at the core of strategy [AP] (Ch 4.1, "The Two Sides of the Corporate Responsibility Debate").
+  - L312 (appended): moonlighting and Glassdoor [V] (Ch 7.1, "A Duty of Loyalty").
+  - L334 (appended): J.P. Morgan Chase's $13 billion fine "was the largest in history" [V]; Sony PlayStation, 77 million users [AE] (Ch 7.3, "Codes of Conduct").
+  - L462: Anthem mission-statement box; "even the noblest statement is irrelevant if the firm fails to live up to it" [V] (Ch 9.4, "Paying for Health Care and Wellness").
+
+**Checked and left.**
+- Placement. Every box citation names the subsection the box sits in, or the box's own title, and box-type names match the tape labels: Ricci in "Business as Global Relationships"; Exxon in "Codes of Conduct"; the crowdfunding box in "The Access Economy and Online Platforms"; the J&J credo box in "Defining Stakeholder Categories", directly after the Tylenol box; TOMS as the last item in 1.2.
+- [BT] on unfootnoted named sources (Meinhard v. Salmon, Bourne, Buber, Singer, Clifford). These follow this reference's existing convention of [BT] for third-party cases and authors (Dodge v. Ford [BT], MITRE [BT], Donaldson and Preston [BT]), so they were left.
+- Interpretive glosses kept as source-anchored: L214 "attach examples to the second and third kinds of belief" (each box directly follows the paragraph on that belief), and L244 "leaves the need for profit intact" ("This does not deny the need for profit").
+- Keystone box (L204): the restored span is only the first paragraph. The rest was in the old conversion and is now traced to it (endnotes 53 Wolfgang, 54 Laughland and Mathieu-Léger).
+- No outside facts, post-source vocabulary, or corrections of the source from outside knowledge were found in the scoped text.
+
+**Derived tier.** These edits change claims that the light reference or distillations might carry. Re-derive and re-stamp them; they are not stamped here.
+- The Clifford wording (L296): two board claims, not "the two justifications".
+- The new coverage at L31, L85, L123, L129, L170, L312, L334 and L462. Distillations built from the pre-audit deep cannot carry these, but a re-derivation may pick them up.
+- Marker refinements at L51, L416, L446 and L528 (attribution only; no claim content changed).
+
+**Open.**
+- The Coverage line's "about 7,750 words in 199 runs" was not reproduced. The extract supplied to this audit tallies about 7,400 words in 108 merged spans, and its per-span estimates count running headers. The difference likely reflects merging and counting method, but it is unverified.
+- Out of scope, noted only: the restored-era body around these boxes has gaps from the earlier pass. Examples are the Ch 2.2 Jack Ma / Mao paragraph, the Ch 4.1 Calvert and socially-responsible-fund paragraph, the Ch 4.1 "Friedman's perspective has fallen into disfavor" passage, and the Ch 3.3 Malaysia Airlines What Would You Do? box. All of these were present in the old conversion.
+- No cross-family leg. Treat the restored material as audited-but-unverified until one runs.
+
+### Orchestrator follow-up, derived tier and stamp (2026-10-17)
+
+The eight coverage-gap additions the fix-in-place leg wrote (Faris, Zong, the Friedman "fallen out of favor" sentence, United Airlines, Ellevest and Pohle, Glassdoor moonlighting, the J.P. Morgan and Sony data-breach box, Anthem) were traced by the orchestrator against the tape (≈722, 1995, 3513, 3608–3623, 4890, 4906, 9294, 9971, 13407): wording, quotations and markers match. On open item 3, the 7,750 words in 199 runs is the word diff's total for the whole converted text; the extract's merged spans count differently. The PARTIAL notes are gone from the light reference, the distillations and the source card, replaced by a coverage statement that names the single-family audit. No derived file carries the Clifford, Beagle, Walmart or Buffett material, so no re-derivation is needed. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

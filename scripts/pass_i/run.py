@@ -16,7 +16,8 @@ so a rerun resumes):
              the Pass I spec and three calibration fixtures into a work folder
   fixer      fix-in-place audit (the `ingest-auditor` agent), in parallel with
   blind      blind audit by the second leg, on the frozen copy
-  sort       the second leg sorts both audits against the source
+  sort       the second leg sorts both audits against the source; the legs'
+             overlap gives a capture-recapture estimate of defects neither found
   apply      a fresh agent verifies and applies the sort's remaining edits and
              brings the light reference and distillations into line
   gate       stops the source for an operator decision unless the apply leg
@@ -96,6 +97,25 @@ def codex_bin() -> str | None:
         if c and Path(c).exists():
             return c
     return None
+
+
+def capture(sort_text: str) -> dict | None:
+    """Chapman capture-recapture estimate from the sort's `Capture:` line.
+
+    The two legs audit the same pre-audit deep independently, so their overlap
+    estimates how many defects neither found. It assumes every defect is equally
+    catchable; defects both legs miss for the same reason make it run low.
+    """
+    m = re.search(r"Capture:\s*fixer\s*=\s*(\d+)\s*,?\s*blind\s*=\s*(\d+)\s*,?\s*both\s*=\s*(\d+)", sort_text)
+    if not m:
+        return None
+    fixer, blind, both = map(int, m.groups())
+    if both > min(fixer, blind):
+        return {"fixer": fixer, "blind": blind, "both": both, "error": "both exceeds a leg's count"}
+    total = (fixer + 1) * (blind + 1) / (both + 1) - 1
+    found = fixer + blind - both
+    return {"fixer": fixer, "blind": blind, "both": both, "found": found,
+            "estimate": round(total, 1), "unfound": round(total - found, 1)}
 
 
 def pass_i_spec() -> str:
@@ -289,7 +309,10 @@ class Source:
         out = self.work / "sort.md"
         res = self.agent.run(self.second, self._legprompt("sort-brief.md", "sort leg", out), self.work,
                              self.work / "sort-log.txt", out=out, read_only=True)
-        return self._expect(res, out)
+        res = self._expect(res, out)
+        if res.get("ok") and not self.args.dry_run:
+            res["capture"] = capture(out.read_text()) or {"error": "no Capture: line in the sort"}
+        return res
 
     def apply(self) -> dict:
         prompt = self.fill("apply.md")
@@ -362,8 +385,15 @@ class Source:
                         f"(sha256 `{post}`), checked each finding against the source, and sorted them. Files: "
                         + ", ".join(f"`_ingest_pass_I_{self.slug}_{tag}_{k}.md`" for k in ("blind", "sort", "prompts"))
                         + ".", "",
-                        f"**Sort result:** {report.get('sort_result')}", "",
-                        f"**Remaining edits applied ({today}):** {report.get('applied_note')}", "",
+                        f"**Sort result:** {report.get('sort_result')}", ""]
+            cap = steps.get("sort", {}).get("capture") or {}
+            if "estimate" in cap:
+                section += [f"**Capture-recapture:** of the confirmed deep-reference defects, the fix-in-place audit "
+                            f"raised {cap['fixer']}, the blind audit {cap['blind']}, both {cap['both']}. The Chapman "
+                            f"estimate is {cap['estimate']:g} in all, about {cap['unfound']:g} found by neither leg. It "
+                            "assumes every defect is equally catchable, so defects both legs miss for the same reason "
+                            "make it run low.", ""]
+            section += [f"**Remaining edits applied ({today}):** {report.get('applied_note')}", "",
                         f"**Gate:** {steps.get('gate', {}).get('gate', 'pass')}. Deep reference sha256 `{new_sha}`, stamp included."]
         with self.log.open("a") as f:
             f.write("\n".join(section) + "\n")

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/organizational-behavior
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-17T09:56:34+13:00
+  at: 2026-10-17T16:53:18+13:00
 ---
 # OpenStax Organizational Behavior, Retro Distillation
 
@@ -155,7 +155,7 @@ The attribution-bias, conformity, process-vs-relationship-conflict, and expectan
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Dearborn and Simon study (functional roles producing different problem readings) is cited as a classic illustration [BT] (Ch 3.1). Asch conformity experiments are cited throughout [BT] (Ch 9.2). Expectancy theory traces to Vroom; the E1/E2 formulation is adapted from Vroom's original [BT] (Ch 7.3). Self-determination theory traces to Deci and Ryan [BT] (Ch 7.2). The Taylor Cox and Stacy Blake diversity-advantages framework is cited [BT] (Ch 5.3). None of these are held directly in this corpus.
+**Borrowed-through gaps.** The Dearborn and Simon study (functional roles producing different problem readings) is cited as a classic illustration [BT] (Ch 3.1). Asch conformity experiments are cited throughout [BT] (Ch 9.2). Expectancy theory, including the E1/E2 formulation, traces to Vroom and Lawler [BT] (Ch 7.3). Self-determination theory traces to Deci and Ryan [BT] (Ch 7.2). The Taylor Cox and Stacy Blake diversity-advantages framework is cited [BT] (Ch 5.3). None of these are held directly in this corpus.
 
 **Named limits of the source.** OB is an OpenStax introductory textbook covering a broad range of organisational behaviour topics. Its retro projection focuses on the diagnostic vocabulary for team dynamics, attribution biases, conflict types, and motivation patterns. The source's content on organisational culture, diversity, global business, and strategic management does not fire in a team retro context and is not reflected in this distillation. The CC BY-NC-SA 4.0 licence means this distillation inherits the non-commercial and ShareAlike obligations.
 

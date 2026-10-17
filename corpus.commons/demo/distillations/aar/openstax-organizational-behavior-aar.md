@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:0716c8daf83df6fbf8ec4514101cc4f8e9acb12b99be07a3da03c04cf5855d2c -->
+<!-- derived-from-deep: sha256:b9eff8de80458b8930d4432cbe1ddcfabb75fe6427497a962992c797140e5768 -->
 # OpenStax Organizational Behavior, AAR Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Lead author J. Stewart Black (INSEAD). ISBN 978-1-947172-72-2 (digital). Licence: CC BY-NC-SA 4.0. Scope: open-nc.

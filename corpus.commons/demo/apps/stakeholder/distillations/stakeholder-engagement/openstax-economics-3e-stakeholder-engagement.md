@@ -174,8 +174,6 @@ This worked example illustrates several key concepts: externality framing, commo
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 1.5% of the PDF's longer lines in the covered chapters, mostly feature boxes (Work It Out). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The following authors and bodies are cited in the source but are not held as primary references in this corpus. Practitioners needing the foundational treatment should consult these directly:
 - Elinor Ostrom — local self-governance of common resources (Ch 13.3) [BT]
 - Ronald Coase — property rights and externalities (Ch 12.3) [BT]

@@ -11,6 +11,7 @@ source into a temp corpus.
 Four properties, each a case that raises on failure:
   1. A full two-leg run stamps the deep reference, appends the second leg to the
      audit log, copies its records into `_audit/`, and stamps the derived tier.
+     The packet carries an AGENTS.md that keeps Codex legs off the repo docs.
   2. A failed gate stops the source before the stamp and writes
      decisions-needed.md; `--accept-gate` resumes from there without rerunning
      any leg.
@@ -129,6 +130,11 @@ def full_two_leg_run(c: Case) -> None:
     for k in ("blind", "sort", "prompts"):
         check((c.root / f"references/_audit/_ingest_pass_I_{SLUG}_crossfamily_{k}.md").exists(), f"no {k} record")
     check("derived-from-deep: sha256:" in (c.root / f"references/{SLUG}.md").read_text(), "light ref not stamped")
+    check((c.work / "AGENTS.md").exists(), "no AGENTS.md in the packet")
+    agents = (c.work / "AGENTS.md").read_text()
+    check("leave CLAUDE.md" in agents, "packet AGENTS.md doesn't scope Codex to the packet")
+    check((c.work / agents.split("python3 ")[1].split()[0]).resolve() == REPO / "scripts/check-verbatim.py",
+          "packet AGENTS.md names the wrong check-verbatim path")
 
 
 def gate_stops_then_accepts(c: Case) -> None:

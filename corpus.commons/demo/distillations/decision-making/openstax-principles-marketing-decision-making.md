@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:c13f8588f55b31e069f847fb8f2d0c91c86fd96b14c43df91b2f545abee90b50 -->
+<!-- derived-from-deep: sha256:5bd7a89724e270fc6488a467b1b70e19721309d4749e5cbd8f310d977fe1e41b -->
 # OpenStax, Principles of Marketing, Decision-Making Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -192,8 +192,6 @@ Decision: a stretch-down variant for a new segment is the highest-expected-value
 | Rogers, *Diffusion of Innovations* | The five adopter categories (Ch 10.5) are Rogers's framework imported directly. |
 
 ## Citation and Source-Integrity Notes
-
-**PARTIAL source text.** This was derived from a conversion that lacked about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
 
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 

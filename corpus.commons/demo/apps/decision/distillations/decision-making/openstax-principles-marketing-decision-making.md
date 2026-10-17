@@ -192,8 +192,6 @@ Decision: a stretch-down variant for a new segment is the highest-expected-value
 
 ## Citation and Source-Integrity Notes
 
-**PARTIAL source text.** This was derived from a conversion that lacked about 9.0% of the PDF's longer lines in the covered chapters, mostly feature boxes (Link to Learning, Careers in Marketing, Marketing in Practice). The source has been re-converted and now holds them, but they are not yet covered here.
-
 **Borrowed-through gaps.** The deep reference contains the following `[BT]` citations — authors and frameworks cited by the source but not held as primary references in this corpus:
 
 - *Abraham Maslow, hierarchy of needs* — anchors the motivation analysis in consumer psychological factors (Ch 3.2) [BT]. The Integration table notes this relationship.

@@ -13,7 +13,8 @@ Per source, in order (each step is skipped when its output is already on disk,
 so a rerun resumes):
 
   packet     freeze the deep reference; copy the tape, original, source card,
-             the Pass I spec and three calibration fixtures into a work folder
+             the Pass I spec and three calibration fixtures into a work folder,
+             with an AGENTS.md that keeps Codex legs inside it
   fixer      fix-in-place audit (the `ingest-auditor` agent), in parallel with
   blind      blind audit by the second leg, on the frozen copy
   sort       the second leg sorts both audits against the source; the legs'
@@ -123,6 +124,24 @@ def pass_i_spec() -> str:
     start = text.index("## Pass I: Source-only audit")
     end = text.index("\n---\n", start)
     return text[start:end] + "\n"
+
+
+def packet_agents_md(work: Path) -> str:
+    """Codex loads every AGENTS.md from the git root down to its working folder,
+    and the repo root's tells an agent to read CLAUDE.md and the architecture
+    docs first: about 30K tokens, carried in every later turn of a leg. The
+    packet's own file sits deepest, so it takes precedence."""
+    checker = os.path.relpath(REPO / "scripts/check-verbatim.py", work)
+    return f"""# Pass I packet
+
+This folder is a self-contained Pass I work packet. The brief your prompt names is the whole task, and the files in this folder are everything it needs.
+
+For work in this folder, this file takes precedence over the repository's root AGENTS.md: read the brief and the packet files it names, and leave CLAUDE.md, `docs/`, `.claude/skills/` and the rest of the repository unread. The brief and `pass-i-spec.md` carry the standard you audit against.
+
+One repository tool is in scope, a mechanical check of blockquotes against the tape (name `post-audit-deep.md` instead in the sort leg):
+
+    python3 {checker} frozen-deep.md --source tape.md --no-corpus-search
+"""
 
 
 def repo_relative(text: str) -> str:
@@ -276,6 +295,7 @@ class Source:
         (self.work / "fixtures").mkdir(exist_ok=True)
         for f in FIXTURES:
             shutil.copy(REPO / "tests/audit-fixtures" / f, self.work / "fixtures" / f)
+        (self.work / "AGENTS.md").write_text(packet_agents_md(self.work))
         return {"ok": True, "original": self.rel(self.original) if self.original else None,
                 "second": self.second}
 

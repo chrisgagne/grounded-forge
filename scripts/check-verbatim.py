@@ -13,10 +13,13 @@ What it checks, per file:
   - Every quoted span ("..." or curly “...”) in a segment that ends in a `[V]`
     marker. A segment is the sentence the `[V]` closes, back no further than
     the previous evidence marker; a full stop that closes an abbreviation
-    ("U.S.", "e.g.", "p.m.") ends no sentence. In a table it is the marker's
-    cell, or the whole row when the cell holds no quote. Quoted titles inside citation
-    parentheticals are skipped: they cite, they don't quote. A parenthetical
-    inside a quotation is the author's own and stays part of the quote.
+    ("U.S.", "e.g.", "p.m.") ends no sentence. When that sentence is only a
+    citation (`"…the end." (Ch 1, p. 5) [V]`, "(¶12)", "(same section)"),
+    the segment is the sentence before it, the one the citation cites. In a
+    table it is the marker's cell, or the whole row when the cell holds no
+    quote. Quoted titles inside citation parentheticals are skipped: they
+    cite, they don't quote. A parenthetical inside a quotation is the
+    author's own and stays part of the quote.
   - A `[V]` before a colon ("Five benefits of UML (Ch 4.4) [V]:") also
     covers what the colon introduces: the rest of the line up to the next
     marker, or, when the colon ends the line, the list below it (items and
@@ -32,7 +35,12 @@ Each quote is looked for at a ladder of levels and reported at the first level
 that finds it:
 
   exact     Found once conversion noise is set aside on both sides: whitespace
-            collapsed, Markdown emphasis and link syntax dropped, ligatures
+            collapsed, Markdown emphasis and link syntax dropped, Pandoc's
+            Markdown read as its text (`[text]{.italic}` spans, `[]{#…}`
+            anchors, endnote links with their attribute blocks, a note
+            number linked to its note and glued to a word dropped, backslash
+            escapes, `---` and `--` as em and en dash, but not a command-line
+            option's `--`), ligatures
             expanded (ﬂ → fl), zero-width characters and `<br>` dropped, a
             hyphen at a line end read as the quote spells the word (rejoined
             for a word split across the line, kept for a true compound, each
@@ -95,7 +103,16 @@ that finds it:
   cross-source
             Not in this file's source, but in another converted source in the
             corpus (up to the near level) that the line names (by slug, title or author): a
-            distillation quoting a second source with attribution. Not failing.
+            distillation quoting a second source with attribution. Or in a
+            second conversion of this source (the note says so): a corpus can
+            hold two conversions of one book, and the one the slug resolves to
+            may have lost a passage the other kept. Two files are conversions
+            of one book when each holds at least a third of the other's runs
+            of six words (a book that quotes another whole holds few of its
+            own runs in the other), and the second is no source in its own
+            right: no source card names it and no slug resolves to it. A
+            paper and the thesis chapter it grew from are two sources. Not
+            failing.
   wrong-source
             In another source the line doesn't name: credited to the
             wrong source, or attributed too vaguely to check.
@@ -155,8 +172,15 @@ Limits, by design:
 
 Files and their sources:
 
-  - `references/{slug}-deep.md` and `references/{slug}.md` → `sources/converted/{slug}.md`
-  - `distillations/{task}/{slug}-{task}.md` → `sources/converted/{slug}.md`
+  - `references/{slug}-deep.md`, `references/{slug}.md` and
+    `distillations/{task}/{slug}-{task}.md` → the slug's converted source:
+    `sources/converted/{slug}.md`; else the converted file the source card
+    (`sources/original/{slug}.source.md`) links to; else, for a converted
+    file kept under a title-based name, the converted file that holds the
+    slug's quotations: of those six words or more long, across its
+    references and distillations, at least three, and at least three
+    quarters of them. A slug that none of these finds is reported, with the
+    closest file by content.
   - A file with a `seed_source:` frontmatter field (the Pass I audit
     fixtures) → that slug's converted source, looked up across corpora.
   - `--source PATH` overrides the lookup for a single file.
@@ -171,6 +195,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import functools
 import json
 import re
 import sys
@@ -226,8 +251,28 @@ FOLIO_HEADER_MAX_CHARS = 120  # a header carrying a folio that runs with the pag
 INVISIBLE = "".join(chr(c) for c in (0x00AD, 0x200B, 0x200C, 0x200D, 0x2060, 0xFEFF))
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl", "ﬅ": "st", "ﬆ": "st"}
 
+# Pandoc's Markdown, which an EPUB conversion leaves in the text: a span with an
+# attribute block ("[text]{.italic}", "[D]{.dropcap}rop"), an empty anchor
+# ("[]{#ch02.html_page_17}"), or a link carrying one (an endnote link,
+# "[the same plan](#notes.html_n4){#ch02.html_n4ref .calibre3}"). Each reads as
+# its text. Spans nest, so the innermost is unwrapped first. A note number
+# linked to its note and glued to the word before it ("badly.[3](notes.htm#n3)",
+# "Writer[^1^](#note_1){#ref_1}") is the converter's, not the sentence's, and
+# is dropped.
+NOTE_LINK_RE = re.compile(r"(?<=\S)\[\^?\d{1,3}\^?\]\([^)\s]*#[^)\s]*\)(?:\{[^{}\n]*\})?")
+PANDOC_SPAN_RE = re.compile(r"\[((?:\\.|[^\[\]\\\n])*)\](?:\([^)\s]*\))?\{[^{}\n]*\}")
+PANDOC_SPAN_DEPTH = 4
+ESCAPE_RE = re.compile(r"\\([!-/:-@\[-`{-~])")
 BASE_STEPS = [
     (re.compile(r"\[([^\]\n]*)\]\([^)\s]*\)"), 1),  # Markdown link → its text
+    # Pandoc's dashes: "---" an em dash, "--" an en dash, but not a
+    # command-line option ("--all", a "--" at a word's start before a
+    # letter) or an HTML comment's "<!--" and "-->".
+    (re.compile(r"(?<!-)---(?!-)"), "—"),
+    (re.compile(r"(?<=[^\s(\[{\"'“‘`<!\-])--(?![->])|(?<![-<!])--(?![-A-Za-z>])"), "–"),
+    # A backslash escape ("don\'t", "\$5", "\[sic\]") → the character. After
+    # the dashes, so an escaped "\-\-" stays two hyphens.
+    (ESCAPE_RE, 1),
     (re.compile(chr(0x00AD) + r"\s*"), ""),  # a soft hyphen can still carry its line break
     (re.compile("[" + INVISIBLE + "]"), ""),
     (re.compile("[" + "".join(LIGATURES) + "]"), lambda m: LIGATURES[m.group(0)]),
@@ -334,6 +379,11 @@ def normalise(text: str, level: str, hyphen: str = "join",
     s, idx = text, list(range(len(text)))
     if drop:
         s, idx = _drop(s, idx, drop)
+    s, idx = _sub(s, idx, NOTE_LINK_RE, "")
+    for _ in range(PANDOC_SPAN_DEPTH):
+        if not PANDOC_SPAN_RE.search(s):
+            break
+        s, idx = _sub(s, idx, PANDOC_SPAN_RE, 1)
     for pat, repl in BASE_STEPS:
         s, idx = _sub(s, idx, pat, repl)
     s, idx = _sub(s, idx, HYPHEN_RE, "" if hyphen == "join" else HYPHEN_MARK)
@@ -510,6 +560,21 @@ class Source:
         self._forms: dict[tuple[str, str, bool], tuple[str, list[int]]] = {}
         self._notes: list[tuple[int, int]] | None = None
         self._words: set[str] | None = None
+        self._runs: set[int] | None = None
+
+    def same_text(self, other: Source) -> bool:
+        """`other` is another conversion of this source: each holds at least
+        COPY_MIN_SHARE of the other's runs of RUN_WORDS words. Two conversions
+        of one book share most of their runs; a book that quotes another, or a
+        later edition's new chapters, shares few of the larger file's."""
+        a, b = self.runs(), other.runs()
+        shared = len(a & b)
+        return bool(a and b) and shared >= COPY_MIN_SHARE * len(a) and shared >= COPY_MIN_SHARE * len(b)
+
+    def runs(self) -> set[int]:
+        if self._runs is None:
+            self._runs = word_runs(self.raw)
+        return self._runs
 
     def words(self) -> set[str]:
         """The source's words, lowercased, with a word split across a line rejoined."""
@@ -637,12 +702,26 @@ def without_citations(segment: str) -> str:
 ABBREVIATION_RE = re.compile(r"(?:(?<![A-Za-z.])(?:[A-Za-z]\.){2,}|\b(?:Mr|Mrs|Ms|Dr|vs|cf)\.)$")
 
 
+# What a citation leaves once its parentheticals are gone: spaces, emphasis
+# marks, punctuation.
+CITATION_RESIDUE_RE = re.compile(r"[\s*_.,;:—–-]*")
+PAREN_RE = re.compile(r"\([^()]*\)")
+
+
+def citation_only(text: str) -> bool:
+    """`text` is nothing but parentheticals: a quotation's citation or locator
+    standing after its sentence ("(Ch 1, p. 5)", "(¶12)", "(same section)")."""
+    return bool(PAREN_RE.search(text)) and CITATION_RESIDUE_RE.fullmatch(PAREN_RE.sub("", text)) is not None
+
+
 def sentence_tail(segment: str) -> str:
     """The last sentence of a segment: the text after the last sentence end
     that sits outside quotation marks and citation parentheticals ("p. 22").
     A `[V]` covers the sentence it closes, not an illustrative phrase quoted a
-    sentence earlier."""
-    in_quote, start = False, 0
+    sentence earlier. When that last sentence is only a citation, the
+    quotation it cites ends the sentence before ("…the end." (Ch 1, p. 5)
+    [V]), and the `[V]` covers that one."""
+    in_quote, starts = False, [0]
     parens = citation_parens(segment)
     for i, c in enumerate(segment):
         closing = (c == '"' and in_quote) or c == "”"
@@ -662,8 +741,10 @@ def sentence_tail(segment: str) -> str:
             # A sentence end with nothing after it is the end of the sentence
             # the [V] closes, not the start of a new one.
             if rest[:1].isspace() and rest.strip():
-                start = i + 1
-    return segment[start:]
+                starts.append(i + 1)
+    if len(starts) > 1 and citation_only(segment[starts[-1] :]):
+        return segment[starts[-2] :]
+    return segment[starts[-1] :]
 
 
 def lead_in_list(lines: list[str], i: int) -> list[tuple[int, str, bool]]:
@@ -822,7 +903,9 @@ def _piece_pattern(piece: str, level: str, any_initial: bool) -> tuple[re.Patter
 
 
 def _pieces(quote: str) -> list[str]:
-    quote = SIC_RE.sub("", quote).rstrip(",.;: ")
+    # A quote copied from Pandoc's Markdown can keep its escapes ("\[W\]e");
+    # unescaped first, its brackets read as the bracket rules say.
+    quote = SIC_RE.sub("", ESCAPE_RE.sub(r"\1", quote)).rstrip(",.;: ")
     pieces = [p for p in ELLIPSIS_RE.split(quote) if p.strip()]
     return [p for p in pieces if len(p.split()) >= MIN_PIECE_WORDS] or pieces
 
@@ -938,7 +1021,10 @@ def _diff_note(quote: str, found: str) -> str:
     return ""
 
 
-def classify(span: Span, src: Source, others: list[Path], cache: dict) -> Finding | None:
+def classify(span: Span, src: Source, others: list[Path], cache: dict,
+             sources: CorpusSources | None = None) -> Finding | None:
+    """The span's level, or None at exact. `sources` tells a second
+    conversion of this source from a source in its own right."""
     for level in LEVELS:
         hit = locate(span.text, src, level)
         if hit is None:
@@ -964,6 +1050,9 @@ def classify(span: Span, src: Source, others: list[Path], cache: dict) -> Findin
             except OSError:
                 continue
         if locate(span.text, cache[other], "near"):
+            if not (sources and sources.is_own_source(other)) and src.same_text(cache[other]):
+                return Finding("", span.line, "cross-source", span.text, "",
+                               f"found in {other.stem}, another conversion of this source")
             if other in named:
                 return Finding("", span.line, "cross-source", span.text, "", f"quoted from {other.stem}, which the line names")
             return Finding("", span.line, "wrong-source", span.text, "",
@@ -1032,13 +1121,8 @@ def find_seed_source(slug: str) -> Path | None:
     return None
 
 
-def resolve_source(path: Path, text: str) -> Path | None:
-    seed = FRONTMATTER_SEED_RE.search(text[:2000])
-    if seed and seed.group(1) != "synthetic":
-        return find_seed_source(seed.group(1))
-    root = corpus_root_of(path)
-    if root is None:
-        return None
+def slug_of(path: Path) -> str:
+    """The source slug a reference or distillation is named for."""
     name = path.stem
     if path.parent.parent.name == "distillations":
         task = path.parent.name
@@ -1046,8 +1130,136 @@ def resolve_source(path: Path, text: str) -> Path | None:
             name = name[: -len(task) - 1]
     elif name.endswith("-deep"):
         name = name[: -len("-deep")]
-    cand = root / "sources" / "converted" / f"{name}.md"
-    return cand if cand.exists() else None
+    return name
+
+
+@functools.lru_cache(maxsize=None)
+def inode(p: Path) -> tuple[int, int]:
+    """A file's identity: a path the filesystem matches without regard to
+    case names the same file as the path that matches it exactly."""
+    st = p.stat()
+    return st.st_dev, st.st_ino
+
+
+CARD_LINK_RE = re.compile(r"\]\((\.\./converted/[^)]+\.md)\)")
+WORD_RE = re.compile(r"[^\W_]+")
+RUN_WORDS = 6  # a run of this many words seldom recurs in an unrelated text
+CONTENT_MIN_QUOTES = 3
+CONTENT_MIN_SHARE = 0.75
+COPY_MIN_SHARE = 1 / 3
+
+
+def word_runs(text: str) -> set[int]:
+    """Hashes of every run of RUN_WORDS words in `text`, lowercased."""
+    w = WORD_RE.findall(text.lower())
+    return {hash(t) for t in zip(*(w[i:] for i in range(RUN_WORDS)))}
+
+
+class CorpusSources:
+    """Which converted source each slug's files quote, in one corpus.
+
+    By name first: `sources/converted/{slug}.md`, then the converted-text link
+    on the source card (`sources/original/{slug}.source.md`). A conversion
+    made before that convention can keep a title-based filename ("A Book
+    Title -- Writer, A. -- 2011 -- Publisher.md") and have no card, so a slug
+    that neither names is found by content: the converted file that holds the
+    most of the slug's quotations (in its references and distillations, those
+    of RUN_WORDS words or more), when it holds at least CONTENT_MIN_QUOTES of
+    them and at least CONTENT_MIN_SHARE. A file found so is the slug's source
+    as if it bore the slug's name. A slug whose files quote too few words, or
+    quote no one file enough, stays without a source and is reported."""
+
+    def __init__(self, root: Path):
+        self.root = root
+        self.converted = sorted((root / "sources" / "converted").glob("*.md"))
+        files: dict[str, list[Path]] = {}
+        for f in collect_corpus(root):
+            files.setdefault(slug_of(f), []).append(f)
+        self.files = files
+        by_inode = {inode(p): p for p in self.converted}
+        self.named: dict[str, Path] = {}
+        for slug in files:
+            p = self._by_name(slug)
+            if p is not None and inode(p) in by_inode:
+                self.named[slug] = by_inode[inode(p)]
+        # The converted files named as sources in their own right by a slug
+        # or a source card, whether by the card's own name or its link.
+        self.own_sources = set(self.named.values())
+        for card in sorted((root / "sources" / "original").glob("*.source.md")):
+            p = self._by_name(card.name[: -len(".source.md")])
+            if p is not None and inode(p) in by_inode:
+                self.own_sources.add(by_inode[inode(p)])
+        self._content: dict[str, tuple[Path | None, str]] | None = None
+
+    def _by_name(self, slug: str) -> Path | None:
+        direct = self.root / "sources" / "converted" / f"{slug}.md"
+        if direct.is_file():
+            return direct
+        card = self.root / "sources" / "original" / f"{slug}.source.md"
+        if card.is_file():
+            m = CARD_LINK_RE.search(card.read_text(encoding="utf-8", errors="replace"))
+            if m and (card.parent / m.group(1)).is_file():
+                return card.parent / m.group(1)
+        return None
+
+    def resolve(self, slug: str) -> tuple[Path | None, str]:
+        """The slug's converted source, or None and why."""
+        if slug in self.named:
+            return self.named[slug], ""
+        return self.by_content().get(slug, (None, ""))
+
+    def is_own_source(self, p: Path) -> bool:
+        """`p` is a source in its own right: a source card names it or a slug
+        resolves to it. Any other converted file is a conversion no one
+        named, and may be a second conversion of a named source."""
+        return p in self.own_sources or any(p == q for q, _ in self.by_content().values())
+
+    def by_content(self) -> dict[str, tuple[Path | None, str]]:
+        if self._content is None:
+            self._content = self._by_content()
+        return self._content
+
+    def _by_content(self) -> dict[str, tuple[Path | None, str]]:
+        quotes: dict[str, list[set[int]]] = {}
+        for slug, paths in self.files.items():
+            if slug in self.named:
+                continue
+            spans = {s.text for p in paths for s in extract(p.read_text(encoding="utf-8")).spans}
+            quotes[slug] = [r for r in map(word_runs, sorted(spans)) if r]
+        wanted = set().union(*(r for qs in quotes.values() for r in qs))
+        held = {p: word_runs(p.read_text(encoding="utf-8", errors="replace")) & wanted for p in self.converted}
+        out: dict[str, tuple[Path | None, str]] = {}
+        for slug, qs in quotes.items():
+            ranked = sorted(((sum(1 for q in qs if q & runs), p) for p, runs in held.items()), key=lambda x: (-x[0], x[1]))
+            if not qs or not ranked or not ranked[0][0]:
+                out[slug] = (None, "")
+                continue
+            hits, best = ranked[0]
+            if hits >= CONTENT_MIN_QUOTES and hits >= CONTENT_MIN_SHARE * len(qs):
+                out[slug] = (best, "")
+            else:
+                out[slug] = (None, f"the closest by content, {best.name}, holds {hits} of {len(qs)} quotations")
+        return out
+
+
+SOURCES: dict[Path, CorpusSources] = {}
+
+
+def corpus_sources(root: Path) -> CorpusSources:
+    if root not in SOURCES:
+        SOURCES[root] = CorpusSources(root)
+    return SOURCES[root]
+
+
+def resolve_source(path: Path, text: str) -> tuple[Path | None, str]:
+    """The converted source a file quotes, or None and why."""
+    seed = FRONTMATTER_SEED_RE.search(text[:2000])
+    if seed and seed.group(1) != "synthetic":
+        return find_seed_source(seed.group(1)), ""
+    root = corpus_root_of(path)
+    if root is None:
+        return None, ""
+    return corpus_sources(root).resolve(slug_of(path))
 
 
 def _rel(path: Path) -> str:
@@ -1064,19 +1276,21 @@ def check_file(path: Path, source_override: Path | None, search_corpus: bool, ca
     findings = [Finding(rel, ln, "no-quote", note="[V] segment carries no quoted span or figure") for ln in ex.no_quote]
     if not ex.spans:
         return findings, ex.figures, None
-    src_path = source_override or resolve_source(path, text)
+    src_path, why = (source_override, "") if source_override else resolve_source(path, text)
     if src_path is None:
-        return findings, ex.figures, f"{rel}: no converted source found (pass --source)"
+        return findings, ex.figures, f"{rel}: no converted source found (pass --source)" + (f"; {why}" if why else "")
     src = cache.get(src_path)
     if src is None:
         src = cache[src_path] = Source(src_path)
     others: list[Path] = []
+    sources = None
     if search_corpus:
         root = corpus_root_of(src_path)
         if root:
-            others = [p for p in sorted((root / "sources" / "converted").glob("*.md")) if p != src_path]
+            others = [p for p in sorted((root / "sources" / "converted").glob("*.md")) if inode(p) != inode(src_path)]
+            sources = corpus_sources(root)
     for span in ex.spans:
-        f = classify(span, src, others, cache)
+        f = classify(span, src, others, cache, sources)
         if f:
             f.file = rel
             if span.context == "blockquote":
@@ -1086,15 +1300,19 @@ def check_file(path: Path, source_override: Path | None, search_corpus: bool, ca
     return findings, ex.figures, None
 
 
+def collect_corpus(corpus: Path) -> list[Path]:
+    files = sorted((corpus / "references").glob("*.md")) + sorted((corpus / "distillations").glob("*/*.md"))
+    return [f for f in files if f.name != "README.md" and "INDEX" not in f.name]
+
+
 def collect(tiers: list[Path]) -> list[Path]:
     files: list[Path] = []
     for tier in tiers:
         if not tier.exists():
             continue
         for corpus in sorted(p for p in tier.iterdir() if p.is_dir()):
-            files += sorted((corpus / "references").glob("*.md"))
-            files += sorted((corpus / "distillations").glob("*/*.md"))
-    return [f for f in files if f.name != "README.md" and "INDEX" not in f.name]
+            files += collect_corpus(corpus)
+    return files
 
 
 # ---------------------------------------------------------------------------

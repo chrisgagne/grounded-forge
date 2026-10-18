@@ -12,8 +12,9 @@ What it checks, per file:
 
   - Every quoted span ("..." or curly “...”) in a segment that ends in a `[V]`
     marker. A segment is the sentence the `[V]` closes, back no further than
-    the previous evidence marker; in a table it is the marker's cell, or the
-    whole row when the cell holds no quote. Quoted titles inside citation
+    the previous evidence marker; a full stop that closes an abbreviation
+    ("U.S.", "e.g.", "p.m.") ends no sentence. In a table it is the marker's
+    cell, or the whole row when the cell holds no quote. Quoted titles inside citation
     parentheticals are skipped: they cite, they don't quote. A parenthetical
     inside a quotation is the author's own and stays part of the quote.
   - A `[V]` before a colon ("Five benefits of UML (Ch 4.4) [V]:") also
@@ -46,6 +47,19 @@ that finds it:
             thousand characters. A bracketed insertion (`[the manager]`)
             stands for a short run of source text; `[sic]` is dropped.
             Nothing is reported.
+  joined    As exact, and a hyphen the quote sets between two words may match
+            nothing in the source, where both words, two letters or more, stand
+            on their own elsewhere in the source: a compound the converter
+            joined ("one-month" against "onemonth", "on-the-spot" against
+            "onthe-spot"). A hyphen after a prefix the source never sets alone
+            ("co-operate" against "cooperate") is no joined compound and still
+            fails; nor is an en or em dash the converter dropped, even once
+            the glyph level folds it to a hyphen. Read up to, not including,
+            near. Not failing, and not exact either: a line-end hyphen leaves
+            its mark in the source, so the exact rule knows a hyphen stood
+            there; a joined compound leaves none, and an author who closed the
+            compound ("email", "coworker") reads the same, so the count is
+            shown.
   apostrophe
             Found once apostrophes and single quote marks are folded, straight
             and curly. That is typography, not the author's words: reported so
@@ -95,23 +109,38 @@ that starts or ends on a digit matches only where the source's number starts or
 ends there too: not where the source runs on into another digit, or into a `.`
 or `,` and a digit. "rose by 3." against "rose by 3.5 points", "rose by 3"
 against "rose by 30 points" and "hired 2," against "hired 2,500 people" are
-not matches, so a figure cut short can't pass. The source's own characters
-decide, so a quote ending on a figure the source follows with a glued footnote
-("in 2019.12") is reported too.
+not matches, so a figure cut short can't pass. One run-on is a note number,
+not decimals: a figure that ends a sentence with a note glued after the full
+stop ("as late as 2119.27 These"). It is read as a note only on the source's
+own evidence, all of it: one to three digits with no leading zero, then a line
+end or a word that isn't lowercase; the note before or after it (26 or 28) set
+as a glued marker within a few thousand characters ("slowly.26"); and a note
+entry for it opening a line ("27. Josh Horwitz"). "rose by 6." against "6.5
+points" fails whatever the notes say, and so does a decimal before a capital
+with no note beside it in sequence.
 
 Running headers and folios. A page break in a converted PDF leaves page
 furniture in the text: the folio at the foot of one page and the running header
 at the top of the next ("87", "Warfighting", "MCDP 1"). A short line (eight
-words or fewer) is a running header when its text, with digits read as one
-placeholder, recurs at least five times in the source; a line one or two
-characters from a header (an OCR slip, "MCD? 1") counts when it sits beside
-one. A run of header, folio and blank lines is dropped only where it shows a
-page break: a form feed, a folio line, or a header whose number changes from
-page to page ("87 Warfighting"). A quote is looked for with the furniture in
-place first, so a quote of a header's own words still matches; one that matches
-only once the furniture is dropped has every other word in place.
+words or fewer, numbers and bullets not counted) is a running header when its
+text, with digits read as one placeholder, recurs at least five times in the
+source; a line one or two characters from a header (an OCR slip, "MCD? 1")
+counts when it sits beside one. In a source paged with form feeds, a line among
+the last three before a page break or the first two after one is a header too,
+however long its title and however rarely it recurs, when the number at its
+start or end runs with the page count: at least five such lines share one
+offset from the page index (OpenStax's "56     2 • Introduction to Financial
+Statements" and "2.6 • Personal Values and Ethics     43"). A run of header,
+folio and blank lines is dropped only where it shows a page break: a form feed,
+a folio line, a header whose number at its start or end changes from page to
+page while a chapter or section number beside it stays ("87 Warfighting", "48 5
+• Criminal Liability", "8.1 • Entrepreneurial Marketing 267"), or a header whose
+folio runs with the page count. A recurring line whose numbers never change
+stays in the text. A quote is looked for with the furniture in place first, so
+a quote of a header's own words still matches; one that matches only once the
+furniture is dropped has every other word in place.
 
-Exit status is 1 when any finding other than `apostrophe`, `initial`,
+Exit status is 1 when any finding other than `joined`, `apostrophe`, `initial`,
 `ligature` or `cross-source` is reported, 2 when a file's source cannot be found, else 0.
 
 Limits, by design:
@@ -175,8 +204,8 @@ ELISION_WINDOW = 3000  # max characters between the pieces of an elided quote
 INSERTION_WINDOW = 80  # max source characters a bracketed insertion stands for
 MIN_PIECE_WORDS = 2  # elided pieces shorter than this are not located on their own
 
-LEVELS = ("exact", "apostrophe", "glyph", "initial", "near", "page", "ligature")
-FAILING_KINDS = {"glyph", "near", "page", "interrupted", "wrong-source", "missing", "no-quote"}  # not apostrophe, initial, ligature or cross-source
+LEVELS = ("exact", "joined", "apostrophe", "glyph", "initial", "near", "page", "ligature")
+FAILING_KINDS = {"glyph", "near", "page", "interrupted", "wrong-source", "missing", "no-quote"}  # not joined, apostrophe, initial, ligature or cross-source
 GAP_WINDOW = 400  # max source characters between the runs of an interrupted quote
 MAX_RUNS = 4  # an interrupted quote may be found in at most this many runs
 MIN_RUN_WORDS = 3
@@ -184,6 +213,7 @@ MIN_CROSS_SOURCE_WORDS = 5
 FURNITURE_MIN_REPEATS = 5  # a running header recurs on at least this many pages
 FURNITURE_MAX_WORDS = 8
 FURNITURE_MAX_CHARS = 60
+FOLIO_HEADER_MAX_CHARS = 120  # a header carrying a folio that runs with the page count
 
 
 # ---------------------------------------------------------------------------
@@ -237,6 +267,16 @@ PAGE_RE = re.compile(r"(?<![^ ])\d{1,4} ")
 # digit. Emphasis marks between are read through.
 NUMBER_AFTER_RE = re.compile(r"[*_]*[.,]?[*_]*\d")
 NUMBER_BEFORE_RE = re.compile(r"\d[*_]*[.,]?[*_]*$")
+# A note number glued to a figure that ends a sentence ("as late as 2119.27
+# These"): a full stop, one to three digits with no leading zero, then a line
+# end or a space and no lowercase word.
+GLUED_NOTE_RE = re.compile(r"\.([1-9]\d{0,2})(?:\s+(?=[^\sa-z])|\s*\Z)")
+# A note number glued to a word, as the source's other notes are set
+# ("Red Bull.11", "variability11", "existence.”23"). The digit before a
+# decimal point is no letter, so a decimal is never taken for one.
+NOTE_MARKER_RE = re.compile(
+    r"(?:(?<=[a-z])|(?<=[a-z][.,;:)'’”\]])|(?<=[a-z][.,;:)'’”\]][.,;:)'’”\]]))([1-9]\d{0,2})(?=\s|$)")
+NOTE_SEQUENCE_WINDOW = 10000  # max characters to the next or previous note number
 
 
 def _sub(text: str, idx: list[int], pattern: re.Pattern, repl) -> tuple[str, list[int]]:
@@ -342,6 +382,43 @@ def _within(a: str, b: str, limit: int) -> bool:
     return prev[-1] <= limit
 
 
+FOLIO_START_RE = re.compile(r"(\d{1,4})\s")
+FOLIO_END_RE = re.compile(r"\s(\d{1,4})$")
+
+
+def _folio_headers(raw: str, lines: list[tuple[int, int, str, bool]]) -> set[int]:
+    """Indices of the lines that are a page's header or footer carrying its
+    folio, in a source paged with form feeds (see the module docstring): among
+    the last three lines before a page break or the first two after one, a
+    line whose number at its start or end runs with the page count. However
+    long its title, and however rarely it recurs."""
+    breaks = [m.start() for m in re.finditer(r"\f+", raw)]
+    if len(breaks) < FURNITURE_MIN_REPEATS:
+        return set()
+    pages: list[list[int]] = [[] for _ in range(len(breaks) + 1)]
+    b = 0
+    for n, (start, _, text, _) in enumerate(lines):
+        while b < len(breaks) and breaks[b] < start:
+            b += 1
+        if text.strip():
+            pages[b].append(n)
+    candidates: list[tuple[int, int]] = []  # (line index, folio minus page index)
+    for p, members in enumerate(pages):
+        edge = (members[:2] if p > 0 else []) + (members[-3:] if p < len(breaks) else [])
+        for n in dict.fromkeys(edge):
+            t = re.sub(r"[*_]+", "", lines[n][2]).strip()
+            if (not t or len(t) > FOLIO_HEADER_MAX_CHARS or t[0] in "#|" or re.search(r"[.,;:]$", t)
+                    or len(re.findall(r"[A-Za-z]", t)) < 2):
+                continue
+            for m in (FOLIO_START_RE.match(t), FOLIO_END_RE.search(t)):
+                if m:
+                    candidates.append((n, int(m.group(1)) - p))
+    support: dict[int, int] = {}
+    for _, off in candidates:
+        support[off] = support.get(off, 0) + 1
+    return {n for n, off in candidates if support[off] >= FURNITURE_MIN_REPEATS}
+
+
 def furniture_spans(raw: str) -> list[tuple[int, int]]:
     """Spans of running headers and folios at page breaks (see the module
     docstring): each a run of header, folio and blank lines that shows a page
@@ -353,27 +430,35 @@ def furniture_spans(raw: str) -> list[tuple[int, int]]:
         lines.append((m.start(), m.end(), m.group(0), m.start() > 0 and raw[m.start() - 1] == "\f"))
 
     def short(text: str) -> bool:
-        """A line a running header could be: short, two letters or more, not a
-        sentence end, a Markdown heading or a table row."""
+        """A line a running header could be: short (words with letters
+        counted, not numbers or bullets; emphasis marks not counted), two
+        letters or more, not a sentence end, a Markdown heading or a table row."""
         t = text.strip()
-        return (0 < len(t) <= FURNITURE_MAX_CHARS and len(t.split()) <= FURNITURE_MAX_WORDS
+        return (0 < len(re.sub(r"[*_]+", "", t)) <= FURNITURE_MAX_CHARS
+                and sum(bool(re.search(r"[A-Za-z]", w)) for w in t.split()) <= FURNITURE_MAX_WORDS
                 and len(re.findall(r"[A-Za-z]", t)) >= 2 and not SENTENCE_END_RE.search(t)
                 and t[0] not in "#|")
 
     counts: dict[str, int] = {}
-    numbers: dict[str, set[str]] = {}
+    edges: dict[str, tuple[set[str], set[str]]] = {}
     for _, _, text, _ in lines:
         if short(text):
             k = _furniture_key(text)
             counts[k] = counts.get(k, 0) + 1
-            numbers.setdefault(k, set()).add(" ".join(re.findall(r"\d+", text)))
+            nums = re.findall(r"\d+", text)
+            first, last = edges.setdefault(k, (set(), set()))
+            first.add(nums[0] if nums else "")
+            last.add(nums[-1] if nums else "")
     headers = {k for k, n in counts.items() if n >= FURNITURE_MIN_REPEATS}
-    if not headers:
+    folio_headers = _folio_headers(raw, lines)
+    if not headers and not folio_headers:
         return []
-    # A header carrying the folio: one number, at the start or the end, that
-    # changes from page to page ("87 Warfighting", not "Table 3.2").
-    numbered = {k for k in headers if len(numbers[k]) > 1 and k.count("#") == 1
-                and (k.startswith("# ") or k.endswith(" #"))}
+    # A header carrying the folio: a number at the start or the end that
+    # changes from page to page ("87 Warfighting", "48 5 • Criminal
+    # Liability", not "Table 3.2"). A chapter or section number beside it
+    # stays the same.
+    numbered = {k for k in headers
+                if (k.startswith("# ") and len(edges[k][0]) > 1) or (k.endswith(" #") and len(edges[k][1]) > 1)}
     near: dict[str, bool] = {}
 
     def kind(text: str) -> str:
@@ -392,7 +477,8 @@ def furniture_spans(raw: str) -> list[tuple[int, int]]:
                 return "near-header"
         return "text"
 
-    kinds_of = [kind(ln[2]) for ln in lines]
+    kinds_of = ["numbered" if n in folio_headers and kind(ln[2]) != "folio" else kind(ln[2])
+                for n, ln in enumerate(lines)]
     spans: list[tuple[int, int]] = []
     i = 0
     while i < len(lines):
@@ -422,6 +508,14 @@ class Source:
         self.raw = path.read_text(encoding="utf-8", errors="replace")
         self.furniture = furniture_spans(self.raw)
         self._forms: dict[tuple[str, str, bool], tuple[str, list[int]]] = {}
+        self._notes: list[tuple[int, int]] | None = None
+        self._words: set[str] | None = None
+
+    def words(self) -> set[str]:
+        """The source's words, lowercased, with a word split across a line rejoined."""
+        if self._words is None:
+            self._words = set(re.findall(r"[^\W\d_]+", self.form("exact", "join")[0].lower()))
+        return self._words
 
     def form(self, level: str, hyphen: str, furniture: bool = False) -> tuple[str, list[int]]:
         """With `furniture`, page furniture is dropped first."""
@@ -439,13 +533,31 @@ class Source:
         it; with `tail` (it ends on one), not after it."""
         if tail:
             a = idx[end - 1] + 1
-            if NUMBER_AFTER_RE.match(self.raw, a, a + 8):
+            if NUMBER_AFTER_RE.match(self.raw, a, a + 8) and not self.glued_note(a):
                 return False
         if lead:
             a = idx[start]
             if NUMBER_BEFORE_RE.search(self.raw[max(0, a - 8) : a]):
                 return False
         return True
+
+    def glued_note(self, a: int) -> bool:
+        """What runs on at raw[a] is a note number glued to the figure, not
+        its decimals: a full stop and a note number closing the sentence
+        (GLUED_NOTE_RE), the note before or after it set as a glued marker
+        nearby, and an entry for it in the notes."""
+        m = GLUED_NOTE_RE.match(self.raw, a)
+        if not m:
+            return False
+        n = int(m.group(1))
+        if self._notes is None:
+            self._notes = [(x.start(), int(x.group(1))) for x in NOTE_MARKER_RE.finditer(self.raw)]
+        in_sequence = any((k == n - 1 and a - NOTE_SEQUENCE_WINDOW <= pos < a)
+                          or (k == n + 1 and a < pos <= a + NOTE_SEQUENCE_WINDOW)
+                          for pos, k in self._notes)
+        # A note entry opens a line: "27. Josh Horwitz", "27 . John", "11 Ken".
+        entry = re.search(rf"(?m)^[*_]*{n}[*_]*(?: ?\.[ \t]+| )(?=[A-Z“\"‘'(])", self.raw)
+        return in_sequence and entry is not None
 
     def original(self, idx: list[int], start: int, end: int) -> str:
         if not idx or start >= len(idx):
@@ -519,6 +631,12 @@ def without_citations(segment: str) -> str:
     return "".join(" " if _inside(i, parens) else c for i, c in enumerate(segment))
 
 
+# A full stop that closes an abbreviation ends no sentence: a dotted initialism
+# ("U.S.", "e.g.", "i.e.", "p.m.") or a short title ("Dr.", "vs."). "etc." often
+# does end one, so it is left out.
+ABBREVIATION_RE = re.compile(r"(?:(?<![A-Za-z.])(?:[A-Za-z]\.){2,}|\b(?:Mr|Mrs|Ms|Dr|vs|cf)\.)$")
+
+
 def sentence_tail(segment: str) -> str:
     """The last sentence of a segment: the text after the last sentence end
     that sits outside quotation marks and citation parentheticals ("p. 22").
@@ -537,6 +655,8 @@ def sentence_tail(segment: str) -> str:
         # A sentence ends at . ? ! outside quotation marks, or just inside a
         # closing one ("...out of time." Diagnosis:).
         ends = (c in ".?!" and not in_quote) or (closing and i > 0 and segment[i - 1] in ".?!")
+        if c == "." and ABBREVIATION_RE.search(segment, 0, i + 1):
+            ends = False
         if ends and not _inside(i, parens):
             rest = segment[i + 1 :].lstrip("*_)")
             # A sentence end with nothing after it is the end of the sentence
@@ -647,12 +767,16 @@ def _literal(lit: str, level: str, any_initial: bool) -> str:
     """A pattern for one literal run of a quote. A hyphen mark in the source
     may sit between any two letters, where it reads as nothing, or stand for a
     hyphen the quote sets between two letters (a space, once punctuation is
-    folded), where it reads as that compound's hyphen."""
+    folded), where it reads as that compound's hyphen. A joined-compound mark
+    (the joined level) reads as a hyphen, a hyphen mark or nothing."""
     out: list[str] = []
     mark = re.escape(HYPHEN_MARK)
     hyphens = "- " if LEVELS.index(level) >= LEVELS.index("near") else "-"
     for i, c in enumerate(lit):
         prev, nxt = lit[i - 1 : i], lit[i + 1 : i + 2]
+        if c == JOINED_MARK:
+            out.append(f"[-{mark}]?")
+            continue
         if c in hyphens and prev.isalpha() and nxt.isalpha():
             out.append(f"[{re.escape(c)}{mark}]")
             continue
@@ -663,6 +787,26 @@ def _literal(lit: str, level: str, any_initial: bool) -> str:
         if c.isalpha() and nxt.isalpha():
             out.append(mark + "?")
     return "".join(out)
+
+
+# A hyphen between two letters in the quote as written, before dashes are
+# folded: an en or em dash is never a joined compound's hyphen.
+COMPOUND_HYPHEN_RE = re.compile(r"(?<=[^\W\d_])-(?=[^\W\d_])")
+# A quote's hyphen that may read as nothing in the source (see the joined
+# level). A private-use character no quotation holds.
+JOINED_MARK = "\ue001"
+
+
+def mark_joined(piece: str, words: set[str]) -> str:
+    """Mark each hyphen in `piece` that joins two words of two letters or more
+    the source uses on their own ("one-month", "dead-end"), not a prefix
+    ("co-", "re-") the source never sets alone."""
+    def repl(m: re.Match) -> str:
+        left = re.search(r"[^\W\d_]+$", piece[: m.start()]).group(0).lower()
+        right = re.match(r"[^\W\d_]+", piece[m.end() :]).group(0).lower()
+        ok = len(left) >= 2 and len(right) >= 2 and left in words and right in words
+        return JOINED_MARK if ok else "-"
+    return COMPOUND_HYPHEN_RE.sub(repl, piece)
 
 
 def _piece_pattern(piece: str, level: str, any_initial: bool) -> tuple[re.Pattern, int] | None:
@@ -688,7 +832,13 @@ def locate(quote: str, src: Source, level: str) -> tuple[int, int, list[int]] | 
     if not pieces:
         return None
     any_initial = level == "initial"
-    norm_level = "glyph" if level == "initial" else level
+    norm_level = {"initial": "glyph", "joined": "exact"}.get(level, level)
+    rank = LEVELS.index(level)
+    # Joined compounds are read from the joined level up to, not including,
+    # near: there a hyphen and a space are one, and a dropped space is no
+    # joined compound.
+    if LEVELS.index("joined") <= rank < LEVELS.index("near"):
+        pieces = [mark_joined(p, src.words()) for p in pieces]
     pats = []  # (pattern, reach, starts on a digit, ends on a digit)
     for k, piece in enumerate(pieces):
         pat = _piece_pattern(piece, norm_level, any_initial and k == 0)

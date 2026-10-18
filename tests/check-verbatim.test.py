@@ -11,9 +11,15 @@ Cases mirror the Pass I audit fixtures where they can: 05 (apostrophe style →
 apostrophe, not failing), 06 (capitalisation tidy → near), 07 ([V] on a paraphrase → no-quote),
 09 (silently shortened quote → interrupted or missing). The figure cases hold the
 rule that no normalisation lets a changed figure pass: a quote that cuts a number
-short at either end never matches. The paged section mirrors
+short at either end never matches, unless what runs on is a note number the
+source's own notes vouch for. The paged section mirrors
 MCDP 1's conversion: running headers and folios between pages, and a quote that
-holds both a word split across a line and a compound split across a line.
+holds both a word split across a line and a compound split across a line. The
+OpenStax sections mirror its two conversions: bold headers with a folio beside a
+chapter or section number and no form feed, and pages split by form feeds whose
+footers carry a folio that runs with the page count. Each new rule has a guard
+beside it: a changed decimal, a prefix hyphen, a recurring line with no page
+break, and a page-foot number off the page count all still fail.
 The multi-line blocks hold extraction scope: a `[V]` before a colon covers the
 list it introduces, and a `[V]` named in the notes section is not a claim, while
 a `[V]` on a paraphrase anywhere else still reports no-quote.
@@ -28,6 +34,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -75,6 +82,33 @@ The firm hired 2,500 people that year. The plant closed in 1998. It never reopen
 Teams should track velocity (ideally 3-4 sprints worth of data) or throughput before they forecast a release.
 
 The result is the "horrendogram" (Penn, 2018); a map nobody can read at a glance.
+
+Women are not projected to reach pay equity until at least 2059, with projections predicting dates as late as 2119.27 These are averages.
+
+The gap has narrowed slowly.26 It widened again in some sectors.28
+
+The survey index stood at 4.12 Overall, the figures held steady.
+
+Earlier surveys found the same.4 The rate rose by 6.5 points.
+
+The gap narrowed again.29 The second index stood at 7.30 Overall it held.
+
+The Sprint Retrospective is timeboxed to three hours for a onemonth Sprint, and each month one team leads it.
+
+Leaders decide onthe-spot when the plan meets a deadend. At the end of the day the dead weight goes on the spot list.
+
+The teams cooperate across the programme.
+
+The caféowner opened early, and the café had one owner.
+
+The plan held for months until minor editsfresh habitsslowly became routine. Fresh habits form slowly as minor edits pile up.
+
+Notes
+
+4. A. Writer, “Earlier Survey,” 2018.
+5. B. Writer, “Rate Report,” 2019.
+12. C. Writer, “Index Review,” 2020.
+27. D. Writer, “Pay Equity Projections,” 2021.
 """
 
 
@@ -110,6 +144,55 @@ SOURCE += (
     "and a way of fighting, and it provides a philosophy for leading Marines.\n\n"
     + "".join(f"Note {n}.\n\nKey Point\n\n" for n in range(4))
 )
+
+# OpenStax running headers set in bold on their own lines, with no form feed:
+# the folio beside a chapter number ("48 5 • Criminal Liability") or after a
+# section number ("8.1 • ... 267"). And a recurring two-number line whose
+# numbers never change, which is no folio and stays in the text.
+SOURCE += "".join(
+    f"Body paragraph {n} on liability.\n\n**{48 + 2 * n} 5 • Criminal Liability**\n\n"
+    f"**Access for free at openstax.org**\n\n"
+    f"Body paragraph {n} on marketing.\n\n**8.1 • Entrepreneurial Marketing and the Marketing Mix {267 + 2 * n}**\n\n"
+    f"Body paragraph {n} on review.\n\n**2 5 • Review Checklist**\n\n"
+    for n in range(5)
+)
+SOURCE += (
+    "The commerce clause gives the federal government broad powers\n\n**58 5 • Criminal Liability**\n\n"
+    "**Access for free at openstax.org**\n\nto regulate commerce within each state.\n\n"
+    "Guerrilla marketing can help start-ups\n\n**8.1 • Entrepreneurial Marketing and the Marketing Mix 277**\n\n"
+    "survive in competitive markets.\n\n"
+    "Every review opens with the goals\n\n**2 5 • Review Checklist**\n\nand closes with the actions.\n\n"
+)
+
+# A journal's running header: a folio, the journal line and the authors set in
+# emphasis, the last ending in a full stop inside the emphasis. No form feed.
+SOURCE += "".join(f"Journal body {n}.\n\n{n} \n\n_J Field Stud 12 (2020) 4021_ \n\n_A. Writer et al._ \n\n" for n in range(2, 7))
+SOURCE += ("The survey measures how often crews \n\n7 \n\n_J Field Stud 12 (2020) 4021_ \n\n"
+           "_A. Writer et al._ \n\nreport near misses to the safety office.\n\n")
+
+
+def openstax_page(body: str, title: str, odd: bool) -> str:
+    """One page of an OpenStax PDF as PyMuPDF converts it: the body, then the
+    footer that carries the folio, then a form feed. The folio runs with the
+    page count."""
+    folio = len(re.findall(r"\f+", SOURCE + body)) + 40
+    if odd:
+        return f"{body}\n\n6.2 • {title}     {folio}\n\f"
+    return f"{body}\n\n{folio}     6 • Contract Law\n\nAccess for free at openstax.org\n\f"
+
+
+# Paged with form feeds, the headers too long or too rare for the recurrence
+# rule: the folio running with the page count marks them. The last page's foot
+# carries a number off that count, and stays.
+LONG_TITLE = "Remedies for a Breach of Contract in the Modern Business World Today"
+for n, body in enumerate([
+    "Contract page one.", "Contract page two.", "Contract page three.",
+    "In most cases the remedy for a breach of contract", "is money damages. Courts will order specific",
+    "performance only when damages fall short. A court may also",
+]):
+    SOURCE += openstax_page(body, LONG_TITLE, odd=n % 2 == 1)
+SOURCE += "rescind the contract and restore the parties\n\nSummary of Contract Law     999\n\f"
+SOURCE += "to their positions before it was signed.\n"
 
 # (label, deep-ref line, expected kind or None for a clean match)
 CASES = [
@@ -242,6 +325,69 @@ CASES = [
     ("a quote before a page citation is checked, not counted as a figure",
      'The text is blunt: "Work is an activity that produces something of no value" (p. 22) [V].',
      "missing"),
+    ("a figure ending a sentence, a note number glued after it, is exact",
+     '"with projections predicting dates as late as 2119" [V] (Ch 6).',
+     None),
+    ("a figure ending a sentence, the full stop quoted, a note number glued after it, is exact",
+     '"predicting dates as late as 2119." [V] (Ch 6).',
+     None),
+    ("a decimal before a capital, with no note beside it in sequence → missing",
+     '"The survey index stood at 4" [V] (Ch 6).',
+     "missing"),
+    ("a decimal before a lowercase word, its note in sequence and listed → missing",
+     '"The rate rose by 6." [V] (Ch 6).',
+     "missing"),
+    ("a decimal before a capital, its neighbour in sequence but no note listed for it → missing",
+     '"The second index stood at 7" [V] (Ch 6).',
+     "missing"),
+    ("a figure claim closed by U.S. is counted, not flagged",
+     "- *Flextime*: discretion over arrival and departure times; in 57% of U.S. companies [V].",
+     None),
+    ("a figure claim closed by e.g. is counted, not flagged",
+     "Teams average 7 people, e.g. in product groups [V].",
+     None),
+    ("a figure claim closed by a.m. is counted, not flagged",
+     "Stand-ups start at 9 a.m. in most teams [V].",
+     None),
+    ("a paraphrase after U.S. → no-quote",
+     "Teams in the U.S. paraphrase the source here [V] (Ch 4).",
+     "no-quote"),
+    ("a bold OpenStax header with a folio and a chapter number is dropped",
+     '"The commerce clause gives the federal government broad powers to regulate commerce within each state" [V] (Ch 5).',
+     None),
+    ("a bold OpenStax header with a section number and a folio is dropped",
+     '"Guerrilla marketing can help start-ups survive in competitive markets" [V] (Ch 8.1).',
+     None),
+    ("a recurring two-number line whose numbers never change stays in the text → interrupted",
+     '"Every review opens with the goals and closes with the actions" [V] (Ch 2).',
+     "interrupted"),
+    ("an OpenStax footer whose folio runs with the page count is dropped",
+     '"In most cases the remedy for a breach of contract is money damages" [V] (Ch 6).',
+     None),
+    ("a long OpenStax section header whose folio runs with the page count is dropped",
+     '"Courts will order specific performance only when damages fall short" [V] (Ch 6.2).',
+     None),
+    ("a page-foot line whose number is off the page count stays in the text → interrupted",
+     '"A court may also rescind the contract and restore the parties to their positions before it was signed" [V] (Ch 6).',
+     "interrupted"),
+    ("a compound the converter joined → joined",
+     '"timeboxed to three hours for a one-month Sprint" [V] (Ch 3).',
+     "joined"),
+    ("two joined compounds, one hyphen kept by the converter → joined",
+     '"Leaders decide on-the-spot when the plan meets a dead-end" [V] (Ch 3).',
+     "joined"),
+    ("a joined compound beside an accented letter → joined",
+     '"The café-owner opened early" [V] (Ch 3).',
+     "joined"),
+    ("an em dash the converter dropped is no joined compound, even with a capital → missing",
+     '"Minor edits — fresh habits — slowly became routine" [V] (Ch 3).',
+     "missing"),
+    ("a journal header whose authors end in a full stop inside emphasis is dropped",
+     '"The survey measures how often crews report near misses to the safety office" [V] (p 7).',
+     None),
+    ("a hyphen after a prefix the source never sets alone → interrupted",
+     '"The teams co-operate across the programme" [V] (Ch 3).',
+     "interrupted"),
 ]
 
 # Multi-line cases: (label, [(line, expected kind or None)]). Blank lines are
@@ -332,8 +478,8 @@ def main() -> int:
                 kind_ok = kinds == ({kind} if kind else set())
             if not kind_ok:
                 failures.append(f"{label}: expected {kind or 'no finding'}, got {sorted(kinds) or 'no finding'}")
-        if out["figure_claims_unchecked"] != 1:
-            failures.append(f"figure claims: expected 1 counted, got {out['figure_claims_unchecked']}")
+        if out["figure_claims_unchecked"] != 4:
+            failures.append(f"figure claims: expected 4 counted, got {out['figure_claims_unchecked']}")
         if code != 1:
             failures.append(f"exit status with failing findings: expected 1, got {code}")
 

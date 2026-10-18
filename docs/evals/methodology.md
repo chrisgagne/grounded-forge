@@ -32,6 +32,10 @@ Both bundles pass `okf validate` — the audited matrix bundle at 0 errors / 0 w
 
 Capture is unchanged in kind: run each arm in its surface, paste to `_evals/manual/{prompt-stem}-{E|F}.md`, judge with `--methods D,E,F`. Two mechanical metrics need no judge and should be recorded per capture: per-query token cost (from the session), and evidence-marker survival in the answer (only E *can* preserve markers; `audit-attribution` can score whether it did).
 
+## The Gemini Notebook arm (N)
+
+**N** is Google's Gemini Notebook (formerly NotebookLM) loaded with the same 31 converted sources: the market's default grounded tool, with passage-level citations, set against D and C on one canonical prompt and one where the corpus departs from the canonical view. It is scored chiefly by a claim-level, fresh-context audit of every arm's answer against the source text, with the blind judge reported beside it. Protocol and scoring: [`gemini-notebook-arm.md`](gemini-notebook-arm.md); the operator's capture steps: [`gemini-notebook-checklist.md`](gemini-notebook-checklist.md).
+
 ## The judge
 
 A separate Claude API session, blind to which method produced which answer and blind to method labels. The judge receives:

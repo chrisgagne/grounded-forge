@@ -43,9 +43,10 @@ catch `eval` "however reached"; a reviewer showed it didn't, so he sent it back 
 catches." The third version listed what it doesn't catch, and he signed it. The rule's own list still misses two
 forms, which the signed sheet records. Along the way the run exposed three bugs in the factory itself, each fixed
 with a test. Cost: about $9 of Claude and 214,000 Codex tokens over five runs. The log and the signed sheet are in
-[the showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/). It ran before this library existed, with
-the lighter summary as the reviewers' grounding, and its config was edited afterwards to point here, so the hash the
-log recorded for that one file no longer matches; the log's chain and the signature still check out.
+[the showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/). It ran before this library existed, so its
+reviewers worked from a lighter summary. One config file was edited afterwards to point at the library, so the
+fingerprint the log recorded for that file no longer matches. That affects only that file: the log's chain and the
+signature still check out.
 
 ## Does the standards library help the reviewers?
 
@@ -67,7 +68,7 @@ most one more good change.
 |---|---|---|
 | Real bugs caught on both tries | 11 of 17 | **16 of 17** |
 | Good changes stopped at least once | 3 of 8 | 4 of 8 |
-| Confirmed findings that name a standard, a source or a library row | 0 of 64 | 56 of 82 (68%) |
+| Confirmed findings that name a standard, a source or one of the library's trigger-and-response rows | 0 of 64 | 56 of 82 (68%) |
 | Review cost per review (one of the two per change; review only; Codex tokens exclude cached input) | about $0.27 of Claude and 25,000 Codex tokens | about $0.64 of Claude and 42,000 Codex tokens |
 
 **The test was met as written:** 5 more bugs caught on both tries, and one more good change stopped, which the rule
@@ -107,9 +108,9 @@ had seen, 12 good and 8 bugs, with the rule written down first
 
 **Round two's changes didn't measurably cut false stops without costing catches.** There was little to cut: each
 version stopped 2 of 24 runs on the good changes (8%), both on the same change, and both caught the same 7 of 8 bugs on
-both tries. Those figures count a rule we added during the test: Codex's usage limit cut off 26 runs' reviews twice
-over, so they were run again once it reset. Counting those cut-off runs as stops and misses instead, it's 10 against 8
-of 24 stopped, and 2 against 4 of 8 bugs caught; round two fails the test either way. And the stop rate
+both tries. Codex's usage limit cut 26 runs short, so we re-ran them after it reset, a rule we added
+mid-test. Count those runs as failures instead and round two still fails: 10 against 8 of 24 good-change runs
+stopped, and 2 against 4 of 8 bugs caught. And the stop rate
 depends on which changes you test more than our small samples can pin down. Full results:
 [v4-RESULTS.md](helpers/factory-warranty/calibration/realbugs/results/v4-RESULTS.md).
 

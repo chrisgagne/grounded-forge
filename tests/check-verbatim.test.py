@@ -22,7 +22,17 @@ beside it: a changed decimal, a prefix hyphen, a recurring line with no page
 break, and a page-foot number off the page count all still fail.
 The multi-line blocks hold extraction scope: a `[V]` before a colon covers the
 list it introduces, and a `[V]` named in the notes section is not a claim, while
-a `[V]` on a paraphrase anywhere else still reports no-quote.
+a `[V]` on a paraphrase anywhere else still reports no-quote. A quotation
+followed only by its citation is checked, while a quoted remark a sentence
+before a cited claim still is not. Pandoc's Markdown in the source reads as
+its text, while a changed word still fails and a command-line option's `--`
+stays two hyphens.
+
+The resolution cases build a small corpus in a temporary directory: a file
+finds its converted source by name, by its source card's link, or by the
+quotations it holds; a second conversion of the same book counts as that
+source, a book that quotes it whole does not, and a slug no file holds
+enough of is reported.
 
 No test framework, matching tests/derived-provenance.test.py: each case succeeds
 silently or raises; the runner collects failures, prints a summary, exits non-zero.
@@ -33,6 +43,7 @@ Usage:
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import subprocess
@@ -109,6 +120,23 @@ Notes
 5. B. Writer, “Rate Report,” 2019.
 12. C. Writer, “Index Review,” 2020.
 27. D. Writer, “Pay Equity Projections,” 2021.
+"""
+
+# Pandoc's Markdown left in an EPUB conversion: dashes, an empty page anchor,
+# an endnote link with its attribute block, nested spans, backslash escapes, a
+# drop cap. A command-line option's "--" beside them, and a true em dash.
+SOURCE += r"""
+The plan---as written---failed, and the 1990--2000 decade[]{#ch02.html_page_17} saw [the same plan](#notes.html_n4){#ch02.html_n4ref .calibre3} applied [twice]{.italic} by [[nested]{.calibre_1} spans]{.calibre1}. Don\'t pay \$5 for it\! A [D]{.dropcap}rop cap opens the next line.
+
+Run the checker with --all-local to see every finding.
+
+The cost fell — sharply — in the second year.
+
+Is that the whole story? Ask it twice before you answer.
+
+A small trial shows the team where the plan is weak.[3](notes.htm#n3) It can also go badly.[^6^](#foot_6){#ref_6} The review of [2019](https://example.com/archive#2019) stands.
+
+The editor put it plainly: \[W\]e have changed the layout so often that readers must now relearn it each spring.
 """
 
 
@@ -385,6 +413,54 @@ CASES = [
     ("a journal header whose authors end in a full stop inside emphasis is dropped",
      '"The survey measures how often crews report near misses to the safety office" [V] (p 7).',
      None),
+    ("a quote ending in a full stop, then its citation, is checked",
+     'The text is plain. "Relationship conflict tends to erode the trust that teams rely on." (Ch 4, p. 5) [V].',
+     "missing"),
+    ("a quote ending in a full stop, then a locator with no digit, is checked",
+     '"Work is an activity that produces something of value for other people." (same section) [V]',
+     None),
+    ("a quote ending in a question mark, then a paragraph locator, is checked",
+     'A prompt: "Is that the whole story?" (¶3) [V].',
+     None),
+    ("a quoted remark before a sentence with words and a citation is not checked → no-quote",
+     'Teams say "we will look into it." The text is blunt here (Ch 4) [V].',
+     "no-quote"),
+    ("a citation-only tail keeps one sentence, not two → no-quote",
+     'Teams say "we will look into it." Then they move on. (p. 5) [V]',
+     "no-quote"),
+    ("pandoc's em dash written --- is exact",
+     '"The plan—as written—failed" [V] (Ch 7).',
+     None),
+    ("pandoc's em dash quoted as written is exact",
+     '"The plan---as written---failed" [V] (Ch 7).',
+     None),
+    ("pandoc's en dash, anchor, endnote link and nested spans read as their text",
+     '"the 1990–2000 decade saw the same plan applied twice by nested spans" [V] (Ch 7).',
+     None),
+    ("pandoc's backslash escapes and a drop-cap span read as their text",
+     '"Don\'t pay $5 for it! A Drop cap opens the next line" [V] (Ch 7).',
+     None),
+    ("a changed word through pandoc markup → missing",
+     '"the 1990–2000 decade saw the same tactic applied twice by nested spans" [V] (Ch 7).',
+     "missing"),
+    ("a quote that keeps pandoc's escaped brackets reads them as the source's",
+     '"\\[W\\]e have changed the layout so often that readers must now relearn it each spring" [V] (Ch 7).',
+     None),
+    ("pandoc's endnote numbers glued to a word are dropped",
+     '"shows the team where the plan is weak. It can also go badly. The review of" [V] (Ch 7).',
+     None),
+    ("a linked number set apart from the word before it stays in the text",
+     '"The review of 2019 stands" [V] (Ch 7).',
+     None),
+    ("a command-line option's -- stays two hyphens",
+     '"Run the checker with --all-local to see every finding" [V] (Ch 7).',
+     None),
+    ("an option's -- quoted as an en dash → glyph",
+     '"Run the checker with –all-local to see every finding" [V] (Ch 7).',
+     "glyph"),
+    ("a -- quoted for the source's em dash → glyph",
+     '"The cost fell -- sharply -- in the second year" [V] (Ch 7).',
+     "glyph"),
     ("a hyphen after a prefix the source never sets alone → interrupted",
      '"The teams co-operate across the programme" [V] (Ch 3).',
      "interrupted"),
@@ -435,6 +511,98 @@ BLOCKS = [
         ("The source defines work as producing value for others [V] (Ch 4).", "no-quote"),
     ]),
 ]
+
+
+def book(title: str, n: int) -> str:
+    """A synthetic book: n sentences no other book shares a run of words with."""
+    return "\n\n".join(sentence(title, i) + "." for i in range(n)) + "\n"
+
+
+def sentence(title: str, i: int) -> str:
+    """Every run of six words holds the title, so no two books share one."""
+    return f"In {title} part {i}, {title} crews logged {i * 7} {title} readings at {title} station {i} before dusk"
+
+
+def resolution_checks() -> list[str]:
+    """Each file finds its converted source by name, by the source card's
+    link, or by content; a second conversion of the same book is that source,
+    a book that quotes it whole is not. Run against a temporary corpus with
+    the module's tier roots pointed at it."""
+    spec = importlib.util.spec_from_file_location("check_verbatim", SCRIPT)
+    cv = importlib.util.module_from_spec(spec)
+    sys.modules["check_verbatim"] = cv
+    spec.loader.exec_module(cv)
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve() / "local" / "corp"
+        conv, orig, refs = root / "sources" / "converted", root / "sources" / "original", root / "references"
+        for d in (conv, orig, refs):
+            d.mkdir(parents=True)
+        cv.TIER_ROOTS = {"local": root.parent}
+        conv.joinpath("alpha.md").write_text(book("alpha", 40), encoding="utf-8")
+        # A second conversion of alpha: one more sentence, the rest the same.
+        conv.joinpath("Alpha -- A. Writer -- 2011.md").write_text(
+            book("alpha", 40) + "Only this conversion keeps the colophon that closes the book.\n", encoding="utf-8")
+        # A third, which its own source card names as a source in its own right.
+        conv.joinpath("Alpha Notes.md").write_text(
+            book("alpha", 40) + "Only the notes edition prints this errata page at the back.\n", encoding="utf-8")
+        orig.joinpath("alpha-notes.source.md").write_text(
+            "---\ntitle: Alpha Notes\n---\n\nConverted markdown: [`sources/converted/Alpha Notes.md`](../converted/Alpha Notes.md)\n",
+            encoding="utf-8")
+        # Beta's converted text under a title-based name, with no card.
+        conv.joinpath("Beta Book -- B. Writer -- 2011.md").write_text(book("beta", 40), encoding="utf-8")
+        # Gamma's under another name, linked from its source card.
+        conv.joinpath("Gamma-Book-2014.md").write_text(book("gamma", 40), encoding="utf-8")
+        orig.joinpath("gamma.source.md").write_text(
+            "---\ntitle: Gamma\n---\n\nConverted markdown: [`sources/converted/Gamma-Book-2014.md`](../converted/Gamma-Book-2014.md)\n",
+            encoding="utf-8")
+        # Delta is short; a longer book quotes it whole.
+        conv.joinpath("delta.md").write_text(book("delta", 6), encoding="utf-8")
+        conv.joinpath("Quoting Book.md").write_text(book("delta", 6) + book("omega", 60)
+                                                   + "Only the longer book adds this delta afterword at the end.\n", encoding="utf-8")
+
+        def deep(slug: str, quotes: list[str]) -> Path:
+            f = refs / f"{slug}-deep.md"
+            f.write_text("# Deep\n\n" + "\n\n".join(f'"{q}" [V] (Ch 1).' for q in quotes) + "\n", encoding="utf-8")
+            return f
+
+        files = {
+            "alpha": deep("alpha", [sentence("alpha", 3), "Only this conversion keeps the colophon that closes the book",
+                                    "Only the notes edition prints this errata page at the back"]),
+            "beta": deep("beta", [sentence("beta", i) for i in (1, 2, 3)] + ["In beta part 4, beta teams logged 28 beta readings"]),
+            "gamma": deep("gamma", [sentence("gamma", 5), "In gamma part 6, gamma teams logged 42 gamma readings"]),
+            "delta": deep("delta", [sentence("delta", 2), "Only the longer book adds this delta afterword at the end"]),
+            # Two of four quotes in one file, one in another: no file holds enough.
+            "epsilon": deep("epsilon", [sentence("beta", 7), sentence("beta", 8), sentence("gamma", 9),
+                                        "A sentence no converted source holds at all"]),
+        }
+        got: dict[str, tuple[list, str | None]] = {}
+        for slug, f in files.items():
+            findings, _, err = cv.check_file(f, None, True, {})
+            got[slug] = ([(x.line, x.kind, x.note) for x in findings], err)
+
+        def expect(label: str, ok: bool, seen) -> None:
+            if not ok:
+                failures.append(f"{label}: got {seen}")
+
+        f, err = got["alpha"]
+        expect("by name: a quote only a second conversion holds → cross-source, another conversion; "
+               "a file with its own source card is no second conversion → wrong-source",
+               err is None and [(k, "another conversion" in n) for _, k, n in f]
+               == [("cross-source", True), ("wrong-source", False)], got["alpha"])
+        f, err = got["beta"]
+        expect("by content: a title-named file holding the quotes is the source; a changed word → missing",
+               err is None and [k for _, k, _ in f] == ["missing"], got["beta"])
+        f, err = got["gamma"]
+        expect("by the source card's link; a changed word → missing",
+               err is None and [k for _, k, _ in f] == ["missing"], got["gamma"])
+        f, err = got["delta"]
+        expect("a book that quotes the source whole is no copy of it → wrong-source",
+               err is None and [k for _, k, _ in f] == ["wrong-source"], got["delta"])
+        f, err = got["epsilon"]
+        expect("two of four quotes in one file is too few to resolve → reported, with the closest file",
+               err is not None and "Beta Book" in err and "2 of 4" in err, got["epsilon"])
+    return failures
 
 
 def run(deep: Path, source: Path) -> tuple[int, dict]:
@@ -490,7 +658,9 @@ def main() -> int:
         if code != 0:
             failures.append(f"exit status with only an initial finding: expected 0, got {code}")
 
-    total = len(expect) + 3
+    resolution = resolution_checks()
+    failures += resolution
+    total = len(expect) + 3 + 5
     if failures:
         print(f"{len(failures)} of {total} checks failed:")
         for f in failures:

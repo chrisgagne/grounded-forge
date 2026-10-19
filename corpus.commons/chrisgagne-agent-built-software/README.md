@@ -126,6 +126,25 @@ letting real bugs through? That's the conversation we'd most like to have.
 The scanner also gave different answers on two runs of the same change once, most likely because it downloads its
 rules fresh each run. Pinning them is on the list.
 
+## What came before
+
+Most of the factory's pieces exist elsewhere, open and widely used; what we haven't found is them combined into one
+gate and measured on known bugs and good changes. The closest:
+
+- **A second vendor's reviewer from inside Claude Code:** OpenAI's [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc)
+  (Apache-2.0) and [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) both have Codex or other models
+  review Claude Code's work. Neither keeps the two reviewers blind to each other or has a third model sort their
+  findings.
+- **AI review of a diff:** [PR-Agent](https://github.com/The-PR-Agent/pr-agent) (MIT) is the most used open-source AI
+  reviewer, and Claude Code and the Codex CLI each have their own review command.
+- **Tests first:** [TDD Guard](https://github.com/nizos/tdd-guard) (MIT) blocks a coding agent from writing code
+  without a failing test.
+- **A tamper-evident record of how software was made:** [in-toto](https://github.com/in-toto/in-toto) and
+  [Sigstore](https://github.com/sigstore/cosign) do this for supply chains, with real cryptographic signatures, which
+  the factory's log doesn't have.
+- **Measuring AI review:** [ReviewBench](https://github.com/review-bench/ReviewBench) (GitHub, MIT) scores reviewers
+  against human-checked findings on real pull requests.
+
 ## What's still a proposal
 
 The factory's rules (when a finding blocks, when the sheet recommends a qualified second person, and the targets a

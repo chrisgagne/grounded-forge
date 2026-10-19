@@ -30,6 +30,59 @@ const path = require("path");
 const yaml = require("js-yaml");
 const { emitOkfBundle, validateOkfBundle } = require("./scripts/lib/emit-okf");
 
+// Filter an axis's DISTILLATION-INDEX.md to the sources an app ships.
+// heldBack maps each held-back slug to a plain citation. In the Named
+// disagreements table a held-back source stays as that citation (the
+// disagreement is ours, stated in our words); elsewhere its cited parts go:
+// a "•"-separated part citing only held-back sources, a held-back name in a
+// list, and any row or list line left citing no source. known holds every
+// source slug on the axis.
+function filterIndexForShipped(text, heldBack, known, taskDir) {
+  const tokenRe = /`([^`]+)`/g;
+  const slugOf = (tok) => tok.endsWith(`-${taskDir}.md`) ? tok.slice(0, -(`-${taskDir}.md`).length) : tok;
+  const held = (tok) => heldBack.has(slugOf(tok));
+  const tokens = (str) => [...str.matchAll(tokenRe)].map((m) => m[1]).filter((t) => known.has(slugOf(t)));
+  const strip = (str) => str
+    .replace(tokenRe, (m, tok) => (held(tok) ? "\u0000" : m))
+    .replace(/\s*,\s*\u0000|\u0000\s*,\s*|\s*\u0000/g, "")
+    .replace(/\(\s*\)/g, "").replace(/\(\s*,\s*/g, "(").replace(/\s*,\s*\)/g, ")");
+  let section = "";
+  let dropped = 0;
+  const out = [];
+  for (const line of text.split("\n")) {
+    const h = line.match(/^#{1,6}\s+(.*)$/);
+    if (h) section = h[1].trim();
+    const toks = tokens(line);
+    if (!toks.some(held)) { out.push(line); continue; }
+    if (/^named disagreements$/i.test(section) && line.startsWith("|")) {
+      out.push(line.replace(tokenRe, (m, tok) => (held(tok) ? heldBack.get(slugOf(tok)) : m)));
+      continue;
+    }
+    let next;
+    if (line.startsWith("|")) {
+      const cells = line.split("|").map((cell) => {
+        if (!cell.includes(" • ")) return strip(cell);
+        const [, lead, body, trail] = cell.match(/^(\s*)([\s\S]*?)(\s*)$/);
+        const parts = body.split(" • ").filter((part) => {
+          const t = tokens(part);
+          return !(t.length && t.every(held));
+        });
+        return parts.length ? lead + strip(parts.join(" • ")) + trail : "";
+      });
+      const emptied = cells.some((cell, i) => !cell.trim() && line.split("|")[i].trim());
+      next = emptied || !tokens(cells.join("|")).length ? null : cells.join("|");
+    } else if (/^\s*[-*]\s/.test(line)) {
+      const first = (line.match(/^\s*[-*]\s+`([^`]+)`/) || [])[1];
+      next = first && held(first) ? null : strip(line);
+    } else {
+      next = line.replace(tokenRe, (m, tok) => (held(tok) ? heldBack.get(slugOf(tok)) : m));
+    }
+    if (next === null) dropped++;
+    else out.push(next);
+  }
+  return { text: out.join("\n"), dropped };
+}
+
 const CONFIG_FILE = "builds.yaml";
 
 // Distribution scope taxonomy. Lower rank = lower distribution risk.
@@ -437,6 +490,17 @@ class MatrixBuilder {
     );
   }
 
+  // "Title (year), url" from a source's card, for naming a held-back source
+  // in text without pointing at its distillation.
+  sourceCitation(slug) {
+    const card = path.join(this.sourceDir, "sources", "original", `${slug}.source.md`);
+    if (!fs.existsSync(card)) return slug;
+    const fm = (fs.readFileSync(card, "utf8").match(/^---\n([\s\S]*?)\n---/) || [])[1] || "";
+    const field = (k) => ((fm.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, "m")) || [])[1] || "").trim();
+    const year = field("publish_year");
+    return `*${field("title") || slug}*${year ? ` (${year})` : ""}${field("url") ? `, ${field("url")}` : ""}`;
+  }
+
   async buildDistillations(profile, outputDir) {
     // Reset per profile: one builder instance runs many profiles under
     // --all, and shipConceptIndex must never filter against a previous
@@ -588,12 +652,37 @@ class MatrixBuilder {
         total++;
       }
 
-      // Ship the per-axis runtime task-index alongside the .md distillations,
-      // plus any shard files it names (a large axis splits its long listener
-      // and disagreement cells into task-index.shard-*.json).
-      for (const f of fs.readdirSync(srcDir)) {
-        if (f === "task-index.json" || /^task-index\.shard-.+\.json$/.test(f)) {
-          fs.copyFileSync(path.join(srcDir, f), path.join(destDir, f));
+      // A source the scope gate held back must not reach the app through the
+      // axis's index either: its rows paraphrase the held-back distillation
+      // and point at a file that isn't shipped. Filter the shipped index and
+      // rebuild the runtime task-index from it; otherwise copy both as authored.
+      const heldBack = new Map();
+      const known = new Set();
+      for (const file of candidates) {
+        const taskSuffix = `-${taskDir}.md`;
+        if (!file.endsWith(taskSuffix) || /-DISTILLATION-INDEX\.md$/i.test(file)) continue;
+        const slug = file.slice(0, -taskSuffix.length);
+        known.add(slug);
+        if (!shippedSources.has(slug)) heldBack.set(slug, this.sourceCitation(slug));
+      }
+      const indexFile = fs.readdirSync(destDir).find((f) => /-DISTILLATION-INDEX\.md$/i.test(f));
+      if (heldBack.size && indexFile) {
+        const indexPath = path.join(destDir, indexFile);
+        const { text, dropped } = filterIndexForShipped(fs.readFileSync(indexPath, "utf8"), heldBack, known, taskDir);
+        fs.writeFileSync(indexPath, text);
+        const { execFileSync } = require("child_process");
+        execFileSync("python3", ["-m", "scripts.build_indexes.build_task_index",
+          "--corpus", path.basename(this.sourceDir), "--index-file", indexPath, "--out-dir", destDir],
+          { cwd: this.repoRoot, stdio: ["ignore", "ignore", "inherit"] });
+        console.log(`    Index: ${dropped} rows held back with ${[...heldBack.keys()].join(", ")}; task-index rebuilt`);
+      } else {
+        // Ship the per-axis runtime task-index alongside the .md distillations,
+        // plus any shard files it names (a large axis splits its long listener
+        // and disagreement cells into task-index.shard-*.json).
+        for (const f of fs.readdirSync(srcDir)) {
+          if (f === "task-index.json" || /^task-index\.shard-.+\.json$/.test(f)) {
+            fs.copyFileSync(path.join(srcDir, f), path.join(destDir, f));
+          }
         }
       }
     }
@@ -1140,11 +1229,12 @@ source text — they are your citable provenance.
 
   // A helper is code an app ships with, beyond its skills and agents: the
   // factory's harness for factory-warranty, say. It lives in the corpus at
-  // helpers/{profile}/, named after the one profile it belongs to, and is
+  // helpers/{profile}/, named after the profile it belongs to (or the profile
+  // named by helpers_from, for a variant build of the same app), and is
   // copied byte for byte into the app at {helpers_dir} (default helpers/).
   // Local environments and caches stay behind.
   async buildHelpers(profile, profileName, outputDir) {
-    const src = path.join(this.sourceDir, "helpers", profileName);
+    const src = path.join(this.sourceDir, "helpers", profile.helpers_from || profileName);
     if (!fs.existsSync(src)) return;
     const dest = path.join(outputDir, profile.helpers_dir || "helpers");
     const skip = new Set([".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".DS_Store"]);
@@ -1792,4 +1882,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { MatrixBuilder };
+module.exports = { MatrixBuilder, filterIndexForShipped };

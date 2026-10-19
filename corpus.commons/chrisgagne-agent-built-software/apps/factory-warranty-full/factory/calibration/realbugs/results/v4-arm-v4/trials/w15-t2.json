@@ -1,0 +1,87 @@
+{
+ "id": "w15",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8491,
+ "codex_tokens": 41552,
+ "work": "<tmp>/replay-w15-t2-hev26h1o",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff swaps skipByteOrderMark, which set both position and lineStart, for a bare `state.position++` at parser.ts:1452. That leaves lineStart at 0, so `blockIndent = state.position - state.lineStart` at parser.ts:1243 comes out as 1, and line 2 (lineIndent 0) ends the mapping at parser.ts:1131. A plain BOM-prefixed file such as `\ufeffa: 1\\nb: 2` now triggers the error.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/parser/parser.ts",
+   "line": 1452,
+   "claim": "A leading BOM is now skipped without resetting lineStart, so a BOM-prefixed file whose top-level mapping or sequence has more than one entry, or that starts with a comment, fails to load.",
+   "evidence": "The new code `if (state.input.charCodeAt(state.position) === 0xFEFF) state.position++` leaves `lineStart` at 0. The removed `skipByteOrderMark` also set `state.lineStart = state.position`. In parseNode, `const blockIndent = state.position - state.lineStart` (line 1243) is therefore 1 for `\ufefffoo: bar\\nbaz: 1\\n`, and readBlockMapping is entered with nodeIndent 1. On line 2, `state.lineIndent` is 0, so `else if (state.lineIndent < nodeIndent) break` (line 1131) closes the mapping after `foo`. readDocument then reaches `!(state.position === state.lineStart && testDocumentSeparator(state))` at line 1421 and throws 'end of the stream or a document separator is expected'. The same path breaks `\ufeff- a\\n- b`. Line-start checks such as `state.position === state.lineStart` at line 1388 also fail for a leading `\ufeff...`.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes testDocumentBoundary and the per-document skipByteOrderMark. readPlainScalar (line 776), readBlockScalar (line 672) and readDocument (line 1421) now only call testDocumentSeparator at the literal line start, which sees 0xFEFF rather than '-'. That leaves the BOM-prefixed separator as scalar content, as in X2's input `---\\na\\n\ufeff---\\nb`.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/parser/parser.ts",
+   "line": 775,
+   "claim": "A BOM before a later `---` or `%` is no longer seen as a document boundary, so documents in a stream merge into scalar content or are rejected.",
+   "evidence": "The diff deletes `testDocumentBoundary`, which skipped a BOM and separation space and then checked for `%` or `---`. It also removes `skipByteOrderMark(state)` from the per-document loop in parseEvents. The BOM is now skipped only once, at offset 0 (line 1452). For `a\\n\ufeff---\\nb`, readPlainScalar's new check `state.position === state.lineStart && testDocumentSeparator(state)` sees 0xFEFF instead of `-` and does not stop at line 2. readDocument's end check at line 1421 and the block scalar check at line 672 have the same problem. The second document is either folded into the first scalar or rejected; previously it parsed as a separate document.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes only parser.ts. A grep of test/ finds just a one-key BOM test (load-other.test.mjs:7), which never reaches the second-line indent check, and the spec suite's fixtures are missing from the export.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/core/units/load-other.test.mjs",
+   "line": 7,
+   "claim": "No test covers multi-entry BOM documents or BOM-prefixed later documents, so the regressions above go unnoticed.",
+   "evidence": "diff.patch changes only src/parser/parser.ts and adds no tests. test/core/units/load-other.test.mjs:7 checks just `load('\ufefffoo: bar\\n')`, a one-entry mapping that never reaches the second-line indent comparison. Nothing tests a multi-entry BOM-prefixed document or a BOM before `---` or `%` in a later document. The spec suite that maps `\u21d4` to `\ufeff` (test/spec/spec.test.mjs:52) needs fixtures fetched by `npm run spec:get`, and they are not in the export, so it is not shown to cover these cases.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "noise",
+   "reason": "This is a gap in the review packet, not a defect in the code. The regressions it points to (dropping BOM handling) are already covered by the C1/X1 and C2/X2 items.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/parser/parser.ts",
+   "line": null,
+   "claim": "There is no story.md or tests.lock in the packet, so the change can't be checked against its intent.",
+   "evidence": "packet/acceptance.md says 'story.md is the spec', but the export has no story.md or tests.lock (a glob for both returns nothing), and risk.json lists no classes. The diff is purely subtractive: it deletes `skipByteOrderMark` and `testDocumentBoundary`, with no stated requirement for removing them.",
+   "axis_row": "L1.2",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

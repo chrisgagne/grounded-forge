@@ -1,0 +1,88 @@
+{
+ "id": "w19",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6991,
+ "codex_tokens": 21900,
+ "work": "<tmp>/replay-w19-t1-9g1swztg",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "isUnknownOption (lib/yargs-parser.ts:972-989) returns !hasFlagsMatching(...), and every pattern it checks starts with ^-+. So 'file.js' counts as unknown, and the branch at line 225 calls pushPositional, which pre-empts the halt-at-non-option break at line 397. Both reviewers traced the same input and got the same wrong result.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "Removing the /^-/ guard makes every plain positional an 'unknown option' when unknown-options-as-args is on. The positional is pushed to argv._, so halt-at-non-option never stops parsing.",
+   "evidence": "The line now reads `if (arg !== '--' && isUnknownOptionAsArg(arg)) { pushPositional(arg)` with no `continue`. `isUnknownOption` (line 972) returns `!hasFlagsMatching(...)`, and every pattern it checks starts with `^-+`. A value like `./file.js` therefore matches none of them, so the function returns true. That makes the first branch win before the `else if (configuration['halt-at-non-option']) { notFlags = args.slice(i); break }` branch at line 397 is reached. For example, `['./file.js', '--foo']` with both settings on now produces `foo: true` instead of `_: ['./file.js', '--foo']`.",
+   "breaks": "story",
+   "axis_row": "L3.7",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The halt-at-non-option tests (test/yargs-parser.cjs:2980-3011) set only halt-at-non-option, and none of the unknown-options-as-args blocks (3013+, 3991+) set it. The diff adds no test.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/yargs-parser.cjs",
+   "line": 2980,
+   "claim": "No test covers unknown-options-as-args together with halt-at-non-option, so the locked suite cannot catch this regression.",
+   "evidence": "The `halt-at-non-option` tests (lines 2980-3011) set only `'halt-at-non-option': true`. The `unknown-options-as-args = true` block (from line 3013) never sets `halt-at-non-option`. The diff adds no test.",
+   "breaks": "story",
+   "axis_row": "L3.9",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The packet holds no story.md even though acceptance.md names it as the spec, and risk.json has empty classes. So whether the change was asked for can't be checked against the story; the regression itself is covered by the C1/X1 item.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "The diff removes an existing guard with no stated reason. No story asks for it and risk.json is empty.",
+   "evidence": "The whole diff is one line: `-      if (arg !== '--' && /^-/.test(arg) && isUnknownOptionAsArg(arg)) {` becomes `+      if (arg !== '--' && isUnknownOptionAsArg(arg)) {`. acceptance.md says only that \"story.md is the spec\", but the packet contains no story.md, and risk.json has `\"classes\": {}`.",
+   "axis_row": "L4.27",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "noise",
+   "reason": "It's true that test/tscc/lib/yargs-parser.ts:225 keeps the guard. But that copy is a separate Closure-compiler smoke test (ci.yaml:92-93), and it keeps the correct behaviour. The fix is to restore the guard in lib, not to sync the copy, so the drift isn't a defect to fix in this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/tscc/lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "The test/tscc copy still has the old guard, so it no longer matches lib/yargs-parser.ts.",
+   "evidence": "test/tscc/lib/yargs-parser.ts:225 still reads `if (arg !== '--' && /^-/.test(arg) && isUnknownOptionAsArg(arg)) {`, while lib/yargs-parser.ts:225 has dropped `/^-/.test(arg)`.",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

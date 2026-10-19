@@ -395,9 +395,20 @@ def main(argv: list[str] | None = None) -> int:
         description="Build per-axis task-index.json files"
     )
     parser.add_argument("--corpus", required=True)
+    parser.add_argument("--index-file", help="parse this DISTILLATION-INDEX.md (an app's filtered copy) instead of the corpus's own")
+    parser.add_argument("--out-dir", help="with --index-file: write task-index.json and its shards here")
     args = parser.parse_args(argv)
 
-    payloads = build(args.corpus)
+    if args.index_file:
+        index = Path(args.index_file).resolve()
+        task = index.parent.name
+        parsed = _parse_index_file(index, task, slug_to_id(load_slug_table(args.corpus)))
+        payloads = [{"task": task, "output_dir": Path(args.out_dir or index.parent),
+                     "payload": {"schema_version": 1, "corpus": args.corpus, "task": task,
+                                 "generated_from": "distillation-index-markdown",
+                                 "source_file": parsed["source_file"], "sections": parsed["sections"]}}]
+    else:
+        payloads = build(args.corpus)
 
     if not payloads:
         print(f"no task axes found for corpus {args.corpus!r}")

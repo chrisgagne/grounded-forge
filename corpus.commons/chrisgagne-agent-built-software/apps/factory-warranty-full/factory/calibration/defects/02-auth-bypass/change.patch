@@ -1,0 +1,96 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index a9cd95f..e7071e9 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -56,4 +56,5 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
++| `GET /support/users/:id` | no | Support console: a customer's profile by id; needs the `X-Support-Agent` header, and each lookup is logged. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/src/app.js b/src/app.js
+index dc3bdc8..5fd2365 100644
+--- a/src/app.js
++++ b/src/app.js
+@@ -7,6 +7,7 @@ import { log as defaultLog } from './log.js';
+ import { noteRoutes } from './notes/routes.js';
+ import { Router } from './router.js';
+ import { userRoutes } from './users/routes.js';
++import { supportRoutes } from './users/support-routes.js';
+ 
+ /**
+  * Builds the request handler. Every dependency with side effects is passed in.
+@@ -28,6 +29,7 @@ export function createApp({ db, llm, mailer, now = Date.now, log = defaultLog, s
+   userRoutes(router, { db, auth, now });
+   noteRoutes(router, { db, auth, now });
+   summaryRoutes(router, { db, auth, llm, mailer, log });
++  supportRoutes(router, { db, log });
+ 
+   /** @param {import('node:http').IncomingMessage} req @param {import('node:http').ServerResponse} res */
+   return async function app(req, res) {
+diff --git a/src/users/support-routes.js b/src/users/support-routes.js
+new file mode 100644
+index 0000000..dfde5de
+--- /dev/null
++++ b/src/users/support-routes.js
+@@ -0,0 +1,24 @@
++import { sendJson } from '../http.js';
++import { findUserById, toProfile } from './repo.js';
++
++export const SUPPORT_AGENT_HEADER = 'x-support-agent';
++
++/**
++ * Lets the support console look up a customer's profile to confirm who they are talking to.
++ * Every lookup is logged with the support agent's name.
++ * @param {import('../router.js').Router} router
++ * @param {{ db: any, log: import('../log.js').Logger }} deps
++ */
++export function supportRoutes(router, { db, log }) {
++  router.get('/support/users/:id', (req, res) => {
++    const agent = req.headers[SUPPORT_AGENT_HEADER];
++    if (typeof agent !== 'string' || agent.trim() === '') {
++      return sendJson(res, 403, { error: 'Support agent required' });
++    }
++    const id = Number(req.params.id);
++    const user = Number.isInteger(id) ? findUserById(db, id) : null;
++    if (!user) return sendJson(res, 404, { error: 'User not found' });
++    log.info('support profile lookup', { agent: agent.trim(), userId: user.id });
++    sendJson(res, 200, { user: toProfile(user) });
++  });
++}
+diff --git a/test/support.test.js b/test/support.test.js
+new file mode 100644
+index 0000000..0c8c0d3
+--- /dev/null
++++ b/test/support.test.js
+@@ -0,0 +1,30 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { alice, signUp, startTestApp } from './helpers/app.js';
++
++test('support can look up a customer profile by id', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const user = await signUp(app, alice);
++  const res = await app.request('GET', `/support/users/${user.id}`, { headers: { 'x-support-agent': 'sam.k' } });
++  assert.equal(res.status, 200);
++  assert.equal(res.body.user.email, alice.email);
++  assert.equal(res.body.user.name, alice.name);
++  assert.equal(res.body.user.dateOfBirth, alice.dateOfBirth);
++  assert.equal('passwordHash' in res.body.user, false);
++});
++
++test('support lookups need the agent name', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const user = await signUp(app, alice);
++  assert.equal((await app.request('GET', `/support/users/${user.id}`)).status, 403);
++  assert.equal((await app.request('GET', `/support/users/${user.id}`, { headers: { 'x-support-agent': ' ' } })).status, 403);
++});
++
++test('support lookup of an unknown customer answers 404', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const res = await app.request('GET', '/support/users/424242', { headers: { 'x-support-agent': 'sam.k' } });
++  assert.equal(res.status, 404);
++});

@@ -1,0 +1,78 @@
+{
+ "id": "w05",
+ "trial": 2,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6175,
+ "codex_tokens": 20729,
+ "work": "<tmp>/replay-w05-t2-82u0mt4h",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "TrieUtils.ts:45 declares `index: number`, but lines 54-60 branch on `typeof index !== 'number'` and compare `'' + uint32Index !== index`, which only makes sense for string keys passed by JS callers. Runtime is unchanged because callers are .js, so the type is wrong but harmless today; low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 45,
+   "claim": "wrapIndex types index as number while its body handles string indices, hiding that branch from the type checker.",
+   "evidence": "Line 45 has `index: number`, yet lines 54-59 run `if (typeof index !== 'number') { const uint32Index = index >>> 0; if ('' + uint32Index !== index ...` and narrow `index` to `never`. JS callers such as List.js:71, Seq.js:166 and CollectionImpl.js:610 pass the user-supplied key through unchanged. Runtime is unchanged because the callers are .js, but a future TS caller passing a string key would be wrongly rejected, and edits inside the branch would not be checked.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "wholeSlice (TrieUtils.ts:68-73) checks `end === undefined` and `size !== undefined`, resolveIndex checks `index === undefined`/`size === undefined`, and SetRef guards `if (ref)`. JS callers such as Range.js:77 and Map.js:216 can pass undefined, so the required-number/Ref types misstate the contract. There is no runtime effect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 68,
+   "claim": "Signatures declare required number/Ref params that bodies test for undefined and callers pass undefined.",
+   "evidence": "`wholeSlice(begin: number, end: number, size: number)` checks `end === undefined` and `size !== undefined`. `resolveIndex(index: number, size: number, ...)` checks `index === undefined` and `size === undefined`. `SetRef(ref: Ref)` guards `if (ref)`. Callers like Range.js:77 `wholeSlice(begin, end, this.size)` from `slice(begin, end)` pass an undefined `end`, and Map.js:216 `SetRef(didChangeSize)` can pass an undefined ref. Optional or `| undefined` types would describe this correctly.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "TrieUtils.ts:34, 36 and 39 add three `@ts-expect-error` comments in ensureSize because `iter` is typed as the public Collection, which has no `size`/`__iterate`. The errors are suppressed, not fixed. This is a typing-quality concern only; low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/TrieUtils.ts",
+   "line": 34,
+   "claim": "New @ts-expect-error suppressions silence type errors instead of typing iter correctly.",
+   "evidence": "ensureSize has `// @ts-expect-error size should exists on Collection` at lines 34 and 39, and `// @ts-expect-error size should exists on Collection, __iterate does exist on Collection` at line 36. The parameter is typed `Collection<unknown, unknown>` even though the function reads and writes internal `size` and calls `__iterate`.",
+   "axis_row": "L5.4",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch changes four comments in src/utils/deepEqual.ts from 'size exists' to 'size should exists'. The edit is wording only and outside the TrieUtils conversion, and it adds a grammar error. It has no behavioural effect; low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/utils/deepEqual.ts",
+   "line": 22,
+   "claim": "Unrelated comment-only edits in deepEqual.ts introduce a grammar error.",
+   "evidence": "Four hunks change `// @ts-expect-error size exists on Collection` to `// @ts-expect-error size should exists on Collection` (lines 22, 38, 60, 94). This is wording only, with no behaviour change, in a file the conversion did not need to touch.",
+   "axis_row": "L6.22",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

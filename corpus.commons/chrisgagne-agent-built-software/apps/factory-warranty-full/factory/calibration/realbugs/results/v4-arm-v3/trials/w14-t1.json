@@ -1,0 +1,63 @@
+{
+ "id": "w14",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7286,
+ "codex_tokens": 32919,
+ "work": "<tmp>/replay-w14-t1-zich59f6",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch removes the constants import and inlines Symbol.for(\"constructDateFrom\") at index.js:97 and mini.js:234, while src/constants/index.ts:1 still exports constructFromSymbol = Symbol.for(\"constructDateFrom\"). Behaviour is the same today because Symbol.for returns the same registered symbol, so this is a low-severity maintenance risk.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/index.js",
+   "line": 97,
+   "claim": "The date-fns key is now written out as Symbol.for(\"constructDateFrom\") in index.js and mini.js instead of using the exported constructFromSymbol constant, so the key string now lives in three places.",
+   "evidence": "The diff removes `import { constructFromSymbol } from \"../constants/index.ts\"` and replaces `[constructFromSymbol](date)` with `[Symbol.for(\"constructDateFrom\")](date)` in src/date/index.js:97 and src/date/mini.js:234, while src/constants/index.ts:1 still defines `export const constructFromSymbol = Symbol.for(\"constructDateFrom\")` and src/index.ts re-exports it. The registry key \"constructDateFrom\" now lives in three places. Behaviour today is the same because Symbol.for returns the same registered symbol.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "index.d.ts:1 and :123 still use constructFromSymbol, and mini.d.ts imports only TZDate and declares no symbol member. Both resolve to the same symbol, though, and the mini.d.ts gap was there before this change. No story.md is in the packet, so the code can't settle whether the story meant to drop the dependency on constants from the types too.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/index.d.ts",
+   "line": 1,
+   "claim": "The type declarations still import constructFromSymbol from constants while the JS now inlines the key, so types and implementation name the key differently. mini.d.ts declares no constructDateFrom member.",
+   "evidence": "src/date/index.d.ts:1 `import { constructFromSymbol } from \"../constants/index.ts\";` and line 123 `[constructFromSymbol](date: Date | number | string): TZDate;` were left unchanged, while index.js/mini.js now use the inline `Symbol.for(\"constructDateFrom\")`. src/date/mini.d.ts declares no constructDateFrom member at all, even though mini.js:234 implements one.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "tests.ts:1606-1641 only creates new TZDate(...), and TZDate overrides the method at index.js:97, so mini.js:234 never runs in this test. A typo in the key inlined in mini.js would pass the suite. The gap existed before this change but now covers code the change edited.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/tests.ts",
+   "line": 1606,
+   "claim": "The only test of the constructDateFrom method builds TZDate instances, so the identical edit in TZDateMini (mini.js:234) has no test.",
+   "evidence": "The describe block at tests.ts:1606-1641 only builds `new TZDate(...)` and calls `date[constructFromSymbol](...)`. No test calls `[constructFromSymbol]` on a TZDateMini instance, even though src/date/mini.js:234 was changed the same way.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

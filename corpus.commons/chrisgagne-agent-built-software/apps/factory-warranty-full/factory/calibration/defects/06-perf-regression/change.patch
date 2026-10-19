@@ -1,0 +1,142 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index a9cd95f..1e1ef17 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -53,7 +53,7 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `POST /login` | no | Start a session; sets the `sid` cookie. |
+ | `POST /logout` | yes | End the session. |
+ | `GET /me`, `PATCH /me` | yes | Read or change your own name and date of birth. Email and password are not changed here. |
+-| `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
++| `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. Also `total` (how many notes match) and `topTags` (your five most-used tags with counts). |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/src/notes/repo.js b/src/notes/repo.js
+index 6358961..d5c0009 100644
+--- a/src/notes/repo.js
++++ b/src/notes/repo.js
+@@ -35,6 +35,22 @@ export function listNotes(db, userId, { limit = 20, offset = 0, tag = null } = {
+     .map(toNote);
+ }
+ 
++/** @returns {number[]} */
++export function listNoteIds(db, userId) {
++  return db
++    .prepare('SELECT id FROM notes WHERE user_id = ?')
++    .all(userId)
++    .map((row) => Number(row.id));
++}
++
++/** @returns {string[]} */
++export function getNoteTags(db, noteId) {
++  return db
++    .prepare('SELECT tag FROM note_tags WHERE note_id = ? ORDER BY tag')
++    .all(noteId)
++    .map((row) => String(row.tag));
++}
++
+ /** @returns {Note | null} */
+ export function getNote(db, userId, noteId) {
+   const row = db
+diff --git a/src/notes/routes.js b/src/notes/routes.js
+index d8cb0ff..e98cb8b 100644
+--- a/src/notes/routes.js
++++ b/src/notes/routes.js
+@@ -1,8 +1,9 @@
+ import { HttpError, sendJson } from '../http.js';
+-import { createNote, getNote, listNotes } from './repo.js';
++import { createNote, getNote, getNoteTags, listNoteIds, listNotes } from './repo.js';
+ 
+ export const DEFAULT_PAGE_SIZE = 20;
+ export const MAX_PAGE_SIZE = 100;
++export const TOP_TAG_COUNT = 5;
+ const TAG = /^[a-z0-9][a-z0-9-]{0,31}$/;
+ 
+ /** @param {Record<string, any>} body */
+@@ -29,6 +30,28 @@ function parsePaging(query) {
+   return { limit: Math.min(limit, MAX_PAGE_SIZE), offset };
+ }
+ 
++/**
++ * How many of the user's notes match `tag` (all notes when there is no tag), and their most-used tags.
++ * @param {any} db
++ * @param {number} userId
++ * @param {string | null} tag
++ */
++function noteStats(db, userId, tag) {
++  /** @type {Map<string, number>} */
++  const counts = new Map();
++  let total = 0;
++  for (const id of listNoteIds(db, userId)) {
++    const tags = getNoteTags(db, id);
++    if (!tag || tags.includes(tag)) total += 1;
++    for (const name of tags) counts.set(name, (counts.get(name) ?? 0) + 1);
++  }
++  const topTags = [...counts]
++    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
++    .slice(0, TOP_TAG_COUNT)
++    .map(([name, count]) => ({ name, count }));
++  return { total, topTags };
++}
++
+ /** @param {import('./repo.js').Note} note */
+ export function toNoteResponse(note) {
+   return {
+@@ -50,7 +73,8 @@ export function noteRoutes(router, { db, auth, now }) {
+     const { limit, offset } = parsePaging(req.query);
+     const tag = req.query.tag || null;
+     const notes = listNotes(db, req.user.id, { limit, offset, tag });
+-    sendJson(res, 200, { notes: notes.map(toNoteResponse), limit, offset });
++    const { total, topTags } = noteStats(db, req.user.id, tag);
++    sendJson(res, 200, { notes: notes.map(toNoteResponse), limit, offset, total, topTags });
+   });
+ 
+   router.post('/notes', auth, (req, res) => {
+diff --git a/test/notes-stats.test.js b/test/notes-stats.test.js
+new file mode 100644
+index 0000000..4574d1f
+--- /dev/null
++++ b/test/notes-stats.test.js
+@@ -0,0 +1,42 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { addNote, alice, bob, signUpAndLogIn, startTestApp } from './helpers/app.js';
++
++test('the notes list reports the total and the most-used tags', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const bobCookie = await signUpAndLogIn(app, bob);
++  await addNote(app, cookie, { title: 'a', tags: ['work', 'q3'] });
++  await addNote(app, cookie, { title: 'b', tags: ['work'] });
++  await addNote(app, cookie, { title: 'c', tags: ['home'] });
++  await addNote(app, bobCookie, { title: 'd', tags: ['home', 'garden'] });
++
++  const res = await app.request('GET', '/notes?limit=1', { cookie });
++  assert.equal(res.status, 200);
++  assert.equal(res.body.notes.length, 1);
++  assert.equal(res.body.total, 3);
++  assert.deepEqual(res.body.topTags, [
++    { name: 'work', count: 2 },
++    { name: 'home', count: 1 },
++    { name: 'q3', count: 1 },
++  ]);
++});
++
++test('the total counts only notes with the selected tag', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  await addNote(app, cookie, { title: 'a', tags: ['work'] });
++  await addNote(app, cookie, { title: 'b', tags: ['home'] });
++  const res = await app.request('GET', '/notes?tag=work', { cookie });
++  assert.equal(res.body.total, 1);
++});
++
++test('a new account has no notes and no tags', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const res = await app.request('GET', '/notes', { cookie });
++  assert.deepEqual({ total: res.body.total, topTags: res.body.topTags }, { total: 0, topTags: [] });
++});

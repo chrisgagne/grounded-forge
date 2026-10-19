@@ -1,0 +1,34 @@
+{
+ "id": "v06",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.2805,
+ "codex_tokens": 28793,
+ "work": "<tmp>/replay-v06-t2-vn_92nih",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff removes the BUILDSTRIPRE replace from parseRange (range.js:100). hyphenReplace at range.js:503 now builds from = `>=${from}-0` using the full '1.2.3+foo', which gives '>=1.2.3+foo-0'. Build identifiers can contain hyphens, so '+foo-0' is read as build metadata and the '-0' floor is lost. The bound becomes >=1.2.3, which excludes 1.2.3-alpha. I couldn't find story.md in the packet or the export, so breaks is left unset.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "classes/range.js",
+   "line": 100,
+   "claim": "With the parseRange build-metadata strip removed, a hyphen range whose lower bound has build metadata loses its '-0' prerelease floor when includePrerelease is set, so valid prereleases are rejected.",
+   "evidence": "parseRange now passes metadata into hyphenReplace, which appends '-0' to the full lower-bound string, producing '>=1.2.3+foo-0'; parseComparator then strips '+foo-0', losing the prerelease bound. Executing satisfies('1.2.3-alpha', '1.2.3+foo - 2.0.0', {includePrerelease:true}) returns false, while the equivalent range without '+foo' returns true.",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

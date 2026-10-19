@@ -1,0 +1,49 @@
+{
+ "id": "w10",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6582,
+ "codex_tokens": 43684,
+ "work": "<tmp>/replay-w10-t1-32pwerha",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "map.ts:2 imports isPlainObject from ../../common/object.ts and map.ts:67 still exports it. A grep finds no importer through map.ts: real_map.ts:2 and test/core/common/object.test.mjs:4 both import from common/object.ts. So the re-export is a leftover second path. It is cleanup only, with no behaviour change, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/tag/mapping/map.ts",
+   "line": 67,
+   "claim": "map.ts still re-exports isPlainObject after the helper moved to src/common/object.ts, leaving two import paths for one helper.",
+   "evidence": "map.ts:2 imports isPlainObject from '../../common/object.ts' and map.ts:67 still has `export { mapTag, isPlainObject, type StringMapping }`. A repo-wide grep finds no importer of isPlainObject from map.ts: real_map.ts:2 now imports from common/object.ts and the test imports from src/common/object.ts.",
+   "axis_row": "L4.27",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff removes the three-line contract comment from map.ts. src/common/object.ts lines 1-9 have the same function body and no comment, so the shared helper now has no stated contract. This is documentation only, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/common/object.ts",
+   "line": 1,
+   "claim": "The move dropped the comment that defined what a 'plain object' is and why both mapping tags depend on it.",
+   "evidence": "The diff removes from map.ts the comment \"A `{}`-style object: not null, not an array, with a plain or null prototype. Used both to identify the default mapping representation when dumping and to guard the real-`Map` tag's dump side.\" The new src/common/object.ts (lines 1-5) has the same function body and no comment.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

@@ -1,0 +1,88 @@
+# The 9-pass ingestion protocol, rationale
+
+The runbook is at [`.claude/skills/ingesting-resources/SKILL.md`](../../.claude/skills/ingesting-resources/SKILL.md). This document explains *why* the runbook is shaped the way it is. The two files are paired; running the protocol without the rationale produces an operator who follows steps without judgment, and reading the rationale without the runbook produces theory that does not land on a file.
+
+![A hand-drawn notebook page titled "THE 9-PASS PROTOCOL" in block caps. Subtitle: "one source in. four artefacts out. audit-gated." Pull-quote underneath: "selection beats reshape. but only if the projection survives the audit." At the top, a small box labelled "one source — PDF / EPUB → converted markdown." A downward arrow leads into a vertical cascade of five boxes: Pass A — Context (what is this source? full coverage check); Pass B — Structural read (shape, named cases, citation lineage); Pass C — Deep read with citations (every claim cited. evidence markers attached. this is where source-only discipline is built); Pass D — Blockquote extraction (the small set of passages that warrant verbatim treatment); Pass E — Synthesis (A-D assembled into canonical deep-reference shape). Below the cascade, a larger central box labelled "DEEP REFERENCE — the canonical artefact. everything downstream derives from this." From the Deep Reference, two arrows branch downward: left to Pass F — Light derivation → Light Reference (derived from Deep. does not re-read source); right to Pass G — Distillation projection → three small adjacent boxes labelled distillation · decision-making, distillation · stakeholder-engagement, distillation · {task}, with caption "one per applicable task axis. Pass G applicability gate decides which fire." A sideways arrow from the Deep Reference to the right leads to Pass H — Cross-reference, feeding into a stacked group labelled "runtime indexes" (reference-index, concept-index, task-index). Across the full width at the bottom of the page, a horizontal gate-shape labelled "Pass I — Source-only audit" with two stamps below: PASS (dashed clean) and FAIL — does not ship (with a refusing X mark). Caption underneath: "reads the deep reference cold. refuses anything that fails the trace test." Left-margin vertical annotation: "only Pass A and Pass C re-read the source. F, G, H, I never re-read source — they work from the audited deep." Bottom-right handwritten summary: "one source. five passes producing the deep. two passes deriving from the deep. one cross-reference step. one audit gate." The notebook sits on a wooden desk with a compass-rose ceramic mug top-right, a wooden ruler along the right edge, and a mechanical pencil at the bottom-left edge.](../assets/9-pass-protocol.png)
+
+*The protocol at a glance. Five passes build the deep reference (A-E). Two derive from it (F for the light, G for distillations × task axes). One cross-references into the runtime indexes (H). One gates the whole protocol against the source (I): whatever fails the trace test does not ship. F, G, H, and I never re-read the source; they work from the audited deep.*
+
+## A concrete example first
+
+An OpenStax source produces three files in this order (using *Organizational Behavior* as the worked example):
+
+1. The deep reference at [`references/openstax-organizational-behavior-deep.md`](../../references/openstax-organizational-behavior-deep.md).
+2. The light reference at [`references/openstax-organizational-behavior.md`](../../references/openstax-organizational-behavior.md).
+3. One distillation per task axis: the [decision-making projection](../../distillations/decision-making/openstax-organizational-behavior-decision-making.md) and the [stakeholder-engagement projection](../../distillations/stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement.md).
+
+Each is the same shape across the 28-source demo corpus.
+
+## Why projection at ingestion, not at query
+
+Standard RAG retrieves a chunk of source at query time and asks the model to assemble an answer. The reshape runs once per query, against context-window pressure, with hallucination risk on every call. If the same source is read by 1,000 queries, projection runs 1,000 times.
+
+The matrix shifts that work to ingestion. For each source, the 9-pass protocol produces a deep reference with verbatim citations, a derived light reference, and one distillation per task axis. Runtime is selection, not synthesis. If the same source is read by 1,000 queries, projection still runs once.
+
+The trade is operator time at ingestion against runtime cost forever after. The bet is that the same sources are read for the same handful of tasks repeatedly, and the work of mapping source to task is worth doing once and reusing. See [`docs/architecture/projection-time.md`](projection-time.md) for the full cost-curve argument.
+
+## Why source-only
+
+The whole value of a reference in this library is that "from the source" means what it says. Without a structural enforcement, training priors leak in: biographical asides the source never states, historical context the author never provides, connections to other authors the source never cites. None of those are obviously wrong; that is what makes them dangerous. They are plausible, they make the output read more naturally, and they cannot be audited because they are not grounded in any text.
+
+The protocol's source-only discipline is structural rather than aspirational. The deep reference cites every non-trivial claim. Each claim carries an evidence-class marker that says how the source supports it: verbatim ([V]), author paraphrase ([AP]), author argument ([AR]), author example ([AE]), or borrowed-through ([BT]). Pass I (the source-only audit) reads the finished deep reference cold and refuses to ship anything that fails the trace test. Light and distillations inherit the discipline because they derive from the audited deep without re-reading the source.
+
+This is the same rule documented in [`docs/architecture/source-integrity.md`](source-integrity.md). The protocol is how the rule lives in the procedure.
+
+## Why nine passes
+
+Each pass exists for a reason. The naming below corresponds to the sections in the runbook.
+
+- **Pass A: Context.** Confirming what the source is and that the full source is available, *before* any reading begins, prevents silent partial coverage from contaminating downstream work. A partial deep ref that claims completeness is worse than no deep ref at all. Pass A also captures the source's licence (the upstream legal status) and the operator's distribution scope (one of `open`, `open-nc`, `copyrighted`, `confidential`, `personal`); both ride on the deep ref. Licence governs attribution and derivative-rights; scope is a mechanical filter the build reads at compile time. They usually correlate but can diverge: a CC BY paper used inside a confidential engagement is Licence `CC BY 4.0`, Scope `confidential`. See [README.md](../../README.md#distribution-scope) for the taxonomy. Pass A optionally runs the *discovery scan*: a one-time LLM pass over the converted source that emits `_planning/discovery/{slug}.json` describing what author-curated artefacts (book index, page markers, headings, enumerated methods) survived conversion. The discovery JSON feeds Pass H's deterministic preprocessor; the scan re-runs on Pass H if Pass A skipped it.
+- **Pass B: Structural read.** Mapping the source's shape before reading for content keeps the deep read oriented. The author's named cases, signature contrarian positions, and citation lineage are signposts that the deep read uses; without them, the deep read drifts.
+- **Pass C: Deep read with citations.** Reading the source in full and attaching a citation to every non-trivial claim is where the source-only discipline is built. Every later pass operates on cited material.
+- **Pass D: Blockquote extraction.** Selecting the small number of passages that warrant verbatim treatment, and verifying their exactness against the source, gives the deep ref its load-bearing evidence. Blockquotes are expensive (they take space and risk introducing transcription errors); doing this in a dedicated pass keeps the discipline visible.
+- **Pass E: Synthesis.** Assembling Passes A-D into the canonical deep-reference structure (thesis, parts, key statistics, connections, framed-against positions). The structure is uniform across the corpus so downstream consumers know where to look.
+- **Pass F: Light-reference derivation.** Deriving the light ref from the verified deep without re-reading the source. The light ref is the file most queries will read first; producing it from the audited deep, not from the source, is what guarantees the light ref inherits the source-only discipline.
+- **Pass G: Distillation projection.** Producing one distillation per task axis. The projection from source-vocabulary to task-vocabulary happens here. Library-level synthesis (cross-reference integration) is permitted in this tier because distillations are derivative work; the deep tier remains faithful summary.
+- **Pass H: Cross-reference.** Driving the mechanical-index pipeline so the new source is routable from the runtime JSON indexes. Pre-migration, Pass H asked the ingesting LLM to author REFERENCE-INDEX entries and concept-A-Z pointers by inference and update per-task distillation indexes by hand. That shape drifted under load (live testing found canonical post-Agile references with zero concept-index entries despite being in the corpus) and confused the boundary between mechanical work and semantic work. The current shape splits the work explicitly: Python does the structural extraction and the index assembly; constrained LLM passes do the semantic work that needs judgment. Step-by-step in the [runbook](../../.claude/skills/ingesting-resources/9-pass-protocol.md) §Pass H. Three LLM steps inside Pass H: the *refs pass* (per-source frontmatter → `{author, year, title, primary_topic, concept_tags}`, delegated because frontmatter prose varies by source and a regex would mis-attribute silently), the *cross-link pass* (corpus-wide concept aliasing and novel-vs-existing decisions, the architectural-meat step the spec calls out as non-substitutable by regex), and the *topic pass* (filing every concept under the topics and debates a model reads to see what the library covers, one judgment per concept).
+- **Pass I: Source-only audit.** A final guard that reads the deep reference cold — in a fresh subagent, never the session that produced it — and refuses to ship anything that fails the trace test. The audit catches what the producing session missed only if it does not share that session's context: a session cannot see the training-priors it just wrote in as source-grounded, so an in-context self-audit certifies its own leakage. Independent eyes are the structural enforcement; the fresh subagent is what makes the read cold. A fresh read from the *same* model family still shares the producer's priors, so a second leg from a different family audits blind, then sorts both audits against the source. On the first source run through the Pass I driver (2026-10), the second family found 8 of the 11 confirmed defects that the same-family leg passed. The driver, [`scripts/pass_i/run.py`](../../scripts/pass_i/run.py), runs both legs, the sort, the stamp and a fidelity check of the derived tier as code. Each leg is a fresh headless `claude -p` or `codex exec` run, so no leg can share the producer's context.
+
+The split between deep-ref-producing passes (A-E), derived-artefact passes (F-G), corpus-integration (H), and audit (I) is what lets the protocol amortise cost across artefacts. Passes F and G do not re-read the source; the deep reference is the single source of truth for everything downstream.
+
+### A note on the discovery scan's tier recommendation
+
+The Pass A discovery JSON carries a `pass_h_tier_recommendation` field that names which mechanical-extraction tier (anchor-linked, page-marker-resolved, flattened-plaintext, inference-only) the scan thinks the source falls into. **Do not route Pass H from that field.** A 288-source scan during the mechanical-index migration showed ~57% drift between the recommendation and the canonical tier vocabulary; the field is noisy because the scanning agent's tier vocabulary varied. The deterministic preprocessor at [`scripts/mechanical_index/dispatch.py`](../../scripts/mechanical_index/dispatch.py) instead reads `book_index.shape`, `page_markers.present`, and `headings.quality` directly: the underlying observations the recommendation should have been computed from. Multi-tier sources fall out naturally: Forsgren's *Accelerate* has an anchor-linked List-of-Figures, a plaintext Quick Reference, and a flattened-plaintext back-matter index, and every applicable handler fires. The recommendation field is retained for diagnostic logging only; routing trusts the observations.
+
+## What this replaces
+
+In standard RAG, none of these passes happen. The system retrieves a chunk and asks a model to assemble an answer at query time. The reshape, the citation discipline, the evidence classification, and the audit all run (or do not run) inside one query-time generation.
+
+The matrix moves the work to ingestion. Citation discipline is enforced, evidence classification is recorded, and the audit runs once per source. Runtime is lookup.
+
+## When the protocol is the wrong tool
+
+- **Open-domain Q&A.** If the question space is unbounded and the task domain is unknown in advance, you cannot pre-project. RAG remains the right pattern.
+- **High-velocity sources.** If the corpus changes faster than ingestion time, the projection is stale before it ships.
+- **Single-projection use.** If a source is read for one task only, the matrix overhead is not earned. A single distillation plus a light ref is enough.
+
+## Cost of ingestion (observed)
+
+The protocol amortises cost over query-time use; that means it pays its full cost upfront. Concrete numbers from the May 2026 OpenStax pilot ingestion (the corpus has since grown to 28 sources with five task axes; the numbers below describe the original 12-book + two-axis baseline):
+
+- **Sources:** 12 OpenStax books, 165–995 source pages each (mean ~480 pages), ~5,800 source pages total.
+- **Output:** 8,602 deep-reference lines across the 12 books (mean ~717 lines per deep ref); plus 12 light references, 24 distillations (12 books × 2 axes at the time of the pilot), 12 Pass A ledgers, 12 Pass H verifications, 12 Pass I audit logs.
+- **Wall-clock:** the pilot landed at 20:32 on 2026-05-05; the remaining 11 books landed at 01:36 on 2026-05-06, giving ~5h 04min for 11 books, or roughly 28 min wall-clock per book when run in parallel batches of 3-5 sub-agents. Extrapolated, ~5h 30min total wall-clock for the 12-book corpus.
+- **Model and effort:** Opus 4.7 at `xhigh` effort with adaptive thinking. Token cost not separately recorded; estimable from line counts and OpenStax pricing if needed.
+- **Operator effort:** the per-book ingestion is largely orchestrated: kick off the skill, watch the run summary, intervene at the borderline applicability calls. The load-bearing operator decision is made *before* any source is ingested: which task axes does the corpus project onto, and what do those axes mean? That decision is made once at corpus-design time and lived with forever after. Per-source ingestion is mechanical; the axis design is where the operator's skill lands. (The framing is Bainbridge's, *Ironies of Automation*, 1983: as you automate the routine work, the residual human work concentrates in the design choices that the automation cannot make for you.)
+
+### Where the cost goes
+
+Later runs measured the bill per agent, at API list price, deduplicated by request. Generation is a small share: in an eight-source run in October 2026, output tokens were under 5% of a $377 bill. The rest is context carried across turns. Every turn re-reads the agent's whole context from the prompt cache, so an agent's cost is roughly its turn count times its context size. Four habits follow from that, and the runbook carries each:
+
+- **Load each input when its pass starts.** A producer reads the source and writes the deep reference before it loads task specs and example distillations. Loaded up front, they ride along on every turn of the source read.
+- **Read a long file in a few turns.** Issue the chunk reads in parallel in one response, not one chunk per turn.
+- **Keep page images out of long-context agents.** Check a scanned source's quotations against a second OCR first. Send only the disagreements to a small agent that looks at the page.
+- **Run Pass I as code.** An orchestrating session that sequences audit legs by hand pays a turn at its full context for every handback; in the eight-source run, orchestration was 27% of the bill.
+
+With those in place, a 12,000-word source (a 32-page course handout) cost about $31 end to end, including both audit legs and orchestration. That was about 30% less per thousand words than a comparable source in the eight-source run. A fork ingesting a 12-source corpus of books should still expect a bill in the hundreds of dollars at list price; on a subscription, the same work draws on usage limits instead.
+
+The architectural choice is whether the stable structure is the *source* or the *task*. The matrix bets on the task. The 9-pass protocol is what the bet pays for.

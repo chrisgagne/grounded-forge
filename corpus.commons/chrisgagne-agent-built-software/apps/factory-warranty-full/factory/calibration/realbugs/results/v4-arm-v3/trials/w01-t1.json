@@ -1,0 +1,58 @@
+{
+ "id": "w01",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.51,
+ "codex_tokens": 48771,
+ "work": "<tmp>/replay-w01-t1-59ka3nox",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1",
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "At apply.js:52-63 the loop breaks after the first marker, so for '-b', '\\', '+c', '\\' only addEOFNL is set and line 70-72 pushes '' (the result gains '\\n'). With '+' first, only removeEOFNL is set and line 67 returns false at fuzzFactor 0. The diff removes the old `if (addEOFNL)` branch inside `if (removeEOFNL)` that handled this case, so the earlier 'do nothing' behaviour is gone.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/patch/apply.js",
+   "line": 60,
+   "claim": "The new `break` stops the EOF-marker scan at the first '\\ No newline at end of file'. The diff also deletes the branch for the both-markers case. Together these mean that changing an unterminated final line now adds a trailing newline, or rejects a valid patch, depending on the order of the -/+ lines.",
+   "evidence": "In the loop at lines 52-63, a standard hunk such as `-b`, `\\ No newline at end of file`, `+c`, `\\ No newline at end of file` reaches the first marker after the '-' line. That sets `addEOFNL = true` and then hits `break`, so `removeEOFNL` is never set by the second marker. Control then reaches `else if (addEOFNL)` (line 70). For source 'a\\nb' the last element is 'b' (not ''), so `lines.push('')` runs and the final `resultLines.join('\\n')` returns 'a\\nc\\n' instead of 'a\\nc'. Before the change, both flags were set and this case was handled as 'do nothing'.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep of test/patch/apply.js shows every marker occurrence (133, 150, 166, 199, 326, 1417, 1505, 1519, 1535, 1549) appears only once per hunk. diff.patch touches only src/patch/apply.js.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/patch/apply.js",
+   "line": 1495,
+   "claim": "No test covers a hunk where both the old and new final lines carry the no-newline marker, so the regression gets through the suite.",
+   "evidence": "Every '\\\\ No newline at end of file' occurrence in test/patch/apply.js (lines 133, 150, 166, 199, 326, 1417, 1505, 1519, 1535, 1549) appears once per hunk. None has a hunk containing both `-x` + marker and `+y` + marker. diff.patch contains no test changes, only the src/patch/apply.js edit.",
+   "axis_row": "L3.9",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

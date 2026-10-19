@@ -1,0 +1,74 @@
+{
+ "id": "v10",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.7028,
+ "codex_tokens": 30510,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-v10-t1-jzcovapm",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff removes the invalidXRangeOrder check and its early return, and nothing replaces it. At range.js:405-425, M='x' sets xM and returns '*'; at range.js:462-463, '1.x.3' becomes '>=1.0.0 <2.0.0-0'. Before the change the comparator came back unchanged and the Comparator parser rejected it, so a range that used to be invalid now matches far more versions.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "classes/range.js",
+   "line": 403,
+   "claim": "Removing the invalidXRangeOrder guard makes misordered x-ranges that used to be rejected (x.1.2, *.1, 1.x.3) parse as broad ranges, e.g. satisfies('9.9.9','x.1.2') is now true.",
+   "evidence": "The diff removes `const invalidXRangeOrder = (M, m, p) => ((isX(M) && !isX(m)) || (isX(m) && p && !isX(p)))` and the early `if (invalidXRangeOrder(M, m, p)) { return comp }` from `replaceXRange`. The XRANGEPLAIN regex (internal/re.js:144-149) accepts `x|X|*` in any position, so `x.1.2` matches with M='x'. With the guard gone, `xM` is true and the code reaches `ret = '*'` (range.js:418-425), and `replaceStars` then turns that into '' (any version). For `1.x.3`, `xm` is true and the code reaches `ret = \">=1.0.0 <2.0.0-0\"` (line 462-463). Before the change the comparator came back unchanged, the Comparator constructor rejected it, and Range threw or `validRange` returned null. So `satisfies('9.9.9', 'x.1.2')` used to be false (invalid range) and is now true.",
+   "breaks": "AC-1",
+   "axis_row": "L5.15",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "acceptance.md only points to story.md, which is in neither the packet nor the export, and risk.json is empty. The diff only deletes the guard. Without the story I can't tell whether the removal was asked for.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "classes/range.js",
+   "line": null,
+   "claim": "Nothing in the packet asks for the validation to be removed; the change may be unrequested and weakens a check.",
+   "evidence": "acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests\". The packet holds no story.md or tests.lock. The whole diff is 9 deleted lines in classes/range.js and adds no new behaviour.",
+   "breaks": "story",
+   "axis_row": "L6.22",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "I grepped the export for leading or middle wildcard patterns (x.1, *.1, 1.x.2) and found no matches. The existing x-range fixtures only use trailing wildcards, so the removed branch was never tested.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/fixtures/range-parse.js",
+   "line": null,
+   "claim": "No test covers misordered x-ranges, so the locked suite cannot catch the guard's removal.",
+   "evidence": "Searching test/fixtures for patterns like `x.1`, `*.1` or `1.x.2` finds nothing. Every x-range fixture uses trailing wildcards only (e.g. `['2.x.x', '>=2.0.0 <3.0.0-0']`, `['2.*.*', ...]`), and the guard's branch only fires on leading or middle wildcards.",
+   "axis_row": "L3.4",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

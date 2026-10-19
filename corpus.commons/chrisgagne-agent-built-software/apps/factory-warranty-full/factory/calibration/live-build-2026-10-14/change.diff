@@ -1,0 +1,20 @@
+diff --git a/src/notes/routes.js b/src/notes/routes.js
+index d8cb0ff..c390fcc 100644
+--- a/src/notes/routes.js
++++ b/src/notes/routes.js
+@@ -13,8 +13,13 @@ export function validateNoteInput(body) {
+   if (typeof text !== 'string' || text.length > 20_000) {
+     throw new HttpError(400, 'body must be text of at most 20000 characters');
+   }
+-  const tags = body.tags ?? [];
+-  if (!Array.isArray(tags) || tags.length > 10 || !tags.every((tag) => typeof tag === 'string' && TAG.test(tag))) {
++  const raw = body.tags ?? [];
++  if (!Array.isArray(raw) || raw.length > 10 || !raw.every((tag) => typeof tag === 'string')) {
++    throw new HttpError(400, 'tags must be at most 10 lowercase words (a-z, 0-9 and -)');
++  }
++  // Phones capitalise the first letter, so save the lowercase, trimmed form.
++  const tags = raw.map((tag) => tag.trim().toLowerCase());
++  if (!tags.every((tag) => TAG.test(tag))) {
+     throw new HttpError(400, 'tags must be at most 10 lowercase words (a-z, 0-9 and -)');
+   }
+   return { title, body: text, tags: [...new Set(tags)] };

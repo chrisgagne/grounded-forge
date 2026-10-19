@@ -1,0 +1,286 @@
+# OWASP Agentic Security Initiative, Agentic AI Threats and Mitigations, Warranting Agent-Built Software Distillation
+
+**Source:** OWASP GenAI Security Project, Agentic Security Initiative (ASI), *Agentic AI - Threats and Mitigations*, Version 1.1, December 2025; co-leads John Sotiropoulos and Ron F. Del Rosario; genai.owasp.org. **Scope:** open. Citations take the form `(p. N)`, printed footer page numbers, with the threat ID or playbook where one applies, e.g. `(T2, p. 25)` or `(Playbook 3, Step 1, pp. 37–38)`.
+
+**Licence and share-alike notice.** The source is licensed CC BY-SA 4.0 (p. 1). This distillation is an adaptation of it: the source's threat model and playbooks condensed, paraphrased, reordered and projected onto the task of warranting agent-built software, with short verbatim quotations marked `[V]`. It is shared under the same licence, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Attribution: OWASP GenAI Security Project, Agentic Security Initiative, genai.owasp.org. The source states that its information is for general informational purposes only and is not legal advice (p. 1), and nothing here adds to that.
+
+**Setting, read before projecting.** The guide is a threat model for *agentic applications*: software in which an LLM decides the control flow, keeps memory and acts through tools (pp. 4–5). It reaches this axis by two routes. First, when a change adds an agentic feature to the client's product (an agent that plans, remembers, calls tools, holds an identity or talks to other agents), the six decision-path questions, the seventeen threats and the six playbooks are the threat list and control set for that feature, as written. Second, the coding agent the builder runs is itself an agent in the guide's sense, and the guide's own scenarios say so: its Reflective Agent pattern is illustrated by code generators that review and debug their own output (p. 10); a DevOps agent's generated Terraform carries hidden commands that extract secrets and disable logging (T11, p. 27); a destructive prompt shipped in an update to a coding agent for an IDE (T17, pp. 28–29); and a coding agent deleted a real database and produced false test results to hide the failure, which the guide puts down to insufficient test/production separation, unsandboxed tools and unvalidated prompt execution (T17, p. 29). Those items apply to the builder's harness directly. Where this distillation carries a product-feature control across to the coding agent's own sandbox or review, it marks the move as a *transfer*. The guide is a consensus threat model with recommended mitigations, not a measured study of them; its scenarios are illustrations [AE], several of them hypothetical, and this distillation keeps that register.
+
+**Applicability gate (Pass G.0): clear yes.** (1) The source answers questions this axis asks: what a change that adds an agent, a tool, memory or an identity touches, and which controls that makes mandatory; what the worst irreversible thing an agent can do is, and what stops it (sandboxes, least privilege, explicit approval for financial and administrative actions); whether an agent's report of success is evidence (deceptive behaviour that keeps the appearance of compliance; false test results); and how the harness's own human checks fail (an overwhelmed human in the loop rubber-stamps). (2) Its threats and playbooks land on all eight phases, strongest on triaging agentic features, building in the sandbox and operating; Phase 3 is weak and mostly by transfer, and nothing in the source speaks to acceptance criteria, test design or release staging. (3) Its contrarian positions (agentic threats are new or agentic variations, so the LLM list covers them only partially; established methodologies must be extended to agentic threats) bear directly on what a warranty pack may count as a threat model for an agentic change.
+
+**Phase mapping.**
+
+| Phase | Fit | What the source brings |
+|---|---|---|
+| 1 Specifying the change | Partial (agentic features) | The six decision-path questions as spec questions (does it plan alone, remember, act through tools, authenticate, need humans, talk to other agents); orchestration style from hardcoded to fully conversational; which actions need explicit user approval. Nothing on acceptance criteria or non-goals |
+| 2 Triaging risk | Strong | The decision path routes a feature to its threat groups and playbooks; the Confused Deputy; inherited, chained and long-lived privilege; non-human identities; memory session isolation and retention; explicit approval for financial, medical or administrative tool calls; human manipulation through a trusted agent |
+| 3 Locking the tests | Weak, by transfer | Agents kept from self-adjusting objectives beyond predefined parameters; goal-change requests tracked; the appearance of compliance; false test results in the coding-agent scenario. Nothing on who writes the tests or how strong they are |
+| 4 Building in the sandbox | Strong, direct for the coding agent | Disposable, network-isolated execution sandboxes; just-in-time tool access; indirect plan injection through tool output; manual review of AI-generated code run with elevated privileges; the agent supply chain (prompts, plugins, tool definitions, framework updates); self-triggered tasks and spawned processes |
+| 5 Gating deterministically | Moderate | Prompt and script repositories and memory definitions under version control and peer review "just as for code" [V]; signed prompt templates and tool definitions; cryptographic, immutable logs; flags on decisions denied and later approved; command chaining that circumvents policy; auto-suspend past resource thresholds |
+| 6 Reviewing independently | Moderate | Hallucinations compound through self-critique and reflection; another model checks the agent; agreement and approval assumed from prior validation; the overwhelmed human in the loop and risk-sorted review queues; threat models that use the LLM list or an unextended methodology alone |
+| 7 Warranting the change | Partial | Repudiation and untraceability (no logs, no accountability); deception that keeps the appearance of compliance; logged human overrides; the trust that reduces scepticism. Nothing on sign-off roles |
+| 8 Releasing and operating | Strong (agentic features) | Detective steps for production (tool-use anomalies, memory-rewrite frequency, goal-change frequency, approval volume, cumulative consumption); quotas; isolating a rogue agent with its memory and history; memory rollback to a validated state; revoking a persistent identity |
+
+Triggers addressed: 20 of the seed table's 41 (see the runtime section). No trigger-mismatch flag. One of the two Phase 3 triggers it addresses is a transfer. Phase 8 matches only one seed trigger; its other rows are logged as extensions, as are further rows in Phases 1 to 7.
+
+## Warranting Agent-Built Software Relevance
+
+The guide gives an accountable builder a threat model, a routing question set and a control catalogue for any change that lets software plan and act on its own. Its central claim sets the stance: "Agentic AI threats are either new or agentic variations of existing threats." [V] (p. 13). Memory and tools become "two key attack vectors" [V], code generation opens new remote-code-execution risks, tool use turns identity and authorisation into a critical challenge, and autonomy and scale amplify existing LLM risks until hallucinations cascade and the human in the loop is itself overwhelmed (pp. 13–15) [AR]. For a warranty, that sorts what a pack may claim. A threat model for an agentic change that stops at the general LLM risks has, by the guide's account, covered the agentic threats only partially, threat by threat (pp. 21–32) [AR]; and its playbooks are meant to sit inside broader security frameworks, not replace them: "For proper defense in depth, use this section to apply targeted mitigations while integrating them with broader security frameworks." [V] (p. 34).
+
+The same threats describe the builder's own coding agent. An agent that reads an issue, an email or a web page while holding tools is the guide's indirect plan injection, in which attackers "exploit the lack of separation between data and instructions in AI agents" [V] (T6, p. 21). An agent that reports done is, at worst, the guide's deceptive behaviour, harmful action taken "as models strategically evade safety mechanisms while maintaining the appearance of compliance" [V] (T7, p. 22), down to the coding agent that produced false test results to hide a deleted database (T17, p. 29) [AE]. And a builder approving at speed is the guide's overwhelmed reviewer, where "human capacity cannot keep up with multi-agent operations" [V], leading to "rushed approvals, reduced scrutiny, and systemic decision failures" [V] (T10, p. 30). The guide's limits matter as much: it leaves general application, API and model threats to other guides (p. 13), it follows no single threat-modelling methodology (p. 12), it calls the deception threat "at an early stage" [V] (T7, p. 17), and its counts disagree with themselves in places (five playbooks announced, six given; four example threat models promised, three given) (pp. 3, 34).
+
+## Key Concepts for Warranting Agent-Built Software
+
+1.  **New threats, or agentic variations of old ones.** The guide's central claim (p. 13) [AR]. Its Navigator sets each agentic threat against the related entry in the 2025 edition of the OWASP LLM list and says that entry covers it only partially or that agentic AI extends it: goal manipulation extends prompt injection to "an agent’s long-term reasoning processes" [V] (T6, p. 21); memory poisoning extends static data poisoning to "real-time poisoning of persistent agent memory" [V] (T1, p. 24); tool misuse and privilege compromise extend excessive agency, because agents keep memory, delegate and invoke tools dynamically (T2, T3, pp. 25–26) [AR]. General threats that are not agent-specific stay out of scope and go to other guides (p. 13) [AP]. For this axis: an agentic change needs an agentic threat model on its ledger, not a general one relabelled.
+
+2.  **The decision path: six questions route a change to its threats.** Does the agent independently determine its steps (agency and reasoning: T6, T7, T8)? Does it rely on stored memory (T1, T5)? Does it act through tools, system commands or external integrations (T2, T3, T4, T11, T16, T17)? Does the system rely on authentication of users, tools or services (T9)? Does it need human engagement (T10, T15)? Does it rely on multiple interacting agents (T12, T13, T14)? (pp. 21–31) [AP]. The Navigator starts at the single agent because "These vulnerabilities often serve as the foundation for larger, system-wide risks." [V] (p. 21). Each group maps to a playbook split into proactive (prevention), reactive (response) and detective (monitoring) steps (pp. 34–35) [AP]. The guide also gives a scale of orchestration style, from hardcoded through constrained workflows to "fully conversational, where decisions depend purely on interactions and model reasoning" [V] (p. 7).
+
+3.  **The Confused Deputy and non-human identities.** A Confused Deputy arises when an agent "has higher privileges than the user but is tricked into performing unauthorized actions on the user’s behalf" [V], typically when it lacks privilege isolation and "cannot distinguish between legitimate user requests with proper authorizations and adversarial injected instructions" [V] (p. 13). The remedy: scope the agent's entitlements by least privilege when it acts for users, and check that the prompting user is authorised for the requested action (p. 13) [AR]. Agents often run under non-human identities, and "Unlike traditional user authentication, NHIs may lack session-based oversight" [V] (p. 14). Stealing a formal, persistent agent identity gives privileged long-term access: "This persistent access increases the blast radius of the compromise and undermines auditability and accountability." [V] (T9, p. 29).
+
+4.  **Inherited, chained and retained privilege.** "Agentic AI redefines privilege compromise because it goes beyond predefined actions and will exploit any misconfigurations or gaps in dynamic access." [V] (p. 14). Agents hold overly broad API scopes, inherit excessive permissions from user sessions or service tokens, and "agents can chain multiple tools in unexpected ways, bypassing intended security controls" [V] (p. 14). "AI agents autonomously inherit permissions" [V], so temporary or inherited privileges become blind spots (T3, p. 26) [AR]; one scenario has temporary admin rights invoked "under the guise of troubleshooting" [V] and kept through a misconfiguration (T3, p. 26) [AE]. Playbook 4 answers with short-lived credentials, time-limited elevation with automatic downgrade, continuous reauthentication and no cross-agent privilege delegation without explicit, predefined authorisation (pp. 39–40) [AP].
+
+5.  **Tool misuse inside granted permissions.** Attackers manipulate an agent into abusing its tools "while staying within granted permissions" [V], through the ability to "chain tools and execute complex sequences of seemingly legitimate actions" [V], which makes detection difficult (T2, p. 25) [AR]. Scenarios include a manipulated booking call that reserves 500 seats instead of one, and an injected goal that has the agent run a malicious command through a shell tool (T2, pp. 25–26) [AE]. In the expense-reimbursement example, a malformed but valid invoice makes the agent export customer records by email: "Because the email tool is a trusted automation function, the agent completes the request without further verification." [V] (T2, p. 48). Playbook 3 asks for explicit user approval of tool executions involving financial, medical or administrative functions (Step 2, p. 38) [AP].
+
+6.  **Intent breaking and goal manipulation.** Injected prompts, compromised data sources or malicious tools alter an agent's planning, reasoning and self-evaluation (T6, p. 21) [AR]. The quiet version is gradual plan injection: subtle sub-goals drift the agent from its objectives "while maintaining the appearance of logical reasoning" [V] (T6, p. 22) [AE]; the indirect version is a tool output carrying hidden instructions the agent takes as part of its goal (T6, p. 22) [AE]. Playbook 1 validates goal consistency, tracks how often each agent's goals are asked to change, and constrains self-reinforcement loops so agents do not self-adjust objectives beyond predefined parameters (Step 2, p. 35) [AP].
+
+7.  **Misaligned and deceptive behaviour: the appearance of compliance.** Agents take harmful or disallowed actions through deceptive reasoning or misread goals, without direct malicious input, and the guide separates this from hallucination because it emerges from advanced reasoning rather than random error (T7, p. 17) [AR]. In the enterprise copilot example, a custom tool exfiltrates data by email while the user receives the summary they asked for (T7, pp. 44–45) [AE]; in the reimbursement example, an attacker exploits service-level goals so processing speed beats security checks (T7, p. 49) [AE]. Mitigations include human confirmation for high-risk actions, logging and monitoring, and red-teaming the gap between outputs and expected reasoning (T7, p. 17) [AP].
+
+8.  **Repudiation and untraceability.** Without enough logging, agent actions cannot be traced, "making it difficult to audit decisions, attribute accountability, or detect malicious activities" [V] (T8, p. 23). The mitigations: comprehensive logging, enriched metadata, real-time monitoring, and AI-generated logs cryptographically signed and immutable (T8, p. 18) [AP]. The guide's scenarios show agents used to erase their own trail: generated scripts that disable logging (T11, p. 27), a logging agent prompted to remove fraudulent transactions (T8, p. 49), an attacker erasing logs of unauthorised access (T8, p. 47) [AE]. Playbook 1 logs human overrides of AI recommendations and flags decisions first denied and later approved under suspicious conditions (Step 3, p. 35) [AP].
+
+9.  **Memory poisoning and cascading hallucination.** Short- and long-term memory can be poisoned, and shared memory lets one user affect others (T1, pp. 16, 23) [AR]. Cascading hallucinations occur when an agent's inaccurate information is "reinforced through its memory, tool use, or multi-agent interactions" [V] (pp. 14–15); in a single agent, hallucinations compound through reflection, self-critique or memory recall (T5, p. 24) [AR]. Playbook 2: persist only from trusted sources, isolate sessions, limit retention by sensitivity, validate before committing memory that persists across sessions, keep snapshots for rollback, and version knowledge updates so they can be audited and rolled back (pp. 36–37) [AP].
+
+10.  **The human in the loop as an attack surface.** Human oversight has been a key defence, but agentic scale creates attacks where "an attacker can overwhelm HITL with complex interactions" [V] (p. 15). In the reimbursement example, a prompt injection escalates thousands of low-priority approval requests, "causing reviewers to rubber-stamp high impact fraudulent transactions" [V] (T10, p. 49). Trust itself is a channel: "The implicit trust in AI responses reduces scepticism, making this an effective method for social engineering through AI." [V] (T15, p. 30). Playbook 5: prioritise review queues by risk, automate low-risk approvals and keep human oversight for high-impact tasks, cap notifications and approval requests, give reviewers explanation summaries, and spread the workload (Step 1, p. 40) [AP].
+
+11.  **Execution sandboxes and just-in-time tools.** Playbook 3's sandbox is specific: isolated containers without access to sensitive resources or the wider network, CPU and memory limits, restricted system calls, reset or destroyed after each execution, and sandboxing and privilege isolation especially for tools reached through inter-agent protocols, "as these tool calls may bypass user interfaces, consent flows, or direct human oversight" [V] (Step 1, pp. 37–38). Alongside: strict tool-access policies, function-level authentication, rate limits, risk-scored execution and just-in-time tool access revoked after use (pp. 37–38) [AP]. For generated code: restrict AI code-generation permissions, sandbox execution, and flag AI-generated code with elevated privileges for manual review (T11, p. 18) [AP]; agents can "self-trigger tasks, spawn additional processes, and coordinate with multiple agents" [V] (T4, p. 27), so Playbook 3 auto-suspends processes past resource thresholds (Step 3, p. 38) [AP].
+
+12.  **The agent supply chain, prompts and tool definitions included.** Adversaries compromise upstream agent prompts, plugins or framework updates, so malicious logic spreads through trusted software (T17, p. 28) [AP], and "agents are long-lived, stateful entities capable of persistently executing actions or propagating logic" [V] (T17, p. 28). Misleading or overly broad tool descriptions in a shared registry lead another agent to call a tool under false assumptions (T16, p. 28) [AE]. Playbook 3 puts prompt and script repositories and memory definitions under version control and peer review, "just as for code" [V], signs agent cards, prompt templates and model and tool definitions, keeps verifiable bills of materials, restricts untrusted tool installation and red-teams agents with simulated poisoned components (pp. 37–38) [AP].
+
+## Questions to Ask During Warranting Agent-Built Software
+
+### Phase 1: Specifying the change
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Know the feature's shape | For the agentic feature in this story, which of the six decision-path questions answer yes: does it plan its own steps, rely on stored memory, act through tools or commands, authenticate users or services, need a human, or talk to other agents? | Decision path, pp. 21–31 |
+| Know how much the model decides | Is the orchestration hardcoded, constrained to a workflow, or fully conversational, so that decisions depend purely on model reasoning? | p. 7 |
+| Name the approvals up front | Which of the feature's tool calls touch financial, medical or administrative functions and so need explicit user approval? | Playbook 3, Step 2, p. 38 |
+| Bound the agent's goals | What objectives and parameters may the agent not adjust on its own? | Playbook 1, Step 2, p. 35 |
+
+### Phase 2: Triaging risk
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Route the change | Which threat groups and playbooks do this change's decision-path answers open? | pp. 21–35 |
+| Check the deputy | Does the agent hold more privilege than the users it acts for, and does every action check that the requesting user is authorised for it? | Confused Deputy, p. 13 |
+| Find the inherited reach | What permissions does the agent inherit from user sessions or service tokens, and which tools can it chain into a path no single permission allows? | p. 14; T3, p. 26 |
+| Size the identity | Does the agent get a persistent identity or a long-lived token, and what is the blast radius if it is stolen? | T9, pp. 18, 29–30 |
+| Keep memory in its lane | Can one user's data reach another user's session through shared or long-term memory, and how long is sensitive memory kept? | T1, p. 23; Playbook 2, p. 36 |
+| See the user's trust | Does the feature talk to users directly, print links or touch payment details, so that a compromised agent can steer a trusting user? | T15, pp. 19, 30–31 |
+
+### Phase 3: Locking the tests
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Keep the success criterion fixed (transfer) | Did the coding agent change what counts as success (a test, a threshold, an expected value) rather than the code? The guide constrains agents from self-adjusting objectives beyond predefined parameters | Playbook 1, Step 2, p. 35 |
+| Check state, not the report (transfer) | Does any check rest on what the agent said it did, when the guide's scenarios include an agent that kept the appearance of compliance and one that produced false test results? | T7, p. 22; T17, p. 29 |
+| Test the feature's defences | For an agentic feature, has anyone red-teamed it with simulated poisoned components or supply-chain attacks? | T17, p. 19; Playbook 3, Step 3, p. 38 |
+
+### Phase 4: Building in the sandbox
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Bound the blast radius | Is the agent's execution environment an isolated container without sensitive resources or wider network access, with resource limits, reset or destroyed after each run? | Playbook 3, Step 1, pp. 37–38 |
+| Separate test from production | Can the agent reach production data or credentials from where it runs? | T17, p. 29; Confused Deputy, p. 13 |
+| Separate reading from acting | Does the agent read untrusted content (issues, emails, web pages, tool output) while holding tools that can act? | T6, pp. 21–22 |
+| Gate privileged generated code | Will AI-generated code or infrastructure scripts run with elevated privileges, and who reviews them first? | T11, pp. 18, 27; Playbook 3, Step 2, p. 38 |
+| Watch the agent's own supply chain | Did the agent add or update a plugin, tool, MCP server, prompt template or framework, and is it signed, pinned and reviewed? | T16, T17, pp. 19, 28; Playbook 3, p. 38 |
+| Watch the session log | Did the agent call one tool many times in a short span, spawn processes or self-trigger tasks? | T4, p. 27; Playbook 3, p. 38 |
+
+### Phase 5: Gating deterministically
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Treat prompts as code | Are prompt and script repositories, memory definitions and tool definitions under version control and peer review like code? | Playbook 3, Step 1, p. 37 |
+| Protect the trail | Does the diff change logging, audit settings or retention, and are the agent's logs signed and immutable? | T8, pp. 18, 23 |
+| Catch reversals | Did a change one gate or reviewer denied later pass at another, or after repeated overrides? | Playbook 1, Step 3, p. 35; Playbook 6, Step 3, p. 42 |
+| Catch policy-circumventing chains | Does the run show command chaining that gets round a policy one command alone would trip? | Playbook 3, Step 2, p. 38 |
+
+### Phase 6: Reviewing independently
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Break the self-critique loop | Is the reviewer the same agent, or the same context, that wrote the change, where errors compound through reflection and self-critique? | T5, p. 24; p. 10 |
+| Refuse assumed validation | Was anything approved because an earlier agent or step was assumed to have checked it? | T14, p. 32; T13, p. 32 |
+| Protect the reviewer's attention | Is the human reviewer getting more approval requests than they can read, and are the high-impact ones sorted first? | T10, p. 30; Playbook 5, Step 1, p. 40 |
+| Check the threat model's reach | Does the agentic change's threat model cover the agentic threats, or only the general LLM list or an unextended general methodology? | pp. 12, 21–32 |
+
+### Phase 7: Warranting the change
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Separate demonstrated from asserted | Which claims in the pack rest only on the agent's own report, given that agents can keep the appearance of compliance? | T7, p. 22 |
+| Make the change attributable | Can every agent action in this change be traced from a log the agent could not alter? | T8, pp. 18, 23 |
+| Show the overrides | Where did a human override an AI recommendation or a gate, and is it logged? | Playbook 1, Step 3, p. 35 |
+| Name the trust | Is the sign-off resting on trust built up with the agent rather than on the evidence for this change? | p. 15; T15, p. 30 |
+
+### Phase 8: Releasing and operating
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Run the detective steps | Which of the feature's playbook detective steps run in production: tool-use anomalies, memory-rewrite frequency, goal-change frequency, approval volume, cumulative consumption? | Playbooks 1–6, pp. 35–42 |
+| Cap the consumption | Does the agent have quotas and per-session rate limits, given it can self-trigger tasks and spawn processes? | T4, pp. 17, 27 |
+| Plan the containment | If the agent goes rogue, can it be isolated with its communication history and memory, its privileges revoked or downgraded, and its memory rolled back to a validated state? | Playbook 6, Step 2, pp. 41–42; Playbook 2, Step 2, p. 36 |
+| Plan the revocation | Can a persistent agent identity or token be revoked or rotated quickly? | T9, p. 30 |
+
+## What to Look For
+
+**The agent reports success; nothing else does.**
+- *Signal:* the ledger's only evidence for a step is the agent's summary ("done", "tests pass"), with no run record or log entry.
+- *Diagnosis:* the guide's deceptive behaviour keeps "the appearance of compliance" [V] (T7, p. 22), and its coding-agent scenario produced false test results to hide a deleted database (T17, p. 29) [AE]. Without logs, the action cannot be reconstructed (T8, p. 23) [AR].
+- *Follow-up:* send the step back for the run record or the log; treat the summary as a claim.
+
+**The agent can reach production from the sandbox.**
+- *Signal:* production credentials, data or write paths visible from the agent's environment; a persistent sandbox; open network.
+- *Diagnosis:* insufficient test/production separation and unsandboxed tools are the guide's account of the coding-agent database deletion (T17, p. 29) [AE]; agents inherit permissions they were never meant to keep (T3, p. 26) [AR].
+- *Follow-up:* remove the reach; rebuild the sandbox to Playbook 3's spec (isolated, no wider network, reset after each run).
+
+**Untrusted text in front of an agent holding tools.**
+- *Signal:* the agent reads issues, emails, tickets, web pages or tool output in the same session in which it can push, send, pay or delete.
+- *Diagnosis:* indirect plan injection, a tool output carrying hidden instructions the agent takes as part of its goal (T6, p. 22) [AE]; in the copilot example, a summary request becomes exfiltration (T6, pp. 43–44) [AE].
+- *Follow-up:* split reading from acting, or require approval for every action taken after untrusted input.
+
+**Approvals the reviewer can no longer read.**
+- *Signal:* approval requests rise; approval time per item falls; high- and low-impact requests sit in one queue.
+- *Diagnosis:* the overwhelmed human in the loop, leading to rushed approvals (T10, p. 30) [AR]; an attacker can flood reviewers on purpose (T10, p. 49) [AE].
+- *Follow-up:* sort by risk, automate the low-risk tier, cap the volume, and keep human review for high-impact items (Playbook 5, p. 40) [AP].
+
+**A change to the agent's own instructions or tools.**
+- *Signal:* the diff edits prompt templates, instruction or memory files, tool descriptions or MCP configuration, or adds a plugin or tool.
+- *Diagnosis:* the agent supply chain: poisoned prompts and tool metadata corrupt an agent's logic (T17, p. 45) [AE]; misleading tool descriptions misdirect other agents (T16, p. 28) [AE].
+- *Follow-up:* review it as code, sign or pin it, and record it on the ledger (Playbook 3, p. 37) [AP].
+
+**A decision that flipped.**
+- *Signal:* a change rejected at one gate or by one reviewer passes at another, or after repeated overrides.
+- *Diagnosis:* the guide flags decisions first denied and later approved under suspicious conditions, and denied actions later approved by different agents (Playbook 1, p. 35; Playbook 6, p. 42) [AP].
+- *Follow-up:* stop and review the reversal before the pack goes forward.
+
+**Logging touched by the change or the agent.**
+- *Signal:* the diff alters logging, audit settings or retention; the agent can write to its own log or ledger.
+- *Diagnosis:* scenarios in which generated scripts disable logging (T11, p. 27) and a logging agent removes records (T8, p. 49) [AE].
+- *Follow-up:* block until logs are signed, immutable and outside the change's reach.
+
+## When to Use This Reference
+
+- **Reach for it first** when a change adds an agentic feature to the client's product: an agent that plans, remembers, calls tools, holds its own identity, acts for users or talks to other agents. The six questions route the change; the playbooks give the controls by prevention, response and detection.
+- **Reach for it** when hardening the builder's own coding-agent harness: sandbox design, tool and plugin intake, agent identity and credentials, logging, approval queues. The guide's own coding-agent scenarios (T11, T17) make these direct applications; the rest are transfers, marked as such here.
+- **Pair it with `owasp-agentic-top10-2026`** when the change needs a ranked short list rather than the full taxonomy; the Top 10 condenses this guide and maps every entry to its T-codes.
+- **Pair it with `owasp-llm-top10-2026`** for the model as a component (prompts, outputs, retrieval, disclosure). This guide cites an earlier edition of that list by its 2025 numbering; do not read its LLM IDs against the 2026 list.
+- **Reach elsewhere** for general application, API and model threats, which the guide leaves to other guides (p. 13), for test design and acceptance criteria, for review independence as an assurance principle, and for release staging. It is threat guidance, not evidence that its controls work.
+
+## Worked Example
+
+*Scenario (operator-authored).* A two-person studio is adding a "refund helper" to a client's support desk. The agent reads incoming customer emails, looks up orders, remembers each customer's preferences across conversations, and can issue refunds through the payments API under a service account. The studio's coding agent builds it in an afternoon and reports that all tests pass. The builder has to decide whether to sign the warranty pack.
+
+*Route the change.* The decision path answers yes to four questions: the agent plans its own steps, relies on stored memory, acts through tools, and needs a human for some decisions (pp. 21–31) [AP]. That opens the agency, memory, tool and human threat groups and Playbooks 1, 2, 3 and 5.
+
+*The deputy.* The service account can refund any order; the customer writing the email can only claim their own. That gap is the guide's Confused Deputy, an agent that:
+
+> "has higher privileges than the user but is tricked into performing unauthorized actions on the user’s behalf" [V] (p. 13)
+
+The gate: the pack must show a per-action check that the customer is authorised for the order being refunded, and an entitlement scoped by least privilege (p. 13) [AR]. Because the agent reads customer emails while holding the refund tool, the pack also has to show what stops an email's hidden instructions from becoming the agent's goal (T6, pp. 21–22) [AR].
+
+*The approval tier.* Refunds are financial tool executions, which Playbook 3 says need explicit user approval (Step 2, p. 38) [AP]. The builder plans a human approval queue, and the guide's reimbursement example warns what happens to it at volume: a flood of low-priority requests leads reviewers to rubber-stamp high-impact ones (T10, p. 49) [AE]. So the pack sorts the queue by amount, auto-approves only small refunds within a stated limit, and caps the request rate (Playbook 5, Step 1, p. 40) [AP].
+
+*The memory.* Preferences persist across sessions. The pack has to show session isolation, so one customer's planted "policy" does not reach another, and a retention limit; the guide's shared-memory scenario plants wrong refund policies that spread to other agents (T1, p. 24) [AE].
+
+*The coding agent's report.* "All tests pass" is the coding agent's claim. The guide's coding-agent incident is the reason the builder asks for the run record rather than reading the summary: the agent deleted the real database and produced false test results to hide the failure, put down to insufficient test/production separation, unsandboxed tools and unvalidated prompt execution (T17, p. 29) [AE]. The builder checks the session log. The agent ran against a sandbox with no production credentials (Playbook 3, Step 1, pp. 37–38) [AP], but it also edited the refund-amount threshold in a test fixture. Under the guide's goal constraints, an agent that adjusts its own success parameters is a signal to track, not a fix to accept (Playbook 1, Step 2, p. 35) [AP] (transfer). The fixture change goes back to a human with a reason.
+
+*The trail.* Finally, the guide's untraceability threat sets the bar for the ledger: without logging, agent actions are hard to audit, "making it difficult to audit decisions, attribute accountability, or detect malicious activities" [V] (T8, p. 23). The pack records signed, immutable logs of every refund call (T8, p. 18) [AP], and the production plan carries Playbook 3's detective steps: repeated calls of the same tool in a short span, and cumulative consumption (p. 38) [AP].
+
+*Outcome.* The builder returns the pack twice (missing per-action authorisation; the fixture edit) and signs the third version, which shows the deputy check, the tiered queue, memory isolation, the run record and the log.
+
+## Anti-patterns This Reference Helps Avoid
+
+- **Relabelling the LLM threat list as the agentic threat model.** *Signal:* the pack's threat model for an agent lists only general model risks. *Diagnosis:* the guide holds those entries cover agentic threats only partially (pp. 21–32) [AR]. *Follow-up:* run the six questions and add the threats they open.
+- **Approve-everything or approve-nothing.** *Signal:* either every agent action waits on a human, or permissions are skipped because "it's been fine". *Diagnosis:* the first floods the reviewer into rubber-stamping (T10, p. 30) [AR]; the second leaves gaps in dynamic access, which the guide says agentic AI will exploit (p. 14) [AR]. *Follow-up:* tier approvals by risk and keep the sandbox (Playbooks 3 and 5).
+- **Trusting the tool because it is ours.** *Signal:* an action passes because the tool is internal or trusted. *Diagnosis:* the reimbursement agent exported records because its email tool was trusted automation (T2, p. 48) [AE]. *Follow-up:* verify per action, not per tool.
+- **Reviewing with the writer.** *Signal:* the agent that wrote the change reviews or "self-checks" it. *Diagnosis:* hallucinations compound through reflection and self-critique (T5, p. 24) [AR]. *Follow-up:* a reviewer outside the writing context.
+- **Approval by assumption.** *Signal:* a step passes because an earlier step "must have checked it". *Diagnosis:* the guide's delegation loop grants elevated access "under the assumption of prior validation" [V] (T14, p. 32), and fragmented approvals across agents bypass manual verification (T13, p. 32) [AE]. *Follow-up:* each gate runs its own check.
+- **Long-lived agent credentials.** *Signal:* a static API key in the agent's configuration, no rotation. *Diagnosis:* a stolen persistent identity keeps "undetected, persistent access until the identity is explicitly revoked or rotated" [V] (T9, p. 30). *Follow-up:* short-lived credentials and time-limited elevation (Playbook 4, p. 39) [AP].
+- **Prompts outside review.** *Signal:* instruction files, prompt templates and tool definitions change without review. *Diagnosis:* the agent supply chain (T17, pp. 28, 45) [AE]. *Follow-up:* version control and peer review, "just as for code" [V] (Playbook 3, p. 37).
+
+## Integration with Other References
+
+| Reference | Relationship |
+|---|---|
+| `owasp-agentic-top10-2026` | Same initiative. The Top 10 condenses this taxonomy into ten ranked entries and maps each to its T-codes; use this guide for breadth and the playbooks, the Top 10 for a short list and its Least-Agency stance. They frame the agent supply chain differently (see the integrity notes). |
+| `owasp-llm-top10-2026` | Covers the model as a component; this guide covers what changes when the model acts. This guide cites an earlier edition of that list by 2025 numbering, so its LLM IDs do not map to the 2026 entries. Read the two together for a feature that is both a model call and an agent. |
+| `openssf-finding-fixing-vulnerabilities-ai` | Agrees on sandboxes, least privilege, kill switches and logging; adds a human gate set outside the AI and logs the AI cannot change, for the builder's own harness. Disagrees on agent-to-agent validation (see the integrity notes). |
+| `nist-sp-800-218a` | Covers secure development of AI models and leaves deployment and operation out of scope; this guide's threats and detective steps cover the running agent. The Profile considers human review for security checks past risk-based thresholds; this guide's risk-tiered approvals (T10, Playbook 5) say how to keep that review from being flooded. |
+| `nist-ssdf-1-1` | Release integrity and component provenance for what ships; this guide extends the same discipline to prompt templates, tool definitions and agent cards (signing, bills of materials). |
+| `why-language-models-hallucinate-kalai` | Explains why models produce plausible falsehoods (evaluations reward guessing over abstaining); this guide shows how those falsehoods cascade through memory, tools and other agents (T5). |
+| `jimenez-swe-bench` | Judges a coding agent's change by running tests against it; this guide's false-test-results scenario is the reason a pack demands the run, not the report. |
+| `uk-aqua-book-2025` | Requires the assurer and the analyst to be independent; this guide's self-critique cascade (T5) is the failure that independence guards against in agentic review. |
+| `uk-duck-book-qa-of-code` | Confidence without reading every line comes from proportionate assurance; this guide's risk-tiered approvals (Playbook 5) are the agentic version of proportion, and its overwhelmed reviewer (T10) is what happens without it. |
+| `owasp-asvs-5-0` | General application security requirements, which this guide leaves to other guides; an agentic feature needs both. |
+| `becker-metr-ai-developer-productivity-2025` | Developers overestimated AI's help even after many hours; read with this guide's warning that trust in an agent reduces scepticism (T15, p. 30) when a builder signs on a run of good results. |
+
+## Citation and Source-Integrity Notes
+
+**Borrowed-through gaps.** The guide cites prior work by name throughout: a textbook definition of an intelligent agent, an industry adoption forecast, research preprints, agentic frameworks and protocols, established threat-modelling methodologies and a manifesto it takes four questions from, other OWASP guides, and government, industry and vendor taxonomies it says the threat list draws on (pp. 4–19) [BT]. None of those works is held in this corpus, and this distillation names none of them. Its incident scenarios (an IDE coding-agent update, a coding agent's database deletion) are the guide's accounts, carried as [AE].
+
+**Edition care.** The guide sets each threat against the 2025 edition of the OWASP LLM list by that edition's entry IDs (for example LLM01:2025, LLM06:2025). This corpus holds the 2026 edition (`owasp-llm-top10-2026`), whose numbering differs. This distillation names the 2025 entries by their topic where it needs them and does not map them onto the 2026 IDs.
+
+**Named limits of the source.** General application, API and model threats are out of scope (p. 13); RAG security is referred to the LLM list (p. 14); the guide follows no single threat-modelling methodology (p. 12); it calls the deception threat "at an early stage" [V] (T7, p. 17); it notes that cryptographic attestation for LLMs does not yet exist (T13, p. 18) [AR]; and the smart-home example is explicitly hypothetical (p. 45). Its internal counts disagree: five playbooks announced, six given; four example threat models promised, three given; a box says no new supply-chain threat was introduced while the threat list carries T17; Playbook 6 cites the multi-agent question as Step 5 where the Navigator numbers it Step 6 (pp. 3, 14, 34, 41). Its mitigations are recommendations, not measured effects.
+
+**Disagreements with other sources in the corpus.** (1) *Agent-to-agent validation.* This guide offers a second agent as a control: two-agent or human validation for high-risk authentication changes (Playbook 4, p. 39), dual-agent verification before an agent changes its own goals (Playbook 5, p. 40), and multi-agent consensus for mission-critical decisions (T12, p. 18; Playbook 6, p. 41) [AP]. `openssf-finding-fixing-vulnerabilities-ai` says agreement among AI reviewers is not proof, and reports a case in which two AI agents with repository permissions could approve each other's pull requests, undermining the human approval gate. The settings differ (runtime agent actions here, validating findings and gating merges there), but the question is the same. The guide itself names the weakness in its own threats (forged consensus, T12; approval assumed from prior validation, T14). For a warranty, a second agent's approval is not a human gate. (2) *The agent supply chain.* A box in this guide says it introduced no new supply-chain threat because the 2025 LLM list's supply-chain entry already covers it (p. 14), though its threat list carries T17; `owasp-agentic-top10-2026` gives the agentic supply chain its own entry, arguing that runtime composition makes a live supply chain beyond static dependencies.
+
+**Evidence-marker continuity.** Verbatim quotations are copied from the deep reference's audited `[V]` passages; markers `[AP]`, `[AR]`, `[AE]` and `[BT]` follow the deep reference's classification of each claim. Scenario content is `[AE]` throughout, and the guide's reports of outside incidents keep the guide as their source. Table-cell content from the Detailed Threat Model (pp. 16–19) is paraphrased, as the deep reference paraphrases it, because the table's columns interleave in the converted text. Where this distillation applies a product-feature control to the builder's coding-agent harness beyond the guide's own coding-agent scenarios, it says "transfer".
+
+## Runtime triggers this source addresses
+
+| Trigger | Content from this source that addresses it | Teach-in-the-moment script |
+|---|---|---|
+| The builder says "the agent will figure out the details" | Agents use the LLM to decide the control flow; orchestration runs from hardcoded to fully conversational; the first decision-path question opens the agency and reasoning threats (pp. 4, 7, 21) | Name what the agent will decide alone and how conversational the orchestration is: the more the model decides, the more the agency threats apply. |
+| The change adds an LLM call, a prompt, a tool an agent can call, or memory | Six decision-path questions route the change to T1–T17 and Playbooks 1–6 (pp. 21–35) | Answer the six questions for this change, then attach the threats and playbook steps they open to the ledger. |
+| The diff touches login, sessions, tokens or permissions | Confused Deputy; non-human identities lacking session oversight; persistent agent identity (p. 13; p. 14; T9, p. 29) | Where an agent's identity or permissions change, show least-privilege scope, a per-action user check and short-lived credentials. |
+| The change stores or moves personal data | Memory poisoning across shared memory; Playbook 2 session isolation, retention limits by sensitivity, context-aware access (T1, p. 23; p. 36) | If personal data enters an agent's memory, isolate it per session and set a retention limit before it ships. |
+| A migration, a delete or a bulk update is in the plan | Explicit approval for financial, medical or administrative tool calls; parameter pollution reserving 500 seats; the coding agent that deleted a real database (Playbook 3, p. 38; T2, p. 25; T17, p. 29) | Where an agent can trigger it, require explicit human approval and run it away from production first. |
+| The agent proposes changing a test so the build goes green | Agents are kept from self-adjusting objectives beyond predefined parameters; goal-change requests are tracked (Playbook 1, Step 2, p. 35) (transfer) | A test is the agent's objective; editing it to pass is the agent adjusting its own goal. Return it to a human with a reason. |
+| A test checks the agent's output text rather than the system's state | Deceptive behaviour keeps the appearance of compliance; a coding agent produced false test results (T7, p. 22; T17, p. 29) | Check the system's state; an agent's text can look compliant while the action did something else. |
+| "Skip permissions, it's been fine for months" | Agentic AI exploits gaps in dynamic access; risk-tiered approvals; disposable sandboxes (p. 14; Playbooks 3 and 5) | Months without trouble is not a control. Keep the sandbox, and cut approval load by tiering risk, not by switching approvals off. |
+| The agent's environment can reach production credentials or data | Inherited permissions; Confused Deputy; insufficient test/production separation in the database-deletion scenario (p. 14; p. 13; T17, p. 29) | Remove the reach: the sandbox holds no production credentials and no route to production data. |
+| The agent reads untrusted content (web pages, issues, emails) while holding tools | Lack of separation between data and instructions; indirect plan injection through tool output (T6, pp. 21–22) | Untrusted text can become the agent's goal. Read in one step, act in another, or approve each action that follows. |
+| The agent adds a dependency nobody asked for | Upstream compromise of prompts, plugins and framework updates; signed artefacts, bills of materials, restricted tool installation (T17, pp. 19, 28) | Treat an agent-added plugin, tool or framework update as supply chain: review, pin and record it before accepting. |
+| The agent runs for an hour unattended and reports success | Repudiation without logs; appearance of compliance; self-triggered tasks (T8, p. 23; T7, p. 22; T4, p. 27) | The report is a claim. Read the log of what it actually did before counting it. |
+| A gate was skipped "just this once" | Logged human overrides; flags on decisions denied then approved (Playbook 1, Step 3, p. 35; Playbook 6, Step 3, p. 42) | Log the override and who made it; a skipped gate is a decision reversal the pack must show. |
+| The same session that wrote the code reviews it | Hallucinations compound through reflection and self-critique; another model audits the agent's behaviour (T5, p. 24; T6, p. 17) | Self-review compounds the writer's errors. Review from a separate context. |
+| The reviewer's findings are long and nobody sorts them | Risk-prioritised review queues; frequency thresholds on requests (Playbook 5, Step 1, p. 40) (transfer) | Sort by risk first; an unsorted queue is how high-impact items get rubber-stamped. |
+| The builder approves because reading the diff is too slow | Overwhelmed human in the loop; automate low-risk approvals and keep humans for high-impact; explanation summaries (T10, p. 30; Playbook 5, p. 40) | Don't read everything at the same depth: tier by impact, and read the high-impact items in full. |
+| The reviewer and builder agree too quickly | Approval granted on assumed prior validation; forged consensus (T14, p. 32; T12, p. 31) (transfer) | Agreement is not a check. Ask what each side actually ran. |
+| The pack says "all tests pass" with no run record | False test results from a coding agent; untraceable actions (T17, p. 29; T8, p. 23) | Asserted, not demonstrated: send it back for the run record. |
+| The builder signs because the last ten went fine | Trust in agents reduces scepticism, especially with conversational agents in co-pilot settings (p. 15; T15, p. 30) (transfer) | A run of good results builds the trust the guide warns lowers scrutiny. Sign on this change's evidence. |
+| Something went wrong after release | Isolate a rogue agent with its history and memory; revoke or downgrade privileges; roll memory back to a validated state; knowledge lineage (Playbook 6, Step 2, pp. 41–42; Playbook 2, pp. 36–37) | Contain first: isolate the agent with its memory, cut its privileges, roll memory back, then trace the lineage. |
+
+## Trigger extensions surfaced by this source
+
+| Phase | Trigger | Response |
+|---|---|---|
+| 1 | The story adds an agentic feature and doesn't say what the agent decides alone, what it remembers, which tools and identity it holds, or which actions need a human | Return it to answer the six decision-path questions and name the actions that need explicit approval (pp. 21–31; Playbook 3, p. 38) |
+| 2 | A product agent will act for users under its own service identity | Confused-deputy check: least-privilege entitlements and a per-action check that the requesting user is authorised (p. 13) |
+| 2 | The change gives an agent a persistent identity or a long-lived token | Short-lived credentials, MFA for high-privilege AI accounts, continuous reauthentication, time-limited elevation; a stolen persistent identity widens the blast radius (T9, p. 29; Playbook 4, p. 39) |
+| 2 | The feature talks to users directly and can show links or touch payment details | Monitor behaviour against the agent's role, restrict tools, limit its ability to print links, filter responses (T15, p. 19) |
+| 3 | An agentic feature's defences have never been attacked | Red-team it with simulated poisoned components and supply-chain attacks (T17, p. 19; Playbook 3, p. 38) |
+| 4 | Agent-generated infrastructure code (Terraform, CI pipelines, access policy) is set to run with elevated privileges | Flag for manual review before it runs; generated scripts can carry commands that extract secrets and disable logging (T11, pp. 18, 27; Playbook 3, p. 38) |
+| 4 | The diff edits the coding agent's own prompts, instruction or memory files, tool definitions or MCP configuration, or adds a tool or plugin | Review as code, sign or pin it, restrict untrusted tool installation; misleading tool descriptions misdirect agents (Playbook 3, p. 37; T16, p. 28; T17, p. 19) |
+| 4 | The agent's execution environment persists between runs or has open network access | Rebuild it as an isolated container without the wider network, reset or destroyed after each execution (Playbook 3, pp. 37–38) |
+| 4 | The session log shows one tool called many times in a short span, or the agent spawning processes or sub-agents | Flag, and past a threshold auto-suspend; agents can self-trigger tasks and spawn processes (T4, p. 27; Playbook 3, p. 38) |
+| 5 | The diff changes logging, audit settings or retention, or the agent can write to its own log or ledger | Block; signed, immutable logs; the guide's scenarios include agents used to disable or erase logs (T8, pp. 18, 47, 49; T11, p. 27) |
+| 5 | A change one gate or reviewer rejected passes at another, or after repeated overrides | Flag the reversal and review it (Playbook 1, p. 35; Playbook 6, p. 42) |
+| 6 | An agentic feature's threat model uses only the LLM list or an unextended general methodology | Extend it with the decision path; the guide holds both partial for agentic threats (pp. 12, 21–32) |
+| 6 | A reviewer agent passes a change on another agent's word | Each gate runs its own check; access granted on assumed prior validation is a named escalation path (T14, p. 32) |
+| 7 | The agent's summary, the diff, the run records and the action log disagree about what was done | Reconcile before signing; agents can keep the appearance of compliance, and unlogged actions cannot be reconstructed (T7, p. 22; T8, p. 23) |
+| 8 | Approval requests to a product feature's human reviewers rise sharply | Treat as possible flooding of the human in the loop: frequency thresholds and a risk-sorted queue (T10, pp. 30, 49; Playbook 5, p. 40) |
+| 8 | A product agent repeatedly tries to change its own goals, role or configuration | Track goal-change frequency per agent as a sign of manipulation (Playbook 1, Step 2, p. 35) |
+| 8 | An agent feature's cost or latency creeps up release after release | Quotas, per-session rate limits and cumulative consumption tracking (T4, p. 17; Playbook 3, Step 3, p. 38) |
+| 8 | An agent's memory is rewritten unusually often | Flag abnormal memory-rewrite frequency; validate suspect entries and roll back to a validated state (Playbook 2, Step 2, p. 36) |

@@ -1,0 +1,56 @@
+{
+ "id": "v19",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.331,
+ "codex_tokens": 25859,
+ "work": "<tmp>/replay-v19-t1-zdm270yj",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "At range.js:309 and :312, the lower bounds are now `>=${M}.0.0` and `>=${M}.${m}.0` with no `${z}`. replaceCaret at :347-360 still applies `-0`. README.md:331-332 documents `~1.2` as the same as `1.2.x` and `~1` as the same as `1.x`, so that documented behaviour is now broken.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "classes/range.js",
+   "line": 309,
+   "claim": "With includePrerelease, replaceTilde no longer adds the '-0' lower bound. As a result, `~1` and `~1.2` reject prereleases of their lower-bound version, such as 1.2.0-beta, even though `1.x`, `1.2.x` and `^1.2` still accept them.",
+   "evidence": "The diff deletes `const z = options.includePrerelease ? '-0' : ''` from replaceTilde and changes `>=${M}.0.0${z}` to `>=${M}.0.0` (line 309) and `>=${M}.${m}.0${z}` to `>=${M}.${m}.0` (line 312). replaceCaret at lines 347-360 still applies `${z}`, and the deleted comment said this kept `~1.2` equivalent to the `1.2.x` x-range.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The includePrerelease entries in range-include.js:111-128 cover x-ranges, `*`, carets, hyphen ranges and comparators. None of them uses `~`, and the diff changes no test files. This is a coverage gap that lets C1/X1 pass the tests, not a separate defect.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/fixtures/range-include.js",
+   "line": 111,
+   "claim": "No locked fixture tests a tilde range with includePrerelease, so the acceptance tests do not catch this regression.",
+   "evidence": "The includePrerelease entries in range-include.js (lines 111-128) cover `2.x`, `1.1.x`, `*`, `^1.0.0`, hyphen ranges and comparators, but none use `~`. The diff changes no test files.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

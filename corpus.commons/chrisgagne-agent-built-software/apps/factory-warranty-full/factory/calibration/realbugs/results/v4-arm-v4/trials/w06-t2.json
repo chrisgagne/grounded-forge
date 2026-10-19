@@ -1,0 +1,57 @@
+{
+ "id": "w06",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6514,
+ "codex_tokens": 122240,
+ "work": "<tmp>/replay-w06-t2-u4pf0jh4",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "At src/renderer.ts:307-324 the switch no longer has a code_inline case, so those tokens hit the default branch and are skipped. default_rules.image (lines 108-109) builds alt from renderInlineAsText, so ![`diagram`](d.png) now renders alt=\"\" instead of alt=\"diagram\". This goes against the docstring's CommonMark rule (strip the markup, keep the content), and the packet has no story asking for the change.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/renderer.ts",
+   "line": 308,
+   "claim": "Removing the code_inline case from renderInlineAsText drops code-span text from image alt attributes.",
+   "evidence": "The diff deletes `case 'code_inline':` and its comment `// code content is added as plain text, without backticks` from the switch in `renderInlineAsText`. A code_inline token now falls through to `default: // all other tokens are skipped`. `default_rules.image` (src/renderer.ts:108-109) sets the alt attribute from `slf.renderInlineAsText(token.children!, ...)`. For example, `![run `npm i` now](x.png)` used to render alt=\"run npm i now\" and now renders alt=\"run  now\". The code's own docstring (line 296-297) says the spec requires alt to show the content with the markup stripped, not with the content removed. The packet's acceptance.md names no story asking for this.",
+   "axis_row": "L6.22",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep of test/ for an image description containing a backtick finds only prose lines in spec.txt and no image-with-code-span example, so no test exercises the removed code_inline path in renderInlineAsText. This is a test gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/renderer.ts",
+   "line": 303,
+   "claim": "No existing or locked test covers inline code inside image alt text, so the suite can't catch this regression.",
+   "evidence": "A search of test/ for an image description containing a backtick (`!\\[...`...\\](`) finds no match. The only other references to code_inline are the renderer rule, smartquotes and backticks.ts, so no test exercises the `renderInlineAsText` code_inline path the diff removes.",
+   "axis_row": "L3.7",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

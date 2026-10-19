@@ -18,10 +18,6 @@
       "Set maintainability thresholds (complexity, coverage, churn) and check them each release (`microsoft-code-with-engineering-playbook`) • Set a review date and an owner for the system in use: analysis in ongoing use should be regularly re-checked under robust change control. The source names no code-quality metric (`uk-aqua-book-2025`) • For warnings, restore the gate: warnings are errors except identified false positives, and approved build settings are continuously verified (`nist-ssdf-1-1`). The source is silent on complexity • Track both against the pre-agent baseline and code size, and schedule the paydown before it slows the work: in adopting projects warnings and complexity rose and stayed while velocity gains were transient (`he-cursor-velocity-complexity-2025`) [D3]"
     ],
     [
-      "Throughput rose with AI assistance and so did instability",
-      "Track change fail rate and rework rate beside throughput and fix the harness: higher AI adoption is associated with higher throughput and higher instability, with no moderating effect on instability's harms (`dora-ai-assisted-swdev-2025`)"
-    ],
-    [
       "Something went wrong after release",
       "Return the fix until it is a regression test in the full plan and the bug is linked to the change that introduced it (`microsoft-code-with-engineering-playbook`) • Require a test that would have caught it before the fix lands; the source gives every identified error a test and asks for errors logged in production (`uk-duck-book-qa-of-code`) • Ask why the assurance let it through, as well as what broke: leaders should build processes for reporting failures and reviewing failures in the assurance process, as a department did after a funding-formula error (`uk-aqua-book-2025`) • Rate and respond by risk, then find the root cause, sweep the class, add a toolchain detection and update the process (`nist-ssdf-1-1`) • Find the root cause, look for patterns, sweep the software for the same class and update the process so it does not recur (`nist-sp-800-218a`) • For a security incident, respond under the incident practice and, if it arrived as a report, within the disclosure programme's timelines: monitoring and responding to suspected and confirmed incidents, and addressing disclosed vulnerabilities in a timely fashion, are attested practices (`cisa-secure-software-attestation-form`) • Write the failing test, fix the root cause, search for variants, update the threat model and leave a check that runs on every change (`openssf-finding-fixing-vulnerabilities-ai`) • Start from the security log: entries carry when, where, who and what (16.2.1), authentication and failed authorization events are logged (16.3.1, 16.3.2), and logs are protected and sent to a separate system (16.4.2, 16.4.3) (`owasp-asvs-5-0`) • If data may have left through a model channel, run the disclosure playbook: scope by data class and affected subject, then clean vectors, caches and persistent memory, not only the code (`owasp-llm-top10-2026`) • Where an agent was involved, contain first: isolate it with its communication history and memory, revoke or downgrade its privileges, roll memory back to a validated state, then trace the knowledge lineage (`owasp-agentic-threats-mitigations`) • Where an agent took part: disable it with the kill switch and revoke its credentials, quarantine it, and return it only with fresh attestation and human approval; file the first defect and its spread as separate findings (`owasp-agentic-top10-2026`)"
     ],
@@ -72,22 +68,6 @@
     [
       "The case that agents made delivery faster is reported as output (lines, commits, pull requests merged) or as felt speed",
       "Measure time or outcome on work defined before the change: output counts can rise without productivity rising, and felt speed ran opposite to measured time (`becker-metr-ai-developer-productivity-2025`) [D1]"
-    ],
-    [
-      "A delivery measure is compared with an industry figure or another team's instead of this service's own history",
-      "Compare the service with its own past (`dora-ai-assisted-swdev-2025`)"
-    ],
-    [
-      "Hotfixes or rollbacks are not counted in the service's change fail rate",
-      "Count them: change fail rate is deployments needing immediate intervention, likely a rollback or hotfix (`dora-ai-assisted-swdev-2025`)"
-    ],
-    [
-      "Nobody has looked at the service's delivery measures since it went live",
-      "Set a date to review them again (`dora-ai-assisted-swdev-2025`)"
-    ],
-    [
-      "Unplanned, reactive work is crowding out planned work",
-      "Read it as instability: the report's legacy-bottleneck profile pairs frequent instability with a high volume of unplanned, reactive work (`dora-ai-assisted-swdev-2025`)"
     ],
     [
       "Output rose for a month or two after agents were adopted or widened, then fell back while warnings and complexity stayed up",

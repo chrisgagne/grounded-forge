@@ -1,0 +1,57 @@
+{
+ "id": "w20",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4405,
+ "codex_tokens": 34468,
+ "work": "<tmp>/replay-w20-t1-lea6u166",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Operations.js:307 defines __iterator as an arrow function inside reverseFactory. CollectionImpl.js:573 calls reverseFactory as a plain function in an ES module, so `this` is undefined, and line 320 now reads `this.size` when reverse is true. The diff removed the explicit `reversedSequence.size` and the comment warning about exactly this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Operations.js",
+   "line": 320,
+   "claim": "reversedSequence.__iterator is an arrow function, so `this.size` there does not refer to the reversed sequence. Iterating a reversed indexed sequence in reverse throws a TypeError.",
+   "evidence": "The diff replaces `reverse ? reversedSequence.size - ++i : i++` with `reverse ? this.size - ++i : i++`. It also deletes the comment that explained why the explicit reference was needed: \"`__iterator` is an arrow function, so `this` is not the reversed sequence here\". At line 307 `reversedSequence.__iterator = (type, reverse) => {` is an arrow function at module scope in an ES module, so `this` is undefined there. Any caller that passes reverse=true hits the reverse branch. For example, mapFactory/filter wrappers forward `reverse` to the inner collection, so `Seq([1,2,3]).reverse().map(f).reverse().entries()` reaches it. By contrast, `__iterate` at line 298 is a `function`, so its `this.size` at line 303 is valid. This shows the two methods are not interchangeable.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only reverse-iteration test, List.ts:1060-1065, calls toSeq().reverse() and iterates it forward, so the reversed seq's __iterator gets reverse=false and never reaches the changed branch. A grep for reverse in List.ts finds nothing else that exercises it.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "__tests__/List.ts",
+   "line": 1065,
+   "claim": "No test iterates a reversed sequence backwards through __iterator, so the suite does not catch the regression.",
+   "evidence": "The only reverse-iteration test (`iterates through List in reverse`) calls `l2.toSeq().reverse()` and then `.values()/.keys()/.entries()`. Those call the reversed seq's __iterator with reverse=false, so the inner List is iterated in reverse, as the test comment says. Searching __tests__ finds no `reverse().map(...)\u2026reverse()` or similar chain that would iterate a reversed sequence backwards through the iterator path.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

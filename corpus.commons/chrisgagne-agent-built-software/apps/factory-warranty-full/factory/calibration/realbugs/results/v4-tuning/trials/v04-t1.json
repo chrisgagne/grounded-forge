@@ -1,0 +1,64 @@
+{
+ "id": "v04",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 1.0642,
+ "codex_tokens": 69177,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-v04-t1-jhh3hvfv",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "decimal.min.js still has the 'decimal.js v10.1.1' banner and '45===n.charCodeAt(0)' with no check for 43 ('+'). package.json:33 has a 'build' script that regenerates it, and README.md:37 offers it as a distribution. It is a stale generated file and nothing in the project requires rebuilding it with each source change, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.min.js",
+   "line": 1,
+   "claim": "decimal.min.js was not rebuilt. It keeps the v10.1.1 banner and the old parser, which rejects a leading '+'.",
+   "evidence": "decimal.min.js line 1 reads '/* decimal.js v10.1.1 ... */' and the minified constructor is still 'return 45===n.charCodeAt(0)?(n=n.slice(1),r.s=-1):r.s=1,b.test(n)?...' with no 43 check. README.md:37 offers decimal.min.js as a distribution, and package.json has a 'build' script (uglifyjs decimal.js ... -o decimal.min.js) that the change didn't run. Tests load ../decimal.js, so the locked suite never exercises the bundle.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes the header in both decimal.js and decimal.mjs to v10.2.0. package.json:4 is still \"10.1.1\" and CHANGELOG.md:1 starts at 10.1.1, so the version metadata now disagrees. This is a metadata issue, not a behaviour defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "package.json",
+   "line": 4,
+   "claim": "The source banners were bumped to v10.2.0, but package.json still says 10.1.1 and CHANGELOG.md has no 10.2.0 entry.",
+   "evidence": "The diff changes the header comments in decimal.js and decimal.mjs from 'decimal.js v10.1.1' to 'decimal.js v10.2.0'. package.json:4 is still '\"version\": \"10.1.1\"', and CHANGELOG.md:1 starts at '#### 10.1.1'. The packet has no story stating that a version bump was asked for.",
+   "axis_row": "L4.27",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "noise",
+   "reason": "decimal.js:4344-4353 strips the sign before parseOther runs, so the error text does lose the sign. The existing '-' branch has always worked the same way, so the new '+' branch just follows the established idiom. No test or spec pins the error text, so this is not a defect of this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.js",
+   "line": 4349,
+   "claim": "Stripping the leading '+' before validation means the error message shows the altered input.",
+   "evidence": "'if (i === 43) v = v.slice(1);' runs before 'isDecimal.test(v) ? parseDecimal(x, v) : parseOther(x, v)', and parseOther throws 'Error(invalidArgument + str)' on the already-stripped string. So new Decimal('+-1') throws '[DecimalError] Invalid argument: -1', which names a valid number. The '-' branch already behaved this way, and T.assertException in test/setup.js only checks for /DecimalError/, so no test pins the message.",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

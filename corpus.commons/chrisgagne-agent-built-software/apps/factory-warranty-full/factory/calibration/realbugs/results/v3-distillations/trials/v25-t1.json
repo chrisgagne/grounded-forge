@@ -1,0 +1,59 @@
+{
+ "id": "v25",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.5893,
+ "codex_tokens": 48936,
+ "work": "<tmp>/replay-v25-t1-kx1160vg",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch deletes the `typeof iters[ii] === 'string'` branch, and src/Set.js:107 now always runs SetCollection(iters[ii]).forEach. The size filter at line 98 doesn't stop strings (they have no .size), and line 192 makes merge and concat aliases of union, so all three change. No story.md exists in the packet or the export, so nothing shows this change was asked for. I left breaks unset because there is no spec to check it against.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Set.js",
+   "line": 107,
+   "claim": "Removing the string special case from Set#union means a string passed to union, merge or concat is split into characters instead of added as one value.",
+   "evidence": "The diff deletes `if (typeof iters[ii] === 'string') { set.add(iters[ii]); } else { ... }` and leaves only `SetCollection(iters[ii]).forEach(value => set.add(value));`. SetCollection treats a string as array-like, so `Set.of(1).union('abc')` now gives {1,'a','b','c'} where it used to give {1,'abc'}. Line 192 `SetPrototype.merge = SetPrototype.concat = SetPrototype.union;` carries the change to merge and concat as well. acceptance.md only points to story.md, and no story.md exists in the export or the packet, so nothing supports the change.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grep of __tests__/*Set* shows every union call (Set.ts:121-312, OrderedSet.ts:42-43) passes a Set, List or array. There are no merge or concat calls, and the diff adds no test, so the locked tests pass whichever way strings are handled.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "__tests__/Set.ts",
+   "line": null,
+   "claim": "No test passes a string to union, merge or concat, so the changed behaviour is not guarded by any test.",
+   "evidence": "Every union call in __tests__/Set.ts (lines 151-226, 261, 312) and __tests__/OrderedSet.ts (lines 42-43) passes a Set, List, OrderedSet or array; none passes a bare string. The diff changes only src/Set.js and adds no test.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

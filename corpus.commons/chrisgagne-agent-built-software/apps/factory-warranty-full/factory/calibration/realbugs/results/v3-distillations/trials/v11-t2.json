@@ -1,0 +1,58 @@
+{
+ "id": "v11",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8157,
+ "codex_tokens": 51212,
+ "work": "<tmp>/replay-v11-t2-l_p_e8tl",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1",
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes the `if (opts.flowSkipColonSpace) opts.quoteFlowKeys = true` guard. presenter.ts:215 still sets sep='' and :223 emits `${keyText}:${valueText}` with an unquoted key. parser.ts:807-809 ends a plain scalar at ':' only when whitespace or a flow indicator follows, so `a:1` is read as one scalar. C3 describes the same removed safeguard (the docs/migrate_v4_to_v5.md:184 mapping makes it more likely users hit it), so it is merged here. Kept at critical because this is silent data corruption.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/ast/presenter.ts",
+   "line": 215,
+   "claim": "Removing the forced quoteFlowKeys when flowSkipColonSpace is on makes dump write `{a:1}`, which the parser loads back as {'a:1': null}, so data silently changes on round-trip.",
+   "evidence": "The diff deletes `if (opts.flowSkipColonSpace) { opts.quoteFlowKeys = true }` from createPresenterState and deletes the doc note that this \"forces `quoteFlowKeys`; otherwise `a:1` would be parsed as a single plain scalar instead of a mapping entry.\" writeFlowMapping (line 215) now sets `sep = ''` and joins `${keyText}:${valueText}` around an unquoted key. In src/parser/parser.ts:807-809 a plain scalar ends at `:` only when the next character is whitespace or a flow indicator (`if (isWsOrEolOrEnd(following) || (inFlow && isFlowIndicator(following))) break`), so in `{a:1}` the `:1` stays part of the scalar `a:1`.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "Confirmed that dump-options.test.mjs:154 asserts '{a:1}\\n' without calling load, and dump-fuzzy.test.mjs:36 is `it.skip`. But this test file is not in the diff, so the coverage gap is pre-existing rather than introduced by the change. Lowered from medium to low; the real defect is tracked in the merged C1/X1/C3 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/core/units/dump-options.test.mjs",
+   "line": 154,
+   "claim": "The flowSkipColonSpace test only checks the printed string, never loads it back, and the round-trip fuzz test is skipped, so nothing catches the regression.",
+   "evidence": "`assert.equal(dump({ a: 1 }, { flowLevel: 0, flowSkipColonSpace: true }), '{a:1}\\n')` has no `load(output)` check. The neighbouring quoteFlowKeys test does check with `assert.deepEqual(load(output), { [key]: 1 })`. The round-trip property test in test/core/dump-fuzzy.test.mjs:36 covers `flowSkipColonSpace` but is disabled with `it.skip`, so nothing catches the regression.",
+   "axis_row": "L3.3",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "id": "v05",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2683,
+ "codex_tokens": 20238,
+ "work": "<tmp>/replay-v05-t1-ytqgdbdh",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "package.json:21-29 \"files\" lists bin, range.bnf, classes, functions, internal, ranges and index.js but not preload.js, and there is no .npmignore. test/preload.js:2 requires '../preload.js' from the source tree, so the tests pass even though the packaged artifact never includes the file.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "package.json",
+   "line": 21,
+   "claim": "preload.js is missing from the package.json \"files\" allowlist, so it is not published and require('semver/preload') fails for installed consumers.",
+   "evidence": "The diff adds only preload.js at the repo root. package.json \"files\" is still [\"bin\", \"range.bnf\", \"classes\", \"functions\", \"internal\", \"ranges\", \"index.js\"] and has no \"preload.js\" entry. test/preload.js requires '../preload.js' from the source tree, so it never tests the packaged artifact.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "The duplication is real, but test/preload.js:4 runs strictSame(preload, index), so any export added to index.js and not to preload.js fails the suite. The drift risk is already covered, and this is a style choice rather than a defect in this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "preload.js",
+   "line": 1,
+   "claim": "preload.js repeats index.js's export list by hand and could drift from it.",
+   "evidence": "preload.js lists 43 `require(...)` entries that repeat the `lazyExport(...)` calls in index.js lines 23-64 one by one, instead of building the object from a shared list.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

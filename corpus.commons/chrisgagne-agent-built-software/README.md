@@ -155,6 +155,10 @@ and, separately, by OpenAI's model. Two are labelled subsets (the Microsoft play
   the UK government's *Quality assurance of code for analysis and research* (the Duck Book) and *AQuA Book*, and
   OpenSSF's guide to finding and fixing vulnerabilities with AI.
 
+The app ships 17 of them, all licensed for commercial use. The DORA report is CC BY-NC-SA, so it ships only in a
+separate non-commercial build, [`apps/factory-warranty-full/`](apps/factory-warranty-full/). Its findings still appear,
+in our words and cited to the published report, in the three disagreements it's part of.
+
 The sources don't always agree, and the library names 29 places where they disagree, pull against each other or speak
 to different roles. One direct disagreement: the Duck Book calls hallucination in language models inevitable, while
 *Why Language Models Hallucinate* argues it persists because evaluations reward guessing, which can change. The
@@ -166,8 +170,7 @@ Needs macOS, Python 3.12+, [uv](https://docs.astral.sh/uv/), Claude Code, the Co
 and `semgrep`.
 
 ```bash
-tar -xzf distros/factory-warranty-v0.4.0-open-nc.tar.gz
-cd factory-warranty
+cd corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty
 claude .                                   # ask it what evidence a change needs before you sign it off
 uv tool install --editable ./factory       # the harness: `factory run STORY.md --repo PATH`
 ```
@@ -184,7 +187,7 @@ has the commands and the config.
 | [`tasks/`](tasks/warranting-agent-built-software.md) | The job the library is organised around, "warranting agent-built software", in eight stages of a change's life |
 | [`distillations/`](distillations/warranting-agent-built-software/) | One write-up per source, aimed at that job, and the index the reviewers read: 271 trigger-and-response rows and the 29 disagreements |
 | [`references/`](references/), [`sources/`](sources/) | Each source's full write-up, its converted text, its licence and its check log |
-| [`apps/factory-warranty/`](apps/factory-warranty/), [`distros/`](distros/) | The write-ups, the indexes and the factory built into one app, and its download |
+| [`apps/factory-warranty/`](apps/factory-warranty/) | The write-ups, the indexes and the factory built into one app, for commercial or non-commercial use; [`apps/factory-warranty-full/`](apps/factory-warranty-full/) adds the DORA report, non-commercial only |
 
 This folder is a corpus in [grounded-forge](../../README.md), which builds assistants that answer from a fixed set of
 sources rather than from memory. In its terms: a *corpus* is the set of sources; a *distillation* is one source
@@ -192,6 +195,7 @@ written up for one job; the job is a *task axis*; and *grounding* is which part 
 
 ## Licence
 
-The code is MIT. Each write-up inherits its source's licence (public domain, OGL, CC BY, CC BY-SA, MIT, and CC
-BY-NC-SA for the DORA report, which makes the packaged app non-commercial as a whole); see
+The code is MIT. Each write-up inherits its source's licence: public domain, OGL, CC BY, CC BY-SA or MIT in the app,
+so a company can use it, and CC BY-NC-SA for the DORA report, which makes `factory-warranty-full` non-commercial as a
+whole. The four CC BY-SA write-ups stay CC BY-SA if you adapt them. See
 [`LICENSE-CONTENT`](../../LICENSE-CONTENT) for the table.

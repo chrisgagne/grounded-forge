@@ -1,0 +1,37 @@
+{
+ "id": "v20",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.2363,
+ "codex_tokens": 31077,
+ "work": "<tmp>/replay-v20-t2-49eps4id",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1",
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/constructFrom/index.ts:53 is now `typeof date === \"object\" && constructFromSymbol in date`. Because typeof null is \"object\", the `in` check runs on null and throws. Callers such as src/addDays/index.ts:42 (`constructFrom(options?.in || date, NaN)`) pass the raw date through, so addDays(null, NaN) now throws where it used to return Invalid Date. C2 makes the same point from the angle that nothing asked for this change, so it is merged here.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/constructFrom/index.ts",
+   "line": 53,
+   "claim": "Removing the `date &&` guard makes constructFrom(null, value) throw a TypeError instead of returning a Date / Invalid Date, and nothing in the packet asks for this change.",
+   "evidence": "The diff changes `if (date && typeof date === \"object\" && constructFromSymbol in date)` to `if (typeof date === \"object\" && constructFromSymbol in date)`. `typeof null === \"object\"`, so `constructFromSymbol in null` throws \"Cannot use 'in' operator\". Callers pass the user's date straight through. For example, src/addDays/index.ts:42 has `constructFrom(options?.in || date, NaN)`, so `addDays(null, NaN)` from plain JS now throws instead of returning Invalid Date. The test file src/constructFrom/test.ts has no null case, so nothing catches this.",
+   "breaks": "story",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

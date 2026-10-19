@@ -1,0 +1,86 @@
+{
+ "id": "v25",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6542,
+ "codex_tokens": 52799,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-v25-t2-abtpoo5k",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff, `if (typeof iters[ii] === 'string') set.add(...)` is gone, and src/Set.js:107 now always calls SetCollection(iter). isArrayLike.js:2 returns true for strings, so `Set(['x']).union('abc')` now gives {'x','a','b','c'} where the baseline gave {'x','abc'}. Strings have no .size, so the filter at line 98 keeps them. List.js:145 still treats a string as one value, so List and Set now disagree. Kept high because the trigger is traced.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Set.js",
+   "line": 107,
+   "claim": "Removing the string special case in Set#union means a string argument on a non-empty Set is now split into its characters instead of being added as one value.",
+   "evidence": "The diff deletes `if (typeof iters[ii] === 'string') { set.add(iters[ii]); } else {...}`. Line 107 now calls `SetCollection(iters[ii]).forEach(value => set.add(value))` for every argument. `isArrayLike` (src/utils/isArrayLike.js:2) returns true for `typeof value === 'string'`, so `maybeIndexedSeqFromValue` wraps a string in an ArraySeq of characters. Trigger: `Set(['x']).union('abc')` returned {'x','abc'} at baseline and now returns {'x','a','b','c'}. The sibling `List#concat` (src/List.js:145) still treats a string as a single value (`typeof argument !== 'string' && hasIterator(argument) ? argument : [argument]`), so the two collection APIs now disagree.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for union('\u2026' / union(\"\u2026\" in __tests__ finds no match, and the diff adds no tests. The locked suite therefore passes with either behaviour.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "__tests__/Set.ts",
+   "line": null,
+   "claim": "No locked test passes a string to union, so the suite can't catch this behaviour change.",
+   "evidence": "All union calls in __tests__/Set.ts (lines 121-312) and __tests__/OrderedSet.ts (lines 42-43) pass Sets, Lists, OrderedSets or arrays such as `set.union(['a'])`. None passes a bare string. The diff adds no test.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "src/Set.js:102-103 returns this.constructor(iters[0]), so `Set().union('abc')` already split strings before this change. Whether the inconsistency was meant to be fixed this way can't be settled, because no spec exists.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Set.js",
+   "line": 102,
+   "claim": "The empty-set fast path already split strings, so the change may have been meant to make the two paths consistent, but nothing records which behaviour is intended.",
+   "evidence": "Line 102-103: `if (this.size === 0 && !this.__ownerID && iters.length === 1) { return this.constructor(iters[0]); }`. `Set('abc')` goes through Seq/isArrayLike and yields characters, so `Set().union('abc')` already split strings before the change, while `Set(['x']).union('abc')` did not.",
+   "axis_row": "L1.13",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "acceptance.md says 'story.md is the spec'. A glob for **/story.md in both the packet and the export finds nothing. Kept low: this is a process gap, not a code defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Set.js",
+   "line": null,
+   "claim": "acceptance.md names story.md as the spec, but there is no story.md, so the change can't be checked against its intended behaviour.",
+   "evidence": "acceptance.md: 'story.md is the spec. The baseline's tests are the locked acceptance tests'. A glob for **/story.md in the export finds nothing, and the packet holds only brief.md, diff.patch, acceptance.md, risk.json, axis-rows.md and distillations/.",
+   "axis_row": "L1.1",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

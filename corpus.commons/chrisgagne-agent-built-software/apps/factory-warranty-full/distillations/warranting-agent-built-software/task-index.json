@@ -1,0 +1,3411 @@
+{
+  "schema_version": 2,
+  "corpus": "chrisgagne-agent-built-software",
+  "task": "warranting-agent-built-software",
+  "generated_from": "distillation-index-markdown",
+  "source_file": "corpus.commons/chrisgagne-agent-built-software/distillations/warranting-agent-built-software/WARRANTING-AGENT-BUILT-SOFTWARE-DISTILLATION-INDEX.md",
+  "sections": [
+    {
+      "section": "Named disagreements",
+      "columns": [
+        "#",
+        "Question"
+      ],
+      "shard": "task-index.shard-named-disagreements.json",
+      "rows": [
+        [
+          "D1",
+          "Do commits and lines added measure productivity?"
+        ],
+        [
+          "D2",
+          "What do developers' own reports of AI's productivity effect show?"
+        ],
+        [
+          "D3",
+          "Which way does AI adoption move code quality?"
+        ],
+        [
+          "D4",
+          "How far does a test-scored benchmark carry to real work? (partial)"
+        ],
+        [
+          "D5",
+          "How should a coding benchmark score?"
+        ],
+        [
+          "D6",
+          "Is hallucination inevitable?"
+        ],
+        [
+          "D7",
+          "Does every acceptance example become an automated test?"
+        ],
+        [
+          "D8",
+          "Can AI-written tests be trusted? (tension)"
+        ],
+        [
+          "D9",
+          "What counts as independent review? (tension)"
+        ],
+        [
+          "D10",
+          "Does pairing count as the review?"
+        ],
+        [
+          "D11",
+          "Can an automated check alone be the independent check?"
+        ],
+        [
+          "D12",
+          "Does design review need a person and automation, or either?"
+        ],
+        [
+          "D13",
+          "Is the producer's own attestation enough assurance? (mild tension)"
+        ],
+        [
+          "D14",
+          "Does every change need a human reader?"
+        ],
+        [
+          "D15",
+          "Must a human review all AI-generated code?"
+        ],
+        [
+          "D16",
+          "How far can confidence rest on not reading the code? (role and emphasis)"
+        ],
+        [
+          "D17",
+          "Who must see the code? (a distinction in role)"
+        ],
+        [
+          "D18",
+          "Can black-box assurance stand? (tension in setting)"
+        ],
+        [
+          "D19",
+          "Does AI-written code get its own bar? (tension)"
+        ],
+        [
+          "D20",
+          "What can automated tooling stand for? (tension)"
+        ],
+        [
+          "D21",
+          "How fixed is the list of practices? (mild)"
+        ],
+        [
+          "D22",
+          "Are the practices prioritised? (mild)"
+        ],
+        [
+          "D23",
+          "Can a second agent's validation stand as a control?"
+        ],
+        [
+          "D24",
+          "Can watchdog agents check their peers? (tension in setting)"
+        ],
+        [
+          "D25",
+          "How much can AI review carry? (partial)"
+        ],
+        [
+          "D26",
+          "Can a second model call check a model's output? (tension in setting)"
+        ],
+        [
+          "D27",
+          "Should the human reviewer read a model's account of the action?"
+        ],
+        [
+          "D28",
+          "Is the agent supply chain a threat of its own?"
+        ],
+        [
+          "D29",
+          "What does safe model serialisation buy?"
+        ]
+      ]
+    },
+    {
+      "section": "Phase 1: Specifying the change",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Turn prose acceptance criteria into checks a person agrees and a machine runs",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Agree concrete examples with the people who know the domain",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Record rules, examples and what nobody yet knows",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Keep the spec stable when the implementation changes",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Turn acceptance criteria into planned test cases before the build",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Refuse to start a change that lacks inputs, measurable criteria or a fitting size",
+          [
+            "007"
+          ]
+        ],
+        [
+          "State what must not change as checkable numbers",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Slice large work into reviewable changes",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Write the change as a spec a machine can check",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Size a large, multi-file change",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Name what the agent would otherwise skip",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Judge whether a spec is detailed enough for an agent to write strong tests from",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Settle whether a failure is the spec's fault or the agent's",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Write down what the change must do before the code, so a test can be built from it",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Keep the human designing and the agent typing",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Agree the problem with the client before the build",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Write down how sure the change must be",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Assure what can't be inspected through the spec",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Name who the change is for before the agent builds it",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Size the change and state its success as an outcome",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Surface what the agent cannot see before it builds",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Name what must not change",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Test a plan or quote that assumes an agent speedup",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Name the context the agent would otherwise assume, and let it ask",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "Write the agent's instructions so guessing doesn't pay: a stated confidence target scaled to the change's harm, and a permitted *not verified* outcome",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "State the security requirements the change must meet, from a written list, in the builder's own defined terms",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Write the security part of the acceptance criteria as versioned requirement IDs that pass or fail",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "The change needs a security rule that differs per application (upload types, timeouts, access rules, business limits, data classes): record the organisation's decision before the build",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Give the build a checkable definition of a defect before the agent starts",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Decide which rules go in the agent's instructions and which must be enforced",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Write down the security requirements of a change that adds a model feature",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Split the work when a vendor's model is in the change",
+          [
+            "008"
+          ]
+        ],
+        [
+          "State a model feature's capability budget and output contract before the build",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Specify an agentic feature's shape before the build: what it decides alone, remembers, acts through, authenticates, hands to a human, and shares with other agents",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Agentic feature: say why the task needs an agent to plan and act, and declare its goals, permitted actions and tools",
+          [
+            "00c"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 1",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-1.json",
+      "rows": [
+        [
+          "The story's acceptance criteria are prose (\"works well\", \"handles errors\") with no runnable check",
+          [
+            "D7"
+          ]
+        ],
+        [
+          "The agent is asked to \"build X like Y\" with no statement of what must not change",
+          []
+        ],
+        [
+          "Nobody can say who will use the change or what they will do with it",
+          []
+        ],
+        [
+          "The spec is long and the change is large",
+          []
+        ],
+        [
+          "The builder says \"the agent will figure out the details\"",
+          []
+        ],
+        [
+          "Discovery for one story runs well past half an hour",
+          []
+        ],
+        [
+          "Scenario steps name buttons, fields or URLs",
+          []
+        ],
+        [
+          "The agent wrote the scenarios and nobody on the business side has read them",
+          []
+        ],
+        [
+          "The ticket's evidence is a screenshot, chart or mock-up image",
+          []
+        ],
+        [
+          "A locked test calls a function or class the spec never names",
+          []
+        ],
+        [
+          "An agent's output fails and the team argues whether the spec or the agent is wrong",
+          []
+        ],
+        [
+          "The agent's change is several times larger than the request",
+          []
+        ],
+        [
+          "The agent made an assumption (a data format, a business rule) that nobody signed off",
+          []
+        ],
+        [
+          "The story's success measure is output (lines, pull requests, stories closed, agent sessions run), with no user or product outcome named",
+          []
+        ],
+        [
+          "A plan, estimate or client quote assumes the agent will cut the time, with no measure on this codebase",
+          []
+        ],
+        [
+          "The task instructions say *make the tests pass* or *finish the task* and give the agent no permitted *not verified* or *blocked* outcome",
+          []
+        ],
+        [
+          "A spec term has more than one common reading (*delete*, *user*, *account*) and the spec does not pick one",
+          []
+        ],
+        [
+          "The spec names no security requirement, or none from a written list",
+          []
+        ],
+        [
+          "The story needs a rule that differs per application (upload types and sizes, session timeouts, access rules, business limits) and no decision is on record",
+          []
+        ],
+        [
+          "A vendor's model is in the change and nobody has said what the vendor is responsible for",
+          []
+        ],
+        [
+          "The story adds a model call, a tool or memory and states no capability budget, output schema or spend cap",
+          []
+        ],
+        [
+          "The story adds an agentic feature (an agent that plans and acts) and doesn't say what the agent decides alone, what it remembers, which tools, actions and identity it holds, which actions need a human, or why the task needs that autonomy",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 2: Triaging risk",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Grade a change's risk",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Set how much assurance a change gets",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Triage an AI model in the product",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Set the change's assurance level before the agent starts",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Select the SSDF 1.1 tasks that apply to this kind of change, with reasons, by live task ID",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Model the change's risk where it matters and record each response",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Sort the risk of a change that adds an LLM call, prompt, tool or vendor model",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Keep a model off the critical path for security decisions",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Select the security tasks that apply to this change, at the builder's own priority",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Set or confirm the application's verification level before triaging the change",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Route the change to the requirement chapters its diff touches",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "The change stores or moves personal data",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Check security- and privacy-sensitive diffs in review",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Match test plans to the risk of the change",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Sort a change's risk before review",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Mark the actions a human must approve",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Decide whether the software needs an attestation, and what it covers: the factory's own code (agent-written included), third-party components, the type of attestation",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Size the review and test effort to the volume of an agent change",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Flag the work the authors propose agents struggle with",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Weigh the setting the change lands in",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Flag a change to code other modules use",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Flag added complexity in a widely used class",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Route a change that adds an LLM call, prompt, tool, retrieval or memory by its shape",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Sort the risk when personal data passes through a model's context, retrieval index, logs or traces",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Classify an action a model or agent can trigger by reversibility",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Gate writes into an agent's long-term memory or a retrieval corpus",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Route a change that adds an agent, tool, memory or identity to its threats and controls",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Sort the risk when an agent acts for users under its own identity, or its identity, token or permissions change",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Sort the risk when personal data enters an agent's memory",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Classify the agent's high-impact actions",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Sort the risk when the feature talks to users directly",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Agentic feature: route a change that adds an agent, a tool it can call, memory or another agent by its shape",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "The tokens or permissions in the diff belong to an agent or are delegated to one",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Personal data enters an agent's memory, shared context or vector store",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "An agent will run a migration, delete or bulk update",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "The change couples agents (a planner feeding an executor, agents reading each other's outputs)",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "The change adds an LLM call, a prompt or retrieval: decide what the feature promises about false answers",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "Flag the error sources the change leans on: client facts with no pattern, character-level logic, prompts unlike common ones, errors the training data may carry (the mapping to code is the distillation's inference)",
+          [
+            "00h"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 2",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-2.json",
+      "rows": [
+        [
+          "The diff touches login, sessions, tokens or permissions",
+          []
+        ],
+        [
+          "The change stores or moves personal data",
+          []
+        ],
+        [
+          "The change adds an LLM call, a prompt, a tool an agent can call, or memory",
+          []
+        ],
+        [
+          "A migration, a delete or a bulk update is in the plan",
+          []
+        ],
+        [
+          "The change is business-critical, or complex enough that nobody can predict its effects",
+          []
+        ],
+        [
+          "A simple, low-risk change is held in the same heavy gates as a risky one",
+          []
+        ],
+        [
+          "The change reuses or repurposes code, a model or a prompt built for another purpose",
+          []
+        ],
+        [
+          "A high-risk change has an outside review but skipped the basic checks",
+          []
+        ],
+        [
+          "A credential, personal data or real configuration appears in the agent's prompt, a config file or a commit",
+          []
+        ],
+        [
+          "A model's output would decide a security question (access, approval, closing an alert) with no human step",
+          []
+        ],
+        [
+          "The application has no recorded verification level, or the change adds a class of data the level was not set for",
+          []
+        ],
+        [
+          "The diff adds a file upload, a file download or archive extraction",
+          []
+        ],
+        [
+          "The agent assigned the risk or severity rating",
+          []
+        ],
+        [
+          "The client is a US federal agency, or asks for the common form, and the factory ships continuously",
+          []
+        ],
+        [
+          "Someone says third-party components are out of scope, so an agent-added library needs nothing",
+          []
+        ],
+        [
+          "An agent change adds thousands of lines across many files",
+          []
+        ],
+        [
+          "The agent is working in intricate existing logic, or the spec turns on edge cases",
+          []
+        ],
+        [
+          "The diff edits a shared function, base class or reused pattern to fix one caller's case",
+          []
+        ],
+        [
+          "The change writes model output or user content into an agent's long-term memory or a retrieval corpus",
+          []
+        ],
+        [
+          "Retrieval filters by tenant or permission after the search, or trusts a scope the client sends",
+          []
+        ],
+        [
+          "A product agent will act for users under its own service identity",
+          []
+        ],
+        [
+          "The change gives an agent a persistent identity or a long-lived token",
+          []
+        ],
+        [
+          "The feature talks to users directly and can show links or touch payment details",
+          []
+        ],
+        [
+          "The change gives an agent a goal stated as a single metric (cut cost, cut latency, close tickets)",
+          []
+        ],
+        [
+          "The change couples agents (a planner feeding an executor, agents reading each other's outputs)",
+          []
+        ],
+        [
+          "An LLM feature's design note says retrieval or grounding will stop it hallucinating",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 3: Locking the tests",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Tag each locked test by its job",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Show a test actually tests the bug",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Judge by the system's state, not the agent's account",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Tell a suite that passes from a suite that would catch a wrong build",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Measure a suite's strength",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Review an agent's suite for the usual gaps",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Weigh the cheap fixes for weak tests",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Decide whether the checks that judge an agent can be trusted",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Decide whether a check demonstrates anything",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Plan the checks before the build",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Test the tests",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Treat a test change as a plan change",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Make sure the tests can disagree with the code",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Put the test before the logic, and keep fixed bugs fixed",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Know the tests came before the code",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Tell a spec change from an implementation change",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Decide what a `Then` step asserts on",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Decide whether a test can be trusted to fail for the right reason",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Catch tests that check the double or the implementation rather than the logic",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Stop coverage standing in for test strength",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Decide who writes the key tests",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Tie test coverage to the code an agent adds",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Keep passing tests from settling the complexity question",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Watch the diff for deleted or weakened tests",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Keep the suite fast enough to run on every change",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Choose the change's security test types",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Lock application-specific tests for access control and business logic, and abuse-case tests that run on every build",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Bring a model feature under the test policy",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Lock an LLM feature's security tests",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Check what the system did, not what the model said",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Keep the coding agent from moving its own success criterion (transfer)",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Check system state rather than the agent's account",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "The agent proposes changing a test so the build goes green",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Agentic feature: lock adversarial unit tests, goal-override red-team tests that verify rollback, memory-rollback tests and replay tests",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Lock an LLM feature's tests: out-of-coverage and no-document prompts that expect abstention, scored so a wrong answer costs more than an abstention",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "A test is graded by a model",
+          [
+            "00h"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 3",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-3.json",
+      "rows": [
+        [
+          "The agent proposes changing a test so the build goes green",
+          []
+        ],
+        [
+          "The tests were written by the same agent session after the code",
+          [
+            "D8"
+          ]
+        ],
+        [
+          "A test checks the agent's output text rather than the system's state",
+          []
+        ],
+        [
+          "The suite passes, but nobody knows whether it would catch a wrong implementation",
+          [
+            "D8"
+          ]
+        ],
+        [
+          "The suite takes minutes, so it runs rarely",
+          []
+        ],
+        [
+          "A new test's failure on the base commit is an ImportError or AttributeError",
+          []
+        ],
+        [
+          "The locked tests have no pass-to-pass set",
+          []
+        ],
+        [
+          "The agent's suite has far fewer tests than the spec has behaviours",
+          []
+        ],
+        [
+          "Each feature is tested once, with a single or default input",
+          []
+        ],
+        [
+          "A test asserts only the shape of the output (length, non-empty, a keyword appears)",
+          []
+        ],
+        [
+          "\"Give the agent the running program and it will write better tests\"",
+          []
+        ],
+        [
+          "\"Turn up the reasoning effort\" or \"use the bigger model\" for the tests",
+          []
+        ],
+        [
+          "A check fires on the broken build but has not been run on the fixed build or on benign input",
+          []
+        ],
+        [
+          "A test's expected values were produced by running the new code",
+          []
+        ],
+        [
+          "A mocked test never asserts that the mock was called",
+          []
+        ],
+        [
+          "A diff edits a feature file's expected outcome alongside the code",
+          []
+        ],
+        [
+          "A `Then` step definition queries the database",
+          []
+        ],
+        [
+          "Declarative scenarios read well, but nobody has read the step definitions behind the `Then` steps",
+          []
+        ],
+        [
+          "A test sleeps, reads an expected value from disk or calls a live third-party API",
+          []
+        ],
+        [
+          "The tests verify the exact sequence of calls the implementation makes",
+          []
+        ],
+        [
+          "The plan leaves the agent to write the key tests for its own build",
+          []
+        ],
+        [
+          "An agent change adds code with no tests alongside it, or coverage is checked only as a whole-codebase percentage",
+          []
+        ],
+        [
+          "Login or registration is tested only on success",
+          []
+        ],
+        [
+          "The change retrains or fine-tunes a model, or adds a data source to its training, and the model's tests are not rerun",
+          []
+        ],
+        [
+          "A model feature's test plan holds unit tests only",
+          []
+        ],
+        [
+          "An LLM feature's injection tests cover only the user's input field",
+          []
+        ],
+        [
+          "An agentic feature's defences have never been attacked, or it has no goal-override red-team test, memory-rollback test or replay test",
+          []
+        ],
+        [
+          "An LLM feature's tests include no prompt outside its coverage, or every test expects an answer",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 4: Building in the sandbox",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Limit what the agent's environment can reach",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Vet what the agent brings in",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Attribute the agent's commits and protect the code it touches",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Hold the agent's development and build environment to a stated minimum",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Vet what the agent pulls in, and know where it came from",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Set what the agent's environment can reach (transfer from model-development environments)",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Admit a component or model the agent brought in",
+          [
+            "008"
+          ]
+        ],
+        [
+          "The agent's environment can reach production credentials or data (product-side requirements, applied by transfer: secrets out of source and build artefacts, least-privilege short-lived service credentials, separate certificates per environment)",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "The agent adds a dependency nobody asked for",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Set the sandbox's strength",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Keep an agent's reach and record honest",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Handle agents that read untrusted content",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Bound what the coding agent can do from where it runs",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Keep production out of the agent's reach",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Keep untrusted content from becoming the agent's goal",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Vet what the agent adds to its own toolchain",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Read an unattended run",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Coding agent: \"Skip permissions, it's been fine for months\"",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Coding agent: its environment can reach production credentials or data",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Coding agent: it reads untrusted content (web pages, issues, emails) while holding tools",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Coding agent: it adds a dependency nobody asked for, or regenerates a lockfile",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Coding agent: it runs unattended and reports success",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Keep the coding agent's permissions when success tempts dropping them",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Take production credentials and data out of the agent's reach",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Separate reading untrusted content from acting",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Admit a dependency, MCP server or tool package the agent brought in",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Stop an unattended run and check what it claims",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Take away the agent's reach to production",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Keep each step of a long run revertible",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Decide what context the agent gets",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Settle which AI tools and uses are permitted",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Keep tests and experiments off the live system until the blast radius is weighed",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Read an agent's report of success",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Keep discarded attempts on the ledger",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Make run rules checkable",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Read an agent's \"done\" when its own tests are the evidence",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Have the agent check its change before it reports done",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Decide how much of the codebase to give the agent",
+          [
+            "006"
+          ]
+        ],
+        [
+          "The agent supplies a client-specific value no spec line or lookup gave it, or a lookup came back empty and a confident claim followed",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "The agent reasons out a count, length or offset",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "Read the agent's report as a claim",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Keep the ledger as the build runs",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Read an agent's \"done\" against the method",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Keep agent-written test glue lean",
+          [
+            "002"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 4",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-4.json",
+      "rows": [
+        [
+          "\"Skip permissions, it's been fine for months\"",
+          []
+        ],
+        [
+          "The agent's environment can reach production credentials or data",
+          []
+        ],
+        [
+          "The agent reads untrusted content (web pages, issues, emails) while holding tools",
+          []
+        ],
+        [
+          "The agent adds a dependency nobody asked for",
+          [
+            "D28"
+          ]
+        ],
+        [
+          "The agent runs for an hour unattended and reports success",
+          [
+            "D6"
+          ]
+        ],
+        [
+          "The agent commits under a person's account or a shared identity, or changes code another owner holds without that owner's approval",
+          []
+        ],
+        [
+          "The agent runs on a machine also used for unrelated work",
+          []
+        ],
+        [
+          "The agent installs or enables an MCP server, skill or tool package; a new agent, tool, extension, plugin or MCP server joins the development or build environment; or the diff edits the agent's own prompts, instruction or memory files, tool definitions or MCP configuration",
+          []
+        ],
+        [
+          "Credentials sit in plain text in the agent's environment (an env file, a config file, shell history)",
+          []
+        ],
+        [
+          "Nobody has reviewed what the agent's identity, the build runners and connected services accessed, or what they trust",
+          []
+        ],
+        [
+          "A human or service path into the repository, CI or agent platform has no MFA or conditional access",
+          []
+        ],
+        [
+          "Alerts from the development or build environment go to nobody",
+          []
+        ],
+        [
+          "The agent's identity can edit configuration-as-code, CI configuration or the pipeline that gates it",
+          []
+        ],
+        [
+          "The agent's instructions file is the only thing enforcing a rule",
+          []
+        ],
+        [
+          "The agent can read or delete its own logs",
+          []
+        ],
+        [
+          "The agent cites its memory of the system for a security decision",
+          []
+        ],
+        [
+          "The fixing agent was handed the reviewer's guess at a cause",
+          []
+        ],
+        [
+          "The agent has rewritten the same area many times to satisfy a check",
+          []
+        ],
+        [
+          "Agent-generated infrastructure code (Terraform, CI pipelines, access policy) is set to run with elevated privileges",
+          []
+        ],
+        [
+          "The agent's execution environment persists between runs, runs as root, or has open network access",
+          []
+        ],
+        [
+          "The session log shows one tool called many times in a short span, or the agent spawning processes or sub-agents",
+          []
+        ],
+        [
+          "The coding agent's auto-run list gains a tool approved as harmless (ping, curl, a DNS lookup)",
+          []
+        ],
+        [
+          "The builder pastes a one-line fix from an agent into a terminal, or the agent runs a command it was handed",
+          []
+        ],
+        [
+          "The agent regenerates a lockfile during a fix-build task",
+          []
+        ],
+        [
+          "The coding agent is about to run a destructive or irreversible command (a delete, a force push, a cloud-API teardown)",
+          []
+        ],
+        [
+          "A long agent run lands as one large commit with no revert point between steps",
+          []
+        ],
+        [
+          "The diff carries work the task never named: refactors, extra files, \"while I was in there\"",
+          []
+        ],
+        [
+          "Nobody can say which AI tools and uses are permitted on this client's work",
+          []
+        ],
+        [
+          "The agent proposes running tests or experiments against the live production system",
+          []
+        ],
+        [
+          "The session log shows attempts rejected, re-prompted or reverted, and only the final attempt reaches the ledger",
+          []
+        ],
+        [
+          "A run rule (no network, allowed tools only, locked tests) has no trace that would show a breach",
+          []
+        ],
+        [
+          "The agent reports done without running the existing tests against its change",
+          []
+        ],
+        [
+          "The harness widens the agent's context to improve results",
+          []
+        ],
+        [
+          "The diff hard-codes a client-specific value (a rate, an ID, a date, a limit) that no spec line or recorded lookup supplies",
+          []
+        ],
+        [
+          "The agent cites documentation or an API, and the tool log shows no lookup, or a lookup that returned nothing",
+          []
+        ],
+        [
+          "The agent reports a count, length or offset it reasoned out instead of running",
+          []
+        ],
+        [
+          "The agent wrote step definitions for steps no scenario uses",
+          []
+        ],
+        [
+          "The agent added near-duplicate steps",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 5: Gating deterministically",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Make the merge gate mechanical",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Hold every change to a clean build",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Give performance a target before judging it",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Make every merge depend on a recorded, repeatable test run",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Make results regenerable",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "One route to production for hand- and agent-written code",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Run the gates at the agent's pace",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Read a guardrail's friction",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Make each gate's result an artefact from a specified tool, against criteria set before the change",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Keep build settings and tools honest",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Take each gate's result from the tool, not the agent's account",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Keep every finding on the record",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Make a skipped gate visible",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Check model artifacts before they load",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Show the vulnerability checks ran against the build being released, and keep running",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Decide whether a skipped or switched-off gate breaks the warranty",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Keep a lesson from being lost to AI non-determinism",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Keep an unfinished gate from reading as clean",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Trust a gate only once it repeats",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Record a skipped gate",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Define the gate's pass",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Class the run",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Add an automatic signal beyond the tests",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Check the gate still catches what it should",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Know every written scenario ran and tests what it claims",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Check the test gate still catches what it claims to",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Gate the requirements agents commonly miss",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Judge a model or agent-setting swap",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Check touched paths against the task's scope",
+          [
+            "000"
+          ]
+        ],
+        [
+          "A gate records *blocked* or *not verified* the same as *failed*, or its pass rests on a model's verdict or the agent's stated confidence",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "Hold the warnings and complexity series at the gate",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Read each series the right way",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Stop adding to a module past its threshold",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Set thresholds without borrowing the study's numbers",
+          [
+            "005"
+          ]
+        ],
+        [
+          "The secrets scan or dependency audit is \"noisy\" so it was turned off",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "The diff builds SQL, a shell command, a template or an expression from strings",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "A secret, debug flag, default account, test code or exposed source-control metadata reaches the build",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Validation or an access check exists only in frontend code, or a handler's query has no owner or tenant filter",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "An error path fails open, shows a stack trace, or writes sensitive data to a log",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Gate model output that reaches exec, eval, a shell, SQL, a file path, HTML, an email template, a terminal or a renderer",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Validate model output before a downstream action",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Keep secrets out of prompts, templates and tool descriptions",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Pin models, adapters, datasets, tools and MCP servers",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Cap spend on a model call or agent loop",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "A gate on an agent's permissions, tools or policy was skipped \"just this once\"",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "An SBOM, AIBOM or signature check is offered as evidence the agent behaves safely",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Agentic feature: check tool profiles as policy, tool-name and version pins, content-hash pins on prompts and configs, no eval",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Gate prompts, instructions and tool definitions as code",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Protect the trail the warranty rests on",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Catch skipped or reversed gates",
+          [
+            "00b"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 5",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-5.json",
+      "rows": [
+        [
+          "\"It worked first time\", or a flaky check passed on retry",
+          []
+        ],
+        [
+          "A gate was skipped \"just this once\"",
+          []
+        ],
+        [
+          "The pipeline builds different artefacts for test and for production",
+          []
+        ],
+        [
+          "Lint and type errors are suppressed rather than fixed",
+          []
+        ],
+        [
+          "A performance number moved and nobody set a budget",
+          []
+        ],
+        [
+          "The secrets scan or dependency audit is \"noisy\" so it was turned off",
+          []
+        ],
+        [
+          "Code arrives with tests promised for a later PR",
+          []
+        ],
+        [
+          "The same change gives different results on two runs or two machines",
+          []
+        ],
+        [
+          "Behaviour is switched by commenting code in or out, or by editing parameters inside the code",
+          []
+        ],
+        [
+          "The gates run less often than the agent commits",
+          []
+        ],
+        [
+          "Agent-written changes reach production by another route than hand-written ones (a manual deploy, a side branch, a skipped stage)",
+          []
+        ],
+        [
+          "A compiler, interpreter, build image or CI action changed version and nobody asked for it",
+          []
+        ],
+        [
+          "A gate's criteria or threshold are edited in the same change they judge, or the agent session can edit the gate log",
+          []
+        ],
+        [
+          "A gate needs evidence no tool produces (a design sign-off, a risk acceptance) and nobody is assigned to give it",
+          []
+        ],
+        [
+          "The change switches a default setting to a weaker value (debug on, a check off, a permissive policy)",
+          []
+        ],
+        [
+          "The agent runs for an hour unattended and reports success",
+          []
+        ],
+        [
+          "A model, weights, a dataset or an adapter is pulled in with no integrity or provenance check",
+          [
+            "D29"
+          ]
+        ],
+        [
+          "A release goes out on a vulnerability scan of an earlier build, or with no scan since the last change",
+          []
+        ],
+        [
+          "A gate that carries an attested practice (a vulnerability check, an environment control) is switched off on shipped changes",
+          []
+        ],
+        [
+          "A gate reports nothing because it timed out, failed or was denied",
+          []
+        ],
+        [
+          "The run passes the fail-to-pass tests while a pass-to-pass test fails",
+          []
+        ],
+        [
+          "The agent reports a fix and no fail-to-pass test passes",
+          []
+        ],
+        [
+          "The run reports fewer scenarios than the feature files contain",
+          []
+        ],
+        [
+          "Nobody has checked the test gate against planted faults",
+          []
+        ],
+        [
+          "Every planted fault is caught only by the test it was derived from",
+          []
+        ],
+        [
+          "The agent marks the task done and the diff adds behaviour with no new tests or docs, or lint and style were not run",
+          []
+        ],
+        [
+          "A model or agent setting is swapped on a benchmark score, a leaderboard or a demo, and the gates stay as they were",
+          [
+            "D4"
+          ]
+        ],
+        [
+          "A gate records *blocked* or *not verified* the same as *failed*",
+          []
+        ],
+        [
+          "A gate or test is graded by a model, and its passes have never been sampled against a deterministic check or a person",
+          []
+        ],
+        [
+          "The diff's static-analysis report shows new warnings or a rise in cognitive complexity",
+          []
+        ],
+        [
+          "A module is over the factory's warning or complexity threshold and the agent is adding features to it",
+          []
+        ],
+        [
+          "The agent's rules file is offered as the quality control",
+          []
+        ],
+        [
+          "Someone proposes the study's percentages as the factory's tolerance or threshold",
+          []
+        ],
+        [
+          "The diff builds SQL, a shell command, a template or an expression from strings, or takes a sort or column name from the request",
+          []
+        ],
+        [
+          "A secret, key, token or connection string appears in source, a committed config file, a build artefact, a system prompt, a prompt template or a tool description",
+          []
+        ],
+        [
+          "Production config turns on debug mode, a default account, sample or test code, or exposes source-control metadata, docs or metrics endpoints",
+          []
+        ],
+        [
+          "Validation or an access check exists only in frontend code",
+          []
+        ],
+        [
+          "A handler takes an object ID from the request and its query has no owner or tenant filter",
+          []
+        ],
+        [
+          "An error handler logs and carries on, an error response shows a stack trace, or a log line writes a body, password, token or card number",
+          []
+        ],
+        [
+          "Model or agent output reaches exec, eval, a shell, string-built SQL, a file path, HTML, an email template, a terminal or an auto-rendering chat UI",
+          []
+        ],
+        [
+          "A model's output is checked by a second model call before a downstream action",
+          [
+            "D26"
+          ]
+        ],
+        [
+          "A model, adapter, dataset, tool, MCP server, prompt template or agent config is referenced by name, tag or \"latest\", with no pin, hash or digest",
+          []
+        ],
+        [
+          "The only cost control on a model call or agent loop is an alert or a requests-per-second limit",
+          []
+        ],
+        [
+          "Text from tickets, files or web pages reaches the model or a renderer without invisible characters stripped",
+          []
+        ],
+        [
+          "Agent-generated code reaches eval or an interpreter with no validation gate",
+          []
+        ],
+        [
+          "Tool permissions are stated as instructions in a prompt rather than as policy",
+          []
+        ],
+        [
+          "An SBOM, AIBOM or signature check is offered as evidence that the agent behaves safely",
+          []
+        ],
+        [
+          "The diff changes logging, audit settings or retention, or the agent can write to its own log or ledger",
+          []
+        ],
+        [
+          "A change one gate or reviewer rejected passes at another, or after repeated overrides",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 6: Reviewing independently",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Separate the build from its review",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Define what the reviewer does",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Keep review from becoming agreement",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Review that is independent of the author, early and on the record",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Keep review independent of the writer",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Aim review at logic and tests, and keep it readable in full",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Close every finding",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Learn from the area's bug history",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Choose who or what reviews the change, by policy",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Sort what review and testing found",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Make design review independent",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Hold agent-written code to the review other code gets",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Use the history of an area in review",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Make review independent of the build",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Decide what counts as confirmation",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Focus human review of AI-written code",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Keep review out of the writer's loop",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Keep approvals from resting on each other",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Keep the human reviewer able to review",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Check an agentic feature's threat model reaches the agentic threats",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "A reviewer agent's passes stand in for a check: sample them, and score the reviewer, or choose the model behind it, with a wrong finding costing more than an abstention",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "Know what a passing run leaves unchecked",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Review what the tests cannot: reuse, callers, footprint, placement, fit",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Replace what line-by-line reading caught",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Review hunks outside the named scope",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Keep the reviewer's brief neutral",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Read new warnings in the right order",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Review agent code when nobody reads every line",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Review a test suite rather than only the code",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Judge what a second agent's tests add",
+          [
+            "004"
+          ]
+        ],
+        [
+          "Keep the diff reviewable",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Find where agent output waits",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Give verification an owner and time",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Check what the agent could not see",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Review the change without reading every line",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Bring the perspectives a single author misses",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Review documentation- and source-led, with the decision records in hand, and verify documentation and implementation separately",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "A scanner's clean result is the only evidence for authorization or business-logic requirements",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Check the review covers indirect surfaces, where authorization lives, and each control's stated limit",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "The builder approves because reading the diff is too slow",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Agentic feature: check the design against each entry's boundary, separating a fault's origin from its spread",
+          [
+            "00c"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 6",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-6.json",
+      "rows": [
+        [
+          "The same session that wrote the code reviews it",
+          [
+            "D9",
+            "D11",
+            "D10",
+            "D12"
+          ]
+        ],
+        [
+          "The reviewer's findings are long and nobody sorts them",
+          []
+        ],
+        [
+          "The builder approves because reading the diff is too slow",
+          [
+            "D16",
+            "D17",
+            "D14",
+            "D19",
+            "D15"
+          ]
+        ],
+        [
+          "The reviewer and builder agree too quickly",
+          [
+            "D23"
+          ]
+        ],
+        [
+          "The change \"looks fine\" but touches something with a history of incidents",
+          []
+        ],
+        [
+          "On a quick change, the builder proposes reviewing their own agent's work because it is small",
+          []
+        ],
+        [
+          "The method changed mid-build and the reviewer was set up for the old one",
+          []
+        ],
+        [
+          "A change reached the main branch without an approved pull request",
+          []
+        ],
+        [
+          "A finding outside the change's scope is holding up the merge, or an in-scope finding is answered \"later\"",
+          []
+        ],
+        [
+          "Review or scan findings live in a chat transcript or the agent's summary, not the tracker",
+          []
+        ],
+        [
+          "AI-written code is held to a different bar from human-written code",
+          [
+            "D19"
+          ]
+        ],
+        [
+          "Two agents with repository permissions can approve each other's changes",
+          [
+            "D23",
+            "D24"
+          ]
+        ],
+        [
+          "A review agent runs in CI on outside pull requests with secrets or write tokens",
+          []
+        ],
+        [
+          "The fix adds a check at one call site, or blocks only the exact failing input",
+          []
+        ],
+        [
+          "The diff adds its own helper, cast or generic workaround beside a facility the codebase or an existing library already provides",
+          []
+        ],
+        [
+          "A reviewer agent passes a change on another agent's word",
+          [
+            "D23"
+          ]
+        ],
+        [
+          "An agentic feature's threat model uses only the LLM list or an unextended general methodology",
+          []
+        ],
+        [
+          "A reviewer agent can only say pass or fail and never reports being unsure",
+          []
+        ],
+        [
+          "The model behind a builder or reviewer agent is swapped on the strength of a pass-rate leaderboard",
+          [
+            "D5"
+          ]
+        ],
+        [
+          "The diff is much smaller than the spec's scope, often a single file",
+          []
+        ],
+        [
+          "The change adds a branch to a widely used, already complex class",
+          []
+        ],
+        [
+          "The diff touches files or modules the task never named",
+          []
+        ],
+        [
+          "The reviewer's or assessor's brief names the hypothesis it is meant to check",
+          []
+        ],
+        [
+          "New warnings in an agent diff are dismissed as style noise",
+          []
+        ],
+        [
+          "The diff carries commented-out code, stray TODOs or unused variables",
+          []
+        ],
+        [
+          "\"Have a second agent write more tests\"",
+          []
+        ],
+        [
+          "A test asserts only the shape of the output (length, non-empty, a keyword appears)",
+          []
+        ],
+        [
+          "Changes waiting for review grow while more agent sessions start",
+          [
+            "D25"
+          ]
+        ],
+        [
+          "Verification has no owner or time on the ledger",
+          []
+        ],
+        [
+          "The change breaks a team convention or repeats a past incident that the agent had no way to read",
+          []
+        ],
+        [
+          "The pen test or security review ran black-box, without the source or the decision records",
+          [
+            "D18"
+          ]
+        ],
+        [
+          "A scanner's clean result is the only evidence for an authorization or business-logic requirement",
+          [
+            "D20"
+          ]
+        ],
+        [
+          "The documented security decision was checked but its implementation was not, or the reverse",
+          []
+        ],
+        [
+          "A review's injection analysis covers only the chat input",
+          []
+        ],
+        [
+          "The agent's generated code is compiled and deployed with no human review or security testing",
+          []
+        ],
+        [
+          "The reason to approve is a rationale the agent wrote",
+          [
+            "D27"
+          ]
+        ],
+        [
+          "A preview or read-only view in an agentic feature makes network or state-changing calls",
+          []
+        ],
+        [
+          "Agents in the change pass free-text instructions to each other with no schema or audience",
+          []
+        ],
+        [
+          "A long agent workflow checks the user's authorisation only at its start",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 7: Warranting the change",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Back each claim in the pack with an artefact",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Show who owns each selected task, inside the harness and among its providers, and who is accountable for the release",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Give the client integrity data and provenance it can check",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Separate demonstrated from asserted on the pack",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Show what a conformance claim covers",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Say what a vendor attests to",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Keep the pack's security evidence within its scope",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Separate demonstrated from asserted on the pack",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Name who answers for AI-written code",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Check the pack's test claim against a run record",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Read a benchmark score offered as evidence",
+          [
+            "006"
+          ]
+        ],
+        [
+          "Class test evidence on the warranty pack as demonstrated or asserted",
+          [
+            "004"
+          ]
+        ],
+        [
+          "The pack says \"all tests pass\" with no run record, lists only failures, or claims ASVS compliance without requirement IDs",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "A gate was skipped \"just this once\": record its requirement IDs as not verified, with the reason",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Sort the pack's injection controls by what they survive",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Refuse claims that were not checked",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Read a signature or scan for what it shows",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "The pack leans on confident assertions or stated confidence in place of checks",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "State what an LLM feature's warranty promises about false answers",
+          [
+            "00h"
+          ]
+        ],
+        [
+          "Check the ledger against a written sign-off list",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Ask for run evidence behind the checklist",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Class a green Cucumber run on the pack",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Keep a readable record of what the system does",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Sign on evidence",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "State what was not assured",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Decide what risk may ship",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Name who answers for it",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Sign on the pack, not the diff, and know when that is allowed",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Keep responsibility with a human",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Disclose what was and was not assured",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Decide who signs for the factory, and on what record",
+          [
+            "001"
+          ]
+        ],
+        [
+          "A practice can't be attested for this software",
+          [
+            "001"
+          ]
+        ],
+        [
+          "An outside assessment is offered in place of the accountable person's signature",
+          [
+            "001"
+          ]
+        ],
+        [
+          "A discovered security vulnerability is still open at release",
+          [
+            "001"
+          ]
+        ],
+        [
+          "The client adds requirements beyond the form, or the pack offers the form's SSDF mapping as evidence",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Class impressions of speed or quality on the pack",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Refuse a streak as the reason to sign or loosen a gate",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Reconcile the ledger with the session trace",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Bound each figure on the pack",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Separate perception from record on the pack",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Refuse instability as the price of speed",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Test rollback offered as the reason a risk is acceptable",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Keep a human who knows each area",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Weigh a run of past successes as evidence",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Decide whether a complexity rise can be signed",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Separate the agent's account from the evidence",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Check the pack can attribute every agent action",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "The pack says \"all tests pass\" with no run record",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "A risk is listed with no owner and no rollback",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "The builder signs because the last ten went fine",
+          [
+            "00c"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 7",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-7.json",
+      "rows": [
+        [
+          "The pack says \"all tests pass\" with no run record",
+          []
+        ],
+        [
+          "A risk is listed with no owner and no rollback",
+          []
+        ],
+        [
+          "The client wants it today and the review is still open",
+          []
+        ],
+        [
+          "Nobody could explain how this part works if the agent were unavailable",
+          []
+        ],
+        [
+          "The builder signs because the last ten went fine",
+          [
+            "D2"
+          ]
+        ],
+        [
+          "The pack claims conformance with SSDF or SP 800-218A with no task-selection record",
+          [
+            "D21"
+          ]
+        ],
+        [
+          "The release changes components and the SBOM or provenance data was not updated",
+          []
+        ],
+        [
+          "Nobody has said which practices the agent platform, model provider or host owns, or a vendor's model is in the change and the pack is silent on what the vendor attests",
+          []
+        ],
+        [
+          "The pack lists no parts or artifacts its practices did not cover, or gives unknown data provenance as n/a",
+          []
+        ],
+        [
+          "The pack's security evidence is read as clearing privacy, intellectual-property or bias risk",
+          []
+        ],
+        [
+          "The pack or proposal cites a model's benchmark score as the reason to trust the change",
+          [
+            "D4"
+          ]
+        ],
+        [
+          "The pack cites the agent's own suite passing as the evidence for the change",
+          [
+            "D8"
+          ]
+        ],
+        [
+          "The pack claims ASVS compliance or certification with no version, scope, level or requirement list, or lists only failures",
+          []
+        ],
+        [
+          "The pack quotes a block rate from a fixed attack set, or lists a filter or prompt rule as the only injection control",
+          []
+        ],
+        [
+          "A signature or a clean scan is the pack's evidence that a model or package is safe",
+          []
+        ],
+        [
+          "An agent holds two of the three legs and the pack carries no residual-risk assessment",
+          []
+        ],
+        [
+          "The pack's assurance is a stated confidence or a calibration figure (\"high confidence\", \"the model is well calibrated\") in place of a check",
+          []
+        ],
+        [
+          "The pack cites \"the Cucumber suite is green\" as proof the behaviour is what the client wanted",
+          []
+        ],
+        [
+          "A medium or high risk is carried into release without the client's agreement",
+          []
+        ],
+        [
+          "The pack states no limits of use and no review or expiry date",
+          []
+        ],
+        [
+          "The pack states no assumptions and no assurance still owed",
+          []
+        ],
+        [
+          "The accountable person is asked to sign a statement of the factory's practices, and the only basis offered is the agent's summary",
+          []
+        ],
+        [
+          "Someone who is not the CEO, not an employee, or without authority to bind the company is about to sign",
+          []
+        ],
+        [
+          "The factory can't meet one practice for this software, and the client wants the attestation",
+          []
+        ],
+        [
+          "An outside assessment is offered in place of the accountable person's signature",
+          [
+            "D13"
+          ]
+        ],
+        [
+          "A release is scheduled while a discovered security vulnerability is still open, and no written policy says how it is handled",
+          []
+        ],
+        [
+          "The pack offers the form's SSDF mapping as evidence that the practices ran",
+          [
+            "D21"
+          ]
+        ],
+        [
+          "The client adds requirements beyond the form",
+          []
+        ],
+        [
+          "The pack's evidence for speed or quality is an impression, the builder's or the agent's, with no record behind it",
+          [
+            "D2"
+          ]
+        ],
+        [
+          "The agent's summary, the diff, the ledger, the run records and the session trace or action log disagree about what was done, or a ledger entry has no linked trace",
+          []
+        ],
+        [
+          "A figure on the pack has no setting, source or note of how it was collected: an outside figure for AI's effect, or a claim resting on a few runs",
+          []
+        ],
+        [
+          "The pack gives \"we can roll back\" as the reason a known risk is acceptable",
+          []
+        ],
+        [
+          "Instability is booked as the price of speed",
+          []
+        ],
+        [
+          "A rise in warnings or complexity is in the pack with no paydown and no waiver",
+          []
+        ],
+        [
+          "The design relies on a human approving agent actions at a speed or volume no human can keep up with",
+          []
+        ]
+      ]
+    },
+    {
+      "section": "Phase 8: Releasing and operating",
+      "columns": [
+        "situation",
+        "ids"
+      ],
+      "rows": [
+        [
+          "Stop a bad deployment early",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Write availability and maintainability as checkable targets",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Turn a fixed failure into a check that runs again",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Make failures traceable",
+          [
+            "007"
+          ]
+        ],
+        [
+          "Catch failure in operation and stop it recurring",
+          [
+            "00g"
+          ]
+        ],
+        [
+          "Keep reviewing what's in use",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Watch an AI component after release",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Learn from a failure of assurance",
+          [
+            "00f"
+          ]
+        ],
+        [
+          "Gather, assess and respond to vulnerabilities in every supported release",
+          [
+            "009"
+          ]
+        ],
+        [
+          "After a vulnerability: find the root cause, sweep the class, change the process",
+          [
+            "009"
+          ]
+        ],
+        [
+          "Be able to stop a model and keep working",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Close the loop after a defect",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Keep finding vulnerabilities in shipped models and their dependencies",
+          [
+            "008"
+          ]
+        ],
+        [
+          "Take vulnerability reports from outside and meet the stated timelines",
+          [
+            "001"
+          ]
+        ],
+        [
+          "A later release no longer runs on an attested practice",
+          [
+            "001"
+          ]
+        ],
+        [
+          "Close the loop after a defect",
+          [
+            "00a"
+          ]
+        ],
+        [
+          "Measure whether agents made delivery faster",
+          [
+            "000"
+          ]
+        ],
+        [
+          "Track the service's delivery since agents arrived",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Read rising throughput with rising instability",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Notice unplanned work crowding out improvement",
+          [
+            "003"
+          ]
+        ],
+        [
+          "Watch the long-run cost of agent output",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Show that the factory's gates hold the series",
+          [
+            "005"
+          ]
+        ],
+        [
+          "Keep documentation and system from drifting apart",
+          [
+            "002"
+          ]
+        ],
+        [
+          "Something went wrong after release: read the protected security log first",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "A new ASVS release lands, or the checklist cites IDs with no version",
+          [
+            "00d"
+          ]
+        ],
+        [
+          "Keep model spend bounded and attributed after release",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Respond when data may have left through a model channel",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Keep telemetry from becoming a disclosure channel",
+          [
+            "00e"
+          ]
+        ],
+        [
+          "Run an agentic feature's detective controls in production",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Cap an agent's consumption",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "Contain an agent after an incident",
+          [
+            "00b"
+          ]
+        ],
+        [
+          "The release of a prompt, tool or agent config goes straight to everyone",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Agent cost creeps up release after release",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "Something went wrong after release and an agent took part",
+          [
+            "00c"
+          ]
+        ],
+        [
+          "An LLM feature's production metrics count *I don't know* as failure or report one accuracy number",
+          [
+            "00h"
+          ]
+        ]
+      ]
+    },
+    {
+      "section": "Runtime listeners: Phase 8",
+      "columns": [
+        "trigger",
+        "disagreements"
+      ],
+      "shard": "task-index.shard-runtime-listeners-phase-8.json",
+      "rows": [
+        [
+          "The release goes straight to everyone",
+          []
+        ],
+        [
+          "There is no service-level target, so every alert is urgent",
+          []
+        ],
+        [
+          "Warnings and code complexity climb release after release",
+          [
+            "D3"
+          ]
+        ],
+        [
+          "Throughput rose with AI assistance and so did instability",
+          []
+        ],
+        [
+          "Something went wrong after release",
+          []
+        ],
+        [
+          "The change ships with no diagnostics, and a failure cannot be traced across services",
+          []
+        ],
+        [
+          "A bug is fixed with no regression test and no link to the change that introduced it",
+          []
+        ],
+        [
+          "A system is being replaced and the new one was not run alongside the old",
+          []
+        ],
+        [
+          "The shipped software is being used for something it was not specified for",
+          []
+        ],
+        [
+          "A library, service or third-party component the system relies on loses support or maintenance, or reaches end-of-life",
+          []
+        ],
+        [
+          "A client, user or public source reports a vulnerability in a shipped release",
+          []
+        ],
+        [
+          "A fixed vulnerability's type shows up again in a later change",
+          []
+        ],
+        [
+          "Nobody outside the factory has a published way to report a vulnerability, there are no timelines for handling reports, or the response playbook has never been exercised",
+          []
+        ],
+        [
+          "A model in production misbehaves and nobody has a criterion to stop it or a way to run without it",
+          []
+        ],
+        [
+          "The ML framework or library the product depends on has no vulnerability watch",
+          []
+        ],
+        [
+          "A later release no longer runs on an attested practice",
+          []
+        ],
+        [
+          "The case that agents made delivery faster is reported as output (lines, commits, pull requests merged) or as felt speed",
+          [
+            "D1"
+          ]
+        ],
+        [
+          "A delivery measure is compared with an industry figure or another team's instead of this service's own history",
+          []
+        ],
+        [
+          "Hotfixes or rollbacks are not counted in the service's change fail rate",
+          []
+        ],
+        [
+          "Nobody has looked at the service's delivery measures since it went live",
+          []
+        ],
+        [
+          "Unplanned, reactive work is crowding out planned work",
+          []
+        ],
+        [
+          "Output rose for a month or two after agents were adopted or widened, then fell back while warnings and complexity stayed up",
+          [
+            "D1"
+          ]
+        ],
+        [
+          "Warnings and complexity climb month after month while every change passed its gates",
+          []
+        ],
+        [
+          "The documentation says the system does one thing and the system does another",
+          []
+        ],
+        [
+          "A new ASVS release lands, or the checklist cites IDs with no version",
+          []
+        ],
+        [
+          "An observability or tracing SDK ships with default capture of prompts, completions or traces",
+          []
+        ],
+        [
+          "An agent or model feature's cost or latency creeps up release after release, or long sessions grow in cost",
+          []
+        ],
+        [
+          "A leaked vector store or embedding backup is classed low severity because only embeddings leaked",
+          []
+        ],
+        [
+          "Approval requests to a product feature's human reviewers rise sharply",
+          []
+        ],
+        [
+          "A product agent repeatedly tries to change its own goals, role or configuration",
+          []
+        ],
+        [
+          "An agent's memory is rewritten unusually often",
+          []
+        ],
+        [
+          "One agent's output reaches many agents, tenants or workflows fast (fan-out, retry oscillation, queue storms, repeated identical intents)",
+          []
+        ],
+        [
+          "A product agent's permissions or policy are to be widened after a quiet period",
+          []
+        ],
+        [
+          "An LLM feature's production metric counts *I don't know* or a hand-off as a failed answer",
+          []
+        ]
+      ]
+    }
+  ]
+}

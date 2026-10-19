@@ -3,13 +3,16 @@
 # factory-warranty is the corpus's app: the warranting-agent-built-software distillations, their indexes and the
 # factory, the harness that reads them while it builds, gates and reviews a change. The factory's code lives at
 # helpers/factory-warranty/ and is copied into the app at factory/ (see the helpers note in the root builds.yaml).
+# It ships the 17 sources whose licences allow commercial use (max_scope: open). factory-warranty-full adds the one
+# non-commercial source (the DORA report, CC BY-NC-SA) for non-commercial use.
 
 builds:
-  factory-warranty:
+  factory-warranty: &factory-warranty
     description: 'A software factory and its knowledge layer: coding agents build a change, deterministic gates
-      and two independent model-family reviewers check it against distillations of 18 open sources (NIST, OWASP,
-      CISA, UK government assurance guidance, and research on AI-assisted development), and the accountable person
-      signs or returns a warranty pack written for someone who doesn''t read the code.'
+      and two independent model-family reviewers check it against distillations of 17 open sources (NIST, OWASP,
+      CISA, UK government assurance guidance, and research on AI-assisted development), all licensed for commercial
+      use, and the accountable person signs or returns a warranty pack written for someone who doesn''t read the
+      code.'
     source_dir: corpus.commons/chrisgagne-agent-built-software
     output_dir: corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty
     helpers_dir: factory
@@ -20,8 +23,8 @@ builds:
     - name: issue-tracker
       purpose: Read the story and its acceptance criteria
       fallback: Practitioner pastes the story
-    max_scope: open-nc
-    max_visibility: open-nc
+    max_scope: open
+    max_visibility: open
     references:
       include_patterns:
       - '*.md'
@@ -135,3 +138,12 @@ builds:
       - scripts/setup-chroma.py
       - scripts/validate/deep_ref_core.py
       - tests/audit-fixtures/
+
+  factory-warranty-full:
+    <<: *factory-warranty
+    description: 'The factory-warranty app with all 18 sources, adding the DORA report (CC BY-NC-SA 4.0), which makes
+      this build non-commercial as a whole.'
+    output_dir: corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty-full
+    helpers_from: factory-warranty
+    max_scope: open-nc
+    max_visibility: open-nc

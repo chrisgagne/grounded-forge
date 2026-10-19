@@ -27,7 +27,7 @@
     ],
     [
       "The secrets scan or dependency audit is \"noisy\" so it was turned off",
-      "Tune it, don't drop it: the authors hypothesise that a quality platform's added friction for AI users comes from preventing inappropriate use and need not be bad for the organisation (`dora-ai-assisted-swdev-2025`) • For the dependency audit, restore it and triage: components are checked automatically for known vulnerabilities through their life cycles and findings are triaged (`nist-ssdf-1-1`) • Turn it back on and triage the noise: environments are monitored for plaintext secrets continuously, and components are verified throughout their life cycles (`nist-sp-800-218a`) • For the dependency audit, tune it rather than drop it: automated vulnerability checks operated on an ongoing basis and before releases are an attested practice (`cisa-secure-software-attestation-form`) • Turn it back on and tune it: mark confirmed false positives, prioritise rather than discard, automate dependency updates (`openssf-finding-fixing-vulnerabilities-ai`) • Tune it and keep it: without careful configuration and tuning such tools miss the coverage needed, and their noise hides real issues (`owasp-asvs-5-0`)"
+      "For the dependency audit, restore it and triage: components are checked automatically for known vulnerabilities through their life cycles and findings are triaged (`nist-ssdf-1-1`) • Turn it back on and triage the noise: environments are monitored for plaintext secrets continuously, and components are verified throughout their life cycles (`nist-sp-800-218a`) • For the dependency audit, tune it rather than drop it: automated vulnerability checks operated on an ongoing basis and before releases are an attested practice (`cisa-secure-software-attestation-form`) • Turn it back on and tune it: mark confirmed false positives, prioritise rather than discard, automate dependency updates (`openssf-finding-fixing-vulnerabilities-ai`) • Tune it and keep it: without careful configuration and tuning such tools miss the coverage needed, and their noise hides real issues (`owasp-asvs-5-0`)"
     ],
     [
       "Code arrives with tests promised for a later PR",
@@ -40,14 +40,6 @@
     [
       "Behaviour is switched by commenting code in or out, or by editing parameters inside the code",
       "Require the switch in recorded configuration; the source calls comment-toggling highly discouraged and uses configuration files to document which configuration produced each output (`uk-duck-book-qa-of-code`)"
-    ],
-    [
-      "The gates run less often than the agent commits",
-      "Run the gates per commit: control systems must speed up when development does (`dora-ai-assisted-swdev-2025`)"
-    ],
-    [
-      "Agent-written changes reach production by another route than hand-written ones (a manual deploy, a side branch, a skipped stage)",
-      "Route them through the same automated tests and deployment (`dora-ai-assisted-swdev-2025`)"
     ],
     [
       "A compiler, interpreter, build image or CI action changed version and nobody asked for it",

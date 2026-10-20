@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/scorbo2/ext-sn-statistics",
+  "pr_number": 20,
+  "base": "da54721276e4132447cd708c35f18f3a635815a2",
+  "head": "12fad8312a7ca0ecc58480c2a582649386cf08a4"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 327,
+   "end_line": 327,
+   "message": "The 25-term search limit only appears in help text and is never enforced; the search goes through findWords(..., TOP_N_WORDS), which caps results at 25. The user enters 30 comma-separated words and all of them occur in the notes. Only the top 25 come back, and the 'combined occurrences' total leaves out the other 5. Nothing tells the user that results were dropped."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 248,
+   "end_line": 248,
+   "message": "When topWords is empty, buildWordsTab returns early, so the word-search field and button are never added, even though a search would still work. In a small corpus where no word of 5+ letters appears twice, or where every repeated word is short, topWords ends up empty. The tab then shows only '(no data)', and the user can't search for words like 'the' or 'cat' that do occur."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 332,
+   "end_line": 332,
+   "message": "Search terms come from TagList/Tag normalization, not StatisticsUtil.normalizeText, so a term with punctuation or other characters that normalizeText would strip never matches the normalized note tokens. The user searches for 'hello!' or 'e-mail'. The notes were tokenized as 'hello' and 'e mail', so the term doesn't match and the result reports 0 occurrences. A fix is to pass each tag through normalizeText (and split on whitespace) before adding it to wordSet."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 51000
+ }
+}

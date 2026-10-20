@@ -1,0 +1,72 @@
+{
+ "id": "rc19",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 390,
+   "end_line": 390,
+   "message": "The EEXIST + --push retry path goes straight to Step 4c without comparing the current plan file's SHA-256 against the existing marker's sha256, so it can post plan content that was never approved. User approves plan X (marker sha=A), the push fails, the user edits .clancy/plans/X.md (now sha=B, so the inventory shows Stale), then runs the printed retry `--push --ticket KEY`. Step 4a sees EEXIST, keeps the old marker and pushes the edited, unapproved content to the board ticket."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 516,
+   "end_line": 516,
+   "message": "The Source parsing runs before any check for --ticket. A missing Source header skips silently, and an inline or file-path Source goes to the skip-no-ticket branch, so the --ticket override never gets used in exactly the cases it is documented for. The plan's brief Source is `docs/rfcs/auth.md`, or the plan has no Source line. The user runs `/clancy:approve-plan stem --push --ticket PROJ-12`, as the flag docs suggest ('Useful when the brief Source field is missing'). Step 4c either skips silently or logs BOARD_PUSH_SKIPPED_NO_TICKET, and no push happens."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 562,
+   "end_line": 562,
+   "message": "The Step 4c key regexes disagree with the key formats accepted elsewhere. Shortcut allows only `^\\d+$`, but Step 2 and plan.md accept `SC-123`. Notion rejects the `notion-XXXXXXXX` short key and any uppercase hex UUID. Brief Source is `[SC-123] Story`. The bracket regex extracts `SC-123`, which fails Shortcut's `^\\d+$`, so Step 4c hard-errors with key-mismatch and logs BOARD_PUSH_FAILED for a valid Shortcut ticket. The same thing happens with `--ticket notion-1a2b3c4d`."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 524,
+   "end_line": 524,
+   "message": "The pushable-Source regex `^\\[(#?\\d+|[A-Z][A-Z0-9]*-\\d+)\\]` cannot match a lowercase-hex Notion page ID, so every Notion Source falls into the 'file-path' bucket and is skipped. On a Notion board, the brief Source is `[0123abcd...ef] Page title`. It doesn't match the bracketed pattern, so it's classified as file-path, and BOARD_PUSH_SKIPPED_NO_TICKET|file-path is logged. Notion auto-detect push can never happen, and the user sees a wrong 'source is file-path' note."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Step 2 still says the board push for plan-file-stem mode 'is deferred to a future PR \u2014 for now the local marker is the only side effect', which contradicts the new Step 4c. An agent following the workflow reads in Step 2 that the local marker is the only side effect and may skip Step 4c entirely, so --push is silently ignored."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 411,
+   "end_line": 411,
+   "message": "After Step 4c the flow always continues to Step 7, which unconditionally appends a LOCAL_APPROVE_PLAN row. This also happens on the EEXIST retry path, which contradicts the claim of 'one approval row' per plan. Step 4c's rows are also specified as 'after the existing LOCAL_APPROVE_PLAN row from Step 7', but Step 7 runs after Step 4c. First approval with a failed push, then a retry with --push. progress.txt gets two LOCAL_APPROVE_PLAN rows, and Step 7 prints a fresh 'approved' success block. In both runs the 4c row (BOARD_PUSH_FAILED / LOCAL_APPROVE_PLAN_PUSH) is written before the LOCAL_APPROVE_PLAN row, or the agent has to reorder the writes."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 608,
+   "end_line": 608,
+   "message": "Key validation, including validation of a --ticket override, is placed before the decision matrix. In the `--afk` without `--push` cell, where no push should happen and --ticket is 'ignored', a bad Source key or --ticket value still causes a hard error and a BOARD_PUSH_FAILED row. An unattended `--afk` run on a plan whose Source key doesn't match the board regex prints a \u2717 error and logs BOARD_PUSH_FAILED|key-mismatch. It should have logged only LOCAL_ONLY|afk-without-push."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 634,
+   "end_line": 634,
+   "message": "The duplicated curl blocks use $TICKET_KEY, $ISSUE_NUMBER, $ISSUE_ID, $WORK_ITEM_ID, $STORY_ID and $PAGE_ID, but Step 4c never says how to get them from {KEY}. For example, it doesn't say to strip the '#' from a GitHub key or to resolve a Linear identifier to an issue ID, which plan.md does in its own fetch steps. For a GitHub key `#50`, setting ISSUE_NUMBER to `#50` makes the URL `/issues/#50/comments`, where '#' starts a URL fragment. The POST goes to `/issues/` and fails, so BOARD_PUSH_FAILED is logged."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 79,
+  "cost_usd": 0.44874200000000003,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "medium",
+  "fallback_file": 0
+ }
+}

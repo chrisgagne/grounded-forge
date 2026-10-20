@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/wiyco/review-insights",
+  "pr_number": 31,
+  "base": "5614fbab711f17e800401d6bacca0200bd4eff0a",
+  "head": "e9c5280f80a69136f5f247f4ac7f1c0fa49f1e29"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The quasi-independence model treats every unobserved reviewer-author pair as a structural zero. Whenever the support graph is a forest (cells \u2264 rows + cols \u2212 components), the fit is saturated: E_ij equals M_ij, every residual is 0, and nothing can be flagged. That includes the most concentrated pairs, where a reviewer reviews only one author or an author is reviewed by only one reviewer. Reviewer A reviews author X 50 times; reviewer B reviews X once and Y once. Support {A-X, B-X, B-Y} is a tree, so IPF reproduces the observed counts exactly (E_AX = 50), the residual is 0, and bias-detected is \"false\". More generally, any reviewer who reviews only one author has E = rowTotal = M for that cell and can never be flagged. The same holds for a repo with a single active reviewer or a single author. Small teams with sparse matrices therefore get \"No bias\" in exactly the cases the feature is meant to catch."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 121000
+ }
+}

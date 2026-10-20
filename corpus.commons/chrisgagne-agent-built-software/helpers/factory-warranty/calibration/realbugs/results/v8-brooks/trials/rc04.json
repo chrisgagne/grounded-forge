@@ -1,0 +1,64 @@
+{
+ "id": "rc04",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 The 25-term search limit is stated in the UI but not enforced, and results are silently cut off. Symptom: The help text in `StatisticsDialog.buildWordsTab()` hard-codes \"1-25 words\". The real limit comes from `WordSearchThread` passing `StatisticsUtil.TOP_N_WORDS` as `N`, which is the constant for the \"top words\" display, not a search limit. Nothing stops the user from entering more terms. With 30 terms, `findWords` keeps only the top 25 by count, and `showWordSearchResults` adds up \"combined occurrences\" from that shortened list. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY. Ousterhout \u2014 A Philosophy of Software Design, Information Leakage. Consequence: Users who enter more than 25 terms see a combined total that is too low, with no warning. If someone changes `TOP_N_WORDS` to resize the Words tab, the search cap changes too and the help text becomes wrong. That's the same drift that commit e7d1e98 (\"Don't mention constant values in comments\") was meant to prevent. Remedy: Add a separate `MAX_SEARCH_WORDS` constant. Validate the term count in `WordSearchAction.actionPerformed` and show an error over the limit, or pass `searchWords.size()` as `N` so every match comes back. Build the help text from the constant with `String.format`. Add a test with more than 25 search terms."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 `findWords(notes, specificWords, N)` uses `specificWords` as a Flag Argument. Symptom: Whether `specificWords` is empty switches the method between two behaviours inside one ~68-line method. When it is empty, the method uses `MIN_WORD_LENGTH`, drops single-occurrence words, and ranks everything. When it isn't, it ignores the minimum length, keeps single occurrences, and filters to the set. The javadoc needs a \"Note: MIN_WORD_LENGTH is ignored if\u2026\" warning to explain this. The search path also builds the `uniqueWords` set over every note, and the caller never uses it. Source: Fowler \u2014 Refactoring, Flag Arguments / Long Method. McConnell \u2014 Code Complete, Ch. 7. Consequence: Every future rule (stop-words, stemming, a minimum frequency) has to be added once for each mode, and it's easy to apply one to the wrong mode. Memory also grows with vocabulary size on every search for no benefit. Remedy: Split it into `findTopWords(notes, n)` and `countWords(notes, Set<String> words)`. Both can share a private tokenizer loop over `normalizeText(...).split(\"\\\\s+\")`. Only `findTopWords` needs to track unique words."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 Search terms and note text go through different normalizers. Symptom: Note text goes through `StatisticsUtil.normalizeText()`, which lowercases and turns everything except letters, digits and apostrophes into spaces. Search terms go through `TagList.fromRawString()`, which is tag-parsing logic (its source isn't in this repo, so I couldn't check its rules). The code comment admits \"This is of course not a TagList\". Source: Evans \u2014 Domain-Driven Design, Ubiquitous Language. Hunt & Thomas \u2014 DRY. Consequence: If the tag rules keep punctuation, a search for `hello!` or `well-known` never matches, because the note text was split differently. Any later change to tag normalization quietly changes word search too. Remedy: Split the raw input on commas, run each term through `normalizeText()`, and drop blanks and terms that still contain spaces. That way both sides use the same function, and `Tag`/`TagList` no longer need to be imported."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 `MIN_PHRASE_FREQUENCY` reused for words. Symptom: `findWords` prunes with `MIN_PHRASE_FREQUENCY`, and a comment explains that it \"serves the same purpose\". Source: Fowler \u2014 Refactoring (a misleading name is a form of duplicated knowledge). Consequence: Tuning the phrase threshold would change word results without anyone meaning to. Remedy: Add `MIN_WORD_FREQUENCY` (set to `MIN_PHRASE_FREQUENCY` if you want them to stay linked on purpose)."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 Words and phrases rank ties differently. Symptom: `PhraseList.filter` breaks ties (the longer phrase wins). The inline sort in `findWords` compares only `occurrenceCount`, over `HashMap` iteration order, and then calls `.limit(N)`. Source: Hunt & Thomas \u2014 DRY (one ranking decision, written two different ways). Consequence: The order of tied words, and which words make the 25-word cutoff, depends on `HashMap` iteration order. The same data could rank differently on another JVM version. Tests that assert order on tied counts could become flaky. Remedy: Add a secondary comparator, e.g. `.thenComparing(Word::word)`. Better still, move the ranking into `WordList`, the way `PhraseList` owns its own."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 `Statistics` constructor keeps growing. Symptom: The constructor now takes 15 positional parameters, mostly `Map<Integer, \u2026>` values, and this PR adds one more. Source: Fowler \u2014 Refactoring, Long Parameter List / Primitive Obsession. Consequence: Mixing up two arguments of the same type compiles fine, and each new statistic means editing the loader, the constructor and the field list together. Remedy: Group related values into small parameter objects (`YearStats`, `PhraseStats`, \u2026), or use a builder. This doesn't need to block this PR. **Recommended fix order:** enforce the 25-term limit (with a test) \u2192 split `findWords` \u2192 share one normalizer for search terms \u2192 the naming and tie-break fixes. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 94,
+  "cost_usd": 0.5427495999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 6,
+  "health_score": "86"
+ }
+}

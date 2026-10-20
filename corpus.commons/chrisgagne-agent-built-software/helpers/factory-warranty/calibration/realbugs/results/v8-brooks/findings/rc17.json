@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/jongalloway/DiagramForge",
+  "pr_number": 101,
+  "base": "969398a66116b68aafa8d267e824442000229ec7",
+  "head": "8be727e43f0bfd1dd285794ce5c557b5ea44336e"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "DefaultLayoutEngine.cs",
+   "start_line": 490,
+   "end_line": 490,
+   "message": "Knowledge Duplication \u2014 Class-node geometry is computed twice, and the copies already disagree. Symptom: `SizeClassNode` (`DefaultLayoutEngine.cs:490-510`) and `AppendClassCompartments` (`SvgNodeWriter.cs:301-362`) each work out the same vertical layout on their own: padding, `compPad = pad / 2`, divider thickness, and line advance by `fontSize * DefaultLabelLineHeight`. Even the constant `DefaultLabelLineHeight` is declared twice. The two copies disagree in three places: - **Annotations:** layout reserves `Annotations.Count * fontSize * 1.15` (one line per annotation, at the node's font size). The renderer moves down one line per *rendered line* at `annFontSize` (`:326`). A multi-line annotation, or one with a larger `FontSize`, runs into the class name. - **Compartment lines:** the renderer draws every line from `GetRenderedLabelLines(line)` but moves `currentY` down only one line per `Label` (`:358`). Layout also counts one line per `Label` (`:508`). A compartment entry containing `\\n` overlaps the next entry, and its extra lines spill past the node's bottom edge. - **Width:** width *does* account for multi-line text (through `EstimateTextWidth` \u2192 `GetLabelLines`), so the three dimensions don't follow one rule. Source: The Pragmatic Programmer \u2014 DRY; A Philosophy of Software Design \u2014 Information Leakage Consequence: Any change to spacing, line height or padding has to be made identically in two files with nothing to keep them in sync, and they have already drifted. Users get overlapping text in SVG output today for multi-line or custom-font compartment entries. Remedy: Have the layout engine produce the full geometry and have the renderer only draw it. For example, store per-line baseline Ys (or a small `ClassNodeGeometry` record) in `Node.Metadata`, or compute them once in a shared helper. At minimum, make both sides count *rendered lines* at each label's own font size, and add a test that feeds a multi-line compartment entry through both layout and render."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "DefaultLayoutEngine.cs",
+   "start_line": 436,
+   "end_line": 436,
+   "message": "Change Propagation \u2014 Layout and renderer decide differently when a node is a class node. Symptom: Layout uses class sizing only when `node.Compartments.Count > 0` (`DefaultLayoutEngine.cs:436`). The renderer draws class decorations when `Compartments.Count > 0 || Annotations.Count > 0` (`SvgNodeWriter.cs:151-152`). A node with annotations but no compartments gets standard sizing with the label centred at `Height / 2`, while the renderer draws the annotation at `pad + 0.85\u00b7fontSize`. The two overlap. The renderer's fallback `headerHeight` (`:335-336`) is a third copy of that logic. It ignores annotations, and `node.Label.FontSize ?? fontSize` in it is redundant because `fontSize` already holds that value. Source: Refactoring \u2014 Shotgun Surgery; Pragmatic Programmer \u2014 Orthogonality Consequence: Each new kind of class decoration (e.g. a stereotype-only interface box) requires coordinated edits in two modules. If one is missed, the bug only shows up as broken visuals. Remedy: Define one predicate for \"is a class node\", e.g. an `IsClassNode` property on `Node`, and use it on both sides. Once layout always writes `class:headerHeight`, remove the renderer's fallback."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "ClassDiagramLayoutTests.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 The new SVG rendering path has no tests. Symptom: All 23 new tests are in `ClassDiagramLayoutTests.cs` and check sizes and positions only. Nothing exercises `AppendClassCompartments`: no divider `<line>` output, no annotation/compartment `<text>` placement, no colour escaping. No test uses multi-line labels or per-line `FontSize`, which are exactly the cases where the Critical finding fails. Source: Working Effectively with Legacy Code, Ch. 1 Consequence: The half of the feature users actually see can regress silently, and the existing tests can't catch the layout/renderer drift above. Remedy: Add cases to `tests/.../Rendering/SvgRendererTests.cs`: - divider count equals compartment count; - every text baseline is less than `node.Height`; - baselines increase monotonically for a multi-line compartment entry; - an annotation-only node doesn't overlap its label."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "SvgNodeWriter.cs",
+   "start_line": 318,
+   "end_line": 318,
+   "message": "Cognitive Overload \u2014 Two different magic numbers for baseline offset. Symptom: The new code places baselines at `fontSize * 0.85` from the top (`SvgNodeWriter.cs:318, 352`). The existing `AppendNodeLabel` uses `centerY + fontSize * 0.35`. Both encode font metrics and neither is a named constant. Source: Code Complete \u2014 Ch. 12 (magic numbers) Consequence: Tuning text placement for a different font family means finding unnamed literals spread across the file. Remedy: Extract named constants (e.g. `BaselineFromTopRatio`, `BaselineFromCenterRatio`) next to `DefaultLabelLineHeight`. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 74000
+ }
+}

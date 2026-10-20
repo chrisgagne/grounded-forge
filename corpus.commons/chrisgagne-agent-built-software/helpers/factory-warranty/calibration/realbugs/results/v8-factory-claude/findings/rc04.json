@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/scorbo2/ext-sn-statistics",
+  "pr_number": 20,
+  "base": "da54721276e4132447cd708c35f18f3a635815a2",
+  "head": "12fad8312a7ca0ecc58480c2a582649386cf08a4"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 360,
+   "end_line": 360,
+   "message": "The word search control is never built when the top-words list is empty, so a user whose notes have no repeated word of 5+ characters cannot search for specific words at all, even though the notes contain words to search. buildWordsTab: `if (topWords.getWords().isEmpty()) { wordSearchForm.add(new LabelField(\"(no data)\")); return wordSearchForm; }` comes before the \"Word search\" header, the ShortTextField and the ButtonField. The top list is empty whenever every word of length >= MIN_WORD_LENGTH occurs once (findWords prunes counts < MIN_PHRASE_FREQUENCY), but the specific-word search counts short and single-occurrence words, so it would still return results."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "A search with more than 25 distinct words silently drops the least frequent ones, and the 'combined occurrences' total is understated, because the input limit in the help text is never enforced. WordSearchThread calls `StatisticsUtil.findWords(notesToSearch, searchWords, StatisticsUtil.TOP_N_WORDS)`, and findWords applies `.limit(N)` with N = 25. StatisticsDialog only says \"Enter a comma-separated list of 1-25 words\" (line 379). WordSearchAction checks only isFormValid (non-blank) and never checks wordSet.size(). showWordSearchResults then sums only the truncated list: `foundWords.getWords().stream().mapToInt(Word::occurrenceCount).sum()`."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 167,
+   "end_line": 167,
+   "message": "Search terms are matched against normalized note text without being normalized themselves, so a term in a different form (uppercase, trailing punctuation, an internal space, or an apostrophe TagList may change) may never match and is reported as zero occurrences. findWords applies normalizeText to the note text but compares tokens with `specificWords.contains(word)` against the raw set. In the UI that set comes from `TagList.fromRawString(...)` / `tag.getTag()`. TagList is an external Snotes class, and nothing in this repo shows that its normalization matches normalizeText (lowercase, keep apostrophes, non-alphanumerics become spaces). A direct caller passing Set.of(\"Hello\") gets no match."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 197,
+   "end_line": 197,
+   "message": "Words with equal counts are ranked in HashMap iteration order, so which words make the top 25 at a tie boundary is arbitrary. This is unlike PhraseList, which has a documented tiebreaker. `.sorted((w1, w2) -> Integer.compare(w2.occurrenceCount(), w1.occurrenceCount()))` followed by `.limit(N)` has no secondary key, and it runs on `wordCounts.entrySet()` of a HashMap."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 163,
+   "end_line": 163,
+   "message": "Every distinct token is kept in a second HashSet for the unique-word count, which undercuts the memory concern the prune comment cites. The work is also wasted on the specific-word search path, where the dialog never shows the count. `uniqueWords.add(word)` runs for every token before any filtering, so the set holds every distinct word. The later comment justifies pruning by the risk of OutOfMemory on large datasets. showWordSearchResults never reads getUniqueWordCount()."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/test/java/ca/corbett/snotes/extensions/statistics/StatisticsUtilTest.java",
+   "start_line": 480,
+   "end_line": 480,
+   "message": "Several new tests check only the shape of the output, so they would pass on a broken implementation, for example one that returns an empty list. findWords_shouldLimitResultsToN asserts only `result.getWords().size() <= 3`, which an empty result satisfies. findWords_withNullNoteText_shouldBeIgnored asserts only `assertFalse(result.getWords().isEmpty())`, without checking the words or counts. No test covers the >N specific-words case, WordSearchThread, Word/WordList validation, or the new Phrase wordCount check."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/Phrase.java",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The change tightens the public Phrase record's contract, which the word-statistics feature did not need: it now rejects wordCount 0 and occurrenceCount 0, which the old Javadoc explicitly allowed. The old docs said wordCount was \"zero if the phrase is empty\" and occurrenceCount \"A non-negative integer\". The new code throws IllegalArgumentException on `wordCount <= 0` and `occurrenceCount <= 0`. The in-repo callers (findPhrases uses len >= 2 and count >= 2; PhraseListTest uses counts >= 1) still comply, but any external caller that builds a zero-count Phrase now throws."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": ".github/copilot-instructions.md",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The architecture doc still says the loader runs 6 parallel worker tasks, but the change adds a seventh. The unchanged context line reads \"Loader runs **6 parallel worker tasks** via `ExecutorService`: general counts, per-year, all-months, per-year+month, day-of-week, and phrase extraction\", while StatisticsLoaderThread.run now does `workers.add(this::loadWords);`, which makes 7."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 446,
+   "end_line": 446,
+   "message": "Word search runs against the notes list captured when the statistics were loaded, so it may give stale counts after the user edits notes. If that list is the live DataManager list, iterating it off the EDT may also race with edits. WordSearchAction builds `new WordSearchThread(stats.getAllNotes(), wordSet)`. Statistics.allNotes is `dataManager.getNotes()` captured in StatisticsLoaderThread.getStatistics(), and StatisticsExtension caches Statistics until an explicit refresh. The repo does not show whether getNotes() returns a copy."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

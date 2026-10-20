@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1081,
+  "base": "9f04fad3b614c5bad660916916d4f1f5ff0e8b9e",
+  "head": "d2c0c636fc49cb7e318c17ad8e4a96aaddba9511"
+ },
+ "agent": "v8-plain",
+ "findings": [
+  {
+   "producer": "v8-plain",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "`LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` are imported from `./constants`, but `BivariateRenderer/constants.ts` doesn't export them. They live in `~core/logical_layers/constants`, which the old code imported from. TypeScript fails to compile here, and at runtime the source and layer IDs would be `undefined` + id. The diff never touches `constants.ts`, so the build breaks."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 9,
+   "end_line": 41,
+   "message": "The scales don't match, so bivariate layers get the wrong colours. `createMCDALayersFromBivariateAxes` builds score/base layers with `normalization: 'max-min'`, sentiment and transformation, so `linearNormalization` produces values in the 0..1 range. But `stepOverrides` passes the legend's raw axis steps (`legend.axis.x.steps` / `legend.axis.y.steps`, in raw numerator/denominator units). `classResolver` then compares normalized values against raw borders, which puts almost every hex in the wrong class. `createStepsForMCDADimension` only uses axis steps when normalization is `'no'`, so this mapping is wrong. The unit test only checks the object shape, not that the rendered classes match the legacy `generateLayerFromLegend` output."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 9,
+   "end_line": 24,
+   "message": "The sentiment/direction from `createMCDALayersFromBivariateAxes` can flip an axis (`sentimentReversed`). The legacy bivariate classing used raw quotient values with no inversion. Even with correct steps, cells can end up mirrored relative to the legend's A1..C3 labels and colours. Also, `mcdaFilterSetup` adds filters on the MCDA layers that the legacy bivariate style never had, which can hide hexes the old renderer showed."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 31,
+   "end_line": 43,
+   "message": "Max zoom regresses. `ClickableFeaturesRenderer.createTileSource` calls `MultivariateRenderer.getMaxZoomLevel(layer)`, which reads `layer.style` on the *source* (`state.source`), not the converted `state.style`. For bivariate and MCDA sources that isn't `'multivariate'`, so maxzoom silently falls back to `FALLBACK_BIVARIATE_MAX_ZOOM` (9). The old code used `getMaxNumeratorZoomLevel(quotients)` and `getMaxMCDAZoomLevel(config)`. Layers whose data supports higher zooms will now be overzoomed or capped."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 10,
+   "end_line": 44,
+   "message": "Bivariate popups change in a way the PR doesn't present as a UX change. The `MapHexTooltip` popup (cell label, x/y quotient values, hex colour) is replaced by the generic multivariate/MCDA popup showing normalized scores. Bivariate clicks also now dispatch the `mcda_popup` metrics event, which skews analytics. If this is intended, it needs product sign-off. Otherwise keep a bivariate-specific `createPopupContent`."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 18,
+   "end_line": 29,
+   "message": "With no legend and a non-MCDA style, `convertStyle` returns null. `_updateMap` then quietly skips mounting the layer and popup, but still adds the source and border layer. The old code threw `Vector layers must have legend`, so this misconfiguration is now silently hidden."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/core/logical_layers/renderers/MCDARenderer/MCDARenderer.tsx",
+   "start_line": 1,
+   "end_line": 32,
+   "message": "`MCDARenderer` isn't used anywhere: `getLayerRenderer` and `mcdaLayer.ts` still create `BivariateRenderer`. It's dead, untested code that copies `BivariateRenderer`'s MCDA path, and its source/layer prefixes (`mcda-source-`, `mcda-layer-`) are hard-coded strings instead of constants. Either wire it in with tests or drop it from this refactor."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 31,
+   "end_line": 43,
+   "message": "`willSourceUpdate` and `willMount` are identical copies apart from the super call, and the same pattern is repeated in `MCDARenderer`. Overriding one shared hook (for example a `transformState`/`convertStyle` hook in `ClickableFeaturesRenderer`) would avoid the copies and also cover any other hooks that read `state.style`."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/utils/bivariate/bivariateToMultivariate.test.ts",
+   "start_line": 27,
+   "end_line": 75,
+   "message": "The tests use `toMatchObject` on the config shape only, and the MCDA test passes `layers: []`. Nothing checks the generated score/base MCDA layers or the resulting fill-colour expression, so the step/normalization mismatch above passes. The rendering parity that matters for this refactor isn't tested."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "docs/investigations/maplibre-migration.md",
+   "start_line": 80,
+   "end_line": 80,
+   "message": "The docs now say `BivariateRenderer.tsx` lines 1\u201345 do event listener registration via `registerMapListener`, feature state logic and addSource/addLayer. That file no longer does any of these; it all lives in `ClickableFeaturesRenderer`/`MultivariateRenderer`. The references should point there instead."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "src/features/bivariate_manager/readme.md",
+   "start_line": 52,
+   "end_line": 55,
+   "message": "The new lines drop the list indentation used by the surrounding numbered items, which breaks the readme's list structure. They also say the style is created with 'proper style rules for every legend step', which isn't true given the normalized-vs-raw step mismatch."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 72000
+ }
+}

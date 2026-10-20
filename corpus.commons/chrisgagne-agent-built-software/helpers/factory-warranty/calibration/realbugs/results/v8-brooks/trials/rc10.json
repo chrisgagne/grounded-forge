@@ -1,0 +1,88 @@
+{
+ "id": "rc10",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "fr.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 The PR mixes unrelated changes. Symptom: 21 files across the devcontainer, VS Code configs, docs, a new orchestrator script, three runtime config resolvers (C#, website TS, build-time TS), the components `dev` target and 10 commits of French translation fixes (`fr.json`). In total it adds about 1,750 lines. Source: The Mythical Man-Month \u2014 Ch. 2, communication overhead / propagation radius Consequence: A reviewer can't hold all of this in one pass. A regression in the production auth gating in `WebApplicationBuilderExtensions.cs` sits next to emoji folder names and translation edits, so it gets the same shallow attention. Remedy: Split it into (a) the `EXP_PROXY_URL` runtime override plus tests, (b) the `dev-local.ts` orchestrator and nx targets, (c) the VS Code and devcontainer setup, and (d) the `fr.json` fixes."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "scripts/dev-local.ts",
+   "start_line": 138,
+   "end_line": 138,
+   "message": "Knowledge Duplication \u2014 Database seeding now exists in three copies. Symptom: `scripts/dev-local.ts:138-201` re-implements what `infra/Local/selfhost-start.sh:52-69` and `selfhost-start.bat:54-65` already do: - the SQL schema load, - the Cosmos DB/container creation, including the partition keys `/UserIdentifier` and `/parentCompanyId`, - the Azurite container/CORS setup. It also hardcodes the SA password `qazWSXedcRFV1234!` (line 144), even though commit `f51d4097` deliberately removed that password from `DEVELOPMENT.md` and `Storage/docker-compose.yml` already owns it. Source: The Pragmatic Programmer \u2014 DRY; Refactoring \u2014 Duplicate Code Consequence: Partition keys are part of the domain schema. When someone adds a container or changes a key, they will update one script and miss the other two. The two dev paths will then quietly produce different databases. Remedy: Put the seeding in one place, either an `infra/Local/init.ts` or a compose `init` service, and have both `selfhost-start.*` and `dev-local.ts` call it. Read the password from the compose env (`docker exec mssql printenv MSSQL_SA_PASSWORD`) instead of repeating it."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "WebApplicationBuilderExtensions.cs",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Change Propagation \u2014 Exp endpoint selection is duplicated in three runtimes and decides auth by string equality. Symptom: The same three-step rule (`EXP_PROXY_URL` > `AZURE_CLIENT_ID` > `http://exp`) and the same check `useAzureAuth = baseUrl == AZURE_URL` appear in: - `WebApplicationBuilderExtensions.cs:106-122` - `configProxy.ts:137-150` - `generate.env.ts:23-28`, whose own comment says \"same deterministic logic as the runtime consumers\" The literal `http://localhost:5002` / port `5002` appears about 12 times: `.env.example`, `launch.json`, all three workspaces, api `project.json`, `launchSettings.json`, `dev-local.ts` and exp `project.json`. Source: A Philosophy of Software Design \u2014 Ch. 5, Information Leakage Consequence: Auth now depends on whether a URL is byte-for-byte identical to a constant. In production, if `EXP_PROXY_URL` is set to anything other than that exact string (`https://exp.arolariu.ro/` with a trailing slash, or a staging host), bearer auth is turned off silently and exp returns 401s that are hard to trace. Changing the dev port means editing about 12 files. Remedy: Base auth on intent, not on URL equality: use `AZURE_CLIENT_ID` presence, or an explicit `EXP_USE_AUTH` flag, or a host comparison after normalising the URL. Keep `localhost:5002` in one place: nx `project.json` and `launchSettings.json` already set it, so drop it from `dev-local.ts`'s spawn env and have the launch configs reference `.env`/`envFile`."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "launch.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 Three copies of the VS Code debug/task configs have already drifted. Symptom: `launch.json`/`tasks.json`, `backend.code-workspace` and `fullstack.code-workspace` each define `.NET API: Debug`, the exp debugpy config, `Build: API for Debug`, `Infra: Setup Docker` and the Docker start/stop tasks. The copies already differ: - The debugpy config is called `Python: exp FastAPI Debug` in `launch.json` but `Python: exp FastAPI` in the workspaces. - The compounds reference different Next.js configs. - `fullstack.code-workspace` sets `ms-python.black-formatter` as the Python formatter but leaves it out of its extension recommendations, and it lacks the `organizeImports` action that the backend workspace has. - `frontend.code-workspace` has `SvelteKit: CV Dev` and `CV Debug`, which differ only by `NODE_OPTIONS`. Source: The Pragmatic Programmer \u2014 DRY; Refactoring \u2014 Duplicate Code Consequence: Each change to debug setup has to be made three times. Which workspace a contributor opens decides whether formatting or debugging works. Remedy: Keep the root `launch.json`/`tasks.json` as the single source of truth. Make the workspaces folder/settings-only, or generate them from a single script. Delete the duplicate CV config."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "dev-local.ts",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "Domain Model Distortion \u2014 The `infra` profile doesn't do what its name and docs say. Symptom: The header in `dev-local.ts:17` says `--infra` means \"Start infra only (no services)\", but `BARE_METAL_SERVICES.infra = [\"exp\"]` (line 249). That makes the \"Infrastructure-only mode. Start services manually: \u2026 npm run dev:exp\" branch (line 305) unreachable. It also tells users to start exp, which is already running. `swapExpToBareMetalMode` logs \"starting bare-metal exp\" but only stops the container. Source: Domain-Driven Design \u2014 Ubiquitous Language; Code Complete \u2014 Ch. 11, names Consequence: `--setup-only` stops the Docker exp and starts no replacement. Launching `.NET API: Debug` alone, outside the compound, therefore points at an empty `localhost:5002`, and the logs claim exp is starting. Remedy: Rename the profile (e.g. `--infra` \u2192 `--exp`), or make `infra: []` and delete the dead branch. Fix the log text. Have `setup-only` either leave the Docker exp running or say clearly that exp must be started separately."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 `dev-local.ts` hides its failures. Symptom: - `initDatabases` (lines 138\u2013202, about 65 lines) handles three subsystems and uses a bare `{ \u2026 }` block where an extracted function belongs. - The Azurite step is a roughly 600-character minified `node -e` string ending in `.catch(()=>{})`, so \"Azurite blob containers initialized with CORS\" is printed even when it fails. - The `Promise.race` at line 336 returns when any service exits. The other services keep running and nothing is reported. - `p.kill()` with `shell: true` only signals the shell, so on SIGTERM (for example VS Code stopping the task) `dotnet watch`/`uvicorn` can be left running and keep holding ports 5000/5002. - `logStep(n, 5)` hardcodes the step total in five separate functions. Source: Code Complete \u2014 Ch. 7 (routine length) and defensive programming / error-handling discipline Consequence: The usual onboarding failures (no blob container, API crashed, port already in use) show up as success messages or silence. This undercuts the script's purpose. Remedy: - Split out `initSql`, `initCosmos` and `initAzurite`. - Move the Azurite code into a real TS function using the already-installed `@azure/storage-blob`, and let its errors propagate. - When a child exits, log which one, then kill the rest. Spawn with `detached: true` and kill the process group (`process.kill(-pid)`), or drop `shell: true`."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "configProxy.test.ts",
+   "start_line": 155,
+   "end_line": 155,
+   "message": "Coverage Illusion \u2014 The new `EXP_PROXY_URL` precedence and auth gating have no tests. Symptom: `configProxy.test.ts:155-189` only covers the `AZURE_CLIENT_ID` branches. No test in TS or C# exercises the override, or the \"override set \u2192 no bearer token\" path. The existing tests don't clear `EXP_PROXY_URL`, so a developer whose shell exports it (as `.env.example` now recommends) will see them pass or fail depending on their environment. Source: Working Effectively with Legacy Code \u2014 Ch. 1 Consequence: The production auth decision changed with nothing protecting it. A future refactor could turn auth off in Azure and CI would stay green. Remedy: Add cases for: override wins over the Azure URL; override equal to the Azure URL still gets a token; an empty or whitespace override falls back to the next rule. Add `delete process.env[\"EXP_PROXY_URL\"]` to the test `beforeEach`. Add a matching C# test for `AddConfigProxyClient`."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 `postStartCommand` hides failures from `generate`. Symptom: `.devcontainer/devcontainer.json`: `npm run generate 2>/dev/null || true && echo '\u2705 Devcontainer ready'`. Source: Code Complete \u2014 error-handling discipline Consequence: If `.env` generation fails, the container still reports \"ready\" and the first sign of trouble is a confusing runtime error. Remedy: Keep stderr visible, and if it fails print a warning such as `|| echo '\u26a0 env generation failed \u2014 run npm run generate'`."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Dependency Disorder \u2014 The exp `test`/`lint` targets pip-install into whichever Python is active. Symptom: `sites/exp.arolariu.ro/project.json` runs `python -m pip install -q -r requirements-dev.txt` on every `test`/`lint` call, with no virtualenv. Source: Software Engineering at Google \u2014 Ch. 21, Dependency Management Consequence: It changes the developer's global or system Python on each run, and the pinned `pytest`/`ruff` versions can clash with other projects. Remedy: Add a `setup` target that creates `.venv`, and run `test`/`lint` through `.venv/bin/python`. Alternatively, use `uv run`. **Recommended fix order:** auth-gating tests \u2192 string-equality auth check \u2192 database seeding consolidation \u2192 `dev-local.ts` failure handling \u2192 `infra` profile naming \u2192 VS Code config consolidation \u2192 PR split. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 112,
+  "cost_usd": 0.8238639999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 1,
+  "health_score": "63"
+ }
+}

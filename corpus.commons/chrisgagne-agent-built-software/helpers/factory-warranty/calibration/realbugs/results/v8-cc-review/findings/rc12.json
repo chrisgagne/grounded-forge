@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/wspulse/client-kt",
+  "pr_number": 24,
+  "base": "5db235d5cc51aba5ddc3cc50f576a6f57a8bc308",
+  "head": "bc2ac1a4be2e0583597f65d48321802736e3d1a6"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "Swapping a blocking `CountDownLatch.await(5s)` for a suspending `CompletableDeferred.await()` inside `runTest(StandardTestDispatcher)` means the test no longer checks that callbacks fire right away. While the test body is suspended, runTest auto-advances virtual time, so the 60 s pong deadline (clientConfig sets pongWait=60s, and autoPong is never ticked again) can fire and complete the deferreds through a different code path. Suppose injectClose() regresses and stops firing onTransportDrop/onDisconnect. `transportDropped.await()` suspends, runTest jumps virtual time to the pong deadline in `resetPongDeadline`, the pong timeout raises a ConnectionLostException that fires both callbacks with non-null errors, and the test passes. The old latch blocked the scheduler thread, so the same regression failed the test. This pattern repeats in the 'throwing onTransportDrop does not prevent onDisconnect' test (line 326) and in the other converted `.await()` calls."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 303,
+   "end_line": 303,
+   "message": "In 'close from onTransportDrop suppresses onTransportRestore', if `transportDropped.await()` actually has to suspend, runTest advances virtual time through the reconnect backoff before `client.close()` runs. The reconnect can then finish and change what the test is measuring. If the drop callback fires asynchronously (for example after a dispatcher change), awaiting lets the 1\u201310 ms backoff elapse and transport2 connects before close(). onTransportRestore then fires and the test fails or stops covering the intended race. The previous latch kept virtual time frozen."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 531,
+   "end_line": 531,
+   "message": "`waitUntil` checks the condition before each `advanceTimeBy(10)` but not after the 500th advance. A condition that becomes true during the final 10 ms step is reported as a timeout. Work that completes between 4.99 s and 5.0 s of virtual time makes the condition true on the last advance, but `error(\"waitUntil: condition not satisfied after 5s\")` is thrown without rechecking. Add `if (condition()) return` before the error."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "Bounded latch waits that carried assertion messages (e.g. 'onDisconnect must fire even when onTransportDrop throws') became bare unbounded `await()` calls. If a callback never fires, there is no descriptive failure, only a generic runTest timeout or an endless virtual-time spin. If onDisconnect never fires after onTransportDrop throws and no timer remains, the test hangs until runTest's 60 s real-time timeout and then reports an UncompletedCoroutinesError with no hint of which callback was missing."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 80000
+ }
+}

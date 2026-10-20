@@ -26,6 +26,10 @@ Each arm, as committed here before the first trial:
   model anthropic/claude-opus-5-5 through the Anthropic API. Two settings beyond the model, because PR-Agent doesn't
   know this model yet: its context size (200,000 tokens; PR-Agent otherwise assumes 32,000 and cuts large diffs) and a
   600-second API timeout. Part B stop: any key issue to review, or a security concern other than "No".
+
+PREREG-v8 adds two arms on v6's sample (part e): `cc-review`, Claude Code's built-in `/code-review`, and `brooks`,
+brooks-lint's `/brooks-review` at v1.8.0 (BROOKS_LINT, a clone at that commit). Both run as shipped on a local branch,
+with no settings files, hooks off and Bash in Claude Code's sandbox; see the pre-registration and its Amendment 1.
 """
 from __future__ import annotations
 
@@ -53,6 +57,9 @@ PR_AGENT_PY = Path(os.environ.get("PR_AGENT_PY", REPOS_ROOT / "realbugs-work" / 
 CODEX = os.environ.get("CODEX_BIN", "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex")
 CODEX_MODEL = "gpt-6.1-sol"
 PR_AGENT_MODEL = "anthropic/claude-opus-5-5"
+BROOKS_LINT = Path(os.environ.get("BROOKS_LINT", REPOS_ROOT / "brooks-lint"))  # PREREG-v8: v1.8.0, c85f65e
+BROOKS_COMMIT = "c85f65eada5c56721275ef89e2dd41ac453dcba2"
+BROOKS_PROMPT = "/brooks-lint:brooks-review Review this branch's changes against main (git diff main...HEAD)."
 TIMEOUT_S = 60 * 60  # what the factory gives its own review legs
 NEUTRAL_STORY = "A contributor's change to {project}. Review it before it merges."
 
@@ -86,6 +93,11 @@ def part_c_cases() -> list[dict]:
 def part_d_cases() -> list[dict]:
     """PREREG-v7's sample (pick_v7.py)."""
     return json.loads((REALBUGS / "v7-cases.json").read_text())["cases"]
+
+
+def part_e_cases() -> list[dict]:
+    """PREREG-v8 reuses v6's sample."""
+    return part_c_cases()
 
 
 def part_b_cases() -> list[dict]:
@@ -132,7 +144,7 @@ def checkout(case: dict, part: str, dest: Path) -> tuple[Path, str]:
     """A git repository at dest with branch `base` at the change's start and HEAD at its end; returns (repo, story)."""
     git = lambda *a, cwd=dest: subprocess.run(["git", "-c", "core.hooksPath=/dev/null", *a], cwd=cwd, check=True,
                                               capture_output=True)
-    if part in ("a", "c", "d"):
+    if part in ("a", "c", "d", "e"):
         mirror = ensure_mirror(case)
         ensure_commits(case, mirror)
         subprocess.run(["git", "clone", "-q", "--shared", "--no-checkout", str(mirror), str(dest)], check=True)
@@ -256,6 +268,109 @@ def run_claude_review(repo: Path, story: str, log: Path) -> tuple[list[dict], di
     return out, meta
 
 
+def as_local_branch(repo: Path) -> None:
+    """PREREG-v8: both tools review `main...HEAD` when given no pull request, so `main` is the change's start, and the
+    remote goes so neither can pick a different base from it."""
+    git = lambda *a: subprocess.run(["git", "-c", "core.hooksPath=/dev/null", *a], cwd=repo, check=True,
+                                    capture_output=True)
+    git("branch", "-f", "main", "base")
+    if subprocess.run(["git", "remote"], cwd=repo, capture_output=True, text=True).stdout.strip():
+        git("remote", "remove", "origin")
+
+
+def first_changed_file(repo: Path) -> str:
+    out = subprocess.run(["git", "diff", "--name-only", "main...HEAD"], cwd=repo, capture_output=True, text=True).stdout
+    return (out.splitlines() or [""])[0]
+
+
+# PREREG-v8 Amendment 1: Bash runs in Claude Code's sandbox (writes only inside the checkout, no network) instead of
+# being limited to commands that start with `git`, which refused the tools' own `git diff ... | tail` pipelines.
+SANDBOX_SETTINGS = json.dumps({"disableAllHooks": True, "sandbox": {"enabled": True, "autoAllowBashIfSandboxed": True,
+                                                                    "allowUnsandboxedCommands": False}})
+
+
+def run_claude_command(repo: Path, prompt: str, extra: list[str], log: Path) -> tuple[list[dict], dict]:
+    """A Claude Code command run as shipped, under PREREG-v8's isolation; returns (stream events, meta)."""
+    t0 = time.time()
+    cmd = ["claude", "-p", prompt, "--output-format", "stream-json", "--verbose", "--no-session-persistence",
+           "--strict-mcp-config", "--setting-sources", "", "--settings", SANDBOX_SETTINGS,
+           "--tools", "Read,Grep,Glob,Bash,Agent,ReportFindings",
+           "--allowedTools", "Read,Grep,Glob,Agent,ReportFindings", "--permission-mode", "dontAsk", *extra]
+    try:
+        r = subprocess.run(cmd, cwd=repo, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=TIMEOUT_S)
+    except subprocess.TimeoutExpired:
+        log.write_text("timed out\n")
+        return [], {"timed_out": True, "seconds": TIMEOUT_S}
+    log.write_text(f"exit {r.returncode}\n--- stdout\n{r.stdout}\n--- stderr\n{r.stderr[-4000:]}")
+    events = []
+    for line in r.stdout.splitlines():
+        try:
+            events.append(json.loads(line))
+        except ValueError:
+            pass
+    meta = {"exit": r.returncode, "seconds": round(time.time() - t0)}
+    result = next((e for e in reversed(events) if e.get("type") == "result"), None)
+    if result:
+        meta.update(cost_usd=result.get("total_cost_usd"), models=list((result.get("modelUsage") or {}).keys()))
+    else:
+        meta["unreadable"] = "no result event"
+    return events, meta
+
+
+def run_cc_review(repo: Path, log: Path) -> tuple[list[dict], dict]:
+    """Claude Code's built-in /code-review: what it hands ReportFindings (its last call), else its final message."""
+    events, meta = run_claude_command(repo, "/code-review", [], log)
+    calls = [c["input"] for e in events if e.get("type") == "assistant"
+             for c in e["message"].get("content", []) if c.get("type") == "tool_use" and c.get("name") == "ReportFindings"]
+    if calls:
+        items, meta["level"] = calls[-1].get("findings") or [], calls[-1].get("level")
+    else:
+        result = next((e for e in reversed(events) if e.get("type") == "result"), {})
+        items, broken = json_items(result.get("result") or "")
+        meta["no_report_findings"] = True
+        if broken:
+            meta["items_unreadable"] = broken
+    fallback, out = first_changed_file(repo), []
+    for it in items:
+        if not isinstance(it, dict):
+            continue
+        message = " ".join(str(it.get(k) or "").strip() for k in ("summary", "failure_scenario", "message")).strip()
+        if not message:
+            continue
+        line = int(re.match(r"\d+", str(it.get("line") or it.get("start_line") or 1)).group()
+                   if re.match(r"\d+", str(it.get("line") or it.get("start_line") or 1)) else 1)
+        f = rel(str(it.get("file") or ""), repo)
+        meta["fallback_file"] = meta.get("fallback_file", 0) + (not f)
+        out.append({"source": "cc-review", "file": f or fallback, "start_line": line, "end_line": line,
+                    "message": message})
+    return out, meta
+
+
+def run_brooks(repo: Path, log: Path) -> tuple[list[dict], dict]:
+    """brooks-lint's /brooks-review, its report parsed by brooks-lint's own report-parse.mjs."""
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=BROOKS_LINT, capture_output=True, text=True).stdout.strip()
+    if head != BROOKS_COMMIT:
+        raise RuntimeError(f"brooks-lint is at {head}, not {BROOKS_COMMIT}")
+    events, meta = run_claude_command(repo, BROOKS_PROMPT, ["--plugin-dir", str(BROOKS_LINT)], log)
+    report = next((e for e in reversed(events) if e.get("type") == "result"), {}).get("result") or ""
+    parse = ("import {parseFindings} from " + json.dumps((BROOKS_LINT / "scripts" / "report-parse.mjs").as_uri())
+             + "; let s=''; process.stdin.on('data', d => s += d);"
+             + " process.stdin.on('end', () => console.log(JSON.stringify(parseFindings(s))));")
+    items = json.loads(subprocess.run(["node", "--input-type=module", "-e", parse], input=report, capture_output=True,
+                                      text=True, check=True).stdout or "[]")
+    fallback, out = first_changed_file(repo), []
+    for it in items:
+        head_line = " — ".join(x for x in (it.get("riskName"), it.get("title")) if x)
+        fields = " ".join(f"{k.title()}: {it[k]}" for k in ("symptom", "source", "consequence", "remedy") if it.get(k))
+        f = rel(str(it.get("file") or ""), repo)
+        meta["fallback_file"] = meta.get("fallback_file", 0) + (not f)
+        line = int(it.get("line") or 1)
+        out.append({"source": "brooks", "severity": it.get("severity"), "file": f or fallback, "start_line": line,
+                    "end_line": line, "message": f"{head_line}. {fields}".strip()})
+    meta["health_score"] = (re.search(r"Health Score:\*{0,2}\s*(\d+)", report) or [None, None])[1]
+    return out, meta
+
+
 def anthropic_key() -> str:
     for line in ANTHROPIC_ENV.read_text().splitlines():
         m = re.match(r"^\s*(?:export\s+)?ANTHROPIC_API_KEY\s*=\s*(.*)$", line)
@@ -340,7 +455,11 @@ def one_external(part: str, arm: str, case: dict, out: Path) -> str:
     repo, story = checkout(case, part, work / "repo")
     (out / "logs").mkdir(parents=True, exist_ok=True)
     findings, meta = [], {}
-    if arm == "claude-again":  # PREREG-v6's control: a second, separate plain Claude Code review
+    if arm in ("cc-review", "brooks"):  # PREREG-v8
+        as_local_branch(repo)
+        run = run_cc_review if arm == "cc-review" else run_brooks
+        findings, meta = run(repo, out / "logs" / f"{case['id']}-{arm}.log")
+    elif arm == "claude-again":  # PREREG-v6's control: a second, separate plain Claude Code review
         findings, meta = run_claude_review(repo, story, out / "logs" / f"{case['id']}-claude.log")
     elif arm == "vendors":
         title = case.get("title") or story.splitlines()[0]
@@ -359,7 +478,7 @@ def one_external(part: str, arm: str, case: dict, out: Path) -> str:
         rec["stopped"] = stop(arm, findings, meta)
     rec_path.parent.mkdir(parents=True, exist_ok=True)
     rec_path.write_text(json.dumps(rec, indent=1))
-    if part in ("a", "c", "d"):
+    if part in ("a", "c", "d", "e"):
         (out / "findings").mkdir(exist_ok=True)
         (out / "findings" / f"{case['id']}.json").write_text(
             json.dumps(rb_file(case, f"v5-{arm}", findings, meta.get("seconds", 0)), indent=1))
@@ -389,16 +508,18 @@ def factory_to_rb(cases: list[dict], out: Path) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("part", choices=["a", "b", "c", "d"], help="c is PREREG-v6's sample, d PREREG-v7's")
-    ap.add_argument("arm", choices=["factory", "vendors", "pr-agent", "claude-again"])
+    ap.add_argument("part", choices=["a", "b", "c", "d", "e"],
+                    help="c is PREREG-v6's sample, d PREREG-v7's, e PREREG-v8's (v6's sample again)")
+    ap.add_argument("arm", choices=["factory", "vendors", "pr-agent", "claude-again", "cc-review", "brooks"])
     ap.add_argument("--only")
     ap.add_argument("--to-rb", action="store_true", help="factory arm: convert its trials to ReviewBench files only")
     args = ap.parse_args()
-    cases = {"a": part_a_cases, "b": part_b_cases, "c": part_c_cases, "d": part_d_cases}[args.part]()
+    cases = {"a": part_a_cases, "b": part_b_cases, "c": part_c_cases, "d": part_d_cases,
+             "e": part_e_cases}[args.part]()
     if args.only:
         wanted = set(args.only.split(","))
         cases = [c for c in cases if c["id"] in wanted]
-    out = REALBUGS / "results" / ({"c": f"v6-{args.arm}", "d": f"v7-{args.arm}"}.get(args.part)
+    out = REALBUGS / "results" / ({"c": f"v6-{args.arm}", "d": f"v7-{args.arm}", "e": f"v8-{args.arm}"}.get(args.part)
                                   or f"v5-{args.part}-{args.arm}")
     out.mkdir(parents=True, exist_ok=True)
     if args.arm == "factory":

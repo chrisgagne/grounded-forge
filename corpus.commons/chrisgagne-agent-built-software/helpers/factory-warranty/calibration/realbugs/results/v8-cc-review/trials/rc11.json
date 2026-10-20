@@ -1,0 +1,23 @@
+{
+ "id": "rc11",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "The new Edit flow calls `updateItem`, which only changes `items` and never adds an `ActivityEntry`, even though `ActivityEntry.action` has an `'updated'` value and add/delete both log activity. A user edits an item, for example changing its quantity from 50 to 2 (In Stock \u2192 Low Stock), and clicks Save Changes. The table and stats update, but the dashboard's Recent Activity feed shows nothing. Adds and deletes do appear in that feed, so edits are the only change it leaves out."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 95,
+  "cost_usd": 0.19265539999999998,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

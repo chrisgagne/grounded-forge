@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/godaddy/antares",
+  "pr_number": 142,
+  "base": "f910afef727b67f484a672fcae7a94d86272aed9",
+  "head": "12f376d05689fdecb86096f51f7ab2f7169c3f0a"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "The default Legend is no longer centered: the root changed from a full-width flex with `justifyContent=\"center\"` to an `inline-flex` aligned to `flex-start`, so any caller that doesn't pass `alignSelf=\"center\"` now gets a left-aligned legend. A consumer renders `<Legend series={series} />` under a custom chart, or inside any block or non-column-flex parent. Before this change the items were centered. Now the legend shrinks to fit its content and sits at the start edge. Only BarChart and LineChart were updated with `alignSelf=\"center\"`, and that prop has no effect in a block parent anyway. This is a silent visual regression for a public component."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "`aria-label={label ?? 'Chart legend'}` only falls back when `label` is null or undefined, while the visible label is shown only when `label` is truthy, so `label=\"\"` gives a list with an empty accessible name. A caller passes `label={title}` where `title` is `''` (for example, an untitled chart). Nothing visible is rendered, and the list gets `aria-label=\"\"` instead of 'Chart legend', so screen readers announce an unnamed list. Use `label || 'Chart legend'` instead."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 48000
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/wiyco/review-insights",
+  "pr_number": 31,
+  "base": "5614fbab711f17e800401d6bacca0200bd4eff0a",
+  "head": "e9c5280f80a69136f5f247f4ac7f1c0fa49f1e29"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "Cognitive Overload \u2014 `fitQuasiIndependenceModel` packs four jobs into one ~175-line routine. Symptom: `src/analyze/bias-detector.ts:61` builds the support index (filtering and validating counts), sets up the factors and lookup maps, runs the IPF row/column updates, checks convergence again with a second pair of loops, and builds the lookup closure. It is all one function with nested helper closures. The convergence check repeats the row/column loop shape of the update step. Source: Fowler \u2014 Refactoring, Long Method; McConnell \u2014 Code Complete, Ch. 7 High-Quality Routines. Consequence: The interface is small and simple, which counts in its favour (Ousterhout). That's why this is a Warning and not a Critical. But the numerical core is the part most likely to need tuning (tolerance, damping, disconnected components). Anyone tuning it has to keep index building, iteration and lookup in their head at once, and a change to one phase can quietly break the others. Remedy: Split it into `buildInteractionSupport(matrix)` (returns reviewers, authors and index maps, and throws on negative or empty input), `runIpf(support)` (returns the factors or throws on non-convergence) and `maxMarginError(support, factors)`. `fitQuasiIndependenceModel` then becomes a short composition of the three that returns `expectedCount`."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "src/output/job-summary.ts",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "Knowledge Duplication \u2014 the bias status and \"unavailable\" wording are decided in four places. Symptom: The same `modelFitError != null ? \"Unavailable\" : biasDetected ? \"Yes (N pairs)\" : \"No\"` ternary appears in `src/output/job-summary.ts:55` and `src/output/pr-comment.ts:54`. `src/visualize/html-report.ts:123` repeats the decision, and `src/main.ts:60` has its own copy of the warning text. \"\u2026quasi-independence model could not be fit\" is phrased three different ways. `pr-comment.ts` and `html-report.ts` also re-sort `flaggedPairs` in place by `pearsonResidual`, even though `detectBias` already sorts them. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY; Ousterhout \u2014 Information Leakage. Consequence: Adding a fourth state (for example \"skipped: too few reviewers\") or rewording the warning means editing four files in step, and the copies are already drifting. The re-sorts also mutate shared analysis data that other renderers read later. Remedy: Add a `getBiasStatus(bias): { label: string; unavailableReason: string | null }` (or put `status: \"flagged\" | \"clear\" | \"unavailable\"` on `BiasResult`) in one shared module, and have each renderer format from it. Drop the redundant `.sort()` calls and rely on the ordering `detectBias` guarantees."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 322,
+   "end_line": 322,
+   "message": "Domain Model Distortion \u2014 the catch-all turns programming errors into \"model unavailable\". Symptom: The `try` at `src/analyze/bias-detector.ts:322\u2013350` covers the fit and the whole flagging loop, then stores any thrown value in `modelFitError`. That includes the negative-count invariant error and any `TypeError` or `RangeError` from a future bug. The test at `__tests__/analyze/bias-detector.test.ts:318`, which makes `Math.sqrt` throw a string, relies on exactly that breadth. Source: McConnell \u2014 Code Complete, defensive programming (assertions for invariants vs. error handling for expected conditions). Consequence: A real defect would surface as a plausible \"Bias warnings unavailable\" note and `bias-detected=false`, instead of failing the action. Users would get quietly wrong output, and maintainers would get no stack trace. Remedy: Throw a dedicated `BiasModelFitError` only for the expected numerical failure (non-convergence, plus the empty-support case if you want). Catch only that type around the `fitQuasiIndependenceModel` call, and keep the flagging loop outside the `try`. Let invariant violations such as negative counts propagate."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "bias-detector.ts",
+   "start_line": 137,
+   "end_line": 137,
+   "message": "Knowledge Duplication \u2014 duplicate index maps inside the fit. Symptom: `authorIndexByName` (`bias-detector.ts:137`) rebuilds the same author\u2192position map as the existing `authorIndex`. `reviewerSupportSets` repeats `authorPositions` as Sets, and `reviewerIndex` rebuilds a map that could have been filled during the first pass. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY. Consequence: Two sources of truth for the same mapping. If the first-pass indexing changes, the lookup closure can quietly disagree with it. Remedy: Reuse `authorIndex` in the closure, and fill `reviewerIndex` in the first loop."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "docs/outputs.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 `bias-detected=false` now means two different things. Symptom: The `bias-detected` output (`action.yml`, `docs/outputs.md`) returns `\"false\"` both when no pair was flagged and when the model couldn't be fit. The docs admit the ambiguity. `FlaggedPair.zScore` is also gone, which affects artifact consumers. Source: Winters et al. \u2014 Software Engineering at Google, Hyrum's Law and backward compatibility. Consequence: Workflows that gate on `bias-detected == 'false'` will read a failed fit as \"no bias\". Only someone reading logs or reports would notice the difference. Remedy: Add a `bias-status` output (`flagged` / `clear` / `unavailable`) so the state can be read by machines. Since the change is already marked `feat!`, call out the `zScore` \u2192 `expectedCount`/`pearsonResidual` rename in the release notes."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "bias-detector.test.ts",
+   "start_line": 290,
+   "end_line": 290,
+   "message": "Mock Abuse \u2014 failure paths are forced by patching the global `Math`. Symptom: The tests reach the unavailable path by spying on `Math.abs` (`bias-detector.test.ts:290`) and `Math.sqrt` (`:318`). Source: Osherove \u2014 The Art of Unit Testing, mock usage guidelines and seams. Consequence: These tests depend on which `Math` functions the code happens to call. Replacing `Math.abs` in `getRelativeMarginDiff` with a manual comparison would break the test without any behaviour change, and a global spy can leak if the restore order slips. Remedy: Give the code a seam. For example, an optional `{ maxIterations, tolerance }` argument on `fitQuasiIndependenceModel`/`detectBias` lets a test force non-convergence with `maxIterations: 1`. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 83000
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "id": "rc09",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "CircleIcon now draws a horizontal line instead of a ring whenever there is no fill color, which changes every stroke-only circle legend in the app, not just the new case. Both built-in circle legends set only `color` and no fill: DEFAULT_USER_LAYER_LEGEND (src/features/create_layer/constants.ts:39, a point layer with a marker icon) and registerNewGeometryLayer.ts:34 (`style: { color: mainColor }`). For both, fillColor resolves to 'none', so the legend shows a line where it used to show a circle outline. Any backend-configured `stepShape: 'circle'` step with only `circle-stroke-color` gets the same wrong line icon."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 29,
+  "cost_usd": 0.1845156,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

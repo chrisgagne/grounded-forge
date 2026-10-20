@@ -1,0 +1,37 @@
+{
+ "id": "rc06",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "The latest turn's tool-call ids are kept verbatim but never added to `used`/`map`, so `makeUniqueToolId` can give an older tool call the same id as one in the latest turn. An older turn has id `call:abc`, which sanitizes to `callabc`. The latest assistant turn has raw id `callabc` and is preserved as-is. The older call isn't de-duplicated against it, so both tool_use blocks (and their results) go out with id `callabc`. Claude rejects the duplicate id, or results get paired with the wrong call. Before this change the transcript-wide de-dup would have suffixed one of them."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 286,
+   "end_line": 286,
+   "message": "A tool result is left unchanged whenever its id matches any tool call in the latest turn, wherever that result sits in the transcript. An older result that reuses the same raw id is skipped while its own older assistant call still gets rewritten. Raw id `toolu_1` shows up in an older turn and again in the latest turn (replayed or retried calls, or providers that reuse ids). The older assistant block is rewritten to `toolu1`, but its paired older toolResult stays `toolu_1` because it is in `preservedLatestToolCallIds`. The older call is left with no result and the older result has no call. Pairing validation fails or the provider rejects the request."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "The latest assistant turn now skips strict-mode id sanitization completely, including ids that came from a different provider earlier in the session. Ids that the openai-completions path needed sanitized are sent unchanged. A session switches to github-copilot/claude-* after an OpenAI Responses or other provider turn whose tool ids contain `|`, `:` or `.` (e.g. `call_x|fc_y`). The latest assistant turn and its results are sent with those raw ids, even though `toolCallIdMode: \"strict\"` exists to keep ids alphanumeric. Copilot rejects the request. Before this change those ids were normalized."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 121,
+  "cost_usd": 0.29494519999999996,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": null,
+  "fallback_file": 0
+ }
+}

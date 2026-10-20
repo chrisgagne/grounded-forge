@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 294,
+  "base": "daa9f5234921318a97907361b3c464b914089949",
+  "head": "690f26b60a336e59f40204fd105c8ecd6c8cd115"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "Cognitive Overload \u2014 Inline JS one-liner in nested shell quoting, while the file already has a heredoc pattern for this. Symptom: `scripts/verify.sh:152` puts a whole JS program on one line inside double quotes, then `bash -lc '\u2026'`, then `node -e '\\''\u2026'\\''`. Every JS string literal is written `\\\"\u2026\\\"`, and the line ends in `'\\'''\"`. The same file already builds its browser probe with a heredoc and runs it as `node \u2026 -e ${browser_probe_js_escaped}` (`scripts/verify.sh:~370\u2013390`). Source: Code Complete \u2014 layout should show logical structure. The Mythical Man-Month \u2014 Conceptual Integrity: one decision (\"how do we run a Node probe in the container?\") is made two different ways. Consequence: The next person who edits this, for example to add a field or change the config path, has to reason about three quoting layers at once. One misplaced `'` fails quietly as \"Failed to inspect active Google Workspace credential route mode\", which looks just like a real config error. A diff can't show it either: any edit rewrites the whole 600-character line. Remedy: Put the JS in a `read -r -d '' gws_route_js <<'NODE' \u2026 NODE` heredoc with normal formatting and quotes. Escape it with `printf '%q'` and call `gce_ssh_lastline \"sudo docker exec ${container_escaped} node -e ${gws_route_js_escaped}\"`, the same way the browser probe does. That also removes the `bash -lc` layer this probe doesn't need."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "scripts/verify.sh",
+   "start_line": 157,
+   "end_line": 157,
+   "message": "Knowledge Duplication \u2014 Validation of `credentialsFile` is split between the remote JS and the host-side jq. Symptom: The remote JS now turns a non-string `credentialsFile` into `null`. The host then checks it again with `jq -r '.credentialsFile | select(type == \"string\" and length > 0)'` (`scripts/verify.sh:157`). Route and mode are checked remotely, but the path is checked locally, and in a different language. Source: The Pragmatic Programmer \u2014 DRY: each piece of knowledge should have one authoritative place. Consequence: Change one side and not the other and the two stop agreeing. For example, if the JS starts allowing empty strings, the host-side check will still reject them. Remedy: Pick one place to own the shape check. Either have the JS output only what it has already validated and drop the host's `select`, or keep the JS as plain extraction and do all the checks in the host-side jq. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 56000
+ }
+}

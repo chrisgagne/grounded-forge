@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/Pushedskydiver/chief-clancy",
+  "pr_number": 216,
+  "base": "a77f2542ee0d6e041810e373dfed09e8e6ffe696",
+  "head": "6baec2abdca4d6b74b716ee677e88a03a1e63060"
+ },
+ "agent": "v8-plain",
+ "findings": [
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 390,
+   "end_line": 396,
+   "message": "The EEXIST + `--push` retry path never re-hashes the plan file or compares it to the marker's `sha256=`. If the plan was edited after approval, a retry posts the edited, unapproved content to the board as the 'approved plan', while the local marker says it is stale. The retry should verify the current hash matches the marker and refuse on mismatch (point the user to delete and re-approve)."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 396,
+   "end_line": 396,
+   "message": "The retry contract says 'auditing tools see one approval row\u2026 even if 4c was attempted multiple times'. But the retry still goes through Step 7's local-mode block, which always prints '\u2705 Approved {stem}' and always appends another `LOCAL_APPROVE_PLAN | sha256=\u2026` row (line ~1515). Nothing tells Step 7 to suppress the approval row or banner on a retry, so every retry adds a duplicate approval row and falsely re-announces approval. Step 4 ('Approve this plan? [Y/n]') also prompts again for a plan that is already approved."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 390,
+   "end_line": 394,
+   "message": "There is no idempotency check on `EEXIST + --push`. If the earlier push succeeded (a `LOCAL_APPROVE_PLAN_PUSH` row exists for this stem) or the user just re-runs with `--push`, the full plan is posted to the ticket a second time. The step only says 'retry a previously failed push' and never checks progress.txt for a prior success."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Stale prose not updated by this PR: Step 2 still says 'The board push offer for plan-file-stem mode is deferred to a future PR \u2014 for now the local marker is the only side effect.' That contradicts the new Step 4c. An LLM following the workflow in order will read this first. The PR's own H2/L2 fix only scanned 4a\u21924c, so this was missed."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 516,
+   "end_line": 530,
+   "message": "`--ticket` cannot do what it is documented for. The missing-Source branch skips Step 4c silently, and the inline-quoted/file-path branch logs BOARD_PUSH_SKIPPED_NO_TICKET, both before the override is ever consulted. Yet `--ticket` is documented as the fix for when 'the brief Source field is missing' and as the retry key. So `--push --ticket KEY` on a plan whose Source is missing or non-bracketed never pushes. On top of that, an explicit `--push` that ends in a silent skip gives the user no feedback. The `--ticket` override needs to be resolved before Source parsing and the skip branches."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 524,
+   "end_line": 524,
+   "message": "The bracketed-key classifier `^\\[(#?\\d+|[A-Z][A-Z0-9]*-\\d+)\\]` only accepts numeric or uppercase-PREFIX-digits keys. Notion keys are 32/36-char lowercase hex (and the Step 2 `notion-xxxxxxxx` short form), so a Notion Source like `[abc123\u2026] Title` falls into the 'file path' bucket and is logged as `BOARD_PUSH_SKIPPED_NO_TICKET | file-path`. Auto-detect therefore never pushes on Notion, even though the six-platform table and the Notion-only Step 7 note assume it does. Lowercase Jira/Linear keys and Shortcut `SC-123` keys are rejected the same way."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 556,
+   "end_line": 563,
+   "message": "The per-platform regexes contradict Step 2's ticket validation in the same file. Step 2 is case-insensitive, accepts a bare number for GitHub, `SC-123` for Shortcut, `notion-[a-f0-9]{8}` for Notion, and `[A-Za-z]{1,10}` prefixes for Linear. Step 4c uses case-sensitive anchored patterns that reject all of these. A key that approve-plan accepts in board mode can hard-error as a 'mismatch' in 4c (e.g. `--ticket 42` on GitHub, `--ticket eng-42` on Linear). Also, the Notion alternative `^[0-9a-f-]{36}$` accepts any 36-char string of hex and dashes, e.g. 36 dashes."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 634,
+   "end_line": 738,
+   "message": "The duplicated curl blocks use `$TICKET_KEY`, `$ISSUE_NUMBER`, `$ISSUE_ID`, `$WORK_ITEM_ID`, `$STORY_ID`, `$PAGE_ID`, but Step 4c never says how to derive them from the validated `{KEY}`. For example, GitHub needs the `#` stripped, and Linear's `issueId` / Notion's `page_id` may need ID resolution. In `plan.md` these variables come from the ticket-fetch context that 4c does not have. Without a mapping step, the push is underspecified and likely to hit the wrong endpoint (e.g. `/issues/#50/comments`)."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 742,
+   "end_line": 761,
+   "message": "Success and failure are classified by HTTP status ('2xx', literal non-2xx code), but every curl block is `curl -s` with no `-w '%{http_code}'`/`-f`, so the status code is never captured. Linear's GraphQL API also returns HTTP 200 with an `errors` array or `success: false` when it fails. As written, Linear failures will be logged as `LOCAL_APPROVE_PLAN_PUSH` successes. The `auth` error class ('credential-rejection signal that isn't a clean HTTP status') is also undefined at the transport layer."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 485,
+   "end_line": 490,
+   "message": "Locked spec decision 4 ('full plan content + one-line approval header') is not implemented anywhere in Step 4c. The step never says what the comment body is or what the approval header line looks like; the only payload hints are the `<markdown plan>` placeholders in the copied blocks. Implementations will diverge, and the comment won't show that it is an approved plan rather than a draft."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 742,
+   "end_line": 748,
+   "message": "Pushing the full local plan file posts a comment that contains the `## Clancy Implementation Plan` heading. The board flow treats that heading as the marker for a plan comment (Step 3 picks 'the most recent comment body containing' it, and `/clancy:plan` uses it to detect existing plans). A later `/clancy:approve-plan KEY` or `/clancy:plan KEY` on that ticket will treat the pushed approval comment as the pending plan to promote or revise. Either strip/rename the heading or document the interaction."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 538,
+   "end_line": 538,
+   "message": "The row ordering is impossible as written. Step 4c's tokens (BOARD_PUSH_SKIPPED_NO_TICKET, LOCAL_APPROVE_PLAN_PUSH, BOARD_PUSH_FAILED, LOCAL_ONLY) are said to be written 'after the existing LOCAL_APPROVE_PLAN row from Step 7's log block', but Step 7 runs after Step 4c. Either Step 4c must buffer its rows until Step 7, or the rows land before the approval row. The workflow should say which."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 550,
+   "end_line": 592,
+   "message": "Validation and the hard error (with a `BOARD_PUSH_FAILED | key-mismatch` row) are specified before the decision matrix and apply unconditionally. In the `--afk` without `--push` cell, and when the user would answer N, an auto-detected key that doesn't match still produces a hard error and a failure row, even though no push was ever going to happen. Step 4c also never says what to log or print when the user declines the `[y/N]` prompt."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/plan/src/workflows/workflows.test.ts",
+   "start_line": 1327,
+   "end_line": 1327,
+   "message": "The 'validates BEFORE any push attempt' test uses `fourCBody.search(/validat/i)`. That matches the first occurrence of 'validat' anywhere in Step 4c (e.g. the 'same gate evaluation' or flag prose), so it passes whatever order the validation section is in. Like the other prose-regex tests here, it gives weak protection against regressions."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 170000
+ }
+}

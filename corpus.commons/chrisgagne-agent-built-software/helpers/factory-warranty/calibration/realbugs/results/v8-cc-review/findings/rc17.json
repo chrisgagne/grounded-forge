@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/jongalloway/DiagramForge",
+  "pr_number": 101,
+  "base": "969398a66116b68aafa8d267e824442000229ec7",
+  "head": "8be727e43f0bfd1dd285794ce5c557b5ea44336e"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "start_line": 356,
+   "end_line": 356,
+   "message": "For each compartment Label, the renderer draws every rendered line (Lines or '\\n'-split Text) but moves currentY down by only one line height. The layout (SizeClassNode) also counts just one line per Label. A compartment entry with Text \"+foo(a: int,\\n b: int): void\" draws two text rows, but the next entry is placed only one row lower, so the two overlap. The node is also sized one row too short, so the last row spills past the bottom border."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "start_line": 436,
+   "end_line": 436,
+   "message": "SizeClassNode only runs when Compartments.Count > 0. The renderer draws annotations whenever Annotations.Count > 0, so a node with annotations but no compartments gets no header space and no label:centerY. An interface node with <<interface>> and no members is sized as a standard node, and its name is centered at Height/2. The annotation is drawn at pad+0.85*fontSize, right on top of the class name, and long annotations are not counted in the width."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "start_line": 491,
+   "end_line": 491,
+   "message": "annotationsHeight is Count \u00d7 base fontSize \u00d7 lineHeight. The renderer instead advances by each annotation's own FontSize for every rendered line, and puts the first baseline at an offset based on the base fontSize. If an annotation has a larger FontSize (or contains a newline), the renderer pushes the annotation block lower than the space the layout reserved. The annotation then overlaps the class name, whose label:centerY was computed from the smaller reserved height."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 35000
+ }
+}

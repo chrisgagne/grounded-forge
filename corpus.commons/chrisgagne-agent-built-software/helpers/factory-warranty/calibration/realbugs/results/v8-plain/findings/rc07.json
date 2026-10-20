@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/godaddy/antares",
+  "pr_number": 142,
+  "base": "f910afef727b67f484a672fcae7a94d86272aed9",
+  "head": "12f376d05689fdecb86096f51f7ab2f7169c3f0a"
+ },
+ "agent": "v8-plain",
+ "findings": [
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 73,
+   "end_line": 82,
+   "message": "Breaking visual change to the public `Legend` component. The root used to be a block-level flex row with `justify-content: center`. It is now `display: inline-flex` with `align-items: flex-start`, so any consumer that renders `<Legend>` on its own (outside BarChart/LineChart) will see the legend jump from centered to start-aligned. Only the built-in charts were patched with `alignSelf=\"center\"`. Either keep centering as the default (for example, center the list inside a full-width root) or document this as a breaking change in the changeset/release notes."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/variables.css",
+   "start_line": 19,
+   "end_line": 23,
+   "message": "This changes the global `@property --_fs-base` syntax from `<length>` to `*`. That is unrelated to the legend and affects every `--fs-*` token in the design system. It removes type validation, so invalid values are no longer rejected and replaced by the 1rem initial value. It also stops the value from being computed to an absolute length, so relative units now resolve wherever the token is used, and the property can no longer be interpolated or animated. The legend doesn't need this change. Nothing in the PR justifies it beyond 'broader compatibility', so it should be reverted or moved to its own reviewed change."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 83,
+   "end_line": 86,
+   "message": "The visible label and the list's name are wired together by duplicating the string into `aria-label`, not by referencing the label element. The text isn't programmatically linked, and some screen readers will announce it twice (once as text, once as the list name). Give the label an id (`useId`) and use `aria-labelledby` on the list. Also, `label ?? 'Chart legend'` lets `label=\"\"` produce an empty `aria-label`, which leaves the list unnamed. Use `label || 'Chart legend'` or check the trimmed value."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.module.css",
+   "start_line": 1,
+   "end_line": 19,
+   "message": "Size variants use `[data-size]` attribute selectors. The package conventions (AGENTS.md) say variants and sizes must use cva-generated classes, and that data-attribute selectors are reserved for RAC state. The `.root` base rule and the `[data-size=\"md\"]` rule are also redundant, since both set `font-size: var(--fs-sm)`."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.module.css",
+   "start_line": 21,
+   "end_line": 24,
+   "message": "`font-weight: bold` breaks the documented project rule (variables.css and AGENTS.md): use `bolder` when text needs bold, and don't use `bold` or numeric weights."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 52,
+   "end_line": 71,
+   "message": "The `useMemo` keyed on `series` adds overhead without benefit. Callers almost always pass a new array literal on each render (as every example does), so the memo never hits. Map the items inline as before."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 16,
+   "end_line": 17,
+   "message": "`LegendProps` now spreads every remaining `FlexProps`, including `role`, `aria-label` and `aria-labelledby`, onto the outer wrapper and not onto the `role=\"list\"` element. A consumer who passes `aria-label` to name the legend will label a generic div, while the list still announces as 'Chart legend'. Either omit these ARIA props or forward them to the list."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 39,
+   "end_line": 59,
+   "message": "The new browser tests don't really check anything. `getByRole`/`getByText` return locator objects, so `assume(locator).exists()` passes even when nothing matches. They should use `await expect.element(...).toBeInTheDocument()` or similar. The 'stacks items vertically' test only counts list items and never checks the vertical layout (for example, `flex-direction: column` or item positions), so it would also pass for a horizontal legend."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 138000
+ }
+}

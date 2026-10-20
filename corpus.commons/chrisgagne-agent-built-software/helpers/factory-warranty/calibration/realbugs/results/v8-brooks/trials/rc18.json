@@ -1,0 +1,48 @@
+{
+ "id": "rc18",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "src/lib.rs",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "Knowledge Duplication \u2014 Bounds and offset logic is copied between `Partition` and `PartitionGuard`. Symptom: `within_bounds` appears twice (`src/lib.rs:129` and `src/lib.rs:141`). `start_block` and `check_access` are copied line for line (`src/ext/bdd.rs:13\u201349` vs `src/ext/bdd.rs:52\u201388`). Every trait method body is repeated too, including the length check, the `checked_add(self.offset)` translation and the `checked_sub` erase check: `esa.rs` read, write and erase, and `bdd.rs` read and write for both RO and RW. That makes about 8 copies of the rule \"translate a partition-relative access into a device access safely.\" Source: The Pragmatic Programmer \u2014 DRY; Refactoring \u2014 Duplicate Code. Consequence: Bounds checking is what this crate exists to guarantee. The branch history already shows the cost: commit `a5671fe` had to add the same overflow hardening in both places at once. The next fix (alignment for ESA, a new `Error` variant, or an off-by-one) has to land in every copy, and any copy that's missed lets one partition read or write into its neighbour. Remedy: Keep one implementation. Either: - implement `Partition`'s trait methods as `self.lock().await.<op>(\u2026)`, so `PartitionGuard` owns all the logic and `Partition` just locks and delegates; or - move `offset`/`size` into a small `Window { offset, size }` value with `within_bounds`, `check_access` and `translate(offset) -> Result<u32, Error>`, and have both types hold one and call it. The first option removes the most code. It also keeps the lock scope the same as today, since the current methods already hold the lock for the whole operation."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "esa.rs",
+   "start_line": 92,
+   "end_line": 92,
+   "message": "Dependency Disorder \u2014 The guard's RO/RW trait impls don't follow one pattern. Symptom: `ReadNorFlash for PartitionGuard` is generic over `MARKER` (`esa.rs:92`), but the BDD guard has separate, near-identical RO and RW impls (`bdd.rs:154`, `bdd.rs:185`). `Partition` uses a third pattern: its RW impl delegates to `readonly()`. `PartitionGuard` also has no `readonly()` equivalent. Source: The Mythical Man-Month \u2014 Ch. 4: Conceptual Integrity. Consequence: Each new storage trait (such as a future `MultiwriteNorFlash` variant) makes someone choose a pattern again. The RW `BlockDevice::read` on the guard already repeats the RO body rather than sharing it. Remedy: Pick one rule and apply it to both backends. The cleanest option is generic-over-`MARKER` for reads and RW-only for writes and erases. If you also take the Warning's remedy, most of this goes away on its own."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "Cargo.lock",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 `defmt` silently dropped from the default features. Symptom: `Cargo.toml:29` changes `default` from `[\"esa\",\"bdd\",\"macros\",\"defmt\"]` to `[\"esa\",\"bdd\",\"macros\"]`. This change came in as part of \"fix cargo test compilation\" and has nothing to do with the guard feature. Source: Software Engineering at Google \u2014 Backward compatibility / Hyrum's Law. Consequence: Nothing in the workspace depends on it, but external crates that rely on default features to get `defmt::Format` on `Error` will fail to compile after upgrading, with no note in the changelog. Remedy: Split this into its own commit or PR and mention it in the release notes. Or keep `defmt` in `default` and turn it off only in tests (for example, `cargo test --no-default-features --features esa,bdd,macros`)."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "disk.c",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Test Obscurity \u2014 Guard tests are appended to one long ordered mock script, and new error paths aren't tested. Symptom: The guard checks are added to the single `bdd()` and `esa()` functions. They depend on the order of `ActionRead`/`ActionWrite`/`ActionErase` entries in a shared queue, and their assertions have no messages. The behaviour changes this branch introduces have no tests: - `erase(from > to)` now returns `OutOfBounds`. Before, `saturating_sub` let it through to the device. - `PartitionGuard<RO>::write` returning `ReadOnly` in BDD. - `offset + self.offset` overflow. Source: xUnit Test Patterns \u2014 Eager Test / Assertion Roulette; The Art of Unit Testing \u2014 completeness of edge-path tests. Consequence: A failure only tells you that `disk.check()` or some `assert_eq` failed somewhere in a long script, and reordering one action breaks unrelated checks. The `erase` change is a real behaviour change and nothing guards it. Remedy: Add small, focused tests such as `guard_erase_reversed_range_is_out_of_bounds` and `guard_ro_write_returns_read_only`, each with its own `MockDisk`. Give the existing new assertions short messages. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 76,
+  "cost_usd": 0.5159518,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 1,
+  "health_score": "92"
+ }
+}

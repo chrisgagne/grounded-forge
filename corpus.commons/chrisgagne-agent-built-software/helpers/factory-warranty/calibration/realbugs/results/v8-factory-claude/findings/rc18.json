@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/OpenDevicePartnership/embedded-services",
+  "pr_number": 793,
+  "base": "90130bc3d3df2f186323d70a8f757a5dfa16c6a2",
+  "head": "f63a02462d1eebd5b06b45ebdf1d2705c919413a"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The change removes `defmt` from the crate's default features. Nothing in the packet asks for this, and downstream users who rely on the default `defmt::Format` impl on `Error` will stop compiling or lose logging support without warning. The diff changes `default = [\"esa\", \"bdd\", \"macros\", \"defmt\"]` to `default = [\"esa\", \"bdd\", \"macros\"]`. In lib.rs:158, `#[cfg_attr(feature = \"defmt\", derive(defmt::Format))]` on `pub enum Error<E>` is now off by default. The rest of the diff only adds the PartitionGuard lock/try_lock API and overflow checks, none of which needs this public default to change."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "The change adds a new dev-dependency, `critical-section` with the `std` feature, that nothing in the crate visibly uses. It may be unneeded supply-chain surface, and no reason for it is given. `critical-section = { workspace = true, features = [\"std\"] }` is added under [dev-dependencies], and Cargo.lock gains a `critical-section` entry for partition-manager. A search of partition-manager/ for `critical_section` or `CriticalSection` finds nothing. The tests build `TestMap` with `NoopRawMutex` (test/mod.rs:16-24)."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "partition-manager/partition-manager/src/ext/bdd.rs",
+   "start_line": 72,
+   "end_line": 72,
+   "message": "PartitionGuard copies the bounds-checking logic of Partition (`start_block`, `check_access`, and `within_bounds` in lib.rs) instead of sharing it, so a later fix to one copy can silently miss the other. In bdd.rs, `impl PartitionGuard { const fn start_block ...; const fn check_access ... }` repeats the Partition versions line for line: the checked_mul, the `data.len() > u32::MAX` test, and the within_bounds call. lib.rs:138-148 duplicates `within_bounds` from lib.rs:126-136. In esa.rs, the guard's read/write/erase bodies (lines ~265-312) repeat the Partition bodies except that they call `self.guard` instead of `self.storage.lock().await`."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "Holding a PartitionGuard blocks every other partition on the same device, because they all share one mutex. If a task awaits any Partition operation (or `lock()` on another partition) while holding a guard, it waits forever, and neither the docs nor the README warn about this. `lock()` returns a guard that holds `self.storage.lock().await`. Every partition shares that `&Mutex<M, F>` (test/mod.rs map). The test at test/bdd.rs:128-132 confirms that holding `factory.lock()` makes `settings.try_lock()` fail. The doc comment only says 'The underlying mutex is held for the lifetime of this guard'. README.md:76 describes the Mutex but not the new lock API."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "partition-manager/partition-manager/src/test/bdd.rs",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "The new tests leave some guard paths untested: the RO guard's `write` returning `ReadOnly`, guard erase going out of bounds or with `to < from`, and guard writes just past the partition end. A wrong bounds or read-only check on those guard impls would still pass. The only negative guard checks are `guard.read(u32::MAX, ...)` (bdd.rs:125) and `guard.write(0x1000, &[0xFE, 0xFD])` (esa.rs test). No test obtains a guard on a `Partition<_, RO, _>`, for example via `readonly().lock()`, and no test calls `erase` on a guard with bad bounds."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

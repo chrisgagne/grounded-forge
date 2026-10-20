@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/Pushedskydiver/chief-clancy",
+  "pr_number": 216,
+  "base": "a77f2542ee0d6e041810e373dfed09e8e6ffe696",
+  "head": "6baec2abdca4d6b74b716ee677e88a03a1e63060"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "approve-plan.m",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 `--ticket` override is evaluated after the Source checks that skip it. Symptom: `approve-plan.md:516` says a missing `**Source:**` header means \"Step 4c skips silently\". Inline-quoted or file-path Sources route to `BOARD_PUSH_SKIPPED_NO_TICKET` (`:524-530`). Both happen before `--ticket` is considered. Yet the command doc and changeset sell `--ticket` as \"useful when the brief Source field is missing\", and the 4a retry branch (`:394`) says \"Source must be readable \u2026 or `--ticket` override must be supplied\". Gate 1 (`:493`) is also titled \"Step 4a wrote a marker successfully\", then carves out the retry case where it didn't. Source: Code Complete \u2014 Ch. 7 (routine control flow); Mythical Man-Month \u2014 Conceptual Integrity Consequence: in exactly the cases `--ticket` exists for, a literal reading of the steps skips the push. The `--push --ticket` retry command that 4c prints for a hand-edited plan with no Source header won't work. Remedy: put a \"Resolve KEY\" sub-step at the top of 4c: if `--ticket` is set, use it and skip Source parsing; otherwise read and parse Source. Rename gate 1 to \"Step 4a wrote a marker, or hit EEXIST with `--push`\"."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 Step 7 wasn't updated for the retry path or the 4c log ordering. Symptom: `:396` promises \"auditing tools see one approval row \u2026 even if 4c was attempted multiple times\". But Step 7 (`~:1515`) always appends `LOCAL_APPROVE_PLAN | sha256=\u2026` and prints `\u2705 Approved {stem}`, retries included. Separately, 4c says its rows go \"after the existing `LOCAL_APPROVE_PLAN` row from Step 7\" (`:538`, `:742`), but Step 7 runs after 4c, so that row doesn't exist yet. Source: Refactoring \u2014 Shotgun Surgery; Philosophy of Software Design \u2014 Information Leakage Consequence: every retry writes a duplicate approval row, breaking the audit contract. Log order is left to the executor, so the \"two rows per approval\" grep contract isn't reliable. Remedy: in Step 7, skip the `LOCAL_APPROVE_PLAN` row and print `Retried push for {stem}` when entered via EEXIST+`--push`. Have 4c record its outcome token and let Step 7 write both rows in a fixed order."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 two different key-validation tables in one file. Symptom: Step 2 (`:102-107`) validates keys case-insensitively and accepts Shortcut `SC-123` and Notion `notion-xxxxxxxx`. Step 4c (`:556-563`) has a stricter, case-sensitive table that rejects both. It also states \"there is no shared lookup table, and Step 4c does not consult any other workflow file\". Source: Pragmatic Programmer \u2014 DRY; Evans \u2014 Ubiquitous Language Consequence: a key `/clancy:approve-plan` accepts as an argument is hard-errored as `key-mismatch` by `--ticket` in the same command. Adding a board means updating two tables that have already drifted. Remedy: keep one per-board key table in `approve-plan.md` and have both steps reference it. If 4c really needs to be stricter, say why next to the table."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 the Source \"bracketed key\" regex can never match Notion (or lowercase) keys. Symptom: `:524` classifies Source as pushable only if it matches `^\\[(#?\\d+|[A-Z][A-Z0-9]*-\\d+)\\]`. A Notion page ID (32/36 hex) fails, falls into \"anything else\", and is logged as `BOARD_PUSH_SKIPPED_NO_TICKET | file-path`. Source: Evans \u2014 Ubiquitous Language (the brief's `[{KEY}] {Title}` format is re-encoded with a narrower meaning) Consequence: Notion auto-detect is dead code. The new Notion flat-text note can only show up via `--ticket`, and the audit log calls a ticket reference a file path. Remedy: match the format generically (`^\\[([^\\]]+)\\]\\s+.+$`) and let the per-board validation step decide whether the key is valid."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "approve-plan.m",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 the failure-classification contract can't be met by the byte-locked curl blocks. Symptom: 4c requires logging the literal HTTP status, or `timeout`/`dns`/etc. (`:754-790`). The duplicated blocks are plain `curl -s` with no `-w '%{http_code}'`, `--fail` or `--max-time`. `curl -s` exits 0 on a 4xx/5xx response. The drift test forbids changing these blocks in `approve-plan.md` alone. Source: Philosophy of Software Design \u2014 Information Leakage; Software Engineering at Google \u2014 Hyrum's Law (the shared region is now a contract for two callers) Consequence: the executor has to improvise status capture, or it treats a 403 JSON body as success and logs `LOCAL_APPROVE_PLAN_PUSH`. Fixing this means editing `plan.md` Step 5b too. Remedy: add `-w '\\n%{http_code}' --max-time 30` inside the shared region in both files (one commit, the test stays green). Alternatively, add a short \"capture status\" wrapper outside the anchors in 4c."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 stale prose contradicts Step 4c. Symptom: `:97` still says \"The board push offer for plan-file-stem mode is deferred to a future PR \u2014 for now the local marker is the only side effect.\" `:496` and `:500` say \"Subsequent slices add explicit log tokens\u2026\" and \"Subsequent slices wire the failure-logging\u2026\". Commit `6baec2a` says it stripped these slice references. Source: Code Complete \u2014 Ch. 32 (comments that contradict the code); Mythical Man-Month \u2014 Conceptual Integrity Consequence: the executor reads \"local marker is the only side effect\" before reaching 4c. That gives it grounds to skip the push entirely. Remedy: delete or rewrite these three sentences. Add a test asserting the workflow prose contains no `deferred to a future PR` or `Subsequent slices`."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 the prose tests check for keywords, not consistency. Symptom: the new suites assert things like `toMatch(/auth/)`, `/dns/`, `/network/` (these also match words like \"author\"), and `/Step 7|continue|proceed/i` over large slices. Every issue above passes the suite. Source: Feathers \u2014 Working Effectively with Legacy Code, Ch. 1; Meszaros \u2014 Assertion Roulette Consequence: about 70 green tests give confidence the spec is coherent, but they would also pass on a self-contradictory spec. The 4c/Step 7 retry contradiction shipped with tests in place. Remedy: replace the keyword checks with structural assertions: - Step 7 mentions the retry path. - `--ticket` resolution comes before `### Handle a missing **Source:**`. - No text outside 4c says the push is deferred. - Use word-boundary regexes (`/\\bauth\\b/`)."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Test Obscurity \u2014 test names describe history, not behaviour. Symptom: names like `'\u2026 continues to Step 4c (PR 9 \u2014 was Step 7 in PR 7b)'`, `describe('\u2026 (PR 9 Slice 4)')` and `'\u2026 still stops with the PR 7b message'`. Source: Osherove \u2014 The Art of Unit Testing (test naming) Consequence: once PR numbers stop meaning anything, the names stop explaining failures. This is the same cleanup `6baec2a` did for the runtime prose. Remedy: rename to scenario plus outcome (e.g. `eexist_withoutPush_stopsWithAlreadyApproved`) and move the history into commit messages."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": ".changeset/phase-c-pr-9-board-push.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 Step 4c mixes instructions for the executor with design rationale. Symptom: Step 4c is about 300 lines (`:485-790`). Executor instructions sit alongside justification paragraphs, e.g. \"two-row layout survives partial-failure replay better than\u2026\", \"Two prompts \u2026 is intentional\", and the reason-field \"reserved prefix\" contract. Source: Code Complete \u2014 Ch. 7 (routine length, mixed abstraction levels) Consequence: an LLM executor gives the rationale the same weight as the steps, which makes the contradictions above more likely and harder to spot. Remedy: move the rationale to a short \"Design notes\" subsection at the end of 4c, or to the changeset/ADR. Keep the steps to imperative instructions."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 135000
+ }
+}

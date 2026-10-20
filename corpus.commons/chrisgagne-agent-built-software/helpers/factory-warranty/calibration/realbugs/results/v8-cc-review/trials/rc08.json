@@ -1,0 +1,30 @@
+{
+ "id": "rc08",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "main.js",
+   "start_line": 312,
+   "end_line": 312,
+   "message": "Validation accepts any `repo` whose trimmed value is non-empty, but the fetch URL and dedup sets use the raw, untrimmed `entry.repo`, so a repo with stray whitespace passes validation and is then silently dropped. config.yaml has `repo: \"user/dataset \"` (trailing space, easy to get from quoted YAML). Validation passes, the request goes to `.../datasets/user/dataset%20`, HF returns 404, and the item only produces a console.warn and never shows up. The same mismatch exists in scripts/export-tags.js:134, where the error is swallowed with no log at all. Fix: normalize with `entry.repo.trim()` before dedup and fetch, or reject whitespace during validation."
+  },
+  {
+   "source": "cc-review",
+   "file": "main.js",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "Additional repos are deduped only by the configured string, and fetched results are checked against the org list but not against each other, so two config entries that resolve to the same HF repo both get added. ADDITIONAL_HF_REPOS lists both `Owner/Model` and `owner/model` (HF resolves repo paths case-insensitively and returns the canonical id). Both pass the `seenRepos` check, both fetches return the same `item.id`, and the card shows up twice. The same thing happens if an org repo is listed with different casing: `existingIds.has(entry.repo)` misses it, but the post-fetch `existingIds.has(item.id)` catches that case. Dedup the `fetched` array by `item.id` (and compare case-insensitively in the pre-filter)."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 35,
+  "cost_usd": 0.2561834,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

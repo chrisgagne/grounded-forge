@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/Imageomics/catalog",
+  "pr_number": 75,
+  "base": "5f10688a0afd8b2891d6cec32f0c3bfca9a7aaed",
+  "head": "a8a7cdc7b0cbac54485dbcf53cf6ae6ddbecfe92"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "main.js",
+   "start_line": 768,
+   "end_line": 768,
+   "message": "Knowledge Duplication \u2014 HF validation and fetch/dedupe logic copied between browser and script. Symptom: The same rule appears twice in each of two places: - **Entry validation:** the `{datasets, models, spaces}` set, the `!e || typeof e.repo !== 'string' || !e.repo.trim() || ...` check and the long error message are written out in both `main.js:768-774` and `scripts/export-tags.js:53-61`. - **Fetch/dedupe:** the `additionalForType` \u2192 `existingIds` \u2192 `seenRepos` \u2192 `Promise.all` \u2192 filter-merge block is in both `main.js:299-327` and `scripts/export-tags.js:122-140`. Source: The Pragmatic Programmer \u2014 DRY; Refactoring \u2014 Duplicate Code Consequence: The two copies have already drifted. `main.js` logs failed fetches, while `export-tags.js` hides them with `.catch(() => null)`. If HF adds a new repo type or the entry format changes (for example an optional `display_name`), both files need the same edit. If one is missed, the tag export and the live catalog quietly disagree about which repos exist. Remedy: Move two pure functions into a shared ES module that both the Vite bundle and Node can import, such as `shared/hf-repos.js`: - `findInvalidHFRepoEntries(list)` - `selectAdditionalHFRepos(list, repoType, existingIds)`, which returns the de-duplicated entries to fetch Each caller keeps only its own transport (`fetch` vs `get`) and error reporting."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "main.js",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "Cognitive Overload \u2014 `fetchHubItems` gets longer. Symptom: `fetchHubItems` (`main.js:185`) was already about 190 lines and handles GitHub pagination, HF listing, model detail fetches, tag normalization and skeleton DOM toggling. This PR adds another 30-line block inside the HF branch, with nested callbacks four levels deep (`try` \u2192 `if` \u2192 `Promise.all(map(...then(...)))`). Source: Refactoring \u2014 Long Method; Code Complete \u2014 Ch. 7, High-Quality Routines Consequence: Every new source (another platform, another \"additional\" list) gets added to this function. Its scope and error handling are shared across all of them, so a bug in one branch can blank every tab through the common `catch`. Remedy: Extract `fetchAdditionalHFItems(repoType, existingIds)` and call it as `hfItems = [...hfItems, ...await fetchAdditionalHFItems(repoType, existingIds)]`. This pairs well with the shared helper from the previous finding."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "package.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 new validation and dedupe logic has no tests. Symptom: The PR adds three new behaviors with no tests: - validating the shape of each entry - de-duplicating against org items and within the config list - filtering out failed fetches The repo has no test files or test script at all (`package.json` only has `dev`, `build` and `preview`). Source: Working Effectively with Legacy Code \u2014 Ch. 1 Consequence: Edge cases like a repo listed twice, a repo already in the org, a singular `type: dataset` typo, or a `null` YAML entry are only checked by manual page loads. Validation runs the moment config loads, and any failure swaps in the fallback config (`main.js:793`), which blanks the whole catalog. So a regression there costs more than a missing card. Remedy: Once the pure helpers from the first finding exist, add a minimal `node --test` file covering valid entries, the invalid-entry cases and the dedupe cases. No browser harness is needed."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "scripts/export-tags.js",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "Knowledge Duplication \u2014 required keys enforced two different ways in `export-tags.js`. Symptom: `requiredKeys` (`scripts/export-tags.js:32`) lists `ADDITIONAL_REPOS` but not `ADDITIONAL_HF_REPOS`, which is enforced only through the later `Array.isArray` check. The header comment (`scripts/export-tags.js:11`) still says the script reads only `ORGANIZATION_NAME`, `API_BASE_URL` and `ADDITIONAL_REPOS`. Source: The Pragmatic Programmer \u2014 DRY (the \"which keys are required\" decision lives in two places) Consequence: If the key is missing, the user sees \"must be an array\" instead of \"missing required key\". The next person to add a key also can't tell which of the two patterns to follow. Remedy: Add `'ADDITIONAL_HF_REPOS'` to `requiredKeys` and update the header comment."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "main.js",
+   "start_line": 312,
+   "end_line": 312,
+   "message": "Accidental Complexity \u2014 additional models are fetched twice. Symptom: For `repoType === 'models'`, each additional repo is fetched from `${API_BASE_URL}models/${repo}` (`main.js:312`). Step 2 (`main.js:331`) then fetches the same URL again for every item in `hfItems`, including those just added. `export-tags.js` does the same. Source: The Pragmatic Programmer \u2014 Topic 4, Good-Enough Software (work with no purpose) Consequence: Each additional model costs twice the HF API requests. That doesn't matter at today's list size, but it adds to rate-limit pressure on an unauthenticated browser client. Remedy: Run the Step 2 detail fetch only on the org listing items, then append the additional items, which already have full details. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 142000
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/AntManThePro/TwistedsCommandCenter",
+  "pr_number": 13,
+  "base": "2b0966dec5579a66899f15bccabb6f93c1f3f47b",
+  "head": "78f6157eaec39a413d216616a44734ac53df3d6e"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "src/hooks/useInventory.ts",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "Domain Model Distortion \u2014 Edits bypass the activity log. Symptom: `ActivityEntry.action` includes `'updated'`, and `addItem` and `deleteItem` both add activity entries. `updateItem` (`src/hooks/useInventory.ts:43`) only changes the item. This PR is the first to put `updateItem` in front of users (`App.tsx:27`, `InventoryPage.tsx:121`). Source: Evans \u2014 Domain-Driven Design, Ubiquitous Language. The model says \"updated\" is an activity, but the code never records one. Consequence: A user can change an item's quantity or price and nothing appears in the Dashboard activity feed. The feed then gives a wrong history, and the low-stock count can change with no recorded cause. Remedy: Add an `'updated'` activity entry in `updateItem`, built the same way as in `deleteItem`. The timestamp-formatting block is already copied in two places, so pull it into a `createActivity(action, itemName, details)` helper first rather than adding a third copy."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "AddItemModal.tsx",
+   "start_line": 38,
+   "end_line": 38,
+   "message": "Cognitive Overload \u2014 `AddItemModal` now runs two modes from optional props, and one path fails silently. Symptom: `AddItemModal.tsx:38` checks `isEditMode && editItem && onUpdate` and otherwise calls `onAdd(form)`. Both `editItem` and `onUpdate` are optional. The component is still called `AddItemModal` even though it also edits. Source: Fowler \u2014 Refactoring, Flag Arguments. `editItem` works as a hidden mode switch that splits the component into two behaviors. Consequence: If a future caller passes `editItem` but leaves out `onUpdate`, saving creates a duplicate item instead of an error. The compiler won't flag it, and the name misleads readers about what the component does. Remedy: Rename it to `ItemFormModal`. Model the props as a discriminated union, for example `{ mode: 'add'; onAdd } | { mode: 'edit'; item; onUpdate }`, so TypeScript rejects edit mode without an update handler."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "src/App.tsx",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 The new edit and reset behavior is untested. Symptom: The commit adds edit-mode prefill, the Edit button, the \"Save Changes\" path and form reset on close. The only new test covers delete activity logging, which this diff doesn't change. Source: Feathers \u2014 Working Effectively with Legacy Code, Ch. 1 Consequence: The bugs most likely to come back are not caught by any test: a stale form after closing, edit calling `onAdd`, or prefill missing a field. Remedy: Add React Testing Library tests for `InventoryPage`: - Clicking \"Edit X\" prefills the form, and saving calls `onUpdate(id, \u2026)` but not `onAdd`. - Opening, typing, closing and opening \"Add\" again shows an empty form."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "AddItemModal.tsx",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "Accidental Complexity \u2014 A key counter forces the modal to remount, and the modal depends on the caller doing it. Symptom: `InventoryPage` uses three state variables to drive the modal (`isModalOpen`, `editingItem`, `modalKey`). The comment in `AddItemModal.tsx:24` says its form only resets correctly because the parent bumps `key`. Source: Ousterhout \u2014 A Philosophy of Software Design, Ch. 5: Information Leakage Consequence: The modal works correctly only if the parent does this. Any other parent that reuses it without the key trick brings back the stale-form bug. Remedy: Render it conditionally with `{isModalOpen && <ItemFormModal \u2026 />}`. That remounts the modal on every open, so you can delete `modalKey`, the `isOpen` prop and the `if (!isOpen) return null` check."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "InventoryPage.tsx",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "Knowledge Duplication \u2014 Item payload types are written out in several files. Symptom: `Partial<Omit<InventoryItem, 'id'>>` appears in the hook, `InventoryPage.tsx:10` and `AddItemModal.tsx:12`. `Omit<InventoryItem, 'id' | 'status' | 'lastUpdated'>` appears in the hook, `InventoryPage.tsx:9` and as the local `NewItemData`. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY Consequence: The rule \"status and lastUpdated are derived, not edited by the user\" is spelled out in three places. The update type also still lets callers pass `status` directly. Remedy: Export `NewItemData` and `ItemUpdate = Partial<NewItemData>` from `src/types/inventory.ts` and use them everywhere. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 53000
+ }
+}

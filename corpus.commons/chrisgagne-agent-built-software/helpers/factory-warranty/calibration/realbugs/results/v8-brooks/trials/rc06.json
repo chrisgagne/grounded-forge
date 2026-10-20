@@ -1,0 +1,48 @@
+{
+ "id": "rc06",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "Knowledge Duplication \u2014 \"Latest assistant turn\" is located in two places with different rules. Symptom: `sanitizeToolCallIdsForCloudCodeAssist` (`src/agents/tool-call-id.ts:242-261`) finds the latest assistant message by checking only `role === \"assistant\"`. `dropThinkingBlocks` (`src/agents/pi-embedded-runner/thinking.ts`, from #273) finds it with `isAssistantMessageWithContent`, which also requires `Array.isArray(content)`. Both are driven by the same `policy.preserveLatestAssistantTurn` flag. Source: The Pragmatic Programmer \u2014 DRY; Refactoring \u2014 Duplicate Code Consequence: Suppose the last assistant message has non-array content, such as an aborted or empty string turn. The ID sanitizer would then keep that message unchanged, while the thinking stripper would keep an earlier one. The \"keep the latest turn verbatim\" contract would silently apply to different messages in the two passes, which is the kind of Copilot Claude rejection this branch is trying to fix. Any future change to what counts as the latest turn (for example, every assistant message since the last user message) has to be made in both places. Remedy: Extract one `findLatestAssistantIndex(messages)` helper, for example next to `isAssistantMessageWithContent`, and call it from both passes. Pick one predicate deliberately."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "tool-call-id.ts",
+   "start_line": 226,
+   "end_line": 226,
+   "message": "Change Propagation \u2014 Preserved IDs bypass the transcript-wide uniqueness guarantee. Symptom: `resolve` relies on `used` to keep sanitized IDs unique across the transcript (\"Fix by applying a stable, transcript-wide mapping and de-duping\", `tool-call-id.ts:226-227`). IDs from the kept assistant turn and its tool results are returned unchanged, and they are never added to `used`. Source: A Philosophy of Software Design \u2014 Information Leakage (the uniqueness rule now lives partly in `resolve` and partly in the early-return branches) Consequence: An older ID can sanitize to exactly the raw ID used in the latest turn. For example, `call|1` sanitizes to `call1` while the latest turn uses `call1`. The request would then contain two tool calls with the same ID, and tool results could pair with the wrong call, or the provider could reject the request. The reverse gap also exists: a tool result whose `toolCallId` doesn't match but whose `toolUseId` does is still rewritten, because `extractToolResultId` checks only one of the two fields. Remedy: Before the `map` pass, add every preserved ID to `used` and set `map.set(id, id)` for each. `resolve` will then route around them, and the kept turn and its results stay consistent without extra early-return branches."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "src/agents/tool-call-id.test.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 New sanitizer behavior has no tests. Symptom: The diff adds a new branch to `sanitizeToolCallIdsForCloudCodeAssist` and wires it into two call sites, but `src/agents/tool-call-id.test.ts` and the sanitize-session-history tests are not changed. Source: Working Effectively with Legacy Code, Ch. 1 Consequence: Nothing tests that the latest turn and its paired results are kept, that older turns are still rewritten, or the collision case above. The streamFn wrapper in `attempt.ts` runs on every tool-loop step, so a regression would hit every multi-step Copilot Claude run. Remedy: In `tool-call-id.test.ts`, add tests for: 1. With the flag on, the latest assistant message and its matching `toolResult` IDs come back unchanged, while older ones are sanitized. 2. With the flag off, behavior is the same as before. 3. An older ID that sanitizes to a preserved raw ID still ends up unique."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "docs/reference/transcript-hygiene.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 Sanitizer is growing into a two-mode routine. Symptom: `sanitizeToolCallIdsForCloudCodeAssist` is now about 80 lines. The boolean `preserveLatestAssistantTurn` changes how both the assistant branch and the tool-result branch behave, and the pre-scan loop sits between the `resolve` setup and the mapping pass. Source: Refactoring \u2014 Flag Arguments / Long Method; Code Complete Ch. 7 Consequence: Each new provider quirk is likely to add another early return inside the `map`, which makes the mapping harder to reason about. Remedy: Fixing the first two Warnings (a shared index helper, and seeding `used`/`map`) moves the pre-scan into one function call. That shrinks the routine without changing its interface. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 58,
+  "cost_usd": 0.4674384000000001,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 1,
+  "health_score": "84"
+ }
+}

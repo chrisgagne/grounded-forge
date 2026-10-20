@@ -1,0 +1,80 @@
+{
+ "id": "rc16",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 Predicted EBVs presented as distances from breed average. Symptom: Line 114 says \"WWT +1.98, YWT +2.63 above breed midpoint\" and line 180 says \"predicted WWT of +1.98 lbs above breed average\". Those numbers are the raw midparent EBVs. The report's own table (lines 104\u2013106) gives the breed midpoints as +1.59 and +0.37, so the lamb is actually about +0.39 lbs above the WWT midpoint and about +2.26 lbs above the YWT midpoint. Source: Evans, Domain-Driven Design (Ubiquitous Language). \"EBV\" and \"difference from breed midpoint\" are separate ideas, and the text uses one name for both. Consequence: Someone deciding whether to keep EPC26005 as a sire gets an inflated picture of his weaning growth, roughly 5\u00d7 the real margin. Remedy: Change lines 114 and 180 to say \"midparent EBV WWT +1.98 (breed midpoint +1.59)\", or report the actual difference from the midpoint."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 Outcross claim goes further than the pedigree supports. Symptom: Line 96 says the parents \"come from completely separate genetic backgrounds\u2026 zero inbreeding risk\". Line 144 says \"No shared ancestors appear at any generation level\". The pedigree only goes back two generations, and Hound River Farm (NWT) animals show up on both sides: NWT063 on the dam's side, NWT012 and NWT082 on the sire's. Source: Evans, Domain-Driven Design (the model has to match the domain truth). Also The Pragmatic Programmer on not claiming more than the evidence shows. Consequence: A 0.0% COI from a shallow pedigree gets presented as a guarantee. That could discourage a deeper inbreeding check later, for example when EPC26005 is used on Beyond Blessed Farm ewes, which line 186 itself recommends. Remedy: Change the claim to \"no shared ancestors within the two generations shown\". Mention that both lines include Hound River Farm stock, and drop \"completely separate\" and \"any generation level\"."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 The offspring BWT is described three different ways. Symptom: The predicted BWT is +0.06 against a +0.18 midpoint. Line 112 says \"below breed midpoint\". Later on the same line it says \"near breed average\". Line 168 says \"well below breed average\". Source: Hunt & Thomas, The Pragmatic Programmer (DRY: the same fact restated in several places, and the copies have drifted apart). Consequence: Readers can't tell which version is true. It also weakens the report's main argument that this sire was a good choice for a yearling ewe. Remedy: Pick one description, for example \"slightly below breed midpoint (+0.06 vs +0.18)\", and use it everywhere."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 The pedigree relationship is wrong. Symptom: Line 144 calls USD318 the dam's \"maternal grandsire\". In the tree at lines 126\u2013127, USD318 is the sire of FLE382, which makes him the dam's **paternal** grandsire. Source: Evans, Domain-Driven Design (Ubiquitous Language). Pedigree terms have exact meanings for breeders. Consequence: Mislabeling relationships in a pedigree report undermines trust in the whole report and could mislead later line-breeding decisions. Remedy: Change it to \"paternal grandsire\"."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 The \"Percentile\" column is really position within the range. Symptom: Every \"percentile\" equals (EBV \u2212 min) / (max \u2212 min). For example, the dam's BWT gives (0.34 + 0.94) / 2.24 = 57%. That is where the value sits between the breed minimum and maximum, not a true percentile. Source: Evans, Domain-Driven Design (Ubiquitous Language). Consequence: To a breeder, \"32nd percentile\" means 68% of the breed is higher. That isn't what this number measures. The 04-14 report does the same thing, so it's a convention problem, not just this PR's. Remedy: Rename the column \"Range position\", or switch to real percentile bands from `trait_ranges`. Fix it in the report template/instructions, not only in this file."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 Birth weight doesn't update NLB. Symptom: Line 178 says recording birth weight is \"critical for updating\u2026 the dam's NLB accuracy\". Source: Evans, Domain-Driven Design. Consequence: Producers get the wrong idea of what each record does. NLB comes from the number of lambs born in the lambing record, not from birth weight. Remedy: Say that birth weight feeds the BWT EBVs and that the lambing record itself (number born) updates NLB."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 The same figures appear with different precision and range. Symptom: The tables use -0.23 and +0.11, while the text uses -0.225 and +0.109 (lines 53, 82, 166). The workflow rule says to round EBVs to 2 decimals. Lines 84 and 174 give the sire's accuracy as \"68\u201381%\", but his NLB accuracy is 55%. Source: Hunt & Thomas, The Pragmatic Programmer (DRY). Consequence: Small mismatches like these make readers check whether the tables and text came from the same data. Remedy: Use 2 decimals everywhere and say \"68\u201381% for growth traits\"."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "data.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 `data.csv` is missing. Symptom: The sibling report `reports/2026-04-14-lambing-event/` includes `data.csv`, and `.github/workflows/flock-action.md:159` says report PRs should commit both `report.md` and `data.csv`. This branch only adds `report.md`. Source: Brooks, The Mythical Man-Month (Conceptual Integrity). Consequence: Anything that reads `data.csv` from each report folder will skip this event or fail on it. Remedy: Add `data.csv` in the same `category,field,value` format as the 04-14 report. Recommended fix order: paternal-grandsire label \u2192 \"above breed midpoint\" wording \u2192 outcross claim \u2192 BWT wording \u2192 the rest. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 158,
+  "cost_usd": 0.39225540000000003,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 7,
+  "health_score": "76"
+ }
+}

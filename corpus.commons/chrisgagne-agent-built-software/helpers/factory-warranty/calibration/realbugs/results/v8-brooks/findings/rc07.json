@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/godaddy/antares",
+  "pr_number": 142,
+  "base": "f910afef727b67f484a672fcae7a94d86272aed9",
+  "head": "12f376d05689fdecb86096f51f7ab2f7169c3f0a"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "variables.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 global font-size token type changed inside a Legend feature commit. Symptom: `variables.css:20` changes `@property --_fs-base` from `syntax: \"<length>\"` to `syntax: \"*\"`. Every `--fs-*` token (lines 76\u201386) is derived from this property, so every component in the package that uses a font-size token is affected. The commit message (`72fcc3d6 feat(legend): add horizontal/vertical feature and size options`) doesn't mention it. Line-chart screenshots that have nothing to do with the legend layout also changed (`bitcoin-price`, `formatting`, `custom-tooltip-formatting`, and others). Source: The Pragmatic Programmer, Orthogonality; Software Engineering at Google, Hyrum's Law Consequence: With `\"*\"` the browser no longer type-checks or computes the value, so `calc(var(--_fs-base) * pow(...))` is now resolved later as an unparsed token stream. The visual diffs suggest rendering already shifted across components. Anyone bisecting a typography regression will look for Legend changes and won't find this one. Remedy: Move this change into its own commit or PR that explains why it's needed. Run the full visual suite against it on its own. If the only goal was to make Legend's `size` work, check whether that already works with `<length>`; the legend CSS only reads `--fs-xs/sm/md/lg`."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "bar-chart/src/index.tsx",
+   "start_line": 444,
+   "end_line": 444,
+   "message": "Change Propagation \u2014 Legend's default layout changed and centering moved to every caller. Symptom: Legend used to render `justifyContent=\"center\"`. It now renders an `inline-flex` column with `alignItems=\"flex-start\"`, and the `role=\"list\"` element is nested one level deeper. To get the old look back, three call sites now pass `alignSelf=\"center\"` (`bar-chart/src/index.tsx:444` and `:619`, `line-chart/src/index.tsx:491`). `LegendProps` also now extends nearly the whole `FlexProps<'div'>` surface (`legend/src/index.tsx:16`). Source: Software Engineering at Google, Backward compatibility and Hyrum's Law; Fowler, Refactoring, Shotgun Surgery Consequence: Any consumer who renders `<Legend>` directly will see it left-aligned after upgrading. Anyone who styled or queried `[role=list]` as the root element will also break. Every future chart has to remember `alignSelf=\"center\"`. Exposing all of `FlexProps` turns the Legend's internal layout into public API, which makes it harder to change later. Remedy: Either flag this as a breaking change in the changeset, or keep centering as the default (for example with an `align` prop that defaults to `'center'`) so the chart call sites don't need the override. Consider exposing a narrow, explicit set of layout props instead of `Omit<FlexProps, \u2026>`."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "legend/src/index.tsx",
+   "start_line": 52,
+   "end_line": 52,
+   "message": "Accidental Complexity \u2014 `useMemo` around the legend item list. Symptom: `legend/src/index.tsx:52\u201371` memoises a `series.map(...)` keyed on `series`. Both the examples and the chart callers create `series` fresh on each render, so the cache never hits. Source: Code Complete, Ch. 5 YAGNI; A Philosophy of Software Design, tactical complexity Consequence: The extra indirection suggests a performance concern that doesn't exist, and it buys nothing. Remedy: Go back to the inline `series.map` inside the JSX."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "legend.browser.test.tsx",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Test Obscurity \u2014 vertical-orientation test doesn't check orientation. Symptom: `legend.browser.test.tsx` has a test called \"stacks items vertically when orientation is vertical\". It only asserts that the list exists and has 3 items. Source: xUnit Test Patterns, Assertion Roulette / Lazy Test Consequence: The test would still pass if `orientation` were ignored. Only the node snapshot catches a regression, and nobody reads snapshot diffs closely. Remedy: Assert the layout itself, for example that each item's `top` offset is greater than the previous one, or that the computed `flex-direction` is `column`."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "legend/src/index.module.css",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 default size font-size declared twice. Symptom: In `legend/src/index.module.css`, `.root` sets `font-size: var(--fs-sm)` and `&[data-size=\"md\"]` sets the same value again. The `'md'` default also lives separately in `index.tsx`. Source: The Pragmatic Programmer, DRY Consequence: If someone changes the default size in one place, the other drifts silently. Remedy: Delete the redundant `md` rule, or delete the base declaration and rely on `data-size` always being present."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "with-label.tsx",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 inconsistent example and story naming. Symptom: The new examples are `with-label.tsx` and `vertical.tsx`, but also `legend-size-chart-example.tsx`, which has a redundant `legend-` prefix and `-example` suffix. The story is called `LegendSizeChart`, which reads as a chart of sizes or a clothing size chart. Source: Code Complete, Ch. 11 Variable Names Consequence: It's a small but lasting naming inconsistency in the docs and file tree. Remedy: Rename the file to `sizes.tsx` and the story to `Sizes`. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 64000
+ }
+}

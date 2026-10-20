@@ -1,0 +1,40 @@
+{
+ "id": "rc12",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "ReconnectTest.kt",
+   "start_line": 217,
+   "end_line": 217,
+   "message": "Test Obscurity \u2014 Callback waits are now unbounded and have no failure messages. Symptom: About 14 places changed from `assertTrue(latch.await(5, TimeUnit.SECONDS))` to a bare `deferred.await()`. Examples are in `BasicTest`, `CallbackTest`, `LifecycleTest` and `ReconnectTest`. In two `CallbackTest` tests, this also deleted the only messages that explained the check: \"onDisconnect must fire even when onTransportDrop throws\" and \"onTransportRestore must fire after successful reconnect\". `throwing onTransportDrop does not prevent onDisconnect from firing` now has no assertion at all; the test passes only because the `await()` returns. Meanwhile `ReconnectTest.kt:217` already bounds a similar wait with `withTimeout(1.seconds) { transportDropSignal.await() }`. Source: Meszaros \u2014 xUnit Test Patterns, Assertion Roulette / diagnosable failures; Osherove \u2014 The Art of Unit Testing, test readability Consequence: Say a regression stops `onDisconnect` from firing. The test no longer fails in 5 seconds with a clear message. Instead it hangs until `runTest`'s real-time timeout (60 s in coroutines 1.10.2) and reports a generic timeout. The developer has to read the test body to find out which callback never fired. With 14 such sites, one regression can add minutes to a CI run before anyone sees what broke. Remedy: Use the bounded pattern from `ReconnectTest.kt:217`, e.g. `withTimeout(5.seconds) { disconnectCalled.await() }`. Under the virtual scheduler it fails immediately once the scheduler has nothing left to run. Where the callback fires synchronously under `UnconfinedTestDispatcher`, use `assertTrue(x.isCompleted, \"onDisconnect must fire \u2026\")` instead, as `MiscTest`/`ReconnectTest` already do. Either way, put the two deleted messages back."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "src/test/kotlin/com/wspulse/client/component/BasicTest.kt",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 Every test repeats the rule for which scheduler to use. Symptom: `ComponentTestBase` takes its `TestCoroutineScheduler` as a constructor argument, but all five subclasses pass the same thing, `TestCoroutineScheduler()`. On top of that, all 20 tests repeat `runTest(StandardTestDispatcher(testScheduler))` so that `waitUntil` advances the same scheduler as the test body. Source: Fowler \u2014 Refactoring, Speculative Generality; Meszaros \u2014 xUnit Test Patterns, Test Code Duplication Consequence: `waitUntil` only works if each test body remembers to pass the shared scheduler. A new test written the obvious way, `runTest { \u2026 }`, runs on a different scheduler. `waitUntil` then advances a clock the test body isn't using, and the result is confusing timeouts or ordering problems. Remedy: Have the base class own the scheduler (`protected val testScheduler = TestCoroutineScheduler()`) and drop the constructor parameter. Add `protected fun runComponentTest(body: suspend TestScope.() -> Unit) = runTest(StandardTestDispatcher(testScheduler), testBody = body)` and have every test use it."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "ComponentTestBase.kt",
+   "start_line": 526,
+   "end_line": 526,
+   "message": "Cognitive Overload \u2014 `waitUntil`'s timeout is split across magic numbers. Symptom: `ComponentTestBase.kt:526-531` builds the timeout from `repeat(500)` and `advanceTimeBy(10)`, and the error string hardcodes \"5s\". `MiscTest` used to pass `timeoutMs = 10_000`; it now gets 5 s without saying so. Source: McConnell \u2014 Code Complete, Ch. 12 (magic numbers) Consequence: If someone changes either number, the error message reports the wrong duration. A test that needs a longer limit also has no way to ask for one. Remedy: Use `timeout: Duration = 5.seconds, step: Duration = 10.milliseconds` parameters, compute the iteration count from them, and build the error message from `timeout`. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 140,
+  "cost_usd": 0.6212525999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 1,
+  "health_score": "93"
+ }
+}

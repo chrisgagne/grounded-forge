@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 294,
+  "base": "daa9f5234921318a97907361b3c464b914089949",
+  "head": "690f26b60a336e59f40204fd105c8ecd6c8cd115"
+ },
+ "agent": "v8-plain",
+ "findings": [
+  {
+   "producer": "v8-plain",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The probe still reads `/home/node/.openclaw/.runtime-openclaw.json` with plain `JSON.parse`. Nothing in the repo creates that file. The deployed config lives at `$OPENCLAW_CONFIG_PATH` (see docker-compose.yml:26), and deploy.sh and the Check 8 probe both read it with `JSON5.parse` plus `$include` resolution. A jq error of 'Invalid numeric literal' usually means the input isn't strict JSON (JSONC/JSON5 comments, unquoted keys, trailing commas) or that the file is missing or different from what's expected. It doesn't point to a shell-quoting problem. `JSON.parse` rejects the same input, so this change most likely turns the jq parse error into a Node SyntaxError and staging verify still fails. Read `OPENCLAW_CONFIG_PATH` with JSON5 and the shared include resolver, the way `browser_probe_js` does, so the check sees the same config the gateway uses."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 153,
+   "message": "When `defaultCredentialRoute` is missing or null, the probe calls `process.exit(1)`, and verify then fails with 'Failed to inspect active Google Workspace credential route mode'. The plugin accepts that config: in legacy mode, config.ts:370-376 creates a default route when `credentialRoutes` is empty, and a null default with explicit bindings is also valid. The probe doesn't copy that logic, so valid deployments fail verify even though they should reach the 'skipping credentials file check' branch. The probe also doesn't `trim()` route names the way the plugin does. Either reproduce the plugin's resolution logic or print a non-failing `mode` so the skip path runs."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 153,
+   "message": "Every failure looks the same from the outside: a missing route or mode exits 1 with nothing on stderr, a parse error prints a stack trace that `gce_ssh_lastline` mostly hides, and verify only reports 'Failed to inspect active Google Workspace credential route mode'. The PR's follow-up plan relies on finding out the real runtime shape, so write a specific reason to stderr before exiting (missing file, parse failure, missing default route, missing mode) and make sure it shows up in CI logs."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The PR description says this follows the `browser_probe_js` pattern, but it doesn't. That probe keeps its JS in a quoted heredoc and passes it through `printf '%q'` with no extra `bash -lc` layer. This change embeds a long one-line script inside three levels of hand-escaped quoting (local double quotes, remote shell `'\\''`, then `bash -lc`), which is the fragility the PR is trying to remove. Moving the JS into a heredoc and using `%q` like Check 8 would make it readable and safer to edit. The current version also uses `typeof ... === \"object\"`, which accepts arrays."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 69000
+ }
+}

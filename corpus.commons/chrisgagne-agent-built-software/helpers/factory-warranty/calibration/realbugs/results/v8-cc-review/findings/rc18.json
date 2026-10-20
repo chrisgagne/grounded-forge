@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/OpenDevicePartnership/embedded-services",
+  "pr_number": 793,
+  "base": "90130bc3d3df2f186323d70a8f757a5dfa16c6a2",
+  "head": "f63a02462d1eebd5b06b45ebdf1d2705c919413a"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "`defmt` was removed from the crate's default features, so by default `partition_manager::Error` no longer derives `defmt::Format`. This is a breaking public API change that has nothing to do with adding PartitionGuard. A downstream firmware crate that depends on `partition-manager` with default features and logs the error with `defmt::error!(\"{}\", err)` (or puts `Error<E>` inside its own `#[derive(defmt::Format)]` type) stops compiling after this change with `Error<E>: defmt::Format` not satisfied. The change seems to have been made only so `cargo test` builds on the host; it should be handled in test/dev configuration instead of by changing the defaults."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 34000
+ }
+}

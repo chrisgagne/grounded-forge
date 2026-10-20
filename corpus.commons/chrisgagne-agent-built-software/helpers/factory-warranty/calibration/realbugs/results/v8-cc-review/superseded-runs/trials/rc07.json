@@ -1,0 +1,30 @@
+{
+ "id": "rc07",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 88,
+   "end_line": 88,
+   "message": "The horizontal list Flex sets direction='row' with no `wrap`, so items can't wrap onto a new line and overflow their container. A chart with 8\u20139 series, or long series names, in a narrow card: all items stay on one row and spill past the container edge (or get clipped by overflow:hidden), since the list Flex has no flex-wrap and the Legend props omit nothing that would let callers fix it on the inner list."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "`label ?? 'Chart legend'` only falls back for null/undefined, but the visible label is gated on truthiness, so `label=\"\"` renders no label and sets aria-label=\"\" on the list. A caller passes `label={title}` where title is ''. No visible label renders, and the role=list gets an empty accessible name instead of the 'Chart legend' fallback, so screen readers announce an unnamed list."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 139,
+  "cost_usd": 0.1942566,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

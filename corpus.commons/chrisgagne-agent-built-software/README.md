@@ -1,9 +1,13 @@
 # Signing off AI-written code without reading every line
 
-> I'm a product manager and consultant, not a developer. I was curious what kind of software factory could be built
-> from open sources (public domain, MIT, Creative Commons and the like) on what good-quality, AI-built software looks
-> like. This is what I came up with. I directed it, and I signed off its one real change from the sign-off sheet,
-> without reading the code.
+> I'm a tech-savvy product manager and consultant, but I've rarely been held responsible for warranting software the
+> way a professional developer is. I was curious what kind of software factory could be built from open sources (public
+> domain, MIT, Creative Commons and the like) on what good-quality, AI-built software looks like. This is what I came
+> up with. I directed it, and I signed off its one real change from the sign-off sheet, without reading the code. I
+> learned that a naïve junior developer like me can now build review tooling that beats PR-Agent, the most-starred
+> open-source AI reviewer we found, but adds little beyond expense when you already run both Claude's and Codex's own
+> reviews (on OpenAI's model alone, it helped). What it adds is the rest: locked tests, a sheet I could sign from, and
+> a record of what was and wasn't shown.
 >
 > *Chris Gagné*
 
@@ -13,11 +17,15 @@ reading every line, and every test of it was written down before it ran.
 
 ## The short version
 
-- **Its AI review hasn't beaten the labs' own tools.** On GitHub's open benchmark, the factory's default review found
-  less than OpenAI's `codex review` and Claude Code with a plain review prompt, run together; with its Claude reviewer
-  plus those two as its reviewers, it came out level with them. It found two to three times as much as PR-Agent, an open-source reviewer.
-- **With one model, its brief and library helped OpenAI's model and not Anthropic's.** Neither model found more serious
-  bugs with them.
+- **Its AI review hasn't beaten the two labs' tools run together.** On GitHub's open benchmark, the factory's default
+  review found less than OpenAI's `codex review` and Claude Code with a plain review prompt, pooled; with its Claude reviewer
+  plus those two as its reviewers, it came out level with them.
+- **It beat the open-source and built-in reviewers we tried.** It found two to three times as much as PR-Agent, the
+  [most-starred](helpers/factory-warranty/calibration/realbugs/prior-art-2026-10-20.md) open-source AI reviewer we
+  found, and its Claude reviewer alone found two and a half to three and a half
+  times as much as brooks-lint (Claude reviewing against twelve engineering books) and Claude Code's own `/code-review`.
+- **With one model, its brief and library helped OpenAI's model and not Anthropic's.** On Opus, a plain "review this
+  as a careful senior engineer" prompt did as well or better. Neither model found more serious bugs with them.
 - **What it adds is the rest of the gate:** locked tests, sandboxed checks, a sign-off sheet for someone who doesn't
   read code, and a log.
 - **Several stops on "good" changes were real changes in behaviour** that upstream had accepted. Making each stop
@@ -42,7 +50,7 @@ what it can't, such as whether the tests check the right behaviour.
 
 ## How its review compares
 
-Three tests on [ReviewBench](https://github.com/review-bench/ReviewBench), GitHub's open benchmark of real pull
+Four tests on [ReviewBench](https://github.com/review-bench/ReviewBench), GitHub's open benchmark of real pull
 requests, scored offline by its own judge. *Recall* is how much of the answer key a reviewer found; *precision* is, of
 its findings that match the key, the share that match a real issue (both averaged over pull requests). An arm counts as
 better only if neither is lower and one is at least 5 points higher.
@@ -83,13 +91,29 @@ someone has to read. The sample held only 3 serious findings, all found by every
 On Sol the factory's version did better; on Opus, about the same. Two factory runs had failed on an unrelated bug and
 were re-run under a dated amendment; as first judged, Sol was about the same and Claude Code found 3 more serious bugs.
 
+**Against other reviewers on Claude**, on v6's 20 pull requests, each arm Opus and judged on its own
+([results](helpers/factory-warranty/calibration/realbugs/results/v8-RESULTS.md)):
+
+| | Precision | Recall |
+|---|---|---|
+| Claude Code with a plain prompt | 81.3% | 56.2% |
+| The factory's Claude reviewer, with its brief and library | 78.2% | 47.5% |
+| Claude Code's built-in `/code-review` | 74.5% | 18.7% |
+| [brooks-lint](https://github.com/hyhmrright/brooks-lint) 1.8.0 `/brooks-review` | 72.2% | 13.7% |
+
+By the rule, the factory's reviewer did better than both tools, and the plain prompt did better than the factory's
+reviewer. Neither tool aims at this answer key, which is mostly bugs: `/code-review` reports only what it's sure of
+(about 3 findings per pull request), and brooks-lint looks for maintainability risks; the judge counted most of
+brooks-lint's unmatched findings as true. A third of brooks-lint's findings named no file and went on each change's
+first file, which can only lower its score; at best its recall would have been 30.6%.
+
 **For a team:** run `codex review` and Claude Code, and keep everything both say; that did as well as anything we
 built, for well under a dollar of Claude per pull request plus Codex. With OpenAI's model alone, a brief and library
-like the factory's got more out of it.
+like the factory's got more out of it; with Claude alone, a plain prompt did best.
 
 **Limits:** one try per reviewer and 20 to 25 pull requests per test (none over 2,000 changed lines in the fresh
-samples); an answer key mostly raised by AI reviewers and a Claude judge; PR-Agent in its diff-only local mode; and
-Claude Code's own review command untested, only our plain prompt.
+samples); an answer key mostly raised by AI reviewers and a Claude judge; PR-Agent in its diff-only local mode; v8 reused v6's
+pull requests.
 
 ## Showing, not arguing
 
@@ -136,7 +160,7 @@ that the gates catch what reviewers miss (every replay switched the projects' te
 someone with the operator's access could rewrite the log without it showing; a signature is a record, not cryptography; and the commits
 showing each test was written first are in the factory's unpublished repository.
 
-Prior art: [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
+Prior art: brooks-lint also grounds Claude's review in a library (tested above); [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
 [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) have other models review Claude Code's work;
 [TDD Guard](https://github.com/nizos/tdd-guard) enforces tests first; [in-toto](https://github.com/in-toto/in-toto)
 and [Sigstore](https://github.com/sigstore/cosign) keep signed records of how software was made, with real cryptography.

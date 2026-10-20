@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/Imageomics/catalog",
+  "pr_number": 75,
+  "base": "5f10688a0afd8b2891d6cec32f0c3bfca9a7aaed",
+  "head": "a8a7cdc7b0cbac54485dbcf53cf6ae6ddbecfe92"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "main.js",
+   "start_line": 765,
+   "end_line": 765,
+   "message": "ADDITIONAL_HF_REPOS is now a required config key, so an existing catalog whose config.yaml lacks it (or has one malformed entry) now fails config validation as a whole, and the site falls back to empty defaults and shows no catalog at all. main.js:765-766 pushes 'ADDITIONAL_HF_REPOS (must be a list)' when the key is absent, and lines 769-774 do the same for any bad entry. Line 782 then throws, and the catch at 792-799 replaces the whole CONFIG with ORGANIZATION_NAME: ''. The guard at main.js:897 ('if (!ORGANIZATION_NAME) return;') then stops the data loading. Before this change, a config without the key loaded normally. This repo is a template ('Welcome to your new catalog repo', README), so downstream catalogs that pick up the new main.js without editing their config.yaml hit this. Treating a missing key as [] would keep them working."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/export-tags.js",
+   "start_line": 48,
+   "end_line": 48,
+   "message": "export-tags.js now throws for any config.yaml that lacks ADDITIONAL_HF_REPOS, so the dev script stops working on existing configs even though the feature is optional. export-tags.js:48-52 says 'if (!Array.isArray(CONFIG.ADDITIONAL_HF_REPOS)) throw new Error(...)'. The requiredKeys list at line 32 and the header comment at line 11 don't mention the new key, so the script's documented contract and its behaviour disagree."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "main.js",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "Two config entries that name the same HF repo with different letter case are both fetched and both added, so the same repo can appear twice in the catalog. Deduplication at main.js:304-308 compares the raw entry.repo strings ('seenRepos.has(entry.repo)'), and line 326 filters only against existingIds, which holds the org listing alone. Hugging Face resolves repo paths case-insensitively and returns the canonical id. So 'User/x' and 'user/x' both get past seenRepos, both come back with id 'user/x', and both are appended. The same logic is in scripts/export-tags.js:127-139."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "main.js",
+   "start_line": 332,
+   "end_line": 332,
+   "message": "Each additional model is fetched from the same endpoint twice per page load: once in the new block, then again in the existing per-model detail step. The new code fetches `${API_BASE_URL}${repoType}/${entry.repo}` (line 312), which for models is `${API_BASE_URL}models/<id>`. It appends the result to hfItems, and the existing Step 2 at line 332 then fetches `${API_BASE_URL}models/${item.id}` for every item in hfItems, including those just fetched."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "main.js",
+   "start_line": 300,
+   "end_line": 300,
+   "message": "No tests cover the new behaviour: merging extra repos per type, skipping duplicates, tolerating failed fetches, and validating config entries. The diff touches only README.md, main.js, public/config.yaml and scripts/export-tags.js. A glob for *.test.* / *.spec.* in the export finds no test files, so none of the new branches (main.js:300-327 and 765-775) is checked by anything automated."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/export-tags.js",
+   "start_line": 136,
+   "end_line": 136,
+   "message": "In the tag-export script, a failed fetch of an additional HF repo is dropped silently, so a typo in a repo name leaves its tags out of tag-export.txt with no warning. export-tags.js:134-136 uses `get(...).then(({ json }) => json).catch(() => null)` with no logging. The browser version at main.js:315 and 321 calls console.warn for the same failure."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "main.js",
+   "start_line": 773,
+   "end_line": 773,
+   "message": "The new validation message puts JSON.stringify of config entries into the error banner, which is rendered with innerHTML, so markup in a config value is interpreted as HTML. Line 773 adds `bad entries: ${badEntries.map(e => JSON.stringify(e)).join(', ')}` to the message. main.js:788 renders it with `errorDiv.innerHTML = `<strong>Configuration Error:</strong> ${error.message}...``. The input is owner-controlled config, so impact is limited."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "main.js",
+   "start_line": 312,
+   "end_line": 312,
+   "message": "entry.repo goes into the API URL unencoded and is only checked for being a non-empty string, so a value with '?', '#' or '../' would request a different API path than intended. main.js:312 builds `${API_BASE_URL}${repoType}/${entry.repo}`, and validation at line 770 checks only `typeof e.repo !== 'string' || !e.repo.trim()`, with no owner/name format check. The value comes from the site owner's config, so the risk is low. The same applies to scripts/export-tags.js:134."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/export-tags.js",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "The validation rules and the fetch-and-merge logic for additional HF repos are copied between main.js and scripts/export-tags.js, so the two can drift apart, and already differ in how they log errors. export-tags.js:53-61 repeats main.js:768-774 nearly word for word, and export-tags.js:123-140 repeats main.js:300-327."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

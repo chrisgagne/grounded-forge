@@ -1,0 +1,48 @@
+{
+ "id": "rc03",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "Accidental Complexity \u2014 Fix applied at state transition instead of at the faulty snapshot, which weakens `Throw` semantics. Symptom: `InternalEntryBase.cs:287-292` overwrites the original value with the current value for **every** property with `AfterSaveBehavior.Throw` whenever the state becomes `Modified` with `modifyProperties`. The comment says the real cause is that the original-values snapshot for complex-type shadow properties \"stores default values\". `Throw` is only enforced at `InternalEntryBase.cs:1655-1659` through `IsModified(property)`. Example: a user changes a `Throw` property on a tracked `Unchanged` entity, then sets `entry.State = EntityState.Modified`. The original value is now silently replaced, DetectChanges sees no difference, and the error the user configured never fires. The change is dropped instead. If that property is also a concurrency token, its original value (used in the `WHERE` clause) is changed too. Source: Ousterhout \u2014 A Philosophy of Software Design, Ch. 3: Strategic vs. Tactical Programming. Fowler \u2014 Refactoring, fixing a symptom away from where the data is wrong (a Divergent Change risk). Consequence: The workaround applies to all entity types, not just the complex-type discriminator case. A documented safety guarantee (`Throw`) gets a silent hole. Later maintainers will find the real snapshot bug hidden behind this compensation code. Remedy: Either fix the snapshot so complex-type shadow/discriminator properties start with the correct original values, or limit the override to the affected case (for example, properties whose `DeclaringType` is a complex type, or the complex-type discriminator only). Add a regression test showing that changing a user-configured `Throw` property and then setting `State = Modified` still throws `PropertyReadOnlyAfterSave`."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Cognitive Overload \u2014 The `IsConceptualNull` guard isn't explained. Symptom: The condition `!IsConceptualNull(property)` at line 289 was added in commit 2824c7f809. The comment above it explains the `Throw` check but says nothing about why conceptual nulls are skipped. Source: McConnell \u2014 Code Complete, Ch. 32: Self-Documenting Code (comment the *why*) Consequence: A future editor could remove or \"simplify\" the guard without knowing which failure it prevents. Remedy: Add one clause to the existing comment, e.g. \"skip conceptual nulls so the pending null-key error is not masked.\""
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 Only the complex-type path of a general change is tested. Symptom: The new test covers only a disconnected `Update()` with a nullable complex type that has a discriminator. The production change affects every `Throw` property on every structural type, and no test checks that `Throw` still fires in non-complex scenarios. Source: Feathers \u2014 Working Effectively with Legacy Code, Ch. 1 (tests as a change-detection net) Consequence: The semantic regression described in the Warning above would not fail any test added here. Remedy: Add the negative test from the Warning remedy to the change-tracking specification tests."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 The #38105 test depends on another issue's fixture. Symptom: `#region Issue38105` uses `Context37337` and `Issue37337CreatedByShadowPropertyName`, which belong to the #37337 region. Source: Evans \u2014 Domain-Driven Design, Ubiquitous Language Consequence: Changing the #37337 fixture could silently change or break the #38105 regression test, and readers have to look at another region to understand the setup. Remedy: Accept the reuse but say so in a short comment, or rename the shared context to describe what it models (e.g. `OptionalComplexWithShadowContext`). ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 62,
+  "cost_usd": 0.3521982,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 3,
+  "health_score": "92"
+ }
+}

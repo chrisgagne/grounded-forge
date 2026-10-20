@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/YasserShkeir/django-smart-ratelimit",
+  "pr_number": 25,
+  "base": "442d4ac196a0dcac3aef6bc41a09ebf5a9a354d9",
+  "head": "d7c5c7c2ba6399e3cfcfa7f74eeb8c35c4429a79"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "On Django versions without `RenameIndex` (3.2 and 4.0, both still declared as supported in pyproject), the index renames are skipped. The migration state then keeps the old index names from 0001 while the models generate the new auto-names. A user on Django 4.0 applies 0002 and then runs `makemigrations` (or `makemigrations --check` in CI). The autodetector sees index names that don't match and generates a RemoveIndex/AddIndex migration inside the installed package, or fails the CI check. Using SeparateDatabaseAndState or RemoveIndex+AddIndex as a fallback would keep the state consistent."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 286,
+   "end_line": 286,
+   "message": "`get()` now returns the deserialized `data` whenever it is set. Token-bucket rows now always have `data`, so `get()` on those keys returns a dict where it used to return the integer count. It also coerces string values (`set(k, \"5\")` then `get(k)` returns int 5). A caller does `backend.get(key)` on a token-bucket key and does arithmetic or comparisons on the result. It now gets a dict like `{'tokens': ..., 'last_refill': ...}` and raises TypeError. A string stored with `set()` that looks numeric comes back as a number."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 64000
+ }
+}

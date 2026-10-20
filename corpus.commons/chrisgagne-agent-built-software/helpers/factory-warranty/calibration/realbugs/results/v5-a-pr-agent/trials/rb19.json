@@ -1,0 +1,24 @@
+{
+ "id": "rb19",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/gimmes/strategy/staleness.py",
+   "start_line": 72,
+   "end_line": 82,
+   "message": "Dead markets never stale. `volume` comes from `m.volume_24h if m.volume_24h > 0 else m.volume`. When a market has no trades in the last 24h, `volume_24h` is 0, so the code falls back to `m.volume`. That field is typically the market's cumulative lifetime volume.\n\nThe new check `has_volume = volume >= volume_floor` compares that value to an absolute floor. Any market that has ever traded 10+ contracts will therefore always count as \"active\", and its stale count resets every cycle. Truly dead markets are the main target of this filter, but they will never be skipped.\n\nThe old relative volume-spike check was not affected by this fallback. Suggested fixes:\n- Base `has_volume` on `volume_24h` only, or\n- Compare against the stored `entry[\"volume\"]` delta.\n\nThe tests miss this because `_market` sets `volume` and `volume_24h` to the same value. A test with `volume_24h=0` and `volume=500` would expose it."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 16,
+  "usage": {
+   "prompt_tokens": 9082,
+   "completion_tokens": 928,
+   "total_tokens": 10010
+  },
+  "security_concern": false
+ }
+}

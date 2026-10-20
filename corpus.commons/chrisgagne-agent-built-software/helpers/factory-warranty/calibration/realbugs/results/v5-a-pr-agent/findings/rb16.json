@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/mheuss/chronicle",
+  "pr_number": 14,
+  "base": "17e33ca1ebf643d47201a8f94b8ab3e88848cf23",
+  "head": "04ac4c02d48083676c14dd3fa70d26ca102bd50e"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 55,
+   "end_line": 75,
+   "message": "Symlink bypass. `validate_path` falls back to checking only the parent directory whenever canonicalizing the full path fails *or* resolves outside the root.\n\nIf the final path component is a symlink pointing outside the storage root, the first check fails. The parent check then succeeds because the parent is inside the root, so validation returns `Ok`. After that:\n- `write_file` (open without `O_NOFOLLOW`) follows the symlink and writes to the external target.\n- `set_permissions` follows it as well.\n- `harden_file` chmods the external target.\n- `delete_file` reads the target's size through the link.\n\nThe parent fallback should apply only when the path does not exist. Use `symlink_metadata` to detect the not-found case and reject symlinks. For writes, consider `custom_flags(libc::O_NOFOLLOW)`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 79,
+   "end_line": 154,
+   "message": "Permission follows link. `write_file` and `harden_file` call `std::fs::set_permissions(path, ...)`, which follows symlinks. Combined with the validation gap above, a symlink planted at a media path makes the daemon chmod an arbitrary user-owned file to 0o600. That can break unrelated files, such as config files or SSH keys.\n\nIn `write_file`, apply permissions via the open handle instead (`file.set_permissions`). In `harden_file`, reject non-regular files using `symlink_metadata` first, as `move_file` already does."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Path validation bypass via symlinks: `MediaManager::validate_path` accepts a path whose final component is a symlink to a location outside the storage root, because the parent-directory fallback passes. Write, chmod, and stat operations then follow the link, which defeats the \"files stay under base_dir\" guarantee the new manager is meant to enforce."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 28000
+ }
+}

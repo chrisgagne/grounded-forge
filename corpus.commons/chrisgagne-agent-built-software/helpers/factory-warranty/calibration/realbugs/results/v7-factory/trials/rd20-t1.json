@@ -1,0 +1,392 @@
+{
+ "id": "rd20",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:locked-tests",
+  "gate:deps",
+  "gate:added-tests",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 1.2138,
+ "codex_tokens": 50975,
+ "work": "<tmp>/replay-rd20-t1-ytfezda3",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "install.ts:121 does `join(tmpdir(), 'spm', skillset.name)` and fetch-skillset.ts:12-14 only checks that name is a string. A name of '../../home/user' therefore resolves outside the temp folder. safePath (install.ts:82-90) checks paths against that already-escaped base, so writeFile at install.ts:130 writes under the attacker-chosen directory.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/commands/install.ts",
+   "line": 121,
+   "claim": "The temp directory is built from the remote manifest's unchecked `name`, so a malicious skillset can make install write files anywhere the user can write.",
+   "evidence": "`const tmpDir = join(tmpdir(), 'spm', skillset.name)`. `skillset.name` comes from `fetchSkillset`/`validateSkillset`, which only check that it is a string. `join` resolves `..`, so `name: \"../../../../../../../../home/victim\"` points tmpDir outside the temp folder. `safePath(tmpDir, result.path)` then checks paths against that already-escaped base, so it allows writes such as a `setup: ../../.bashrc` entry (path `claude/fsd/../../.bashrc`, which normalizes to `.bashrc`) to land at `/home/victim/.bashrc` through `writeFile`.",
+   "axis_row": "L5.38",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "critical",
+     "file": "src/commands/install.ts",
+     "line": 121,
+     "claim": "The download directory is built from the remote manifest's `name` without any check, so a malicious skillset can make `spm install` write files anywhere the user can write (for example under their home directory), not just under the temp folder.",
+     "evidence": "`const tmpDir = join(tmpdir(), 'spm', skillset.name)`. `skillset.name` comes from `fetchSkillset`/`validateSkillset`, which only check that it is a string. `join` resolves `..`, so `name: \"../../../../../../../../home/victim\"` points tmpDir outside the temp folder. `safePath(tmpDir, result.path)` then checks paths against that already-escaped base, so it allows writes such as a `setup: ../../.bashrc` entry (path `claude/fsd/../../.bashrc`, which normalizes to `.bashrc`) to land at `/home/victim/.bashrc` through `writeFile`."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "critical",
+     "file": "src/commands/install.ts",
+     "line": 77,
+     "claim": "A remote manifest can escape the temporary directory and overwrite files accessible to the user.",
+     "evidence": "validateSkillset only checks that name is a string. With name '../../home/user', join('/tmp', 'spm', skillset.name) becomes '/home/user'; a downloaded entry 'skills/payload.md' then passes safePath and writeFile overwrites '/home/user/skills/payload.md'. The guard trusts this attacker-selected base. Its startsWith check also accepts sibling paths such as '/tmp/spm/demo-other/file' for base '/tmp/spm/demo'."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "install.ts:85 checks `resolved.startsWith(baseDir)` with no separator after the base. A setup entry containing `..` (not filtered at resolve-skillset.ts:57) can resolve to /tmp/spm/fsd-evil/x, which passes the check against /tmp/spm/fsd.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/install.ts",
+   "line": 85,
+   "claim": "safePath uses a plain string-prefix check, so a path can escape into a sibling directory whose name starts with the base name.",
+   "evidence": "`if (!resolved.startsWith(baseDir))` does not require a path separator after the base. With baseDir `/tmp/spm/fsd`, a file entry `../fsd-evil/x` resolves to `/tmp/spm/fsd-evil/x`, and `startsWith('/tmp/spm/fsd')` is true, so the write goes ahead outside the intended folder. It should compare against `baseDir + sep` or use `path.relative`.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/install.ts",
+     "line": 85,
+     "claim": "The path-traversal guard is a plain string-prefix check, so a path can escape into a sibling directory whose name starts with the skillset name.",
+     "evidence": "`if (!resolved.startsWith(baseDir))` does not require a path separator after the base. With baseDir `/tmp/spm/fsd`, a file entry `../fsd-evil/x` resolves to `/tmp/spm/fsd-evil/x`, and `startsWith('/tmp/spm/fsd')` is true, so the write goes ahead outside the intended folder. It should compare against `baseDir + sep` or use `path.relative`."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The regex at parse-identifier.ts:306 doesn't capture the branch segment, and resolve-identifier.ts:20 always sets ref from fetchDefaultBranch. A .../tree/develop/path URL therefore fetches the manifest and files from the default branch, or gets a 404. The 'non-main branch' test only checks owner, repo and path.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "line": 306,
+   "claim": "GitHub tree URLs throw away the branch, so install uses the repo's default branch instead of the one in the URL.",
+   "evidence": "The regex `/^https?:\\/\\/github\\.com\\/([^/]+)\\/([^/]+)\\/tree\\/[^/]+\\/(.+)$/` does not capture the branch segment, and `SkillIdentifier` has no ref field. `resolveIdentifier` always sets `ref` from `fetchDefaultBranch(...)`. The test 'parses GitHub URL with non-main branch' only checks owner, repo and path, so it passes even though the branch is lost. Branch names containing a slash (`feature/x`) are also parsed wrong: `x/...` becomes part of the path.",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/core/resolver/parse-identifier.ts",
+     "line": 306,
+     "claim": "GitHub tree URLs throw away the branch, so `spm install https://github.com/org/repo/tree/develop/path` installs from the repo's default branch instead of `develop`, or fails with a 404 when the path exists only on that branch.",
+     "evidence": "The regex `/^https?:\\/\\/github\\.com\\/([^/]+)\\/([^/]+)\\/tree\\/[^/]+\\/(.+)$/` does not capture the branch segment, and `SkillIdentifier` has no ref field. `resolveIdentifier` always sets `ref` from `fetchDefaultBranch(...)`. The test 'parses GitHub URL with non-main branch' only checks owner, repo and path, so it passes even though the branch is lost. Branch names containing a slash (`feature/x`) are also parsed wrong: `x/...` becomes part of the path."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/core/resolver/parse-identifier.ts",
+     "line": 8,
+     "claim": "Installing from a GitHub URL silently uses the default branch instead of the requested branch.",
+     "evidence": "For https://github.com/org/repo/tree/develop/path, parseGitHubUrl discards 'develop' and returns only owner, repository and path. resolveIdentifier then obtains the repository's default branch, and fetchSkillset and downloadEntries use that ref. If the default is main, the command downloads main's content or fails when the manifest exists only on develop."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "For '@owner/repo/path' sources, resolve-skillset.ts:24-28 switches owner and repository, but downloadEntries (install.ts:71) passes location.ref to every entry. A referenced repo that has no branch with that name returns a 404.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/install.ts",
+   "line": 71,
+   "claim": "Cross-repo skill entries are downloaded at the manifest repository's ref, not the other repository's.",
+   "evidence": "resolveSkillSource supports '@owner/repo/path' and produces entries with that repository's identity, but downloadEntries passes location.ref to every toGitHubSource call. A manifest on main referencing a skill in a repository whose files exist only on master therefore requests that second repository's nonexistent main ref.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/commands/install.ts",
+     "line": 30,
+     "claim": "Cross-repository skills use the manifest repository's branch, causing downloads to fail when the repositories have different default branches.",
+     "evidence": "resolveSkillSource supports '@owner/repo/path' and produces entries with that repository's identity, but downloadEntries passes location.ref to every toGitHubSource call. A manifest on main referencing a skill in a repository whose files exist only on master therefore requests that second repository's nonexistent main ref."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Only the fallback branch at resolve-skillset.ts:33 rejects `..`. The `./` branch (line 13), the files entries (line 69), setup (line 57) and the local types (line 93) are concatenated unchecked. Lowered to low: local writes still go through safePath, so the write-escape risk is the one already covered in C1/C2.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "line": 33,
+   "claim": "The new `..` check covers only bare sources. `./` sources, setup, files entries and the local file lists still accept `..`.",
+   "evidence": "Only the fallback branch runs `normalized.includes('..')`. The `./` branch builds `${skillsetDir}/${relativePath}` unchecked, `files.forEach` appends `${resolved.basePath}/${file}` unchecked, and `setup` and the local file types are concatenated straight onto `skillsetDir`. Those paths reach `downloadFromGitHub` and `safePath` unchanged.",
+   "axis_row": "L6.14",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/core/resolver/resolve-skillset.ts",
+     "line": 33,
+     "claim": "The new `..` check covers only bare sources. `./` sources, `@` cross-repo sources, `setup`, the `files` entries and the agents/hooks/mcp/memory/rules lists still accept `..`, so a manifest can still point paths outside its folder.",
+     "evidence": "Only the fallback branch runs `normalized.includes('..')`. The `./` branch builds `${skillsetDir}/${relativePath}` unchecked, `files.forEach` appends `${resolved.basePath}/${file}` unchecked, and `setup` and the local file types are concatenated straight onto `skillsetDir`. Those paths reach `downloadFromGitHub` and `safePath` unchanged."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "tmpDir at install.ts:121 is a fixed path that is never cleared and not made with mkdtemp, and the writes at install.ts:126-133 run in Promise.all with no rollback. Lowered to low: it affects robustness of a temp staging folder, not the installed project.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/commands/install.ts",
+   "line": 126,
+   "claim": "The fixed temp folder is never cleaned, and a failed run leaves partial content, so the reported location can hold stale or mixed files.",
+   "evidence": "`tmpDir` is a fixed path, `join(tmpdir(), 'spm', skillset.name)`. It is never cleared or created fresh with `mkdtemp`. Writes run concurrently in `Promise.all` and are not rolled back if one of them fails, and the same goes for downloads in `downloadEntries`.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/install.ts",
+     "line": 126,
+     "claim": "Files from earlier installs are never cleaned up, and a failed run leaves a partly written folder, so the 'Downloaded N file(s)' location can hold stale or mixed content from different runs.",
+     "evidence": "`tmpDir` is a fixed path, `join(tmpdir(), 'spm', skillset.name)`. It is never cleared or created fresh with `mkdtemp`. Writes run concurrently in `Promise.all` and are not rolled back if one of them fails, and the same goes for downloads in `downloadEntries`."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes `toBe('0.1.0')` to `toMatch(/^\\d+\\.\\d+\\.\\d+$/)` with no comparison to package.json, so a wrong or stale __VERSION__ would still pass.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/integration/cli.test.ts",
+   "line": 720,
+   "claim": "The version test now checks only the shape of the version, not its value.",
+   "evidence": "`expect(stdout.trim()).toBe('0.1.0')` became `toMatch(/^\\d+\\.\\d+\\.\\d+$/)`. The test is not compared against `package.json`'s `version`.",
+   "axis_row": "L3.10",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tests/integration/cli.test.ts",
+     "line": 720,
+     "claim": "The version test went from pinning the exact value to checking only its shape, so it would pass if the `__VERSION__` define were wrong or stale.",
+     "evidence": "`expect(stdout.trim()).toBe('0.1.0')` became `toMatch(/^\\d+\\.\\d+\\.\\d+$/)`. The test is not compared against `package.json`'s `version`."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "info('Resolving ...') at install.ts:104 runs before parseIdentifier throws on 'test-skillset', so the test passes even though install fails. It checks neither the exit code nor the files written.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/integration/cli.test.ts",
+   "line": 732,
+   "claim": "The install integration test checks only the 'Resolving' log line, not the outcome.",
+   "evidence": "`expect(stdout).toContain('Resolving test-skillset')`. With this input `parseIdentifier` throws 'Must start with @', which goes to stderr, and the test never checks the exit code or the files on disk.",
+   "axis_row": "L3.3",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tests/integration/cli.test.ts",
+     "line": 732,
+     "claim": "The install integration test checks only that a 'Resolving' message was printed. It never checks what actually happens: here the `test-skillset` input is rejected, and nothing is written to disk.",
+     "evidence": "`expect(stdout).toContain('Resolving test-skillset')`. With this input `parseIdentifier` throws 'Must start with @', which goes to stderr, and the test never checks the exit code or the files on disk."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff removes 'throws on invalid skill source format' and resolve-skillset.ts:31-43 now accepts any bare string. acceptance.md says baseline tests are locked, but the story isn't in the packet, so I can't tell whether the new behaviour was asked for.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/core/resolver/resolve-skillset.test.ts",
+   "line": 663,
+   "claim": "A baseline test that rejected invalid skill sources was replaced by one that accepts bare paths.",
+   "evidence": "The diff removes `it('throws on invalid skill source format'...)` and adds `it('resolves bare path as repo-root relative'...)`. `resolveSkillSource` no longer throws 'Invalid skill source' for unknown formats.",
+   "axis_row": "L3.1",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tests/core/resolver/resolve-skillset.test.ts",
+     "line": 663,
+     "claim": "An existing test that rejected unrecognised skill sources was replaced by one that expects them to be accepted. Every bare string now becomes a repo-root path, and the packet records no story decision for that change.",
+     "evidence": "The diff removes `it('throws on invalid skill source format'...)` and adds `it('resolves bare path as repo-root relative'...)`. `resolveSkillSource` no longer throws 'Invalid skill source' for unknown formats."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds .spmrc.yml, and spmrc.ts:39 writes that file whenever readConfig runs and finds it missing. That matches a side effect of running the CLI at the repo root.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".spmrc.yml",
+   "line": 1,
+   "claim": "A generated .spmrc.yml was committed to the tool's own repo.",
+   "evidence": "New file `.spmrc.yml` contains `version: 1 / providers: claude: path: .claude`. `readConfig` in `src/core/config/spmrc.ts` writes this file automatically when it is missing, and `install` calls `readConfig()`.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".spmrc.yml",
+     "line": 1,
+     "claim": "A generated project config file has been committed to the tool's own repository, apparently as a side effect of running the CLI or integration tests at the repo root.",
+     "evidence": "New file `.spmrc.yml` contains `version: 1 / providers: claude: path: .claude`. `readConfig` in `src/core/config/spmrc.ts` writes this file automatically when it is missing, and `install` calls `readConfig()`."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff bumps the version and vite.config.ts injects it through define, which works with spm.ts's `declare const __VERSION__`. Whether the bump was in scope depends on the story, which isn't in the packet.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "package.json",
+   "line": 3,
+   "claim": "The version bump to 0.2.0 and the __VERSION__ build define were added inside a feature change, with no request recorded.",
+   "evidence": "`\"version\": \"0.1.0\"` \u2192 `\"0.2.0\"`. `vite.config.ts` adds `import { version } from './package.json'` and `define: { __VERSION__: JSON.stringify(version) }`. `src/bin/spm.ts` uses `declare const __VERSION__`. No new dependency is added, so the 'dependency' risk class flagged in `risk.json` is just this version bump.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "package.json",
+     "line": 3,
+     "claim": "The package version was bumped to 0.2.0 inside a feature change. `vite.config.ts` now imports `package.json` to inject `__VERSION__`, so release versioning is now tied to the build config, and the packet shows no request for either change.",
+     "evidence": "`\"version\": \"0.1.0\"` \u2192 `\"0.2.0\"`. `vite.config.ts` adds `import { version } from './package.json'` and `define: { __VERSION__: JSON.stringify(version) }`. `src/bin/spm.ts` uses `declare const __VERSION__`. No new dependency is added, so the 'dependency' risk class flagged in `risk.json` is just this version bump."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "README.md:20 shows a bare name, but parseIdentifier rejects anything that doesn't start with @ or http(s)://. The old parser had the same rule, but install is real now and the README wasn't updated. This is a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 20,
+   "claim": "The README usage example `spm install nextjs-fsd` doesn't work, and the new identifier forms aren't documented.",
+   "evidence": "README line 20 shows `spm install nextjs-fsd`, but `parseIdentifier` throws 'Must start with @ or be a GitHub URL.' for any input without `@` or `http(s)://`. The new URL and `@owner/repo/path` forms are not documented.",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "README.md",
+     "line": 20,
+     "claim": "The README's usage example no longer works: `spm install nextjs-fsd` now fails because the identifier must start with @ or be a GitHub URL.",
+     "evidence": "README line 20 shows `spm install nextjs-fsd`, but `parseIdentifier` throws 'Must start with @ or be a GitHub URL.' for any input without `@` or `http(s)://`. The new URL and `@owner/repo/path` forms are not documented."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "afterEach calls only vi.restoreAllMocks, and vitest.config.ts has no unstubGlobals, so the stubbed fetch stays in place after the tests. Low: it's a test-hygiene point, and vitest's per-file isolation limits the leak.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/core/downloader/download-file.test.ts",
+   "line": 423,
+   "claim": "The downloader tests stub global fetch but clean up with restoreAllMocks, which doesn't unstub globals.",
+   "evidence": "`afterEach(() => { vi.restoreAllMocks() })` and no `vi.unstubAllGlobals()`. The same pattern appears in `download-from-github.test.ts` and `download-from-url.test.ts`. The temp directories made with `mkdtempSync` are never removed either.",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tests/core/downloader/download-file.test.ts",
+     "line": 423,
+     "claim": "The downloader tests replace the global `fetch` with `vi.stubGlobal` but clean up with `vi.restoreAllMocks`, which does not restore stubbed globals, so the fake `fetch` can leak into later tests in the same worker.",
+     "evidence": "`afterEach(() => { vi.restoreAllMocks() })` and no `vi.unstubAllGlobals()`. The same pattern appears in `download-from-github.test.ts` and `download-from-url.test.ts`. The temp directories made with `mkdtempSync` are never removed either."
+    }
+   ],
+   "id": "F13"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:locked-tests",
+   "gate:deps",
+   "gate:added-tests",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

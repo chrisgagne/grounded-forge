@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.14012960000000002,
+  "duration_s": 22.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --import ./{tree}/node_modules/tsx/dist/esm/index.mjs check/null_date.mts {tree}",
+  "because": "On head, constructFrom(null, 0) and constructNow(null) throw \"TypeError: Cannot use 'in' operator to search for 'Symbol(constructDateFrom)' in null\" because the `date &&` guard was removed; on base, both return a Date."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok constructFrom(null, 0) -> Date\nok constructNow(null) -> Date\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL constructFrom(null, 0) threw: TypeError: Cannot use 'in' operator to search for 'Symbol(constructDateFrom)' in null\nFAIL constructNow(null) threw: TypeError: Cannot use 'in' operator to search for 'Symbol(constructDateFrom)' in null\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, constructFrom(null, 0) and constructNow(null) throw \"TypeError: Cannot use 'in' operator to search for 'Symbol(constructDateFrom)' in null\" because the `date &&` guard was removed; on base, both return a Date.",
+ "run": "v3-distillations",
+ "trial": "v20-t2",
+ "kind": "bug"
+}

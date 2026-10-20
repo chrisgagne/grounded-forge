@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/PaulStSmith/figlet-comment-generator",
+  "pr_number": 32,
+  "base": "3750acad624b6b38b768aa8b9aa3ba1573e2f63e",
+  "head": "1d0b6642fcf5ca31fc308c3d603b19ab02ea249e"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 243,
+   "message": "Variable Interpolation. The schema header lines are in double-quoted PowerShell strings, so PowerShell treats `$schema` as a variable. It is undefined, so it expands to an empty string.\n\nThe generated manifests get `# yaml-language-server: =https://aka.ms/...` instead of `$schema=...`. That defeats the purpose of the change, which was to satisfy the winget-pkgs validator.\n\nFix: escape it as `` `$schema `` or use single-quoted strings for these three header lines."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": ".github/workflows/publish-figlet-ts.yml",
+   "start_line": 8,
+   "end_line": 9,
+   "message": "Missed Triggers. The path filters across all publish workflows now match only source files (`*.ts`, `*.tsx`, `*.cs`, `*.py`). A PR that only bumps the version in `package.json`, `*.csproj`, or `pyproject.toml` will no longer trigger a publish. The same applies to PRs that only change fonts or resources, or the workflow file itself.\n\nVersion bumps are typically the main reason to publish, so releases can silently be skipped. The same pattern appears in `publish-figlet-nuget.yml`, `publish-figlet-py.yml`, `publish-figprint.yml`, `publish-vs-extension.yml` and `publish-vscode-extension.yml`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 60,
+   "end_line": 75,
+   "message": "Selection Ignored. The branch that replaced a non-empty selection with the banner was removed. The banner is now always inserted at column 0 of the cursor line.\n\nIf the user selects the text to \"bannerize\" and runs the command, the selected text stays in place. The banner is also inserted at the line of the selection's active end, which is the end of the selection when dragging downward, rather than at its start.\n\nThis may be intentional, but it is a user-visible behavior change that the changelog does not mention."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 22000
+ }
+}

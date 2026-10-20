@@ -1,0 +1,110 @@
+{
+ "id": "rb16",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 57,
+   "end_line": 65,
+   "message": "Reject resolved paths outside the root before parent fallback. If a file inside the storage root is a symlink to an external file, canonicalizing it succeeds but fails the containment check; execution then falls through and accepts its in-root parent. Consequently, `write_file` can truncate the external target and `harden_file` can change its permissions, defeating the new containment guarantee. Return an error when successful full-path canonicalization resolves outside the root, and reserve the parent fallback for genuinely nonexistent files."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 55,
+   "end_line": 75,
+   "message": "`validate_path` can be bypassed with a symlink. If the target is a symlink inside the storage root that points outside it, the first check fails because the canonical path is outside the root. The code then falls through to the parent check, which passes because the link sits inside the root. The parent fallback should only run when the path does not exist; existing paths that resolve outside the root should be rejected. As written, `write_file` and `harden_file` follow the link and write to or chmod a file outside the root, which this change is meant to prevent."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 79,
+   "end_line": 91,
+   "message": "`write_file` opens with `create+truncate` but without `O_NOFOLLOW`, then calls `set_permissions` on the path, which also follows symlinks. Combined with the `validate_path` fallback, a pre-planted symlink makes this truncate, overwrite and chmod an arbitrary file the daemon can write. Even with validation fixed, there is a TOCTOU window between the check and the open. Use `custom_flags(libc::O_NOFOLLOW)` and `file.set_permissions(...)` on the open handle instead of the path."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 150,
+   "end_line": 154,
+   "message": "`harden_file` calls `std::fs::set_permissions(path)`, which follows symlinks. Because of the `validate_path` fallback, a symlink at the allocated path gets its target chmod'ed even if the target is outside the root. Check `symlink_metadata` and refuse non-regular files, the way `move_file` already does."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "chronicle-daemon/crates/storage/src/retention.rs",
+   "start_line": 96,
+   "end_line": 116,
+   "message": "The 'file-first' ordering is not crash-safe as claimed. If `delete_file` fails (e.g. `validate_path` rejects a row whose path is outside the current root because base_dir moved or the row is legacy, or a permission error), the error is only logged and the DB row is deleted anyway. The file then stays on disk with no record, so retention silently fails to remove user media. For paths outside the media subdirs, the orphan sweep will never find it either. Keep the row (or count the failure) when file deletion fails with anything other than NotFound."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "chronicle-daemon/crates/storage/src/retention.rs",
+   "start_line": 96,
+   "end_line": 104,
+   "message": "Files are now removed before their DB rows are deleted, in a separate non-transactional step. During that window, readers (search results, OCR loop, IPC clients) can get rows whose media no longer exists. The comment says such orphan rows are 'easy to detect', but no code detects or repairs DB rows pointing to missing files."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "chronicle-daemon/crates/storage/src/lib.rs",
+   "start_line": 66,
+   "end_line": 70,
+   "message": "Only `chronicle.db` is chmod'ed to 0o600. The `-wal` and `-shm` sidecars, which hold recent unencrypted data, keep their umask-derived mode. The DB is also created by SQLite before the chmod. Existing `screenshots/`/`audio/` subdirectories and files from earlier installs are never re-hardened, because `DirBuilder::mode` only applies to newly created directories. The base dir at 0o700 currently mitigates this, but the 0o600 claim in the summary is incomplete."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "chronicle-daemon/crates/storage/src/lib.rs",
+   "start_line": 54,
+   "end_line": 56,
+   "message": "`set_permissions(&base_dir, 0o700)` follows symlinks and runs unconditionally on every open. If base_dir is a symlink or a user-supplied shared directory, this silently changes permissions on the target. Consider checking `symlink_metadata` first, or only hardening directories this code creates."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 94,
+   "end_line": 113,
+   "message": "`move_file` is a public API that accepts any `from` path without validation. Any caller can move arbitrary files (e.g. from elsewhere in the user's home) into the storage root and then delete them. If the source must be the staging dir, validate it against an allowed staging root."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "chronicle-daemon/crates/storage/src/retention.rs",
+   "start_line": 184,
+   "end_line": 188,
+   "message": "`dummy_media_mgr` uses a fixed, shared, world-writable `/tmp/chronicle-test-dummy` instead of a tempdir. Tests are not hermetic and leave state behind across runs and users; another user who owns that path first makes the tests fail. Use `tempfile::tempdir()`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "chronicle-daemon/crates/storage/src/files.rs",
+   "start_line": 1,
+   "end_line": 44,
+   "message": "`files.rs` is now entirely `#[cfg(test)]` dead code. It keeps duplicate copies of `sanitize_id`/`date_parts` that production no longer uses, so its tests check code that is not the code shipped in `media.rs`. Delete the module, or move these tests to `media.rs`."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 41,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 84,
+   "cost_usd": 0.5942048,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 84
+ }
+}

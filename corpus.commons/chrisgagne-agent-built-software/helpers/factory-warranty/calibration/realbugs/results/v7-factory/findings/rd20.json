@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 121,
+   "end_line": 121,
+   "message": "The download directory is built from the remote manifest's `name` without any check, so a malicious skillset can make `spm install` write files anywhere the user can write (for example under their home directory), not just under the temp folder. `const tmpDir = join(tmpdir(), 'spm', skillset.name)`. `skillset.name` comes from `fetchSkillset`/`validateSkillset`, which only check that it is a string. `join` resolves `..`, so `name: \"../../../../../../../../home/victim\"` points tmpDir outside the temp folder. `safePath(tmpDir, result.path)` then checks paths against that already-escaped base, so it allows writes such as a `setup: ../../.bashrc` entry (path `claude/fsd/../../.bashrc`, which normalizes to `.bashrc`) to land at `/home/victim/.bashrc` through `writeFile`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "A remote manifest can escape the temporary directory and overwrite files accessible to the user. validateSkillset only checks that name is a string. With name '../../home/user', join('/tmp', 'spm', skillset.name) becomes '/home/user'; a downloaded entry 'skills/payload.md' then passes safePath and writeFile overwrites '/home/user/skills/payload.md'. The guard trusts this attacker-selected base. Its startsWith check also accepts sibling paths such as '/tmp/spm/demo-other/file' for base '/tmp/spm/demo'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 85,
+   "end_line": 85,
+   "message": "The path-traversal guard is a plain string-prefix check, so a path can escape into a sibling directory whose name starts with the skillset name. `if (!resolved.startsWith(baseDir))` does not require a path separator after the base. With baseDir `/tmp/spm/fsd`, a file entry `../fsd-evil/x` resolves to `/tmp/spm/fsd-evil/x`, and `startsWith('/tmp/spm/fsd')` is true, so the write goes ahead outside the intended folder. It should compare against `baseDir + sep` or use `path.relative`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 306,
+   "end_line": 306,
+   "message": "GitHub tree URLs throw away the branch, so `spm install https://github.com/org/repo/tree/develop/path` installs from the repo's default branch instead of `develop`, or fails with a 404 when the path exists only on that branch. The regex `/^https?:\\/\\/github\\.com\\/([^/]+)\\/([^/]+)\\/tree\\/[^/]+\\/(.+)$/` does not capture the branch segment, and `SkillIdentifier` has no ref field. `resolveIdentifier` always sets `ref` from `fetchDefaultBranch(...)`. The test 'parses GitHub URL with non-main branch' only checks owner, repo and path, so it passes even though the branch is lost. Branch names containing a slash (`feature/x`) are also parsed wrong: `x/...` becomes part of the path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "Installing from a GitHub URL silently uses the default branch instead of the requested branch. For https://github.com/org/repo/tree/develop/path, parseGitHubUrl discards 'develop' and returns only owner, repository and path. resolveIdentifier then obtains the repository's default branch, and fetchSkillset and downloadEntries use that ref. If the default is main, the command downloads main's content or fails when the manifest exists only on develop."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Cross-repository skills use the manifest repository's branch, causing downloads to fail when the repositories have different default branches. resolveSkillSource supports '@owner/repo/path' and produces entries with that repository's identity, but downloadEntries passes location.ref to every toGitHubSource call. A manifest on main referencing a skill in a repository whose files exist only on master therefore requests that second repository's nonexistent main ref."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The new `..` check covers only bare sources. `./` sources, `@` cross-repo sources, `setup`, the `files` entries and the agents/hooks/mcp/memory/rules lists still accept `..`, so a manifest can still point paths outside its folder. Only the fallback branch runs `normalized.includes('..')`. The `./` branch builds `${skillsetDir}/${relativePath}` unchecked, `files.forEach` appends `${resolved.basePath}/${file}` unchecked, and `setup` and the local file types are concatenated straight onto `skillsetDir`. Those paths reach `downloadFromGitHub` and `safePath` unchanged."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "Files from earlier installs are never cleaned up, and a failed run leaves a partly written folder, so the 'Downloaded N file(s)' location can hold stale or mixed content from different runs. `tmpDir` is a fixed path, `join(tmpdir(), 'spm', skillset.name)`. It is never cleared or created fresh with `mkdtemp`. Writes run concurrently in `Promise.all` and are not rolled back if one of them fails, and the same goes for downloads in `downloadEntries`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/integration/cli.test.ts",
+   "start_line": 720,
+   "end_line": 720,
+   "message": "The version test went from pinning the exact value to checking only its shape, so it would pass if the `__VERSION__` define were wrong or stale. `expect(stdout.trim()).toBe('0.1.0')` became `toMatch(/^\\d+\\.\\d+\\.\\d+$/)`. The test is not compared against `package.json`'s `version`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/integration/cli.test.ts",
+   "start_line": 732,
+   "end_line": 732,
+   "message": "The install integration test checks only that a 'Resolving' message was printed. It never checks what actually happens: here the `test-skillset` input is rejected, and nothing is written to disk. `expect(stdout).toContain('Resolving test-skillset')`. With this input `parseIdentifier` throws 'Must start with @', which goes to stderr, and the test never checks the exit code or the files on disk."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/core/resolver/resolve-skillset.test.ts",
+   "start_line": 663,
+   "end_line": 663,
+   "message": "An existing test that rejected unrecognised skill sources was replaced by one that expects them to be accepted. Every bare string now becomes a repo-root path, and the packet records no story decision for that change. The diff removes `it('throws on invalid skill source format'...)` and adds `it('resolves bare path as repo-root relative'...)`. `resolveSkillSource` no longer throws 'Invalid skill source' for unknown formats."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".spmrc.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "A generated project config file has been committed to the tool's own repository, apparently as a side effect of running the CLI or integration tests at the repo root. New file `.spmrc.yml` contains `version: 1 / providers: claude: path: .claude`. `readConfig` in `src/core/config/spmrc.ts` writes this file automatically when it is missing, and `install` calls `readConfig()`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "package.json",
+   "start_line": 3,
+   "end_line": 3,
+   "message": "The package version was bumped to 0.2.0 inside a feature change. `vite.config.ts` now imports `package.json` to inject `__VERSION__`, so release versioning is now tied to the build config, and the packet shows no request for either change. `\"version\": \"0.1.0\"` \u2192 `\"0.2.0\"`. `vite.config.ts` adds `import { version } from './package.json'` and `define: { __VERSION__: JSON.stringify(version) }`. `src/bin/spm.ts` uses `declare const __VERSION__`. No new dependency is added, so the 'dependency' risk class flagged in `risk.json` is just this version bump."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "README.md",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The README's usage example no longer works: `spm install nextjs-fsd` now fails because the identifier must start with @ or be a GitHub URL. README line 20 shows `spm install nextjs-fsd`, but `parseIdentifier` throws 'Must start with @ or be a GitHub URL.' for any input without `@` or `http(s)://`. The new URL and `@owner/repo/path` forms are not documented."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/core/downloader/download-file.test.ts",
+   "start_line": 423,
+   "end_line": 423,
+   "message": "The downloader tests replace the global `fetch` with `vi.stubGlobal` but clean up with `vi.restoreAllMocks`, which does not restore stubbed globals, so the fake `fetch` can leak into later tests in the same worker. `afterEach(() => { vi.restoreAllMocks() })` and no `vi.unstubAllGlobals()`. The same pattern appears in `download-from-github.test.ts` and `download-from-url.test.ts`. The temp directories made with `mkdtempSync` are never removed either."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

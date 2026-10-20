@@ -1,0 +1,48 @@
+{
+ "id": "rc20",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12472,
+   "end_line": 12479,
+   "message": "Uninit Bytes Leak. The safety comment assumes `_pad` removes all padding, but it only covers `TraceEntry`. `TraceEvent` still has padding:\n- inside variants, e.g. `Dispatch { task_idx: u32, core: u8, rsp: u64 }` has 3 bytes after `core`;\n- after the tag;\n- at the tail of smaller variants such as `YieldNow`, compared with the largest variant.\n\nEnum copies are not required to preserve padding, so `tmp` can hold indeterminate bytes after `copy_into`. Reinterpreting it with `from_raw_parts` as `&[u8]` is UB, and `copy_to_user` can leak stale kernel stack data. Serialize fields into a zeroed byte buffer, or use a fully explicit POD layout with no implicit padding."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12449,
+   "end_line": 12466,
+   "message": "Cross-core Data Race. `sys_ktrace` can read another core's `TraceRing` while the owning core is pushing to it. The ring uses plain non-atomic `write_idx`, `count` and entries, so this is a data race and UB, not just \"a torn entry\". A torn `TraceEvent` discriminant can produce an invalid enum value, which is immediate UB once the value is copied or matched.\n\nUnlike the crash dump, this path runs during normal operation and is reachable by any process on demand. Consider a seqlock or per-entry sequence counter, or restrict cross-core reads."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "kernel/src/arch/x86_64/interrupts.rs",
+   "start_line": 452,
+   "end_line": 456,
+   "message": "ISR Serial Stall. `dump_trace_rings()` is also added to the recoverable ring-3 page fault and GPF paths, which kill the user process and keep running. Every ordinary user segfault now prints up to 256 entries per core over serial from inside the exception handler, with interrupts disabled. With several cores that can be over a thousand lines, which can stall the system noticeably. A crashing or fork-looping program can trigger this repeatedly. Consider limiting the dump to fatal kernel-mode paths, or printing only the last few entries for user faults."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "security",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Information disclosure: `sys_ktrace` (0x1002) is enabled by default and has no privilege check, so any unprivileged process can call it. It copies `TraceEntry` structs as raw bytes to userspace, which exposes two kinds of data:\n- Kernel stack pointers (`rsp`/`saved_rsp` from `Dispatch`/`SwitchOut`), which defeats kernel address randomization.\n- Possibly uninitialized padding bytes inside `TraceEvent` variants, which can leak stale kernel stack contents.\n\nSince the syscall also races with the owning core's writes, an unprivileged caller can trigger UB in the kernel on demand."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 31,
+  "usage": {
+   "prompt_tokens": 30991,
+   "completion_tokens": 2385,
+   "total_tokens": 33376
+  },
+  "security_concern": true
+ }
+}

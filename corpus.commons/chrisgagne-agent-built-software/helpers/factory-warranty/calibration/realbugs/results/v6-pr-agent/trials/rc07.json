@@ -1,0 +1,32 @@
+{
+ "id": "rc07",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/@godaddy/antares/variables.css",
+   "start_line": 19,
+   "end_line": 23,
+   "message": "Global side effect. Changing the `--_fs-base` `@property` syntax from `<length>` to `\"*\"` is a global change that has nothing to do with the legend. With `<length>`, relative values such as `em` or `calc(...)` resolve to an absolute length on the element that declares them. With `\"*\"`, the raw tokens are passed through and resolve wherever they are used. Any component that overrides `--_fs-base` with a relative value can therefore end up with different font sizes. The property also stops being type-checked or animatable. I can't see from the diff which components override it, so check for typography regressions or move this change to a separate PR with a justification."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 40,
+   "end_line": 58,
+   "message": "Ineffective assertions. `assume(list).exists()` and `assume(label).exists()` only check that the locator objects exist, and locators are always truthy. These assertions pass even when nothing matches. The vertical test also only counts list items and never checks the vertical layout, so a broken `orientation` implementation would still pass. Use `expect.element(...).toBeInTheDocument()` or an equivalent element query, and assert the layout, for example via computed `flex-direction` or item positions."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 22,
+  "usage": {
+   "prompt_tokens": 9155,
+   "completion_tokens": 1497,
+   "total_tokens": 10652
+  },
+  "security_concern": false
+ }
+}

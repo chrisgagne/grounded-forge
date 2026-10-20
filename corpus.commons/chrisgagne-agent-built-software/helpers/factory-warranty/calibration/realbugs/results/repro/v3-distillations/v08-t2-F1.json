@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.4174374,
+  "duration_s": 499.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/emptyRecordMerge.sh {tree}",
+  "because": "check/emptyRecordMerge.sh bundles the tree's own src/ the way the project build does (esbuild with buble lowering) and calls `merge({ id: 1 })` on empty Records: on head, an empty `class Empty extends Record({})` instance throws \"TypeError: Class constructor Empty cannot be invoked without 'new'\" because the isRecord guard is gone and merge calls `collection.constructor(iters[0])` without `new`, while base returns the same instance; the plain empty Record (Issue #1785) case still passes on head because RecordType is called with `this` set to the record, so the finding's claim that it gets a new instance does not hold."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS Issue #1785: empty Record merge returns same instance\nPASS empty Record subclass merge does not throw and returns same instance\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS Issue #1785: empty Record merge returns same instance\nFAIL empty Record subclass merge does not throw and returns same instance - Class constructor Empty cannot be invoked without 'new'\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "check/emptyRecordMerge.sh bundles the tree's own src/ the way the project build does (esbuild with buble lowering) and calls `merge({ id: 1 })` on empty Records: on head, an empty `class Empty extends Record({})` instance throws \"TypeError: Class constructor Empty cannot be invoked without 'new'\" because the isRecord guard is gone and merge calls `collection.constructor(iters[0])` without `new`, while base returns the same instance; the plain empty Record (Issue #1785) case still passes on head because RecordType is called with `this` set to the record, so the finding's claim that it gets a new instance does not hold.",
+ "run": "v3-distillations",
+ "trial": "v08-t2",
+ "kind": "bug"
+}

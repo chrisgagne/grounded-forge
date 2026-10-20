@@ -1,0 +1,266 @@
+{
+ "pr": {
+  "repo": "https://github.com/arolariu/arolariu.ro",
+  "pr_number": 615,
+  "base": "ffbc51dba52141fe693a4991ff911b4456fb5078",
+  "head": "ef4814f491112c82ae7e2fe9a821b71f9994b506"
+ },
+ "agent": "v6-control",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": ".vscode/fullstack.code-workspace",
+   "start_line": 175,
+   "end_line": 175,
+   "message": "Run infrastructure setup before launching the compound. When launching the full-stack compound, VS Code starts its configurations concurrently, but infrastructure setup is only a prerequisite of the API configuration. Python can therefore bind port 5002 before setup runs `docker compose ... up -d`, which also starts the Docker exp container on port 5002. This causes setup to fail with a port conflict and prevents the API debugger from launching. Make infrastructure setup a compound-level prerequisite before launching any services. The root launch configuration has the same issue."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 125,
+   "end_line": 125,
+   "message": "Use an authenticated or TCP-based Azurite health check. Azurite's account-level container-list operation requires authentication, so this unsigned request does not return a successful status even when storage is ready. Since `waitForHealth` only accepts `response.ok`, every local startup and debug setup waits the full 60-second timeout and reports a false readiness warning. Use a TCP probe, as the existing Compose health check does, or authenticate the storage request."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 279,
+   "end_line": 281,
+   "message": "Validate bare-metal configuration before replacing Docker exp. On a fresh checkout, `sites/exp.arolariu.ro/config.json` does not exist, and neither setup nor this orchestrator creates it. The bare-metal loader consequently falls back to `config.template.json`, whose database connection strings are placeholders and whose API URL uses HTTPS while the new API profile serves HTTP. Thus the documented `npm run dev:local` workflow replaces Docker exp with configuration that cannot connect to the infrastructure it just started. Validate the required local configuration and provide an actionable setup step, or generate appropriate local defaults before switching services."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 281,
+   "end_line": 281,
+   "message": "The `--setup-only` profile used by the VS Code `Infra: Setup Docker` preLaunchTask still runs `swapExpToBareMetalMode()`, which stops the Docker exp container, but it starts no bare-metal exp in its place. If you run `.NET API: Debug` on its own (root launch.json or the backend workspace), nothing is listening on :5002 and the API can't fetch its config. The only setup where this works is the compound config that also launches the Python exp. Either skip the exp stop in setup-only mode or make the API launch config depend on exp being up."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 336,
+   "end_line": 344,
+   "message": "`main()` waits on `Promise.race` for any child to exit, then just returns with nothing logged and no exit code. If one service crashes (for example the API fails at startup), the orchestrator stays silent while the others keep running, and the crashed service's exit status is lost. It should report which service exited, pass on a non-zero code, and shut the siblings down or say clearly that they are still running."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 321,
+   "end_line": 330,
+   "message": "Children are spawned with `shell: true`, so `p.kill()` only signals the intermediate shell. The `npx \u2192 nx \u2192 dotnet watch/uvicorn/next` grandchildren can be orphaned, especially on Windows or when the parent gets SIGTERM from VS Code task termination. They then keep holding ports 3000/5000/5002, which matches the 'Port already in use' problem listed in the troubleshooting table. Spawn without a shell, or kill the whole process tree or group."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "`npm run generate` with no flags does nothing: `scripts/generate.ts` prints a 'use one or more flags' tip and returns. So the new `postStartCommand` doesn't 'auto-generate files' as the PR claims. Adding `/env` wouldn't fix it, because `generate.env.ts` prompts on stdin through readline and would hang a non-interactive postStart. On top of that, `2>/dev/null || true` hides every failure."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "DEVELOPMENT.md",
+   "start_line": 278,
+   "end_line": 278,
+   "message": "The docs say `npm run generate` will 'Generate all (env, i18n, GraphQL)', but without flags it generates nothing; you need e.g. `npm run generate /env /i18n /gql`. The same file (lines 144, 304) and `.env.example` line 11 also say `npm run generate:env` creates `.env` 'with sensible defaults'. In reality it prompts interactively for every missing key."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".env.example",
+   "start_line": 17,
+   "end_line": 56,
+   "message": "Every entry has a trailing `# comment` on the same line, and the file tells users to copy it to `.env`. The repo's own `.env` parser (`fetchConfigurationFromLocalEnvFile` in scripts/generate.env.ts) does not strip inline comments. That means `SITE_ENV=DEVELOPMENT   # \"DEVELOPMENT\" or \"PRODUCTION\"` keeps the comment as part of the value, and empty secrets like `CLERK_SECRET_KEY=   # Clerk secret key` become non-empty junk, so the generator won't even prompt for them. Put the comments on their own lines."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".vscode/frontend.code-workspace",
+   "start_line": 96,
+   "end_line": 104,
+   "message": "Setting `NODE_OPTIONS=--inspect` on an `npm run dev` launch makes the npm process itself take the inspector port 9229. The child (vite/next) then fails with 'address already in use', so the debugger lands on npm instead of the dev server. js-debug already auto-attaches to child processes for node launch configs, so the flag is unnecessary and breaks things. The website's `dev` script also passes `--inspect` already. The same pattern appears in fullstack.code-workspace (lines 95, 140), and in the compound config several Node targets fight over 9229."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".vscode/backend.code-workspace",
+   "start_line": 23,
+   "end_line": 23,
+   "message": "`dotnet.defaultSolution: \"arolariu.sln\"` is a relative path, and in a multi-root workspace it is resolved against a workspace folder. The first folder here is `sites/api.arolariu.ro`, which contains no `arolariu.sln` (the file is at the repo root), so C# Dev Kit won't find it. The same issue is in fullstack.code-workspace line 43, where the first folder is the website."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 195,
+   "end_line": 201,
+   "message": "The inline Azurite script ends with `.catch(()=>{})`, so the `node -e` process always exits 0 and 'Azurite blob containers initialized with CORS' is logged even when container creation or CORS setup failed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "This adds another hardcoded copy of the SA password. The latest commits deliberately removed it from DEVELOPMENT.md. It is only a local dev credential, but reading it from the compose file or an env var would avoid repeating it and keep the docs and scripts in sync."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/dev-local.ts",
+   "start_line": 249,
+   "end_line": 312,
+   "message": "The `infra` profile maps to `[\"exp\"]`, so the 'Infrastructure-only mode. Start services manually' branch only runs for `setup-only`, and that branch's `npm run dev:exp` hint is dead code. The header JSDoc (lines 13-16) is also wrong: it says `--frontend` starts 'website only' and `--infra` starts 'infra only (no services)', but both also start exp."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".vscode/fullstack.code-workspace",
+   "start_line": 144,
+   "end_line": 158,
+   "message": "In the compound config, only `.NET API: Debug` has a preLaunchTask (Docker setup). Next.js and exp launch in parallel with it, before the infra is ready. DEVELOPMENT.md promises that the preLaunchTask starts the infrastructure before 'all three services launch'. The same applies to the root launch.json compound."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "DEVELOPMENT.md",
+   "start_line": 211,
+   "end_line": 217,
+   "message": "Some URLs and ports here are wrong. The website dev script uses `--experimental-https`, so http://localhost:3000 is incorrect (another table in this file and `.env.example` `SITE_URL` also disagree). The website Storybook is documented on 6006, the same port as the components Storybook; the removed launch config used 7007, which the devcontainer still labels 'Storybook Website'. Also, the debug-profile table says `Python: exp FastAPI` exists in Root, but it is named `Python: exp FastAPI Debug` there."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "start_line": 27,
+   "end_line": 35,
+   "message": "The `test` and `lint` targets run `pip install -r requirements-dev.txt` into whatever Python interpreter is active on every run, which may be the global or system Python. Because exp is now an Nx project, `npm run test` and `npm run dev` (run-many `--all`) also require Python for every contributor. Consider a venv, or making the install step an explicit setup target."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "sites/arolariu.ro/messages/fr.json",
+   "start_line": 4679,
+   "end_line": 4682,
+   "message": "This dev-environment PR also carries unrelated French translation additions, and it removes the trailing newline at end of file (en.json and ro.json keep theirs). Either restore the newline or split the i18n change into its own PR."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "scripts/dev-local.ts",
+   "start_line": 104,
+   "end_line": 118,
+   "message": "Port 5002 can be claimed twice. `startStorage()` runs `docker compose up -d` on Storage, which also starts the Docker `exp` container on host port 5002, and only then does `swapExpToBareMetalMode()` stop it. If a bare-metal exp is already running, `up -d` cannot bind 5002, `dockerCompose` throws, and the whole setup aborts. This happens on a second `npm run dev:local`, or with the root/fullstack compound: there `Python: exp FastAPI` starts at the same time as `.NET API: Debug`'s preLaunchTask (`Infra: Setup Docker` \u2192 `--setup-only`). If Docker wins the race instead, uvicorn fails to bind. Fix: start only the storage services you need (`up -d mssql cosmosdb azurite redis`), or add a compose profile so `exp` is left out."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "scripts/dev-local.ts",
+   "start_line": 321,
+   "end_line": 343,
+   "message": "Children are spawned with `shell: true`, so `p.kill()` only signals the intermediate shell (or `cmd.exe`). The `nx` \u2192 `dotnet watch`/`uvicorn`/`next dev` grandchildren can be left orphaned and keep holding ports 3000/5000/5002, which breaks the next run. Also, when any one service exits (for example exp crashes because Python deps are missing), `Promise.race` resolves and `main` returns without saying anything while the other services keep running. Spawn without a shell, or kill the process tree (detached process group plus `process.kill(-pid)`, `taskkill /T` on Windows), and report or propagate the exit of the first child."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "The devcontainer uses `docker-outside-of-docker`, so the compose containers run on the host daemon and their published ports are not reachable at `localhost` inside the devcontainer. That makes the documented DevContainer flow (`npm run dev:local` inside the container) fail: the health checks and Cosmos/Azurite init against `localhost:8081`/`10000` time out or fail, and the bare-metal API/website cannot reach the databases at the localhost URLs. DEVELOPMENT.md also wrongly says Docker-in-Docker is enabled. Either switch to `docker-in-docker` or document and handle the host-network difference."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 61,
+   "end_line": 62,
+   "message": "Python 3.12 is added, but nothing installs `sites/exp.arolariu.ro/requirements.txt`. On a fresh container, `npm run dev:exp` / `dev:local` / the debugpy uvicorn launch fail with `No module named uvicorn`. Since every dev:local profile starts exp, this breaks the advertised one-command onboarding. Add `pip install -r sites/exp.arolariu.ro/requirements-dev.txt` to `postCreateCommand` (or an equivalent setup step)."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": ".vscode/backend.code-workspace",
+   "start_line": 27,
+   "end_line": 32,
+   "message": "Python format-on-save uses `ms-python.black-formatter`, but the exp service is configured for ruff with `line-length = 120` (pyproject.toml). Black's default of 88 columns will rewrap every file on save, causing large unrelated diffs and churn against ruff's style. Use `charliermarsh.ruff` as the Python default formatter here, in fullstack.code-workspace, and in the devcontainer recommendations."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "sites/arolariu.ro/src/lib/config/configProxy.ts",
+   "start_line": 136,
+   "end_line": 153,
+   "message": "The new `EXP_PROXY_URL` override and the change of the bearer-token condition from `HAS_AZURE_CLIENT_ID` to `USE_AZURE_AUTH` have no tests. `configProxy.test.ts` only covers AZURE_CLIENT_ID selection and never clears `EXP_PROXY_URL`, so a developer whose shell exports it (as the new docs and launch configs encourage) will see the existing `uses http://exp` test fail. Add cases for override precedence, the whitespace-only value, and no token when overridden, and delete `EXP_PROXY_URL` in the test setup. The repo's policy is not to skip tests for new code."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "sites/api.arolariu.ro/src/Core/Domain/General/Extensions/WebApplicationBuilderExtensions.cs",
+   "start_line": 107,
+   "end_line": 122,
+   "message": "This is inconsistent with the TS consumers. The C# code checks `string.IsNullOrEmpty` without trimming, so a whitespace-only `EXP_PROXY_URL` reaches `new Uri(baseUrl)` and throws at startup, while the website and generate.env treat it as unset. Auth is also enabled by exact string equality with `https://exp.arolariu.ro`, so an override such as `https://exp.arolariu.ro/` silently drops the bearer token and gets 401s. Use `IsNullOrWhiteSpace`/Trim and compare normalized hosts."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "scripts/dev-local.ts",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "The SA password is hardcoded in the script. The preceding commit (f51d4097) specifically removed this hardcoded SQL password from DEVELOPMENT.md. Read it from the compose file or an env var (`MSSQL_SA_PASSWORD`) so it isn't duplicated and doesn't drift."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "scripts/dev-local.ts",
+   "start_line": 195,
+   "end_line": 198,
+   "message": "The inline Azurite init script ends with `.catch(()=>{})`, so the `node -e` process always exits 0 and the script always logs 'Azurite blob containers initialized with CORS', even when the container or CORS setup failed (for example Azurite not ready yet). Let the error propagate (`.catch(e=>{console.error(e.message);process.exit(1)})`) so the warning branch can run."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "packages/components/project.json",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "`rslib build --watch` skips the package's `build:before`/`build:after` steps. `afterBuild` regenerates the package `exports` map, so components added during a watch session won't be exported, and consumers see 'module not found' until a full build. The new `dev` target is also picked up by `npm run dev` (`run-many --target=dev`)."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "start_line": 24,
+   "end_line": 37,
+   "message": "The `test` and `lint` targets run `pip install -r requirements-dev.txt` into whatever global or user Python is active on every invocation. This mutates the developer's environment (and CI's), is slow, and can fail on PEP 668 'externally managed' system Pythons. Prefer a venv, or install as a separate setup step."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": ".vscode/launch.json",
+   "start_line": 56,
+   "end_line": 68,
+   "message": "The C# Dev Kit `dotnet` launch type does not support an `env` property; it takes environment variables from launchSettings.json (`launchConfigurationId`). The `env` block here and in the backend/fullstack workspaces is ignored. It only appears to work because the new `Development` profile happens to be listed first in launchSettings.json. Reference that profile explicitly instead."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "DEVELOPMENT.md",
+   "start_line": 184,
+   "end_line": 189,
+   "message": "This section is inaccurate. The devcontainer uses docker-outside-of-docker, not Docker-in-Docker. It also says '28 VS Code extensions', but devcontainer.json now lists 29."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "DEVELOPMENT.md",
+   "start_line": 211,
+   "end_line": 219,
+   "message": "There are doc inconsistencies here. The Service Map gives the website as `http://localhost:3000`, but `next dev --experimental-https` serves HTTPS (the Quick Start table correctly says https). The section heading refers to 'Option B', which doesn't exist anywhere in the document."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "DEVELOPMENT.md",
+   "start_line": 327,
+   "end_line": 327,
+   "message": "The debug-profile table lists `Python: exp FastAPI` as available in the Root workspace, but the root launch.json names it `Python: exp FastAPI Debug`."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "DEVELOPMENT.md",
+   "start_line": 426,
+   "end_line": 426,
+   "message": "This troubleshooting advice is misleading. The .NET API does not read the generated `.env` files; it gets its config only from the exp service (via `EXP_PROXY_URL`/Docker DNS). Running `generate:env` won't fix an API that fails to start. The real fix is to make sure exp is running on 5002."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "scripts/dev-local.ts",
+   "start_line": 11,
+   "end_line": 17,
+   "message": "The header doc doesn't match the code. It says `--frontend` starts 'website only' and `--infra` starts 'infra only (no services)', but BARE_METAL_SERVICES also starts exp in both profiles. That makes the 'Infrastructure-only mode. Start services manually' branch reachable only for `--setup-only`, where it is skipped anyway, so that branch is effectively dead code."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "sites/arolariu.ro/messages/fr.json",
+   "start_line": 4682,
+   "end_line": 4682,
+   "message": "The change removes the trailing newline at end of file. This is inconsistent with en.json/ro.json and will be churned by Prettier/editorconfig. The i18n additions also aren't related to this PR's dev-environment scope and belong in a separate change."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 144000
+ }
+}

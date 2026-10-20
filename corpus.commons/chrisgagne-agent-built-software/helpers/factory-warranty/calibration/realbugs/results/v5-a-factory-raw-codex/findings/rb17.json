@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/superhighfives/pika",
+  "pr_number": 200,
+  "base": "bdda75cbeeb8cd72a2cb197f93623c3e197cf49c",
+  "head": "b227aff048155b8d2a8426b4d84bcec4504e7c01"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "start_line": 153,
+   "end_line": 153,
+   "message": "The New palette menu action does nothing when the palettes drawer is closed. NavigationMenuItems posts .savePalette, but its only receiver is PaletteTabBar.onReceive. ContentView creates ColorHistoryDrawer, and therefore PaletteTabBar, only when historyDrawerVisible is true. With the drawer closed, no receiver exists to execute the code that opens it."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 96,
+   "end_line": 96,
+   "message": "Swapping a saved palette chip permanently changes it even after Undo restores the displayed colors. Select a chip in a named palette and invoke Swap: swap() calls pushUndo(), which snapshots only autoHistory, then replaces palettes[paletteIndex].pairs[index]. Undo restores only autoHistory and applies a history entry; it never restores the modified named palette chip."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 289,
+   "end_line": 289,
+   "message": "Deleting a palette before the active palette silently switches selection to a different palette. With palettes [History, A, B, C] and B selected at index 2, deletePalette(at: 1) removes A but leaves activePaletteIndex equal to 2 because it is still below palettes.count. Index 2 now identifies C, so subsequent add, export, and delete-entry actions target C instead of B."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

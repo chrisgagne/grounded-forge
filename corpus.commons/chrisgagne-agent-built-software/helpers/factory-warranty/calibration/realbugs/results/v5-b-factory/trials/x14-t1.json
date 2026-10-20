@@ -1,0 +1,48 @@
+{
+ "id": "x14",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.4193,
+ "codex_tokens": 56225,
+ "work": "<tmp>/replay-x14-t1-33zx6_cm",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "presenter.ts:226 computes shiftOfParent purely from level, while presenter.ts:921 shifts compact collections by indent-2, so the name can mislead. Output is unchanged (level 0 gives indent+1, level>=1 gives indent, the same as the old blockIndent), so this is a maintainability point only and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/ast/presenter.ts",
+   "line": 226,
+   "claim": "`shiftOfParent` is derived from `level` alone but its name and comment suggest it is the parent's real indentation column; the old comment explaining the root +1 was dropped.",
+   "evidence": "`const shiftOfParent = level === 0 ? -1 : state.indent * (level - 1)` comes only from level. The actual layout can differ from this: `body = `${' '.repeat(state.indent - 2)}${body}`` at line 921 shifts compact block collections when indent > 2. The diff also drops the old comment explaining why the root indicator is one more than the spaces actually added. The output is unchanged: level 0 gives indent+1 and level \u2265 1 gives indent, exactly as the old `blockIndent` did.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "presenter.ts:472 and presenter.ts:552 each compute shiftOfContent - shiftOfParent on their own, where both used to read the single blockIndent field. Today they agree, so this is a maintainability risk and not a defect, and it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/ast/presenter.ts",
+   "line": 472,
+   "claim": "The indicator digit `shiftOfContent - shiftOfParent` is now computed separately in the >9 guard and in blockHeader, so the two could drift apart.",
+   "evidence": "`chooseScalarStyle` checks `shiftOfContent - shiftOfParent > 9`, and `blockHeader` separately computes `String(shiftOfContent - shiftOfParent)`. Before this change, both read the single `blockIndent` field returned by `scalarLayout`.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

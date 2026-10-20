@@ -64,6 +64,19 @@ def test_a_control_applies_the_commit_code_on_its_parent(tmp_path):
     assert yaml.safe_load((d / "expect.yaml").read_text())["should_block"] is False
 
 
+def test_a_benchmark_pull_request_reviews_its_whole_diff_with_its_own_title_and_body(tmp_path):
+    repo, p, f = project(tmp_path)
+    case = {"id": "pr01", "kind": "pr", "project": "lib", "base": p, "head": f,
+            "title": "Fix max", "body": "max returned the smaller value."}
+    d = replay.materialise(case, tmp_path / "repos", tmp_path / "case")
+    assert "(a > b ? b : a)" in (d / "app" / "src" / "max.js").read_text()  # the base tree
+    patch = (d / "change.patch").read_text()
+    assert "src/max.js" in patch and "test/max.test.js" in patch and "CHANGELOG.md" in patch  # the whole diff
+    assert (d / "story.md").read_text() == "# Fix max\n\nmax returned the smaller value.\n"
+    sh(d / "app", "git", "init", "-q")
+    sh(d / "app", "git", "apply", "--check", str(d / "change.patch"))
+
+
 def test_scoring_counts_only_a_blocking_finding_the_grader_matched():
     bug = {"kind": "bug"}
     rec = {"stage_blocks": {"triage": [], "gate": [], "review": ["review"]}, "blocking": ["F2"],

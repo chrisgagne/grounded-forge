@@ -1,0 +1,78 @@
+{
+ "id": "rc02",
+ "arm": "claude-again",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 63,
+   "end_line": 84,
+   "message": "This bug-fix migration also changes the primary keys of all three tables from AutoField to BigAutoField. 0001_initial created them as AutoField. On PostgreSQL and MySQL this rewrites the whole table under an exclusive lock, and RateLimitEntry and RateLimitCounter can be large, busy tables. The PR describes only 'adding the data column' and claims backwards compatibility, so this downtime risk is unannounced. Split the PK change into its own documented migration, or leave it out of this patch."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 8,
+   "end_line": 50,
+   "message": "Which operations run depends on the installed Django version. On Django 3.2 and 4.0, which pyproject still supports, the RenameIndex operations are skipped. The migration state then keeps the old index names, but the model Meta auto-generates the new ones. On those versions `migrate` warns about unreflected model changes, `makemigrations --check` fails in user projects, and running makemigrations creates a stray migration inside the installed package. The DB schema also differs between Django versions. Use version-independent operations (e.g. RunSQL/SeparateDatabaseAndState), or give the model indexes explicit names that match 0001."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 90,
+   "end_line": 219,
+   "message": "If the new migration hasn't been applied, every token_bucket_check fails on the missing `data` column. The broad `except Exception` turns that into 'allow the request', so rate limiting is silently off with only an error log. The upgrade now depends on a migration, so this fail-open path deserves a louder signal (e.g. a system check for the column) rather than just README notes."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 280,
+   "end_line": 291,
+   "message": "get() now returns deserialize_data(counter.data) without an expected type. Because set() stores scalars with str(), any string value that parses as JSON comes back as a different type: set('123') returns 123, set('true') returns True, set('null') returns None. The round-trip through set/get no longer preserves the value's type."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 92,
+   "end_line": 186,
+   "message": "There are no tests for the new persistence behaviour: data round-trip, the fallback for old rows with data=NULL, initial_tokens capped at bucket_size, and the denied path persisting refilled tokens. The committed checklist says tests were added, but the diff has none, and the PR template leaves 'added tests' unchecked. This is the regression the PR fixes, so it should be covered."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "CHECKLIST_database_backend_fix.md",
+   "start_line": 1,
+   "end_line": 27,
+   "message": "A personal working checklist was committed to the repo root. It contains the author's absolute local filesystem paths (/Users/yassershkeir/...) and claims tests were added, which they weren't. Remove it from the change."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "CHANGELOG.md",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "The changelog says 'apply the latest migration before upgrading', but the migration ships with the new version and can only run after upgrading. It should say to run `migrate` immediately after upgrading, and should mention the BigAutoField PK change and the index renames, which this migration also makes."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "docs/installation.md",
+   "start_line": 392,
+   "end_line": 402,
+   "message": "The docs say `showmigrations` will 'verify that the RateLimitCounter table now includes the `data` column'. It only lists which migrations are applied and doesn't inspect the schema, so the wording is misleading."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 60,
+  "cost_usd": 0.288921,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

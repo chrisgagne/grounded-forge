@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/efcore",
+  "pr_number": 38115,
+  "base": "fec5da438f8879ca73c9752683e323cda8be77e6",
+  "head": "009f41901ee1a943ce85425652bc454fe85d2278"
+ },
+ "agent": "v5-claude-again",
+ "findings": [
+  {
+   "producer": "v5-claude-again",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 292,
+   "message": "This overwrites the original value of every AfterSaveBehavior.Throw property whenever an entry is set to Modified with modifyProperties. That includes `entry.State = Modified` and `Update()` on an entity that is already tracked. Suppose a user changes a Throw property (a property configured with SetAfterSaveBehavior(Throw), or an alternate key) on an Unchanged entity and then calls Update() or sets State = Modified. Before this change, DetectChanges flagged the edit and SaveChanges threw the intended 'read-only after it has been saved' error. Now the real database-backed original value is silently replaced: the illegal edit is never saved and never reported, OriginalValues/GetDatabaseValues comparisons give wrong results, and any Throw property that is also a concurrency token or key would send the wrong value in the UPDATE's WHERE condition. The fix needs to be limited to the case it is meant for: detached \u2192 Modified, and/or properties whose snapshot value is a placeholder default."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 282,
+   "end_line": 292,
+   "message": "This works around the symptom instead of the root cause. According to the description, the regression comes from the #37394 snapshot factory storing default values for shadow properties on complex types. Other paths still read that bad snapshot. For example, Attach() (Unchanged) followed by DetectChanges should still find a false mismatch on the discriminator, mark it Modified and throw at SaveChanges, and OriginalValues still report null for the discriminator. The fix belongs in the snapshot creation (as #38111 apparently does), or the Attach path also needs fixing and a test."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 277,
+   "end_line": 292,
+   "message": "This is a hot path (the code itself says 'do not use LINQ'). Every Update()/State=Modified now boxes and writes the original value of every Throw property, which includes all primary and alternate key properties, even when nothing is wrong. That adds per-entity overhead to a common bulk-update pattern just to fix a narrow complex-type discriminator case."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "test/EFCore.Specification.Tests/Query/AdHocComplexTypeQueryTestBase.cs",
+   "start_line": 385,
+   "end_line": 430,
+   "message": "The test only covers the disconnected Update() case. It has no test that a real change to a Throw property on a tracked entity followed by Update()/State=Modified still throws, which is the behavior this change can break. It also has no Attach() test and does not check that the discriminator's IsModified is false and that its OriginalValue is correct after Update(). Without these, the regression risks above are unguarded."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 59000
+ }
+}

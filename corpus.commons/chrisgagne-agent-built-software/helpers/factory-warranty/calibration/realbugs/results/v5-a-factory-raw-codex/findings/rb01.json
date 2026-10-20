@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/PierreJanineh/TechDebtMCP",
+  "pr_number": 135,
+  "base": "ea0385c7349bbaee04456c57bf0ec3f217d63532",
+  "head": "16a54f0f85a9091f220418850eac6b4122782be5"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 153,
+   "end_line": 153,
+   "message": "The new length and flag limits leave ReDoS possible, allowing a custom rule to block the MCP server's event loop. add_custom_rule accepts '(a+)+$' with flag 'g' because it passes validatePattern; execute_custom_rules accepts 'a'.repeat(30) + '!' because it is below MAX_CODE_LENGTH. executePattern constructs a native RegExp and matchLineIssues calls regex.exec synchronously without a timeout or isolation. That exact regex/input exceeded a two-second subprocess timeout during review; larger inputs remain permitted. CHANGELOG.md claims these limits prevent ReDoS attacks."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,309 @@
+{
+ "id": "rc05",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "gate:secrets",
+  "gate:sast",
+  "gate:invisible",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.8861,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc05-t1-9_ifatoj",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1"
+   ],
+   "verdict": "confirmed",
+   "reason": "I checked fitQuasiIndependenceModel. Line 87 skips zero cells, so support is only the observed cells, and lines 171/182 rescale factors to match row and column totals. A reviewer with one support cell therefore gets E = rowTotal = M, so the residual at line 329 is 0 and the check at line 330 fails. The old test with bob\u2192alice \u00d710 was rewritten into a 2x2 cycle fixture to keep a flag, which shows exclusive pairs no longer flag.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/analyze/bias-detector.ts",
+   "line": 87,
+   "claim": "The quasi-independence fit uses only positive cells, so a pair where the reviewer reviews only one author, or the author has only one reviewer, is fitted exactly (E = M, residual 0) and can never be flagged.",
+   "evidence": "fitQuasiIndependenceModel builds its support only from cells with count > 0 (`if (count === 0) continue;`) and rescales each reviewer factor with `reviewerFactors[reviewerPosition] *= rowTotal / fittedRowTotal` (line 171). For a reviewer with a single support cell, that forces E_ij = rowTotal = M_ij, and the column step does the same for an author with a single reviewer. Trigger: 50 PRs by alice, each reviewed only by bob, plus any other unrelated pairs. Then E(bob,alice) = 50, `pearsonResidual = (count - fittedCount)/Math.sqrt(fittedCount)` = 0, and `count > fittedCount && pearsonResidual > threshold` is false at every allowed threshold (\u22650.5). The removed z-score code would have flagged bob\u2192alice. More generally, flagging is possible only when the support graph has a cycle. No locked test covers an exclusive pair, and docs/statistics.md and the HTML explanation don't disclose this blind spot.",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/analyze/bias-detector.ts",
+     "line": 329,
+     "claim": "The quasi-independence model is fitted only on observed (positive) cells, so it exactly reproduces any reviewer-author pair where the reviewer reviews only one author or the author is reviewed by only one reviewer. Those pairs get a Pearson residual of 0 and can never be flagged, so the most exclusive reviewer-author concentrations, which are the classic bias pattern, now report \"No bias\".",
+     "evidence": "fitQuasiIndependenceModel builds its support only from cells with count > 0 (`if (count === 0) continue;`) and rescales each reviewer factor with `reviewerFactors[reviewerPosition] *= rowTotal / fittedRowTotal` (line 171). For a reviewer with a single support cell, that forces E_ij = rowTotal = M_ij, and the column step does the same for an author with a single reviewer. Trigger: 50 PRs by alice, each reviewed only by bob, plus any other unrelated pairs. Then E(bob,alice) = 50, `pearsonResidual = (count - fittedCount)/Math.sqrt(fittedCount)` = 0, and `count > fittedCount && pearsonResidual > threshold` is false at every allowed threshold (\u22650.5). The removed z-score code would have flagged bob\u2192alice. More generally, flagging is possible only when the support graph has a cycle. No locked test covers an exclusive pair, and docs/statistics.md and the HTML explanation don't disclose this blind spot."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "src/analyze/bias-detector.ts",
+     "line": 79,
+     "claim": "The quasi-independence model is fit only on cells that have a positive observed count, and it is forced to match each row and column total. Any reviewer who reviewed only one author, or any author reviewed by only one reviewer, therefore gets E_ij = M_ij exactly, so the residual is 0. The same happens for every cell when a connected component's support is a tree (cells = rows + cols - 1). As a result the clearest bias pattern \u2014 reviewer X reviews only author Y, e.g. 20 times \u2014 can never be flagged, though the old z-score would have flagged it. Real review graphs are sparse, so a large share of cells are fit exactly and the detector loses most of its power. This regression isn't mentioned in the PR or the docs, and no test covers it.",
+     "evidence": "The quasi-independence model is fit only on cells that have a positive observed count, and it is forced to match each row and column total. Any reviewer who reviewed only one author, or any author reviewed by only one reviewer, therefore gets E_ij = M_ij exactly, so the residual is 0. The same happens for every cell when a connected component's support is a tree (cells = rows + cols - 1). As a result the clearest bias pattern \u2014 reviewer X reviews only author Y, e.g. 20 times \u2014 can never be flagged, though the old z-score would have flagged it. Real review graphs are sparse, so a large share of cells are fit exactly and the detector loses most of its power. This regression isn't mentioned in the PR or the docs, and no test covers it."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 329-330 apply only `count > fittedCount && residual > threshold`, with no floor on count or E. Example with full 2x2 support: A\u2192X 1000, A\u2192Y 1, B\u2192X 1, B\u2192Y 1 gives E(B,Y) \u2248 2\u00b72/1003 \u2248 0.004, so a single review has a residual of about 15 and is flagged.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/analyze/bias-detector.ts",
+   "line": 329,
+   "claim": "There is no minimum count or minimum expected count, so a one-review pair with a tiny fitted E can produce a large Pearson residual and be flagged.",
+   "evidence": "The Pearson residual (M-E)/sqrt(E) is compared with the threshold without any minimum on count or expected count. In large, sparse interaction graphs the fitted E for a cell can be well below 1. A pair with only one review and E < ~0.17 then has a residual above the default threshold of 2.0 and is reported as 'bias'. The Pearson approximation isn't valid for such small expected counts, so this produces noisy false positives on one-off pairs. Consider requiring a minimum count or minimum expected count.",
+   "members": [
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/analyze/bias-detector.ts",
+     "line": 329,
+     "claim": "The Pearson residual (M-E)/sqrt(E) is compared with the threshold without any minimum on count or expected count. In large, sparse interaction graphs the fitted E for a cell can be well below 1. A pair with only one review and E < ~0.17 then has a residual above the default threshold of 2.0 and is reported as 'bias'. The Pearson approximation isn't valid for such small expected counts, so this produces noisy false positives on one-off pairs. Consider requiring a minimum count or minimum expected count.",
+     "evidence": "The Pearson residual (M-E)/sqrt(E) is compared with the threshold without any minimum on count or expected count. In large, sparse interaction graphs the fitted E for a cell can be well below 1. A pair with only one review and E < ~0.17 then has a residual above the default threshold of 2.0 and is reported as 'bias'. The Pearson approximation isn't valid for such small expected counts, so this produces noisy false positives on one-off pairs. Consider requiring a minimum count or minimum expected count."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff removes 'produces no false positives with a high threshold' and both threshold-boundary tests, and it replaces the low-threshold flag test with new fixtures. acceptance.md says baseline tests are locked. The packet has no story.md or tests.lock, so I can't tell whether the spec's switch to Pearson residuals required these edits.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "__tests__/analyze/bias-detector.test.ts",
+   "line": 263,
+   "claim": "Baseline tests, which acceptance.md calls the locked acceptance tests, are deleted or rewritten in the same change as the code they judge.",
+   "evidence": "acceptance.md: \"The baseline's tests are the locked acceptance tests\". The diff deletes \"produces no false positives with a high threshold\", replaces \"flags pairs that exceed a low threshold\" and both threshold-boundary tests with new fixtures, and rewrites the sort test (diff lines ~261-835). There is no story.md or tests.lock in the packet or export to show that the spec required these edits.",
+   "axis_row": "L3.1",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "__tests__/analyze/bias-detector.test.ts",
+     "line": 263,
+     "claim": "The change rewrites and deletes baseline tests, which acceptance.md calls the locked acceptance tests, in the same change as the code they judge. Behaviour those tests pinned now goes unchecked, and the packet records no reason or approval.",
+     "evidence": "acceptance.md: \"The baseline's tests are the locked acceptance tests\". The diff deletes \"produces no false positives with a high threshold\", replaces \"flags pairs that exceed a low threshold\" and both threshold-boundary tests with new fixtures, and rewrites the sort test (diff lines ~261-835). There is no story.md or tests.lock in the packet or export to show that the spec required these edits."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The fixture is bob\u2192alice \u00d710 and alice\u2192bob \u00d710: two rows, each with a single support cell. IPF gives E = M whatever the diagonal handling, so `flaggedPairs toEqual([])` cannot detect a diagonal regression.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "__tests__/analyze/bias-detector.test.ts",
+   "line": 480,
+   "claim": "The self-review diagonal test passes trivially because its fixture is saturated.",
+   "evidence": "The fixture is bob\u2192alice \u00d710 and alice\u2192bob \u00d710, two disconnected single-cell support components. The IPF fit is saturated, so E = M and the residual is 0 whatever the diagonal handling. `expect(result.flaggedPairs).toEqual([])` holds trivially.",
+   "axis_row": "L3.4",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "low",
+     "file": "__tests__/analyze/bias-detector.test.ts",
+     "line": 480,
+     "claim": "The test \"respects the structural-zero self-review diagonal when fitting expected counts\" passes for a reason unrelated to the diagonal, so it would not catch a regression in self-review handling.",
+     "evidence": "The fixture is bob\u2192alice \u00d710 and alice\u2192bob \u00d710, two disconnected single-cell support components. The IPF fit is saturated, so E = M and the residual is 0 whatever the diagonal handling. `expect(result.flaggedPairs).toEqual([])` holds trivially."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 98 and 290 spy on Math.abs with mockReturnValue(1), and line 318 makes Math.sqrt throw. The tests force failures through internal calls instead of using a matrix that genuinely fails, so this is a maintainability point and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "__tests__/analyze/bias-detector.test.ts",
+   "line": 98,
+   "claim": "The non-convergence and error-path tests mock the global Math.abs and Math.sqrt, which ties them to implementation details.",
+   "evidence": "`vi.spyOn(Math, \"abs\").mockReturnValue(1)` (lines 98 and 290) and `vi.spyOn(Math, \"sqrt\").mockImplementation(() => { throw \"sqrt failed\"; })` (line 318). The tests never build a matrix that genuinely fails to converge.",
+   "axis_row": "L3.20",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "__tests__/analyze/bias-detector.test.ts",
+     "line": 98,
+     "claim": "The non-convergence and error-path tests force failure by globally mocking Math.abs and Math.sqrt. That ties them to internal implementation details, so a harmless refactor (for example, dropping Math.abs from the margin check) would break them or make them vacuous.",
+     "evidence": "`vi.spyOn(Math, \"abs\").mockReturnValue(1)` (lines 98 and 290) and `vi.spyOn(Math, \"sqrt\").mockImplementation(() => { throw \"sqrt failed\"; })` (line 318). The tests never build a matrix that genuinely fails to converge."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "html-report.ts:147 says only that margins are matched so active people are not flagged. Given the exact-fit behaviour in the C1/P1 item, the text overstates coverage. This is a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/visualize/html-report.ts",
+   "line": 147,
+   "claim": "The report explanation doesn't disclose that exclusive reviewer-author pairs are fitted exactly and can never be flagged.",
+   "evidence": "The text reads \"The model matches each reviewer's total outgoing reviews and each author's total incoming reviews, so high-volume people are not flagged merely for being active.\" docs/statistics.md:112 likewise omits that pairs where the reviewer has a single author, or the author a single reviewer, are fitted exactly.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/visualize/html-report.ts",
+     "line": 147,
+     "claim": "The report explanation implies that only activity-explained pairs escape flagging. In fact, exclusive pairs can never be flagged, so readers may over-trust a \"No reviewer-author pair exceeds the configured activity-adjusted bias threshold\" result.",
+     "evidence": "The text reads \"The model matches each reviewer's total outgoing reviews and each author's total incoming reviews, so high-volume people are not flagged merely for being active.\" docs/statistics.md:112 likewise omits that pairs where the reviewer has a single author, or the author a single reviewer, are fitted exactly."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "main.ts:117 sets the output from flaggedPairs.length alone, and a fit error only logs a warning (line 61). docs/outputs.md:13 openly documents the ambiguity. Since it is documented, I treat it as an API-design point and lowered P4 from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/main.ts",
+   "line": 117,
+   "claim": "`bias-detected` returns \"false\" both when no pair is flagged and when the model failed to fit.",
+   "evidence": "src/main.ts only logs `logger.warning(`Bias warnings unavailable: ...`)` when modelFitError is set. docs/outputs.md now states that a \"false\" value does not distinguish the two states, and no separate output exposes modelFitError.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/main.ts",
+     "line": 61,
+     "claim": "The `bias-detected` output returns \"false\" both when no pair is flagged and when the model failed to fit, so a workflow that gates on this output cannot tell \"no bias\" from \"not computed\".",
+     "evidence": "src/main.ts only logs `logger.warning(`Bias warnings unavailable: ...`)` when modelFitError is set. docs/outputs.md now states that a \"false\" value does not distinguish the two states, and no separate output exposes modelFitError."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "docs/outputs.md",
+     "line": 1661,
+     "claim": "When the model can't be fit, `bias-detected` is still set to \"false\", which is the same value as 'no bias found'. Workflows that gate on this output cannot tell the two cases apart and treat an unavailable analysis as a clean result. Add a separate output (e.g. `bias-model-available`) or use a distinct value instead of only documenting the ambiguity. (start_line/end_line are line numbers in the diff patch, not in docs/outputs.md.)",
+     "evidence": "When the model can't be fit, `bias-detected` is still set to \"false\", which is the same value as 'no bias found'. Workflows that gate on this output cannot tell the two cases apart and treat an unavailable analysis as a clean result. Add a separate output (e.g. `bias-model-available`) or use a distinct value instead of only documenting the ambiguity. (start_line/end_line are line numbers in the diff patch, not in docs/outputs.md.)"
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 322-357 wrap both the fit call and the flagging loop, and the catch is unconditional. A TypeError in the loop would become a modelFitError instead of failing loudly. This is a maintainability concern, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/analyze/bias-detector.ts",
+   "line": 322,
+   "claim": "The try/catch wraps the flagging loop as well as the fit and catches every exception, which can hide programming errors as 'model could not be fit'.",
+   "evidence": "The try/catch wraps the flagging loop as well as the IPF fit, and it catches every exception. Any programming error, such as a TypeError, is silently turned into a 'model could not be fit' result instead of failing loudly. For finite positive counts the fit can't actually fail, so this path mostly hides bugs. Limit the catch to the fit call, or to known convergence/validation errors.",
+   "members": [
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/analyze/bias-detector.ts",
+     "line": 322,
+     "claim": "The try/catch wraps the flagging loop as well as the IPF fit, and it catches every exception. Any programming error, such as a TypeError, is silently turned into a 'model could not be fit' result instead of failing loudly. For finite positive counts the fit can't actually fail, so this path mostly hides bugs. Limit the catch to the fit call, or to known convergence/validation errors.",
+     "evidence": "The try/catch wraps the flagging loop as well as the IPF fit, and it catches every exception. Any programming error, such as a TypeError, is silently turned into a 'model could not be fit' result instead of failing loudly. For finite positive counts the fit can't actually fail, so this path mostly hides bugs. Limit the catch to the fit call, or to known convergence/validation errors."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "P5"
+   ],
+   "verdict": "noise",
+   "reason": "Every error the fit throws carries a message (lines 83, 121, 235), so an empty string needs an external throw of ''. The change deliberately pins this output in a test (main.test.ts:270-281), so it is intended behaviour, not a defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main.ts",
+   "line": 60,
+   "claim": "An empty modelFitError logs 'Bias warnings unavailable: ' with no reason.",
+   "evidence": "The warning is logged for any non-null modelFitError, including an empty string. In that case it prints 'Bias warnings unavailable: ' with no reason, and the job summary and PR comment end with a dangling colon. Use a fallback message such as 'unknown error' when the error string is empty.",
+   "members": [
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/main.ts",
+     "line": 60,
+     "claim": "The warning is logged for any non-null modelFitError, including an empty string. In that case it prints 'Bias warnings unavailable: ' with no reason, and the job summary and PR comment end with a dangling colon. Use a fallback message such as 'unknown error' when the error string is empty.",
+     "evidence": "The warning is logged for any non-null modelFitError, including an empty string. In that case it prints 'Bias warnings unavailable: ' with no reason, and the job summary and PR comment end with a dangling colon. Use a fallback message such as 'unknown error' when the error string is empty."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "P6"
+   ],
+   "verdict": "noise",
+   "reason": "detectBias builds the matrix only by integer increments (line 281), so NaN or Infinity cannot reach the fit on this change's code path.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/analyze/bias-detector.ts",
+   "line": 82,
+   "claim": "NaN or Infinity counts pass validation and run all IPF iterations before reporting non-convergence.",
+   "evidence": "Input validation only rejects negative counts. NaN and Infinity pass both the `< 0` and `=== 0` checks. IPF then runs all 10,000 iterations before reporting a misleading 'did not converge' error. Reject non-finite counts explicitly, the same way negative counts are rejected.",
+   "members": [
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/analyze/bias-detector.ts",
+     "line": 60,
+     "claim": "Input validation only rejects negative counts. NaN and Infinity pass both the `< 0` and `=== 0` checks. IPF then runs all 10,000 iterations before reporting a misleading 'did not converge' error. Reject non-finite counts explicitly, the same way negative counts are rejected.",
+     "evidence": "Input validation only rejects negative counts. NaN and Infinity pass both the `< 0` and `=== 0` checks. IPF then runs all 10,000 iterations before reporting a misleading 'did not converge' error. Reject non-finite counts explicitly, the same way negative counts are rejected."
+    }
+   ],
+   "id": "F10"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests",
+   "gate:secrets",
+   "gate:sast",
+   "gate:invisible"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

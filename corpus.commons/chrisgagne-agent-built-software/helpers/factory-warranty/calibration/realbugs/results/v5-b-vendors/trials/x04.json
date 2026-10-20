@@ -1,0 +1,31 @@
+{
+ "id": "x04",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/diff/base.js",
+   "start_line": 176,
+   "end_line": 176,
+   "message": "Change objects now always include explicit `added: false` / `removed: false`. Before, unchanged parts and the paired field on additions or removals were left undefined. Truthiness checks in the library still behave the same, but this changes public output: callers that deep-compare results or test `=== undefined` / `'added' in change` will break. The change adds no release-notes entry, and README lines 148-149 don't say these fields are now always booleans. Add both so users know about the behaviour change."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 31,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 24,
+   "cost_usd": 0.1537924,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 31
+ },
+ "stopped": false
+}

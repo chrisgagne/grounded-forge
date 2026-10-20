@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/NCATSTranslator/translator-ingests",
+  "pr_number": 336,
+  "base": "58d880509f9cf6d37715153b7cf261205dfa0f96",
+  "head": "efb31e9c764865f416230073c6d0b1686a0f44b7"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 411,
+   "end_line": 413,
+   "message": "Loop aborted by break. The \"not applicable\" branches call `break` inside `for record in data:`. This exits the whole loop, so every remaining record in the dataset is silently dropped from the output.\n\nIt happens the first time any of these combinations appears:\n- Allosteric modulator with Action `Neutral` or `None`\n- Antagonist with Action `Partial agonist`\n- Fusion protein with Action `Binding`\n- Type `None` with Action `Binding` or `Competitive`\n- Subunit-specific with Action `Mixed`\n\nUse `continue` so only the current record is skipped."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 167,
+   "end_line": 168,
+   "message": "Typo drops Agonist. The Activator, Agonist and Allosteric modulator action lists contain `'Agnoist'` instead of `'Agonist'`, and the branches check for `\"Agonist\"`. Effects:\n- **Agonist type, Action \"Agonist\":** the record matches no branch, and the old fallback branch was removed, so no edges are emitted.\n- **Allosteric modulator, Action \"Agonist\":** also skipped entirely.\n- **Activator, Action \"Agonist\":** falls into the second branch, where Agonist is no longer handled, so `causal_mechanism_qualifier` stays `None` instead of `agonism`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 97,
+   "end_line": 104,
+   "message": "groupby drops NaN keys. `groupby(group_cols)` uses the pandas default `dropna=True`. Any record with a missing `Type`, `Action` or `Endogenous` is therefore removed during aggregation.\n\nAs a result, all the new branches handling `record[\"Action\"] is None` or `record[\"Type\"] is None` never fire, and those records disappear from the output. Pass `dropna=False`. Note that NaN values then reach the transform as NaN rather than `None`, so the `is None` checks would also need adjusting."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 22000
+ }
+}

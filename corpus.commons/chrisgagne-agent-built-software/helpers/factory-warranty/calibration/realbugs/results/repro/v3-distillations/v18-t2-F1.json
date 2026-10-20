@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1312966,
+  "duration_s": 28.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "On head, parsing `--x 2 --x 1` gives `x = 3` where base gives `[2, 1]`: setKey's `value === increment()` test treats the ordinary number 1 as a count increment on a key that isn't a count, so the duplicate-array handling never runs (the finding's second case, `--x 1` with array:['x'], still gives [1] on head, so the check only asserts the repeated-option case and a passing count case)."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS --x 2 --x 1 (repeated numeric option) [2,1]\nPASS --x 1 with array:['x'] [1]\nPASS count still works: -vvv 3\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL --x 2 --x 1 (repeated numeric option) got 3 expected [2,1]\nPASS --x 1 with array:['x'] [1]\nPASS count still works: -vvv 3\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, parsing `--x 2 --x 1` gives `x = 3` where base gives `[2, 1]`: setKey's `value === increment()` test treats the ordinary number 1 as a count increment on a key that isn't a count, so the duplicate-array handling never runs (the finding's second case, `--x 1` with array:['x'], still gives [1] on head, so the check only asserts the repeated-option case and a passing count case).",
+ "run": "v3-distillations",
+ "trial": "v18-t2",
+ "kind": "bug"
+}

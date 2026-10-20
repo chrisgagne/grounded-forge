@@ -1,0 +1,142 @@
+{
+ "id": "rd16",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 37,
+   "message": "Sanitize converted Markdown before inserting it into the DOM. When a user pastes Markdown containing raw HTML and switches to rich text, `marked.parse` preserves that HTML and this assignment inserts it into the application's live DOM. An image with an `onerror` handler can execute JavaScript in the authenticated application's origin. Server-side outgoing-mail sanitization happens too late to prevent this; sanitize the converted HTML before DOM insertion."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 32,
+   "message": "Export semantic HTML instead of Quill's internal markup. When composing bulleted or indented lists, Quill 2's editor DOM uses ordered-list elements with `data-list` attributes and Quill-specific classes to control their appearance. Sending `root.innerHTML` without Quill's stylesheet loses that formatting in recipients' mail clients, and Turndown also interprets bullet lists as numbered lists when switching modes. Export semantic HTML with Quill's `getSemanticHTML()` rather than its internal editor markup."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 27,
+   "message": "Validate the request before dereferencing recipient fields. For authenticated requests with `To` omitted or null, this dereference throws and returns a server error; null elements in any recipient array similarly fail at `email.Trim()`. The DTO's validation annotations are not automatically enforced because this application does not register Minimal API validation with `AddValidation()`, so subject/body limits and content-type constraints are also bypassed. Enable request validation and explicitly reject null recipient elements before processing the request."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 40,
+   "end_line": 48,
+   "message": "Only InvalidOperationException is caught. When the SMTP server is unreachable, the TLS handshake fails, authentication is rejected or a recipient is refused, MailKit throws SocketException, SslHandshakeException, AuthenticationException or SmtpCommandException. These are not caught, so the user gets an unhandled 500. The `SendMailFailed` string was added to all four locales but is never used. Separately, several MailKit exceptions inherit from InvalidOperationException (ServiceNotConnectedException, ServiceNotAuthenticatedException). Those are reported as a 404 'Mailbox not found', which is misleading. Use a dedicated not-found result or exception type for the mailbox lookup, and map SMTP failures to a 502/500 with the `SendMailFailed` message."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/Feirb.Shared/Mail/SendMailRequest.cs",
+   "start_line": 5,
+   "end_line": 17,
+   "message": "Minimal APIs do not enforce DataAnnotations unless validation is registered (no AddValidation/validation filter exists in Program.cs). As a result, [Required], [StringLength], [MaxLength] and the ContentType regex are never checked on the server. A request with `To: null` causes a NullReferenceException at `request.To.Length` (500). A null Subject or Body passes straight to MimeKit. Any ContentType other than 'html' is silently sent as plain text. Validate these fields explicitly in the endpoint, or enable endpoint validation."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 27,
+   "message": "`request.To` is dereferenced with no null check. A JSON body that omits `to` or sets it to null crashes with a NullReferenceException and returns a 500 instead of a 400."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 106,
+   "message": "`ImapClient.GetFolder(SpecialFolder.Sent)` throws NotSupportedException when the server lacks SPECIAL-USE/XLIST. It does not return null in that case, so the `?? GetFoldersAsync(...)` fallback never runs. The exception is swallowed by the outer catch, which means on servers like GreenMail the message is never appended to Sent (the test plan expects it there). The fallback also only looks at top-level folders of the first namespace, so it misses names like `INBOX.Sent` or 'Sent Items'. It also never creates a Sent folder when none exists. Check `client.Capabilities` before calling GetFolder, or catch NotSupportedException and fall back."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 33,
+   "message": "Quill 2 renders bullet lists in `root.innerHTML` as `<ol><li data-list=\"bullet\">`, and it expresses indent and alignment as `ql-*` CSS classes. HtmlSanitizer strips data-* attributes by default, and recipients do not have Quill's stylesheet. Result: bullet lists arrive as numbered lists and indentation is lost, and Turndown converts bullets to ordered lists too. Use `quill.getSemanticHTML()` instead of `root.innerHTML` so the output is portable for email."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 38,
+   "message": "`setHtml` writes `root.innerHTML` directly, bypassing Quill's model; Quill docs advise against this. The HTML comes from `marked.parse` without sanitization, so raw HTML in the markdown (e.g. `<img onerror=...>`) runs in the app origin. It is self-XSS today, but it becomes a real XSS once reply/forward prefill the body with received mail. Use `quill.clipboard.dangerouslyPasteHTML`, or `setContents(clipboard.convert(...))`, and sanitize the HTML (for example with DOMPurify) first."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/Feirb.Api/Services/OutgoingHtmlSanitizer.cs",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "Allowing the `data` scheme lets `<a href=\"data:text/html,...\">` links through in outgoing mail. That is a common phishing and XSS vector, and recipient filters will score it as suspicious. Restrict data URIs to images, or drop the scheme."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 76,
+   "end_line": 81,
+   "message": "When SmtpRequiresAuth is true but no password is stored, authentication is silently skipped. The send then fails later with a confusing server error. If SmtpUsername is null, AuthenticateAsync throws ArgumentNullException. Neither case produces a clear error."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 58,
+   "end_line": 66,
+   "message": "HTML mail is sent as a single text/html part with no text/plain alternative. This hurts deliverability and spam scores, and degrades in text-only clients. Use BodyBuilder with both HtmlBody and TextBody."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 33,
+   "end_line": 35,
+   "message": "Every recipient address is logged at Information level, which puts PII in persistent logs and telemetry (OpenTelemetry/Aspire). Log the recipient count, or log at Debug."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 312,
+   "end_line": 313,
+   "message": "`error` is read from the response but never used. A server validation message, such as which address is invalid, is discarded and the user only sees a generic failure."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+   "start_line": 59,
+   "end_line": 72,
+   "message": "Every test replaces IMailSendingService with a mock, so the mailbox ownership check, MIME building, HTML sanitization and Sent-folder append in MailSendingService have no test coverage. The 'InvalidMailbox' test only checks that the mocked exception maps to a 404. It does not check that another user's mailbox is rejected."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 41,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 62,
+   "cost_usd": 0.5129469999999999,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 62
+ }
+}

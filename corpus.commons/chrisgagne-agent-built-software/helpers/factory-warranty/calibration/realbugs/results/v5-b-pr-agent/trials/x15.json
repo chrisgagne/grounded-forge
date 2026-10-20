@@ -1,0 +1,33 @@
+{
+ "id": "x15",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/common/utils.ts",
+   "start_line": 292,
+   "end_line": 297,
+   "message": "Breaking API Removal. `assign`, `isString`, and `has` are removed from the `utils` exports. In markdown-it, `utils` is exposed publicly as `md.utils`, and third-party plugins commonly call `md.utils.assign`, `md.utils.has`, or `md.utils.isString`. Those plugins would fail at runtime with \"is not a function\". The constructor that sets `this.utils` is not in this diff, so this assumes the upstream exposure is still in place. If it is, keep these as thin wrappers (e.g. `assign = Object.assign`) or ship this in a semver-major release."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/markdownit.ts",
+   "start_line": 366,
+   "end_line": 366,
+   "message": "Behavior Change. `utils.assign` threw a `TypeError` for non-object sources. `Object.assign` silently accepts them, and string sources get spread into indexed keys. For example, `md.set('commonmark')` used to throw. It now quietly adds `'0': 'c', '1': 'o', ...` to `this.options`, so misuse goes undetected and the options object is polluted. This only affects callers passing invalid arguments."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 18,
+  "usage": {
+   "prompt_tokens": 4266,
+   "completion_tokens": 1132,
+   "total_tokens": 5398
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

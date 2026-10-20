@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.07736660000000001,
+  "duration_s": 1083.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --no-warnings --import ./check/register.mjs check/eofnl.mjs {tree}",
+  "because": "On head, applyPatch adds a trailing newline that neither version has: 'foo' patched to 'bar' gives 'bar\\n', and a createPatch/applyPatch round trip on 'line1\\nline2\\nline3' to '...line4' gives '...line4\\n'. Base gives the right output for both, which shows that the new `break` and the deleted both-sides branch cause this."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   hand-written patch: 'foo' -> 'bar', neither ends in newline\nok   createPatch/applyPatch round trip, no trailing newline on either side\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL hand-written patch: 'foo' -> 'bar', neither ends in newline\n     Expected values to be strictly deep-equal:\n     \n     'bar\\n' !== 'bar'\n     \nFAIL createPatch/applyPatch round trip, no trailing newline on either side\n     Expected values to be strictly deep-equal:\n     + actual - expected\n     \n     + 'line1\\nline2\\nline4\\n'\n     - 'line1\\nline2\\nline4'\n                           ^\n     \n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, applyPatch adds a trailing newline that neither version has: 'foo' patched to 'bar' gives 'bar\\n', and a createPatch/applyPatch round trip on 'line1\\nline2\\nline3' to '...line4' gives '...line4\\n'. Base gives the right output for both, which shows that the new `break` and the deleted both-sides branch cause this.",
+ "run": "v4-arm-v4",
+ "trial": "w01-t1",
+ "kind": "bug"
+}

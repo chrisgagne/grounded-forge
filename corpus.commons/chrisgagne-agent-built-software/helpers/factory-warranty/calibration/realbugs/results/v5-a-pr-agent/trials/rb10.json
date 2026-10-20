@@ -1,0 +1,32 @@
+{
+ "id": "rb10",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "internal/github/github.go",
+   "start_line": 84,
+   "end_line": 103,
+   "message": "Missing Pagination. The GitHub REST endpoints `pulls/{n}/commits` and `pulls/{n}/reviews` return 30 items per page by default, and `c.rest.Get` does not paginate automatically.\n\n- **Commits:** for a PR with more than 30 commits, `commits[len(commits)-1]` is the 30th commit, not the head commit. A review newer than that commit but older than later pushes is wrongly treated as fresh, so the re-review request is skipped.\n- **Reviews:** for a PR with more than 30 reviews, the latest Copilot review can be missed.\n\nFix: add `?per_page=100` and follow pagination. Alternatively, fetch the PR head SHA directly instead of listing commits."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "internal/github/github.go",
+   "start_line": 91,
+   "end_line": 116,
+   "message": "Unreliable Freshness Check. The committer date records when a commit was created locally, not when it was pushed to the PR. Example:\n\n1. A commit is created at 10:00.\n2. Copilot reviews an earlier push at 11:00.\n3. The 10:00 commit is pushed at 12:00.\n\nThe review then looks \"newer than the last commit,\" and the tool skips requesting a review of unreviewed code. Clock skew and rebases that preserve committer dates cause the same problem.\n\nFix: compare each Copilot review's `commit_id` with the PR's current head SHA instead of comparing timestamps."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 18,
+  "usage": {
+   "prompt_tokens": 3593,
+   "completion_tokens": 959,
+   "total_tokens": 4552
+  },
+  "security_concern": false
+ }
+}

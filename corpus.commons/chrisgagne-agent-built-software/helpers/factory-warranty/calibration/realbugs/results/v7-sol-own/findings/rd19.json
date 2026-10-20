@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 128,
+   "message": "Normalize credential keys alongside source URLs. When a user adds a scheme-less URL with a token, the UI keys `sourceURLCredentials` by the original input, but this loop normalizes only `SourceURLs`. The credential is then silently discarded by the active-URL check because its key lacks `https://`, so saving succeeds but private-repository synchronization fails. Normalize the credential keys consistently before filtering them."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 180,
+   "message": "Preserve the stored token when editing a source URL. When an administrator changes a token-protected source URL, such as switching its branch, the UI sends `\"*\"` under the new URL and removes the old key. This lookup only checks the new URL in the existing credential map, where no token exists, and subsequently drops the old token because its URL is no longer active. Saving therefore silently removes authentication despite the UI promising to preserve it. Carry an explicit old-to-new mapping and resolve the token from the original key."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

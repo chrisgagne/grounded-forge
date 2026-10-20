@@ -1,0 +1,126 @@
+{
+ "pr": {
+  "repo": "https://github.com/wirechat/wirechat",
+  "pr_number": 183,
+  "base": "7f645146da1285f3817a9dfcb04be0a53ee50ecd",
+  "head": "6e3156e78da9b47cb4c6d596883b3ef0730b8cf8"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 654,
+   "end_line": 656,
+   "message": "Preserve missing newer messages when appending to a jump window. After jumping to an older message, receiving or sending a new message appends it to the partial window. Synchronizing the newer cursor to that message then sets `canLoadNewer` to false, even though messages between the jump window and the new message were never loaded. Those messages become inaccessible through newer pagination. Preserve the contiguous window boundary or load the missing interval before advancing it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "resources/views/livewire/chats/partials/message-body.blade.php",
+   "start_line": 17,
+   "end_line": 20,
+   "message": "Merge conditional preview classes into the existing class attribute. Blade's `@class` emits a complete `class` attribute, so both this paragraph and the timestamp now render duplicate class attributes. Browsers retain the first attribute and ignore the conditional font/color classes, removing the visual distinction between read and unread previews. Include the static classes in the `@class` expression instead."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 644,
+   "end_line": 657,
+   "message": "pushMessage always adds incoming or sent messages to the end of the loaded window, even when the user has jumped to an older window (canLoadNewer === true). This leaves a gap between the old window and the new message. syncCursorsFromFlat then moves newerId/newerCreatedAt to the pushed message, so the next loadNewer only fetches messages newer than it. Every message in the gap is skipped for good, and the user never sees them. sendMessage/sendLike also dispatch scroll-bottom, which drops the user at a discontinuous timeline. When canLoadNewer is true before the push, reload the latest window with loadLatestWindow() instead of appending."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 912,
+   "end_line": 917,
+   "message": "The early return in loadOlder (canLoadOlder false or cursors missing) does not dispatch 'older-loaded'. The client's loadOlderWithStableScroll sets pendingPrependRestore = true, and only the older-loaded handler clears it. If the client's $wire.canLoadOlder is stale, this path is hit, pendingPrependRestore and loadingOlder both stay true, and isNearTop() returns false from then on, so the top of the chat can never load again. The same lock-up happens if the Livewire call never settles. Dispatch older-loaded on every exit path, or clear the flags in a finally block on the client."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "start_line": 92,
+   "end_line": 105,
+   "message": "loadingOlder is only reset when older-loaded fires before the await resolves, or in the catch block. A failed request in Livewire usually does not reject the $wire promise, and a missing event leaves the guard stuck (see loadOlder). The PR description promises a try/finally guard (`loadingMore` with `finally { this.loadingMore = false }`) around `$wire.loadMore()`, but the code uses a different, more fragile scheme and different names. Either the description is stale or the intended change was never committed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "start_line": 210,
+   "end_line": 221,
+   "message": "The previous waitForMedia() logic, which waited for every img/video to load before scrolling to the bottom and revealing the chat, was replaced with fixed 100ms/220ms timers. onAnyMediaLoad only scrolls to the bottom while `initializing` is true. Images or videos that finish loading after 220ms (any normal network) push content down, and the conversation opens above the latest messages. This is a regression for chats with media."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 692,
+   "end_line": 727,
+   "message": "pushMessage and removeMessage now call syncCanLoadFlags, which runs two EXISTS queries each time. The attachment send loop calls pushMessage once per uploaded file, so sending N attachments costs 2N extra queries, and every realtime message adds two more. Append-only paths can sync once after the loop, or skip the older check, because appending never changes canLoadOlder. The PR description claims this resync work was reduced, but the code adds it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "resources/views/pages/chat.blade.php",
+   "start_line": 559,
+   "end_line": 561,
+   "message": "Removing x-persist=\"chats\" from the sidebar, here and in pages/chats.blade.php, means every wire:navigate between conversations re-mounts the Chats component. That re-runs its queries, throws away conversations already loaded via loadMore, and resets the sidebar scroll position. This is a noticeable UX and performance regression for a core package flow, and the description does not justify it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "resources/views/livewire/chats/chats.blade.php",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "`wire:navigate:scroll` is not a Livewire directive. Livewire's scroll preservation for wire:navigate is `wire:scroll`, and it only applies inside persisted (x-persist) elements, which this PR removes. The attribute does nothing, so the claimed scroll-restoration fix for the chat list never happens."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "resources/views/livewire/chats/chats.blade.php",
+   "start_line": 46,
+   "end_line": 48,
+   "message": "Now that the sidebar is no longer persisted, this x-init runs again on every navigation and adds another document 'livewire:navigated' listener each time without removing the old ones. Listeners pile up and hold references to detached containers, so each navigation fires a growing number of scrollToConversation retry loops."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/WirechatServiceProvider.php",
+   "start_line": 238,
+   "end_line": 242,
+   "message": "The Chats component already subscribes to the NotifyParticipant echo event through its getListeners (refreshComponent). Calling Livewire.dispatch('refresh-chats') here makes a second refresh round-trip for every notification. This script is also only injected when web push notifications are enabled, so it cannot be what keeps unread state in sync for panels without web push."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 108,
+   "end_line": 111,
+   "message": "Nothing in the package dispatches 'open-attachment', yet it is mapped to jumpToMessage(int $messageId). If wirechat-pro or a user app dispatches an event with that name and a different payload (for example attachment data), the listener will throw a TypeError or rebuild the message window unexpectedly. Opening an attachment also has nothing to do with jumping the timeline, so use a dedicated event name."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 1031,
+   "end_line": 1031,
+   "message": "totalMessageCount and paginate_var are no longer used for pagination, but a full COUNT query still runs on every mount. Drop it, or keep the public property without running the query."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 128,
+   "end_line": 158,
+   "message": "removeDeletedMessage, the realtime delete from a peer, still edits loadedMessages directly and does not resync cursors or canLoad flags like removeMessage now does. Deleting the last loaded message can therefore leave canLoadOlder/canLoadNewer stale and empty groups out of sync with the new window bookkeeping."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".DS_Store",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change commits modified macOS .DS_Store files (root, .github, database, lang, resources, src, tests). They should be removed from the repo and added to .gitignore."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/Feature/ChatsTest.php",
+   "start_line": 663,
+   "end_line": 721,
+   "message": "The new tests use sleep(1) to separate timestamps, which slows the suite by several seconds. Use Carbon::setTestNow or travel() instead."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 724000
+ }
+}

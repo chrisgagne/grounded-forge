@@ -1,0 +1,55 @@
+{
+ "id": "x06",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "index.js",
+   "start_line": 311,
+   "end_line": 312,
+   "message": "Consume explicit boolean values for numeric aliases. When a numeric boolean alias is followed by `true` or `false`, this branch always sets it to `true` and leaves the explicit value as a positional argument. For example, with `{boolean: ['zero'], alias: {zero: '0'}}`, `-0 false` produces `zero: true` and `_: ['false']`, unlike `--zero false` and other short boolean options. Apply the existing boolean-value consumption logic here so numeric aliases honor explicit values."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "index.js",
+   "start_line": 307,
+   "end_line": 312,
+   "message": "The change adds a new parsing path for single-digit boolean flags like `-0`, but it has no tests. Nothing checks that `-0` sets the boolean, or that negative numbers such as `-1` or `-5` still go to `argv._` when no matching boolean is declared. Nothing checks the alias case (e.g. `null` aliased to `0`) or the case where the next argument is a positional value. Since this branch sits directly in front of the positional/number fallback, a regression here would silently change how negative numbers are parsed."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "index.js",
+   "start_line": 307,
+   "end_line": 309,
+   "message": "The new branch only applies when the digit is declared as a boolean (`flags.bools`). A digit declared as a `count` option (e.g. `-0` used as a counter) still falls through and is pushed to `argv._` as the number -0. The behaviour differs between option types for no clear reason. Either handle `flags.counts` here as well, or document that only booleans are supported."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "index.js",
+   "start_line": 355,
+   "end_line": 356,
+   "message": "The change deletes the `XXX Switch to [].concat(...Object.values(aliases)) once node.js 6 is dropped` reminder, but package.json still declares `\"node\": \">=6\"`. The TODO still applies, and the deletion has nothing to do with the feature. Removing it loses the note explaining why `Object.keys(...).map` is used instead of `Object.values`."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 36,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 22,
+   "cost_usd": 0.10233320000000001,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 36
+ },
+ "stopped": false
+}

@@ -1,0 +1,25 @@
+{
+ "id": "x12",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "conversions.js",
+   "start_line": 643,
+   "end_line": 656,
+   "message": "Partial hex match. The regex is unanchored, so the `{3}` branch now matches the first 3 characters of any 3\u20135 digit hex string. Before this change, these inputs returned `[0, 0, 0]`; now they silently return an unrelated color:\n- `\"abcd\"` or `\"#abcd\"` (CSS `#RGBA`) is read as `#abc`.\n- `\"12345\"` is read as `#123`, giving `112233`.\n\nNumeric input is also affected because `args.toString(16)` drops leading zeros. For example, `0x00ff00` (green) becomes `\"ff00\"`, which is matched as `ff0` and expanded to `ffff00` (yellow). Likewise, `0x000fff` becomes `\"fff\"` and returns white.\n\nFix: anchor the pattern, e.g. `/^#?([a-f0-9]{6}|[a-f0-9]{3})$/i`, so only exact 3- or 6-digit values are accepted. For numeric input, pad to 6 digits before matching."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 618,
+  "usage": {
+   "prompt_tokens": 2838,
+   "completion_tokens": 1043,
+   "total_tokens": 3881
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

@@ -1,0 +1,48 @@
+{
+ "id": "rb04",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "client/src/utils/sync/s3Adapter.ts",
+   "start_line": 35,
+   "end_line": 36,
+   "message": "Config Key Mismatch. The adapter reads `config.keyId` and `config.secret`. The Sync tab saves these values under `accessKeyId` and `secretAccessKey` (see `PROVIDER_FIELDS.s3`). As a result, the presigned-URL request always receives `undefined` credentials, so S3 push and pull can never authenticate."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "client/src/utils/sync/syncEngine.ts",
+   "start_line": 46,
+   "end_line": 56,
+   "message": "Conflict Detection Inert. Conflict detection depends on `syncConfig.lastSynced`, but nothing in this PR ever sets it. The UI builds `SyncConfig` without it, so `localTs` is always null and no `ConflictError` is thrown. Every Pull therefore overwrites local workspace data with remote data, with no warning.\n\nSeparately, `keep-local` returns null without pushing. The UI then shows \"Remote is empty \u2014 nothing to pull\", which is misleading."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "client/src/utils/snapshotEngine.ts",
+   "start_line": 43,
+   "end_line": 44,
+   "message": "Unbounded Disk Growth. Old entries are trimmed from the history index with `.slice(0, MAX_SNAPSHOTS)`, but the dropped snapshot files are never deleted. A full-workspace snapshot is written on every debounced save (about 300ms after each state change, including the initial hydrate and restores). Snapshot files under `workspaces/{id}/snapshots/` therefore accumulate without limit and can consume significant disk space for large workspaces."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "security",
+   "file": "client/src/utils/sync/s3Adapter.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Insecure credential storage: sync credentials (S3 secret keys, git tokens, HTTP and team bearer/JWT tokens) are written in plaintext by `writeSyncConfig`, both to `sync-config.json` and to localStorage (`apilix_sync_config`). This happens even though the comments and types claim they are \"stored encrypted\". `encryptValue` and `decryptValue` exist but are never used.\n\nUnvalidated filesystem path from request: the `/api/sync/git/*` routes accept `dataDir` from the request body. Any caller that can reach the local server can therefore make it create directories, initialize git repos, write `workspace.json`, and fetch or push to an attacker-chosen remote at an arbitrary filesystem location. The server should use `APILIX_DATA_DIR` only.\n\nWeak traversal guard: the `startsWith` check does not append a path separator, so it is weaker than the Electron-side `assertInsideUserData`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 27,
+  "usage": {
+   "prompt_tokens": 49696,
+   "completion_tokens": 2018,
+   "total_tokens": 51714
+  },
+  "security_concern": true
+ }
+}

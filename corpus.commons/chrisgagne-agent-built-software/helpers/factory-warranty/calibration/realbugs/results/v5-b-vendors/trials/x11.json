@@ -1,0 +1,47 @@
+{
+ "id": "x11",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/ipaddr.js",
+   "start_line": 370,
+   "end_line": 372,
+   "message": "`string.match(...)` runs before the validity check. If the input is not a string (undefined, null, a number or an object), it throws a TypeError instead of returning false. Every other `isValid*` helper in this file returns false for bad input: `isValidCIDR` catches the error, and `isValidFourPartDecimal` only calls `.match` after `isValid` has passed. Callers that rely on this boolean to validate untrusted input can crash. Call `isValidCIDR` first (it already returns false for non-strings) and only run the regex after it passes, or add a type check."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "lib/ipaddr.js",
+   "start_line": 370,
+   "end_line": 377,
+   "message": "The prefix part isn't held to the same strict format as the address part. Because `\\d+` accepts leading zeros, strings like `1.2.3.4/032` or `1.2.3.4/0008` pass. A function meant to enforce strict decimal notation would be expected to reject them, since leading zeros are rejected in the octets. The regex also repeats the one in `parseCIDR`, so the two have to be kept in sync by hand. Consider `/^(.+)\\/(0|[1-9]\\d?)$/`, or reuse the parse result."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "lib/ipaddr.js",
+   "start_line": 368,
+   "end_line": 378,
+   "message": "This adds a new public API with no tests in `test/ipaddr.test.js` and no README entry, while the neighbouring `isValidFourPartDecimal` has both. Edge cases such as `10.1/8`, `1.2.3.4/33`, `0x01.2.3.4/8`, leading-zero prefixes and non-string input are not covered. The committed `ipaddr.min.js` is also not regenerated, so the minified build has no such function."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 40,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 24,
+   "cost_usd": 0.0823246,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 40
+ },
+ "stopped": false
+}

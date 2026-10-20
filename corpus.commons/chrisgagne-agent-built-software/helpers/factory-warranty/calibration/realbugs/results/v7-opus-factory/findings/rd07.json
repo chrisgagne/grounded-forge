@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "Saving an edited company in the detail sidebar always fails validation, with no error shown. The new prepareForValidation drops ownerName, but companySchema still requires it. prepareForValidation now returns only {name, address, location, type}. companySchema (src/lib/schemas.ts:153) still declares `ownerName: cleanString('Owner name')`, and cleanString refines `val.length > 0`, so a missing value fails. DynamicDetailSidebar.validateAllFields (line 121) calls safeParse on that object and returns false. The ownerName error is dropped because `fieldExistsInConfig('ownerName')` is false now that the OWNER NAME field is removed. handleSave (line 227) only calls onSave when isValid, so clicking Save does nothing and gives the user no feedback."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "The Add Company form can never be submitted. The change removed the ownerName input but left the form validated against companySchema, which still requires ownerName. The diff removes the `{ name: 'ownerName', ... required: true }` entry from companyFields, but `<ModalForm ... schema={companySchema}>` is unchanged. CreationForm.handleSubmit (CreationForm.svelte:171) runs `schema.safeParse(formData)`. formData has no ownerName, so the parse fails on the `ownerName` cleanString check, sets errors['ownerName'] for a field that isn't rendered, and returns before `dispatch('submit')`. companySchema in src/lib/schemas.ts:148-169 was not updated to the new Company shape (it also still lists email and phone)."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "Company names from the API are passed through titleCase, which lowercases each word after its first letter. Acronyms and brand casing are corrupted in the list and detail view, and the corrupted value becomes the editable name a save would send back. `name: titleCase(item.name ?? '')`. titleCase in helpers.ts:118 runs `s.toLowerCase()` and then uppercases only the first character of each word, so 'HDFC Bank' becomes 'Hdfc Bank' and 'TCS' becomes 'Tcs'. The detail sidebar seeds `editable` from this formatted row."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 541,
+   "end_line": 541,
+   "message": "The change adds a view-mode branch to the shared DynamicDetailSidebar that renders field.renderer with extra props. This is an unrequested behaviour change for every entity's detail view, and it widens DetailFieldRenderer to accept any props. A new `{:else if field.renderer}` branch renders `<svelte:component this={field.renderer} value=... label=... icon=... iconColor=... iconBg=... />` in viewing mode, where the code previously showed `getFieldValue(field)` text. detail-config.ts changes the renderer type to `SvelteComponentTyped<{ value?: DetailFieldValue } & Record<string, any>>`. No company field uses a renderer (no `renderer:` in any config), so the change serves no part of the company work."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Escape does not close the map modal once focus is inside it. The dialog stops keydown events from bubbling up to the window listener that handles Escape. Escape is handled only by `<svelte:window on:keydown={handleKeydown} />`, but the dialog div has `on:keydown|stopPropagation` and `tabindex=\"0\"`. A keydown from the focused dialog or its close button never reaches the window handler. The modal also never moves focus into the dialog when it opens."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The new map component has dead code: three imports are never used and the providerUrl/providerAttribution props are never set by any caller. The diff also adds an unused CSS class to the sidebar. CircleStyle, Fill and Stroke are imported (lines 14-16) and never referenced. LocationMapModal passes only latitude, longitude and zoom, so the XYZ/escapeHtml provider branch is unreachable. The `.location-display` rule added at DynamicDetailSidebar.svelte:935 is used by no element."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 189,
+   "end_line": 189,
+   "message": "openLocationMap uses a setTimeout to toggle showLocationMap from false back to true, a workaround with no effect: the modal can only be opened while it is closed. `showLocationMap = false; setTimeout(() => { showLocationMap = true; }, 0);`. The modal is a fixed backdrop at z-index 10000 that covers the 'Click here to view location' button, so the function never runs while showLocationMap is already true."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/lib/dummy-data.ts",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "The `Company` type import was left behind after the dummy companies array it typed was deleted, so it is now unused. The diff deletes `export const companies: Company[] = [...]` but keeps `Company` in the `import type { Company, Landmark, ... } from './types/type'` list."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "The change adds the API fetch, pagination inference, WKT parsing and enum mapping with no tests, so none of this logic has a check that could fail. The diff contains no test files, and the repository has no *.test.ts or *.spec.ts files. Some untested paths: fetchCompanies falls back to recursion when an empty page comes back, totalItems is guessed as `fetchedCount + 1`, and parseWKTPoint's regex `[\\d.\\-]+` does not accept exponent notation."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

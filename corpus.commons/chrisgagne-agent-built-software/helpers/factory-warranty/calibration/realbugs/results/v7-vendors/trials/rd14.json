@@ -1,0 +1,94 @@
+{
+ "id": "rd14",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "Read hook input from stdin. Claude Code supplies command-hook input through stdin, but the installed command passes no arguments. Consequently, this parses `{}` and exits at the tool-name check, allowing every shutdown. Read stdin and test the hook using the installed invocation rather than passing JSON as an argument."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 38,
+   "end_line": 40,
+   "message": "Inspect the actual SendMessage shutdown fields. SendMessage shutdown requests use top-level tool-input fields `type: \"shutdown_request\"`, `recipient`, and `content`, rather than `message.type` and `to`. Even after fixing input transport, actual shutdown requests exit here because `message` is absent. Inspect the real tool schema and use representative payloads in the tests."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "Match the sidecar format produced by the review workflow. The existing review gate locates sidecars named `${agent}--${contentHash}.json`, not filenames containing the branch. A normally completed review therefore fails this check and leaves the implementer blocked once shutdown interception works. Read and validate sidecar metadata against the relevant branch instead of requiring a branch substring in the filename."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 122,
+   "end_line": 138,
+   "message": "The guard checks the branch in the hook process's cwd, which is the orchestrator's (lead's) working directory, not the target implementer's branch. The process rules have implementers work on their own branches in separate worktrees, and the lead usually sits on `main`. In that setup the hook always hits the `main`/`master` early exit and allows the shutdown, so the main scenario it was written for is never guarded. If the lead happens to be on some other feature branch, it checks review evidence for the wrong branch. The hook needs to work out the target's branch, for example from the agent name, the team/task metadata, or the worktree list."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 140,
+   "end_line": 150,
+   "message": "Review evidence is detected only by finding the sanitized branch name in a sidecar filename. Real review sidecars are named `${agent}--${contentHash}.json` (dev-team-review-gate.js:140,152), and the branch is stored in the JSON `branch` field (implement skill). So real sidecars never match, and when the branch check does run, every implementer shutdown is blocked until someone uses `--force-shutdown`. The merge gate handles this by reading `data.branch` first and only falling back to the filename. The guard should do the same."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 146,
+   "end_line": 147,
+   "message": "`f.includes(sanitizedBranch)` is a substring match, so sidecars for `feat-12-foo` count as evidence for branch `feat/1`. That gives false 'reviewed' results. Compare the exact `branch` field instead, or use delimited filename matching."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 144,
+   "end_line": 150,
+   "message": "Unlike the merge gate, which just gained symlink guards in #769, this hook doesn't lstat sidecars or skip symlinks and non-files. A symlinked or directory entry ending in `.json` counts as review evidence. The guard should apply the same validation as the merge gate."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 273,
+   "end_line": 285,
+   "message": "The 'with review evidence' test makes a sidecar named `knuth--feat-123-test.json`, which the real review flow never produces (real names are `agent--<contentHash>.json`). The test passes only because the fixture matches the hook's wrong assumption, which hides the fact that real sidecars aren't recognized. There's also no test where the orchestrator is on `main` and the implementer is in a worktree, which is the realistic setup."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 86,
+   "end_line": 90,
+   "message": "A string message counts as a shutdown request whenever it contains the substring `shutdown_request` anywhere. A normal message that just mentions the word to an implementer, such as 'don't send shutdown_request yet', gets blocked as a shutdown."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 38,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 45,
+   "cost_usd": 0.30237120000000006,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 45
+ }
+}

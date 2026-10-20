@@ -1,0 +1,41 @@
+{
+ "id": "x01",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/nlp/totext.ts",
+   "start_line": 284,
+   "end_line": 287,
+   "message": "Incomplete Round-trip. `_byhour()` only runs in the final `else` branch of the weekly text generation, so weekday rules don't print their hour. The parser now accepts `every weekday at 10` and sets `byhour`, but `toText()` still returns \"every weekday\" and drops \"at 10\". The same happens for rules that hit the `isEveryDay` branch. Moving the `byhour` handling after the whole if/else chain would cover every weekly case."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/nlp/totext.ts",
+   "start_line": 285,
+   "end_line": 287,
+   "message": "Convertibility Check. Weekly rules can now carry `byhour` from parsing and rendering. If the weekly entry in the `IMPLEMENTED` table still lacks `byhour` (it is commonly only listed for DAILY), `isFullyConvertible()` will return false for rules like `every week on monday at 10`. Callers that check convertibility before calling `toText()` would then skip text they can now render. This table is outside the diff, so please verify it."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/nlp/parsetext.ts",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "Missing Tests. This PR adds new grammar paths: `AT()` after weekday, week, and named-day rules. It adds no tests for strings like `every weekday at 9`, `every week on monday at 10`, or `every tuesday, thursday at 8`, and none for their `toText()` round-trip. Without them, regressions such as the dropped weekday hour described above go unnoticed."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 629,
+  "usage": {
+   "prompt_tokens": 2880,
+   "completion_tokens": 2495,
+   "total_tokens": 5375
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

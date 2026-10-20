@@ -1,0 +1,33 @@
+{
+ "finding": "F2",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1414898,
+  "duration_s": 31.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/check.mjs {tree}",
+  "because": "On head, tzOffset(\"Europe/Dublin\", 1870-01-01T12:00Z), where Intl gives the offset as GMT-00:25:21, returns +25 instead of -25: Number(\"-00\") is -0, so adding the minutes loses the sign, while base returns -25."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "tzOffset(\"Europe/Dublin\", 1870-01-01T12:00:00.000Z) = -25, expected -25\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "tzOffset(\"Europe/Dublin\", 1870-01-01T12:00:00.000Z) = 25, expected -25\nFAIL: negative sub-hour offset lost its sign\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, tzOffset(\"Europe/Dublin\", 1870-01-01T12:00Z), where Intl gives the offset as GMT-00:25:21, returns +25 instead of -25: Number(\"-00\") is -0, so adding the minutes loses the sign, while base returns -25.",
+ "run": "v4-arm-v4",
+ "trial": "w07-t1",
+ "kind": "bug"
+}

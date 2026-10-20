@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "Removing ownerName from the company forms without updating companySchema prevents every creation and edit from passing validation. companySchema in src/lib/schemas.ts still requires ownerName with at least two characters. The updated companyFields omits that input, and prepareForValidation omits it too. Submitting otherwise valid company fields therefore fails safeParse: CreationForm returns before dispatching submit, and DynamicDetailSidebar.validateAllFields returns false before onSave, while hiding errors for fields absent from the config."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/lib/constants.ts",
+   "start_line": 122,
+   "end_line": 122,
+   "message": "Companies under verification lose their status message when users open their dashboard. For an API company with status 1, COMPANY_STATUS_LABEL_BY_VALUE now produces 'Under Verification'; the listing stores that label and getCompanyDetailConfig passes it in the dashboard URL's status parameter. src/routes/company/dashboard/+page.svelte only renders status messages for 'Validating', 'Verified', and 'Suspended', so this company matches none of its branches."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "The map dialog lacks focus management and prevents Escape from closing it when focus is inside the dialog. The dialog declares aria-modal and tabindex but never moves focus into it, traps focus, or restores focus on close. Its on:keydown|stopPropagation prevents events from focused descendants, including the close button, from reaching the svelte:window Escape handler."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

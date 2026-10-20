@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/godotengine/godot-angle-static",
+  "pr_number": 18,
+  "base": "c7c2bb9a034bc6e31379a987fb2f461d31ec9362",
+  "head": "71c014962453f10d3d40ee8c6ff10ab517a1fa68"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 189,
+   "end_line": 189,
+   "message": "The new 'Setup MinGW path' step puts C:/mingw32/bin (the 32-bit toolchain) on PATH for both MinGW/GCC jobs, so the x86_64 job runs with the wrong toolchain on PATH. The step is gated only on `matrix.mingw == 'yes'`, which is true for both the x86_64 entry (mingw_prefix=C:/mingw64, line 132) and the x86_32 entry (mingw_prefix=C:/mingw32, line 144), and it runs `echo \"C:/mingw32/bin\" >> $GITHUB_PATH` with a hardcoded path. godot-tools/windows.py:81-104 calls the compiler and linker by absolute prefix, but any tool found through PATH (helper DLLs, as/ld lookups, gcc-ar plugins) comes from the 32-bit install. The path should come from the matrix (for example `${{ matrix.msys }}`) or follow mingw_prefix."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The 'Setup MinGW path' step always adds C:/mingw32/bin to PATH, even in the x86_64 job. It should add the job's own prefix, e.g. C:/mingw64/bin for x86_64 and C:/mingw32/bin for x86_32, via a matrix variable. As written, the x86_64 job gets a wrong (or missing) directory ahead of its real toolchain. Any DLLs or helper tools found through PATH (libwinpthread, libgcc_s, as/ld, cc1plus helpers) could then come from the 32-bit toolchain. The 'Setup MinGW path' step always adds C:/mingw32/bin to PATH, even in the x86_64 job. It should add the job's own prefix, e.g. C:/mingw64/bin for x86_64 and C:/mingw32/bin for x86_32, via a matrix variable. As written, the x86_64 job gets a wrong (or missing) directory ahead of its real toolchain. Any DLLs or helper tools found through PATH (libwinpthread, libgcc_s, as/ld, cc1plus helpers) could then come from the 32-bit toolchain."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "The x86_32 GCC job may fail, or may build against an unintended toolchain, because it assumes a preinstalled C:/mingw32 on windows-2025 that nothing in the workflow installs or checks. The diff removes `msys2/setup-msys2@v2`, which installed `mingw-w64-${{matrix.msysenv}}-gcc` for each arch. Now the build relies only on `mingw_prefix=C:/mingw32` (line 144) and `C:/mingw64` (line 132). No step installs these toolchains or verifies they exist, and windows.py:82 just builds `prefix = env[\"mingw_prefix\"] + \"/bin/\"` and calls `i686-w64-mingw32-g++`. If the runner image has no 32-bit MinGW at C:/mingw32, the release artefact godot-angle-static-x86_32-gcc-release is never produced."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 137,
+   "end_line": 137,
+   "message": "As far as I know, the windows-2025 runner image comes with a 64-bit MinGW in C:\\mingw64 but no 32-bit i686 toolchain in C:\\mingw32. MSYS2 used to install mingw-w64-i686-gcc for this job, and nothing replaces that step now. With mingw_prefix=C:/mingw32, SCons will call C:/mingw32/bin/i686-w64-mingw32-g++, which most likely doesn't exist, so the x86_32 GCC build and its release artifact will fail. Add an explicit step that installs an i686 MinGW toolchain, for example a pinned niXman/winlibs i686 msvcrt archive. As far as I know, the windows-2025 runner image comes with a 64-bit MinGW in C:\\mingw64 but no 32-bit i686 toolchain in C:\\mingw32. MSYS2 used to install mingw-w64-i686-gcc for this job, and nothing replaces that step now. With mingw_prefix=C:/mingw32, SCons will call C:/mingw32/bin/i686-w64-mingw32-g++, which most likely doesn't exist, so the x86_32 GCC build and its release artifact will fail. Add an explicit step that installs an i686 MinGW toolchain, for example a pinned niXman/winlibs i686 msvcrt archive."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "Provision the 32-bit MinGW toolchain before building The Windows 2025 hosted image does not provide a toolchain at `C:/mingw32`; adding its nonexistent `bin` directory to PATH does not install one. With the MSYS2 installation step removed, the x86_32 matrix entry now asks `godot-tools/windows.py` to execute `C:/mingw32/bin/i686-w64-mingw32-g++`, so that build fails and prevents the dependent release job from running. Retain an explicit installation step for the 32-bit toolchain and point `mingw_prefix` at its installed location."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 132,
+   "end_line": 132,
+   "message": "The compiler that builds the shipped MinGW/GCC release libraries changes from MSYS2's packaged GCC to whatever version the windows-2025 image ships, unpinned. Its CRT may also differ from the 'MSVCRT' the artefacts are labelled with. The removed step installed `mingw-w64-x86_64-gcc` / `mingw-w64-i686-gcc` from the MSYS2 mingw64/mingw32 environments, which target MSVCRT. The new config just points `mingw_prefix` at C:/mingw64 and C:/mingw32 on `os: windows-2025`, so the toolchain version and runtime now follow runner-image updates. Nothing in the workflow records or checks which GCC or CRT is used, yet the job names (lines 125, 137) still claim '(MSVCRT)' and the release job publishes these artefacts."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 124,
+   "end_line": 124,
+   "message": "The GCC toolchain is now whatever MinGW the runner image happens to ship, and its version and CRT can change whenever GitHub updates the image. These artifacts are labelled 'MSVCRT'. The workflow doesn't pin or check that the preinstalled toolchain targets msvcrt rather than ucrt, or that it ships the prefixed x86_64-w64-mingw32-* binaries (including gcc-ar) that windows.py requires. If any of that changes, the build could break, or the shipped libraries could quietly become incompatible with what users link them against. Download a pinned toolchain instead, as the llvm-mingw step already does. The GCC toolchain is now whatever MinGW the runner image happens to ship, and its version and CRT can change whenever GitHub updates the image. These artifacts are labelled 'MSVCRT'. The workflow doesn't pin or check that the preinstalled toolchain targets msvcrt rather than ucrt, or that it ships the prefixed x86_64-w64-mingw32-* binaries (including gcc-ar) that windows.py requires. If any of that changes, the build could break, or the shipped libraries could quietly become incompatible with what users link them against. Download a pinned toolchain instead, as the llvm-mingw step already does."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 134,
+   "end_line": 134,
+   "message": "The matrix keys `msys` and `msysenv` are now dead configuration that suggests an MSYS2 environment is still in use. After the diff, no step references `matrix.msys` or `matrix.msysenv`. Their only consumer was the removed `msys2/setup-msys2@v2` step (`msystem: ${{matrix.msys}}`, `install: mingw-w64-${{matrix.msysenv}}-gcc ...`), yet lines 134-135 and 146-147 still set them."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 133,
+   "end_line": 133,
+   "message": "Nothing reads the `msys` and `msysenv` matrix keys any more, now that the msys2/setup-msys2 step is gone. They are dead config and suggest MSYS2 is still in use. Remove them, or swap them for a key holding the toolchain bin path that the PATH step can use. Nothing reads the `msys` and `msysenv` matrix keys any more, now that the msys2/setup-msys2 step is gone. They are dead config and suggest MSYS2 is still in use. Remove them, or swap them for a key holding the toolchain bin path that the PATH step can use."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 127,
+   "end_line": 127,
+   "message": "Only the two MinGW/GCC jobs move to windows-2025, while every other Windows job stays on windows-2019, so Windows artefacts in one release are now built on different runner images. Lines 68, 78, 88, 98, 108 and 117 still use `os: windows-2019`; the diff changes only lines 127 and 139 to `windows-2025`. Nothing in the diff explains the split."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

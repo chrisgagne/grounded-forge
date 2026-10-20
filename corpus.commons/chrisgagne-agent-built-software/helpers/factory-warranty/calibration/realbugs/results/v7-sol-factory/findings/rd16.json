@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/mamu7211/feirb-mailclient",
+  "pr_number": 215,
+  "base": "76d9db59beaf6a0942c84522b9d33058f721ee86",
+  "head": "d15c6ca689e20a95a1c5468d0e87f71f8b5e7496"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The send endpoint does not enforce its request validation attributes, allowing invalid messages and turning null recipient inputs into server errors. SendMailRequest declares Required, StringLength, MaxLength and RegularExpression attributes, but Program.cs registers no AddValidation or validation filter. SendMailAsync checks only To.Length and address syntax before calling the service: To:null or To:[null] causes a null dereference, while empty subjects/bodies and unsupported ContentType values reach BuildMimeMessage; unsupported types silently become plain text."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Switching attacker-supplied Markdown to rich text can execute JavaScript in the authenticated application's origin. Compose.SwitchToRichTextAsync passes markedInterop.toHtml output directly to setHtml, which assigns root.innerHTML without sanitization. Markdown containing <img src=x onerror=\"alert(document.domain)\"> preserves the event handler through marked.parse and executes when inserted. OutgoingHtmlSanitizer runs only during sending, after this browser insertion."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "A disconnect failure after successful SMTP delivery reports sending as failed and can cause duplicate mail when the user retries. SendViaSmtpAsync awaits SendAsync and then DisconnectAsync in the same uncaught path. If the server accepts the message but the connection fails during QUIT, the exception propagates through ComposeEndpoints, skipping the Sent append and success response. Compose.SendAsync displays ComposeSendFailed and preserves the draft, allowing the already-delivered message to be resent."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

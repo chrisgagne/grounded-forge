@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/brexhq/CrabTrap",
+  "pr_number": 15,
+  "base": "b29930e93765700608313c0f0d32c4818734e158",
+  "head": "5ef0884c59b3ee1d5a986dd02686a8232570c80f"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "Cached audit details never refresh, so reopening an entry can show an incomplete response even after the list reloads. toggleExpanded returns whenever entryDetails[detailKey] exists, and rendering always prefers that cached object over the current entry. If details are opened before a streamed response finishes, PGAuditReader.UpdateResponse subsequently updates the stored body, status and duration, but collapsing, changing filters and reopening the entry never fetches those updated details."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/AA-Factory/aafactory-prototype",
+  "pr_number": 17,
+  "base": "e7f558c7360abac335af2df22f4ed376992b30ab",
+  "head": "a1978cb75950a879df8805e4a5f373eb6678f6f9"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 5,
+   "end_line": 6,
+   "message": "Declare the pytest plugins required by the new test. The declared development dependencies contain neither `pytest-mock` nor `pytest-asyncio`. In an environment installed from this project's dependencies, the new test fails because the `mocker` fixture is unavailable; asynchronous execution also requires the asyncio plugin. Add both plugins to the development dependencies and lockfile."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "Call the patched avatar loader through its module. Patching `chat_interface._load_avatar_infos_for_chat` does not replace the function already imported into this test's namespace. This call therefore executes the real loader against `DB_PATH`, potentially creating or reading the production database and failing when avatar settings are absent. Use `chat_interface._load_avatar_infos_for_chat()` to invoke the configured mock."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 35,
+   "end_line": 38,
+   "message": "Exercise the real chat handler rather than the mocked dependency. This invokes the same `send_request_to_open_ai` mock whose side effect supplies every asserted result and updates history. Consequently, the test never executes `send_request_to_llm` and passes even if that handler's prompt construction, history update, or video orchestration is broken. Call the real handler, mock the LLM to return response text, and mock the voice-generation dependency as well."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 41,
+   "end_line": 51,
+   "message": "This test never runs any real code. `send_request_to_llm`, the function that handles the chat interaction, is never called. Instead the test calls `chat_interface.send_request_to_open_ai`, which it replaced with a mock just above. The mock's side effect appends to CHAT_HISTORY and returns a hard-coded tuple, and the asserts then check that same tuple and list. The test passes no matter how `send_request_to_llm` behaves, so it gives no coverage of the chat flow or the history handling it claims to test. Call `await chat_interface.send_request_to_llm(...)` and mock only its external dependencies: `send_request_to_open_ai`, `send_request_to_elevenlabs`/`send_request_to_zonos` and `send_request_to_generate_video`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 19,
+   "end_line": 28,
+   "message": "The mock doesn't match the real `send_request_to_open_ai` (fetcher/fetching.py:7). The real function takes a single `messages` list and returns the LLM text response. The mock is called with 10 positional args and returns the `(msg, history, video)` tuple that `send_request_to_llm` returns. Because the mock has no spec, the signature mismatch goes unnoticed. If this mock were used against the real caller, `text_response` would be a tuple. Have it return a plain string, and use `autospec=True` so the signature is checked."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 6,
+   "end_line": 51,
+   "message": "The PR says it adds two tests, one for ElevenLabs and one for Zonos, but there is only one test. Neither `send_request_to_elevenlabs` nor `send_request_to_zonos` is mocked or checked. Use `pytest.mark.parametrize` over `voice_model` ('elevenlabs', 'zonos'), call the real `send_request_to_llm`, and assert that the matching voice function was awaited with the right arguments."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 2,
+   "end_line": 39,
+   "message": "`_load_avatar_infos_for_chat` is imported directly into the test module at line 2, so the later `mocker.patch(\"aafactory.chat.interface._load_avatar_infos_for_chat\", ...)` doesn't affect that local name. Line 39 therefore calls the real function, which opens the real TinyDB at DB_PATH. On a clean checkout or in CI, `avatar_page_settings_table.get(doc_id=1)` can return None, and `.get(\"avatar_name\")` on None raises AttributeError. The test then depends on a developer's local DB, which may be why it only passes locally. Call it through the module (`chat_interface._load_avatar_infos_for_chat()`) or skip it and build the inputs directly."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 5,
+   "end_line": 6,
+   "message": "The test needs the `mocker` fixture from pytest-mock and `@pytest.mark.asyncio` from pytest-asyncio, but pyproject.toml lists only pytest and pytest-cov as dev dependencies. On a fresh install, `mocker` won't be found and the async test won't run (it is skipped or fails with 'async def functions are not natively supported'). Add `pytest-mock` and `pytest-asyncio` to `[tool.poetry.group.dev.dependencies]`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 13,
+   "end_line": 15,
+   "message": "CHAT_HISTORY is cleared at the start of the test but never reset afterwards, so the global state is left behind for later tests. Use an autouse fixture, or `mocker.patch.object(chat_interface, 'CHAT_HISTORY', [])`, so each test starts and ends with an empty history. That is the isolation the PR description promises."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 1,
+   "end_line": 51,
+   "message": "The description says print statements were added for debugging, but this diff has none, so the description doesn't match the change. If prints are added, prefer asserts or pytest's `-s`/logging over leaving them in the tests."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 32000
+ }
+}

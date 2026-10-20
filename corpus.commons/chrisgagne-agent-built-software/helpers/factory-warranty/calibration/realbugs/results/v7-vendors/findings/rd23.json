@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Await the registration check before allowing check-in. `isRegistered` is asynchronous, so this condition negates a truthy Promise and never enters the rejection branch. Scanning any existing participant therefore checks them into the event even when they have no registration. Await the result before testing it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 20,
+   "message": "Call hooks before the conditional return. The parent keeps this component mounted while toggling `isOpen`, but this return skips `useTuyau` and `useForm` whenever the dialog is closed. Closing it after opening changes the hook sequence, violating React's hook ordering and potentially producing hook-count errors or leaving form effects mounted. Move the return below all hooks, or conditionally mount the entire component in the parent."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 315,
+   "message": "Show the scanner independently of staff registration status. The scanner trigger is nested inside `!isRegistered`, so staff members who have registered for an event cannot open its check-in scanner. Staff can also have participant profiles and register through the existing route. Render the staff scanner trigger outside the registration-button condition so those staff members can still check attendees in."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 109,
+   "message": "`this.eventService.isRegistered(...)` is async, and its result is used here without `await`. A Promise is always truthy, so `!promise` is always false and the registration check never runs. Staff can check in anyone who isn't registered for the event."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 104,
+   "end_line": 116,
+   "message": "`User.findBy` can return null, for example if a participant profile has no linked user. The code then uses the `user!` non-null assertion and goes on to read `user.id`, which throws a TypeError and returns a 500 instead of a clean error. Handle a null user explicitly."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 93,
+   "end_line": 95,
+   "message": "`eventID` is taken from the request body without validation. If it is missing or invalid, `findOrFail` throws a 404 or 500 instead of returning a user-facing error. Validate it with a validator, or put the event id in the route params as other event routes do (`/:id/...`)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/start/routes.ts",
+   "start_line": 200,
+   "end_line": 203,
+   "message": "The check-in route uses only `middleware.staff()` and has no `middleware.auth()` before it. `StaffMiddleware` calls `ctx.auth.getUserOrFail()`, which fails unless the user was authenticated earlier. Unauthenticated requests therefore error out instead of being redirected to login. Add `middleware.auth()`, as the register route does."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/start/routes.ts",
+   "start_line": 201,
+   "end_line": 201,
+   "message": "The route is `/events/:slug/check-in`: the participant slug sits where every other route in this group has the event id, and the event id travels in the body. This is confusing, and a slug could clash with other `/:id/...` patterns. Prefer `/events/:id/check-in/:slug`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 26,
+   "message": "This breaks the Rules of Hooks. `useTuyau` and `useForm` are called after a conditional early return (`if (!isOpen) return null`), so the number of hooks changes when `isOpen` toggles and React throws 'Rendered more hooks than during the previous render'. The parent always mounts this component and only toggles `isOpen`, so opening the dialog will crash."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/inertia/components/credentials/scanner.tsx",
+   "start_line": 12,
+   "end_line": 20,
+   "message": "The scanner uses `allowMultiple={true}` and `scanDelay={0}`, and the dialog stays open until the request succeeds. One QR code held in front of the camera fires many `onScan` callbacks, each sending a check-in POST. These race and produce spurious 'already checked-in' errors or unique-constraint 500s. Debounce, or ignore scans while a request is processing."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 32,
+   "end_line": 38,
+   "message": "The check-in is check-then-insert: `isCheckedIn` runs, then `attach` runs, with nothing tying them together. Concurrent requests (likely, given the multi-scan behaviour) can both pass the check, and the second insert then hits the unique constraint with an unhandled DB error. Also, `event.save()` is pointless here because nothing on the event was modified."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 312,
+   "end_line": 315,
+   "message": "The QR check-in trigger is inside the `{!isRegistered && ...}` block, so a staff member who is registered for the event never sees it. It is also a bare `QrCode` SVG with an `onClick`, so keyboard and screen-reader users can't reach it. Move it out of that block and wrap it in a `Button`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/database/migrations/1743633554088_create_create_event_checkins_table.ts",
+   "start_line": 182,
+   "end_line": 183,
+   "message": "`event_id` and `user_id` are nullable and have no `onDelete` behaviour. Pivot rows can exist with null keys, and deleting an event or user will be blocked by FK violations. Make both columns `notNullable()` and add `onDelete('CASCADE')`. The file name also repeats 'create_create'."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "start_line": 6,
+   "end_line": 11,
+   "message": "This seeder has no `.dev` suffix or environment guard, so it runs with every `db:seed` in every environment and silently gives user id 1 a staff profile. It also creates the StaffProfile without a department, which will fail if `department_id` is required. Restrict it to dev or remove it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 17,
+   "end_line": 20,
+   "message": "`Department.create({ id: 99 })` hard-codes a primary key. It is not idempotent, so re-seeding fails, and on Postgres it does not advance the sequence, so a later insert can collide. It also runs outside dev, creating a staff account with the password 'password'."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 52000
+ }
+}

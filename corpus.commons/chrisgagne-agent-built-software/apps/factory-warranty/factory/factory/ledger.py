@@ -59,7 +59,9 @@ DEFAULTS = {
     # A review leg reads the whole change, so it gets longer than a build leg, and one retry if it runs out of time:
     # a reviewer killed at its limit names no finding, and the change stops without the signer learning why.
     "review": {"claude_model": "opus", "codex_model": "gpt-6.1-sol", "grounding": "seeds", "timeout_minutes": 60,
-               "timeout_retries": 1},
+               "timeout_retries": 1, "legs": ["claude", "codex"],
+               # Opt-in: each blocking finding gets a check the factory runs (factory/reproduce.py), shown on the sheet.
+               "reproduce": False, "reproduce_setup": None},
     # acceptEdits: file edits in the worktree go through; Bash runs only sandboxed (autoAllowBashIfSandboxed);
     # anything that would need a prompt is denied, since a headless leg has no one to ask.
     "legs": {"claude_model": "opus", "permission_mode": "acceptEdits", "effort": None, "timeout_minutes": 30,
@@ -238,6 +240,10 @@ def config_problems(cfg: dict) -> list[str]:
         problems.append("builder.kind: command needs builder.command")
     if cfg["review"].get("grounding") not in ("none", "seeds", "distillations"):
         problems.append("review.grounding must be none, seeds or distillations")
+    review_legs = cfg["review"].get("legs") or []
+    if not review_legs or any(l not in ("claude", "codex", "claude-plain", "codex-review") for l in review_legs) \
+            or len(set(review_legs)) != len(review_legs):
+        problems.append("review.legs must name distinct legs from claude, codex, claude-plain, codex-review")
     if cfg["review"].get("grounding") == "distillations" and not cfg.get("axis_index"):
         problems.append("review.grounding: distillations needs axis_index (the axis's distillation index)")
     return problems

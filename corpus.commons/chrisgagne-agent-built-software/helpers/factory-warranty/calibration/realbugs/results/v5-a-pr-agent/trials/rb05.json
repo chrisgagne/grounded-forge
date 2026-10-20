@@ -1,0 +1,40 @@
+{
+ "id": "rb05",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 2,
+   "end_line": 33,
+   "message": "Mock Not Applied. `_load_avatar_infos_for_chat` is imported by name into the test module before `mocker.patch(\"aafactory.chat.interface._load_avatar_infos_for_chat\", ...)` runs. The patch replaces only the attribute on `aafactory.chat.interface`, so the local name still points to the real function.\n\nAs a result, `_load_avatar_infos_for_chat()` runs the real loader. That can read real DB, file, or config state, and the test may fail or behave non-deterministically if the real return value lacks 10 elements. Call it as `chat_interface._load_avatar_infos_for_chat()` instead."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 13,
+   "end_line": 45,
+   "message": "Tautological Test. The test patches `send_request_to_open_ai` with an `AsyncMock` and then awaits that mock directly. Every assertion only checks values hardcoded in `llm_side_effect`, so no production code is exercised.\n\nThe `send_request_to_generate_video` patch is never reached either. This test will pass even if the real `send_request_to_open_ai` is broken. Patch the dependencies (the OpenAI client and the video generation) and call the real function instead."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 8,
+   "end_line": 15,
+   "message": "Global State Leak. The test clears the module-level `CHAT_HISTORY` and then appends to it, but never restores it afterward. Other tests that depend on `CHAT_HISTORY` can become order-dependent. Use a fixture or `mocker.patch.object` / `monkeypatch` to isolate the list and restore it after the test."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 616,
+  "usage": {
+   "prompt_tokens": 3321,
+   "completion_tokens": 974,
+   "total_tokens": 4295
+  },
+  "security_concern": false
+ }
+}

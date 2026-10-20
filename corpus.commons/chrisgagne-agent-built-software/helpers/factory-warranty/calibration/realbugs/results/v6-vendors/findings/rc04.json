@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/scorbo2/ext-sn-statistics",
+  "pr_number": 20,
+  "base": "da54721276e4132447cd708c35f18f3a635815a2",
+  "head": "12fad8312a7ca0ecc58480c2a582649386cf08a4"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 358,
+   "end_line": 360,
+   "message": "Keep word search available when the top-word list is empty. If notes contain only short words or no repeated words of at least five characters, the top-word list is empty even though searchable text exists. This early return hides the search controls, preventing users from searching those words despite the specific-word overload supporting short words and single occurrences. Build the search controls independently of the top-word results, consistent with the interactive search described in [.github/copilot-instructions.md:64](.github/copilot-instructions.md#L64)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 440,
+   "end_line": 446,
+   "message": "Validate the search-word limit before starting the worker. Entering more than 25 distinct words passes validation, but `WordSearchThread` limits results to `TOP_N_WORDS`. Consequently, matching words beyond that limit disappear and the displayed combined occurrence count undercounts the requested matches, without warning. Enforce the advertised 1\u201325-word limit after parsing, or return all requested matches instead of silently truncating them."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "Word search always passes N=TOP_N_WORDS (25). The search field accepts any number of comma-separated words, and its help text says '1-25 words', but nothing enforces that limit. If the user enters more than 25 words that all occur, only the 25 most frequent are kept. The other words are silently left out of the results and of the 'combined occurrences' total. The dialog says any missing word has zero occurrences, so this is reported wrongly. Either use N = searchWords.size() (or Integer.MAX_VALUE) for specific-word searches, or reject input with more than 25 words."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 437,
+   "end_line": 442,
+   "message": "Search terms are tokenized with TagList.fromRawString() and passed straight to findWords(), but they never go through StatisticsUtil.normalizeText(). Note text is lowercased, punctuation except apostrophes is turned into spaces, and the result is split on whitespace. A search term only matches if it comes out in exactly that form. Tag normalization follows different rules (tag-specific handling of spaces, hyphens or apostrophes), so terms like \"hello!\", \"e-mail\", \"don't\" or \"two words\" can quietly report 0 occurrences. Run each token through normalizeText(), split it on whitespace, and drop blanks before searching."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 400,
+   "end_line": 405,
+   "message": "Searched words with zero occurrences are left out of the results, so the user has to compare the result list against their input to see which words were not found. List every requested word and show 0 for the ones that are missing."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 195,
+   "end_line": 198,
+   "message": "The sort has no tiebreaker, and the entries come from a HashMap. When several words have the same count at the 25th position, which ones make the top-25 list, and their order, depends on hash order and is not deterministic. PhraseList uses a deterministic tiebreaker; add one here too (for example, alphabetical)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 163,
+   "end_line": 163,
+   "message": "normalizeText() keeps apostrophes, so single quotes used as quotation marks stay attached to words. For example, 'hello' becomes \"'hello'\", which is counted as a different unique word (and a different top word) from \"hello\", and a lone \"'\" is counted as a word. This inflates the unique word count shown to the user and splits counts for the same word. Strip leading and trailing apostrophes from each token and skip empty tokens."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 50000
+ }
+}

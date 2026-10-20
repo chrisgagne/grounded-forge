@@ -1,0 +1,39 @@
+{
+ "id": "x08",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/parser/parser.ts",
+   "start_line": 1105,
+   "end_line": 1113,
+   "message": "This builds the MAPPING event object inline, so it copies the field layout from addMappingEvent and insertFlowPairMappingEvent. If the event shape changes later (for example, a new field), this copy can easily be missed and will drift. Add a helper such as insertMappingEvent(state, snapshot, props, style) that takes the snapshot, or extend insertFlowPairMappingEvent to accept props and style, and use it here."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/parser/parser.ts",
+   "start_line": 1074,
+   "end_line": 1124,
+   "message": "Two comments here still say events are append-only ('Emit it now (append-only)' and 'roll back so the caller re-reads this node ... (events are append-only)'). That is no longer true: readBlockMapping now inserts into the middle of state.events with splice. The current code still works, because beforeKey is captured after the pending empty scalar is pushed and the rollback paths cut the array back to the snapshot. But the stale comments describe the wrong invariant and could mislead later changes that rely on event indices (for example the state.events[fallbackState.eventsLength] checks in parseNode). Update the comments to say MAPPING may be inserted at the snapshot index."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 24,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 46,
+   "cost_usd": 0.18225380000000002,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 46
+ },
+ "stopped": false
+}

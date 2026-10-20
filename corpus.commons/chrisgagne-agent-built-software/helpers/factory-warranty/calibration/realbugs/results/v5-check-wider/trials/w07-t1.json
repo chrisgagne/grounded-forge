@@ -1,0 +1,72 @@
+{
+ "id": "w07",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4485,
+ "codex_tokens": 41394,
+ "work": "<tmp>/replay-w07-t1-y7_qyniv",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.ts:29 now returns `hours! * 60 + (minutes || 0)`. For \"-03:30\", split/map gives [-3, 30], so the result is -150. The diff removed the sign-aware `hours * 60 - minutes` branch. The wrong value is cached in offsetCache, and date/mini.js:58 returns -tzOffset for getTimezoneOffset, so TZDate local times are also off by an hour.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/tzOffset/index.ts",
+   "line": 29,
+   "claim": "Negative offsets that are not whole hours now come out wrong because the minutes are added instead of subtracted. For example, America/St_Johns returns -150 instead of -210.",
+   "evidence": "The diff removes `hours > 0 ? hours * 60 + minutes : hours * 60 - minutes` and replaces it with `hours! * 60 + (minutes || 0)`. For offsetStr \"-03:30\", `split(\":\").map(Number)` gives [-3, 30], so the result is -180 + 30 = -150. The wrong value is also stored in `offsetCache[offsetStr]` and returned on every later call for that offset string.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Number(\"-00\") is -0, and -0*60 + 30 = 30. The removed branch returned -0 - 30 = -30. tzOffset's doc says timeZone may be a UTC offset, so an offset zone like \"-00:30\" can reach this path. Medium because it applies only to that narrow input.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/tzOffset/index.ts",
+   "line": 29,
+   "claim": "An offset string of the form \"-00:MM\" now gets a positive value because the sign of -0 is lost.",
+   "evidence": "For \"-00:30\", hours is -0, and `-0 * 60 + 30` is 30. The removed branch evaluated `-0 > 0` as false and returned `-0 - 30 = -30`. The new expression has no way to carry the sign when hours is zero, so for any \"-00:MM\" offset the sign is lost.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "tests.ts checks only New_York (-05:00), Pyongyang, Kathmandu (+05:45) and London. None has a negative hour with non-zero minutes, so the regression is not caught. This is a test-coverage gap and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/tzOffset/tests.ts",
+   "line": 9,
+   "claim": "The locked tests have no zone that is both west of UTC and off the whole hour, so the sign regression passes the whole suite.",
+   "evidence": "Only America/New_York (-05:00, minutes 0), Asia/Pyongyang (+09:00), Asia/Kathmandu (+05:45) and Europe/London (0) are checked. None has a negative hour with non-zero minutes, so `hours * 60 + minutes` and the original sign-aware formula give the same results on every tested input. Adding a case such as America/St_Johns expecting -210 would catch the fault.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,54 @@
+{
+ "id": "rc15",
+ "arm": "claude-again",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 185,
+   "end_line": 189,
+   "message": "The 'Setup MinGW path' step adds `C:/mingw32/bin` to PATH for every MinGW matrix entry, including the x86_64 job, whose `mingw_prefix` is `C:/mingw64`. The path should come from the matrix (for example a per-entry `mingw_prefix` value) so each job adds its own toolchain's bin directory. As written, the x86_64 job puts a 32-bit toolchain directory ahead of its own on PATH. If that directory exists, gcc's subprocesses (cc1plus, as, ld, lto plugins) can resolve or load the wrong-architecture binaries and DLLs (libgcc, libwinpthread, etc.). If it does not exist, the step does nothing useful."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 137,
+   "end_line": 147,
+   "message": "The x86_32 job now assumes an i686 GCC toolchain at `C:/mingw32` on the stock `windows-2025` runner image. The image only ships a 64-bit MinGW-w64 at `C:\\mingw64`, and nothing in the workflow installs a 32-bit one now that the MSYS2 setup (which installed `mingw-w64-i686-gcc`) was removed. `C:/mingw32/bin/i686-w64-mingw32-g++` will therefore not exist and the x86_32 GCC build will fail. Install an i686 toolchain explicitly, or keep MSYS2 for this entry."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 125,
+   "end_line": 135,
+   "message": "This job now uses whatever MinGW-w64 build is preinstalled on the runner image instead of a pinned MSYS2 mingw64 package. The artifact is labeled 'MinGW/GCC (MSVCRT)', but nothing checks that the image's GCC targets MSVCRT rather than UCRT, or which threading/exception model it uses. The image toolchain can also change without notice when GitHub updates the image. Either of these can silently produce static libraries that are ABI-incompatible with consumers expecting MSVCRT-based GCC builds. Pin or verify the toolchain."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 134,
+   "end_line": 135,
+   "message": "The `msys`/`msysenv` matrix keys are now dead because the msys2/setup-msys2 step was removed. They are misleading (they suggest MSYS2 is still used) and should be removed."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 196,
+   "end_line": 198,
+   "message": "MinGW builds previously ran in an MSYS2 shell with `MINGW_PREFIX` set. They now run under default pwsh with `mingw_prefix` passed explicitly, which sends them through the 'cross-compilation' branch in godot-tools/windows.py instead of the native `mingw.generate` branch. Different tool definitions apply there (for example `gcc-ar`, and no `IMPLIBPREFIX`/`SHLIBSUFFIX` settings), so build output and flags may differ from earlier artifacts. Confirm this is intended."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 32,
+  "cost_usd": 0.1355386,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

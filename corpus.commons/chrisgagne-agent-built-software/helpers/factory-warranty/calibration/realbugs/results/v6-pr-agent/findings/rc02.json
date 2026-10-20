@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/YasserShkeir/django-smart-ratelimit",
+  "pr_number": 25,
+  "base": "442d4ac196a0dcac3aef6bc41a09ebf5a9a354d9",
+  "head": "d7c5c7c2ba6399e3cfcfa7f74eeb8c35c4429a79"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 63,
+   "end_line": 83,
+   "message": "Unintended PK Change. This migration does more than add `data`. It also changes the `id` column of all three models to `BigAutoField`. That looks like makemigrations output picked up from the test project's `DEFAULT_AUTO_FIELD` (worth confirming against the app's `default_auto_field`).\nOn PostgreSQL and MySQL, changing a primary key's type rewrites the table and holds a lock. `RateLimitEntry` can be very large in production, so upgrades could block rate-limited traffic for a long time.\nIf the PK change isn't intended, drop these operations. If it is intended, ship them as a separate migration and document it."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 19,
+   "end_line": 53,
+   "message": "Divergent Migration State. The index renames only run when Django supports `RenameIndex`. Two problems follow:\n- On Django 4.0, the migration state ends up with different index names than the model definitions, so `makemigrations` will keep reporting pending changes.\n- If a project applies this migration on Django 4.0 and later upgrades Django, the recomputed state will include the renames but the database never had them. Any later migration that references these index names will fail.\nMigration operations should not depend on the Django version at runtime."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 286,
+   "end_line": 289,
+   "message": "Return Type Change. `get()` now returns the deserialized `data` payload (e.g., a dict) whenever `data` is set, and the `count` integer otherwise. Callers that treat the result as a number will break on token-bucket counters, for example by comparing it or adding to it.\nA single key can also return different types depending on how it was written. Consider keeping `get()` returning `count`, or adding a separate accessor for metadata."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 23000
+ }
+}

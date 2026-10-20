@@ -1,0 +1,316 @@
+{
+ "id": "rb02",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:locked-tests",
+  "gate:deps",
+  "gate:sast",
+  "gate:rollback",
+  "gate:surface",
+  "gate:added-tests",
+  "gate:ratchet:semgrep_findings",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 3.4355,
+ "codex_tokens": 77968,
+ "work": "<tmp>/replay-rb02-t1-63bt39c1",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "middleware/auth.ts:90 adds /_emdash/api/search to PUBLIC_API_EXACT, and search/index.ts:42 passes query.status to searchWithDb. query.ts:167 only defaults to 'published' when status is missing, and line 219 filters on the caller's value. So GET ?q=a&status=draft with no session returns drafts. The comment at auth.ts:87 saying the status is hardcoded is false.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "packages/core/src/astro/routes/api/search/index.ts",
+   "line": 42,
+   "claim": "The now-public search endpoint passes the caller's `status` through, so anyone without a login can read draft, scheduled or archived titles and snippets.",
+   "evidence": "middleware/auth.ts adds \"/_emdash/api/search\" to PUBLIC_API_EXACT, and search/index.ts drops `requirePerm(user, \"search:read\")`. The handler then calls `searchWithDb(emdash.db, query.q, { collections, status: query.status, ... })`. schemas/search.ts declares `status: z.string().optional()`, and search/query.ts:219 filters on `AND c.status = ${status}`. The FTS triggers in fts-manager.ts index every row whatever its status. So `GET /_emdash/api/search?q=a&status=draft` with no session returns draft titles and snippets. The comment added in middleware/auth.ts:87-89 says \"The query layer hardcodes status='published'\". That is untrue, and it would lead a reviewer to skip this path.",
+   "axis_row": "L2.1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds a check at callback.ts:142-144 that returns Role.ADMIN whenever emdash:setup_complete is not true, before the allowed_domains lookup. Lines 191-192 then call finalizeSetup. /_emdash/api/auth/oauth/ is a public prefix (auth.ts:72), and nothing ties the callback to the setup wizard.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "packages/core/src/astro/routes/api/auth/oauth/[provider]/callback.ts",
+   "line": 143,
+   "claim": "Before setup is complete, any GitHub/Google OAuth user becomes ADMIN and setup gets finalized, so a stranger can take over a fresh install.",
+   "evidence": "The new `canSelfSignup` returns `{ allowed: true, role: Role.ADMIN }` whenever `emdash:setup_complete` is not true, before the allowed-domain check runs. After `handleOAuthCallback` it calls `finalizeSetup(emdash.db)`, which sets `emdash:setup_complete`. `/_emdash/api/auth/oauth/` is in PUBLIC_API_PREFIXES, and nothing links the callback to the setup wizard. Trigger: on a new install with GitHub OAuth configured, an attacker opens /_emdash/api/auth/oauth/github and finishes the GitHub login. They become admin and setup is marked complete. Before this change, the domain allowlist gated signup at this point.",
+   "axis_row": "L2.1",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "callback.ts:130-131 sets isFirstUser from the setup_complete flag alone. Line 138 uses setup_state.email and line 148 sets emailVerified, and lines 155-156 grant ADMIN. Nothing compares the DID with the handle stored in the wizard. login.ts has no setup-state check, so an attacker can start and finish OAuth first (an allowlist, if one is configured, would block this, but none exists by default).",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "line": 131,
+   "claim": "Before setup is complete, whichever atproto DID finishes OAuth first becomes ADMIN with the owner's wizard email. The handle the owner entered is never checked.",
+   "evidence": "`isFirstUser = setupComplete !== true && setupComplete !== \"true\"`, and then `findOrCreateOAuthUser(..., async () => { if (isFirstUser) return { allowed: true, role: Role.ADMIN }; ...})`. setup-admin.ts stores `handle: body.handle` in setup_state, but callback.ts never compares it with `atprotoSession.did`. For the first user it sets `email = setupState?.email` and `emailVerified: isFirstUser`. login.ts (under the public prefix `/_emdash/api/auth/atproto/`) has no setup-state check. Trigger: the owner completes wizard step 1; an attacker POSTs `{handle:\"attacker.bsky.social\"}` to /_emdash/api/auth/atproto/login and completes OAuth. They become admin, finalizeSetup runs, and the owner's setup flow then fails with SETUP_COMPLETE.",
+   "axis_row": "L2.1",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "callback.ts:130 reads the flag and only finalizeSetup at line 166 writes it, with no lock or conditional write between them. The core OAuth callback (lines 142/186-192) follows the same pattern. findOrCreateOAuthUser (consumer.ts:236-249) auto-links any verified email that already exists, so a second DID racing in with the setup email and emailVerified=true gets linked to the admin. The comments claiming this race is avoided are false. Lowered X1 from critical to medium: it needs two callbacks inside a narrow setup window, and C3 already covers the simpler takeover.",
+   "severity": "medium",
+   "raw_severity": "critical",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "line": 126,
+   "claim": "Checking the setup_complete flag doesn't prevent concurrent first-user callbacks. Both can create admins, or the second DID can be auto-linked to the admin through the shared wizard email.",
+   "evidence": "callback.ts:126 says \"Using an option flag instead of countUsers() avoids a TOCTOU race where two concurrent callbacks both see 0 users and both create admins\". But the flag is read with `options.get(\"emdash:setup_complete\")` and only written later by `finalizeSetup`, with no lock or conditional write in between. The core OAuth callback ([provider]/callback.ts:140) has the same comment and the same read-then-write pattern. The comment at line 147 even says \"safe if two callbacks race past the check\".",
+   "axis_row": "L2.1",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C7",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "login.ts:28, setup-admin.ts:56 and callback.ts:42 use url.origin, and client-metadata.ts:13 uses new URL(request.url).origin. None calls getPublicOrigin, which every core auth route in this change now uses for the siteUrl/reverse-proxy case. Behind a proxy, internal URLs such as http://localhost:4321 reach the PDS. Kept at medium (X2 said high): login fails outright, but it isn't a security breach.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "packages/auth-atproto/src/routes/login.ts",
+   "line": 28,
+   "claim": "The atproto routes build client_id and redirect_uri from the internal request origin instead of the configured public origin, so atproto login breaks behind a TLS-terminating proxy.",
+   "evidence": "login.ts, setup-admin.ts:56 and callback.ts:42 all use `const baseUrl = url.origin;`. client-metadata.ts uses `new URL(request.url).origin`. Every core auth route in the diff was switched to `getPublicOrigin(url, emdash?.config)` for exactly this reverse-proxy case (see public-url.ts). Behind a proxy, `http://localhost:4321/_emdash/api/auth/atproto/callback` would be registered as the redirect_uri.",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "integration/index.ts:210-217 sets security.checkOrigin: false for everything. checkPublicCsrf is only called at auth.ts:136 and :151, for public /_emdash API and plugin routes, so on-demand user pages and form POSTs outside /_emdash lose origin checking.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/core/src/astro/integration/index.ts",
+   "line": 211,
+   "claim": "Astro's checkOrigin is turned off for the whole site, while EmDash's replacement CSRF check only covers its own public and plugin API routes.",
+   "evidence": "`const securityConfig = { checkOrigin: false, ... }; updateConfig({ security: securityConfig, ...})`. `checkPublicCsrf` is called only from middleware/auth.ts for `isPublicApiRoute` and `/_emdash/api/plugins/`. The other /_emdash routes need the X-EmDash-Request header. Template or user routes such as a contact-form POST no longer get any origin check. This weakens a secure default.",
+   "axis_row": "L5.13",
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "context.ts:496 adds `if (pattern === \"*\") return true`. The restricted client (lines 525-534) only calls isHostAllowed before globalThis.fetch, while the unrestricted client calls validateExternalUrl on every hop (line 579). So the wildcard grants more than network:fetch:any does.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/core/src/plugins/context.ts",
+   "line": 496,
+   "claim": "A plugin with allowedHosts \"*\" can fetch any host, including private IPs and metadata endpoints, with no SSRF validation.",
+   "evidence": "`isHostAllowed` gains `if (pattern === \"*\") return true;`. `createHttpAccess` only calls `isHostAllowed` and then `globalThis.fetch(currentUrl, ...)`. `createUnrestrictedHttpAccess` (the fetch:any path) calls `validateExternalUrl(currentUrl)` on every hop. Trigger: a plugin with `allowedHosts: [\"*\"]` calls `ctx.http.fetch(\"http://169.254.169.254/latest/meta-data/\")`, and the request goes through.",
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "disputed",
+   "reason": "login.ts sets no cookie or session marker, and callback.ts:60 accepts any state the server-side store knows, then sets the session at line 185. So nothing ties the state to the browser. Impact is limited to logging a victim into an attacker account that already exists, and whether the atcute library adds its own binding isn't visible here.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "line": 60,
+   "claim": "The atproto callback accepts any valid state/code without tying it to the browser that started the flow, which allows login CSRF.",
+   "evidence": "login.ts returns the authorize URL and sets no cookie or session marker. The OAuth state is held only server-side in the `auth:atproto` `states` collection (db-store.ts). callback.ts calls `client.callback(url.searchParams)` and then `session.set(\"user\", { id: user.id })`, with no check that ties the state to the current session.",
+   "axis_row": "L2.1",
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "lunaria.yml:4 and :13 set pull_request_target and pull-requests: write, and line 29 uses lunariajs/action@v1-prerelease. Lines 20-24 pin every other action by SHA. If that tag moved, new code would run with a write token.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/lunaria.yml",
+   "line": 29,
+   "claim": "A pull_request_target workflow with pull-requests: write runs a third-party action pinned to a mutable prerelease tag.",
+   "evidence": "`- uses: lunariajs/action@v1-prerelease` under `on: pull_request_target` with `permissions: pull-requests: write`. In the same diff, other actions use pinned SHAs (e.g. `actions/checkout@de0fac2e...`).",
+   "axis_row": "L4.4",
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds \"@lunariajs/core\": \"https://pkg.pr.new/.../@lunariajs/core@83617cc\" with a tarball resolution in pnpm-lock.yaml, and it is installed in the pull_request_target job. It is pinned to a commit and no exploit path is traced, so I lowered it to low as supply-chain hygiene.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "package.json",
+   "line": 39,
+   "claim": "A root devDependency installs from a pkg.pr.new preview build, not a published release.",
+   "evidence": "`\"@lunariajs/core\": \"https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@83617cc\"`, with a matching tarball resolution in pnpm-lock.yaml:3007. i18n/build.ts and lunaria.config.ts import it.",
+   "axis_row": "L4.4",
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff, sitemap-[collection].xml.ts still uses `settings.url || url.origin`, while sitemap.xml.ts and robots.txt.ts were switched to getPublicOrigin. Behind a proxy with no settings.url, the child sitemaps list internal URLs.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/src/astro/routes/sitemap-[collection].xml.ts",
+   "line": 39,
+   "claim": "Per-collection sitemaps still use the internal request origin, while the sitemap index and robots.txt use the public origin.",
+   "evidence": "sitemap-[collection].xml.ts: `const siteUrl = (settings.url || url.origin)`. sitemap.xml.ts and robots.txt.ts in the same diff use `settings.url || getPublicOrigin(url, emdash?.config)`.",
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes requirePerm(user, \"search:read\") from suggest.ts, and the suggest path isn't in PUBLIC_API_EXACT, so a login is still required but no permission is checked. getSuggestions hardcodes status='published' (query.ts:294), so the exposure is small.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/src/astro/routes/api/search/suggest.ts",
+   "line": 25,
+   "claim": "The search:read permission check was removed from the non-public suggest endpoint.",
+   "evidence": "The diff deletes `const denied = requirePerm(user, \"search:read\"); if (denied) return denied;` from suggest.ts. `/_emdash/api/search/suggest` is not added to PUBLIC_API_EXACT, so middleware still requires a login, but nothing checks the permission any more.",
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "csp.ts now emits \"img-src 'self' https: data: blob:\" instead of the marketplace-limited list. The changeset documents this as deliberate, but it does allow image beacons to any origin.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/src/astro/middleware/csp.ts",
+   "line": 22,
+   "claim": "The admin CSP's img-src is widened to any https origin.",
+   "evidence": "`\"img-src 'self' https: data: blob:\"` replaces the earlier `buildEmDashCsp(marketplaceUrl)`, which allowed only 'self', data:, blob: and the marketplace origin.",
+   "axis_row": "L5.13",
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "034_published_at_index.ts:13 has no IF NOT EXISTS. The 033 change in this diff, recorded in the changelog as a fix for 'index already exists', shows the project has already hit this failure mode.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/src/database/migrations/034_published_at_index.ts",
+   "line": 13,
+   "claim": "The new migration 034 uses a bare CREATE INDEX, while 033 was patched to IF NOT EXISTS for idempotency.",
+   "evidence": "034: `CREATE INDEX ${sql.ref(`idx_${table.name}_deleted_published_id`)}`. 033 was edited in this diff from `CREATE INDEX` to `CREATE INDEX IF NOT EXISTS` for every index. Editing the already-shipped migration 033 also changes history that existing databases have already run.",
+   "axis_row": "L2.4",
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "C15"
+   ],
+   "verdict": "confirmed",
+   "reason": "The final stage, from FROM node:22-slim (line 37) to CMD (line 49), has no USER directive.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Dockerfile",
+   "line": 49,
+   "claim": "The runtime image runs the Node server as root.",
+   "evidence": "The final stage `FROM node:22-slim` ... `CMD [\"node\", \"./dist/server/entry.mjs\"]` has no `USER` directive, so the server and the writable `data`/`uploads` directories are owned by root.",
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "C16"
+   ],
+   "verdict": "noise",
+   "reason": "That entry is the release history for #225, when the option was added. The same diff adds a later entry (diff.patch:486/492) saying siteUrl replaces passkeyPublicOrigin and that passkeyPublicOrigin is removed, so the changelog is accurate.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/CHANGELOG.md",
+   "line": 34,
+   "claim": "The changelog documents a non-existent passkeyPublicOrigin option.",
+   "evidence": "The CHANGELOG entry says \"Adds `passkeyPublicOrigin` on `emdash()`\". runtime.ts:294 says siteUrl \"Replaces `passkeyPublicOrigin`\", and no code reads `passkeyPublicOrigin`.",
+   "id": "F16"
+  },
+  {
+   "sources": [
+    "C17"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch:624-625 changes the SHA from c39e982d to 7e200bbf, and both lines say `# main 2026-03-23`.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/bonk.yml",
+   "line": 25,
+   "claim": "The bonk action SHA changed but its version comment still gives the old date.",
+   "evidence": "`ask-bonk/ask-bonk/github@c39e982d... # main 2026-03-23` became `ask-bonk/ask-bonk/github@7e200bbf... # main 2026-03-23`. The comment is unchanged.",
+   "axis_row": "L5.10",
+   "id": "F17"
+  },
+  {
+   "sources": [
+    "C18"
+   ],
+   "verdict": "confirmed",
+   "reason": "No *.test.ts file under packages/auth-atproto references routes/callback, isFirstUser or setup_complete. The first-user admin grant, the allowlist and disabled-user handling are all untested.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "line": 1,
+   "claim": "The security-critical atproto callback and login routes have no tests.",
+   "evidence": "The tests added for auth-atproto are auth.test.ts (descriptor shape), oauth-client.test.ts and resolve-handle.test.ts. None of them exercise routes/callback.ts or routes/login.ts.",
+   "axis_row": "L3.23",
+   "id": "F18"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:locked-tests",
+   "gate:deps",
+   "gate:sast",
+   "gate:rollback",
+   "gate:surface",
+   "gate:added-tests",
+   "gate:ratchet:semgrep_findings",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

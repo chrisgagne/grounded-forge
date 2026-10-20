@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1173662,
+  "duration_s": 598.0
+ },
+ "answer": {
+  "kind": "check",
+  "command": "TREE={tree} {tree}/node_modules/.bin/vitest run --root check",
+  "because": "On head, the project's own tzOffset gives -150 instead of -210 for the -03:30 zone and for America/St_Johns, both on the first call and on the repeat call served from the cache, and gives -510 instead of -570 for Pacific/Marquesas; base gives the right values, so the change gets the sign of the minutes wrong for negative offsets that aren't whole hours."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "\n RUN  v1.6.1 <work>/repro-work/v4-arm-v3/w07-t2-F1/check\n\n \u2713 tzOffset.check.test.ts  (3 tests) 16ms\n\n Test Files  1 passed (1)\n      Tests  3 passed (3)\n   Start at  18:07:40\n   Duration  832ms (transform 501ms, setup 0ms, collect 498ms, tests 16ms, environment 0ms, prepare 122ms)\n\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "\n+ Received\n\n- -210\n+ -150\n\n \u276f tzOffset.check.test.ts:11:66\n      9| describe(`tzOffset negative non-whole-hour offsets (${tree})`, () => {\n     10|   it(\"returns -210 for the -03:30 offset time zone\", () => {\n     11|     expect(tzOffset(\"-03:30\", new Date(\"2024-01-15T12:00:00Z\"))).toBe(\u2026\n       |                                                                  ^\n     12|   });\n     13| \n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[1/3]\u23af\n\n FAIL  tzOffset.check.test.ts > tzOffset negative non-whole-hour offsets (head) > returns -210 for America/St_Johns in winter, also on a repeat (cached) call\nAssertionError: expected -150 to be -210 // Object.is equality\n\n- Expected\n+ Received\n\n- -210\n+ -150\n\n \u276f tzOffset.check.test.ts:16:45\n     14|   it(\"returns -210 for America/St_Johns in winter, also on a repeat (c\u2026\n     15|     const d = new Date(\"2024-01-15T12:00:00Z\");\n     16|     expect(tzOffset(\"America/St_Johns\", d)).toBe(-210);\n       |                                             ^\n     17|     expect(tzOffset(\"America/St_Johns\", d)).toBe(-210);\n     18|   });\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[2/3]\u23af\n\n FAIL  tzOffset.check.test.ts > tzOffset negative non-whole-hour offsets (head) > returns -570 for Pacific/Marquesas (-09:30)\nAssertionError: expected -510 to be -570 // Object.is equality\n\n- Expected\n+ Received\n\n- -570\n+ -510\n\n \u276f tzOffset.check.test.ts:21:77\n     19| \n     20|   it(\"returns -570 for Pacific/Marquesas (-09:30)\", () => {\n     21|     expect(tzOffset(\"Pacific/Marquesas\", new Date(\"2024-01-15T12:00:00\u2026\n       |                                                                             ^\n     22|   });\n     23| });\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[3/3]\u23af\n\n Test Files  1 failed (1)\n      Tests  3 failed (3)\n   Start at  18:07:48\n   Duration  942ms (transform 551ms, setup 0ms, collect 550ms, tests 20ms, environment 0ms, prepare 107ms)\n\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, the project's own tzOffset gives -150 instead of -210 for the -03:30 zone and for America/St_Johns, both on the first call and on the repeat call served from the cache, and gives -510 instead of -570 for Pacific/Marquesas; base gives the right values, so the change gets the sign of the minutes wrong for negative offsets that aren't whole hours.",
+ "run": "v4-arm-v3",
+ "trial": "w07-t2",
+ "kind": "bug"
+}

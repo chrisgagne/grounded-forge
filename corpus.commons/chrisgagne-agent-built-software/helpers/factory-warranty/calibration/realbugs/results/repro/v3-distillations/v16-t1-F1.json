@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1514472,
+  "duration_s": 25.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/tojson_check.mjs {tree}",
+  "because": "On head, diffJson({toJSON: 'x'}, \u2026) and diffJson({toJSON: {}}, \u2026) throw 'TypeError: obj.toJSON is not a function' because canonicalize now calls any truthy toJSON. On base, the same inputs diff cleanly and keep toJSON as a plain property, which is what JSON.stringify does."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok {toJSON: 'x'}\nok {toJSON: {}}\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL {toJSON: 'x'} -> TypeError obj.toJSON is not a function\nFAIL {toJSON: {}} -> TypeError obj.toJSON is not a function\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, diffJson({toJSON: 'x'}, \u2026) and diffJson({toJSON: {}}, \u2026) throw 'TypeError: obj.toJSON is not a function' because canonicalize now calls any truthy toJSON. On base, the same inputs diff cleanly and keep toJSON as a plain property, which is what JSON.stringify does.",
+ "run": "v3-distillations",
+ "trial": "v16-t1",
+ "kind": "bug"
+}

@@ -1,0 +1,154 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 198,
+  "base": "949c62fe2ace8c41d41dd9d7dfd7b51ab268d25f",
+  "head": "76a992582e9e73897987a43bd520bb581f0e7ce7"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The staleness check uses the wrong artifact and the wrong log text, so the story's 'fresh planning report is reused' scenario is not met: a fresh planning report alone does not trigger reuse, and the log never says 'Reusing existing planning artifacts'. The story's Gherkin keys reuse on `mtime(story-0028-0001.md) <= mtime(planning-report-story-0028-0001.md)` and expects the log 'Reusing existing planning artifacts'. SKILL.md 0.3 checks only `tasks-story-XXXX-YYYY.md` and logs `\"Reusing existing story plan from {date}\"`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "The freshness check uses the tasks file instead of the planning report, violating the specified reuse behavior. The locked story's freshness scenario specifies reusing artifacts when planning-report-story-0028-0001.md exists and is at least as new as the story. Lines 93\u2013104 instead regenerate whenever the tasks file is absent and compare only its mtime when present. Thus a fresh report with no tasks file launches agents, while a fresh tasks file with a missing report skips artifact generation."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 686,
+   "end_line": 686,
+   "message": "Phase 4.5 rewrites the story file after the tasks file is written, so the story's mtime is always newer and every later run is classed stale. Reuse (RULE-002) can never happen, and all 5 subagents run again on every invocation. 4.1 writes `tasks-story-XXXX-YYYY.md` first. Then 4.5 says 'Read the story file and update Section 8 (Sub-Tasks)'. The 0.3 table regenerates when `mtime(story file) > mtime(tasks file)`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 443,
+   "end_line": 443,
+   "message": "A merged task's Agent field is `merged({agent1},{agent2})`, but the MERGE acceptance scenario requires the Agent field to be \"MERGED\". SKILL.md Rule 1 says: 'Source becomes `merged({agent1},{agent2})`'. The story scenario 'Conflito de DoD entre agentes \u00e9 resolvido por MERGE' expects 'o campo Agent \u00e9 \"MERGED\"'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 795,
+   "end_line": 795,
+   "message": "Phase 5 never updates the story status to 'Pronta para Desenvolvimento' on READY, and never writes the DoR checkmarks into Section 4, so the READY scenario's status requirement and the story's \u00a73.3 artifact list are not met. After the verdict, the only write instructions are the DoR checklist file and 'Update the planning report's DoR Status section with the verdict.' Nothing mentions story status, `story_status_update` or Section 4. The story's data contract 5.3 makes `story_status_update` always present."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 795,
+   "end_line": 795,
+   "message": "A READY verdict does not update the story status or its DoR checkmarks as required. The READY acceptance scenario in plans/epic-0028/story-0028-0002.md requires the story status to become 'Pronta para Desenvolvimento', and Section 3.3 requires Section 4 DoR checkmarks. The only story edit specified is Section 8.1 in Phase 4.5; Phase 5 updates the planning report and emits a verdict without updating either story status or Section 4."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 715,
+   "message": "The skill never writes the architecture plan, test plan, security assessment or implementation plan to disk, yet DoR checks 1-3 and 9 look for those files. On the reuse path no agent output exists, so these checks fail on every reuse unless another skill created the files. On the fresh path, QA agent output always satisfies check 2, so the 'NOT_READY when tests-story file missing' scenario can never trigger. Phase 4 writes only tasks, task-plan, planning-report and dor files (4.1-4.4). Check 1 needs 'File exists with layer analysis'. Check 2 accepts 'QA agent output or existing `tests-story-XXXX-YYYY.md`'. 0.3 says that when reusing, 'skip directly to Phase 5 ... Do NOT invoke any subagent'. Story \u00a73.1 says Architect/QA/Security 'Gera architecture plan + implementation plan / test plan / security assessment'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 514,
+   "end_line": 514,
+   "message": "First-time planning never explicitly saves the architecture, implementation, test, or security plans required by the story and readiness checks. Phase 2 instructs agents to return summaries and proposals (lines 252, 298, and 333). Phase 4 writes only task breakdowns, individual task plans, a planning report, a DoR checklist, and story Section 8. On a story with no existing plans, no step writes architecture-story-XXXX-YYYY.md, plan-story-XXXX-YYYY.md, tests-story-XXXX-YYYY.md, or security-story-XXXX-YYYY.md; mandatory checks 1 and 9 nevertheless require files to exist."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 741,
+   "end_line": 741,
+   "message": "The DoR score formula counts only the mandatory checks that passed in the denominator, so a NOT_READY result reports a perfect score (e.g. 8/8 when two mandatory checks fail) and hides the failures in the summary line. `total_checks = mandatory_passed + conditional_applicable` and `total_passed = mandatory_passed + conditional_passed`. The checklist prints `Passed: {total_passed}/{total_checks}`. The story expects `checks_total` to be the number of checks, e.g. '10/10 checks passed'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 741,
+   "end_line": 741,
+   "message": "The readiness summary excludes failed mandatory checks from its denominator and can report full marks despite failures. total_checks is calculated as mandatory_passed + conditional_applicable rather than 10 + conditional_applicable. With nine mandatory checks passing and no conditional checks applicable, the generated checklist reports 'Passed: 9/9' even though one mandatory check failed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "The skill mandates English-only output, which contradicts RULE-006, a cross-cutting rule this story declares: planning-skill content must be pt-BR. Every generated artifact will violate the epic rule. SKILL.md: '- **Language**: English ONLY.' and all artifact templates are in English. epic-0028.md RULE-006: 'Todo conte\u00fado gerado por skills de planejamento DEVE estar em portugu\u00eas brasileiro (pt-BR)'. The story lists RULE-006 under 'Regras Transversais Aplic\u00e1veis'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 691,
+   "end_line": 691,
+   "message": "Phase 4.5 looks for and writes an English '## 8. Sub-Tasks' heading, but the project's story files use '## 8. Sub-tarefas'. The skill will likely fail to find the existing section and add a duplicate Section 8. The SKILL.md template writes `## 8. Sub-Tasks` / `### 8.1 Detailed Tasks`. plans/epic-0028/story-0028-0002.md line 210 is `## 8. Sub-tarefas`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 191,
+   "end_line": 191,
+   "message": "The TASK_PROPOSAL format does not match the story's data contract 5.2. The source, type, layer and tpp_level enums and the effort format all differ, so consumers built to the contract will reject or mis-parse proposals. The skill uses `type: {architecture|test|security|quality-gate|validation}`, `estimated_effort: {XS|S|M|L|XL}`, `source: {AGENT_NAME}`, and adds the layers `config|cross-cutting`. The contract specifies type `DEV, TEST, SEC, QUALITY, VALIDATION`, source `ARCHITECT, QA, SECURITY, TECH_LEAD, PO`, effort format \"Nh\", and layer `domain, port, adapter, application, inbound`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "The staleness check (0.3) runs before the story-exists check (0.4). For a missing story with leftover artifacts, it compares the mtime of a nonexistent file and may reuse old artifacts instead of aborting with 'Story file not found'. 0.3 compares `mtime(story file) > mtime(tasks file)` and, on reuse, says 'skip directly to Phase 5'. The `test -f plans/epic-XXXX/story-XXXX-YYYY.md` check only appears afterwards, in 0.4."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 478,
+   "end_line": 478,
+   "message": "Product Owner subagent output is written straight into the story's acceptance criteria with no human approval step, so model-generated or injected text silently changes the agreed spec that later skills treat as authoritative. Rule 5: 'PO amendments are applied to the story's acceptance criteria section'. planning-guide.md adds: 'If PO proposes new Gherkin scenarios, they are included in the story file update (Phase 4.5)'. No confirmation step exists; allowed-tools has no AskUserQuestion."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 220,
+   "end_line": 220,
+   "message": "Story, epic and existing-plan file contents are pasted verbatim into five general-purpose subagents' prompts without being marked as untrusted data. Instructions embedded in those files may steer tool-holding subagents. Prompts inline `{STORY_CONTENT}`, `{EPIC_CONTEXT_IF_AVAILABLE}` and `{EXISTING_*_IF_AVAILABLE}` after 'Launch `general-purpose` subagent'. No delimiter or 'treat as data' instruction is given, and the orchestrator holds Write/Edit/Bash."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "The argument hint accepts only a story ID, but the data contract specifies `[STORY-PATH or story-XXXX-YYYY]`, and 0.1 aborts on any non-ID argument. Passing a story path is unsupported. `argument-hint: \"[STORY-ID] [--force] [--skip-dor]\"`. 0.1 says: 'If the argument does not match `story-XXXX-YYYY` format, abort'. Contract 5.1 example: `\"[STORY-PATH or story-XXXX-YYYY]\"`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 282,
+   "end_line": 282,
+   "message": "The TPP ordering conflicts across the document. The QA prompt orders conditional (Level 4) before collection (Level 5), while consolidation and the planning guide order collection before conditional, so tasks get inconsistent ordering. QA prompt: 'TPP Level 4 (conditional) ... TPP Level 5 (collection)'. 3.3: 'nil -> constant -> scalar -> collection -> conditional -> iteration'. planning-guide.md Task Ordering uses the same order as 3.3."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "The skill relies on launching subagents, but allowed-tools omits the Agent tool that other subagent-launching skills declare, so parallel planning may be blocked or need an extra permission prompt. `allowed-tools: Read, Write, Edit, Bash, Grep, Glob`, while Phase 2 says 'Launch `general-purpose` subagent' five times. x-codebase-audit, x-owasp-scan, x-threat-model and others list `Agent` (x-review does not)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 437,
+   "message": "The MERGE rule collapses test-writing, implementation, and verification tasks for the same component, breaking their required execution order. When Architect proposes a GREEN task for UserValidator and QA proposes a RED test task for UserValidator in the same layer, Rule 1 requires merging them solely because their component and layer match. It preserves DoD and dependencies but supplies no phase compatibility rule. Rule 3 subsequently handles only QA GREEN tasks, so it cannot reliably restore the lost RED/GREEN separation."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

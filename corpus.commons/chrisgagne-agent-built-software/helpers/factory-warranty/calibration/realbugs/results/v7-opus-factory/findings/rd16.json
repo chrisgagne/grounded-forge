@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/mamu7211/feirb-mailclient",
+  "pr_number": 215,
+  "base": "76d9db59beaf6a0942c84522b9d33058f721ee86",
+  "head": "d15c6ca689e20a95a1c5468d0e87f71f8b5e7496"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The validation attributes on SendMailRequest are never enforced, so a missing `to` or `subject` field gives an unhandled 500 instead of a 400, and the Body size limit, the ContentType allowlist and the Subject length limit are not applied. The minimal-API handler binds `SendMailRequest request`, and the repo registers no validation filter: grep finds no AddValidation, IEndpointFilter or Validator call in src. So `[Required, MinLength(1)] To`, `[MaxLength(1_048_576)] Body` and `[RegularExpression(\"^(html|plain)$\")] ContentType` are decorative. A JSON body without `to` makes `request.To.Length` throw NullReferenceException at line 32. A null `subject` reaches `message.Subject = request.Subject` in MailSendingService.BuildMimeMessage (line 56), which may throw ArgumentNullException. Any ContentType other than \"html\" silently becomes plain text. The empty-To case also returns the misleading `InvalidEmailAddress` message."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 45,
+   "end_line": 45,
+   "message": "Only InvalidOperationException is caught, and it is mapped to 404 'MailboxNotFound'. SMTP failures (auth, connect, rejected recipients) therefore come back as unhandled 500s. MailKit state errors that may derive from InvalidOperationException would be misreported as 'mailbox not found'. The SendMailFailed message added for this case is never used. `catch (InvalidOperationException) { return Results.NotFound(new { message = localizer[\"MailboxNotFound\"].Value }); }` is the only handler around `mailSendingService.SendMailAsync`. MailSendingService.SendViaSmtpAsync calls ConnectAsync, AuthenticateAsync and SendAsync, plus `protector.Unprotect` (which throws CryptographicException), all with no try/catch. The new `SendMailFailed` key in ApiMessages*.resx is not referenced anywhere. By contrast, MailTestEndpoints catches SocketException, IOException, SslHandshakeException and AuthenticationException explicitly."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 256,
+   "end_line": 256,
+   "message": "The double-send guard is checked before an async JS call but only set after it, so a quick double-click on Send can deliver the same email twice. SendAsync runs `if (_isSending) return;` and then `await GetBodyAndContentTypeAsync()`, which makes JS interop calls (`quillInterop.isEmpty` and `getHtml`). `_isSending = true;` is only set after validation (line 290). A second click handled during those awaits sees `_isSending == false`, and the button is not disabled yet, so both invocations POST /api/mail/send."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "Every send writes the user's mailbox address and all To recipients' email addresses (personal data) to the logs at Information level. `logger.LogInformation(\"Mail sent from {From} to {To} via mailbox {MailboxId}\", mailbox.EmailAddress, string.Join(\", \", request.To), mailbox.Id);` The other log lines in this service log only the MailboxId."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "On IMAP servers without SPECIAL-USE/XLIST, `GetFolder(SpecialFolder.Sent)` may throw instead of returning null. The fallback lookup by name is then never reached, and the sent message is silently left out of the Sent folder. `var sent = client.GetFolder(SpecialFolder.Sent) ?? (await client.GetFoldersAsync(...)).FirstOrDefault(f => f.Name.Equals(\"Sent\", ...));` sits inside a `catch (Exception ex)` that only logs a warning. MailKit's GetFolder(SpecialFolder) throws NotSupportedException when the server does not advertise special-use folders, so the `??` fallback only runs when the capability exists."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Switching from Markdown to Rich text injects unsanitised marked output into the live page with innerHTML. Raw HTML in the markdown (for example pasted `<img src=x onerror=...>`) may then run script in the app's origin, where auth.js keeps the session. In Compose.razor, SwitchToRichTextAsync calls `markedInterop.toHtml(_markdownBody)`, and toHtml returns `marked.parse(markdown)` with no sanitizer. setHtml then does `this._instance.root.innerHTML = html;`, which also bypasses Quill's own clipboard/sanitising path. Server-side sanitisation (OutgoingHtmlSanitizer) only covers the outgoing email, not the composer DOM."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+   "start_line": 133,
+   "end_line": 133,
+   "message": "The tests replace IMailSendingService with a mock, so the logic that matters is never tested: the mailbox ownership filter, MIME building, CC/BCC handling and HTML sanitisation. The CC/BCC test also does not check that CC/BCC reach the service. The constructor does `services.RemoveAll<IMailSendingService>(); services.AddScoped(_ => _mailSendingService);`. SendMail_InvalidMailbox_Returns404Async makes the mock throw for any id, so it never exercises `m.UserId == userId`. SendMail_WithCcAndBcc_CallsServiceAsync asserts only `Received(1).SendMailAsync(Arg.Any<Guid>(), Arg.Any<SendMailRequest>(), ...)`. No test file covers MailSendingService or OutgoingHtmlSanitizer."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Api/Feirb.Api.csproj",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "The change adds four third-party dependencies: the HtmlSanitizer NuGet package, and Quill, marked and Turndown loaded at runtime from jsDelivr with no Subresource Integrity hashes. A compromised CDN response would run in the authenticated app. `<PackageReference Include=\"HtmlSanitizer\" Version=\"9.0.892\" />`. index.html adds `<script src=\"https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js\">`, plus `marked@15.0.7` and `turndown@7.2.0`, all without `integrity=` or `crossorigin=` attributes."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Api/Services/OutgoingHtmlSanitizer.cs",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The outgoing-HTML sanitizer explicitly allows the `data:` URI scheme. Links in sent mail can then carry `data:text/html` payloads, which spam filters and some recipient clients treat as phishing indicators. `sanitizer.AllowedSchemes.Add(\"data\");` applies to all URL attributes, including `href`, not just image sources."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 312,
+   "end_line": 312,
+   "message": "The change leaves dead code and unused resources, which mislead maintainers. `var error = await response.Content.ReadAsStringAsync();` is read and discarded. The `ComposeValidationMailbox` key (in all 4 Web resx files) and the `SendMailFailed` key (in all 4 Api resx files) are never referenced. `quillInterop.getText` and `destroy` (which only nulls the reference) are unused or ineffective. `IsValidEmail` is copied word for word in Compose.razor and ComposeEndpoints.cs instead of being shared from Feirb.Shared."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 114,
+   "end_line": 114,
+   "message": "The compose form has accessibility gaps: the Body label is not tied to any control, the rich-text editor has no accessible name, the loading and sending spinners have no text for screen readers, and validation errors are not linked to their inputs. `<label class=\"form-label fw-semibold mb-0\">@L[\"ComposeBody\"]</label>` has no `for` attribute, and the textarea has no `id`. The Quill container `<div @ref=\"_quillEditorRef\" ...>` has no aria-label. `<div class=\"spinner-border\" role=\"status\"></div>` has no visually-hidden text. The `invalid-feedback` divs have no `id` and no `aria-describedby` linking them to their inputs."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

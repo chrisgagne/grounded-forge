@@ -1,0 +1,79 @@
+{
+ "id": "x15",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.8631,
+ "codex_tokens": 44098,
+ "work": "<tmp>/replay-x15-t1-46eztki1",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff drops assign, isString and has from the utils export block. markdownit.ts:330 still sets this.utils = utils, and the doc at :324-328 says it is there for plugins, so md.utils.assign(...) is now undefined and calling it throws a TypeError. There is no shim, and no story in the packet says the removal was asked for.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/common/utils.ts",
+   "line": 292,
+   "claim": "Removing assign, isString and has from the utils exports breaks md.utils for third-party plugins that call them.",
+   "evidence": "The diff deletes the three functions and drops them from `export { lib, assign, callable, isString, has, ... }`. `src/markdownit.ts:330` still does `this.utils = utils`, and the doc comment at :324-328 describes `MarkdownIt#utils` as \"Assorted utility functions, useful to write plugins\". No shim or deprecation alias replaces the removed members.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Under [Unreleased], the ### Removed section at CHANGELOG.md:28-30 lists only the subpath-export removal. Nothing covers the utils members removed in this diff. This is a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "CHANGELOG.md",
+   "line": 28,
+   "claim": "The changelog doesn't record removing md.utils.assign, isString and has.",
+   "evidence": "The `### Removed` section under `[Unreleased]` lists only \"[breaking] Removed package-internal subpath exports\". No entry covers the utils members the diff removes from `src/common/utils.ts`.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The old assign threw a TypeError when typeof source !== 'object'. markdownit.ts:366 now calls Object.assign(this.options, options) with no type check, so md.set('abc') adds keys '0' to '2' and md.set(1) silently does nothing. The constructor reaches the same path at :343. This only affects misuse, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/markdownit.ts",
+   "line": 366,
+   "claim": "set() no longer rejects non-object options: strings are spread in as indexed keys and numbers are silently ignored.",
+   "evidence": "The old `utils.assign` threw `new TypeError(source + 'must be object')` when `typeof source !== 'object'`. The new `Object.assign(this.options, options)` accepts primitives: `md.set('abc')` adds keys '0','1','2', and `md.set(1)` is a silent no-op. Nothing else in `set()` checks the type now, and the constructor's `this.set(options)` at :343 takes the same path.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The old isString used Object.prototype.toString, which is true for String objects. markdownit.ts:225 now checks typeof !== 'string', so a boxed name becomes options with presetName 'default', and this.set at :343 then copies its characters into options. configure() at :383 changed the same way, and no test in the repo covers this input.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/markdownit.ts",
+   "line": 225,
+   "claim": "Boxed String preset names (new String('zero')) no longer select the preset. They are treated as options under the default preset.",
+   "evidence": "The old `isString` used `Object.prototype.toString.call(obj) === '[object String]'`, which is true for String objects. The new check `typeof presetName !== 'string'` is false for them, so `options = presetName` and later `this.set(options)` copies the indexed characters. `configure()` at :383 changes in the same way. No locked test covers this input.",
+   "axis_row": "L3.7",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

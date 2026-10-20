@@ -1,0 +1,54 @@
+{
+ "id": "rc12",
+ "arm": "claude-again",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 67,
+   "end_line": 68,
+   "message": "`CountDownLatch.await(5, SECONDS)` inside `assertTrue` was replaced with an unbounded `CompletableDeferred.await()` (same at lines 193, 196, 243, 244, 294, 326, 379; BasicTest.kt:83-84; LifecycleTest.kt:121). The PR says these deferreds are always completed before `await()` is reached. If so, `await()` asserts nothing, and the regression case behaves badly. If the callback never fires, the test coroutine suspends. runTest then skips virtual time on the scheduler it shares with the client, which runs the ping loop, pong deadlines and reconnect backoff. That can complete the deferred through a different path (for example a later pong-timeout disconnect) and hide the bug. If nothing completes it, the test hangs until runTest's wall-clock timeout with a generic error. Other tests in this same PR (MiscTest and ReconnectTest) use `assertTrue(x.isCompleted)`, which fails at once and does not advance time. Use that here as well for consistency and accuracy."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 323,
+   "end_line": 326,
+   "message": "The migration dropped the assertion failure messages that documented intent: \"onDisconnect must fire even when onTransportDrop throws\" here, and \"onTransportRestore must fire after successful reconnect\" at line 379. A bare `await()` gives no diagnostic when it fails, or hangs until runTest times out. Keep the messages, e.g. `assertTrue(disconnectCalled.isCompleted, \"onDisconnect must fire even when onTransportDrop throws\")`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 26,
+   "end_line": 35,
+   "message": "`tearDown` calls `runBlocking` on a test dispatcher and awaits `done` with no timeout, and nothing advances `testScheduler`. If a test fails before closing its client, and shutdown has to resume a coroutine parked on the scheduler (a delayed task or a dispatched continuation), nothing will run that task and the JUnit thread blocks forever. The PR assumes the client is already closed by teardown, but that does not hold when an assertion fails mid-test. Wrap the body in `withTimeout`, or call `testScheduler.advanceUntilIdle()` around close, so a failing test cannot hang the suite."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 44,
+   "end_line": 54,
+   "message": "Before this change, `waitUntil` never advanced virtual time. Now it advances the shared scheduler 10 ms per iteration, up to 5 s, while it polls. In the reconnect tests (baseDelay 1 ms, maxDelay 10 ms), waiting for a condition can now also fire extra backoff retries, heartbeats or pong deadlines that the test never asked for. Elapsed virtual time then depends on how many polls it took, which makes later `advanceTimeBy(...)` arithmetic in the tests fragile. The KDoc should say that it advances time. Callers that only need queued work drained should use `runCurrent()` instead."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 21,
+   "end_line": 23,
+   "message": "Each subclass passes `TestCoroutineScheduler()` through the constructor, and all five do exactly the same thing. That adds boilerplate and makes it easy to share one scheduler instance by mistake. The base class can just declare `protected val testScheduler = TestCoroutineScheduler()`. The JUnit per-method lifecycle already gives each test a fresh instance."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 65,
+  "cost_usd": 0.40128519999999995,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

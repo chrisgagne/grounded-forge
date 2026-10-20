@@ -1,0 +1,110 @@
+{
+ "id": "rc16",
+ "arm": "claude-again",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The report says the dam and sire 'come from completely separate genetic backgrounds' with 'zero inbreeding risk', but its own pedigree section contradicts this. The dam's maternal grandsire (6400522016NWT063) and both of the sire's paternal grandparents (NWT012, NWT082) come from the same breeder, Hound River Farm. Shared ancestry beyond two generations is quite likely. The 0% COI only reflects the shallow pedigree the check could see, so the report should say that rather than claim a guaranteed clean outcross. The same overclaim appears at lines 150 and 176."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 150,
+   "end_line": 150,
+   "message": "USD318 is called the dam's 'maternal grandsire', but the pedigree tree shows USD318 is the sire of FLE382, the dam's sire. That makes it her paternal grandsire. Her maternal grandsire is NWT063, from Hound River Farm, which is the same farm as the sire's paternal grandparents. This relationship mislabel also hides the shared-flock overlap."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "'WWT +1.98, YWT +2.63 above breed midpoint' reads the predicted midparent EBVs as if they were differences from the midpoint. The actual differences are about +0.39 lbs for WWT (1.98 \u2212 1.59) and +2.26 lbs for YWT (2.63 \u2212 0.37). As written, this overstates the WWT advantage about fivefold."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "'Predicted WWT of +1.98 lbs above breed average' is wrong. +1.98 is the midparent EBV, not a margin over breed average, and the report's own WWT midpoint is +1.59, so the lamb sits only about 0.39 lbs above it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 174,
+   "end_line": 174,
+   "message": "The predicted offspring BWT is described as 'well below breed average', but +0.06 is only 0.12 lbs under the +0.18 midpoint. Line 118 calls the same figure 'near breed average', so the report contradicts itself here."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 76,
+   "end_line": 76,
+   "message": "The report says NCS310 has 'many' progeny from the 2025 lambing season at Beyond Blessed Farm. If so, EPC26005 has paternal half-siblings already in the flock. Yet the recommendations at lines 120 and 189 only warn about dam-side genetics. Both sides need checking before the lamb is used as a sire. The claim itself also has no supporting data in the report."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The report says this mating 'often results in hybrid vigor (heterosis)'. Heterosis comes from crossing breeds. A Katahdin \u00d7 Katahdin outcross gives little or none, so this benefit is overstated (also at line 176)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "The sire's BWT EBV is described as 'Well below average \u2014 excellent' at the 32nd percentile. That is moderately below the median, not well below. Line 90 also calls his figures 'among the most reliable of any sire evaluated in this flock', and line 180 makes a similar claim, but the report gives no comparison data to support either."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 184,
+   "end_line": 184,
+   "message": "Recording birth weight does not update the dam's NLB accuracy. NLB depends on the number of lambs born, which is already recorded. Birth weight feeds the BWT evaluations, including the dam's own BWT."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "Using a 'high-NLB sire' to 'build her fertility record' doesn't work. A ewe's own litter size and NLB record come from her own reproduction. A sire's NLB EBV mainly affects his daughters' fertility, not the litter the current ewe carries."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 43,
+   "end_line": 55,
+   "message": "The two accuracy explanations conflict. The note at line 43 says her EBVs come 'primarily from relatives', while line 55 says they are 'driven by her own performance records and relatives'. The glossary at line 205 also links 60\u201380% accuracy to 'good progeny data', yet the dam reaches 63\u201365% with no progeny."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 172,
+   "end_line": 172,
+   "message": "The report credits the sire's low BWT EBV with the easy birth of a lamb it describes as 'large'. That causal claim isn't supported, and no birth weight was recorded to back it up."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 49,
+  "cost_usd": 0.2104052,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

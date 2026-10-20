@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.14466959999999998,
+  "duration_s": 32.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/stjohns.mjs {tree}",
+  "because": "On head, tzOffset returns -150 instead of -210 for America/St_Johns, both on the first call and on the repeat call served from the cache, and also for the literal \"-03:30\" zone, while whole-hour negative and positive half-hour offsets still come out right; base returns -210 every time."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS tzOffset(America/St_Johns) = -210, expected -210\nPASS tzOffset(America/St_Johns) = -210, expected -210\nPASS tzOffset(-03:30) = -210, expected -210\nPASS tzOffset(America/Caracas) = -240, expected -240\nPASS tzOffset(Asia/Kolkata) = 330, expected 330\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL tzOffset(America/St_Johns) = -150, expected -210\nFAIL tzOffset(America/St_Johns) = -150, expected -210\nFAIL tzOffset(-03:30) = -150, expected -210\nPASS tzOffset(America/Caracas) = -240, expected -240\nPASS tzOffset(Asia/Kolkata) = 330, expected 330\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, tzOffset returns -150 instead of -210 for America/St_Johns, both on the first call and on the repeat call served from the cache, and also for the literal \"-03:30\" zone, while whole-hour negative and positive half-hour offsets still come out right; base returns -210 every time.",
+ "run": "v4-arm-v3",
+ "trial": "w07-t1",
+ "kind": "bug"
+}

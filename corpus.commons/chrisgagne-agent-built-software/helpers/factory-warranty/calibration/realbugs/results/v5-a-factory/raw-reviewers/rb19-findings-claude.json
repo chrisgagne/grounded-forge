@@ -1,0 +1,69 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "high",
+  "file": "src/gimmes/strategy/staleness.py",
+  "line": 79,
+  "claim": "With the default config the new activity test always passes, so check_staleness never increments the count and no market is ever skipped as stale; the staleness filter is effectively switched off.",
+  "evidence": "cli.py:299-315 runs check_staleness only on the output of filter_markets. scanner.py:71-73 drops any market where `vol = m.volume_24h if m.volume_24h > 0 else m.volume` is below sc.min_volume (config.py:536, default=100). staleness.py:72 computes the same `volume` and line 79 sets `has_volume = volume >= volume_floor` with volume_floor=10. Every candidate therefore has volume >= 100 >= 10, line 82 always takes the reset branch (`new_count = 0`), and line 97 `new_count >= threshold` is never true. Trigger: a market with a frozen price and frozen OI that passes filter_markets keeps count 0 on every scan and is never skipped.",
+  "axis_row": "L2.17"
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "src/gimmes/strategy/staleness.py",
+  "line": 72,
+  "claim": "Activity is measured from a rolling 24h volume (or, when that is 0, lifetime volume), not from trading since the previous cycle, so a market with no trades for many cycles still reads as active.",
+  "evidence": "Line 72 is `volume = m.volume_24h if m.volume_24h > 0 else m.volume`. Line 79 compares this absolute level to a floor and never to the stored `entry[\"volume\"]`. A market that traded once within 24h, or that has any lifetime volume of 10 or more once volume_24h drops to 0 (`volume` is the API's total `volume` field, kalshi/markets.py:41), resets the count on every scan even though nothing traded between cycles. The volume delta that the old volume-spike logic tracked is gone."
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "tests/unit/test_staleness.py",
+  "line": 44,
+  "claim": "Every test that expects a market to become stale uses volume=0, an input the production path never sends because filter_markets has already removed it, so the suite passes while the feature does nothing in real scans.",
+  "evidence": "test_inactive_market_increments_count, test_count_reaches_threshold_skips, test_no_volume_no_oi_no_price_increments and test_volume_below_floor_stale all build `_market(volume=0)` or `volume=9`. scanner.py:72 drops any candidate with volume below min_volume (default 100) before check_staleness runs. No test drives filter_markets and check_staleness together, or uses a realistic candidate (volume >= 100, unchanged price and OI) and expects it to be skipped.",
+  "axis_row": "L3.9"
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "tests/unit/test_staleness.py",
+  "line": 134,
+  "claim": "The change edits the locked baseline acceptance tests so that they match the new implementation, which weakens their value as an independent gate.",
+  "evidence": "acceptance.md says 'The baseline's tests are the locked acceptance tests'. The diff rewrites existing tests in tests/unit/test_staleness.py: test_unchanged_price_increments_count becomes test_inactive_market_increments_count with volume changed from 500 to 0, test_volume_spike_resets_count is replaced, and the inputs of test_count_reaches_threshold_skips, test_price_change_resets_count and test_threshold_zero_disables change to volume=0. The packet contains no story.md that records who agreed the new expectations.",
+  "axis_row": "L3.1"
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "low",
+  "file": "src/gimmes/strategy/staleness.py",
+  "line": 51,
+  "claim": "The activity floor of 10 is hard-coded, cannot be set from config, and is not tied to scanner.min_volume, which is how the floor and the volume filter came to conflict.",
+  "evidence": "`volume_floor: int = 10` is a keyword default. cli.py:312-315 calls check_staleness with only `threshold=staleness_threshold`. ScannerConfig has no matching field, and the new staleness_cycles description in config.py does not mention the floor.",
+  "axis_row": "L4.31"
+ },
+ {
+  "id": "C6",
+  "leg": "claude",
+  "severity": "low",
+  "file": "src/gimmes/strategy/staleness.py",
+  "line": 18,
+  "claim": "StalenessEntry.volume is still written on every cycle but the new logic never reads it, which leaves dead state in the persisted file.",
+  "evidence": "Line 91 writes `volume=volume`, but lines 78-85 read only entry[\"price\"], entry.get(\"open_interest\", 0) and entry[\"count\"]. The old read of entry[\"volume\"] for the spike ratio was removed."
+ },
+ {
+  "id": "C7",
+  "leg": "claude",
+  "severity": "low",
+  "file": "src/gimmes/config.py",
+  "line": 624,
+  "claim": "The new user-facing description promises that markets with active volume are not stale, but under the default min_volume no candidate can be stale at all, so the description misleads anyone tuning staleness_cycles.",
+  "evidence": "The description now reads 'Skip markets with no trading activity (no volume, no OI change, no price change)... Markets with stable prices but active volume are NOT considered stale.' Given scanner.py:72 and staleness.py:79, every candidate counts as having volume, so the setting has no effect."
+ }
+]

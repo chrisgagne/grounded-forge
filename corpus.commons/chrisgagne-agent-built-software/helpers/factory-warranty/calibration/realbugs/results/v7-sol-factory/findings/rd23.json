@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Unregistered participants can be checked in because the registration check is not awaited. For a valid participant who is not registered for the selected event, isRegistered returns a Promise; negating that truthy Promise always produces false. The controller skips the rejection and calls checkin when no existing check-in exists."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 313,
+   "message": "Staff registered for an event cannot open its check-in scanner. The QrCode control that sets scannerModalOpen(true) is nested inside the !isRegistered condition at line 290. EventsController.show computes registration for the current user, so registered staff never receive the scanner-opening control."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Repeated scanner callbacks can submit concurrent check-ins and produce database errors. CredentialScanner enables allowMultiple with scanDelay=0, while handleCheckIN posts every callback without an in-flight guard. Concurrent requests can both pass isCheckedIn before EventService.checkin attaches the same pair; event_checkins has a unique constraint on event_id and user_id, and the controller does not handle the resulting conflict."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "Running the new seeder creates a verified staff account with publicly known credentials in any environment. run has no environment guard and creates staff@eneiconf.pt with password 'password', marks its email verified, and associates a staff profile. UserService authenticates credentials through Account.verifyCredentials, and StaffMiddleware grants access based on staffProfileId. Unlike 2_account_seeder.dev.ts, this seeder does not check app.inDev."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 314,
+   "end_line": 314,
+   "message": "The scanner control is inaccessible to keyboard users and lacks an accessible name. The interactive control is a QrCode SVG with only an onClick handler; it has no button wrapper, keyboard handler, tabIndex, or accessible label."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

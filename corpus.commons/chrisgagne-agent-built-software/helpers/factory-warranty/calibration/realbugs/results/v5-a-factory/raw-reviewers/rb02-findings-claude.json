@@ -1,0 +1,176 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "critical",
+  "file": "packages/core/src/astro/routes/api/search/index.ts",
+  "line": 42,
+  "claim": "The change makes /_emdash/api/search public and removes its permission check, but the endpoint still passes a caller-supplied `status` to the query, so anyone without a login can read the titles and text snippets of draft, scheduled or archived content.",
+  "evidence": "middleware/auth.ts adds \"/_emdash/api/search\" to PUBLIC_API_EXACT, and search/index.ts drops `requirePerm(user, \"search:read\")`. The handler then calls `searchWithDb(emdash.db, query.q, { collections, status: query.status, ... })`. schemas/search.ts declares `status: z.string().optional()`, and search/query.ts:219 filters on `AND c.status = ${status}`. The FTS triggers in fts-manager.ts index every row whatever its status. So `GET /_emdash/api/search?q=a&status=draft` with no session returns draft titles and snippets. The comment added in middleware/auth.ts:87-89 says \"The query layer hardcodes status='published'\". That is untrue, and it would lead a reviewer to skip this path.",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "high",
+  "file": "packages/core/src/astro/routes/api/auth/oauth/[provider]/callback.ts",
+  "line": 143,
+  "claim": "Until setup is complete, the GitHub/Google OAuth callback makes any new OAuth user an ADMIN and then marks setup complete, so a stranger can take over a freshly deployed site and lock the owner out.",
+  "evidence": "The new `canSelfSignup` returns `{ allowed: true, role: Role.ADMIN }` whenever `emdash:setup_complete` is not true, before the allowed-domain check runs. After `handleOAuthCallback` it calls `finalizeSetup(emdash.db)`, which sets `emdash:setup_complete`. `/_emdash/api/auth/oauth/` is in PUBLIC_API_PREFIXES, and nothing links the callback to the setup wizard. Trigger: on a new install with GitHub OAuth configured, an attacker opens /_emdash/api/auth/oauth/github and finishes the GitHub login. They become admin and setup is marked complete. Before this change, the domain allowlist gated signup at this point.",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "high",
+  "file": "packages/auth-atproto/src/routes/callback.ts",
+  "line": 131,
+  "claim": "Until setup is complete, the atproto callback gives ADMIN to whichever DID finishes OAuth first, including logins started from the public /atproto/login route. It never checks the handle the owner entered in the setup wizard, so an attacker who logs in first takes over the site and gets an account under the owner's email.",
+  "evidence": "`isFirstUser = setupComplete !== true && setupComplete !== \"true\"`, and then `findOrCreateOAuthUser(..., async () => { if (isFirstUser) return { allowed: true, role: Role.ADMIN }; ...})`. setup-admin.ts stores `handle: body.handle` in setup_state, but callback.ts never compares it with `atprotoSession.did`. For the first user it sets `email = setupState?.email` and `emailVerified: isFirstUser`. login.ts (under the public prefix `/_emdash/api/auth/atproto/`) has no setup-state check. Trigger: the owner completes wizard step 1; an attacker POSTs `{handle:\"attacker.bsky.social\"}` to /_emdash/api/auth/atproto/login and completes OAuth. They become admin, finalizeSetup runs, and the owner's setup flow then fails with SETUP_COMPLETE.",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "packages/auth-atproto/src/routes/callback.ts",
+  "line": 126,
+  "claim": "Comments in both OAuth callbacks claim that checking the setup_complete flag prevents a race that creates two admins. It doesn't: two concurrent callbacks can both read false and both create ADMIN users.",
+  "evidence": "callback.ts:126 says \"Using an option flag instead of countUsers() avoids a TOCTOU race where two concurrent callbacks both see 0 users and both create admins\". But the flag is read with `options.get(\"emdash:setup_complete\")` and only written later by `finalizeSetup`, with no lock or conditional write in between. The core OAuth callback ([provider]/callback.ts:140) has the same comment and the same read-then-write pattern. The comment at line 147 even says \"safe if two callbacks race past the check\".",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "packages/core/src/astro/integration/index.ts",
+  "line": 211,
+  "claim": "The integration now sets Astro's `security.checkOrigin: false` for the whole site, which removes Astro's built-in CSRF origin check from the user's own pages, form endpoints and actions outside /_emdash. EmDash's replacement check only covers /_emdash public and plugin API routes.",
+  "evidence": "`const securityConfig = { checkOrigin: false, ... }; updateConfig({ security: securityConfig, ...})`. `checkPublicCsrf` is called only from middleware/auth.ts for `isPublicApiRoute` and `/_emdash/api/plugins/`. The other /_emdash routes need the X-EmDash-Request header. Template or user routes such as a contact-form POST no longer get any origin check. This weakens a secure default.",
+  "axis_row": "L5.13"
+ },
+ {
+  "id": "C6",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "packages/core/src/plugins/context.ts",
+  "line": 496,
+  "claim": "A plugin whose allowedHosts contains \"*\" can now fetch any host, including localhost, private IPs and cloud metadata endpoints. The restricted HTTP client runs no SSRF validation, so this wildcard grants more than the `network:fetch:any` capability does.",
+  "evidence": "`isHostAllowed` gains `if (pattern === \"*\") return true;`. `createHttpAccess` only calls `isHostAllowed` and then `globalThis.fetch(currentUrl, ...)`. `createUnrestrictedHttpAccess` (the fetch:any path) calls `validateExternalUrl(currentUrl)` on every hop. Trigger: a plugin with `allowedHosts: [\"*\"]` calls `ctx.http.fetch(\"http://169.254.169.254/latest/meta-data/\")`, and the request goes through."
+ },
+ {
+  "id": "C7",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "packages/auth-atproto/src/routes/login.ts",
+  "line": 28,
+  "claim": "The atproto routes build client_id and redirect_uri from the internal request origin rather than the public origin this same change adds, so atproto login may fail behind a TLS-terminating proxy. The metadata document would also advertise whatever Host the request came in on.",
+  "evidence": "login.ts, setup-admin.ts:56 and callback.ts:42 all use `const baseUrl = url.origin;`. client-metadata.ts uses `new URL(request.url).origin`. Every core auth route in the diff was switched to `getPublicOrigin(url, emdash?.config)` for exactly this reverse-proxy case (see public-url.ts). Behind a proxy, `http://localhost:4321/_emdash/api/auth/atproto/callback` would be registered as the redirect_uri."
+ },
+ {
+  "id": "C8",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "packages/auth-atproto/src/routes/callback.ts",
+  "line": 42,
+  "claim": "The atproto callback may allow login CSRF: it accepts any valid state/code pair without checking that the browser completing the flow is the one that started it, so an attacker could log a victim into the attacker's account.",
+  "evidence": "login.ts returns the authorize URL and sets no cookie or session marker. The OAuth state is held only server-side in the `auth:atproto` `states` collection (db-store.ts). callback.ts calls `client.callback(url.searchParams)` and then `session.set(\"user\", { id: user.id })`, with no check that ties the state to the current session.",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "C9",
+  "leg": "claude",
+  "severity": "medium",
+  "file": ".github/workflows/lunaria.yml",
+  "line": 29,
+  "claim": "A new `pull_request_target` workflow with `pull-requests: write` runs a third-party action pinned to a mutable prerelease tag. Every other action in the repo is pinned by SHA, so a moved tag would run new code with a write token.",
+  "evidence": "`- uses: lunariajs/action@v1-prerelease` under `on: pull_request_target` with `permissions: pull-requests: write`. In the same diff, other actions use pinned SHAs (e.g. `actions/checkout@de0fac2e...`).",
+  "axis_row": "L4.4"
+ },
+ {
+  "id": "C10",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "package.json",
+  "line": 39,
+  "claim": "A new root devDependency installs from a pkg.pr.new preview build of an upstream pull request rather than a published, vetted release. It runs in CI (including the pull_request_target Lunaria job) and in the Docker build.",
+  "evidence": "`\"@lunariajs/core\": \"https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@83617cc\"`, with a matching tarball resolution in pnpm-lock.yaml:3007. i18n/build.ts and lunaria.config.ts import it.",
+  "axis_row": "L4.4"
+ },
+ {
+  "id": "C11",
+  "leg": "claude",
+  "severity": "low",
+  "file": "packages/core/src/astro/routes/sitemap-[collection].xml.ts",
+  "line": 39,
+  "claim": "The per-collection sitemap builds URLs from the internal request origin, while the sitemap index uses the public origin, so behind a proxy the child sitemaps list http://localhost URLs.",
+  "evidence": "sitemap-[collection].xml.ts: `const siteUrl = (settings.url || url.origin)`. sitemap.xml.ts and robots.txt.ts in the same diff use `settings.url || getPublicOrigin(url, emdash?.config)`."
+ },
+ {
+  "id": "C12",
+  "leg": "claude",
+  "severity": "low",
+  "file": "packages/core/src/astro/routes/api/search/suggest.ts",
+  "line": 25,
+  "claim": "The `search:read` permission check is removed from the suggest endpoint, which stays non-public, so any authenticated role can now call it. This looks unintended.",
+  "evidence": "The diff deletes `const denied = requirePerm(user, \"search:read\"); if (denied) return denied;` from suggest.ts. `/_emdash/api/search/suggest` is not added to PUBLIC_API_EXACT, so middleware still requires a login, but nothing checks the permission any more."
+ },
+ {
+  "id": "C13",
+  "leg": "claude",
+  "severity": "low",
+  "file": "packages/core/src/astro/middleware/csp.ts",
+  "line": 22,
+  "claim": "The admin CSP's img-src is widened from self plus the marketplace origin to any https origin, so injected markup in the admin can now load (and beacon to) arbitrary external images.",
+  "evidence": "`\"img-src 'self' https: data: blob:\"` replaces the earlier `buildEmDashCsp(marketplaceUrl)`, which allowed only 'self', data:, blob: and the marketplace origin.",
+  "axis_row": "L5.13"
+ },
+ {
+  "id": "C14",
+  "leg": "claude",
+  "severity": "low",
+  "file": "packages/core/src/database/migrations/034_published_at_index.ts",
+  "line": 12,
+  "claim": "Migration 034 uses a bare CREATE INDEX, while this same change patches 033 to IF NOT EXISTS for idempotency. A table that already has the index (e.g. a partial earlier run) would make the migration fail.",
+  "evidence": "034: `CREATE INDEX ${sql.ref(`idx_${table.name}_deleted_published_id`)}`. 033 was edited in this diff from `CREATE INDEX` to `CREATE INDEX IF NOT EXISTS` for every index. Editing the already-shipped migration 033 also changes history that existing databases have already run.",
+  "axis_row": "L2.4"
+ },
+ {
+  "id": "C15",
+  "leg": "claude",
+  "severity": "low",
+  "file": "Dockerfile",
+  "line": 49,
+  "claim": "The new runtime image runs the Node server as root.",
+  "evidence": "The final stage `FROM node:22-slim` ... `CMD [\"node\", \"./dist/server/entry.mjs\"]` has no `USER` directive, so the server and the writable `data`/`uploads` directories are owned by root."
+ },
+ {
+  "id": "C16",
+  "leg": "claude",
+  "severity": "low",
+  "file": "packages/core/CHANGELOG.md",
+  "line": 34,
+  "claim": "The changelog documents a `passkeyPublicOrigin` option that the code doesn't provide; the shipped option is `siteUrl`.",
+  "evidence": "The CHANGELOG entry says \"Adds `passkeyPublicOrigin` on `emdash()`\". runtime.ts:294 says siteUrl \"Replaces `passkeyPublicOrigin`\", and no code reads `passkeyPublicOrigin`."
+ },
+ {
+  "id": "C17",
+  "leg": "claude",
+  "severity": "low",
+  "file": ".github/workflows/bonk.yml",
+  "line": 25,
+  "claim": "The bonk action's pinned SHA changed but its version comment still gives the old date, so the pin can't be traced to a reviewed upstream revision.",
+  "evidence": "`ask-bonk/ask-bonk/github@c39e982d... # main 2026-03-23` became `ask-bonk/ask-bonk/github@7e200bbf... # main 2026-03-23`. The comment is unchanged.",
+  "axis_row": "L5.10"
+ },
+ {
+  "id": "C18",
+  "leg": "claude",
+  "severity": "low",
+  "file": "packages/auth-atproto/src/routes/callback.ts",
+  "line": 1,
+  "claim": "The new atproto provider has no tests for its security-critical callback: the first-user admin grant, the allowlist and handle verification, and disabled-user rejection are all untested.",
+  "evidence": "The tests added for auth-atproto are auth.test.ts (descriptor shape), oauth-client.test.ts and resolve-handle.test.ts. None of them exercise routes/callback.ts or routes/login.ts.",
+  "axis_row": "L3.23"
+ }
+]

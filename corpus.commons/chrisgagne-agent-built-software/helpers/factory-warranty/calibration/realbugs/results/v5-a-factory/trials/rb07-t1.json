@@ -1,0 +1,197 @@
+{
+ "id": "rb07",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests"
+ ],
+ "first": "gate",
+ "cost_usd": 1.2001,
+ "codex_tokens": 47179,
+ "work": "<tmp>/replay-rb07-t1-96w0pcg6",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "client.js:651 captures queryCallback before the trace wrapper is installed at :728. The timer calls queryCallback(error) directly at :660 and then sets query.callback to a no-op at :664, so the traced wrapper is never called and the later handleError also reaches the no-op. No test covers this.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/pg/lib/client.js",
+   "line": 660,
+   "claim": "When a query read timeout fires, the pg:query trace never completes: there is no error, asyncStart or asyncEnd event.",
+   "evidence": "Line 651 captures `queryCallback = query.callback` before tracing wraps it. Lines 726-735 then replace `query.callback` with the traced wrapper (around the timeout wrapper). On timeout the timer calls `queryCallback(error)` directly (line 660), which skips the traced wrapper, then sets `query.callback = () => {}` (line 664), dropping the traced wrapper so it is never called. No test covers this path.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In pool index.js, enrichedCb sets context.client but never replaces context.result, so the Node TracingChannel wrapper's context.result = client stays in place. In client.js:723, result is replaced only inside the callback, after asyncStart. Subscribers are in-process code that could reach these objects anyway, so I lowered this from medium to low as a payload-shape inconsistency rather than a traced exposure.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "packages/pg-pool/index.js",
+   "line": 218,
+   "claim": "traceCallback sets context.result to the raw callback argument: the full Client for pool.connect, and the full Result with rows for a query before enrichedCb overwrites it.",
+   "evidence": "TracingChannel.traceCallback assigns the callback's second argument to context.result before publishing asyncStart. For pool.connect(), that argument is the full Client, and enrichedCb never replaces context.result; a Node 22 reproduction confirmed asyncEnd receives the Client instance. Client contains connectionParameters and password. The same pattern in packages/pg/lib/client.js:726 exposes the full query Result, including rows, to asyncStart before enrichedCb replaces it with command and rowCount.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "query.js:131/142 call this.callback(...), which keeps the Query receiver. enrichedCb at client.js:722 is an arrow function that calls origCb(err, res) as a plain function, so `this` is lost. The existing readTimeout wrapper at :675 already drops `this` the same way, and binding to `this` is undocumented, so I lowered this from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "packages/pg/lib/client.js",
+   "line": 722,
+   "claim": "With tracing on, the query callback no longer gets the Query as `this`.",
+   "evidence": "Query.handleReadyForQuery and Query.handleError invoke callbacks as this.callback(...), preserving the Query receiver. The tracing wrapper receives that receiver, but enrichedCb is an arrow function and invokes origCb(err, res) as a plain function, discarding it. Thus the same callback receives the Query without tracing and undefined as this in strict mode when tracing is subscribed.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The !_queryable and _ending branches at client.js:689-701 return before the shouldTrace block at :709, so these errors never reach pg:query subscribers.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/client.js",
+   "line": 689,
+   "claim": "Queries rejected because the client is not queryable or is ending are never traced.",
+   "evidence": "The `!this._queryable` and `this._ending` branches (lines 689-701) return before the `shouldTrace(queryChannel)` block at line 709. They call `query.handleError` on the original, unwrapped callback.",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The guard `shouldTrace(queryChannel) && query.callback` at client.js:709 sends callback-less submittables straight to enqueue() without tracing.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/client.js",
+   "line": 709,
+   "claim": "Submittables with no callback (pg-cursor, pg-query-stream) are not traced.",
+   "evidence": "The guard is `if (shouldTrace(queryChannel) && query.callback)`. A submittable passed without a callback has no `query.callback`, so it goes to `enqueue()` with no trace.",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "query.js:142 passes this._results, which is an array for multi-statement text. enrichedCb at client.js:723 reads res.rowCount and res.command without checking for an array.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/client.js",
+   "line": 723,
+   "claim": "Multi-statement queries publish undefined rowCount and command.",
+   "evidence": "query.js line 142 calls `this.callback(null, this._results)`, and `_results` can be an array for multi-statement text. enrichedCb reads `res.rowCount` / `res.command` without checking for an array.",
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "shouldTrace returns hasSubscribers !== false, which is true when the getter is undefined. Both test files skip unless hasSubscribers is a boolean. This is a performance and coverage point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/diagnostics.js",
+   "line": 39,
+   "claim": "On Node versions where TracingChannel has no hasSubscribers getter, every query and connect is traced even with no subscribers, and that path is untested.",
+   "evidence": "`shouldTrace` returns `channel.hasSubscribers !== false`, which is true when the getter is undefined. Both test files set `hasStableTracingChannel` to require a boolean `hasSubscribers` and skip otherwise, with the comment 'Skip tests on older versions where TracingChannel is missing or has internal bugs'. So the always-on production path on those versions is never exercised. pg's engines field is `>= 16.0.0`.",
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "noise",
+   "reason": "client.js:711 does publish query.text, but publishing the statement is what a pg:query tracing channel is for, and subscribers are code already running in the same process. The missing documentation is covered by C9.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/client.js",
+   "line": 711,
+   "claim": "Full SQL text is published to diagnostics subscribers.",
+   "evidence": "`context = { query: { text: query.text, ... } }` is published on start. No redaction option exists and no documentation mentions the channel payloads.",
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes only lib/client.js and pg-pool. native/client.js has its own query and connect methods and does not require ./diagnostics, so pg.native users get no pg:query or pg:connection events.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/native/client.js",
+   "line": 1,
+   "claim": "The native client is not instrumented.",
+   "evidence": "The diff only changes packages/pg/lib/client.js. packages/pg/lib/native/client.js has its own connect/query methods and does not use `./diagnostics`.",
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows identical loader and shouldTrace code in both diagnostics.js files, and the same connection object literal at client.js connect lines 329 and 350. This is a maintainability point, so it is low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg-pool/diagnostics.js",
+   "line": 1,
+   "claim": "The diagnostics loader and shouldTrace are duplicated across packages, and the connection context is built twice.",
+   "evidence": "packages/pg-pool/diagnostics.js and packages/pg/lib/diagnostics.js contain the same try/getBuiltInModule block and the same `shouldTrace` function. client.js lines 329 and 350 build the identical `connection: { database, host, port, user, ssl }` object twice.",
+   "axis_row": "L6.15",
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds five public channels and changes no README or docs file. This is a documentation point, so it is low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/lib/diagnostics.js",
+   "line": 1,
+   "claim": "The new channels and their payloads are undocumented.",
+   "evidence": "A search of the repo for 'diagnostics_channel' or 'pg:query' finds only the two new diagnostics.js modules and their tests. No README or docs page changed.",
+   "axis_row": "L5.24",
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The new tests cover success, one errorMessage, the promise path, and pool connect/release/remove only. Nothing sets query_timeout or fails a connect, which is why the C1/X2 timeout leak went unnoticed.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/pg/test/unit/client/diagnostics-tests.js",
+   "line": 466,
+   "claim": "The tests skip the timeout, not-queryable, pool-timeout and connect-error paths.",
+   "evidence": "The query tests cover callback success, an errorMessage, client info and the promise path. The pool tests cover one successful connect (via a mock client), release and remove. None set `query_timeout` or `connectionTimeoutMillis`, and none fail a connect, which is how the read-timeout trace leak goes undetected.",
+   "axis_row": "L3.9",
+   "id": "F12"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": []
+ }
+}

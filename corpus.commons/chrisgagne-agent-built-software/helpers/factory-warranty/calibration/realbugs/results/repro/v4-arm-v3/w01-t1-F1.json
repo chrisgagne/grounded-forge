@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.2083162,
+  "duration_s": 120.3
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON check/eofnl.mjs {tree}",
+  "because": "The check applies a hunk that changes the unterminated last line of 'a\\nb' to 'c', with a '\\ No newline at end of file' marker after both the -b and +c lines, using the tree's own src/patch/apply.js (loaded as native ESM through a small resolve hook in check/hooks.mjs, since neither tree has node_modules); base returns 'a\\nc' for both line orders, while head returns 'a\\nc\\n' (adds a trailing newline) when '-' comes first and false (rejects the valid patch) when '+' comes first, which is exactly the both-markers case the new break and the deleted branch drop."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "minus-first -> \"a\\nc\"\nplus-first -> \"a\\nc\"\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "minus-first -> \"a\\nc\\n\"\n  FAIL: expected \"a\\nc\"\nplus-first -> false\n  FAIL: expected \"a\\nc\"\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check applies a hunk that changes the unterminated last line of 'a\\nb' to 'c', with a '\\ No newline at end of file' marker after both the -b and +c lines, using the tree's own src/patch/apply.js (loaded as native ESM through a small resolve hook in check/hooks.mjs, since neither tree has node_modules); base returns 'a\\nc' for both line orders, while head returns 'a\\nc\\n' (adds a trailing newline) when '-' comes first and false (rejects the valid patch) when '+' comes first, which is exactly the both-markers case the new break and the deleted branch drop.",
+ "run": "v4-arm-v3",
+ "trial": "w01-t1",
+ "kind": "bug"
+}

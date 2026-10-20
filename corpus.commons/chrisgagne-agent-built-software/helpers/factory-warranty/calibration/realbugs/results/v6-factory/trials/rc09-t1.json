@@ -1,0 +1,249 @@
+{
+ "id": "rc09",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.0505,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc09-t1-zxt5846e",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "CircleIcon.tsx:147 sets fillColor to 'none' when fill, fill-color and circle-color are all unset, and line 176 then draws a <line>. DEFAULT_USER_LAYER_LEGEND (create_layer/constants.ts:37-46, stepName 'Point', only color/width) and registerNewGeometryLayer.ts:33-38 (style {color}) both hit that path, so point layers now show a line icon. Lowered from high to medium: the trigger is traced, but the effect is a wrong legend icon with no data loss or crash.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "line": 176,
+   "claim": "Circle legend steps with no fill now render as a horizontal line, so existing point legends (default user 'Point' layer, registerNewGeometryLayer) lose their circle symbol.",
+   "evidence": "The new branch `fillColor === 'none' ? <line .../> : <circle .../>` falls to the line whenever `fill`, `styles['fill-color']` and `styles['circle-color']` are all unset. Two existing producers hit it. `DEFAULT_USER_LAYER_LEGEND` in src/features/create_layer/constants.ts:37-46 has `stepName: 'Point', stepShape: 'circle', style: { color: '#000000', width: 3, ... }`. `registerNewGeometryLayer` in src/core/logical_layers/utils/registerNewGeometryLayer.ts:33-39 has `stepShape: 'circle', style: { color: mainColor }`. Before the change both drew an outlined circle. Now the 'Point' step draws a line.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+     "line": 37,
+     "claim": "Circle legends whose style has no fill colour now draw as a horizontal line instead of a circle, so existing point legends (user-created layers and newly registered geometry layers) change appearance.",
+     "evidence": "The new branch `fillColor === 'none' ? <line .../> : <circle .../>` falls to the line whenever `fill`, `styles['fill-color']` and `styles['circle-color']` are all unset. Two existing producers hit it. `DEFAULT_USER_LAYER_LEGEND` in src/features/create_layer/constants.ts:37-46 has `stepName: 'Point', stepShape: 'circle', style: { color: '#000000', width: 3, ... }`. `registerNewGeometryLayer` in src/core/logical_layers/utils/registerNewGeometryLayer.ts:33-39 has `stepShape: 'circle', style: { color: mainColor }`. Before the change both drew an outlined circle. Now the 'Point' step draws a line."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+     "line": 176,
+     "claim": "Any circle step without a fill color now renders as a horizontal line, not just the outline circles this change is aimed at. Existing callers rely on the old outline circle to mean a point. `registerNewGeometryLayer.ts:34` (style `{ color: mainColor }`) and `DEFAULT_USER_LAYER_LEGEND` in `features/create_layer/constants.ts:39` (stepName 'Point', `color`/`width` only, no fill) both match this case. So point layers, including the default user-created 'Point' layer, will now show a line icon, which reads as a line or road layer. Either make the line rendering opt-in (for example a separate 'line' shape) or update these callers to give a fill or another shape.",
+     "evidence": "Any circle step without a fill color now renders as a horizontal line, not just the outline circles this change is aimed at. Existing callers rely on the old outline circle to mean a point. `registerNewGeometryLayer.ts:34` (style `{ color: mainColor }`) and `DEFAULT_USER_LAYER_LEGEND` in `features/create_layer/constants.ts:39` (stepName 'Point', `color`/`width` only, no fill) both match this case. So point layers, including the default user-created 'Point' layer, will now show a line icon, which reads as a line or road layer. Either make the line rendering opt-in (for example a separate 'line' shape) or update these callers to give a fill or another shape."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+     "line": 37,
+     "claim": "Preserve point symbols when rendering unfilled circles",
+     "evidence": "The absence of a fill does not establish that a legend represents a line. `DEFAULT_USER_LAYER_LEGEND` in `src/features/create_layer/constants.ts` defines a `Point` step with `stepShape: 'circle'` and only `color`/`width` styling, so this branch now displays a horizontal line for that point legend instead of its previous circular symbol. Use an explicit line shape or another geometry discriminator rather than converting every unfilled circle into a line."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The new test file has a single case with styles {width: 4} and expects a line. No case passes a fill, fill-color or circle-color, and none uses the {color}-only styles that real callers send. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.test.tsx",
+   "line": 11,
+   "claim": "The CircleIcon test only covers the no-fill case; nothing checks that filled circles or the existing stroke-only point legends keep their circle shape.",
+   "evidence": "The only case is `<CircleIcon styles={{ width: 4 } as any} size=\"normal\" />`, which expects a `line` and no `circle`. No case passes `fill`, `fill-color` or `circle-color`. No case uses the `{ color }`-only styles that the real callers send.",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/components/SimpleLegend/icons/CircleIcon.test.tsx",
+     "line": 11,
+     "claim": "The new CircleIcon test only tries the no-fill input, so nothing checks that a filled circle still renders or that the existing stroke-only circle legends keep their shape.",
+     "evidence": "The only case is `<CircleIcon styles={{ width: 4 } as any} size=\"normal\" />`, which expects a `line` and no `circle`. No case passes `fill`, `fill-color` or `circle-color`. No case uses the `{ color }`-only styles that the real callers send."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "SimpleLegend.tsx:2 uses the deep default import, while MultivariateLegend.tsx:2 and every other file use named imports from '@konturio/default-icons'. The export has no node_modules, so I could not show that the path fails today. It is a fragility and consistency issue, so it stays low (P2 had it at medium).",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "line": 2,
+   "claim": "Letter is deep-imported from an internal build path ('@konturio/default-icons/tslib/figma-icons/Letter.js') instead of the public named export used elsewhere.",
+   "evidence": "The new line is `import Letter from '@konturio/default-icons/tslib/figma-icons/Letter.js';`. src/components/MultivariateLegend/MultivariateLegend.tsx:2 imports the same icon as `import { Letter } from '@konturio/default-icons';`. The export has no node_modules, so I could not confirm the deep path resolves.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+     "line": 2,
+     "claim": "The Letter icon is imported through a deep internal build path instead of the package's public entry that the rest of the codebase uses, so it may break when the icon package is upgraded.",
+     "evidence": "The new line is `import Letter from '@konturio/default-icons/tslib/figma-icons/Letter.js';`. src/components/MultivariateLegend/MultivariateLegend.tsx:2 imports the same icon as `import { Letter } from '@konturio/default-icons';`. The export has no node_modules, so I could not confirm the deep path resolves."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+     "line": 2,
+     "claim": "`Letter` is deep-imported from `@konturio/default-icons/tslib/figma-icons/Letter.js` as a default export. Everywhere else, including `MultivariateLegend.tsx:2`, it uses the public named export `import { Letter } from '@konturio/default-icons'`. The `tslib/...` path is an internal build path that is not in the package's public API. It can break on package upgrades, with an `exports` map, or with TS type resolution (default vs named export, `.js` path). Use the public named import.",
+     "evidence": "`Letter` is deep-imported from `@konturio/default-icons/tslib/figma-icons/Letter.js` as a default export. Everywhere else, including `MultivariateLegend.tsx:2`, it uses the public named export `import { Letter } from '@konturio/default-icons'`. The `tslib/...` path is an internal build path that is not in the package's public API. It can break on package upgrades, with an `exports` map, or with TS type resolution (default vs named export, `.js` path). Use the public named import."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "SimpleLegend.test.tsx:35 asserts that d starts with a literal path from the icon package, and line 39 matches the raw style attribute against a hex string. Any icon redraw breaks the test. Whether happy-dom converts the hex to rgb() is not settled by the code. This is test brittleness, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+   "line": 35,
+   "claim": "The letter-icon test hard-codes the third-party icon's SVG path prefix and the raw style string, so it checks library markup rather than component behaviour.",
+   "evidence": "`path?.getAttribute('d')?.startsWith('M6 6H18V9.08508H16.769V8.53835')` is a literal copied from the icon package's output. It does not check which icon component SimpleLegendStep chose.",
+   "axis_row": "L3.10",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+     "line": 35,
+     "claim": "The letter-icon test asserts a hard-coded SVG path prefix from the third-party icon's internals, so it checks the library's markup rather than the component's behaviour and will break on any icon redraw.",
+     "evidence": "`path?.getAttribute('d')?.startsWith('M6 6H18V9.08508H16.769V8.53835')` is a literal copied from the icon package's output. It does not check which icon component SimpleLegendStep chose."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+     "line": 34,
+     "claim": "The test is brittle. It hard-codes the start of the icon's SVG path data, which breaks on any icon-package update. It also checks that the raw `style` attribute contains the hex string, but DOM implementations may convert it to `rgb(...)`. Check the icon's identity some other way (mock the component or use a test id), and compare color through computed style or a normalized value.",
+     "evidence": "The test is brittle. It hard-codes the start of the icon's SVG path data, which breaks on any icon-package update. It also checks that the raw `style` attribute contains the hex string, but DOM implementations may convert it to `rgb(...)`. Check the icon's identity some other way (mock the component or use a test id), and compare color through computed style or a normalized value."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "SimpleLegend.tsx:17 falls back to '#000000', but lines 51-54 only set the label colour when text-color exists, so otherwise the label inherits its colour. On a non-black theme the icon and label differ. This is a cosmetic mismatch, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "line": 17,
+   "claim": "With no text-color set, the letter icon falls back to #000000 while the label inherits the theme colour, so the two can mismatch.",
+   "evidence": "When there is no `text-color`, the letter icon is forced to `#000000`. In that case the label has no inline color and inherits the theme text color, so the icon and label won't match on non-black themes or dark mode. That undermines the stated aim of matching the label. Fall back to `currentColor`, or leave the color unset so it inherits.",
+   "members": [
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+     "line": 17,
+     "claim": "When there is no `text-color`, the letter icon is forced to `#000000`. In that case the label has no inline color and inherits the theme text color, so the icon and label won't match on non-black themes or dark mode. That undermines the stated aim of matching the label. Fall back to `currentColor`, or leave the color unset so it inherits.",
+     "evidence": "When there is no `text-color`, the letter icon is forced to `#000000`. In that case the label has no inline color and inherits the theme text color, so the icon and label won't match on non-black themes or dark mode. That undermines the stated aim of matching the label. Fall back to `currentColor`, or leave the color unset so it inherits."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 17 computes the icon colour, and lines 52-54 separately compute the label colour from the same field with a different fallback. This is a maintainability point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "line": 17,
+   "claim": "The step text colour is resolved in two places (icon() and SimpleLegendStep), so the icon and label colour can drift apart.",
+   "evidence": "`icon()` computes `const color = style['text-color'] || '#000000';`. SimpleLegendStep separately sets `style.color = step.style['text-color']` at lines 52-54 for the label span.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+     "line": 17,
+     "claim": "The text colour of a legend step is now resolved in two places, so the icon and the label colour can drift apart if one is changed later.",
+     "evidence": "`icon()` computes `const color = style['text-color'] || '#000000';`. SimpleLegendStep separately sets `style.color = step.style['text-color']` at lines 52-54 for the label span."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "noise",
+   "reason": "This describes a gap in the review packet, not a defect in the code. The regression it points at is already covered by the C1/P1/R1 item.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "The packet has no story.md, so the CircleIcon line-rendering change cannot be checked against scope.",
+   "evidence": "acceptance.md says only 'story.md is the spec', and the packet contains no story.md. The diff changes CircleIcon rendering for every circle legend, beyond adding the 'letter' shape that the type change and the SimpleLegend test cover.",
+   "axis_row": "L1.1",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": null,
+     "line": null,
+     "claim": "The packet has no story, so I could not check the CircleIcon line-rendering change against what was asked for and cannot tell whether it is in scope.",
+     "evidence": "acceptance.md says only 'story.md is the spec', and the packet contains no story.md. The diff changes CircleIcon rendering for every circle legend, beyond adding the 'letter' shape that the type change and the SimpleLegend test cover."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

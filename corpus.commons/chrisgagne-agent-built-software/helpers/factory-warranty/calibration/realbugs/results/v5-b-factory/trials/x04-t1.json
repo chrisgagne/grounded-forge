@@ -1,0 +1,50 @@
+{
+ "id": "x04",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7225,
+ "codex_tokens": 60849,
+ "work": "<tmp>/replay-x04-t1-7rb81ogj",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "README.md:151 still says \"some cases may omit a particular flag field\". The diff now sets added/removed on the identity result (src/diff/base.js:43), on common runs (base.js:176) and on add/remove calls (false instead of undefined, base.js:98/100), and README.md is not in the diff. This is a stale-documentation point and not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 151,
+   "claim": "README still says change objects may leave out flag fields, but after this change `added` and `removed` are always set.",
+   "evidence": "README.md:151 reads \"Note that some cases may omit a particular flag field. Comparison on the flag fields should always be done in a truthy or falsy manner.\" After the diff, every component carries both flags: the identity result at src/diff/base.js:43, the common runs at base.js:176, and the add and remove calls at base.js:98/100, which now pass `false` where they used to pass `undefined`. README.md is not in diff.patch.",
+   "axis_row": "L5.24",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "release-notes.md lines 3-19 list output-affecting changes such as #439, but nothing about the flags now always being set. diff.patch touches only src/diff/base.js. Callers that deep-compare will see the new shape, but this is a documentation gap and not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "release-notes.md",
+   "line": null,
+   "claim": "No release-notes entry for the change that makes `added: false, removed: false` always appear on change objects.",
+   "evidence": "diff.patch only touches src/diff/base.js. release-notes.md lists the other output-affecting changes, such as #439 under the future 6.0.0 section, but says nothing about the flags always being set. Before this change, common components were `{count, previousComponent}` with no flags, and added and removed components carried `removed: undefined` / `added: undefined`.",
+   "axis_row": "L5.24",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

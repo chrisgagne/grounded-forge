@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/brianc/node-postgres",
+  "pr_number": 3650,
+  "base": "c6028a875f953eff9e8e403622b0aac127d1b4a6",
+  "head": "b922f0ddfa3914cc7b05387cd12fc606bc658dc4"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 709,
+   "end_line": 735,
+   "message": "Trace never completes. This applies to queries that use `query_timeout` (read timeout). In that case, `query.callback` is wrapped earlier in `query()` and the original is captured in `queryCallback`. When the timeout fires, the existing timeout handler calls the captured `queryCallback(error)` directly, which bypasses the traced callback. It then replaces `query.callback` with a noop, which overwrites `tracedCb`.\n\nAs a result, a timed-out query emits `start`/`end` on `pg:query` but never emits `error` or `asyncStart`/`asyncEnd`. Subscribers such as APM spans keep these traces open and they leak.\n\nI'm inferring the timeout code from upstream `pg` because it isn't shown in this diff. Please verify it, and either wrap before the timeout logic captures the callback or route the timeout path through the traced callback."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 34000
+ }
+}

@@ -1,0 +1,21 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "src/API/Services/DeviceMonitoringService.cs",
+  "line": 173,
+  "claim": "Cancellation during a ping is swallowed as an offline result, allowing a canceled monitoring check to complete successfully.",
+  "evidence": "The new SendPingAsync call receives cancellationToken, but its OperationCanceledException reaches catch (Exception) at line 184, which logs a warning and returns false. If the device was already offline, CheckDeviceAsync takes the unchanged-status branch without another cancellation-aware operation, so CheckAllDevicesAsync can return successfully instead of propagating cancellation."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "low",
+  "file": "test/API/DeviceMonitoringServiceTests.cs",
+  "line": null,
+  "claim": "The tests do not verify the new ping cancellation or one-time platform warning behavior.",
+  "evidence": "The diff changes only Dockerfile and DeviceMonitoringService.cs. The existing cancellation test throws from GetAllPcDevicesAsync before any ping occurs, while the loopback test permits zero updates with Times.AtMostOnce; neither exercises cancellation during SendPingAsync or the new PlatformNotSupportedException handler.",
+  "axis_row": "L3.22"
+ }
+]

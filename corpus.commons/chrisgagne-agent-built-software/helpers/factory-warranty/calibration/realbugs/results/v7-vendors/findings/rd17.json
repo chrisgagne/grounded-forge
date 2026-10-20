@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/mareklesko/ProxmoxMCP-Plus",
+  "pr_number": 1,
+  "base": "5a8047f5bc592e5e170d3828e9633dd018f13cbe",
+  "head": "b44013c3e80fd71ca639ee272b88c5e07af4b507"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "Match the workspace folder to the actual repository mount. When the checkout directory is not exactly `ProxmoxMCP-Plus`, including differently named clones and Codespaces checkouts, the default workspace mount remains `/workspaces/<checkout-name>`. Setting `workspaceFolder` does not change that mount, so VS Code opens a nonexistent directory and the post-create installation cannot run against the repository. Use a dynamic workspace path or explicitly configure a matching `workspaceMount`, and update the interpreter path accordingly."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "Install development dependencies from an available definition. The active Hatchling configuration in `pyproject.toml` defines no `dev` optional dependency group; the extras in `setup.py` are not used by this build backend. Consequently, this command installs the application but not pytest, pytest-asyncio, mypy, or the other development dependencies into the new environment. Install `requirements-dev.in` as well, or define the extra in `pyproject.toml`, so the advertised development environment can run the tests."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "`uv pip install -e '.[dev]'` installs no dev tooling. The project builds with hatchling from pyproject.toml, and pyproject.toml defines no `[project.optional-dependencies] dev` extra. The dev extras exist only in setup.py, which hatchling ignores. uv just warns that the extra is missing, so pytest, pytest-asyncio, black, mypy and ruff never get installed. Tests under tests/ (which need pytest and pytest-asyncio) and the README commands `pytest` / `mypy .` will fail in the container. Fix: add a `dev` extra to pyproject.toml or install from requirements-dev.in."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`workspaceFolder` is hardcoded to `/workspaces/ProxmoxMCP-Plus`, but there is no matching `workspaceMount`. The default mount is `/workspaces/${localWorkspaceFolderBasename}`, so any clone in a folder with another name (a fork rename, `git clone ... myfolder`, worktrees) opens a missing directory. postCreateCommand then runs in the wrong place and `python.defaultInterpreterPath` (line 21) points to a nonexistent venv. Use `/workspaces/${localWorkspaceFolderBasename}` in both places, or `${containerWorkspaceFolder}` for the interpreter path."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "This interpreter path is hardcoded to the repository name, so it breaks the same way as `workspaceFolder` when the folder name differs. Use `${containerWorkspaceFolder}/.venv/bin/python`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "README.md",
+   "start_line": 65,
+   "end_line": 71,
+   "message": "The README says all dependencies install automatically and the OpenAPI proxy is reachable at localhost:8811. But the dev extra doesn't exist (see devcontainer.json:8), and nothing starts the proxy. The server also only reads a config file through the `PROXMOX_MCP_CONFIG` env var, which the devcontainer never sets (no `containerEnv`). Following these steps leaves no running service and an unset config path. Document how to start the proxy (e.g. `start_openapi.sh` or `python -m proxmox_mcp.openapi_proxy`) and set `PROXMOX_MCP_CONFIG`, for example via `containerEnv`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 4,
+   "end_line": 5,
+   "message": "The build context is the repository root (`..`), but the Dockerfile copies nothing from it, and the repo has no .dockerignore. Every build sends the whole working tree to the Docker daemon, including any local `proxmox-config/config.json` with Proxmox API credentials and the `.venv`. Use `.devcontainer` as the context (the default) or add a .dockerignore."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The `python:3.11-slim` image is unpinned and `uv` (line 17) is installed without a version, so the 'reproducible' environment changes over time. Pin the uv version (and optionally the image digest), or use the official `mcr.microsoft.com/devcontainers/python:3.11` image, which already has the vscode user and git."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 41000
+ }
+}

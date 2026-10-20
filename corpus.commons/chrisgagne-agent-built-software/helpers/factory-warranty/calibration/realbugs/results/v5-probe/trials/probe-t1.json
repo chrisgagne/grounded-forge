@@ -1,0 +1,129 @@
+{
+ "id": "probe",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:deps",
+  "gate:surface",
+  "gate:added-tests",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 1.9191,
+ "codex_tokens": 70871,
+ "work": "<tmp>/replay-probe-t1-rqs24vur",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.rs:12-16 IndexEntry keeps only filename/name/description, and index.rs:124-130 always links entry.name and writes \"\" for any field other than description. That goes against spec \u00a74.2, which says the first field is the link text and the other fields are columns. I lowered X2's high to medium: the output is wrong but nothing crashes and no data is lost.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "standards-experimental/v1/EXP-V1-0004-documentation/src/index.rs",
+   "line": 126,
+   "claim": "Configured frontmatter_fields other than name/description render as always-empty columns, and the link text is always entry.name instead of the first configured field.",
+   "evidence": "In `render_index_table` the custom-fields branch does `let val = if field == \"description\" { &entry.description } else { \"\" };`, and `IndexEntry` stores only `filename`, `name` and `description`, so other front-matter values are thrown away in `generate_index`. The link column is also hard-wired to `entry.name` rather than the first configured field. Spec 01_spec.md \u00a74.2 says: \"The first field becomes the link text; remaining fields become additional columns.\" No test in tests/index_generation.rs sets `frontmatter_fields`.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "find_index_section (index.rs:164-171) ends the section only at a line starting with `## ` or at EOF, and it does not track code fences. update_readme_index (index.rs:225-238) then overwrites that whole range, so `## Index` followed by `# Appendix` loses the Appendix. Spec \u00a74.3 says content outside the section is preserved.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "standards-experimental/v1/EXP-V1-0004-documentation/src/index.rs",
+   "line": 166,
+   "claim": "`docs index --write` replaces everything from `## Index` to the next `## ` heading, deleting following H1 sections, prose, or content in code fences.",
+   "evidence": "`find_index_section` ends the section only at `trimmed.starts_with(\"## \")` or end of file, and it does not skip code fences. `update_readme_index` then writes `content[..start] + generated.markdown + content[end..]`. Example: a README `## Index\\n<table>\\n\\n# Appendix\\nNotes` loses `# Appendix\\nNotes` on write. A README whose `## Index` sits only inside a ```markdown fence (as in this change's own examples/README.md) has the fenced example overwritten. Spec \u00a74.3 says \"Content outside this section is preserved.\" No backup is made before `std::fs::write`.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "At frontmatter.rs:87-90, the value `\"` (length 1) passes both the starts_with and ends_with checks, so `value[1..0]` panics because start > end. parse_frontmatter is called from generate_index, so validate and index both crash instead of reporting a diagnostic.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "standards-experimental/v1/EXP-V1-0004-documentation/src/frontmatter.rs",
+   "line": 90,
+   "claim": "A front-matter value that is a single quote character (e.g. `name: \"`) panics the parser.",
+   "evidence": "For a frontmatter line containing `name: \"`, value has length 1 and satisfies both starts_with and ends_with checks. parse_simple_yaml then slices value[1..0], which panics. Both ADR validation and generate_index call this parser.",
+   "breaks": "story",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "validate_readmes (readme.rs:60-106) checks only README/CLAUDE/AGENTS presence and index freshness, and lib.rs error_codes has no front-matter code. The requirement is a SHOULD (\u00a74.1), so this stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "standards-experimental/v1/EXP-V1-0004-documentation/src/readme.rs",
+   "line": null,
+   "claim": "No validation checks that docs carry the configured front-matter fields, although the spec's Appendix A checklist lists it.",
+   "evidence": "Spec \u00a74.1 says every `.md` under the docs root SHOULD have the `docs.index.frontmatter_fields` fields, and Appendix A lists \"`.md` files have front matter with configured fields\". `validate_readmes` checks only README/CLAUDE/AGENTS presence and index freshness, `error_codes` defines no front-matter code, and `generate_index` falls back to the filename with an empty description when front matter is missing (`.ok().flatten()`).",
+   "breaks": "story",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "validate_readmes applies max_depth (readme.rs:47-49), but collect_indexes_recursive and write_indexes_recursive (lib.rs:135-204) recurse with no depth limit. write_indexes (lib.rs:114) checks only auto_generate. This only matters when a user has set a depth limit, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "standards-experimental/v1/EXP-V1-0004-documentation/src/lib.rs",
+   "line": 170,
+   "claim": "Index generation/write ignore docs.readme.max_depth, and write_indexes does not check index.enabled.",
+   "evidence": "`validate_readmes` applies `walkdir.max_depth(readme_config.max_depth as usize + 1)`, but `collect_indexes_recursive` and `write_indexes_recursive` recurse into every non-hidden, non-excluded subdirectory with no depth check, and call `index::update_readme_index` wherever a README.md exists. `write_indexes` also checks only `index.auto_generate`, not `index.enabled`.",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grep finds no `docs validate`/`docs index`/dispatch_docs in crates/aps-cli/tests. In both arg loops, a `--config` guarded by `i + 1 < args.len()` falls through to `_ => i += 1` when no value follows, as does any unknown flag. This is a test-coverage and usability gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "crates/aps-cli/src/main.rs",
+   "line": 1048,
+   "claim": "The new `aps run docs` CLI path has no tests, and unknown flags or a trailing `--config` with no value are silently ignored.",
+   "evidence": "No file under crates/aps-cli/tests mentions `docs validate`/`docs index` or `dispatch_docs`. In both arg loops `\"--config\" if i + 1 < args.len()` falls through to `_ => { i += 1; }` when no value follows, and any unknown flag is dropped the same way. The crate tests never call `DocValidator::write_indexes` against a nested tree.",
+   "axis_row": "L3.22",
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:deps",
+   "gate:surface",
+   "gate:added-tests",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

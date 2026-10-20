@@ -1238,11 +1238,16 @@ source text — they are your citable provenance.
     if (!fs.existsSync(src)) return;
     const dest = path.join(outputDir, profile.helpers_dir || "helpers");
     const skip = new Set([".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".DS_Store"]);
+    // helpers_exclude: paths inside the helper the app doesn't need to run (a helper's run records, say), which stay
+    // in the corpus.
+    const exclude = (profile.helpers_exclude || []).map((p) => p.replace(/\/+$/, ""));
     let files = 0;
     const copy = (from, to) => {
       fs.mkdirSync(to, { recursive: true });
       for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
         if (skip.has(entry.name) || entry.name.endsWith(".pyc")) continue;
+        const rel = path.relative(src, path.join(from, entry.name)).split(path.sep).join("/");
+        if (exclude.includes(rel)) continue;
         const s = path.join(from, entry.name);
         const d = path.join(to, entry.name);
         if (entry.isDirectory()) copy(s, d);

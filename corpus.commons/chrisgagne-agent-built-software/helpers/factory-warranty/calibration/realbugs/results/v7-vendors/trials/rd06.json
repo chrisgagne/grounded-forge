@@ -1,0 +1,126 @@
+{
+ "id": "rd06",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 34,
+   "message": "Remove the duplicate step environment mapping. The resolver step declares `env` twice. GitHub Actions rejects duplicate mapping keys during workflow validation, so this workflow cannot run automatically or manually. Consolidate these into one `env` mapping."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 93,
+   "end_line": 95,
+   "message": "Repair the resolver's shell conditional and heredocs. Once workflow validation is fixed, this step still fails for every invocation: the conditional contains two `else` branches, and both Python heredoc terminators retain two leading spaces after YAML indentation is removed, so Bash does not recognize them. Align the heredoc bodies and terminators with the shell script's left margin and retain only one fallback branch; otherwise the step cannot produce a run ID or reach artifact processing."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 163,
+   "message": "The shell `if` has two `else` branches: one at line 41 and another at line 94, followed by a single `fi`. That is a bash syntax error. The `run:` script fails to parse before any branch runs, so every trigger fails at this step: `workflow_run`, dispatch with a `run_id`, and dispatch without one. This looks like a leftover from an incomplete merge. The first block, which has no 7-day window, should be removed and only the newer fallback kept."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 34,
+   "message": "The 'Resolve source workflow run ID' step has the `env:` mapping twice. YAML does not allow duplicate keys, and GitHub Actions rejects the workflow file with an invalid-workflow error, so the workflow never starts."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 42,
+   "end_line": 162,
+   "message": "The heredocs inside the `else` branches are indented 2 spaces deeper than the rest of the `run:` block. YAML strips only the common indentation, so the closing `PY` lines keep their leading spaces. `<<'PY'` (not `<<-`) only ends at a column-0 `PY`, so neither heredoc terminates. Python would also get indented code and raise `IndentationError: unexpected indent`. Even after the duplicate `else` is fixed, the no-`run_id` dispatch path would still fail."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 23,
+   "end_line": 23,
+   "message": "With the `head_branch` filter gone, any successful 'Weekly Grype Security Scan' run on any branch or event now rewrites the single tracking issue. That includes manual runs on feature branches and PR-triggered runs, if that workflow has such triggers. The issue can be overwritten with results from an unrelated branch, and possibly from attacker-influenced artifacts, using an `issues: write` token. Filter on something reliable instead: `workflow_run.event == 'schedule'`, or a branch marker written into the artifact."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 38,
+   "message": "`${{ inputs.run_id }}` is substituted directly into the shell script, which lets the dispatch input inject shell commands. Pass it through `env:` and validate that it is numeric before using it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 290,
+   "end_line": 292,
+   "message": "When the latest scan has no fixable recommendations, the issue step is skipped. Any existing tracking issue keeps showing stale recommendations instead of being updated or closed."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "`github.actor == 'dependabot[bot]'` checks who triggered this particular event, not who opened the PR. If a maintainer re-runs the job, or pushes to or rebases the Dependabot PR, the job is skipped and reported as passing. The regression gate is then bypassed without any warning. Use `github.event.pull_request.user.login == 'dependabot[bot]'` instead."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 186,
+   "end_line": 189,
+   "message": "`underfixed_updates` fails any changed package that still has a fixable High/Critical finding, even when the PR fixes that finding and introduces no new High/Critical vulnerability. Packages are tracked by name only, so a package that appears in several layers or ecosystems can also be marked as 'changed' or 'underfixed' incorrectly. Nothing checks whether the fix version is actually newer than the PR's version, or whether base already had the same unfixed finding. As a result, partial upgrades that still improve security are blocked, and the step summary never lists the underfixed packages to explain the failure."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 159,
+   "end_line": 173,
+   "message": "`recs = fixed_recommendations(pr)` is calculated twice (lines 159 and 173). This is dead or duplicated code left over from the refactor."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 31,
+   "end_line": 41,
+   "message": "The Grype image is resolved from 'releases/latest' at runtime and isn't pinned to a tag or digest. It then runs with `/var/run/docker.sock` mounted, which is root-equivalent on the runner. A compromised or broken upstream release would run immediately with that access, and gate results can't be reproduced. The GitHub API call is also unauthenticated, so it can hit rate limits. Pin the version or digest and let Dependabot update it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/dependabot.yml",
+   "start_line": 9,
+   "end_line": 9,
+   "message": "This changes the Dependabot schedule from 06:00 to 09:30 for all ecosystems, but the PR description doesn't mention it. If the time is meant to line up with the weekly Grype scan, document that dependency. Otherwise, revert it."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 36,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 47,
+   "cost_usd": 0.2030074,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 47
+ }
+}

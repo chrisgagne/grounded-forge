@@ -1,0 +1,12 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "src/core/customRulesEngine.ts",
+  "line": 153,
+  "claim": "The new length and flag limits leave ReDoS possible, allowing a custom rule to block the MCP server's event loop.",
+  "evidence": "add_custom_rule accepts '(a+)+$' with flag 'g' because it passes validatePattern; execute_custom_rules accepts 'a'.repeat(30) + '!' because it is below MAX_CODE_LENGTH. executePattern constructs a native RegExp and matchLineIssues calls regex.exec synchronously without a timeout or isolation. That exact regex/input exceeded a two-second subprocess timeout during review; larger inputs remain permitted. CHANGELOG.md claims these limits prevent ReDoS attacks.",
+  "axis_row": "L6.14"
+ }
+]

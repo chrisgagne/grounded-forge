@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/scottlz0310/Mcp-Docker",
+  "pr_number": 29,
+  "base": "63baf3dbbc10d271710706f56150dd8425dd4b4a",
+  "head": "e7705d269ea374d49e7999bdb8bc42e9480a6b37"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "services/copilot-review-mcp/Dockerfile",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "Build Failure. `COPY go.mod go.sum ./` requires a `go.sum` file. The new `go.mod` declares no dependencies, so `go.sum` is normally never created and is not in this PR. In that case `docker compose build` fails with a \"go.sum: not found\" error. Either commit an empty `go.sum` or copy it with a glob (e.g. `COPY go.* ./`)."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 111,
+   "end_line": 111,
+   "message": "Session Overwrite. `SaveSession` overwrites any existing session for the client-supplied `state` without checking. Anyone who learns or guesses a pending `state` can call `/authorize` again with the same value. This replaces the victim's `redirect_uri` and `code_challenge`, or drops PKCE entirely, because `code_challenge` is optional. When the victim's GitHub callback arrives, the internal code is bound to the attacker's parameters.\nThe impact is limited because redirect hosts are restricted to localhost. Still, reject reuse of an existing live `state`, or key sessions by a server-generated identifier."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "services/copilot-review-mcp/internal/auth/session.go",
+   "start_line": 77,
+   "end_line": 96,
+   "message": "Multiple Codes. `CompleteCallback` keeps the session in `sessions` after issuing a code. Hitting `/callback` again with the same `state` (and another valid GitHub code) mints additional internal codes for the same session. The previously issued codes stay in `codes`. `ExchangeCode` deletes only the presented code and the session, so the other codes remain redeemable until the TTL expires.\nTo fix this, delete the session from `sessions` (or mark it completed) once a code is issued, and remove any prior `InternalCode` from `codes`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "services/copilot-review-mcp/Dockerfile",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "OAuth flow weaknesses: client-supplied `state` values can overwrite existing in-flight sessions, and PKCE is optional even though discovery advertises S256 support. Together these let a party that knows a pending `state` rebind the session's `redirect_uri` and `code_challenge`. Separately, repeated `/callback` hits can mint multiple redeemable internal codes for one session. The localhost-only redirect allowlist reduces practical exposure."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 26000
+ }
+}

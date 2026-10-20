@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.15865600000000002,
+  "duration_s": 104.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "On head, an object whose toJSON returns [1,2] comes out of canonicalize as {\"0\":1,\"1\":2}, an array's own toJSON is never called, and diffJson reports a change between {toJSON:()=>[1,2]} and [1,2]; all three checks pass on base, which matches JSON.stringify."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   toJSON returning array stays an array\nok   array with own toJSON uses it\nok   diffJson treats {toJSON:()=>[1,2]} like [1,2]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL toJSON returning array stays an array\n     canonicalize gave non-array: {\"0\":1,\"1\":2}\nFAIL array with own toJSON uses it\n     Expected values to be strictly equal:\n+ actual - expected\n\n+ [\n+   1,\n+   2\n+ ]\n- 'custom'\n\nFAIL diffJson treats {toJSON:()=>[1,2]} like [1,2]\n     unexpected changes: [{\"count\":4,\"added\":false,\"removed\":true,\"value\":\"{\\n  \\\"0\\\": 1,\\n  \\\"1\\\": 2\\n}\"},{\"count\":4,\"added\":true,\"removed\":false,\"value\":\"[\\n  1,\\n  2\\n]\"}]\n\n2 !== 0\n\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, an object whose toJSON returns [1,2] comes out of canonicalize as {\"0\":1,\"1\":2}, an array's own toJSON is never called, and diffJson reports a change between {toJSON:()=>[1,2]} and [1,2]; all three checks pass on base, which matches JSON.stringify.",
+ "run": "v3-distillations",
+ "trial": "v23-t2",
+ "kind": "bug"
+}

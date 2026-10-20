@@ -1,0 +1,62 @@
+{
+ "id": "rc03",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 291,
+   "message": "Preserve existing original values for tracked read-only properties. When an already tracked entity has a read-only property changed and is then passed to `context.Update(entity)`, this overwrites its legitimate original value with the changed value. Subsequent change detection no longer detects the forbidden modification, so `SaveChanges()` silently ignores it instead of throwing. For a read-only concurrency token, this also replaces the original value used for concurrency checks. Restrict the snapshot repair to the disconnected complex-discriminator scenario rather than resetting every property configured with `AfterSaveBehavior.Throw`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 292,
+   "message": "This overwrites the original value of every property with AfterSaveBehavior.Throw, and primary key properties are always Throw. The block runs whenever an entry goes to Modified with modifyProperties, including Unchanged\u2192Modified via `entry.State = Modified` and Modified\u2192Modified via `Update()` on an already-tracked entity. In those cases the original value is real store state, not an unreliable default. Example: with AutoDetectChanges off, the user changes a key or a Throw-configured property on a tracked entity, then sets State = Modified. The real change is erased: the property is no longer detected as modified, SaveChanges no longer throws, and the update is built from the current values. For a key, the UPDATE's WHERE clause would use the new key value, so it could update a different row or fail with a concurrency error. Before this change, SaveChanges threw. The fix should be limited to the Detached\u2192Modified case (where original values come from the snapshot factory) or to the affected shadow/complex discriminator properties."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 282,
+   "end_line": 292,
+   "message": "This treats the symptom, not the root cause. After #37394, the snapshot factory stores default values for shadow properties on complex types, so the original discriminator value is wrong. The workaround only runs on the `newState == Modified && modifyProperties` path. Other paths keep the same bad snapshot: `Attach()` (Unchanged) followed by modifying a different property, or setting a single property as modified. On those paths DetectChanges still sees the discriminator (null) differ from the current value, marks it modified, and SaveChanges throws the same 'read-only after it has been saved' exception. A fix in the snapshot or original-value initialization, as #38111 apparently does, would cover every path."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 292,
+   "message": "The code comment marks this loop as a hot path. It now calls EnsureOriginalValues plus a boxed `this[property]` read and SetOriginalValue for every key property (and any other Throw property) each time an entity is Updated or set to Modified. That adds per-entity overhead to every bulk Update, even though only complex-type shadow discriminators need it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "test/EFCore.Specification.Tests/Query/AdHocComplexTypeQueryTestBase.cs",
+   "start_line": 382,
+   "end_line": 415,
+   "message": "The test only covers Detached\u2192Modified through Update(). It does not cover Attach() followed by a property change, or a regression test that changing a key or Throw property on a tracked entity and then setting State = Modified still throws. Those cases would expose the gap and the over-broad fix described above. It also never asserts that the discriminator is not marked modified after Update()."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 40,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 39,
+   "cost_usd": 0.1538026,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 40
+ }
+}

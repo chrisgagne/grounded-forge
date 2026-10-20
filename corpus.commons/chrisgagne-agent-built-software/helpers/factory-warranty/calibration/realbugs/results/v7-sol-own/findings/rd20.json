@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "Validate the manifest name before constructing the output directory. A remote manifest can supply a name such as `../../some-directory`, since `validateSkillset` only checks that it is a string. Joining that name here moves the output directory outside the temporary staging area, and `safePath` then treats that escaped directory as trusted. Reject path components in names or use a generated temporary directory so installing an untrusted skillset cannot overwrite files elsewhere."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "Check directory boundaries rather than string prefixes. For a base directory `/tmp/spm/foo`, a manifest file path resolving to `/tmp/spm/foo-other/file` passes this check despite escaping the staging directory. Traversal segments are still accepted in manifest file lists and relative sources. Check containment using a path-relative comparison or a prefix including the directory separator."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 8,
+   "message": "Preserve the ref specified in a GitHub URL. Installing a URL containing `tree/develop/...` discards `develop`, after which `resolveIdentifier` always selects the repository's default branch. This either downloads a different skillset version or fails when the requested path exists only on the specified branch. Carry the URL ref through parsing and use default-branch discovery only when no ref was supplied."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Resolve refs independently for cross-repository sources. When a skillset references `@other/repo/path`, this passes the parent repository's ref to the other repository. If the parent defaults to `main` but the referenced repository defaults to `master`, every referenced file returns 404; if both branches exist, the wrong version may be downloaded. Resolve the target repository's default branch for cross-repository entries instead of reusing `location.ref`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

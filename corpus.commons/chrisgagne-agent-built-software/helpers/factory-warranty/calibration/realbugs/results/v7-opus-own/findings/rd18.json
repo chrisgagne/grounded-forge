@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 9,
+   "end_line": 10,
+   "message": "Bean Validation ignores `@AssertTrue` on `fun harOppgittInntekt()`. Hibernate Validator only checks getter-style methods (`isX`/`getX`/`hasX`), and this method is not one. Because `arbeidstakerOgFrilansInntekt` is nullable, a request with no income still passes `@Valid`, gets journalf\u00f8rt, and marks the task as solved with a null amount. Other DTOs in this codebase use `@get:AssertTrue val ...` or `fun isX()`. Use one of those forms here. There is also no non-negative check, so negative income is accepted."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntektForPeriode.kt",
+   "start_line": 15,
+   "end_line": 17,
+   "message": "Same problem as `OppgittInntekt`: `@AssertTrue` on `fun harOppgittInntekt()` is not a getter, so the validator never runs it. `AktivitetspengerInntektsrapporteringInnsending.valider()` also returns an empty list, so nothing on the server side enforces that income was reported."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 192,
+   "end_line": 197,
+   "message": "The new `AKTIVITETSPENGER_INNTEKTRAPPORTERING` uses the placeholder brevkode `FIXME_AVP_INNTEKT_BREVKODE`, and the journalf\u00f8ring stream sends it to dokarkiv. Once this is deployed and the endpoint is reachable, every income report will be archived with an invalid brevkode, or journalf\u00f8ring will fail and the stream will get stuck retrying. Either set the real brevkode or keep the endpoint switched off until there is one."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 316,
+   "end_line": 336,
+   "message": "The duplicate-check key is `personIdent_ytelse` with no task reference. If a user has several income-report tasks open, for example a backlog of months, they cannot submit a second report until the cache entry expires. Also, `markerOppgaveSomL\u00f8st` runs after `innsendingService.registrer`. If that call fails, the user gets an error even though the report is already on Kafka, the duplicate check blocks a retry, and the task stays unsolved. Include `oppgaveReferanse` in the key, and handle a failure to mark the task separately from the submission."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 339,
+   "end_line": 345,
+   "message": "`hentInntektsrapporteringPeriode` only checks the task-data type. It does not check that the task is `RAPPORTER_INNTEKT` or still `UL\u00d8ST`, so the same task can be reported again and journalf\u00f8rt more than once after the duplicate cache expires."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 36,
+   "end_line": 88,
+   "message": "The ACLs differ from the sibling topic files. Both `aktivitetspenger-soknad` and `ungdomsytelse-inntektsrapportering` give `ung-brukerdialog-api` read access on the mottatt and cleanup topics, but this file does not. If `ung-brukerdialog-api` consumes these events, as it does for the siblings, it will be denied. Please confirm the omission is intentional."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 1202,
+   "end_line": 1250,
+   "message": "The controller test imports `InntektrapporteringUtils` from the ungdomsytelse package and posts an `UngdomsytelseInntektsrapportering` payload to the aktivitetspenger endpoint. It only passes because the two JSON shapes happen to match. Use the new `no.nav.brukerdialog.ytelse.aktivitetspenger.utils.InntektrapporteringUtils` instead. The test also stubs `barnService.hentBarn()`, which this flow never calls."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/main/resources/handlebars/aktivitetspenger-rapportering-soknad.hbs",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "The template renders `{{ id }}`, but `AktivitetspengerInntektsrapporteringPdfData.pdfData()` never sets an `id` key, so this footer span is always empty."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/AktivitetspengerInntektRapporteringKonsumentTest.kt",
+   "start_line": 100,
+   "end_line": 145,
+   "message": "`deltakelseId` is created and passed to `preprosessertS\u00f8knadSomJson`, but that function never uses it. This looks like dead code copied from the ungdomsytelse test."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

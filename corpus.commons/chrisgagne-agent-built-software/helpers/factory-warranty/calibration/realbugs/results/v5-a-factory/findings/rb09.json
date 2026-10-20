@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/brexhq/CrabTrap",
+  "pr_number": 15,
+  "base": "b29930e93765700608313c0f0d32c4818734e158",
+  "head": "5ef0884c59b3ee1d5a986dd02686a8232570c80f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "internal/admin/api.go",
+   "start_line": 331,
+   "end_line": 331,
+   "message": "A failed list query after a successful Count returns 200 with empty entries, a non-zero total and has_more true, and the DB error is hidden. Count errors are handled (`respondError(... \"failed to count audit entries\" ...)`), but `entries := a.reader.QuerySummaries(filter)` has no error return. `PGAuditReader.query` does `rows, err := r.pool.Query(...); if err != nil { return nil }`, and the handler turns nil into `[]types.AuditEntry{}`, then computes `\"has_more\": filter.Offset+len(entries) < total`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 503,
+   "end_line": 503,
+   "message": "While the detail fetch loads, or after it fails, the expanded row shows the summary's blanked headers and bodies as if the request had none. `const detailEntry = entryDetails[detailKey] ?? entry` falls back to the list entry. The server now blanks payloads for list entries (`'{}'::jsonb, ''::text, '{}'::jsonb, ''::text` in `auditSummarySelectCols`). The Request/Response Details blocks render `formatHeaders(detailEntry.request_headers)` and `formatBody(detailEntry.request_body, ...)` unconditionally, alongside the loading or error banner, instead of hiding them until `entryDetails[detailKey]` exists."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "Cached entry details never refresh, so an entry opened before its streamed response finished keeps showing the incomplete response. toggleExpanded returns whenever entryDetails[detailKey] exists, and rendering always prefers that cached object over the current entry. If details are opened before a streamed response finishes, PGAuditReader.UpdateResponse subsequently updates the stored body, status and duration, but collapsing, changing filters and reopening the entry never fetches those updated details."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "internal/admin/api.go",
+   "start_line": 325,
+   "end_line": 325,
+   "message": "Count and QuerySummaries run as separate queries with no shared snapshot, so total/has_more can disagree with the page returned. `a.reader.Count(r.Context(), filter)` and `a.reader.QuerySummaries(filter)` each run their own pool query with no transaction. `query` also uses `context.Background()` rather than the request context, so a cancelled request doesn't stop the list query."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "internal/admin/api.go",
+   "start_line": 325,
+   "end_line": 325,
+   "message": "Every audit list request, including each Load more page, now runs a COUNT(*) over the growing audit_log table. `Count` runs `SELECT COUNT(*) FROM audit_log al %s` with the same WHERE as the page query, and `handleAuditLog` calls it before every `QuerySummaries`. The value isn't cached and isn't skipped for later pages."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "internal/admin/audit_integration_test.go",
+   "start_line": 145,
+   "end_line": 145,
+   "message": "No test covers the limit default and clamp, rejecting non-positive limits, has_more across pages, or ordering by (timestamp, id). `TestAuditList_OmitsPayloadsAndReturnsTotal` inserts one entry, requests `limit=10`, and asserts only `total == 1` and `has_more == false`. No test sends `limit=0`, `limit=-1`, `limit=10000`, or an offset/limit that leaves more rows, and none asserts `limit` in the response equals `maxAuditLogLimit` (500)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "web/src/api/client.ts",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "The new has_more field is added to the client type but nothing reads it; the hook still computes hasMore from entries.length < total. `has_more?: boolean` is added to `AuditResponse`. `useAuditLog.ts:102` still returns `hasMore: entries.length < total`, and no file reads `has_more`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "DESIGN.md",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "The API docs are not updated for the changed GET /admin/audit contract (no payloads in list entries, new total and has_more, limit capped at 500). DESIGN.md:126 still reads `Query audit log (filters: decision, method, user, time range)` and web/README.md:181 reads `Query audit log with filters`. Neither mentions payload omission, the 500 cap, `total` or `has_more`, while the handler now applies `maxAuditLogLimit = 500` and serves `auditSummarySelectCols`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

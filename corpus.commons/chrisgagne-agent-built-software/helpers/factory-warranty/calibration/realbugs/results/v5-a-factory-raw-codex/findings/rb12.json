@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/ardevd/jadx-collaboration",
+  "pr_number": 3,
+  "base": "a9627c7cd6695e2389a68033c3985a0809f2978e",
+  "head": "853179dcb73aed6afab52d11324ea3ff3eac8b8a"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 573,
+   "end_line": 573,
+   "message": "Renames and comments edited while a sync runs are silently overwritten when it completes. Start Pull with a slow pre-pull script, then edit a rename or comment in the responsive GUI. pull() captures project data in projectToLocalRepository() before running the script, then localRepositoryToProject() replaces the complete project rename and comment lists with that earlier snapshot plus remote changes. It never reconciles edits made during the script. push() has the same snapshot-and-replace sequence."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "Repeated sync actions run concurrently against the same repository files, allowing stale results to overwrite newer changes. Every menu and keyboard invocation creates an independent thread without an in-flight guard or serialization. Trigger Pull while Push is waiting in its post-push script: both can read the same .local baseline, independently merge, and later overwrite .local and project state in completion order. writeRepository() also opens the shared destination directly with writer(), without locking or atomic replacement, so overlapping writes can corrupt the JSON."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+   "start_line": 128,
+   "end_line": 128,
+   "message": "The modified tests bypass the asynchronous entry points and leave the new threading behavior untested. RepositoryMockery now invokes plugin.pull() and plugin.push() directly instead of the registered menu callbacks. PluginMockery executes uiRun callbacks inline, and the diff adds no tests for worker execution, EDT dispatch, overlapping operations, or edits during synchronization; the existing assertions therefore cannot detect the concurrency regressions introduced here."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

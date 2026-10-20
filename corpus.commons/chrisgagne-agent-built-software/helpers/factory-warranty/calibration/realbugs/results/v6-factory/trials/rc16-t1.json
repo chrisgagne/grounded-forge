@@ -1,0 +1,548 @@
+{
+ "id": "rc16",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 1.8573,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc16-t1-fg4yhxap",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "report.md:114 says 'WWT +1.98, YWT +2.63 above breed midpoint' and line 180 says '+1.98 lbs above breed average'. The table at lines 107-109 gives midpoints of +1.59 and +0.37, so the real margins are +0.39 and +2.26.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 114,
+   "claim": "The report gives the predicted WWT and YWT EBVs as margins above the breed midpoint, which overstates the lamb's advantage.",
+   "evidence": "Line 114 says \"his predicted growth profile (WWT +1.98, YWT +2.63 above breed midpoint)\", and line 180 says \"with a predicted WWT of +1.98 lbs above breed average\". The report's own table (line 107) gives predicted WWT +1.98 against a midpoint of +1.59, which is +0.39 above. For YWT it gives +2.63 against +0.37, which is +2.26 above. +1.98 and +2.63 are the midparent EBVs themselves, not differences from the midpoint.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 114,
+     "claim": "The report calls the lamb's predicted EBVs margins above the breed midpoint, which overstates how far above average the lamb is by about five times for WWT.",
+     "evidence": "Line 114 says \"his predicted growth profile (WWT +1.98, YWT +2.63 above breed midpoint)\", and line 180 says \"with a predicted WWT of +1.98 lbs above breed average\". The report's own table (line 107) gives predicted WWT +1.98 against a midpoint of +1.59, which is +0.39 above. For YWT it gives +2.63 against +0.37, which is +2.26 above. +1.98 and +2.63 are the midparent EBVs themselves, not differences from the midpoint."
+    },
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 114,
+     "claim": "The text says the predicted 'WWT +1.98, YWT +2.63 above breed midpoint'. Those numbers are the predicted EBVs themselves. Relative to the midpoint, the differences are only +0.39 (WWT) and +2.26 (YWT). Line 180 makes the same mistake, saying the predicted WWT is '+1.98 lbs above breed average'.",
+     "evidence": "The text says the predicted 'WWT +1.98, YWT +2.63 above breed midpoint'. Those numbers are the predicted EBVs themselves. Relative to the midpoint, the differences are only +0.39 (WWT) and +2.26 (YWT). Line 180 makes the same mistake, saying the predicted WWT is '+1.98 lbs above breed average'."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "docs/BREEDING-EVENT-LOG.md:72-75 says the agent retrieves NLB and NLW EBVs and calls trait_ranges for both. lambing-record.yml:12 promises NLW too. The report's dam table and breed table list only BWT, WWT, PWWT, YWT and NLB.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 41,
+   "claim": "The report leaves out the dam's NLW EBV and its breed range, which the documented lambing enrichment requires.",
+   "evidence": "docs/BREEDING-EVENT-LOG.md:72-75 says the agent \"Calls `details` for the dam to retrieve her NLB ... and NLW (Number of Lambs Weaned) EBVs\" and \"Calls `trait_ranges` for NLB and NLW\". The issue template (lambing-record.yml:11-13) also promises \"the dam's NLB and NLW EBVs\". The dam EBV table (lines 41-47), the breed context table and the glossary list only BWT, WWT, PWWT, YWT and NLB.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 41,
+     "claim": "The documented lambing enrichment needs the dam's NLW (Number of Lambs Weaned) EBV and its breed range, but the report leaves NLW out completely.",
+     "evidence": "docs/BREEDING-EVENT-LOG.md:72-75 says the agent \"Calls `details` for the dam to retrieve her NLB ... and NLW (Number of Lambs Weaned) EBVs\" and \"Calls `trait_ranges` for NLB and NLW\". The issue template (lambing-record.yml:11-13) also promises \"the dam's NLB and NLW EBVs\". The dam EBV table (lines 41-47), the breed context table and the glossary list only BWT, WWT, PWWT, YWT and NLB."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P1",
+    "R2"
+   ],
+   "verdict": "confirmed",
+   "reason": "report.md:96 and :144 make the absolute claims. The trees show NWT063 (Hound River) on the dam side and NWT012/NWT082 (Hound River) on the sire side, and stop at grandparents. reports/2026-02-09-mating-recommendations/data.csv shows NCS310 already sired FLE008/011/029 in this flock, so 'completely separate' is wrong.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 96,
+   "claim": "The report overstates the result of the inbreeding check. It claims completely separate backgrounds, no shared ancestors at any generation, zero risk and heterosis, but the pedigree was checked only two generations deep and both lines have Hound River Farm ancestors.",
+   "evidence": "Line 96 says the dam and sire \"come from completely separate genetic backgrounds, making this an outcross mating with zero inbreeding risk\". Line 144 says \"No shared ancestors appear at any generation level\". The pedigree trees show the dam's maternal grandsire 6400522016NWT063 (Hound River Farm) and the sire's paternal grandparents 6400522018NWT012 and 6400522017NWT082 (Hound River Farm), and they stop at grandparents. The 0% COI supports 'no close relationship', not 'any generation'.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 96,
+     "claim": "The report says the two lines have completely separate backgrounds and no shared ancestors at any generation, but its own pedigree shows both lines draw on Hound River Farm and was checked only to grandparent depth.",
+     "evidence": "Line 96 says the dam and sire \"come from completely separate genetic backgrounds, making this an outcross mating with zero inbreeding risk\". Line 144 says \"No shared ancestors appear at any generation level\". The pedigree trees show the dam's maternal grandsire 6400522016NWT063 (Hound River Farm) and the sire's paternal grandparents 6400522018NWT012 and 6400522017NWT082 (Hound River Farm), and they stop at grandparents. The 0% COI supports 'no close relationship', not 'any generation'."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 96,
+     "claim": "This line says the dam and sire 'come from completely separate genetic backgrounds' and that the mating is an outcross that brings 'hybrid vigor (heterosis)'. The repo's own data shows otherwise. NCS310 is the main flock sire at Beyond Blessed Farm and sired several 2025 ewes there (FLE008, FLE011, FLE029; see reports/2026-02-09-mating-recommendations/data.csv). Both pedigrees also include Hound River Farm animals (NWT063 on the dam side; NWT012 and NWT082 on the sire side). A 0% COI from a two-generation pedigree only shows there are no shared ancestors within two generations. Separately, an outcross within one breed gives little real heterosis. Readers could make breeding decisions based on this overstated claim.",
+     "evidence": "This line says the dam and sire 'come from completely separate genetic backgrounds' and that the mating is an outcross that brings 'hybrid vigor (heterosis)'. The repo's own data shows otherwise. NCS310 is the main flock sire at Beyond Blessed Farm and sired several 2025 ewes there (FLE008, FLE011, FLE029; see reports/2026-02-09-mating-recommendations/data.csv). Both pedigrees also include Hound River Farm animals (NWT063 on the dam side; NWT012 and NWT082 on the sire side). A 0% COI from a two-generation pedigree only shows there are no shared ancestors within two generations. Separately, an outcross within one breed gives little real heterosis. Readers could make breeding decisions based on this overstated claim."
+    },
+    {
+     "id": "R2",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 96,
+     "claim": "Qualify the zero-inbreeding conclusion by pedigree coverage",
+     "evidence": "No shared ancestors in the available pedigree establishes only a pedigree-based COI of zero within that coverage, not completely separate genetic backgrounds or zero inbreeding risk. Different flock origins cannot establish unrelatedness, especially when both displayed pedigrees include Hound River Farm ancestry. Limit this conclusion, and its repetition in the recommendations, to the examined pedigree. The applicable [COI guidance](../../.github/instructions/nsip-mcp.instructions.md#L835-L838) describes Green as low risk, not a guarantee of no risk."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "mating-recommendations data.csv lists FLE008, FLE011 and FLE029 as NCS310 daughters, so a son of NCS310 is their half-brother, and report.md:182 cites only dam-side genetics. Lowered to low because the same line still tells the reader to run an inbreeding check against every Beyond Blessed Farm ewe, which would catch these matings.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 182,
+   "claim": "The ram lamb inbreeding warning names only dam-side genetics and misses that he is a paternal half-brother to the NCS310-sired ewes.",
+   "evidence": "The inbreeding warning for the ram lamb says he 'shares dam-side genetics with the flock'. It misses the bigger risk: as a son of NCS310, he is a paternal half-brother to every NCS310-sired ewe in the flock (FLE008, FLE011, FLE029, and others). Line 114 repeats the dam-side-only framing. The recommendation should name the paternal half-sibling relationship.",
+   "members": [
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 182,
+     "claim": "The inbreeding warning for the ram lamb says he 'shares dam-side genetics with the flock'. It misses the bigger risk: as a son of NCS310, he is a paternal half-brother to every NCS310-sired ewe in the flock (FLE008, FLE011, FLE029, and others). Line 114 repeats the dam-side-only framing. The recommendation should name the paternal half-sibling relationship.",
+     "evidence": "The inbreeding warning for the ram lamb says he 'shares dam-side genetics with the flock'. It misses the bigger risk: as a son of NCS310, he is a paternal half-brother to every NCS310-sired ewe in the flock (FLE008, FLE011, FLE029, and others). Line 114 repeats the dam-side-only framing. The recommendation should name the paternal half-sibling relationship."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4",
+    "P8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The Event Summary table (lines 14-25) records no lamb ID. A repo-wide grep finds EPC26005 only in this report, at lines 114, 179 and 182, yet those lines tell the farmer to register the lamb under it.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 114,
+   "claim": "The lamb ID EPC26005 has no source: the event summary doesn't record it and it doesn't follow the LPN format.",
+   "evidence": "The Event Summary table (lines 14-25) records only \"Lamb Sex | Ram lamb\" and \"Lamb Description | White, healthy, large and strong\", with no lamb ID. Yet lines 114, 179 and 182 tell the farmer to register and evaluate \"EPC26005\". No other file in the repository contains this ID.",
+   "axis_row": "L4.31",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 114,
+     "claim": "The ram lamb's ID EPC26005 may not come from any recorded source: the event summary never lists it, and it doesn't follow the flock's LPN format.",
+     "evidence": "The Event Summary table (lines 14-25) records only \"Lamb Sex | Ram lamb\" and \"Lamb Description | White, healthy, large and strong\", with no lamb ID. Yet lines 114, 179 and 182 tell the farmer to register and evaluate \"EPC26005\". No other file in the repository contains this ID."
+    },
+    {
+     "id": "P8",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 114,
+     "claim": "The lamb ID 'EPC26005' (also used at lines 179 and 182) is not in the Event Summary, and nothing in the report says where it came from. It also does not follow the LPN format used for every other animal. If the ID is wrong or made up, the registration instructions will point to the wrong animal. Either add the ID to the event table with its source or remove it.",
+     "evidence": "The lamb ID 'EPC26005' (also used at lines 179 and 182) is not in the Event Summary, and nothing in the report says where it came from. It also does not follow the LPN format used for every other animal. If the ID is wrong or made up, the registration instructions will point to the wrong animal. Either add the ID to the event table with its source or remove it."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5",
+    "P14"
+   ],
+   "verdict": "confirmed",
+   "reason": ".github/instructions/flock-action.instructions.md:73 lists data.csv as an artifact and .github/workflows/flock-action.md:159 says to commit both report.md and data.csv. Every other report directory, including 2026-04-14-lambing-event, has one, but the diff adds only report.md.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 1,
+   "claim": "The report directory ships without the data.csv that the flock-action instructions require.",
+   "evidence": "The diff adds only reports/2026-04-15-lambing-event/report.md. .github/instructions/flock-action.instructions.md (applyTo: \"reports/**\") lists data.csv as a required artifact. reports/2026-04-14-lambing-event/ has a data.csv with event, dam, sire, predicted_offspring and breed_range rows.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 1,
+     "claim": "The change ships report.md without the machine-readable data.csv that the reports instructions require and that the previous lambing report included.",
+     "evidence": "The diff adds only reports/2026-04-15-lambing-event/report.md. .github/instructions/flock-action.instructions.md (applyTo: \"reports/**\") lists data.csv as a required artifact. reports/2026-04-14-lambing-event/ has a data.csv with event, dam, sire, predicted_offspring and breed_range rows."
+    },
+    {
+     "id": "P14",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 1,
+     "claim": "This report has no data.csv. Every other report directory has one, including the previous lambing event report (reports/2026-04-14-lambing-event/data.csv, which holds the structured event, EBV, and percentile fields). Leaving it out breaks the established report format and any tooling that reads it.",
+     "evidence": "This report has no data.csv. Every other report directory has one, including the previous lambing event report (reports/2026-04-14-lambing-event/data.csv, which holds the structured event, EBV, and percentile fields). Leaving it out breaks the established report format and any tooling that reads it."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6",
+    "P6"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 112 says 'near breed average' and line 168 says 'well below breed average'. The table's +0.06 against a +0.18 midpoint, in a range 2.24 wide, is only a small difference.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 168,
+   "claim": "The report describes the predicted BWT inconsistently, as 'near breed average' in one place and 'well below breed average' in another.",
+   "evidence": "Line 168 says \"resulting in a predicted offspring BWT well below breed average\". Line 112 says \"with a predicted BWT near breed average\". The table gives +0.06 against a midpoint of +0.18 in a range of -0.94 to +1.30, which is a small difference.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 168,
+     "claim": "The report contradicts itself on the lamb's predicted birth weight, calling it both 'near breed average' and 'well below breed average'.",
+     "evidence": "Line 168 says \"resulting in a predicted offspring BWT well below breed average\". Line 112 says \"with a predicted BWT near breed average\". The table gives +0.06 against a midpoint of +0.18 in a range of -0.94 to +1.30, which is a small difference."
+    },
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 168,
+     "claim": "The report describes the predicted offspring BWT (+0.06) inconsistently. Line 106 says 'Below midpoint', line 112 says 'near breed average', and this line says 'well below breed average'. The midpoint is +0.18, so +0.06 is only modestly below it, and 'well below' overstates the difference. Line 112 also treats a 'large' lamb as encouraging, while the rest of the report says lower birth weight is better for a yearling dam.",
+     "evidence": "The report describes the predicted offspring BWT (+0.06) inconsistently. Line 106 says 'Below midpoint', line 112 says 'near breed average', and this line says 'well below breed average'. The midpoint is +0.18, so +0.06 is only modestly below it, and 'well below' overstates the difference. Line 112 also treats a 'large' lamb as encouraging, while the rest of the report says lower birth weight is better for a yearling dam."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C7",
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the dam tree, USD318 sits under 'Sire: FLE382' and NWT063 is the maternal grandsire, yet line 144 says 'maternal grandsire (USD318)'. P3's medium lowered to low because this is a wording error in a description.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 144,
+   "claim": "The pedigree note calls USD318 the dam's maternal grandsire, but he is her paternal grandsire.",
+   "evidence": "In the dam lineage tree (lines 125-126), 6400612018USD318 sits under \"Sire: 6401492022FLE382\". Line 144 nevertheless calls it \"maternal grandsire (USD318 from USDA-ARS Booneville)\".",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 144,
+     "claim": "The pedigree note gets the relationship wrong: it calls USD318 the dam's maternal grandsire, but it is her paternal grandsire.",
+     "evidence": "In the dam lineage tree (lines 125-126), 6400612018USD318 sits under \"Sire: 6401492022FLE382\". Line 144 nevertheless calls it \"maternal grandsire (USD318 from USDA-ARS Booneville)\"."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 144,
+     "claim": "The pedigree note calls USD318 the dam's 'maternal grandsire'. In the tree above it, USD318 is the sire of FLE382, so it is the dam's paternal grandsire. Her maternal grandsire is NWT063 (Hound River Farm). This is a factual error in the lineage description.",
+     "evidence": "The pedigree note calls USD318 the dam's 'maternal grandsire'. In the tree above it, USD318 is the sire of FLE382, so it is the dam's paternal grandsire. Her maternal grandsire is NWT063 (Hound River Farm). This is a factual error in the lineage description."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "disputed",
+   "reason": "The only '50K' in the repo is FLE002's status (mating-recommendations/report.md:144), and earlier reports record only 3 NCS310 daughters in the flock. The NSIP lookup is not in the repo, so the code can't show whether the claim is wrong.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 68,
+   "claim": "The report states without support that the sire is 50K genotyped and has 'many' progeny at Beyond Blessed Farm.",
+   "evidence": "Line 68 says \"**Genotyped**: 50K (genomically enhanced EBVs)\", and line 70 says \"many from the 2025 lambing season at Beyond Blessed Farm\". Earlier reports record only \"25 progeny\" and \"3 daughters present\" (reports/2026-02-16-rank-animals/report.md:267). No genotype status appears in any data.csv.",
+   "axis_row": "L4.32",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 68,
+     "claim": "The report may present unsupported facts about the sire: a 50K genotype and 'many' progeny at Beyond Blessed Farm. Neither appears in any earlier report or data export.",
+     "evidence": "Line 68 says \"**Genotyped**: 50K (genomically enhanced EBVs)\", and line 70 says \"many from the 2025 lambing season at Beyond Blessed Farm\". Earlier reports record only \"25 progeny\" and \"3 daughters present\" (reports/2026-02-16-rank-animals/report.md:267). No genotype status appears in any data.csv."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9",
+    "P10"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 178 ties birth weight to the dam's NLB accuracy. The glossary at line 192 defines NLB as lambs per lambing, which comes from the number born, not from weight.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 178,
+   "claim": "The report says recording birth weight is critical for the dam's NLB accuracy, but birth weight feeds BWT, not NLB.",
+   "evidence": "Line 178 says \"Record the birth weight ... critical for updating both the dam's NLB accuracy and the sire's BWT progeny data\". NLB is litter size (the glossary at line 192), which comes from the number born, not from lamb weight.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 178,
+     "claim": "A recommendation says the lamb's birth weight is critical for updating the dam's NLB accuracy, but birth weight feeds BWT, not NLB, so the advice is wrong.",
+     "evidence": "Line 178 says \"Record the birth weight ... critical for updating both the dam's NLB accuracy and the sire's BWT progeny data\". NLB is litter size (the glossary at line 192), which comes from the number born, not from lamb weight."
+    },
+    {
+     "id": "P10",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 178,
+     "claim": "The report says recording birth weight is 'critical for updating the dam's NLB accuracy'. Birth weight feeds BWT. NLB is updated by the lambing record itself (the number of lambs born), not by birth weight.",
+     "evidence": "The report says recording birth weight is 'critical for updating the dam's NLB accuracy'. Birth weight feeds BWT. NLB is updated by the lambing record itself (the number of lambs born), not by birth weight."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C10",
+    "P4",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The values match (EBV-min)/(max-min): dam BWT (0.34+0.94)/2.24 = 57% and dam WWT (2.72+3.02)/9.21 = 62%. Kept low, down from P4/R1's medium, because it follows the convention of earlier reports and is a labelling problem, not a wrong number.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 41,
+   "claim": "The 'Percentile' column shows linear positions between the breed minimum and maximum, not population percentiles.",
+   "evidence": "Every value matches (EBV - min)/(max - min). For example, sire BWT (-0.225+0.944)/2.244 = 0.32 is shown as \"32nd\", and dam WWT (2.72+3.019)/9.209 = 0.62 is shown as \"62nd\". This copies the earlier reports' convention, but the column header and notes call it a percentile.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 43,
+     "claim": "The 'Percentile' column is really a lamb's linear position between the breed minimum and maximum, not a percentile, so phrases like '32nd \u2014 well below average' can mislead the reader.",
+     "evidence": "Every value matches (EBV - min)/(max - min). For example, sire BWT (-0.225+0.944)/2.244 = 0.32 is shown as \"32nd\", and dam WWT (2.72+3.019)/9.209 = 0.62 is shown as \"62nd\". This copies the earlier reports' convention, but the column header and notes call it a percentile."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 41,
+     "claim": "The 'Percentile' values are not percentiles. They are the EBV's linear position between the breed minimum and maximum. For example, BWT (0.34+0.94)/2.24 = 57% and sire BWT (-0.225+0.94)/2.24 = 32%. A true percentile depends on how animals are distributed across the breed, which this calculation ignores. Labels like '72nd percentile' therefore mislead readers about where these animals rank. The same mislabeling appears in the sire table (lines 76-80), the Breed Context table (lines 152-156), and the text at line 172.",
+     "evidence": "The 'Percentile' values are not percentiles. They are the EBV's linear position between the breed minimum and maximum. For example, BWT (0.34+0.94)/2.24 = 57% and sire BWT (-0.225+0.94)/2.24 = 32%. A true percentile depends on how animals are distributed across the breed, which this calculation ignores. Labels like '72nd percentile' therefore mislead readers about where these animals rank. The same mislabeling appears in the sire table (lines 76-80), the Breed Context table (lines 152-156), and the text at line 172."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 41,
+     "claim": "Label range positions rather than percentiles",
+     "evidence": "These numbers are normalized positions within the minimum\u2013maximum range, not population percentiles: for example, `(2.72 - (-3.02)) / (6.19 - (-3.02))` yields 62%. Without the breed's EBV distribution, this does not establish that the dam exceeds 62% of animals. Rename these values as range positions throughout the report, or obtain actual percentile data before using them to support breeding recommendations."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "noise",
+   "reason": "This is about the process, not a defect in this diff. acceptance.md defers to the baseline's locked tests, and the change adds only a generated markdown report, which those tests were never meant to check.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 1,
+   "claim": "The change has no acceptance criteria or test that checks the report's figures.",
+   "evidence": "acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests\". The export contains no story.md and no tests, and the diff adds a single markdown file with nothing checking its numbers against NSIP data.",
+   "axis_row": "L1.1",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 1,
+     "claim": "The change has no stated acceptance criteria or test that checks the report's figures, so the arithmetic and wording errors above could pass the gate unnoticed.",
+     "evidence": "acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests\". The export contains no story.md and no tests, and the diff adds a single markdown file with nothing checking its numbers against NSIP data."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "P7"
+   ],
+   "verdict": "noise",
+   "reason": "Line 34 labels the figure '1 (this lamb)', which openly counts the event being recorded, so the reader is not misled about where it comes from.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 34,
+   "claim": "The dam's 'Total Progeny: 1' cannot come from the March 22 database snapshot.",
+   "evidence": "The dam's 'Total Progeny: 1 (this lamb)' cannot come from the cited source. The report says the NSIP database was last updated March 22, 2026, and the lamb was born April 14, 2026, so the database would show 0 progeny. The text is mixing database figures with event data without saying so.",
+   "members": [
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 34,
+     "claim": "The dam's 'Total Progeny: 1 (this lamb)' cannot come from the cited source. The report says the NSIP database was last updated March 22, 2026, and the lamb was born April 14, 2026, so the database would show 0 progeny. The text is mixing database figures with event data without saying so.",
+     "evidence": "The dam's 'Total Progeny: 1 (this lamb)' cannot come from the cited source. The report says the NSIP database was last updated March 22, 2026, and the lamb was born April 14, 2026, so the database would show 0 progeny. The text is mixing database figures with event data without saying so."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "P9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The sire table at line 80 shows NLB at 55% accuracy, while lines 84 and 174 say 68\u201381%.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 174,
+   "claim": "The report gives the sire's accuracy range as 68\u201381%, but his NLB accuracy is 55%.",
+   "evidence": "This line says the sire's accuracies are '68\u201381%', and line 84 says the same. The sire table shows his NLB accuracy at 55%, so the actual range is 55\u201381%.",
+   "members": [
+    {
+     "id": "P9",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 174,
+     "claim": "This line says the sire's accuracies are '68\u201381%', and line 84 says the same. The sire table shows his NLB accuracy at 55%, so the actual range is 55\u201381%.",
+     "evidence": "This line says the sire's accuracies are '68\u201381%', and line 84 says the same. The sire table shows his NLB accuracy at 55%, so the actual range is 55\u201381%."
+    }
+   ],
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "P11"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 181 ties the sire choice to 'building her fertility record'. The ewe's NLB record comes from her own lambings, as the report itself says at lines 56-59.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 181,
+   "claim": "The report says choosing a high-NLB sire builds the ewe's own fertility record, which is wrong reasoning.",
+   "evidence": "The report suggests using 'a proven high-NLB sire ... to begin building her fertility record'. Choosing the sire does not build the ewe's own NLB record; her own future lambings do. The reasoning is wrong even if the advice to pick a high-NLB sire is reasonable.",
+   "members": [
+    {
+     "id": "P11",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 181,
+     "claim": "The report suggests using 'a proven high-NLB sire ... to begin building her fertility record'. Choosing the sire does not build the ewe's own NLB record; her own future lambings do. The reasoning is wrong even if the advice to pick a high-NLB sire is reasonable.",
+     "evidence": "The report suggests using 'a proven high-NLB sire ... to begin building her fertility record'. Choosing the sire does not build the ewe's own NLB record; her own future lambings do. The reasoning is wrong even if the advice to pick a high-NLB sire is reasonable."
+    }
+   ],
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "P12"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 37 says 'derived primarily from relatives' and line 49 says 'driven by her own performance records and relatives'. The glossary's '60\u201380%: good progeny data' doesn't fit a dam with no prior progeny listed at 63\u201365%. This is a documentation inconsistency.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 37,
+   "claim": "The report gives conflicting sources for the dam's accuracy, and its glossary accuracy bands don't fit this dam.",
+   "evidence": "The report gives conflicting sources for the dam's accuracy. Line 37 says her EBVs are 'derived primarily from relatives', while line 49 says they are 'driven by her own performance records and relatives'. The glossary (lines 196-200) defines 60\u201380% accuracy as 'good progeny data', but this dam has no progeny and is listed at 63\u201365%. The glossary's accuracy bands do not fit this report.",
+   "members": [
+    {
+     "id": "P12",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 37,
+     "claim": "The report gives conflicting sources for the dam's accuracy. Line 37 says her EBVs are 'derived primarily from relatives', while line 49 says they are 'driven by her own performance records and relatives'. The glossary (lines 196-200) defines 60\u201380% accuracy as 'good progeny data', but this dam has no progeny and is listed at 63\u201365%. The glossary's accuracy bands do not fit this report.",
+     "evidence": "The report gives conflicting sources for the dam's accuracy. Line 37 says her EBVs are 'derived primarily from relatives', while line 49 says they are 'driven by her own performance records and relatives'. The glossary (lines 196-200) defines 60\u201380% accuracy as 'good progeny data', but this dam has no progeny and is listed at 63\u201365%. The glossary's accuracy bands do not fit this report."
+    }
+   ],
+   "id": "F16"
+  },
+  {
+   "sources": [
+    "P13"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 194 gives that definition, copied from reports/2026-04-14-lambing-event/report.md:169. In NSIP's hair sheep indexes, SRC is the Self-Replacing Carcass index. Low because it is a documentation error.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "line": 194,
+   "claim": "The glossary defines the SRC Index wrongly, as 'Sheep Recording and Classing'.",
+   "evidence": "The glossary defines the SRC Index as the 'Sheep Recording and Classing index'. In NSIP, SRC is the Hair Sheep Self-Replacing Carcass index. This wrong definition was copied from the previous lambing report.",
+   "members": [
+    {
+     "id": "P13",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "reports/2026-04-15-lambing-event/report.md",
+     "line": 194,
+     "claim": "The glossary defines the SRC Index as the 'Sheep Recording and Classing index'. In NSIP, SRC is the Hair Sheep Self-Replacing Carcass index. This wrong definition was copied from the previous lambing report.",
+     "evidence": "The glossary defines the SRC Index as the 'Sheep Recording and Classing index'. In NSIP, SRC is the Hair Sheep Self-Replacing Carcass index. This wrong definition was copied from the previous lambing report."
+    }
+   ],
+   "id": "F17"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

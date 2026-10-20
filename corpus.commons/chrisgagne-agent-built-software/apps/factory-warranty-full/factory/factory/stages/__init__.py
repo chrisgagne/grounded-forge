@@ -52,12 +52,14 @@ def guard_hook(change, stage: str, allow_only: list[str] | None = None, worktree
 
 
 def leg_settings(change, stage: str, allow_only: list[str] | None = None, worktree: Path | None = None,
-                 deny_read: list = (), bash_only: list[str] | None = None) -> dict:
+                 deny_read: list = (), bash_only: list[str] | None = None, read_only: bool = False) -> dict:
     """Claude Code settings for a leg: the guard as a PreToolUse hook (the first line) and Claude Code's own
     sandbox (the boundary). Bash and everything it starts may write only the worktree, never git metadata, the
     change folder, the factory config, Claude settings or a locked test; no secret path is readable; the network
     is limited to `isolation.allowed_domains` (none by default)."""
-    locked, _ = change.locked_paths()
+    # A read-only leg has no write tools and no Bash, so the locked files need no write denial of their own; listing
+    # thousands of them pushed a reviewer's settings past Claude Code's 2 MiB limit.
+    locked = [] if read_only else change.locked_paths()[0]
     deny_read = [isolation.expand(p) for p in deny_read]
     settings = isolation.claude_sandbox(change.protected() + locked,
                                         change.config["isolation"].get("allowed_domains") or [], deny_read)
@@ -71,7 +73,7 @@ def settings_file(change, stage: str, name: str, worktree: Path | None = None, d
     """Write leg_settings for a read-only leg (reviewers, sort, assessor) and return the file. `deny_read` names
     folders this leg may not read (a reviewer may not read the change folder or the other reviewer's folders)."""
     f = change.path(f"{stage}/{name}-settings.json")
-    f.write_text(json.dumps(leg_settings(change, stage, worktree=worktree, deny_read=deny_read), indent=1))
+    f.write_text(json.dumps(leg_settings(change, stage, worktree=worktree, deny_read=deny_read, read_only=True), indent=1))
     return f
 
 

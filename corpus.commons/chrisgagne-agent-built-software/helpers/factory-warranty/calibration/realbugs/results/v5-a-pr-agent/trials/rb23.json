@@ -1,0 +1,32 @@
+{
+ "id": "rb23",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 652,
+   "end_line": 656,
+   "message": "Message window gap. After `jumpToMessage` loads an older window, `canLoadNewer` is true. If the user then sends or receives a message, `pushMessage` appends it directly to `loadedMessages`. `syncCursorsFromFlat` and `syncCanLoadFlags` then treat that new message as the newest loaded one, so `canLoadNewer` becomes false.\n\nThe messages between the jumped window and the new message are never loaded, and the UI shows the conversation with silently missing messages. `pushMessage` should first reload the latest window when `canLoadNewer` is true, or skip the append and let the user page forward."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 914,
+   "end_line": 916,
+   "message": "Stuck loading state. The early return at the start of `loadOlder` does not dispatch `older-loaded`. On the client, `loadOlderWithStableScroll` sets `pendingPrependRestore = true` and only clears it on `older-loaded` or on an exception. If the client-side `$wire.canLoadOlder` is true but the server guard returns early (for example, a null cursor), `pendingPrependRestore` and `loadingOlder` stay true. Older messages can then never be loaded again in that session.\n\nDispatching `older-loaded` in that branch too, as the empty-result branch already does, avoids this."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 28,
+  "usage": {
+   "prompt_tokens": 26074,
+   "completion_tokens": 2084,
+   "total_tokens": 28158
+  },
+  "security_concern": false
+ }
+}

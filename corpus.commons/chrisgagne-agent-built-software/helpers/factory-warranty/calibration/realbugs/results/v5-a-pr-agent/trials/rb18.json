@@ -1,0 +1,48 @@
+{
+ "id": "rb18",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 509,
+   "end_line": 510,
+   "message": "Training Skipped Wrongly. `model_was_loaded` checks only whether the checkpoint file exists and `q is not None`. When the file exists but `load_model` fails, the code still skips training:\n- `load_model` catches the exception and returns `(None, None)`.\n- `find_latent_dim` then sets `q` to a non-None value.\n- So `model_was_loaded` is True and `should_train` is False.\n\nThe pipeline then computes p-values from a freshly initialized, untrained model, and only logs a warning.\n\nRealistic trigger: a checkpoint from a different dataset or architecture (different protein count or `n_layers`) sits in `out_dir`. This should be based on whether `load_model` actually returned a model."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 445,
+   "end_line": 452,
+   "message": "Stale Checkpoint Reuse. Every run now auto-loads `out_dir/model.pt` when it exists and skips latent-dim search and training. Rerunning with changed inputs or hyperparameters in the same `out_dir` silently reuses the old model. Changed values that are ignored include `n_epochs`, `lr`, `find_q_method`, covariates and `presence_absence`.\n\nIf dimensions happen to match, results silently come from the old model. Nothing verifies that the checkpoint matches the current dataset or config.\n\n`load_model` also rebuilds the model with `prot_means=None`, while training used the dataset's `prot_means`. For `n_layers > 1` this changes the encoder bias layout, so `load_state_dict` fails. That failure then leads into the issue above."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 73,
+   "end_line": 86,
+   "message": "Undefined Variable. In `train_and_eval_q`, a non-finite loss sets `auc_prec_rec = np.nan`, but the function returns `auprc`. That variable was never assigned in this branch, so diverging training (e.g., a high learning rate) during `gs`/`bs` search raises `UnboundLocalError`.\n\nPreviously this case was just skipped. Even if it were fixed to return NaN, `max(enc2auprc, key=enc2auprc.get)` and the `>` comparisons in binary search behave unpredictably with NaN values."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "security",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Insecure deserialization: `load_model` calls `torch.load(..., weights_only=False)` on a checkpoint path that is loaded automatically from `out_dir/model.pt` or the configured `checkpoint_path`. A malicious or tampered checkpoint file placed at that location can execute arbitrary code via pickle. Since only `state_dict` tensors and primitive metadata are saved, `weights_only=True` should suffice."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 29,
+  "usage": {
+   "prompt_tokens": 48692,
+   "completion_tokens": 2471,
+   "total_tokens": 51163
+  },
+  "security_concern": true
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.4427124,
+  "duration_s": 391.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/emptyRecordMerge.cjs {tree}",
+  "because": "The check builds each tree's src with the tree's own rollup and buble setup, then calls merge({id:1}) on an empty `class Empty extends Record({})` instance: on head it throws \"Class constructor Empty cannot be invoked without 'new'\" because the isRecord guard is gone and merge now calls collection.constructor(...) without new, while on base it returns the same instance (the plain Record({})() case named in the finding returns the same instance on both trees, so that half of the claim was not shown)."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS Record({})().merge({id:1}) returns the same instance (Issue #1785)\nPASS class extends Record({}): merge({id:1}) does not throw and returns the same instance\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS Record({})().merge({id:1}) returns the same instance (Issue #1785)\nFAIL class extends Record({}): merge({id:1}) does not throw and returns the same instance - Class constructor Empty cannot be invoked without 'new'\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check builds each tree's src with the tree's own rollup and buble setup, then calls merge({id:1}) on an empty `class Empty extends Record({})` instance: on head it throws \"Class constructor Empty cannot be invoked without 'new'\" because the isRecord guard is gone and merge now calls collection.constructor(...) without new, while on base it returns the same instance (the plain Record({})() case named in the finding returns the same instance on both trees, so that half of the claim was not shown).",
+ "run": "v3-distillations",
+ "trial": "v08-t1",
+ "kind": "bug"
+}

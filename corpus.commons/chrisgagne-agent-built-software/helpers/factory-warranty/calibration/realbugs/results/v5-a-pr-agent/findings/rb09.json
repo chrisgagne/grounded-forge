@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/brexhq/CrabTrap",
+  "pr_number": 15,
+  "base": "b29930e93765700608313c0f0d32c4818734e158",
+  "head": "5ef0884c59b3ee1d5a986dd02686a8232570c80f"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 97,
+   "end_line": 126,
+   "message": "Stale detail cache. `entryDetails` is filled once per entry id and never cleared. Once an entry has detail data, the expanded view always uses the cached copy instead of the fresher list `entry`, including `response_status`, `error` and the response body.\n\nAudit rows can be written before the upstream response finishes and filled in later via `UpdateResponse`. If a user expands an in-flight entry, the panel keeps showing the incomplete response (empty body, old status) even after the list refreshes, until a full page reload.\n\nPossible fixes:\n- Invalidate cached details when the list entry's `response_status` or `duration_ms` changes.\n- Re-fetch the details on each expand."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "internal/admin/api.go",
+   "start_line": 325,
+   "end_line": 329,
+   "message": "Count per request. Every `GET /admin/audit` call, including each \"load more\" page and any refresh or poll, now runs a separate `Count` query over all matching `audit_log` rows before the paged query. On a large audit table with broad or no filters, `COUNT(*)` scans the matching rows. This can be much slower than the `LIMIT`ed page query it accompanies, which works against the goal of making list responses lightweight.\n\nUncertain: the actual cost depends on the indexes and on how `Count` is implemented, neither of which is visible in this diff.\n\nPossible mitigations:\n- Compute `total` only for the first page (`offset == 0`).\n- Derive `has_more` by fetching `limit+1` rows instead."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 25000
+ }
+}

@@ -1,0 +1,47 @@
+{
+ "id": "x09",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "lib/index.mjs",
+   "start_line": 3,
+   "end_line": 3,
+   "message": "`md.utils` (set at line 332) is now an ES module namespace object instead of a plain object. Namespace objects are sealed and their properties are read-only, so a plugin that patches or adds to `md.utils` (for example `md.utils.escapeHtml = ...` or `md.utils.myHelper = ...`) now throws a TypeError in strict/ESM code and silently does nothing in sloppy code. The rollup CJS build also freezes the namespace. This is a runtime break of a public API that plugins are encouraged to use. Keep a plain object, e.g. `this.utils = utils.assign({}, utils)` or `{ ...utils }`, the same way `helpers` is copied at line 340."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/common/utils.mjs",
+   "start_line": 311,
+   "end_line": 313,
+   "message": "The `export default` was removed from utils.mjs. package.json exports `./*`, so `markdown-it/lib/common/utils.mjs` is a public deep-import path. Code doing `import utils from 'markdown-it/lib/common/utils.mjs'` will now fail with a SyntaxError (no default export). This breaking change has no deprecation or major version bump. Keep the default export next to the named ones."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/helpers/index.mjs",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`export default { ... }` was changed to named-only exports. Consumers who deep-import `markdown-it/lib/helpers/index.mjs` with a default import, which the public `./*` export map allows, will now get an error. This breaks the public API without notice. Keep a default export as well, or treat this as a semver-major change."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 21,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 28,
+   "cost_usd": 0.1065774,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 28
+ },
+ "stopped": true
+}

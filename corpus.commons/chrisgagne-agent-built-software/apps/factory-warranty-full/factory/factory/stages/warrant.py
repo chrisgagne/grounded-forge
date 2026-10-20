@@ -337,6 +337,16 @@ def assemble(change) -> tuple[str, list[str]]:
             where = f"{f.get('file')}:{f.get('line')}"
             row = [f["id"], f["severity"], f["verdict"], where, f["claim"], f["reason"], res]
             out.append("| " + " | ".join(inert(x).replace("|", "/").replace("\n", " ")[:200] for x in row) + " |")
+        shown = [f for f in findings if f.get("shown")]
+        if shown:
+            out += ["", "What the factory ran for each blocking finding (a check that fails after the change and passed "
+                    "before it shows the change in behaviour; whether that change is wanted is yours to decide):", ""]
+            labels = {"shown": "Shown", "not shown": "Not shown", "argued": "Can't be run, argued only",
+                      "unchecked": "Not checked (the step gave no usable answer)"}
+            for f in shown:
+                s = f["shown"]
+                where = f" Check: `review/reproduce/{f['id']}/`." if (change.dir / "review" / "reproduce" / f["id"]).is_dir() else ""
+                out.append(f"- {f['id']}: **{labels.get(s['outcome'], s['outcome'])}.** {inert(s.get('why') or '')}{where}")
     elif review:
         out.append("- No findings.")
     out.append("")

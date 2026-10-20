@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/AA-Factory/aafactory-prototype",
+  "pr_number": 17,
+  "base": "e7f558c7360abac335af2df22f4ed376992b30ab",
+  "head": "a1978cb75950a879df8805e4a5f373eb6678f6f9"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 35,
+   "end_line": 35,
+   "message": "The test calls its own mock instead of send_request_to_llm, so broken chat orchestration will still pass. Lines 18\u201322 replace send_request_to_open_ai with llm_side_effect, and line 35 calls that replacement directly. The side effect supplies every asserted return value and appends the asserted history itself; the production send_request_to_llm never executes."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The avatar-loader patch misses the imported reference, leaving the test dependent on the real application database. Line 2 imports _load_avatar_infos_for_chat directly, while line 26 patches only chat_interface._load_avatar_infos_for_chat. Line 33 invokes the original imported function, which opens TinyDB(DB_PATH) and calls avatar_page_settings.get without checking whether the settings record exists; an empty database therefore causes an AttributeError before the assertions."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "The new test requires undeclared pytest plugins and cannot run with the project's declared development dependencies. The test requests the mocker fixture and uses pytest.mark.asyncio, requiring pytest-mock and pytest-asyncio. pyproject.toml declares only pytest and pytest-cov as development dependencies, and neither required plugin has a package entry in poetry.lock. A clean project installation cannot provide the mocker fixture."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

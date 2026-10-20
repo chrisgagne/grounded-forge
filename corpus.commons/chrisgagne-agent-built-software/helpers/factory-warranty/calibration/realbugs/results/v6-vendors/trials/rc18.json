@@ -1,0 +1,78 @@
+{
+ "id": "rc18",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 21,
+   "end_line": 22,
+   "message": "This PR takes `defmt` out of the default features, and nothing about PartitionGuard needs that. It is a breaking change for downstream crates: anyone relying on the default `Error: defmt::Format` derive will stop compiling unless they turn the feature back on themselves. If tests needed this, enable or disable `defmt` only in the test or CI configuration. Otherwise, revert it, or at least call it out as breaking in the PR and changelog."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "The new dev-dependency `critical-section` (with `std`) is not used by any test code. All tests use `NoopRawMutex`, and nothing references critical_section. It looks like a leftover from working around the defmt/link problem. Remove it, or explain why it is needed."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 49,
+   "end_line": 80,
+   "message": "`Partition::lock`/`try_lock` lock the single Mutex shared by every partition of the device, not just this partition. While a PartitionGuard is alive, all other partitions are blocked too (the test even relies on this: holding `factory.lock()` makes `settings.try_lock()` fail). This makes it easy to deadlock: if a task holds a guard and then awaits any other `Partition` method, or `lock()`, on the same device, it waits forever. The docs ('exclusive access to a partition's underlying storage') hide this. State clearly that the guard locks the whole device and must not be held across other partition accesses."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 59,
+   "end_line": 67,
+   "message": "This only partly delivers what the motivation promises. `try_lock` is synchronous, but every operation on the guard (BlockDevice/NorFlash read/write/erase) is async. A synchronous panic handler would still need its own executor or `block_on` to use it. Also, if the panicking task held the lock, `try_lock` just fails, so crash data still cannot be written in exactly the case described. Consider documenting the intended usage, or offering a blocking path."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 70,
+   "end_line": 80,
+   "message": "There is no way to turn a `PartitionGuard<RW>` into an RO view, the way `Partition::readonly()` does for partitions. As a result, the RW guard impls duplicate the read logic instead of delegating to it (see bdd.rs)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "partition-manager/partition-manager/src/ext/bdd.rs",
+   "start_line": 52,
+   "end_line": 89,
+   "message": "`start_block` and `check_access` (and `within_bounds` in lib.rs) are copied verbatim from `Partition` into `PartitionGuard`, and the BlockDevice read/write bodies are duplicated again for RO and RW guards. Any future fix to the bounds or overflow logic has to be made in several places, which invites drift in security-relevant checks. Move this into a shared helper, for example a function over `(offset, size)` or a small shared bounds struct."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "partition-manager/partition-manager/src/ext/esa.rs",
+   "start_line": 60,
+   "end_line": 62,
+   "message": "This changes behavior silently. Before, `erase(from, to)` with `to < from` used `saturating_sub`, so the request was passed to the device, which would report its own error. Now it returns `Error::OutOfBounds`, which maps to NorFlashErrorKind::OutOfBounds. That is reasonable, but it changes the error kind callers see, and no test or PR note covers it."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 21,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 54,
+   "cost_usd": 0.2992784,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 54
+ }
+}

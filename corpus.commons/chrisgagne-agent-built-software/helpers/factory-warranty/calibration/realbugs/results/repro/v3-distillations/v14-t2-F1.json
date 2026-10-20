@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.10940799999999998,
+  "duration_s": 17.5
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/check.mjs {tree}",
+  "because": "On head, markdown-it renders `[x](foo\\ \"t\")`, `![y](foo\\ \"t\")` and the reference definition `[x]: foo\\ ` as literal text instead of a link or image with href `foo%5C`, while base renders them correctly; this shows that an unbracketed destination with a backslash before a space is now rejected."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS \"[x](foo\\\\ \\\"t\\\")\" -> \"<p><a href=\\\"foo%5C\\\" title=\\\"t\\\">x</a></p>\\n\"\nPASS \"[x]: foo\\\\ \\n\\n[x]\" -> \"<p><a href=\\\"foo%5C\\\">x</a></p>\\n\"\nPASS \"![y](foo\\\\ \\\"t\\\")\" -> \"<p><img src=\\\"foo%5C\\\" alt=\\\"y\\\" title=\\\"t\\\"></p>\\n\"\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"[x](foo\\\\ \\\"t\\\")\" -> \"<p>[x](foo\\\\ &quot;t&quot;)</p>\\n\"\nFAIL \"[x]: foo\\\\ \\n\\n[x]\" -> \"<p>[x]: foo\\\\</p>\\n<p>[x]</p>\\n\"\nFAIL \"![y](foo\\\\ \\\"t\\\")\" -> \"<p>![y](foo\\\\ &quot;t&quot;)</p>\\n\"\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, markdown-it renders `[x](foo\\ \"t\")`, `![y](foo\\ \"t\")` and the reference definition `[x]: foo\\ ` as literal text instead of a link or image with href `foo%5C`, while base renders them correctly; this shows that an unbracketed destination with a backslash before a space is now rejected.",
+ "run": "v3-distillations",
+ "trial": "v14-t2",
+ "kind": "bug"
+}

@@ -1,0 +1,32 @@
+{
+ "id": "rc12",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 190,
+   "end_line": 199,
+   "message": "Unbounded await. The bounded `CountDownLatch.await(5, SECONDS)` calls were replaced with bare `CompletableDeferred.await()`. Inside `runTest(StandardTestDispatcher(...))`, a suspended `await()` lets the scheduler auto-advance virtual time through every pending task. This has two consequences:\n- If the callback is not already complete, pending timers run before it does. These include reconnect backoff, which can dial `transport2` and fire `onTransportRestore`, and the heartbeat ping/pong deadlines.\n- In `close from onTransportDrop suppresses onTransportRestore`, this can let a reconnect happen during `disconnectCalled.await()`, which the test is meant to rule out.\nA regression where the callback never fires now surfaces as a generic `runTest` timeout instead of a clear assertion failure. The explicit message `onDisconnect must fire even when onTransportDrop throws` was also lost.\nConsider `withTimeout(...)` around the awaits, or `runCurrent()` followed by an `isCompleted` assertion with a message, as done in `ReconnectTest`/`MiscTest`."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 48,
+   "end_line": 54,
+   "message": "Virtual-only polling. `waitUntil` now only calls `testScheduler.advanceTimeBy(10)` 500 times. It never suspends or yields real time. The previous version polled on `Dispatchers.Default` with real delays.\nIf any condition depends on work that runs off the test scheduler, the 500 iterations finish almost instantly and the test fails with `condition not satisfied after 5s virtual time`. Examples would be a `MockTransport` or client path using real threads or another dispatcher.\nUncertain: this depends on whether all client/mock work is confined to `testScheduler`, which isn't visible in the diff. Worth confirming, especially for the concurrent-send test that previously used a 10s real timeout."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 31,
+  "usage": {
+   "prompt_tokens": 24769,
+   "completion_tokens": 2677,
+   "total_tokens": 27446
+  },
+  "security_concern": false
+ }
+}

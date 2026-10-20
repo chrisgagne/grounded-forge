@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/vanyastaff/nebula",
+  "pr_number": 224,
+  "base": "c4879eb1c460e45c11ce28e3e8a305194023b64e",
+  "head": "d5ba86dd1014b79e263d93a1e324eeec0d0b306c"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 147,
+   "end_line": 147,
+   "message": "Lazy key rotation returns a stale record version, causing subsequent compare-and-swap updates to fail even without concurrent writers. When get() reads a record encrypted with an old key at version N, it writes the rotated ciphertext using CompareAndSwap { expected_version: credential.version }. InMemoryStore::put increments that version to N+1, but get() discards the returned record in Ok(_) and returns the original credential at version N. A caller using the returned version for its next CAS write therefore receives VersionConflict solely because of the read's rotation."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "crates/credential/src/crypto.rs",
+   "start_line": 79,
+   "end_line": 79,
+   "message": "The encryption envelope documentation incorrectly says empty key IDs are rejected, obscuring the actual migration behavior. EncryptedData::key_id documents that the encryption layer 'rejects empty key IDs at runtime' and requires migration before upgrading. However, EncryptionLayer::new registers an empty-string key alias, and decrypt_possibly_rotating accepts an empty key ID through key_for_id, decrypts AAD-protected legacy data, and rotates it to the default key."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

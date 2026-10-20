@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/scorbo2/ext-sn-statistics",
+  "pr_number": 20,
+  "base": "da54721276e4132447cd708c35f18f3a635815a2",
+  "head": "12fad8312a7ca0ecc58480c2a582649386cf08a4"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 437,
+   "end_line": 454,
+   "message": "Empty search set. `setAllowBlank(false)` only rejects blank text. Input like `,,,`, or text that `TagList.fromRawString` filters out entirely, passes validation but produces an empty `wordSet`.\n\n`findWords` treats an empty `specificWords` set as \"consider all words\". The user would then see the general top-25 word list presented as their \"Search results\" instead of an empty or no-input result. Check that `wordSet` is non-empty before starting the worker."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "Truncated results. The search passes `TOP_N_WORDS` (25) as the limit, but nothing enforces the \"1-25 words\" stated in the help text.\n\nIf a user searches for more than 25 words, results are silently cut to the 25 most frequent. The \"combined occurrences\" total in `showWordSearchResults` is also summed only over those 25, so it under-reports. Either pass `searchWords.size()` as the limit, or validate the input count."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 19000
+ }
+}

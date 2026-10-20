@@ -1,0 +1,28 @@
+{
+ "cases": [
+  {
+   "id": "rd12",
+   "kind": "pr",
+   "project": "edercnj_ia-dev-environment",
+   "repo": "https://github.com/edercnj/ia-dev-environment",
+   "pr_number": 198,
+   "base": "949c62fe2ace8c41d41dd9d7dfd7b51ab268d25f",
+   "head": "76a992582e9e73897987a43bd520bb581f0e7ce7",
+   "title": "feat(epic-0028): add x-story-plan multi-agent planning skill [story-0028-0002]",
+   "body": "## Summary\n- Created new skill `x-story-plan` with 6-phase workflow: Input Resolution, Context Gathering, Parallel Planning (5 agents), Consolidation, Artifact Generation, DoR Validation\n- Launches Architect, QA, Security, Tech Lead, Product Owner agents in parallel with embedded prompts (RULE-005)\n- Produces: task breakdown, per-task plans, planning report, DoR checklist\n- 12 DoR validation checks (10 mandatory + 2 conditional)\n\nPart of EPIC-0028 \u2014 Planejamento Multi-Agente de Historias com Tasks Detalhadas\nDepends on: #197 (story-0028-0001)\n\n## Test plan\n- [x] All 5521 existing tests pass\n- [ ] Golden files will be updated in story-0028-0007\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
+   "language": "Shell"
+  },
+  {
+   "id": "rd13",
+   "kind": "pr",
+   "project": "edercnj_ia-dev-environment",
+   "repo": "https://github.com/edercnj/ia-dev-environment",
+   "pr_number": 202,
+   "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+   "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f",
+   "title": "feat(epic-0028): add DoR pre-check and per-task checkpoint to x-dev-epic-implement [story-0028-0006]",
+   "body": "## Summary\n- Added DoR pre-check before each story dispatch: reads `dor-story-{storyId}.md`, blocks stories with NOT_READY verdict\n- Backward compatible: proceeds without DoR check when DoR files don't exist (RULE-001)\n- Added per-task checkpoint tracking in execution-state.json for PRE_PLANNED mode\n- Enhanced resume workflow with task-level reclassification (IN_PROGRESS\u2192PENDING, DONE preserved)\n\nPart of EPIC-0028 \u2014 Planejamento Multi-Agente de Historias com Tasks Detalhadas\nDepends on: #197, #198, #199, #200, #201\n\n## Test plan\n- [x] All existing tests pass\n- [ ] Golden files will need updating for this skill modification\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)",
+   "language": "Shell"
+  }
+ ]
+}

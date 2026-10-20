@@ -1,0 +1,55 @@
+{
+ "id": "x15",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/common/utils.ts",
+   "start_line": 292,
+   "end_line": 295,
+   "message": "Preserve the assign utility exposed to plugins. Removing this export also removes `md.utils.assign`, which existing plugins still call. In particular, the declared `markdown-it-container` 4.x dependency uses it during initialization, and `support/demo_template/index.mjs` installs that plugin, so the demo now fails with `TypeError: md.utils.assign is not a function`. Keep a compatibility export, even if internal callers switch to `Object.assign`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/common/utils.ts",
+   "start_line": 291,
+   "end_line": 296,
+   "message": "This removes `assign`, `isString` and `has` from the utils exports. Those exports are public API: `MarkdownIt#utils` exposes the whole module to plugins (src/markdownit.ts:322-330). Many third-party plugins call `md.utils.assign`, `md.utils.isString` or `md.utils.has`, and with this change they will throw `TypeError: ... is not a function` at runtime. That is a breaking change and needs a major version bump plus a migration note. Otherwise, keep the helpers as deprecated aliases, e.g. `assign = Object.assign`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/markdownit.ts",
+   "start_line": 366,
+   "end_line": 366,
+   "message": "`utils.assign` threw a TypeError when the source was not an object. `Object.assign` silently copies index keys from a string: `md.set('foo')` now writes keys '0', '1', '2' into options instead of failing. Bad input to `set()` is no longer caught."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/markdownit.ts",
+   "start_line": 225,
+   "end_line": 225,
+   "message": "`utils.isString` also matched boxed String objects (`new String('commonmark')`), but `typeof` does not. A boxed preset name passed to the constructor or to `configure()` (line 383) is now treated as an options object instead of a preset name. This is a small edge case, but the behavior change is not mentioned anywhere."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 32,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 92,
+   "cost_usd": 0.0988386,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 92
+ },
+ "stopped": true
+}

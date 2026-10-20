@@ -1,0 +1,39 @@
+{
+ "id": "x05",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "conversions.js",
+   "start_line": 748,
+   "end_line": 754,
+   "message": "There are no tests for the new `apple` model. test/basic.js has no assertions for `convert.apple.rgb` or `convert.rgb.apple`, and none for multi-hop routes the router now builds automatically, such as `apple.hsl`, `hsl.apple` and `keyword.apple`. Add round-trip cases (e.g. `rgb.apple([255,255,255]) -> [65535,65535,65535]`, `apple.rgb([65535,32767,0]) -> [255,127,0]`) so the 16-bit scaling and rounding behaviour is locked in."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "conversions.js",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The new public `apple` model isn't documented. Adding it to the model map exposes `convert.apple.*` and `convert.*.apple` for every model through route.js, but README.md and CHANGELOG.md weren't updated. The name 'apple' also doesn't say that it means 16-bit RGB channels in the range 0\u201365535 (the AppleScript/NSColor convention). Document the range and meaning so users know what values to pass and what they'll get back."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 326,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 20,
+   "cost_usd": 0.09235099999999999,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 326
+ },
+ "stopped": false
+}

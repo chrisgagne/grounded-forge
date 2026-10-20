@@ -1,0 +1,33 @@
+{
+ "finding": "F3",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.0690368,
+  "duration_s": 283.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/bom-boundary.mjs {tree}",
+  "because": "On head, loadAll no longer treats a BOM-prefixed '---' later in the stream as a document boundary: 'foo\\n\\uFEFF---\\nbar' becomes the single merged scalar 'foo \\uFEFF--- bar' instead of ['foo','bar'], and 'a\\n...\\n\\uFEFF---\\nb' gives 'a' plus a second document with the literal text '\\uFEFF--- b' instead of ['a','b'] (it does not throw, which the finding predicted); base parses both correctly."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   \"a\\n...\\n\ufeff---\\nb\\n\" -> [\"a\",\"b\"]\nok   \"foo\\n\ufeff---\\nbar\\n\" -> [\"foo\",\"bar\"]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"a\\n...\\n\ufeff---\\nb\\n\" expected [\"a\",\"b\"] got [\"a\",\"\ufeff--- b\"]\nFAIL \"foo\\n\ufeff---\\nbar\\n\" expected [\"foo\",\"bar\"] got [\"foo \ufeff--- bar\"]\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, loadAll no longer treats a BOM-prefixed '---' later in the stream as a document boundary: 'foo\\n\\uFEFF---\\nbar' becomes the single merged scalar 'foo \\uFEFF--- bar' instead of ['foo','bar'], and 'a\\n...\\n\\uFEFF---\\nb' gives 'a' plus a second document with the literal text '\\uFEFF--- b' instead of ['a','b'] (it does not throw, which the finding predicted); base parses both correctly.",
+ "run": "v4-arm-v3",
+ "trial": "w15-t1",
+ "kind": "bug"
+}

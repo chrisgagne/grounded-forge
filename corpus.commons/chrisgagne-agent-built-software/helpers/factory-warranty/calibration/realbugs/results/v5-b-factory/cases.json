@@ -1,0 +1,257 @@
+{
+ "cases": [
+  {
+   "id": "x01",
+   "kind": "control",
+   "project": "rrule",
+   "commit": "62e7320a35195b2eef6bbec75887e8ec209b20ed",
+   "parent": "8713aa5b79a66487353a178047a4b1e87e1e8b42",
+   "code_files": [
+    "src/nlp/parsetext.ts",
+    "src/nlp/totext.ts"
+   ],
+   "test_files": [
+    "test/nlp.test.ts"
+   ],
+   "code_lines_changed": 7,
+   "ground_truth": "CONTROL: Adds parsing and text generation for weekly recurrence rules specifying hours, such as 'Every week on Sunday at 10, 12 and 17'.",
+   "evidence": "Subject: 'feat(nlp): support weekly by hour texts (#590)'. Adds the corresponding weekly BYHOUR test. Checked subsequent messages for reverts and commit/feature references, both source-file histories, and -G/-S searches for AT() and _byhour through origin/HEAD 9f2061febeeb363d03352efe33d30c33073a0242; no revert or correction to the added behavior was found."
+  },
+  {
+   "id": "x02",
+   "kind": "control",
+   "project": "node-semver",
+   "commit": "2b5ad50b09d408d27682581c4d2ec1d580e7e681",
+   "parent": "6e7982f23a0f2a378dad80de6a9acb435154e652",
+   "code_files": [
+    "README.md",
+    "index.js",
+    "ranges/simplify.js"
+   ],
+   "test_files": [
+    "test/ranges/simplify.js"
+   ],
+   "code_lines_changed": 54,
+   "ground_truth": "CONTROL: Adds simplifyRange, which produces a shorter range matching the same versions within a supplied version list when possible.",
+   "evidence": "Subject: 'Add method for simplifying ranges'. Adds tests covering unchanged, contiguous, disjoint, and universal ranges. Checked subsequent messages for references and reverts, the complete later ranges/simplify.js diffs, and -S searches for simplifyRange through origin/HEAD 6e05b7637396ac66522cff8731f07cfe0ef49a29. Later changes add strict mode, formatting, and ESM export wiring; none corrects or reverts the introduced range algorithm."
+  },
+  {
+   "id": "x03",
+   "kind": "control",
+   "project": "yargs-parser",
+   "commit": "9cec00a622251292ffb7dce6f78f5353afaa0d4c",
+   "parent": "50cee724b7c73e44d93f9bf8936b783d311ed267",
+   "code_files": [
+    "README.md",
+    "lib/yargs-parser-types.ts",
+    "lib/yargs-parser.ts"
+   ],
+   "test_files": [
+    "test/yargs-parser.cjs"
+   ],
+   "code_lines_changed": 35,
+   "ground_truth": "CONTROL: Adds parse-positional-numbers configuration so callers can preserve numeric-looking positional arguments as strings.",
+   "evidence": "Subject: 'feat: adds parse-positional-numbers configuration (#321)'. Tests demonstrate both disabled coercion and the unchanged default. Checked later source histories, revert/reference messages, and -S/-G searches for parse-positional-numbers through origin/HEAD aa386be666df974a127904020c61b9febc10301f; no correction or revert of the option was found. Inspected f85ebb4: it fixes a pre-existing unknown-options positional-coercion path, rather than the guard introduced here."
+  },
+  {
+   "id": "x04",
+   "kind": "control",
+   "project": "jsdiff",
+   "commit": "3a9925370336a2782dbfa0a6fd5cdd7e9662abd9",
+   "parent": "3351c82086709cade8249b2c897fe3c5a731de3d",
+   "code_files": [
+    "README.md",
+    "release-notes.md",
+    "src/diff/base.js"
+   ],
+   "test_files": [
+    "test/diff/array.js",
+    "test/diff/json.js",
+    "test/diff/line.js",
+    "test/diff/word.js"
+   ],
+   "code_lines_changed": 15,
+   "ground_truth": "CONTROL: Changes diff results to consistently include boolean added and removed fields, using false instead of omitted or undefined values.",
+   "evidence": "Subject: 'Always set `added` and `removed` to `true` or `false`, rather than leaving them unset or explicitly using `undefined` (#455)'. Updates expected objects across four test files. Checked later messages, reverts, base.js/base.ts histories, and -S/-G searches for the boolean fields through origin/HEAD 4ee9d163506fb6184625e0663a1d313b94650aad. Later token-granularity and TypeScript refactors preserve the explicit booleans; no fix or revert of this contract was found."
+  },
+  {
+   "id": "x05",
+   "kind": "control",
+   "project": "color-convert",
+   "commit": "45aadf7d1ab611a3e4b47c6220e4d9df226a1478",
+   "parent": "7fda3d54d14e6689a7f7628e8ddd014532d1b30a",
+   "code_files": [
+    "conversions.js"
+   ],
+   "test_files": [
+    "test/basic.js"
+   ],
+   "code_lines_changed": 11,
+   "ground_truth": "CONTROL: Adds conversions between ordinary RGB channels and Apple's 16-bit RGB channels.",
+   "evidence": "Subject: 'add apple RGB conversion'. Adds an RGB-to-Apple conversion assertion. Checked all subsequent conversions.js subjects, relevant apple hunks, -S searches for convert.apple.rgb, and revert/reference messages through origin/HEAD 5c106a633b5cd2de554d9c287ad31f9eeca7a271. Later changes add channel labels and modernize syntax while preserving the scaling formulas; the lookup-table revert concerns keyword conversion, not Apple RGB."
+  },
+  {
+   "id": "x06",
+   "kind": "control",
+   "project": "yargs-parser",
+   "commit": "9c60265fd7a03cb98e6df3e32c8c5e7508d9f56f",
+   "parent": "87e0a2136156fb45a0bd8102472915a75697a2e0",
+   "code_files": [
+    "index.js"
+   ],
+   "test_files": [
+    "test/yargs-parser.js"
+   ],
+   "code_lines_changed": 7,
+   "ground_truth": "CONTROL: Adds single-digit boolean aliases such as -0 while retaining numeric positional parsing when no corresponding boolean flag is configured.",
+   "evidence": "Subject: 'feat: introduce single-digit boolean aliases (#255)'. Adds tests for enabled aliases, unconfigured digits, and negation. Checked subsequent messages for reverts/references, source history, and -S/-G searches for the single-digit branch through TypeScript and ESM migrations to origin/HEAD aa386be666df974a127904020c61b9febc10301f; the branch is retained without a later corrective change."
+  },
+  {
+   "id": "x07",
+   "kind": "control",
+   "project": "date-fns",
+   "commit": "111d8f42c4432a968b627ffaf2634ab3aec865f0",
+   "parent": "d0eb6de3ea5e3a26ea0b8beb0a5d95579463302e",
+   "code_files": [
+    "README.md",
+    "src/tzName/index.ts"
+   ],
+   "test_files": [
+    "src/tzName/tests.ts"
+   ],
+   "code_lines_changed": 50,
+   "ground_truth": "CONTROL: Adds an optional time-zone-name format argument supporting short, long, shortGeneric, and longGeneric output.",
+   "evidence": "Subject: '(tz): Add format option to tzName function'. Adds assertions for all four formats. Verified default-branch ancestry, checked subsequent revert/reference messages, followed tzName through the pkgs/tz subtree import, and searched with -S/-G for TZNameFormat through origin/HEAD 717ce0a807ea4c6b540d015b5c408723175b2838. Only formatting changes affect the added option; no correcting fix or revert was found."
+  },
+  {
+   "id": "x08",
+   "kind": "control",
+   "project": "js-yaml",
+   "commit": "30108cc828b5393d55dfbfc8087ab713f7145946",
+   "parent": "494400bd45cad078123cfc057e674a9a0a8d9983",
+   "code_files": [
+    "src/parser/parser.ts"
+   ],
+   "test_files": [],
+   "code_lines_changed": 24,
+   "ground_truth": "CONTROL: Refactors block-mapping parsing to insert the mapping event before the already parsed first key instead of rolling back and parsing that key again.",
+   "evidence": "Subject: 'Parse the first block mapping key once (#800)'. Inspected the parent and changed control flow: the previously validated key and separator are reused. Checked subsequent parser history, revert/reference messages, and -S/-G searches for beforeKey.eventsLength and mappingOpened through origin/HEAD cb62b2dbbaa0b3e7379d83a5d69d8d52d21b6efb. Subsequent parser fixes concern other branches; none changes or reverts the inserted-event implementation."
+  },
+  {
+   "id": "x09",
+   "kind": "control",
+   "project": "markdown-it",
+   "commit": "5578e698af74c061c2548ea6251f6719b0a31ac7",
+   "parent": "7f0f211a20fdadd9b3cfb2133b4708661365730c",
+   "code_files": [
+    "lib/common/utils.mjs",
+    "lib/helpers/index.mjs",
+    "lib/index.mjs"
+   ],
+   "test_files": [
+    "test/utils.mjs"
+   ],
+   "code_lines_changed": 25,
+   "ground_truth": "CONTROL: Refactors internal utility and helper modules to use named exports and namespace imports instead of default-exported objects.",
+   "evidence": "Subject: 'Cleanup internal exports'. Updates the utility test import accordingly. Checked subsequent messages for reverts and export-related references, affected-file histories, and -S/-G searches for the namespace imports across lib-to-src and TypeScript migrations through origin/HEAD a8c00d474ec9b304fad9b71c16d6fa8b4909279e. No subsequent fix or revert attributable to this export refactor was found."
+  },
+  {
+   "id": "x10",
+   "kind": "control",
+   "project": "jsdiff",
+   "commit": "533893d4e7d7431395cf3fb7962c19ccefba95f0",
+   "parent": "1f1ec9672b3af4ec68abf6c8e52e8beddfae86a8",
+   "code_files": [
+    "README.md",
+    "release-notes.md",
+    "src/diff/base.js"
+   ],
+   "test_files": [
+    "test/diff/array.js"
+   ],
+   "code_lines_changed": 9,
+   "ground_truth": "CONTROL: Adds a timeout option that allows diff computation to abort when its execution-time budget is exceeded.",
+   "evidence": "Subject: 'Add `timeout` option (#478)'. Adds a deliberately slow comparator test demonstrating timeout and successful completion with a larger budget. Checked subsequent revert/reference messages, base.js/base.ts history, and -S/-G searches for abortAfterTimestamp and maxExecutionTime through origin/HEAD 4ee9d163506fb6184625e0663a1d313b94650aad. The deadline logic survives the TypeScript and async-scheduling refactors without a correcting fix or revert."
+  },
+  {
+   "id": "x11",
+   "kind": "control",
+   "project": "ipaddr.js",
+   "commit": "d564b1d38c32ebcc03002c27fbd5641a8b1366cc",
+   "parent": "08c2cd41e2cb3400683cbd503f60421bfdf66921",
+   "code_files": [
+    "README.md",
+    "lib/ipaddr.js",
+    "lib/ipaddr.js.d.ts"
+   ],
+   "test_files": [
+    "test/ipaddr.test.js"
+   ],
+   "code_lines_changed": 13,
+   "ground_truth": "CONTROL: Adds isValidCIDRFourPartDecimal to validate CIDR strings whose IPv4 address uses conventional four-part decimal notation.",
+   "evidence": "Subject: 'Add IPv4 CIDR four-part decimal validator'. Adds tests for valid addresses, nondecimal and abbreviated addresses, and an invalid prefix length. Checked subsequent source histories, revert/reference messages, and -S/-G searches for the new method through origin/HEAD b70b039e4085cdda7afd4163a5f526e5094046c3. Its implementation is preserved in the ESM/class migration; later CIDR-prefix validation changes concern matchCIDR, not this method."
+  },
+  {
+   "id": "x12",
+   "kind": "control",
+   "project": "color-convert",
+   "commit": "4cb0bcc87e1f0e1b9e2f63447e8a5a8cc5709138",
+   "parent": "75c08d063bda2b9906d9302e674bedce331230e5",
+   "code_files": [
+    "conversions.js"
+   ],
+   "test_files": [
+    "test/basic.js"
+   ],
+   "code_lines_changed": 12,
+   "ground_truth": "CONTROL: Adds three-digit hexadecimal color input by expanding each digit before converting the color to RGB.",
+   "evidence": "Subject: 'add support for shorthand hex color (#39)'. Adds assertions equating ABC and AABBCC. Checked all later conversions.js subjects, the hex.rgb/colorString hunks, -S searches, and revert/reference messages through origin/HEAD 5c106a633b5cd2de554d9c287ad31f9eeca7a271. Later syntax modernization preserves the expansion algorithm; no correcting fix or revert was found."
+  },
+  {
+   "id": "x13",
+   "kind": "control",
+   "project": "rrule",
+   "commit": "3e6bd20eb6f92f79892c4571b42fece0f1c1af35",
+   "parent": "4d25617cdcbc99ef45f84d12a8b2bf8dc4b503e4",
+   "code_files": [
+    "src/cache.ts"
+   ],
+   "test_files": [],
+   "code_lines_changed": 1,
+   "ground_truth": "CONTROL: Removes a redundant empty-array special case because Array.every already returns true for an empty array.",
+   "evidence": "Subject: 'remove superfluous condition'. Inspected argsMatch and its parent implementation to confirm identical results for empty arrays. Checked subsequent cache.ts history, revert/reference messages, and -S/-G searches for the removed condition and argsMatch through origin/HEAD 9f2061febeeb363d03352efe33d30c33073a0242. Later changes concern formatting, imports, and a TypeScript assertion; the condition is never restored or corrected."
+  },
+  {
+   "id": "x14",
+   "kind": "control",
+   "project": "js-yaml",
+   "commit": "ce9af83ecff0706b5c5c785564d4575a35963eba",
+   "parent": "21b265d0cb0a35bad50a7d20fd58253c90dc34c5",
+   "code_files": [
+    "src/ast/presenter.ts"
+   ],
+   "test_files": [],
+   "code_lines_changed": 49,
+   "ground_truth": "CONTROL: Refactors scalar layout calculations to express parent and content indentation explicitly while preserving the existing indentation and width calculations.",
+   "evidence": "Subject: 'Clarify scalar geometry vars'. Compared the old blockIndent calculation with shiftOfContent minus shiftOfParent at root and nested levels; they are equivalent. Checked subsequent presenter history, revert/reference messages, and -S/-G searches for scalarLayout, blockHeader, and the new variables through origin/HEAD cb62b2dbbaa0b3e7379d83a5d69d8d52d21b6efb. The later scalar-styler replacement retains the geometry approach; no fix or revert attributable to this refactor was found."
+  },
+  {
+   "id": "x15",
+   "kind": "control",
+   "project": "markdown-it",
+   "commit": "a99b3dbeb1288aa5fdbde1402e8cbfbef7102c9f",
+   "parent": "2b49966fa6fed2be6fcf67e4eae7c0a8ed652a5e",
+   "code_files": [
+    "src/common/utils.ts",
+    "src/markdownit.ts",
+    "src/renderer.ts"
+   ],
+   "test_files": [
+    "test/markdown-it/utils.test.mjs"
+   ],
+   "code_lines_changed": 45,
+   "ground_truth": "CONTROL: Removes legacy utility helpers and replaces internal object copying and string checks with Object.assign and typeof.",
+   "evidence": "Subject: 'Remove utils helpers `.has()`, `.isString()`, `.assign()`'. Removes tests for the deleted assign helper. Checked subsequent affected-file histories, revert/reference messages, and -S/-G searches for utils.assign, Object.assign, and preset string checks through origin/HEAD a8c00d474ec9b304fad9b71c16d6fa8b4909279e. Later TypeScript migrations retain the standard operations; no correcting fix or revert attributable to this change was found."
+  }
+ ]
+}

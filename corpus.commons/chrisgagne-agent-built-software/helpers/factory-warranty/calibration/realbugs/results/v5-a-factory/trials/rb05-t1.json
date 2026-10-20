@@ -1,0 +1,127 @@
+{
+ "id": "rb05",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.9652,
+ "codex_tokens": 41930,
+ "work": "<tmp>/replay-rb05-t1-du8kvzxf",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 41 awaits chat_interface.send_request_to_open_ai, which lines 24-28 patch with llm_side_effect. Lines 20-22 append to CHAT_HISTORY and return exactly the tuple that lines 47-51 assert on. The real send_request_to_llm (interface.py:77-94) never runs, so any broken version of it still passes.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "line": 41,
+   "claim": "test_send_request_to_llm never calls send_request_to_llm. It awaits the patched send_request_to_open_ai, whose side effect produces every value the test asserts, so the test cannot fail on a wrong implementation.",
+   "evidence": "Line 41 is `await chat_interface.send_request_to_open_ai(...)`, and line 24 patches that same name with an AsyncMock whose side_effect returns `(\"\", [[\"Hello\",\"Hi there!\"]], \"video_path.mp4\")`. The real `send_request_to_llm` (chat/interface.py:77-94) builds the system prompt, joins on history, dispatches to elevenlabs or zonos, and appends to CHAT_HISTORY. None of that code runs.",
+   "breaks": "story",
+   "axis_row": "L3.3",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "pyproject.toml:26-27 declares only pytest and pytest-cov. poetry.lock has package entries only for pytest (1919) and pytest-cov (1940), and no conftest or asyncio_mode config exists. On a clean install the `mocker` fixture is not found and the async test errors or does not run.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "line": 12,
+   "claim": "The test needs pytest-mock and pytest-asyncio, and the project declares neither.",
+   "evidence": "pyproject.toml's dev group lists only `pytest` and `pytest-cov`. poetry.lock has no `name = \"pytest-mock\"` or `name = \"pytest-asyncio\"` package entry; those names appear only as other packages' extras. The test takes a `mocker` argument and is an `async def` marked `@pytest.mark.asyncio`.",
+   "axis_row": "L4.29",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C4",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 8 binds _load_avatar_infos_for_chat locally before line 31 patches the module attribute, so line 39 calls the original. That function (interface.py:55-60) opens TinyDB(DB_PATH) and calls .get() on avatar_page_settings, which can be None. The export has no databases/ directory, so on a fresh checkout it fails. The test does not use TEST_DB_PATH.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "line": 39,
+   "claim": "The patch on _load_avatar_infos_for_chat does not reach the name imported at line 8, so the real loader runs against the real TinyDB at DB_PATH and fails when no settings row exists.",
+   "evidence": "Line 8 does `from aafactory.chat.interface import _load_avatar_infos_for_chat`, which binds the name locally before line 31 patches `aafactory.chat.interface._load_avatar_infos_for_chat`, so the patch does not affect it. The real function (interface.py:55-60) runs `TinyDB(DB_PATH)` with DB_PATH = ROOT_DIR/databases/avatar_db.json (configuration.py:8), then `avatar_page_settings_table.get(doc_id=1).get(\"avatar_name\")`, which raises on None in a fresh DB. tests/test_configuration.py defines a TEST_DB_PATH that this test does not use.",
+   "axis_row": "L3.19",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff has no assert_called* at all, and the send_request_to_generate_video mock (line 17) is never used. Line 41 passes 10 args, while interface.py:86 calls send_request_to_open_ai(messages). The AsyncMock accepts any signature, so the drift goes unnoticed.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "line": 17,
+   "claim": "The mocks are never checked for calls, and the patched send_request_to_open_ai is called with ten positional arguments, while production calls it with a single messages list.",
+   "evidence": "There is no `assert_called*` anywhere in the file. The `send_request_to_generate_video` mock is never used. Line 41 calls `send_request_to_open_ai(avatar_info[9], \"Hello\", ...)` with 10 args, while interface.py:86 calls it as `send_request_to_open_ai(messages)`.",
+   "axis_row": "L3.15",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "interface.py:81 does CHAT_HISTORY[-1][0] + user_prompt, and lines 87-91 assign audio_response only in the elevenlabs and zonos branches, so both defects exist. They predate this change, which only adds a test, and the dropdown limits voice_model to VOICE_MODELS. Lowered to low as pre-existing code; the 'test cannot catch it' part is covered by the C1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "aafactory/src/aafactory/chat/interface.py",
+   "line": 81,
+   "claim": "send_request_to_llm concatenates the previous user message onto the prompt, and leaves audio_response unbound when voice_model is unknown.",
+   "evidence": "Line 81 is `user_message = CHAT_HISTORY[-1][0] + user_prompt`, which joins only the last user text with no separator and drops assistant turns. Lines 87-91 assign `audio_response` only in the `elevenlabs`/`zonos` branches, then use it unconditionally. The new test mocks around send_request_to_llm and never exercises either path.",
+   "axis_row": "L3.9",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 14 clears the global list and the side effect at line 21 appends to it. There is no fixture teardown or monkeypatch, so a later test that reads CHAT_HISTORY sees the leftover entry. This is a test-hygiene point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "line": 14,
+   "claim": "The test changes the module-global CHAT_HISTORY and never restores it, so state leaks into later tests.",
+   "evidence": "Line 14 calls `CHAT_HISTORY.clear()`, and then the side effect appends to the global list (line 21). There is no fixture teardown or monkeypatch of CHAT_HISTORY.",
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -20,6 +20,7 @@ $grounding_section
 - Changes the story didn't ask for: new dependencies, changed config, weakened checks, removed validation, disabled tests.
 - Irreversible operations (migrations, deletes, bulk updates) with no safe way back.
 - Tests that don't test what they claim, or that check printed text rather than the system's state.
+- After the defects, what a careful senior reviewer would also raise: code that's hard to maintain (duplication, misleading names, dead code), needless work on a hot path, documentation the change makes wrong or leaves missing, accessibility of anything a user sees, and public interfaces that are awkward or inconsistent. Report these too, so the team can fix them later, but never let them crowd out a defect.
 
 Read the code around the diff before you claim something, and check each claim against it.
 
@@ -38,6 +39,7 @@ Your final message is only a JSON array: no prose, no code fence. (If you are he
 - `line` is the line at the change's head (new numbering), or null when the finding is about something missing.
 - critical: data loss, a security hole, or the change does the opposite of the story. high: an acceptance criterion isn't met, or a defect a user will hit. medium: a real defect on an unusual path. low: a risk or debt worth recording.
 - A critical or high needs a trigger: the input, call or state that now goes wrong, traced through the code you read, in `evidence`. Without one, it's medium at most. For a check or guard the change removes, say whether something else now does its job before you rate it.
+- A maintainability, performance, documentation, accessibility or API-design point is low, unless it is also one of the defects above.
 - A file a build step generates (a minified bundle, `dist/`, a lockfile) that the change doesn't regenerate is low, unless the project's tests, scripts or docs show it must be regenerated in the same change.
 - Report each problem once, and nothing you can't support with evidence. If you find nothing, return [].
 - Every item needs a severity, a claim and evidence. The factory rejects the whole list if any item lacks one, or if there is any text outside the array; a rejected list blocks the change until review runs again.

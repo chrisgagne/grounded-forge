@@ -1,0 +1,30 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+  "line": 573,
+  "claim": "Renames and comments edited while a sync runs are silently overwritten when it completes.",
+  "evidence": "Start Pull with a slow pre-pull script, then edit a rename or comment in the responsive GUI. pull() captures project data in projectToLocalRepository() before running the script, then localRepositoryToProject() replaces the complete project rename and comment lists with that earlier snapshot plus remote changes. It never reconciles edits made during the script. push() has the same snapshot-and-replace sequence."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "high",
+  "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+  "line": 44,
+  "claim": "Repeated sync actions run concurrently against the same repository files, allowing stale results to overwrite newer changes.",
+  "evidence": "Every menu and keyboard invocation creates an independent thread without an in-flight guard or serialization. Trigger Pull while Push is waiting in its post-push script: both can read the same .local baseline, independently merge, and later overwrite .local and project state in completion order. writeRepository() also opens the shared destination directly with writer(), without locking or atomic replacement, so overlapping writes can corrupt the JSON."
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "low",
+  "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+  "line": 128,
+  "claim": "The modified tests bypass the asynchronous entry points and leave the new threading behavior untested.",
+  "evidence": "RepositoryMockery now invokes plugin.pull() and plugin.push() directly instead of the registered menu callbacks. PluginMockery executes uiRun callbacks inline, and the diff adds no tests for worker execution, EDT dispatch, overlapping operations, or edits during synchronization; the existing assertions therefore cannot detect the concurrency regressions introduced here.",
+  "axis_row": "L3.22"
+ }
+]

@@ -1,0 +1,83 @@
+{
+ "id": "rb25",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests"
+ ],
+ "first": "gate",
+ "cost_usd": 0.9206,
+ "codex_tokens": 44884,
+ "work": "<tmp>/replay-rb25-t1-8s2a9o2_",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "consumer.ts:353 and publish.ts:761 cast req.query.download_language to Locale without checking it, because downloadLanguageValidator only runs on POST. fetch (consumer-api.ts:53-69, publisher-api.ts:93-110) now puts that value in the Accept-Language header and in queryParams.set('lang'), where before it fell back to this.lang. I lowered this to low: the only trigger is a user hand-editing their own download URL, and the result is just that their own request fails or the backend gets an odd locale.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/consumer/controllers/consumer.ts",
+   "line": 353,
+   "claim": "On the GET download routes (consumer and publisher preview), the download_language query value isn't validated and now reaches the backend as both the Accept-Language header and the lang query parameter.",
+   "evidence": "On GET, `download_language = (req.query.download_language?.toString() || req.language) as Locale` is cast but never checked; `downloadLanguageValidator()` only runs in the POST branch. Before this change `fetch` overwrote it with `queryParams.set('lang', this.lang)`. Now `downloadPublishedData`/`downloadPublishedPivotData` pass `lang: language as Locale` (consumer-api.ts:228/241), and fetch puts it in `'Accept-Language': lang` and `queryParams.set('lang', lang)`. For example, `?download_language=xx` is forwarded to the backend as is, and a value with characters that aren't valid in a header makes `fetch` throw. That error gets wrapped as UnknownException.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds `lang: language as Locale` at consumer-api.ts:228 and 241 and at publisher-api.ts:932, while the parameters stay `language: string`. The callers already hold Locale values. This is a type-safety and maintainability point only, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/consumer/services/consumer-api.ts",
+   "line": 228,
+   "claim": "`language as Locale` hides a type mismatch, because the parameter is still typed `string`.",
+   "evidence": "`downloadPublishedData(..., language: string)` followed by `lang: language as Locale`. The same pattern appears at consumer-api.ts:241 and publisher-api.ts:932. The callers already hold a `Locale`-typed value, so the parameter could be typed `Locale` without any cast.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The new test submits only viewType 'unfiltered' with no pivot, so it exercises downloadPublishedData alone. Nothing exercises downloadPublishedPivotData or downloadDatasetPreview, though the diff changes both. This is a coverage gap, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests-e2e/consumer/dataset-download.spec.ts",
+   "line": 171,
+   "claim": "The only new e2e test covers just the consumer, unfiltered, non-pivot CSV. Pivot downloads and the publisher preview download have no test.",
+   "evidence": "The new `CSV Download Language Content` test submits only `viewType: 'unfiltered'` (no pivot axes), so it exercises `downloadPublishedData` only. Nothing exercises `downloadPublishedPivotData` or `PublisherApi.downloadDatasetPreview`, both of which this diff changed.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching tests/ finds no reference to downloadDatasetPreview, downloadPublishedData or downloadPublishedPivotData, so the only guard on the fix is the e2e spec, which depends on fixture data. This is a coverage gap, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/publisher-api.test.ts",
+   "line": null,
+   "claim": "No unit test checks that the download request carries the download language rather than the UI language.",
+   "evidence": "tests/publisher-api.test.ts asserts exact fetch URLs ending in `lang=en` for other methods, but there is no case for `downloadDatasetPreview`, and no consumer-api unit test for `downloadPublishedData` with `cy-GB` on an English-UI client. The only new test is the Playwright spec, which relies on the e2e fixture's `' - CY'` suffix (tests-e2e/publish/helpers/publishing-steps.ts:336).",
+   "axis_row": "L3.22",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": []
+ }
+}

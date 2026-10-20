@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 34,
+   "message": "Remove the duplicate step environment mapping. The resolver step declares `env` twice. GitHub Actions rejects duplicate mapping keys during workflow validation, so this workflow cannot run automatically or manually. Consolidate these into one `env` mapping."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 93,
+   "end_line": 95,
+   "message": "Repair the resolver's shell conditional and heredocs. Once workflow validation is fixed, this step still fails for every invocation: the conditional contains two `else` branches, and both Python heredoc terminators retain two leading spaces after YAML indentation is removed, so Bash does not recognize them. Align the heredoc bodies and terminators with the shell script's left margin and retain only one fallback branch; otherwise the step cannot produce a run ID or reach artifact processing."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

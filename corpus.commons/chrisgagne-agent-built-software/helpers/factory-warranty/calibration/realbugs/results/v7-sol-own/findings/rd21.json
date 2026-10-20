@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "Preserve the secret environment injection. The replaced Helm deployment injects `ms-secret-vault` through `envFrom`, but this deployment supplies only the explicit environment variables listed here. The mounted agent ConfigMap contains MySQL connection details without credentials, so removing the secret injection leaves the unchanged agent image without its externally provisioned credentials. Restore the secret reference alongside these environment variables."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 22,
+   "end_line": 25,
+   "message": "Restore health probes in the replacement deployment. The previous deployment used `/ai-secure-agent-ms/v1/ping` for readiness and liveness, but the replacement has neither probe. Kubernetes will now route traffic as soon as the container starts, even before the agent finishes initializing, and will no longer restart an agent whose process remains alive but stops responding. Preserve the existing probes when moving away from the shared chart."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -249,3 +249,40 @@ def run_codex(prompt: str, cwd: Path, log: Path, out: Path, *, model: str | None
     if not res["ok"] and "error" not in res:
         res["error"] = f"codex exited {res['exit']}" if res["exit"] else "codex wrote no final message"
     return res
+
+
+def codex_home(root: Path) -> Path:
+    """A Codex home holding only the sign-in, so `codex review` reads no personal config or instructions (it has no
+    --ignore-user-config). The sign-in is linked, never copied."""
+    home = root / "codex-home"
+    home.mkdir(parents=True, exist_ok=True)
+    auth = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex") / "auth.json"
+    if auth.exists() and not (home / "auth.json").exists():
+        (home / "auth.json").symlink_to(auth)
+    return home
+
+
+def run_codex_review(repo: Path, log: Path, *, base: str, title: str, model: str | None, timeout_s: int,
+                     home: Path) -> dict:
+    """OpenAI's own review command, `codex review --base`, on a repository whose `base` branch is where the change
+    started and whose HEAD is where it ends. Its review is the stdout (the `result`); progress goes beside it."""
+    binary = codex_bin()
+    if not binary:
+        return {"ok": False, "family": "codex", "cmd": "codex review", "error": "Codex CLI not found (set CODEX_BIN)",
+                "started": now(), "finished": now(), "duration_s": 0, "log_path": None}
+    cmd = [binary, "review", "--base", base, "--title", title[:200], *(["-c", f'model="{model}"'] if model else [])]
+    env, _ = scrubbed_env(keep=CODEX_AUTH)
+    env["CODEX_HOME"] = str(home)
+    res = _spawn(cmd, repo, log, timeout_s, env, stderr_log=log.with_suffix(".progress.txt"))
+    text = log.read_text(errors="replace")
+    progress = log.with_suffix(".progress.txt").read_text(errors="replace") if log.with_suffix(".progress.txt").exists() else ""
+    tokens = re.search(r"tokens used\s*\n?\s*([\d,]+)", progress, re.I)
+    res.update(family="codex", log_path=log, cmd=shlex.join(cmd), result=text, model=model or "Codex default model",
+               tokens=int(tokens.group(1).replace(",", "")) if tokens else None,
+               output_sha256=hashlib.sha256(text.encode()).hexdigest())
+    if "usage limit" in progress:
+        res["error"] = "codex usage limit"
+    res["ok"] = res["exit"] == 0 and "error" not in res
+    if not res["ok"] and "error" not in res:
+        res["error"] = f"codex review exited {res['exit']}"
+    return res

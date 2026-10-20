@@ -1,0 +1,232 @@
+{
+ "id": "rb04",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "client/src/store.tsx",
+   "start_line": 668,
+   "end_line": 670,
+   "message": "Flush pending changes before switching workspaces. If a workspace is switched or created within 300 ms of an edit, this cleanup cancels the outgoing workspace's pending save. Neither switch handler flushes the current state first, so those edits are permanently lost when returning to the workspace. Persist the outgoing data before replacing it, rather than simply cancelling its timer."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "client/src/utils/sync/s3Adapter.ts",
+   "start_line": 31,
+   "end_line": 35,
+   "message": "Implement the presigning bridge required by S3 sync. Every S3 push and pull calls `electronAPI.getPresignedUrl`, but the updated preload exposes no such method and the main process registers no corresponding handler. Consequently S3 sync always throws the Electron-required error even inside Electron. Implement the IPC method and signing handler before exposing this provider."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "client/src/utils/storageDriver.ts",
+   "start_line": 185,
+   "end_line": 190,
+   "message": "Encrypt credentials before persisting sync configuration. Saving any provider configuration writes its tokens, passwords, or AWS secrets directly into `sync-config.json` and localStorage, including in Electron. The encryption helpers are never invoked, so the advertised encrypted credential storage does not exist. Encrypt secret fields before both persistence writes and decrypt them when loading configuration for use."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 303,
+   "end_line": 304,
+   "message": "Track the last successful sync for conflict detection. The configuration passed to `syncPull` never contains `lastSynced`, and successful pushes and pulls never persist that timestamp. Since the engine requires both remote and local timestamps before throwing `ConflictError`, the conflict banner is unreachable and pulls silently overwrite local changes even after previous syncs. Persist the sync timestamp and include it in subsequent operations."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "server/index.js",
+   "start_line": 1054,
+   "end_line": 1057,
+   "message": "Retry pushing existing commits when the working tree is clean. If a push fails after the commit succeeds, for example because of invalid credentials or a network outage, retrying with unchanged workspace data returns success here without executing `git.push`. The outstanding commit therefore never reaches the remote despite the UI reporting success. Skip only the commit for a clean working tree, not the push."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "client/src/utils/snapshotEngine.ts",
+   "start_line": 43,
+   "end_line": 44,
+   "message": "Delete snapshot files when pruning the history index. After 50 saves, slicing the index removes old entries but leaves their full workspace snapshot files on disk forever. Because each debounced save creates another complete copy, storage consumption grows without bound while the orphaned snapshots cannot even be accessed from History. Delete the files belonging to entries removed from the index."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "server/package.json",
+   "start_line": 10,
+   "end_line": 20,
+   "message": "The description says this change adds `jsonwebtoken` and `bcryptjs` as runtime dependencies, but package.json only gains `simple-git`. package-lock.json lists `bcryptjs` and `jsonwebtoken` as root dependencies, so the manifest and lockfile disagree and `npm ci` fails with 'lock file out of sync'. Also, nothing in the repo requires these packages: there is no `server/team/` directory, and the README says the team server moved to a separate project. Either drop them from the lockfile or add them to package.json, and fix the description."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "server/index.js",
+   "start_line": 1034,
+   "end_line": 1070,
+   "message": "The git sync routes take `dataDir` from the request body. The server uses `cors()` with every origin allowed. So any web page the user visits can POST to localhost and make the server create directories, run `git init`, write `workspace.json` under any path it picks, change git config there, and fetch from or push to an attacker-chosen remote. Use only `process.env.APILIX_DATA_DIR` on the server, and restrict CORS or add an auth token for these routes."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "server/index.js",
+   "start_line": 1052,
+   "end_line": 1067,
+   "message": "Push returns 'Nothing to commit' and skips `git push` whenever the working tree is clean. If an earlier push committed locally but failed on the network or auth step, every later Push reports success and the commit never reaches the remote. Push regardless of whether there is something new to commit."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "server/index.js",
+   "start_line": 1058,
+   "end_line": 1069,
+   "message": "The username and token are written into the remote URL passed to git. Git error messages often contain that URL, and `err.message` is sent back to the renderer unchanged, which can expose the token in the UI. `new URL(remote)` also throws on SSH-style remotes (`git@host:repo`) whenever a username and token are filled in. Pass credentials through a credential helper or an http.extraHeader, and strip secrets from error text."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "client/src/utils/sync/s3Adapter.ts",
+   "start_line": 28,
+   "end_line": 37,
+   "message": "S3 sync cannot work. The adapter reads `config.keyId` and `config.secret`, but the UI saves `accessKeyId` and `secretAccessKey`, so the credentials are always undefined. `window.electronAPI.getPresignedUrl` is also never exposed in preload.js, and main.js has no IPC handler for it, so every S3 push or pull throws 'requires Electron' even inside Electron."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "client/src/utils/storageDriver.ts",
+   "start_line": 179,
+   "end_line": 191,
+   "message": "Sync credentials are stored in plaintext. `writeSyncConfig` never calls `encryptValue`: Git tokens, AWS secret keys and JWTs go unencrypted into sync-config.json and are also copied into localStorage even in Electron. This contradicts the docs ('stored encrypted', safeStorage) and the comment in types.ts. Encrypt the secret fields before writing and don't mirror secrets to localStorage."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "client/src/utils/syncEngine.ts",
+   "start_line": 46,
+   "end_line": 56,
+   "message": "Conflict detection never runs. Nothing ever sets `lastSynced`: the UI builds SyncConfig without it, and `writeSyncConfig` doesn't save it. So `localTs` is always null and every Pull silently overwrites local data. Even when set, the timestamps are compared as raw strings. HTTP and S3 return RFC 1123 dates (`Mon, 01 Jan ...`) and git returns ISO with an offset, so lexical comparison against an ISO string gives wrong answers. Parse both into Date objects before comparing."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "client/src/utils/syncEngine.ts",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "With 'keep-local', `pull` returns null and the comment says 'caller will push instead', but the caller in WorkspaceManagerModal doesn't push. It shows 'Remote is empty \u2014 nothing to pull', which is misleading, and the conflict is never resolved."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "client/src/store.tsx",
+   "start_line": 646,
+   "end_line": 669,
+   "message": "The cleanup function cancels pending debounced saves when the workspace changes. Switching, creating or duplicating a workspace within 300 ms of an edit clears the timer for the old workspace, and the new effect writes only the new workspace, so the last edits to the previous workspace are lost. Flush the pending save before switching, or capture the workspace id and data at schedule time and don't cancel on workspace change."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "client/src/store.tsx",
+   "start_line": 650,
+   "end_line": 666,
+   "message": "Every debounced save (300 ms, not the 1\u20132 s the docs say) also creates a full workspace snapshot. That includes no-op saves right after hydrate or switch. Snapshots get written for every burst of edits, and the 50-entry history fills with near-identical copies within minutes, so useful restore points get pushed out. Throttle snapshots and skip them when nothing changed."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "client/src/store.tsx",
+   "start_line": 575,
+   "end_line": 644,
+   "message": "The tab session is no longer saved or restored. The old code saved `tabSession` and reopened open tabs and the active tab on launch; the new code drops both, and the migration ignores `legacy.tabSession`. Users lose their open tabs on every restart. That's a regression not mentioned in the description."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "client/src/store.tsx",
+   "start_line": 577,
+   "end_line": 643,
+   "message": "`init()` has no error handling. If `writeManifest` or `writeWorkspace` rejects (for example an IPC write error, or `assertInsideUserData` throwing), `HYDRATE_WORKSPACE` is never dispatched and the app is stuck on the 'Loading\u2026' screen with no recovery. Wrap it in try/catch and fall back to an empty Default workspace."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "client/src/utils/snapshotEngine.ts",
+   "start_line": 36,
+   "end_line": 44,
+   "message": "The 'ring buffer' only trims the index. Snapshot files that drop out of the 50-entry index are never deleted, so `snapshots/` grows without limit. Combined with a full-workspace snapshot on every save, disk use grows quickly. Delete the snapshot files that fall off the index."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 304,
+   "end_line": 309,
+   "message": "Pull and Import replace collections through `HYDRATE_WORKSPACE`, which doesn't reset `tabs`, `activeTabId` or `activeRequest`. Open tabs keep pointing at items from the old collections and can write stale data back on save."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 286,
+   "end_line": 291,
+   "message": "Push and Duplicate read workspace data from disk, not from in-memory state. Edits made in the last 300 ms, before the debounced save, aren't included in what gets pushed or copied."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 355,
+   "end_line": 355,
+   "message": "Clicking any provider button clears every field, including the saved config loaded for the current provider. Clicking the already-selected provider by accident wipes the user's credentials from the form."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 104,
+   "end_line": 109,
+   "message": "Duplicating a workspace copies `type`, `role`, `teamServerUrl` and `teamServerId` from the source. A copy of a team workspace still shows as a team workspace even though it has no sync config or server binding."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 166,
+   "end_line": 167,
+   "message": "Pressing Enter calls `commitRename`, and the input then unmounts and fires `onBlur`, which calls `commitRename` again. The result is a duplicate dispatch and a second manifest write built from a stale `state.workspaces`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "client/src/components/ActivityBar.tsx",
+   "start_line": 22,
+   "end_line": 31,
+   "message": "Dead code: `manageOpen` is never set to true because nothing in ActivityBar calls `setManageOpen(true)`, so this modal never renders. Remove it or add a trigger button."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "client/src/index.css",
+   "start_line": 190,
+   "end_line": 192,
+   "message": "Light mode remaps `.bg-purple-700` globally to a pale purple to fix one websocket toggle. Every other element using `bg-purple-700` with white text becomes low-contrast in light mode. Scope the selector to that toggle."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 61,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 101,
+   "cost_usd": 0.924549,
+   "models": [
+    "claude-opus-5-5"
+   ],
+   "items_unreadable": 1
+  },
+  "seconds": 101,
+  "reread_from_log": true
+ }
+}

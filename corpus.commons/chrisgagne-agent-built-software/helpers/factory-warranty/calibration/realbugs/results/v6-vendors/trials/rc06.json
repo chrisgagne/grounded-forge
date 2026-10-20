@@ -1,0 +1,54 @@
+{
+ "id": "rc06",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 254,
+   "end_line": 258,
+   "message": "Reserve preserved IDs before sanitizing older calls. When preservation is enabled, an older call such as `a_b` is sanitized to `ab` even if the latest assistant already has a preserved call named `ab`. Because preserved IDs never enter `used`, this introduces duplicate call IDs and ambiguous result associations in an otherwise distinct transcript. Reserve the latest turn's IDs before resolving historical IDs so collision handling can choose a different ID for the older call."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 261,
+   "message": "The latest assistant turn's tool-call ids are kept as-is, but they are never added to the `used` set that `makeUniqueToolId` checks to avoid collisions. An older id can therefore sanitize to the same value as a preserved one. Example: the latest call is `abc123` and an older call is `abc-123`, which becomes `abc123`. The request then contains two tool calls (and two tool results) with the same id, so the provider may reject it or pair results with the wrong call. This is the exact case the transcript-wide de-dup mapping exists to prevent. Fix: before the rewrite pass, add each preserved id to `used` and map it to itself, so older ids that collide with it get a suffix."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 282,
+   "end_line": 288,
+   "message": "A tool result is left unchanged whenever its id is in `preservedLatestToolCallIds`, wherever it sits in the transcript. If an older assistant turn used the same raw id (some providers reuse ids like `call_0` or emit duplicates), that older turn's tool call gets rewritten but its matching result keeps the raw id. That leaves an orphaned result and an unpaired tool call, the very failure this change is meant to prevent. Only results that come after `latestAssistantIndex` should be preserved; earlier results should still go through `resolve`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 219,
+   "end_line": 223,
+   "message": "The new `preserveLatestAssistantTurn` option changes sanitization for a production provider, but the change adds no unit tests. The author also says nothing was run locally. There is no test showing that the latest assistant turn stays byte-identical, that its paired tool results are preserved while older ones are rewritten, or that the collision and older-turn cases above are handled. CI can't catch regressions in behavior it doesn't exercise. Add cases to the tool-call-id tests, like the existing `dropThinkingBlocks` preserve test in thinking.test.ts."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 28,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 126,
+   "cost_usd": 0.2928214,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 126
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 146,
+   "end_line": 146,
+   "message": "In cluster mode without --server-url, the CLI connects to the operator's in-cluster service DNS name. That name doesn't resolve from a workstation, so the documented primary invocation fails for anyone running outside the cluster. resolveURL returns status.endpoints.admin first. Its own comment says \"the toolkit runs outside the cluster\", but the operator sets that endpoint in keycloak_reconciler.py:465 to `http://{name}-keycloak.{namespace}.svc.cluster.local:8080`, and public is the same in-cluster URL. Every example in docs/how-to/migration-toolkit.md and export-realms.md uses `--keycloak \u2026 --namespace \u2026` with no --server-url and says \"Credentials are resolved automatically from the cluster\". authenticate() then POSTs to `http://x-keycloak.ns.svc.cluster.local:8080/realms/master/...` and fails DNS resolution."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "decodeSecretKey decodes the secret value a second time whenever it looks like base64. About 1 in 7 operator-generated admin passwords get decoded into garbage, so cluster-mode authentication fails with a 401. client-go already returns decoded Secret.Data. The code then runs `if isBase64(decoded) { base64.StdEncoding.DecodeString(decoded) \u2026 return string(b) }`. isBase64 accepts any string whose length is a multiple of 4 and that uses only [A-Za-z0-9+/=]. The operator generates passwords as 16 characters from letters+digits+\"!@#$%^&*\" (utils/kubernetes.py:1428-1429), so (62/70)^16 \u2248 14% of them are 16 alphanumeric characters. Those pass isBase64, decode successfully to 12 random bytes, and get sent as the password. A user-chosen existingSecret password such as \"Password1234\" is mangled the same way. The operator's own reconciler decodes only once (keycloak_reconciler.py:1315-1320)."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 197,
+   "end_line": 197,
+   "message": "The hard-failure check on `errors > 0`, and the error-detail collection, may rely on response fields and action values that Keycloak's Partial Import response doesn't contain. If so, the check never fires, and OVERWRITE results go uncounted. importResp parses `errors` and collects results whose Action is \"ERROR\" or \"FAILED\" (line 217). Keycloak's PartialImportResults reports added/skipped/overwritten, with result actions ADDED/SKIPPED/OVERWRITTEN; failures come back as non-200 HTTP. `overwritten` isn't parsed at all, so an OVERWRITE run prints Added 0 / Skipped 0. No test exercises importBatch against a real or recorded response."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "When a batch fails at the HTTP level (409 in FAIL mode, 5xx, 403, network error), ImportUsers returns a nil result. The user never sees how many users earlier batches already committed, even though those batches aren't rolled back. `batchResult, err := importBatch(...); if err != nil { return nil, fmt.Errorf(\"batch %d/%d failed: %w\", ...) }`. In cmd/import_users.go:162 the comment says \"Print partial result before returning error so user can see progress\", but printImportSummary returns immediately when result == nil. The partial result is printed only on the `errors > 0` path, which may never fire (see the previous finding)."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "Every HTTP call goes through http.DefaultClient, which has no timeout, so an unresponsive Keycloak or proxy hangs the import indefinitely. authenticate and importBatch (line 174) both call `http.DefaultClient.Do(req)`. ctx is `context.Background()` in runImportUsers with no deadline. The decision record says batching exists to avoid timeouts, but no client-side timeout is set."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new auth and credential-handling code has no tests. Only chunk() and LoadUsersFile are covered, which is how both high-severity defects above went uncaught. The test files contain only TestChunk_* and TestLoadUsersFile_*. Nothing tests authenticate, token refresh, importBatch response parsing or errors>0 failure, ResolveFromCluster, resolveURL, decodeSecretKey/isBase64, ResolveFromFlags, parseImportMode, or the credential-mode selection in runImportUsers. An httptest server and a fake dynamic/core client would cover them."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "The admin password is accepted only as a --password argument, which exposes it in the process list and in shell or CI history. The docs recommend this path for CI. `f.StringVar(&importUsersOpts.password, \"password\", \"\", ...)`. There is no environment-variable or stdin alternative. The docs' CI example passes `--password \"$KEYCLOAK_ADMIN_PASSWORD\"`, which still puts the expanded master-realm admin password on argv, visible via ps or /proc while the import runs."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/go.mod",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The change pulls in the full k8s client-go tree as unvetted new dependencies, and some indirect versions may carry known advisories. go.mod adds k8s.io/client-go v0.32.3 and k8s.io/apimachinery v0.32.3 plus about 35 indirect modules, including golang.org/x/net v0.30.0 and golang.org/x/oauth2 v0.23.0, versions that predate published Go vulnerability fixes. risk.json lists `dependency` as unplanned with gate:deps required. The only justification is the ADR written in this same change (provenance: guided-ai), and the packet shows no govulncheck or provenance record."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/k8s/types.go",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The spec.hostname fallback in resolveURL is dead code, because the Keycloak CR has no top-level spec.hostname field. KeycloakSpec maps `Hostname string json:\"hostname\"`. In the operator model (models/keycloak.py), hostname exists only under spec.tls (KeycloakTLSConfig.hostname, line 56) and the ingress config, so kc.Spec.Hostname is always empty and the scheme/hostname branch in kubeclient.go never runs."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 113,
+   "end_line": 113,
+   "message": "When both --keycloak and --username/--password are passed, the code silently ignores --keycloak instead of rejecting the ambiguous call. The docs say \"Exactly one mode must be chosen\". `usingExplicitCreds := importUsersOpts.username != \"\" || importUsersOpts.password != \"\"` picks the flags path and never checks keycloakName. migration-toolkit.md says \"Exactly one mode must be chosen\"."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/loader.go",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The stale-export guard relies on file mtime, so a plain copy or checkout of an old users.json resets its age and passes the check. `fileAge := time.Since(info.ModTime())`. `cp` without -p or a git checkout gives an old export a fresh mtime. The file has no export timestamp to check against."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 199,
+   "end_line": 199,
+   "message": "The new Go files aren't gofmt-formatted, which may fail a formatting gate. Field alignment in the anonymous Results struct is inconsistent (`Action      string` next to `ResourceType string`), and types.go has `Endpoints KeycloakEndpoints  ` with trailing misalignment. gofmt would rewrite both."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,29 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "lib/fastimage/fastimage_parsing/exif.rb",
+  "line": 96,
+  "claim": "Valid TIFF/EXIF layouts return no resolution when rational values precede the directory or share an offset.",
+  "evidence": "read_rational_resolution skips every offset behind the current stream position. An in-memory TIFF with XResolution and YResolution both pointing to the same 300/1 rational returned nil: reading X advances past the shared offset, so Y is skipped. A TIFF with separate 300/1 rationals before its IFD also returned nil."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+  "line": 35,
+  "claim": "A short JFIF segment raises an uncaught NoMethodError even with the default failure-handling options.",
+  "evidence": "An APP0 segment with length 7 and payload \"JFIF\\0\" passes the identifier check, then data[7].ord raises NoMethodError. Calling FastImage.resolution with this in-memory JPEG reproduced the exception; FastImage#fetch does not rescue NoMethodError."
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "high",
+  "file": "lib/fastimage/fastimage_parsing/exif.rb",
+  "line": 19,
+  "claim": "The new syntax prevents the library from loading on Ruby versions still allowed by the gem specification.",
+  "evidence": "fastimage.gemspec declares required_ruby_version >= 1.9.2, but Exif#initialize now uses keyword-argument syntax requiring Ruby 2.0, and jpeg.rb:51 uses safe navigation requiring Ruby 2.3. lib/fastimage/fastimage.rb unconditionally requires both parsers, so requiring fastimage on those older permitted runtimes fails with SyntaxError before any API can run."
+ }
+]

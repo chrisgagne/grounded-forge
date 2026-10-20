@@ -1,0 +1,388 @@
+{
+ "id": "rc01",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 2.6621,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc01-t1-8ig6gk7g",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "BivariateRenderer/constants.ts exports only SOURCE_LAYER_BIVARIATE, the FALLBACK zoom values, FEATURE_STATES and H3_HOVER_LAYER. The removed code imported the prefixes from ~core/logical_layers/constants. So the type check fails, and in a transpile-only build the source and layer IDs become 'undefined<id>' for every bivariate and MCDA layer.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "line": 2,
+   "claim": "LAYER_BIVARIATE_PREFIX and SOURCE_BIVARIATE_PREFIX are imported from ./constants, which does not export them.",
+   "evidence": "Line 2: `import { LAYER_BIVARIATE_PREFIX, SOURCE_BIVARIATE_PREFIX } from './constants';`. BivariateRenderer/constants.ts exports only SOURCE_LAYER_BIVARIATE, FALLBACK_BIVARIATE_MIN_ZOOM, FALLBACK_BIVARIATE_MAX_ZOOM, FEATURE_STATES and H3_HOVER_LAYER. A grep shows both prefixes are defined only in src/core/logical_layers/constants.ts:4-5, which is where the removed code imported them from (`'~core/logical_layers/constants'`). getSourcePrefix() and getClickableLayerId() would get undefined, producing source/layer IDs like 'undefined<id>'.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "critical",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 2,
+     "claim": "BivariateRenderer imports LAYER_BIVARIATE_PREFIX and SOURCE_BIVARIATE_PREFIX from a module that does not export them, so the type check fails and the bundle will not build. Bivariate and MCDA layers cannot render at all.",
+     "evidence": "Line 2: `import { LAYER_BIVARIATE_PREFIX, SOURCE_BIVARIATE_PREFIX } from './constants';`. BivariateRenderer/constants.ts exports only SOURCE_LAYER_BIVARIATE, FALLBACK_BIVARIATE_MIN_ZOOM, FALLBACK_BIVARIATE_MAX_ZOOM, FEATURE_STATES and H3_HOVER_LAYER. A grep shows both prefixes are defined only in src/core/logical_layers/constants.ts:4-5, which is where the removed code imported them from (`'~core/logical_layers/constants'`). getSourcePrefix() and getClickableLayerId() would get undefined, producing source/layer IDs like 'undefined<id>'."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "critical",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 2,
+     "claim": "`LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` are imported from `./constants` (BivariateRenderer/constants.ts), but that file does not export them. They are defined in `~core/logical_layers/constants`. TypeScript will fail to compile here. Under a transpile-only build, both values are `undefined`, so the source and layer IDs become `undefined<id>`. This contradicts the claim that `pnpm lint:js` and `pnpm coverage` passed.",
+     "evidence": "`LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` are imported from `./constants` (BivariateRenderer/constants.ts), but that file does not export them. They are defined in `~core/logical_layers/constants`. TypeScript will fail to compile here. Under a transpile-only build, both values are `undefined`, so the source and layer IDs become `undefined<id>`. This contradicts the claim that `pnpm lint:js` and `pnpm coverage` passed."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "high",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 2,
+     "claim": "Import the bivariate prefixes from their defining module",
+     "evidence": "`./constants` exports neither `LAYER_BIVARIATE_PREFIX` nor `SOURCE_BIVARIATE_PREFIX`; both are defined in `~core/logical_layers/constants`, which the previous implementation imported. This breaks TypeScript checking and module loading for the renderer. Restore the import from the defining module."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P2",
+    "R2"
+   ],
+   "verdict": "confirmed",
+   "reason": "createMCDALayersFromBivariateAxes.ts:34 sets normalization:'max-min', so values come out roughly 0..1. Lines 38-41 still pass the raw legend.axis.x/y.steps as stepOverrides. The existing helper createStepsForMCDADimension.ts:9-15 uses axis steps only when normalization==='no'. So every bivariate layer, which all use this renderer, gets the wrong colours.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "line": 37,
+   "claim": "The score and base dimensions are max-min normalised, but they are classified against the raw axis steps, so bivariate hexes are coloured into the wrong cells.",
+   "evidence": "Lines 9-10 build layers with createMCDALayersFromBivariateAxes, which sets `normalization: 'max-min'` (createMCDALayersFromBivariateAxes.ts:34). linearNormalization then gives roughly 0..1 values (utils/multivariate/multivariateStyle.ts:103-104). Lines 37-40 still pass `scoreSteps: legend.axis.x.steps, baseSteps: legend.axis.y.steps`. The existing helper createStepsForMCDADimension uses axis steps only when `normalization === 'no'` and otherwise uses the default 0..1 steps. The removed code coloured from raw quotient values with generateLayerFromLegend. Example: the test uses axis steps [0, 10], so every normalised value \u22641 falls into the first class.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+     "line": 37,
+     "claim": "legendToMultivariateStyle sets the class thresholds to the axis steps, which are in raw units, but builds the score and base expressions from max-min-normalised MCDA layers. Hexagons are compared against the wrong scale, so bivariate layers are coloured into the wrong legend cells.",
+     "evidence": "Lines 9-10 build layers with createMCDALayersFromBivariateAxes, which sets `normalization: 'max-min'` (createMCDALayersFromBivariateAxes.ts:34). linearNormalization then gives roughly 0..1 values (utils/multivariate/multivariateStyle.ts:103-104). Lines 37-40 still pass `scoreSteps: legend.axis.x.steps, baseSteps: legend.axis.y.steps`. The existing helper createStepsForMCDADimension uses axis steps only when `normalization === 'no'` and otherwise uses the default 0..1 steps. The removed code coloured from raw quotient values with generateLayerFromLegend. Example: the test uses axis steps [0, 10], so every normalised value \u22641 falls into the first class."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+     "line": 9,
+     "claim": "This conversion changes how every bivariate layer is coloured. The old renderer classified the raw ratio numerator/denominator against `legend.axis.{x,y}.steps`, which are in raw data units. The new style builds MCDA score and base dimensions (`createMCDALayersFromBivariateAxes`), and `createBivariateMultivariateStyle` turns them into normalized max-min values (roughly 0..1, using the sigma range or transformation). Those normalized values are then classified against `stepOverrides` set to the raw axis steps. The units don't match: for example, population density steps of 0/10/100\u2026 compared with values in 0..1 put nearly every hexagon in the first class. The fill filter also changes from `filterSetup` to `mcdaFilterSetup`. The unit test only checks the object's shape, so it can't catch this.",
+     "evidence": "This conversion changes how every bivariate layer is coloured. The old renderer classified the raw ratio numerator/denominator against `legend.axis.{x,y}.steps`, which are in raw data units. The new style builds MCDA score and base dimensions (`createMCDALayersFromBivariateAxes`), and `createBivariateMultivariateStyle` turns them into normalized max-min values (roughly 0..1, using the sigma range or transformation). Those normalized values are then classified against `stepOverrides` set to the raw axis steps. The units don't match: for example, population density steps of 0/10/100\u2026 compared with values in 0..1 put nearly every hexagon in the first class. The fill filter also changes from `filterSetup` to `mcdaFilterSetup`. The unit test only checks the object's shape, so it can't catch this."
+    },
+    {
+     "id": "R2",
+     "leg": "codex-review",
+     "severity": "high",
+     "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+     "line": 38,
+     "claim": "Keep axis calculations in the same units as legend thresholds",
+     "evidence": "`createMCDALayersFromBivariateAxes` enables max-min normalization, clamping, and potentially sentiment inversion, but these overrides retain the original axis thresholds. The multivariate style compares normalized scores against those raw thresholds, so an axis with thresholds such as 10 and 100 will classify every score in the lowest bucket instead of preserving the original bivariate colors. Popup cell classification has the same mismatch. Preserve the original axis-value semantics or convert the thresholds consistently with the score calculation."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C4",
+    "P3",
+    "R3"
+   ],
+   "verdict": "confirmed",
+   "reason": "ClickableFeaturesRenderer.createTileSource (line 78) calls getMaxZoomLevel(layer) with state.source. MultivariateRenderer.getMaxZoomLevel (lines 125-128) returns FALLBACK 9 unless layer.style.type is 'multivariate'. The wrapper converts only state.style, so the getMaxNumeratorZoomLevel and getMaxMCDAZoomLevel logic that was removed is lost.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "line": 42,
+   "claim": "The tile source maxzoom falls back to 9 instead of the zoom derived from the indicators.",
+   "evidence": "ClickableFeaturesRenderer.createTileSource uses `layer.maxZoom || this.getMaxZoomLevel(layer)`. MultivariateRenderer.getMaxZoomLevel returns FALLBACK_BIVARIATE_MAX_ZOOM (9) unless `layer.style?.type === 'multivariate'`. Here `layer` is the unconverted `state.source`: the wrapper converts only `state.style`, not `state.source.style`. The removed code used `getMaxNumeratorZoomLevel([legend.axis.x.quotients, legend.axis.y.quotients], \u2026)` for bivariate and `getMaxMCDAZoomLevel(style.config, \u2026)` for MCDA.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 34,
+     "claim": "The tile source maxzoom for bivariate and MCDA layers now falls back to 9 instead of the indicators' maxZoom. Layers whose data goes beyond zoom 9 get over-zoomed tiles.",
+     "evidence": "ClickableFeaturesRenderer.createTileSource uses `layer.maxZoom || this.getMaxZoomLevel(layer)`. MultivariateRenderer.getMaxZoomLevel returns FALLBACK_BIVARIATE_MAX_ZOOM (9) unless `layer.style?.type === 'multivariate'`. Here `layer` is the unconverted `state.source`: the wrapper converts only `state.style`, not `state.source.style`. The removed code used `getMaxNumeratorZoomLevel([legend.axis.x.quotients, legend.axis.y.quotients], \u2026)` for bivariate and `getMaxMCDAZoomLevel(style.config, \u2026)` for MCDA."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 10,
+     "claim": "The tile source max zoom regresses. The old code used `getMaxNumeratorZoomLevel(legend quotients)` for bivariate layers and `getMaxMCDAZoomLevel(style.config)` for MCDA layers. The new code inherits `MultivariateRenderer.getMaxZoomLevel`, which reads `layer.style` from the tile source, not the converted state style. For bivariate and MCDA layers that check is not `'multivariate'`, so it always falls back to `FALLBACK_BIVARIATE_MAX_ZOOM` (9). Layers whose indicators exist only at lower zooms will request tiles that don't exist, or will stop overzooming correctly.",
+     "evidence": "The tile source max zoom regresses. The old code used `getMaxNumeratorZoomLevel(legend quotients)` for bivariate layers and `getMaxMCDAZoomLevel(style.config)` for MCDA layers. The new code inherits `MultivariateRenderer.getMaxZoomLevel`, which reads `layer.style` from the tile source, not the converted state style. For bivariate and MCDA layers that check is not `'multivariate'`, so it always falls back to `FALLBACK_BIVARIATE_MAX_ZOOM` (9). Layers whose indicators exist only at lower zooms will request tiles that don't exist, or will stop overzooming correctly."
+    },
+    {
+     "id": "R3",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 42,
+     "claim": "Pass the converted style through to source zoom calculation",
+     "evidence": "When a source has no explicit `maxZoom`, the inherited `MultivariateRenderer.getMaxZoomLevel` inspects `state.source.style`, not `state.style`. Only the latter is converted here, so legacy bivariate or MCDA sources take the fallback maximum zoom of 9 instead of the indicator-derived maximum used previously. This can request unsupported tiles or prematurely overzoom lower-resolution tiles. Ensure source creation receives the converted style or retain the legacy zoom calculation."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "_updateMap calls addPopup, and addPopup runs cleanUpListeners (line 164), which clears the hover click/mousemove/mouseleave handlers. addHoverAndActiveFeatureState then returns early at line 95 because the border layer already exists. The old addBivariatePopup removed only its own click handler, so this regression is new for bivariate layers.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/core/logical_layers/renderers/ClickableFeaturesRenderer/ClickableFeaturesRenderer.tsx",
+   "line": 164,
+   "claim": "After a source update, bivariate layers lose their hover and active feature-state listeners.",
+   "evidence": "ClickableFeaturesRenderer._updateMap calls `this.addPopup(map, style)`, which runs `this.cleanUpListeners()` and so removes the click/mousemove/mouseleave handlers that addHoverAndActiveFeatureState registered. It then calls addHoverAndActiveFeatureState, which does `if (map.getLayer(borderLayerId)) return;` before registering listeners. The removed addBivariatePopup deleted only its own previous click handler (`this._listenersCleaningTasks.delete(this.removeBivariatePopupClickHandler)`), so hover state survived willSourceUpdate.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 34,
+     "claim": "On a source update, bivariate layers now lose their hover and active feature-state listeners. The inherited addPopup clears every listener, and addHoverAndActiveFeatureState returns early because the border layer already exists, so the listeners are never re-registered.",
+     "evidence": "ClickableFeaturesRenderer._updateMap calls `this.addPopup(map, style)`, which runs `this.cleanUpListeners()` and so removes the click/mousemove/mouseleave handlers that addHoverAndActiveFeatureState registered. It then calls addHoverAndActiveFeatureState, which does `if (map.getLayer(borderLayerId)) return;` before registering listeners. The removed addBivariatePopup deleted only its own previous click handler (`this._listenersCleaningTasks.delete(this.removeBivariatePopupClickHandler)`), so hover state survived willSourceUpdate."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff removes the MapHexTooltip and generateMCDAPopupContent paths. ClickableFeaturesRenderer.addPopup now goes through MultivariateRenderer.createPopupContent to generateMultivariatePopupContent and dispatches 'mcda_popup' for every popup. mcdaLayer.ts:83 and bivariateMatrixSelection.ts:324 still use BivariateRenderer. Nothing marks this as an intended change.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "line": 18,
+   "claim": "Bivariate and MCDA popups change to the generic multivariate popup, which affects what users see.",
+   "evidence": "The removed addBivariatePopup rendered `<MapHexTooltip cellLabel\u2026 values={{ x: xValue, y: yValue }} hexagonColor={rgba}/>`, and the removed addMCDAPopup used `generateMCDAPopupContent(feature, style.config.layers)`. Now ClickableFeaturesRenderer.addPopup \u2192 MultivariateRenderer.createPopupContent \u2192 generateMultivariatePopupContent, followed by `dispatchMetricsEvent('mcda_popup')` for every popup, including bivariate ones.",
+   "breaks": "story",
+   "axis_row": "L1.2",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 18,
+     "claim": "The rewrite changes user-visible popups for every layer that uses BivariateRenderer. Bivariate hexes no longer show MapHexTooltip with the computed x/y quotient values, and MCDA layers (mcdaLayer.ts:83) no longer show the MCDA popup. Both now get the generic multivariate popup and fire the 'mcda_popup' metric. No test or acceptance evidence covers these changes.",
+     "evidence": "The removed addBivariatePopup rendered `<MapHexTooltip cellLabel\u2026 values={{ x: xValue, y: yValue }} hexagonColor={rgba}/>`, and the removed addMCDAPopup used `generateMCDAPopupContent(feature, style.config.layers)`. Now ClickableFeaturesRenderer.addPopup \u2192 MultivariateRenderer.createPopupContent \u2192 generateMultivariatePopupContent, followed by `dispatchMetricsEvent('mcda_popup')` for every popup, including bivariate ones."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 19,
+     "claim": "This is a user-visible behaviour change presented as a refactor. The bivariate popup (`MapHexTooltip`) showed the x/y ratio values, the legend cell and the hex colour; it is replaced by the generic multivariate/MCDA popup that shows normalized scores. MCDA layers created in `features/mcda/atoms/mcdaLayer.ts` now get the multivariate popup instead of `generateMCDAPopupContent`. The PR summary doesn't mention either change.",
+     "evidence": "This is a user-visible behaviour change presented as a refactor. The bivariate popup (`MapHexTooltip`) showed the x/y ratio values, the legend cell and the hex colour; it is replaced by the generic multivariate/MCDA popup that shows normalized scores. MCDA layers created in `features/mcda/atoms/mcdaLayer.ts` now get the multivariate popup instead of `generateMCDAPopupContent`. The PR summary doesn't mention either change."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "convertStyle returns null when there is neither an mcda style nor a legend, and ClickableFeaturesRenderer._updateMap (line 187) skips mounting when style is falsy. The removed code threw 'Vector layers must have legend'.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "line": 18,
+   "claim": "A bivariate layer with no legend now renders nothing silently instead of throwing.",
+   "evidence": "convertStyle returns null when neither an mcda style nor a legend is present, and ClickableFeaturesRenderer._updateMap skips mountLayers/addPopup when `style` is falsy. The removed mountBivariateLayer threw `new Error('[Bivariate \u2026] Vector layers must have legend')`.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+     "line": 18,
+     "claim": "A bivariate layer with no legend now silently renders nothing. Previously it failed loudly.",
+     "evidence": "convertStyle returns null when neither an mcda style nor a legend is present, and ClickableFeaturesRenderer._updateMap skips mountLayers/addPopup when `style` is falsy. The removed mountBivariateLayer threw `new Error('[Bivariate \u2026] Vector layers must have legend')`."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7",
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for 'new MCDARenderer' finds nothing. mcdaLayer.ts:83 and getLayerRenderer.ts:13 still create BivariateRenderer, and MCDARenderer hardcodes 'mcda-source-' and 'mcda-layer-'. This is maintainability, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/core/logical_layers/renderers/MCDARenderer/MCDARenderer.tsx",
+   "line": 8,
+   "claim": "The new MCDARenderer is dead code and uses hardcoded ID prefixes.",
+   "evidence": "A grep for `new MCDARenderer` finds no matches. mcdaLayer.ts:83 still registers `renderer: new BivariateRenderer({ id })`. MCDARenderer also duplicates BivariateRenderer's willSourceUpdate/willMount conversion wrappers.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/core/logical_layers/renderers/MCDARenderer/MCDARenderer.tsx",
+     "line": 8,
+     "claim": "The new MCDARenderer class and its index are dead code: nothing instantiates them, and MCDA layers still go through BivariateRenderer.",
+     "evidence": "A grep for `new MCDARenderer` finds no matches. mcdaLayer.ts:83 still registers `renderer: new BivariateRenderer({ id })`. MCDARenderer also duplicates BivariateRenderer's willSourceUpdate/willMount conversion wrappers."
+    },
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/core/logical_layers/renderers/MCDARenderer/MCDARenderer.tsx",
+     "line": 1,
+     "claim": "`MCDARenderer` is new but nothing uses it: `mcdaLayer.ts` and `getLayerRenderer.ts` still create `BivariateRenderer`. It also hardcodes ad-hoc ID prefixes (`'mcda-source-'`, `'mcda-layer-'`) rather than shared constants. Either wire it up or drop it from this PR.",
+     "evidence": "`MCDARenderer` is new but nothing uses it: `mcdaLayer.ts` and `getLayerRenderer.ts` still create `BivariateRenderer`. It also hardcodes ad-hoc ID prefixes (`'mcda-source-'`, `'mcda-layer-'`) rather than shared constants. Either wire it up or drop it from this PR."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8",
+    "P8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The test mocks createDefaultMCDAConfig and uses toMatchObject. It asserts score/base only as {type:'mcda'} and asserts the raw steps as expected values, which matches the bug. There are no renderer tests.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/utils/bivariate/bivariateToMultivariate.test.ts",
+   "line": 46,
+   "claim": "The tests check only the shape of the output, so they miss the step-unit mismatch and the renderer regressions.",
+   "evidence": "The test uses `toMatchObject` on id/name/colors/stepOverrides, and `score`/`base` are asserted only as `{ type: 'mcda' }`. There are no tests for BivariateRenderer, MCDARenderer, popup content, zoom levels or listener handling, although the old 485-line renderer was replaced.",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/utils/bivariate/bivariateToMultivariate.test.ts",
+     "line": 46,
+     "claim": "The new tests check only the object shape returned by the converters. They mock createDefaultMCDAConfig and never check the generated layers' normalisation against the steps, or any renderer behaviour, so they would pass with the scale mismatch and the broken import above.",
+     "evidence": "The test uses `toMatchObject` on id/name/colors/stepOverrides, and `score`/`base` are asserted only as `{ type: 'mcda' }`. There are no tests for BivariateRenderer, MCDARenderer, popup content, zoom levels or listener handling, although the old 485-line renderer was replaced."
+    },
+    {
+     "id": "P8",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/utils/bivariate/bivariateToMultivariate.test.ts",
+     "line": 677,
+     "claim": "The test mocks `createDefaultMCDAConfig` and `nanoid`, and only uses `toMatchObject` on the shape of the output. It never checks that the converted style renders like the old bivariate style (for example, by comparing the classification expression or step units). As a result it can't catch the rendering regression above.",
+     "evidence": "The test mocks `createDefaultMCDAConfig` and `nanoid`, and only uses `toMatchObject` on the shape of the output. It never checks that the converted style renders like the old bivariate style (for example, by comparing the classification expression or step units). As a result it can't catch the rendering regression above."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9",
+    "P6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The new BivariateRenderer.tsx contains only the prefix getters, convertStyle and the hook wrappers. addSource, registerMapListener and feature-state code are in ClickableFeaturesRenderer.tsx lines 69-194.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/investigations/maplibre-migration.md",
+   "line": 60,
+   "claim": "The doc points to BivariateRenderer 'Lines 1\u201345' for addSource, listeners and feature-state code that no longer lives there.",
+   "evidence": "The new BivariateRenderer.tsx contains only getSourcePrefix, getClickableLayerId, convertStyle and the willSourceUpdate/willMount wrappers. addSource, registerMapListener and the feature-state code are in ClickableFeaturesRenderer.tsx (lines 69-194).",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "docs/investigations/maplibre-migration.md",
+     "line": 60,
+     "claim": "The updated docs point to BivariateRenderer 'Lines 1\u201345' for addSource/addLayer, event-listener registration and feature-state logic. That code no longer lives in this file, so the references are misleading.",
+     "evidence": "The new BivariateRenderer.tsx contains only getSourcePrefix, getClickableLayerId, convertStyle and the willSourceUpdate/willMount wrappers. addSource, registerMapListener and the feature-state code are in ClickableFeaturesRenderer.tsx (lines 69-194)."
+    },
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "docs/investigations/maplibre-migration.md",
+     "line": 10,
+     "claim": "The updated doc links now point to 'Lines 1\u201345' of `BivariateRenderer.tsx` for addSource/addLayer, `registerMapListener` event registration, and feature-state logic. None of that code is in that file any more; it lives in `ClickableFeaturesRenderer` and `MultivariateRenderer`. These references are now misleading.",
+     "evidence": "The updated doc links now point to 'Lines 1\u201345' of `BivariateRenderer.tsx` for addSource/addLayer, `registerMapListener` event registration, and feature-state logic. None of that code is in that file any more; it lives in `ClickableFeaturesRenderer` and `MultivariateRenderer`. These references are now misleading."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "P7"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 52-55 of readme.md have no leading indent, while the surrounding item content at lines 41-50 is indented 3 spaces. So the paragraph breaks out of the list item.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/features/bivariate_manager/readme.md",
+   "line": 52,
+   "claim": "The new readme paragraph lost its list indentation and renders outside the numbered item.",
+   "evidence": "The new paragraph and the mapbox reference line dropped their list indentation, so they now render outside the numbered list item they belonged to.",
+   "members": [
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/features/bivariate_manager/readme.md",
+     "line": 52,
+     "claim": "The new paragraph and the mapbox reference line dropped their list indentation, so they now render outside the numbered list item they belonged to.",
+     "evidence": "The new paragraph and the mapbox reference line dropped their list indentation, so they now render outside the numbered list item they belonged to."
+    }
+   ],
+   "id": "F10"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

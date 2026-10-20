@@ -1,0 +1,146 @@
+[
+ {
+  "sources": [
+   "C1",
+   "X2"
+  ],
+  "verdict": "confirmed",
+  "reason": "jpeg.rb:347-350 reads the declared segment length, checks only data[0,5]==\"JFIF\\0\", then calls data[7].ord and data[8,4].unpack with no length check, so a 7-byte payload gives nil.ord. fetch (fastimage.rb:293-298) rescues only the listed fetch/parse errors, not NoMethodError, so it reaches the caller.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+  "line": 349,
+  "claim": "A short JFIF APP0 segment makes FastImage.resolution raise NoMethodError even with raise_on_failure false.",
+  "evidence": "`data = @stream.read(length)` uses the segment's declared length. Once `data[0, 5] == \"JFIF\\0\"` matches, `data[7].ord` and `data[8, 4].unpack(\"nn\")` run with no length check. A declared length of 7 to 11 bytes makes `data[7]` or the slice nil, so the call raises NoMethodError. `fetch` (fastimage.rb:293-298) only rescues the listed fetch/parse errors (CannotParseImage, EOFError, etc.), so NoMethodError reaches the user. A length field under 2 makes `read(-n)` return nil, and `data[0,5]` raises the same way.",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C3",
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "read_rational_resolution (exif.rb:247-268) does `next if skip_amount < 0` on a forward-only stream. A rational stored before the IFD is skipped. When X and Y share one offset, reading X moves past it and Y is skipped, so tiff.rb:468 returns nil.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "lib/fastimage/fastimage_parsing/exif.rb",
+  "line": 252,
+  "claim": "TIFF/EXIF X/YResolution rationals stored before the current stream position, or sharing one offset, are silently dropped, so resolution comes back nil.",
+  "evidence": "`read_rational_resolution` computes `skip_amount = absolute_pos - @stream.pos` and does `next if skip_amount < 0`. The stream only moves forward, so any rational offset before the current position is skipped without a value. Nothing records or reports this, and no fixture covers that layout (\"test.dng\" is expected to be nil without explanation).",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "X3"
+  ],
+  "verdict": "confirmed",
+  "reason": "fastimage.gemspec:7 declares >= 1.9.2. exif.rb:19 adds `parse_resolution: false` and jpeg.rb:51 adds `&.`, and a grep of lib/ finds no earlier use of either, so requiring the gem on Ruby 1.9.2-2.2 now fails with SyntaxError. Lowered from high to medium: CI (.github/workflows/test.yml) already tests nothing below 2.3, and those runtimes are long EOL.",
+  "severity": "medium",
+  "raw_severity": "high",
+  "file": "lib/fastimage/fastimage_parsing/exif.rb",
+  "line": 19,
+  "claim": "Keyword-argument syntax (Ruby 2.0) and safe navigation (Ruby 2.3) break loading on older Rubies that the gemspec still allows.",
+  "evidence": "fastimage.gemspec declares required_ruby_version >= 1.9.2, but Exif#initialize now uses keyword-argument syntax requiring Ruby 2.0, and jpeg.rb:51 uses safe navigation requiring Ruby 2.3. lib/fastimage/fastimage.rb unconditionally requires both parsers, so requiring fastimage on those older permitted runtimes fails with SyntaxError before any API can run.",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C2"
+  ],
+  "verdict": "disputed",
+  "reason": "jpeg.rb:356 returns as soon as it finds any JFIF APP0, including units 0, before APP1 EXIF is read, and test3.jpg expects [[1,1], :no_units]. Whether EXIF should win is a spec choice that neither the code nor the packet settles. Lowered to low.",
+  "severity": "low",
+  "raw_severity": "medium",
+  "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+  "line": 356,
+  "claim": "JFIF density always beats EXIF X/YResolution, so a JFIF 0-units 1:1 placeholder hides a real EXIF DPI.",
+  "evidence": "In the `MARKER_APP0` branch, `return [[x_density, y_density], unit_sym]` runs for any JFIF segment, including `JFIF_UNIT_ASPECT_RATIO` (mapped to :no_units). APP0 normally comes before APP1, so `exif_resolution` is never consulted. The locked fixture expects `\"test3.jpg\"=>[..., [[1, 1], :no_units]]`, so this precedence is never tested against a file that has both.",
+  "id": "F4"
+ },
+ {
+  "sources": [
+   "C4"
+  ],
+  "verdict": "confirmed",
+  "reason": "parse_packets (fastimage.rb:474-489) raises CannotParseImage when the result is nil, and fetch swallows it, so @resolution stays undefined. resolution_units then calls resolution, which fetches again. This is a performance point and not a correctness defect, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "lib/fastimage/fastimage.rb",
+  "line": 265,
+  "claim": "When there is no resolution, @resolution is never set, so every later resolution/resolution_units call fetches the image again.",
+  "evidence": "`parse_resolution` returning nil makes `parse_packets` raise CannotParseImage, which `fetch` swallows, so `@resolution` stays undefined. `resolution_units` then does `resolution unless defined?(@resolution)`, which calls `fetch` again. `test_instance_resolution_returns_nil_for_format_without_resolution` calls both on test.png and so fetches it twice, but passes.",
+  "id": "F5"
+ },
+ {
+  "sources": [
+   "C5"
+  ],
+  "verdict": "confirmed",
+  "reason": "ImageBase#resolution returns nil, parse_packets:488 raises CannotParseImage, and fetch:298 re-raises it when raise_on_failure is set, so the comment at fastimage.rb:186 is wrong for that option. This is a documentation mismatch.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "lib/fastimage/fastimage.rb",
+  "line": 187,
+  "claim": "The docs say resolution returns nil when the image has no resolution data, but with raise_on_failure: true it raises CannotParseImage.",
+  "evidence": "`ImageBase#resolution` returns nil, so `parse_packets` does `raise CannotParseImage`, and `fetch` re-raises it with `raise if @options[:raise_on_failure]`. The comment says \"Returns nil if the image does not contain resolution information\". No test exercises resolution with raise_on_failure.",
+  "id": "F6"
+ },
+ {
+  "sources": [
+   "C6"
+  ],
+  "verdict": "confirmed",
+  "reason": "exif.rb:265-266 uses num.to_f / den while jpeg.rb uses unpack(\"nn\"), png.rb unpack(\"NN\") and bmp.rb unpack(\"l<l<\"). The fixtures mix [[72,72]] and [[72.0,72.0]], and assert_equal treats them as equal. This is an API-consistency point.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "lib/fastimage/fastimage_parsing/exif.rb",
+  "line": 265,
+  "claim": "Resolution values are Floats for EXIF/TIFF and Integers for JFIF/PNG/BMP, and the tests can't tell the difference.",
+  "evidence": "Exif uses `num.to_f / den`, while JFIF uses `unpack(\"nn\")` and PNG uses `unpack(\"NN\")`. The fixtures mix `[[72, 72], :inches]` (test.jpg) and `[[72.0, 72.0], :inches]` (test2.jpg), and `assert_equal` passes either way, so the test doesn't pin the type.",
+  "id": "F7"
+ },
+ {
+  "sources": [
+   "C7"
+  ],
+  "verdict": "confirmed",
+  "reason": "None of the GoodFixtures resolution expectations in test/test.rb is :centimeters, so the JFIF_UNIT_CENTIMETERS and RESOLUTION_UNIT_CENTIMETERS branches never run. This is a test-coverage gap.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "test/test.rb",
+  "line": 125,
+  "claim": "The centimeters, EXIF no-units, BMP one-zero-axis and JPEG EXIF-only branches have no tests.",
+  "evidence": "The resolution expectations in GoodFixtures contain only :inches, :meters and :no_units (from JFIF and PNG). No fixture produces :centimeters, so the `JFIF_UNIT_CENTIMETERS` and `RESOLUTION_UNIT_CENTIMETERS` branches in jpeg.rb and tiff.rb are never run.",
+  "axis_row": "L3.9",
+  "id": "F8"
+ },
+ {
+  "sources": [
+   "C8"
+  ],
+  "verdict": "disputed",
+  "reason": "bmp.rb:131-132 does unpack(\"l<l<\") and returns nil only when both are 0. Signed matches the BMP LONG field type, and whether a half-zero or negative value should give nil is not specified, so the code doesn't settle it as a defect.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "lib/fastimage/fastimage_parsing/bmp.rb",
+  "line": 131,
+  "claim": "BMP pixels-per-metre values are read as signed and are rejected only when both are zero.",
+  "evidence": "`x_ppm, y_ppm = data[38, 8].unpack(\"l<l<\")` followed by `return nil if x_ppm == 0 && y_ppm == 0`.",
+  "id": "F9"
+ },
+ {
+  "sources": [
+   "C9"
+  ],
+  "verdict": "confirmed",
+  "reason": "The diff adds `+.idea` to .gitignore, and nothing in the resolution feature needs it. This is a scope and hygiene point, not a defect.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": ".gitignore",
+  "line": 4,
+  "claim": "The change adds an unrelated `.idea` ignore entry.",
+  "evidence": "The diff adds `+.idea` to .gitignore. Nothing else in the change relates to IDE files.",
+  "axis_row": "L6.22",
+  "id": "F10"
+ }
+]

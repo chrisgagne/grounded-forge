@@ -1,0 +1,152 @@
+{
+ "id": "rb14",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:locked-tests",
+  "gate:sast",
+  "gate:surface",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 3.0464,
+ "codex_tokens": 74080,
+ "work": "<tmp>/replay-rb14-t1-lngengcj",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "encryption.rs:137-152 discards the Ok(_) result of the CAS put and returns `credential` unchanged; store_memory.rs:91 sets `version = expected_version + 1` on CAS, so the returned version is one behind the store. The trigger is traced (read an old-key record, then CAS with the returned version), but the result is a recoverable VersionConflict, not data loss, so it stays medium rather than X1's high.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "line": 147,
+   "claim": "Lazy key rotation in get() writes back with CAS (bumping the stored version) but returns the credential with its old version, so a following CAS write by the caller fails with VersionConflict and a CacheLayer above caches the stale version.",
+   "evidence": "`get()` calls `self.inner.put(updated, PutMode::CompareAndSwap { expected_version: credential.version })` and discards the `Ok(_)` result, then does `Ok(credential)` with the original `version`. `InMemoryStore::put` sets `credential.version = expected_version + 1` on CAS, so the stored version is one higher than the returned one. `CacheLayer::get` (cache.rs:149-150) caches whatever the inner `get` returns. The new test `lazy_reencryption_on_read_when_key_id_differs` only checks the raw envelope's `key_id`. It never checks the returned version or a follow-up CAS write.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "encryption.rs:69 inserts `String::new()` as an alias in new(), but with_keys (86-102) only collects the caller's pairs, so key_for_id(\"\") returns Backend(\"encryption key '' not found\"). crypto.rs:78-81 says the layer \"rejects empty key IDs at runtime\", which contradicts new().",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "line": 86,
+   "claim": "with_keys() does not register the empty-string alias that new() adds for pre-rotation records, so records with key_id \"\" can't be decrypted after a move to with_keys; the crypto.rs doc says empty key IDs are rejected, which is the opposite of what new() does.",
+   "evidence": "`new()` does `keys.insert(String::new(), key); // alias for pre-rotation data` (line 69). `with_keys` only collects the supplied pairs, so `key_for_id(\"\")` returns `StoreError::Backend(\"encryption key '' not found \u2014 cannot decrypt\")`. `EncryptedData.key_id` is `#[serde(default)]`, so old envelopes deserialize with \"\". crypto.rs:80 says \"The encryption layer rejects empty key IDs at runtime\", but `new()` accepts them. The public `encrypt()`/`encrypt_with_aad()` also still produce `key_id: \"\"`, while `encrypt_with_key_id` rejects it.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "decrypt_possibly_rotating (encryption.rs:201-223) only calls decrypt_with_aad, and the diff renames the baseline test and flips it to expect an error. acceptance.md says the baseline tests are locked, so a locked acceptance test was changed. The hard cutover may have been intended (active-work says \"AAD hard cutover\"), but the diff adds no migration tool.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "line": 201,
+   "claim": "The no-AAD decrypt fallback was removed with no migration path, and the locked baseline test legacy_data_without_aad_still_readable was rewritten as rejects_data_without_aad to assert the opposite.",
+   "evidence": "The old `decrypt_data` fell back to `crypto::decrypt(key, &encrypted)` when AAD decryption failed. The new `decrypt_possibly_rotating` only calls `decrypt_with_aad` and maps any failure to `StoreError::Backend`. The test `legacy_data_without_aad_still_readable` (which asserted `fetched.data == b\"legacy-secret\"`) was renamed to `rejects_data_without_aad` and now asserts `unwrap_err()`. The crypto.rs doc says \"a migration must re-encrypt all records before upgrading\", but the diff contains no migration tool or command.",
+   "axis_row": "L3.1",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "mod.rs:26-27 now registers \"secret_token\"/\"identity_password\", and resolver.rs:243 rejects any `stored.state_kind != expected_kind`. InMemoryStore is the only backend in the repo, so no persisted data is affected today. It stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "crates/credential/src/credentials/mod.rs",
+   "line": 26,
+   "claim": "The persisted state_kind strings and the basic-auth field name changed with no compatibility path, so existing stored records fail with KindMismatch or don't deserialize.",
+   "evidence": "`identity_state!(BearerToken, \"bearer\", 1)` and `identity_state!(BasicAuth, \"basic_auth\", 1)` became `identity_state!(SecretToken, \"secret_token\", 1)` and `identity_state!(IdentityPassword, \"identity_password\", 1)`. The resolver rejects with `if stored.state_kind != expected_kind` (resolver.rs:243). The removed `BasicAuth` had `pub username: String`; `IdentityPassword` has `identity: String`. The only CredentialStore backend in the repo is InMemoryStore, so the impact today is limited.",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "encryption.rs:128 does `std::mem::take(&mut *plaintext)` into StoredCredential.data, and line 135 uses `..credential.clone()`, which copies the plaintext `data`. The copy is then dropped when the field is replaced. This is hardening, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "line": 128,
+   "claim": "Plaintext leaves the Zeroizing wrapper into a plain Vec, and the rotation path clones the plaintext credential and drops the copy without zeroizing it.",
+   "evidence": "`credential.data = std::mem::take(&mut *plaintext);` moves the bytes out of the `Zeroizing<Vec<u8>>` into `StoredCredential.data`. Then `StoredCredential { data: re_encrypted, ..credential.clone() }` clones `credential`, so its plaintext `data` is copied and then dropped without zeroization.",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes `dtolnay/rust-toolchain@1.100` to `@1.94`, which matches the step name \"Install Rust 1.94\" and the declared MSRV. It looks like a correct fix, but risk.json lists infra as unplanned. It is a process point only, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/ci.yml",
+   "line": 165,
+   "claim": "An unplanned CI edit changes the MSRV toolchain pin.",
+   "evidence": "`uses: dtolnay/rust-toolchain@1.100` became `@1.94`. The step is named \"Install Rust 1.94\", the job is \"MSRV (1.94)\", and Cargo.toml has `rust-version = \"1.94\"`, so the new value matches the declared MSRV. risk.json lists `\"unplanned\": [\"infra\"]`.",
+   "axis_row": "L5.10",
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "auth_scheme.rs emits `::nebula_core::AuthScheme`/`AuthPattern`, and credential.rs:123 now emits `<#scheme as ::nebula_core::AuthScheme>::pattern()`, even though nebula_credential re-exports both (lib.rs:115). The doc example imports only nebula_credential. This is an API/DX defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "crates/credential/macros/src/auth_scheme.rs",
+   "line": 591,
+   "claim": "Both derive macros now expand to ::nebula_core paths, so a plugin crate that depends only on nebula-credential fails to compile.",
+   "evidence": "The AuthScheme derive emits `impl ... ::nebula_core::AuthScheme` and `::nebula_core::AuthPattern::#pattern_ident`. credential.rs:123 now emits `<#scheme as ::nebula_core::AuthScheme>::pattern()`; the Credential derive previously used only `::nebula_credential` paths. The doc example in macros/src/lib.rs imports only `nebula_credential::AuthScheme`.",
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "context.rs:203 and snapshot.rs:152/169/202 use `format!(\"{:?}\", S::pattern())` as both the expected and the actual label, so two types with the same pattern give identical strings. context.rs:37-39 still documents `expected_kind`. This is a diagnostics issue, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "crates/credential/src/context.rs",
+   "line": 203,
+   "claim": "Mismatch errors now name the shared AuthPattern category, not a unique kind, so they can read \"expected SecretToken, got SecretToken\"; the resolver parameter is still named expected_kind.",
+   "evidence": "`resolve_credential` passes `format!(\"{:?}\", S::pattern())` as `expected_kind` to `CredentialResolverRef::resolve_scheme` (still documented as \"expected_kind\" at context.rs:37-39). `CredentialSnapshot::project` reports `expected: format!(\"{:?}\", S::pattern())` and `actual: self.scheme_pattern`. Two distinct types with the same `AuthPattern` (for example, a plugin type using `pattern = SecretToken`) produce identical strings.",
+   "id": "F8"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:locked-tests",
+   "gate:sast",
+   "gate:surface"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

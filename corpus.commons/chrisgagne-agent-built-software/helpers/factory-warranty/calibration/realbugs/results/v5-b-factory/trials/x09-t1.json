@@ -1,0 +1,66 @@
+{
+ "id": "x09",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7697,
+ "codex_tokens": 43340,
+ "work": "<tmp>/replay-x09-t1-pg7z6y0s",
+ "findings": [
+  {
+   "sources": [
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "lib/index.mjs:3 now does `import * as utils` and line 332 assigns `this.utils = utils` directly. Module namespace objects are non-extensible and their properties are read-only, so a plugin that writes `md.utils.escapeHtml = ...` now throws in strict/ESM code. Helpers are handled differently: line 340 copies them with `utils.assign({}, helpers)`, so leaving utils uncopied looks like an oversight.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "lib/index.mjs",
+   "line": 332,
+   "claim": "md.utils is now a frozen ES module namespace object, so plugins that add or override a utility on md.utils get a TypeError.",
+   "evidence": "`import * as utils from './common/utils.mjs'` (line 3) is followed by `this.utils = utils` (line 332), which exposes the namespace directly. Helpers are handled differently: `this.helpers = utils.assign({}, helpers)` (line 340) copies them into a mutable plain object. Before the change, `utils` was the default-exported plain object literal, which could be extended.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff does remove `export default` from both modules, and package.json's `\"./*\"` export map lets consumers reach these paths directly. The version is still 13.0.2. No importer inside the repo still uses a default import. Without story.md I can't tell whether this breaking API change was intended, so the version/changelog point can't be settled.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "lib/common/utils.mjs",
+   "line": 311,
+   "claim": "Default exports of lib/common/utils.mjs and lib/helpers/index.mjs are removed with no version bump or changelog entry, so external default imports break.",
+   "evidence": "The diff deletes `export default { lib, assign, ... normalizeReference }` from utils.mjs and changes helpers/index.mjs from `export default {` to `export {`. package.json makes every file public through `\"./*\": { \"require\": \"./*\", \"import\": \"./*\" }` and `\"files\": [\"index.mjs\", \"lib/\", \"dist/\"]`, so these paths are reachable by consumers. The version stays at `\"version\": \"13.0.2\"`, and CHANGELOG.md's top entry is still `## [13.0.2] - 2023-09-26` with no note about the breaking change. Every importer inside the repo already uses named or namespace imports (grep found no remaining default imports), so only outside consumers break.",
+   "axis_row": "L1.2",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching test/ for utils/helpers finds only test/utils.mjs:2, which already used a namespace import. Nothing exercises md.utils, md.helpers or the removed default exports, so the regressions above would pass the suite. This is a coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/markdown-it.mjs",
+   "line": null,
+   "claim": "No test covers the reshaped md.utils / md.helpers public surface or the module default exports.",
+   "evidence": "The diff changes only lib files and adds no tests. A grep for `common/utils` and `lib/helpers` outside lib/ finds only `test/utils.mjs:2: import * as utils from '../lib/common/utils.mjs'`, which already used a namespace import and never touches the default export or `md.utils`. test/cjs.js only checks `md.render('abc')`.",
+   "axis_row": "L3.7",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

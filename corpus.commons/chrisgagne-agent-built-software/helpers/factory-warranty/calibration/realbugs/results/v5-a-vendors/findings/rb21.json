@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/renedierking/LANdalf",
+  "pr_number": 88,
+  "base": "cc81fa3dc87a8a50654c1279b3bdb2761e94f832",
+  "head": "bc1698f4dbc3a99dee0a6dcf7629813f2027682a"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 168,
+   "end_line": 186,
+   "message": "The change now passes `cancellationToken` to `SendPingAsync`, but `PingDeviceAsync` has no catch for `OperationCanceledException`, so the generic `catch (Exception)` handles it. On shutdown or any cancellation, every in-flight ping logs a spurious 'Unexpected error pinging' warning (one per device, since all devices are checked in parallel) and returns `false`. `CheckDeviceAsync` then treats that as the device going offline: it sets `IsOnline = false` and `OnlineSince = null` and tries to persist and broadcast the change, which can wrongly flip online devices to offline during shutdown. Add `catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }` (or a plain rethrow) before the generic catch so cancellation reaches `ExecuteAsync`, which already handles it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 176,
+   "end_line": 183,
+   "message": "The iputils-ping hint is in the wrong catch block. On Linux, when .NET cannot open a raw socket it falls back to running the `ping` binary, and if that binary is missing it throws `PlatformNotSupportedException` ('ping utility not found'), not `PingException`. So the 'install iputils-ping / CAP_NET_RAW' guidance belongs in the `PlatformNotSupportedException` warning, which currently logs only a generic message, and only once. The `PingException` path logs the hint at Debug level on every failure, where operators are unlikely to see it. Move the hint into the once-only warning."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 176,
+   "end_line": 180,
+   "message": "Once ping is unsupported, every device is reported offline on every cycle, and the only signal is a single warning logged for the whole service lifetime. That warning is easy to miss, and nothing in the device status shows that offline means 'could not check' rather than 'unreachable'. Consider logging at Error level, or exposing the condition, for example by disabling monitoring or surfacing it through `IDeviceMonitoringService`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The using cleanup also adds a UTF-8 BOM (`\\uFEFF`) at the start of the file. This creates an unrelated encoding change that adds noise to the diff and may clash with the repo's encoding conventions. Remove it."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 31000
+ }
+}

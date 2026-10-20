@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1473454,
+  "duration_s": 96.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "TREE={tree} node --experimental-strip-types --test check/alt_code_inline.test.mjs",
+  "because": "On head, markdown-it renders `![run `npm i` now](x.png)` with alt=\"run  now\" instead of alt=\"run npm i now\" (base passes), so the code-span text is dropped from image alt attributes."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "TAP version 13\n# (node:83687) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: image alt keeps code span text with backticks stripped\nok 1 - image alt keeps code span text with backticks stripped\n  ---\n  duration_ms: 3.732292\n  type: 'test'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 204.615375\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "TAP version 13\n# (node:83761) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: image alt keeps code span text with backticks stripped\nnot ok 1 - image alt keeps code span text with backticks stripped\n  ---\n  duration_ms: 4.086875\n  type: 'test'\n  location: '<work>/repro-work/v4-arm-v4/w06-t2-F1/check/alt_code_inline.test.mjs:9:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + '<p><img src=\"x.png\" alt=\"run  now\"></p>\\n'\n    - '<p><img src=\"x.png\" alt=\"run npm i now\"></p>\\n'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: |-\n    <p><img src=\"x.png\" alt=\"run npm i now\"></p>\n    \n  actual: |-\n    <p><img src=\"x.png\" alt=\"run  now\"></p>\n    \n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w06-t2-F1/check/alt_code_inline.test.mjs:11:10)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.start (node:internal/test_runner/test:944:17)\n    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 217.303041\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, markdown-it renders `![run `npm i` now](x.png)` with alt=\"run  now\" instead of alt=\"run npm i now\" (base passes), so the code-span text is dropped from image alt attributes.",
+ "run": "v4-arm-v4",
+ "trial": "w06-t2",
+ "kind": "bug"
+}

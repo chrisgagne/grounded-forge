@@ -1,0 +1,126 @@
+{
+ "id": "rb03",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 239,
+   "end_line": 240,
+   "message": "Dispatch layer actions through the atom action API. When any overlay is mounted during a basemap switch, these calls do not dispatch its disable/enable actions: `LayerAtom` is a Reatom atom, not a function accepting action names. Use its action creators and dispatch them (for example, `layer.disable.dispatch()`). Otherwise the callback fails and overlays removed by the style replacement are never restored. The test hides this problem by substituting a callable `vi.fn()` for a real layer atom."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 234,
+   "end_line": 235,
+   "message": "Wait for the replacement style to load before restoring overlays. When `setStyle` diffs against an existing style, `styledata` can fire synchronously before this listener is registered, or fire while the replacement style is not yet fully loaded. Consequently restoration can be skipped or attempted before sources can safely be added. Register the completion listener before calling `setStyle` and use the style-load completion event rather than the first `styledata` notification."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 238,
+   "end_line": 241,
+   "message": "Calling `layer('disable')` and `layer('enable')` does not dispatch anything. `mountedLayersAtom` holds reatom v2 logical layer atoms, and calling a v2 atom as a function runs its internal `(transaction, cache)` reducer. A plain string is not a valid transaction, so this will likely throw inside the `styledata` handler or silently do nothing. The codebase dispatches these actions as `dispatch(layer.enable())` (see src/features/mcda/atoms/mcdaLayer.ts:100), e.g. `store.dispatch([layer.disable(), layer.enable()])`. The unit test hides this because it stores a `vi.fn()` in the atom. In the real app the existing layers are wiped by `setStyle` and never come back."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 238,
+   "end_line": 241,
+   "message": "Even with correct dispatch, running disable and then enable back to back is unlikely to remount anything. The logical layer reducer only calls `willUnMount`/`willMount` when `isEnabled !== isMounted` after a state update, and it skips the sync step on the same pass where `isMounted` changes. A synchronous disable followed by enable can end with `isEnabled` and `isMounted` both true, so `willMount` never runs. Also, `enable` pushes `getMutualExcludedActions`, which can turn off other layers as a side effect. A dedicated remount path is needed: reset each renderer's `_layerIds`/`_sourceId` and call `renderer.willMount`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 228,
+   "end_line": 243,
+   "message": "`willUnMount` was not updated for the style-URL case. Disabling the Kontur basemap layer leaves its style on the map, and the default `configRepo.get().mapBaseStyle` is never restored. So the basemap can be switched on but never switched back off, which defeats the goal of 'basemap switching'. Restore the default style on unmount, and remount the other layers there too."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 231,
+   "end_line": 242,
+   "message": "`_updateMap` is shared by `willMount`, `willSourceUpdate` and `willLegendUpdate`. Any later source or legend update for the basemap layer (for example a deep-frozen source object being replaced) will call `setStyle` again and tear down and remount every layer on the map. Only call `setStyle` when the style URL actually changes, e.g. by storing the current style URL on the renderer."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 237,
+   "end_line": 237,
+   "message": "Each call to `layersOrderManager.init` pushes another `layersSettingsAtom.subscribe` onto `_unsubscribe` without removing the old one. Every basemap switch therefore leaks a subscription. Either make `init` idempotent by unsubscribing first, or add a dedicated method that only recomputes `_baseMapFirstLayerIdx` after a style change."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 235,
+   "end_line": 235,
+   "message": "`styledata` fires for many style mutations, not only for a finished style load. A `styledata` from some other change (for example a layer mutation still in flight) can trigger the remount before the new style has finished loading. The remount would then run against the old or partially loaded style and compute a wrong `_baseMapFirstLayerIdx`. Use `style.load`, or check `map.isStyleLoaded()` inside the handler. Also, nothing handles a failed style load (`error` event), so the user gets no feedback when that happens."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 231,
+   "end_line": 236,
+   "message": "Other renderers keep stale internal state after `setStyle` (`_layerIds`, `_sourceId`, cached click listeners). Their `willUnMount` will log 'Layer doesn't exist' warnings for layers that `setStyle` already removed. `GenericRenderer.mountTileLayer`/`mountGeoJSONLayer` may also early-return based on stale state. Clearing `mapLibreParentsIds` globally also drops parent mappings the layers need. Consider passing `{ diff: false }`, and make remounting a deliberate renderer-level operation."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 229,
+   "end_line": 247,
+   "message": "For the style-URL branch, `this._layerIds` stays empty, so the `if (!isVisible) this.willHide({ map })` that follows is a silent no-op. Hiding the basemap layer does nothing. A missing `urls[0]` is also skipped silently. Add a warning or error so developers learn the source is malformed."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.test.ts",
+   "start_line": 24,
+   "end_line": 57,
+   "message": "The test cannot catch the real dispatch bug. It stores a `vi.fn()` in `mountedLayersAtom` instead of a real logical layer atom, so it checks a calling convention that does not work in production. It also only checks that 'disable' was called, not 'enable', and never checks that `layersOrderManager.init` ran. The assertion messages also lack input context, which AGENTS.md asks for. Use a real `createLogicalLayerAtom` with a stub renderer and assert that `willMount` is called again."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.test.ts",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "`{ virtual: true }` is a Jest option. Vitest's `vi.mock` does not support it, so the argument is ignored and misleading."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.test.ts",
+   "start_line": 47,
+   "end_line": 59,
+   "message": "`initSpy.mockRestore()` runs only after the assertions pass. If an assertion fails, `layersOrderManager.init` stays mocked for the rest of the test file. Restore it in `afterEach`, or use `vi.restoreAllMocks`."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 42,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 52,
+   "cost_usd": 0.33758319999999997,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 52
+ }
+}

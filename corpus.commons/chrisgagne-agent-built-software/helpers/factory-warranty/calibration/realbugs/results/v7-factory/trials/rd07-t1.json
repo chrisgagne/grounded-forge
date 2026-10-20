@@ -1,0 +1,286 @@
+{
+ "id": "rd07",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 1.8662,
+ "codex_tokens": 70705,
+ "work": "<tmp>/replay-rd07-t1-pijn8_y_",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1",
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "schemas.ts:153 still has `ownerName: cleanString('Owner name').min(2)`, and cleanString refuses an empty value. prepareForValidation in company-detail.config.ts now returns only name/address/location/type, and the ownerName input is gone from companyFields, so safeParse always fails. In the sidebar the error is dropped because fieldExistsInConfig('ownerName') is false (DynamicDetailSidebar.svelte:142), and handleSave (line 227) skips onSave. Both save and create are blocked without any message to the user.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/lib/schemas.ts",
+   "line": 153,
+   "claim": "companySchema still requires ownerName, but the create form and the detail-sidebar prepareForValidation no longer supply it, so no company can be created or saved through the UI.",
+   "evidence": "prepareForValidation now returns only {name, address, location, type}. companySchema (src/lib/schemas.ts:153) still declares `ownerName: cleanString('Owner name')`, and cleanString refines `val.length > 0`, so a missing value fails. DynamicDetailSidebar.validateAllFields (line 121) calls safeParse on that object and returns false. The ownerName error is dropped because `fieldExistsInConfig('ownerName')` is false now that the OWNER NAME field is removed. handleSave (line 227) only calls onSave when isValid, so clicking Save does nothing and gives the user no feedback.",
+   "axis_row": "L1.2",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/lib/configs/company-detail.config.ts",
+     "line": 129,
+     "claim": "Saving an edited company in the detail sidebar always fails validation, with no error shown. The new prepareForValidation drops ownerName, but companySchema still requires it.",
+     "evidence": "prepareForValidation now returns only {name, address, location, type}. companySchema (src/lib/schemas.ts:153) still declares `ownerName: cleanString('Owner name')`, and cleanString refines `val.length > 0`, so a missing value fails. DynamicDetailSidebar.validateAllFields (line 121) calls safeParse on that object and returns false. The ownerName error is dropped because `fieldExistsInConfig('ownerName')` is false now that the OWNER NAME field is removed. handleSave (line 227) only calls onSave when isValid, so clicking Save does nothing and gives the user no feedback."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/lib/configs/company-detail.config.ts",
+     "line": 129,
+     "claim": "Removing ownerName from the company forms without updating companySchema prevents every creation and edit from passing validation.",
+     "evidence": "companySchema in src/lib/schemas.ts still requires ownerName with at least two characters. The updated companyFields omits that input, and prepareForValidation omits it too. Submitting otherwise valid company fields therefore fails safeParse: CreationForm returns before dispatching submit, and DynamicDetailSidebar.validateAllFields returns false before onSave, while hiding errors for fields absent from the config."
+    },
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/routes/company/+page.svelte",
+     "line": 186,
+     "claim": "The Add Company form can never be submitted. The change removed the ownerName input but left the form validated against companySchema, which still requires ownerName.",
+     "evidence": "The diff removes the `{ name: 'ownerName', ... required: true }` entry from companyFields, but `<ModalForm ... schema={companySchema}>` is unchanged. CreationForm.handleSubmit (CreationForm.svelte:171) runs `schema.safeParse(formData)`. formData has no ownerName, so the parse fails on the `ownerName` cleanString check, sets errors['ownerName'] for a field that isn't rendered, and returns before `dispatch('submit')`. companySchema in src/lib/schemas.ts:148-169 was not updated to the new Company shape (it also still lists email and phone)."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "helpers.ts:118-126 lowercases the whole string and then capitalises only the first letter of each word. The diff applies it as `name: titleCase(item.name ?? '')`, so a name like 'HDFC Bank' shows as 'Hdfc Bank', and that mangled row is what seeds the detail sidebar.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/routes/company/+page.svelte",
+   "line": 86,
+   "claim": "titleCase on API company names corrupts acronyms and brand casing in the display and in the editable value.",
+   "evidence": "`name: titleCase(item.name ?? '')`. titleCase in helpers.ts:118 runs `s.toLowerCase()` and then uppercases only the first character of each word, so 'HDFC Bank' becomes 'Hdfc Bank' and 'TCS' becomes 'Tcs'. The detail sidebar seeds `editable` from this formatted row.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/routes/company/+page.svelte",
+     "line": 86,
+     "claim": "Company names from the API are passed through titleCase, which lowercases each word after its first letter. Acronyms and brand casing are corrupted in the list and detail view, and the corrupted value becomes the editable name a save would send back.",
+     "evidence": "`name: titleCase(item.name ?? '')`. titleCase in helpers.ts:118 runs `s.toLowerCase()` and then uppercases only the first character of each word, so 'HDFC Bank' becomes 'Hdfc Bank' and 'TCS' becomes 'Tcs'. The detail sidebar seeds `editable` from this formatted row."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "constants.ts maps status 1 to 'Under Verification', and that label goes into the dashboardLink status param. dashboard/+page.svelte:80-98 only has branches for 'Validating', 'Verified' and 'Suspended', so these companies match none of them.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/routes/company/dashboard/+page.svelte",
+   "line": 80,
+   "claim": "Companies with API status 1 are labelled 'Under Verification', which the dashboard does not recognise, so it shows no status message for them.",
+   "evidence": "For an API company with status 1, COMPANY_STATUS_LABEL_BY_VALUE now produces 'Under Verification'; the listing stores that label and getCompanyDetailConfig passes it in the dashboard URL's status parameter. src/routes/company/dashboard/+page.svelte only renders status messages for 'Validating', 'Verified', and 'Suspended', so this company matches none of its branches.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/lib/constants.ts",
+     "line": 122,
+     "claim": "Companies under verification lose their status message when users open their dashboard.",
+     "evidence": "For an API company with status 1, COMPANY_STATUS_LABEL_BY_VALUE now produces 'Under Verification'; the listing stores that label and getCompanyDetailConfig passes it in the dashboard URL's status parameter. src/routes/company/dashboard/+page.svelte only renders status messages for 'Validating', 'Verified', and 'Suspended', so this company matches none of its branches."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds `{:else if field.renderer}` with extra props and changes the type to `& Record<string, any>`. A grep shows no config sets `renderer:`, so nothing uses it today. It is scope creep and an API-design point with no traced defect, so I lowered it from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "line": 541,
+   "claim": "Unrequested view-mode renderer branch added to the shared sidebar, and the DetailFieldRenderer type widened to accept any props.",
+   "evidence": "A new `{:else if field.renderer}` branch renders `<svelte:component this={field.renderer} value=... label=... icon=... iconColor=... iconBg=... />` in viewing mode, where the code previously showed `getFieldValue(field)` text. detail-config.ts changes the renderer type to `SvelteComponentTyped<{ value?: DetailFieldValue } & Record<string, any>>`. No company field uses a renderer (no `renderer:` in any config), so the change serves no part of the company work.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/lib/components/DynamicDetailSidebar.svelte",
+     "line": 541,
+     "claim": "The change adds a view-mode branch to the shared DynamicDetailSidebar that renders field.renderer with extra props. This is an unrequested behaviour change for every entity's detail view, and it widens DetailFieldRenderer to accept any props.",
+     "evidence": "A new `{:else if field.renderer}` branch renders `<svelte:component this={field.renderer} value=... label=... icon=... iconColor=... iconBg=... />` in viewing mode, where the code previously showed `getFieldValue(field)` text. detail-config.ts changes the renderer type to `SvelteComponentTyped<{ value?: DetailFieldValue } & Record<string, any>>`. No company field uses a renderer (no `renderer:` in any config), so the change serves no part of the company work."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Escape is handled only by `<svelte:window on:keydown>`, while the dialog div has `on:keydown|stopPropagation`, so keydowns from the dialog or its close button never reach the window handler. Nothing moves focus into the dialog, traps it, or restores it on close. It is an accessibility defect, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "line": 62,
+   "claim": "Escape does not close the map modal while focus is inside the dialog, and the dialog has no focus management.",
+   "evidence": "Escape is handled only by `<svelte:window on:keydown={handleKeydown} />`, but the dialog div has `on:keydown|stopPropagation` and `tabindex=\"0\"`. A keydown from the focused dialog or its close button never reaches the window handler. The modal also never moves focus into the dialog when it opens.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/lib/components/company-components/LocationMapModal.svelte",
+     "line": 62,
+     "claim": "Escape does not close the map modal once focus is inside it. The dialog stops keydown events from bubbling up to the window listener that handles Escape.",
+     "evidence": "Escape is handled only by `<svelte:window on:keydown={handleKeydown} />`, but the dialog div has `on:keydown|stopPropagation` and `tabindex=\"0\"`. A keydown from the focused dialog or its close button never reaches the window handler. The modal also never moves focus into the dialog when it opens."
+    },
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/lib/components/company-components/LocationMapModal.svelte",
+     "line": 62,
+     "claim": "The map dialog lacks focus management and prevents Escape from closing it when focus is inside the dialog.",
+     "evidence": "The dialog declares aria-modal and tabindex but never moves focus into it, traps focus, or restores focus on close. Its on:keydown|stopPropagation prevents events from focused descendants, including the close button, from reaching the svelte:window Escape handler."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff imports CircleStyle, Fill and Stroke and never references them. LocationMapModal passes only latitude, longitude and zoom, so the XYZ provider branch never runs. No element uses `.location-display`. This is maintainability only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "line": 14,
+   "claim": "Unused imports (CircleStyle, Fill, Stroke), unreachable provider props, and an unused .location-display CSS class.",
+   "evidence": "CircleStyle, Fill and Stroke are imported (lines 14-16) and never referenced. LocationMapModal passes only latitude, longitude and zoom, so the XYZ/escapeHtml provider branch is unreachable. The `.location-display` rule added at DynamicDetailSidebar.svelte:935 is used by no element.",
+   "axis_row": "L6.25",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+     "line": 14,
+     "claim": "The new map component has dead code: three imports are never used and the providerUrl/providerAttribution props are never set by any caller. The diff also adds an unused CSS class to the sidebar.",
+     "evidence": "CircleStyle, Fill and Stroke are imported (lines 14-16) and never referenced. LocationMapModal passes only latitude, longitude and zoom, so the XYZ/escapeHtml provider branch is unreachable. The `.location-display` rule added at DynamicDetailSidebar.svelte:935 is used by no element."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The location button can only be clicked while the modal is closed, because the modal's fixed backdrop at z-index 10000 covers it. showLocationMap is therefore already false, and the reset plus setTimeout does nothing. This is maintainability only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "line": 189,
+   "claim": "The setTimeout false\u2192true toggle in openLocationMap has no effect.",
+   "evidence": "`showLocationMap = false; setTimeout(() => { showLocationMap = true; }, 0);`. The modal is a fixed backdrop at z-index 10000 that covers the 'Click here to view location' button, so the function never runs while showLocationMap is already true.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/lib/components/DynamicDetailSidebar.svelte",
+     "line": 189,
+     "claim": "openLocationMap uses a setTimeout to toggle showLocationMap from false back to true, a workaround with no effect: the modal can only be opened while it is closed.",
+     "evidence": "`showLocationMap = false; setTimeout(() => { showLocationMap = true; }, 0);`. The modal is a fixed backdrop at z-index 10000 that covers the 'Click here to view location' button, so the function never runs while showLocationMap is already true."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep shows `Company` appears in dummy-data.ts only in the import list at line 2, so it is a leftover unused import.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/lib/dummy-data.ts",
+   "line": 2,
+   "claim": "The Company type import is unused now that the companies array is removed.",
+   "evidence": "The diff deletes `export const companies: Company[] = [...]` but keeps `Company` in the `import type { Company, Landmark, ... } from './types/type'` list.",
+   "axis_row": "L6.25",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/lib/dummy-data.ts",
+     "line": 2,
+     "claim": "The `Company` type import was left behind after the dummy companies array it typed was deleted, so it is now unused.",
+     "evidence": "The diff deletes `export const companies: Company[] = [...]` but keeps `Company` in the `import type { Company, Landmark, ... } from './types/type'` list."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds no test files, so the recursive empty-page fallback, the `fetchedCount + 1` total guess and parseWKTPoint have no checks. Missing tests are a process gap rather than a defect, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "line": 56,
+   "claim": "The new fetch, pagination inference, WKT parsing and enum mapping have no tests.",
+   "evidence": "The diff contains no test files, and the repository has no *.test.ts or *.spec.ts files. Some untested paths: fetchCompanies falls back to recursion when an empty page comes back, totalItems is guessed as `fetchedCount + 1`, and parseWKTPoint's regex `[\\d.\\-]+` does not accept exponent notation.",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/routes/company/+page.svelte",
+     "line": 56,
+     "claim": "The change adds the API fetch, pagination inference, WKT parsing and enum mapping with no tests, so none of this logic has a check that could fail.",
+     "evidence": "The diff contains no test files, and the repository has no *.test.ts or *.spec.ts files. Some untested paths: fetchCompanies falls back to recursion when an empty page comes back, totalItems is guessed as `fetchedCount + 1`, and parseWKTPoint's regex `[\\d.\\-]+` does not accept exponent notation."
+    }
+   ],
+   "id": "F9"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

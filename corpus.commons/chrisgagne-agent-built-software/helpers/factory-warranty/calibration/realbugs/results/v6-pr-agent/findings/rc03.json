@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/efcore",
+  "pr_number": 38115,
+  "base": "fec5da438f8879ca73c9752683e323cda8be77e6",
+  "head": "009f41901ee1a943ce85425652bc454fe85d2278"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 292,
+   "message": "Masks illegal modifications. The fix overwrites the original value of every `AfterSaveBehavior.Throw` property with its current value whenever the entry moves to `Modified`. It applies to all such properties, not just the complex-type discriminator / shadow-property case described in the comment. That includes primary keys and any user-configured `Throw` properties.\n\nTrigger: load an entity, change a `Throw` property, then set `entry.State = EntityState.Modified` before DetectChanges runs. Previously, DetectChanges compared against the real snapshot and SaveChanges threw the expected \"property cannot be modified\" error. Now the snapshot is silently replaced, the Modified flag is cleared, and SaveChanges succeeds:\n- The user's change is silently dropped.\n- For key or concurrency-token properties, the original value used in the `WHERE` clause becomes the new, incorrect value. The update can then target the wrong row or fail with a misleading concurrency exception.\n\nConsider restricting this to the case being fixed, e.g. discriminators or shadow properties on complex types whose snapshot holds default values. Alternatively, only overwrite when the original value was never actually captured."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 22000
+ }
+}

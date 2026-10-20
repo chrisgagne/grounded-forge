@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1839264,
+  "duration_s": 35.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/from_events_check.mjs {tree}",
+  "because": "I gave the public eventsToAst three hand-damaged event streams; on head, a stream cut short (closing POPs removed) returns with no error and the open document is silently lost, while a scalar outside any document and an extra POP each throw a bare TypeError ('Cannot read properties of undefined (reading 'kind')'), and on base all three throw a YAMLException that gives the position."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   truncated event stream throws YAMLException\nok   node outside document throws YAMLException\nok   extra POP throws YAMLException\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL truncated event stream throws YAMLException: Missing expected exception.\nFAIL node outside document throws YAMLException: The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nTypeError: Cannot read properties of undefined (reading 'kind')\nFAIL extra POP throws YAMLException: The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nTypeError: Cannot read properties of undefined (reading 'kind')\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "I gave the public eventsToAst three hand-damaged event streams; on head, a stream cut short (closing POPs removed) returns with no error and the open document is silently lost, while a scalar outside any document and an extra POP each throw a bare TypeError ('Cannot read properties of undefined (reading 'kind')'), and on base all three throw a YAMLException that gives the position.",
+ "run": "v3-distillations",
+ "trial": "v12-t2",
+ "kind": "control"
+}

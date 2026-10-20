@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.0939744,
+  "duration_s": 12.5
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/tilde.js {tree}",
+  "because": "On head, with includePrerelease set, ~1.1, ~1 and ~1.2 reject 1.1.0-a, 1.0.0-a and 1.2.0-beta, while their documented equivalents 1.1.x, 1.x and 1.2.x still accept them; on base the tilde and x-range results match."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "1.1.0-a ~1.1=true 1.1.x=true\n1.0.0-a ~1=true 1.x=true\n1.2.0-beta ~1.2=true 1.2.x=true\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "1.1.0-a ~1.1=false 1.1.x=true\n1.0.0-a ~1=false 1.x=true\n1.2.0-beta ~1.2=false 1.2.x=true\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, with includePrerelease set, ~1.1, ~1 and ~1.2 reject 1.1.0-a, 1.0.0-a and 1.2.0-beta, while their documented equivalents 1.1.x, 1.x and 1.2.x still accept them; on base the tilde and x-range results match.",
+ "run": "v3-distillations",
+ "trial": "v19-t2",
+ "kind": "bug"
+}

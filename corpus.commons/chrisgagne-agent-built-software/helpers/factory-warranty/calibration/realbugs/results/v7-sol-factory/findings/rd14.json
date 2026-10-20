@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "Shutdown checks use the orchestrator's branch rather than the target implementer's branch, allowing unreviewed worktree implementers to be terminated. The branch comes exclusively from git symbolic-ref in process.cwd(); the target is used only for its name. When the orchestrator remains on main while an implementer works on a feature branch in a worktree, lines 91\u201394 allow shutdown immediately without checking that feature's reviews. The repository explicitly supports parallel branches and worktree implementation in templates/skills/dev-team-task/SKILL.md and templates/agents/dev-team-drucker.md."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "A matching sidecar filename permits shutdown before review findings have been routed and acknowledged. files.some() checks only a filename substring and .json suffix, then lines 108\u2013110 allow shutdown without reading findings or acknowledgment state. A sidecar containing unresolved findings therefore passes immediately, contrary to templates/skills/dev-team-task/SKILL.md's requirement that implementers remain alive until all findings are routed and acknowledged. It also accepts unrelated prefix matches, such as a feat-123-test sidecar for branch feat/123."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The installed hook ignores its event input and therefore allows premature implementer shutdowns. templates/settings.json invokes the script without arguments, but line 26 reads only process.argv[2]. Claude Code supplies command-hook events through stdin ([hook reference](https://code.claude.com/docs/en/hooks#hook-input-and-output)). Supplying a SendMessage shutdown event on stdin returned exit 0: input becomes {}, and the tool-name check exits before enforcement. The new tests pass JSON as an argument, masking this integration failure."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

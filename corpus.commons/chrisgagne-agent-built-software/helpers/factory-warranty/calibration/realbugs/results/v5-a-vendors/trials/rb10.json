@@ -1,0 +1,102 @@
+{
+ "id": "rb10",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "internal/github/github.go",
+   "start_line": 116,
+   "end_line": 116,
+   "message": "Compare reviewed commit identity instead of commit timestamps. If an existing commit is pushed after Copilot submits its review, its committer date can still precede the review. This comparison then marks unreviewed changes as fresh and prevents requesting another review. Commit timestamps do not establish which revision was reviewed; compare the review's `commit_id` with the PR's current head SHA instead."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "internal/github/github.go",
+   "start_line": 84,
+   "end_line": 91,
+   "message": "Account for pagination when determining review freshness. Both collection requests retrieve only the first page (30 entries by default). For a PR with more than 30 commits, this treats commit 30 as the latest and can skip a required review of subsequent commits. For more than 30 reviews, it can miss the latest Copilot review and request a duplicate. Follow pagination for reviews and retrieve the actual PR head rather than taking the last commit on the first page."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "cmd/root.go",
+   "start_line": 77,
+   "end_line": 79,
+   "message": "Check freshness before minimizing the existing review. When the existing review is fresh, `run` has already called `MinimizeCopilotComments`, which hides all Copilot review overviews as outdated. This new early return then leaves the current review hidden without requesting a replacement. Perform the freshness check before minimizing reviews so a no-op invocation preserves the up-to-date review."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "internal/github/github.go",
+   "start_line": 76,
+   "end_line": 116,
+   "message": "Freshness is decided by comparing the last commit's committer date with the review's submitted_at. The committer date is set on the author's machine when the commit is created, not when it is pushed. A commit created before Copilot's review but pushed (or force-pushed/rebased with preserved dates) after it will make the review look fresh, so the tool skips a review that is actually needed. Clock skew can cause the same problem. The PR description says the check compares each review's `commit_id` with the PR head SHA, which is the reliable approach, but the code doesn't do that. Fetch `head.sha` from the PR and compare it with the Copilot reviews' `commit_id`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "internal/github/github.go",
+   "start_line": 84,
+   "end_line": 91,
+   "message": "`pulls/{n}/commits` is paginated and returns 30 commits by default. `c.rest.Get` only reads the first page. On PRs with more than 30 commits, `commits[len(commits)-1]` is the 30th commit, not the head, so an old date is compared and a stale review can be treated as fresh. The PR description says `--paginate` is used, but it isn't. Use the PR's `head.sha` (or `head` commit) instead of listing commits."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "internal/github/github.go",
+   "start_line": 100,
+   "end_line": 110,
+   "message": "The reviews list is also paginated (30 per page) and only the first page is read. On PRs with many reviews, Copilot's latest review may be on a later page, so the tool either misses it (and asks for an unneeded review) or uses an older one. `HasCopilotPendingReview` has the same problem."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "cmd/root.go",
+   "start_line": 47,
+   "end_line": 80,
+   "message": "`MinimizeCopilotComments` runs unconditionally before the new freshness check and minimizes every Copilot review as OUTDATED, including the one that is current. When the review turns out to be fresh, the command prints \"already up to date\" and returns. By then the up-to-date review has already been hidden as outdated and no new review is requested, so the PR ends up with no visible current Copilot review. Run the freshness check before minimizing, or skip minimizing when the review is fresh."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "internal/github/github.go",
+   "start_line": 75,
+   "end_line": 117,
+   "message": "The implementation doesn't match the PR description. The description promises a `CheckCopilotReviewStatus()` method that combines the pending and fresh checks into one API call, a `commit_id` vs head SHA comparison, and `gh api --paginate --jq` with `json.Decoder`. Instead, the code adds a separate `IsCopilotReviewFresh` that compares timestamps, keeps `HasCopilotPendingReview`, and doesn't paginate. Reviewers and the test plan are working from behaviour the code doesn't have."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "cmd/root.go",
+   "start_line": 64,
+   "end_line": 80,
+   "message": "The reviews endpoint is now fetched twice, once in `HasCopilotPendingReview` and again in `IsCopilotReviewFresh`, plus an extra commits request. This uses more rate limit, which the description says the change was meant to avoid. Fetch the reviews once and work out both pending and fresh status from that single response."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "internal/github/github.go",
+   "start_line": 105,
+   "end_line": 110,
+   "message": "Every Copilot review counts toward the latest time regardless of state, including DISMISSED reviews. A dismissed review submitted after the last commit makes the tool skip asking for a new review. Consider filtering by state."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 36,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 462,
+   "cost_usd": 0.11130580000000001,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 462
+ }
+}

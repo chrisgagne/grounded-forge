@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.2842194,
+  "duration_s": 75.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "cd {tree} && TZ=America/Los_Angeles TREE=\"$PWD\" npx vitest run --root ../check",
+  "because": "With the host set to Los Angeles, head shifts the parse results by the gap between the context zone and the host zone: parse(\"10:00\",\"HH:mm\",ref,{in: tz(\"Asia/Singapore\")}) with a reference of 20:00 on Apr 6 in Singapore returns 01:00 on Apr 7 in Singapore (17:00Z) instead of 10:00 on Apr 6 (02:00Z), and a full-date parse against a UTCDate reference returns 17:00Z instead of 10:00Z, while base passes both."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "\n RUN  v1.3.1 <work>/repro-work/v3-distillations/v01-t2-F1/check\n\n \u2713 parse-in-context.test.ts  (2 tests) 4ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  21:23:18\n   Duration  481ms (transform 195ms, setup 0ms, collect 244ms, tests 4ms, environment 0ms, prepare 73ms)\n\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "e reference wall clock in the context zone > UTCDate reference without in: full-date format is read as UTC\n     \u2192 expected '2024-04-06T17:00:00.000Z' to be '2024-04-06T10:00:00.000Z' // Object.is equality\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af Failed Tests 2 \u23af\u23af\u23af\u23af\u23af\u23af\u23af\n\n FAIL  parse-in-context.test.ts > parse keeps the reference wall clock in the context zone > in: tz('Asia/Singapore'), time-only format keeps the reference day\nAssertionError: expected '2024-04-06T17:00:00.000Z' to be '2024-04-06T02:00:00.000Z' // Object.is equality\n\n- Expected\n+ Received\n\n- 2024-04-06T02:00:00.000Z\n+ 2024-04-06T17:00:00.000Z\n\n \u276f parse-in-context.test.ts:16:45\n     14|     const result = parse(\"10:00\", \"HH:mm\", ref, { in: tz(\"Asia/Singapo\u2026\n     15|     // 10:00 on 2024-04-06 in Singapore\n     16|     expect(new Date(+result).toISOString()).toBe(\"2024-04-06T02:00:00.\u2026\n       |                                             ^\n     17|   });\n     18| \n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[1/2]\u23af\n\n FAIL  parse-in-context.test.ts > parse keeps the reference wall clock in the context zone > UTCDate reference without in: full-date format is read as UTC\nAssertionError: expected '2024-04-06T17:00:00.000Z' to be '2024-04-06T10:00:00.000Z' // Object.is equality\n\n- Expected\n+ Received\n\n- 2024-04-06T10:00:00.000Z\n+ 2024-04-06T17:00:00.000Z\n\n \u276f parse-in-context.test.ts:21:45\n     19|   it(\"UTCDate reference without in: full-date format is read as UTC\", \u2026\n     20|     const result = parse(\"2024-04-06 10:00\", \"yyyy-MM-dd HH:mm\", new U\u2026\n     21|     expect(new Date(+result).toISOString()).toBe(\"2024-04-06T10:00:00.\u2026\n       |                                             ^\n     22|   });\n     23| });\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[2/2]\u23af\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  21:23:29\n   Duration  491ms (transform 193ms, setup 0ms, collect 241ms, tests 6ms, environment 0ms, prepare 91ms)\n\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "With the host set to Los Angeles, head shifts the parse results by the gap between the context zone and the host zone: parse(\"10:00\",\"HH:mm\",ref,{in: tz(\"Asia/Singapore\")}) with a reference of 20:00 on Apr 6 in Singapore returns 01:00 on Apr 7 in Singapore (17:00Z) instead of 10:00 on Apr 6 (02:00Z), and a full-date parse against a UTCDate reference returns 17:00Z instead of 10:00Z, while base passes both.",
+ "run": "v3-distillations",
+ "trial": "v01-t2",
+ "kind": "bug"
+}

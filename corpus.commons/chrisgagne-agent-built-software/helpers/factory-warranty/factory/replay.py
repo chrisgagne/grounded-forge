@@ -65,7 +65,10 @@ def case_config() -> dict:
             "axis_spec": os.environ.get("FACTORY_AXIS_SPEC") or sample.get("axis_spec"),
             "axis_index": os.environ.get("FACTORY_AXIS_INDEX") or sample.get("axis_index"),
             "builder": {"kind": "claude", "command": None}, "ratchet": {"semgrep_findings": True},
-            "theory_doc": None, "review": dict(sample.get("review") or {})}
+            "theory_doc": None,
+            "review": {**(sample.get("review") or {}),
+                       **({"legs": os.environ["FACTORY_REVIEW_LEGS"].split(",")} if os.environ.get("FACTORY_REVIEW_LEGS")
+                          else {})}}
 
 
 DOC = re.compile(r"(\.md|\.markdown|\.txt|\.rst)$|(^|/)docs?/|(^|/)(CHANGELOG|HISTORY|README|AUTHORS)", re.I)
@@ -81,6 +84,8 @@ def split_files(case: dict) -> tuple[list[str], list[str]]:
 def materialise(case: dict, repos: Path, dest: Path) -> Path:
     """dest/{app/, story.md, change.patch, expect.yaml} for one case; returns dest."""
     repo = repos / case["project"]
+    if case["kind"] == "pr":
+        return materialise_pr(case, repo, dest)
     bug = case["kind"] == "bug"
     code, undone = split_files(case)
     if not code:
@@ -120,6 +125,34 @@ def materialise(case: dict, repos: Path, dest: Path) -> Path:
                                    f"A contributor's change to {name}. Review it before it merges.\n")
     expect = {"should_block": bug, "caught_by": ["review"] if bug else []}
     (dest / "expect.yaml").write_text(yaml.safe_dump(expect))
+    return dest
+
+
+def materialise_pr(case: dict, repo: Path, dest: Path) -> Path:
+    """A benchmark pull request (ReviewBench): the base tree, the whole diff to the head, and the pull request's own
+    title and body as the story, which the benchmark gives every reviewer. No expected outcome: it is scored against
+    the benchmark's findings, not by the gate."""
+    if dest.exists():
+        shutil.rmtree(dest)
+    app = dest / "app"
+    dest.mkdir(parents=True)
+    # A checkout, not `git archive`: an archive drops export-ignored files and applies the repository's attributes, so
+    # the pull request's own diff may not apply to it. Line endings stay as committed.
+    subprocess.run(["git", "-c", "core.autocrlf=false", "clone", "-q", "--shared", "--no-checkout", str(repo), str(app)],
+                   check=True, capture_output=True)
+    (app / ".git" / "info").mkdir(parents=True, exist_ok=True)
+    (app / ".git" / "info" / "attributes").write_text("* -text\n")  # no line-ending conversion: bytes as committed
+    subprocess.run(["git", "-c", "core.autocrlf=false", "-c", "core.hooksPath=/dev/null", "checkout", "-q", case["base"]],
+                   cwd=app, check=True, capture_output=True)
+    shutil.rmtree(app / ".git")
+    patch = gitc(repo, "diff", "--no-color", "--no-ext-diff", "--binary", f"{case['base']}...{case['head']}")
+    if not patch.strip():
+        raise ValueError(f"{case['id']}: the pull request gives an empty change")
+    (dest / "change.patch").write_text(patch)
+    (app / ".factory").mkdir(exist_ok=True)
+    (app / ".factory" / "config.yaml").write_text(yaml.safe_dump(case_config(), sort_keys=False))
+    (dest / "story.md").write_text(f"# {case['title']}\n\n{case.get('body') or ''}\n")
+    (dest / "expect.yaml").write_text(yaml.safe_dump({"should_block": False, "caught_by": []}))
     return dest
 
 

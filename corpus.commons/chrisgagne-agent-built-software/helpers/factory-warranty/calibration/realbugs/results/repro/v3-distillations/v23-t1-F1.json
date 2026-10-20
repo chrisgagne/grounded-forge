@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.15345999999999999,
+  "duration_s": 30.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "The script compiles the tree's own src/diff/json.ts and calls canonicalize on {toJSON: () => [1,2]}; on head the result is {\"0\":1,\"1\":2} where JSON.stringify gives [1,2], while base returns [1,2] and its diffJson sees no difference from a plain [1,2]."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "canonicalize result: [1,2]\ndiffJson changes: [{\"count\":6,\"added\":false,\"removed\":false,\"value\":\"{\\n  \\\"a\\\": [\\n    1,\\n    2\\n  ]\\n}\"}]\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "canonicalize result: {\"0\":1,\"1\":2}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: canonicalize must match JSON.stringify for toJSON returning an array\n+ actual - expected\n\n+ '{\"0\":1,\"1\":2}'\n- '[1,2]'\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v3-distillations/v23-t1-F1/check/tojson-array.mjs:14:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '{\"0\":1,\"1\":2}',\n  expected: '[1,2]',\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The script compiles the tree's own src/diff/json.ts and calls canonicalize on {toJSON: () => [1,2]}; on head the result is {\"0\":1,\"1\":2} where JSON.stringify gives [1,2], while base returns [1,2] and its diffJson sees no difference from a plain [1,2].",
+ "run": "v3-distillations",
+ "trial": "v23-t1",
+ "kind": "bug"
+}

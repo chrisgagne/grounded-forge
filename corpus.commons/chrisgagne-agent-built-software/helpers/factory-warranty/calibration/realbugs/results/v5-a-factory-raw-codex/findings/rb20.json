@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/superyyrrzz/ForgeMap",
+  "pr_number": 106,
+  "base": "2ce83d91f981fc579ec53baf9bce4957fdc240fc",
+  "head": "2f3977edabcb8fdf5f947704e727d798a46fe96f"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "The new palette gives ordinary links and dark-theme navigation insufficient text contrast, reducing accessibility for readers with low vision. Light-theme links use #e8760a against the #faf9f7 body background (2.84:1 contrast). In dark mode, .navbar .nav-link uses --forge-smoke (#6b7280) against the header's #141a22 background (3.62:1) at 0.875rem. Both fall below 4.5:1 for normal-sized text."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

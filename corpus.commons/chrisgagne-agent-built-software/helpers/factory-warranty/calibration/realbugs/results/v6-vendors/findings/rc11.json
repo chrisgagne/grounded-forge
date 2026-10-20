@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/AntManThePro/TwistedsCommandCenter",
+  "pr_number": 13,
+  "base": "2b0966dec5579a66899f15bccabb6f93c1f3f47b",
+  "head": "78f6157eaec39a413d216616a44734ac53df3d6e"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/hooks/useInventory.ts",
+   "start_line": 43,
+   "end_line": 55,
+   "message": "This change connects `updateItem` to the UI, but `updateItem` never records an activity. Adding an item logs 'added' and deleting logs 'removed', yet editing an item (name, SKU, quantity, price) leaves nothing in Recent Activity. `ActivityEntry['action']` already includes 'updated', and the mock data uses it, so the gap is easy to notice. If the goal is complete CRUD, the update path should log an 'updated' (or 'restocked') activity like the other two operations do, and a test should cover it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/__tests__/useInventory.test.ts",
+   "start_line": 116,
+   "end_line": 129,
+   "message": "The new test calls `renderHook` without StrictMode, so it misses a real bug. `deleteItem` calls `setActivities` from inside the `setItems` updater, and updaters must be pure. `main.tsx` wraps the app in `<StrictMode>`, which runs updaters twice in development, so each delete in dev adds two 'removed' activities. The test passes only because it does not render the way the app does. Move the activity creation out of the updater (look up the item from current `items` first, or use a reducer), and run the test with `{ wrapper: StrictMode }` so it catches this."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "start_line": 81,
+   "end_line": 85,
+   "message": "When `editItem` is set but `onUpdate` is missing (it is optional in the props), the code falls through to `onAdd(form)`. An attempted edit then silently creates a duplicate item, and the modal still shows 'Edit Item' / 'Save Changes'. Edit mode should require `onUpdate`, either through the prop types (a discriminated union) or with an explicit guard, rather than quietly adding a new item."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "start_line": 81,
+   "end_line": 83,
+   "message": "Edit mode always sends the whole form to `onUpdate`, even when nothing changed. So clicking Edit and then 'Save Changes' without touching anything still bumps `lastUpdated`. Edits also skip any check for duplicate SKUs. Consider sending only the changed fields, or skipping the update when nothing changed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/Inventory/InventoryTable.tsx",
+   "start_line": 49,
+   "end_line": 55,
+   "message": "None of the new UI behaviour has tests: the Edit button, the modal pre-filling in edit mode, the form resetting after cancel/reopen, and `onUpdate` being called with the item's id. Those are the main claims of this PR, but the only test added covers delete activity. Add component tests for the edit flow and for the form reset."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 32000
+ }
+}

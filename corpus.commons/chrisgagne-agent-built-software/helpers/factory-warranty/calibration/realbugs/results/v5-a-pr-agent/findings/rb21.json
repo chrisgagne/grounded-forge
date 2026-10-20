@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/renedierking/LANdalf",
+  "pr_number": 88,
+  "base": "cc81fa3dc87a8a50654c1279b3bdb2761e94f832",
+  "head": "bc1698f4dbc3a99dee0a6dcf7629813f2027682a"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 168,
+   "end_line": 186,
+   "message": "Cancellation mishandled. The cancellation token is now passed to `SendPingAsync`, so a cancelled token throws `OperationCanceledException`/`TaskCanceledException`. No catch handles it before the generic `catch (Exception ex)`. On every normal shutdown or stop, each in-flight ping logs a stack trace at Warning level as \"Unexpected error pinging\". The method also returns `false`, so the caller may mark devices offline or broadcast an offline status during shutdown. Add `catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)` before the generic catch and rethrow, or return without logging."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 19000
+ }
+}

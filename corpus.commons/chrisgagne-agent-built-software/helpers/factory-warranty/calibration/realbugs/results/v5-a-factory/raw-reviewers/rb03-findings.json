@@ -1,0 +1,106 @@
+[
+ {
+  "sources": [
+   "C1",
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "GenericRenderer.ts:238-241 calls `layer('disable'); layer('enable')` on values typed `AtomSelfBinded<LogicalLayerState, LogicalLayerActions>` (types/logicalLayer.ts:40). The working pattern dispatches actions, as in applyNewLayerSource.ts:10-19 (`store.dispatch([layerAtom.disable()\u2026])`, then `store.dispatch([layerAtom.enable()])`). So when the basemap switches, no state changes and the overlays wiped by `map.setStyle` stay gone.",
+  "severity": "high",
+  "raw_severity": "high",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 238,
+  "claim": "The remount loop calls each LayerAtom as a plain function (`layer('disable')`/`layer('enable')`) and never dispatches its actions, so overlays removed by setStyle are never remounted.",
+  "evidence": "`mountedLayersAtom` holds `LayerAtom` values, typed `AtomSelfBinded<LogicalLayerState, LogicalLayerActions>` in types/logicalLayer.ts:40. In `logicalLayerFabric.ts`, enable and disable only take effect through dispatched actions (`onAction('disable', ...)` pushes `enabledLayersAtom.delete(id)`). The repo's working pattern is `store.dispatch([layerAtom.disable(), ...]); store.dispatch([layerAtom.enable()])` in applyNewLayerSource.ts:10-19. Trigger: a user enables a `maplibre-style-url` layer while another layer is mounted. `map.setStyle(styleUrl)` drops the custom layers, and the `styledata` callback then runs `layer('disable'); layer('enable')`, which calls the atom's reducer with a string and dispatches nothing. `enabledLayersAtom` and `mountedLayersAtom` stay the same, so `willMount` never runs again. Even with real dispatches, a disable and an enable in the same synchronous run would need separate dispatches, as applyNewLayerSource does.",
+  "breaks": "story",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C2",
+   "X2"
+  ],
+  "verdict": "confirmed",
+  "reason": "In the diff, test lines 24-25 put `vi.fn()` into mountedLayersAtom, and lines 54-57 only check for a 'disable' call. Nothing checks 'enable', a dispatch, or that a layer was actually mounted again. The test is weak but is not a defect in production code, so it stays low (C2's medium lowered).",
+  "severity": "low",
+  "raw_severity": "medium",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.test.ts",
+  "line": 24,
+  "claim": "The new test uses a bare vi.fn() as the layer atom and only checks that it received 'disable', so it passes against the broken remount path.",
+  "evidence": "`const otherLayer = vi.fn(); mountedLayersAtom.set.dispatch('other', otherLayer as any)`, then `otherLayer.mock.calls.filter((call) => call[0] === 'disable').length > 0`. A real `LayerAtom` is never called this way, and the test never asserts that 'enable' was called. It checks the order of calls on a fake (L3.20), not the state of `enabledLayersAtom`/`mountedLayersAtom` or that the renderer's `willMount` ran. `once` is mocked to fire `styledata` synchronously, and `layersOrderManager.init` is replaced with a no-op without checking that it was called.",
+  "axis_row": "L3.3",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "C3"
+  ],
+  "verdict": "confirmed",
+  "reason": "willMount, willLegendUpdate and willSourceUpdate (GenericRenderer.ts:323-381) all call _updateMap, and _updateMap calls `map.setStyle(styleUrl)` at line 234 with no check. boot.ts:80-86 already picks the enabled basemap URL as the initial map style, so on page load the same style is applied a second time. Together with C1, that wipes the overlays.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 234,
+  "claim": "setStyle runs on every _updateMap call (mount, legend update, source update) with no check that the style URL changed, so the basemap reloads and every other layer goes through the remount path even when nothing changed.",
+  "evidence": "`willMount`, `willLegendUpdate` and `willSourceUpdate` all call `_updateMap`, which runs `map.setStyle(styleUrl)` with no check against the current style. boot.ts:107-134 (`getBaseMapUrl`) already sets the enabled basemap's URL as `mapBaseStyle`. So when the default basemap layer mounts on page load, the same style is applied a second time and all custom layers go through the remove/remount path.",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C4"
+  ],
+  "verdict": "disputed",
+  "reason": "layersOrder.ts:59 takes `_baseMapFirstLayerIdx` from `map.getStyle().layers` when init runs, and ConnectedMap.tsx:79 only calls init after 'load'. The code doesn't show whether MapLibre's first 'styledata' after setStyle(url) always comes once the style is loaded, so the risk can't be settled here.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 235,
+  "claim": "map.once('styledata') may fire before the new style is fully loaded or on an unrelated style event, so layersOrderManager.init could read an incomplete layer list.",
+  "evidence": "`layersOrderManager.init` sets `this._baseMapFirstLayerIdx = (map.getStyle().layers ?? []).length - 1` (layersOrder.ts:59) and calls it in the first `styledata` callback. MapLibre emits 'styledata' for any style change. The rest of the code initialises the manager only after a full load (`map.once('load', ...)` in ConnectedMap.tsx:79).",
+  "id": "F4"
+ },
+ {
+  "sources": [
+   "C5",
+   "X3"
+  ],
+  "verdict": "confirmed",
+  "reason": "layersOrder.ts:52-56 pushes a new subscription into `_unsubscribe` on every init and never clears earlier ones. Cleanup happens only in destroy (line 67). GenericRenderer.ts:237 calls init on every style switch.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 237,
+  "claim": "Each basemap switch calls layersOrderManager.init again, which adds another layersSettingsAtom subscription that is only removed on destroy.",
+  "evidence": "`init` runs `this._unsubscribe.push(layersSettingsAtom.subscribe(...))` (layersOrder.ts:52-56) and has no teardown of earlier subscriptions. The new code calls `init` inside every `styledata` handler.",
+  "id": "F5"
+ },
+ {
+  "sources": [
+   "C6"
+  ],
+  "verdict": "disputed",
+  "reason": "willUnMount (GenericRenderer.ts:383-402) only removes `_layerIds` and `_sourceId`, and the basemap branch fills neither, so the style really does stay. No story text in the packet says whether it should be reverted.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 383,
+  "claim": "Disabling the basemap layer leaves its style on the map, because nothing restores a previous style on unmount.",
+  "evidence": "The `maplibre-style-url` branch only calls `setStyle` on mount and update. `willUnMount` only removes `_layerIds` and the `_sourceId` source, and the basemap branch never fills either.",
+  "id": "F6"
+ },
+ {
+  "sources": [
+   "C7"
+  ],
+  "verdict": "confirmed",
+  "reason": "GenericRenderer.ts:227 still has `// @ts-ignore skip, unsupported` above the now-implemented branch, and layerTypes.ts:15 still reads `// - planned to support - basemap type`. This is a documentation and maintainability point only, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 227,
+  "claim": "A stale `@ts-ignore skip, unsupported` stays on the now-supported branch, and layerTypes.ts still says basemap support is planned.",
+  "evidence": "`// @ts-ignore skip, unsupported` still sits on the `maplibre-style-url` branch, but `LayerSource` already includes `'maplibre-style-url'` (types/source.ts:5) and the branch is now supported. layerTypes.ts:15 still reads `// - planned to support - basemap type`.",
+  "axis_row": "L5.4",
+  "id": "F7"
+ }
+]

@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/superyyrrzz/ForgeMap",
+  "pr_number": 106,
+  "base": "2ce83d91f981fc579ec53baf9bce4957fdc240fc",
+  "head": "2f3977edabcb8fdf5f947704e727d798a46fe96f"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/docs.yml",
+   "start_line": 27,
+   "end_line": 27,
+   "message": "Setting `cancel-in-progress: true` on the Pages workflow means a second push to main cancels a run that is already in its `deploy` job, so a GitHub Pages deployment can be stopped part-way. The change also rewrites CI concurrency, which triage flagged as unplanned infra scope. The diff replaces `group: \"pages\"` / `cancel-in-progress: false` with `group: \"pages-${{ github.ref }}\"` / `cancel-in-progress: true`. The concurrency block is at workflow level (lines 25-27), so it covers the `deploy` job (`actions/deploy-pages@v4`, lines 57-70), which runs on every push to `refs/heads/main`. Two pushes to main in quick succession share the group `pages-refs/heads/main`, and the second cancels the first even while it is deploying. The old `false` value, GitHub's starter setting for Pages, let a running deployment finish and only skipped the queued runs in between. risk.json lists `infra` under `unplanned` with the match `.github/workflows/docs.yml`. Nothing else in the diff needs a workflow change: the rest is CSS."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 237,
+   "end_line": 237,
+   "message": "In light mode, code blocks are forced onto a dark background with `!important` light-grey text. The syntax-highlighting theme loaded for light mode may still apply its own background and dark token colours to `code.hljs` and its spans, which would leave code samples, such as the C# block on the landing page, hard or impossible to read. Lines 232-239: `[data-bs-theme=\"light\"] pre { background: #1e2530 !important; }` and `[data-bs-theme=\"light\"] pre code { color: #e0ddd8 !important; }`. The stylesheet does not override `.hljs` backgrounds or any token colours (no `.hljs-*` rules). The light highlight themes the base `default`/`modern` templates may load set `.hljs { background: white }` and dark token colours (for example blue keywords). That would give light-grey text on a white `code` box, or dark-blue keywords on #1e2530. I could not see the base template's highlight theme in the export, so this is unverified."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 9,
+   "end_line": 9,
+   "message": "The theme adds an unrequested runtime dependency on Google Fonts. Every docs visitor's browser now sends a request to fonts.googleapis.com/fonts.gstatic.com (a third-party privacy exposure), and the page's typography depends on an external, unpinned service. Line 9: `@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono...&family=DM+Sans...&family=Outfit...&display=swap');`. Nothing in docfx.json or the repo vendors these fonts, and an `@import` at the top of the stylesheet also blocks rendering until the remote CSS loads."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "In light mode, the amber link and inline-code colour on the off-white page background has a contrast ratio of about 2.9:1, below WCAG AA's 4.5:1. Links also have no underline, so readers with low vision or colour-vision deficiency may not be able to read or find links. Line 30: `--bs-link-color: var(--forge-ember)` with `--forge-ember: #e8760a` on `--bs-body-bg: var(--forge-white)` (#faf9f7), which works out to about 2.85:1 (hover colour #c4630a is about 3.9:1). Lines 365-369: `a { ... text-decoration: none; }`, so colour is the only cue. The same ember colour is used for inline code (`--bs-code-color`), landing `h3`s and `td strong`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "In dark mode, the navbar links, header buttons and footer text use #6b7280 on the #141a22 header/footer background, about 3.6:1 contrast, below WCAG AA's 4.5:1 for this small text. Line 59 in the dark block: `--forge-smoke: #6b7280`. Line 130: `.navbar .nav-link { font-size: 0.875rem; color: var(--forge-smoke) !important; }`. Lines 141-145 (`header .btn`) and 379-390 (`footer`, `footer .flex-fill`) also use `var(--forge-smoke)` on `var(--forge-anvil)` (#141a22)."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "The new palette gives ordinary links and dark-theme navigation insufficient text contrast, reducing accessibility for readers with low vision. Light-theme links use #e8760a against the #faf9f7 body background (2.84:1 contrast). In dark mode, .navbar .nav-link uses --forge-smoke (#6b7280) against the header's #141a22 background (3.62:1) at 0.875rem. Both fall below 4.5:1 for normal-sized text."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

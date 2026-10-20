@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 122,
+   "end_line": 138,
+   "message": "The guard checks the branch in the hook process's cwd, which is the orchestrator's (lead's) working directory, not the target implementer's branch. The process rules have implementers work on their own branches in separate worktrees, and the lead usually sits on `main`. In that setup the hook always hits the `main`/`master` early exit and allows the shutdown, so the main scenario it was written for is never guarded. If the lead happens to be on some other feature branch, it checks review evidence for the wrong branch. The hook needs to work out the target's branch, for example from the agent name, the team/task metadata, or the worktree list."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 140,
+   "end_line": 150,
+   "message": "Review evidence is detected only by finding the sanitized branch name in a sidecar filename. Real review sidecars are named `${agent}--${contentHash}.json` (dev-team-review-gate.js:140,152), and the branch is stored in the JSON `branch` field (implement skill). So real sidecars never match, and when the branch check does run, every implementer shutdown is blocked until someone uses `--force-shutdown`. The merge gate handles this by reading `data.branch` first and only falling back to the filename. The guard should do the same."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 146,
+   "end_line": 147,
+   "message": "`f.includes(sanitizedBranch)` is a substring match, so sidecars for `feat-12-foo` count as evidence for branch `feat/1`. That gives false 'reviewed' results. Compare the exact `branch` field instead, or use delimited filename matching."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 144,
+   "end_line": 150,
+   "message": "Unlike the merge gate, which just gained symlink guards in #769, this hook doesn't lstat sidecars or skip symlinks and non-files. A symlinked or directory entry ending in `.json` counts as review evidence. The guard should apply the same validation as the merge gate."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 273,
+   "end_line": 285,
+   "message": "The 'with review evidence' test makes a sidecar named `knuth--feat-123-test.json`, which the real review flow never produces (real names are `agent--<contentHash>.json`). The test passes only because the fixture matches the hook's wrong assumption, which hides the fact that real sidecars aren't recognized. There's also no test where the orchestrator is on `main` and the implementer is in a worktree, which is the realistic setup."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 86,
+   "end_line": 90,
+   "message": "A string message counts as a shutdown request whenever it contains the substring `shutdown_request` anywhere. A normal message that just mentions the word to an implementer, such as 'don't send shutdown_request yet', gets blocked as a shutdown."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

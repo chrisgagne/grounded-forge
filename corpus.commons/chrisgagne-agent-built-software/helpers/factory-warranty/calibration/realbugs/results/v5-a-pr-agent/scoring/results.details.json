@@ -1,0 +1,1317 @@
+[
+  {
+    "pr_key": "AA-Factory_aafactory-prototype_17-a1978cb7",
+    "candidate_findings": [
+      {
+        "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+        "start_line": 2,
+        "end_line": 33,
+        "message": "Mock Not Applied. `_load_avatar_infos_for_chat` is imported by name into the test module before `mocker.patch(\"aafactory.chat.interface._load_avatar_infos_for_chat\", ...)` runs. The patch replaces only the attribute on `aafactory.chat.interface`, so the local name still points to the real function.\n\nAs a result, `_load_avatar_infos_for_chat()` runs the real loader. That can read real DB, file, or config state, and the test may fail or behave non-deterministically if the real return value lacks 10 elements. Call it as `chat_interface._load_avatar_infos_for_chat()` instead.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "testing"
+      },
+      {
+        "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+        "start_line": 13,
+        "end_line": 45,
+        "message": "Tautological Test. The test patches `send_request_to_open_ai` with an `AsyncMock` and then awaits that mock directly. Every assertion only checks values hardcoded in `llm_side_effect`, so no production code is exercised.\n\nThe `send_request_to_generate_video` patch is never reached either. This test will pass even if the real `send_request_to_open_ai` is broken. Patch the dependencies (the OpenAI client and the video generation) and call the real function instead.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "testing"
+      },
+      {
+        "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+        "start_line": 8,
+        "end_line": 15,
+        "message": "Global State Leak. The test clears the module-level `CHAT_HISTORY` and then appends to it, but never restores it afterward. Other tests that depend on `CHAT_HISTORY` can become order-dependent. Use a fixture or `mocker.patch.object` / `monkeypatch` to isolate the list and restore it after the test.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "testing"
+      }
+    ]
+  },
+  {
+    "pr_key": "AY2526S2-CS2103T-W14-3_tp_152-e0a9ce03",
+    "candidate_findings": [
+      {
+        "file": "src/main/java/seedu/address/ui/PlannerListPanel.java",
+        "start_line": 44,
+        "end_line": 47,
+        "message": "Null note to UI. The listener passes `newValue` straight to `showNote`, but the model sets the property to `null` in several cases: `plan` with no date, a date with no notes, or `setAddressBook` clearing notes. The constructor guards against `null` before calling `showNote`, which suggests `showNote` does not handle `null`. If it dereferences the note, switching to a date with no note will throw an NPE on the FX thread. Even if it doesn't, the previous note may stay visible instead of being cleared or hidden. Handle `null` explicitly, for example by clearing or hiding the note area.",
+        "status": "matched_fp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9,
+          15
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/main/java/seedu/address/storage/JsonSerializableAddressBook.java",
+        "start_line": 29,
+        "end_line": 29,
+        "message": "Note order lost. `AddressBook` keeps notes in a `LinkedHashMap`, and `updatePlannerNote` merges matching notes in insertion order. The JSON layer uses a `HashMap`, so insertion order is lost on save and reload. After restarting the app, merged planner notes for a date (e.g. an `everyday` note plus a specific-date note) can appear in a different, hash-dependent order. Use a `LinkedHashMap` here to keep the order stable.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "DisciplinedSoftware_Codebase-Conversion_1-4b46d68c",
+    "candidate_findings": [
+      {
+        "file": "fortran_to_rust/test_harness.py",
+        "start_line": 469,
+        "end_line": 471,
+        "message": "Output order mismatch. For FUNCTION routines, the Fortran driver prints the array values first and the function result last. The Rust template (`_RUST_EXAMPLE_TEMPLATE_FN`) prints `_result` first and the arrays after it. Both streams have the same length, so the element-wise comparison runs but pairs the wrong values.\n\nExample: for `ddot` (arrays `DX`, `DY`), the Rust dot product is compared against `DX(1)`, and every later value is shifted by one. A correct conversion will be reported as FAIL. Print in the same order in both drivers.",
+        "status": "matched_tp",
+        "matched_golden_index": 43,
+        "covered_golden_indices": [
+          43
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "fortran_to_rust/test_harness.py",
+        "start_line": 745,
+        "end_line": 769,
+        "message": "False accuracy pass. In these cases nothing is added to `errors`, so the function returns `passed=fortran_ok_count > 0`:\n- the Rust example fails to compile or run (`rust_out is None`), or\n- the output lengths differ.\n\nAs a result, a broken Rust conversion, or one that produces the wrong number of outputs, is reported as passing as long as the Fortran reference ran. The length-mismatch case should be counted as a failure. The \"Rust unavailable\" case should not be reported as `passed=True`.",
+        "status": "matched_tp",
+        "matched_golden_index": 7,
+        "covered_golden_indices": [
+          7
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "fortran_to_rust/benchmarker.py",
+        "start_line": 183,
+        "end_line": 189,
+        "message": "Bogus Rust timings. The generated Rust benchmark has the actual call to the converted function commented out. It only times `black_box(&array)` in a loop.\n\n`run_benchmark` still treats the result as a real timing: it computes `speedup = fortran_ms / rust_ms` and puts that in the summary and report. This produces large, meaningless \"Rust is Nx faster\" claims. Either call the function, or skip the speedup when the call is not made.",
+        "status": "matched_tp",
+        "matched_golden_index": 37,
+        "covered_golden_indices": [
+          37,
+          45
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "fortran_to_rust/test_harness.py",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Unsafe archive extraction / unauthenticated downloads: `_try_download_tarball` checks each member path with `resolve()` before extraction, but it does not handle symlink members.\n- A tarball can contain a symlink such as `x/link -> /etc`, followed by a file `x/link/foo`.\n- At check time the symlink does not exist yet, so `resolve()` does not follow it and the check passes.\n- `extractall` then writes through the symlink, outside `output_dir`.\n\nThis is a tar-slip risk. Use `extractall(..., filter=\"data\")` (Python 3.12+), or reject symlink and hardlink members.\n\nThe tarball and the netlib fallback files are also fetched over plain `http://` with no integrity check. The downloaded Fortran is then compiled and executed (gfortran drivers), so a man-in-the-middle could achieve code execution. Use HTTPS and/or verify checksums.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "security",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "Marvell-Consulting_statswales-frontend_626-30ba27a5",
+    "candidate_findings": []
+  },
+  {
+    "pr_key": "NCATSTranslator_translator-ingests_336-efb31e9c",
+    "candidate_findings": [
+      {
+        "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+        "start_line": 411,
+        "end_line": 413,
+        "message": "Loop aborted by break. The \"not applicable\" branches call `break` inside `for record in data:`. This exits the whole loop, so every remaining record in the dataset is silently dropped from the output.\n\nIt happens the first time any of these combinations appears:\n- Allosteric modulator with Action `Neutral` or `None`\n- Antagonist with Action `Partial agonist`\n- Fusion protein with Action `Binding`\n- Type `None` with Action `Binding` or `Competitive`\n- Subunit-specific with Action `Mixed`\n\nUse `continue` so only the current record is skipped.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+        "start_line": 167,
+        "end_line": 168,
+        "message": "Typo drops Agonist. The Activator, Agonist and Allosteric modulator action lists contain `'Agnoist'` instead of `'Agonist'`, and the branches check for `\"Agonist\"`. Effects:\n- **Agonist type, Action \"Agonist\":** the record matches no branch, and the old fallback branch was removed, so no edges are emitted.\n- **Allosteric modulator, Action \"Agonist\":** also skipped entirely.\n- **Activator, Action \"Agonist\":** falls into the second branch, where Agonist is no longer handled, so `causal_mechanism_qualifier` stays `None` instead of `agonism`.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          2,
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+        "start_line": 97,
+        "end_line": 104,
+        "message": "groupby drops NaN keys. `groupby(group_cols)` uses the pandas default `dropna=True`. Any record with a missing `Type`, `Action` or `Endogenous` is therefore removed during aggregation.\n\nAs a result, all the new branches handling `record[\"Action\"] is None` or `record[\"Type\"] is None` never fire, and those records disappear from the output. Pass `dropna=False`. Note that NaN values then reach the transform as NaN rather than `None`, so the `is None` checks would also need adjusting.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "PaulStSmith_figlet-comment-generator_32-1d0b6642",
+    "candidate_findings": [
+      {
+        "file": ".github/workflows/publish-figprint.yml",
+        "start_line": 209,
+        "end_line": 243,
+        "message": "Variable Interpolation. The schema header lines are in double-quoted PowerShell strings, so PowerShell treats `$schema` as a variable. It is undefined, so it expands to an empty string.\n\nThe generated manifests get `# yaml-language-server: =https://aka.ms/...` instead of `$schema=...`. That defeats the purpose of the change, which was to satisfy the winget-pkgs validator.\n\nFix: escape it as `` `$schema `` or use single-quoted strings for these three header lines.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".github/workflows/publish-figlet-ts.yml",
+        "start_line": 8,
+        "end_line": 9,
+        "message": "Missed Triggers. The path filters across all publish workflows now match only source files (`*.ts`, `*.tsx`, `*.cs`, `*.py`). A PR that only bumps the version in `package.json`, `*.csproj`, or `pyproject.toml` will no longer trigger a publish. The same applies to PRs that only change fonts or resources, or the workflow file itself.\n\nVersion bumps are typically the main reason to publish, so releases can silently be skipped. The same pattern appears in `publish-figlet-nuget.yml`, `publish-figlet-py.yml`, `publish-figprint.yml`, `publish-vs-extension.yml` and `publish-vscode-extension.yml`.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+        "start_line": 60,
+        "end_line": 75,
+        "message": "Selection Ignored. The branch that replaced a non-empty selection with the banner was removed. The banner is now always inserted at column 0 of the cursor line.\n\nIf the user selects the text to \"bannerize\" and runs the command, the selected text stays in place. The banner is also inserted at the line of the selection's active end, which is the end of the selection when dragging downward, rather than at its start.\n\nThis may be intentional, but it is a user-visible behavior change that the changelog does not mention.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          10
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "PierreJanineh_TechDebtMCP_135-16a54f0f",
+    "candidate_findings": [
+      {
+        "file": "src/core/customRulesEngine.ts",
+        "start_line": 137,
+        "end_line": 153,
+        "message": "Incomplete ReDoS Mitigation. The 1,000-character pattern cap and the flag allowlist do not stop catastrophic backtracking. A short pattern such as `(a+)+$` or `(.*a){20}` passes validation. Run against a single long line, it can still block the event loop for seconds or minutes. The 500,000-character code cap still allows one line of that length, because content is split only on newlines.\n\nThe CHANGELOG entry says these limits are \"preventing ReDoS attacks\". That overstates the protection. Possible fixes:\n- Add a per-line length cap.\n- Use a safe-regex check (e.g. `safe-regex2` or `recheck`).\n- Use a linear-time engine such as RE2.\n- Run matching under a timeout or in a worker.",
+        "status": "matched_fp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16,
+          17
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "src/core/customRulesEngine.ts",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Regular expression DoS (ReDoS): the new limits cap pattern length and input size, but they do not prevent exponential-backtracking patterns. A client can register a short rule like `(a+)+$` via `add_custom_rule`. Calling `execute_custom_rules` with a long single-line input of up to 500,000 characters can then hang the server process.",
+        "status": "matched_fp",
+        "matched_golden_index": 17,
+        "covered_golden_indices": [
+          16,
+          17
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "allan-mobley-jr_gimmes_468-e1477f8b",
+    "candidate_findings": [
+      {
+        "file": "src/gimmes/strategy/staleness.py",
+        "start_line": 72,
+        "end_line": 82,
+        "message": "Dead markets never stale. `volume` comes from `m.volume_24h if m.volume_24h > 0 else m.volume`. When a market has no trades in the last 24h, `volume_24h` is 0, so the code falls back to `m.volume`. That field is typically the market's cumulative lifetime volume.\n\nThe new check `has_volume = volume >= volume_floor` compares that value to an absolute floor. Any market that has ever traded 10+ contracts will therefore always count as \"active\", and its stale count resets every cycle. Truly dead markets are the main target of this filter, but they will never be skipped.\n\nThe old relative volume-spike check was not affected by this fallback. Suggested fixes:\n- Base `has_volume` on `volume_24h` only, or\n- Compare against the stored `entry[\"volume\"]` delta.\n\nThe tests miss this because `_market` sets `volume` and `volume_24h` to the same value. A test with `volume_24h=0` and `volume=500` would expose it.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3,
+          4
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "ardevd_jadx-collaboration_3-853179dc",
+    "candidate_findings": [
+      {
+        "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+        "start_line": 44,
+        "end_line": 54,
+        "message": "Concurrent Operations. Each menu click or key press now starts a new unsynchronized thread running `pull()` or `push()`. Before this change, these calls were serialized on the EDT through `uiRun`.\n\nPressing the shortcut twice, or triggering Pull while a Push is running, makes two threads read and write the local and remote repository files at the same time. This can cause lost updates or a corrupted repository state. It can also run pre-pull and post-push scripts in parallel.\n\nFix: guard these operations with a lock or an \"in progress\" flag, or use a single-thread executor.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+        "start_line": 550,
+        "end_line": 550,
+        "message": "Off-EDT Project Access. `projectToLocalRepository(localRepository)` now runs on the background thread. Only the reverse step (`localRepositoryToProject`) is dispatched to the UI thread.\n\nThis reads JADX project and GUI state (renames, comments) while the user may be editing it on the EDT. The snapshot can be inconsistent, or the read can throw a concurrent-modification error.\n\nFix: capture the project state inside `uiRun`/`invokeAndWait` before continuing in the background.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+        "start_line": 572,
+        "end_line": 575,
+        "message": "Async Project Update. `localRepositoryToProject` is now posted asynchronously via `uiRun`, so `pull()` and `push()` return before the project is actually updated. When `guiContext` is null, the fallback is `invokeLater`.\n\nThis matters for the tests, which call `plugin.pull()`/`push()` directly and then immediately run `leftToRemote()` or check state. That ordering may now be racy. If the test `guiContext` mock does not execute `uiRun` synchronously, the project update may never run at all. I can't see the mock setup in this diff, so it's unclear whether the tests are affected.\n\nThe same timing gap applies to sequential user operations: a new pull or push can start before the previous update has been applied.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "brexhq_CrabTrap_15-5ef0884c",
+    "candidate_findings": [
+      {
+        "file": "web/src/components/AuditTrail.tsx",
+        "start_line": 97,
+        "end_line": 126,
+        "message": "Stale detail cache. `entryDetails` is filled once per entry id and never cleared. Once an entry has detail data, the expanded view always uses the cached copy instead of the fresher list `entry`, including `response_status`, `error` and the response body.\n\nAudit rows can be written before the upstream response finishes and filled in later via `UpdateResponse`. If a user expands an in-flight entry, the panel keeps showing the incomplete response (empty body, old status) even after the list refreshes, until a full page reload.\n\nPossible fixes:\n- Invalidate cached details when the list entry's `response_status` or `duration_ms` changes.\n- Re-fetch the details on each expand.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "internal/admin/api.go",
+        "start_line": 325,
+        "end_line": 329,
+        "message": "Count per request. Every `GET /admin/audit` call, including each \"load more\" page and any refresh or poll, now runs a separate `Count` query over all matching `audit_log` rows before the paged query. On a large audit table with broad or no filters, `COUNT(*)` scans the matching rows. This can be much slower than the `LIMIT`ed page query it accompanies, which works against the goal of making list responses lightweight.\n\nUncertain: the actual cost depends on the indexes and on how `Count` is implemented, neither of which is visible in this diff.\n\nPossible mitigations:\n- Compute `total` only for the first page (`offset == 0`).\n- Derive `has_more` by fetching `limit+1` rows instead.",
+        "status": "matched_tp",
+        "matched_golden_index": 19,
+        "covered_golden_indices": [
+          19
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "performance",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "performance"
+      }
+    ]
+  },
+  {
+    "pr_key": "brianc_node-postgres_3650-b922f0dd",
+    "candidate_findings": [
+      {
+        "file": "packages/pg/lib/client.js",
+        "start_line": 709,
+        "end_line": 735,
+        "message": "Trace never completes. This applies to queries that use `query_timeout` (read timeout). In that case, `query.callback` is wrapped earlier in `query()` and the original is captured in `queryCallback`. When the timeout fires, the existing timeout handler calls the captured `queryCallback(error)` directly, which bypasses the traced callback. It then replaces `query.callback` with a noop, which overwrites `tracedCb`.\n\nAs a result, a timed-out query emits `start`/`end` on `pg:query` but never emits `error` or `asyncStart`/`asyncEnd`. Subscribers such as APM spans keep these traces open and they leak.\n\nI'm inferring the timeout code from upstream `pg` because it isn't shown in this diff. Please verify it, and either wrap before the timeout logic captures the callback or route the timeout path through the traced callback.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "cmik_apilix_12-0c34439a",
+    "candidate_findings": [
+      {
+        "file": "client/src/utils/sync/s3Adapter.ts",
+        "start_line": 35,
+        "end_line": 36,
+        "message": "Config Key Mismatch. The adapter reads `config.keyId` and `config.secret`. The Sync tab saves these values under `accessKeyId` and `secretAccessKey` (see `PROVIDER_FIELDS.s3`). As a result, the presigned-URL request always receives `undefined` credentials, so S3 push and pull can never authenticate.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "client/src/utils/sync/syncEngine.ts",
+        "start_line": 46,
+        "end_line": 56,
+        "message": "Conflict Detection Inert. Conflict detection depends on `syncConfig.lastSynced`, but nothing in this PR ever sets it. The UI builds `SyncConfig` without it, so `localTs` is always null and no `ConflictError` is thrown. Every Pull therefore overwrites local workspace data with remote data, with no warning.\n\nSeparately, `keep-local` returns null without pushing. The UI then shows \"Remote is empty — nothing to pull\", which is misleading.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "client/src/utils/snapshotEngine.ts",
+        "start_line": 43,
+        "end_line": 44,
+        "message": "Unbounded Disk Growth. Old entries are trimmed from the history index with `.slice(0, MAX_SNAPSHOTS)`, but the dropped snapshot files are never deleted. A full-workspace snapshot is written on every debounced save (about 300ms after each state change, including the initial hydrate and restores). Snapshot files under `workspaces/{id}/snapshots/` therefore accumulate without limit and can consume significant disk space for large workspaces.",
+        "status": "matched_tp",
+        "matched_golden_index": 20,
+        "covered_golden_indices": [
+          20,
+          30
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "client/src/utils/sync/s3Adapter.ts",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Insecure credential storage: sync credentials (S3 secret keys, git tokens, HTTP and team bearer/JWT tokens) are written in plaintext by `writeSyncConfig`, both to `sync-config.json` and to localStorage (`apilix_sync_config`). This happens even though the comments and types claim they are \"stored encrypted\". `encryptValue` and `decryptValue` exist but are never used.\n\nUnvalidated filesystem path from request: the `/api/sync/git/*` routes accept `dataDir` from the request body. Any caller that can reach the local server can therefore make it create directories, initialize git repos, write `workspace.json`, and fetch or push to an attacker-chosen remote at an arbitrary filesystem location. The server should use `APILIX_DATA_DIR` only.\n\nWeak traversal guard: the `startsWith` check does not append a path separator, so it is weaker than the Electron-side `assertInsideUserData`.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "security",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "gagneurlab_PROTRIDER_10-b462b109",
+    "candidate_findings": [
+      {
+        "file": "src/protrider/pipeline.py",
+        "start_line": 509,
+        "end_line": 510,
+        "message": "Training Skipped Wrongly. `model_was_loaded` checks only whether the checkpoint file exists and `q is not None`. When the file exists but `load_model` fails, the code still skips training:\n- `load_model` catches the exception and returns `(None, None)`.\n- `find_latent_dim` then sets `q` to a non-None value.\n- So `model_was_loaded` is True and `should_train` is False.\n\nThe pipeline then computes p-values from a freshly initialized, untrained model, and only logs a warning.\n\nRealistic trigger: a checkpoint from a different dataset or architecture (different protein count or `n_layers`) sits in `out_dir`. This should be based on whether `load_model` actually returned a model.",
+        "status": "matched_tp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/protrider/pipeline.py",
+        "start_line": 445,
+        "end_line": 452,
+        "message": "Stale Checkpoint Reuse. Every run now auto-loads `out_dir/model.pt` when it exists and skips latent-dim search and training. Rerunning with changed inputs or hyperparameters in the same `out_dir` silently reuses the old model. Changed values that are ignored include `n_epochs`, `lr`, `find_q_method`, covariates and `presence_absence`.\n\nIf dimensions happen to match, results silently come from the old model. Nothing verifies that the checkpoint matches the current dataset or config.\n\n`load_model` also rebuilds the model with `prot_means=None`, while training used the dataset's `prot_means`. For `n_layers > 1` this changes the encoder bias layout, so `load_state_dict` fails. That failure then leads into the issue above.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/protrider/model/model_helper.py",
+        "start_line": 73,
+        "end_line": 86,
+        "message": "Undefined Variable. In `train_and_eval_q`, a non-finite loss sets `auc_prec_rec = np.nan`, but the function returns `auprc`. That variable was never assigned in this branch, so diverging training (e.g., a high learning rate) during `gs`/`bs` search raises `UnboundLocalError`.\n\nPreviously this case was just skipped. Even if it were fixed to return NaN, `max(enc2auprc, key=enc2auprc.get)` and the `>` comparisons in binary search behave unpredictably with NaN values.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/protrider/pipeline.py",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Insecure deserialization: `load_model` calls `torch.load(..., weights_only=False)` on a checkpoint path that is loaded automatically from `out_dir/model.pt` or the configured `checkpoint_path`. A malicious or tampered checkpoint file placed at that location can execute arbitrary code via pickle. Since only `state_dict` tensors and primitive metadata are saved, `weights_only=True` should suffice.",
+        "status": "matched_fp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11,
+          12
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "k1LoW_gh-copilot-review_9-f9828193",
+    "candidate_findings": [
+      {
+        "file": "internal/github/github.go",
+        "start_line": 84,
+        "end_line": 103,
+        "message": "Missing Pagination. The GitHub REST endpoints `pulls/{n}/commits` and `pulls/{n}/reviews` return 30 items per page by default, and `c.rest.Get` does not paginate automatically.\n\n- **Commits:** for a PR with more than 30 commits, `commits[len(commits)-1]` is the 30th commit, not the head commit. A review newer than that commit but older than later pushes is wrongly treated as fresh, so the re-review request is skipped.\n- **Reviews:** for a PR with more than 30 reviews, the latest Copilot review can be missed.\n\nFix: add `?per_page=100` and follow pagination. Alternatively, fetch the PR head SHA directly instead of listing commits.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "internal/github/github.go",
+        "start_line": 91,
+        "end_line": 116,
+        "message": "Unreliable Freshness Check. The committer date records when a commit was created locally, not when it was pushed to the PR. Example:\n\n1. A commit is created at 10:00.\n2. Copilot reviews an earlier push at 11:00.\n3. The 10:00 commit is pushed at 12:00.\n\nThe review then looks \"newer than the last commit,\" and the tool skips requesting a review of unreviewed code. Clock skew and rebases that preserve committer dates cause the same problem.\n\nFix: compare each Copilot review's `commit_id` with the PR's current head SHA instead of comparing timestamps.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "konturio_disaster-ninja-fe_1230-d169e9da",
+    "candidate_findings": [
+      {
+        "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+        "start_line": 238,
+        "end_line": 241,
+        "message": "Wrong remount API. The code remounts each entry from `mountedLayersAtom` by calling it directly with `layer('disable')` and `layer('enable')`. If these values are Reatom logical-layer atoms, this is likely not their public API, which usually looks like `layer.disable.dispatch()`. In that case the call would throw or do nothing, and no other layer would be re-added after the basemap switch.\nThe test cannot catch this because it stores a plain `vi.fn()` in the atom instead of a real layer atom. Please check against the real layer atom type.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+        "start_line": 234,
+        "end_line": 242,
+        "message": "Premature style event. `styledata` fires on any style change, not only when the new style has finished loading. It can fire before the URL style is fully parsed, or for intermediate changes. If that happens, `layersOrderManager.init` and the remount run against an incomplete style, and layers are added and then wiped or misordered.\nUse `style.load`, or check `map.isStyleLoaded()` before running this logic.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+        "start_line": 236,
+        "end_line": 240,
+        "message": "Repeated init side effects. Every basemap mount, including each switch back and forth, calls `layersOrderManager.init(map, ...)` again. If `init` registers map listeners or atom subscriptions, these pile up with each switch, causing duplicate handlers and leaks.\nAlso, `disable` on remounted layers runs after `setStyle` has already dropped their sources and layers. Their cleanup may call `removeLayer` or `removeSource` on ids that no longer exist, which produces MapLibre errors. Both points are unconfirmed from the visible diff.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "mheuss_chronicle_14-04ac4c02",
+    "candidate_findings": [
+      {
+        "file": "chronicle-daemon/crates/storage/src/media.rs",
+        "start_line": 55,
+        "end_line": 75,
+        "message": "Symlink bypass. `validate_path` falls back to checking only the parent directory whenever canonicalizing the full path fails *or* resolves outside the root.\n\nIf the final path component is a symlink pointing outside the storage root, the first check fails. The parent check then succeeds because the parent is inside the root, so validation returns `Ok`. After that:\n- `write_file` (open without `O_NOFOLLOW`) follows the symlink and writes to the external target.\n- `set_permissions` follows it as well.\n- `harden_file` chmods the external target.\n- `delete_file` reads the target's size through the link.\n\nThe parent fallback should apply only when the path does not exist. Use `symlink_metadata` to detect the not-found case and reject symlinks. For writes, consider `custom_flags(libc::O_NOFOLLOW)`.",
+        "status": "matched_fp",
+        "matched_golden_index": 7,
+        "covered_golden_indices": [
+          7
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "security"
+      },
+      {
+        "file": "chronicle-daemon/crates/storage/src/media.rs",
+        "start_line": 79,
+        "end_line": 154,
+        "message": "Permission follows link. `write_file` and `harden_file` call `std::fs::set_permissions(path, ...)`, which follows symlinks. Combined with the validation gap above, a symlink planted at a media path makes the daemon chmod an arbitrary user-owned file to 0o600. That can break unrelated files, such as config files or SSH keys.\n\nIn `write_file`, apply permissions via the open handle instead (`file.set_permissions`). In `harden_file`, reject non-regular files using `symlink_metadata` first, as `move_file` already does.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "security",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "chronicle-daemon/crates/storage/src/media.rs",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Path validation bypass via symlinks: `MediaManager::validate_path` accepts a path whose final component is a symlink to a location outside the storage root, because the parent-directory fallback passes. Write, chmod, and stat operations then follow the link, which defeats the \"files stay under base_dir\" guarantee the new manager is meant to enforce.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          7
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "security",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "renedierking_LANdalf_88-bc1698f4",
+    "candidate_findings": [
+      {
+        "file": "src/API/Services/DeviceMonitoringService.cs",
+        "start_line": 168,
+        "end_line": 186,
+        "message": "Cancellation mishandled. The cancellation token is now passed to `SendPingAsync`, so a cancelled token throws `OperationCanceledException`/`TaskCanceledException`. No catch handles it before the generic `catch (Exception ex)`. On every normal shutdown or stop, each in-flight ping logs a stack trace at Warning level as \"Unexpected error pinging\". The method also returns `false`, so the caller may mark devices offline or broadcast an offline status during shutdown. Add `catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)` before the generic catch and rethrow, or return without logging.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "scotthamilton77_agents-config_1-1fc78970",
+    "candidate_findings": [
+      {
+        "file": "scripts/install.sh",
+        "start_line": 492,
+        "end_line": 509,
+        "message": "Overlapping dir sync. Phases 2/3 sync shared `skills/` and `agents/` into the same `~/.<tool>/skills|agents` directories that Phase 5 later syncs tool-specific `skills/` and `agents/` into. This has two effects.\n\nFirst, the \"exists in dest but not in source\" check runs against each source separately. So every tool-specific item is warned as \"not in shared source\", and every shared item is warned as \"not in claude-specific source\". The warnings become misleading noise.\n\nSecond, if an item name exists in both `.agents/skills/` and `.<tool>/skills/`, the two phases overwrite each other's copy. The user is prompted to replace it twice on every run, and the installed result never stabilizes.\n\nA fix is to compute the stale-item check against the union of both sources, and to detect name collisions or let the tool-specific copy take precedence.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/user/.codex/AGENTS.md.template",
+        "start_line": 6,
+        "end_line": 11,
+        "message": "Unresolved references. The Codex instruction file now holds no rules itself. Everything depends on the agent resolving `@INSTRUCTIONS.md`, `@AGENT-PERSONA.md`, and `@CODEX-EXTENSIONS.md`.\n\nClaude and Gemini support `@file` imports relative to the memory file. Codex CLI, as far as I know, does not expand them. The model would then have to locate these files itself, likely relative to the project cwd rather than `~/.codex/`. In that case, the laws, constraints, and persona would silently not load.\n\nI have not verified Codex's current import behavior. Consider using absolute paths (e.g. `~/.codex/INSTRUCTIONS.md`) or inlining the content for Codex.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "scottlz0310_Mcp-Docker_29-e7705d26",
+    "candidate_findings": [
+      {
+        "file": "services/copilot-review-mcp/Dockerfile",
+        "start_line": 4,
+        "end_line": 4,
+        "message": "Build Failure. `COPY go.mod go.sum ./` requires a `go.sum` file. The new `go.mod` declares no dependencies, so `go.sum` is normally never created and is not in this PR. In that case `docker compose build` fails with a \"go.sum: not found\" error. Either commit an empty `go.sum` or copy it with a glob (e.g. `COPY go.* ./`).",
+        "status": "novel_fp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "services/copilot-review-mcp/internal/auth/handler.go",
+        "start_line": 111,
+        "end_line": 111,
+        "message": "Session Overwrite. `SaveSession` overwrites any existing session for the client-supplied `state` without checking. Anyone who learns or guesses a pending `state` can call `/authorize` again with the same value. This replaces the victim's `redirect_uri` and `code_challenge`, or drops PKCE entirely, because `code_challenge` is optional. When the victim's GitHub callback arrives, the internal code is bound to the attacker's parameters.\nThe impact is limited because redirect hosts are restricted to localhost. Still, reject reuse of an existing live `state`, or key sessions by a server-generated identifier.",
+        "status": "matched_fp",
+        "matched_golden_index": 13,
+        "covered_golden_indices": [
+          13
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "security"
+      },
+      {
+        "file": "services/copilot-review-mcp/internal/auth/session.go",
+        "start_line": 77,
+        "end_line": 96,
+        "message": "Multiple Codes. `CompleteCallback` keeps the session in `sessions` after issuing a code. Hitting `/callback` again with the same `state` (and another valid GitHub code) mints additional internal codes for the same session. The previously issued codes stay in `codes`. `ExchangeCode` deletes only the presented code and the session, so the other codes remain redeemable until the TTL expires.\nTo fix this, delete the session from `sessions` (or mark it completed) once a code is issued, and remove any prior `InternalCode` from `codes`.",
+        "status": "matched_tp",
+        "matched_golden_index": 25,
+        "covered_golden_indices": [
+          25
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "services/copilot-review-mcp/Dockerfile",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "OAuth flow weaknesses: client-supplied `state` values can overwrite existing in-flight sessions, and PKCE is optional even though discovery advertises S256 support. Together these let a party that knows a pending `state` rebind the session's `redirect_uri` and `code_challenge`. Separately, repeated `/callback` hits can mint multiple redeemable internal codes for one session. The localhost-only redirect allowlist reduces practical exposure.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "security",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "sdsykes_fastimage_165-8fc7cd32",
+    "candidate_findings": [
+      {
+        "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+        "start_line": 31,
+        "end_line": 44,
+        "message": "JFIF hides EXIF. The APP0 JFIF segment returns as soon as it is found. Per the JFIF spec, APP0 always comes before APP1, so any EXIF resolution is never read when a JFIF header exists. Many camera and editor JPEGs contain both a JFIF header with units=0 and density 1x1 (aspect ratio only) and an EXIF block with the real DPI, such as 300 dpi. For those files the result is `[[1, 1], :no_units]` and the actual resolution is lost. When JFIF units are 0, consider continuing the scan and preferring EXIF data if present.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "lib/fastimage/fastimage_parsing/exif.rb",
+        "start_line": 91,
+        "end_line": 112,
+        "message": "Missed resolution data. `read_rational_resolution` only seeks forward from the current stream position. Any rational value whose offset points before the end of the IFD entry table is skipped with `next`, and the method returns nil. TIFF allows value data to sit anywhere in the file. Some writers place out-of-line data before the IFD, for example files where the IFD is written last. Such TIFFs report no resolution even though the tags exist. It is uncertain how common this layout is among the target inputs. At minimum, the forward-only stream limitation should be documented. Alternatively, buffer the data when offsets precede the current position.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+        "start_line": 52,
+        "end_line": 57,
+        "message": "Inconsistent types. The resolution values have different numeric types depending on the metadata source. JFIF, PNG and BMP return Integers, for example `[72, 72]`. EXIF/TIFF returns Floats, for example `[72.0, 72.0]`, because the rational is computed with `num.to_f / den`. Callers comparing or serializing results get different types for the same DPI depending on which segment the file contains, as the test fixtures show for `test.jpg` vs `test2.jpg`. Normalizing to one type, or returning Integers when the denominator divides evenly, would make the API predictable.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "simnaut_emdash_2-41d75006",
+    "candidate_findings": [
+      {
+        "file": "packages/admin/src/components/RepeaterField.tsx",
+        "start_line": 44,
+        "end_line": 77,
+        "message": "Unstable item keys. Each edit calls `emitChange`, which strips `_key` before calling `onChange`. The parent then passes a new `value` array back down. The sync `useEffect` runs `ensureKeys` on that keyless data, and `ensureKeys` creates fresh keys of the form `item-${i}-${Date.now()}`.\n\nAs a result, every keystroke gives every item a new `_key`. This causes three problems:\n- **Focus loss:** every `SortableRepeaterItem` remounts, so the input loses focus after each character typed.\n- **Lost collapse state:** `collapsedItems` stores the old keys, so collapsed items reopen.\n- **Broken drag-and-drop:** dnd-kit loses track of item IDs.\n\nTo fix this, keep keys stable across round-trips. Two options:\n- Track keys separately, for example in a ref aligned by index.\n- Skip re-syncing when the incoming `value` equals the last emitted value.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "superhighfives_pika_200-b227aff0",
+    "candidate_findings": [
+      {
+        "file": "Pika/Services/Eyedroppers.swift",
+        "start_line": 284,
+        "end_line": 292,
+        "message": "Wrong Active Palette. `deletePalette` only resets `activePaletteIndex` when it is out of range. It does not adjust the index when a palette before the active one is removed.\n\nExample: palettes `[History, A, B, C]` with `B` active (index 2). Deleting `A` leaves `[History, B, C]`, and index 2 now selects `C`. The drawer silently switches to a different palette. Later actions such as add, remove, swap, and export then operate on the wrong palette.\n\nFix: decrement `activePaletteIndex` when `index < activePaletteIndex`, and pick a sensible fallback when the active palette itself is deleted.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "Pika/Views/NavigationMenu.swift",
+        "start_line": 100,
+        "end_line": 103,
+        "message": "Shortcut vs TextField. A new modifier-less shortcut `c` is added. The PR also adds an in-window `TextField` (`PaletteNameField`) for naming and renaming palettes.\n\nOn macOS, SwiftUI `.keyboardShortcut` bindings without modifiers can be handled as key equivalents before the focused text field receives the keystroke. Typing a name like \"Accent\" could then toggle compliance, along with the existing `p`/`h`/`x` shortcuts, instead of inserting characters.\n\nThe new `NSEvent` monitor guard in `AppDelegate` only covers the arrow and delete handling, not these shortcuts. This should be verified manually by typing these letters in the palette name field.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "Pika/Views/ContentView.swift",
+        "start_line": 151,
+        "end_line": 153,
+        "message": "Silent Export Failure. `try? json.write(...)` discards any write error, for example a permission-denied location or a read-only volume. The user picks a file and gets no feedback that the export failed.\n\nFix: surface the error to the user, for example via an `NSAlert`.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "superyyrrzz_ForgeMap_106-2f3977ed",
+    "candidate_findings": [
+      {
+        "file": ".github/workflows/docs.yml",
+        "start_line": 26,
+        "end_line": 27,
+        "message": "Deploy Cancellation. The Pages concurrency settings change from a single `pages` group with `cancel-in-progress: false` to a per-ref group with `cancel-in-progress: true`. This causes two problems:\n\n- **Interrupted deploys:** a new push now cancels a Pages deployment that is already running. GitHub's Pages guidance advises against this because an interrupted deploy can leave the site partially updated or failed.\n- **Concurrent deploys:** keying the group on `github.ref` lets runs from different refs (e.g. `main` and a tag or manual dispatch) deploy to the same Pages site at the same time.\n\nIf this workflow has a deploy job, keep a single `pages` group with `cancel-in-progress: false`. If faster cancellation is wanted, scope it only to the build job.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "docfx/templates/forgemap/public/main.css",
+        "start_line": 232,
+        "end_line": 239,
+        "message": "Unreadable Code. In light mode, `pre` gets a dark background and `pre code` text is forced to `#e0ddd8 !important`. The highlight.js light theme bundled with DocFX's modern template sets its own `background` (white) on `code.hljs`, and this rule does not override it. The likely result is near-white base text on a white code background in light mode.\n\nEven if the dark `pre` background does show through, the light-theme token colors (dark blues and purples) would have very poor contrast on `#1e2530`.\n\nTo fix, either:\n- also override `pre code` / `.hljs` background and token colors for light mode, or\n- keep code blocks light in light mode.\n\nThis depends on the highlight theme in use, so verify in a rendered light-mode page.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "maintainability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "maintainability"
+      }
+    ]
+  },
+  {
+    "pr_key": "vanyastaff_nebula_224-d5ba86dd",
+    "candidate_findings": [
+      {
+        "file": "crates/credential/src/layer/encryption.rs",
+        "start_line": 130,
+        "end_line": 152,
+        "message": "Stale version after rotation. When lazy rotation succeeds, the inner `put` bumps the stored version. However, `get` still returns `credential` with the old `version`, and the `put` result is discarded.\n\nAny caller that does `get` and then `put(..., PutMode::CompareAndSwap { expected_version: cred.version })` will hit a `VersionConflict` on the first read after a key rotation. Examples include the resolver refresh path and rotation logic.\n\nFix: on `Ok(stored)`, propagate `stored.version` (and `updated_at`, if applicable) into the returned credential.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "crates/credential/src/layer/encryption.rs",
+        "start_line": 206,
+        "end_line": 222,
+        "message": "Legacy data unreadable. The no-AAD fallback has been removed. Any credential encrypted before AAD binding was introduced now fails `get` with a hard `Backend` error, so those secrets become unreadable.\n\nThe diff includes no migration path, and the updated test confirms the rejection. If any deployment still holds pre-AAD records, this is effectively data loss on upgrade. It is unclear from the diff whether such records still exist.\n\nConsider one of these:\n- Keep the fallback, gated behind an opt-in flag, and lazily re-encrypt on read.\n- Ship a migration tool before removing the fallback.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "crates/credential/src/crypto.rs",
+        "start_line": 78,
+        "end_line": 83,
+        "message": "Inconsistent key_id handling. The `key_id` doc says the encryption layer rejects empty key IDs and that a migration must run first. In practice, behavior depends on the constructor:\n\n- `EncryptionLayer::new` registers an empty-string alias for the default key, so records with an empty `key_id` are silently decrypted and rotated.\n- `EncryptionLayer::with_keys` has no such alias, so the same records fail with \"key not found\".\n\nAs a result, switching from `new` to `with_keys` during a real key rotation will break every record that was never read and rotated under `new`.\n\nMake the behavior consistent, for example by letting `with_keys` accept a legacy alias. At minimum, fix the doc so it matches the actual behavior.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "wirechat_wirechat_183-6e3156e7",
+    "candidate_findings": [
+      {
+        "file": "src/Livewire/Chat/Chat.php",
+        "start_line": 652,
+        "end_line": 656,
+        "message": "Message window gap. After `jumpToMessage` loads an older window, `canLoadNewer` is true. If the user then sends or receives a message, `pushMessage` appends it directly to `loadedMessages`. `syncCursorsFromFlat` and `syncCanLoadFlags` then treat that new message as the newest loaded one, so `canLoadNewer` becomes false.\n\nThe messages between the jumped window and the new message are never loaded, and the UI shows the conversation with silently missing messages. `pushMessage` should first reload the latest window when `canLoadNewer` is true, or skip the append and let the user page forward.",
+        "status": "matched_tp",
+        "matched_golden_index": 14,
+        "covered_golden_indices": [
+          14
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Livewire/Chat/Chat.php",
+        "start_line": 914,
+        "end_line": 916,
+        "message": "Stuck loading state. The early return at the start of `loadOlder` does not dispatch `older-loaded`. On the client, `loadOlderWithStableScroll` sets `pendingPrependRestore = true` and only clears it on `older-loaded` or on an exception. If the client-side `$wire.canLoadOlder` is true but the server guard returns early (for example, a null cursor), `pendingPrependRestore` and `loadingOlder` stay true. Older messages can then never be loaded again in that session.\n\nDispatching `older-loaded` in that branch too, as the empty-result branch already does, avoids this.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  }
+]

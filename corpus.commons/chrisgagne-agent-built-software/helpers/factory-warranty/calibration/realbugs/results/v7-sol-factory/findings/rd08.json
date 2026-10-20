@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The notebook calls missing library functions, preventing it from generating reports. The new financial.py defines neither load_artifacts nor run_inference. Calling wg_fin.load_artifacts raises AttributeError, which is caught as though artifacts were absent; if dataset loading succeeds, the fallback calls wg_fin.run_inference at line 257 and raises another AttributeError."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 240,
+   "end_line": 240,
+   "message": "compute_financials silently ignores supplied financial parameters and calculates reports using the built-in assumptions. The function accepts financial_params and initializes it at lines 235\u2013236, but never reads it afterward. Each row calls get_params(binary_label), which reads the global FINANCIAL_PARAMS, so supplying a different repair cost or yield range has no effect."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "An empty batch crashes financial analysis instead of returning an empty report and zero summary. build_batch_df([], confidences, mapping) returns a DataFrame with no rows. compute_financials then constructs pd.DataFrame(rows) from an empty list and immediately sorts by the nonexistent priority_score column, raising KeyError before its later empty-data guards can run."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The batch average confidence weights patterns equally instead of weighting individual wafers, misrepresenting uneven batches. build_batch_df produces one row per pattern with count and avg_confidence. The summary takes the unweighted mean of those row averages: 99 wafers at 0.9 confidence and one wafer at 0.1 produce 0.5 instead of the batch average 0.892."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "A hardcoded developer directory prevents the notebook from finding models and data in other checkouts. repo_root is fixed to /Users/hernanmontoyag/Desktop/Capstone/waferguard-ml. The fallback constructs data_path from that directory and calls np.load(data_path), so running from another checkout fails even when its dataset and models exist locally."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

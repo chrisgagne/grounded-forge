@@ -1,0 +1,98 @@
+{
+ "id": "w19",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6929,
+ "codex_tokens": 27318,
+ "work": "<tmp>/replay-w19-t1-5n9oes5v",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "isUnknownOption (lines 972-989) returns true for a word like 'run' because hasAllShortFlags needs a leading '-' (line 946) and every hasFlagsMatching pattern starts with '^-+'. Line 225 therefore calls pushPositional before the halt branch at lines 397-399 is reached. Trigger: ['run','--verbose'] with both config flags set now gives verbose=true instead of leaving ['run','--verbose'] in `_`.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "Removing the `/^-/` guard means that when `unknown-options-as-args` and `halt-at-non-option` are both on, plain positionals get pushed into `_` instead of stopping the parse, so the options after them are parsed.",
+   "evidence": "`isUnknownOption('foo')`: `negative` doesn't match, `hasAllShortFlags` returns false (no leading `-`), and every pattern given to `hasFlagsMatching` (`flagWithEquals`, `normalFlag`, ... all `^-+...`, and `negatedBoolean` `^--no-...`) needs a leading dash. So it returns `!false === true`, and `isUnknownOptionAsArg('foo')` is true. Line 225 then calls `pushPositional(arg)`, and the branch at lines 397-399 (`else if (configuration['halt-at-non-option']) { notFlags = args.slice(i); break }`) is never reached for that word. Trigger: `parser(['foo','--known','x'], {string:['known'], configuration:{'unknown-options-as-args':true,'halt-at-non-option':true}})`. The baseline sends `['foo','--known','x']` to notFlags/`_` unparsed. After the change, 'foo' is pushed and `--known` gets parsed as a flag. Nothing else does the old guard's job.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only lib/yargs-parser.ts. The halt-at-non-option tests in test/yargs-parser.cjs:2980-3003 never turn on unknown-options-as-args, so the suite misses the C1/X1 regression. Lowered from medium to low because missing coverage is not a defect in itself.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "The guard was removed without adding a test, and nothing covers `unknown-options-as-args` combined with `halt-at-non-option`.",
+   "evidence": "diff.patch changes only `lib/yargs-parser.ts`. No file under `test/` changes. The existing `unknown-options-as-args` tests (test/yargs-parser.cjs:3013-3299) never turn on `halt-at-non-option` alongside it, which is why the regression above gets past the suite.",
+   "axis_row": "L5.24",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Without the `/^-/` short-circuit, isUnknownOptionAsArg (line 968) calls isUnknownOption for every argument when the option is on. This runs hasAllShortFlags and six patterns through hasFlagsMatching. It is a performance point only, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "Every non-dash positional now runs through isUnknownOption's regex and flag-table checks, which is wasted per-argument work.",
+   "evidence": "The removed `/^-/.test(arg)` short-circuit used to skip `isUnknownOptionAsArg` for non-dash args. Now `isUnknownOption` (lines 972-990) runs `arg.replace`, `negative`, `hasAllShortFlags` and `hasFlagsMatching` across 6 patterns for every positional.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "test/tscc/lib/yargs-parser.ts:225 still has `/^-/.test(arg)`, while lib/yargs-parser.ts:225 does not. The CI optimize job (ci.yaml:92-93) builds that copy, but nothing in the project shows it must be kept in sync with the change, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/tscc/lib/yargs-parser.ts",
+   "line": 225,
+   "claim": "The test/tscc copy of the parser still has the old guard and no longer matches lib/yargs-parser.ts.",
+   "evidence": "test/tscc/lib/yargs-parser.ts:225 reads `if (arg !== '--' && /^-/.test(arg) && isUnknownOptionAsArg(arg)) {`, while lib/yargs-parser.ts:225 reads `if (arg !== '--' && isUnknownOptionAsArg(arg)) {`. package.json has no script that regenerates it, so this may be a stale artefact rather than a required regeneration.",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 224's comment reads 'any unknown option (except for end-of-options, \"--\")', but line 225 no longer requires a leading '-', so plain words also enter this branch. This is a documentation mismatch and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/yargs-parser.ts",
+   "line": 224,
+   "claim": "The comment says the branch handles 'any unknown option', but the branch now also catches non-option words.",
+   "evidence": "Line 224: `// any unknown option (except for end-of-options, \"--\")`. Line 225 no longer checks for a leading `-`, and `isUnknownOption` returns true for plain words such as 'foo'.",
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

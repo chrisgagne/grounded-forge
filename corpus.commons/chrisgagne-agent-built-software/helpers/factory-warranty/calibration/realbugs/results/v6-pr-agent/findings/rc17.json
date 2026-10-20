@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/jongalloway/DiagramForge",
+  "pr_number": 101,
+  "base": "969398a66116b68aafa8d267e824442000229ec7",
+  "head": "8be727e43f0bfd1dd285794ce5c557b5ea44336e"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "start_line": 151,
+   "end_line": 152,
+   "message": "Annotation-only overlap. The renderer draws annotations whenever `node.Annotations.Count > 0`. Layout only switches to `SizeClassNode` when `node.Compartments.Count > 0`. A node with a stereotype but no compartments (e.g. an empty `<<interface>>` class) is sized by the standard path, which reserves no header space and sets no `label:centerY`. The annotation is then drawn at the top while the class name is vertically centered, so the two texts can overlap or the annotation can sit outside the content area. The layout condition and the render condition should match."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "start_line": 348,
+   "end_line": 359,
+   "message": "Multi-line entry overlap. For each compartment entry, the renderer emits one `<text>` per line from `GetRenderedLabelLines(line)`, but it advances `currentY` by only one line height per entry. A compartment label containing `\\n` (or one that wraps) overlaps the following entry. Layout has the same gap: `compartment.Lines.Sum(...)` counts one line per label, so the node is also too short and text spills past the bottom border."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "start_line": 490,
+   "end_line": 492,
+   "message": "Annotation height mismatch. `annotationsHeight` is computed as `Annotations.Count * fontSize * DefaultLabelLineHeight`. This ignores each annotation's own `FontSize` and its line count. The renderer advances by `annFontSize * DefaultLabelLineHeight` per rendered line. Two cases cause annotation text to collide with the class-name label positioned via `label:centerY`:\n- an annotation with a larger font size than the label\n- a multi-line annotation"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 19000
+ }
+}

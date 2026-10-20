@@ -1,0 +1,49 @@
+{
+ "id": "x07",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5594,
+ "codex_tokens": 50432,
+ "work": "<tmp>/replay-x07-t1-10ue28td",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "README.md:230-237 still describes only the long output and shows only the two-argument call, while the diff adds `format: TZNameFormat = \"long\"` to src/tzName/index.ts. This is a documentation gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 232,
+   "claim": "The README section for tzName doesn't mention the new optional format argument or the TZNameFormat type.",
+   "evidence": "README.md:230-239 says \"The function returns time zone name in human-readable format, e.g. \\\"Singapore Standard Time\\\"\" and shows only `tzName(\"Asia/Singapore\", new Date(...))`. The diff adds `format: TZNameFormat = \"long\"` to `tzName` in src/tzName/index.ts:29-33 but doesn't change the README.",
+   "axis_row": "L5.24",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "CHANGELOG.md:3 says all notable changes are recorded there, but the top entry is still v1.2.0 with only the setTime fix, and the diff doesn't touch the file. It's a documentation point and entries may be added at release time, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "CHANGELOG.md",
+   "line": null,
+   "claim": "There is no change log entry for the new format parameter and the exported TZNameFormat type.",
+   "evidence": "CHANGELOG.md:3 says \"All notable changes to this project will be documented in this file.\" The top entry is still `## v1.2.0 - 2024-10-31` with only a `setTime` fix. The diff adds `export type TZNameFormat` and the `format` parameter in src/tzName/index.ts:4,32 and doesn't touch CHANGELOG.md. This finding is about a missing entry, so it has no line number.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

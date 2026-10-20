@@ -1,0 +1,296 @@
+[
+ {
+  "sources": [
+   "C1",
+   "X3"
+  ],
+  "verdict": "confirmed",
+  "reason": "s3Adapter.ts:28 throws when electronAPI.getPresignedUrl is missing, and a grep outside the docs finds no presign handler in electron/. The adapter also reads config.keyId/config.secret (s3Adapter.ts:35-36), but WorkspaceManagerModal.tsx:227-228 saves the keys as accessKeyId/secretAccessKey. So every S3 Push or Pull throws.",
+  "severity": "high",
+  "raw_severity": "high",
+  "file": "client/src/utils/sync/s3Adapter.ts",
+  "line": 28,
+  "claim": "S3 push and pull always fail, even in Electron. No getPresignedUrl IPC exists, and the adapter reads keyId/secret while the UI saves accessKeyId/secretAccessKey.",
+  "evidence": "getPresignedUrl checks `api?.getPresignedUrl` and throws if it is missing, but electron/preload.js exposes no getPresignedUrl and electron/main.js registers no 'get-presigned-url' handler (a grep for presigned across the repo only finds docs and this file). The adapter also passes `keyId: config.keyId, secret: config.secret`, while the SyncTab S3 fields are named `accessKeyId` and `secretAccessKey`. Every S3 Push/Pull throws 'requires Electron', even inside Electron. README and WORKSPACES.md document S3 as working.",
+  "breaks": "story",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C2",
+   "X2"
+  ],
+  "verdict": "confirmed",
+  "reason": "writeSyncConfig (storageDriver.ts:179-191) writes { provider, config } unchanged to sync-config.json and mirrors it to localStorage even in Electron. encryptValue/decryptValue (lines 195-212) have no callers anywhere in the repo.",
+  "severity": "high",
+  "raw_severity": "high",
+  "file": "client/src/utils/storageDriver.ts",
+  "line": 179,
+  "claim": "Sync credentials (AWS secret, git PAT, bearer and JWT tokens) are stored in plaintext in sync-config.json and in localStorage, although the docs say they are encrypted.",
+  "evidence": "writeSyncConfig stores `{ provider, config }` as-is in sync-config.json and also mirrors it with `lsWrite(LS_SYNC_CONFIG, ...)` even in Electron. encryptValue/decryptValue are defined but never called anywhere (grep finds only their definitions). WORKSPACES.md says 'Sensitive sync credentials ... are encrypted using Electron's safeStorage API before being written to sync-config.json'.",
+  "breaks": "story",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "C3",
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "server/index.js:1037 uses req.body.dataDir ahead of APILIX_DATA_DIR, and the containment base at :1042 is built from that same value. :43 calls app.use(cors()) with no options, :1144 calls app.listen(PORT) with no host, and the routes have no auth. The startsWith check at :1044 has no separator, so a sibling such as '../workspaces-x' also passes.",
+  "severity": "high",
+  "raw_severity": "high",
+  "file": "server/index.js",
+  "line": 1037,
+  "claim": "The git sync routes take dataDir from the request body on an unauthenticated server that allows any origin, so any web page or LAN host can create repos, write files and push/pull to a remote it chooses, anywhere on disk.",
+  "evidence": "`const dataDir = req.body.dataDir || process.env.APILIX_DATA_DIR;` comes from the request body. ensureRepo then runs mkdirSync, git init, addRemote(config.remote) and addConfig under `path.join(dataDir,'git-sync','workspaces')`. The server uses `app.use(cors())` and `app.listen(PORT)` with no host. The workspaceId guard `repoDir.startsWith(path.resolve(repoBase))` lacks a path separator, so a workspaceId of `../workspaces-x` also passes. main.js already sets APILIX_DATA_DIR, so the body value isn't needed.",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C4"
+  ],
+  "verdict": "confirmed",
+  "reason": "server/index.js:1059-1066 puts username:token into the URL and passes it to git.push with --set-upstream. With a URL remote, git records that URL as branch.<b>.remote in the repo config. I lowered this to medium because the same token is already stored in plaintext in sync-config.json (C2/X2), so this adds little new exposure.",
+  "severity": "medium",
+  "raw_severity": "high",
+  "file": "server/index.js",
+  "line": 1066,
+  "claim": "git push --set-upstream with a URL that embeds the credentials writes the token into .git/config, although the docs say the credential URL is never stored.",
+  "evidence": "The push route builds `url.username/url.password` into `remote`, then calls `git.push(remote, branch, ['--set-upstream'])`. With a URL as the remote, --set-upstream writes `branch.<branch>.remote = https://user:token@host/...` into the repo config under userData/git-sync. WORKSPACES.md says 'the credential-embedded URL is never stored'.",
+  "id": "F4"
+ },
+ {
+  "sources": [
+   "C5",
+   "X5"
+  ],
+  "verdict": "confirmed",
+  "reason": "syncEngine.ts:49-50 throws ConflictError only when syncConfig.lastSynced is set. WorkspaceManagerModal.tsx:303 builds SyncConfig without lastSynced, and a grep finds no code that writes it. Even if it were set, `>` compares an RFC 1123 Last-Modified string with an ISO string as plain text. handlePull then hydrates and writes the remote data over the local workspace.",
+  "severity": "high",
+  "raw_severity": "high",
+  "file": "client/src/utils/syncEngine.ts",
+  "line": 50,
+  "claim": "Conflict detection can never fire, so Pull silently overwrites local data. lastSynced is never set, and the timestamp check compares strings in different date formats.",
+  "evidence": "pull only throws ConflictError when `remoteTs && localTs && remoteTs > localTs`, with `localTs = syncConfig.lastSynced ?? null`. No code sets lastSynced: SyncTab builds `{ workspaceId, provider, config: fields }` and writeSyncConfig stores only provider and config. Even if it were set, `>` compares an RFC 1123 `Last-Modified` string ('Mon, 01 ...') with an ISO string lexicographically. Both README and WORKSPACES.md promise a conflict banner.",
+  "breaks": "story",
+  "id": "F5"
+ },
+ {
+  "sources": [
+   "C6",
+   "X6"
+  ],
+  "verdict": "confirmed",
+  "reason": "server/index.js:1052-1057 commits before the push at :1066. On a retry with unchanged data, status.files.length === 0 returns ok at :1055 before push runs, and the client then shows 'Pushed successfully'. I kept this at medium: it needs a failed push first, and the data is not lost, only not uploaded.",
+  "severity": "medium",
+  "raw_severity": "high",
+  "file": "server/index.js",
+  "line": 1054,
+  "claim": "After a failed git push, retrying reports success ('Nothing to commit') without pushing the pending commit.",
+  "evidence": "The push route runs `git.add('.')` and `git.commit(...)` before `git.push(...)`. On retry, `status.files.length === 0` returns `{ ok: true, message: 'Nothing to commit' }` before it reaches push, so the client shows 'Pushed successfully' while the remote stays behind.",
+  "id": "F6"
+ },
+ {
+  "sources": [
+   "C7"
+  ],
+  "verdict": "confirmed",
+  "reason": "Keep Local calls handlePull('keep-local'). syncEngine.ts:56 returns null for that choice, and WorkspaceManagerModal.tsx:310 shows a null result as 'Remote is empty'. I lowered this to low because the banner can't currently appear (see C5/X5) and the message is only misleading; no data is affected.",
+  "severity": "low",
+  "raw_severity": "medium",
+  "file": "client/src/components/WorkspaceManagerModal.tsx",
+  "line": 392,
+  "claim": "'Keep Local' on the conflict banner shows 'Remote is empty \u2014 nothing to pull'.",
+  "evidence": "The Keep Local button calls `handlePull('keep-local')`. syncEngine.pull returns null for keep-local ('caller will push instead'), and handlePull treats null as `setMsg('Remote is empty \u2014 nothing to pull')`. No push follows.",
+  "id": "F7"
+ },
+ {
+  "sources": [
+   "C8",
+   "X8"
+  ],
+  "verdict": "confirmed",
+  "reason": "snapshotEngine.ts:33 writes a full snapshot file on every save, and :43 only slices the index to 50. Nothing deletes the dropped files. store.tsx:650-666 calls createSnapshot on a 300 ms debounce. WORKSPACES.md says the oldest snapshot is deleted.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "client/src/utils/snapshotEngine.ts",
+  "line": 43,
+  "claim": "Snapshot pruning trims only the index and never deletes old snapshot files, so a full copy of the workspace piles up on disk after every debounced save.",
+  "evidence": "createSnapshot writes `snapshots/{id}.json` and then only trims the index with `[entry, ...idx].slice(0, MAX_SNAPSHOTS)`. Pruned snapshot files are never removed. store.tsx calls createSnapshot from a 300 ms debounce (`setTimeout(..., 300)`) on every collection or environment change. WORKSPACES.md says snapshots are taken about 1\u20132 s after the last change and that 'the oldest snapshot is automatically deleted'.",
+  "id": "F8"
+ },
+ {
+  "sources": [
+   "X4"
+  ],
+  "verdict": "confirmed",
+  "reason": "store.tsx:668 clears the pending timer when the effect re-runs. SWITCH_WORKSPACE/CREATE_WORKSPACE (store.tsx:419-468) replace activeWorkspaceId and the collections, and WorkspaceSwitcher.tsx:41-62 never saves the outgoing data first. I lowered this to medium because the edit and the switch have to land inside the 300 ms window.",
+  "severity": "medium",
+  "raw_severity": "high",
+  "file": "client/src/store.tsx",
+  "line": 668,
+  "claim": "Switching or creating a workspace within 300 ms of an edit cancels the pending save, and the outgoing workspace's change is lost.",
+  "evidence": "The persistence effect schedules the current workspace write after 300 ms and clears that timer on cleanup. WorkspaceSwitcher.handleSwitch reads only the destination and dispatches SWITCH_WORKSPACE without saving the outgoing state; handleCreate likewise dispatches CREATE_WORKSPACE. Either action changes activeWorkspaceId and cancels the pending outgoing write before replacing its collections and variables.",
+  "id": "F9"
+ },
+ {
+  "sources": [
+   "X7"
+  ],
+  "verdict": "confirmed",
+  "reason": "storageDriver.ts:181 starts store as {} and reads existing config only inside `if (api)`. Without Electron, :190 overwrites LS_SYNC_CONFIG with just the current workspace's entry.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "client/src/utils/storageDriver.ts",
+  "line": 181,
+  "claim": "In browser mode, saving sync config for one workspace erases the saved sync config of every other workspace.",
+  "evidence": "writeSyncConfig initializes store to {} and reads existing configuration only inside if (api). Without Electron, it never reads LS_SYNC_CONFIG before lsWrite replaces the entire key with the current workspace entry. Saving workspace B therefore removes workspace A's configuration.",
+  "id": "F10"
+ },
+ {
+  "sources": [
+   "C9"
+  ],
+  "verdict": "confirmed",
+  "reason": "The diff removes the useReducer initializer that rebuilt tabs from saved.tabSession and the code that wrote tabSession. store.tsx:571 now uses only initialState, and the persistence effect (:651-661) saves no tab data.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "client/src/store.tsx",
+  "line": 571,
+  "claim": "Open request tabs are no longer restored after a restart.",
+  "evidence": "The old useReducer initializer rebuilt `tabs`/`activeTabId` from `saved.tabSession`, and the old persistence effect wrote tabSession. The new code (`useReducer(appReducer, initialState)` plus a WorkspaceData-only write) never saves or restores tabs, and the PersistedState.tabSession type is now unused.",
+  "id": "F11"
+ },
+ {
+  "sources": [
+   "C10"
+  ],
+  "verdict": "confirmed",
+  "reason": "store.tsx:642 calls init() without a catch, and storageReady only turns true through HYDRATE_WORKSPACE, so the Loading screen at :692 stays. readManifest and readWorkspace do catch errors, so a corrupt JSON read doesn't trigger this. A failing writeManifest/writeWorkspace IPC call (main.js:153-157, no catch) or a getDataDir error still does.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "client/src/store.tsx",
+  "line": 642,
+  "claim": "If storage init throws, the app stays on 'Loading\u2026' forever with no error shown.",
+  "evidence": "`init()` is called without try/catch or .catch. The read-json-file IPC rethrows parse errors other than ENOENT, and writeManifest/writeWorkspace don't catch IPC errors. HYDRATE_WORKSPACE then never dispatches, so storageReady stays false, and AppProvider renders only 'Loading\u2026' while storageReady is false.",
+  "id": "F12"
+ },
+ {
+  "sources": [
+   "C11"
+  ],
+  "verdict": "confirmed",
+  "reason": "deleteWorkspace (storageDriver.ts:119-126) removes only workspaces/{id}.json and the localStorage key. The workspaces/{id}/history.json and snapshots/ files stay on disk. I lowered this to low because it leaves orphaned data behind but breaks no workflow.",
+  "severity": "low",
+  "raw_severity": "medium",
+  "file": "client/src/utils/storageDriver.ts",
+  "line": 119,
+  "claim": "Deleting a workspace leaves its snapshot history on disk.",
+  "evidence": "handleDelete calls StorageDriver.deleteWorkspace, which removes only `workspaces/{id}.json` and the localStorage key. The `workspaces/{id}/history.json` and `snapshots/` directory that snapshotEngine writes are left behind, although the UI says 'This cannot be undone'.",
+  "id": "F13"
+ },
+ {
+  "sources": [
+   "C12"
+  ],
+  "verdict": "confirmed",
+  "reason": "package-lock.json:13 and :18 list bcryptjs and jsonwebtoken as root dependencies, but server/package.json declares only simple-git among the new ones. npm ci refuses to install when the two files disagree.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "server/package-lock.json",
+  "line": 13,
+  "claim": "The lockfile root lists bcryptjs and jsonwebtoken, which server/package.json doesn't declare and nothing uses.",
+  "evidence": "The lock's root `dependencies` gains `\"bcryptjs\": \"^3.0.3\"` and `\"jsonwebtoken\": \"^9.0.3\"`, but server/package.json adds only simple-git. `npm ci` refuses to install when package.json and the lockfile disagree. The team server that would use them isn't in the repo.",
+  "axis_row": "L4.24",
+  "id": "F14"
+ },
+ {
+  "sources": [
+   "C13"
+  ],
+  "verdict": "confirmed",
+  "reason": "server/package.json:17 adds simple-git ^3.35.2, and risk.json requires gate:deps for it. The guarded require returns 501 at runtime rather than failing at startup. This is a process and maintainability point, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "server/package.json",
+  "line": 17,
+  "claim": "simple-git is added with no recorded vetting, and an optional require hides an install failure until runtime.",
+  "evidence": "`\"simple-git\": \"^3.35.2\"` is added. server/index.js wraps `require('simple-git')` in try/catch and returns 501 if it is missing. The packet's risk.json requires gate:deps for this dependency.",
+  "axis_row": "L4.4",
+  "id": "F15"
+ },
+ {
+  "sources": [
+   "C14"
+  ],
+  "verdict": "confirmed",
+  "reason": "The diff adds useState(false) and renders WorkspaceManagerModal when manageOpen is true, but nothing in ActivityBar ever calls setManageOpen(true).",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "client/src/components/ActivityBar.tsx",
+  "line": 30,
+  "claim": "Dead code: ActivityBar's manageOpen state and modal can never be opened.",
+  "evidence": "`const [manageOpen, setManageOpen] = useState(false)` is never set to true in ActivityBar. Only the `onClose` path calls setManageOpen.",
+  "id": "F16"
+ },
+ {
+  "sources": [
+   "C15"
+  ],
+  "verdict": "confirmed",
+  "reason": "TeamTab (WorkspaceManagerModal.tsx:444-476) only fetches ${serverUrl}/workspaces, and dispatch is unused. I found no code that sets type 'team', role or teamServerUrl. This is incomplete wiring rather than a broken path, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "client/src/components/WorkspaceManagerModal.tsx",
+  "line": 444,
+  "claim": "The Team tab only tests the connection and never marks a workspace as a team workspace, so the team grouping and role badges never appear.",
+  "evidence": "TeamTab only does a test fetch of `${serverUrl}/workspaces`. `dispatch` is destructured but unused. No code sets `type: 'team'`, `role` or `teamServerUrl`. teamAdapter's header refers to `server/team/`, which doesn't exist in the repo.",
+  "id": "F17"
+ },
+ {
+  "sources": [
+   "C16"
+  ],
+  "verdict": "confirmed",
+  "reason": "PRESET_COLORS is declared at WorkspaceManagerModal.tsx:10 and in WorkspaceSwitcher. The empty-data literal also appears again in store.tsx:628-638. This is a maintainability point, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "client/src/components/WorkspaceSwitcher.tsx",
+  "line": 178,
+  "claim": "emptyWorkspaceData and PRESET_COLORS are duplicated across files.",
+  "evidence": "The same `emptyWorkspaceData()` body appears in both WorkspaceSwitcher.tsx and WorkspaceManagerModal.tsx, and store.tsx init repeats the same literal. The PRESET_COLORS array is declared in both components.",
+  "axis_row": "L6.15",
+  "id": "F18"
+ },
+ {
+  "sources": [
+   "C17"
+  ],
+  "verdict": "confirmed",
+  "reason": "The diff changes RequestBuilder.tsx:1074 and :1730 to add activeRequestTab to the cache, and adds a light-mode .bg-purple-700 rule. Neither relates to workspaces. This is a scope point, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "client/src/index.css",
+  "line": 192,
+  "claim": "The diff includes unrelated changes: a websocket-toggle light-mode CSS fix and a RequestBuilder tab-cache change.",
+  "evidence": "index.css adds `html.light .bg-purple-700` with the comment 'Keep selected websocket toggle readable'. RequestBuilder.tsx changes `cacheRef.current.set(..., { edit, dirty: false, activeRequestTab })` in two places. Neither relates to workspaces.",
+  "axis_row": "L6.22",
+  "id": "F19"
+ },
+ {
+  "sources": [
+   "C18"
+  ],
+  "verdict": "confirmed",
+  "reason": "A glob for **/*.{test,spec}.* in the export finds no files, and the diff adds none. This is a test-coverage point, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "client/src/utils/syncEngine.ts",
+  "line": null,
+  "claim": "The change adds no tests for the migration, sync, snapshot or git-route code.",
+  "evidence": "No test files exist in the repo (a glob for **/*.test.* finds none), and the diff adds none for storageDriver, syncEngine, snapshotEngine, the reducer's workspace actions or /api/sync/git/*.",
+  "axis_row": "L5.24",
+  "id": "F20"
+ }
+]

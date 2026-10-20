@@ -1,0 +1,98 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 274,
+  "base": "72ccdfaa52365466e9ce3a07b096f8c0f096b8a2",
+  "head": "1c88a2381c97cfc434d381876515f003078f83d9"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 286,
+   "end_line": 286,
+   "message": "When an older turn reuses a raw tool-call id that also appears in the latest assistant turn, the older tool call is renamed but its tool result is left alone, so the older call/result pair no longer matches and the provider may reject the request. Older assistant messages always go through rewriteAssistantToolCallIds (only `index === latestAssistantIndex` is skipped, line 270). But a toolResult anywhere in the transcript is skipped whenever `preservedLatestToolCallIds.has(toolResultId)` (line 286), so an older toolResult is skipped too, not just the latest turn's. Older assistant id `call_1` becomes `call1`, while the older toolResult keeps `toolCallId: \"call_1\"`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 282,
+   "end_line": 282,
+   "message": "A tool result is preserved whenever its ID matches any tool call in the latest assistant turn, regardless of where the result appears. If an earlier assistant turn reused the same raw ID (some OpenAI-compatible backends emit per-turn IDs like `call_0`), that older assistant's call is rewritten to the sanitized ID but its matching older tool result keeps the raw ID. The earlier pair is broken and the result becomes orphaned or misattributed. Only preserve tool results that come after `latestAssistantIndex`. A tool result is preserved whenever its ID matches any tool call in the latest assistant turn, regardless of where the result appears. If an earlier assistant turn reused the same raw ID (some OpenAI-compatible backends emit per-turn IDs like `call_0`), that older assistant's call is rewritten to the sanitized ID but its matching older tool result keeps the raw ID. The earlier pair is broken and the result becomes orphaned or misattributed. Only preserve tool results that come after `latestAssistantIndex`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "The latest turn's preserved ids are never put in the `used` set, so a rewritten older id can come out identical to a preserved latest id, leaving duplicate tool-call ids in the transcript. `resolve` calls makeUniqueToolId({ id, used, mode }), and makeUniqueToolId dedupes only against `used`. The preserve block (lines 244-261) adds the latest ids only to `preservedLatestToolCallIds`, not to `used` or `map`. For example, in strict mode an older id `a_b` sanitizes to `ab`, and a preserved latest id `ab` is then a duplicate. This undoes the collision guarantee the function's comment promises (\"de-duping via suffix\")."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "The tool-call IDs on the preserved latest assistant turn are never added to the `used` set. `resolve()` can therefore turn an older ID into one that already exists unchanged in the latest turn. Example: an older `call_1` becomes `call1` while the latest turn already uses `call1`, or under strict9 a truncated or hashed ID collides with a preserved ID. The transcript then has duplicate tool IDs, results pair with the wrong call, and the provider can reject the request. Before mapping, add the preserved IDs to `used`, and map each one to itself. The tool-call IDs on the preserved latest assistant turn are never added to the `used` set. `resolve()` can therefore turn an older ID into one that already exists unchanged in the latest turn. Example: an older `call_1` becomes `call1` while the latest turn already uses `call1`, or under strict9 a truncated or hashed ID collides with a preserved ID. The transcript then has duplicate tool IDs, results pair with the wrong call, and the provider can reject the request. Before mapping, add the preserved IDs to `used`, and map each one to itself."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 258,
+   "end_line": 258,
+   "message": "Reserve preserved tool-call IDs before sanitizing history When a historical ID sanitizes to an ID in the preserved latest turn (for example, historical `a_b` and latest `ab`), the historical call is rewritten to `ab` while the latest call remains `ab`. Because preserved IDs are never added to `used`, this introduces duplicate tool-call IDs and ambiguous result pairing, defeating the existing transcript-wide collision protection. Reserve the preserved IDs before resolving historical IDs so historical calls receive a unique alternative."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/pi-embedded-runner/google.ts",
+   "start_line": 436,
+   "end_line": 436,
+   "message": "Session-history sanitization now sends the latest assistant turn's tool-call ids unsanitized to Copilot Claude, even when that turn came from a different provider earlier in the session, so ids in a format Copilot rejects (e.g. containing `|` or `:`) may now reach the request. resolveTranscriptPolicy sets `sanitizeToolCallIds` to true for Copilot Claude (the anthropic/openai-completions branch) and also sets `preserveLatestAssistantTurn = isCopilotClaude`. sanitizeSessionHistory passes both to sanitizeSessionMessagesImages, which now skips rewriting the latest assistant message whatever model produced it. Nothing checks isValidCloudCodeAssistToolId before preserving the ids. sanitizeSessionHistory also reads a model snapshot (`modelChanged`), so a session can switch providers mid-way."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/pi-embedded-helpers/images.ts",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "`sanitizeSessionMessagesImages` still rewrites the latest assistant turn even when `preserveLatestAssistantTurn` is set. In `full` mode, which Copilot Claude gets through the anthropic-messages path, it runs `stripThoughtSignatures`, drops whitespace-only text blocks, re-encodes images, and can drop the whole message when the content ends up empty. In every mode it rebuilds the object. That contradicts the PR's stated goal of replaying the latest turn verbatim, and it is the likely cause of the follow-up the author already anticipates, where staging keeps failing. Skip non-image and assistant rewrites for the latest assistant index when the flag is set, or make sure they cannot change content. `sanitizeSessionMessagesImages` still rewrites the latest assistant turn even when `preserveLatestAssistantTurn` is set. In `full` mode, which Copilot Claude gets through the anthropic-messages path, it runs `stripThoughtSignatures`, drops whitespace-only text blocks, re-encodes images, and can drop the whole message when the content ends up empty. In every mode it rebuilds the object. That contradicts the PR's stated goal of replaying the latest turn verbatim, and it is the likely cause of the follow-up the author already anticipates, where staging keeps failing. Skip non-image and assistant rewrites for the latest assistant index when the flag is set, or make sure they cannot change content."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 250,
+   "end_line": 250,
+   "message": "The rule for picking the 'latest assistant turn' differs from dropThinkingBlocks, so the two passes can preserve different messages and break the doc's promise that one latest turn is kept verbatim. tool-call-id.ts takes any message with `role === \"assistant\"` (line 250). thinking.ts dropThinkingBlocks uses isAssistantMessageWithContent, which also requires `Array.isArray(message.content)`. If the last assistant message has string content, tool-call-id preserves it and rewrites the earlier tool-calling assistant turn, while dropThinkingBlocks preserves that earlier turn."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 222,
+   "end_line": 222,
+   "message": "The diff adds a new branch to tool-call-id sanitization with no test: nothing covers the latest assistant turn and its paired results keeping their ids while older turns are rewritten, or the collision and id-reuse cases. The diff changes only docs, images.ts, google.ts, attempt.ts and tool-call-id.ts. Searching for `preserveLatestAssistantTurn` turns up tests only in thinking.test.ts and transcript-policy.test.ts. No test calls sanitizeToolCallIdsForCloudCodeAssist with the new options argument."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 219,
+   "end_line": 219,
+   "message": "The new `preserveLatestAssistantTurn` behavior has no unit tests. That covers preserving the latest assistant turn, preserving its paired tool results, and the collision and ID-reuse edge cases above. The PR also says nothing was run locally, so CI will only exercise this through existing tests that never set the flag. The new `preserveLatestAssistantTurn` behavior has no unit tests. That covers preserving the latest assistant turn, preserving its paired tool results, and the collision and ID-reuse edge cases above. The PR also says nothing was run locally, so CI will only exercise this through existing tests that never set the flag."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "docs/reference/transcript-hygiene.md",
+   "start_line": 114,
+   "end_line": 114,
+   "message": "The new doc line says the latest turn's paired tool-result ids are preserved \"so replayed tool calls stay matched\", but the code also skips older tool results with the same raw id and does not reserve preserved ids against collisions, so the matching guarantee does not hold in general. See tool-call-id.ts lines 286 (the membership check applies to every toolResult in the transcript) and 242-261 (preserved ids are never added to `used`)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 213,
+   "end_line": 213,
+   "message": "The JSDoc for `sanitizeToolCallIdsForCloudCodeAssist` doesn't describe the new `options` parameter. It should say that with `preserveLatestAssistantTurn`, the latest assistant turn's tool-call IDs are left unchanged even if they don't meet the provider's ID format. The JSDoc for `sanitizeToolCallIdsForCloudCodeAssist` doesn't describe the new `options` parameter. It should say that with `preserveLatestAssistantTurn`, the latest assistant turn's tool-call IDs are left unchanged even if they don't meet the provider's ID format."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

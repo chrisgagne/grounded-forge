@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1377718,
+  "duration_s": 28.6
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "On head, parsing ['-ab'] with boolean flags a and b, short-option-groups off and unknown-options-as-args on gives {\"_\":[],\"ab\":true}, so the unknown '-ab' is set as a new key 'ab' and never reaches argv._; on base it passes through as {\"_\":[\"-ab\"]}."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"-ab\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[],\"ab\":true}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: unknown \"-ab\" should pass through to argv._\n+ actual - expected\n\n+ []\n- [\n-   '-ab'\n- ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w18-t2-F1/check/test.mjs:9:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [],\n  expected: [ '-ab' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, parsing ['-ab'] with boolean flags a and b, short-option-groups off and unknown-options-as-args on gives {\"_\":[],\"ab\":true}, so the unknown '-ab' is set as a new key 'ab' and never reaches argv._; on base it passes through as {\"_\":[\"-ab\"]}.",
+ "run": "v4-arm-v3",
+ "trial": "w18-t2",
+ "kind": "bug"
+}

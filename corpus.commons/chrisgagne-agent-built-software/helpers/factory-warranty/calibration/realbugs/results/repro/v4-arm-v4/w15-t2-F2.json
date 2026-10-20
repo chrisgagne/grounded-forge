@@ -1,0 +1,33 @@
+{
+ "finding": "F2",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1390456,
+  "duration_s": 52.6
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/bom.mjs {tree}",
+  "because": "On head, loadAll of `a\\n\\uFEFF---\\nb` and `---\\na\\n\\uFEFF---\\nb` returns one merged scalar `a \\uFEFF--- b` rather than the two documents ['a','b'] that base returns, so a BOM before a later `---` is no longer treated as a document boundary."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS \"a\\n\ufeff---\\nb\" -> [\"a\",\"b\"] expected [\"a\",\"b\"]\nPASS \"---\\na\\n\ufeff---\\nb\" -> [\"a\",\"b\"] expected [\"a\",\"b\"]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"a\\n\ufeff---\\nb\" -> [\"a \ufeff--- b\"] expected [\"a\",\"b\"]\nFAIL \"---\\na\\n\ufeff---\\nb\" -> [\"a \ufeff--- b\"] expected [\"a\",\"b\"]\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, loadAll of `a\\n\\uFEFF---\\nb` and `---\\na\\n\\uFEFF---\\nb` returns one merged scalar `a \\uFEFF--- b` rather than the two documents ['a','b'] that base returns, so a BOM before a later `---` is no longer treated as a document boundary.",
+ "run": "v4-arm-v4",
+ "trial": "w15-t2",
+ "kind": "bug"
+}

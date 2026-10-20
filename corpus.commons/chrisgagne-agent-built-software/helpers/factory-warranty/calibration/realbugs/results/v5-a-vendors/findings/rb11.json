@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/scotthamilton77/agents-config",
+  "pr_number": 1,
+  "base": "3776d9195827d79efec978fb900573f3a5a53339",
+  "head": "1fc789709ae044579908fed58c8c14638d0db095"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.codex/AGENTS.md.template",
+   "start_line": 10,
+   "end_line": 11,
+   "message": "Qualify the Codex instruction references with their install directory. When Codex runs from a project directory, these bare `@...` references do not identify the files installed in `~/.codex/`. Unlike Claude's import syntax, they do not automatically include those files, so the shared rules and personas can remain unread or resolve to project files instead. Explicitly direct Codex to read the files under its configuration directory."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.agents/skills/self-improving-agent/SKILL.md",
+   "start_line": 36,
+   "end_line": 38,
+   "message": "Make correction persistence specific to the active tool. Installing this skill into Codex and Gemini now directs those tools to persist cross-project corrections in `~/.claude/AGENTS.md` and context in Claude's memory directory. Consequently, corrections do not reach the active tool's future sessions and can unexpectedly modify another tool's configuration. Parameterize these destinations or keep this implementation Claude-specific, consistent with the tool-specific separation described in [AGENTS.md](AGENTS.md#L7)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.codex/AGENTS.md.template",
+   "start_line": 5,
+   "end_line": 11,
+   "message": "Codex CLI can't import files with `@file`. It loads ~/.codex/AGENTS.md as plain text, so `@INSTRUCTIONS.md`, `@AGENT-PERSONA.md`, `@USER-PERSONA.md` and `@CODEX-EXTENSIONS.md` are never expanded. At best the model has to decide on its own to read them, and a bare relative name would be looked up in the project's working directory, not ~/.codex/. In practice Codex users lose all the laws, constraints, workflow and persona content this PR moved out of the instruction file. For Codex, inline the content into AGENTS.md at install time, or use absolute ~/.codex/ paths with an explicit instruction to read them."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.claude/AGENTS.md.template",
+   "start_line": 7,
+   "end_line": 12,
+   "message": "The core laws, constraints and workflow used to be inline. Now they are only loaded if Claude Code resolves `@INSTRUCTIONS.md` and `@CLAUDE-EXTENSIONS.md` written mid-sentence, two levels of imports deep (CLAUDE.md \u2192 AGENTS.md \u2192 INSTRUCTIONS.md). The test plan says this is unverified. The persona imports also changed from standalone `@` lines to inline prose. Confirm that the imports resolve, or put each `@` reference on its own line as before, before merging. If they don't resolve, every Claude session silently loses its core instructions."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.claude/CLAUDE-EXTENSIONS.md.template",
+   "start_line": 3,
+   "end_line": 4,
+   "message": "CLAUDE-EXTENSIONS.md imports `@INSTRUCTIONS.md` again, but AGENTS.md already imports it. That can load the shared instructions into context twice. Mention the file by name instead of `@`-importing it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.agents/INSTRUCTIONS.md.template",
+   "start_line": 31,
+   "end_line": 37,
+   "message": "This content is described as tool-agnostic and gets installed into Codex and Gemini, but it relies on Claude-only features: Claude Code's plan mode, beads (\"bead\"), and the superpowers-plugin skills `verification-before-completion` and `self-improving-agent`, plus `context7`. Other tools will be told to use skills and modes that don't exist for them. Move these references into CLAUDE-EXTENSIONS.md or word them generically."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/user/.agents/INSTRUCTIONS.md.template",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The PR presents this as a pure extraction, but the 'Decide, don't defer' rule was reworded and broadened. It used to apply only 'when presenting plans or designs for review'. It now applies everywhere and adds 'Don't ask clarifying questions for decisions you can reasonably make yourself.' This changes agent behaviour without being mentioned in the PR description. Split it into its own change or call it out."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/install.sh",
+   "start_line": 495,
+   "end_line": 496,
+   "message": "Agent files are copied into ~/.gemini/agents (and ~/.codex/agents) unchanged. Their frontmatter is Claude-specific: `model: sonnet|opus|haiku|inherit` and a `color` field. Gemini CLI subagents expect Gemini model names and their own schema, so these definitions may fail to load or be rejected, despite the PR claiming Gemini uses them 'natively'. Translate or filter the frontmatter for each tool, or skip agents for tools whose format isn't confirmed compatible."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/install.sh",
+   "start_line": 331,
+   "end_line": 339,
+   "message": "Shared and tool-specific content now go into the same destination folders (skills/, agents/), but the 'exists in dest but not in source' warning only checks the source being synced. Once a tool-specific skills/ or agents/ directory exists, every shared item will be reported as 'not in <tool>-specific source', and every tool-specific item as 'not in shared source', on every run. Check against both sources before warning."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/install.sh",
+   "start_line": 504,
+   "end_line": 509,
+   "message": "If a shared item and a tool-specific item have the same name (for example in skills/), Phase 2 installs the shared one and Phase 5 then sees a difference and offers to replace it. On the next run Phase 2 sees a difference again, so the two keep overwriting each other and the user is prompted on every run. Skip the shared item when a tool-specific override with the same name exists."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/install.sh",
+   "start_line": 145,
+   "end_line": 151,
+   "message": "Auto-detect always includes claude, even if ~/.claude doesn't exist, and creates the directory. Codex and Gemini are only detected if their directory exists. This is inconsistent, and on a machine with only Codex or Gemini it will create an unwanted ~/.claude."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 75000
+ }
+}

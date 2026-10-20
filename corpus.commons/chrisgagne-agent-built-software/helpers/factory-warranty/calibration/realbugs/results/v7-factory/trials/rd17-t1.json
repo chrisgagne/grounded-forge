@@ -1,0 +1,201 @@
+{
+ "id": "rd17",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.9224,
+ "codex_tokens": 43763,
+ "work": "<tmp>/replay-rd17-t1-s98q06vz",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "pyproject.toml builds with hatchling.build and has no [project.optional-dependencies]. The dev extra is declared only in setup.py extras_require (lines 25-33), which hatchling ignores, so '.[dev]' installs the runtime deps only and the tests in tests/ can't run. I kept this at medium rather than X1's high: it breaks the dev workflow, not runtime behaviour.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 42,
+   "claim": "postCreateCommand installs '.[dev]', but under the hatchling backend no 'dev' extra exists, so pytest, pytest-asyncio, mypy and types-requests never get installed.",
+   "evidence": "pyproject.toml uses `build-backend = \"hatchling.build\"` and declares only `[project] dependencies`, with no `[project.optional-dependencies]`. The `dev` extra exists only in setup.py `extras_require`, and hatchling ignores setup.py. `uv pip install -e '.[dev]'` therefore installs the runtime dependencies and drops the missing extra (uv only warns). The dev tools are listed in requirements-dev.in, which nothing in the devcontainer installs.",
+   "breaks": "story",
+   "axis_row": "L4.5",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 42,
+     "claim": "The postCreateCommand installs `.[dev]`, but the project has no `dev` extra, so the container never gets pytest, pytest-asyncio, mypy or types-requests, even though the README says it installs all dependencies.",
+     "evidence": "pyproject.toml uses `build-backend = \"hatchling.build\"` and declares only `[project] dependencies`, with no `[project.optional-dependencies]`. The `dev` extra exists only in setup.py `extras_require`, and hatchling ignores setup.py. `uv pip install -e '.[dev]'` therefore installs the runtime dependencies and drops the missing extra (uv only warns). The dev tools are listed in requirements-dev.in, which nothing in the devcontainer installs."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 8,
+     "claim": "The container omits development dependencies, so developers cannot run the repository's tests after setup.",
+     "evidence": "On a fresh container, postCreateCommand installs only '.[dev]', but pyproject.toml defines no dev optional dependency group. pytest and pytest-asyncio are declared separately in requirements-dev.in, which this command never installs; the tests import pytest and use its asyncio plugin."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff sets workspaceFolder and python.defaultInterpreterPath to the fixed /workspaces/ProxmoxMCP-Plus and has no workspaceMount. The default mount follows the local folder basename, so a clone or fork with a different name mounts somewhere else and postCreateCommand runs in the wrong place.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 41,
+   "claim": "workspaceFolder and the interpreter path are hard-coded to /workspaces/ProxmoxMCP-Plus with no workspaceMount, so a checkout under any other folder name opens a directory that doesn't exist.",
+   "evidence": "devcontainer.json sets `\"workspaceFolder\": \"/workspaces/ProxmoxMCP-Plus\"` and `\"python.defaultInterpreterPath\": \"/workspaces/ProxmoxMCP-Plus/.venv/bin/python\"` but has no `workspaceMount`. The default mount target is /workspaces/${localWorkspaceFolderBasename}, so a clone named e.g. `proxmox-mcp-plus` or `ProxmoxMCP-Plus-main` is mounted somewhere else. `${containerWorkspaceFolder}` and `${localWorkspaceFolderBasename}` were not used.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 41,
+     "claim": "`workspaceFolder` is hard-coded to /workspaces/ProxmoxMCP-Plus without a matching `workspaceMount`, so a clone in a folder with any other name opens in a directory that doesn't exist, and the postCreateCommand and the interpreter path both fail.",
+     "evidence": "devcontainer.json sets `\"workspaceFolder\": \"/workspaces/ProxmoxMCP-Plus\"` and `\"python.defaultInterpreterPath\": \"/workspaces/ProxmoxMCP-Plus/.venv/bin/python\"` but has no `workspaceMount`. The default mount target is /workspaces/${localWorkspaceFolderBasename}, so a clone named e.g. `proxmox-mcp-plus` or `ProxmoxMCP-Plus-main` is mounted somewhere else. `${containerWorkspaceFolder}` and `${localWorkspaceFolderBasename}` were not used."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 7,
+     "claim": "Opening a checkout with a different directory name selects a nonexistent workspace and breaks dependency installation.",
+     "evidence": "workspaceFolder is fixed to /workspaces/ProxmoxMCP-Plus without a corresponding workspaceMount. The default local workspace mount follows the checkout directory name, so a checkout named proxmox mounts elsewhere while postCreateCommand targets the fixed workspace. The interpreter path on line 20 repeats the same assumption."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "devcontainer.json has only a postCreateCommand (venv plus install) and no postStartCommand. README step 4 never tells the user to run start_openapi.sh, so nothing listens on the forwarded port. This is a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 95,
+   "claim": "The README says the OpenAPI proxy is reachable on 8811, but nothing in the container starts it.",
+   "evidence": "devcontainer.json has only `postCreateCommand` (venv plus install), with no `postStartCommand` and no run of start_openapi.sh. The README steps never tell the user to run `./start_openapi.sh` or `python -m proxmox_mcp.openapi_proxy`. Step 4 reads: \"Port `8811` is forwarded automatically so the OpenAPI proxy is reachable at `http://localhost:8811`.\"",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "low",
+     "file": "README.md",
+     "line": 95,
+     "claim": "The README says the OpenAPI proxy is reachable at http://localhost:8811 once port 8811 is forwarded, but nothing in the dev container starts the proxy, so users following the steps will find nothing on that port.",
+     "evidence": "devcontainer.json has only `postCreateCommand` (venv plus install), with no `postStartCommand` and no run of start_openapi.sh. The README steps never tell the user to run `./start_openapi.sh` or `python -m proxmox_mcp.openapi_proxy`. Step 4 reads: \"Port `8811` is forwarded automatically so the OpenAPI proxy is reachable at `http://localhost:8811`.\""
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff has 'FROM python:3.11-slim' with no digest and 'pip install --no-cache-dir uv' with no version, and pyproject uses open '>=' ranges. This is a real but low-severity supply-chain and reproducibility point; the root Dockerfile does the same.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".devcontainer/Dockerfile",
+   "line": 17,
+   "claim": "The base image and uv are unpinned, so the dev image isn't reproducible.",
+   "evidence": "`FROM python:3.11-slim` has no digest, and `RUN pip install --no-cache-dir uv` has no version pin. The `uv pip install -e` that follows resolves the open-ended `>=` ranges in pyproject.toml, and no lockfile is used (`.gitignore` excludes `uv.lock`).",
+   "axis_row": "L5.40",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".devcontainer/Dockerfile",
+     "line": 17,
+     "claim": "The dev image pulls an unpinned base image and an unpinned `uv` from PyPI, so builds aren't reproducible and the supply-chain input can change without anyone noticing.",
+     "evidence": "`FROM python:3.11-slim` has no digest, and `RUN pip install --no-cache-dir uv` has no version pin. The `uv pip install -e` that follows resolves the open-ended `>=` ranges in pyproject.toml, and no lockfile is used (`.gitignore` excludes `uv.lock`)."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The new Dockerfile adds build-essential, while the root Dockerfile builds the same dependency set with only git and curl. The README calls it out as 'common build tools', so it looks deliberate. It's an image-size and attack-surface point, not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".devcontainer/Dockerfile",
+   "line": 13,
+   "claim": "build-essential is installed though no dependency is shown to need a compiler.",
+   "evidence": "The root Dockerfile installs only `git curl` and builds the same dependency set. The new .devcontainer/Dockerfile adds `build-essential`, and the change gives no reason for it.",
+   "axis_row": "L4.4",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".devcontainer/Dockerfile",
+     "line": 13,
+     "claim": "`build-essential` is added to the dev image although no dependency is shown to need a compiler, which makes the image bigger and gives it more attack surface than the existing Dockerfile has.",
+     "evidence": "The root Dockerfile installs only `git curl` and builds the same dependency set. The new .devcontainer/Dockerfile adds `build-essential`, and the change gives no reason for it."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "README line 89 says all Python dependencies are installed via '.[dev]', which resolves to no extra under hatchling (see the C1 item). The Ruff/Black part of the claim holds, since the listed extensions bundle those tools. It's a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 89,
+   "claim": "The README overstates the environment: it claims 'all Python dependencies' are installed, but the dev toolchain is missing.",
+   "evidence": "README step 2: \"installs all Python dependencies automatically (`uv pip install -e \".[dev]\"`)\". As shown above, `.[dev]` resolves to no extra under hatchling. The only thing in devcontainer.json that provides ruff and black is the `extensions` list (`charliermarsh.ruff`, `ms-python.black-formatter`).",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "README.md",
+     "line": 89,
+     "claim": "The README claims the container installs \"all Python dependencies\" and comes with Ruff and Black, but the Python dev toolchain (pytest/mypy) is missing, and Ruff/Black are only present through the VS Code extensions' bundled binaries, so the documentation overstates what the environment gives you.",
+     "evidence": "README step 2: \"installs all Python dependencies automatically (`uv pip install -e \".[dev]\"`)\". As shown above, `.[dev]` resolves to no extra under hatchling. The only thing in devcontainer.json that provides ruff and black is the `extensions` list (`charliermarsh.ruff`, `ms-python.black-formatter`)."
+    }
+   ],
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

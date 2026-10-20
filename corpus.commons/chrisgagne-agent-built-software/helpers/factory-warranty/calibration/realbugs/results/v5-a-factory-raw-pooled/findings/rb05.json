@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/AA-Factory/aafactory-prototype",
+  "pr_number": 17,
+  "base": "e7f558c7360abac335af2df22f4ed376992b30ab",
+  "head": "a1978cb75950a879df8805e4a5f373eb6678f6f9"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 41,
+   "end_line": 41,
+   "message": "test_send_request_to_llm never calls send_request_to_llm. It awaits the mocked send_request_to_open_ai directly, so the test passes no matter what the real chat function does and covers none of its logic. Line 41 is `await chat_interface.send_request_to_open_ai(...)`, and line 24 patches that same name with an AsyncMock whose side_effect returns `(\"\", [[\"Hello\",\"Hi there!\"]], \"video_path.mp4\")`. The real `send_request_to_llm` (chat/interface.py:77-94) builds the system prompt, joins on history, dispatches to elevenlabs or zonos, and appends to CHAT_HISTORY. None of that code runs."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "Every assertion checks a value the test's own mock produced, so the test is a tautology: it cannot fail on a wrong implementation, and it says nothing about the real CHAT_HISTORY behaviour. `llm_side_effect` (lines 20-22) does `CHAT_HISTORY.append([\"Hello\", \"Hi there!\"])` and returns the tuple that lines 47-51 then assert on (`first_llm_answer[0] == \"\"`, `len(CHAT_HISTORY) == 1`, `CHAT_HISTORY[0] == [\"Hello\",\"Hi there!\"]`). The real append at interface.py:93 is never reached."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "The test depends on the pytest-mock (`mocker`) and pytest-asyncio (`@pytest.mark.asyncio`) plugins, which the project does not declare. On the project's own environment it errors with a missing fixture, or the async test is not run. pyproject.toml's dev group lists only `pytest` and `pytest-cov`. poetry.lock has no `name = \"pytest-mock\"` or `name = \"pytest-asyncio\"` package entry; those names appear only as other packages' extras. The test takes a `mocker` argument and is an `async def` marked `@pytest.mark.asyncio`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "The test calls the real `_load_avatar_infos_for_chat`, not the patched one. It opens the developer's real TinyDB at DB_PATH (creating the file if it is missing) and crashes with AttributeError when no avatar page settings row exists. Line 8 does `from aafactory.chat.interface import _load_avatar_infos_for_chat`, which binds the name locally before line 31 patches `aafactory.chat.interface._load_avatar_infos_for_chat`, so the patch does not affect it. The real function (interface.py:55-60) runs `TinyDB(DB_PATH)` with DB_PATH = ROOT_DIR/databases/avatar_db.json (configuration.py:8), then `avatar_page_settings_table.get(doc_id=1).get(\"avatar_name\")`, which raises on None in a fresh DB. tests/test_configuration.py defines a TEST_DB_PATH that this test does not use."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "The test never asserts that the patched send_request_to_generate_video or send_request_to_open_ai were called, or with what arguments. It also passes ten positional arguments to a function whose real signature takes one `messages` list, so the mocks can drift from reality unnoticed. There is no `assert_called*` anywhere in the file. The `send_request_to_generate_video` mock is never used. Line 41 calls `send_request_to_open_ai(avatar_info[9], \"Hello\", ...)` with 10 args, while interface.py:86 calls it as `send_request_to_open_ai(messages)`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/aafactory/chat/interface.py",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The code under test has defects that the new test was meant to cover and cannot catch. The previous user message is string-concatenated onto the new prompt instead of being sent as history, and an unknown voice_model leaves `audio_response` unbound, so line 91 raises UnboundLocalError. Line 81 is `user_message = CHAT_HISTORY[-1][0] + user_prompt`, which joins only the last user text with no separator and drops assistant turns. Lines 87-91 assign `audio_response` only in the `elevenlabs`/`zonos` branches, then use it unconditionally. The new test mocks around send_request_to_llm and never exercises either path."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The test clears the module-global CHAT_HISTORY at the start but never restores it, so state leaks into any later test that touches chat history. Line 14 calls `CHAT_HISTORY.clear()`, and then the side effect appends to the global list (line 21). There is no fixture teardown or monkeypatch of CHAT_HISTORY."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 35,
+   "end_line": 35,
+   "message": "The test calls its own mock instead of send_request_to_llm, so broken chat orchestration will still pass. Lines 18\u201322 replace send_request_to_open_ai with llm_side_effect, and line 35 calls that replacement directly. The side effect supplies every asserted return value and appends the asserted history itself; the production send_request_to_llm never executes."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The avatar-loader patch misses the imported reference, leaving the test dependent on the real application database. Line 2 imports _load_avatar_infos_for_chat directly, while line 26 patches only chat_interface._load_avatar_infos_for_chat. Line 33 invokes the original imported function, which opens TinyDB(DB_PATH) and calls avatar_page_settings.get without checking whether the settings record exists; an empty database therefore causes an AttributeError before the assertions."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "The new test requires undeclared pytest plugins and cannot run with the project's declared development dependencies. The test requests the mocker fixture and uses pytest.mark.asyncio, requiring pytest-mock and pytest-asyncio. pyproject.toml declares only pytest and pytest-cov as development dependencies, and neither required plugin has a package entry in poetry.lock. A clean project installation cannot provide the mocker fixture."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

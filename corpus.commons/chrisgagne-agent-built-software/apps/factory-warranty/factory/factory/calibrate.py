@@ -76,7 +76,11 @@ def run_fixture(fx: Path, sample: Path, work: Path, grounding: str | None, revie
     app = work / "app"
     shutil.copytree(sample, app, ignore=shutil.ignore_patterns("node_modules", ".git"))
     git(app, "init", "-q", "-b", "main")
-    git(app, "add", "-A")
+    # The baseline is committed byte for byte: the project's own .gitignore and line-ending attributes would otherwise
+    # drop tracked files or rewrite them, and the change's diff would no longer apply.
+    (app / ".git" / "info").mkdir(parents=True, exist_ok=True)
+    (app / ".git" / "info" / "attributes").write_text("* -text\n")
+    git(app, "add", "-A", "-f")
     if (app / ".factory").exists():  # a project whose .gitignore is an allowlist would leave the config out
         git(app, "add", "-f", ".factory")
     git(app, "commit", "-q", "-m", "calibration baseline")

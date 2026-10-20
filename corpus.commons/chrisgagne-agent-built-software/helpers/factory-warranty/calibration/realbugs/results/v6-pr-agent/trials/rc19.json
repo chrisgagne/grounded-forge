@@ -1,0 +1,40 @@
+{
+ "id": "rc19",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 388,
+   "end_line": 396,
+   "message": "Stale plan pushed. The `EEXIST + --push` retry path never checks that the existing marker's `sha256=` still matches the current plan file before going to Step 4c.\n\nScenario: a user approves, the push fails, the user edits `.clancy/plans/{stem}.md`, then runs the printed retry command. The edited, never-approved content gets posted to the board as the \"approved plan\", even though `/clancy:plan` inventory would show the plan as `Stale (re-approve)`.\n\nThe retry branch should re-hash the plan and refuse to push on mismatch."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 516,
+   "end_line": 538,
+   "message": "--ticket override bypassed. The ordering in Step 4c means `--ticket` is never reached when the plan has no usable Source:\n- A missing `**Source:**` header causes a silent skip.\n- An inline-quoted or file-path Source logs `BOARD_PUSH_SKIPPED_NO_TICKET` and continues to Step 7.\n\nBoth happen before key validation, which is the only place the override is consulted. This contradicts the documented purpose of `--ticket` (\"Useful when the brief Source field is missing, ambiguous\"). It also means `/clancy:approve-plan {stem} --push --ticket KEY` silently does nothing for these plans.\n\nThe override should be checked before Source parsing and should short-circuit it."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 742,
+   "end_line": 750,
+   "message": "Audit row inconsistency. The audit-row rules in Step 4c are inconsistent:\n- **Ordering:** Step 4c runs before Step 7, yet `LOCAL_APPROVE_PLAN_PUSH`, `BOARD_PUSH_SKIPPED_NO_TICKET` and `BOARD_PUSH_FAILED` are specified as written \"after\" the `LOCAL_APPROVE_PLAN` row that Step 7 appends.\n- **Retry duplicates:** the retry branch falls through 4c into Step 7, which appends `LOCAL_APPROVE_PLAN` again. That contradicts the claim that auditing tools \"see one approval row\" across retries.\n\nThe spec should say which step writes each row. It should also say that Step 7 skips the `LOCAL_APPROVE_PLAN` row on the EEXIST retry path."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 26,
+  "usage": {
+   "prompt_tokens": 33579,
+   "completion_tokens": 2082,
+   "total_tokens": 35661
+  },
+  "security_concern": false
+ }
+}

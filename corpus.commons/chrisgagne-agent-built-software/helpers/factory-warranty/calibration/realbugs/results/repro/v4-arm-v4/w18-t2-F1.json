@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.12566560000000002,
+  "duration_s": 23.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "The script builds the tree's own lib/yargs-parser.ts and parses '-ab' with boolean a and b, short-option-groups off and unknown-options-as-args on: base gives {_:['-ab']} and passes, while head gives {_:[], ab:true} and fails, which shows the unknown argument being read as option 'ab' instead of passing through."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"-ab\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[],\"ab\":true}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: '-ab' should pass through to _ when short-option-groups is off\n+ actual - expected\n\n+ []\n- [\n-   '-ab'\n- ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w18-t2-F1/check/check.mjs:8:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [],\n  expected: [ '-ab' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The script builds the tree's own lib/yargs-parser.ts and parses '-ab' with boolean a and b, short-option-groups off and unknown-options-as-args on: base gives {_:['-ab']} and passes, while head gives {_:[], ab:true} and fails, which shows the unknown argument being read as option 'ab' instead of passing through.",
+ "run": "v4-arm-v4",
+ "trial": "w18-t2",
+ "kind": "bug"
+}

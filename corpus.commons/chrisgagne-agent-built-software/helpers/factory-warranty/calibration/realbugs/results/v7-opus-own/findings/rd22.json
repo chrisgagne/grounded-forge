@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 1233,
+   "end_line": 1254,
+   "message": "Cluster mode cannot reach Keycloak in the documented default setup. The operator always fills status.endpoints.admin/public with cluster-internal DNS (`http://{name}-keycloak.{ns}.svc.cluster.local:8080`, see keycloak_reconciler.py:464-467). resolveURL prefers those values, so a CLI running on a workstation or CI host (the stated use case: 'the toolkit runs outside the cluster') gets DNS failures unless the user also passes --server-url. That flag is not in any of the documented cluster-mode examples. The spec fallback is also dead code: `spec.hostname` is not a field on the Keycloak CR (the external host is `spec.ingress.host`, and TLS lives under `spec.tls.hostname`). Suggested fix: use spec.ingress.host when ingress is enabled, otherwise port-forward or require --server-url with a clear error. Don't silently return svc.cluster.local."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 1256,
+   "end_line": 1285,
+   "message": "The 'double-encoding' heuristic in decodeSecretKey corrupts valid credentials. client-go already returns decoded bytes, and any plaintext value whose length is a multiple of 4 and uses only [A-Za-z0-9+/=] gets base64-decoded into garbage. The operator generates 16-char passwords from letters+digits+'!@#$%^&*' (utils/kubernetes.py:1428-1429), so about 14% of generated passwords ((62/70)^16) have no special characters, match this pattern, and cause authentication to fail. User-supplied existingSecret passwords like 'Passw0rdPassw0rd' fail the same way. Remove the heuristic and use the raw bytes as-is, exactly as the operator does."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 938,
+   "end_line": 968,
+   "message": "The error detection this design depends on can never trigger. Keycloak's PartialImportResults JSON has `added`, `skipped`, `overwritten` and `results` (action ADDED/SKIPPED/OVERWRITTEN), but no `errors` field and no ERROR/FAILED action. On failure Keycloak rolls back and returns a non-2xx error response instead. So `Errors` is always 0, the `batchResult.Errors > 0` hard-fail path and ErrorDetails collection are dead code, and the ADR/doc claim of 'Hard fail on errors > 0' isn't backed by the API. Real failures only show up through the generic non-200 branch. Also, `overwritten` is never parsed, so in OVERWRITE mode the summary reports Added=0 Skipped=0 for a successful run."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "docs/decisions/093-user-import-via-migration-toolkit.yaml",
+   "start_line": 59,
+   "end_line": 64,
+   "message": "The ADR, CLI help and docs say Partial Import is 'non-atomic at the batch level \u2014 there is no rollback if a batch partially succeeds'. Keycloak runs a partialImport request in a single transaction and rolls it back on error, so a batch is all-or-nothing. Only cross-batch progress is non-atomic. Recording a wrong premise in a decision record (which future agents are told to follow) spreads the misconception, and the 'errors > 0' instructions in agent_instructions are built on it. Correct the rationale and agent_instructions."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 1158,
+   "end_line": 1165,
+   "message": "The readiness gate only accepts phase == 'Ready'. Per project conventions, `Degraded` also means operational (and `Updating` may be acceptable too), so the import is refused against a working instance for no good reason. Accept Ready and Degraded, or offer a --skip-ready-check flag."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 865,
+   "end_line": 865,
+   "message": "All HTTP calls use http.DefaultClient, which has no timeout. A Keycloak that is unreachable or stalls while importing a 500-user batch with credential hashes hangs the CLI forever, and the context is context.Background() with no signal handling. Use a dedicated http.Client with a sensible timeout (and wire ctx to SIGINT via signal.NotifyContext in the command)."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 927,
+   "end_line": 933,
+   "message": "A 409 is always reported as '(mode=FAIL)' even when the request ran in SKIP or OVERWRITE mode. Keycloak can return 409 for other conflicts, such as duplicate email or a conflicting federation link, so this message points the operator at the wrong cause. Include the actual mode instead of hardcoding it."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 333,
+   "end_line": 334,
+   "message": "The admin password is only accepted as a CLI flag, so it shows up in `ps` output, shell history and CI logs. The docs even show it as the CI pattern. For a tool whose rationale is 'avoid requiring users to handle plaintext credentials', provide an env var (e.g. KEYCLOAK_ADMIN_PASSWORD) or --password-file/stdin and steer the docs toward that."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 369,
+   "end_line": 384,
+   "message": "The docs say 'Exactly one mode must be chosen', but passing --keycloak together with --username/--password silently ignores --keycloak, and a partial set (only --username) gets a misleading message telling the user --server-url is required. Reject mutually exclusive flags explicitly, e.g. with cobra's MarkFlagsMutuallyExclusive/MarkFlagsRequiredTogether."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 799,
+   "end_line": 807,
+   "message": "Dry-run output goes through fmt.Printf to stdout, while the rest of the command uses cmd.Printf (cobra's stderr by default), so output streams are mixed and can't be captured in tests. Dry-run also still performs kube API calls and secret reads, which contradicts the docs' 'without making API calls'. It also does nothing useful with the payload (no per-batch size estimate or sample)."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+   "start_line": 1,
+   "end_line": 90,
+   "message": "Only chunk() and the loader are tested. Nothing covers authenticate, importBatch, ImportUsers (token refresh, error aggregation, status-code handling), resolveURL, decodeSecretKey or flag/mode validation, even though httptest and fake dynamic/kube clients make all of these easy to unit-test. The bugs above (base64 heuristic, missing `errors` field, unreachable URL) would have been caught. This is well short of the project's 85% patch-coverage requirement."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 902,
+   "end_line": 905,
+   "message": "The file isn't gofmt-clean: map literal values are misaligned, and the anonymous Results struct fields here and the KeycloakStatus fields in internal/k8s/types.go:730-731 are misaligned too. That conflicts with the claim that all quality checks passed, and gofmt/golangci CI checks would flag it."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/loader.go",
+   "start_line": 1321,
+   "end_line": 1329,
+   "message": "The age error prints whole hours with %.0f, so `--max-age 30m` produces 'is 1 hours old (max: 0 hours)'. Format with time.Duration's String() (rounded) instead. Separately, mtime is a weak freshness signal: copying or touching the file resets it."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 809,
+   "end_line": 812,
+   "message": "With an empty users.json (which the loader explicitly accepts), the command still authenticates and reports success with 0 batches. Return early before authenticating when there are no users."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "docs/how-to/export-realms.md",
+   "start_line": 104,
+   "end_line": 105,
+   "message": "Calling an imperative, credential-reading one-shot CLI 'GitOps-friendly' contradicts the ADR's own framing (a one-time migration tool, deliberately outside the GitOps/CRD model) and may mislead users into running it from pipelines as a sync mechanism."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

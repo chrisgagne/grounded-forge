@@ -1,0 +1,29 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "src/Livewire/Chat/Chat.php",
+  "line": 655,
+  "claim": "Receiving or sending a message after jumping into history skips intervening messages and disables loading them through loadNewer.",
+  "evidence": "With 100 chronological messages, jumpToMessage() targeting message 20 loads messages 10\u201330. If message 101 then arrives, appendNewMessage() calls pushMessage(), which appends 101 and synchronizes the newer cursor to it. syncCanLoadFlags() finds nothing after 101 and sets canLoadNewer=false, leaving messages 31\u2013100 absent from the displayed window."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "resources/views/livewire/chats/partials/message-body.blade.php",
+  "line": 17,
+  "claim": "Duplicate class attributes prevent unread previews and timestamps from receiving their conditional font weight and color.",
+  "evidence": "The paragraph already has a literal class attribute on line 16, then @class emits another class attribute containing the conditional unread styles. The timestamp repeats this pattern on lines 27\u201328. HTML parsing retains the first attribute, so the conditional styles are discarded."
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "resources/views/livewire/chat/partials/body.blade.php",
+  "line": 198,
+  "claim": "Programmatic jump scrolling cancels its own media correction lock, allowing subsequently loaded images to move the target out of position.",
+  "evidence": "scrollToMessageCenterWithRetry() sets jumpTargetId and a 1200ms lock, then scrollToMessageCenter() assigns container.scrollTop without updating lastScrollTop. The resulting scroll event enters onScroll(); any movement over eight pixels clears jumpTargetId and jumpLockUntil. onAnyMediaLoad() therefore cannot recenter that target when media subsequently changes the layout."
+ }
+]

@@ -1,0 +1,102 @@
+{
+ "id": "rb24",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "Preserve syntax compatibility with supported Ruby versions. The safe-navigation operator requires Ruby 2.3, but README.md and fastimage.gemspec still support Ruby 1.9.2 and later. On Ruby 1.9\u20132.2, requiring fastimage now raises SyntaxError, breaking all existing functionality, not just resolution extraction. The new keyword-argument syntax in Exif also excludes Ruby 1.9. Use syntax compatible with the declared minimum version."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 94,
+   "end_line": 96,
+   "message": "Read resolution rationals at valid backward offsets. TIFF offsets may point to rational data before the IFD, and XResolution and YResolution may share the same rational value offset. Skipping every offset behind the current stream position silently loses resolution in both valid layouts: data before the IFD is never read, and a shared offset is skipped after reading the first axis. Consequently, the public API returns nil despite available resolution metadata. Preserve referenced bytes or support seeking and reuse values for shared offsets."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 33,
+   "end_line": 36,
+   "message": "A truncated or malformed JFIF APP0 segment crashes the call. The only check is that the first 5 bytes are \"JFIF\\0\", then `data[7].ord` and `data[8, 4].unpack(\"nn\")` run without checking `length`. If the segment is shorter than 12 bytes, `data[7]` is nil and `.ord` raises NoMethodError. `FastImage#fetch` doesn't rescue NoMethodError, so the exception reaches the caller even with `raise_on_failure: false`. That breaks the gem's promise of returning nil for bad images, and anyone serving a crafted JPEG can trigger it. Check `data.bytesize >= 12` before reading these fields."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 31,
+   "end_line": 44,
+   "message": "The JFIF APP0 values win unconditionally, and the code returns right away without looking at the EXIF APP1 segment. Many cameras and editors write JFIF with units=0 and density 1:1, which means 'unspecified', and put the real DPI in EXIF XResolution/YResolution. Those files will report `[[1, 1], :no_units]` instead of, say, 300 dpi; test3.jpg's new expectation locks this in. JFIF also allows density 0. Fall back to EXIF (or keep scanning) when the JFIF units are 0, at least when the density is 1:1 or 0."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "`exif&.x_resolution` uses the safe-navigation operator, which needs Ruby 2.3+. The gemspec declares `required_ruby_version >= 1.9.2`, and the most recent commit specifically restores pre-2.6 compatibility. On older Rubies jpeg.rb won't parse, so the whole gem fails to load. Use `exif && exif.x_resolution && exif.y_resolution`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "`def initialize(stream, parse_resolution: false)` uses keyword arguments, which are a syntax error before Ruby 2.0. The gemspec still advertises `>= 1.9.2`, and Exif is loaded for every user, not only those calling `resolution`. Either use an optional positional argument or raise `required_ruby_version`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 92,
+   "end_line": 96,
+   "message": "Because the stream is forward-only, any RATIONAL value stored at an offset before the current stream position is silently skipped (`next if skip_amount < 0`). TIFF allows values anywhere in the file, and many writers put the IFD at the end, after the strips and value data. Those TIFFs return nil resolution even though they contain XResolution/YResolution. The new fixture expecting nil for test.dng may be hiding this. At minimum this limitation should be documented; ideally the code should handle it, for example by buffering or noting the values while reading the IFD."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "lib/fastimage/fastimage.rb",
+   "start_line": 474,
+   "end_line": 489,
+   "message": "When an image is valid but has no resolution metadata (a PNG without pHYs, any GIF/WebP/SVG, etc.), the parser returns nil and `parse_packets` raises CannotParseImage. With `raise_on_failure: true`, `FastImage.resolution`/`#resolution` therefore raise on perfectly good images instead of returning nil as documented. Because `@resolution` is never assigned in this case, calling `resolution_units` after `resolution` also triggers a second full fetch (another HTTP request), and so does every repeated call. Set `@resolution`/`@resolution_units` to nil explicitly for the resolution property instead of treating it as a parse failure."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "lib/fastimage/fastimage_parsing/tiff.rb",
+   "start_line": 20,
+   "end_line": 24,
+   "message": "Any ResolutionUnit value other than 1 or 3 maps to :inches. That covers the absent-tag default (2), but it also turns invalid or unknown values into :inches. The same pattern is repeated in jpeg.rb:52-56. Consider mapping only nil/2 to :inches and returning :no_units or nil for anything else. Also extract the duplicated mapping into Exif."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 56,
+   "end_line": 61,
+   "message": "XResolution/YResolution are captured only when the field type is RATIONAL (5). Some writers emit SRATIONAL (10), or LONG/SHORT for these tags, and those files return no resolution. The `case type` assignments are also now duplicated across the LONG and SHORT branches, which makes the width/height/orientation handling easier to break later."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 49,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 92,
+   "cost_usd": 0.47222719999999996,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 92
+ }
+}

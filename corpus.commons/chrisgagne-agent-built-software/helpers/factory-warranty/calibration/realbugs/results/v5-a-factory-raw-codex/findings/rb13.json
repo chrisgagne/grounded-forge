@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/AY2526S2-CS2103T-W14-3/tp",
+  "pr_number": 152,
+  "base": "a27b3e40d94f92f229b9301a8a9d5207d9a5b0bb",
+  "head": "e0a9ce03c8c1cc839eaf409e2677b9abf2017b1f"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/main/java/seedu/address/model/AddressBook.java",
+   "start_line": 79,
+   "end_line": 79,
+   "message": "Replacing notes with the address book\u2019s own read-only view silently deletes every note. getNoteMap() returns Collections.unmodifiableMap(notes), a live view. Calling setNotes(book.getNoteMap()), resetData(book), or model.setAddressBook(model.getAddressBook()) reaches this.notes.clear() before putAll(notes), so the source map is already empty."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "docs/UserGuide.md",
+   "start_line": 335,
+   "end_line": 335,
+   "message": "The user guide incorrectly says notes are neither persisted nor undoable. Lines 335 and 360 describe confirmation-only behavior and explicitly deny undo support. NoteCommand.execute now calls model.setNote(), isStateMutating() returns true, and LogicManager saves the address book after execution; JsonSerializableAddressBook now serializes notes."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

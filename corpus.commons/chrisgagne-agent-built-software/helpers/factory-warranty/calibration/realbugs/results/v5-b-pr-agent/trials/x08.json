@@ -1,0 +1,41 @@
+{
+ "id": "x08",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/parser/parser.ts",
+   "start_line": 1105,
+   "end_line": 1113,
+   "message": "Bypassed helper. The `MAPPING` event is now built as an inline object literal and inserted with `splice`, instead of going through `addMappingEvent`. If `addMappingEvent` does more than `push` (for example nesting-depth tracking, depth-limit checks, extra default fields such as `end`, or notifying a streaming listener), that work is skipped only on this path. Mappings opened here would then behave differently from mappings opened elsewhere. The helper isn't visible in the diff, so check what it does. Safer options are to route through a shared helper that takes an insertion index, or to keep the event shape identical."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/parser/parser.ts",
+   "start_line": 1103,
+   "end_line": 1105,
+   "message": "Index shift. `splice` at `beforeKey.eventsLength` moves every event produced while parsing the key up by one position. If anything recorded absolute indices into `state.events` during key parsing, those indices now point one slot too early. Possible examples are anchor-to-event maps for keys like `[&a x]: y` or `&a k: v`, and parent/back-references used for later patching. The old rollback-and-reparse approach regenerated these with correct indices. It's unclear from the diff whether such index bookkeeping exists, but if it does, alias resolution or end-position patching would target the wrong event."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/parser/parser.ts",
+   "start_line": 1102,
+   "end_line": 1115,
+   "message": "Removed `:` consumption. The old code finished the re-read by skipping whitespace and doing `state.position++` to consume the `:` indicator. The new code removes this and relies on the earlier validation code having already advanced `state.position` past `:`. The removed comment says the earlier code \"validated\" the `:` and space, which doesn't confirm it consumed them. Verify that the path before this block leaves `state.position` past `:`. If it doesn't, value parsing for the first pair of every block mapping would start at the `:` character."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 26,
+  "usage": {
+   "prompt_tokens": 3017,
+   "completion_tokens": 1873,
+   "total_tokens": 4890
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

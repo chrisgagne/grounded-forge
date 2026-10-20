@@ -16,6 +16,8 @@ builds:
     source_dir: corpus.commons/chrisgagne-agent-built-software
     output_dir: corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty
     helpers_dir: factory
+    helpers_exclude:
+    - calibration/realbugs/results
     recommends_capabilities:
     - name: delivery-metrics
       purpose: Read the change ledger, CI runs and release records to see what was demonstrated

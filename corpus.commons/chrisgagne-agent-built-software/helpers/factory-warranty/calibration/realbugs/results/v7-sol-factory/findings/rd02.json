@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The relocated scripts retain the old relative root calculation, so direct execution without AO_REPO_ROOT targets the assets directory and fails. ao-update.sh still calculates REPO_ROOT as the script directory's parent, which is now packages/cli/src/assets (or dist/assets), then changes there and resolves smoke-test and launcher paths beneath it. ao-doctor.sh:31 uses the same calculation, causing false missing-install failures. runRepoScript supplies an override, but direct bash execution does not; the script tests always set AO_REPO_ROOT and therefore miss this regression."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

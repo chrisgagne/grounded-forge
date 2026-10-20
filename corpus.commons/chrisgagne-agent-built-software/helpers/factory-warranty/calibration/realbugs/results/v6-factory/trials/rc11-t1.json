@@ -1,0 +1,250 @@
+{
+ "id": "rc11",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.2195,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc11-t1-wlu4vas2",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "useInventory.ts:58-77 calls setActivities from inside the setItems updater, and src/main.tsx:7 wraps the app in <StrictMode>, which double-invokes updaters in development; the new test at useInventory.test.ts:117 renders with no StrictMode wrapper. Lowered to low because it only happens in development and deleteItem is unchanged by this diff.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/hooks/useInventory.ts",
+   "line": 74,
+   "claim": "deleteItem calls setActivities inside the setItems updater. Under StrictMode (dev) the updater runs twice, so one delete logs two 'removed' entries. The new test uses renderHook without StrictMode, so it can't catch this.",
+   "evidence": "deleteItem calls `setActivities(prevAct => [activity, ...prevAct])` inside the `setItems(prev => {...})` updater. src/main.tsx wraps <App /> in <StrictMode>, and React runs updater functions twice in development. The new test 'adds activity when deleting an item' uses renderHook without StrictMode, so it checks only the single-invocation case.",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/hooks/useInventory.ts",
+     "line": 74,
+     "claim": "Under StrictMode, every delete in the running app may log two 'removed' activity entries, because deleteItem queues a state update from inside another state updater; the new delete-activity test cannot catch this.",
+     "evidence": "deleteItem calls `setActivities(prevAct => [activity, ...prevAct])` inside the `setItems(prev => {...})` updater. src/main.tsx wraps <App /> in <StrictMode>, and React runs updater functions twice in development. The new test 'adds activity when deleting an item' uses renderHook without StrictMode, so it checks only the single-invocation case."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/__tests__/useInventory.test.ts",
+     "line": 31,
+     "claim": "The new test locks in a fragile pattern without catching its bug. `deleteItem` calls `setActivities` inside the `setItems` updater function. The app runs under `<StrictMode>` (src/main.tsx:7), and in development React calls updater functions twice, so each delete adds two 'removed' activities. `renderHook` here doesn't use StrictMode, so the test passes anyway. Move the activity side effect out of the updater (find the item from current `items`, then call both setters), and/or render the hook with a StrictMode wrapper.",
+     "evidence": "The new test locks in a fragile pattern without catching its bug. `deleteItem` calls `setActivities` inside the `setItems` updater function. The app runs under `<StrictMode>` (src/main.tsx:7), and in development React calls updater functions twice, so each delete adds two 'removed' activities. `renderHook` here doesn't use StrictMode, so the test passes anyway. Move the activity side effect out of the updater (find the item from current `items`, then call both setters), and/or render the hook with a StrictMode wrapper."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P1"
+   ],
+   "verdict": "confirmed",
+   "reason": "updateItem (useInventory.ts:43-55) only calls setItems, while addItem (line 38) and deleteItem (line 74) both call setActivities. The diff connects it through App.tsx `onUpdate={updateItem}`, so every edit made in the UI is missing from the feed.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/hooks/useInventory.ts",
+   "line": 43,
+   "claim": "The change wires updateItem to the new Edit flow, but updateItem never logs an activity entry, so edits never show up in the Recent Activity feed.",
+   "evidence": "updateItem only calls setItems and never calls setActivities. addItem (line 38) and deleteItem (line 74) both log activity, and ActivityEntry.action in src/types/inventory.ts already includes 'updated'. The diff wires updateItem to the new Edit button (App.tsx `onUpdate={updateItem}`) without adding a log entry, and no test covers edit activity.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/hooks/useInventory.ts",
+     "line": 43,
+     "claim": "Editing an item through the new Edit flow writes no activity entry, so the Recent Activity feed shows adds and deletes but never edits.",
+     "evidence": "updateItem only calls setItems and never calls setActivities. addItem (line 38) and deleteItem (line 74) both log activity, and ActivityEntry.action in src/types/inventory.ts already includes 'updated'. The diff wires updateItem to the new Edit button (App.tsx `onUpdate={updateItem}`) without adding a log entry, and no test covers edit activity."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/hooks/useInventory.ts",
+     "line": 43,
+     "claim": "This PR connects `updateItem` to the UI, but `updateItem` never adds an activity entry. `ActivityEntry.action` already has an `'updated'` value (src/types/inventory.ts:26), and add and delete both log to the feed. Edits made through the new Edit button won't show up in the activity feed, so the audit trail is incomplete. Add an `'updated'` activity in `updateItem` and test it, the same way this PR added a test for delete.",
+     "evidence": "This PR connects `updateItem` to the UI, but `updateItem` never adds an activity entry. `ActivityEntry.action` already has an `'updated'` value (src/types/inventory.ts:26), and add and delete both log to the feed. Edits made through the new Edit button won't show up in the activity feed, so the audit trail is incomplete. Add an `'updated'` activity in `updateItem` and test it, the same way this PR added a test for delete."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only test in diff.patch is the deleteItem hook test. Nothing renders InventoryTable's onEdit, AddItemModal's editItem/onUpdate, or InventoryPage's openModal/modalKey. Kept at low because missing tests are a coverage gap, not a defect.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/components/Inventory/InventoryTable.tsx",
+   "line": 191,
+   "claim": "None of the new edit UI has a test: the Edit button, the modal pre-fill and 'Save Changes' path, and the form reset that depends on `key`.",
+   "evidence": "The only test the diff adds is a hook test for deleteItem activity. No test renders InventoryTable's new `onEdit` button, AddItemModal with `editItem`/`onUpdate`, or InventoryPage's `openModal(item)` and `modalKey` logic.",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/components/Inventory/InventoryTable.tsx",
+     "line": 191,
+     "claim": "None of the new edit UI has a test: the Edit button, the modal's edit pre-fill, the 'Save Changes' submit path and the remount-by-key reset could all break without any test failing.",
+     "evidence": "The only test the diff adds is a hook test for deleteItem activity. No test renders InventoryTable's new `onEdit` button, AddItemModal with `editItem`/`onUpdate`, or InventoryPage's `openModal(item)` and `modalKey` logic."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/components/Inventory/InventoryPage.tsx",
+     "line": 128,
+     "claim": "None of the new UI behavior has tests: the Edit button, the modal pre-filling from the item, the title and submit-label switch, and the form reset on reopen that depends on `key`. The PR's stated goals are 'complete the Update path' and 'form reset on modal close', but the only test added covers delete. Add component tests for the edit flow and for reopening the Add modal after Cancel.",
+     "evidence": "None of the new UI behavior has tests: the Edit button, the modal pre-filling from the item, the title and submit-label switch, and the form reset on reopen that depends on `key`. The PR's stated goals are 'complete the Update path' and 'form reset on modal close', but the only test added covers delete. Add component tests for the edit flow and for reopening the Add modal after Cancel."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch does not touch src/hooks/useInventory.ts, and deleteItem already logs a 'removed' activity at lines 57-78, so 'adds activity when deleting an item' passes before and after the change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/__tests__/useInventory.test.ts",
+   "line": 117,
+   "claim": "The added test passes on the baseline too, so it gives no evidence for this change.",
+   "evidence": "The diff does not modify src/hooks/useInventory.ts. deleteItem's 'removed' activity logging (lines 57-78) already exists, so 'adds activity when deleting an item' passes before and after the change.",
+   "axis_row": "L3.4",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/__tests__/useInventory.test.ts",
+     "line": 117,
+     "claim": "The added test cannot fail on the baseline, because the change does not touch the behaviour it checks, so it adds no evidence for this change.",
+     "evidence": "The diff does not modify src/hooks/useInventory.ts. deleteItem's 'removed' activity logging (lines 57-78) already exists, so 'adds activity when deleting an item' passes before and after the change."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5",
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff's handleSubmit does `if (isEditMode && editItem && onUpdate) ... else onAdd(form)` with `onUpdate?:` optional. InventoryPage always passes onUpdate (it is a required prop there), so the current app can't hit this path; this is an API-design point and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "line": 38,
+   "claim": "onUpdate is optional, so a modal given editItem without onUpdate silently falls back to onAdd and creates a duplicate item.",
+   "evidence": "`if (isEditMode && editItem && onUpdate) { onUpdate(editItem.id, form) } else { onAdd(form) }`, with `onUpdate?:` optional in AddItemModalProps. InventoryPage always passes onUpdate today, so the current app does not hit this path.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/components/Inventory/AddItemModal.tsx",
+     "line": 38,
+     "claim": "If the modal is ever given editItem without onUpdate, Save silently creates a duplicate item instead of failing, because onUpdate is optional and the code falls back to onAdd.",
+     "evidence": "`if (isEditMode && editItem && onUpdate) { onUpdate(editItem.id, form) } else { onAdd(form) }`, with `onUpdate?:` optional in AddItemModalProps. InventoryPage always passes onUpdate today, so the current app does not hit this path."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/components/Inventory/AddItemModal.tsx",
+     "line": 38,
+     "claim": "In edit mode, if `onUpdate` isn't provided (it's optional in the props), submitting silently falls through to `onAdd(form)`. That creates a duplicate item, with a new id, instead of updating the existing one. Edit mode should require `onUpdate` (make it required whenever `editItem` is set, or don't fall back to add), so a wiring mistake can't duplicate data.",
+     "evidence": "In edit mode, if `onUpdate` isn't provided (it's optional in the props), submitting silently falls through to `onAdd(form)`. That creates a duplicate item, with a new id, instead of updating the existing one. Edit mode should require `onUpdate` (make it required whenever `editItem` is set, or don't fall back to add), so a wiring mistake can't duplicate data."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The component switches its title and button on isEditMode, and README.md:39 still reads 'add item modal'. This is naming and documentation only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "line": 23,
+   "claim": "AddItemModal now handles both add and edit, but its name and the README still describe it only as an add modal.",
+   "evidence": "`export default function AddItemModal({ isOpen, onClose, onAdd, editItem, onUpdate })` switches its heading and button text on `isEditMode`. README.md line 39 reads 'Inventory table, add item modal, status badges'.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/components/Inventory/AddItemModal.tsx",
+     "line": 23,
+     "claim": "The component is still named AddItemModal but now handles both add and edit, and the README still describes it only as the 'add item modal'.",
+     "evidence": "`export default function AddItemModal({ isOpen, onClose, onAdd, editItem, onUpdate })` switches its heading and button text on `isEditMode`. README.md line 39 reads 'Inventory table, add item modal, status badges'."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "noise",
+   "reason": "The one-click delete with no confirmation was already there and this diff doesn't change it; the change only adds a separate Edit button with its own aria-label. This isn't a problem the change introduces.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/components/Inventory/InventoryTable.tsx",
+   "line": 198,
+   "claim": "The new Edit button sits next to a one-click Delete with no confirmation or undo.",
+   "evidence": "The diff inserts the Edit button (`className=\"mr-1 ...\"`) right before `<button onClick={() => onDelete(item.id)}`. deleteItem filters the item out of state immediately, and there is no confirm step or restore path.",
+   "axis_row": "L2.4",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/components/Inventory/InventoryTable.tsx",
+     "line": 198,
+     "claim": "The new Edit button sits directly beside a Delete button that removes the item in one click with no confirmation or undo, which makes an accidental, unrecoverable delete more likely.",
+     "evidence": "The diff inserts the Edit button (`className=\"mr-1 ...\"`) right before `<button onClick={() => onDelete(item.id)}`. deleteItem filters the item out of state immediately, and there is no confirm step or restore path."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

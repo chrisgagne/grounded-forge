@@ -83,6 +83,54 @@ def git_dirs(worktree: Path) -> list[str]:
     return out
 
 
+# Above this many denied paths, listing each one passes sandbox-exec's rule size limit and Claude Code's 2 MiB
+# settings limit (one project in the v7 replay locked 12,846 test files).
+COMPRESS_ABOVE = 1000
+
+
+def compress(paths: list[str], above: int = COMPRESS_ABOVE) -> list[str]:
+    """Up to `above` paths, the list as given. Beyond that, the same set with every folder whose entries are all denied
+    named once: it denies nothing more of what exists, but a new file inside such a folder is denied too, where
+    normally a new file next to locked tests may be added."""
+    if len(paths) <= above:
+        return list(paths)
+    wanted = {os.path.normpath(p) for p in paths}
+    full: dict[str, bool] = {}
+
+    def is_full(d: str) -> bool:
+        if d not in full:
+            try:
+                entries = [os.path.join(d, e) for e in os.listdir(d)]
+            except OSError:
+                full[d] = False
+                return False
+            full[d] = bool(entries) and all(
+                e in wanted or (os.path.isdir(e) and not os.path.islink(e) and is_full(e)) for e in entries)
+        return full[d]
+
+    out = set()
+    for p in sorted(wanted, key=len):
+        top, d = p, os.path.dirname(p)
+        while d and d != os.path.dirname(d) and is_full(d):
+            top, d = d, os.path.dirname(d)
+        out.add(top)
+    return sorted(q for q in out if not any(q.startswith(o + os.sep) for o in out if o != q))
+
+
+def rules(op: str, filters: list[str], limit: int = 40000) -> list[str]:
+    """`(deny op ...)` lines, split so none passes sandbox-exec's 64 KiB limit for one rule."""
+    out, chunk, size = [], [], 0
+    for f in filters:
+        if chunk and size + len(f) > limit:
+            out.append(f"(deny {op} " + " ".join(chunk) + ")")
+            chunk, size = [], 0
+        chunk.append(f)
+        size += len(f) + 1
+    if chunk:
+        out.append(f"(deny {op} " + " ".join(chunk) + ")")
+    return out
+
+
 @dataclass
 class Policy:
     """What one sandboxed process may touch."""
@@ -100,9 +148,9 @@ class Policy:
                  f"(allow file-write* {allow} (literal \"/dev/null\") (literal \"/dev/zero\") "
                  "(literal \"/dev/dtracehelper\") (regex #\"^/dev/tty\") (regex #\"^/dev/fd/\"))"]
         if self.deny_write:  # later rules win in SBPL
-            lines.append("(deny file-write* " + " ".join(f"(literal {q(p)}) (subpath {q(p)})" for p in self.deny_write) + ")")
+            lines += rules("file-write*", [f"(literal {q(p)}) (subpath {q(p)})" for p in compress(self.deny_write)])
         if self.deny_unlink:  # so a locked file's folder can't be renamed away and replaced
-            lines.append("(deny file-write-unlink " + " ".join(f"(literal {q(p)})" for p in self.deny_unlink) + ")")
+            lines += rules("file-write-unlink", [f"(literal {q(p)})" for p in self.deny_unlink])
         lines.append("(deny file-read* " + " ".join(f"(subpath {q(p)})" for p in secret_paths()) + ")")
         if not self.network:
             # Only loopback: bind and accept locally, connect to localhost. (A broader `(allow network* (local ip
@@ -140,6 +188,7 @@ class Sandboxed:
     def __init__(self, policy: Policy | None, enabled: bool = True, tmp_root: Path | None = None):
         self.policy, self.enabled, self.tmp_root = policy, enabled, tmp_root
         self.tmp: str | None = None
+        self.profile_file: str | None = None
 
     def __enter__(self):
         if self.tmp_root:
@@ -149,6 +198,8 @@ class Sandboxed:
 
     def __exit__(self, *exc):
         shutil.rmtree(self.tmp, ignore_errors=True)
+        if self.profile_file:
+            Path(self.profile_file).unlink(missing_ok=True)
 
     def env(self) -> dict:
         return {"TMPDIR": self.tmp + "/", "TMP": self.tmp, "TEMP": self.tmp}
@@ -156,7 +207,12 @@ class Sandboxed:
     def argv(self, cmd: str) -> list[str]:
         if self.policy is None or not self.enabled:
             return ["/bin/bash", "-c", cmd]
-        return [SANDBOX_EXEC, "-p", self.policy.profile(self.tmp), "/bin/bash", "-c", cmd]
+        # The profile goes in a file, not on the command line: a project with thousands of locked test files makes it
+        # longer than the system's argument limit. The file sits outside every folder the command may write.
+        fd, self.profile_file = tempfile.mkstemp(prefix="factory-profile-", suffix=".sb")
+        with os.fdopen(fd, "w") as f:
+            f.write(self.policy.profile(self.tmp))
+        return [SANDBOX_EXEC, "-f", self.profile_file, "/bin/bash", "-c", cmd]
 
 
 def claude_sandbox(deny_write: list[str], allowed_domains: list[str], deny_read: list[str] = ()) -> dict:
@@ -167,6 +223,7 @@ def claude_sandbox(deny_write: list[str], allowed_domains: list[str], deny_read:
     secret paths are denied to Bash and to the file tools.
     """
     secrets = secret_paths() + list(deny_read)
+    deny_write = compress(deny_write)
     return {
         "sandbox": {
             "enabled": True,

@@ -1,0 +1,18 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.21789019999999998,
+  "duration_s": 41.4
+ },
+ "answer": {
+  "kind": "not_shown",
+  "because": "I ran the project's own applyPatch from head/src (loaded through its @babel/register) on the finding's two named tests, the zero-context insert of 'line1\\nline2\\n' at the start of 'line3\\nline4\\n' and 'should create a file'; both give the correct ordered output on head as on base, because parsePatch (src/patch/parse.js:90-91) turns oldStart from 0 into 1 for every `@@ -0,0` hunk, so toPos is never -1, and structuredPatch also sends oldStart 1, so no public input reaches the removed clamp."
+ },
+ "outcome": "not shown",
+ "why": "I ran the project's own applyPatch from head/src (loaded through its @babel/register) on the finding's two named tests, the zero-context insert of 'line1\\nline2\\n' at the start of 'line3\\nline4\\n' and 'should create a file'; both give the correct ordered output on head as on base, because parsePatch (src/patch/parse.js:90-91) turns oldStart from 0 into 1 for every `@@ -0,0` hunk, so toPos is never -1, and structuredPatch also sends oldStart 1, so no public input reaches the removed clamp.",
+ "run": "v4-arm-v3",
+ "trial": "w12-t1",
+ "kind": "control"
+}

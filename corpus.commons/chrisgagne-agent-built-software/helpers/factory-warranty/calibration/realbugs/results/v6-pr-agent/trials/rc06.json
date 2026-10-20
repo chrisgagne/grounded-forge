@@ -1,0 +1,32 @@
+{
+ "id": "rc06",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 275,
+   "message": "Possible ID collision. The latest assistant turn's tool call IDs are kept verbatim, but the `resolve` uniqueness tracking never reserves them. An older call could be rewritten to an ID the preserved turn already uses. Example: an older `call_1` is sanitized to `call1` while the latest turn already has `call1`. The transcript then contains duplicate tool call IDs, and the provider may reject it or mispair the results. Fix this by seeding the used-ID set with `preservedLatestToolCallIds` before rewriting older messages."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 283,
+   "end_line": 288,
+   "message": "Mismatched pairing. Tool results are skipped whenever their raw ID appears in `preservedLatestToolCallIds`, regardless of which turn they belong to. If an older turn reused the same raw ID, which can happen with providers that emit short or recycled IDs, the older assistant call is rewritten but its tool result is left unchanged. That breaks the older call/result pair. Consider limiting preservation to tool results that come after `latestAssistantIndex`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 20,
+  "usage": {
+   "prompt_tokens": 5703,
+   "completion_tokens": 1216,
+   "total_tokens": 6919
+  },
+  "security_concern": false
+ }
+}

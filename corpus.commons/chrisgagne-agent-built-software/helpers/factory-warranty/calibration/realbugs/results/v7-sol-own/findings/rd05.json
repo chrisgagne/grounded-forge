@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/Mirkiux/featkit",
+  "pr_number": 17,
+  "base": "471774c774a89902228a0b74b696ff7304332437",
+  "head": "de0187b0e5e781ca08ef7d7923e33cba6531c200"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "Apply the entropy fallback inside the conditional expression. For any pipeline requesting ENTROPY, the generated code calls `.otherwise()` on the result of `F.sum()`, rather than on `F.when()`. PySpark rejects this because `otherwise()` is only valid on a conditional column, so the generated script fails while building Layer 2B. Move the fallback inside the sum."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 238,
+   "end_line": 239,
+   "message": "Select the dominant category instead of an arbitrary first row. When MODE is requested, `F.first()` returns an arbitrary category after the shuffle, without considering the aggregated category values. For example, categories with totals 1 and 100 can return the category with total 1. Select the category associated with the largest aggregated value, with a deterministic tie policy, instead."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "Escape categorical values when emitting Python literals. An allowed categorical value containing a double quote, backslash, or newline is inserted directly into a double-quoted Python literal. This can make the generated script invalid or silently change the value being matched (for example, a literal backslash followed by `n` becomes a newline). Emit categorical values using Python literal escaping, such as `repr`, rather than interpolating them between quotes."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

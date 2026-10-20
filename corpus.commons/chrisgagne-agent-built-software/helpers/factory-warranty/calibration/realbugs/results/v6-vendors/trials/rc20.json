@@ -1,0 +1,110 @@
+{
+ "id": "rc20",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12464,
+   "end_line": 12466,
+   "message": "Synchronize trace reads with the owning core's writes. On SMP, reading another active core's ring races with `TraceRing::push`, which mutates ordinary fields and enum values. `UnsafeCell` permits interior mutability but does not permit data races; this is undefined behavior, not merely a bounded torn diagnostic entry. Both this syscall and `dump_trace_rings()` need a synchronization-safe snapshot mechanism before exposing references to entries."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12472,
+   "end_line": 12475,
+   "message": "Serialize trace events without copying enum padding. Every successful trace read can copy uninitialized kernel bytes into userspace: `_pad` covers only the space before `event`, while `TraceEvent` still contains implicit alignment padding and unused payload space for smaller variants. `repr(C)` does not initialize these bytes, and typed copies do not preserve padding initialization. Serialize fields into a fully initialized byte representation instead of reinterpreting the enum-containing struct."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12461,
+   "end_line": 12466,
+   "message": "Allow callers to retrieve entries beyond the first batch. When a ring contains more than 64 entries, even a buffer large enough for all 256 receives only the oldest 64. Repeating the syscall cannot retrieve the remainder because `copy_into()` always starts at the oldest entry and the API has no cursor or offset. Consequently the most recent events are inaccessible on a full ring. Copy all entries that fit, or provide an explicit pagination mechanism."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "kernel-core/src/trace_ring.rs",
+   "start_line": 9,
+   "end_line": 92,
+   "message": "Kernel memory still leaks through padding. The explicit `_pad` in `TraceEntry` covers only the gap after `core`. `TraceEvent` is a `#[repr(C)]` enum with fields, so it has its own padding. That includes 3 bytes between `core: u8` and `rsp: u64` in Dispatch/SwitchOut, and 3 bytes between `core` and `new_state` in BlockCurrent. The smaller variants (e.g. RecvBlock with 8 bytes in a 16-byte union) also leave the rest of the union uninitialized. Each event is built on the caller's kernel stack and copied into the ring as a whole value, so those bytes hold stale stack data. Copying a value never guarantees its padding bytes either, so pre-filling `tmp` with EMPTY in sys_ktrace does not help. The PR says the padding leak is fixed, but it is not. Use a flat, padding-free wire format (e.g. tag: u32 plus fixed u64 fields), or serialize explicitly into a zeroed byte buffer."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12472,
+   "end_line": 12477,
+   "message": "`slice::from_raw_parts(tmp.as_ptr() as *const u8, ...)` reads `TraceEntry` padding bytes inside `TraceEvent` as `u8`. Reading padding as bytes is undefined behaviour, and it sends uninitialized kernel stack data to userspace. The comment's claim that there are 'no uninit bytes' is false: only the outer `_pad` is explicit."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12432,
+   "end_line": 12482,
+   "message": "sys_ktrace has no privilege check. Any unprivileged process can read every core's trace ring. Dispatch/SwitchOut entries contain kernel stack pointers (`rsp`, `saved_rsp`), and fork events expose other users' PIDs and user RIP/RSP values. That is a kernel address and info leak to arbitrary users. Restrict the syscall to uid 0, or strip the kernel addresses."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12461,
+   "end_line": 12466,
+   "message": "The syscall returns at most 64 entries per call and has no offset/cursor argument. `copy_into` always starts at the oldest entry, so a full 256-entry ring always returns the same 64 oldest entries. The 192 newest, which are the most useful for diagnostics, can never be read. The comment 'callers can call again for more' is wrong: repeated calls return the same data. Add an offset argument, or return the newest entries."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 12433,
+   "end_line": 12436,
+   "message": "`core_id as u8` truncates before the bounds check. For example, core_id = 256 aliases to core 0 instead of returning an error. Compare against `core_count()` as u64 before narrowing."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "kernel/src/arch/x86_64/interrupts.rs",
+   "start_line": 453,
+   "end_line": 453,
+   "message": "`dump_trace_rings()` now runs on the recoverable user-mode page-fault path (and the GP-fault path at line 528), not only on fatal kernel faults. Every userspace segfault prints up to 256 \u00d7 core_count lines over serial, synchronously inside the exception handler with interrupts disabled. Any unprivileged program that faults in a loop can flood the console and stall the core. Limit the dump to fatal kernel faults and panics."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "kernel/src/trace.rs",
+   "start_line": 52,
+   "end_line": 83,
+   "message": "`dump_trace_rings` and sys_ktrace read other cores' `TraceRing` through `&*UnsafeCell::get()` while those cores may be writing to them with plain non-atomic stores. That is a data race (UB), not just a 'torn entry'. `count`/`write_idx` can also be read inconsistently with `buf`, which can mislabel the chronological order. The `unsafe impl Sync` justification says PerCoreData is only accessed by its owning core, and this access breaks that. Use atomics for the indices, or a seqlock-style generation counter."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "kernel/src/ipc/endpoint.rs",
+   "start_line": 202,
+   "end_line": 208,
+   "message": "RecvWake is recorded every time `take_message` succeeds, including the fast path where a sender was already waiting and the receiver never blocked. That path already emitted MessageDelivered, so the timeline shows a spurious wake with no matching RecvBlock. This makes the trace misleading for exactly the block/wake races it is meant to diagnose."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 39,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 61,
+   "cost_usd": 0.42803119999999995,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 61
+ }
+}

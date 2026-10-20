@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/godaddy/antares",
+  "pr_number": 142,
+  "base": "f910afef727b67f484a672fcae7a94d86272aed9",
+  "head": "12f376d05689fdecb86096f51f7ab2f7169c3f0a"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "packages/@godaddy/antares/variables.css",
+   "start_line": 19,
+   "end_line": 23,
+   "message": "Global side effect. Changing the `--_fs-base` `@property` syntax from `<length>` to `\"*\"` is a global change that has nothing to do with the legend. With `<length>`, relative values such as `em` or `calc(...)` resolve to an absolute length on the element that declares them. With `\"*\"`, the raw tokens are passed through and resolve wherever they are used. Any component that overrides `--_fs-base` with a relative value can therefore end up with different font sizes. The property also stops being type-checked or animatable. I can't see from the diff which components override it, so check for typography regressions or move this change to a separate PR with a justification."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 40,
+   "end_line": 58,
+   "message": "Ineffective assertions. `assume(list).exists()` and `assume(label).exists()` only check that the locator objects exist, and locators are always truthy. These assertions pass even when nothing matches. The vertical test also only counts list items and never checks the vertical layout, so a broken `orientation` implementation would still pass. Use `expect.element(...).toBeInTheDocument()` or an equivalent element query, and assert the layout, for example via computed `flex-direction` or item positions."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 22000
+ }
+}

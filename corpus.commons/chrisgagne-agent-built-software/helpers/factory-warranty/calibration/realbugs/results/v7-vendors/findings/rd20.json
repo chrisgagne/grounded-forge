@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "Validate the manifest name before constructing the output directory. A remote manifest can supply a name such as `../../some-directory`, since `validateSkillset` only checks that it is a string. Joining that name here moves the output directory outside the temporary staging area, and `safePath` then treats that escaped directory as trusted. Reject path components in names or use a generated temporary directory so installing an untrusted skillset cannot overwrite files elsewhere."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "Check directory boundaries rather than string prefixes. For a base directory `/tmp/spm/foo`, a manifest file path resolving to `/tmp/spm/foo-other/file` passes this check despite escaping the staging directory. Traversal segments are still accepted in manifest file lists and relative sources. Check containment using a path-relative comparison or a prefix including the directory separator."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 8,
+   "message": "Preserve the ref specified in a GitHub URL. Installing a URL containing `tree/develop/...` discards `develop`, after which `resolveIdentifier` always selects the repository's default branch. This either downloads a different skillset version or fails when the requested path exists only on the specified branch. Carry the URL ref through parsing and use default-branch discovery only when no ref was supplied."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Resolve refs independently for cross-repository sources. When a skillset references `@other/repo/path`, this passes the parent repository's ref to the other repository. If the parent defaults to `main` but the referenced repository defaults to `master`, every referenced file returns 404; if both branches exist, the wrong version may be downloaded. Resolve the target repository's default branch for cross-repository entries instead of reusing `location.ref`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The temp directory is built from `skillset.name`, which comes straight from the remote manifest and is never validated. A name like `../../..` makes `tmpDir` resolve to `/` or any other directory. `safePath` checks paths against this already-escaped `tmpDir`, so it doesn't help. Together with manifest file entries that contain `..` (for example `rules: ['../../../home/u/.bashrc']`), a malicious skillset can write files anywhere the user has write access. Validate the name (e.g. `/^[a-z0-9._-]+$/` with no `..`) or check `tmpDir` against a fixed root."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 41,
+   "end_line": 49,
+   "message": "`safePath` checks containment with `resolved.startsWith(baseDir)` and no trailing separator. With base `/tmp/spm/fsd`, a path that resolves to `/tmp/spm/fsd-evil/x` (e.g. `../fsd-evil/x`) passes the check. Use `path.relative` and reject results that start with `..` or are absolute, or compare against `baseDir + path.sep`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 24,
+   "end_line": 39,
+   "message": "Every entry is downloaded with `location.ref`, the default branch of the skillset's own repo. Cross-repo sources (`@owner/repo/path`) can point to a different repository whose default branch is not the same, e.g. `master` vs `main`. Those downloads get a 404 or come from the wrong ref. Resolve the ref per owner/repo, or carry a ref on each `FileEntry`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 3,
+   "end_line": 9,
+   "message": "`parseGitHubUrl` matches the branch in `/tree/<branch>/` but throws it away. `resolveIdentifier` then always uses the repo's default branch. So `https://github.com/org/repo/tree/develop/path` quietly installs from `main`, which is wrong code with no error. The test 'parses GitHub URL with non-main branch' only checks owner, repo and path, so it hides this. Return the ref from the parser and use it in `resolveIdentifier`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 7,
+   "message": "The regex `tree/[^/]+/(.+)` assumes the branch name has no slashes. For a URL like `tree/feature/foo/claude/skill` it splits the branch and path in the wrong place. A trailing slash or `?query`/`#fragment` also ends up in the path."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 31,
+   "end_line": 43,
+   "message": "Any source string that isn't `./` or `@` is now accepted as a repo-root path, including typos and full URLs like `https://example.com/skill`. These used to fail with a clear error; now they become broken GitHub paths and fail later with confusing 404s. The resolver also never produces the `url` or `local` download sources, so the URL and local download support described in the PR can't actually be reached from `spm install`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 7,
+   "end_line": 15,
+   "message": "The `..` check only covers bare-path sources. `./` sources, the `files` entries, `setup` and the agents/rules/hooks lists are joined without any check. The `includes('..')` test is also wrong in the other direction: it rejects valid names such as `foo..bar`. Normalize and check path segments in one consistent place."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The PR description says files go to `.tmp/<skillset-name>/`, but the code writes to the OS temp dir (`os.tmpdir()/spm/<name>`). That is a fixed, predictable shared path on multi-user systems, and it is not cleaned between runs, so stale files from earlier installs pile up."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/install.ts",
+   "start_line": 28,
+   "end_line": 36,
+   "message": "All files are fetched at once with an unbounded `Promise.all`. A large skillset fires many parallel requests at raw.githubusercontent, and if one fails the rest keep running in the background. Consider limiting concurrency."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/core/downloader/download-file.test.ts",
+   "start_line": 22,
+   "end_line": 24,
+   "message": "`vi.restoreAllMocks()` does not undo `vi.stubGlobal`, so the stubbed `fetch` can leak into other tests. Use `vi.unstubAllGlobals()`. The same problem is in `download-from-github.test.ts` and `download-from-url.test.ts`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": ".spmrc.yml",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "The PR commits a project-level `.spmrc.yml` to the repo root. It looks like a local dev or test artifact (probably so `readConfig` passes in the integration test). If that's the reason, it should be a fixture rather than repository config."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 303000
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.125421,
+  "duration_s": 16.0
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/tzoffset_sign.mjs {tree}",
+  "because": "On head, the project's own tzOffset returns -150 for -03:30 and America/St_Johns (should be -210), -510 for -09:30 and Pacific/Marquesas (should be -570), and +30 for -00:30 (should be -30), and the cached second call returns the same wrong values; base returns the right value for all of them."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   -03:30: got -210 (cached -210), want -210\nok   -09:30: got -570 (cached -570), want -570\nok   -00:30: got -30 (cached -30), want -30\nok   America/St_Johns: got -210 (cached -210), want -210\nok   Pacific/Marquesas: got -570 (cached -570), want -570\nok   +05:30: got 330 (cached 330), want 330\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL -03:30: got -150 (cached -150), want -210\nFAIL -09:30: got -510 (cached -510), want -570\nFAIL -00:30: got 30 (cached 30), want -30\nFAIL America/St_Johns: got -150 (cached -150), want -210\nFAIL Pacific/Marquesas: got -510 (cached -510), want -570\nok   +05:30: got 330 (cached 330), want 330\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, the project's own tzOffset returns -150 for -03:30 and America/St_Johns (should be -210), -510 for -09:30 and Pacific/Marquesas (should be -570), and +30 for -00:30 (should be -30), and the cached second call returns the same wrong values; base returns the right value for all of them.",
+ "run": "v4-arm-v4",
+ "trial": "w07-t2",
+ "kind": "bug"
+}

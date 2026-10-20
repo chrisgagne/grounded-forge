@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.43166220000000005,
+  "duration_s": 831.4
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/reverse-iterator.mjs {tree}",
+  "because": "The check bundles the tree's own src/Immutable.js with the tree's esbuild and buble, then runs `[...Seq([1,2,3]).reverse().map(x => x).reverse()]`; on head this throws `TypeError: Cannot read properties of undefined (reading 'size')` inside the reversed sequence's arrow-function `__iterator`, because `this` there is undefined, and on base the same call returns [1,2,3]."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "OK\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "file://<tmp>/factory-run-j6jnbnt1/imm-8wpuTP/immutable.mjs:1026\n        useKeys ? entry[0] : reverse ? this$1.size - ++i : i++,\n                                              ^\n\nTypeError: Cannot read properties of undefined (reading 'size')\n    at Iterator.next (file://<tmp>/factory-run-j6jnbnt1/imm-8wpuTP/immutable.mjs:1026:47)\n    at Iterator.next (file://<tmp>/factory-run-j6jnbnt1/imm-8wpuTP/immutable.mjs:970:27)\n    at Iterator.next (file://<tmp>/factory-run-j6jnbnt1/imm-8wpuTP/immutable.mjs:1019:27)\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w20-t2-F1/check/reverse-iterator.mjs:25:61\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check bundles the tree's own src/Immutable.js with the tree's esbuild and buble, then runs `[...Seq([1,2,3]).reverse().map(x => x).reverse()]`; on head this throws `TypeError: Cannot read properties of undefined (reading 'size')` inside the reversed sequence's arrow-function `__iterator`, because `this` there is undefined, and on base the same call returns [1,2,3].",
+ "run": "v4-arm-v4",
+ "trial": "w20-t2",
+ "kind": "bug"
+}

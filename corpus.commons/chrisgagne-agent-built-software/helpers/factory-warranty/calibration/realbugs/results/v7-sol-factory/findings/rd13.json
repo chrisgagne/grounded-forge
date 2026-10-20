@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "The lifecycle cannot enter PRE_PLANNED mode from the artifacts its designated planner generates. The new detection requires seven artifact types, including standalone architecture, test, implementation, security and compliance files. However, x-story-plan Phase 4 generates task breakdowns, per-task plans, a consolidated planning report and a DoR checklist; its changed Phase 5 explicitly accepts report sections instead of standalone plans. Running the lifecycle after that planner therefore selects HYBRID and regenerates planning rather than skipping Phase 1 and executing the prepared tasks."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 436,
+   "end_line": 436,
+   "message": "Task execution does not persist or consume task progress, so interruption cannot resume from the next incomplete task. The PRE_PLANNED loop reads and executes every TASK-NNN, validates it and commits it, without checking checkpoint status or writing IN_PROGRESS/DONE per task. The only new checkpoint write occurs in Phase 8 at line 674. If execution stops after TASK-001 commits and before Phase 8, its completion is not recorded; resuming repeats the loop, despite x-dev-epic-implement Step 1b promising that DONE tasks are skipped automatically."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "Planning mode detection leaves the case of a complete but stale artifact set undefined. PRE_PLANNED requires all seven types to be fresh, HYBRID requires some types to be absent, and INLINE requires no artifacts. When all types exist but the story has a newer modification time than one artifact, none of these conditions holds, leaving planningMode and the corresponding execution flow unspecified."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "Planning still aborts for suffix-named epic directories despite the newly added directory resolution. For a story under plans/epic-0022-security-program/, Phase 0.2 resolves EPIC_DIR successfully, but Phase 0.5 still executes `test -f plans/epic-XXXX/story-XXXX-YYYY.md` and explicitly aborts on NOT_FOUND. Phase 4 also retains hardcoded plans/epic-XXXX output paths instead of using EPIC_DIR."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/cmik/apilix",
+  "pr_number": 12,
+  "base": "4fe23e22e3937c38cb859a3b9c00b193bb309aa1",
+  "head": "0c34439aeebedc646d76d90db6b79a5c54b4cb8f"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "server/index.js",
+   "start_line": 1037,
+   "end_line": 1037,
+   "message": "Unauthenticated Git sync requests can write repositories outside the application's trusted data directory. The server enables unrestricted cors() and listens without a host restriction or authentication middleware. POST /api/sync/git/push accepts dataDir from the request, constructs its containment boundary from that same untrusted value, then calls ensureRepo(), writes workspace.json, stages files and pushes to a caller-supplied remote. The startsWith check also accepts sibling paths such as workspaceId '../workspaces-other'."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "client/src/utils/storageDriver.ts",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "Saving sync configuration persists access tokens and AWS secrets in plaintext on disk and in localStorage. SyncTab.saveConfig passes the input fields directly to writeSyncConfig. That function assigns the unchanged config to store, writes it to sync-config.json and mirrors it with lsWrite. The encryptValue and decryptValue helpers have no callers, so Electron safeStorage does not protect saved credentials."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "client/src/utils/sync/s3Adapter.ts",
+   "start_line": 28,
+   "end_line": 28,
+   "message": "S3 push and pull always fail, including inside Electron. Both operations call getPresignedUrl(), which throws when electronAPI.getPresignedUrl is absent. electron/preload.js never exposes that method, and electron/main.js contains no presigning handler. Additionally, the adapter reads keyId and secret while the UI supplies accessKeyId and secretAccessKey."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "client/src/store.tsx",
+   "start_line": 670,
+   "end_line": 670,
+   "message": "Switching or creating a workspace shortly after an edit silently loses the outgoing workspace's changes. The persistence effect schedules the current workspace write after 300 ms and clears that timer on cleanup. WorkspaceSwitcher.handleSwitch reads only the destination and dispatches SWITCH_WORKSPACE without saving the outgoing state; handleCreate likewise dispatches CREATE_WORKSPACE. Either action changes activeWorkspaceId and cancels the pending outgoing write before replacing its collections and variables."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "client/src/components/WorkspaceManagerModal.tsx",
+   "start_line": 303,
+   "end_line": 303,
+   "message": "Pulling remote data bypasses conflict detection and overwrites local changes without offering resolution. handlePull constructs SyncConfig with only workspaceId, provider and config. syncEngine.pull requires both remoteTs and syncConfig.lastSynced before throwing ConflictError. No caller supplies lastSynced and no successful sync persists it, so the conflict branch is unreachable from the UI and returned remote data is immediately hydrated and written over the workspace."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "server/index.js",
+   "start_line": 1054,
+   "end_line": 1054,
+   "message": "Retrying a failed Git push reports success without uploading the pending commit. The route commits before calling git.push. If that push fails, the commit remains locally. Retrying with unchanged workspace data produces status.files.length === 0 and returns 'Nothing to commit' before git.push executes, even when the network or credentials have been corrected."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "client/src/utils/storageDriver.ts",
+   "start_line": 181,
+   "end_line": 181,
+   "message": "Saving sync settings for another workspace in browser mode erases previously saved workspace configurations. writeSyncConfig initializes store to {} and reads existing configuration only inside if (api). Without Electron, it never reads LS_SYNC_CONFIG before lsWrite replaces the entire key with the current workspace entry. Saving workspace B therefore removes workspace A's configuration."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "client/src/utils/snapshotEngine.ts",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "Snapshot retention trims only the index, leaving full snapshot files to accumulate indefinitely. createSnapshot writes a new snapshot on every debounced save, slices the history index to MAX_SNAPSHOTS and writes that index. It never deletes the snapshot files whose entries were removed, despite WORKSPACES.md stating that the oldest snapshot is automatically deleted at the 50-snapshot limit."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

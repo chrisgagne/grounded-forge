@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/superyyrrzz/ForgeMap",
+  "pr_number": 106,
+  "base": "2ce83d91f981fc579ec53baf9bce4957fdc240fc",
+  "head": "2f3977edabcb8fdf5f947704e727d798a46fe96f"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": ".github/workflows/docs.yml",
+   "start_line": 26,
+   "end_line": 27,
+   "message": "Deploy Cancellation. The Pages concurrency settings change from a single `pages` group with `cancel-in-progress: false` to a per-ref group with `cancel-in-progress: true`. This causes two problems:\n\n- **Interrupted deploys:** a new push now cancels a Pages deployment that is already running. GitHub's Pages guidance advises against this because an interrupted deploy can leave the site partially updated or failed.\n- **Concurrent deploys:** keying the group on `github.ref` lets runs from different refs (e.g. `main` and a tag or manual dispatch) deploy to the same Pages site at the same time.\n\nIf this workflow has a deploy job, keep a single `pages` group with `cancel-in-progress: false`. If faster cancellation is wanted, scope it only to the build job."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 232,
+   "end_line": 239,
+   "message": "Unreadable Code. In light mode, `pre` gets a dark background and `pre code` text is forced to `#e0ddd8 !important`. The highlight.js light theme bundled with DocFX's modern template sets its own `background` (white) on `code.hljs`, and this rule does not override it. The likely result is near-white base text on a white code background in light mode.\n\nEven if the dark `pre` background does show through, the light-theme token colors (dark blues and purples) would have very poor contrast on `#1e2530`.\n\nTo fix, either:\n- also override `pre code` / `.hljs` background and token colors for light mode, or\n- keep code blocks light in light mode.\n\nThis depends on the highlight theme in use, so verify in a rendered light-mode page."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 29000
+ }
+}

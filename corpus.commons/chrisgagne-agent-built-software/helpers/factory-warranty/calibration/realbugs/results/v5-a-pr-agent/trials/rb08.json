@@ -1,0 +1,40 @@
+{
+ "id": "rb08",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 243,
+   "message": "Variable Interpolation. The schema header lines are in double-quoted PowerShell strings, so PowerShell treats `$schema` as a variable. It is undefined, so it expands to an empty string.\n\nThe generated manifests get `# yaml-language-server: =https://aka.ms/...` instead of `$schema=...`. That defeats the purpose of the change, which was to satisfy the winget-pkgs validator.\n\nFix: escape it as `` `$schema `` or use single-quoted strings for these three header lines."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": ".github/workflows/publish-figlet-ts.yml",
+   "start_line": 8,
+   "end_line": 9,
+   "message": "Missed Triggers. The path filters across all publish workflows now match only source files (`*.ts`, `*.tsx`, `*.cs`, `*.py`). A PR that only bumps the version in `package.json`, `*.csproj`, or `pyproject.toml` will no longer trigger a publish. The same applies to PRs that only change fonts or resources, or the workflow file itself.\n\nVersion bumps are typically the main reason to publish, so releases can silently be skipped. The same pattern appears in `publish-figlet-nuget.yml`, `publish-figlet-py.yml`, `publish-figprint.yml`, `publish-vs-extension.yml` and `publish-vscode-extension.yml`."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 60,
+   "end_line": 75,
+   "message": "Selection Ignored. The branch that replaced a non-empty selection with the banner was removed. The banner is now always inserted at column 0 of the cursor line.\n\nIf the user selects the text to \"bannerize\" and runs the command, the selected text stays in place. The banner is also inserted at the line of the selection's active end, which is the end of the selection when dragging downward, rather than at its start.\n\nThis may be intentional, but it is a user-visible behavior change that the changelog does not mention."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 22,
+  "usage": {
+   "prompt_tokens": 24469,
+   "completion_tokens": 1661,
+   "total_tokens": 26130
+  },
+  "security_concern": false
+ }
+}

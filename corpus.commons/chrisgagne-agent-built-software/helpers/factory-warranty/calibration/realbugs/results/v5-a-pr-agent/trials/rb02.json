@@ -1,0 +1,24 @@
+{
+ "id": "rb02",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/admin/src/components/RepeaterField.tsx",
+   "start_line": 44,
+   "end_line": 77,
+   "message": "Unstable item keys. Each edit calls `emitChange`, which strips `_key` before calling `onChange`. The parent then passes a new `value` array back down. The sync `useEffect` runs `ensureKeys` on that keyless data, and `ensureKeys` creates fresh keys of the form `item-${i}-${Date.now()}`.\n\nAs a result, every keystroke gives every item a new `_key`. This causes three problems:\n- **Focus loss:** every `SortableRepeaterItem` remounts, so the input loses focus after each character typed.\n- **Lost collapse state:** `collapsedItems` stores the old keys, so collapsed items reopen.\n- **Broken drag-and-drop:** dnd-kit loses track of item IDs.\n\nTo fix this, keep keys stable across round-trips. Two options:\n- Track keys separately, for example in a ref aligned by index.\n- Skip re-syncing when the incoming `value` equals the last emitted value."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 22,
+  "usage": {
+   "prompt_tokens": 48615,
+   "completion_tokens": 1548,
+   "total_tokens": 50163
+  },
+  "security_concern": false
+ }
+}

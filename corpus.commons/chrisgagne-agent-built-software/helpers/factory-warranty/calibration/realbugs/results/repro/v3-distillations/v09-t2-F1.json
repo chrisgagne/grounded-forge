@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.11458559999999998,
+  "duration_s": 19.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/acos.js {tree}",
+  "because": "At precision 20, head's acos(1-1e-20) returns 1.414213562373079e-10, where the true rounded value is 1.4142135623730950488e-10; it also gets 1-1e-15 and 1-1e-10 wrong. Base returns all three correctly, against a sqrt-series reference that uses no trig, which shows the digits are lost to cancellation in the new pi/2 \u2212 asin(x) path."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   acos(1-1e-20) got 1.4142135623730950488e-10 want 1.4142135623730950488e-10\nok   acos(1-1e-15) got 4.4721359549995797655e-8 want 4.4721359549995797655e-8\nok   acos(1-1e-10) got 0.000014142135623848801618 want 0.000014142135623848801618\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL acos(1-1e-20) got 1.414213562373079e-10 want 1.4142135623730950488e-10\nFAIL acos(1-1e-15) got 4.4721359549995796e-8 want 4.4721359549995797655e-8\nFAIL acos(1-1e-10) got 0.000014142135623848801617 want 0.000014142135623848801618\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "At precision 20, head's acos(1-1e-20) returns 1.414213562373079e-10, where the true rounded value is 1.4142135623730950488e-10; it also gets 1-1e-15 and 1-1e-10 wrong. Base returns all three correctly, against a sqrt-series reference that uses no trig, which shows the digits are lost to cancellation in the new pi/2 \u2212 asin(x) path.",
+ "run": "v3-distillations",
+ "trial": "v09-t2",
+ "kind": "bug"
+}

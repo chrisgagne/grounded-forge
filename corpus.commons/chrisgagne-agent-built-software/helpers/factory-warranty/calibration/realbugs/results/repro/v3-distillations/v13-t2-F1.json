@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.0948954,
+  "duration_s": 954.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/force_quotes.mjs {tree}",
+  "because": "On head, dump({str:'hello', int:5, float:1.5, bool:true, nil:null}, {forceQuotes:true}) outputs `int: !!int '5'`, `float: !!float '1.5'`, `bool: !!bool 'true'` and `nil: !!null 'null'`, where base outputs `int: 5`, `float: 1.5`, `bool: true` and `nil: null`, so with the tag guard gone forceQuotes quotes and tags non-string scalars, not only strings."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "str: 'hello'\nint: 5\nfloat: 1.5\nbool: true\nnil: null\n\nOK\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "str: 'hello'\nint: !!int '5'\nfloat: !!float '1.5'\nbool: !!bool 'true'\nnil: !!null 'null'\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: forceQuotes must quote only strings, leaving ints/floats/bools/null plain and untagged\n+ actual - expected\n\n+ \"str: 'hello'\\n\" +\n+   \"int: !!int '5'\\n\" +\n+   \"float: !!float '1.5'\\n\" +\n+   \"bool: !!bool 'true'\\n\" +\n+   \"nil: !!null 'null'\\n\"\n- \"str: 'hello'\\nint: 5\\nfloat: 1.5\\nbool: true\\nnil: null\\n\"\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v3-distillations/v13-t2-F1/check/force_quotes.mjs:8:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: \"str: 'hello'\\n\" +\n    \"int: !!int '5'\\n\" +\n    \"float: !!float '1.5'\\n\" +\n    \"bool: !!bool 'true'\\n\" +\n    \"nil: !!null 'null'\\n\",\n  expected: \"str: 'hello'\\nint: 5\\nfloat: 1.5\\nbool: true\\nnil: null\\n\",\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, dump({str:'hello', int:5, float:1.5, bool:true, nil:null}, {forceQuotes:true}) outputs `int: !!int '5'`, `float: !!float '1.5'`, `bool: !!bool 'true'` and `nil: !!null 'null'`, where base outputs `int: 5`, `float: 1.5`, `bool: true` and `nil: null`, so with the tag guard gone forceQuotes quotes and tags non-string scalars, not only strings.",
+ "run": "v3-distillations",
+ "trial": "v13-t2",
+ "kind": "bug"
+}

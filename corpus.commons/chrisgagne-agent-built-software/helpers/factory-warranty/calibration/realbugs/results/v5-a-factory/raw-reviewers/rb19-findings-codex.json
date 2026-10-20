@@ -1,0 +1,11 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "src/gimmes/strategy/staleness.py",
+  "line": 79,
+  "claim": "Markets with zero recent trading can remain permanently exempt from staleness filtering because historical volume counts as current activity.",
+  "evidence": "Line 72 substitutes m.volume when volume_24h is zero, and has_volume now resets the count whenever that value exceeds 10. A market with volume=500, volume_24h=0, unchanged price and unchanged open interest therefore resets its count on every scan; seven repeated calls confirmed count=0 and no skips. filter_markets uses the same fallback, so this market also passes the default minimum-volume filter."
+ }
+]

@@ -1,0 +1,70 @@
+{
+ "id": "rc04",
+ "arm": "claude-again",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 380,
+   "end_line": 380,
+   "message": "The help text says 1-25 words, but nothing enforces that limit. `WordSearchThread` passes `StatisticsUtil.TOP_N_WORDS` as N, so if the user enters more than 25 words, only the 25 most frequent are returned and the rest are silently dropped. The user is never told. Either validate the token count before starting the search (and show an error), or pass `searchWords.size()` as N for specific-word searches."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 398,
+   "end_line": 398,
+   "message": "The 'Found %,d combined occurrences' total is summed over the list that `findWords` has already cut to TOP_N_WORDS. When more than 25 search words match, this total is wrong: it under-reports the real combined count."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 438,
+   "end_line": 444,
+   "message": "The search input is tokenised with `TagList.fromRawString`, which applies tag normalisation, not `StatisticsUtil.normalizeText`, which is what the note text goes through. A token that keeps punctuation or uppercase, or that contains a space (e.g. the user types 'hello world' or 'hello world!'), or any other difference between the two normalisations, will never match a scanned word, so the search wrongly reports 0 occurrences. Run each token through `normalizeText` and split it on whitespace, so the query is normalised exactly like the notes."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "start_line": 359,
+   "end_line": 362,
+   "message": "When the top-words list is empty, the method returns early, so the Word search form is never built. That is exactly when the search would help most: for example, the user wants counts for short words, or no long word occurs twice. The search form should not depend on the top-N results."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 143,
+   "end_line": 143,
+   "message": "`uniqueWords` keeps every distinct token from every note for the whole scan, including short words and single-occurrence words. This happens in addition to `wordCounts`. The code's own comment says single-occurrence entries are what cause OutOfMemory on large datasets, and this roughly doubles that memory. The set is also rebuilt and thrown away on every interactive word search, where the count is never used. Make unique-word tracking optional (the PR says it should be easy to disable) and skip it for specific-word searches. If the full set has to be kept, count uniques from the `wordCounts` key set where possible."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 197,
+   "end_line": 199,
+   "message": "Words are sorted by count only. Words with equal counts come out in HashMap iteration order, so which words make it into the top 25 at the cutoff, and their order, is not deterministic. `PhraseList` has a tiebreaker; add a secondary sort here as well (e.g. alphabetical) so the results are stable."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "start_line": 158,
+   "end_line": 158,
+   "message": "Each note's text is tokenised with `text.split(\"\\\\s+\")`, which compiles a regex for every note. The phrase-extraction path deliberately avoids regex and allocation in hot loops for performance. Use a precompiled Pattern or a manual scan for consistency."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 122,
+  "cost_usd": 0.39976360000000005,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

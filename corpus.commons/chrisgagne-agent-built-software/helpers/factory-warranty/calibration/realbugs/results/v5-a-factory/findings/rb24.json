@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/sdsykes/fastimage",
+  "pr_number": 165,
+  "base": "7a0dcf780e6d8cd7686520a3a1f57e7cd85b0b46",
+  "head": "8fc7cd32904240c2c841e70aef2ba5c3bb659ffd"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 349,
+   "end_line": 349,
+   "message": "A short JFIF APP0 segment makes FastImage.resolution raise NoMethodError even with raise_on_failure false. `data = @stream.read(length)` uses the segment's declared length. Once `data[0, 5] == \"JFIF\\0\"` matches, `data[7].ord` and `data[8, 4].unpack(\"nn\")` run with no length check. A declared length of 7 to 11 bytes makes `data[7]` or the slice nil, so the call raises NoMethodError. `fetch` (fastimage.rb:293-298) only rescues the listed fetch/parse errors (CannotParseImage, EOFError, etc.), so NoMethodError reaches the user. A length field under 2 makes `read(-n)` return nil, and `data[0,5]` raises the same way."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "TIFF/EXIF X/YResolution rationals stored before the current stream position, or sharing one offset, are silently dropped, so resolution comes back nil. `read_rational_resolution` computes `skip_amount = absolute_pos - @stream.pos` and does `next if skip_amount < 0`. The stream only moves forward, so any rational offset before the current position is skipped without a value. Nothing records or reports this, and no fixture covers that layout (\"test.dng\" is expected to be nil without explanation)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "Keyword-argument syntax (Ruby 2.0) and safe navigation (Ruby 2.3) break loading on older Rubies that the gemspec still allows. fastimage.gemspec declares required_ruby_version >= 1.9.2, but Exif#initialize now uses keyword-argument syntax requiring Ruby 2.0, and jpeg.rb:51 uses safe navigation requiring Ruby 2.3. lib/fastimage/fastimage.rb unconditionally requires both parsers, so requiring fastimage on those older permitted runtimes fails with SyntaxError before any API can run."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 356,
+   "end_line": 356,
+   "message": "JFIF density always beats EXIF X/YResolution, so a JFIF 0-units 1:1 placeholder hides a real EXIF DPI. In the `MARKER_APP0` branch, `return [[x_density, y_density], unit_sym]` runs for any JFIF segment, including `JFIF_UNIT_ASPECT_RATIO` (mapped to :no_units). APP0 normally comes before APP1, so `exif_resolution` is never consulted. The locked fixture expects `\"test3.jpg\"=>[..., [[1, 1], :no_units]]`, so this precedence is never tested against a file that has both."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage.rb",
+   "start_line": 265,
+   "end_line": 265,
+   "message": "When there is no resolution, @resolution is never set, so every later resolution/resolution_units call fetches the image again. `parse_resolution` returning nil makes `parse_packets` raise CannotParseImage, which `fetch` swallows, so `@resolution` stays undefined. `resolution_units` then does `resolution unless defined?(@resolution)`, which calls `fetch` again. `test_instance_resolution_returns_nil_for_format_without_resolution` calls both on test.png and so fetches it twice, but passes."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage.rb",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "The docs say resolution returns nil when the image has no resolution data, but with raise_on_failure: true it raises CannotParseImage. `ImageBase#resolution` returns nil, so `parse_packets` does `raise CannotParseImage`, and `fetch` re-raises it with `raise if @options[:raise_on_failure]`. The comment says \"Returns nil if the image does not contain resolution information\". No test exercises resolution with raise_on_failure."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 265,
+   "end_line": 265,
+   "message": "Resolution values are Floats for EXIF/TIFF and Integers for JFIF/PNG/BMP, and the tests can't tell the difference. Exif uses `num.to_f / den`, while JFIF uses `unpack(\"nn\")` and PNG uses `unpack(\"NN\")`. The fixtures mix `[[72, 72], :inches]` (test.jpg) and `[[72.0, 72.0], :inches]` (test2.jpg), and `assert_equal` passes either way, so the test doesn't pin the type."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "test/test.rb",
+   "start_line": 125,
+   "end_line": 125,
+   "message": "The centimeters, EXIF no-units, BMP one-zero-axis and JPEG EXIF-only branches have no tests. The resolution expectations in GoodFixtures contain only :inches, :meters and :no_units (from JFIF and PNG). No fixture produces :centimeters, so the `JFIF_UNIT_CENTIMETERS` and `RESOLUTION_UNIT_CENTIMETERS` branches in jpeg.rb and tiff.rb are never run."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "lib/fastimage/fastimage_parsing/bmp.rb",
+   "start_line": 131,
+   "end_line": 131,
+   "message": "BMP pixels-per-metre values are read as signed and are rejected only when both are zero. `x_ppm, y_ppm = data[38, 8].unpack(\"l<l<\")` followed by `return nil if x_ppm == 0 && y_ppm == 0`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".gitignore",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "The change adds an unrelated `.idea` ignore entry. The diff adds `+.idea` to .gitignore. Nothing else in the change relates to IDE files."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

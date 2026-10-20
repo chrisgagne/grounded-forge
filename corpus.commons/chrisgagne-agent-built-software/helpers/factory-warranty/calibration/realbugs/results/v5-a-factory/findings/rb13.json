@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/AY2526S2-CS2103T-W14-3/tp",
+  "pr_number": 152,
+  "base": "a27b3e40d94f92f229b9301a8a9d5207d9a5b0bb",
+  "head": "e0a9ce03c8c1cc839eaf409e2677b9abf2017b1f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "docs/UserGuide.md",
+   "start_line": 335,
+   "end_line": 335,
+   "message": "The User Guide still says notes are not saved and not undoable, but the change now saves them and makes them undoable. UserGuide.md:335 still reads \"Records a date-bound note that will be persisted in future milestones. Currently, it validates syntax via CLI and confirms receipt.\" Line 360 still reads \"`note` is not undoable yet because it currently validates input and shows a confirmation message without persisting data.\" The diff only changed the example on line 340. Meanwhile NoteCommand.execute now calls model.setNote and isStateMutating() returns true, and JsonSerializableAddressBook now writes the notes map to the data file."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/java/seedu/address/model/AddressBook.java",
+   "start_line": 203,
+   "end_line": 203,
+   "message": "AddressBook.removeNote has no caller outside tests, and the User Guide still advertises a `note d-/DATE` delete command that doesn't exist. AddressBook.removeNote(VisitDate) is new, but Model/ModelManager add only setNote and getPlannerNoteProperty. NoteCommandParser tokenizes only PREFIX_NAME and PREFIX_DATE and rejects input unless both are present. NoteCommand.MESSAGE_USAGE dropped the \"Delete format: d-/DATE\" line, but UserGuide.md:342-349 and the summary table at line 439 still advertise `note d-/2026-03-24`. Only AddressBookTest.removeNote_* calls the method."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/java/seedu/address/model/AddressBook.java",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "setNotes/resetData wipes every note when given the address book's own live unmodifiable view. getNoteMap() returns Collections.unmodifiableMap(notes), a live view. Calling setNotes(book.getNoteMap()), resetData(book), or model.setAddressBook(model.getAddressBook()) reaches this.notes.clear() before putAll(notes), so the source map is already empty."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/java/seedu/address/logic/commands/NoteCommand.java",
+   "start_line": 117,
+   "end_line": 117,
+   "message": "Recording a note on a date that already has one silently replaces it, and the message still says \"New note recorded\". NoteCommand.execute calls model.setNote(date, noteContent), and AddressBook.setNote calls notes.put(date, note), which overwrites any existing value. VisitDate subclasses compare by value (OneTimeDate.equals compares the LocalDate), so `d/2026-03-24` and `d/24/3/26` hit the same key. MESSAGE_SUCCESS is always \"New note recorded: %1$s\". `undo` can bring the old note back, but only one level of undo exists."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/java/seedu/address/storage/JsonSerializableAddressBook.java",
+   "start_line": 465,
+   "end_line": 465,
+   "message": "Notes are stored in a HashMap during serialization, so their order is lost on save and reload. `private final Map<String, String> notes = new HashMap<>();` collects the notes, and toModelType loops over notes.entrySet() to call addressBook.setNote. AddressBook keeps a LinkedHashMap, and ModelManager.updatePlannerNote joins notes in map order with \"\\n\\n\". The test updatePlannerNote_multipleNotes_mergesNotes comments \"Use LinkedHashMap in AddressBook to ensure order\", which shows the order was meant to be kept."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/java/seedu/address/model/ModelManager.java",
+   "start_line": 267,
+   "end_line": 267,
+   "message": "The planner joins a day's notes without saying which date rule each note came from. updatePlannerNote appends entry.getValue().toString() for every key where isOn(currentPlannedDate) is true, separated by \"\\n\\n\", wraps the result in a new NoteContent and shows it as one NoteCard. The VisitDate key is dropped. NoteContent.VALIDATION_REGEX was changed to \"(?s)[^\\\\s].*\" just so this joined text passes validation."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/java/seedu/address/model/ModelManagerTest.java",
+   "start_line": 784,
+   "end_line": 784,
+   "message": "The tests miss undo/redo of notes, the planner panel listener and invalid notes in the data file, and one assertion is weak. setNote_updatesPlannerNote only checks `assertFalse(note.equals(initialPlannerNote))`; it would also pass if the initial value were some other non-null note. No test runs NoteCommand and then undoState/redoState, even though isStateMutating() is now true. No test covers the PlannerListPanel listener. JsonSerializableAddressBookTest adds no case for an invalid date key or a blank or null note value, so the new IllegalValueException branches in toModelType are untested."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,120 @@
+{
+ "id": "rb12",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.1502,
+ "codex_tokens": 40349,
+ "work": "<tmp>/replay-rb12-t1-2ksv4q2w",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch lines 224-244 swap `leftPlugin.pull!!.run()` for `leftPlugin.plugin.pull()` (and the same for push/right), and Plugin.kt:540 widens pull/push from private to internal so the tests can call them. acceptance.md says the baseline's tests are the locked acceptance tests, and the packet holds no recorded reason or approver for the edit. No AC-N exists to cite: the breach is of acceptance.md's locked-test rule.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+   "line": 128,
+   "claim": "The locked baseline tests were edited to call plugin.pull()/push() directly instead of the registered menu-action Runnables, so they no longer exercise the user-triggered path.",
+   "evidence": "acceptance.md says \"The baseline's tests are the locked acceptance tests\". Yet the diff replaces `leftPlugin.pull!!.run()` / `push!!.run()` (the Runnable registered via addMenuAction) with `leftPlugin.plugin.pull()` / `push()`, and widens `pull`/`push` from `private` to `internal` in Plugin.kt (lines 540, 578) so they can be called. Under the new wiring (`addMenuAction(\"Pull\") { kotlin.concurrent.thread { this.pull() } }`), the original `pull!!.run()` would return as soon as it started the thread, and the assertions would race the worker. The test was moved to match the implementation rather than the behaviour. No recorded reason or approver appears in the packet.",
+   "axis_row": "L3.1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Plugin.kt:44-54 wrap every action in `kotlin.concurrent.thread { ... }` with no lock, in-flight flag or single executor. Before the change, uiRun serialised these calls on the EDT. writeRepository (Plugin.kt:105) opens the target with `writer()`, which truncates it, so pressing ctrl+\\ twice, or pressing Push while a Pull waits in its script or conflict dialog, interleaves the read-merge-write sequences on the same files.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "line": 44,
+   "claim": "Each Pull/Push menu action or key binding starts an unguarded new thread, so overlapping syncs run concurrently against the same .local and repository files and can overwrite or corrupt state.",
+   "evidence": "Each menu action and key binding (lines 44-54) starts a new `kotlin.concurrent.thread { this.pull() }` / `push()` with no lock, flag or single-thread executor. Before the change, `guiContext.uiRun(this::pull)` serialised them on the EDT. Each worker does readLocalRepository \u2192 projectToLocalRepository \u2192 readRemoteRepository \u2192 writeLocalRepository/writeRemoteRepository on the same `${options.repository}` and `.local` files (`File(...).writer()` truncates on open). For example: press ctrl+\\ twice, or press ctrl+shift+\\ while `dialogConflictResolver` blocks the first worker in `invokeAndWait`. The two threads interleave reads and writes, and one overwrites the other's merged version vectors, or one reads a half-written file and hits the \"corrupt. Requires manual fixing\" path.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "pull() calls projectToLocalRepository before runPrePullScriptRepeat and the remote merge, and only afterwards runs `uiRun { localRepositoryToProject(...) }` (Plugin.kt:572). localRepositoryToProject (Plugin.kt:397-406) calls setProjectRenames/setProjectComments with the snapshot-derived lists, so a rename made while a slow script or the conflict dialog runs is overwritten and never reaches .local. push() follows the same pattern at line 645. Kept at high (C3 said medium) because the trigger is traced and the result is silent loss of user data.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "line": 572,
+   "claim": "Sync snapshots the project's renames and comments on the worker thread, then later replaces the whole lists, so edits the user makes during the sync are silently lost.",
+   "evidence": "`projectToLocalRepository` (called at lines 550 and 589) reads `context!!.args.codeData.renames/comments` on the background thread while the GUI can still change them. The merged state is written to disk (`writeLocalRepository`) and only afterwards applied in `uiRun { localRepositoryToProject(localRepository) ... }` (lines 572-575, 645-648). `localRepositoryToProject` calls `setProjectRenames(newProjectRenames)`, which replaces the whole list. A rename made while the pre-pull script runs, or while the conflict dialog is open, is therefore lost from the project and was never recorded in the `.local` file. Unsynchronised cross-thread access to the JadxCodeData lists is also a data race.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "disputed",
+   "reason": "The thread bodies at Plugin.kt:44-54 have no try/catch, and runScript (Plugin.kt:509) can throw IOException from ProcessBuilder.start for a bad script path. Whether this is a regression depends on whether jadx-gui's EDT exception handling showed a dialog before the change, and the export doesn't settle that.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "line": 44,
+   "claim": "An uncaught exception in the new worker thread ends Pull/Push silently, with no dialog.",
+   "evidence": "`kotlin.concurrent.thread { this.pull() }` installs no try/catch and no uncaught-exception handler. Code reached from pull/push can throw: `context!!`, `localRepository!!`, `oldLocalRepositoryItem!!`, `newProjectItem!!`, `ProcessBuilder(command).start()` in `runScript` (throws IOException for a bad script path) and `process.waitFor()`. Before the change, these ran inside guiContext.uiRun on the EDT, where the host application's EDT exception handling applied. Now they go to the default thread handler, which only logs to stderr.",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "PluginTest.kt:48 mocks uiRun to run inline, and the tests call plugin.pull()/push() on the test thread with their own conflictResolver lambda. So the thread wiring and dialogConflictResolver's invokeAndWait branch never run, and the diff adds no tests. Rated low because this is a coverage gap; the defects it would catch are tracked in their own items.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+   "line": 48,
+   "claim": "No test covers the new threading: worker execution, EDT marshalling of the conflict dialog, async application of results, or overlapping operations.",
+   "evidence": "The mock runs `uiRun` synchronously (`doAnswer { it.getArgument<Runnable>(0).run() }`). The tests call `plugin.pull()`/`push()` directly on the test thread, and each test passes its own conflictResolver lambda, so `dialogConflictResolver`'s `isEventDispatchThread`/`invokeAndWait` branches and the `InterruptedException`/`InvocationTargetException` handling are never run. Nothing exercises the `kotlin.concurrent.thread` wiring at lines 44-54 of Plugin.kt.",
+   "axis_row": "L3.22",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff writes `javax.swing.SwingUtilities` in ConflictResolvers.kt even though the file has `import javax.swing.*`, and adds `private val LOG = KotlinLogging.logger {}` alongside Plugin.LOG. This is a style and maintainability point only, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/ConflictResolvers.kt",
+   "line": 34,
+   "claim": "New code uses fully-qualified names despite existing imports, and adds a second file-private logger.",
+   "evidence": "ConflictResolvers.kt already has `import javax.swing.*` yet writes `javax.swing.SwingUtilities.isEventDispatchThread()` and `javax.swing.SwingUtilities.invokeAndWait`. Plugin.kt writes `javax.swing.SwingUtilities.invokeLater` and `kotlin.concurrent.thread` inline. ConflictResolvers.kt adds a file-private `LOG = KotlinLogging.logger {}` even though `Plugin.LOG` (logger ID `jadx-collaboration`) exists, so conflict-dialog errors log under a different logger name than the rest of the plugin.",
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

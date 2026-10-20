@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/godaddy/antares",
+  "pr_number": 142,
+  "base": "f910afef727b67f484a672fcae7a94d86272aed9",
+  "head": "12f376d05689fdecb86096f51f7ab2f7169c3f0a"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/variables.css",
+   "start_line": 19,
+   "end_line": 23,
+   "message": "This change makes `--_fs-base` untyped by switching its syntax from `<length>` to `*`. `--_fs-base` drives every `--fs-*` token in the design system, so this global change is out of scope for a Legend feature, and nothing in the diff needs it. With `*`, an invalid value such as `--_fs-base: large` is no longer rejected at parse time and does not fall back to the 1rem initial value. Instead, every `calc()` built from `--fs-*` becomes invalid, and font sizes break silently across all components. The property also stops being animatable or interpolable. Please revert it, or justify it and test it separately."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 73,
+   "end_line": 93,
+   "message": "This is a breaking change for anyone using `Legend` directly. (1) `className` used to be applied to the `role=\"list\"` flex row and now goes on a new outer wrapper, so consumer styles aimed at the list (for example `flex-wrap` or `justify-content`) stop working. (2) The default `justify-content: center` was removed and the root is now an `inline-flex` aligned to flex-start. Every standalone legend that used to be centered is now left-aligned unless the caller adds `alignSelf=\"center\"`, which the PR only did for the built-in charts. The PR has no changeset or migration note even though it changes behavior visibly."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 83,
+   "end_line": 86,
+   "message": "The visible label and the list's accessible name are the same string, so the visible label is applied as a duplicated `aria-label` and not linked with `aria-labelledby`. Screen readers read the heading text and then announce \"list, Sales by product\" again. It also breaks the link between the visible label and the name, which matters for translation and voice-control. Give the label an id (`useId`) and point to it with `aria-labelledby`. Separately, `label=\"\"` hides the visible label (falsy check) but sets `aria-label=\"\"` (`??` only checks for null or undefined), which leaves the list with no accessible name instead of falling back to \"Chart legend\"."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.module.css",
+   "start_line": 4,
+   "end_line": 18,
+   "message": "Size variants use `[data-size]` attribute selectors. The package conventions (AGENTS.md) say: \"Variants and sizes: use cva-generated classes, not data-attributes; data-attribute selectors for RAC state only.\" Generate a size class with `cva` instead. Also, `.root` sets `font-size: var(--fs-sm)` and the `md` variant sets the same value again, which is redundant."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.module.css",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "`font-weight: bold` breaks the package rule: \"Font-weight: use `bolder` when text needs bold... No numeric weights or `bold`.\" Use `bolder`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 52,
+   "end_line": 71,
+   "message": "The `useMemo` here adds complexity without measurable benefit. The `series` arrays in the examples, and likely in most callers, are new on every render, so the memo is recomputed every time anyway. Mapping a handful of items is cheap. Render the items inline."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 40,
+   "end_line": 58,
+   "message": "These tests don't check the behavior they describe. `assume(locator).exists()` only checks that a Locator object exists, and Locators are always truthy whether or not anything matches, so the label test passes even if no list has the accessible name. The 'stacks items vertically' test only counts list items and never checks the vertical layout (for example, `flex-direction: column` or the items' y-positions). Use `await expect.element(...).toBeInTheDocument()` and assert on the layout."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 84,
+   "end_line": 90,
+   "message": "The horizontal list doesn't wrap (no `flexWrap`), and the root is now an `inline-flex` box centered with `alignSelf`. In both charts the legend's parent has `overflow: hidden`, so if a chart has many series or long names, items that overflow the chart width are clipped. Readers lose series names with no visual sign that anything is missing. Since the PR's goal is to handle tight horizontal space, add `flexWrap=\"wrap\"` for horizontal orientation."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 72000
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/PaulStSmith/figlet-comment-generator",
+  "pr_number": 32,
+  "base": "3750acad624b6b38b768aa8b9aa3ba1573e2f63e",
+  "head": "1d0b6642fcf5ca31fc308c3d603b19ab02ea249e"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 209,
+   "message": "The yaml-language-server schema headers sit in double-quoted PowerShell strings, so `$schema` expands to an empty variable. Each manifest gets `# yaml-language-server: =https://...` instead of the schema reference. Lines 209, 222 and 243 are `@(\"# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json\", ...` in a `shell: pwsh` step. In an expandable (double-quoted) string `$schema` is a variable reference that ends at `=`, and nothing assigns `$schema`. The text therefore never contains `$schema=`. The comment at lines 201-204 says the pipeline 'fails manifest validation' without this header, so every 'Submit to winget' run still uploads manifests that fail. A single-quoted string or an escaped `` `$schema `` is needed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/publish-figlet-py.yml",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "The publish triggers are narrowed to source-file extensions and the workflow self-paths are removed. Merged PRs that change only versions, manifests, fonts, project files or the workflow files no longer publish. In the diff, `FIGLet.Python/**` became `FIGLet.Python/**/*.py`. Likewise `FIGLet/**` became `FIGLet/**/*.cs`, `FIGLet.TS/**` became `*.ts`/`*.tsx` only, `FIGPrint/**` became `*.cs`, and the VS and VS Code extension paths changed the same way. Every `.github/workflows/publish-*.yml` self-path was removed. publish-figlet-py.yml line 38 reads the major.minor base version from `pyproject.toml`, so a merged PR that only bumps it (or changes `fonts/small.flf`) no longer runs the publish job. The same goes for `FIGLet.TS/package.json`, `*.csproj`, `.vsixmanifest`/`.xaml` and the extension's `package.json`. Changes to the workflow files themselves, including this one's fixes to publish-figprint.yml, also wait for an unrelated `.cs` change to run. The only fallback is a manual `workflow_dispatch`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "insertBanner no longer replaces a non-empty selection. It always inserts at column 0 of the active line, so the selected text stays in the document. The diff removes `if (editor.selection.isEmpty) { editBuilder.insert(...) } else { editBuilder.replace(editor.selection, ...) }` and keeps only `editBuilder.insert(position, indentedBanner + '\\n')`, where `position = currentPosition.with(currentPosition.line, 0)` and `currentPosition = editor.selection.active` (the selection's active end). None of the ChangeLog-2026.md entries in the diff mention this change."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 254,
+   "end_line": 254,
+   "message": "The installer manifest drops `PortableCommandAlias: figprint`, but the changelog says the alias is defined. The removed manifest had `\"  PortableCommandAlias: figprint\",`. The new NestedInstallerFiles entries (lines 253-254 and 261-262) list only `- RelativeFilePath: FIGPrint.exe`. ChangeLog-2026.md says: 'Define `FIGPrint.exe` as the nested installer file with `figprint` as the portable command alias'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "FIGLet.VSCodeExtension/src/LanguageCommentStyles.ts",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "The new enum member `BATCHFile` doesn't follow PascalCase and doesn't match the `BatchFile` name in the changelog. The enum adds `BATCHFile` next to `Bash` and the others. The static property is `LanguageCommentStyles.BatchFile = new CommentStyleInfo(CommentStyle.BATCHFile)`. ChangeLog-2026.md says 'Introduce `BatchFile` to `CommentStyle` enum'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 193,
+   "end_line": 193,
+   "message": "`$PackageId` is assigned again at line 193, duplicating `$packageId` from line 152. Line 152 has `$packageId  = \"ByteForge.FIGPrint\"` and line 193 has `$PackageId = \"ByteForge.FIGPrint\"`. Both spellings are then used: `$PackageId` in the manifests, `$packageId` in the upload message and PR title."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

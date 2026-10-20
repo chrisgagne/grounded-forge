@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.09942580000000001,
+  "duration_s": 14.0
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/xrange-order.js {tree}",
+  "because": "On head, validRange('x.1.2') returns '*' when it should return null, and satisfies('5.0.0','x.1.2') is true, so out-of-order wildcard ranges are accepted and widened to match everything instead of being rejected as they are on base."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "node:assert:95\n  throw new AssertionError(obj);\n  ^\n\nAssertionError [ERR_ASSERTION]: validRange(x.1.2) should be null, got \"*\"\n\n'*' !== null\n\n    at Object.<anonymous> (<work>/repro-work/v3-distillations/v10-t2-F1/check/xrange-order.js:5:10)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '*',\n  expected: null,\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, validRange('x.1.2') returns '*' when it should return null, and satisfies('5.0.0','x.1.2') is true, so out-of-order wildcard ranges are accepted and widened to match everything instead of being rejected as they are on base.",
+ "run": "v3-distillations",
+ "trial": "v10-t2",
+ "kind": "bug"
+}

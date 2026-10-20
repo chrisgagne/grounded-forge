@@ -1,0 +1,33 @@
+{
+ "finding": "F2",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1398668,
+  "duration_s": 32.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/bom.mjs {tree}",
+  "because": "On head, loadAll('a\\n\\uFEFF---\\nb') gives one scalar 'a \\uFEFF--- b' where base gives ['a','b'], and a block scalar followed by a BOM-prefixed '---' throws 'document separator is expected'. This shows that a BOM before a later document's separator no longer ends the scalar or the document."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   \"a\\n\ufeff---\\nb\" => [\"a\",\"b\"]\nok   \"|\\n  a\\n\ufeff---\\nb\" => [\"a\\n\",\"b\"]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"a\\n\ufeff---\\nb\" => [\"a \ufeff--- b\"]\nFAIL \"|\\n  a\\n\ufeff---\\nb\" => \"ERR: end of the stream or a document separator is expected (3:1)\\n\\n 1 | |\\n 2 |   a\\n 3 | \ufeff---\\n-----^\"\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, loadAll('a\\n\\uFEFF---\\nb') gives one scalar 'a \\uFEFF--- b' where base gives ['a','b'], and a block scalar followed by a BOM-prefixed '---' throws 'document separator is expected'. This shows that a BOM before a later document's separator no longer ends the scalar or the document.",
+ "run": "v4-arm-v3",
+ "trial": "w15-t2",
+ "kind": "bug"
+}

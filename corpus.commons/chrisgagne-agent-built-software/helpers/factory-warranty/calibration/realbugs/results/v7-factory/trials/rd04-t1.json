@@ -1,0 +1,165 @@
+{
+ "id": "rd04",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.1686,
+ "codex_tokens": 55298,
+ "work": "<tmp>/replay-rd04-t1-5py1rrna",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "tasks.c:5234-5240 latches xYieldPendings and skips selection whenever xPreemptionDisable is set, and never checks whether the task is still Ready. vTaskDelay (2491, 2504) puts the task on the delayed list and then yields into this guard, so the task returns without waiting. vTaskDelete(NULL) follows the same path, which lets the idle task free a stack that is still running. Kept at critical because the trigger is traced.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "tasks.c",
+   "line": 5234,
+   "claim": "vTaskSwitchContext refuses every context switch while the current task has preemption disabled, even when that task has just blocked, delayed, suspended or deleted itself, so it keeps running off the ready list.",
+   "evidence": "The new guard `if( pxCurrentTCBs[ xCoreID ]->xPreemptionDisable != pdFALSE ) { xYieldPendings[ xCoreID ] = pdTRUE; } else if( uxSchedulerSuspended ...` returns without switching. It does not check whether the current task is still Ready. Trigger: after vTaskPreemptionDisable(NULL), the task calls vTaskDelay(10). vTaskDelay (tasks.c:2491) calls prvAddCurrentTaskToDelayedList and then taskYIELD_WITHIN_API (tasks.c:2504). That reaches vTaskSwitchContext, which only latches the flag, so the 'delayed' task keeps executing. vTaskDelete(NULL) has the same problem: tasks.c:2320 yields after the TCB is queued for the idle task to free, so the idle task can free the stack of a task that is still running. The same applies to vTaskDelete or vTaskSuspend on another core's task: prvYieldCore at tasks.c:2324 IPIs that core, and its vTaskSwitchContext also refuses to switch. Nothing else in tasks.c stops a preemption-disabled task from blocking: xPreemptionDisable is only read at lines 945, 1251, 2894, 4897, 4950 and 5234.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "critical",
+     "file": "tasks.c",
+     "line": 5234,
+     "claim": "vTaskSwitchContext now refuses every context switch while the running task has preemption disabled, including when that task blocks, delays, suspends or deletes itself. The task keeps running even though the kernel has moved it to a delayed, event, suspended or termination list.",
+     "evidence": "The new guard `if( pxCurrentTCBs[ xCoreID ]->xPreemptionDisable != pdFALSE ) { xYieldPendings[ xCoreID ] = pdTRUE; } else if( uxSchedulerSuspended ...` returns without switching. It does not check whether the current task is still Ready. Trigger: after vTaskPreemptionDisable(NULL), the task calls vTaskDelay(10). vTaskDelay (tasks.c:2491) calls prvAddCurrentTaskToDelayedList and then taskYIELD_WITHIN_API (tasks.c:2504). That reaches vTaskSwitchContext, which only latches the flag, so the 'delayed' task keeps executing. vTaskDelete(NULL) has the same problem: tasks.c:2320 yields after the TCB is queued for the idle task to free, so the idle task can free the stack of a task that is still running. The same applies to vTaskDelete or vTaskSuspend on another core's task: prvYieldCore at tasks.c:2324 IPIs that core, and its vTaskSwitchContext also refuses to switch. Nothing else in tasks.c stops a preemption-disabled task from blocking: xPreemptionDisable is only read at lines 945, 1251, 2894, 4897, 4950 and 5234."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "tasks.c",
+     "line": 5234,
+     "claim": "The unconditional preemption-disable guard prevents voluntary blocking, allowing a blocked task to continue executing.",
+     "evidence": "On SMP with configUSE_TASK_PREEMPTION_DISABLE enabled, call vTaskPreemptionDisable(NULL) followed by vTaskDelay(10). vTaskDelay calls prvAddCurrentTaskToDelayedList, which removes the current task from its ready list and inserts it into a delayed list, then requests a context switch through taskYIELD_WITHIN_API. The new guard in vTaskSwitchContext only sets xYieldPendings and skips taskSELECT_HIGHEST_PRIORITY_TASK whenever xPreemptionDisable is set, so the delayed task remains current and returns from its delay without waiting. The guard must distinguish preemption from switches required by blocking, suspension or deletion."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff confirms that the four sites (3531, 5504, 8218, 8355) require xYieldPendingBefore == pdFALSE. A caller only misses a needed yield if it ignores an earlier woken flag or the pending flag is not serviced, and the code does not show that this happens in practice. So the harm is plausible but not settled.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tasks.c",
+   "line": 5504,
+   "claim": "The yield-reporting paths now return pdFALSE / leave *pxHigherPriorityTaskWoken unset whenever this core already had a yield pending, even if a higher-priority task was unblocked.",
+   "evidence": "Each site now requires `( xYieldPendingBefore == pdFALSE ) && ( xYieldPendings[ portGET_CORE_ID() ] != pdFALSE )` before returning pdTRUE or setting *pxHigherPriorityTaskWoken (tasks.c:3531, 5504, 8218, and the matching block near 8351). Example: an ISR calls xSemaphoreGiveFromISR(a,&w1) and then xSemaphoreGiveFromISR(b,&w2). The first call sets xYieldPendings[core]. The second returns pdFALSE even though it unblocked a higher-priority task, which breaks the documented meaning of the woken flag. The single-core branches (e.g. tasks.c:5478) still report it based on priority.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "tasks.c",
+     "line": 5504,
+     "claim": "xTaskRemoveFromEventList, xTaskResumeFromISR and the two notify-from-ISR paths now report 'no higher-priority task woken' whenever this core already had a yield pending. A caller that uses a separate woken flag per call, or that relies on the return value, can skip a required portYIELD_FROM_ISR even though a higher-priority task was unblocked.",
+     "evidence": "Each site now requires `( xYieldPendingBefore == pdFALSE ) && ( xYieldPendings[ portGET_CORE_ID() ] != pdFALSE )` before returning pdTRUE or setting *pxHigherPriorityTaskWoken (tasks.c:3531, 5504, 8218, and the matching block near 8351). Example: an ISR calls xSemaphoreGiveFromISR(a,&w1) and then xSemaphoreGiveFromISR(b,&w2). The first call sets xYieldPendings[core]. The second returns pdFALSE even though it unblocked a higher-priority task, which breaks the documented meaning of the woken flag. The single-core branches (e.g. tasks.c:5478) still report it based on priority."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "The guard at 5234 does suppress voluntary yields. vTaskPreemptionEnable (3139-3147) then calls prvYieldCore, so the deferred yield does happen later. Whether suppressing a cooperative yield is wrong depends on the intended semantics, which story.md would define and the packet does not include. Lowered to low as an API-semantics point.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "tasks.c",
+   "line": 5239,
+   "claim": "An explicit taskYIELD() from a preemption-disabled task that is still ready is silently turned into a pending flag.",
+   "evidence": "vTaskSwitchContext sets `xYieldPendings[ xCoreID ] = pdTRUE` and returns. prvYieldForTask (tasks.c:932) skips any core where `xYieldPendings[ xCoreID ] == pdFALSE` is not true. The vTaskPreemptionDisable docs in include/task.h:1425-1453 only say the task 'will not be preempted'. They say nothing about voluntary yields being suppressed.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "tasks.c",
+     "line": 5239,
+     "claim": "An explicit taskYIELD() from a preemption-disabled task is now silently turned into a latched pending flag. This changes cooperative-yield behaviour the API docs never described, and the latched flag stops prvYieldForTask from considering this core until the task re-enables preemption.",
+     "evidence": "vTaskSwitchContext sets `xYieldPendings[ xCoreID ] = pdTRUE` and returns. prvYieldForTask (tasks.c:932) skips any core where `xYieldPendings[ xCoreID ] == pdFALSE` is not true. The vTaskPreemptionDisable docs in include/task.h:1425-1453 only say the task 'will not be preempted'. They say nothing about voluntary yields being suppressed."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only tasks.c and adds no tests. That would have caught the blocking defect in C1/X1. Lowered to low because a missing test is not a defect by itself.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "tasks.c",
+   "line": null,
+   "claim": "The SMP scheduling changes come with no tests covering time-slicing, the yield-return values, or blocking with preemption disabled.",
+   "evidence": "diff.patch touches only tasks.c, and the export contains no unit-test sources (the only *test* path is portable/Paradigm/Tern_EE/large_untested/port.c). acceptance.md points to story.md and tests.lock, but neither is in the packet or the export, so no locked test can be checked against these code paths.",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "tasks.c",
+     "line": null,
+     "claim": "The change alters SMP scheduling semantics in five places but adds no tests. Nothing shows that the time-slice, the yield-return or the vTaskSwitchContext changes behave as intended, or that blocking with preemption disabled still works.",
+     "evidence": "diff.patch touches only tasks.c, and the export contains no unit-test sources (the only *test* path is portable/Paradigm/Tern_EE/large_untested/port.c). acceptance.md points to story.md and tests.lock, but neither is in the packet or the export, so no locked test can be checked against these code paths."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds the same xYieldPendingBefore block at 3527, 5500, 8214 and 8351. Two copies compare with != pdFALSE and two with == pdTRUE. This is a maintainability point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tasks.c",
+   "line": 3527,
+   "claim": "The same snapshot/yield/compare block is duplicated at four call sites, with inconsistent comparisons.",
+   "evidence": "The identical `BaseType_t xYieldPendingBefore = xYieldPendings[ portGET_CORE_ID() ]; prvYieldForTask( ... ); if( ( xYieldPendingBefore == pdFALSE ) && ...` pattern appears at tasks.c:3527, 5500, 8214 and about 8351. Two of the copies compare with `== pdTRUE` and two with `!= pdFALSE`.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tasks.c",
+     "line": 3527,
+     "claim": "The same snapshot, yield and compare block is copied into four call sites instead of being folded into prvYieldForTask or a helper. Future fixes to the yield-reporting rule may land in only some of them.",
+     "evidence": "The identical `BaseType_t xYieldPendingBefore = xYieldPendings[ portGET_CORE_ID() ]; prvYieldForTask( ... ); if( ( xYieldPendingBefore == pdFALSE ) && ...` pattern appears at tasks.c:3527, 5500, 8214 and about 8351. Two of the copies compare with `== pdTRUE` and two with `!= pdFALSE`."
+    }
+   ],
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

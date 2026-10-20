@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1326764,
+  "duration_s": 21.4
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "With unknown-options-as-args and halt-at-non-option both on, head parses ['--foo','./file.js','--bar'] as _:['./file.js'] with bar:true. Base gives _:['./file.js','--bar'], so on head the halt at the first positional never happens and the later flag is parsed as an option."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "case 1: {\"_\":[\"./file.js\",\"--bar\"],\"foo\":true}\ncase 2: {\"_\":[\"command\",\"--foo\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "case 1: {\"_\":[\"./file.js\"],\"foo\":true,\"bar\":true}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: halt-at-non-option must stop parsing at ./file.js\n+ actual - expected\n\n  [\n    './file.js',\n-   '--bar'\n  ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w19-t1-F1/check/check.mjs:7:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [ './file.js' ],\n  expected: [ './file.js', '--bar' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "With unknown-options-as-args and halt-at-non-option both on, head parses ['--foo','./file.js','--bar'] as _:['./file.js'] with bar:true. Base gives _:['./file.js','--bar'], so on head the halt at the first positional never happens and the later flag is parsed as an option.",
+ "run": "v4-arm-v4",
+ "trial": "w19-t1",
+ "kind": "bug"
+}

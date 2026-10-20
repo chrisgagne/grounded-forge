@@ -1,0 +1,38 @@
+{
+ "id": "rb25",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/consumer/services/consumer-api.ts",
+   "start_line": 228,
+   "end_line": 241,
+   "message": "The GET download route (consumer controller line 353, and the matching one at publisher publish.ts:761) reads `req.query.download_language` and only casts it with `as Locale`; it never validates it. Before this change, a bad value ended up in a `lang` query param that `fetch` then overwrote, so it had no effect. Now `language as Locale` is sent unchecked as the `Accept-Language` header and the `lang` query param. A crafted URL (an unsupported locale, or a value with characters that aren't legal in a header) now reaches the backend or makes `fetch` throw, which returns a 500. Validate against `Object.values(Locale)` and fall back to `req.language`, or type the `language` parameter as `Locale` and validate at the route, instead of hiding the problem with a cast."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/publisher/services/publisher-api.ts",
+   "start_line": 932,
+   "end_line": 932,
+   "message": "The same fix is applied to the publisher preview download (`downloadDatasetPreview`), but no test covers it. The new e2e test only checks the consumer CSV path. Add a publisher-side check, or at least a unit test confirming that `fetch` receives the `lang` override, so this override bug can't come back unnoticed in either API client."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 27,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 33,
+   "cost_usd": 0.1735002,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 33
+ }
+}

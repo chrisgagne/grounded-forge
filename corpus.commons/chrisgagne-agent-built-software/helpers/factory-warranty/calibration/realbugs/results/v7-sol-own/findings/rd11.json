@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 279,
+   "message": "Remove stale prelink copies before swapping publish items. If a legacy library is rebuilt or upgraded so it no longer needs designer rewriting, `ProcessAssemblyDesigner` returns false and leaves its previous prelink copy untouched. This existence-only check then replaces the current library with that obsolete copy, silently publishing old code. Track the current rewritten assemblies in a persisted manifest or remove obsolete copies when rerunning the task, rather than treating every existing file as valid."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

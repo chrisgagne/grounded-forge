@@ -1,0 +1,63 @@
+{
+ "id": "w04",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.7856,
+ "codex_tokens": 38233,
+ "work": "<tmp>/replay-w04-t1-dixu3nqh",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only classes/range.js lines 376/379 and adds no test. A grep of test/fixtures finds the ^0. caret fixtures (range-parse.js:56-61, range-include.js:95-104) only without includePrerelease, and the includePrerelease caret fixtures only for ^1.0.0, which runs through the unchanged M!=='0' branch.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "classes/range.js",
+   "line": 376,
+   "claim": "No test covers ^0.0.x or ^0.x.y with includePrerelease, so the changed lower bounds at lines 376/379 are untested.",
+   "evidence": "diff.patch only changes classes/range.js lines 376 and 379 (adding `${z}`) and adds no test. A grep of test/fixtures finds no `^0.` range paired with `{ includePrerelease: true }`. The only includePrerelease caret fixtures are `['^1.0.0', ...]` (range-include.js:118-119, range-exclude.js:82-83), and those go through the unchanged M !== '0' branch.",
+   "axis_row": "L3.22",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "The major>0 branch at range.js:382-383 has no ${z}, but the locked fixture range-exclude.js:82 (['^1.0.0','1.0.0-rc1',{includePrerelease:true}]) requires exactly that exclusion. The asymmetry is required by the acceptance tests and is not a defect in this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "classes/range.js",
+   "line": 382,
+   "claim": "Caret prerelease inclusion is inconsistent between ^0.x and ^1.x under includePrerelease.",
+   "evidence": "Lines 376 and 379 now emit `>=${M}.${m}.${p}${z}`, but the major>0 branch at lines 382-383 is still `>=${M}.${m}.${p} <${+M + 1}.0.0-0` with no `${z}`. The x-range branches at lines 350/353/355 apply `${z}` whatever the major. The locked fixture range-exclude.js:82 `['^1.0.0', '1.0.0-rc1', { includePrerelease: true }]` pins the major>0 exclusion. With no story.md in the packet, the review can't tell whether this asymmetry is intended.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 323-330 list only the expansions without includePrerelease (e.g. '^0.1.0 --> >=0.1.0 <0.2.0-0'), while lines 376/379 now append ${z}. The claim is accurate but is a documentation point only, and the block already left out the includePrerelease form for the x-range branches.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "classes/range.js",
+   "line": 330,
+   "claim": "The comment block above replaceCarets doesn't mention the -0 lower bound that ^0.x.y now gets under includePrerelease.",
+   "evidence": "The comment block that ends at line 330 (`// ^0.1.0 --> >=0.1.0 <0.2.0-0`) is unchanged, while line 342 `const z = options.includePrerelease ? '-0' : ''` is now added to the lower bound at lines 376 and 379.",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

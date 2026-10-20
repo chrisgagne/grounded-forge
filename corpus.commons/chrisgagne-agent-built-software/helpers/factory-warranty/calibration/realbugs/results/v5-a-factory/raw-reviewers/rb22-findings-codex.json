@@ -1,0 +1,32 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/session.go",
+  "line": 91,
+  "claim": "Completing a state twice leaves multiple redeemable codes and can return a different account's token for an earlier code.",
+  "evidence": "Before redemption, two successful GitHub callbacks with the same state both pass HasSession. CompleteCallback overwrites the shared Session.AccessToken and adds another codes entry without removing the first. ExchangeCode then returns the latest token for either code; redeeming one deletes only that codes entry, so the other remains usable.",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 91,
+  "claim": "Authorization without a PKCE challenge is accepted, allowing an intercepted authorization code to be redeemed without proof of possession.",
+  "evidence": "Authorize rejects the challenge method only when code_challenge is nonempty. A request omitting both PKCE parameters creates a session, and ExchangeCode skips verification when Session.CodeChallenge is empty. Token requires only the code and matching redirect URI and performs no client authentication.",
+  "axis_row": "L2.1"
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "low",
+  "file": "services/copilot-review-mcp/internal/auth/session.go",
+  "line": null,
+  "claim": "The new authentication service has no automated tests or Go test integration, leaving its security transitions without regression coverage.",
+  "evidence": "The diff adds the OAuth handlers, session store and authentication middleware without any test files. The exported service contains no *_test.go files, and .github/workflows/lint-test.yml runs only Node tests, shell lint and Bats tests.",
+  "axis_row": "L3.22"
+ }
+]

@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/ardevd/jadx-collaboration",
+  "pr_number": 3,
+  "base": "a9627c7cd6695e2389a68033c3985a0809f2978e",
+  "head": "853179dcb73aed6afab52d11324ea3ff3eac8b8a"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 572,
+   "end_line": 574,
+   "message": "Preserve edits made while synchronization is running. If a user renames an item or edits a comment while a pre-pull/post-push script is running, the final `localRepositoryToProject` replaces the project's entire rename and comment lists with the snapshot captured before the script. Moving synchronization off the EDT now allows those edits, so a successful pull or push silently discards them. Reconcile intervening project changes before applying the result, or prevent editing during synchronization."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 45,
+   "message": "Serialize background pull and push operations. Each menu or keyboard invocation now starts an independent thread, so clicking Push twice or starting Pull during Push can concurrently read and overwrite the same repository files and run scripts against the same working copy. `writeRepository` truncates files directly, allowing overlapping operations to lose updates or read partially written JSON. Use a shared operation guard or serialized worker for both actions, covering the final project update as well."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 54,
+   "message": "The description says all four entry points go through a shared single-thread daemon executor, but the code doesn't do that. Each menu click or key press starts a new thread with `kotlin.concurrent.thread`, so nothing is queued or serialized. Rapid clicks, or a Pull fired during a Push, will run concurrently. They read and write the same `.local` and remote files (lost updates, torn JSON), run the pre-pull/post-push scripts in parallel, and interleave changes to `codeData`. Before this change, `uiRun` serialized them on the EDT, so this is a regression. Use one shared `Executors.newSingleThreadExecutor` with a daemon thread factory, or guard re-entry with an AtomicBoolean."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 54,
+   "message": "`kotlin.concurrent.thread` creates non-daemon threads by default (`isDaemon = false`). The description says a daemon thread prevents a stall at JVM shutdown, but that isn't true here. If a pre-pull or post-push script hangs (`process.waitFor()` has no timeout), or a conflict dialog is pending, these threads will keep the JVM alive after JADX closes."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 550,
+   "end_line": 575,
+   "message": "The project snapshot (`projectToLocalRepository` \u2192 `getProjectRenames`/`getProjectComments`) is now taken on a background thread, and the EDT stays responsive while scripts run and conflict dialogs wait for input. At the end, `localRepositoryToProject` on the EDT replaces `codeData.renames`/`comments` completely with the repository contents. Any rename or comment the user makes during the operation isn't in the snapshot, so it is silently thrown away. This couldn't happen before because the EDT was blocked. The same applies to push (lines 589 and 645-648)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 123,
+   "end_line": 143,
+   "message": "`codeData.renames`/`comments` are now read from a background thread and written from the EDT (by the user's own renames and by `localRepositoryToProject`). There is no synchronization or happens-before edge between them, so the background reader can see stale or inconsistent lists. Do the project reads on the EDT (for example with `invokeAndWait`) and keep only the file I/O and scripts in the background."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 540,
+   "end_line": 649,
+   "message": "Nothing on the background thread catches exceptions. `ProcessBuilder.start()` in `runScript` throws IOException for a missing or non-executable script, and `projectToLocalRepository` and the conflict resolver can also throw. Any of these kills the thread and only goes to the default uncaught-exception handler, so the user gets no error dialog and doesn't know the pull or push failed. Wrap the bodies in try/catch and call `showError`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+   "start_line": 125,
+   "end_line": 146,
+   "message": "The tests now call `plugin.pull()`/`push()` directly and no longer run the registered menu or key-binding actions. The captured `pull`/`push` Runnables in PluginMockery are now dead, and nothing tests the new threading or serialization behavior, which is how the missing executor and concurrent runs went unnoticed."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 39000
+ }
+}

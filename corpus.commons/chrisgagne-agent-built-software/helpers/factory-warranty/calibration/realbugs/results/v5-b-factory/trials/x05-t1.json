@@ -1,0 +1,65 @@
+{
+ "id": "x05",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.686,
+ "codex_tokens": 50781,
+ "work": "<tmp>/replay-x05-t1-4xn5hg7x",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only apple assertion is test/basic.js:47, which checks rgb.apple for one input. No convert.apple.rgb or .raw assertion exists, and the loop at lines 8-32 only checks that routes exist and channels > 0. So apple.rgb (conversions.js:748-750) has no value check. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/basic.js",
+   "line": 47,
+   "claim": "The new apple.rgb conversion has no value test, and rgb.apple is checked with only one input.",
+   "evidence": "The only new assertion is `assert.deepEqual(convert.rgb.apple([255, 127, 0]), [65535, 32639, 0]);`. No `convert.apple.rgb(...)` or `convert.apple.rgb.raw(...)` assertion exists anywhere in test/basic.js. The loop at lines 8-32 only checks that a route exists and that `channels > 0`; it does not check any values. `convert.apple.rgb` (conversions.js:748-750) is new code that no test runs for its result.",
+   "axis_row": "L3.22",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "README.md:6 still lists only rgb, hsl, hsv, hwb, cmyk, ansi, ansi16, hex and keyword. The diff changes only conversions.js, and a search of the export finds 'apple' only in conversions.js and test/basic.js. Documentation gap, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 6,
+   "claim": "The new public apple model is not documented in the README or the CHANGELOG.",
+   "evidence": "README.md:6 still reads \"It converts all ways between `rgb`, `hsl`, `hsv`, `hwb`, `cmyk`, `ansi`, `ansi16`, `hex` strings, and CSS `keyword`s\". The diff touches only conversions.js (plus the locked test), and neither README.md nor CHANGELOG.md mentions `apple`. The README was already missing `hcg`/`lab`/`xyz`; this change leaves that gap and adds to it.",
+   "axis_row": "L5.24",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "acceptance.md says story.md is the spec, but a glob of the packet and both exports finds no story.md or tests.lock. So the code can't settle whether 0-65535 linear scaling is the intended meaning of 'apple'. It is a process gap, not a traced defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "story.md and tests.lock are missing, so the review can't check the change against the stated story (for example, the 16-bit linear meaning of apple).",
+   "evidence": "acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests; tests.lock lists them.\" Neither story.md nor tests.lock is in the packet or the export. The implementation's 0-65535 linear mapping (`(apple[0] / 65535) * 255`) is checked only by one locked assertion at test/basic.js:47.",
+   "axis_row": "L1.1",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

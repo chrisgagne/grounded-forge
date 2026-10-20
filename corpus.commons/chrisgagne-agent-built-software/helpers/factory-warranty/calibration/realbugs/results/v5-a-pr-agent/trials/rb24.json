@@ -1,0 +1,40 @@
+{
+ "id": "rb24",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 31,
+   "end_line": 44,
+   "message": "JFIF hides EXIF. The APP0 JFIF segment returns as soon as it is found. Per the JFIF spec, APP0 always comes before APP1, so any EXIF resolution is never read when a JFIF header exists. Many camera and editor JPEGs contain both a JFIF header with units=0 and density 1x1 (aspect ratio only) and an EXIF block with the real DPI, such as 300 dpi. For those files the result is `[[1, 1], :no_units]` and the actual resolution is lost. When JFIF units are 0, consider continuing the scan and preferring EXIF data if present."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/fastimage/fastimage_parsing/exif.rb",
+   "start_line": 91,
+   "end_line": 112,
+   "message": "Missed resolution data. `read_rational_resolution` only seeks forward from the current stream position. Any rational value whose offset points before the end of the IFD entry table is skipped with `next`, and the method returns nil. TIFF allows value data to sit anywhere in the file. Some writers place out-of-line data before the IFD, for example files where the IFD is written last. Such TIFFs report no resolution even though the tags exist. It is uncertain how common this layout is among the target inputs. At minimum, the forward-only stream limitation should be documented. Alternatively, buffer the data when offsets precede the current position."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/fastimage/fastimage_parsing/jpeg.rb",
+   "start_line": 52,
+   "end_line": 57,
+   "message": "Inconsistent types. The resolution values have different numeric types depending on the metadata source. JFIF, PNG and BMP return Integers, for example `[72, 72]`. EXIF/TIFF returns Floats, for example `[72.0, 72.0]`, because the rational is computed with `num.to_f / den`. Callers comparing or serializing results get different types for the same DPI depending on which segment the file contains, as the test fixtures show for `test.jpg` vs `test2.jpg`. Normalizing to one type, or returning Integers when the denominator divides evenly, would make the API predictable."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 691,
+  "usage": {
+   "prompt_tokens": 14011,
+   "completion_tokens": 4394,
+   "total_tokens": 18405
+  },
+  "security_concern": false
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/renedierking/LANdalf",
+  "pr_number": 88,
+  "base": "cc81fa3dc87a8a50654c1279b3bdb2761e94f832",
+  "head": "bc1698f4dbc3a99dee0a6dcf7629813f2027682a"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 184,
+   "end_line": 184,
+   "message": "Cancelling during SendPingAsync lands in the generic catch (Exception). That catch logs a Warning and returns false, so the cancellation becomes an 'offline' result. SendPingAsync(..., cancellationToken: cancellationToken) throws OperationCanceledException when the token is cancelled. The only handler that catches it is `catch (Exception ex) { _logger.LogWarning(ex, \"Unexpected error pinging {IpAddress}\", ipAddress); return false; }`, so the exception is not rethrown. CheckDeviceAsync then sees `device.IsOnline != isOnline`, sets IsOnline=false and OnlineSince=null, and calls UpdatePcDeviceAsync(device, cancellationToken). The save is probably stopped only because SaveChangesAsync throws on the already-cancelled token. Nothing filters this case, e.g. `catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 182,
+   "end_line": 182,
+   "message": "The new iputils-ping/CAP_NET_RAW troubleshooting hint is logged only at Debug, so it doesn't show at the shipped Information level. `_logger.LogDebug(ex, \"Ping failed for {IpAddress}. If running on Linux, ensure 'iputils-ping' is installed and the process has CAP_NET_RAW ...\")`. Both docker-compose.yaml and dev/docker/docker-compose.yaml set `Serilog__MinimumLevel__Default=Information`. The PlatformNotSupportedException branch warns only once per process (`Interlocked.CompareExchange(ref _platformNotSupportedLogged, 1, 0)`) and then returns false silently on every later cycle."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "docs/INSTALLATION.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The docs don't mention the new runtime requirement (a ping utility, possibly CAP_NET_RAW). The only reference to the requirement is inside the Debug log string at DeviceMonitoringService.cs:182. A search for iputils, NET_RAW, ICMP and cap_add across the README, docs/ and the compose files finds nothing."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "test/API/DeviceMonitoringServiceTests.cs",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "No test covers cancellation during the ping or the one-time PlatformNotSupportedException warning. The diff changes no test files. In test/API/DeviceMonitoringServiceTests.cs, CheckAllDevicesAsync_PingsDevicesWithIpAddress pings loopback and asserts `UpdatePcDeviceAsync(..., Times.AtMostOnce)`, which passes whether ping succeeds, fails or is unsupported."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

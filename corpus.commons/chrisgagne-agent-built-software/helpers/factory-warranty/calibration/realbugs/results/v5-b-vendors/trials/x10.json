@@ -1,0 +1,55 @@
+{
+ "id": "x10",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/diff/base.js",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "This uses the nullish coalescing operator (`??`), but the toolchain is pinned to `@babel/preset-env` ^7.2.3 and `babel-eslint`. preset-env only transforms `??` from 7.8 on, and old babel-eslint can't parse it. On a lockfile or install that resolves to an older version, the build or lint can fail, or untranspiled `??` can end up in the dist bundle that rollup targets at IE11. Either confirm the minimum versions or use `options.timeout != null ? options.timeout : Infinity`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/diff/base.js",
+   "start_line": 36,
+   "end_line": 37,
+   "message": "`timeout` is never validated. A non-numeric value breaks the check silently: a string like '100' makes `Date.now() + '100'` a concatenated string that parses to a huge number, so the timeout never fires. NaN makes `Date.now() <= NaN` false, so the sync loop never runs and the call returns undefined right away. Convert with Number() and check that the result is finite, or ignore invalid values."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/diff/base.js",
+   "start_line": 143,
+   "end_line": 143,
+   "message": "The deadline is only checked between edit lengths. One `execEditLength()` call walks every diagonal and runs `extractCommon` on each, which can take a long time on large inputs, so the real running time can go well past `timeout`. Say this in the docs, or also check the time inside the diagonal loop."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/diff/base.js",
+   "start_line": 133,
+   "end_line": 133,
+   "message": "The new `timeout` option isn't in the README options list next to `maxEditLength`. Nothing tells users that a timeout makes the call return `undefined` (sync) or call the callback with no arguments (async). Nothing in the change tests the new code path either."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 30,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 38,
+   "cost_usd": 0.1170122,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 38
+ },
+ "stopped": false
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "Read hook input from stdin. Claude Code supplies command-hook input through stdin, but the installed command passes no arguments. Consequently, this parses `{}` and exits at the tool-name check, allowing every shutdown. Read stdin and test the hook using the installed invocation rather than passing JSON as an argument."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 38,
+   "end_line": 40,
+   "message": "Inspect the actual SendMessage shutdown fields. SendMessage shutdown requests use top-level tool-input fields `type: \"shutdown_request\"`, `recipient`, and `content`, rather than `message.type` and `to`. Even after fixing input transport, actual shutdown requests exit here because `message` is absent. Inspect the real tool schema and use representative payloads in the tests."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "Match the sidecar format produced by the review workflow. The existing review gate locates sidecars named `${agent}--${contentHash}.json`, not filenames containing the branch. A normally completed review therefore fails this check and leaves the implementer blocked once shutdown interception works. Read and validate sidecar metadata against the relevant branch instead of requiring a branch substring in the filename."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

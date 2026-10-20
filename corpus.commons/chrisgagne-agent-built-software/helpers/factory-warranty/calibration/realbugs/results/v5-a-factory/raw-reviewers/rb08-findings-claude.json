@@ -1,0 +1,67 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "high",
+  "file": ".github/workflows/publish-figprint.yml",
+  "line": 209,
+  "claim": "The yaml-language-server schema header is written inside a double-quoted PowerShell string, so PowerShell expands `$schema` as an undefined variable. Every generated manifest gets the broken header `# yaml-language-server: =https://...` instead of the schema reference the change says the winget-pkgs pipeline requires.",
+  "evidence": "Lines 209, 222 and 243 are `@(\"# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json\", ...` in a `shell: pwsh` step. In an expandable (double-quoted) string `$schema` is a variable reference that ends at `=`, and nothing assigns `$schema`. The text therefore never contains `$schema=`. The comment at lines 201-204 says the pipeline 'fails manifest validation' without this header, so every 'Submit to winget' run still uploads manifests that fail. A single-quoted string or an escaped `` `$schema `` is needed."
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "medium",
+  "file": ".github/workflows/publish-figlet-py.yml",
+  "line": 10,
+  "claim": "The publish triggers were narrowed to source-file extensions and no longer list the workflow file itself. A merged PR that changes only a version, dependency, font, manifest or workflow file now publishes nothing, and nothing in the story asked for this.",
+  "evidence": "In the diff, `FIGLet.Python/**` became `FIGLet.Python/**/*.py`. Likewise `FIGLet/**` became `FIGLet/**/*.cs`, `FIGLet.TS/**` became `*.ts`/`*.tsx` only, `FIGPrint/**` became `*.cs`, and the VS and VS Code extension paths changed the same way. Every `.github/workflows/publish-*.yml` self-path was removed. publish-figlet-py.yml line 38 reads the major.minor base version from `pyproject.toml`, so a merged PR that only bumps it (or changes `fonts/small.flf`) no longer runs the publish job. The same goes for `FIGLet.TS/package.json`, `*.csproj`, `.vsixmanifest`/`.xaml` and the extension's `package.json`. Changes to the workflow files themselves, including this one's fixes to publish-figprint.yml, also wait for an unrelated `.cs` change to run. The only fallback is a manual `workflow_dispatch`.",
+  "axis_row": "L6.22"
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+  "line": 75,
+  "claim": "insertBanner no longer replaces a non-empty selection: it always inserts at column 0 of the cursor's line. Selected text the user expected to be replaced stays in the document, and this behaviour change is undocumented and was not requested.",
+  "evidence": "The diff removes `if (editor.selection.isEmpty) { editBuilder.insert(...) } else { editBuilder.replace(editor.selection, ...) }` and keeps only `editBuilder.insert(position, indentedBanner + '\\n')`, where `position = currentPosition.with(currentPosition.line, 0)` and `currentPosition = editor.selection.active` (the selection's active end). None of the ChangeLog-2026.md entries in the diff mention this change.",
+  "axis_row": "L6.22"
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "low",
+  "file": ".github/workflows/publish-figprint.yml",
+  "line": 254,
+  "claim": "The rewritten installer manifest drops `PortableCommandAlias: figprint`, but the new changelog entry says it defines `figprint` as the portable command alias. The changelog now describes a manifest the workflow doesn't produce.",
+  "evidence": "The removed manifest had `\"  PortableCommandAlias: figprint\",`. The new NestedInstallerFiles entries (lines 253-254 and 261-262) list only `- RelativeFilePath: FIGPrint.exe`. ChangeLog-2026.md says: 'Define `FIGPrint.exe` as the nested installer file with `figprint` as the portable command alias'."
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "low",
+  "file": "FIGLet.VSCodeExtension/src/FigletPanel.ts",
+  "line": 131,
+  "claim": "A user's existing `figlet.defaultFont` value is silently ignored after upgrade, because the new last-used-font lookup falls back to 'small' rather than migrating the old setting.",
+  "evidence": "`const lastFontUsed = context.globalState.get<string>('lastFontUsed') || 'small';`. The `figlet.defaultFont` contribution is removed from package.json, and no code reads the old value as a fallback."
+ },
+ {
+  "id": "C6",
+  "leg": "claude",
+  "severity": "low",
+  "file": "FIGLet.VSCodeExtension/src/LanguageCommentStyles.ts",
+  "line": 75,
+  "claim": "The new enum member is named `BATCHFile`, which matches neither the PascalCase of the other members nor the `BatchFile` name the changelog says was introduced.",
+  "evidence": "The enum adds `BATCHFile` next to `Bash` and the others. The static property is `LanguageCommentStyles.BatchFile = new CommentStyleInfo(CommentStyle.BATCHFile)`. ChangeLog-2026.md says 'Introduce `BatchFile` to `CommentStyle` enum'."
+ },
+ {
+  "id": "C7",
+  "leg": "claude",
+  "severity": "low",
+  "file": ".github/workflows/publish-figprint.yml",
+  "line": 193,
+  "claim": "`$PackageId` is assigned a second time, which duplicates the earlier `$packageId`. PowerShell variable names are case-insensitive, so both names refer to one variable, and the two spellings in the same step mislead the reader.",
+  "evidence": "Line 152 has `$packageId  = \"ByteForge.FIGPrint\"` and line 193 has `$PackageId = \"ByteForge.FIGPrint\"`. Both spellings are then used: `$PackageId` in the manifests, `$packageId` in the upload message and PR title."
+ }
+]

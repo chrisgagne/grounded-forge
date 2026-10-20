@@ -1,0 +1,72 @@
+{
+ "id": "w18",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6527,
+ "codex_tokens": 45986,
+ "work": "<tmp>/replay-w18-t1-uzn2_u89",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 978 now calls hasAllShortFlags no matter the config. For ['-ab','value'] with boolean a,b, short-option-groups false and unknown-options-as-args true, it returns true, so the isUnknownOptionAsArg check at line 226 is skipped. The branch at lines 261-264 then sets the unconfigured key 'ab' and doesn't keep '-ab' in _. Before the change the guard skipped this check and normalFlag correctly reported 'ab' as unknown.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "Dropping the short-option-groups guard makes an unknown multi-letter option like -ab count as known when grouping is off and unknown-options-as-args is on, as long as each letter is a configured flag.",
+   "evidence": "isUnknownOption now always calls `if (hasAllShortFlags(arg)) { return false }`. hasAllShortFlags('-ab') checks each letter with hasAnyFlag and returns true when `a` and `b` exist. With short-option-groups false, though, the parser does not split `-ab` into letters. It reads it as the single key `ab` (line 262: `!configuration['short-option-groups'] && arg.match(/^-[^-]+/)` \u2192 `m = arg.match(/^--?(.+)/)`, key = 'ab'). The check at line 226 (`isUnknownOptionAsArg(arg)` \u2192 pushPositional) is therefore skipped, and setArg('ab', ...) records an option the user never configured. Before the change, the guard skipped hasAllShortFlags in this mode, so normalFlag matched 'ab', hasAnyFlag('ab') was false, and the arg was correctly sent to `_`. Nothing else in the code now does the guard's job.",
+   "breaks": "AC-1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grep finds 'short-option-groups': false only at lines 2316, 2322, 2879 and 2898, and none of those tests sets unknown-options-as-args. The diff touches only lib/yargs-parser.ts. Lowered to low because a test gap is not a defect in itself; the defect is the merged C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/yargs-parser.mjs",
+   "line": null,
+   "claim": "No test covers short-option-groups false together with unknown-options-as-args true, and the diff adds no test.",
+   "evidence": "The diff changes only lib/yargs-parser.ts and adds no tests. In test/yargs-parser.mjs, `'short-option-groups': false` appears only at lines 2316, 2322, 2879 and 2898, and none of those tests also sets `'unknown-options-as-args': true`. The unknown-options-as-args tests (lines 3047\u20133435, 4136+) all run with the default short-option-groups: true, where the removed guard always held, so they pass whether the guard is there or not.",
+   "axis_row": "L3.9",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The comment at line 977 still says 'if this is a short option group', but line 978 no longer checks that grouping is on. acceptance.md points to story.md, which is not in the packet. This is a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/yargs-parser.ts",
+   "line": 977,
+   "claim": "The comment at line 977 no longer matches the logic, and nothing records why the config-gated check was weakened.",
+   "evidence": "acceptance.md says only 'story.md is the spec', but the packet has no story.md and risk.json lists no classes. The single hunk removes `configuration['short-option-groups'] &&` and leaves the comment 'if this is a short option group and all of them are configured', which no longer matches when short-option-groups is disabled.",
+   "axis_row": "L5.13",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

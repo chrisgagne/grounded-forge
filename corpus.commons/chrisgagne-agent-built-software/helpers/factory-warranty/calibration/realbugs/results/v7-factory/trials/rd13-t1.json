@@ -1,0 +1,509 @@
+{
+ "id": "rd13",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 3.0597,
+ "codex_tokens": 54209,
+ "work": "<tmp>/replay-rd13-t1-vgxqu7vb",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "CodexSkillsAssembler.copySkillsTree copies the generated skills into .agents/.codex. The java-quarkus .agents golden x-dev-lifecycle/SKILL.md goes straight from 'Default Behavior' (l.133) to the API-First Phase 0.5 (l.137) with no Planning Mode Detection. GoldenFileTest.profile_whenCalled_matchesGoldenFiles compares every golden file, so running the suite fails and the story's 'golden file match' DoD is not met.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/test/resources/golden/java-quarkus/.agents/skills/x-dev-lifecycle/SKILL.md",
+   "line": 133,
+   "claim": "The golden files were not regenerated (only java-quarkus .claude x-dev-lifecycle was patched), so the byte-for-byte GoldenFileTest fails.",
+   "evidence": "CodexSkillsAssembler copies the generated .claude/skills tree verbatim into .agents/skills and .codex/skills. The .agents golden x-dev-lifecycle/SKILL.md still goes straight from '**Default Behavior:**' (line 133) to '## Phase 0.5 \u2014 API-First Contract Generation' (line 137) with no 'Planning Mode Detection'. A grep for 'DoR Pre-check', 'Task-Aware TDD Loop' and '0.2 Resolve Epic Directory' matches only the source SKILL.md files and none of the 17 profiles' .agents goldens (x-dev-implement, x-dev-epic-implement, x-story-plan). GoldenFileTest.profile_whenCalled_matchesGoldenFiles asserts exact equality for each profile.",
+   "breaks": "story",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "java/src/test/resources/golden/java-quarkus/.agents/skills/x-dev-lifecycle/SKILL.md",
+     "line": 133,
+     "claim": "The golden files were not regenerated: only one .claude golden (java-quarkus x-dev-lifecycle) was patched. The byte-for-byte GoldenFileTest will therefore fail for all 17 profiles, and the stories' 'Smoke test: golden file match' DoD is not met.",
+     "evidence": "CodexSkillsAssembler copies the generated .claude/skills tree verbatim into .agents/skills and .codex/skills. The .agents golden x-dev-lifecycle/SKILL.md still goes straight from '**Default Behavior:**' (line 133) to '## Phase 0.5 \u2014 API-First Contract Generation' (line 137) with no 'Planning Mode Detection'. A grep for 'DoR Pre-check', 'Task-Aware TDD Loop' and '0.2 Resolve Epic Directory' matches only the source SKILL.md files and none of the 17 profiles' .agents goldens (x-dev-implement, x-dev-epic-implement, x-story-plan). GoldenFileTest.profile_whenCalled_matchesGoldenFiles asserts exact equality for each profile."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches no file under java/src/test/java. story-0028-0005 l.62/161 and story-0028-0006 l.76/195 require at least one test for the new SKILL.md instructions. Lowered from high: this is a DoD gap with no runtime trigger.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "line": null,
+   "claim": "No automated test checks that the new instructions are present, although stories 0028-0005/0006 require one.",
+   "evidence": "diff.patch changes only SKILL.md/README.md/planning-guide.md resources and one golden file. No file under java/src/test/java is touched. Story DoD: 'Pelo menos 1 teste automatizado validando a presen\u00e7a das novas instru\u00e7\u00f5es no SKILL.md' and sub-task '[Test] Unit\u00e1rio: SKILL.md cont\u00e9m instru\u00e7\u00f5es de DoR pre-check e per-task checkpoint'.",
+   "breaks": "story",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+     "line": null,
+     "claim": "No automated test was added, although stories 0028-0005 and 0028-0006 each require at least one test checking that the new instructions are present in the SKILL.md.",
+     "evidence": "diff.patch changes only SKILL.md/README.md/planning-guide.md resources and one golden file. No file under java/src/test/java is touched. Story DoD: 'Pelo menos 1 teste automatizado validando a presen\u00e7a das novas instru\u00e7\u00f5es no SKILL.md' and sub-task '[Test] Unit\u00e1rio: SKILL.md cont\u00e9m instru\u00e7\u00f5es de DoR pre-check e per-task checkpoint'."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "PRE_PLANNED requires all 7 artifact types, including architecture-, tests-, plan-, security- and compliance-story files. x-story-plan's Artifacts list (l.828-832) writes only tasks, task-plan, planning-report and dor. Its changed DoR checks now treat the planning report as primary, so a freshly planned story always lands in HYBRID.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "line": 156,
+   "claim": "PRE_PLANNED mode can never be reached from x-story-plan output, so task-by-task execution never runs.",
+   "evidence": "PRE_PLANNED requires all 7 artifacts and credits architecture-, tests-, plan-, security- and compliance-story files to 'x-story-plan Phase 2A/2B/2C'. x-story-plan writes only tasks-story, task-plan-TASK-NNN, planning-report and dor-story (its final 'Artifacts:' list, lines 828-833). The changed DoR checks #1/#2/#3/#9 now treat the planning report as primary and the standalone files only as 'fallback evidence'. Compliance is also conditional, so a non-compliance story never has compliance-story-*.md. A freshly planned story therefore always lands in HYBRID.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 156,
+     "claim": "PRE_PLANNED mode can never be reached from x-story-plan output. That leaves task-by-task Phase 2, the Phase 8 per-task status updates and the epic per-task checkpoint without the input they need.",
+     "evidence": "PRE_PLANNED requires all 7 artifacts and credits architecture-, tests-, plan-, security- and compliance-story files to 'x-story-plan Phase 2A/2B/2C'. x-story-plan writes only tasks-story, task-plan-TASK-NNN, planning-report and dor-story (its final 'Artifacts:' list, lines 828-833). The changed DoR checks #1/#2/#3/#9 now treat the planning report as primary and the standalone files only as 'fallback evidence'. Compliance is also conditional, so a non-compliance story never has compliance-story-*.md. A freshly planned story therefore always lands in HYBRID."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 156,
+     "claim": "The lifecycle cannot enter PRE_PLANNED mode from the artifacts its designated planner generates.",
+     "evidence": "The new detection requires seven artifact types, including standalone architecture, test, implementation, security and compliance files. However, x-story-plan Phase 4 generates task breakdowns, per-task plans, a consolidated planning report and a DoR checklist; its changed Phase 5 explicitly accepts report sections instead of standalone plans. Running the lifecycle after that planner therefore selects HYBRID and regenerates planning rather than skipping Phase 1 and executing the prepared tasks."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Phase 2 task-by-task (diff) commits each task without writing IN_PROGRESS/DONE. The only write is in Phase 8, after the whole story. The subagent prompt template (l.728-765) passes no task state, despite Step 1b's claim. If the run stops mid-story, every task is redone, which misses the 'Resume retoma da task exata' scenario.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "line": 289,
+   "claim": "Per-task state is never recorded during execution or passed to the story subagent, so resume cannot continue from the exact task.",
+   "evidence": "Step 1b says the subagent 'receives the task state and skips DONE tasks automatically'. The subagent prompt template in 1.4 (lines 728-765) passes only story file, branch, phase and skipReview, and the SubagentResult schema has no tasks field. No step sets a task to IN_PROGRESS. x-dev-lifecycle sets tasks.TASK-NNN.status = DONE only in Phase 8, after the whole story. With the default worktree dispatch (1.4a), that write lands in the subagent's worktree, not the orchestrator's execution-state.json. x-dev-implement's resume check reads the filesystem and test results, not execution-state.json.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+     "line": 289,
+     "claim": "Nothing in the change records per-task state during execution or passes it to the story subagent. 'Resume retoma da task exata' therefore has nothing in the checkpoint to resume from.",
+     "evidence": "Step 1b says the subagent 'receives the task state and skips DONE tasks automatically'. The subagent prompt template in 1.4 (lines 728-765) passes only story file, branch, phase and skipReview, and the SubagentResult schema has no tasks field. No step sets a task to IN_PROGRESS. x-dev-lifecycle sets tasks.TASK-NNN.status = DONE only in Phase 8, after the whole story. With the default worktree dispatch (1.4a), that write lands in the subagent's worktree, not the orchestrator's execution-state.json. x-dev-implement's resume check reads the filesystem and test results, not execution-state.json."
+    },
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 436,
+     "claim": "Task execution does not persist or consume task progress, so interruption cannot resume from the next incomplete task.",
+     "evidence": "The PRE_PLANNED loop reads and executes every TASK-NNN, validates it and commits it, without checking checkpoint status or writing IN_PROGRESS/DONE per task. The only new checkpoint write occurs in Phase 8 at line 674. If execution stops after TASK-001 commits and before Phase 8, its completion is not recorded; resuming repeats the loop, despite x-dev-epic-implement Step 1b promising that DONE tasks are skipped automatically."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Section 1.3 step 6 (l.621-625) still goes straight to updateStoryStatus IN_PROGRESS, and 1.4a (l.783-784) marks and launches all stories with no DoR step. Only the separate 1.1b copy has 'a0'. Lowered to medium because 1.1b does tell the orchestrator to check before dispatching, so the gap is two conflicting instructions.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "line": 622,
+   "claim": "The DoR pre-check is not in the Core Loop or the parallel dispatch algorithm, so a NOT_READY story can be marked IN_PROGRESS and dispatched.",
+   "evidence": "Section 1.1b says the check 'integrates into the Core Loop (Section 1.3) at step 6a' and shows a separate pseudo-code copy with step 'a0'. The real Core Loop in 1.3 is unchanged: '6. ... a. updateStoryStatus(epicDir, storyId, { status: \"IN_PROGRESS\" }) b. Dispatch subagent'. Steps 4/5 dispatch before step 6. The 1.4a Parallel Worktree Dispatch algorithm (line 783) still says 'For each executable story, mark IN_PROGRESS ... Launch ALL stories' with no DoR step.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+     "line": 622,
+     "claim": "The DoR pre-check is not in the dispatch algorithms the orchestrator actually follows, so in the default parallel path a NOT_READY story is marked IN_PROGRESS and dispatched.",
+     "evidence": "Section 1.1b says the check 'integrates into the Core Loop (Section 1.3) at step 6a' and shows a separate pseudo-code copy with step 'a0'. The real Core Loop in 1.3 is unchanged: '6. ... a. updateStoryStatus(epicDir, storyId, { status: \"IN_PROGRESS\" }) b. Dispatch subagent'. Steps 4/5 dispatch before step 6. The 1.4a Parallel Worktree Dispatch algorithm (line 783) still says 'For each executable story, mark IN_PROGRESS ... Launch ALL stories' with no DoR step."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "x-story-plan's inline DoR file (l.777-815) puts the verdict in the Header table and in '## Summary'. Only _TEMPLATE-DOR-CHECKLIST.md has '## Final Verdict'. 1.1b handles only READY and NOT_READY, with no else branch.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "line": 517,
+   "claim": "The DoR lookup reads a '## Final Verdict' section that x-story-plan's inline DoR format lacks, and it has no branch for an unreadable verdict.",
+   "evidence": "1.1b: 'File exists: Read the `## Final Verdict` section'. x-story-plan's inline DoR format (SKILL.md lines 777-815) has no '## Final Verdict' heading; the verdict is in the Header table and '## Summary'. Only _TEMPLATE-DOR-CHECKLIST.md has '## Final Verdict'. story-0028-0001 defines the value as 'READY / NOT READY' (with a space). There is no else-branch for a missing, unparseable or other verdict.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+     "line": 517,
+     "claim": "The DoR verdict lookup covers only the exact READY / NOT_READY values in a '## Final Verdict' section. A DoR file written in x-story-plan's inline format, or one saying 'NOT READY', matches neither branch, so whether the story is dispatched or blocked is undefined.",
+     "evidence": "1.1b: 'File exists: Read the `## Final Verdict` section'. x-story-plan's inline DoR format (SKILL.md lines 777-815) has no '## Final Verdict' heading; the verdict is in the Header table and '## Summary'. Only _TEMPLATE-DOR-CHECKLIST.md has '## Final Verdict'. story-0028-0001 defines the value as 'READY / NOT READY' (with a space). There is no else-branch for a missing, unparseable or other verdict."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7",
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "PRE_PLANNED needs every artifact fresh, HYBRID needs some missing ('Some artifacts exist but not all') and INLINE needs none. A complete but stale set matches no row.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "line": 157,
+   "claim": "The planning-mode table leaves 'all 7 artifacts exist but some are stale' undefined.",
+   "evidence": "PRE_PLANNED: 'All 7 types exist AND mtime(story) <= mtime(artifact) for all'. HYBRID: 'Some artifacts exist but not all ... Reuse existing fresh ones'. INLINE: 'No artifacts exist'. All present with any stale artifact satisfies none of the three.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 157,
+     "claim": "The mode table has no row for 'all 7 artifacts exist but some are stale', and HYBRID reuses only fresh artifacts without saying to regenerate stale ones. A story edited after planning gets an undefined mode.",
+     "evidence": "PRE_PLANNED: 'All 7 types exist AND mtime(story) <= mtime(artifact) for all'. HYBRID: 'Some artifacts exist but not all ... Reuse existing fresh ones'. INLINE: 'No artifacts exist'. All present with any stale artifact satisfies none of the three."
+    },
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 156,
+     "claim": "Planning mode detection leaves the case of a complete but stale artifact set undefined.",
+     "evidence": "PRE_PLANNED requires all seven types to be fresh, HYBRID requires some types to be absent, and INLINE requires no artifacts. When all types exist but the story has a newer modification time than one artifact, none of these conditions holds, leaving planningMode and the corresponding execution flow unspecified."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff, the new Phase 8 Per-Task section comes right after step '10. git checkout develop && git pull origin develop'. It edits Section 8.1 of the story file with no branch or commit instruction.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "line": 670,
+   "claim": "The Phase 8 per-task status update runs after the switch to develop, so the story-file edits are never committed to the story branch.",
+   "evidence": "The new '### Phase 8 \u2014 Per-Task Status Update' is inserted after Phase 8 step '10. `git checkout develop && git pull origin develop`'. It then says 'Update Section 8.1 of the story file: mark each TASK-NNN as Concluida', with no commit or branch instruction.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 670,
+     "claim": "The per-task Phase 8 update runs after the lifecycle has already switched to develop. The story-file Section 8.1 edits are therefore made on develop after the PR, never committed to the story branch.",
+     "evidence": "The new '### Phase 8 \u2014 Per-Task Status Update' is inserted after Phase 8 step '10. `git checkout develop && git pull origin develop`'. It then says 'Update Section 8.1 of the story file: mark each TASK-NNN as Concluida', with no commit or branch instruction."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "noise",
+   "reason": "The heuristic is a weakness, but it is exactly what story-0028-0005 \u00a73.2 (l.36-40) and its Gherkin (l.135-139) specify: if the file exists and tests pass, skip. The change does what was asked, so this is a spec concern, not a defect in this change.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "line": 257,
+   "claim": "The resume check (file exists + tests pass) can wrongly skip or redo tasks.",
+   "evidence": "'Check if the file/class from Implementation Guide exists - If exists, run tests for that component - If tests pass: log \"TASK-NNN: DONE (resume point verified)\" and skip'. The check does not consult the task's DoD, its commit, or execution-state.json tasks.TASK-NNN.status. x-story-plan task plans carry TDD Phase RED/GREEN/REFACTOR/VERIFY.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+     "line": 257,
+     "claim": "The task resume check can wrongly mark a task DONE, and can wrongly redo one. A task that modifies an existing class whose current tests pass is skipped. A RED task, whose expected end state is a failing test, is never detected as done.",
+     "evidence": "'Check if the file/class from Implementation Guide exists - If exists, run tests for that component - If tests pass: log \"TASK-NNN: DONE (resume point verified)\" and skip'. The check does not consult the task's DoD, its commit, or execution-state.json tasks.TASK-NNN.status. x-story-plan task plans carry TDD Phase RED/GREEN/REFACTOR/VERIFY."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The Per-Task Fields table in 1.1c lists only status, agent, type, commitSha and duration, and Step 1b names no dependency source. Lowered to low: the orchestrator could infer dependencies from tasks-story-*.md, and nothing sets tasks BLOCKED anyway.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "line": 285,
+   "claim": "Step 1b's BLOCKED-task rule needs task dependencies, but the checkpoint schema has none and Step 1b doesn't say where to read them.",
+   "evidence": "Step 1b: 'BLOCKED tasks: if all task dependencies are DONE -> PENDING'. The Per-Task Fields table in 1.1c lists only status, agent, type, commitSha and duration. Dependencies exist only in tasks-story-*.md / task-plan files, and Step 1b does not reference those files.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+     "line": 285,
+     "claim": "Step 1b's BLOCKED-task rule needs task dependencies, but the per-task checkpoint schema has no dependency field and Step 1b doesn't say where to read them.",
+     "evidence": "Step 1b: 'BLOCKED tasks: if all task dependencies are DONE -> PENDING'. The Per-Task Fields table in 1.1c lists only status, agent, type, commitSha and duration. Dependencies exist only in tasks-story-*.md / task-plan files, and Step 1b does not reference those files."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "l.123 still runs 'test -f plans/epic-XXXX/story-XXXX-YYYY.md' and aborts on NOT_FOUND. l.173-176, 536, 540, 592, 640 and 702 hard-code plans/epic-XXXX/plans. Set to medium (X1 said high): suffixed directories failed before this change too, so nothing regresses, but the feature the change adds does not work.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 123,
+   "claim": "The new EPIC_DIR suffix support is only half applied: the story-file check aborts and outputs still use plans/epic-XXXX.",
+   "evidence": "Step 0.2 resolves EPIC_DIR to e.g. plans/epic-0028-foo. Step 0.5 still runs 'test -f plans/epic-XXXX/story-XXXX-YYYY.md' and aborts on NOT_FOUND. Step 1.4 (lines 173-176) and outputs 4.2/4.3/4.4 (lines 592, 640, 702) still hard-code 'plans/epic-XXXX/plans/...'. Step 0.2 also leaves undefined the case of several suffix matches with no exact match.",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 123,
+     "claim": "The new EPIC_DIR suffix support is only half applied. With a suffixed epic directory, the story-file check aborts, and artifacts are written to and read from the unsuffixed path.",
+     "evidence": "Step 0.2 resolves EPIC_DIR to e.g. plans/epic-0028-foo. Step 0.5 still runs 'test -f plans/epic-XXXX/story-XXXX-YYYY.md' and aborts on NOT_FOUND. Step 1.4 (lines 173-176) and outputs 4.2/4.3/4.4 (lines 592, 640, 702) still hard-code 'plans/epic-XXXX/plans/...'. Step 0.2 also leaves undefined the case of several suffix matches with no exact match."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 120,
+     "claim": "Planning still aborts for suffix-named epic directories despite the newly added directory resolution.",
+     "evidence": "For a story under plans/epic-0022-security-program/, Phase 0.2 resolves EPIC_DIR successfully, but Phase 0.5 still executes `test -f plans/epic-XXXX/story-XXXX-YYYY.md` and explicitly aborts on NOT_FOUND. Phase 4 also retains hardcoded plans/epic-XXXX output paths instead of using EPIC_DIR."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "x-story-plan l.296-297 now say Level 4 = collection and Level 5 = conditional. x-test-plan l.131/135 say Level 4 = Complex Conditions and Level 5 = Iterations. The diff reversed an ordering that previously matched, and no story asks for this.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 296,
+   "claim": "The swapped TPP levels 4 and 5 now contradict x-test-plan.",
+   "evidence": "x-test-plan/SKILL.md lines 131-137: 'TPP Level 4 \u2014 Complex Conditions' and 'TPP Level 5 \u2014 Iterations'. The diff changes x-story-plan from '4 (conditional) / 5 (collection)', which matched x-test-plan, to '4 (collection) / 5 (conditional)'. No story in epic-0028 asks for this change.",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 296,
+     "claim": "The TPP levels in the QA prompt were reordered (Level 4 = collection, Level 5 = conditional). They now contradict x-test-plan, which DoR check #2 relies on for 'TPP level ordering (1 through 6)', so the two skills will number UT-N levels differently.",
+     "evidence": "x-test-plan/SKILL.md lines 131-137: 'TPP Level 4 \u2014 Complex Conditions' and 'TPP Level 5 \u2014 Iterations'. The diff changes x-story-plan from '4 (conditional) / 5 (collection)', which matched x-test-plan, to '4 (collection) / 5 (conditional)'. No story in epic-0028 asks for this change."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes EPIC_DIR resolution, implementation-map naming, the new 'implementation' type, SEC VERIFY tasks, the DoR check sources, the TPP order and the README. Stories 0028-0005/0006 scope only x-dev-implement and x-dev-epic-implement.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 73,
+   "claim": "The diff makes several x-story-plan changes no story asks for.",
+   "evidence": "Changes with no requesting story: EPIC_DIR glob resolution, implementation-map-XXXX.md naming, the new 'implementation' task type in SKILL.md and planning-guide.md, retained SEC tasks as tdd_phase VERIFY, DoR checks #1/#2/#3/#9 now reading planning-report sections, the TPP swap, removal of '(RULE-012)' from the template warning, and a README prerequisite change. The stories only scope x-dev-implement Step 0/2 and x-dev-epic-implement DoR/resume.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C13",
+     "leg": "claude",
+     "severity": "low",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 73,
+     "claim": "The diff makes several x-story-plan changes that neither story 0028-0005 nor 0028-0006 asks for, which widens what needs review.",
+     "evidence": "Changes with no requesting story: EPIC_DIR glob resolution, implementation-map-XXXX.md naming, the new 'implementation' task type in SKILL.md and planning-guide.md, retained SEC tasks as tdd_phase VERIFY, DoR checks #1/#2/#3/#9 now reading planning-report sections, the TPP swap, removal of '(RULE-012)' from the template warning, and a README prerequisite change. The stories only scope x-dev-implement Step 0/2 and x-dev-epic-implement DoR/resume."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "story-0028-0006 l.26, 35 and 72 say stories without a DoR are BLOCKED. Its diagram (l.139-141) and Gherkin (l.148-152) say to proceed. 1.1b follows the Gherkin, and no note records the choice.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "line": 515,
+   "claim": "The story contradicts itself on missing DoR files, and the change chose 'proceed' without recording the choice.",
+   "evidence": "story-0028-0006 \u00a73 and \u00a73.1 say 'Stories sem DoR s\u00e3o BLOCKED' / 'Se NOT_READY ou inexistente: marcar story como BLOCKED'. Its Gherkin and diagram say to proceed when the file is missing. 1.1b implements 'File does NOT exist: Proceed without DoR check'. No note records the choice.",
+   "axis_row": "L1.13",
+   "members": [
+    {
+     "id": "C14",
+     "leg": "claude",
+     "severity": "low",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+     "line": 515,
+     "claim": "The story spec contradicts itself on missing DoR files, and the change picked one reading without recording it.",
+     "evidence": "story-0028-0006 \u00a73 and \u00a73.1 say 'Stories sem DoR s\u00e3o BLOCKED' / 'Se NOT_READY ou inexistente: marcar story como BLOCKED'. Its Gherkin and diagram say to proceed when the file is missing. 1.1b implements 'File does NOT exist: Proceed without DoR check'. No note records the choice."
+    }
+   ],
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "C15"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff inserts '### Phase 0.5 \u2014 Planning Mode Detection' right before '## Phase 0.5 \u2014 API-First Contract Generation', and the Workflow Overview is not updated.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "line": 136,
+   "claim": "The new Phase 0.5 Planning Mode Detection reuses the number of the existing API-First Phase 0.5 and is missing from the overview.",
+   "evidence": "Line 136 '### Phase 0.5 \u2014 Planning Mode Detection' is followed by line 165 '## Phase 0.5 \u2014 API-First Contract Generation'. The Workflow Overview (lines 35-46) lists only the API-First Phase 0.5.",
+   "members": [
+    {
+     "id": "C15",
+     "leg": "claude",
+     "severity": "low",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 136,
+     "claim": "The new '### Phase 0.5 \u2014 Planning Mode Detection' shares a phase number with the existing '## Phase 0.5 \u2014 API-First Contract Generation', sits under Phase 0's heading level, and is missing from the Workflow Overview. This makes the phase sequence ambiguous.",
+     "evidence": "Line 136 '### Phase 0.5 \u2014 Planning Mode Detection' is followed by line 165 '## Phase 0.5 \u2014 API-First Contract Generation'. The Workflow Overview (lines 35-46) lists only the API-First Phase 0.5."
+    }
+   ],
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "C16"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff says the per-task plans are 'produced by x-dev-lifecycle' and also credits x-lib-task-decomposer, but x-story-plan Phase 4 (l.592) writes them. The x-dev-implement commit is always [TDD:GREEN], while x-dev-lifecycle uses [TDD:RED|GREEN|REFACTOR].",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "line": 89,
+   "claim": "The docs name the wrong producer of per-task plans and conflict on the commit convention.",
+   "evidence": "Line 89 says per-task plans are 'produced by `x-dev-lifecycle`'. The Integration table names `x-lib-task-decomposer`. The plans are actually written by x-story-plan Phase 4.2. The task-aware commit at line 280 is always '[TDD:GREEN]', while x-dev-lifecycle's PRE_PLANNED commit is '[TDD:RED|GREEN|REFACTOR]'.",
+   "members": [
+    {
+     "id": "C16",
+     "leg": "claude",
+     "severity": "low",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+     "line": 89,
+     "claim": "The docs disagree on who produces the per-task plans and on the commit convention, which can send users to the wrong skill.",
+     "evidence": "Line 89 says per-task plans are 'produced by `x-dev-lifecycle`'. The Integration table names `x-lib-task-decomposer`. The plans are actually written by x-story-plan Phase 4.2. The task-aware commit at line 280 is always '[TDD:GREEN]', while x-dev-lifecycle's PRE_PLANNED commit is '[TDD:RED|GREEN|REFACTOR]'."
+    }
+   ],
+   "id": "F16"
+  },
+  {
+   "sources": [
+    "C17"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff does say 'Execute the Implementation Guide instructions' and gives no data/instruction boundary. But the plans are the project's own model-written artifacts, and the story asks for exactly this behaviour, so whether this is real exposure depends on the threat model, which the code doesn't settle.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "line": 438,
+   "claim": "Task-by-task mode tells the agent to execute Implementation Guide text from repository plan files without treating it as data.",
+   "evidence": "'b. Execute the Implementation Guide instructions' (x-dev-lifecycle) and '##### 3. Execute Implementation Guide \u2014 Follow the step-by-step instructions in the task plan' (x-dev-implement). The task plans are model-written from story content (x-story-plan 4.2 '{step-by-step implementation instructions from the proposing agent}'). Neither skill says to treat that text as data or to limit which commands it may trigger.",
+   "axis_row": "L4.3",
+   "members": [
+    {
+     "id": "C17",
+     "leg": "claude",
+     "severity": "low",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+     "line": 438,
+     "claim": "Task-by-task mode tells an agent that holds commit and shell rights to run whatever the Implementation Guide text in a repository plan file says. Text planted in a story or plan file may therefore be acted on as instructions.",
+     "evidence": "'b. Execute the Implementation Guide instructions' (x-dev-lifecycle) and '##### 3. Execute Implementation Guide \u2014 Follow the step-by-step instructions in the task plan' (x-dev-implement). The task plans are model-written from story content (x-story-plan 4.2 '{step-by-step implementation instructions from the proposing agent}'). Neither skill says to treat that text as data or to limit which commands it may trigger."
+    }
+   ],
+   "id": "F17"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F11"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

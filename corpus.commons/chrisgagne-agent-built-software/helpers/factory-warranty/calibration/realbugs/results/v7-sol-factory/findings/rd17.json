@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/mareklesko/ProxmoxMCP-Plus",
+  "pr_number": 1,
+  "base": "5a8047f5bc592e5e170d3828e9633dd018f13cbe",
+  "head": "b44013c3e80fd71ca639ee272b88c5e07af4b507"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "The container omits development dependencies, so developers cannot run the repository's tests after setup. On a fresh container, postCreateCommand installs only '.[dev]', but pyproject.toml defines no dev optional dependency group. pytest and pytest-asyncio are declared separately in requirements-dev.in, which this command never installs; the tests import pytest and use its asyncio plugin."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "Opening a checkout with a different directory name selects a nonexistent workspace and breaks dependency installation. workspaceFolder is fixed to /workspaces/ProxmoxMCP-Plus without a corresponding workspaceMount. The default local workspace mount follows the checkout directory name, so a checkout named proxmox mounts elsewhere while postCreateCommand targets the fixed workspace. The interpreter path on line 20 repeats the same assumption."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

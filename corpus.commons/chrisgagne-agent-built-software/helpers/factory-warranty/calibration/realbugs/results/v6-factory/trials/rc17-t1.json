@@ -1,0 +1,297 @@
+{
+ "id": "rc17",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.7468,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc17-t1-qi6w4x64",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "DefaultLayoutEngine.cs:436 only calls SizeClassNode when Compartments.Count > 0, but SvgNodeWriter.cs:151 draws annotations whenever Annotations.Count > 0. With default theme values (pad 16, font 13, min height 40), the label baseline is about 24.6 and the annotation baseline about 27.1, so the two texts overlap. Severity lowered from P1's high to medium: no parser in src fills Annotations, so the trigger is only reachable through the model API.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "line": 436,
+   "claim": "A node with annotations but no compartments is sized as a standard node, so its stereotype text is drawn on top of the centred class name.",
+   "evidence": "SizeStandardNode only branches to SizeClassNode when `node.Compartments.Count > 0` (DefaultLayoutEngine.cs:436), so an annotation-only node gets standard sizing and no `label:centerY`. The label is then centred at `node.Height / 2` (SvgNodeWriter.cs:146). But the renderer still calls AppendClassCompartments when `node.Annotations.Count > 0` (line 151), which draws the first annotation at `pad + fontSize * 0.85` (line 318). With a min-height box, that is roughly the same baseline as the centred label, so the two overlap.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 151,
+     "claim": "A node that has annotations but no compartments is drawn with its stereotype text on top of the class name, because layout reserves no header space for annotations unless compartments exist.",
+     "evidence": "SizeStandardNode only branches to SizeClassNode when `node.Compartments.Count > 0` (DefaultLayoutEngine.cs:436), so an annotation-only node gets standard sizing and no `label:centerY`. The label is then centred at `node.Height / 2` (SvgNodeWriter.cs:146). But the renderer still calls AppendClassCompartments when `node.Annotations.Count > 0` (line 151), which draws the first annotation at `pad + fontSize * 0.85` (line 318). With a min-height box, that is roughly the same baseline as the centred label, so the two overlap."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 151,
+     "claim": "Annotations are drawn whenever `node.Annotations.Count > 0`, but layout only takes the class-sizing path when `Compartments.Count > 0` (DefaultLayoutEngine.cs:436). A node that has a stereotype but no compartments (e.g. a bare `<<interface>>` class) is sized as a standard node: no header space is reserved for the annotation and `label:centerY` is never set, so the class name is drawn at the node's vertical center. The annotation baseline (`pad + 0.85*fontSize`) then lands almost on top of the class-name baseline (`Height/2 + 0.35*fontSize`). The two texts overlap and can spill out of the box. Sizing should use `SizeClassNode` when `Compartments.Count > 0 || Annotations.Count > 0`.",
+     "evidence": "Annotations are drawn whenever `node.Annotations.Count > 0`, but layout only takes the class-sizing path when `Compartments.Count > 0` (DefaultLayoutEngine.cs:436). A node that has a stereotype but no compartments (e.g. a bare `<<interface>>` class) is sized as a standard node: no header space is reserved for the annotation and `label:centerY` is never set, so the class name is drawn at the node's vertical center. The annotation baseline (`pad + 0.85*fontSize`) then lands almost on top of the class-name baseline (`Height/2 + 0.35*fontSize`). The two texts overlap and can spill out of the box. Sizing should use `SizeClassNode` when `Compartments.Count > 0 || Annotations.Count > 0`."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+     "line": 436,
+     "claim": "Size annotation-only nodes using the class header layout",
+     "evidence": "When a node has annotations but no compartments, the renderer now draws those annotations, but this condition leaves the node on the standard sizing path. Consequently, annotation width and height are ignored and the title remains centered in the entire node, allowing stereotypes to overlap the title or extend outside the box. Apply header sizing and positioning to annotation-only nodes as well."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P2",
+    "R3"
+   ],
+   "verdict": "confirmed",
+   "reason": "For each rendered line from GetRenderedLabelLines, which splits on '\\n' (line 188), the renderer advances lineBaseline, but currentY moves only one line height per label. Layout's Lines.Sum at DefaultLayoutEngine.cs:508 also counts one line per label, so the extra lines overlap the next entry and the node is too short.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "line": 358,
+   "claim": "A compartment label with more than one line overlaps the next entry and can spill past the node, because layout and renderer each reserve only one line per label.",
+   "evidence": "Layout sums `(l.FontSize ?? fontSize) * DefaultLabelLineHeight` once per Label (DefaultLayoutEngine.cs:508). The renderer writes every line from `GetRenderedLabelLines(line)` and advances `lineBaseline` for each (lines 353-357), but moves `currentY` by only one line height per Label (line 358). So the next entry starts on top of the second rendered line, and the node height does not cover the extra lines.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 358,
+     "claim": "A compartment entry whose Label has more than one line overlaps the next entry and can spill past the bottom of the node, because both layout and renderer reserve only one line per entry.",
+     "evidence": "Layout sums `(l.FontSize ?? fontSize) * DefaultLabelLineHeight` once per Label (DefaultLayoutEngine.cs:508). The renderer writes every line from `GetRenderedLabelLines(line)` and advances `lineBaseline` for each (lines 353-357), but moves `currentY` by only one line height per Label (line 358). So the next entry starts on top of the second rendered line, and the node height does not cover the extra lines."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 348,
+     "claim": "A compartment `Label` whose text contains newlines (or has several `Lines`) is drawn as several baselines, each `lineFontSize*1.15` apart. However, `currentY` advances by only one line height per `Label`. The extra lines overlap the next entry, and the last ones can run past the next divider or the bottom of the node. Layout makes the same assumption (`Lines.Sum(l => fontSize*lineHeight)` counts one line per Label), so the reserved height is too small as well. Both sides should use the label's rendered line count, e.g. via `GetTextBlockHeight`/`GetLabelLines`.",
+     "evidence": "A compartment `Label` whose text contains newlines (or has several `Lines`) is drawn as several baselines, each `lineFontSize*1.15` apart. However, `currentY` advances by only one line height per `Label`. The extra lines overlap the next entry, and the last ones can run past the next divider or the bottom of the node. Layout makes the same assumption (`Lines.Sum(l => fontSize*lineHeight)` counts one line per Label), so the reserved height is too small as well. Both sides should use the label's rendered line count, e.g. via `GetTextBlockHeight`/`GetLabelLines`."
+    },
+    {
+     "id": "R3",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 356,
+     "claim": "Account for every rendered line in compartment labels",
+     "evidence": "When a compartment label contains newlines or a multi-element `Label.Lines`, the renderer emits every line but advances `currentY` by only one line afterward. The following label or divider therefore overlaps the additional lines. `SizeClassNode` likewise allocates only one line per label, so fixing rendering alone still leaves the node too short; both calculations should use the rendered line count."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P3",
+    "R2"
+   ],
+   "verdict": "confirmed",
+   "reason": "annotationsHeight is Count * fontSize * DefaultLabelLineHeight, using the class font size, and label:centerY is derived from it. The renderer advances annBaseline by ann.FontSize ?? fontSize for every rendered line of each annotation, so its annotation block can be taller than the space layout reserved.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "line": 492,
+   "claim": "Header height uses the class label's font size and one line per annotation, so a larger-font or multi-line annotation overlaps the class name and the first divider.",
+   "evidence": "`annotationsHeight = node.Annotations.Count * fontSize * DefaultLabelLineHeight` uses the class label's font size and counts one line per annotation, and `label:centerY` is derived from it (line 498). The renderer advances `annBaseline += annFontSize * DefaultLabelLineHeight` for every rendered line of every annotation (SvgNodeWriter.cs:321-326), so its annotation block can be taller than the space layout reserved.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+     "line": 492,
+     "claim": "Header height ignores each annotation's own font size and line count, so a large-font or multi-line stereotype overlaps the class name rendered below it.",
+     "evidence": "`annotationsHeight = node.Annotations.Count * fontSize * DefaultLabelLineHeight` uses the class label's font size and counts one line per annotation, and `label:centerY` is derived from it (line 498). The renderer advances `annBaseline += annFontSize * DefaultLabelLineHeight` for every rendered line of every annotation (SvgNodeWriter.cs:321-326), so its annotation block can be taller than the space layout reserved."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+     "line": 490,
+     "claim": "Annotation header height is `Count * fontSize * lineHeight`, using the class label's font size and assuming one line per annotation. The renderer advances by `ann.FontSize ?? fontSize` for every rendered line of each annotation (SvgNodeWriter.cs:319-327). A larger annotation font, or a multi-line annotation, overruns the reserved band and collides with the class name and the first divider. Compute the height per annotation from its own font size and line count.",
+     "evidence": "Annotation header height is `Count * fontSize * lineHeight`, using the class label's font size and assuming one line per annotation. The renderer advances by `ann.FontSize ?? fontSize` for every rendered line of each annotation (SvgNodeWriter.cs:319-327). A larger annotation font, or a multi-line annotation, overruns the reserved band and collides with the class name and the first divider. Compute the height per annotation from its own font size and line count."
+    },
+    {
+     "id": "R2",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+     "line": 490,
+     "claim": "Measure annotations using their rendered lines and font sizes",
+     "evidence": "For annotations with an overridden font size or multiple lines, this calculation reserves only one default-sized line per annotation, while the renderer advances by each rendered line's actual font size. This places the class title and first divider within annotation text. Compute annotation height from the same line counts and font sizes used during rendering."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "PrepareNodeLabels (line 327-331) wraps only node.Label. SizeClassNode sets Width from the unwrapped compartment and annotation widths with no cap against MaxNodeWidth (default 240). The nodes come out wider than the hint but are not drawn broken, so this stays low as a layout-contract point, not P4's medium.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "line": 484,
+   "claim": "Compartment and annotation text is never wrapped to LayoutHints.MaxNodeWidth, so a class node can grow wider than the configured maximum.",
+   "evidence": "PrepareNodeLabels only calls PrepareLabelLines on `node.Label` (lines 327-331), which applies `hints.MaxNodeWidth`. SizeClassNode takes `maxTextWidth` from the unwrapped compartment lines and annotations (lines 473-485) and sets `node.Width = Math.Max(minWidth, maxTextWidth + 2 * pad)` with no MaxNodeWidth cap.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+     "line": 484,
+     "claim": "Compartment and annotation text is never wrapped to LayoutHints.MaxNodeWidth, so class nodes can grow wider than the configured maximum, while the class name is wrapped to it.",
+     "evidence": "PrepareNodeLabels only calls PrepareLabelLines on `node.Label` (lines 327-331), which applies `hints.MaxNodeWidth`. SizeClassNode takes `maxTextWidth` from the unwrapped compartment lines and annotations (lines 473-485) and sets `node.Width = Math.Max(minWidth, maxTextWidth + 2 * pad)` with no MaxNodeWidth cap."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+     "line": 473,
+     "claim": "Only `node.Label` goes through `PrepareLabelLines` (wrapping to `LayoutHints.MaxNodeWidth`). Annotations and compartment lines are never wrapped or clamped, so one long member signature makes the node wider than the configured `MaxNodeWidth`. That breaks the contract the existing wrapping logic enforces for every other node. Either wrap these labels too or clamp the width deliberately.",
+     "evidence": "Only `node.Label` goes through `PrepareLabelLines` (wrapping to `LayoutHints.MaxNodeWidth`). Annotations and compartment lines are never wrapped or clamped, so one long member signature makes the node wider than the configured `MaxNodeWidth`. That breaks the contract the existing wrapping logic enforces for every other node. Either wrap these labels too or clamp the width deliberately."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only test file in the diff is ClassDiagramLayoutTests.cs, and it asserts only on Width, Height, X, Y and Metadata. No test renders SVG for a node with compartments or annotations, which is why the overlap defects above went uncaught.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "line": 301,
+   "claim": "The new rendering path (AppendClassCompartments, the text colour change) has no tests; only layout sizing is tested.",
+   "evidence": "The diff adds AppendClassCompartments and changes how AppendNode resolves the text colour. The only new test file is tests/DiagramForge.Tests/Layout/ClassDiagramLayoutTests.cs, which asserts only on Width, Height, X, Y and Metadata. No test renders SVG for a node with Compartments or Annotations, so the overlap defects above go uncaught.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 301,
+     "claim": "The new rendering path (dividers, annotation and compartment text, colour escaping) has no tests; only layout sizing is tested.",
+     "evidence": "The diff adds AppendClassCompartments and changes how AppendNode resolves the text colour. The only new test file is tests/DiagramForge.Tests/Layout/ClassDiagramLayoutTests.cs, which asserts only on Width, Height, X, Y and Metadata. No test renders SVG for a node with Compartments or Annotations, so the overlap defects above go uncaught."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6",
+    "P6"
+   ],
+   "verdict": "confirmed",
+   "reason": "Both nodes are named \"X\" and have the same compartment, so if annotations were ignored the widths would be equal and the >= assertion at line 311 would still pass. Annotation-only nodes and multi-line labels are also untested.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/DiagramForge.Tests/Layout/ClassDiagramLayoutTests.cs",
+   "line": 311,
+   "claim": "ClassNode_Width_AnnotationContributesToWidth uses >=, so it passes even if annotations are ignored in width sizing.",
+   "evidence": "The test asserts `diagramWithAnn.Nodes[\"C\"].Width >= diagramNoAnn.Nodes[\"C2\"].Width`. Both nodes have the same name and compartment, so with annotations ignored the widths are equal and `>=` still holds. Similarly, ClassNode_Width_DrivenByWidestCompartmentLine only checks `node > minW`, not that the width covers the line.",
+   "axis_row": "L3.10",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tests/DiagramForge.Tests/Layout/ClassDiagramLayoutTests.cs",
+     "line": 311,
+     "claim": "ClassNode_Width_AnnotationContributesToWidth passes even if annotations are ignored in width sizing, so it does not test what its name claims.",
+     "evidence": "The test asserts `diagramWithAnn.Nodes[\"C\"].Width >= diagramNoAnn.Nodes[\"C2\"].Width`. Both nodes have the same name and compartment, so with annotations ignored the widths are equal and `>=` still holds. Similarly, ClassNode_Width_DrivenByWidestCompartmentLine only checks `node > minW`, not that the width covers the line."
+    },
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "tests/DiagramForge.Tests/Layout/ClassDiagramLayoutTests.cs",
+     "line": 299,
+     "claim": "`ClassNode_Width_AnnotationContributesToWidth` asserts `>=`, which passes even if annotations are ignored entirely during sizing (equal widths). Use `>` to actually guard annotation-driven width. There are also no tests for annotation-only nodes, multi-line compartment labels, or any renderer output, and those are exactly where the defects above are.",
+     "evidence": "`ClassNode_Width_AnnotationContributesToWidth` asserts `>=`, which passes even if annotations are ignored entirely during sizing (equal widths). Use `>` to actually guard annotation-driven width. There are also no tests for annotation-only nodes, multi-line compartment labels, or any renderer output, and those are exactly where the defects above are."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7",
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The fallback at diff line 170 is pad + fontSize + pad, while SizeClassNode adds annotationsHeight and a multi-line labelHeight. fontSize already equals node.Label.FontSize ?? theme.FontSize. Layout always sets the metadata for compartment nodes, so this is maintainability and drift risk, which keeps it low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "line": 336,
+   "claim": "The renderer duplicates layout geometry, and its fallback header height leaves out annotations and multi-line names; (node.Label.FontSize ?? fontSize) is redundant.",
+   "evidence": "The renderer repeats `compPad = pad / 2` and the per-line advance that SizeClassNode uses. Its fallback, used when `class:headerHeight` is missing, is `pad + (node.Label.FontSize ?? fontSize) + pad`. That fallback leaves out the annotation height and the multi-line label height that SizeClassNode includes (DefaultLayoutEngine.cs:495). `(node.Label.FontSize ?? fontSize)` is also redundant, because `fontSize` already equals that expression.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 336,
+     "claim": "Header and compartment geometry is duplicated between layout and renderer, and the renderer's fallback header height disagrees with layout, which invites drift.",
+     "evidence": "The renderer repeats `compPad = pad / 2` and the per-line advance that SizeClassNode uses. Its fallback, used when `class:headerHeight` is missing, is `pad + (node.Label.FontSize ?? fontSize) + pad`. That fallback leaves out the annotation height and the multi-line label height that SizeClassNode includes (DefaultLayoutEngine.cs:495). `(node.Label.FontSize ?? fontSize)` is also redundant, because `fontSize` already equals that expression."
+    },
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+     "line": 335,
+     "claim": "The fallback header height ignores annotations and multi-line class names. `node.Label.FontSize ?? fontSize` is also redundant, because `fontSize` was already computed that way. If the metadata is missing (for example, a node laid out by another engine path that does not call `SizeClassNode`), the first divider is drawn through the annotation and class-name text. Mirror the layout formula, or treat the missing metadata as an error.",
+     "evidence": "The fallback header height ignores annotations and multi-line class names. `node.Label.FontSize ?? fontSize` is also redundant, because `fontSize` was already computed that way. If the metadata is missing (for example, a node laid out by another engine path that does not call `SizeClassNode`), the first divider is drawn through the annotation and class-name text. Mirror the layout formula, or treat the missing metadata as an error."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

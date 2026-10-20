@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.14366900000000002,
+  "duration_s": 185.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "TREE={tree} node --experimental-strip-types --no-warnings --test check/alt.test.mjs",
+  "because": "Rendering `![`diagram`](d.png)` through the project's own markdownit() gives alt=\"diagram\" on base but alt=\"\" on head, which shows that inline code inside image alt text is now dropped."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "TAP version 13\n# Subtest: inline code inside image alt text is kept as plain text\nok 1 - inline code inside image alt text is kept as plain text\n  ---\n  duration_ms: 3.799542\n  type: 'test'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 228.017208\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "TAP version 13\n# Subtest: inline code inside image alt text is kept as plain text\nnot ok 1 - inline code inside image alt text is kept as plain text\n  ---\n  duration_ms: 4.548458\n  type: 'test'\n  location: '<work>/repro-work/v4-arm-v4/w06-t1-F1/check/alt.test.mjs:9:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + '<p><img src=\"d.png\" alt=\"\"></p>\\n'\n    - '<p><img src=\"d.png\" alt=\"diagram\"></p>\\n'\n                                ^\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: |-\n    <p><img src=\"d.png\" alt=\"diagram\"></p>\n    \n  actual: |-\n    <p><img src=\"d.png\" alt=\"\"></p>\n    \n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w06-t1-F1/check/alt.test.mjs:11:10)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.start (node:internal/test_runner/test:944:17)\n    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 226.700916\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "Rendering `![`diagram`](d.png)` through the project's own markdownit() gives alt=\"diagram\" on base but alt=\"\" on head, which shows that inline code inside image alt text is now dropped.",
+ "run": "v4-arm-v4",
+ "trial": "w06-t1",
+ "kind": "bug"
+}

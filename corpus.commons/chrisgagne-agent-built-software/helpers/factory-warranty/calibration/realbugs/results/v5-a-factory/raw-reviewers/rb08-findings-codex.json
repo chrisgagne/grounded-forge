@@ -1,0 +1,29 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+  "line": 75,
+  "claim": "Inserting a banner with text selected no longer replaces the selection, leaving the original text in the document.",
+  "evidence": "The previous nonempty-selection branch called editBuilder.replace(editor.selection, ...); insertBanner now always calls editBuilder.insert at column zero of the selection's active line. Selecting an existing banner and generating its replacement therefore retains the old banner and adds another."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": ".github/workflows/publish-figprint.yml",
+  "line": 209,
+  "claim": "The generated schema directives lose the literal $schema key, so the added schema references do not work.",
+  "evidence": "All three header strings use PowerShell double quotes, for example \"# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json\". The script never assigns $schema, so interpolation produces '# yaml-language-server: =https://...' before Set-Content writes and uploads the manifests."
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "medium",
+  "file": ".github/workflows/publish-figprint.yml",
+  "line": 8,
+  "claim": "The narrowed publishing filters skip releases for changes to packaged resources and build metadata.",
+  "evidence": "The FIGPrint trigger now matches only FIGPrint/**/*.cs, although FIGPrint.csproj embeds fonts/small.flf and configures other font assets. A merged PR fixing only those fonts or the project file no longer starts publishing. The same narrowing across the other publishing workflows excludes their non-source package inputs, and workflow_dispatch is the only remaining fallback."
+ }
+]

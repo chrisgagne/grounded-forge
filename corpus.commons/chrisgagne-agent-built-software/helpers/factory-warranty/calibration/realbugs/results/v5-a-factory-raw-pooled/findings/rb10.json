@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/k1LoW/gh-copilot-review",
+  "pr_number": 9,
+  "base": "5f3765a9ef25d9c5a57699418bed105d9ac54691",
+  "head": "f98281938e63acd1d2df9b89d6af98dcf58c9fa8"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "cmd/root.go",
+   "start_line": 73,
+   "end_line": 73,
+   "message": "The freshness check runs after MinimizeCopilotComments, so when the latest Copilot review is up to date the tool still hides it as OUTDATED and then exits without asking for a new one. The user ends up with no visible current review. In run(), client.MinimizeCopilotComments(prNumber) at line 47 runs first and minimizes every non-minimized Copilot review with classifier OUTDATED. Only then does IsCopilotReviewFresh run (line 73), and if it is true the function prints \"Copilot review is already up to date\" and returns. Trigger: a PR whose last Copilot review was submitted after the last commit. The fresh review is minimized as outdated and no re-review is requested."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "internal/github/github.go",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "The commits and reviews lists are not paginated, so on a PR with more than 30 commits (the GitHub REST default page size) lastCommitDate comes from commit 30, not the newest commit. A stale Copilot review can then count as fresh and the re-review is wrongly skipped. c.rest.Get(fmt.Sprintf(\"repos/%s/%s/pulls/%d/commits\", ...), &commits) is called once with no per_page or page loop, and lastCommitDate := commits[len(commits)-1].Commit.Committer.Date takes the last item of that single page. The reviews call at line 100 has the same problem, so the latest Copilot review can also be missed."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "internal/github/github.go",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "Freshness compares the commit's committer date, which is set on the client, with the review's submitted time. Commits made locally before a review but pushed after it look older than the review. The tool then reports the review as up to date and skips a review the new code needs. lastCommitDate := commits[len(commits)-1].Commit.Committer.Date, then return latestCopilotReview.After(lastCommitDate). Committer date is git metadata, not push time, so clock skew or a delayed push breaks the comparison. The code never compares the review's commit_id with the PR head SHA, which would avoid this."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "internal/github/github.go",
+   "start_line": 107,
+   "end_line": 107,
+   "message": "Any submitted Copilot review counts toward freshness, including DISMISSED ones, so a dismissed review can stop a new request. The loop only checks isCopilotUser(r.User.Login) && r.SubmittedAt.After(latestCopilotReview). It never reads the review state, unlike HasCopilotPendingReview, which filters on State."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "internal/github/github.go",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "The new branching behaviour comes with no tests: the repository has no _test.go files and the diff adds none, so fresh, stale, no-review and many-commit cases are all unchecked. The export contains only cmd/root.go, internal/github/github.go, main.go and version/version.go as Go sources. The diff adds IsCopilotReviewFresh and an early return in run() but no test file."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "README.md",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The README is now out of date: it does not mention the new skip when the Copilot review is newer than the last commit, and its step order (check status, then hide old reviews) does not match what the code does. README lines 7 and 26 list only 'already requested or in progress' as reasons to exit early. The diff adds a third early exit with the message \"Copilot review is already up to date (newer than the last commit)\", and the README was not changed."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "internal/github/github.go",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "Each run fetches the same reviews endpoint twice, once in HasCopilotPendingReview and again in IsCopilotReviewFresh, which costs an extra API call and repeats the same struct and loop logic. Both functions call c.rest.Get(fmt.Sprintf(\"repos/%s/%s/pulls/%d/reviews\", ...)) and loop over the reviews filtering with isCopilotUser. run() calls them one after the other at lines 64 and 73."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "cmd/root.go",
+   "start_line": 73,
+   "end_line": 73,
+   "message": "An up-to-date Copilot review is hidden before the command skips requesting a replacement. For a PR with an unminimized Copilot review submitted after its last commit, run first calls MinimizeCopilotComments, which minimizes every unminimized Copilot review as OUTDATED. The new freshness check then returns true and exits without requesting another review, leaving the current review hidden."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "internal/github/github.go",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "The freshness check reads only the first page of commits and reviews, causing incorrect decisions on longer PRs. IsCopilotReviewFresh makes one Get call per endpoint without pagination and treats commits[len(commits)-1] as the latest commit. Both endpoints paginate with a default of 30 results. With 31 commits and a Copilot review between commits 30 and 31, it can report fresh and suppress the needed request; a fresh review beyond the first 30 reviews can instead be missed. See [GitHub pull request documentation](https://docs.github.com/en/rest/pulls/pulls#list-commits-on-a-pull-request) and [review documentation](https://docs.github.com/en/rest/pulls/reviews#list-reviews-for-a-pull-request)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

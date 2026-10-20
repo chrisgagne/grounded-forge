@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1048386,
+  "duration_s": 12.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/tonearest_default_rm.js {tree}",
+  "because": "With Decimal.rounding set to ROUND_HALF_UP, head returns 2 for new Decimal(2.5).toNearest(1) but 3 when the same mode is passed explicitly, which shows that an omitted rm no longer falls back to Decimal.rounding and exact ties round toward zero (base returns 3 both ways)."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "toNearest(1) under HALF_UP: 3 explicit rm: 3\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "toNearest(1) under HALF_UP: 2 explicit rm: 3\nFAIL: expected 3\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "With Decimal.rounding set to ROUND_HALF_UP, head returns 2 for new Decimal(2.5).toNearest(1) but 3 when the same mode is passed explicitly, which shows that an omitted rm no longer falls back to Decimal.rounding and exact ties round toward zero (base returns 3 both ways).",
+ "run": "v3-distillations",
+ "trial": "v07-t1",
+ "kind": "bug"
+}

@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/FreeRTOS/FreeRTOS-Kernel",
+  "pr_number": 1379,
+  "base": "f1043c49d59944353291654c175852bd17b34f99",
+  "head": "c926adcf6e0be826e3313fc503a92b53a78f8ef8"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5242,
+   "message": "Allow voluntary context switches with preemption disabled. On SMP builds with `configUSE_TASK_PREEMPTION_DISABLE == 1`, this guard rejects voluntary switches as well as preemption. If a task disables preemption and then calls `vTaskDelay()`, a blocking queue operation, or `vTaskSuspend(NULL)`, it is removed from the ready list but continues executing because `vTaskSwitchContext()` refuses to select another task. Even an explicit `taskYIELD()` no longer works. Preserve voluntary/blocking switches rather than treating the preemption-disable flag as a scheduler suspension."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5242,
+   "message": "The 'safety net' in the SMP vTaskSwitchContext() blocks every context switch while the current task has xPreemptionDisable set, including switches the task asks for itself. vTaskPreemptionDisable() is only meant to stop preemption. A task with preemption disabled can still block (vTaskDelay, a blocking queue/semaphore/notify wait), call taskYIELD(), suspend itself, or delete itself. In each of those cases the task has already been taken off the ready list, but vTaskSwitchContext() now only sets xYieldPendings and returns, so the task keeps running. A blocked task that keeps running ignores its timeout and ends up using a stale wait result, and a suspended or deleted task keeps executing on its own TCB/stack. This is not like the uxSchedulerSuspended case it copies: blocking APIs already refuse to run while the scheduler is suspended, but nothing stops a preemption-disabled task from blocking. prvSelectHighestPriorityTask() already keeps a running, ready, preemption-disabled task in place, so this check is unnecessary and should be removed, or limited to switches that are not voluntary."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tasks.c",
+   "start_line": 3527,
+   "end_line": 3535,
+   "message": "Reporting a yield only on a pdFALSE->pdTRUE change of xYieldPendings throws away valid yield requests. If xYieldPendings[core] is already pdTRUE for a valid reason, such as a time-slice or yield deferred inside a critical section, or an earlier FromISR call whose caller passed NULL or ignored the result, then resuming a higher-priority task for this core no longer sets xYieldRequired. The ISR then skips portYIELD_FROM_ISR and the switch waits until the next tick or kernel call. That is a latency regression and changes the documented return contract. This hunk only treats the symptom; the actual bug is the stale flag that the tick-path change fixes."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tasks.c",
+   "start_line": 5500,
+   "end_line": 5508,
+   "message": "Same before/after check in xTaskRemoveFromEventList(). This function is also called from task context in queue, event-group and stream-buffer code. If a yield was already pending on this core, it now returns pdFALSE even when the unblocked task should preempt the caller. The queueYIELD_IF_USING_PREEMPTION or *pxHigherPriorityTaskWoken path is then skipped and the higher-priority task does not get the CPU right away."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tasks.c",
+   "start_line": 8214,
+   "end_line": 8227,
+   "message": "In xTaskGenericNotifyFromISR, the check means *pxHigherPriorityTaskWoken is not set when xYieldPendings was already pdTRUE, for example from an earlier notify in the same ISR whose caller passed NULL. In that case the ISR never calls portYIELD_FROM_ISR, even though the notified task has higher priority than the task running on this core. vTaskGenericNotifyGiveFromISR at lines 8351-8364 has the same problem."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tasks.c",
+   "start_line": 3525,
+   "end_line": 3537,
+   "message": "The PR says the change only affects configUSE_TASK_PREEMPTION_DISABLE == 1 builds, but the pdFALSE->pdTRUE yield checks in xTaskResumeFromISR, xTaskRemoveFromEventList and both notify-from-ISR functions are compiled into every SMP build with preemption enabled. That changes yield-reporting behaviour for all SMP users, including those who never use vTaskPreemptionDisable. The existing SMP unit tests also check that these functions return a yield request, and the test plan does not cover this."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 45000
+ }
+}

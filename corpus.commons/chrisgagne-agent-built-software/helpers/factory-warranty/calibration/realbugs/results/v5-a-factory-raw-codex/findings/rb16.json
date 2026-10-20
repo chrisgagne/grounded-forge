@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/mheuss/chronicle",
+  "pr_number": 14,
+  "base": "17e33ca1ebf643d47201a8f94b8ab3e88848cf23",
+  "head": "04ac4c02d48083676c14dd3fa70d26ca102bd50e"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "chronicle-daemon/src/main.rs",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "Starting a second daemon can delete media being written by the running daemon before the duplicate instance is rejected. The startup sweep runs before IpcServer::start, which checks whether another daemon is listening. The running daemon's process_frame writes the image before inserting its database row, and process_audio_segment similarly moves audio before insertion. During either interval, sweep_media_orphans sees no matching row and deletes the active file."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 64,
+   "end_line": 64,
+   "message": "The path validator accepts symlinks targeting files outside storage, allowing writes and permission changes outside its stated boundary. For a symlink base_dir/link pointing to an existing external file, canonicalize(path) succeeds but fails the starts_with check; validate_path then accepts its in-root parent. write_file follows the symlink with truncate(true), overwriting the external target, and harden_file follows it with set_permissions."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 249,
+   "end_line": 249,
+   "message": "The public path allocator allows traversal through its extension argument and can return a path outside storage. allocate_path validates subdir and sanitizes id, but interpolates ext unchanged after checking only canonical_parent. An extension containing '/../../../../../../outside' introduces parent components into the returned path after that check. The Storage wrappers supply fixed extensions, but direct MediaManager callers can supply arbitrary strings."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "docs/guides/storage-engine.md",
+   "start_line": 142,
+   "end_line": 142,
+   "message": "The storage guide describes the opposite deletion order from the implementation, making its cleanup and crash-recovery explanation inaccurate. The guide says to DELETE rows before deleting files and explicitly attributes recovery behavior to that order. The changed cleanup_media deletes files first and only then opens the transaction that deletes database rows."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,20 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "crates/credential/src/layer/encryption.rs",
+  "line": 147,
+  "claim": "Lazy key rotation returns a stale record version, causing subsequent compare-and-swap updates to fail even without concurrent writers.",
+  "evidence": "When get() reads a record encrypted with an old key at version N, it writes the rotated ciphertext using CompareAndSwap { expected_version: credential.version }. InMemoryStore::put increments that version to N+1, but get() discards the returned record in Ok(_) and returns the original credential at version N. A caller using the returned version for its next CAS write therefore receives VersionConflict solely because of the read's rotation."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "low",
+  "file": "crates/credential/src/crypto.rs",
+  "line": 79,
+  "claim": "The encryption envelope documentation incorrectly says empty key IDs are rejected, obscuring the actual migration behavior.",
+  "evidence": "EncryptedData::key_id documents that the encryption layer 'rejects empty key IDs at runtime' and requires migration before upgrading. However, EncryptionLayer::new registers an empty-string key alias, and decrypt_possibly_rotating accepts an empty key ID through key_for_id, decrypts AAD-protected legacy data, and rotates it to the default key."
+ }
+]

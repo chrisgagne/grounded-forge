@@ -1,0 +1,76 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "crates/credential/src/layer/encryption.rs",
+  "line": 152,
+  "claim": "When `get()` lazily re-encrypts a record, it returns the credential with its old `version` even though the write-back has already bumped the stored version. Any caller that reads and then writes with CompareAndSwap gets a spurious VersionConflict, and if a CacheLayer sits above, the stale version stays cached.",
+  "evidence": "`get()` calls `self.inner.put(updated, PutMode::CompareAndSwap { expected_version: credential.version })` and discards the `Ok(_)` result, then does `Ok(credential)` with the original `version`. `InMemoryStore::put` sets `credential.version = expected_version + 1` on CAS, so the stored version is one higher than the returned one. `CacheLayer::get` (cache.rs:149-150) caches whatever the inner `get` returns. The new test `lazy_reencryption_on_read_when_key_id_differs` only checks the raw envelope's `key_id`. It never checks the returned version or a follow-up CAS write."
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "crates/credential/src/layer/encryption.rs",
+  "line": 86,
+  "claim": "`with_keys` does not register the empty-string alias that `new()` adds for pre-rotation data. A deployment that moves from `new()` to `with_keys` for its first key rotation can no longer read any record that was never re-read (key_id \"\"). The crypto.rs doc also describes the opposite of what the code does.",
+  "evidence": "`new()` does `keys.insert(String::new(), key); // alias for pre-rotation data` (line 69). `with_keys` only collects the supplied pairs, so `key_for_id(\"\")` returns `StoreError::Backend(\"encryption key '' not found \u2014 cannot decrypt\")`. `EncryptedData.key_id` is `#[serde(default)]`, so old envelopes deserialize with \"\". crypto.rs:80 says \"The encryption layer rejects empty key IDs at runtime\", but `new()` accepts them. The public `encrypt()`/`encrypt_with_aad()` also still produce `key_id: \"\"`, while `encrypt_with_key_id` rejects it."
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "crates/credential/src/layer/encryption.rs",
+  "line": null,
+  "claim": "The no-AAD fallback was removed without any migration or detection path, so every record encrypted before AAD binding becomes unreadable through the layer after upgrade. The baseline test that guarded the old behaviour was rewritten to assert the opposite.",
+  "evidence": "The old `decrypt_data` fell back to `crypto::decrypt(key, &encrypted)` when AAD decryption failed. The new `decrypt_possibly_rotating` only calls `decrypt_with_aad` and maps any failure to `StoreError::Backend`. The test `legacy_data_without_aad_still_readable` (which asserted `fetched.data == b\"legacy-secret\"`) was renamed to `rejects_data_without_aad` and now asserts `unwrap_err()`. The crypto.rs doc says \"a migration must re-encrypt all records before upgrading\", but the diff contains no migration tool or command.",
+  "axis_row": "L3.1"
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "low",
+  "file": "crates/credential/src/credentials/mod.rs",
+  "line": 27,
+  "claim": "The persisted state identifiers and field names changed with no compatibility path. Stored records with state_kind \"bearer\", \"basic_auth\", \"database_auth\" or \"header\" now fail `KindMismatch`, and basic-auth JSON with a `username` field no longer deserializes into IdentityPassword (which expects `identity`).",
+  "evidence": "`identity_state!(BearerToken, \"bearer\", 1)` and `identity_state!(BasicAuth, \"basic_auth\", 1)` became `identity_state!(SecretToken, \"secret_token\", 1)` and `identity_state!(IdentityPassword, \"identity_password\", 1)`. The resolver rejects with `if stored.state_kind != expected_kind` (resolver.rs:243). The removed `BasicAuth` had `pub username: String`; `IdentityPassword` has `identity: String`. The only CredentialStore backend in the repo is InMemoryStore, so the impact today is limited."
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "low",
+  "file": "crates/credential/src/layer/encryption.rs",
+  "line": 129,
+  "claim": "The new Zeroizing return type is defeated straight away on the read path: the plaintext is moved into an ordinary Vec, and on rotation the whole credential (plaintext included) is cloned and dropped without zeroizing.",
+  "evidence": "`credential.data = std::mem::take(&mut *plaintext);` moves the bytes out of the `Zeroizing<Vec<u8>>` into `StoredCredential.data`. Then `StoredCredential { data: re_encrypted, ..credential.clone() }` clones `credential`, so its plaintext `data` is copied and then dropped without zeroization."
+ },
+ {
+  "id": "C6",
+  "leg": "claude",
+  "severity": "low",
+  "file": ".github/workflows/ci.yml",
+  "line": 165,
+  "claim": "The change edits the CI toolchain pin, which the story did not cover (triage lists infra as unplanned). The edit looks like a fix, but it changes what the MSRV gate runs.",
+  "evidence": "`uses: dtolnay/rust-toolchain@1.100` became `@1.94`. The step is named \"Install Rust 1.94\", the job is \"MSRV (1.94)\", and Cargo.toml has `rust-version = \"1.94\"`, so the new value matches the declared MSRV. risk.json lists `\"unplanned\": [\"infra\"]`.",
+  "axis_row": "L5.10"
+ },
+ {
+  "id": "C7",
+  "leg": "claude",
+  "severity": "low",
+  "file": "crates/credential/macros/src/auth_scheme.rs",
+  "line": 33,
+  "claim": "Both derive macros now expand to `::nebula_core::...` paths. A plugin crate that depends only on nebula-credential, as the macro's own doc example suggests, fails to compile with an unresolved `nebula_core`.",
+  "evidence": "The AuthScheme derive emits `impl ... ::nebula_core::AuthScheme` and `::nebula_core::AuthPattern::#pattern_ident`. credential.rs:123 now emits `<#scheme as ::nebula_core::AuthScheme>::pattern()`; the Credential derive previously used only `::nebula_credential` paths. The doc example in macros/src/lib.rs imports only `nebula_credential::AuthScheme`."
+ },
+ {
+  "id": "C8",
+  "leg": "claude",
+  "severity": "low",
+  "file": "crates/credential/src/context.rs",
+  "line": 203,
+  "claim": "Patterns are categories shared by many types, not unique identifiers like the old `KIND`. Mismatch errors can now read \"expected pattern SecretToken, got SecretToken\", and the resolver parameter is still named and documented as `expected_kind`.",
+  "evidence": "`resolve_credential` passes `format!(\"{:?}\", S::pattern())` as `expected_kind` to `CredentialResolverRef::resolve_scheme` (still documented as \"expected_kind\" at context.rs:37-39). `CredentialSnapshot::project` reports `expected: format!(\"{:?}\", S::pattern())` and `actual: self.scheme_pattern`. Two distinct types with the same `AuthPattern` (for example, a plugin type using `pattern = SecretToken`) produce identical strings."
+ }
+]

@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/efcore",
+  "pr_number": 38115,
+  "base": "fec5da438f8879ca73c9752683e323cda8be77e6",
+  "head": "009f41901ee1a943ce85425652bc454fe85d2278"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "The fix overwrites the stored original value of every property with AfterSaveBehavior.Throw (primary keys and any property the user configured as read-only after save) whenever an entry is set to Modified, so a change the user made to a read-only property is now silently thrown away instead of raising PropertyReadOnlyAfterSave. Trigger: for an entity tracked as Unchanged, `var entry = ctx.Entry(e); e.ReadOnlyProp = \"x\"; entry.State = EntityState.Modified; ctx.SaveChanges();`. The `EntityEntry.State` setter (EntityEntry.cs:78-87) calls `InternalEntry.SetEntityState(value)` directly and does not run DetectChanges. SetEntityState now runs `SetOriginalValue(property, this[property], skipChangeDetection: true)` for every Throw property (lines 287-292), so the original snapshot becomes \"x\". DetectChanges in SaveChanges then finds no difference, the property is never flagged Modified, and the guard at InternalEntryBase.cs:1655-1661 (`GetAfterSaveBehavior() == Throw && IsModified(property)` throws PropertyReadOnlyAfterSave) never fires. The update is dropped without any error. `entry.OriginalValues` also now reports the new value, which misleads auditing code and interceptors. No other check takes over the guard's job on this path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "This overwrites the original value of every AfterSaveBehavior.Throw property whenever an entry goes to Modified with modifyProperties. That includes primary/alternate key properties and entity discriminators, not just the complex-type shadow discriminator in the bug. Suppose a tracked Unchanged entity has a key or other read-only property changed and is then set to `entry.State = EntityState.Modified` before DetectChanges runs (for example with AutoDetectChanges off). Before this change, DetectChanges/SaveChanges caught the change and threw. Now the original is silently replaced with the new value. For keys, the UPDATE's WHERE clause uses the original key value, so the update can hit a different row or none. For other Throw properties, the change is dropped silently instead of producing the documented exception. The fix should be limited to properties whose snapshot is known to be wrong (the complex-type shadow default case), or the snapshot itself should be fixed. This overwrites the original value of every AfterSaveBehavior.Throw property whenever an entry goes to Modified with modifyProperties. That includes primary/alternate key properties and entity discriminators, not just the complex-type shadow discriminator in the bug. Suppose a tracked Unchanged entity has a key or other read-only property changed and is then set to `entry.State = EntityState.Modified` before DetectChanges runs (for example with AutoDetectChanges off). Before this change, DetectChanges/SaveChanges caught the change and threw. Now the original is silently replaced with the new value. For keys, the UPDATE's WHERE clause uses the original key value, so the update can hit a different row or none. For other Throw properties, the change is dropped silently instead of producing the documented exception. The fix should be limited to properties whose snapshot is known to be wrong (the complex-type shadow default case), or the snapshot itself should be fixed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "Preserve original values for already-tracked read-only properties For an already-tracked entity, changing a non-key property configured with `AfterSaveBehavior.Throw` and then calling `Update(entity)` now replaces its original value with the changed value. Consequently, `DetectChanges` no longer detects the illegal modification, and `SaveChanges` silently succeeds while leaving the database value unchanged. This also corrupts the original-value snapshot exposed to callers. Limit the snapshot correction to the disconnected complex-type discriminator scenario rather than applying it to every read-only property on every transition to Modified."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 282,
+   "end_line": 282,
+   "message": "The change treats the symptom (a bad original-value snapshot for complex-type shadow properties) with a broad rewrite of original values for all Throw properties on all entity types, rather than fixing how the snapshot is built for the complex-type discriminator. The added comment names the cause itself: \"for shadow properties on complex types whose snapshot stores default values\". But the condition `afterSaveBehavior == PropertySaveBehavior.Throw && property.GetOriginalValueIndex() >= 0 && !IsConceptualNull(property)` is not limited to complex types, shadow properties or discriminators. It runs for every Modified transition with modifyProperties, including on ordinary entity keys. That is the source of the regression above."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 282,
+   "end_line": 282,
+   "message": "This treats the symptom, not the root cause: the snapshot factory (regression from #37394) stores default values for shadow properties on complex types instead of the current values. The same false mismatch still happens on other paths. For example, with Attach() followed by DetectChanges, the entry is Unchanged, this block never runs, and the complex discriminator is still flagged as modified, so SaveChanges throws. Shadow Save properties on complex types would also be falsely flagged as modified. The more targeted snapshot fix (#38111) addresses the actual defect without changing state-transition semantics for every entity type. This treats the symptom, not the root cause: the snapshot factory (regression from #37394) stores default values for shadow properties on complex types instead of the current values. The same false mismatch still happens on other paths. For example, with Attach() followed by DetectChanges, the entry is Unchanged, this block never runs, and the complex discriminator is still flagged as modified, so SaveChanges throws. Shadow Save properties on complex types would also be falsely flagged as modified. The more targeted snapshot fix (#38111) addresses the actual defect without changing state-transition semantics for every entity type."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "Throw properties that are also concurrency tokens lose their real original value. SetEntityState(Modified) is also reached for Modified->Modified transitions (calling Update/State=Modified again) and for Unchanged->Modified on entities loaded from the database. In those cases the database-loaded original value, which the UPDATE's concurrency check uses in its WHERE clause, is replaced with the current in-memory value. This can hide concurrency conflicts or cause wrong rows to be matched. Any original value the user set explicitly through `entry.OriginalValues` before changing state is also clobbered. Throw properties that are also concurrency tokens lose their real original value. SetEntityState(Modified) is also reached for Modified->Modified transitions (calling Update/State=Modified again) and for Unchanged->Modified on entities loaded from the database. In those cases the database-loaded original value, which the UPDATE's concurrency check uses in its WHERE clause, is replaced with the current in-memory value. This can hide concurrency conflicts or cause wrong rows to be matched. Any original value the user set explicitly through `entry.OriginalValues` before changing state is also clobbered."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "test/EFCore.Specification.Tests/Query/AdHocComplexTypeQueryTestBase.cs",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "The new test covers only the disconnected-Update path with one input, and nothing checks that read-only-after-save properties on already-tracked entities still raise an error when changed, so the regression the fix introduces passes the suite. The test builds a fresh `updatedEntity`, calls `context.Update(updatedEntity)` and SaveChanges, then asserts only `reloaded.Id`, `NotNull(reloaded.Prop)` and `False(reloaded.Prop.OptionalValue)`. The diff adds no case where a tracked entity's Throw property is changed and the state is then set to Modified expecting PropertyReadOnlyAfterSave. It also does not assert the discriminator's IsModified flag or original value, which the comment at lines 94-95 says is the behaviour under test."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "test/EFCore.Specification.Tests/Query/AdHocComplexTypeQueryTestBase.cs",
+   "start_line": 68,
+   "end_line": 68,
+   "message": "The test only covers Update() with a disconnected instance. It does not cover Attach() followed by modification, setting State=Modified on an already-tracked entity, or the fact that key and other Throw-property changes still throw after this change. It also never checks the discriminator's original or current value. Because of these gaps, the behavioural regressions introduced by overwriting original values go undetected. The test also lives in a Query test base even though it exercises update/change-tracking behaviour. The test only covers Update() with a disconnected instance. It does not cover Attach() followed by modification, setting State=Modified on an already-tracked entity, or the fact that key and other Throw-property changes still throw after this change. It also never checks the discriminator's original or current value. Because of these gaps, the behavioural regressions introduced by overwriting original values go undetected. The test also lives in a Query test base even though it exercises update/change-tracking behaviour."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The change adds work on a path the code marks as hot: a SetOriginalValue call (with its own lookups and snapshot write) for every Throw property, keys included, every time an entity is marked Modified. The loop sits under the existing `// Hot path; do not use LINQ` comment (line 274). It now calls `IsConceptualNull(property)`, `this[property]` and `SetOriginalValue(...)` for every key property of every entity attached or updated as Modified, even where the original already equals the current value."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "This adds per-property work on a path explicitly marked as a hot path: an EnsureOriginalValues allocation plus boxing through this[property] and SetValue for each Throw property (every key and discriminator) on every Update/Attach-as-Modified. For entities using notification-based change tracking it also forces the original-values snapshot to be created eagerly, where it would otherwise not be. This adds per-property work on a path explicitly marked as a hot path: an EnsureOriginalValues allocation plus boxing through this[property] and SetValue for each Throw property (every key and discriminator) on every Update/Attach-as-Modified. For entities using notification-based change tracking it also forces the original-values snapshot to be created eagerly, where it would otherwise not be."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

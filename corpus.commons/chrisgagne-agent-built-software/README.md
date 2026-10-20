@@ -18,8 +18,8 @@ each test's rule written down before it ran.
 
 - **Its AI review hasn't beaten the labs' own tools.** On GitHub's open benchmark of real pull requests, the factory's
   default review found less than OpenAI's `codex review` and Claude Code with a plain review prompt, run together. With
-  both of those added as reviewers, it came out level with them by the rule we set. It found two to three times as
-  much as PR-Agent, a widely used open-source AI reviewer.
+  its Claude reviewer plus those two as its reviewers, it came out level with them by the rule we set. It found two to
+  three times as much as PR-Agent, an open-source AI reviewer.
 - **With one model, the factory's brief and library helped OpenAI's model and not Anthropic's.** On Sol they did
   better than `codex review`; on Opus, about the same as Claude Code with a plain prompt. Neither model found more
   serious bugs with them.
@@ -67,7 +67,7 @@ two are about the same.
 | | Precision | Recall | Serious findings found (of 36)\* |
 |---|---|---|---|
 | `codex review` + Claude Code with a plain prompt, pooled | 87.2% | 50.8% | 25 |
-| The factory as set by default (two reviewers with its brief and library, then its sort) | 85.5% | 35.5% | 19 |
+| The factory's default two reviewers, configured with its brief and library, then its sort | 85.5% | 35.5% | 19 |
 | PR-Agent | 81.5% | 14.4% | 8 |
 
 \*Counted after the fact. The pooled pair did better than the factory, and both did better than PR-Agent.
@@ -126,7 +126,8 @@ seen, including the jsdiff change that prompted it:
 
 - **58 of the 61 findings that caught real bugs came out "shown":** a check that passed before the change and failed
   after it. None came out "not shown"; for 3 the step gave no usable answer.
-- **7 of the 9 findings that stopped good changes also came out "shown".** The checks found real changes in behaviour:
+- **7 of the 9 findings that stopped good changes also came out "shown"** (the 9 came from repeated runs on four good
+  changes). The checks found real changes in behaviour:
   a decimal.js change left the shipped minified build disagreeing with its source; a node-semver change left a new
   file out of the published package; a js-yaml change now returns nothing, silently, for a cut-off input. For jsdiff,
   the reviewer's named input was wrong, but two of four checks found that a patch object built by hand now lands a line
@@ -188,16 +189,15 @@ file, and the log's chain and the signature still check out.
 
 ## What came before
 
-Most of the factory's pieces exist elsewhere, open and widely used; what we haven't found is them combined into one
+Most of the factory's pieces exist elsewhere in open projects; what we haven't found is them combined into one
 gate and measured against each other on known bugs and good changes. The closest, from their repositories and docs
 as of 2026-10-19:
 
 - **A second vendor's reviewer from inside Claude Code:** OpenAI's [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc)
   (Apache-2.0) and [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) both have Codex or other models
-  review Claude Code's work. Neither documents keeping the reviewers blind to each other or a further model sorting
-  their findings.
-- **AI review of a diff:** [PR-Agent](https://github.com/The-PR-Agent/pr-agent) (MIT, about 13,000 GitHub stars) is a
-  widely used open-source AI reviewer, compared above, as was the Codex CLI's `codex review`. Claude Code has its own
+  review Claude Code's work.
+- **AI review of a diff:** [PR-Agent](https://github.com/The-PR-Agent/pr-agent) (MIT), an open-source AI reviewer, was
+  compared above, as was the Codex CLI's `codex review`. Claude Code has its own
   review command, which we didn't test.
 - **Tests first:** [TDD Guard](https://github.com/nizos/tdd-guard) (MIT) blocks a coding agent from writing code
   without a failing test.

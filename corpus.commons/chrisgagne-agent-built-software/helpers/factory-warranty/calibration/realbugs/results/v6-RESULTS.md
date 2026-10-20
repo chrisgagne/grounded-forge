@@ -64,3 +64,6 @@ Codex meter (Plus plan): week 22% → 27% for the whole run.
 20 pull requests, one trial, offline scores. The 2,000-line cap leaves out the largest pull requests. ReviewBench's
 golden findings were mostly first raised by AI reviewers, labelled with a Claude classifier, and judged by a Claude
 model, while most findings in every arm here were written by Claude models.
+
+*Third-party home paths quoted in findings (a reviewed pull request's author's own `/Users/{name}/...`) are redacted
+to `/Users/<author>/` in these records; nothing else in them is changed.*

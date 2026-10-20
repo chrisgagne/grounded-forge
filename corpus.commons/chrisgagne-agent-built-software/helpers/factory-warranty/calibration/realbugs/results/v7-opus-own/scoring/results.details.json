@@ -1616,7 +1616,7 @@
         "file": "wafer_images/waferguard_financial_impact.ipynb",
         "start_line": 169,
         "end_line": 174,
-        "message": "`from financial_impact import financial` runs before `repo_root` is added to `sys.path`. The notebook lives in `wafer_images/`, so the import fails unless the kernel was started at the repo root. `repo_root` is also hardcoded to one developer's home directory (`/Users/hernanmontoyag/...`), so the notebook won't work on any other machine and the commit leaks a local path.",
+        "message": "`from financial_impact import financial` runs before `repo_root` is added to `sys.path`. The notebook lives in `wafer_images/`, so the import fails unless the kernel was started at the repo root. `repo_root` is also hardcoded to one developer's home directory (`/Users/<author>/...`), so the notebook won't work on any other machine and the commit leaks a local path.",
         "status": "matched_tp",
         "matched_golden_index": 7,
         "covered_golden_indices": [

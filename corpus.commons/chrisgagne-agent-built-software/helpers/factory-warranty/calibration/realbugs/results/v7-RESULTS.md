@@ -59,3 +59,6 @@ Codex meter (Plus plan): week 27% → 38% for the run.
 findings, so they aren't typical. The judge is a Claude model; two of the four arms are Claude. The factory's Claude
 reviewer read the open build's library; Claude Code didn't, so "the factory's brief" here means the brief and its
 grounding together.
+
+*Third-party home paths quoted in findings (a reviewed pull request's author's own `/Users/{name}/...`) are redacted
+to `/Users/<author>/` in these records; nothing else in them is changed.*

@@ -1625,7 +1625,7 @@
         "file": "wafer_images/waferguard_financial_impact.ipynb",
         "start_line": 171,
         "end_line": 171,
-        "message": "The notebook hard-codes one developer's absolute home path as repo_root, so it reads data and writes reports to a path that only exists on that machine. The path is also inserted into sys.path only after the package import that needs it. Line 171 is `repo_root = \"/Users/hernanmontoyag/Desktop/Capstone/waferguard-ml\"`. Every data, model and report path is built from repo_root, including `outdir_demo = os.path.join(repo_root, ...)`. Line 169 `from financial_impact import financial as wg_fin` runs before `sys.path.insert(0, repo_root)`. The saved outputs also expose this local username and directory layout.",
+        "message": "The notebook hard-codes one developer's absolute home path as repo_root, so it reads data and writes reports to a path that only exists on that machine. The path is also inserted into sys.path only after the package import that needs it. Line 171 is `repo_root = \"/Users/<author>/Desktop/Capstone/waferguard-ml\"`. Every data, model and report path is built from repo_root, including `outdir_demo = os.path.join(repo_root, ...)`. Line 169 `from financial_impact import financial as wg_fin` runs before `sys.path.insert(0, repo_root)`. The saved outputs also expose this local username and directory layout.",
         "status": "matched_tp",
         "matched_golden_index": 7,
         "covered_golden_indices": [

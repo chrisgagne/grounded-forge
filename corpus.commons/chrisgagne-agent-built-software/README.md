@@ -4,10 +4,11 @@
 > way a professional developer is. I was curious what kind of software factory could be built from open sources (public
 > domain, MIT, Creative Commons and the like) on what good-quality, AI-built software looks like. This is what I came
 > up with. I directed it, and I signed off its one real change from the sign-off sheet, without reading the code. I
-> learned that a naïve junior developer like me can now build review tooling that beats PR-Agent, the most-starred
-> open-source AI reviewer we found, but adds little beyond expense when you already run both Claude's and Codex's own
-> reviews (on OpenAI's model alone, it helped). What it adds is the rest: locked tests, a sheet I could sign from, and
-> a record of what was and wasn't shown.
+> learned that a naïve junior developer like me can now build review tooling that beats PR-Agent (the most-starred
+> open-source AI reviewer we found), brooks-lint and Claude Code's own `/code-review`. It still adds little beyond
+> expense if you already ask Claude Code for a plain review and run `codex review` beside it, though with OpenAI's
+> model alone it helped. What it adds is the rest: locked tests, a sheet I could sign from, and a record of what was
+> and wasn't shown.
 >
 > *Chris Gagné*
 

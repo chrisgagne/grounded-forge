@@ -1,53 +1,45 @@
 # Signing off AI-written code without reading every line
 
 > I'm a tech-savvy product manager and consultant, but I've rarely been held responsible for warranting software the
-> way a professional developer is. I was curious what kind of software factory could be built from open sources (public
-> domain, MIT, Creative Commons and the like) on what good-quality, AI-built software looks like. This is what I came
-> up with. I directed it, and I signed off its one real change from the sign-off sheet, without reading the code. I
-> learned that a naïve junior developer like me can now build review tooling that beats PR-Agent (the most-starred
-> open-source AI reviewer we found), brooks-lint and Claude Code's own `/code-review`. It still adds little beyond
-> expense if you already ask Claude Code for a plain review and run `codex review` beside it, though with OpenAI's
-> model alone it helped. What it adds is the rest: locked tests, a sheet I could sign from, and a record of what was
-> and wasn't shown.
+> way a professional developer is. I wanted to see what software factory could be built from open sources (public
+> domain, MIT, Creative Commons and the like) on what good AI-built software looks like. I directed this one, and
+> signed off its one real change from the sign-off sheet without reading the code. A naïve junior developer like me
+> can now build review tooling that beats PR-Agent (the most-starred open-source AI reviewer we found), brooks-lint and
+> Claude Code's own `/code-review`. It adds little if you already ask Claude Code for a plain review and run
+> `codex review` beside it, though with OpenAI's model alone it helped. What it adds is the rest: locked tests, a sheet
+> I could sign from, and a record of what was and wasn't shown.
 >
 > *Chris Gagné*
 
-**An experiment, built by AI and open for critique.** Claude (Anthropic) wrote nearly all of it, with OpenAI's Codex
-reviewing, grading and picking test cases. It asks whether whoever signs off a change can rely on evidence instead of
-reading every line, and every test of it was written down before it ran.
+**An experiment, built by AI and open for critique.** Claude wrote nearly all of it, with OpenAI's Codex reviewing,
+grading and picking test cases. Every test was written down before it ran.
 
 ## The short version
 
-- **Its AI review hasn't beaten the two labs' tools run together.** On GitHub's open benchmark, the factory's default
-  review found less than OpenAI's `codex review` and Claude Code with a plain review prompt, pooled; with its Claude reviewer
-  plus those two as its reviewers, it came out level with them.
-- **It beat the open-source and built-in reviewers we tried.** It found two to three times as much as PR-Agent, the
-  [most-starred](helpers/factory-warranty/calibration/realbugs/prior-art-2026-10-20.md) open-source AI reviewer we
-  found, and its Claude reviewer alone found two and a half to three and a half
-  times as much as brooks-lint (Claude reviewing against twelve engineering books) and Claude Code's own `/code-review`.
-- **With one model, its brief and library helped OpenAI's model and not Anthropic's.** On Opus, a plain "review this
-  as a careful senior engineer" prompt did as well or better. Neither model found more serious bugs with them.
-- **What it adds is the rest of the gate:** locked tests, sandboxed checks, a sign-off sheet for someone who doesn't
-  read code, and a log.
+- **Its review hasn't beaten `codex review` and Claude Code with a plain prompt, pooled.** With those two added as
+  its reviewers, it came out level.
+- **It beat the other reviewers we tried,** with two to three and a half times the recall of PR-Agent, brooks-lint
+  (Claude reviewing against twelve engineering books) and `/code-review`.
+- **Its brief and library helped OpenAI's model, not Anthropic's,** where a plain prompt did as well or better.
+  Neither model found more serious bugs with them.
 - **Several stops on "good" changes were real changes in behaviour** that upstream had accepted. Making each stop
   quick for a non-coder to judge is the open problem.
 
 ## What it does
 
-1. **Tests come first and get locked.** An AI turns the request into numbered acceptance criteria and a test for each.
-   The factory checks the project's tests pass before the new ones are added and fail once they are, then locks them
-   so the AI building the change can't edit them.
-2. **The usual checks run:** the project's tests and commands, sandboxed, plus secret, dependency and code scanners. A
-   test command passes on its exit code; the factory doesn't check which tests actually ran.
-3. **AI reviewers from Anthropic and OpenAI review separately**, each in a fresh session told to stay blind to the
-   others (Codex can still read the disk, so its blindness rests on the instruction). By default they get the factory's brief
-   and, optionally, its library; Claude Code with a plain prompt and `codex review` can be added. A further AI sorts
-   the findings and can't wave through a serious one.
-4. **You get a sign-off sheet** in plain words: what was asked for, which checks passed, what you must decide, what's
-   left over. You sign, or send it back in your own words. The factory never signs for you.
+1. **Tests come first and get locked.** An AI turns the request into acceptance criteria and a test for each; the
+   factory checks they fail before the change, then locks them so the AI building it can't edit them.
+2. **The usual checks run**, sandboxed: the project's tests and commands, plus secret, dependency and code scanners. A
+   test command passes on its exit code; the factory doesn't check which tests ran.
+3. **Reviewers from Anthropic and OpenAI review separately**, each in a fresh session told to stay blind to the others
+   (Codex can still read the disk, so its blindness rests on the instruction). They get the factory's brief and,
+   optionally, its library; Claude Code with a plain prompt and `codex review` can be added. A further AI sorts the
+   findings and can't wave through a serious one.
+4. **You get a sign-off sheet** in plain words: what was asked, what passed, what you must decide. You sign or send
+   it back; the factory never signs for you.
 
-Every step lands on a tamper-evident log. [DESIGN.md](helpers/factory-warranty/DESIGN.md) says what it guarantees and
-what it can't, such as whether the tests check the right behaviour.
+Every step lands on a tamper-evident log; [DESIGN.md](helpers/factory-warranty/DESIGN.md) says what it can and can't
+guarantee.
 
 ## How its review compares
 
@@ -56,31 +48,31 @@ requests, scored offline by its own judge. *Recall* is how much of the answer ke
 its findings that match the key, the share that match a real issue (both averaged over pull requests). An arm counts as
 better only if neither is lower and one is at least 5 points higher.
 
-**On the 25-pull-request test set** ([results](helpers/factory-warranty/calibration/realbugs/results/v5-RESULTS.md)):
+**On the 25-pull-request test set** ([v5](helpers/factory-warranty/calibration/realbugs/results/v5-RESULTS.md)):
 
 | | Precision | Recall | Serious found (of 36)\* |
 |---|---|---|---|
 | `codex review` + Claude Code with a plain prompt | 87.2% | 50.8% | 25 |
-| The factory's default two reviewers, with its brief and library | 85.5% | 35.5% | 19 |
+| The factory's two reviewers, with its brief and library | 85.5% | 35.5% | 19 |
 | PR-Agent | 81.5% | 14.4% | 8 |
 
 \*Counted after the fact.
 
 **On 20 fresh pull requests**, with the vendors' review modes added to the factory
-([results](helpers/factory-warranty/calibration/realbugs/results/v6-RESULTS.md)):
+([v6](helpers/factory-warranty/calibration/realbugs/results/v6-RESULTS.md)):
 
 | | Precision | Recall |
 |---|---|---|
-| The factory's three reviewers, every original finding pooled | 80.6% | 64.1% |
+| The factory's three reviewers, every finding pooled | 80.6% | 64.1% |
 | Claude Code with a plain prompt twice, plus `codex review` | 80.2% | 62.1% |
 | Claude Code with a plain prompt, plus `codex review` | 81.3% | 56.9% |
 | PR-Agent | 83.3% | 19.0% |
 
-No arm beat another by the rule. A third review of any kind added a few points of recall and nearly doubled what
-someone has to read. The sample held only 3 serious findings, all found by every arm.
+No arm beat another; a third review of any kind added a little recall and nearly doubled the reading. All 3 serious
+findings were found by every arm.
 
-**With one model**, on 23 fresh pull requests chosen because they contain serious findings
-([results](helpers/factory-warranty/calibration/realbugs/results/v7-RESULTS.md)):
+**With one model**, on 23 fresh pull requests chosen for their serious findings
+([v7](helpers/factory-warranty/calibration/realbugs/results/v7-RESULTS.md)):
 
 | Model | Reviewing with | Precision | Recall | Serious found |
 |---|---|---|---|---|
@@ -89,11 +81,11 @@ someone has to read. The sample held only 3 serious findings, all found by every
 | Opus | the factory's brief and library | 87.2% | 45.1% | 28 |
 | Opus | Claude Code with a plain prompt | 87.2% | 49.6% | 29 |
 
-On Sol the factory's version did better; on Opus, about the same. Two factory runs had failed on an unrelated bug and
-were re-run under a dated amendment; as first judged, Sol was about the same and Claude Code found 3 more serious bugs.
+On Sol the factory's version did better; on Opus, about the same. Two factory runs that failed on an unrelated bug
+were re-run under a dated amendment; as first judged, Claude Code found 3 more serious bugs.
 
-**Against other reviewers on Claude**, on v6's 20 pull requests, each arm Opus and judged on its own
-([results](helpers/factory-warranty/calibration/realbugs/results/v8-RESULTS.md)):
+**Against other Claude reviewers**, on v6's pull requests, each judged alone
+([v8](helpers/factory-warranty/calibration/realbugs/results/v8-RESULTS.md)):
 
 | | Precision | Recall |
 |---|---|---|
@@ -102,79 +94,64 @@ were re-run under a dated amendment; as first judged, Sol was about the same and
 | Claude Code's built-in `/code-review` | 74.5% | 18.7% |
 | [brooks-lint](https://github.com/hyhmrright/brooks-lint) 1.8.0 `/brooks-review` | 72.2% | 13.7% |
 
-By the rule, the factory's reviewer did better than both tools, and the plain prompt did better than the factory's
-reviewer. Neither tool aims at this answer key, which is mostly bugs: `/code-review` reports only what it's sure of
-(about 3 findings per pull request), and brooks-lint looks for maintainability risks; the judge counted most of
-brooks-lint's unmatched findings as true. A third of brooks-lint's findings named no file and went on each change's
-first file, which can only lower its score; at best its recall would have been 30.6%.
+The factory's reviewer beat both tools, and the plain prompt beat it. Neither tool aims at an answer key of mostly
+bugs: `/code-review` reports only what it's sure of, and brooks-lint looks for maintainability risks. A third of
+brooks-lint's findings named no file and went on each change's first file; at best its recall would have been 30.6%.
 
-**For a team:** run `codex review` and Claude Code, and keep everything both say; that did as well as anything we
-built, for well under a dollar of Claude per pull request plus Codex. With OpenAI's model alone, a brief and library
-like the factory's got more out of it; with Claude alone, a plain prompt did best.
-
-**Limits:** one try per reviewer and 20 to 25 pull requests per test (none over 2,000 changed lines in the fresh
-samples); an answer key mostly raised by AI reviewers and a Claude judge; PR-Agent in its diff-only local mode; v8 reused v6's
-pull requests.
+**Limits:** one try per reviewer; 20 to 25 pull requests per test, none over 2,000 changed lines in the fresh
+samples; an answer key mostly raised by AI reviewers, and a Claude judge; PR-Agent in its diff-only local mode; v8
+reused v6's pull requests.
 
 ## Showing, not arguing
 
-In one test, every stop on a good change came from a jsdiff change where a reviewer named an input that would now
-break, and the input worked fine. Someone who doesn't read code can't tell a right argument from a wrong one, so we
-built a step where an AI writes a check and the factory runs it before and after the change. On 70 blocking findings
-from earlier runs (cases already seen), 58 of the 61 that caught real bugs came out "shown", and so did 7 of the 9 that
-stopped good changes, from four changes run repeatedly: for example, a decimal.js build left disagreeing with its source, or a
-node-semver file missing from the published package
-([results](helpers/factory-warranty/calibration/realbugs/results/REPRO-RESULTS.md)).
+In one test, every stop on a good change came from a reviewer naming an input that would now break, and it didn't. A
+non-coder can't tell a right argument from a wrong one, so an AI now writes a check the factory runs before and after
+the change. On 70 blocking findings from earlier runs (cases already seen),
+58 of the 61 that caught real bugs came out "shown", and so did 7 of the 9 that stopped good changes, from four
+changes run repeatedly ([results](helpers/factory-warranty/calibration/realbugs/results/REPRO-RESULTS.md)).
 
-The factory judges "shown" from exit codes; that a check tests what the finding names is the checking AI's account,
-and where that AI says the code is new, failing after the change alone counts. The
-step was meant to clear false stops and failed its rule (it cleared 2 of 10), so it ships as an optional display
-instead (`review.reproduce`): the sheet shows each blocking finding's outcome, and blocking doesn't change. Whether that
-helps a signer decide faster hasn't been tested.
+"Shown" is judged from exit codes; that a check tests what the finding names is the checking AI's account, and where
+it says the code is new, failing after the change alone counts. The step was meant to clear false stops and cleared 2
+of 10, failing its rule, so it ships as an optional display (`review.reproduce`) that leaves blocking unchanged.
+Whether it helps a signer decide faster hasn't been tested.
 
 ## Earlier tests
 
-**Does the standards library help?** On 17 real bugs reversed back into eight JavaScript and TypeScript libraries,
-reviewers with the library caught 16 on both tries against 11 without, which met the bar we'd set
-([results](helpers/factory-warranty/calibration/realbugs/results/v3-RESULTS.md)). Three of the five gains came where
-OpenAI's reviewer ran out of time without it; counting only finished reviews it's 16 against 14 (a count that favours
-the side without). It cost 2.4 times the Claude review spend, and a third company's model, TypeSafe's Jev, re-graded
-the findings to the same totals.
+**Does the library help?** On 17 real bugs reversed into eight JavaScript and TypeScript libraries, reviewers
+with it caught 16 on both tries against 11 without
+([v3](helpers/factory-warranty/calibration/realbugs/results/v3-RESULTS.md)). Three of the five gains came where
+OpenAI's reviewer timed out without it; counting finished reviews only, it's 16 against 14. It cost 2.4 times the
+Claude review spend.
 
-**How often it stops good changes.** In that test, 38% and 44% of runs on good changes ended in a stop, against our bar
-of 20%; on fresh cases both the old and a revised factory stopped 2 of 24
-([results](helpers/factory-warranty/calibration/realbugs/results/v4-RESULTS.md)), so the rate depends heavily on which
-changes you test. If you run AI review in anger, what share of good changes does it stop, and how fast can a signer
-tell a wanted change from a bug?
+**How often it stops good changes.** In that test, 38% and 44% of runs, against a bar of 20%; on fresh cases, 2 of 24
+([v4](helpers/factory-warranty/calibration/realbugs/results/v4-RESULTS.md)). It depends heavily on the changes.
 
-**One change, start to finish.** The factory built one of its own features, a scanner rule. Chris sent it back twice
-("Don't claim more than it catches") and signed the third version, which lists what it still misses
+**One change, start to finish.** The factory built itself a scanner rule. Chris sent it back twice ("Don't claim
+more than it catches") and signed the third
 ([showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/), about $9 of Claude; one config file was edited
 afterwards, so its recorded fingerprint no longer matches).
 
-## Limits and proposals
+## Limits and prior art
 
-Its rules (what blocks, the 20% false-stop bar) are marked PROPOSED in
-[`policy.yaml`](helpers/factory-warranty/factory/policy.yaml), and [conformance/](helpers/factory-warranty/conformance/)
-maps it to each standard. Not yet shown: that a non-coder can safely sign from the sheet (one showcase change), and
-that the gates catch what reviewers miss (every replay switched the projects' test suites off). It runs on macOS only;
-someone with the operator's access could rewrite the log without it showing; a signature is a record, not cryptography; and the commits
-showing each test was written first are in the factory's unpublished repository.
+Its rules (what blocks, the 20% bar) are marked PROPOSED in [`policy.yaml`](helpers/factory-warranty/factory/policy.yaml),
+and [conformance/](helpers/factory-warranty/conformance/) maps it to each standard. Not yet shown: that a non-coder can
+safely sign from the sheet (one showcase change), and that the gates catch what reviewers miss (every replay switched
+the projects' test suites off). It runs on macOS only; someone with the operator's access could rewrite the log
+unseen; a signature is a record, not cryptography; and the commits showing each test came first are in the factory's
+unpublished repository.
 
-Prior art: brooks-lint also grounds Claude's review in a library (tested above); [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
+[`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
 [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) have other models review Claude Code's work;
 [TDD Guard](https://github.com/nizos/tdd-guard) enforces tests first; [in-toto](https://github.com/in-toto/in-toto)
-and [Sigstore](https://github.com/sigstore/cosign) keep signed records of how software was made, with real cryptography.
+and [Sigstore](https://github.com/sigstore/cosign) keep cryptographically signed records of how software was made.
+[Reviewers' star counts, 2026-10-20](helpers/factory-warranty/calibration/realbugs/prior-art-2026-10-20.md).
 
 ## The library
 
-Eighteen open sources, each read in full, written up and checked line by line against its source by a Claude agent and
-by OpenAI's model: standards and threat lists from NIST, CISA and OWASP; research on AI-assisted development, including
-METR's productivity trial, SWE-bench and Google's DORA report; and practice guidance from Cucumber, Microsoft, OpenSSF
-and the UK government. It names 29 places where they disagree.
-
-The app ships 17 of them, all licensed for commercial use; the DORA report (CC BY-NC-SA) ships only in
-[`apps/factory-warranty-full/`](apps/factory-warranty-full/), for non-commercial use.
+Eighteen open sources, each read in full and checked line by line by Claude and OpenAI's model: NIST, CISA and OWASP
+standards; research on AI-assisted development, including METR's trial and Google's DORA report; and guidance from
+Microsoft, OpenSSF and the UK government. It names 29 places where they disagree. The app ships the 17 licensed for commercial use; DORA
+(CC BY-NC-SA) ships only in [`apps/factory-warranty-full/`](apps/factory-warranty-full/).
 
 ## Try it
 
@@ -187,21 +164,14 @@ claude .                                   # ask it what evidence a change needs
 uv tool install --editable ./factory       # the harness: `factory run STORY.md --repo PATH`
 ```
 
-[The factory's README](helpers/factory-warranty/README.md) covers the config: `review.legs` picks the reviewers,
-`review.grounding: distillations` gives them the library, and `review.reproduce` (with `review.reproduce_setup` to
-install dependencies) adds the check for each blocking finding.
+[The factory's README](helpers/factory-warranty/README.md) covers the config.
 
 ## What's in this folder
 
-| Folder | What it is |
-|---|---|
-| [`helpers/factory-warranty/`](helpers/factory-warranty/) | The factory, and every test's pre-registration, results and records ([calibration/](helpers/factory-warranty/calibration/)) |
-| [`distillations/`](distillations/warranting-agent-built-software/), [`references/`](references/), [`sources/`](sources/) | The library: one write-up per source, the index the reviewers read, and each source's full write-up and licence |
-| [`apps/`](apps/) | The factory and library as an app: `factory-warranty` for any use, `factory-warranty-full` (with DORA) non-commercial |
+- [`helpers/factory-warranty/`](helpers/factory-warranty/): the factory, and every test's pre-registration, results
+  and records ([calibration/](helpers/factory-warranty/calibration/)).
+- [`distillations/`](distillations/warranting-agent-built-software/), [`references/`](references/),
+  [`sources/`](sources/): the library.
+- [`apps/`](apps/): the factory and library as an app.
 
-It's a corpus in [grounded-forge](../../README.md), which builds assistants that answer from a fixed set of sources.
-
-## Licence
-
-The code is MIT. Each write-up keeps its source's licence (see [`LICENSE-CONTENT`](../../LICENSE-CONTENT)); DORA's CC
-BY-NC-SA makes `factory-warranty-full` non-commercial.
+It's a [grounded-forge](../../README.md) corpus. The code is MIT; each write-up keeps its source's licence (see [`LICENSE-CONTENT`](../../LICENSE-CONTENT)).

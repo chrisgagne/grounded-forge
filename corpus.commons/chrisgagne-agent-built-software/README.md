@@ -16,17 +16,18 @@ each test's rule written down before it ran.
 
 ## The short version
 
-- **Its AI review is as good as running both labs' own review tools, not better.** On GitHub's open benchmark of real
-  pull requests, the factory found about as much as OpenAI's `codex review` and Claude Code's review run together, and
-  two to three times as much as the most used open-source AI reviewer.
-- **With one model, its review brief helps OpenAI's model and not Anthropic's.** On Sol it beat `codex review`; on Opus
-  it matched Claude Code's own review. Neither found more serious bugs with it.
+- **Its AI review hasn't beaten the labs' own tools.** On GitHub's open benchmark of real pull requests, the factory's
+  default review found less than OpenAI's `codex review` and Claude Code with a plain review prompt, run together. With
+  both of those added as reviewers, it came out level with them by the rule we set. It found two to three times as
+  much as PR-Agent, a widely used open-source AI reviewer.
+- **With one model, the factory's brief and library helped OpenAI's model and not Anthropic's.** On Sol they did
+  better than `codex review`; on Opus, about the same as Claude Code with a plain prompt. Neither model found more
+  serious bugs with them.
 - **What it adds is everything around the review:** tests written first and locked, sandboxed checks, a sign-off sheet
-  written for someone who doesn't read code, a log of every step, and now a check the factory runs for each blocking
-  finding, so the sheet can say "after this change, this input does that" instead of passing on an argument.
-- **Most stops on "good" changes weren't wrong about the code.** When the factory ran checks on them, most showed a
-  real change in behaviour that upstream had accepted. Whether a change is wanted is the signer's call; the factory's
-  job is to make that call quick.
+  written for someone who doesn't read code, and a log of every step; and, optionally, an attempt to show each
+  blocking finding by running a check before and after the change.
+- **Several stops on "good" changes pointed at real changes in behaviour** that upstream had accepted. Telling a wanted
+  change from a bug stays the signer's call, and making that quick is the open problem.
 
 ## What it does
 
@@ -36,16 +37,16 @@ A change goes through the factory before anyone signs it off:
    for each. The factory checks the project's tests pass before the new ones are added and fail once they are, then
    locks them so the AI building the change can't edit them.
 2. **The usual checks run.** The project's own tests and commands, sandboxed, plus secret, dependency and code
-   scanners.
-3. **AI reviewers from Anthropic and OpenAI review it separately**, each in a fresh session that can't see the other's
-   work. Which reviewers run is set in the config: by default, Claude and OpenAI's model each given the factory's
-   review brief (optionally with the library of open standards and studies described below); also available, Claude Code with a
-   plain review prompt and OpenAI's own `codex review`. A further AI sorts the findings and can't wave through a serious
-   finding a reviewer raised.
+   scanners. A test command passes on its exit code; the factory doesn't check which tests the runner actually ran.
+3. **AI reviewers from Anthropic and OpenAI review it separately**, each in a fresh session, told to stay blind to the
+   others' work (Codex's read-only sandbox can still read the disk, so its blindness rests on following that
+   instruction). The config picks the reviewers: by default, Claude and OpenAI's model each given the factory's review
+   brief (optionally with the library of open standards and studies described below); also available, Claude Code
+   with a plain review prompt and OpenAI's own `codex review`. A further AI sorts the findings and can't wave through a
+   serious finding a reviewer raised.
 4. **You get a sign-off sheet**, written for someone who doesn't read code, with the evidence after it: what was asked
-   for, which checks passed, what you must decide, what's left over. Optionally, each blocking finding comes with what
-   the factory ran to show it. You sign, or send it back in your own words; a send-back goes through the tests-first
-   step again before the rebuild. The factory never signs for you.
+   for, which checks passed, what you must decide, what's left over. You sign, or send it back in your own words; a
+   send-back goes through the tests-first step again before the rebuild. The factory never signs for you.
 
 Every step lands on a tamper-evident log. What it can't promise: that the tests check the right behaviour, or that the
 reviewers weren't fooled. [DESIGN.md](helpers/factory-warranty/DESIGN.md) lists what it does and doesn't guarantee.
@@ -56,53 +57,61 @@ Three tests, each written down before it ran, on [ReviewBench](https://github.co
 open benchmark of real pull requests, scored against findings people checked, by ReviewBench's own judge and the
 judge model its leaderboard uses. These are offline scores, not leaderboard entries. *Recall* is how much of the answer
 key a reviewer found; *precision* is, of its findings that match something in the answer key, the share that match a
-real issue (the key also lists claimed issues its checkers rejected).
+real issue (the key also lists claimed issues its checkers rejected). Both are averages over pull requests. One arm
+counts as better than another only if neither measure is lower and one is at least 5 points higher; otherwise the
+two are about the same.
 
 **Against what a team could use instead** (ReviewBench's 25-pull-request test set,
 [results](helpers/factory-warranty/calibration/realbugs/results/v5-RESULTS.md)):
 
-| | Precision | Recall | Serious findings found (of 36) |
+| | Precision | Recall | Serious findings found (of 36)\* |
 |---|---|---|---|
-| Both labs' own tools, pooled (`codex review` + Claude Code) | 87% | 51% | 25 |
-| The factory (two reviewers with its brief, then its sort) | 86% | 35% | 19 |
-| PR-Agent, the most used open-source AI reviewer | 82% | 14% | 8 |
+| `codex review` + Claude Code with a plain prompt, pooled | 87.2% | 50.8% | 25 |
+| The factory as set by default (two reviewers with its brief and library, then its sort) | 85.5% | 35.5% | 19 |
+| PR-Agent | 81.5% | 14.4% | 8 |
 
-The factory's two reviewers, given the same brief, looked for the same things; the labs' two tools barely overlap. So
-we added the labs' own review modes as reviewers and tested again on 20 pull requests nobody here had reviewed
-([results](helpers/factory-warranty/calibration/realbugs/results/v6-RESULTS.md)):
+\*Counted after the fact. The pooled pair did better than the factory, and both did better than PR-Agent.
+
+The factory's two reviewers, given the same brief, looked for the same things; the other pair's findings barely
+overlap. So we added `codex review` and the plain Claude Code prompt as reviewers and tested again on 20 pull requests
+nobody here had reviewed ([results](helpers/factory-warranty/calibration/realbugs/results/v6-RESULTS.md)):
 
 | | Precision | Recall |
 |---|---|---|
-| The factory, three reviewers (its brief on Claude, Claude Code's plain review, `codex review`) | 81% | 64% |
-| Claude Code's plain review twice, plus `codex review` | 80% | 62% |
-| Both labs' own tools, pooled | 81% | 57% |
-| PR-Agent | 83% | 19% |
+| The factory's three reviewers (its brief on Claude, the plain Claude Code prompt, `codex review`), every original finding pooled | 80.6% | 64.1% |
+| The plain Claude Code prompt twice, plus `codex review` | 80.2% | 62.1% |
+| The plain Claude Code prompt plus `codex review` | 81.3% | 56.9% |
+| PR-Agent | 83.3% | 19.0% |
 
-By the rule set beforehand (one arm is better only if it's at least as precise and finds at least 5 points more), all
-of these are about the same except PR-Agent's much lower recall. A third review of any kind adds a few points of
-recall and nearly doubles what someone has to read; the factory's brief adds about what a second plain review does.
+No arm did better than another by the rule, not even against PR-Agent, whose precision was highest. A third review of
+any kind added a few points of recall and nearly doubled what someone has to read; the factory's brief added about
+what a second plain review did. These pull requests held only 3 serious answer-key findings, all found by every arm,
+so this test says nothing about serious bugs.
 
 **With only one model** (23 fresh pull requests chosen because they contain serious findings,
 [results](helpers/factory-warranty/calibration/realbugs/results/v7-RESULTS.md)):
 
 | Model | Reviewing with | Precision | Recall | Serious found |
 |---|---|---|---|---|
-| OpenAI's Sol | the factory's brief | 87% | 20% | 21 |
-| OpenAI's Sol | `codex review` | 85% | 15% | 22 |
-| Claude Opus | the factory's brief | 87% | 45% | 28 |
-| Claude Opus | Claude Code's plain review | 87% | 50% | 29 |
+| OpenAI's Sol | the factory's brief and library | 86.8% | 19.8% | 21 |
+| OpenAI's Sol | `codex review` | 84.9% | 14.7% | 22 |
+| Claude Opus | the factory's brief and library | 87.2% | 45.1% | 28 |
+| Claude Opus | Claude Code with a plain prompt | 87.2% | 49.6% | 29 |
 
-On Sol the factory's brief did better, by the same rule; on Opus it was about the same as Claude Code.
+On Sol the factory's brief and library did better; on Opus, about the same. Two of the factory's runs had failed on a
+bug unrelated to the review (projects with thousands of test files); we fixed it and re-ran them under a dated
+amendment. As first judged, before the re-runs, Sol was about the same, and Claude Code found more serious bugs than
+the factory's Opus reviewer (29 against 26).
 
-**What a team can take from this:** if you have both labs' tools, run both reviews and keep everything they say; that
-did as well as anything we built, for well under a dollar of Claude per pull request, plus Codex. If you only use OpenAI's model, a review brief like
-the factory's gets more out of it than `codex review`. If you're choosing an open-source reviewer, compare it with the
-labs' own tools first.
+**What a team can take from this:** run OpenAI's `codex review` and Claude Code with a plain review prompt, and keep
+everything both say; that did as well as anything we built, for well under a dollar of Claude per pull request plus
+Codex. With OpenAI's model alone, a review brief and library like the factory's got more out of it than `codex review`.
+And measure an open-source reviewer against the labs' own tools before adopting it.
 
-**Limits of all three:** one try per reviewer and 20 to 25 pull requests per test; ReviewBench's answer key was mostly
-first raised by AI reviewers, and its judge is a Claude model, grading findings mostly written by Claude models;
-PR-Agent ran in its local mode, which sees the diff but not the repository. The serious-finding counts in the first
-table come from an analysis after the fact; the third test was set up to measure them.
+**Limits of all three:** one try per reviewer and 20 to 25 pull requests per test; the two fresh samples leave out pull
+requests over 2,000 changed lines; ReviewBench's answer key was mostly first raised by AI reviewers, and its judge is a
+Claude model, grading findings mostly written by Claude models; PR-Agent ran in its local mode, which sees the diff but
+not the repository; and Claude Code's own review command wasn't tested, only our plain prompt run through Claude Code.
 
 ## Showing, not arguing
 
@@ -110,28 +119,33 @@ In one test, every stop on a good change came from a single jsdiff change titled
 it critical and named an input that would now break. That input worked fine; the reviewer had missed that the parser
 adjusts the line number first. A person who doesn't read code can't tell a right argument from a wrong one.
 
-So the factory can now make each blocking finding show its work: a separate AI writes a check, and the factory runs it
-on the code before and after the change. We tested that step on 70 blocking findings from earlier runs
-([results](helpers/factory-warranty/calibration/realbugs/results/REPRO-RESULTS.md)):
+So we built a step that makes each blocking finding show its work: a separate AI writes a check and the command to run
+it, and the factory runs that command on the code before and after the change. We tried it on 70 blocking findings
+from earlier runs ([results](helpers/factory-warranty/calibration/realbugs/results/REPRO-RESULTS.md)), cases already
+seen, including the jsdiff change that prompted it:
 
-- **58 of the 61 findings that caught real bugs were shown** by a check that passed before the change and failed after
-  it. None came out "not shown"; for 3 the step gave no usable answer.
-- **7 of the 9 findings that stopped good changes were also shown**: the jsdiff change does misplace a line for a patch
-  object built by hand; a decimal.js change left the shipped minified build disagreeing with its source; a
-  node-semver change left a new file out of the published package; a js-yaml change now returns nothing, silently, for
-  a cut-off input. The reviewers weren't wrong about the code, only about whether it mattered.
+- **58 of the 61 findings that caught real bugs came out "shown":** a check that passed before the change and failed
+  after it. None came out "not shown"; for 3 the step gave no usable answer.
+- **7 of the 9 findings that stopped good changes also came out "shown".** The checks found real changes in behaviour:
+  a decimal.js change left the shipped minified build disagreeing with its source; a node-semver change left a new
+  file out of the published package; a js-yaml change now returns nothing, silently, for a cut-off input. For jsdiff,
+  the reviewer's named input was wrong, but two of four checks found that a patch object built by hand now lands a line
+  at the end.
 
-As a way to clear false stops automatically, the step failed the rule we set for it (it cleared 2 of 10). What it does
-instead is turn an argument the signer can't check into a fact they can: "after this change, this input does that;
-before, it did this." The sheet shows that beside each blocking finding (`review.reproduce` in the config), and the
-signer decides whether the change is wanted.
+The factory decides "shown" from exit codes; whether a check exercises the problem the finding names is the checking
+AI's account, recorded beside it; and where the checking AI says the code didn't exist before the change, a check that
+fails after it also counts as shown. The
+step was meant to clear false stops automatically and failed the rule we set for that (it cleared 2 of 10 stops), so
+it didn't go in as designed. It's in the factory now as an optional display instead (`review.reproduce`): the sheet
+shows each blocking finding's outcome, and blocking doesn't change. Whether that display helps a signer decide faster
+hasn't been tested.
 
 ## How often it stops good changes
 
 **We don't know yet, and it's the question we'd most like help with.** In the first library test (below), 38% and 44%
 of the runs on good changes ended in a stop, against our own bar of 20%. We changed the factory (more time for
-reviewers, a serious finding must name the input that now goes wrong, a stale generated file counts as minor) and
-tested the old and new versions on 12 good changes neither had seen
+reviewers; reviewers instructed that a serious finding must name the input that now goes wrong, and that a stale
+generated file counts as minor unless the project requires it to change with the code) and tested the old and new versions on 12 good changes neither had seen
 ([results](helpers/factory-warranty/calibration/realbugs/results/v4-RESULTS.md)): each stopped 2 of 24 runs, both on
 the jsdiff change, so the changes didn't measurably help, and the rate depends heavily on which changes you test. On 15
 more good changes, the factory stopped 2, the labs' own tools 4 and PR-Agent 7, by our reading of when each would block.
@@ -148,10 +162,12 @@ same reviewers without it, the library is shelf material
 JavaScript and TypeScript libraries, 17 of them bug fixes reversed to bring the bug back, each reviewed twice with the
 library and twice without, the library side caught 16 of the 17 bugs on both tries against 11, and stopped one more of
 the 8 good changes (from a scanner, not the reviewers). That met the bar we set (3 more bugs, at most one more stop).
+It cost more: about 2.4 times the Claude review spend and 1.7 times the recorded Codex tokens.
 
 It's weaker than that headline. In three of the five extra catches, the review without the library caught the bug once
 and on the other try OpenAI's reviewer ran out of time. Counting only reviews that finished, it's 16 against 14, under
-the bar. A model from a third company, TypeSafe's Jev, graded every bug-review finding again and its grades gave the
+the bar, though that count is lopsided: three cases without the library count on one finished review, where the
+library side needed two. A model from a third company, TypeSafe's Jev, graded every bug-review finding again and its grades gave the
 same totals; no human has checked the grader. 68% of the confirmed findings with the library named a standard, a
 source or one of its rows, against none without it, though naming one doesn't mean naming the right one.
 
@@ -163,7 +179,8 @@ sheet as a non-coder would. The first version flagged harmless code, so he sent 
 shouldn't." The second claimed to catch `eval` "however reached"; a reviewer showed it didn't, so he sent it back
 again: "Don't claim more than it catches." The third listed what it doesn't catch, and he signed it. The rule's own
 list still misses two forms, which the signed sheet records. Along the way the run exposed three bugs in the factory
-itself, each fixed with a test. Cost: about $9 of Claude and 214,000 Codex tokens over five runs.
+itself, each fixed with a test. Cost: about $9 of Claude and 214,000 recorded Codex tokens (excluding cached input)
+over five runs.
 [The showcase](helpers/factory-warranty/calibration/showcase-2026-10-14/) holds the log and the signed sheet. It ran
 before this library existed, so its reviewers worked from a lighter summary. One config file was edited afterwards to
 point at the library, so the fingerprint the log recorded for that file no longer matches; that affects only that
@@ -172,13 +189,16 @@ file, and the log's chain and the signature still check out.
 ## What came before
 
 Most of the factory's pieces exist elsewhere, open and widely used; what we haven't found is them combined into one
-gate and measured against each other on known bugs and good changes. The closest:
+gate and measured against each other on known bugs and good changes. The closest, from their repositories and docs
+as of 2026-10-19:
 
 - **A second vendor's reviewer from inside Claude Code:** OpenAI's [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc)
   (Apache-2.0) and [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) both have Codex or other models
-  review Claude Code's work. Neither keeps the reviewers blind to each other or has a third model sort their findings.
-- **AI review of a diff:** [PR-Agent](https://github.com/The-PR-Agent/pr-agent) (MIT) is the most used open-source AI
-  reviewer, and Claude Code and the Codex CLI each have their own review command, compared above.
+  review Claude Code's work. Neither documents keeping the reviewers blind to each other or a further model sorting
+  their findings.
+- **AI review of a diff:** [PR-Agent](https://github.com/The-PR-Agent/pr-agent) (MIT, about 13,000 GitHub stars) is a
+  widely used open-source AI reviewer, compared above, as was the Codex CLI's `codex review`. Claude Code has its own
+  review command, which we didn't test.
 - **Tests first:** [TDD Guard](https://github.com/nizos/tdd-guard) (MIT) blocks a coding agent from writing code
   without a failing test.
 - **A tamper-evident record of how software was made:** [in-toto](https://github.com/in-toto/in-toto) and
@@ -243,7 +263,8 @@ uv tool install --editable ./factory       # the harness: `factory run STORY.md 
 Review settings, in `.factory/config.yaml`: `review.legs` picks the reviewers (`claude`, `codex`, `claude-plain`,
 `codex-review`); `review.grounding: distillations` with `axis_index` pointing at the library's index gives the factory's
 reviewers the library, as in the tests above (the example config uses a lighter summary); `review.reproduce: true` adds
-the check for each blocking finding. [The factory's README](helpers/factory-warranty/README.md) has the commands and
+the attempt to show each blocking finding, with `review.reproduce_setup` as the command that installs the project's
+dependencies in each copy first (for example `npm ci --ignore-scripts`). [The factory's README](helpers/factory-warranty/README.md) has the commands and
 the config.
 
 ## What's in this folder

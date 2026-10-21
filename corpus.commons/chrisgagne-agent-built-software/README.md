@@ -6,8 +6,8 @@
 > signed off its one real change from the sign-off sheet without reading the code. A naïve junior developer like me
 > can now build review tooling that beats PR-Agent (the most-starred open-source AI reviewer we found), brooks-lint and
 > Claude Code's own `/code-review`. It adds little if you already ask Claude Code for a plain review and run
-> `codex review` beside it, though with OpenAI's model alone it helped. What it adds is the rest: locked tests, a sheet
-> I could sign from, and a record of what was and wasn't shown.
+> `codex review` beside it, though on OpenAI's model alone it found more than `codex review`. What it adds is the rest:
+> locked tests, a sheet I could sign from, and a record of what was and wasn't shown.
 >
 > *Chris Gagné*
 
@@ -20,8 +20,8 @@ grading and picking test cases. Every test was written down before it ran.
   its reviewers, it came out level.
 - **It beat the other reviewers we tried,** with two to three and a half times the recall of PR-Agent, brooks-lint
   (Claude reviewing against twelve engineering books) and `/code-review`.
-- **Its brief and library helped OpenAI's model, not Anthropic's,** where a plain prompt did as well or better.
-  Neither model found more serious bugs with them.
+- **On OpenAI's model its brief and library beat `codex review`; on Anthropic's, a plain prompt did as well or
+  better.** We haven't yet tried a plain prompt on OpenAI's model. Neither model found more serious bugs with them.
 - **Several stops on "good" changes were real changes in behaviour** that upstream had accepted. Making each stop
   quick for a non-coder to judge is the open problem.
 

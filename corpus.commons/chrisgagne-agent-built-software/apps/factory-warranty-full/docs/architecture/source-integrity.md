@@ -58,7 +58,7 @@ Sources arrive as PDFs, EPUBs, or other binary formats. The protocol requires co
 
 Model-mediated extraction silently drops content. Sidebars, footnotes, tables, and figure captions get summarised away or skipped entirely, and the loss is invisible: the model returns coherent-looking text without flagging what it elided. Pass I cannot recover what never reached the model's context, and the source-only discipline is undermined at its foundation.
 
-Deterministic converters fail loudly. If pandoc cannot parse a section, it errors. If a PDF is image-only, pdftotext returns whitespace and the operator notices the gap. Either failure mode is preferable to a silent drop. The `ingesting-resources` skill's Pass A is where this conversion happens; the protocol refuses to proceed if the converted text shows signs of silent loss.
+Deterministic converters can drop text silently too, but they drop the same text every time, so the loss can be measured and fixed. pymupdf4llm 0.2.9 skips the text of framed boxes and sidebars in PDFs; pandoc's EPUB reader drops footnote and endnote text when the EPUB's note links aren't marked as note references. Both left the in-text structure intact, so the output looked complete. That's why every conversion is gated against an independent reading of the same original: a PDF page by page against `pdftotext`, an EPUB against its own XHTML (`scripts/check-epub-coverage.py`). The `ingesting-resources` skill's Pass A is where this conversion and its gate happen; the protocol refuses to proceed while the gate reports missing text.
 
 ## Partial-coverage discipline
 

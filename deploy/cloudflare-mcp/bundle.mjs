@@ -110,7 +110,10 @@ for (const f of fs.existsSync(agents) ? fs.readdirSync(agents).sort() : []) {
 }
 for (const dir of opts.workflow) addWorkflow(path.basename(dir), dir);
 
-files["workflows/guide/SKILL.md"] = read(opts.guide ?? path.join(app, "CLAUDE.md"));
+// A connector can put a note at the top of the guide (how the guide's file names map to tools), for
+// clients that don't pass the server instructions on.
+const guideText = read(opts.guide ?? path.join(app, "CLAUDE.md"));
+files["workflows/guide/SKILL.md"] = connector.guidePreface ? `${connector.guidePreface}\n\n${guideText}` : guideText;
 files["workflows/guide/DISCLAIMER.md"] = read(path.join(app, "DISCLAIMER.md"));
 files["workflows/guide/LICENSE-CONTENT.md"] = read(path.join(app, "LICENSE-CONTENT"));
 

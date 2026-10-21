@@ -19,7 +19,8 @@ Say this to the person at the start, in a sentence or two:
 - In the factory's tests on ReviewBench, OpenAI's `codex review` and Claude Code with a plain review prompt, run
   together, found as much as anything the factory built. With OpenAI's model alone, this brief found more than
   `codex review`; with Claude alone, a plain prompt did as well or better. A second review from the other model
-  family is worth more than a second pass from this one.
+  family is worth more than a second pass from this one. (The results:
+  https://github.com/chrisgagne/grounded-forge/tree/main/corpus.commons/chrisgagne-agent-built-software/helpers/factory-warranty/calibration/realbugs/results)
 
 ## 1. Gather the change
 

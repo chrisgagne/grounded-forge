@@ -29,6 +29,14 @@ export default {
     + "each distillation's Source line names it, and share-alike sources keep their attribution and "
     + "licence when quoted (the guide's LICENSE-CONTENT.md and DISCLAIMER.md set out the terms).",
 
+  guidePreface: "> **Using this guide through the Factory Review connector.** It was written for a folder install. "
+    + "Where it names a file, use the matching tool: `task-index.json`, its `task-index.shard-*.json` files or "
+    + "`WARRANTING-AGENT-BUILT-SOFTWARE-DISTILLATION-INDEX.md` → `route`; `{slug}-warranting-agent-built-software.md` "
+    + "→ `read_distillation`; `concept-index.json` → `list_topics` and `find_concepts`; `slug-table.json` → "
+    + "`list_sources`; a skill in `.claude/skills/` → `get_workflow`. The factory harness (`factory/`) and the "
+    + "repository's `docs/` aren't served; they're in the public repository, " + REPO + ". To review a change, "
+    + "follow `get_workflow(\"review-change\")`.",
+
   tools: {
     get_workflow: {
       title: "Get a workflow or the guide",
